@@ -1,13 +1,4269 @@
 {
-  "status": "CONFIGURED_AWAITING_ACTUAL_RUN",
+  "status": "PASS",
+  "revision": "1.1-py310-cpu",
   "repository": "https://github.com/xuchangsheng18/media-traceability-system",
   "private": true,
   "actions_enabled": true,
-  "revision": "1.1-py310-cpu",
-  "hosted_ci_executed": false,
-  "run_id": null,
-  "head_sha": null,
-  "conclusion": null,
-  "artifact_verified": false,
-  "scope": "github_hosted_fresh_locked_py310_cpu_development_no_production_deploy"
+  "hosted_ci_executed": true,
+  "scope": "github_hosted_fresh_locked_py310_cpu_development_no_production_deploy",
+  "run_id": 38250162665,
+  "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38250162665",
+  "head_sha": "eedce5d18a02041fc79f857e184b08b6294c769c",
+  "conclusion": "success",
+  "completed_at": "2026-10-12T12:45:14Z",
+  "evidence_verified_at": "2026-10-12T12:47:05.096189+00:00",
+  "artifact_id": 11748049260,
+  "artifact_name": "py310-validation-38250162665",
+  "artifact_verified": true,
+  "artifact_size_bytes": 163108,
+  "artifact_sha256": "5890d77f26472ce1e2cf015dc283bc0c830208aef182a2539dd33624eb748be2",
+  "github_artifact_digest_matches": true,
+  "cloud_ci_gates": 21,
+  "production_frozen": false,
+  "evidence": {
+    "ci-all-report.json": {
+      "sha256": "235e1409419ece658b49f9ce2900af808f72c05d437eee1b13a4c765d772ca9b",
+      "report": {
+        "started_at": "2026-10-12T12:40:06.572894+00:00",
+        "runner": "github-hosted-ubuntu-24.04",
+        "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+        "stage": "all",
+        "checks": [
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "pip",
+              "check"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.466092
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_runtime_lock.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.164654
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "ruff",
+              "check",
+              "--config",
+              "ruff.toml",
+              "backend/app",
+              "ai-services/inference",
+              "tests/poc",
+              "scripts/poc_control.py",
+              "scripts/run_ci.py",
+              "scripts/verify_poc.py",
+              "scripts/verify_poc_resilience.py",
+              "scripts/verify_generated_contracts.py",
+              "scripts/verify_media_and_queries.py",
+              "scripts/verify_sql_baseline.py",
+              "scripts/verify_runtime_lock.py",
+              "scripts/collect_environment.py",
+              "scripts/verify_ci_failure_gate.py",
+              "scripts/check_repository_secrets.py",
+              "scripts/verify_migrations_and_fencing.py",
+              "scripts/verify_media_timestamps.py",
+              "scripts/verify_development_recovery.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.064235
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "pytest",
+              "tests/poc",
+              "-q"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 1.268014
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/validate_inputs.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 18.409491
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/validate_database_contracts.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 4.976407
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "npm",
+              "--prefix",
+              "frontend",
+              "ci",
+              "--no-audit",
+              "--no-fund"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 2.274237
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_generated_contracts.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 3.045238
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "npm",
+              "--prefix",
+              "frontend",
+              "audit",
+              "--audit-level=high"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.515149
+          },
+          {
+            "stage": "build",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "build",
+              "--no-isolation",
+              "backend"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 1.016403
+          },
+          {
+            "stage": "build",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/poc_control.py",
+              "pack"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 31.79572
+          },
+          {
+            "stage": "build",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/poc_control.py",
+              "build"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 57.010818
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/poc_control.py",
+              "up"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 38.188024
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_sql_baseline.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 7.90019
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_migrations_and_fencing.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 2.22376
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_poc.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 2.223872
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_poc_resilience.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 52.023964
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_media_and_queries.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.666632
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_media_timestamps.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.215556
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_development_recovery.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 58.2377
+          },
+          {
+            "stage": "integration",
+            "command": [
+              "npm",
+              "--prefix",
+              "frontend",
+              "exec",
+              "--",
+              "playwright",
+              "test",
+              "--config=frontend/playwright.config.ts"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 6.82779
+          }
+        ],
+        "hosted_pipeline_executed": true,
+        "provider": "github_actions",
+        "source_commit": "eedce5d18a02041fc79f857e184b08b6294c769c",
+        "workflow_run_id": "38250162665",
+        "status": "PASS",
+        "ended_at": "2026-10-12T12:44:56.087055+00:00"
+      }
+    },
+    "ci-failure-gate-report.json": {
+      "sha256": "695dae575463b5659d5eefa88c7436e2e26f24d43d0055432c40cf009e48ce9a",
+      "report": {
+        "status": "PASS",
+        "scope": "expected_failure_stops_actual_ci_runner",
+        "probe_exit_code": 1,
+        "build_or_deployment_executed": false,
+        "evidence": "ci-failure-probe-report.json"
+      }
+    },
+    "ci-failure-probe-report.json": {
+      "sha256": "7fa0857fdd3bd4046c75eaf8f72ecfe515081f9d8fe5316ea382bde4b360a3bb",
+      "report": {
+        "started_at": "2026-10-12T12:44:56.179554+00:00",
+        "runner": "github-hosted-ubuntu-24.04",
+        "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+        "stage": "all",
+        "checks": [
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "pip",
+              "check"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.97366
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-c",
+              "raise SystemExit(42)"
+            ],
+            "status": "FAIL",
+            "elapsed_seconds": 0.035649
+          }
+        ],
+        "hosted_pipeline_executed": true,
+        "provider": "github_actions",
+        "source_commit": "eedce5d18a02041fc79f857e184b08b6294c769c",
+        "workflow_run_id": "38250162665",
+        "status": "FAIL",
+        "error": "RuntimeError",
+        "ended_at": "2026-10-12T12:44:57.188909+00:00"
+      }
+    },
+    "runtime-lock-report.json": {
+      "sha256": "04e4c960ef730d04f2404223e3e9740df24195b75c381e8cfd8df60d34e025da",
+      "report": {
+        "status": "PASS",
+        "python": "3.10.22",
+        "third_party_packages": 100,
+        "lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+        "differences": []
+      }
+    },
+    "generated-contract-report.json": {
+      "sha256": "fabb9e68b1b30d26100cc853cf30ae842ea03ec881dca7fb4eaf83c36475c30e",
+      "report": {
+        "status": "PASS",
+        "checks": [
+          {
+            "source": "docs/03-api/openapi.yaml",
+            "generated": "business-api.d.ts",
+            "status": "PASS",
+            "sha256": "4585634bd097616783b3511428391e56a7aa1dc23a16f2e52829f397bf2b8663"
+          },
+          {
+            "source": "docs/03-api/inference-openapi.yaml",
+            "generated": "inference-api.d.ts",
+            "status": "PASS",
+            "sha256": "1e27b53cc2455582c8ec513ad7e218a365445da01cbf672f4718b60f9c2090ab"
+          },
+          {
+            "source": "schemas/events/poc.analysis.requested.v1.schema.json",
+            "generated": "poc-event.d.ts",
+            "status": "PASS",
+            "sha256": "acb5dec8ec940d4e5e8751ef1a7aae82345bdaf983876406d440498590ac1353"
+          }
+        ]
+      }
+    },
+    "local-validation-report.json": {
+      "sha256": "1cc53c44a189e570bc54210ecdb3428704a3b8d4d156ee58761b5ae6064eebcc",
+      "report": {
+        "started_at": "2026-10-12T12:40:08.833323+00:00",
+        "ended_at": "2026-10-12T12:40:26.849459+00:00",
+        "environment": {
+          "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "tools": {
+            "PyYAML": "6.0.3",
+            "jsonschema": "4.26.0",
+            "openapi-spec-validator": "0.9.0",
+            "pglast": "8.5"
+          }
+        },
+        "checks": [
+          {
+            "name": "UTF8_JSON_YAML_no_duplicate_keys",
+            "status": "PASS",
+            "detail": {
+              "json": 516,
+              "yaml": 32,
+              "utf8": 915
+            }
+          },
+          {
+            "name": "JSON_Schema_2020_12_meta_and_local_refs",
+            "status": "PASS",
+            "detail": {
+              "standalone_schemas": 87,
+              "offline_registry": true,
+              "format_assertion": true
+            }
+          },
+          {
+            "name": "OpenAPI_3_1_documents",
+            "status": "PASS",
+            "detail": {
+              "openapi.yaml": {
+                "operations": 53,
+                "components": 83
+              },
+              "inference-openapi.yaml": {
+                "operations": 1,
+                "components": 0
+              }
+            }
+          },
+          {
+            "name": "positive_negative_semantic_fixtures",
+            "status": "PASS",
+            "detail": {
+              "count": 335,
+              "valid": 165,
+              "invalid": 166,
+              "semantic_invalid": 4
+            }
+          },
+          {
+            "name": "dataset_catalogs_and_no_false_release",
+            "status": "PASS",
+            "detail": {
+              "catalogs": 15,
+              "pending_to_frozen_rejected": 15
+            }
+          },
+          {
+            "name": "SQL_parser_and_core_tables",
+            "status": "PASS",
+            "detail": {
+              "statements": 1325,
+              "tables": 62,
+              "core_tables_preserved": 12,
+              "parser_only_not_engine_execution": true
+            }
+          },
+          {
+            "name": "API_SQL_field_mapping",
+            "status": "PASS",
+            "detail": {
+              "nested_field_rows": 762,
+              "unknown_sql_columns": 0,
+              "coverage": 762
+            }
+          },
+          {
+            "name": "170_tasks_source_integrity_refs_and_DAG",
+            "status": "PASS",
+            "detail": {
+              "tasks": 170,
+              "original_fields_preserved": true,
+              "unknown_dependencies": 0,
+              "cycles": 0,
+              "task_argument": null,
+              "implementation_not_tested": true
+            }
+          },
+          {
+            "name": "requirements_usecases_API_tables_models_datasets_tasks_tests",
+            "status": "PASS",
+            "detail": {
+              "requirements": 216,
+              "scenarios": 412,
+              "tasks_covered": 170,
+              "models": 34,
+              "orphan_refs": 0
+            }
+          },
+          {
+            "name": "source_snapshots_and_no_false_approval",
+            "status": "PASS",
+            "detail": {
+              "source_files": 10,
+              "hashes_unchanged": true,
+              "freeze_state": "NOT_FROZEN"
+            }
+          }
+        ],
+        "fixture_results": [
+          {
+            "id": "API-TimeRange",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TimeRange-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-BoundingBox",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-BoundingBox-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ObjectRef",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ObjectRef-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-VersionBinding",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-VersionBinding-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Problem",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Problem-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Accepted",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Accepted-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ActionAck",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ActionAck-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Health",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Health-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuthLogin",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuthLogin-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuthSession",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuthSession-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-CurrentUser",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-CurrentUser-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SourceCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SourceCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Source",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Source-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadSession",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadSession-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadPart",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadPart-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadComplete",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadComplete-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadResult",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-UploadResult-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Asset",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Asset-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImportEntry",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImportEntry-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImportRequest",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImportRequest-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImportStatus",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImportStatus-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TaskCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TaskCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-NodeStatus",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-NodeStatus-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Task",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Task-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TaskAction",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TaskAction-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Rerun",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Rerun-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Evidence",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Evidence-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Finding",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Finding-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Findings",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Findings-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TimelineItem",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TimelineItem-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Timeline",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Timeline-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImageSearch",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ImageSearch-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-VideoSearch",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-VideoSearch-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchCandidate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchCandidate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchResults",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchResults-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-FirstSource",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-FirstSource-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-GraphNode",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-GraphNode-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-GraphEdge",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-GraphEdge-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Graph",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Graph-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ClaimExtract",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ClaimExtract-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Claim",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Claim-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ClaimList",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ClaimList-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ClaimVerify",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ClaimVerify-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Relation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Relation-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ReviewCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ReviewCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Review",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Review-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ApprovalCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ApprovalCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ApprovalDecision",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ApprovalDecision-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Approval",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Approval-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-OperationTokenRequest",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-OperationTokenRequest-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-OperationToken",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-OperationToken-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SealRequest",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SealRequest-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvidencePackage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvidencePackage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ReportDraft",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ReportDraft-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ReportCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ReportCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Report",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Report-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Feedback",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Feedback-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-FeedbackRecord",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-FeedbackRecord-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ModelCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ModelCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Model",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Model-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Rollout",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Rollout-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvaluationCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvaluationCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Evaluation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Evaluation-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuditEvent",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuditEvent-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuditExport",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuditExport-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-IndexVersion",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-IndexVersion-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-IndexSwitch",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-IndexSwitch-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-PolicyCreate",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-PolicyCreate-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Policy",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-Policy-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-GraphDecision",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-GraphDecision-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TaskPage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-TaskPage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AssetPage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AssetPage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SourcePage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SourcePage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvidencePage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvidencePage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ModelPage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-ModelPage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvaluationPage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-EvaluationPage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuditEventPage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-AuditEventPage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-PolicyPage",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-PolicyPage-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchAccepted",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchAccepted-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchJob",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "API-SearchJob-unknown",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "Additional properties are not allowed ('unexpected_property' was unexpected)"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M01-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M01-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.image_classification' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M01-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M01-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'labels': [{'label': 'synthetic-v1', 'raw_score': 0.5, 'calibrated_score': 0.5, 'threshold_version': 'synthetic-v1'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M02-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M02-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.object_detection' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M02-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M02-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'detections': [{'label': 'synthetic-v1', 'bbox': {'x': 0.1, 'y': 0.1, 'width': 0.4, 'height': 0.4}, 'score': 0.5, 'frame_id': '2bcaf28c-f442-5e19-b6b9-0c0277ddd31c', 'timestamp_ms': 1}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M03-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M03-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.small_object' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M03-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M03-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'detections': [{'label': 'synthetic-v1', 'bbox': {'x': 0.1, 'y': 0.1, 'width': 0.4, 'height': 0.4}, 'score': 0.5, 'frame_id': '86a06498-f43c-5b57-8614-7a9fa05e85f7', 'timestamp_ms': 1}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M04-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M04-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.video_action' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M04-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M04-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'events': [{'label': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M05-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M05-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.temporal_event' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M05-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M05-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'events': [{'label': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M06-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M06-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.audio_event' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M06-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M06-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'events': [{'label': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M07-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M07-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.consistency' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M07-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M07-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'relations': [{'relation': 'consistent', 'left_evidence_ids': ['60ac145e-72d5-5574-8f42-3145bef38cae'], 'right_evidence_ids': ['7b3f34d8-6130-5ee1-b712-608a27ec827a'], 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M08-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M08-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'risk.fusion' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M08-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M08-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'labels': [{'label': 'synthetic-v1', 'raw_score': 0.5, 'calibrated_score': 0.5, 'threshold_version': 'synthetic-v1'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M09-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M09-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'forensic.image_localization' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M09-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M09-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'masks': [{'object_ref': {'object_id': 'c5c4d305-ac21-5103-8d91-a519bb0e0632', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}, 'width': 1, 'height': 1, 'score': 0.5, 'time_range': {'start_ms': 0, 'end_ms': 1000}}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M10-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M10-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'forensic.tamper_type' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M10-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M10-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'labels': [{'label': 'synthetic-v1', 'raw_score': 0.5, 'calibrated_score': 0.5, 'threshold_version': 'synthetic-v1'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M11-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M11-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'forensic.video_temporal' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M11-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M11-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'events': [{'label': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M12-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M12-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'forensic.video_spatial' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M12-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M12-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'masks': [{'object_ref': {'object_id': '6aac3a6e-54ea-55f5-9317-ed9812087d9d', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}, 'width': 1, 'height': 1, 'score': 0.5, 'time_range': {'start_ms': 0, 'end_ms': 1000}}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M13-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M13-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'forensic.deepfake' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M13-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M13-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'labels': [{'label': 'synthetic-v1', 'raw_score': 0.5, 'calibrated_score': 0.5, 'threshold_version': 'synthetic-v1', 'track_id': 'synthetic-v1'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M14-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M14-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'forensic.avsync' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M14-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M14-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'events': [{'label': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M15-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M15-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.image_embedding' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M15-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M15-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'dimension': 1, 'dtype': 'float32', 'normalization': 'l2', 'vector_ref': {'object_id': '948378f1-7a8d-576b-afa5-853c2b058003', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M16-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M16-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.local_features' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M16-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M16-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'feature_ref': {'object_id': 'beef3151-07d2-51ec-b348-8c2535a3ba4f', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}, 'keypoint_count': 1, 'descriptor_dimension': 1} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M17-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M17-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.local_match' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M17-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M17-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'match_ref': {'object_id': '7e25f63c-2d8f-5f45-90fd-83decac2831c', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}, 'match_count': 1, 'query_asset_id': 'bb092dd8-539e-5b6d-97c6-2946de0a822e', 'candidate_asset_id': '054abe79-ff8d-56aa-b862-da22ec95ab46'} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M18-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M18-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.geometry' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M18-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M18-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'transform': [1, 0, 0, 0, 1, 0, 0, 0, 1], 'inliers': 1, 'coverage': 0.5, 'verified': True} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M19-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M19-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.frame_embedding' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M19-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M19-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'dimension': 1, 'dtype': 'float32', 'normalization': 'l2', 'vector_ref': {'object_id': 'ae4a2538-39a3-546e-a734-01fe7c790afd', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M20-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M20-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.temporal_alignment' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M20-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M20-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'mappings': [{'query_range': {'start_ms': 0, 'end_ms': 1000}, 'source_range': {'start_ms': 0, 'end_ms': 1000}, 'source_asset_id': 'c0680367-d96b-58b1-910c-4ba895e03f2e', 'direction': 'forward', 'speed_ratio': 1.0, 'score': 0.5}], 'unknown_ranges': []} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M21-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M21-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.segment_localizer' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M21-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M21-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'mappings': [{'query_range': {'start_ms': 0, 'end_ms': 1000}, 'source_range': {'start_ms': 0, 'end_ms': 1000}, 'source_asset_id': '9c09794a-0150-5e1a-8e09-eb7b30f1942f', 'direction': 'forward', 'speed_ratio': 1.0, 'score': 0.5}], 'unknown_ranges': []} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M22-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M22-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'retrieval.source_boundary' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M22-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M22-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'mappings': [{'query_range': {'start_ms': 0, 'end_ms': 1000}, 'source_range': {'start_ms': 0, 'end_ms': 1000}, 'source_asset_id': 'c135056c-93d6-5bf2-aa2d-67b9687e1feb', 'direction': 'forward', 'speed_ratio': 1.0, 'score': 0.5}], 'unknown_ranges': []} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M23-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M23-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'origin.content_cluster' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M23-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M23-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'relations': [{'left_asset_id': 'fb7ed9d9-1ea2-5d24-b980-eee4ecb34132', 'right_asset_id': 'eddd6891-5a74-508f-873d-2a6fdf0fbc71', 'relation': 'full_copy', 'evidence_ids': ['9cbea3ea-fa38-5046-9127-f342a9eefb3a']}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M24-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M24-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'origin.first_source_rank' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M24-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M24-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'cluster_id': '8cbff298-7796-5ebf-9379-c7340cad4f5f', 'scope': 'synthetic-v1', 'candidates': [{'asset_id': 'd9b895bf-8580-5d57-bbe1-74bcd1f5fc2d', 'rank': 1, 'probability': 0.5, 'published_at': '2030-01-01T00:00:00Z', 'evidence_ids': ['b94aa7bb-c5fe-5112-a317-b9eda4552d77'], 'counter_evidence_ids': []}], 'status': 'candidate', 'coverage_note': 'synthetic-v1', 'model_version': 'synthetic-v1'} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M25-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M25-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'model.calibration' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M25-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M25-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'calibration_version': 'synthetic-v1', 'method': 'temperature', 'artifact_ref': {'object_id': 'cbf1419d-6108-5fda-902e-9b01da0e7bcb', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}, 'split': 'calibration'} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M26-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M26-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'propagation.path' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M26-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M26-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'cluster_id': '8b05c01d-ea50-5ec2-aacb-3ee3904d0dea', 'version': 1, 'nodes': [{'node_id': '6867bf93-7b0e-5ad4-a4c3-6a21113aba1f', 'type': 'content', 'display_label': 'synthetic-v1'}], 'edges': [{'edge_id': '00e1b842-b362-5843-b20f-d88f1ace59ba', 'from_node_id': 'c4d6aecd-4b72-5059-a0b4-d6f8d450a211', 'to_node_id': '7a8fd7f6-8741-5577-9328-9821d4c7dc6c', 'relation': 'synthetic-v1', 'origin': 'observed', 'probability': 0.5, 'evidence_ids': ['9674fdee-1c33-5cbf-a26f-e8676d285eda'], 'version': 1, 'state': 'candidate'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M27-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M27-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'propagation.inferred_edge' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M27-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M27-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'cluster_id': '43169f8a-1ac9-56f2-a54f-3d6edf594055', 'version': 1, 'nodes': [{'node_id': 'c2a82bb2-8436-56f8-8a12-8efa2d41ae41', 'type': 'content', 'display_label': 'synthetic-v1'}], 'edges': [{'edge_id': 'ec84f2eb-4a16-5bfa-888d-bd02ea6cf761', 'from_node_id': 'd6e9b140-20b0-574f-8dc8-5f0dc999a672', 'to_node_id': '20719445-f9f4-5169-a6e4-7820f70c5622', 'relation': 'synthetic-v1', 'origin': 'observed', 'probability': 0.5, 'evidence_ids': ['0e90935d-c587-5174-a922-40ba74fb95f3'], 'version': 1, 'state': 'candidate'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M28-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M28-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'claim.extract' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M28-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M28-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'claims': [{'claim_id': '16c99d7b-1c14-561d-ad00-9cf69ac7d67c', 'case_id': '3b3c2162-5ed2-5a87-8a1f-ea520f02fd35', 'asset_id': '101bf696-e19c-5ecc-bdb9-c4fa254b58b4', 'subject': 'synthetic-v1', 'action': 'synthetic-v1', 'time': 'synthetic-v1', 'place': 'synthetic-v1', 'result': 'synthetic-v1', 'source_segment_ids': ['d4735538-0d03-5c64-a9ce-31dfe77ea262'], 'model_version': 'synthetic-v1'}], 'warnings': []} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M29-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M29-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'claim.evidence_relation' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M29-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M29-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'relations': [{'relation': 'consistent', 'left_evidence_ids': ['4d1c4d55-f6f9-5a8c-a314-fe6add171217'], 'right_evidence_ids': ['fc88d5d0-10fd-5c07-9be6-5bd25c42ec8e'], 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M30-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M30-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'claim.grounding' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M30-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M30-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'sentences': [{'sentence_id': 'c2eae760-3a6f-5e4c-a77a-9431448cacc1', 'text': 'synthetic-v1', 'evidence_ids': ['b7c3f542-6603-569c-ab13-9a3359db656a'], 'supported': True, 'violation': 'synthetic-v1'}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M31-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M31-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'media.ocr' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M31-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M31-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'segments': [{'text': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'bbox': {'x': 0.1, 'y': 0.1, 'width': 0.4, 'height': 0.4}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M32-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M32-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'media.asr' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M32-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M32-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'segments': [{'text': 'synthetic-v1', 'time_range': {'start_ms': 0, 'end_ms': 1000}, 'bbox': {'x': 0.1, 'y': 0.1, 'width': 0.4, 'height': 0.4}, 'score': 0.5}]} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M33-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M33-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'media.audio_fingerprint' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M33-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M33-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'fingerprint_ref': {'object_id': '46effaf5-bed8-50dc-bd1e-548264b4f78d', 'version_id': 'synthetic-v1', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}, 'duration_ms': 1000, 'algorithm_version': 'synthetic-v1'} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "M34-request",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M34-request-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'model.compression' was expected"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "M34-response",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "M34-response-bad",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'string'",
+              "{'bundle_id': '0f2a6fd7-0e8f-515c-83fd-dfc8c221582c', 'bundle_sha256': '0000000000000000000000000000000000000000000000000000000000000000', 'model_version': 'synthetic-v1', 'calibration_version': 'synthetic-v1', 'backend': 'synthetic-v1', 'license_record_ref': 'synthetic-v1', 'index_version': 'synthetic-v1'} is not of type 'null'"
+            ],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          },
+          {
+            "id": "D01-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D01-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D02-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D02-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D03-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D03-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D04-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D04-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D05-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D05-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D06-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D06-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D07-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D07-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D08-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D08-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D09-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D09-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D10-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D10-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D11-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D11-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D12-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D12-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D13-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D13-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D14-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D14-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "D15-annotation",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "D15-annotation-no-review",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "[] should be non-empty"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "split-valid",
+            "expected": "valid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": []
+          },
+          {
+            "id": "split-multisource-leak",
+            "expected": "semantic_invalid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": [
+              "root:cross-split source_group_ids:B"
+            ]
+          },
+          {
+            "id": "TimeRange-semantic",
+            "expected": "semantic_invalid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": [
+              "root:end_ms<=start_ms"
+            ]
+          },
+          {
+            "id": "BoundingBox-semantic",
+            "expected": "semantic_invalid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": [
+              "root:bbox exceeds original bounds"
+            ]
+          },
+          {
+            "id": "approval-task-run-missing",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "None is not of type 'integer'"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "approval-model-release-with-case",
+            "expected": "invalid",
+            "matched": true,
+            "structural_errors": [
+              "'07e676aa-d4bf-5691-b1a5-572139e5c6ae' is not of type 'null'"
+            ],
+            "semantic_errors": []
+          },
+          {
+            "id": "failed-with-findings",
+            "expected": "semantic_invalid",
+            "matched": true,
+            "structural_errors": [],
+            "semantic_errors": [
+              "root:non-success includes findings"
+            ]
+          }
+        ],
+        "errors": [],
+        "status": "PASS",
+        "scope": "input_artifact_validation_not_implementation",
+        "freeze_state": "NOT_FROZEN",
+        "task": null
+      }
+    },
+    "database-contract-report.json": {
+      "sha256": "cd9b43350f61e86949e6d55d83976f4b997ff7f15d954cbf1e17118b3fe37c47",
+      "report": {
+        "time_utc": "2026-10-12T12:40:31.870668+00:00",
+        "status": "PASS",
+        "checks": [
+          {
+            "name": "dictionary_SQL_catalog_provenance",
+            "status": "PASS",
+            "detail": {
+              "tables": 62,
+              "columns": 824,
+              "missing_descriptions": 0,
+              "missing_comments": 0
+            }
+          },
+          {
+            "name": "field_source_API_pointers_resolve",
+            "status": "PASS",
+            "detail": {
+              "resolved_API_source_pointers": 751
+            }
+          },
+          {
+            "name": "OpenAPI_generated_schema_identity",
+            "status": "PASS",
+            "detail": true
+          },
+          {
+            "name": "API_valid_0",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": true
+            }
+          },
+          {
+            "name": "API_valid_1",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": true
+            }
+          },
+          {
+            "name": "API_valid_2",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": true
+            }
+          },
+          {
+            "name": "API_valid_3",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": true
+            }
+          },
+          {
+            "name": "API_four_candidates",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": false,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_duplicate_rank_different_element",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_duplicate_asset_different_rank",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_rank_gap",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_count_mismatch",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_empty_wrong_status",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_missing_snapshot",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": false,
+              "semantic_valid": true
+            }
+          },
+          {
+            "name": "API_duplicate_support_evidence",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": false,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "API_duplicate_evidence_case_insensitive",
+            "status": "PASS",
+            "detail": {
+              "structural_valid": true,
+              "semantic_valid": false
+            }
+          },
+          {
+            "name": "dataset_ground_truth_not_ranking_output",
+            "status": "PASS",
+            "detail": true
+          }
+        ],
+        "scope": "dictionary_and_origin_response_contract_not_business_approval"
+      }
+    },
+    "database-foundation-report.json": {
+      "sha256": "52a14c65f4d3abfdd2ba468092afab452ffa328b05c6aec6c7e65b71d4b62f9e",
+      "report": {
+        "scope": "isolated_database_constraints_not_production",
+        "container": "mt-poc-sql-7c54e017d4d2",
+        "image": "postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+        "started_at": "2026-10-12T12:42:45.804169+00:00",
+        "checks": [
+          {
+            "name": "docs/04-database/initial-schema.sql",
+            "sha256": "b5c7c19f58789412b050ed0ade118389b667dd65197de476d74eb53784c18c62",
+            "status": "PASS"
+          },
+          {
+            "name": "tests/sql/integrity-tests.sql",
+            "sha256": "e540e084c068fe2db8765e2dc8cba060feb25e1893c2871ac7146486e46fc176",
+            "status": "PASS"
+          },
+          {
+            "name": "tests/sql/ranking-fixtures.sql",
+            "sha256": "7f745f325dd9d7c24e5a38ca3ff33e3165680996dbd9737b8f6098374d7dd8fe",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-valid-0",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-valid-1",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-valid-2",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-valid-3",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-four-candidates",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-rank-four",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-duplicate-rank",
+            "expected_sqlstate": "23505",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-duplicate-asset",
+            "expected_sqlstate": "23505",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-gap",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-missing-all-items",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-zero-not-insufficient",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-nonmember-asset",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-wrong-cluster",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-cross-case-asset",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-wrong-model",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-wrong-coverage",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-wrong-status",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-unknown-result",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-duplicate-result-snapshot",
+            "expected_sqlstate": "23505",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-unknown-batch",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-cross-case-batch",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-header-immutable",
+            "expected_sqlstate": "55000",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-item-immutable",
+            "expected_sqlstate": "55000",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-no-delete",
+            "expected_sqlstate": "55000",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-no-truncate",
+            "expected_sqlstate": "55000",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-no-append-after-commit",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-runtime-valid",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-RLS-no-context",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-RLS-denied-insert",
+            "expected_sqlstate": "42501",
+            "status": "PASS"
+          },
+          {
+            "name": "RANK-history-preserved",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          },
+          {
+            "name": "REF-empty-object",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-JSON-null",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-array-root",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-missing-counter",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-null-support",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-empty-support",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-invalid-UUID",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-nonstring-ID",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-unknown-ID",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-duplicate-support",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-extra-key",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-null-counter",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-unknown-counter",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-duplicate-counter",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-cross-case",
+            "expected_sqlstate": "23503",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-noncanonical-UUID",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-duplicate-case-insensitive",
+            "expected_sqlstate": "23514",
+            "status": "PASS"
+          },
+          {
+            "name": "REF-valid-counter-evidence",
+            "expected_sqlstate": null,
+            "status": "PASS"
+          }
+        ],
+        "status": "PASS",
+        "cleanup_exit_code": 0,
+        "ended_at": "2026-10-12T12:42:53.629228+00:00"
+      }
+    },
+    "migration-fencing-report.json": {
+      "sha256": "169b49174de7174c69160315d70bdc9cac2ebb679378569d8c17d2622070b39e",
+      "report": {
+        "status": "PASS",
+        "scope": "isolated_development_migration_and_database_claim_races",
+        "checks": [
+          {
+            "name": "legacy_schema_incremental_upgrade",
+            "status": "PASS"
+          },
+          {
+            "name": "repeat_migration_no_effect",
+            "status": "PASS"
+          },
+          {
+            "name": "changed_applied_migration_rejected",
+            "status": "PASS"
+          },
+          {
+            "name": "eight_contenders_one_atomic_claim",
+            "status": "PASS"
+          },
+          {
+            "name": "expired_lease_write_rejected",
+            "status": "PASS"
+          },
+          {
+            "name": "new_claim_changes_token_and_version",
+            "status": "PASS"
+          },
+          {
+            "name": "old_token_cannot_overwrite_new_claim",
+            "status": "PASS"
+          },
+          {
+            "name": "old_failure_cannot_reset_new_claim",
+            "status": "PASS"
+          },
+          {
+            "name": "current_token_result_accepted",
+            "status": "PASS"
+          },
+          {
+            "name": "result_and_attempts_preserved",
+            "status": "PASS"
+          },
+          {
+            "name": "audit_update_denied",
+            "status": "PASS"
+          },
+          {
+            "name": "audit_delete_denied",
+            "status": "PASS"
+          },
+          {
+            "name": "original_reference_update_denied",
+            "status": "PASS"
+          },
+          {
+            "name": "migration_history_update_denied",
+            "status": "PASS"
+          },
+          {
+            "name": "migration_hashes_match_sources",
+            "status": "PASS"
+          }
+        ],
+        "contenders": 8,
+        "temporary_resources_removed": true,
+        "production_policy_validated": false
+      }
+    },
+    "poc-integration-report.json": {
+      "sha256": "8734aeef88ca77804bb0656107bf580e6923b78c03970caf3d355110216a85f3",
+      "report": {
+        "status": "PASS",
+        "scope": "real_cpu_development_vertical_slice",
+        "checks": [
+          {
+            "name": "frontend_served",
+            "status": "PASS"
+          },
+          {
+            "name": "unauthorized_health_denied",
+            "status": "PASS"
+          },
+          {
+            "name": "database_connected",
+            "status": "PASS"
+          },
+          {
+            "name": "bad_media_rejected",
+            "status": "PASS"
+          },
+          {
+            "name": "S3_versioned_upload",
+            "status": "PASS"
+          },
+          {
+            "name": "original_digest_preserved",
+            "status": "PASS"
+          },
+          {
+            "name": "queue_submission",
+            "status": "PASS"
+          },
+          {
+            "name": "idempotent_submit",
+            "status": "PASS"
+          },
+          {
+            "name": "unknown_job_hidden",
+            "status": "PASS"
+          },
+          {
+            "name": "worker_completed",
+            "status": "PASS"
+          },
+          {
+            "name": "real_cpu_inference",
+            "status": "PASS"
+          },
+          {
+            "name": "model_and_mapping_versions",
+            "status": "PASS"
+          },
+          {
+            "name": "result_object_version",
+            "status": "PASS"
+          },
+          {
+            "name": "task_and_inference_trace_match",
+            "status": "PASS"
+          },
+          {
+            "name": "run_version_matches_claim",
+            "status": "PASS"
+          },
+          {
+            "name": "idempotent_response_preserves_terminal_state",
+            "status": "PASS"
+          },
+          {
+            "name": "append_only_events_keep_trace",
+            "status": "PASS"
+          },
+          {
+            "name": "internal_error_uses_safe_problem",
+            "status": "PASS"
+          },
+          {
+            "name": "internal_contract_error_uses_problem",
+            "status": "PASS"
+          },
+          {
+            "name": "container_python310",
+            "status": "PASS"
+          },
+          {
+            "name": "CPU_profile",
+            "status": "PASS"
+          }
+        ],
+        "job_id": "3af11649-da82-4033-b713-3409b81c1b32",
+        "asset_id": "14cd9f5f-b7a5-46fc-9089-bfd350c975f8",
+        "model": {
+          "status": "ok",
+          "python_profile": "py310",
+          "python": "3.10.22",
+          "torch": "2.14.1+cpu",
+          "device": "cpu",
+          "model_sha256": "ec48b5a8b18b7e9e170a02abc63d7a48e53a7fc81df6a45a639b66450275838c",
+          "business_model": false
+        },
+        "business_model_validated": false
+      }
+    },
+    "poc-resilience-report.json": {
+      "sha256": "7860a31229ce043ac344406de5dddc49f26927bbc9458c344ee43eaf170e786a",
+      "report": {
+        "status": "PASS",
+        "scope": "development_stack_failure_injection",
+        "checks": [
+          {
+            "name": "broker_outage_task_persisted",
+            "status": "PASS"
+          },
+          {
+            "name": "outbox_and_expired_lease_recovered",
+            "status": "PASS"
+          },
+          {
+            "name": "task_and_result_survive_restart",
+            "status": "PASS"
+          },
+          {
+            "name": "versioned_vector_survives_storage_restart",
+            "status": "PASS"
+          },
+          {
+            "name": "same_key_different_asset_rejected",
+            "status": "PASS"
+          }
+        ],
+        "worker_claim_failure_simulated": true,
+        "services_restored": true
+      }
+    },
+    "media-query-report.json": {
+      "sha256": "37f6f97a34ea3f8f3b747f081df2f0808da39e43e7c01265507e65474ac49619",
+      "report": {
+        "status": "PASS",
+        "scope": "synthetic_media_and_tiny_query_checks",
+        "checks": [
+          {
+            "name": "ffmpeg_encode_decode_10_frames",
+            "status": "PASS"
+          },
+          {
+            "name": "postgres_recursive_graph_cycle_guard",
+            "status": "PASS"
+          },
+          {
+            "name": "postgres_simple_fulltext_query",
+            "status": "PASS"
+          },
+          {
+            "name": "numpy_exact_vector_ranking",
+            "status": "PASS"
+          },
+          {
+            "name": "internal_inference_requires_auth",
+            "status": "PASS"
+          },
+          {
+            "name": "internal_inference_validates_contract",
+            "status": "PASS"
+          }
+        ],
+        "ffmpeg_version_output": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers\nbuilt with gcc 8 (Debian 8.3.0-6)\nconfiguration: --enable-gpl --enable-version3 --enable-static --disable-debug --disable-ffplay --disable-indev=sndio --disable-outdev=sndio --cc=gcc --enable-fontconfig --enable-frei0r --enable-gnutls --enable-gmp --enable-libgme --enable-gray --enable-libaom --enable-libfribidi --enable-libass --enable-libvmaf --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librubberband --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libvorbis --enable-libopus --enable-libtheora --enable-libvidstab --enable-libvo-amrwbenc --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libdav1d --enable-libxvid --enable-libzvbi --enable-libzimg\nlibavutil      59.  8.100 / 59.  8.100\nlibavcodec     61.  3.100 / 61.  3.100\nlibavformat    61.  1.100 / 61.  1.100\nlibavdevice    61.  1.100 / 61.  1.100\nlibavfilter    10.  1.100 / 10.  1.100\nlibswscale      8.  1.100 /  8.  1.100\nlibswresample   5.  1.100 /  5.  1.100\nlibpostproc    58.  1.100 / 58.  1.100\n",
+        "ffmpeg_sha256": "e7e7fb30477f717e6f55f9180a70386c62677ef8a4d4d1a5d948f4098aa3eb99",
+        "source_timestamp_mapping_validated": false,
+        "chinese_search_validated": false,
+        "large_vector_index_validated": false,
+        "business_model_validated": false
+      }
+    },
+    "media-timestamp-report.json": {
+      "sha256": "b0ccaba423eb51bd8c01f460be1c1feb7cf3a66b705d48a406e1dead487bbbb1",
+      "report": {
+        "status": "PASS",
+        "scope": "lossless_synthetic_frame_sampling_and_source_pts",
+        "mapping_version": "synthetic-pts-map-1",
+        "source_sha256": "87faf69dcacd8d31255add2b212398157ae8322c94895b082fc1f55699fb8219",
+        "source_nonzero_origin_ms": 5000,
+        "mapping": [
+          {
+            "derived_frame_index": 0,
+            "source_frame_index": 0,
+            "source_pts": 5000,
+            "source_time_base": {
+              "numerator": 1,
+              "denominator": 1000
+            },
+            "source_time_ms": 5000,
+            "derived_time_ms": 0
+          },
+          {
+            "derived_frame_index": 1,
+            "source_frame_index": 5,
+            "source_pts": 5500,
+            "source_time_base": {
+              "numerator": 1,
+              "denominator": 1000
+            },
+            "source_time_ms": 5500,
+            "derived_time_ms": 500
+          }
+        ],
+        "source_bytes_preserved": true,
+        "business_video_pipeline_validated": false,
+        "variable_frame_rate_validated": false
+      }
+    },
+    "development-recovery-report.json": {
+      "sha256": "4409edb31ff6933a21fceb352eab9adee77a1cfa0c45863b9bdb231a2d6eecbd",
+      "report": {
+        "status": "PASS",
+        "scope": "cold_development_db_versioned_storage_and_model_restore",
+        "checks": [
+          {
+            "name": "versioned_object_inventory_nonempty",
+            "status": "PASS"
+          },
+          {
+            "name": "all_backup_digests_verified",
+            "status": "PASS"
+          },
+          {
+            "name": "corrupt_dump_detected_before_restore",
+            "status": "PASS"
+          },
+          {
+            "name": "all_database_rows_and_results_restored",
+            "status": "PASS"
+          },
+          {
+            "name": "original_version_ids_and_digests_restored",
+            "status": "PASS"
+          },
+          {
+            "name": "missing_object_version_detected",
+            "status": "PASS"
+          },
+          {
+            "name": "model_weights_restored_without_retraining",
+            "status": "PASS"
+          },
+          {
+            "name": "original_services_restored_and_temp_resources_removed",
+            "status": "PASS"
+          }
+        ],
+        "object_versions_verified": 7,
+        "row_counts": {
+          "assets": 2,
+          "jobs": 3,
+          "outbox": 3,
+          "job_events": 10,
+          "schema_migrations": 2
+        },
+        "backup_folder": "/home/runner/work/_temp/media-trace-runtime/backups/mt-recovery-67e84d5e9201",
+        "backup_contains_credentials": false,
+        "requires_existing_private_s3_credentials": true,
+        "backup_and_restore_elapsed_seconds": 41.221,
+        "formal_RPO_RTO_validated": false,
+        "WAL_archive_recovery_validated": false,
+        "source_volumes_modified_by_restore": false,
+        "original_services_restored": true
+      }
+    },
+    "poc-browser-report.json": {
+      "sha256": "e3359fb123c395e899965e46576e4eb76c934c7d6978fc1a23de7a217a06ad38",
+      "report": {
+        "config": {
+          "argv": [
+            "/opt/hostedtoolcache/node/22.21.1/x64/bin/node",
+            "/home/runner/work/media-traceability-system/media-traceability-system/frontend/node_modules/.bin/playwright",
+            "test",
+            "--config=frontend/playwright.config.ts"
+          ],
+          "configFile": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/playwright.config.ts",
+          "rootDir": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/e2e",
+          "failOnFlakyTests": false,
+          "forbidOnly": false,
+          "fullyParallel": false,
+          "globalSetup": null,
+          "globalTeardown": null,
+          "globalTimeout": 0,
+          "grep": {},
+          "grepInvert": null,
+          "maxFailures": 0,
+          "metadata": {
+            "ci": {
+              "commitHref": "https://github.com/xuchangsheng18/media-traceability-system/commit/eedce5d18a02041fc79f857e184b08b6294c769c",
+              "commitHash": "eedce5d18a02041fc79f857e184b08b6294c769c",
+              "buildHref": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38250162665"
+            },
+            "gitCommit": {
+              "shortHash": "eedce5d",
+              "hash": "eedce5d18a02041fc79f857e184b08b6294c769c",
+              "subject": "Align review inputs and CI provider metadata with the 1.1 implementation",
+              "body": "Align review inputs and CI provider metadata with the 1.1 implementation\n",
+              "author": {
+                "name": "Codex Automation",
+                "email": "codex-automation@local.invalid",
+                "time": 1791808630000
+              },
+              "committer": {
+                "name": "Codex Automation",
+                "email": "codex-automation@local.invalid",
+                "time": 1791808630000
+              },
+              "branch": "main"
+            },
+            "actualWorkers": 1
+          },
+          "preserveOutput": "always",
+          "projects": [
+            {
+              "outputDir": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/test-results",
+              "repeatEach": 1,
+              "retries": 0,
+              "metadata": {
+                "ci": {
+                  "commitHref": "https://github.com/xuchangsheng18/media-traceability-system/commit/eedce5d18a02041fc79f857e184b08b6294c769c",
+                  "commitHash": "eedce5d18a02041fc79f857e184b08b6294c769c",
+                  "buildHref": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38250162665"
+                },
+                "gitCommit": {
+                  "shortHash": "eedce5d",
+                  "hash": "eedce5d18a02041fc79f857e184b08b6294c769c",
+                  "subject": "Align review inputs and CI provider metadata with the 1.1 implementation",
+                  "body": "Align review inputs and CI provider metadata with the 1.1 implementation\n",
+                  "author": {
+                    "name": "Codex Automation",
+                    "email": "codex-automation@local.invalid",
+                    "time": 1791808630000
+                  },
+                  "committer": {
+                    "name": "Codex Automation",
+                    "email": "codex-automation@local.invalid",
+                    "time": 1791808630000
+                  },
+                  "branch": "main"
+                },
+                "actualWorkers": 1
+              },
+              "id": "",
+              "name": "",
+              "testDir": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/e2e",
+              "testIgnore": [],
+              "testMatch": [
+                "**/*.pw.ts"
+              ],
+              "timeout": 90000
+            }
+          ],
+          "filteredProjects": [
+            {
+              "grep": {},
+              "grepInvert": null,
+              "outputDir": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/test-results",
+              "repeatEach": 1,
+              "retries": 0,
+              "metadata": {
+                "ci": {
+                  "commitHref": "https://github.com/xuchangsheng18/media-traceability-system/commit/eedce5d18a02041fc79f857e184b08b6294c769c",
+                  "commitHash": "eedce5d18a02041fc79f857e184b08b6294c769c",
+                  "buildHref": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38250162665"
+                },
+                "gitCommit": {
+                  "shortHash": "eedce5d",
+                  "hash": "eedce5d18a02041fc79f857e184b08b6294c769c",
+                  "subject": "Align review inputs and CI provider metadata with the 1.1 implementation",
+                  "body": "Align review inputs and CI provider metadata with the 1.1 implementation\n",
+                  "author": {
+                    "name": "Codex Automation",
+                    "email": "codex-automation@local.invalid",
+                    "time": 1791808630000
+                  },
+                  "committer": {
+                    "name": "Codex Automation",
+                    "email": "codex-automation@local.invalid",
+                    "time": 1791808630000
+                  },
+                  "branch": "main"
+                },
+                "actualWorkers": 1
+              },
+              "name": "",
+              "testDir": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/e2e",
+              "snapshotDir": "/home/runner/work/media-traceability-system/media-traceability-system/frontend/e2e",
+              "testIgnore": [],
+              "testMatch": "**/*.pw.ts",
+              "timeout": 90000,
+              "use": {
+                "baseURL": "http://127.0.0.1:14180",
+                "headless": true,
+                "viewport": {
+                  "width": 1280,
+                  "height": 1000
+                }
+              },
+              "dependencies": [],
+              "ignoreSnapshots": false,
+              "__projectId": ""
+            }
+          ],
+          "quiet": false,
+          "reporter": [
+            [
+              "list",
+              null
+            ],
+            [
+              "json",
+              {
+                "outputFile": "/home/runner/work/media-traceability-system/media-traceability-system/docs/00-project/validation/poc-browser-report.json"
+              }
+            ]
+          ],
+          "reportSlowTests": {
+            "max": 5,
+            "threshold": 300000
+          },
+          "shard": null,
+          "tags": [],
+          "updateSnapshots": "default",
+          "updateSourceMethod": "patch",
+          "version": "1.64.0",
+          "workers": 1,
+          "webServer": null
+        },
+        "suites": [
+          {
+            "title": "workflow.pw.ts",
+            "file": "workflow.pw.ts",
+            "column": 0,
+            "line": 0,
+            "specs": [
+              {
+                "title": "browser submits image and displays a real CPU result",
+                "ok": true,
+                "tags": [],
+                "tests": [
+                  {
+                    "timeout": 90000,
+                    "annotations": [],
+                    "expectedStatus": "passed",
+                    "projectId": "",
+                    "projectName": "",
+                    "results": [
+                      {
+                        "workerIndex": 0,
+                        "parallelIndex": 0,
+                        "status": "passed",
+                        "duration": 2825,
+                        "errors": [],
+                        "stdout": [],
+                        "stderr": [],
+                        "retry": 0,
+                        "startTime": "2026-10-12T12:44:52.328Z",
+                        "annotations": [],
+                        "attachments": []
+                      }
+                    ],
+                    "status": "expected"
+                  }
+                ],
+                "id": "cfcbfdd66e96d851dbb0-af8b57a06ff4acaab221",
+                "file": "workflow.pw.ts",
+                "line": 4,
+                "column": 1
+              }
+            ]
+          }
+        ],
+        "errors": [],
+        "stats": {
+          "startTime": "2026-10-12T12:44:51.184Z",
+          "duration": 4847.104,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      }
+    },
+    "repository-secrets-report.json": {
+      "sha256": "5170f6934abe665d6d20f85e00ba33089ef970d1b16e285473b935ef25cf8f27",
+      "report": {
+        "status": "PASS",
+        "scope": "exact_runtime_values_and_known_secret_filenames_not_comprehensive_dlp",
+        "files_checked": 956,
+        "errors": [],
+        "credential_values_printed": false
+      }
+    }
+  },
+  "previous_attempts": [
+    {
+      "run_id": 38248936183,
+      "conclusion": "failure",
+      "scope": "invalid_runner_context_before_job_start",
+      "fixed_in": "70721e5"
+    },
+    {
+      "run_id": 38249187343,
+      "conclusion": "failure",
+      "scope": "Ruff_import_order_in_regression_test",
+      "fixed_in": "18df3ea"
+    }
+  ],
+  "post_validation_change_scope": "Verification reports, file manifest and sync receipt only; application sources, upstream base locks and build inputs unchanged."
 }

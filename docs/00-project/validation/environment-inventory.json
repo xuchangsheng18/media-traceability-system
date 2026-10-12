@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-12T12:21:27.858150+00:00",
+  "observed_at": "2026-10-12T12:44:21.424186+00:00",
   "host": "172.16.58.179",
   "user": "glwy",
   "os_release": "PRETTY_NAME=\"Ubuntu 24.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.4 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
@@ -69,7 +69,7 @@
       },
       {
         "field": "CPU(s) scaling MHz:",
-        "data": "59%"
+        "data": "60%"
       },
       {
         "field": "CPU max MHz:",
@@ -191,13 +191,13 @@
   },
   "memory": {
     "MemTotal": 134950191104,
-    "MemAvailable": 88896868352
+    "MemAvailable": 89321558016
   },
   "host_disks": {
     "/workspace": {
       "total_bytes": 9959886327808,
-      "used_bytes": 195857371136,
-      "free_bytes": 9764012179456
+      "used_bytes": 195894886400,
+      "free_bytes": 9763974664192
     },
     "/opt": {
       "total_bytes": 9959886327808,
@@ -321,13 +321,13 @@
     "MemTotal": 33619755008,
     "DockerRootDir": "/var/lib/docker"
   },
-  "daemon_disk_df": "Filesystem           1024-blocks    Used Available Capacity Mounted on\noverlay              100427840  93510196   1770048  98% /\n",
+  "daemon_disk_df": "Filesystem           1024-blocks    Used Available Capacity Mounted on\noverlay              100427840  93515936   1764308  98% /\n",
   "development_services": [
     {
       "service": "api",
       "state": "running",
       "health": "healthy",
-      "image_id": "sha256:aa11c03e48d6401390b12aa845a795ac756d1186c94e2e2d12284353769a4e04",
+      "image_id": "sha256:26ff92ce2c786f40089a4afda300fa56af00bd8dfe829903791e0a1f7a0a1af0",
       "memory_limit_bytes": 805306368,
       "cpu_limit": 1.0,
       "pids_limit": 128,
@@ -344,7 +344,7 @@
       "service": "inference",
       "state": "running",
       "health": "healthy",
-      "image_id": "sha256:aa11c03e48d6401390b12aa845a795ac756d1186c94e2e2d12284353769a4e04",
+      "image_id": "sha256:26ff92ce2c786f40089a4afda300fa56af00bd8dfe829903791e0a1f7a0a1af0",
       "memory_limit_bytes": 2147483648,
       "cpu_limit": 1.0,
       "pids_limit": 128,
@@ -429,7 +429,7 @@
       "service": "worker",
       "state": "running",
       "health": "healthy",
-      "image_id": "sha256:aa11c03e48d6401390b12aa845a795ac756d1186c94e2e2d12284353769a4e04",
+      "image_id": "sha256:26ff92ce2c786f40089a4afda300fa56af00bd8dfe829903791e0a1f7a0a1af0",
       "memory_limit_bytes": 805306368,
       "cpu_limit": 1.0,
       "pids_limit": 128,
@@ -438,84 +438,163 @@
   ],
   "resource_snapshot": [
     {
-      "BlockIO": "1.68MB / 0B",
-      "CPUPerc": "0.14%",
-      "Container": "943ddce6031528c1365984eec908c87e19eb250bd2d4a0bd62fdfe0247cbf8cc",
-      "ID": "943ddce60315",
-      "MemPerc": "11.94%",
-      "MemUsage": "91.72MiB / 768MiB",
+      "BlockIO": "176kB / 0B",
+      "CPUPerc": "0.15%",
+      "Container": "b0d8bdb5e2d7c9ea363deb4678fd1c035942b080356670fa48a5203d8d1ab7a9",
+      "ID": "b0d8bdb5e2d7",
+      "MemPerc": "12.14%",
+      "MemUsage": "93.21MiB / 768MiB",
       "Name": "media-trace-py310-api-1",
-      "NetIO": "16.9kB / 19.1kB",
+      "NetIO": "15.6kB / 17.7kB",
       "PIDs": "2"
     },
     {
-      "BlockIO": "6.69MB / 0B",
-      "CPUPerc": "0.23%",
-      "Container": "eb39f25e6d1ff5868207712fba1edca43ee38f2f8e5888bc258fe7572fca086e",
-      "ID": "eb39f25e6d1f",
-      "MemPerc": "9.50%",
-      "MemUsage": "194.6MiB / 2GiB",
+      "BlockIO": "6.16MB / 0B",
+      "CPUPerc": "0.39%",
+      "Container": "b1fd98fc33a82dccfc5ea942e3d5e74bbf37d9f3d71ec4754133968ff3850efa",
+      "ID": "b1fd98fc33a8",
+      "MemPerc": "9.45%",
+      "MemUsage": "193.6MiB / 2GiB",
       "Name": "media-trace-py310-inference-1",
-      "NetIO": "5.11kB / 4.73kB",
+      "NetIO": "5.32kB / 4.77kB",
       "PIDs": "2"
     },
     {
-      "BlockIO": "11.4MB / 4.12MB",
-      "CPUPerc": "4.42%",
+      "BlockIO": "11.9MB / 4.65MB",
+      "CPUPerc": "0.01%",
       "Container": "869b8e2178a998e8a84dc40cc508bef8efdd9e453cab3077c5480c1d3b86a523",
       "ID": "869b8e2178a9",
-      "MemPerc": "3.94%",
-      "MemUsage": "40.33MiB / 1GiB",
+      "MemPerc": "3.74%",
+      "MemUsage": "38.26MiB / 1GiB",
       "Name": "media-trace-py310-postgres-1",
-      "NetIO": "1.93MB / 1.79MB",
-      "PIDs": "14"
+      "NetIO": "2.19MB / 2.08MB",
+      "PIDs": "8"
     },
     {
-      "BlockIO": "14.6MB / 246kB",
-      "CPUPerc": "0.27%",
+      "BlockIO": "15.2MB / 262kB",
+      "CPUPerc": "0.22%",
       "Container": "93728e609bef65665e2f5dc7052dba28c1a9cfc1808bd82be49bc3df860d23ed",
       "ID": "93728e609bef",
-      "MemPerc": "15.50%",
-      "MemUsage": "119.1MiB / 768MiB",
+      "MemPerc": "14.85%",
+      "MemUsage": "114.1MiB / 768MiB",
       "Name": "media-trace-py310-rabbitmq-1",
-      "NetIO": "312kB / 160kB",
+      "NetIO": "81.1kB / 48.9kB",
       "PIDs": "18"
     },
     {
-      "BlockIO": "156kB / 119kB",
-      "CPUPerc": "0.46%",
+      "BlockIO": "221kB / 131kB",
+      "CPUPerc": "0.61%",
       "Container": "8ab1441cb3cc4d04943f38a7c9f49b7e1ac2aa01801079ee16b6ca656a67d22b",
       "ID": "8ab1441cb3cc",
-      "MemPerc": "13.45%",
-      "MemUsage": "137.7MiB / 1GiB",
+      "MemPerc": "12.59%",
+      "MemUsage": "128.9MiB / 1GiB",
       "Name": "media-trace-py310-s3-1",
-      "NetIO": "7.83kB / 3.35kB",
+      "NetIO": "7.78kB / 3.35kB",
       "PIDs": "9"
     },
     {
       "BlockIO": "4.44MB / 16.4kB",
-      "CPUPerc": "5.64%",
+      "CPUPerc": "0.02%",
       "Container": "20d6347b1394d2308afce47faa0d48c6b9c46a7fe84159a3fe44378a51aad9a1",
       "ID": "20d6347b1394",
-      "MemPerc": "3.69%",
-      "MemUsage": "9.441MiB / 256MiB",
+      "MemPerc": "3.68%",
+      "MemUsage": "9.43MiB / 256MiB",
       "Name": "media-trace-py310-web-1",
-      "NetIO": "109kB / 231kB",
+      "NetIO": "148kB / 333kB",
       "PIDs": "2"
     },
     {
-      "BlockIO": "2.3MB / 102kB",
-      "CPUPerc": "0.13%",
-      "Container": "0e5db789c3e911b921d31e2c02b97701fd5803a9ae535d16f09c8f4e03f90414",
-      "ID": "0e5db789c3e9",
-      "MemPerc": "13.54%",
-      "MemUsage": "104MiB / 768MiB",
+      "BlockIO": "2.29MB / 20.5kB",
+      "CPUPerc": "9.40%",
+      "Container": "1f4264d2ea076d21714212f202ccc2c27d1bf2c1f4c75fa78d34e2e012b3bd5d",
+      "ID": "1f4264d2ea07",
+      "MemPerc": "13.73%",
+      "MemUsage": "105.5MiB / 768MiB",
       "Name": "media-trace-py310-worker-1",
-      "NetIO": "224kB / 377kB",
+      "NetIO": "50.2kB / 77.6kB",
       "PIDs": "3"
     }
   ],
   "resource_snapshot_is_peak": false,
   "runtime_archive_sha256": "9a56bdfd173cb6fa54bbdb73ef7a49557e23c47b8cc673987ba87590599650f0",
-  "production_resource_allocation_confirmed": false
+  "production_resource_allocation_confirmed": false,
+  "inspected_images_at_observation": [
+    {
+      "name": "media-trace-py310:1.0.0-dev",
+      "image_id": "sha256:26ff92ce2c786f40089a4afda300fa56af00bd8dfe829903791e0a1f7a0a1af0",
+      "repo_digests": [
+        "media-trace-py310@sha256:26ff92ce2c786f40089a4afda300fa56af00bd8dfe829903791e0a1f7a0a1af0"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 2849673665
+    },
+    {
+      "name": "media-trace-web:1.0.0-dev",
+      "image_id": "sha256:3d2176fa90ac8a89938c30ff1a7171f4d0b6693508bc18f1d222bf5a893d1ed3",
+      "repo_digests": [
+        "media-trace-web@sha256:3d2176fa90ac8a89938c30ff1a7171f4d0b6693508bc18f1d222bf5a893d1ed3"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 93474981
+    },
+    {
+      "name": "postgres:16",
+      "image_id": "sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+      "repo_digests": [
+        "postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 636265108
+    },
+    {
+      "name": "rabbitmq:4.3.6-management",
+      "image_id": "sha256:8dd6e3570ddaa2ef82a6c3a8950e79c1f73893adfbdddbc374fc1f1ac8a0f5dd",
+      "repo_digests": [
+        "rabbitmq@sha256:8dd6e3570ddaa2ef82a6c3a8950e79c1f73893adfbdddbc374fc1f1ac8a0f5dd"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 398370015
+    },
+    {
+      "name": "chrislusf/seaweedfs:4.48",
+      "image_id": "sha256:4e61d15fd35994cb1e43e1e553dff106794841fd9a99ade2fc8c8bfce4d7872d",
+      "repo_digests": [
+        "chrislusf/seaweedfs@sha256:4e61d15fd35994cb1e43e1e553dff106794841fd9a99ade2fc8c8bfce4d7872d"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 723693732
+    },
+    {
+      "name": "node:22-alpine3.21",
+      "image_id": "sha256:af8023ec879993821f6d5b21382ed915622a1b0f1cc03dbeb6804afaf01f8885",
+      "repo_digests": [
+        "node@sha256:af8023ec879993821f6d5b21382ed915622a1b0f1cc03dbeb6804afaf01f8885",
+        "docker.m.daocloud.io/library/node@sha256:af8023ec879993821f6d5b21382ed915622a1b0f1cc03dbeb6804afaf01f8885"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 228396023
+    },
+    {
+      "name": "nginx:1.31.4-alpine",
+      "image_id": "sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913",
+      "repo_digests": [
+        "nginx@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913",
+        "docker.m.daocloud.io/library/nginx@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 93328424
+    },
+    {
+      "name": "python:3.12-slim-bookworm",
+      "image_id": "sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258",
+      "repo_digests": [
+        "python@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258"
+      ],
+      "platform": "linux/amd64",
+      "size_bytes": 197102682
+    }
+  ],
+  "source_image_lock_sha256": "bbc0b0b0a75a86dcf5a7bfc536c7ebd7b24245b2f722da6efaf1c4b31010c803",
+  "upstream_base_digest_lock_unchanged": true,
+  "application_image_identity_note": "Application image IDs are build-time observations; current running IDs are in this report. The tested source lock retains its earlier snapshot; upstream base digests and build inputs are unchanged."
 }
