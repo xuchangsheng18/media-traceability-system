@@ -1,0 +1,1766 @@
+{
+  "audit_date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "status": "技术复核结果，不是批准或测试通过记录",
+  "documents": [
+    {
+      "file": "D:\\公安厅项目\\修订成果\\双文档对齐完善版\\项目总体设计方案_审批完善版V1.3.docx",
+      "sha256": "8363a6200a0ea75ca7a1aa8117ea1a5e808829dc0254e2648b56124bbf5903d5",
+      "markdown_missing": [],
+      "comments": 20,
+      "comment_ids_match": true
+    },
+    {
+      "file": "D:\\公安厅项目\\修订成果\\双文档对齐完善版\\项目任务书_审批完善版V1.2.docx",
+      "sha256": "bf2556f867ccee37854f8abf24ae80ec10a9339d19059db7f7d90018ce576e72",
+      "markdown_missing": [],
+      "comments": 52,
+      "comment_ids_match": true
+    }
+  ],
+  "task_count": 170,
+  "source_dependencies_preserved": true,
+  "normalization_only": "补齐三位编号并展开范围，不改变源语义",
+  "dependency_lint": [
+    {
+      "task": "T027",
+      "raw": "T020,T24",
+      "issue": "short_id",
+      "token": "T24"
+    },
+    {
+      "task": "T030",
+      "raw": "T20,T25,T27",
+      "issue": "short_id",
+      "token": "T20"
+    },
+    {
+      "task": "T030",
+      "raw": "T20,T25,T27",
+      "issue": "short_id",
+      "token": "T25"
+    },
+    {
+      "task": "T030",
+      "raw": "T20,T25,T27",
+      "issue": "short_id",
+      "token": "T27"
+    }
+  ],
+  "range_dependency_cards": [
+    {
+      "task": "T068",
+      "raw": "T062-T067"
+    },
+    {
+      "task": "T077",
+      "raw": "T072-T076"
+    },
+    {
+      "task": "T082",
+      "raw": "T027,T079-T081"
+    },
+    {
+      "task": "T086",
+      "raw": "T080-T082"
+    },
+    {
+      "task": "T093",
+      "raw": "T090-T092"
+    },
+    {
+      "task": "T113",
+      "raw": "T062-T068,T110"
+    },
+    {
+      "task": "T114",
+      "raw": "T072-T077,T110"
+    },
+    {
+      "task": "T115",
+      "raw": "T082-T089,T110"
+    },
+    {
+      "task": "T118",
+      "raw": "T022-T029,T034"
+    },
+    {
+      "task": "T124",
+      "raw": "T103,T107,T114-T123"
+    },
+    {
+      "task": "T128",
+      "raw": "T125-T127"
+    },
+    {
+      "task": "T140",
+      "raw": "T130-T139,T068"
+    },
+    {
+      "task": "T152",
+      "raw": "T145,T148-T151"
+    },
+    {
+      "task": "T161",
+      "raw": "T088,T158-T160"
+    },
+    {
+      "task": "T170",
+      "raw": "T140,T153,T157,T163,T165,T167-T169"
+    }
+  ],
+  "unknown_dependencies": [],
+  "cycles_after_normalization": [],
+  "suggested_person_days": {
+    "lower": 397.0,
+    "upper": 491.0,
+    "cards_count": 170
+  },
+  "identified_gate_gaps": [
+    {
+      "task": "T124",
+      "missing_ancestor": "T113",
+      "meaning": "风险评测流水线不是当前显式前置"
+    },
+    {
+      "task": "T124",
+      "missing_ancestor": "T170",
+      "meaning": "真实专项模型发布冻结不是当前显式前置"
+    },
+    {
+      "task": "T170",
+      "missing_ancestor": "T141",
+      "meaning": "风险校准不是当前显式前置"
+    },
+    {
+      "task": "T092",
+      "missing_ancestor": "T164",
+      "meaning": "首发训练内容簇不是当前显式前置"
+    },
+    {
+      "task": "T118",
+      "missing_final_test_prerequisites": [
+        "T102",
+        "T107",
+        "T108"
+      ],
+      "meaning": "早期上传测试与最终审批/导出/回流复测须分阶段关闭"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "T001",
+      "title": "T001 建立单仓库目录与基础README",
+      "source_dependencies": "无",
+      "normalized_source_dependencies": []
+    },
+    {
+      "task_id": "T002",
+      "title": "T002 配置Python后端工程",
+      "source_dependencies": "T001",
+      "normalized_source_dependencies": [
+        "T001"
+      ]
+    },
+    {
+      "task_id": "T003",
+      "title": "T003 配置Vue前端工程",
+      "source_dependencies": "T001",
+      "normalized_source_dependencies": [
+        "T001"
+      ]
+    },
+    {
+      "task_id": "T004",
+      "title": "T004 建立本地容器开发环境",
+      "source_dependencies": "T002,T003",
+      "normalized_source_dependencies": [
+        "T002",
+        "T003"
+      ]
+    },
+    {
+      "task_id": "T005",
+      "title": "T005 配置代码格式化与静态检查",
+      "source_dependencies": "T002,T003",
+      "normalized_source_dependencies": [
+        "T002",
+        "T003"
+      ]
+    },
+    {
+      "task_id": "T006",
+      "title": "T006 建立基础持续集成流水线",
+      "source_dependencies": "T004,T005",
+      "normalized_source_dependencies": [
+        "T004",
+        "T005"
+      ]
+    },
+    {
+      "task_id": "T007",
+      "title": "T007 建立统一配置和密钥规范",
+      "source_dependencies": "T002,T004",
+      "normalized_source_dependencies": [
+        "T002",
+        "T004"
+      ]
+    },
+    {
+      "task_id": "T008",
+      "title": "T008 建立统一日志与请求追踪",
+      "source_dependencies": "T002",
+      "normalized_source_dependencies": [
+        "T002"
+      ]
+    },
+    {
+      "task_id": "T009",
+      "title": "T009 建立统一异常与错误码框架",
+      "source_dependencies": "T002",
+      "normalized_source_dependencies": [
+        "T002"
+      ]
+    },
+    {
+      "task_id": "T010",
+      "title": "T010 建立架构决策记录和变更模板",
+      "source_dependencies": "T001",
+      "normalized_source_dependencies": [
+        "T001"
+      ]
+    },
+    {
+      "task_id": "T011",
+      "title": "T011 设计用户角色与数据范围模型",
+      "source_dependencies": "T002,T010",
+      "normalized_source_dependencies": [
+        "T002",
+        "T010"
+      ]
+    },
+    {
+      "task_id": "T012",
+      "title": "T012 实现用户角色数据库模型",
+      "source_dependencies": "T011",
+      "normalized_source_dependencies": [
+        "T011"
+      ]
+    },
+    {
+      "task_id": "T013",
+      "title": "T013 实现认证与令牌校验",
+      "source_dependencies": "T012",
+      "normalized_source_dependencies": [
+        "T012"
+      ]
+    },
+    {
+      "task_id": "T014",
+      "title": "T014 实现接口级权限控制",
+      "source_dependencies": "T012,T013",
+      "normalized_source_dependencies": [
+        "T012",
+        "T013"
+      ]
+    },
+    {
+      "task_id": "T015",
+      "title": "T015 实现数据范围访问控制",
+      "source_dependencies": "T014",
+      "normalized_source_dependencies": [
+        "T014"
+      ]
+    },
+    {
+      "task_id": "T016",
+      "title": "T016 实现高风险操作二次确认",
+      "source_dependencies": "T014",
+      "normalized_source_dependencies": [
+        "T014"
+      ]
+    },
+    {
+      "task_id": "T017",
+      "title": "T017 实现操作审计事件模型",
+      "source_dependencies": "T008,T012",
+      "normalized_source_dependencies": [
+        "T008",
+        "T012"
+      ]
+    },
+    {
+      "task_id": "T018",
+      "title": "T018 开发审计查询页面与接口",
+      "source_dependencies": "T015,T017",
+      "normalized_source_dependencies": [
+        "T015",
+        "T017"
+      ]
+    },
+    {
+      "task_id": "T019",
+      "title": "T019 设计内容与媒体资产模型",
+      "source_dependencies": "T010,T011",
+      "normalized_source_dependencies": [
+        "T010",
+        "T011"
+      ]
+    },
+    {
+      "task_id": "T020",
+      "title": "T020 实现内容与媒体资产表",
+      "source_dependencies": "T019",
+      "normalized_source_dependencies": [
+        "T019"
+      ]
+    },
+    {
+      "task_id": "T021",
+      "title": "T021 实现数据来源授权登记",
+      "source_dependencies": "T020,T014",
+      "normalized_source_dependencies": [
+        "T020",
+        "T014"
+      ]
+    },
+    {
+      "task_id": "T022",
+      "title": "T022 实现分片上传初始化",
+      "source_dependencies": "T020,T014",
+      "normalized_source_dependencies": [
+        "T020",
+        "T014"
+      ]
+    },
+    {
+      "task_id": "T023",
+      "title": "T023 实现分片接收与校验",
+      "source_dependencies": "T022",
+      "normalized_source_dependencies": [
+        "T022"
+      ]
+    },
+    {
+      "task_id": "T024",
+      "title": "T024 实现分片合并与完整哈希",
+      "source_dependencies": "T023",
+      "normalized_source_dependencies": [
+        "T023"
+      ]
+    },
+    {
+      "task_id": "T025",
+      "title": "T025 实现MinIO对象存储适配器",
+      "source_dependencies": "T004,T024",
+      "normalized_source_dependencies": [
+        "T004",
+        "T024"
+      ]
+    },
+    {
+      "task_id": "T026",
+      "title": "T026 实现媒体格式探测与安全校验",
+      "source_dependencies": "T024",
+      "normalized_source_dependencies": [
+        "T024"
+      ]
+    },
+    {
+      "task_id": "T027",
+      "title": "T027 实现SHA-256完全重复检测",
+      "source_dependencies": "T020,T24",
+      "normalized_source_dependencies": [
+        "T020",
+        "T024"
+      ]
+    },
+    {
+      "task_id": "T028",
+      "title": "T028 实现批量清单导入",
+      "source_dependencies": "T021,T026",
+      "normalized_source_dependencies": [
+        "T021",
+        "T026"
+      ]
+    },
+    {
+      "task_id": "T029",
+      "title": "T029 实现第三方接入适配器协议",
+      "source_dependencies": "T021",
+      "normalized_source_dependencies": [
+        "T021"
+      ]
+    },
+    {
+      "task_id": "T030",
+      "title": "T030 开发媒体资产管理页面",
+      "source_dependencies": "T20,T25,T27",
+      "normalized_source_dependencies": [
+        "T020",
+        "T025",
+        "T027"
+      ]
+    },
+    {
+      "task_id": "T031",
+      "title": "T031 设计分析任务与节点执行模型",
+      "source_dependencies": "T010,T020",
+      "normalized_source_dependencies": [
+        "T010",
+        "T020"
+      ]
+    },
+    {
+      "task_id": "T032",
+      "title": "T032 实现任务及节点数据库模型",
+      "source_dependencies": "T031",
+      "normalized_source_dependencies": [
+        "T031"
+      ]
+    },
+    {
+      "task_id": "T033",
+      "title": "T033 实现任务状态机",
+      "source_dependencies": "T032,T017",
+      "normalized_source_dependencies": [
+        "T032",
+        "T017"
+      ]
+    },
+    {
+      "task_id": "T034",
+      "title": "T034 实现任务创建接口",
+      "source_dependencies": "T033,T015",
+      "normalized_source_dependencies": [
+        "T033",
+        "T015"
+      ]
+    },
+    {
+      "task_id": "T035",
+      "title": "T035 实现任务查询和进度接口",
+      "source_dependencies": "T034",
+      "normalized_source_dependencies": [
+        "T034"
+      ]
+    },
+    {
+      "task_id": "T036",
+      "title": "T036 实现异步队列与优先级",
+      "source_dependencies": "T004,T034",
+      "normalized_source_dependencies": [
+        "T004",
+        "T034"
+      ]
+    },
+    {
+      "task_id": "T037",
+      "title": "T037 实现DAG任务编排器",
+      "source_dependencies": "T033,T036",
+      "normalized_source_dependencies": [
+        "T033",
+        "T036"
+      ]
+    },
+    {
+      "task_id": "T038",
+      "title": "T038 实现节点级重试与检查点",
+      "source_dependencies": "T037",
+      "normalized_source_dependencies": [
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T039",
+      "title": "T039 实现任务取消和退回重算",
+      "source_dependencies": "T033,T037",
+      "normalized_source_dependencies": [
+        "T033",
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T040",
+      "title": "T040 开发任务监控页面",
+      "source_dependencies": "T035,T039",
+      "normalized_source_dependencies": [
+        "T035",
+        "T039"
+      ]
+    },
+    {
+      "task_id": "T041",
+      "title": "T041 实现图片元数据解析",
+      "source_dependencies": "T025,T037",
+      "normalized_source_dependencies": [
+        "T025",
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T042",
+      "title": "T042 实现视频ffprobe解析",
+      "source_dependencies": "T025,T037",
+      "normalized_source_dependencies": [
+        "T025",
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T043",
+      "title": "T043 实现标准化媒体副本生成",
+      "source_dependencies": "T041,T042",
+      "normalized_source_dependencies": [
+        "T041",
+        "T042"
+      ]
+    },
+    {
+      "task_id": "T044",
+      "title": "T044 实现镜头边界检测",
+      "source_dependencies": "T043",
+      "normalized_source_dependencies": [
+        "T043"
+      ]
+    },
+    {
+      "task_id": "T045",
+      "title": "T045 实现固定间隔抽帧",
+      "source_dependencies": "T043",
+      "normalized_source_dependencies": [
+        "T043"
+      ]
+    },
+    {
+      "task_id": "T046",
+      "title": "T046 实现镜头代表帧选择",
+      "source_dependencies": "T044,T045",
+      "normalized_source_dependencies": [
+        "T044",
+        "T045"
+      ]
+    },
+    {
+      "task_id": "T047",
+      "title": "T047 实现音轨与字幕提取",
+      "source_dependencies": "T042,T043",
+      "normalized_source_dependencies": [
+        "T042",
+        "T043"
+      ]
+    },
+    {
+      "task_id": "T048",
+      "title": "T048 接入OCR并建立时间片段",
+      "source_dependencies": "T046,T037",
+      "normalized_source_dependencies": [
+        "T046",
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T049",
+      "title": "T049 接入ASR并建立时间片段",
+      "source_dependencies": "T047,T037",
+      "normalized_source_dependencies": [
+        "T047",
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T050",
+      "title": "T050 实现媒体统一时间轴服务",
+      "source_dependencies": "T044,T046,T048,T049",
+      "normalized_source_dependencies": [
+        "T044",
+        "T046",
+        "T048",
+        "T049"
+      ]
+    },
+    {
+      "task_id": "T051",
+      "title": "T051 定义统一模型输入输出契约",
+      "source_dependencies": "T010,T037",
+      "normalized_source_dependencies": [
+        "T010",
+        "T037"
+      ]
+    },
+    {
+      "task_id": "T052",
+      "title": "T052 实现模型注册表",
+      "source_dependencies": "T051,T014",
+      "normalized_source_dependencies": [
+        "T051",
+        "T014"
+      ]
+    },
+    {
+      "task_id": "T053",
+      "title": "T053 实现统一推理网关",
+      "source_dependencies": "T051,T052",
+      "normalized_source_dependencies": [
+        "T051",
+        "T052"
+      ]
+    },
+    {
+      "task_id": "T054",
+      "title": "T054 实现HTTP与本地Mock适配器",
+      "source_dependencies": "T053",
+      "normalized_source_dependencies": [
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T055",
+      "title": "T055 实现推理批处理与GPU队列",
+      "source_dependencies": "T053,T036",
+      "normalized_source_dependencies": [
+        "T053",
+        "T036"
+      ]
+    },
+    {
+      "task_id": "T056",
+      "title": "T056 实现模型健康检查与熔断",
+      "source_dependencies": "T053",
+      "normalized_source_dependencies": [
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T057",
+      "title": "T057 实现模型灰度发布",
+      "source_dependencies": "T052,T053",
+      "normalized_source_dependencies": [
+        "T052",
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T058",
+      "title": "T058 实现模型评测记录管理",
+      "source_dependencies": "T052",
+      "normalized_source_dependencies": [
+        "T052"
+      ]
+    },
+    {
+      "task_id": "T059",
+      "title": "T059 实现输入输出漂移监测",
+      "source_dependencies": "T053,T058",
+      "normalized_source_dependencies": [
+        "T053",
+        "T058"
+      ]
+    },
+    {
+      "task_id": "T060",
+      "title": "T060 开发模型运维页面",
+      "source_dependencies": "T052,T057,T058,T059",
+      "normalized_source_dependencies": [
+        "T052",
+        "T057",
+        "T058",
+        "T059"
+      ]
+    },
+    {
+      "task_id": "T061",
+      "title": "T061 定义风险标签和版本管理",
+      "source_dependencies": "T021,T052",
+      "normalized_source_dependencies": [
+        "T021",
+        "T052"
+      ]
+    },
+    {
+      "task_id": "T062",
+      "title": "T062 接入图片多标签分类模型",
+      "source_dependencies": "T053,T061,T041",
+      "normalized_source_dependencies": [
+        "T053",
+        "T061",
+        "T041"
+      ]
+    },
+    {
+      "task_id": "T063",
+      "title": "T063 接入敏感目标检测模型",
+      "source_dependencies": "T053,T061,T046",
+      "normalized_source_dependencies": [
+        "T053",
+        "T061",
+        "T046"
+      ]
+    },
+    {
+      "task_id": "T064",
+      "title": "T064 接入视频行为识别模型",
+      "source_dependencies": "T053,T050",
+      "normalized_source_dependencies": [
+        "T053",
+        "T050"
+      ]
+    },
+    {
+      "task_id": "T065",
+      "title": "T065 接入音频事件识别模型",
+      "source_dependencies": "T047,T053",
+      "normalized_source_dependencies": [
+        "T047",
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T066",
+      "title": "T066 实现多模态时间对齐",
+      "source_dependencies": "T048,T049,T063,T064,T065",
+      "normalized_source_dependencies": [
+        "T048",
+        "T049",
+        "T063",
+        "T064",
+        "T065"
+      ]
+    },
+    {
+      "task_id": "T067",
+      "title": "T067 实现跨模态矛盾检测",
+      "source_dependencies": "T066,T053",
+      "normalized_source_dependencies": [
+        "T066",
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T068",
+      "title": "T068 实现综合风险融合与校准",
+      "source_dependencies": "T062-T067",
+      "normalized_source_dependencies": [
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067"
+      ]
+    },
+    {
+      "task_id": "T069",
+      "title": "T069 实现风险转人工规则",
+      "source_dependencies": "T068,T033",
+      "normalized_source_dependencies": [
+        "T068",
+        "T033"
+      ]
+    },
+    {
+      "task_id": "T070",
+      "title": "T070 开发风险识别研判界面",
+      "source_dependencies": "T050,T068,T069",
+      "normalized_source_dependencies": [
+        "T050",
+        "T068",
+        "T069"
+      ]
+    },
+    {
+      "task_id": "T071",
+      "title": "T071 实现图片取证基础特征",
+      "source_dependencies": "T041,T043",
+      "normalized_source_dependencies": [
+        "T041",
+        "T043"
+      ]
+    },
+    {
+      "task_id": "T072",
+      "title": "T072 接入图片篡改区域模型",
+      "source_dependencies": "T053,T071",
+      "normalized_source_dependencies": [
+        "T053",
+        "T071"
+      ]
+    },
+    {
+      "task_id": "T073",
+      "title": "T073 实现复制粘贴与局部生成分类",
+      "source_dependencies": "T071,T072",
+      "normalized_source_dependencies": [
+        "T071",
+        "T072"
+      ]
+    },
+    {
+      "task_id": "T074",
+      "title": "T074 实现视频时间结构异常检测",
+      "source_dependencies": "T042,T047",
+      "normalized_source_dependencies": [
+        "T042",
+        "T047"
+      ]
+    },
+    {
+      "task_id": "T075",
+      "title": "T075 实现视频空间篡改跟踪",
+      "source_dependencies": "T072,T050",
+      "normalized_source_dependencies": [
+        "T072",
+        "T050"
+      ]
+    },
+    {
+      "task_id": "T076",
+      "title": "T076 接入深度伪造与音画同步检测",
+      "source_dependencies": "T053,T047,T050",
+      "normalized_source_dependencies": [
+        "T053",
+        "T047",
+        "T050"
+      ]
+    },
+    {
+      "task_id": "T077",
+      "title": "T077 实现篡改多证据融合",
+      "source_dependencies": "T072-T076",
+      "normalized_source_dependencies": [
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076"
+      ]
+    },
+    {
+      "task_id": "T078",
+      "title": "T078 开发篡改取证界面",
+      "source_dependencies": "T077,T050",
+      "normalized_source_dependencies": [
+        "T077",
+        "T050"
+      ]
+    },
+    {
+      "task_id": "T079",
+      "title": "T079 实现图片感知哈希特征",
+      "source_dependencies": "T041,T020",
+      "normalized_source_dependencies": [
+        "T041",
+        "T020"
+      ]
+    },
+    {
+      "task_id": "T080",
+      "title": "T080 实现视觉与复制检测向量生成",
+      "source_dependencies": "T053,T041,T046",
+      "normalized_source_dependencies": [
+        "T053",
+        "T041",
+        "T046"
+      ]
+    },
+    {
+      "task_id": "T081",
+      "title": "T081 建立Milvus索引与版本管理",
+      "source_dependencies": "T080",
+      "normalized_source_dependencies": [
+        "T080"
+      ]
+    },
+    {
+      "task_id": "T082",
+      "title": "T082 实现图片多路候选召回",
+      "source_dependencies": "T027,T079-T081",
+      "normalized_source_dependencies": [
+        "T027",
+        "T079",
+        "T080",
+        "T081"
+      ]
+    },
+    {
+      "task_id": "T083",
+      "title": "T083 实现局部特征提取与匹配",
+      "source_dependencies": "T041",
+      "normalized_source_dependencies": [
+        "T041"
+      ]
+    },
+    {
+      "task_id": "T084",
+      "title": "T084 实现RANSAC几何验证",
+      "source_dependencies": "T082,T083",
+      "normalized_source_dependencies": [
+        "T082",
+        "T083"
+      ]
+    },
+    {
+      "task_id": "T085",
+      "title": "T085 实现图片局部区域检索",
+      "source_dependencies": "T082,T084",
+      "normalized_source_dependencies": [
+        "T082",
+        "T084"
+      ]
+    },
+    {
+      "task_id": "T086",
+      "title": "T086 实现视频帧检索候选聚合",
+      "source_dependencies": "T080-T082",
+      "normalized_source_dependencies": [
+        "T080",
+        "T081",
+        "T082"
+      ]
+    },
+    {
+      "task_id": "T087",
+      "title": "T087 实现视频相似度矩阵构建",
+      "source_dependencies": "T086",
+      "normalized_source_dependencies": [
+        "T086"
+      ]
+    },
+    {
+      "task_id": "T088",
+      "title": "T088 实现局部DTW与倒放对齐",
+      "source_dependencies": "T087",
+      "normalized_source_dependencies": [
+        "T087"
+      ]
+    },
+    {
+      "task_id": "T089",
+      "title": "T089 实现多源拼接来源映射",
+      "source_dependencies": "T044,T088",
+      "normalized_source_dependencies": [
+        "T044",
+        "T088"
+      ]
+    },
+    {
+      "task_id": "T090",
+      "title": "T090 实现高可信同源内容聚类",
+      "source_dependencies": "T084,T089",
+      "normalized_source_dependencies": [
+        "T084",
+        "T089"
+      ]
+    },
+    {
+      "task_id": "T091",
+      "title": "T091 实现首发排序特征工程",
+      "source_dependencies": "T090,T021",
+      "normalized_source_dependencies": [
+        "T090",
+        "T021"
+      ]
+    },
+    {
+      "task_id": "T092",
+      "title": "T092 训练和注册首发排序模型",
+      "source_dependencies": "T091,T058",
+      "normalized_source_dependencies": [
+        "T091",
+        "T058"
+      ]
+    },
+    {
+      "task_id": "T093",
+      "title": "T093 实现首发候选查询服务",
+      "source_dependencies": "T090-T092",
+      "normalized_source_dependencies": [
+        "T090",
+        "T091",
+        "T092"
+      ]
+    },
+    {
+      "task_id": "T094",
+      "title": "T094 设计传播图谱数据模型",
+      "source_dependencies": "T090",
+      "normalized_source_dependencies": [
+        "T090"
+      ]
+    },
+    {
+      "task_id": "T095",
+      "title": "T095 实现传播图谱写入与查询",
+      "source_dependencies": "T094",
+      "normalized_source_dependencies": [
+        "T094"
+      ]
+    },
+    {
+      "task_id": "T096",
+      "title": "T096 实现隐式传播关系推断",
+      "source_dependencies": "T084,T089,T095",
+      "normalized_source_dependencies": [
+        "T084",
+        "T089",
+        "T095"
+      ]
+    },
+    {
+      "task_id": "T097",
+      "title": "T097 开发传播时间线和图谱界面",
+      "source_dependencies": "T093,T095,T096",
+      "normalized_source_dependencies": [
+        "T093",
+        "T095",
+        "T096"
+      ]
+    },
+    {
+      "task_id": "T098",
+      "title": "T098 实现结构化主张抽取服务",
+      "source_dependencies": "T048,T049,T053",
+      "normalized_source_dependencies": [
+        "T048",
+        "T049",
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T099",
+      "title": "T099 实现权威证据检索与关系判断",
+      "source_dependencies": "T098,T021",
+      "normalized_source_dependencies": [
+        "T098",
+        "T021"
+      ]
+    },
+    {
+      "task_id": "T100",
+      "title": "T100 实现统一证据对象模型",
+      "source_dependencies": "T051,T017,T020",
+      "normalized_source_dependencies": [
+        "T051",
+        "T017",
+        "T020"
+      ]
+    },
+    {
+      "task_id": "T101",
+      "title": "T101 实现风险与取证证据卡片接口",
+      "source_dependencies": "T068,T077,T084,T089,T100",
+      "normalized_source_dependencies": [
+        "T068",
+        "T077",
+        "T084",
+        "T089",
+        "T100"
+      ]
+    },
+    {
+      "task_id": "T102",
+      "title": "T102 实现人工复核工作流",
+      "source_dependencies": "T069,T101,T033",
+      "normalized_source_dependencies": [
+        "T069",
+        "T101",
+        "T033"
+      ]
+    },
+    {
+      "task_id": "T103",
+      "title": "T103 开发人工复核工作台",
+      "source_dependencies": "T070,T078,T097,T102",
+      "normalized_source_dependencies": [
+        "T070",
+        "T078",
+        "T097",
+        "T102"
+      ]
+    },
+    {
+      "task_id": "T104",
+      "title": "T104 实现证据固化与完整性校验",
+      "source_dependencies": "T100,T102,T025",
+      "normalized_source_dependencies": [
+        "T100",
+        "T102",
+        "T025"
+      ]
+    },
+    {
+      "task_id": "T105",
+      "title": "T105 实现可信时间与签名适配层",
+      "source_dependencies": "T104",
+      "normalized_source_dependencies": [
+        "T104"
+      ]
+    },
+    {
+      "task_id": "T106",
+      "title": "T106 实现证据约束核查摘要",
+      "source_dependencies": "T099,T101,T053",
+      "normalized_source_dependencies": [
+        "T099",
+        "T101",
+        "T053"
+      ]
+    },
+    {
+      "task_id": "T107",
+      "title": "T107 实现核查报告生成",
+      "source_dependencies": "T102,T104,T106",
+      "normalized_source_dependencies": [
+        "T102",
+        "T104",
+        "T106"
+      ]
+    },
+    {
+      "task_id": "T108",
+      "title": "T108 实现样本纠错与回流审批",
+      "source_dependencies": "T102,T058",
+      "normalized_source_dependencies": [
+        "T102",
+        "T058"
+      ]
+    },
+    {
+      "task_id": "T109",
+      "title": "T109 建立标注规范与标签质检工具",
+      "source_dependencies": "T061,T090,T100",
+      "normalized_source_dependencies": [
+        "T061",
+        "T090",
+        "T100"
+      ]
+    },
+    {
+      "task_id": "T110",
+      "title": "T110 实现原始素材分组划分",
+      "source_dependencies": "T090,T109",
+      "normalized_source_dependencies": [
+        "T090",
+        "T109"
+      ]
+    },
+    {
+      "task_id": "T111",
+      "title": "T111 实现可控编辑数据增强流水线",
+      "source_dependencies": "T109,T110",
+      "normalized_source_dependencies": [
+        "T109",
+        "T110"
+      ]
+    },
+    {
+      "task_id": "T112",
+      "title": "T112 建立难负样本挖掘流程",
+      "source_dependencies": "T082,T084,T089",
+      "normalized_source_dependencies": [
+        "T082",
+        "T084",
+        "T089"
+      ]
+    },
+    {
+      "task_id": "T113",
+      "title": "T113 实现风险模型训练与评测流水线",
+      "source_dependencies": "T062-T068,T110",
+      "normalized_source_dependencies": [
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T110"
+      ]
+    },
+    {
+      "task_id": "T114",
+      "title": "T114 实现篡改模型评测流水线",
+      "source_dependencies": "T072-T077,T110",
+      "normalized_source_dependencies": [
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076",
+        "T077",
+        "T110"
+      ]
+    },
+    {
+      "task_id": "T115",
+      "title": "T115 实现同源与片段检索评测流水线",
+      "source_dependencies": "T082-T089,T110",
+      "normalized_source_dependencies": [
+        "T082",
+        "T083",
+        "T084",
+        "T085",
+        "T086",
+        "T087",
+        "T088",
+        "T089",
+        "T110"
+      ]
+    },
+    {
+      "task_id": "T116",
+      "title": "T116 实现首发和大模型核查评测",
+      "source_dependencies": "T092,T098,T099,T110",
+      "normalized_source_dependencies": [
+        "T092",
+        "T098",
+        "T099",
+        "T110"
+      ]
+    },
+    {
+      "task_id": "T117",
+      "title": "T117 建立应用安全自动化扫描",
+      "source_dependencies": "T006",
+      "normalized_source_dependencies": [
+        "T006"
+      ]
+    },
+    {
+      "task_id": "T118",
+      "title": "T118 实施上传与接口安全测试",
+      "source_dependencies": "T022-T029,T034",
+      "normalized_source_dependencies": [
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T034"
+      ]
+    },
+    {
+      "task_id": "T119",
+      "title": "T119 实施大模型安全测试",
+      "source_dependencies": "T098,T099,T106",
+      "normalized_source_dependencies": [
+        "T098",
+        "T099",
+        "T106"
+      ]
+    },
+    {
+      "task_id": "T120",
+      "title": "T120 实现监控指标与告警",
+      "source_dependencies": "T037,T053,T081",
+      "normalized_source_dependencies": [
+        "T037",
+        "T053",
+        "T081"
+      ]
+    },
+    {
+      "task_id": "T121",
+      "title": "T121 实现备份恢复与灾备演练",
+      "source_dependencies": "T020,T025,T081,T095,T104",
+      "normalized_source_dependencies": [
+        "T020",
+        "T025",
+        "T081",
+        "T095",
+        "T104"
+      ]
+    },
+    {
+      "task_id": "T122",
+      "title": "T122 执行20并发验收性能测试",
+      "source_dependencies": "T107,T120",
+      "normalized_source_dependencies": [
+        "T107",
+        "T120"
+      ]
+    },
+    {
+      "task_id": "T123",
+      "title": "T123 执行100并发容量与长稳测试",
+      "source_dependencies": "T122",
+      "normalized_source_dependencies": [
+        "T122"
+      ]
+    },
+    {
+      "task_id": "T124",
+      "title": "T124 完成三类业务场景验收",
+      "source_dependencies": "T103,T107,T114-T123",
+      "normalized_source_dependencies": [
+        "T103",
+        "T107",
+        "T114",
+        "T115",
+        "T116",
+        "T117",
+        "T118",
+        "T119",
+        "T120",
+        "T121",
+        "T122",
+        "T123"
+      ]
+    },
+    {
+      "task_id": "T125",
+      "title": "T125 建立算法实验公共框架",
+      "source_dependencies": "T051,T058",
+      "normalized_source_dependencies": [
+        "T051",
+        "T058"
+      ]
+    },
+    {
+      "task_id": "T126",
+      "title": "T126 建立训练数据版本与数据卡",
+      "source_dependencies": "T109,T110,T125",
+      "normalized_source_dependencies": [
+        "T109",
+        "T110",
+        "T125"
+      ]
+    },
+    {
+      "task_id": "T127",
+      "title": "T127 冻结公安业务独立测试集",
+      "source_dependencies": "T110,T126",
+      "normalized_source_dependencies": [
+        "T110",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T128",
+      "title": "T128 建立算法基线结果台账",
+      "source_dependencies": "T125-T127",
+      "normalized_source_dependencies": [
+        "T125",
+        "T126",
+        "T127"
+      ]
+    },
+    {
+      "task_id": "T129",
+      "title": "T129 开展图片多标签风险数据分析",
+      "source_dependencies": "T061,T126",
+      "normalized_source_dependencies": [
+        "T061",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T130",
+      "title": "T130 训练图片多标签风险基线模型",
+      "source_dependencies": "T128,T129",
+      "normalized_source_dependencies": [
+        "T128",
+        "T129"
+      ]
+    },
+    {
+      "task_id": "T131",
+      "title": "T131 优化风险类别不平衡与长尾召回",
+      "source_dependencies": "T130",
+      "normalized_source_dependencies": [
+        "T130"
+      ]
+    },
+    {
+      "task_id": "T132",
+      "title": "T132 训练敏感目标检测模型",
+      "source_dependencies": "T063,T126,T128",
+      "normalized_source_dependencies": [
+        "T063",
+        "T126",
+        "T128"
+      ]
+    },
+    {
+      "task_id": "T133",
+      "title": "T133 开展小目标低清目标专项优化",
+      "source_dependencies": "T132",
+      "normalized_source_dependencies": [
+        "T132"
+      ]
+    },
+    {
+      "task_id": "T134",
+      "title": "T134 构建视频行为训练片段与时间边界",
+      "source_dependencies": "T050,T109,T126",
+      "normalized_source_dependencies": [
+        "T050",
+        "T109",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T135",
+      "title": "T135 微调视频行为识别模型",
+      "source_dependencies": "T064,T128,T134",
+      "normalized_source_dependencies": [
+        "T064",
+        "T128",
+        "T134"
+      ]
+    },
+    {
+      "task_id": "T136",
+      "title": "T136 训练视频事件时间定位模型",
+      "source_dependencies": "T134,T135",
+      "normalized_source_dependencies": [
+        "T134",
+        "T135"
+      ]
+    },
+    {
+      "task_id": "T137",
+      "title": "T137 微调音频事件识别模型",
+      "source_dependencies": "T065,T126,T128",
+      "normalized_source_dependencies": [
+        "T065",
+        "T126",
+        "T128"
+      ]
+    },
+    {
+      "task_id": "T138",
+      "title": "T138 构建跨模态一致与矛盾训练集",
+      "source_dependencies": "T066,T109,T126",
+      "normalized_source_dependencies": [
+        "T066",
+        "T109",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T139",
+      "title": "T139 训练跨模态矛盾检测模型",
+      "source_dependencies": "T067,T128,T138",
+      "normalized_source_dependencies": [
+        "T067",
+        "T128",
+        "T138"
+      ]
+    },
+    {
+      "task_id": "T140",
+      "title": "T140 训练多模态风险融合模型",
+      "source_dependencies": "T130-T139,T068",
+      "normalized_source_dependencies": [
+        "T130",
+        "T131",
+        "T132",
+        "T133",
+        "T134",
+        "T135",
+        "T136",
+        "T137",
+        "T138",
+        "T139",
+        "T068"
+      ]
+    },
+    {
+      "task_id": "T141",
+      "title": "T141 实施风险概率校准和业务阈值优化",
+      "source_dependencies": "T140,T127",
+      "normalized_source_dependencies": [
+        "T140",
+        "T127"
+      ]
+    },
+    {
+      "task_id": "T142",
+      "title": "T142 构建图片篡改成组训练集",
+      "source_dependencies": "T111,T126",
+      "normalized_source_dependencies": [
+        "T111",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T143",
+      "title": "T143 训练图片噪声残差分支",
+      "source_dependencies": "T071,T142",
+      "normalized_source_dependencies": [
+        "T071",
+        "T142"
+      ]
+    },
+    {
+      "task_id": "T144",
+      "title": "T144 训练RGB语义与边界分支",
+      "source_dependencies": "T072,T142",
+      "normalized_source_dependencies": [
+        "T072",
+        "T142"
+      ]
+    },
+    {
+      "task_id": "T145",
+      "title": "T145 训练图片多分支融合篡改模型",
+      "source_dependencies": "T143,T144,T071",
+      "normalized_source_dependencies": [
+        "T143",
+        "T144",
+        "T071"
+      ]
+    },
+    {
+      "task_id": "T146",
+      "title": "T146 训练图片篡改类型分类模型",
+      "source_dependencies": "T073,T145",
+      "normalized_source_dependencies": [
+        "T073",
+        "T145"
+      ]
+    },
+    {
+      "task_id": "T147",
+      "title": "T147 构建视频篡改与深伪训练集",
+      "source_dependencies": "T111,T126",
+      "normalized_source_dependencies": [
+        "T111",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T148",
+      "title": "T148 训练视频时间篡改检测模型",
+      "source_dependencies": "T074,T147",
+      "normalized_source_dependencies": [
+        "T074",
+        "T147"
+      ]
+    },
+    {
+      "task_id": "T149",
+      "title": "T149 训练视频空间篡改检测与跟踪模型",
+      "source_dependencies": "T075,T145,T147",
+      "normalized_source_dependencies": [
+        "T075",
+        "T145",
+        "T147"
+      ]
+    },
+    {
+      "task_id": "T150",
+      "title": "T150 微调人脸深度伪造检测模型",
+      "source_dependencies": "T076,T147",
+      "normalized_source_dependencies": [
+        "T076",
+        "T147"
+      ]
+    },
+    {
+      "task_id": "T151",
+      "title": "T151 训练口型语音同步检测模型",
+      "source_dependencies": "T076,T147",
+      "normalized_source_dependencies": [
+        "T076",
+        "T147"
+      ]
+    },
+    {
+      "task_id": "T152",
+      "title": "T152 实施跨压缩跨生成器泛化训练",
+      "source_dependencies": "T145,T148-T151",
+      "normalized_source_dependencies": [
+        "T145",
+        "T148",
+        "T149",
+        "T150",
+        "T151"
+      ]
+    },
+    {
+      "task_id": "T153",
+      "title": "T153 实施篡改模型校准与不确定性估计",
+      "source_dependencies": "T152,T127",
+      "normalized_source_dependencies": [
+        "T152",
+        "T127"
+      ]
+    },
+    {
+      "task_id": "T154",
+      "title": "T154 构建图片复制检测对比学习样本",
+      "source_dependencies": "T111,T112,T126",
+      "normalized_source_dependencies": [
+        "T111",
+        "T112",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T155",
+      "title": "T155 训练图片复制检测向量模型",
+      "source_dependencies": "T080,T128,T154",
+      "normalized_source_dependencies": [
+        "T080",
+        "T128",
+        "T154"
+      ]
+    },
+    {
+      "task_id": "T156",
+      "title": "T156 实施难负样本迭代训练",
+      "source_dependencies": "T112,T155",
+      "normalized_source_dependencies": [
+        "T112",
+        "T155"
+      ]
+    },
+    {
+      "task_id": "T157",
+      "title": "T157 优化复制向量与索引联合参数",
+      "source_dependencies": "T081,T155",
+      "normalized_source_dependencies": [
+        "T081",
+        "T155"
+      ]
+    },
+    {
+      "task_id": "T158",
+      "title": "T158 构建视频帧复制检测训练集",
+      "source_dependencies": "T134,T147,T154",
+      "normalized_source_dependencies": [
+        "T134",
+        "T147",
+        "T154"
+      ]
+    },
+    {
+      "task_id": "T159",
+      "title": "T159 训练视频关键帧复制检测模型",
+      "source_dependencies": "T080,T158",
+      "normalized_source_dependencies": [
+        "T080",
+        "T158"
+      ]
+    },
+    {
+      "task_id": "T160",
+      "title": "T160 优化视频帧相似度模型",
+      "source_dependencies": "T087,T159",
+      "normalized_source_dependencies": [
+        "T087",
+        "T159"
+      ]
+    },
+    {
+      "task_id": "T161",
+      "title": "T161 训练学习型视频片段定位模型",
+      "source_dependencies": "T088,T158-T160",
+      "normalized_source_dependencies": [
+        "T088",
+        "T158",
+        "T159",
+        "T160"
+      ]
+    },
+    {
+      "task_id": "T162",
+      "title": "T162 训练多源拼接边界检测模型",
+      "source_dependencies": "T089,T147,T161",
+      "normalized_source_dependencies": [
+        "T089",
+        "T147",
+        "T161"
+      ]
+    },
+    {
+      "task_id": "T163",
+      "title": "T163 实施视频检索分数校准",
+      "source_dependencies": "T161,T162,T127",
+      "normalized_source_dependencies": [
+        "T161",
+        "T162",
+        "T127"
+      ]
+    },
+    {
+      "task_id": "T164",
+      "title": "T164 构建首发排序训练内容簇",
+      "source_dependencies": "T090,T109,T126",
+      "normalized_source_dependencies": [
+        "T090",
+        "T109",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T165",
+      "title": "T165 开展首发排序模型消融与校准",
+      "source_dependencies": "T092,T164",
+      "normalized_source_dependencies": [
+        "T092",
+        "T164"
+      ]
+    },
+    {
+      "task_id": "T166",
+      "title": "T166 构建主张抽取监督微调数据",
+      "source_dependencies": "T098,T109,T126",
+      "normalized_source_dependencies": [
+        "T098",
+        "T109",
+        "T126"
+      ]
+    },
+    {
+      "task_id": "T167",
+      "title": "T167 微调主张抽取模型",
+      "source_dependencies": "T125,T166",
+      "normalized_source_dependencies": [
+        "T125",
+        "T166"
+      ]
+    },
+    {
+      "task_id": "T168",
+      "title": "T168 构建并训练证据关系判断模型",
+      "source_dependencies": "T099,T166",
+      "normalized_source_dependencies": [
+        "T099",
+        "T166"
+      ]
+    },
+    {
+      "task_id": "T169",
+      "title": "T169 研发无证据生成检测与句级引用校验",
+      "source_dependencies": "T106,T167,T168",
+      "normalized_source_dependencies": [
+        "T106",
+        "T167",
+        "T168"
+      ]
+    },
+    {
+      "task_id": "T170",
+      "title": "T170 实施模型压缩导出与发布候选冻结",
+      "source_dependencies": "T140,T153,T157,T163,T165,T167-T169",
+      "normalized_source_dependencies": [
+        "T140",
+        "T153",
+        "T157",
+        "T163",
+        "T165",
+        "T167",
+        "T168",
+        "T169"
+      ]
+    }
+  ],
+  "report_sha256": "78644be66acc51aacd102c3714ee5e8a36d0687971dfc9749f59ae633aa449f9"
+}

@@ -31,3 +31,7 @@
 ## 第二阶段实际入口
 
 [技术基线](../02-architecture/technical-baseline.md)、[实际验证](../02-architecture/technical-validation-report.md)、[技术评审包](review-package/technical-baseline-review.md)、[23步状态](../03-development/stage-two-readiness.md)。
+
+## 第一阶段资料入口
+
+[第一阶段24步、来源和材料](stage-one/README.md)记录输入整理做法；与第二阶段23步、根170研发任务分开。当前两阶段的正式冻结都未完成。

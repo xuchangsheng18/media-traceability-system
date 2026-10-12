@@ -1,0 +1,1758 @@
+{
+  "documents": [
+    {
+      "id": "DES-001",
+      "version": "1.4",
+      "file": "项目总体设计方案_技术修订版V1.4.docx"
+    },
+    {
+      "id": "TASK-001",
+      "version": "1.3",
+      "file": "项目任务书_技术修订版V1.3.docx"
+    }
+  ],
+  "status": "review_pending_not_frozen",
+  "official_sources": [
+    {
+      "id": "R01",
+      "title": "RFC 9562 Universally Unique IDentifiers",
+      "url": "https://www.rfc-editor.org/rfc/rfc9562.html",
+      "reference_version": "2024年RFC，§5.7与§8",
+      "support": "UUIDv7含时间信息；UUID不作为访问凭证",
+      "design_section": "8.5.2",
+      "tasks": "T019、T031、T051"
+    },
+    {
+      "id": "R02",
+      "title": "OpenAPI Specification 3.1.0",
+      "url": "https://spec.openapis.org/oas/v3.1.0.html",
+      "reference_version": "固定版本3.1.0，Schema与Security Requirement",
+      "support": "契约和鉴权声明；实现仍须执行对象授权",
+      "design_section": "8.5.2",
+      "tasks": "T013—T015、T034、T051"
+    },
+    {
+      "id": "R03",
+      "title": "PostgreSQL 16 SELECT",
+      "url": "https://www.postgresql.org/docs/16/sql-select.html",
+      "reference_version": "固定版本16，与候选选型一致，The Locking Clause",
+      "support": "SKIP LOCKED适合队列领取，不能用于完整业务查询",
+      "design_section": "4.7",
+      "tasks": "T032—T038、T102"
+    },
+    {
+      "id": "R04",
+      "title": "Celery 5.5 Tasks",
+      "url": "https://docs.celeryq.dev/en/v5.5.0/userguide/tasks.html",
+      "reference_version": "固定版本5.5.0",
+      "support": "晚确认需要幂等；进程丢失与普通重试分别处理",
+      "design_section": "4.7",
+      "tasks": "T036—T039"
+    },
+    {
+      "id": "R05",
+      "title": "Celery 5.5 Configuration and defaults",
+      "url": "https://docs.celeryq.dev/en/v5.5.0/userguide/configuration.html",
+      "reference_version": "固定版本5.5.0",
+      "support": "预取、工作进程丢失及时间限制按实际队列验证",
+      "design_section": "4.7",
+      "tasks": "T036—T039、T055"
+    },
+    {
+      "id": "R06",
+      "title": "FFmpeg ffprobe Documentation",
+      "url": "https://ffmpeg.org/ffprobe.html",
+      "reference_version": "在线文档，部署版本另锁定",
+      "support": "读取流与帧元数据；限制网络输入和探测资源",
+      "design_section": "8.5.3",
+      "tasks": "T026、T042—T050"
+    },
+    {
+      "id": "R07",
+      "title": "FFmpeg 6.1 AVFrame Struct Reference",
+      "url": "https://ffmpeg.org/doxygen/6.1/structAVFrame.html",
+      "reference_version": "固定版本6.1 API参考，不代表选定6.1",
+      "support": "显示时间戳、时基与原始时间轴映射",
+      "design_section": "8.5.3",
+      "tasks": "T042、T050、T087—T089"
+    },
+    {
+      "id": "R08",
+      "title": "Milvus Filtered Search",
+      "url": "https://milvus.io/docs/filtered-search.md",
+      "reference_version": "在线文档，部署版本另锁定",
+      "support": "标量条件限定向量检索范围",
+      "design_section": "8.9",
+      "tasks": "T015、T081—T089"
+    },
+    {
+      "id": "R09",
+      "title": "Milvus Consistency",
+      "url": "https://milvus.io/docs/consistency.md",
+      "reference_version": "在线文档，部署版本另锁定",
+      "support": "读写一致性级别与可见性验证",
+      "design_section": "8.9",
+      "tasks": "T081—T082、T157"
+    },
+    {
+      "id": "R10",
+      "title": "Amazon S3 Locking objects with Object Lock",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
+      "reference_version": "S3产品机制参考，不引入云部署",
+      "support": "对象版本、治理模式与合规模式的保留差异",
+      "design_section": "8.10",
+      "tasks": "T025、T104—T105、T121"
+    },
+    {
+      "id": "R11",
+      "title": "MinIO AIStor Object Locking and Immutability",
+      "url": "https://docs.min.io/aistor/administration/object-locking-and-immutability/",
+      "reference_version": "原MinIO链接重定向至AIStor，需核验产品及许可",
+      "support": "本地候选对象锁机制，不能推定社区版本等价",
+      "design_section": "8.10",
+      "tasks": "T025、T104、T121"
+    },
+    {
+      "id": "R12",
+      "title": "Docker Engine Resource constraints",
+      "url": "https://docs.docker.com/engine/containers/resource_constraints/",
+      "reference_version": "在线文档，实测宿主版本另记录",
+      "support": "默认无资源上限，显式设置CPU与内存约束",
+      "design_section": "8.11",
+      "tasks": "T004、T055、T120、T122—T123"
+    },
+    {
+      "id": "R13",
+      "title": "OWASP File Upload Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+      "reference_version": "工程安全指导，不是公安厅验收条款",
+      "support": "上传防御、隔离存储和解析资源限制",
+      "design_section": "9.7",
+      "tasks": "T022—T026、T118"
+    },
+    {
+      "id": "R14",
+      "title": "OWASP SSRF Prevention Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html",
+      "reference_version": "工程安全指导，不是公安厅验收条款",
+      "support": "出站白名单、DNS/IP及重定向控制",
+      "design_section": "9.7",
+      "tasks": "T029、T099、T118"
+    },
+    {
+      "id": "R15",
+      "title": "OWASP LLM Prompt Injection Prevention Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+      "reference_version": "工程安全指导，不承诺完全防御",
+      "support": "外部内容与指令隔离，工具侧独立权限控制",
+      "design_section": "9.7",
+      "tasks": "T098—T099、T106、T119、T169"
+    },
+    {
+      "id": "R16",
+      "title": "PyTorch Reproducibility",
+      "url": "https://docs.pytorch.org/docs/2.14/notes/randomness.html",
+      "reference_version": "固定页面2.14，不表示项目采用2.14",
+      "support": "相同种子不保证跨版本或CPU/GPU结果完全相同",
+      "design_section": "6.8",
+      "tasks": "T125、T128、T130—T170"
+    },
+    {
+      "id": "R17",
+      "title": "scikit-learn GroupKFold",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html",
+      "reference_version": "在线文档，不强制采用其当前版本",
+      "support": "按group划分；不代替独立验收测试集管理",
+      "design_section": "7.7",
+      "tasks": "T110、T126—T127"
+    },
+    {
+      "id": "R18",
+      "title": "scikit-learn Metrics and scoring",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "reference_version": "在线文档，公式和实现版本随评测冻结",
+      "support": "宏平均与Jaccard等指标统计口径",
+      "design_section": "11.6",
+      "tasks": "T113—T116、T128、T141、T153"
+    },
+    {
+      "id": "R19",
+      "title": "PostgreSQL 16 Continuous Archiving and PITR",
+      "url": "https://www.postgresql.org/docs/16/continuous-archiving.html",
+      "reference_version": "固定版本16，与候选选型一致",
+      "support": "基础备份与连续WAL；逻辑导出不等于PITR备份",
+      "design_section": "8.12",
+      "tasks": "T121"
+    },
+    {
+      "id": "R20",
+      "title": "OpenTelemetry Traces",
+      "url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+      "reference_version": "在线概念文档，SDK另锁定",
+      "support": "跨服务上下文与异步Span Links",
+      "design_section": "8.11",
+      "tasks": "T008、T036、T053、T120"
+    },
+    {
+      "id": "R21",
+      "title": "A Self-Supervised Descriptor for Image Copy Detection",
+      "url": "https://arxiv.org/abs/2202.10261",
+      "reference_version": "作者原始论文，arXiv v2，2022",
+      "support": "SSCD复制检测表征；论文成绩不等于项目达标",
+      "design_section": "6.7.1",
+      "tasks": "T080、T154—T157"
+    },
+    {
+      "id": "R22",
+      "title": "TruFor: Leveraging All-Round Clues for Trustworthy Image Forgery Detection and Localization",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023/html/Guillaro_TruFor_Leveraging_All-Round_Clues_for_Trustworthy_Image_Forgery_Detection_and_CVPR_2023_paper.html",
+      "reference_version": "CVF官方论文页，CVPR 2023，20606—20615",
+      "support": "RGB与噪声线索融合，定位/可靠性图及整图分数",
+      "design_section": "6.7.1",
+      "tasks": "T072、T143—T145"
+    },
+    {
+      "id": "R23",
+      "title": "LightGlue: Local Feature Matching at Light Speed",
+      "url": "https://arxiv.org/abs/2306.13643",
+      "reference_version": "作者原始论文，arXiv v1，2023",
+      "support": "学习局部特征匹配；不是特征提取器或首发判定器",
+      "design_section": "6.7.1",
+      "tasks": "T083—T084"
+    },
+    {
+      "id": "R24",
+      "title": "VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training",
+      "url": "https://arxiv.org/abs/2203.12602",
+      "reference_version": "作者原始论文，arXiv v3，NeurIPS 2022定稿",
+      "support": "视频tube masking自监督表征，不直接证明项目分类有效",
+      "design_section": "6.7.1",
+      "tasks": "T064、T135—T136"
+    },
+    {
+      "id": "R25",
+      "title": "OWASP Authorization Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+      "reference_version": "在线工程指导，2026-10-11核验",
+      "support": "默认拒绝、逐请求及服务端权限校验",
+      "design_section": "5.4.2",
+      "tasks": "T102—T108、T118"
+    },
+    {
+      "id": "R26",
+      "title": "OWASP Transaction Authorization Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html",
+      "reference_version": "在线工程指导，2026-10-11核验",
+      "support": "执行前最终检查、绑定数据与变更后重新授权",
+      "design_section": "5.4.3",
+      "tasks": "T102、T107、T108、T118"
+    },
+    {
+      "id": "R27",
+      "title": "TorchServe official repository",
+      "url": "https://github.com/pytorch/serve",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "归档及停止计划补丁；不是禁止所有历史实验",
+      "design_section": "8.13",
+      "tasks": "T053—T057"
+    },
+    {
+      "id": "R28",
+      "title": "MinIO official repository",
+      "url": "https://github.com/minio/minio",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "社区仓库归档；AIStor与社区产品分别核验",
+      "design_section": "8.13",
+      "tasks": "T004、T025、T081"
+    },
+    {
+      "id": "R29",
+      "title": "Celery Backends and Brokers",
+      "url": "https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "核验时5.6文档；Kafka实验性及控制能力差异",
+      "design_section": "8.13",
+      "tasks": "T036—T038"
+    },
+    {
+      "id": "R30",
+      "title": "Celery Using Kafka",
+      "url": "https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/kafka.html",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "核验时单worker限制；最终固定版本重核",
+      "design_section": "8.13",
+      "tasks": "T036、T055"
+    },
+    {
+      "id": "R31",
+      "title": "TruFor author implementation",
+      "url": "https://github.com/grip-unina/TruFor",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "原方法RGB/噪声与输出、用途声明、训练开放边界",
+      "design_section": "6.9",
+      "tasks": "T072、T143—T145"
+    },
+    {
+      "id": "R32",
+      "title": "SuperPoint original software license",
+      "url": "https://github.com/magicleap/SuperPointPretrainedNetwork/blob/master/LICENSE",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "原代码/权重研究用途限制；实际交付用途另核",
+      "design_section": "6.9",
+      "tasks": "T083"
+    },
+    {
+      "id": "R33",
+      "title": "LightGlue author implementation",
+      "url": "https://github.com/cvg/LightGlue",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "LightGlue与提取器许可不同，不可相互覆盖",
+      "design_section": "6.9",
+      "tasks": "T083—T084"
+    },
+    {
+      "id": "R34",
+      "title": "Ultralytics licensing",
+      "url": "https://www.ultralytics.com/license",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "官方AGPL/企业路径，不替代实际用途法律判断",
+      "design_section": "6.9",
+      "tasks": "T063、T132"
+    },
+    {
+      "id": "R35",
+      "title": "Milvus Standalone prerequisites",
+      "url": "https://milvus.io/docs/prerequisite-docker.md",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "SSD/etcd同步写与间接对象存储依赖；最终版本重核",
+      "design_section": "8.13",
+      "tasks": "T004、T081、T120"
+    },
+    {
+      "id": "R36",
+      "title": "Triton Python backend",
+      "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/python_backend/README.html",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "环境Python与stub匹配，不决定项目平台版本",
+      "design_section": "6.9",
+      "tasks": "T053、T055、T170"
+    },
+    {
+      "id": "R37",
+      "title": "S3 presigned URLs",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "持有者凭据/有效期机制；不引入外部云部署",
+      "design_section": "8.14",
+      "tasks": "T025、T107"
+    },
+    {
+      "id": "R38",
+      "title": "scikit-learn probability calibration",
+      "url": "https://scikit-learn.org/stable/modules/calibration.html",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "校准训练隔离与等渗；正式目标仍待定",
+      "design_section": "7.8",
+      "tasks": "T141、T153、T163"
+    },
+    {
+      "id": "R39",
+      "title": "Detecting Deepfakes with Self Blended Images",
+      "url": "https://openaccess.thecvf.com/content/CVPR2022/papers/Shiohara_Detecting_Deepfakes_With_Self-Blended_Images_CVPR_2022_paper.pdf",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "SBI为合成训练样本机制；本地骨干另定义",
+      "design_section": "6.3",
+      "tasks": "T150"
+    },
+    {
+      "id": "R40",
+      "title": "SSCD author implementation",
+      "url": "https://github.com/facebookresearch/sscd-copy-detection",
+      "reference_version": "2026-10-12核验，最终版本重核",
+      "support": "代码MIT/研究仓库归档，权重数据分别核查",
+      "design_section": "6.9",
+      "tasks": "T080、T154—T157"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "T001 建立单仓库目录与基础README",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "无",
+      "test_record_slot": "TV-T001",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T002",
+      "title": "T002 配置Python后端工程",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T001",
+      "test_record_slot": "TV-T002",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T003",
+      "title": "T003 配置Vue前端工程",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T001",
+      "test_record_slot": "TV-T003",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T004",
+      "title": "T004 建立本地容器开发环境",
+      "design_reference": "§8.7、§8.11",
+      "original_dependencies": "T002,T003",
+      "test_record_slot": "TV-T004",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T005",
+      "title": "T005 配置代码格式化与静态检查",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T002,T003",
+      "test_record_slot": "TV-T005",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T006",
+      "title": "T006 建立基础持续集成流水线",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T004,T005",
+      "test_record_slot": "TV-T006",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T007",
+      "title": "T007 建立统一配置和密钥规范",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T002,T004",
+      "test_record_slot": "TV-T007",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T008",
+      "title": "T008 建立统一日志与请求追踪",
+      "design_reference": "§8.11",
+      "original_dependencies": "T002",
+      "test_record_slot": "TV-T008",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T009",
+      "title": "T009 建立统一异常与错误码框架",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T002",
+      "test_record_slot": "TV-T009",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T010",
+      "title": "T010 建立架构决策记录和变更模板",
+      "design_reference": "§8.6、§8.11、§9.6、§10.9",
+      "original_dependencies": "T001",
+      "test_record_slot": "TV-T010",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T011",
+      "title": "T011 设计用户角色与数据范围模型",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T002,T010",
+      "test_record_slot": "TV-T011",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T012",
+      "title": "T012 实现用户角色数据库模型",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T011",
+      "test_record_slot": "TV-T012",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T013",
+      "title": "T013 实现认证与令牌校验",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T012",
+      "test_record_slot": "TV-T013",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T014",
+      "title": "T014 实现接口级权限控制",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T012,T013",
+      "test_record_slot": "TV-T014",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T015",
+      "title": "T015 实现数据范围访问控制",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T014",
+      "test_record_slot": "TV-T015",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T016",
+      "title": "T016 实现高风险操作二次确认",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T014",
+      "test_record_slot": "TV-T016",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T017",
+      "title": "T017 实现操作审计事件模型",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T008,T012",
+      "test_record_slot": "TV-T017",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T018",
+      "title": "T018 开发审计查询页面与接口",
+      "design_reference": "§2.4、§5.4、§8.5.2、§9.1",
+      "original_dependencies": "T015,T017",
+      "test_record_slot": "TV-T018",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T019",
+      "title": "T019 设计内容与媒体资产模型",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T010,T011",
+      "test_record_slot": "TV-T019",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T020",
+      "title": "T020 实现内容与媒体资产表",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T019",
+      "test_record_slot": "TV-T020",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T021",
+      "title": "T021 实现数据来源授权登记",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T020,T014",
+      "test_record_slot": "TV-T021",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T022",
+      "title": "T022 实现分片上传初始化",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T020,T014",
+      "test_record_slot": "TV-T022",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T023",
+      "title": "T023 实现分片接收与校验",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T022",
+      "test_record_slot": "TV-T023",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T024",
+      "title": "T024 实现分片合并与完整哈希",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T023",
+      "test_record_slot": "TV-T024",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T025",
+      "title": "T025 实现MinIO对象存储适配器",
+      "design_reference": "§8.10",
+      "original_dependencies": "T004,T024",
+      "test_record_slot": "TV-T025",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T026",
+      "title": "T026 实现媒体格式探测与安全校验",
+      "design_reference": "§9.7",
+      "original_dependencies": "T024",
+      "test_record_slot": "TV-T026",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T027",
+      "title": "T027 实现SHA-256完全重复检测",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T020,T24",
+      "test_record_slot": "TV-T027",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T028",
+      "title": "T028 实现批量清单导入",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T021,T026",
+      "test_record_slot": "TV-T028",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T029",
+      "title": "T029 实现第三方接入适配器协议",
+      "design_reference": "§9.7",
+      "original_dependencies": "T021",
+      "test_record_slot": "TV-T029",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T030",
+      "title": "T030 开发媒体资产管理页面",
+      "design_reference": "§7.4、§8.3.1、§8.5.2、§8.10、§9.7",
+      "original_dependencies": "T20,T25,T27",
+      "test_record_slot": "TV-T030",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T031",
+      "title": "T031 设计分析任务与节点执行模型",
+      "design_reference": "§4.3—4.4、§4.7、§8.5.2",
+      "original_dependencies": "T010,T020",
+      "test_record_slot": "TV-T031",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T032",
+      "title": "T032 实现任务及节点数据库模型",
+      "design_reference": "§4.3—4.4、§4.7、§8.5.2",
+      "original_dependencies": "T031",
+      "test_record_slot": "TV-T032",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T033",
+      "title": "T033 实现任务状态机",
+      "design_reference": "§4.4、§4.7",
+      "original_dependencies": "T032,T017",
+      "test_record_slot": "TV-T033",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T034",
+      "title": "T034 实现任务创建接口",
+      "design_reference": "§8.5.2",
+      "original_dependencies": "T033,T015",
+      "test_record_slot": "TV-T034",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T035",
+      "title": "T035 实现任务查询和进度接口",
+      "design_reference": "§4.3—4.4、§4.7、§8.5.2",
+      "original_dependencies": "T034",
+      "test_record_slot": "TV-T035",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T036",
+      "title": "T036 实现异步队列与优先级",
+      "design_reference": "§4.7",
+      "original_dependencies": "T004,T034",
+      "test_record_slot": "TV-T036",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T037",
+      "title": "T037 实现DAG任务编排器",
+      "design_reference": "§4.3—4.4、§4.7、§8.5.2",
+      "original_dependencies": "T033,T036",
+      "test_record_slot": "TV-T037",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T038",
+      "title": "T038 实现节点级重试与检查点",
+      "design_reference": "§4.7",
+      "original_dependencies": "T037",
+      "test_record_slot": "TV-T038",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T039",
+      "title": "T039 实现任务取消和退回重算",
+      "design_reference": "§4.4、§4.7",
+      "original_dependencies": "T033,T037",
+      "test_record_slot": "TV-T039",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T040",
+      "title": "T040 开发任务监控页面",
+      "design_reference": "§4.3—4.4、§4.7、§8.5.2",
+      "original_dependencies": "T035,T039",
+      "test_record_slot": "TV-T040",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T041",
+      "title": "T041 实现图片元数据解析",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T025,T037",
+      "test_record_slot": "TV-T041",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T042",
+      "title": "T042 实现视频ffprobe解析",
+      "design_reference": "§8.5.3",
+      "original_dependencies": "T025,T037",
+      "test_record_slot": "TV-T042",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T043",
+      "title": "T043 实现标准化媒体副本生成",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T041,T042",
+      "test_record_slot": "TV-T043",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T044",
+      "title": "T044 实现镜头边界检测",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T043",
+      "test_record_slot": "TV-T044",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T045",
+      "title": "T045 实现固定间隔抽帧",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T043",
+      "test_record_slot": "TV-T045",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T046",
+      "title": "T046 实现镜头代表帧选择",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T044,T045",
+      "test_record_slot": "TV-T046",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T047",
+      "title": "T047 实现音轨与字幕提取",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T042,T043",
+      "test_record_slot": "TV-T047",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T048",
+      "title": "T048 接入OCR并建立时间片段",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T046,T037",
+      "test_record_slot": "TV-T048",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T049",
+      "title": "T049 接入ASR并建立时间片段",
+      "design_reference": "§4.2、§6.7、§8.5.3、§9.7",
+      "original_dependencies": "T047,T037",
+      "test_record_slot": "TV-T049",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T050",
+      "title": "T050 实现媒体统一时间轴服务",
+      "design_reference": "§8.5.3",
+      "original_dependencies": "T044,T046,T048,T049",
+      "test_record_slot": "TV-T050",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T051",
+      "title": "T051 定义统一模型输入输出契约",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T010,T037",
+      "test_record_slot": "TV-T051",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T052",
+      "title": "T052 实现模型注册表",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T051,T014",
+      "test_record_slot": "TV-T052",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T053",
+      "title": "T053 实现统一推理网关",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T051,T052",
+      "test_record_slot": "TV-T053",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T054",
+      "title": "T054 实现HTTP与本地Mock适配器",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T053",
+      "test_record_slot": "TV-T054",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T055",
+      "title": "T055 实现推理批处理与GPU队列",
+      "design_reference": "§8.7、§8.11",
+      "original_dependencies": "T053,T036",
+      "test_record_slot": "TV-T055",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T056",
+      "title": "T056 实现模型健康检查与熔断",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T053",
+      "test_record_slot": "TV-T056",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T057",
+      "title": "T057 实现模型灰度发布",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T052,T053",
+      "test_record_slot": "TV-T057",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T058",
+      "title": "T058 实现模型评测记录管理",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T052",
+      "test_record_slot": "TV-T058",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T059",
+      "title": "T059 实现输入输出漂移监测",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T053,T058",
+      "test_record_slot": "TV-T059",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T060",
+      "title": "T060 开发模型运维页面",
+      "design_reference": "§6.6、§6.8、§8.11",
+      "original_dependencies": "T052,T057,T058,T059",
+      "test_record_slot": "TV-T060",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T061",
+      "title": "T061 定义风险标签和版本管理",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T021,T052",
+      "test_record_slot": "TV-T061",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T062",
+      "title": "T062 接入图片多标签分类模型",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T053,T061,T041",
+      "test_record_slot": "TV-T062",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T063",
+      "title": "T063 接入敏感目标检测模型",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T053,T061,T046",
+      "test_record_slot": "TV-T063",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T064",
+      "title": "T064 接入视频行为识别模型",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T053,T050",
+      "test_record_slot": "TV-T064",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T065",
+      "title": "T065 接入音频事件识别模型",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T047,T053",
+      "test_record_slot": "TV-T065",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T066",
+      "title": "T066 实现多模态时间对齐",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T048,T049,T063,T064,T065",
+      "test_record_slot": "TV-T066",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T067",
+      "title": "T067 实现跨模态矛盾检测",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T066,T053",
+      "test_record_slot": "TV-T067",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T068",
+      "title": "T068 实现综合风险融合与校准",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T062-T067",
+      "test_record_slot": "TV-T068",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T069",
+      "title": "T069 实现风险转人工规则",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T068,T033",
+      "test_record_slot": "TV-T069",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T070",
+      "title": "T070 开发风险识别研判界面",
+      "design_reference": "§5.3—5.4、§6.7—6.8、§11.1、§11.6",
+      "original_dependencies": "T050,T068,T069",
+      "test_record_slot": "TV-T070",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T071",
+      "title": "T071 实现图片取证基础特征",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T041,T043",
+      "test_record_slot": "TV-T071",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T072",
+      "title": "T072 接入图片篡改区域模型",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T053,T071",
+      "test_record_slot": "TV-T072",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T073",
+      "title": "T073 实现复制粘贴与局部生成分类",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T071,T072",
+      "test_record_slot": "TV-T073",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T074",
+      "title": "T074 实现视频时间结构异常检测",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T042,T047",
+      "test_record_slot": "TV-T074",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T075",
+      "title": "T075 实现视频空间篡改跟踪",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T072,T050",
+      "test_record_slot": "TV-T075",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T076",
+      "title": "T076 接入深度伪造与音画同步检测",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T053,T047,T050",
+      "test_record_slot": "TV-T076",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T077",
+      "title": "T077 实现篡改多证据融合",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T072-T076",
+      "test_record_slot": "TV-T077",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T078",
+      "title": "T078 开发篡改取证界面",
+      "design_reference": "§6.7—6.8、§8.5.3、§11.1、§11.6",
+      "original_dependencies": "T077,T050",
+      "test_record_slot": "TV-T078",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T079",
+      "title": "T079 实现图片感知哈希特征",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T041,T020",
+      "test_record_slot": "TV-T079",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T080",
+      "title": "T080 实现视觉与复制检测向量生成",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T053,T041,T046",
+      "test_record_slot": "TV-T080",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T081",
+      "title": "T081 建立Milvus索引与版本管理",
+      "design_reference": "§8.9",
+      "original_dependencies": "T080",
+      "test_record_slot": "TV-T081",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T082",
+      "title": "T082 实现图片多路候选召回",
+      "design_reference": "§8.9",
+      "original_dependencies": "T027,T079-T081",
+      "test_record_slot": "TV-T082",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T083",
+      "title": "T083 实现局部特征提取与匹配",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T041",
+      "test_record_slot": "TV-T083",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T084",
+      "title": "T084 实现RANSAC几何验证",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T082,T083",
+      "test_record_slot": "TV-T084",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T085",
+      "title": "T085 实现图片局部区域检索",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T082,T084",
+      "test_record_slot": "TV-T085",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T086",
+      "title": "T086 实现视频帧检索候选聚合",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T080-T082",
+      "test_record_slot": "TV-T086",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T087",
+      "title": "T087 实现视频相似度矩阵构建",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T086",
+      "test_record_slot": "TV-T087",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T088",
+      "title": "T088 实现局部DTW与倒放对齐",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T087",
+      "test_record_slot": "TV-T088",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T089",
+      "title": "T089 实现多源拼接来源映射",
+      "design_reference": "§6.7、§8.5.3、§8.9、§11.6",
+      "original_dependencies": "T044,T088",
+      "test_record_slot": "TV-T089",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T090",
+      "title": "T090 实现高可信同源内容聚类",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T084,T089",
+      "test_record_slot": "TV-T090",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T091",
+      "title": "T091 实现首发排序特征工程",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T090,T021",
+      "test_record_slot": "TV-T091",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T092",
+      "title": "T092 训练和注册首发排序模型",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T091,T058",
+      "test_record_slot": "TV-T092",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T093",
+      "title": "T093 实现首发候选查询服务",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T090-T092",
+      "test_record_slot": "TV-T093",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T094",
+      "title": "T094 设计传播图谱数据模型",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T090",
+      "test_record_slot": "TV-T094",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T095",
+      "title": "T095 实现传播图谱写入与查询",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T094",
+      "test_record_slot": "TV-T095",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T096",
+      "title": "T096 实现隐式传播关系推断",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T084,T089,T095",
+      "test_record_slot": "TV-T096",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T097",
+      "title": "T097 开发传播时间线和图谱界面",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T093,T095,T096",
+      "test_record_slot": "TV-T097",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T098",
+      "title": "T098 实现结构化主张抽取服务",
+      "design_reference": "§5.3、§6.7、§9.7、§11.6",
+      "original_dependencies": "T048,T049,T053",
+      "test_record_slot": "TV-T098",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T099",
+      "title": "T099 实现权威证据检索与关系判断",
+      "design_reference": "§9.7",
+      "original_dependencies": "T098,T021",
+      "test_record_slot": "TV-T099",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T100",
+      "title": "T100 实现统一证据对象模型",
+      "design_reference": "§5.1、§8.5.3",
+      "original_dependencies": "T051,T017,T020",
+      "test_record_slot": "TV-T100",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T101",
+      "title": "T101 实现风险与取证证据卡片接口",
+      "design_reference": "§4.4、§5.4、§8.10、§9.7",
+      "original_dependencies": "T068,T077,T084,T089,T100",
+      "test_record_slot": "TV-T101",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T102",
+      "title": "T102 实现人工复核工作流",
+      "design_reference": "§5.4、§4.7",
+      "original_dependencies": "T069,T101,T033",
+      "test_record_slot": "TV-T102",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T103",
+      "title": "T103 开发人工复核工作台",
+      "design_reference": "§4.4、§5.4、§8.10、§9.7",
+      "original_dependencies": "T070,T078,T097,T102",
+      "test_record_slot": "TV-T103",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T104",
+      "title": "T104 实现证据固化与完整性校验",
+      "design_reference": "§8.10",
+      "original_dependencies": "T100,T102,T025",
+      "test_record_slot": "TV-T104",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T105",
+      "title": "T105 实现可信时间与签名适配层",
+      "design_reference": "§8.10",
+      "original_dependencies": "T104",
+      "test_record_slot": "TV-T105",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T106",
+      "title": "T106 实现证据约束核查摘要",
+      "design_reference": "§5.4、§9.7",
+      "original_dependencies": "T099,T101,T053",
+      "test_record_slot": "TV-T106",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T107",
+      "title": "T107 实现核查报告生成",
+      "design_reference": "§5.4",
+      "original_dependencies": "T102,T104,T106",
+      "test_record_slot": "TV-T107",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T108",
+      "title": "T108 实现样本纠错与回流审批",
+      "design_reference": "§5.4、§7.4",
+      "original_dependencies": "T102,T058",
+      "test_record_slot": "TV-T108",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T109",
+      "title": "T109 建立标注规范与标签质检工具",
+      "design_reference": "§7.3、§7.6—7.7、§11.1、§11.6",
+      "original_dependencies": "T061,T090,T100",
+      "test_record_slot": "TV-T109",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T110",
+      "title": "T110 实现原始素材分组划分",
+      "design_reference": "§7.7",
+      "original_dependencies": "T090,T109",
+      "test_record_slot": "TV-T110",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T111",
+      "title": "T111 实现可控编辑数据增强流水线",
+      "design_reference": "§7.3、§7.6—7.7、§11.1、§11.6",
+      "original_dependencies": "T109,T110",
+      "test_record_slot": "TV-T111",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T112",
+      "title": "T112 建立难负样本挖掘流程",
+      "design_reference": "§7.3、§7.6—7.7、§11.1、§11.6",
+      "original_dependencies": "T082,T084,T089",
+      "test_record_slot": "TV-T112",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T113",
+      "title": "T113 实现风险模型训练与评测流水线",
+      "design_reference": "§7.3、§7.6—7.7、§11.1、§11.6",
+      "original_dependencies": "T062-T068,T110",
+      "test_record_slot": "TV-T113",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T114",
+      "title": "T114 实现篡改模型评测流水线",
+      "design_reference": "§11.6",
+      "original_dependencies": "T072-T077,T110",
+      "test_record_slot": "TV-T114",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T115",
+      "title": "T115 实现同源与片段检索评测流水线",
+      "design_reference": "§7.3、§7.6—7.7、§11.1、§11.6",
+      "original_dependencies": "T082-T089,T110",
+      "test_record_slot": "TV-T115",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T116",
+      "title": "T116 实现首发和大模型核查评测",
+      "design_reference": "§7.3、§7.6—7.7、§11.1、§11.6",
+      "original_dependencies": "T092,T098,T099,T110",
+      "test_record_slot": "TV-T116",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T117",
+      "title": "T117 建立应用安全自动化扫描",
+      "design_reference": "§8.7—8.8、§8.11—8.12、§9.7、§11",
+      "original_dependencies": "T006",
+      "test_record_slot": "TV-T117",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T118",
+      "title": "T118 实施上传与接口安全测试",
+      "design_reference": "§8.7—8.8、§8.11—8.12、§9.7、§11",
+      "original_dependencies": "T022-T029,T034",
+      "test_record_slot": "TV-T118",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T119",
+      "title": "T119 实施大模型安全测试",
+      "design_reference": "§8.7—8.8、§8.11—8.12、§9.7、§11",
+      "original_dependencies": "T098,T099,T106",
+      "test_record_slot": "TV-T119",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T120",
+      "title": "T120 实现监控指标与告警",
+      "design_reference": "§8.11",
+      "original_dependencies": "T037,T053,T081",
+      "test_record_slot": "TV-T120",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T121",
+      "title": "T121 实现备份恢复与灾备演练",
+      "design_reference": "§8.12",
+      "original_dependencies": "T020,T025,T081,T095,T104",
+      "test_record_slot": "TV-T121",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T122",
+      "title": "T122 执行20并发验收性能测试",
+      "design_reference": "§11.2、§11.6、Q-14",
+      "original_dependencies": "T107,T120",
+      "test_record_slot": "TV-T122",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T123",
+      "title": "T123 执行100并发容量与长稳测试",
+      "design_reference": "§11.2、§11.6、Q-14",
+      "original_dependencies": "T122",
+      "test_record_slot": "TV-T123",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T124",
+      "title": "T124 完成三类业务场景验收",
+      "design_reference": "§8.7—8.8、§8.11—8.12、§9.7、§11",
+      "original_dependencies": "T103,T107,T114-T123",
+      "test_record_slot": "TV-T124",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    },
+    {
+      "id": "T125",
+      "title": "T125 建立算法实验公共框架",
+      "design_reference": "§6.8",
+      "original_dependencies": "T051,T058",
+      "test_record_slot": "TV-T125",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T126",
+      "title": "T126 建立训练数据版本与数据卡",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T109,T110,T125",
+      "test_record_slot": "TV-T126",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T127",
+      "title": "T127 冻结公安业务独立测试集",
+      "design_reference": "§7.7",
+      "original_dependencies": "T110,T126",
+      "test_record_slot": "TV-T127",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T128",
+      "title": "T128 建立算法基线结果台账",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T125-T127",
+      "test_record_slot": "TV-T128",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T129",
+      "title": "T129 开展图片多标签风险数据分析",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T061,T126",
+      "test_record_slot": "TV-T129",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T130",
+      "title": "T130 训练图片多标签风险基线模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T128,T129",
+      "test_record_slot": "TV-T130",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T131",
+      "title": "T131 优化风险类别不平衡与长尾召回",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T130",
+      "test_record_slot": "TV-T131",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T132",
+      "title": "T132 训练敏感目标检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T063,T126,T128",
+      "test_record_slot": "TV-T132",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T133",
+      "title": "T133 开展小目标低清目标专项优化",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T132",
+      "test_record_slot": "TV-T133",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T134",
+      "title": "T134 构建视频行为训练片段与时间边界",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T050,T109,T126",
+      "test_record_slot": "TV-T134",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T135",
+      "title": "T135 微调视频行为识别模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T064,T128,T134",
+      "test_record_slot": "TV-T135",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T136",
+      "title": "T136 训练视频事件时间定位模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T134,T135",
+      "test_record_slot": "TV-T136",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T137",
+      "title": "T137 微调音频事件识别模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T065,T126,T128",
+      "test_record_slot": "TV-T137",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T138",
+      "title": "T138 构建跨模态一致与矛盾训练集",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T066,T109,T126",
+      "test_record_slot": "TV-T138",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T139",
+      "title": "T139 训练跨模态矛盾检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T067,T128,T138",
+      "test_record_slot": "TV-T139",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T140",
+      "title": "T140 训练多模态风险融合模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T130-T139,T068",
+      "test_record_slot": "TV-T140",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T141",
+      "title": "T141 实施风险概率校准和业务阈值优化",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T140,T127",
+      "test_record_slot": "TV-T141",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T142",
+      "title": "T142 构建图片篡改成组训练集",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T111,T126",
+      "test_record_slot": "TV-T142",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T143",
+      "title": "T143 训练图片噪声残差分支",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T071,T142",
+      "test_record_slot": "TV-T143",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T144",
+      "title": "T144 训练RGB语义与边界分支",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T072,T142",
+      "test_record_slot": "TV-T144",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T145",
+      "title": "T145 训练图片多分支融合篡改模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T143,T144,T071",
+      "test_record_slot": "TV-T145",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T146",
+      "title": "T146 训练图片篡改类型分类模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T073,T145",
+      "test_record_slot": "TV-T146",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T147",
+      "title": "T147 构建视频篡改与深伪训练集",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T111,T126",
+      "test_record_slot": "TV-T147",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T148",
+      "title": "T148 训练视频时间篡改检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T074,T147",
+      "test_record_slot": "TV-T148",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T149",
+      "title": "T149 训练视频空间篡改检测与跟踪模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T075,T145,T147",
+      "test_record_slot": "TV-T149",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T150",
+      "title": "T150 微调人脸深度伪造检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T076,T147",
+      "test_record_slot": "TV-T150",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T151",
+      "title": "T151 训练口型语音同步检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T076,T147",
+      "test_record_slot": "TV-T151",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T152",
+      "title": "T152 实施跨压缩跨生成器泛化训练",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T145,T148-T151",
+      "test_record_slot": "TV-T152",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T153",
+      "title": "T153 实施篡改模型校准与不确定性估计",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T152,T127",
+      "test_record_slot": "TV-T153",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T154",
+      "title": "T154 构建图片复制检测对比学习样本",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T111,T112,T126",
+      "test_record_slot": "TV-T154",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T155",
+      "title": "T155 训练图片复制检测向量模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T080,T128,T154",
+      "test_record_slot": "TV-T155",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T156",
+      "title": "T156 实施难负样本迭代训练",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T112,T155",
+      "test_record_slot": "TV-T156",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T157",
+      "title": "T157 优化复制向量与索引联合参数",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T081,T155",
+      "test_record_slot": "TV-T157",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T158",
+      "title": "T158 构建视频帧复制检测训练集",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T134,T147,T154",
+      "test_record_slot": "TV-T158",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T159",
+      "title": "T159 训练视频关键帧复制检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T080,T158",
+      "test_record_slot": "TV-T159",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T160",
+      "title": "T160 优化视频帧相似度模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T087,T159",
+      "test_record_slot": "TV-T160",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T161",
+      "title": "T161 训练学习型视频片段定位模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T088,T158-T160",
+      "test_record_slot": "TV-T161",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T162",
+      "title": "T162 训练多源拼接边界检测模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T089,T147,T161",
+      "test_record_slot": "TV-T162",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T163",
+      "title": "T163 实施视频检索分数校准",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T161,T162,T127",
+      "test_record_slot": "TV-T163",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T164",
+      "title": "T164 构建首发排序训练内容簇",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T090,T109,T126",
+      "test_record_slot": "TV-T164",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T165",
+      "title": "T165 开展首发排序模型消融与校准",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T092,T164",
+      "test_record_slot": "TV-T165",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T166",
+      "title": "T166 构建主张抽取监督微调数据",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T098,T109,T126",
+      "test_record_slot": "TV-T166",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T167",
+      "title": "T167 微调主张抽取模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T125,T166",
+      "test_record_slot": "TV-T167",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T168",
+      "title": "T168 构建并训练证据关系判断模型",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T099,T166",
+      "test_record_slot": "TV-T168",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T169",
+      "title": "T169 研发无证据生成检测与句级引用校验",
+      "design_reference": "§6.6—6.8、§7.7、§8.9、§11.6",
+      "original_dependencies": "T106,T167,T168",
+      "test_record_slot": "TV-T169",
+      "status": "pending_verification"
+    },
+    {
+      "id": "T170",
+      "title": "T170 实施模型压缩导出与发布候选冻结",
+      "design_reference": "§6.6、§6.8",
+      "original_dependencies": "T140,T153,T157,T163,T165,T167-T169",
+      "test_record_slot": "TV-T170",
+      "status": "pending_verification",
+      "approval_design_reference": "§5.4.1—5.4.4、§13.7、§10.12"
+    }
+  ],
+  "approval_status": {
+    "document": "supplemented_pending_review",
+    "formal_policy": "not_verified",
+    "implementation": "not_verified",
+    "checked_path": "/workspace/glwy/projects/media-traceability-system",
+    "checked_at": "2026-10-11T20:07:09+08:00"
+  }
+}

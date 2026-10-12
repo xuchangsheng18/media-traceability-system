@@ -14,3 +14,7 @@
 | docs/guides/第一阶段：Codex整理开发输入材料分步提示词手册.docx | guide | 983f6cbcadaf4d53420399869f36021c77b786c5281e3ce698c56413e77a126a | workflow_reference |
 | docs/guides/第二阶段系统技术基线确定与Codex协作实施指南.docx | guide | 36b818ce0a4c4c0ce2128abd9553d57a86b6fbef7a38708fc30de72923d4c777 | workflow_reference |
 | docs/guides/第二阶段系统技术基线分步提示词手册.docx | guide | cbc3310bedeccff2738aadfc3f5c15eb295c5b64c6f24e781b231b5a0d80b29e | workflow_reference |
+
+## 第一阶段补充材料身份
+
+上述10份DOCX/PPT原件摘要保持不变。新增归档的第一阶段补齐记录、双文档核查和旧工具锁不是新增业务原件，单独登记于[stage-one/materials-manifest.json](stage-one/materials-manifest.json)，不混入source-inventory.json的原件身份。当前24步文件入口见[步骤表](stage-one/steps-and-deliverables.md)。

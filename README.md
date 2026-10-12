@@ -18,6 +18,15 @@ cd /workspace/glwy/projects/media-traceability-system
 
 页面上传自建PNG/JPEG→S3版本化原件和独立分析副本→PostgreSQL事务任务/outbox→RabbitMQ→Celery→独立PyTorch CPU推理→结果保存与展示。模型synthetic-cpu-encoder/demo-1真实训练和推理、mock=false，是8维合成工程验证模型，不是SSCD或正式业务模型。
 
+## 阶段材料与阅读顺序
+
+| 阶段 | 工作范围 | 当前入口与状态 |
+| --- | --- | --- |
+| 第一阶段 | 24步，来源归档→需求/契约/数据/任务/测试→评审与输入冻结 | [第一阶段材料导航](docs/00-project/stage-one/README.md)、[24步操作与交付](docs/00-project/stage-one/steps-and-deliverables.md)；候选已整理，正式NOT_FROZEN |
+| 第二阶段 | 23步，环境/资源→选型与版本→最小工程→CI→技术评审与冻结 | [23步状态](docs/03-development/stage-two-readiness.md)；开发工程/CI已验证，正式NOT_FROZEN |
+
+先核对第一阶段输入与来源，再阅读第二阶段技术执行依据；[阶段衔接](docs/00-project/stage-one/handoff.md)明确哪些输入由实际工程消费。24步、23步与170研发任务是三套编号。
+
 ## 文档入口
 
 - [完整文档导航](docs/README.md)：逐文件职责、要求、来源和实际索引。

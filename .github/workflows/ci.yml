@@ -56,6 +56,12 @@ jobs:
         run: |
           npm --prefix frontend ci --no-audit --no-fund
           npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
+      - name: Validate phase materials and navigation
+        run: |
+          "$PYTHON" -m ruff check --config ruff.toml scripts/validate_stage_one.py scripts/update_docs_navigation.py
+          "$PYTHON" scripts/validate_stage_one.py
+          "$PYTHON" scripts/validate_repository_docs.py
+          "$PYTHON" scripts/validate_documentation_completion.py
       - name: Run actual engineering gates
         run: |
           "$PYTHON" scripts/run_ci.py all

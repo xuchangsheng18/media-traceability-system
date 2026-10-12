@@ -1,0 +1,405 @@
+{
+  "revision": "stage-one-navigation-20261012",
+  "steps_count": 24,
+  "status": "CANDIDATE_INPUT_ORGANIZED_NOT_FROZEN",
+  "formal_frozen": false,
+  "scope": "development_input_materials_not_business_implementation",
+  "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+  "source_guide_sha256": "b04e0f9cad728c3a13ce4b4a231e7a0899b537e46087767a5fa285c5269bb9dc",
+  "steps": [
+    {
+      "step": 1,
+      "title": "清点原始文件",
+      "operation": "核对五类业务原件、两份修订稿及三份手册，登记身份、版本、摘要和未决冲突。",
+      "outputs": [
+        "docs/00-project/source-document-inventory.md",
+        "docs/00-project/source-inventory.json",
+        "docs/00-project/open-questions.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "正式依据身份仍须责任方确认。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第1步 清点原始文件"
+    },
+    {
+      "step": 2,
+      "title": "设计工程资料目录",
+      "operation": "按专题规划docs、tasks、schemas、prompts，建立源章节到工程文件的关系。",
+      "outputs": [
+        "docs/00-project/document-conversion-plan.md",
+        "docs/02-architecture/repository-layout.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "目录规划不是服务全部实现。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第2步 设计工程资料目录"
+    },
+    {
+      "step": 3,
+      "title": "转换原始文件并保留图表",
+      "operation": "原件按字节保护，生成检索用正文、表格和原型文字；保留转换限制。",
+      "outputs": [
+        "docs/_converted/conversion-report.md",
+        "docs/_converted/original/",
+        "docs/_converted/revision/",
+        "docs/assets/source/"
+      ],
+      "artifact_status": "CONVERTED_WITH_LAYOUT_LIMITS",
+      "remaining": "复杂公式、表图与视觉版式仍按原件核对；PPT文字不等于视觉还原。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第3步 转换原始文件并保留图表"
+    },
+    {
+      "step": 4,
+      "title": "建立术语表",
+      "operation": "统一术语、相似/同源/片段、首发候选及证据的边界，登记歧义。",
+      "outputs": [
+        "docs/00-project/glossary.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "不自行确定法律或公安认定标准。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第4步 建立术语表"
+    },
+    {
+      "step": 5,
+      "title": "提取系统范围和建设边界",
+      "operation": "明确12模块、三类场景、外部接入、数据用途、人工责任和项目边界。",
+      "outputs": [
+        "docs/00-project/project-scope.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "正式接入授权和场景验收另行确认。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第5步 提取系统范围和建设边界"
+    },
+    {
+      "step": 6,
+      "title": "提取用户角色与权限",
+      "operation": "分开描述功能权限与案件/单位数据范围，列出高风险操作与角色冲突。",
+      "outputs": [
+        "docs/01-requirements/user-roles.md",
+        "docs/08-security/permission-matrix.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "正式角色、权限策略与审批尚待确认。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第6步 提取用户角色与权限"
+    },
+    {
+      "step": 7,
+      "title": "提取功能需求",
+      "operation": "将业务功能和源任务工程要求编号，写明正常/异常行为与来源。",
+      "outputs": [
+        "docs/01-requirements/functional-requirements.md",
+        "docs/01-requirements/engineering-requirements.yaml"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "36条业务需求与170条工程展开分别统计，不将216追踪条目当216业务功能。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第7步 提取功能需求"
+    },
+    {
+      "step": 8,
+      "title": "生成用户用例",
+      "operation": "建立12模块用例及正常、备选、异常、权限与审计场景。",
+      "outputs": [
+        "docs/01-requirements/use-cases/README.md",
+        "docs/01-requirements/use-cases/"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "场景资料不是三类业务实际验收。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第8步 生成用户用例"
+    },
+    {
+      "step": 9,
+      "title": "提取非功能需求",
+      "operation": "登记性能、并发、可靠性、安全等指标的来源、统计口径和验证办法。",
+      "outputs": [
+        "docs/01-requirements/non-functional-requirements.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "未确认指标保持待定，20/100并发未作正式验收。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第9步 提取非功能需求"
+    },
+    {
+      "step": 10,
+      "title": "整理业务规则",
+      "operation": "编号整理业务规则，并区分来源明确、工程建议和待确认内容。",
+      "outputs": [
+        "docs/01-requirements/business-rules.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "不可将建议阈值转成批准规则。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第10步 整理业务规则"
+    },
+    {
+      "step": 11,
+      "title": "整理状态机和业务流程",
+      "operation": "整理任务、人工复核与证据的状态转移、取消、重算和结果版本关系。",
+      "outputs": [
+        "docs/05-workflows/task-state-machine.md",
+        "docs/05-workflows/review-state-machine.md",
+        "docs/05-workflows/evidence-state-machine.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "正式全状态机实现与权限仍按业务卡验收。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第11步 整理状态机和业务流程"
+    },
+    {
+      "step": 12,
+      "title": "整理接口契约",
+      "operation": "定义外部API、内部推理入口、鉴权、错误码和示例并检查结构。",
+      "outputs": [
+        "docs/03-api/openapi.yaml",
+        "docs/03-api/inference-openapi.yaml",
+        "docs/03-api/error-codes.md",
+        "docs/03-api/examples/"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "53个正式操作设计与已运行PoC接口分开。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第12步 整理接口契约"
+    },
+    {
+      "step": 13,
+      "title": "整理数据库和数据字典",
+      "operation": "形成SQL、字典、ER及接口字段映射，逐字段绑定来源，列出表与任务引用。",
+      "outputs": [
+        "docs/04-database/database-design.md",
+        "docs/04-database/data-dictionary.md",
+        "docs/04-database/initial-schema.sql",
+        "docs/04-database/er-diagram.md",
+        "docs/04-database/field-provenance.json",
+        "docs/04-database/api-field-mapping.csv",
+        "docs/04-database/table-task-usage.json"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_AND_ISOLATED_SQL_VALIDATED",
+      "remaining": "62表824字段为设计；空库DDL不可直接升级既有库。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第13步 整理数据库和数据字典"
+    },
+    {
+      "step": 14,
+      "title": "整理算法模型契约",
+      "operation": "整理34项模型能力的请求/响应、版本、异常、转人工和评测约定。",
+      "outputs": [
+        "docs/06-algorithms/model-list.md",
+        "docs/06-algorithms/model-catalog.yaml",
+        "docs/06-algorithms/model-contract.md",
+        "docs/06-algorithms/model-evaluation.md",
+        "schemas/model/"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "68个模型Schema是能力契约，合成CPU验证不是业务模型效果。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第14步 整理算法模型契约"
+    },
+    {
+      "step": 15,
+      "title": "整理数据集建设材料",
+      "operation": "整理15类数据目录、标注、分组切分、授权状态和数据卡结构。",
+      "outputs": [
+        "docs/07-datasets/dataset-catalog.md",
+        "docs/07-datasets/annotation-specification.md",
+        "docs/07-datasets/dataset-split-policy.md",
+        "docs/07-datasets/data-compliance.md",
+        "docs/07-datasets/data-card-template.md",
+        "datasets/catalog/",
+        "schemas/dataset/"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "不编造样本规模、授权或封存测试集。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第15步 整理数据集建设材料"
+    },
+    {
+      "step": 16,
+      "title": "整理安全和审计要求",
+      "operation": "形成安全控制、权限矩阵、审计字段和数据分类要求。",
+      "outputs": [
+        "docs/08-security/security-design.md",
+        "docs/08-security/permission-matrix.md",
+        "docs/08-security/audit-requirements.md",
+        "docs/08-security/data-classification.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "开发追加审计不等同正式不可篡改证据。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第16步 整理安全和审计要求"
+    },
+    {
+      "step": 17,
+      "title": "转换Codex任务卡",
+      "operation": "将170张源任务转为独立执行卡，保留原工时/角色/依赖并分离候选依赖。",
+      "outputs": [
+        "tasks/README.md",
+        "tasks/backlog.yaml",
+        "tasks/source-task-cards.json",
+        "tasks/execution-dependencies-candidate.json",
+        "tasks/dependency-report.md"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "执行依赖是候选；不将全部170任务标为完成。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第17步 转换Codex任务卡"
+    },
+    {
+      "step": 18,
+      "title": "生成测试与验收材料",
+      "operation": "编制测试策略、验收口径、72业务场景与340任务场景计划。",
+      "outputs": [
+        "docs/09-testing/test-strategy.md",
+        "docs/09-testing/acceptance-criteria.md",
+        "docs/09-testing/test-scenarios.yaml",
+        "docs/09-testing/task-test-scenarios.yaml",
+        "docs/09-testing/security-test-scenarios.md",
+        "docs/09-testing/model-test-scenarios.md"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "计划中的场景不是已执行测试结果。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第18步 生成测试与验收材料"
+    },
+    {
+      "step": 19,
+      "title": "建立需求追踪矩阵",
+      "operation": "连接需求、用例、规则、API、表、模型/数据集、170任务与测试，检查断链。",
+      "outputs": [
+        "docs/00-project/requirement-traceability.md",
+        "docs/00-project/requirement-traceability.yaml",
+        "docs/04-database/table-task-usage.json"
+      ],
+      "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
+      "remaining": "引用完整不代表语义已批准或代码已实现。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第19步 建立需求追踪矩阵"
+    },
+    {
+      "step": 20,
+      "title": "生成AGENTS文件",
+      "operation": "将已明确范围和工程约束写入根AGENTS，保留当前用户授权的优先级。",
+      "outputs": [
+        "AGENTS.md"
+      ],
+      "artifact_status": "CANDIDATE_RECORDED",
+      "remaining": "原手册提示词只作流程来源，不覆盖现行工程规则及用户授权。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第20步 生成AGENTS文件"
+    },
+    {
+      "step": 21,
+      "title": "执行一致性审查",
+      "operation": "检查格式、字段、来源、任务依赖、追踪、导航和跨文档状态一致性。",
+      "outputs": [
+        "docs/00-project/consistency-audit-report.md",
+        "docs/00-project/validation/local-validation-report.json",
+        "docs/00-project/validation/database-contract-report.json",
+        "docs/00-project/validation/stage-one-validation-report.json"
+      ],
+      "artifact_status": "STRUCTURE_VALIDATED_WITH_FORMAL_GAPS",
+      "remaining": "人工语义评审与业务验收未由机器校验代替。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第21步 执行一致性审查"
+    },
+    {
+      "step": 22,
+      "title": "形成人工确认包",
+      "operation": "形成范围、规则、权限、指标、算法、数据及未决问题的七类确认材料。",
+      "outputs": [
+        "docs/00-project/review-package/scope-review.md",
+        "docs/00-project/review-package/business-rule-review.md",
+        "docs/00-project/review-package/permission-review.md",
+        "docs/00-project/review-package/acceptance-review.md",
+        "docs/00-project/review-package/algorithm-review.md",
+        "docs/00-project/review-package/dataset-review.md",
+        "docs/00-project/review-package/open-questions-review.md"
+      ],
+      "artifact_status": "REVIEW_PACKAGE_READY",
+      "remaining": "实际责任方的确认记录尚未取得。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第22步 形成人工确认包"
+    },
+    {
+      "step": 23,
+      "title": "根据人工意见批量修订",
+      "operation": "只将已收到的有效决定/用户执行选择同步到适用文件，保留未决项。",
+      "outputs": [
+        "docs/00-project/review-decisions.yaml",
+        "docs/00-project/review-decision-application-report.md"
+      ],
+      "artifact_status": "EXISTING_SELECTIONS_APPLIED_FORMAL_REVIEW_PENDING",
+      "remaining": "目前没有新增正式业务签认，不能自动关闭全部Q。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第23步 根据人工意见批量修订"
+    },
+    {
+      "step": 24,
+      "title": "冻结开发输入基线",
+      "operation": "检查输入文件、摘要、校验、适用阻断项和有效确认，再决定是否冻结。",
+      "outputs": [
+        "docs/00-project/baseline-1.0.md",
+        "docs/00-project/baseline-file-list.txt",
+        "docs/00-project/baseline-file-manifest.json",
+        "docs/00-project/baseline-validation-report.md",
+        "docs/00-project/freeze-checklist.md"
+      ],
+      "artifact_status": "NOT_FROZEN",
+      "remaining": "现存基线文件是检查稿/历史快照，不是正式批准Development Input Baseline。",
+      "formal_completion_asserted": false,
+      "owner_name": null,
+      "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
+      "source_heading": "第24步 冻结开发输入基线"
+    }
+  ]
+}

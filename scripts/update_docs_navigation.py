@@ -1,4 +1,5 @@
 """Refresh the actual docs file index, retaining specific existing descriptions."""
+import json
 import re
 from pathlib import Path
 from urllib.parse import unquote
@@ -15,6 +16,7 @@ def main():
         if match:
             descriptions[unquote(match[1].strip("<>"))] = match[2]
     prefix = old.split("## 当前文件完整索引", 1)[0]
+    prefix = prefix.split("## 第一阶段实际材料", 1)[0]
     prefix = prefix.split("## 第二阶段实际工程文档", 1)[0]
     prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
                             "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
@@ -67,7 +69,29 @@ def main():
         "00-project/validation/media-timestamp-report.json": "真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。",
         "00-project/validation/development-recovery-report.json": "8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。",
     })
+    first_entries = {
+        "00-project/stage-one/README.md": "第一阶段24步总入口：本地来源、材料归属、候选状态和正式未冻结边界。",
+        "00-project/stage-one/steps-and-deliverables.md": "逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。",
+        "00-project/stage-one/deliverables.json": "24步机器清单、源手册摘要、实际路径、状态和未确认事项；无虚构批准/负责人。",
+        "00-project/stage-one/handoff.md": "第一阶段输入如何被第二阶段技术工程消费；两种基线与实际研发任务分别判断。",
+        "00-project/stage-one/materials-manifest.json": "14份本地历史材料来源、原始字节摘要与身份；不混入正式业务原件清单。",
+        "00-project/stage-one/history/README.md": "历史材料导航，限定旧61表/空服务器/旧工具环境的时点与适用范围。",
+        "00-project/consistency-audit-report.md": "当前输入审查、已修复资料缺口和未决正式条件；不拿引用或结构通过代替业务批准。",
+        "04-database/table-task-usage.md": "当前62表与任务引用阅读表，区分职责提案、需求引用与API引用，非实际代码使用证明。",
+        "04-database/table-task-usage.json": "逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。",
+        "_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md": "补回本地PPT逐页文字转换，来源摘要与原件一致；不代表视觉无损还原。",
+        "guides/README.md": "三份手册与24/23步、170任务的关系及当前落点；手册是流程来源。",
+        "00-project/validation/stage-one-validation-report.json": "本轮8项材料来源、24步输出、62表关系与未冻结状态检查；未改服务或数据库。",
+    }
+    imported = json.loads((ROOT/"docs/00-project/stage-one/materials-manifest.json").read_text(encoding="utf-8"))
+    for item in imported["records"]:
+        path = item["archived_path"].removeprefix("docs/")
+        first_entries[path] = "第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。"
+    descriptions.update(first_entries)
     descriptions.update(entries)
+    first_section = "\n## 第一阶段实际材料\n\n第一阶段来源、做法与当前交付入口：\n\n| 文档 | 含义与严格判定要求 |\n| --- | --- |\n"
+    for path, description in first_entries.items():
+        first_section += f"| [{path}](<{path}>) | {description} |\n"
     section = "\n## 第二阶段实际工程文档\n\n当前入口与适用要求：\n\n| 文档 | 含义与严格判定要求 |\n| --- | --- |\n"
     for path, description in entries.items():
         section += f"| [{path}](<{path}>) | {description} |\n"
@@ -88,7 +112,7 @@ def main():
             else:
                 description = "项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。"
         index += f"| [{relative}](<{relative}>) | {description} |\n"
-    nav.write_text(prefix.rstrip()+"\n"+section+index, encoding="utf-8")
+    nav.write_text(prefix.rstrip()+"\n"+first_section+section+index, encoding="utf-8")
     print(f"Indexed {len(files)} actual docs files")
 
 

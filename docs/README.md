@@ -2,9 +2,18 @@
 
 本导航说明docs中各文档的含义、使用顺序、质量要求和来源关系。2026-10-12修订；当前CPU研发最小工程已运行并通过本机21门禁；GitHub托管另认平台报告；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。
 
+## 第一阶段与第二阶段导航
+
+| 阶段 | 含义及阅读入口 | 严格判定 |
+| --- | --- | --- |
+| 第一阶段（24步） | [材料总入口](00-project/stage-one/README.md)、[操作/交付对应表](00-project/stage-one/steps-and-deliverables.md)、[机器清单](00-project/stage-one/deliverables.json)、[历史材料](00-project/stage-one/history/README.md) | 输入候选已整理并检查；人工确认与正式输入冻结未自动完成 |
+| 第二阶段（23步） | [技术基线](02-architecture/technical-baseline.md)、[23步实际状态](03-development/stage-two-readiness.md)、[剩余条件](03-development/stage-two-gap-register.md) | 开发工程及CI有实际结果；正式技术基线NOT_FROZEN |
+
+[阶段衔接](00-project/stage-one/handoff.md)说明源资料如何成为技术工程输入。阶段编号不是170任务编号；两份修订Word不能替代24步全部材料，第二阶段开发验证也不能替代第一阶段签认。历史文件中的旧服务器、61表、旧工具环境按记录时点阅读。
+
 ## 建议阅读顺序
 
-1. 先读[当前状态](00-project/repository-readiness.md)、[范围](00-project/project-scope.md)、[来源清单](00-project/source-document-inventory.md)和[未决问题](00-project/open-questions.md)。
+1. 先读[第一阶段24步与材料](00-project/stage-one/README.md)及[阶段衔接](00-project/stage-one/handoff.md)，再读[当前状态](00-project/repository-readiness.md)、[范围](00-project/project-scope.md)、[来源清单](00-project/source-document-inventory.md)和[未决问题](00-project/open-questions.md)。
 2. 再读需求、用例和业务规则，确认系统需要处理什么。
 3. 阅读架构、模块边界和仓库目录，确认代码归属与调用关系。
 4. 将API、数据库字典、SQL和状态机一起阅读，核对每个字段、关系与行为。
@@ -266,6 +275,39 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 [官方机制依据](04-database/database-design-references.md)记录本轮查阅的PostgreSQL和JSON Schema资料；[数据库报告](00-project/validation/database-foundation-report.json)、[契约报告](00-project/validation/database-contract-report.json)及[导航覆盖报告](00-project/validation/documentation-completion-report.json)分别表示实际测试范围。当前仍为规划候选，完整应用及生产验收未因本轮补充完成。
 
+## 第一阶段实际材料
+
+第一阶段来源、做法与当前交付入口：
+
+| 文档 | 含义与严格判定要求 |
+| --- | --- |
+| [00-project/stage-one/README.md](<00-project/stage-one/README.md>) | 第一阶段24步总入口：本地来源、材料归属、候选状态和正式未冻结边界。 |
+| [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。 |
+| [00-project/stage-one/deliverables.json](<00-project/stage-one/deliverables.json>) | 24步机器清单、源手册摘要、实际路径、状态和未确认事项；无虚构批准/负责人。 |
+| [00-project/stage-one/handoff.md](<00-project/stage-one/handoff.md>) | 第一阶段输入如何被第二阶段技术工程消费；两种基线与实际研发任务分别判断。 |
+| [00-project/stage-one/materials-manifest.json](<00-project/stage-one/materials-manifest.json>) | 14份本地历史材料来源、原始字节摘要与身份；不混入正式业务原件清单。 |
+| [00-project/stage-one/history/README.md](<00-project/stage-one/history/README.md>) | 历史材料导航，限定旧61表/空服务器/旧工具环境的时点与适用范围。 |
+| [00-project/consistency-audit-report.md](<00-project/consistency-audit-report.md>) | 当前输入审查、已修复资料缺口和未决正式条件；不拿引用或结构通过代替业务批准。 |
+| [04-database/table-task-usage.md](<04-database/table-task-usage.md>) | 当前62表与任务引用阅读表，区分职责提案、需求引用与API引用，非实际代码使用证明。 |
+| [04-database/table-task-usage.json](<04-database/table-task-usage.json>) | 逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。 |
+| [_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md](<_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md>) | 补回本地PPT逐页文字转换，来源摘要与原件一致；不代表视觉无损还原。 |
+| [guides/README.md](<guides/README.md>) | 三份手册与24/23步、170任务的关系及当前落点；手册是流程来源。 |
+| [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 本轮8项材料来源、24步输出、62表关系与未冻结状态检查；未改服务或数据库。 |
+| [00-project/stage-one/history/input-package/UPLOAD.md](<00-project/stage-one/history/input-package/UPLOAD.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/consistency-audit-report.md](<00-project/stage-one/history/input-package/docs/00-project/consistency-audit-report.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/第一阶段24步资料状态.md](<00-project/stage-one/history/input-package/docs/00-project/第一阶段24步资料状态.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/04-database/table-task-usage.json](<00-project/stage-one/history/input-package/docs/04-database/table-task-usage.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/04-database/table-task-usage.md](<00-project/stage-one/history/input-package/docs/04-database/table-task-usage.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/reviews/双文档技术修订说明_20261012.md](<00-project/stage-one/history/input-package/docs/00-project/reviews/双文档技术修订说明_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/reviews/第一阶段完成核查与第二阶段docs归档清单_20261012.md](<00-project/stage-one/history/input-package/docs/00-project/reviews/第一阶段完成核查与第二阶段docs归档清单_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/validation/validation-commands.md](<00-project/stage-one/history/input-package/docs/00-project/validation/validation-commands.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/validation/validation-tool-lock.json](<00-project/stage-one/history/input-package/docs/00-project/validation/validation-tool-lock.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md](<00-project/stage-one/history/input-package/docs/_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/第一阶段双文档技术可行性复核与修改清单_20261012.md](<00-project/stage-one/history/paired-document-review/第一阶段双文档技术可行性复核与修改清单_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/技术修订来源与任务对齐索引.json](<00-project/stage-one/history/paired-document-review/技术修订来源与任务对齐索引.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/技术修订执行依赖候选_20261012.json](<00-project/stage-one/history/paired-document-review/技术修订执行依赖候选_20261012.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/任务依赖规范化核查结果_20261012.json](<00-project/stage-one/history/paired-document-review/任务依赖规范化核查结果_20261012.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+
 ## 第二阶段实际工程文档
 
 当前入口与适用要求：
@@ -322,7 +364,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共326份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共352份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -333,6 +375,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/baseline-validation-report.md](<00-project/baseline-validation-report.md>) | 验证范围、报告位置和没有验证的事项。 |
 | [00-project/build-counts.json](<00-project/build-counts.json>) | 当前工程输入数量统计；数量不等于功能完成率。 |
 | [00-project/change-log.md](<00-project/change-log.md>) | 按轮记录修订原因、影响和边界。 |
+| [00-project/consistency-audit-report.md](<00-project/consistency-audit-report.md>) | 当前输入审查、已修复资料缺口和未决正式条件；不拿引用或结构通过代替业务批准。 |
 | [00-project/document-conversion-plan.md](<00-project/document-conversion-plan.md>) | 转换目标、处理方法及保留原件的规则。 |
 | [00-project/document-governance.md](<00-project/document-governance.md>) | 来源优先级、候选身份和变更管理规则。 |
 | [00-project/freeze-checklist.md](<00-project/freeze-checklist.md>) | 冻结前应检查的项目；不是已通过证明。 |
@@ -360,6 +403,26 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/server-sync-receipt.json](<00-project/server-sync-receipt.json>) | 服务器同步目标、时间、摘要核验与更新结果。 |
 | [00-project/source-document-inventory.md](<00-project/source-document-inventory.md>) | 人类可读的原件、修订稿、流程手册与摘要清单。 |
 | [00-project/source-inventory.json](<00-project/source-inventory.json>) | 用于核验源文件未被改写的归档路径、来源路径和SHA-256。 |
+| [00-project/stage-one/deliverables.json](<00-project/stage-one/deliverables.json>) | 24步机器清单、源手册摘要、实际路径、状态和未确认事项；无虚构批准/负责人。 |
+| [00-project/stage-one/handoff.md](<00-project/stage-one/handoff.md>) | 第一阶段输入如何被第二阶段技术工程消费；两种基线与实际研发任务分别判断。 |
+| [00-project/stage-one/history/input-package/docs/00-project/consistency-audit-report.md](<00-project/stage-one/history/input-package/docs/00-project/consistency-audit-report.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/reviews/双文档技术修订说明_20261012.md](<00-project/stage-one/history/input-package/docs/00-project/reviews/双文档技术修订说明_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/reviews/第一阶段完成核查与第二阶段docs归档清单_20261012.md](<00-project/stage-one/history/input-package/docs/00-project/reviews/第一阶段完成核查与第二阶段docs归档清单_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/validation/validation-commands.md](<00-project/stage-one/history/input-package/docs/00-project/validation/validation-commands.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/validation/validation-tool-lock.json](<00-project/stage-one/history/input-package/docs/00-project/validation/validation-tool-lock.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/00-project/第一阶段24步资料状态.md](<00-project/stage-one/history/input-package/docs/00-project/第一阶段24步资料状态.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/04-database/table-task-usage.json](<00-project/stage-one/history/input-package/docs/04-database/table-task-usage.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/04-database/table-task-usage.md](<00-project/stage-one/history/input-package/docs/04-database/table-task-usage.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/docs/_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md](<00-project/stage-one/history/input-package/docs/_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/input-package/UPLOAD.md](<00-project/stage-one/history/input-package/UPLOAD.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/任务依赖规范化核查结果_20261012.json](<00-project/stage-one/history/paired-document-review/任务依赖规范化核查结果_20261012.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/技术修订执行依赖候选_20261012.json](<00-project/stage-one/history/paired-document-review/技术修订执行依赖候选_20261012.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/技术修订来源与任务对齐索引.json](<00-project/stage-one/history/paired-document-review/技术修订来源与任务对齐索引.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/paired-document-review/第一阶段双文档技术可行性复核与修改清单_20261012.md](<00-project/stage-one/history/paired-document-review/第一阶段双文档技术可行性复核与修改清单_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
+| [00-project/stage-one/history/README.md](<00-project/stage-one/history/README.md>) | 历史材料导航，限定旧61表/空服务器/旧工具环境的时点与适用范围。 |
+| [00-project/stage-one/materials-manifest.json](<00-project/stage-one/materials-manifest.json>) | 14份本地历史材料来源、原始字节摘要与身份；不混入正式业务原件清单。 |
+| [00-project/stage-one/README.md](<00-project/stage-one/README.md>) | 第一阶段24步总入口：本地来源、材料归属、候选状态和正式未冻结边界。 |
+| [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/application-source-binding-report.json](<00-project/validation/application-source-binding-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -425,6 +488,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/sql-attempt-01.json](<00-project/validation/sql-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-attempt-02.json](<00-project/validation/sql-attempt-02.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-validation-report.json](<00-project/validation/sql-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
+| [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 本轮8项材料来源、24步输出、62表关系与未冻结状态检查；未改服务或数据库。 |
 | [00-project/validation/stage-two-completion-report.json](<00-project/validation/stage-two-completion-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-two-readme-report.json](<00-project/validation/stage-two-readme-report.json>) | 根目录和13个目录README、23步及170任务导航的本轮检查 |
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |
@@ -598,6 +662,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/poc-database.md](<04-database/poc-database.md>) | 独立开发5表含账本/审计、逐字段来源、outbox与旧租约拒绝；区别于62表业务字典/SQL。 |
 | [04-database/README.md](<04-database/README.md>) | 所在专题的局部导航与阅读入口 |
 | [04-database/table-catalog.json](<04-database/table-catalog.json>) | 结构化表目录，保存字段定义和表级关系；应与SQL和字典同步。 |
+| [04-database/table-task-usage.json](<04-database/table-task-usage.json>) | 逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。 |
+| [04-database/table-task-usage.md](<04-database/table-task-usage.md>) | 当前62表与任务引用阅读表，区分职责提案、需求引用与API引用，非实际代码使用证明。 |
 | [05-workflows/evidence-state-machine.md](<05-workflows/evidence-state-machine.md>) | 证据记录、固化和更正的状态与历史保护。 |
 | [05-workflows/README.md](<05-workflows/README.md>) | 所在专题的局部导航与阅读入口 |
 | [05-workflows/review-state-machine.md](<05-workflows/review-state-machine.md>) | 人工复核、退回和结果版本绑定。 |
@@ -634,6 +700,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md](<_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/guide/第二阶段系统技术基线分步提示词手册.md](<_converted/guide/第二阶段系统技术基线分步提示词手册.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/guide/第二阶段系统技术基线确定与Codex协作实施指南.md](<_converted/guide/第二阶段系统技术基线确定与Codex协作实施指南.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
+| [_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md](<_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md>) | 补回本地PPT逐页文字转换，来源摘要与原件一致；不代表视觉无损还原。 |
 | [_converted/original/短视频与图片智能识别溯源系统开发任务分解书V2.md](<_converted/original/短视频与图片智能识别溯源系统开发任务分解书V2.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/original/短视频与图片智能识别溯源系统算法模型推荐清单.md](<_converted/original/短视频与图片智能识别溯源系统算法模型推荐清单.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/original/短视频与图片智能识别溯源系统算法研发与训练数据集建设说明 (1).md](<_converted/original/短视频与图片智能识别溯源系统算法研发与训练数据集建设说明 (1).md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
@@ -642,6 +709,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [_converted/revision/项目总体设计方案_技术修订版V1.4.md](<_converted/revision/项目总体设计方案_技术修订版V1.4.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [assets/source/S08-image1.png](<assets/source/S08-image1.png>) | 来源材料配套图像 |
 | [assets/source/S08-image2.png](<assets/source/S08-image2.png>) | 来源材料配套图像 |
+| [guides/README.md](<guides/README.md>) | 三份手册与24/23步、170任务的关系及当前落点；手册是流程来源。 |
 | [guides/第一阶段：Codex整理开发输入材料分步提示词手册.docx](<guides/第一阶段：Codex整理开发输入材料分步提示词手册.docx>) | 阶段工作流程手册 |
 | [guides/第二阶段系统技术基线分步提示词手册.docx](<guides/第二阶段系统技术基线分步提示词手册.docx>) | 阶段工作流程手册 |
 | [guides/第二阶段系统技术基线确定与Codex协作实施指南.docx](<guides/第二阶段系统技术基线确定与Codex协作实施指南.docx>) | 阶段工作流程手册 |

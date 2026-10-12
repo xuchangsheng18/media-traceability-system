@@ -26,3 +26,7 @@
 ## 1.0-py310-cpu当前适用验证
 
 此前0.1—0.4各段为历史范围；当前已运行真实CPU工程、同源本机18道CI门禁、SQL/恢复/媒体/浏览器验证，见[技术验证报告](../02-architecture/technical-validation-report.md)及各专项JSON。输入原件摘要、全部实际文件导航、62表824字段来源检查通过。正式生产仍NOT_FROZEN，未用输入检查代替业务模型/权限/性能验收。
+
+## 1.1第一阶段材料与导航补齐
+
+前述0.1—1.0段为各轮历史范围，18门禁不是当前21门禁。第一阶段当前24步、实际材料、来源、历史身份和阶段衔接见[第一阶段入口](stage-one/README.md)；本轮文档与引用核验见[stage-one-validation-report.json](validation/stage-one-validation-report.json)。二阶段实际平台按github-actions-report记录。本轮未改SQL/业务代码或重新向已有数据库执行测试；源SQL摘要一致时引用先前隔离结果。正式输入与技术基线都仍NOT_FROZEN。

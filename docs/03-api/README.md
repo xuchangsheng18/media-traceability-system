@@ -14,3 +14,7 @@
 ## 本轮可运行入口
 
 [PoC接口及边界](poc-api.md)列出现有上传/任务/健康与内部CPU推理。正式53操作设计仍保持唯一来源，本轮没有声称全部实现；[生成流程](../03-development/contract-generation.md)说明两份API的TS类型与消息约定。
+
+## 第一阶段归属
+
+本专题承接第一阶段第12步的候选输入，操作、产物和确认要求见[24步对应表](../00-project/stage-one/steps-and-deliverables.md)。专题结构源保持不变，设计/计划与实际实施结果分开。
