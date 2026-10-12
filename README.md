@@ -27,6 +27,8 @@ cd /workspace/glwy/projects/media-traceability-system
 
 先核对第一阶段输入与来源，再阅读第二阶段技术执行依据；[阶段衔接](docs/00-project/stage-one/handoff.md)明确哪些输入由实际工程消费。24步、23步与170研发任务是三套编号。
 
+第一阶段本轮补齐[原件内容核对](docs/00-project/stage-one/source-content-audit.md)、[955处来源章节映射](docs/00-project/stage-one/source-section-map.md)、[33项具体评审清单](docs/00-project/review-package/README.md)和[当前候选输入摘要](docs/00-project/stage-one/input-baseline-candidate.md)。12项自动检查验证来源与摘要，不代替视觉核对、业务签认或170任务实现。
+
 ## 文档入口
 
 - [完整文档导航](docs/README.md)：逐文件职责、要求、来源和实际索引。

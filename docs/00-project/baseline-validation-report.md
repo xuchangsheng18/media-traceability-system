@@ -30,3 +30,7 @@
 ## 1.1第一阶段材料与导航补齐
 
 前述0.1—1.0段为各轮历史范围，18门禁不是当前21门禁。第一阶段当前24步、实际材料、来源、历史身份和阶段衔接见[第一阶段入口](stage-one/README.md)；本轮文档与引用核验见[stage-one-validation-report.json](validation/stage-one-validation-report.json)。二阶段实际平台按github-actions-report记录。本轮未改SQL/业务代码或重新向已有数据库执行测试；源SQL摘要一致时引用先前隔离结果。正式输入与技术基线都仍NOT_FROZEN。
+
+## 当前候选输入补充
+
+旧baseline-file-list.txt与baseline-file-manifest.json保持历史快照，不将旧摘要冒充当前文件。当前第一阶段候选集合见[候选输入清单](stage-one/input-baseline-candidate.md)；正式状态仍NOT_FROZEN，机器检查不代替批准。

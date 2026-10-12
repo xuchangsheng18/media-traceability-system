@@ -81,7 +81,15 @@ def main():
         "04-database/table-task-usage.json": "逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。",
         "_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md": "补回本地PPT逐页文字转换，来源摘要与原件一致；不代表视觉无损还原。",
         "guides/README.md": "三份手册与24/23步、170任务的关系及当前落点；手册是流程来源。",
-        "00-project/validation/stage-one-validation-report.json": "本轮8项材料来源、24步输出、62表关系与未冻结状态检查；未改服务或数据库。",
+        "00-project/validation/stage-one-validation-report.json": "12项来源/24步/62表/原件内容/章节映射/33项评审/候选摘要检查；不代替批准。",
+        "00-project/stage-one/source-content-audit.md": "9份Word、495表、12页PPT、92批注、200链接字段、2图和1700任务字段核对；158条自动目录明确登记，视觉未验证。",
+        "00-project/stage-one/source-content-audit.json": "可复算的原件/转换摘要、段落/表格/批注/链接/形状位置及逐任务字段证据；文字存在性不等于语义或版式一致。",
+        "00-project/stage-one/source-section-map.md": "955处来源标题的准确原件位置与候选工程阅读/变更入口；未批准、未宣称全部实现。",
+        "00-project/stage-one/source-section-map.json": "上述映射的原件摘要、准确位置、标题、实际目标路径和候选状态；可逐项核验。",
+        "00-project/stage-one/review-register.json": "33项主Q的原文/指针/状态、七类主评审、已有任务引用与建议影响、所需输入和关闭条件；无代签。",
+        "00-project/stage-one/input-baseline-candidate.md": "当前输入候选的选择范围、排除项、旧快照关系及正式冻结条件；NOT_FROZEN。",
+        "00-project/stage-one/input-baseline-candidate.json": "当前第一阶段输入集合、大小与SHA-256，可复算且无批准编号；不当全仓同步凭据。",
+        "00-project/review-package/README.md": "七类详细评审导航，覆盖33项主Q，区分台账明确引用和建议检查范围。",
     }
     imported = json.loads((ROOT/"docs/00-project/stage-one/materials-manifest.json").read_text(encoding="utf-8"))
     for item in imported["records"]:

@@ -1,0 +1,1585 @@
+{
+  "status": "REVIEW_READY_NOT_APPROVED",
+  "source_questions": "docs/00-project/open-questions.yaml",
+  "source_questions_sha256": "161a044f393a095d5747d8173342354e24c6e7336a76370d7d13c76e5cba8bd9",
+  "task_backlog_sha256": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
+  "formal_frozen": false,
+  "questions": [
+    {
+      "question_id": "Q-01",
+      "source_text": "公安内网允许部署哪些基础软件",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/0",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供允许软件/版本清单、禁用项、审批途径和适用网络域。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-02",
+      "source_text": "是否必须使用国产服务器、操作系统和数据库",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/1",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供国产化约束的正式依据及服务器、OS、数据库适配/验收边界。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T002",
+        "T004",
+        "T012",
+        "T025",
+        "T081",
+        "T095"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-03",
+      "source_text": "现有平台是否有Kubernetes及运维能力（不自动要求采用）",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/2",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确认现有Kubernetes是否可用、运维归属、配额及替代部署方式。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T120",
+        "T121"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-04",
+      "source_text": "是否允许引入  Neo4j 、 Milvus 、 OpenSearch  等组件",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/3",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "逐项确认图、向量、全文检索组件引入许可、规模与替代条件。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T025",
+        "T081",
+        "T094",
+        "T095",
+        "T099"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-05",
+      "source_text": "是否需要与公安统一身份认证对接",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/4",
+      "primary_review": "docs/00-project/review-package/permission-review.md",
+      "suggested_review_roles": [
+        "安全负责人",
+        "业务负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供统一身份协议、账号/单位映射、角色范围、令牌策略及测试接入依据。",
+      "input_refs": [
+        "docs/08-security/permission-matrix.md",
+        "docs/01-requirements/user-roles.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-06",
+      "source_text": "是否允许访问互联网和拉取  Docker  镜像",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/5",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "明确互联网访问、镜像拉取、包下载的网络域、审批及白名单。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T006",
+        "T029",
+        "T099",
+        "T125"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-07",
+      "source_text": "是否必须离线部署",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/6",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定离线交付范围、制品来源、摘要签验、更新与漏洞修补流程。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T006",
+        "T057",
+        "T121",
+        "T170"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-08",
+      "source_text": "是否采用  Kubernetes  正式部署",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/7",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定正式部署拓扑、Kubernetes采用条件和运维责任，不用研发容器代替。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T120",
+        "T121"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-09",
+      "source_text": "是否部署  Neo4j （一期是否用  PostgreSQL  替代）",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/8",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定传播图一期实现方式、查询边界、规模和后续迁移契约。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T094",
+        "T095",
+        "T096",
+        "T097"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-10",
+      "source_text": "OCR  与  ASR  的最终模型选择",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/9",
+      "primary_review": "docs/00-project/review-package/algorithm-review.md",
+      "suggested_review_roles": [
+        "算法负责人",
+        "资源管理员",
+        "技术负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定OCR/ASR模型、权重许可、中文评测集、前后处理及验收口径。",
+      "input_refs": [
+        "docs/06-algorithms/model-catalog.yaml",
+        "docs/02-architecture/compatibility-matrix.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T058"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-11",
+      "source_text": "GPU来源、驱动及CUDA/PyTorch/推理框架兼容组合",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/10",
+      "primary_review": "docs/00-project/review-package/algorithm-review.md",
+      "suggested_review_roles": [
+        "算法负责人",
+        "资源管理员",
+        "技术负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供GPU节点与配额、驱动/CUDA/PyTorch/框架组合及实测报告。",
+      "input_refs": [
+        "docs/06-algorithms/model-catalog.yaml",
+        "docs/02-architecture/compatibility-matrix.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T055",
+        "T125",
+        "T170"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-12",
+      "source_text": "前端使用  Ant Design Vue  还是  Element Plus",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/11",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确认前端组件体系、许可、设计规范和现有Vue工程迁移影响。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T003",
+        "T030",
+        "T040",
+        "T060",
+        "T070",
+        "T078",
+        "T097",
+        "T103"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-13",
+      "source_text": "模型正式验收指标的定值",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/12",
+      "primary_review": "docs/00-project/review-package/acceptance-review.md",
+      "suggested_review_roles": [
+        "业务负责人",
+        "测试负责人",
+        "算法负责人",
+        "资源管理员"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "逐能力确定指标、阈值、数据集、统计方法、合格线及批准依据。",
+      "input_refs": [
+        "docs/09-testing/task-test-scenarios.yaml",
+        "docs/01-requirements/engineering-requirements.yaml"
+      ],
+      "declared_blocking_task_ids": [
+        "T122",
+        "T123",
+        "T124"
+      ],
+      "candidate_impact_task_ids": [
+        "T058",
+        "T113",
+        "T114",
+        "T115",
+        "T116",
+        "T122",
+        "T123",
+        "T124",
+        "T127",
+        "T128"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-14",
+      "source_text": "20及100并发的正式性质、统计口径与资源安排",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/13",
+      "primary_review": "docs/00-project/review-package/acceptance-review.md",
+      "suggested_review_roles": [
+        "业务负责人",
+        "测试负责人",
+        "算法负责人",
+        "资源管理员"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "分别明确20/100并发的正式性质、负载构成、成功率/时延统计和资源。",
+      "input_refs": [
+        "docs/09-testing/task-test-scenarios.yaml",
+        "docs/01-requirements/engineering-requirements.yaml"
+      ],
+      "declared_blocking_task_ids": [
+        "T122",
+        "T123",
+        "T124"
+      ],
+      "candidate_impact_task_ids": [
+        "T055",
+        "T081",
+        "T120",
+        "T122",
+        "T123"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-15",
+      "source_text": "现有主机项目配额、GPU来源及最终部署节点",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/14",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定主机/存储/GPU项目配额、最终部署节点与到位时间。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T055",
+        "T081",
+        "T120",
+        "T121",
+        "T122",
+        "T123"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-16",
+      "source_text": "安全等级（等保级别）",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/15",
+      "primary_review": "docs/00-project/review-package/permission-review.md",
+      "suggested_review_roles": [
+        "安全负责人",
+        "业务负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供适用安全等级及批准依据、测试范围与整改关闭条件。",
+      "input_refs": [
+        "docs/08-security/permission-matrix.md",
+        "docs/01-requirements/user-roles.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T007",
+        "T011",
+        "T014",
+        "T015",
+        "T017",
+        "T117",
+        "T118",
+        "T119"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-17",
+      "source_text": "是否允许访问外部网络平台",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/16",
+      "primary_review": "docs/00-project/review-package/dataset-review.md",
+      "suggested_review_roles": [
+        "数据负责人",
+        "安全负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供可访问平台、访问方式、账号授权、用途和数据准入边界。",
+      "input_refs": [
+        "docs/07-datasets/dataset-split-policy.md",
+        "docs/10-deployment/development-backup-restore.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T021",
+        "T029",
+        "T099",
+        "T126"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-18",
+      "source_text": "风险定性标准",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/18",
+      "primary_review": "docs/00-project/review-package/business-rule-review.md",
+      "suggested_review_roles": [
+        "业务负责人",
+        "数据负责人",
+        "测试负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定风险标签及定性规则版本、证据要求、人工解释与误判处置。",
+      "input_refs": [
+        "docs/05-workflows/review-state-machine.md",
+        "docs/00-project/requirement-traceability.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T069",
+        "T070",
+        "T109",
+        "T141"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-19",
+      "source_text": "证据保存期限",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/19",
+      "primary_review": "docs/00-project/review-package/dataset-review.md",
+      "suggested_review_roles": [
+        "数据负责人",
+        "安全负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "按数据种类确定保留起点、期限、冻结例外、删除与审批留痕。",
+      "input_refs": [
+        "docs/07-datasets/dataset-split-policy.md",
+        "docs/10-deployment/development-backup-restore.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T019",
+        "T020",
+        "T025",
+        "T104",
+        "T108",
+        "T121",
+        "T126"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-20",
+      "source_text": "双人审批事项范围",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/20",
+      "primary_review": "docs/00-project/review-package/permission-review.md",
+      "suggested_review_roles": [
+        "安全负责人",
+        "业务负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "列出双人审批事项、角色独立性、拒绝/撤回/超时和例外处置。",
+      "input_refs": [
+        "docs/08-security/permission-matrix.md",
+        "docs/01-requirements/user-roles.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T016",
+        "T057",
+        "T102",
+        "T104",
+        "T107",
+        "T108",
+        "T170"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-21",
+      "source_text": "全部12模块、≥3场景的阶段边界；用户已确认保留全范围",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/21",
+      "primary_review": "docs/00-project/review-package/scope-review.md",
+      "suggested_review_roles": [
+        "项目负责人",
+        "架构负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确认全12模块、至少3场景的分阶段交付清单及各期验收边界。",
+      "input_refs": [
+        "docs/00-project/project-scope.md",
+        "tasks/backlog.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T124"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-22",
+      "source_text": "测试条件是否按  §11.1  建议基线冻结",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/17",
+      "primary_review": "docs/00-project/review-package/acceptance-review.md",
+      "suggested_review_roles": [
+        "业务负责人",
+        "测试负责人",
+        "算法负责人",
+        "资源管理员"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确认DES §11.1测试建议基线的资源、数据、工具及正式冻结范围。",
+      "input_refs": [
+        "docs/09-testing/task-test-scenarios.yaml",
+        "docs/01-requirements/engineering-requirements.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T058",
+        "T117",
+        "T118",
+        "T119",
+        "T122",
+        "T123",
+        "T124",
+        "T127",
+        "T128"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-23",
+      "source_text": "详细设计与任务书文件名V2、正文V1.0差异",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/22",
+      "primary_review": "docs/00-project/review-package/scope-review.md",
+      "suggested_review_roles": [
+        "项目负责人",
+        "架构负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定文件名V2与正文V1.0的权威身份、版本对应、来源优先级。",
+      "input_refs": [
+        "docs/00-project/project-scope.md",
+        "tasks/backlog.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T001",
+        "T010"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-24",
+      "source_text": "任务状态机退回路径（ RETURNED →  何状态）",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/23",
+      "primary_review": "docs/00-project/review-package/business-rule-review.md",
+      "suggested_review_roles": [
+        "业务负责人",
+        "数据负责人",
+        "测试负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定RETURNED合法后继状态、旧结果保留、重算版本与审批重置规则。",
+      "input_refs": [
+        "docs/05-workflows/review-state-machine.md",
+        "docs/00-project/requirement-traceability.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T031",
+        "T033",
+        "T037",
+        "T038",
+        "T039",
+        "T102"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-25",
+      "source_text": "受托方在环境数据边界中的权限档位",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/24",
+      "primary_review": "docs/00-project/review-package/permission-review.md",
+      "suggested_review_roles": [
+        "安全负责人",
+        "业务负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定受托方身份、案件/单位数据范围、读写导出权限和到期回收。",
+      "input_refs": [
+        "docs/08-security/permission-matrix.md",
+        "docs/01-requirements/user-roles.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T011",
+        "T013",
+        "T014",
+        "T015",
+        "T021",
+        "T108",
+        "T126"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-26",
+      "source_text": "取证规范（可信时间源、固化标准）适用性",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/25",
+      "primary_review": "docs/00-project/review-package/permission-review.md",
+      "suggested_review_roles": [
+        "安全负责人",
+        "业务负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定适用取证/时间源/固化规范的正式依据及技术验证方式。",
+      "input_refs": [
+        "docs/08-security/permission-matrix.md",
+        "docs/01-requirements/user-roles.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T071",
+        "T100",
+        "T104",
+        "T105",
+        "T107"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-27",
+      "source_text": "代码仓库顶层目录命名与划分方式",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/26",
+      "primary_review": "docs/00-project/review-package/scope-review.md",
+      "suggested_review_roles": [
+        "项目负责人",
+        "架构负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确认现有目录划分、各目录职责及来源路径迁移映射。",
+      "input_refs": [
+        "docs/00-project/project-scope.md",
+        "tasks/backlog.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T001",
+        "T010"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-28",
+      "source_text": "当前172.16.58.179属于研发/测试/试运行还是最终生产；网络、离线及数据准入 | 项目负责人、安全与运维；真实业务接入/最终拓扑前",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/27",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "明确当前服务器阶段属性、网络域、离线要求及真实数据准入授权。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T007",
+        "T021",
+        "T029",
+        "T117",
+        "T118",
+        "T121"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-29",
+      "source_text": "96核/192线程、内存与存储的项目配额；A100/4×4090来源 | 资源管理员、算法负责人；资源配置及GPU实施前",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/28",
+      "primary_review": "docs/00-project/review-package/algorithm-review.md",
+      "suggested_review_roles": [
+        "算法负责人",
+        "资源管理员",
+        "技术负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "明确96核/192线程等观察值对应的实际项目配额、GPU来源和分配日期。",
+      "input_refs": [
+        "docs/06-algorithms/model-catalog.yaml",
+        "docs/02-architecture/compatibility-matrix.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T004",
+        "T055",
+        "T081",
+        "T125",
+        "T170"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-30",
+      "source_text": "Python 3.11候选与主机3.12.3适配；Node.js/FFmpeg位置；镜像与版本许可 | 技术与算法负责人；对应组件开发和PoC前",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/29",
+      "primary_review": "docs/00-project/review-package/open-questions-review.md",
+      "suggested_review_roles": [
+        "技术负责人",
+        "运维负责人",
+        "项目负责人",
+        "安全负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "评审源Python3.11、既有3.12.3与用户py310的差异，确定正式版本、Node/FFmpeg路径及镜像许可。",
+      "input_refs": [
+        "docs/02-architecture/technical-baseline.md",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T002",
+        "T003",
+        "T004",
+        "T006",
+        "T042",
+        "T048",
+        "T049",
+        "T053",
+        "T055",
+        "T125"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-31",
+      "source_text": "各类数据保留、备份域、RPO/RTO、恢复权限与演练 | 数据、安全与运维；真实数据导入及发布前",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/30",
+      "primary_review": "docs/00-project/review-package/dataset-review.md",
+      "suggested_review_roles": [
+        "数据负责人",
+        "安全负责人",
+        "运维负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "明确备份域、加密与恢复权限、RPO/RTO、保留策略和生产演练标准。",
+      "input_refs": [
+        "docs/07-datasets/dataset-split-policy.md",
+        "docs/10-deployment/development-backup-restore.md"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T025",
+        "T104",
+        "T121",
+        "T126",
+        "T170"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-32",
+      "source_text": "人工复核阈值、首发未知、报告审批、回流和样本计数规则 | 业务、数据与测试负责人；正式结论及数据集发布前",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/31",
+      "primary_review": "docs/00-project/review-package/business-rule-review.md",
+      "suggested_review_roles": [
+        "业务负责人",
+        "数据负责人",
+        "测试负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "确定人工复核阈值、未知首发、报告批准、回流用途和样本计数规则。",
+      "input_refs": [
+        "docs/05-workflows/review-state-machine.md",
+        "docs/00-project/requirement-traceability.yaml"
+      ],
+      "declared_blocking_task_ids": [],
+      "candidate_impact_task_ids": [
+        "T069",
+        "T090",
+        "T093",
+        "T102",
+        "T107",
+        "T108",
+        "T109",
+        "T126",
+        "T141"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    },
+    {
+      "question_id": "Q-33",
+      "source_text": "剩余实际进度、人力、样本及GPU日期与37周工作量重排 | 项目负责人及各工作流负责人；阶段交付计划冻结前",
+      "source_status": "pending_or_source_status_requires_review",
+      "source_pointer": "/questions/32",
+      "primary_review": "docs/00-project/review-package/scope-review.md",
+      "suggested_review_roles": [
+        "项目负责人",
+        "架构负责人"
+      ],
+      "owner_name": null,
+      "decision": null,
+      "required_decision_inputs": "提供实际负责人、可用投入、已完成证据、样本/GPU日期及剩余排期。",
+      "input_refs": [
+        "docs/00-project/project-scope.md",
+        "tasks/backlog.yaml"
+      ],
+      "declared_blocking_task_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T069",
+        "T070",
+        "T071",
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076",
+        "T077",
+        "T078",
+        "T079",
+        "T080",
+        "T081",
+        "T082",
+        "T083",
+        "T084",
+        "T085",
+        "T086",
+        "T087",
+        "T088",
+        "T089",
+        "T090",
+        "T091",
+        "T092",
+        "T093",
+        "T094",
+        "T095",
+        "T096",
+        "T097",
+        "T098",
+        "T099",
+        "T100",
+        "T101",
+        "T102",
+        "T103",
+        "T104",
+        "T105",
+        "T106",
+        "T107",
+        "T108",
+        "T109",
+        "T110",
+        "T111",
+        "T112",
+        "T113",
+        "T114",
+        "T115",
+        "T116",
+        "T117",
+        "T118",
+        "T119",
+        "T120",
+        "T121",
+        "T122",
+        "T123",
+        "T124",
+        "T125",
+        "T126",
+        "T127",
+        "T128",
+        "T129",
+        "T130",
+        "T131",
+        "T132",
+        "T133",
+        "T134",
+        "T135",
+        "T136",
+        "T137",
+        "T138",
+        "T139",
+        "T140",
+        "T141",
+        "T142",
+        "T143",
+        "T144",
+        "T145",
+        "T146",
+        "T147",
+        "T148",
+        "T149",
+        "T150",
+        "T151",
+        "T152",
+        "T153",
+        "T154",
+        "T155",
+        "T156",
+        "T157",
+        "T158",
+        "T159",
+        "T160",
+        "T161",
+        "T162",
+        "T163",
+        "T164",
+        "T165",
+        "T166",
+        "T167",
+        "T168",
+        "T169",
+        "T170"
+      ],
+      "candidate_impact_task_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T069",
+        "T070",
+        "T071",
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076",
+        "T077",
+        "T078",
+        "T079",
+        "T080",
+        "T081",
+        "T082",
+        "T083",
+        "T084",
+        "T085",
+        "T086",
+        "T087",
+        "T088",
+        "T089",
+        "T090",
+        "T091",
+        "T092",
+        "T093",
+        "T094",
+        "T095",
+        "T096",
+        "T097",
+        "T098",
+        "T099",
+        "T100",
+        "T101",
+        "T102",
+        "T103",
+        "T104",
+        "T105",
+        "T106",
+        "T107",
+        "T108",
+        "T109",
+        "T110",
+        "T111",
+        "T112",
+        "T113",
+        "T114",
+        "T115",
+        "T116",
+        "T117",
+        "T118",
+        "T119",
+        "T120",
+        "T121",
+        "T122",
+        "T123",
+        "T124",
+        "T125",
+        "T126",
+        "T127",
+        "T128",
+        "T129",
+        "T130",
+        "T131",
+        "T132",
+        "T133",
+        "T134",
+        "T135",
+        "T136",
+        "T137",
+        "T138",
+        "T139",
+        "T140",
+        "T141",
+        "T142",
+        "T143",
+        "T144",
+        "T145",
+        "T146",
+        "T147",
+        "T148",
+        "T149",
+        "T150",
+        "T151",
+        "T152",
+        "T153",
+        "T154",
+        "T155",
+        "T156",
+        "T157",
+        "T158",
+        "T159",
+        "T160",
+        "T161",
+        "T162",
+        "T163",
+        "T164",
+        "T165",
+        "T166",
+        "T167",
+        "T168",
+        "T169",
+        "T170"
+      ],
+      "candidate_impact_status": "PROPOSED_REVIEW_SCOPE_NOT_NEW_TASK_BLOCK_OR_APPROVAL",
+      "closure_criteria": [
+        "责任方提供决定编号、有效授权依据、版本/日期和适用动作范围",
+        "登记前置条件、拒绝/例外、遗留与明确关闭节点",
+        "按实际决定同步受影响契约/规则/任务/测试及追踪，保存历史",
+        "责任方复核证据后更新主Q记录，重跑适用检查并重建候选摘要"
+      ],
+      "approved": false,
+      "source_question_closed": false
+    }
+  ]
+}

@@ -292,7 +292,15 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/table-task-usage.json](<04-database/table-task-usage.json>) | 逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。 |
 | [_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md](<_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md>) | 补回本地PPT逐页文字转换，来源摘要与原件一致；不代表视觉无损还原。 |
 | [guides/README.md](<guides/README.md>) | 三份手册与24/23步、170任务的关系及当前落点；手册是流程来源。 |
-| [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 本轮8项材料来源、24步输出、62表关系与未冻结状态检查；未改服务或数据库。 |
+| [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 12项来源/24步/62表/原件内容/章节映射/33项评审/候选摘要检查；不代替批准。 |
+| [00-project/stage-one/source-content-audit.md](<00-project/stage-one/source-content-audit.md>) | 9份Word、495表、12页PPT、92批注、200链接字段、2图和1700任务字段核对；158条自动目录明确登记，视觉未验证。 |
+| [00-project/stage-one/source-content-audit.json](<00-project/stage-one/source-content-audit.json>) | 可复算的原件/转换摘要、段落/表格/批注/链接/形状位置及逐任务字段证据；文字存在性不等于语义或版式一致。 |
+| [00-project/stage-one/source-section-map.md](<00-project/stage-one/source-section-map.md>) | 955处来源标题的准确原件位置与候选工程阅读/变更入口；未批准、未宣称全部实现。 |
+| [00-project/stage-one/source-section-map.json](<00-project/stage-one/source-section-map.json>) | 上述映射的原件摘要、准确位置、标题、实际目标路径和候选状态；可逐项核验。 |
+| [00-project/stage-one/review-register.json](<00-project/stage-one/review-register.json>) | 33项主Q的原文/指针/状态、七类主评审、已有任务引用与建议影响、所需输入和关闭条件；无代签。 |
+| [00-project/stage-one/input-baseline-candidate.md](<00-project/stage-one/input-baseline-candidate.md>) | 当前输入候选的选择范围、排除项、旧快照关系及正式冻结条件；NOT_FROZEN。 |
+| [00-project/stage-one/input-baseline-candidate.json](<00-project/stage-one/input-baseline-candidate.json>) | 当前第一阶段输入集合、大小与SHA-256，可复算且无批准编号；不当全仓同步凭据。 |
+| [00-project/review-package/README.md](<00-project/review-package/README.md>) | 七类详细评审导航，覆盖33项主Q，区分台账明确引用和建议检查范围。 |
 | [00-project/stage-one/history/input-package/UPLOAD.md](<00-project/stage-one/history/input-package/UPLOAD.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
 | [00-project/stage-one/history/input-package/docs/00-project/consistency-audit-report.md](<00-project/stage-one/history/input-package/docs/00-project/consistency-audit-report.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
 | [00-project/stage-one/history/input-package/docs/00-project/第一阶段24步资料状态.md](<00-project/stage-one/history/input-package/docs/00-project/第一阶段24步资料状态.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
@@ -364,7 +372,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共352份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共360份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -398,6 +406,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/review-package/dataset-review.md](<00-project/review-package/dataset-review.md>) | 对应领域的评审问题与确认输入，不是已批准记录 |
 | [00-project/review-package/open-questions-review.md](<00-project/review-package/open-questions-review.md>) | 对应领域的评审问题与确认输入，不是已批准记录 |
 | [00-project/review-package/permission-review.md](<00-project/review-package/permission-review.md>) | 对应领域的评审问题与确认输入，不是已批准记录 |
+| [00-project/review-package/README.md](<00-project/review-package/README.md>) | 七类详细评审导航，覆盖33项主Q，区分台账明确引用和建议检查范围。 |
 | [00-project/review-package/scope-review.md](<00-project/review-package/scope-review.md>) | 对应领域的评审问题与确认输入，不是已批准记录 |
 | [00-project/review-package/technical-baseline-review.md](<00-project/review-package/technical-baseline-review.md>) | 实际技术评审输入与待正式确认事项，不能自动充当批准。 |
 | [00-project/server-sync-receipt.json](<00-project/server-sync-receipt.json>) | 服务器同步目标、时间、摘要核验与更新结果。 |
@@ -420,8 +429,15 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/history/paired-document-review/技术修订来源与任务对齐索引.json](<00-project/stage-one/history/paired-document-review/技术修订来源与任务对齐索引.json>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
 | [00-project/stage-one/history/paired-document-review/第一阶段双文档技术可行性复核与修改清单_20261012.md](<00-project/stage-one/history/paired-document-review/第一阶段双文档技术可行性复核与修改清单_20261012.md>) | 第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。 |
 | [00-project/stage-one/history/README.md](<00-project/stage-one/history/README.md>) | 历史材料导航，限定旧61表/空服务器/旧工具环境的时点与适用范围。 |
+| [00-project/stage-one/input-baseline-candidate.json](<00-project/stage-one/input-baseline-candidate.json>) | 当前第一阶段输入集合、大小与SHA-256，可复算且无批准编号；不当全仓同步凭据。 |
+| [00-project/stage-one/input-baseline-candidate.md](<00-project/stage-one/input-baseline-candidate.md>) | 当前输入候选的选择范围、排除项、旧快照关系及正式冻结条件；NOT_FROZEN。 |
 | [00-project/stage-one/materials-manifest.json](<00-project/stage-one/materials-manifest.json>) | 14份本地历史材料来源、原始字节摘要与身份；不混入正式业务原件清单。 |
 | [00-project/stage-one/README.md](<00-project/stage-one/README.md>) | 第一阶段24步总入口：本地来源、材料归属、候选状态和正式未冻结边界。 |
+| [00-project/stage-one/review-register.json](<00-project/stage-one/review-register.json>) | 33项主Q的原文/指针/状态、七类主评审、已有任务引用与建议影响、所需输入和关闭条件；无代签。 |
+| [00-project/stage-one/source-content-audit.json](<00-project/stage-one/source-content-audit.json>) | 可复算的原件/转换摘要、段落/表格/批注/链接/形状位置及逐任务字段证据；文字存在性不等于语义或版式一致。 |
+| [00-project/stage-one/source-content-audit.md](<00-project/stage-one/source-content-audit.md>) | 9份Word、495表、12页PPT、92批注、200链接字段、2图和1700任务字段核对；158条自动目录明确登记，视觉未验证。 |
+| [00-project/stage-one/source-section-map.json](<00-project/stage-one/source-section-map.json>) | 上述映射的原件摘要、准确位置、标题、实际目标路径和候选状态；可逐项核验。 |
+| [00-project/stage-one/source-section-map.md](<00-project/stage-one/source-section-map.md>) | 955处来源标题的准确原件位置与候选工程阅读/变更入口；未批准、未宣称全部实现。 |
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
@@ -488,7 +504,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/sql-attempt-01.json](<00-project/validation/sql-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-attempt-02.json](<00-project/validation/sql-attempt-02.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-validation-report.json](<00-project/validation/sql-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
-| [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 本轮8项材料来源、24步输出、62表关系与未冻结状态检查；未改服务或数据库。 |
+| [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 12项来源/24步/62表/原件内容/章节映射/33项评审/候选摘要检查；不代替批准。 |
 | [00-project/validation/stage-two-completion-report.json](<00-project/validation/stage-two-completion-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-two-readme-report.json](<00-project/validation/stage-two-readme-report.json>) | 根目录和13个目录README、23步及170任务导航的本轮检查 |
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |

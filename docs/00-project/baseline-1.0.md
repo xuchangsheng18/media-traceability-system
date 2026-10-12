@@ -13,3 +13,7 @@
 ## 第一阶段身份与当前材料
 
 本文件对应第一阶段第24步，区别于第二阶段技术基线。当前逐步入口见[24步对应表](stage-one/steps-and-deliverables.md)；原baseline-file-list/manifest保留其历史候选快照，当前文件与来源由[第一阶段机器清单](stage-one/deliverables.json)、[资料归档摘要](stage-one/materials-manifest.json)及repository-file-manifest接续。未因补入材料创建正式批准标签。
+
+## 当前候选输入补充
+
+旧baseline-file-list.txt与baseline-file-manifest.json保持历史快照，不将旧摘要冒充当前文件。当前第一阶段候选集合见[候选输入清单](stage-one/input-baseline-candidate.md)；正式状态仍NOT_FROZEN，机器检查不代替批准。

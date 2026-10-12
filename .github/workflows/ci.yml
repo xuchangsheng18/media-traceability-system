@@ -58,7 +58,7 @@ jobs:
           npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
       - name: Validate phase materials and navigation
         run: |
-          "$PYTHON" -m ruff check --config ruff.toml scripts/validate_stage_one.py scripts/update_docs_navigation.py
+          "$PYTHON" -m ruff check --config ruff.toml scripts/validate_stage_one.py scripts/update_docs_navigation.py scripts/stage_one_source_audit.py scripts/build_stage_one_candidate.py
           "$PYTHON" scripts/validate_stage_one.py
           "$PYTHON" scripts/validate_repository_docs.py
           "$PYTHON" scripts/validate_documentation_completion.py
