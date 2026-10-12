@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-10-12T16:53:43.881425+00:00",
+  "scope": "phase_gap_classification_and_requirement_flow_lineage_not_business_or_production_acceptance",
+  "checks": [
+    {
+      "name": "readiness_views_and_flow_source_hashes_no_drift",
+      "status": "PASS",
+      "detail": {
+        "derived_files": 3,
+        "source_hashes_match": true
+      }
+    },
+    {
+      "name": "36_requirement_sources_and_7_unbound_processing_routes",
+      "status": "PASS",
+      "detail": {
+        "requirements": 36,
+        "modules": 12,
+        "source_API_unbound_kept": 7,
+        "candidate_routes_do_not_rewrite_primary_trace": true
+      }
+    },
+    {
+      "name": "19_non_signature_items_and_correct_phase_boundaries",
+      "status": "PASS",
+      "detail": {
+        "non_signature_items": 19,
+        "stage_one": 7,
+        "stage_two": 12,
+        "all_170_tasks_forced_into_stage_two": false
+      }
+    },
+    {
+      "name": "snapshots_not_inferred_as_quotas_GPU_absence_or_approvals",
+      "status": "PASS",
+      "detail": {
+        "observed_volume_available_bytes": 1801707520,
+        "provider_branch_protected_observed": false,
+        "runtime_or_provider_requeried_by_this_check": false,
+        "quota_or_governance_acceptance_asserted": false
+      }
+    }
+  ],
+  "errors": [],
+  "formal_stage_one_frozen": false,
+  "formal_stage_two_frozen": false,
+  "input_observation_hashes": {
+    "docs/00-project/validation/resource-readiness-snapshot.json": "9a60174b55b8f3918861529fd1ae6eeed91be11c32a5ecdaff42f9d283a85e47",
+    "docs/00-project/validation/repository-governance-snapshot.json": "730c96c9119b53f06be2b979438f5ded71d3a4ec1685c3bd5e0daa847c7c9f3a"
+  }
+}

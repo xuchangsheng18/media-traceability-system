@@ -60,6 +60,14 @@ def main():
         "00-project/validation/repository-secrets-report.json": "确切开发凭据值及已知秘密文件名检查，非完整DLP。",
     }
     entries.update({
+        "00-project/phase-readiness-register.md": "审批之外的19项工作（第一阶段7/第二阶段12）：资料/设计/资源/实现/验证、完成标准和后续研发边界。",
+        "00-project/phase-readiness-register.json": "19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。",
+        "00-project/requirement-processing-map.md": "36业务需求→来源任务/内部能力→候选结果读取；七条未直接绑API需求显式保留，语义/实现仍待核验。",
+        "00-project/requirement-processing-map.json": "上述逐需求源指针/摘要、原始引用与候选流程；不改主追踪或新增可调用HTTP。",
+        "00-project/requirement-flow-proposals.json": "12模块/七特殊需求的候选处理入口和读取解释；工程设计提案，不成为第二API结构源。",
+        "00-project/validation/phase-readiness-report.json": "4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。",
+        "00-project/validation/resource-readiness-snapshot.json": "2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。",
+        "00-project/validation/repository-governance-snapshot.json": "实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。",
         "03-api/system-interface-specification.md": "第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。",
         "03-api/detailed-interface-index.md": "53份逐操作说明及12模块导航；方法/路径、来源、实现边界和明细落点。",
         "03-api/data-structures.md": "83业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。",

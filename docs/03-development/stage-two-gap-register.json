@@ -17,12 +17,13 @@
       "priority": "P0",
       "id": "S2-02",
       "title": "资源容量和维护责任",
-      "development_evidence": "宿主/VM/容器已区分盘点；VM余量约1.9GiB",
+      "development_evidence": "宿主/VM/容器已区分；2026-10-13研发卷文件系统可用约1.68GiB、df使用率99%；非项目独占配额",
       "owner_role": "运维/项目负责人（姓名待定）",
       "owner_name": null,
       "required_inputs": "独占CPU/内存/磁盘配额、扩容方案、GPU型号和可用权限",
       "closure_criteria": "落实存储余量/告警；真实权重和样本容量、GPU兼容实测",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "resource_snapshot_ref": "docs/00-project/validation/resource-readiness-snapshot.json"
     },
     {
       "priority": "P0",
@@ -94,7 +95,7 @@
       "priority": "P1",
       "id": "S2-09",
       "title": "CI组织治理和制品",
-      "development_evidence": "GitHub私有仓库已识别，实际run以报告为准",
+      "development_evidence": "实际Actions/制品已验真；治理时点API返回main protected=false；rulesets不可查询，不推断为空",
       "owner_role": "仓库管理员/技术负责人（姓名待定）",
       "owner_name": null,
       "required_inputs": "账号套餐、保护分支/必须检查、制品保留/镜像库及离线策略",
@@ -105,7 +106,7 @@
       "priority": "P0",
       "id": "S2-10",
       "title": "正式评审与阶段冻结",
-      "development_evidence": "23步开发状态与证据齐备；正式NOT_FROZEN",
+      "development_evidence": "23步开发范围与已有证据已登记；19项审批之外的工作见统一清单，正式NOT_FROZEN",
       "owner_role": "项目/业务/安全/技术评审人（姓名待定）",
       "owner_name": null,
       "required_inputs": "真实责任人、有效决议及上述P0项处理结果",
@@ -127,5 +128,9 @@
         "docs/03-api/system-interface-specification.md"
       ]
     }
+  ],
+  "non_signature_work_refs": [
+    "docs/00-project/phase-readiness-register.json",
+    "docs/00-project/requirement-processing-map.json"
   ]
 }

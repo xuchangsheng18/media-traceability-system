@@ -359,6 +359,14 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/python-audit-report.json](<00-project/validation/python-audit-report.json>) | pip-audit发现与跳过原因；CPU torch被跳过，不能声称全部无漏洞。 |
 | [00-project/validation/npm-sbom.cdx.json](<00-project/validation/npm-sbom.cdx.json>) | 锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。 |
 | [00-project/validation/repository-secrets-report.json](<00-project/validation/repository-secrets-report.json>) | 确切开发凭据值及已知秘密文件名检查，非完整DLP。 |
+| [00-project/phase-readiness-register.md](<00-project/phase-readiness-register.md>) | 审批之外的19项工作（第一阶段7/第二阶段12）：资料/设计/资源/实现/验证、完成标准和后续研发边界。 |
+| [00-project/phase-readiness-register.json](<00-project/phase-readiness-register.json>) | 19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。 |
+| [00-project/requirement-processing-map.md](<00-project/requirement-processing-map.md>) | 36业务需求→来源任务/内部能力→候选结果读取；七条未直接绑API需求显式保留，语义/实现仍待核验。 |
+| [00-project/requirement-processing-map.json](<00-project/requirement-processing-map.json>) | 上述逐需求源指针/摘要、原始引用与候选流程；不改主追踪或新增可调用HTTP。 |
+| [00-project/requirement-flow-proposals.json](<00-project/requirement-flow-proposals.json>) | 12模块/七特殊需求的候选处理入口和读取解释；工程设计提案，不成为第二API结构源。 |
+| [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |
+| [00-project/validation/resource-readiness-snapshot.json](<00-project/validation/resource-readiness-snapshot.json>) | 2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。 |
+| [00-project/validation/repository-governance-snapshot.json](<00-project/validation/repository-governance-snapshot.json>) | 实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。 |
 | [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。 |
 | [03-api/detailed-interface-index.md](<03-api/detailed-interface-index.md>) | 53份逐操作说明及12模块导航；方法/路径、来源、实现边界和明细落点。 |
 | [03-api/data-structures.md](<03-api/data-structures.md>) | 83业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。 |
@@ -383,7 +391,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共436份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共444份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -403,10 +411,15 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/official-sources.yaml](<00-project/official-sources.yaml>) | 上述技术来源的机器索引。 |
 | [00-project/open-questions.md](<00-project/open-questions.md>) | 尚待确定的业务、资源与技术问题说明。 |
 | [00-project/open-questions.yaml](<00-project/open-questions.yaml>) | 未决事项的机器索引，不能自动将未知改为已解决。 |
+| [00-project/phase-readiness-register.json](<00-project/phase-readiness-register.json>) | 19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。 |
+| [00-project/phase-readiness-register.md](<00-project/phase-readiness-register.md>) | 审批之外的19项工作（第一阶段7/第二阶段12）：资料/设计/资源/实现/验证、完成标准和后续研发边界。 |
 | [00-project/project-scope.md](<00-project/project-scope.md>) | 12模块、170任务及场景的范围与外部边界；分阶段不等于删功能。 |
 | [00-project/README.md](<00-project/README.md>) | 所在专题的局部导航与阅读入口 |
 | [00-project/repository-file-manifest.json](<00-project/repository-file-manifest.json>) | 本次实际交付文件摘要，用于本地和服务器核对，排除自身及同步回执。 |
 | [00-project/repository-readiness.md](<00-project/repository-readiness.md>) | 当前资料、Git、服务和验证状态。历史数量与当前构建统计有差异时，以本轮报告为准。 |
+| [00-project/requirement-flow-proposals.json](<00-project/requirement-flow-proposals.json>) | 12模块/七特殊需求的候选处理入口和读取解释；工程设计提案，不成为第二API结构源。 |
+| [00-project/requirement-processing-map.json](<00-project/requirement-processing-map.json>) | 上述逐需求源指针/摘要、原始引用与候选流程；不改主追踪或新增可调用HTTP。 |
+| [00-project/requirement-processing-map.md](<00-project/requirement-processing-map.md>) | 36业务需求→来源任务/内部能力→候选结果读取；七条未直接绑API需求显式保留，语义/实现仍待核验。 |
 | [00-project/requirement-traceability.md](<00-project/requirement-traceability.md>) | 需求与用例、接口、表、模型、任务和测试的阅读矩阵。 |
 | [00-project/requirement-traceability.yaml](<00-project/requirement-traceability.yaml>) | 用于检查追踪覆盖与断链的机器记录。 |
 | [00-project/review-decision-application-report.md](<00-project/review-decision-application-report.md>) | 决定如何同步到设计和契约，以及未生效项。 |
@@ -504,6 +517,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
 | [00-project/validation/npm-sbom.cdx.json](<00-project/validation/npm-sbom.cdx.json>) | 锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。 |
+| [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |
 | [00-project/validation/poc-browser-report.json](<00-project/validation/poc-browser-report.json>) | Chromium实际上传与显示异步结果的测试记录。 |
 | [00-project/validation/poc-integration-report.json](<00-project/validation/poc-integration-report.json>) | 21项真实API/对象/SQL/队列/CPU/追踪/Problem结果检查，不是业务模型验收。 |
 | [00-project/validation/poc-resilience-report.json](<00-project/validation/poc-resilience-report.json>) | 5项队列/过期租约/服务及版本对象重启/幂等冲突检查，服务恢复记录。 |
@@ -511,7 +525,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/python-audit-report.json](<00-project/validation/python-audit-report.json>) | pip-audit发现与跳过原因；CPU torch被跳过，不能声称全部无漏洞。 |
 | [00-project/validation/python-components.json](<00-project/validation/python-components.json>) | 安装包版本与声明许可元信息；不是完整OS SBOM或正式许可审查。 |
 | [00-project/validation/repository-docs-validation.json](<00-project/validation/repository-docs-validation.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
+| [00-project/validation/repository-governance-snapshot.json](<00-project/validation/repository-governance-snapshot.json>) | 实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。 |
 | [00-project/validation/repository-secrets-report.json](<00-project/validation/repository-secrets-report.json>) | 确切开发凭据值及已知秘密文件名检查，非完整DLP。 |
+| [00-project/validation/resource-readiness-snapshot.json](<00-project/validation/resource-readiness-snapshot.json>) | 2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。 |
 | [00-project/validation/runtime-lock-report.json](<00-project/validation/runtime-lock-report.json>) | 实际Python补丁与全部第三方包是否匹配精确锁。 |
 | [00-project/validation/sql-attempt-01.json](<00-project/validation/sql-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-attempt-02.json](<00-project/validation/sql-attempt-02.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |

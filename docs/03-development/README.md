@@ -16,3 +16,9 @@
 ## 第一阶段资料入口
 
 [第一阶段24步、来源和材料](../00-project/stage-one/README.md)记录输入整理做法；与第二阶段23步、根170研发任务分开。当前两阶段的正式冻结都未完成。
+
+## 审批之外还需完成什么
+
+[两阶段19项未完成工作](../00-project/phase-readiness-register.md)将第一阶段7项与第二阶段12项的当前证据、缺失工作、关闭标准和后续业务交付边界逐项列明。优先落实资源/存储、关键接口和处理/结果关联、规则/指标/排期；完整业务研发及生产级安全/灾备/容量按适用任务推进。
+
+[36需求处理与读取映射](../00-project/requirement-processing-map.md)为候选设计；[最新资源快照](../00-project/validation/resource-readiness-snapshot.json)和[仓库治理快照](../00-project/validation/repository-governance-snapshot.json)是时点观测，不等于配额或治理验收。

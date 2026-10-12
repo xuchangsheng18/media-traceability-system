@@ -1,0 +1,531 @@
+{
+  "revision": "phase-readiness-20261013",
+  "scope": "remaining_material_design_resource_implementation_and_verification_work_excluding_signature_only",
+  "original_stage_one_steps": 24,
+  "original_stage_two_steps": 23,
+  "source_tasks_preserved": 170,
+  "formal_stage_one_frozen": false,
+  "formal_stage_two_frozen": false,
+  "priority_scope": "对应设计/功能/发布动作前的优先级，不自动阻断全部研发",
+  "audit_item_count": 19,
+  "items": [
+    {
+      "id": "S1-N01",
+      "stage": 1,
+      "priority": "P1",
+      "title": "图表、流程图与原型视觉核验",
+      "original_stage_steps": [
+        3
+      ],
+      "source_gap_ids": [],
+      "current_evidence": "正文/495表/12页原型文字与2图摘要核对，未逐页渲染核验。",
+      "remaining_work": "逐页检查复杂表图、箭头/层次、分页和文字位置，登记差异及修复位置。",
+      "closure_criteria": "有原件页/形状位置、渲染或人工核对记录和差异处置；不以文字存在性代替视觉。",
+      "phase_boundary": "第一阶段输入质量项；不要求实现原型全部功能。",
+      "evidence_refs": [
+        "docs/00-project/stage-one/source-content-audit.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S1-N02",
+      "stage": 1,
+      "priority": "P0",
+      "title": "来源身份、版本优先级与变更权责",
+      "original_stage_steps": [
+        1,
+        2,
+        23
+      ],
+      "source_gap_ids": [],
+      "current_evidence": "10原件摘要与成对修订稿保留，V2文件名/正文身份冲突已登记。",
+      "remaining_work": "明确每类输入的权威版本、适用范围、变更责任与冲突处理来源，不只是补签名。",
+      "closure_criteria": "有可核验的来源身份/版本优先关系和变更记录；对应引用一致。",
+      "phase_boundary": "第一阶段设计输入身份；正式批准另登记。",
+      "evidence_refs": [
+        "docs/00-project/source-document-inventory.md",
+        "docs/00-project/document-conversion-plan.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S1-N03",
+      "stage": 1,
+      "priority": "P0",
+      "title": "术语、业务规则与状态参数细化",
+      "original_stage_steps": [
+        4,
+        6,
+        10,
+        11
+      ],
+      "source_gap_ids": [
+        "IF-G12"
+      ],
+      "current_evidence": "术语/规则/状态机候选已形成，Q事项保留。",
+      "remaining_work": "确定风险/人工阈值、RETURNED后继、首发未知、审批目的与回流/保留规则的适用参数和例外。",
+      "closure_criteria": "规则版本、触发条件、输入/输出、异常/例外及测试逐项可执行，不从建议值生成事实。",
+      "phase_boundary": "本阶段需明确设计；正式业务动作待相关规则和授权。",
+      "evidence_refs": [
+        "docs/00-project/glossary.md",
+        "docs/05-workflows/task-state-machine.md",
+        "docs/00-project/review-package/business-rule-review.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S1-N04",
+      "stage": 1,
+      "priority": "P0",
+      "title": "需求到内部处理与结果读取的语义闭环",
+      "original_stage_steps": [
+        7,
+        8,
+        12,
+        14,
+        19,
+        21
+      ],
+      "source_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "current_evidence": "本轮新增36需求候选映射，七条无直接API引用的需求保留全部来源。",
+      "remaining_work": "复核模型/普通处理分工、结果对象身份、task/run/result/cluster关联和读取投影是否完整。",
+      "closure_criteria": "逐需求的入口、内部契约、持久化/结果读取及异常/测试语义一致；缺字段进入唯一契约。",
+      "phase_boundary": "候选映射材料已补，人工语义和实际业务实现仍开放。",
+      "evidence_refs": [
+        "docs/00-project/requirement-processing-map.md",
+        "docs/00-project/stage-one/source-section-map.md",
+        "docs/03-api/system-interface-specification.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S1-N05",
+      "stage": 1,
+      "priority": "P0",
+      "title": "可执行的指标和验收测量协议",
+      "original_stage_steps": [
+        9,
+        18
+      ],
+      "source_gap_ids": [],
+      "current_evidence": "源指标、20/100并发和计划场景保持待定；工程验证另记。",
+      "remaining_work": "补数据/负载/成功失败计数、分母、时间分位、资源版本、统计单位和合格条件。",
+      "closure_criteria": "协议能按同版本和固定样本复现，失败计入；算法/系统/安全与容量分开判断。",
+      "phase_boundary": "第一阶段需明确验收方法；真实全业务测试属于后续交付。",
+      "evidence_refs": [
+        "docs/01-requirements/non-functional-requirements.md",
+        "docs/09-testing/acceptance-criteria.md",
+        "docs/06-algorithms/model-evaluation.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S1-N06",
+      "stage": 1,
+      "priority": "P0",
+      "title": "数据集计数、标签和可用输入清单",
+      "original_stage_steps": [
+        15
+      ],
+      "source_gap_ids": [],
+      "current_evidence": "15目录/标注/分组切分Schema与数据卡结构存在，实际样本规模未知。",
+      "remaining_work": "落实来源/用途材料、标签版本/质检、原件与派生/内容簇计数及独立封存集规则；盘点实际可用样本。",
+      "closure_criteria": "数据卡有真实状态和用途/来源，计数可复算、划分防泄漏；未知保持未知。",
+      "phase_boundary": "本阶段需定义规则/资源输入；不要求先完成全部训练或20万样本目标。",
+      "evidence_refs": [
+        "docs/07-datasets/dataset-catalog.md",
+        "docs/07-datasets/annotation-specification.md",
+        "docs/07-datasets/dataset-split-policy.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S1-N07",
+      "stage": 1,
+      "priority": "P0",
+      "title": "人员投入、实际进度和分期执行台账",
+      "original_stage_steps": [
+        17,
+        19,
+        23
+      ],
+      "source_gap_ids": [],
+      "current_evidence": "170来源卡/依赖候选完整；PoC证据已有，负责人/投入/剩余排期未实际落实。",
+      "remaining_work": "按卡登记已有成果适用范围、负责人/审核人、投入、日期、前置输入和剩余计划；不能从全draft状态计算真实完成率。",
+      "closure_criteria": "有逐任务证据与实际排期，部分实现/完整验收分别登记；原工时与重估差异保留。",
+      "phase_boundary": "第一阶段计划与交接输入；完整170任务实现属于后续研发。",
+      "evidence_refs": [
+        "tasks/backlog.yaml",
+        "tasks/dependency-report.md",
+        "docs/00-project/review-package/scope-review.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N01",
+      "stage": 2,
+      "priority": "P0",
+      "title": "整体接口流程和必要服务契约",
+      "original_stage_steps": [
+        19
+      ],
+      "source_gap_ids": [
+        "S2-11",
+        "IF-G01",
+        "IF-G02",
+        "IF-G03",
+        "IF-G04",
+        "IF-G05",
+        "IF-G06",
+        "IF-G07",
+        "IF-G08",
+        "IF-G09",
+        "IF-G10",
+        "IF-G11",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "current_evidence": "53操作/83组件/34能力已详细化，13项缺口开放；仅health开发子范围和PoC入口已运行。",
+      "remaining_work": "补上传/审批/复核/反馈/发布/导出/历史读取及外部身份/来源/服务语义。",
+      "closure_criteria": "关键流程受理到终态可读取，唯一契约/映射/追踪/类型齐备，按对应任务真实联调。",
+      "phase_boundary": "关键边界/契约设计属第二阶段；全部业务API实现按后续模块交付。",
+      "evidence_refs": [
+        "docs/03-api/interface-gap-register.md",
+        "docs/03-development/contract-generation.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N02",
+      "stage": 2,
+      "priority": "P0",
+      "title": "业务数据库访问层与升级迁移",
+      "original_stage_steps": [
+        7
+      ],
+      "source_gap_ids": [],
+      "current_evidence": "62表824字段DDL/隔离SQL有证据；运行PoC为5表及专用迁移账本。",
+      "remaining_work": "明确业务ORM/事务/引用校验/权限及升级方式，按启用功能补迁移，不把空库初始化当升级。",
+      "closure_criteria": "相关模块迁移可验证、版本摘要/兼容/恢复明确，真实数据访问与案件域测试通过。",
+      "phase_boundary": "第二阶段需确定数据访问/事务和代表性验证；62表全业务实现按后续任务。",
+      "evidence_refs": [
+        "docs/04-database/database-design.md",
+        "docs/04-database/poc-database.md",
+        "docs/03-development/migrations-and-events.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N03",
+      "stage": 2,
+      "priority": "P0",
+      "title": "完整任务编排、取消与多worker故障",
+      "original_stage_steps": [
+        9,
+        19,
+        20
+      ],
+      "source_gap_ids": [
+        "S2-07",
+        "IF-G11"
+      ],
+      "current_evidence": "单节点PoC/outbox/旧租约拒绝、8数据库竞争者检查通过；非完整Celery/DAG。",
+      "remaining_work": "补DAG节点、依赖、优先级、检查点、取消/退回/重算、长任务续租、乱序/死信和真实多worker。",
+      "closure_criteria": "节点和运行版本不可错写；真实故障/重投/取消/续租及补偿有对应证据。",
+      "phase_boundary": "第二阶段需明确协议/故障方式并验证代表性场景；完整业务编排按任务交付。",
+      "evidence_refs": [
+        "docs/05-workflows/task-state-machine.md",
+        "docs/03-development/migrations-and-events.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N04",
+      "stage": 2,
+      "priority": "P0",
+      "title": "正式身份与案件/单位隔离",
+      "original_stage_steps": [
+        15
+      ],
+      "source_gap_ids": [
+        "S2-03",
+        "IF-G07",
+        "IF-G08"
+      ],
+      "current_evidence": "研发Bearer/固定测试案件与拒绝规则有证据；正式身份/RLS未实现。",
+      "remaining_work": "接入协议/主体与范围映射、功能权限、RLS/用途、撤销和跨单位访问。",
+      "closure_criteria": "当前授权、撤销/过期、跨案件和管理员越权有真实拒绝测试。",
+      "phase_boundary": "第二阶段需明确边界/技术验证；生产身份/全业务隔离在真实接入前完成。",
+      "evidence_refs": [
+        "docs/02-architecture/security-baseline.md",
+        "docs/08-security/permission-matrix.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N05",
+      "stage": 2,
+      "priority": "P0",
+      "title": "项目配额与研发数据卷容量",
+      "original_stage_steps": [
+        1,
+        2,
+        8,
+        16
+      ],
+      "source_gap_ids": [
+        "S2-02"
+      ],
+      "current_evidence": "新增只读资源快照，卷余量/使用率见时点记录；项目独占配额仍未知。",
+      "remaining_work": "落实CPU/内存/磁盘、GPU来源和到位时间；确定实际可用存储位置/扩容与监控。",
+      "closure_criteria": "配额/路径可执行并实测，能容纳目标素材/权重/索引/备份，记录余量与告警。",
+      "phase_boundary": "第二阶段资源基线项；批量数据和大模型/索引引入前必须落实。",
+      "evidence_refs": [
+        "docs/00-project/validation/resource-readiness-snapshot.json",
+        "docs/02-architecture/resource-and-team-inventory.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N06",
+      "stage": 2,
+      "priority": "P0",
+      "title": "业务模型、OCR/ASR及GPU验证",
+      "original_stage_steps": [
+        12,
+        13
+      ],
+      "source_gap_ids": [
+        "S2-05",
+        "IF-G13"
+      ],
+      "current_evidence": "真实合成CPU训练与M15调用通过，未证明SSCD/中文OCR/ASR或其他业务模型。",
+      "remaining_work": "落实选定业务权重/输入/许可、授权样本和GPU组合；验证代表性能力并规划其他能力。",
+      "closure_criteria": "模型版本/前后处理/维度/时间语义、资源/错误与独立效果证据明确，不以mock/Schema代替。",
+      "phase_boundary": "第二阶段需选型和代表性PoC；全部34能力后端与正式精度按后续算法任务。",
+      "evidence_refs": [
+        "docs/06-algorithms/model-catalog.yaml",
+        "docs/06-algorithms/model-evaluation.md",
+        "docs/03-api/inference-interfaces.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N07",
+      "stage": 2,
+      "priority": "P1",
+      "title": "真实媒体、VFR和全时间轴链路",
+      "original_stage_steps": [
+        14
+      ],
+      "source_gap_ids": [
+        "S2-07"
+      ],
+      "current_evidence": "合成10帧和非零源PTS映射已实测；非VFR/完整音画/字幕业务链路。",
+      "remaining_work": "补变帧率、旋转/编码、镜头/音轨/字幕及派生坐标映射，含缺失模态与异常素材。",
+      "closure_criteria": "真实素材的源/派生时间与空间映射、边界和异常输出有证据。",
+      "phase_boundary": "媒体技术组合/代表性映射为第二阶段验证，全部业务流水线按后续交付。",
+      "evidence_refs": [
+        "docs/00-project/validation/media-timestamp-report.json",
+        "docs/02-architecture/architecture-decisions/TB-ADR-010-media-processing.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N08",
+      "stage": 2,
+      "priority": "P1",
+      "title": "中文/规模化检索与传播图验证",
+      "original_stage_steps": [
+        10,
+        11
+      ],
+      "source_gap_ids": [
+        "S2-07"
+      ],
+      "current_evidence": "simple全文/3向量和带环递归SQL微型机制通过，非大型中文索引/真实传播服务。",
+      "remaining_work": "补中文分词/检索口径、索引/模型兼容、授权过滤、图写入/版本和目标规模资源测试。",
+      "closure_criteria": "固定候选库/版本及真实工作负载下有正确性、延迟、资源和故障证据。",
+      "phase_boundary": "第二阶段确定方案与代表性机制；大规模业务/20与100并发按后续验收。",
+      "evidence_refs": [
+        "docs/02-architecture/technical-validation-report.md",
+        "docs/00-project/validation/media-query-report.json"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N09",
+      "stage": 2,
+      "priority": "P0",
+      "title": "正式安全与证据防篡改机制",
+      "original_stage_steps": [
+        8,
+        15
+      ],
+      "source_gap_ids": [
+        "S2-04"
+      ],
+      "current_evidence": "普通应用角色追加审计/版本引用有证据，管理员仍可修改；非正式不可篡改。",
+      "remaining_work": "补TLS、密钥轮换、保留/WORM/可信时间与签验、访问撤销、特权路径和安全复测。",
+      "closure_criteria": "普通/特权、到期/撤销、固定证据版本完整性有对应机制与测试，适用规范明确。",
+      "phase_boundary": "第二阶段需安全架构/代表性验证；完整正式机制在相关业务/生产启用前。",
+      "evidence_refs": [
+        "docs/02-architecture/security-baseline.md",
+        "docs/08-security/audit-requirements.md",
+        "docs/05-workflows/evidence-state-machine.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N10",
+      "stage": 2,
+      "priority": "P1",
+      "title": "生产灾备、PITR和密钥恢复",
+      "original_stage_steps": [
+        8,
+        16
+      ],
+      "source_gap_ids": [
+        "S2-06"
+      ],
+      "current_evidence": "开发5表/原S3版本/权重冷恢复8项通过，复用了已有凭据。",
+      "remaining_work": "落实RPO/RTO、异机/异地备份、WAL/PITR、密钥丢失恢复、索引重建与业务对账。",
+      "closure_criteria": "目标时间/权限下实际独立恢复，数据/对象/模型/索引/密钥可用，演练记录可复核。",
+      "phase_boundary": "第二阶段确定方案与开发恢复验证；生产级演练在正式发布前。",
+      "evidence_refs": [
+        "docs/10-deployment/development-backup-restore.md",
+        "docs/00-project/validation/development-recovery-report.json"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N11",
+      "stage": 2,
+      "priority": "P0",
+      "title": "支持版本、OS物料和离线交付",
+      "original_stage_steps": [
+        1,
+        17
+      ],
+      "source_gap_ids": [
+        "S2-01",
+        "S2-08"
+      ],
+      "current_evidence": "用户py310保持，包/镜像锁和Python/npm元信息已盘点；OS/权重完整审查尚缺。",
+      "remaining_work": "确定正式支持版本和迁移验证、完整OS/镜像SBOM/扫描、许可文本/notices、离线来源/制品和差异。",
+      "closure_criteria": "选定目标精确锁/重建/兼容CI通过，包/二进制/权重来源与物料/分发范围可核验。",
+      "phase_boundary": "当前py310研发无需被本清单改动；生产版本/离线制品在相应交付前。",
+      "evidence_refs": [
+        "docs/02-architecture/environment-constraints.md",
+        "docs/02-architecture/licenses.md",
+        "docs/02-architecture/compatibility-matrix.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    },
+    {
+      "id": "S2-N12",
+      "stage": 2,
+      "priority": "P1",
+      "title": "CI组织治理与受控制品交付",
+      "original_stage_steps": [
+        21,
+        22,
+        23
+      ],
+      "source_gap_ids": [
+        "S2-09"
+      ],
+      "current_evidence": "真实Actions/21门禁制品已验真；新增治理快照main protected=false，rulesets未能查询。",
+      "remaining_work": "落实必要检查/分支或规则集策略、审查职责、制品保留/验证/发布权限和离线镜像交付。",
+      "closure_criteria": "实际配置与适用检查能阻断失败，受控制品可按源码/锁/摘要追溯；无法查询保留未知。",
+      "phase_boundary": "第二阶段定义开发门禁和治理边界；组织发布/生产制品控制在实际交付前。",
+      "evidence_refs": [
+        "docs/00-project/validation/repository-governance-snapshot.json",
+        "docs/03-development/ci-cd.md"
+      ],
+      "status": "OPEN_WITH_DOCUMENTED_DEVELOPMENT_EVIDENCE",
+      "signature_only": false,
+      "owner_name": null,
+      "completion_asserted": false,
+      "formal_approved": false
+    }
+  ],
+  "full_business_implementation_is_later_task_scope": true,
+  "decisions_or_task_states_changed": false
+}

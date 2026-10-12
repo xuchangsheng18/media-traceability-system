@@ -32,3 +32,7 @@
 - [逐章节来源映射](source-section-map.md)：每个来源位置、原件摘要与候选工程路径可追踪，不假定语义批准。
 - [33项问题评审导航](../review-package/README.md)：七类材料有具体输入、台账引用/影响建议和关闭条件。
 - [当前候选输入摘要](input-baseline-candidate.md)：只记录当前输入文件与摘要，保留旧快照，状态仍NOT_FROZEN。
+
+## 审批之外的输入缺口
+
+[两阶段未完成工作](../phase-readiness-register.md)列第一阶段7项资料/规则/口径/计划工作，明确视觉核对、语义复核和真实输入不因签字自动完成。[36需求处理映射](../requirement-processing-map.md)已补来源任务/内部Schema与候选结果读取，其中七条无直接API绑定的需求保留；候选设计不改主追踪/任务状态，语义和运行验证仍开放。

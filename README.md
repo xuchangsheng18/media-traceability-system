@@ -67,3 +67,7 @@ cd /workspace/glwy/projects/media-traceability-system
 ## 整体接口详细入口
 
 [系统整体接口说明](docs/03-api/system-interface-specification.md)、[53份逐操作/12模块导航](docs/03-api/detailed-interface-index.md)、[83组件字段](docs/03-api/data-structures.md)、[34内部能力](docs/03-api/inference-interfaces.md)已显式整理。第二阶段第19步保留PoC实测，整体接口仍有[13项开放缺口](docs/03-api/interface-gap-register.md)；候选路径不可调用，未标全系统接口冻结。
+
+## 审批之外的剩余工作
+
+[两阶段19项统一清单](docs/00-project/phase-readiness-register.md)列第一阶段7项、第二阶段12项的资料/设计/资源/实现/验证及完成标准；[36需求处理与读取映射](docs/00-project/requirement-processing-map.md)保持原主追踪，候选流程待语义复核。审批不能代替这些工作，后续完整业务研发与本阶段技术设计分别安排。

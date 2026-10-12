@@ -1,0 +1,77 @@
+{
+  "status": "OBSERVED_PROJECT_QUOTAS_UNCONFIRMED",
+  "observed_at": "2026-10-12T16:29:20.086570+00:00",
+  "scope": "host_and_own_postgres_volume_capacity_snapshot_not_exclusive_quota_peak_or_acceptance",
+  "python": "3.10.22",
+  "logical_cpu_count": 192,
+  "host_memory_total_bytes": 134950191104,
+  "host_disks": [
+    {
+      "path": "/workspace",
+      "total_bytes": 9959886327808,
+      "free_bytes": 9763836702720,
+      "project_exclusive_quota_asserted": false
+    },
+    {
+      "path": "/opt",
+      "total_bytes": 9959886327808,
+      "free_bytes": 9951108530176,
+      "project_exclusive_quota_asserted": false
+    }
+  ],
+  "development_postgres_volume_filesystem": {
+    "mount": "/var/lib/postgresql/data",
+    "total_bytes": 102838108160,
+    "used_bytes": 95765262336,
+    "available_bytes": 1801707520,
+    "used_percent_observed": "99%",
+    "all_project_storage_quota_asserted": false
+  },
+  "gpu": {
+    "probe": "nvidia-smi",
+    "tool_available": false,
+    "device_absence_asserted": false,
+    "project_allocation_or_PyTorch_GPU_compatibility_asserted": false
+  },
+  "services": [
+    {
+      "service": "api",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "inference",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "postgres",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "rabbitmq",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "s3",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "web",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "worker",
+      "state": "running",
+      "health": "healthy"
+    }
+  ],
+  "services_restarted": false,
+  "database_rows_read_or_changed": false,
+  "storage_expanded_or_other_projects_cleaned": false,
+  "actual_team_and_exclusive_quotas": null
+}

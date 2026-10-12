@@ -32,3 +32,7 @@ RabbitMQ 显式限制 Erlang 调度器；Nginx 按容器配额调整 worker 数�
 | 安全/业务代表 | 软件准入、身份、案件权限、审计和正式验收 | 待指定 |
 
 本会话完成自动化实现与研发验证，不虚构岗位人员、正式批准人或设备采购结论。样例配置见 [hardware-inventory.example.yaml](../../config/hardware-inventory.example.yaml)。
+
+## 2026-10-13只读容量补查
+
+此前表为2026-10-12环境时点。最新[resource-readiness-snapshot.json](../00-project/validation/resource-readiness-snapshot.json)观测研发PostgreSQL卷所在文件系统可用约1.68GiB、df使用率99%；不能用宿主机空闲量代替，也不表示已分配项目独占配额。CPU/内存与旧VM观察按各自时点阅读。7服务当时均健康，未重启/扩容/清理其他项目或读写业务行。nvidia-smi工具不可用，没有据此宣称物理GPU不存在或GPU兼容已验证。批量素材/模型/索引引入前落实真实存储位置、余量/告警、GPU与责任人。

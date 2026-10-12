@@ -1,0 +1,249 @@
+{
+  "status": "CANDIDATE_PROCESSING_DESIGN_NOT_APPROVED",
+  "modules": {
+    "INGEST": {
+      "entry_operations": [
+        "createUpload",
+        "createImport"
+      ],
+      "result_operations": [
+        "getImport",
+        "getAsset"
+      ],
+      "note": "来源/分片/导入按已声明契约；上传VALIDATING终态缺查询，不能把受理当有效资产。",
+      "interface_gap_ids": [
+        "IF-G01",
+        "IF-G08",
+        "IF-G10"
+      ]
+    },
+    "RESOURCE": {
+      "entry_operations": [
+        "listAssets",
+        "searchImage"
+      ],
+      "result_operations": [
+        "getAsset",
+        "downloadAsset",
+        "getSearchJob"
+      ],
+      "note": "资源读取和检索候选分开，来源用途与授权生命周期逐次核验。",
+      "interface_gap_ids": [
+        "IF-G08",
+        "IF-G09"
+      ]
+    },
+    "MEDIA": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getAsset",
+        "getTimeline"
+      ],
+      "note": "候选DAG触发媒体处理；getAsset只含部分媒体摘要，getTimeline为帧/镜头/OCR/ASR等投影。完整元数据、派生对象/时轴关联仍需设计。",
+      "interface_gap_ids": [
+        "IF-G11",
+        "IF-G13"
+      ]
+    },
+    "RISK": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "note": "候选内部能力与融合后由风险/证据读取；标签/阈值/模态缺失与时间映射需语义核验。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G12",
+        "IF-G13"
+      ]
+    },
+    "FORENSIC": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "note": "取证计算可由内部能力执行，掩码/轨迹/音画映射与版本需校验；读取候选不等于法定结论。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ]
+    },
+    "IMGRET": {
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "异步检索返回search_id；候选、几何验证、同源关系分别核验，不能用微型向量PoC代替完整查询。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ]
+    },
+    "VIDTRACE": {
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "候选召回/时序对齐/多源定位在内部处理，查询与源半开区间、未知段及结果身份仍需全链路定义。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ]
+    },
+    "ORIGIN": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getFirstSource"
+      ],
+      "note": "高可信聚类→排序是候选DAG；已有查询返回ranking快照，cluster_id从任务到持久化/用户读取的关联仍需明确，不能把排序API当全部聚类结果接口。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ]
+    },
+    "PROPAGATION": {
+      "entry_operations": [
+        "createTask",
+        "decidePropagationEdge"
+      ],
+      "result_operations": [
+        "getPropagation"
+      ],
+      "note": "图写入/推断与人工决定分别处理，完整对象版本/查询规模/内部任务入口尚需实施验证。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ]
+    },
+    "CLAIM": {
+      "entry_operations": [
+        "extractClaims",
+        "verifyClaim",
+        "createReportDraft"
+      ],
+      "result_operations": [
+        "getReport"
+      ],
+      "note": "现有主张提取/关系响应可作为读取投影，摘要异步生成用报告状态查询；引用支持不能只看JSON/ID存在。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ]
+    },
+    "REVIEW": {
+      "entry_operations": [
+        "createReview",
+        "requestApproval",
+        "sealEvidence",
+        "createReport",
+        "requestFeedback"
+      ],
+      "result_operations": [
+        "getTaskEvidence",
+        "getReport",
+        "downloadReport"
+      ],
+      "note": "结果证据读取已有候选；复核/审批/反馈工作台和状态读取仍缺，不能用报告查询替代。",
+      "interface_gap_ids": [
+        "IF-G02",
+        "IF-G03",
+        "IF-G04",
+        "IF-G09",
+        "IF-G12"
+      ]
+    },
+    "OPS": {
+      "entry_operations": [
+        "registerModel",
+        "rolloutModel",
+        "createPolicy",
+        "exportAudit"
+      ],
+      "result_operations": [
+        "listModels",
+        "getModelHealth",
+        "getIndex",
+        "listPolicies",
+        "listAuditEvents"
+      ],
+      "note": "组织级配置/模型与案件数据范围分开；健康检查不等于发布操作完成，审计导出查询缺口开放，训练/备份可为离线运维任务。",
+      "interface_gap_ids": [
+        "IF-G05",
+        "IF-G06",
+        "IF-G07",
+        "IF-G12"
+      ]
+    }
+  },
+  "overrides": {
+    "FR-INGEST-001": {
+      "entry_operations": [
+        "createSource",
+        "createImport"
+      ],
+      "result_operations": [
+        "listSources",
+        "getImport"
+      ]
+    },
+    "FR-INGEST-002": {
+      "entry_operations": [
+        "createUpload",
+        "putUploadPart",
+        "completeUpload"
+      ],
+      "result_operations": []
+    },
+    "FR-INGEST-003": {
+      "entry_operations": [
+        "completeUpload"
+      ],
+      "result_operations": [
+        "getAsset",
+        "downloadAsset"
+      ]
+    },
+    "FR-MEDIA-001": {
+      "note": "T041/T042/T043承接原件探测和标准化副本。主来源无模型/直接API绑定；候选入口为统一分析任务，getAsset仅含mime/尺寸/时长等摘要，完整元数据/派生血缘的返回与对象关联尚需确定。"
+    },
+    "FR-MEDIA-002": {
+      "note": "T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不能把指纹Schema当全部视频解码契约。getTimeline有frame/shot/audio/subtitle等候选投影，派生资产和映射身份待设计/实现。"
+    },
+    "FR-RISK-002": {
+      "note": "M04—M07是行为/事件/音频/一致性能力来源，内部对齐和融合按任务处理；候选风险/证据读取须包含映射和缺失模态，不能自行新增HTTP或把能力存在当完整融合。"
+    },
+    "FR-FORENSIC-001": {
+      "note": "M09/M10承接疑似区域/类型，getForensics可作候选结果投影，掩码对象、原件坐标及可靠性需完整语义/业务验证。"
+    },
+    "FR-FORENSIC-002": {
+      "note": "M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍需源时间轴、轨迹/模态/证据关联，不能把静态Schema当全视频链路。"
+    },
+    "FR-VIDTRACE-002": {
+      "note": "M20/M21/M25承接时序定位和校准，searchVideo/getSearchJob为候选外部链路；查询区间与源区间、速度/倒放/未知段语义和历史结果选择尚需核验。"
+    },
+    "FR-ORIGIN-001": {
+      "note": "M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFirstSource只返回排序快照；cluster_id/簇成员与任务结果身份的持久化/读取尚需设计，不能将片段关系闭包自动合并整簇。"
+    }
+  },
+  "formal_frozen": false
+}

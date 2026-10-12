@@ -31,3 +31,7 @@
 [技术基线](../02-architecture/technical-baseline.md)、[实际验证](../02-architecture/technical-validation-report.md)、[机器23步清单](stage-two-deliverables.json)与[剩余条件/关闭标准](stage-two-gap-register.md)一起使用。GitHub实际run、源码SHA及制品校验见[平台报告](../00-project/validation/github-actions-report.json)。
 
 DEV_VALIDATED仅对本行开发范围有效。普通权限追加审计不是管理员不可篡改；8数据库竞争者不是8Celery传输验收；非零PTS不是VFR全视频；冷恢复不是生产灾备；合成模型不是业务模型。生产身份/审批/准入/容量/许可/责任人及冻结不自动关闭。保留12模块、170任务和≥3场景，生产Python迁移仍需重测。
+
+## 审批之外的实际剩余工作
+
+[统一19项清单](../00-project/phase-readiness-register.md)区分第一阶段7项与第二阶段12项，不将资料/规则/资源/实现/实测欠缺概括成只缺签字。[36需求内部处理与结果读取](../00-project/requirement-processing-map.md)已补候选映射，七条未直接绑API的需求保留；完整语义和运行仍待对应任务核验。全部170业务任务不是第二阶段结束前一律完成的条件，关键设计/技术验证和后续业务/生产交付分别判断。
