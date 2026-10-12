@@ -1,0 +1,116 @@
+{
+  "revision": "1.1-py310-cpu",
+  "status": "PRODUCTION_NOT_FROZEN",
+  "items": [
+    {
+      "priority": "P0",
+      "id": "S2-01",
+      "title": "Python支持周期与生产准入",
+      "development_evidence": "保留用户py310研发环境；生产版本尚未批准",
+      "owner_role": "技术负责人/现场运维（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "支持中的Python目标、OS/国产化/离线/网络准入",
+      "closure_criteria": "新环境重新锁包、构建、全CI与差异评审；签署准入记录",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P0",
+      "id": "S2-02",
+      "title": "资源容量和维护责任",
+      "development_evidence": "宿主/VM/容器已区分盘点；VM余量约1.9GiB",
+      "owner_role": "运维/项目负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "独占CPU/内存/磁盘配额、扩容方案、GPU型号和可用权限",
+      "closure_criteria": "落实存储余量/告警；真实权重和样本容量、GPU兼容实测",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P0",
+      "id": "S2-03",
+      "title": "身份、案件与单位授权",
+      "development_evidence": "研发固定案件Bearer；没有正式RLS策略",
+      "owner_role": "业务安全/后端负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "身份源、角色与案件范围矩阵、撤销规则",
+      "closure_criteria": "跨单位/案件拒绝、令牌撤销、RLS及策略版本测试",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P0",
+      "id": "S2-04",
+      "title": "证据审批和不可篡改保留",
+      "development_evidence": "普通应用不能修改原件引用或审计；管理员仍可修改",
+      "owner_role": "业务审核/安全负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "审批链、保留期限、WORM/签名/可信时间及撤销决定",
+      "closure_criteria": "批准策略后实施；特权/普通身份、到期及撤销测试",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P0",
+      "id": "S2-05",
+      "title": "真实模型与授权数据",
+      "development_evidence": "真实合成CPU模型已通；业务模型/GPU未验收",
+      "owner_role": "算法/数据负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "合法用途授权、真实模型/权重许可、独立封存测试集、指标",
+      "closure_criteria": "盲测与模型版本台账；跨场景泛化、GPU/批量/不确定性证据",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P1",
+      "id": "S2-06",
+      "title": "生产灾备和密钥恢复",
+      "development_evidence": "开发5表/物理S3版本/权重冷恢复8项通过",
+      "owner_role": "运维/安全负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "批准RPO/RTO、异地位置、密钥恢复及保留要求",
+      "closure_criteria": "异机PITR/WAL、密钥丢失、索引重建与完整业务演练",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P1",
+      "id": "S2-07",
+      "title": "并发和正式媒体/检索",
+      "development_evidence": "8数据库竞争者和非零PTS抽帧通过；非8Celery完整演练",
+      "owner_role": "后端/算法/测试负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "20/100并发口径、真实视频VFR/时轴、规模与中文检索指标",
+      "closure_criteria": "实际多worker故障/取消/DAG/续租；VFR映射、中文及大索引性能",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P1",
+      "id": "S2-08",
+      "title": "依赖许可与软件物料",
+      "development_evidence": "Python/npm元信息已盘点；torch CPU审计被跳过",
+      "owner_role": "软件合规/安全负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "FFmpeg/Desktop/权重再分发决定、OS扫描工具和准入清单",
+      "closure_criteria": "完整OS/镜像SBOM、漏洞处置与许可审查证据",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P1",
+      "id": "S2-09",
+      "title": "CI组织治理和制品",
+      "development_evidence": "GitHub私有仓库已识别，实际run以报告为准",
+      "owner_role": "仓库管理员/技术负责人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "账号套餐、保护分支/必须检查、制品保留/镜像库及离线策略",
+      "closure_criteria": "真实平台run和制品已验真后，补分支治理与受控制品发布",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    },
+    {
+      "priority": "P0",
+      "id": "S2-10",
+      "title": "正式评审与阶段冻结",
+      "development_evidence": "23步开发状态与证据齐备；正式NOT_FROZEN",
+      "owner_role": "项目/业务/安全/技术评审人（姓名待定）",
+      "owner_name": null,
+      "required_inputs": "真实责任人、有效决议及上述P0项处理结果",
+      "closure_criteria": "逐项签署范围/风险/版本；创建有批准依据的正式基线标签",
+      "status": "OPEN_FOR_FORMAL_SCOPE"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+name: py310 CPU engineering
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/00-project/validation/**'
+      - 'docs/00-project/repository-file-manifest.json'
+      - 'docs/00-project/server-sync-receipt.json'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: py310-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  engineering:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      PYTHON: /opt/conda/glwy/envs/py310/bin/python
+      PYTHONPATH: ${{ github.workspace }}/backend
+      PYTHONDONTWRITEBYTECODE: '1'
+      MT_RUNTIME_DIR: ${{ runner.temp }}/media-trace-runtime
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/media-trace-browsers
+      MT_DOCKER_CONTEXT: default
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.21.1
+      - name: Recreate locked Miniforge py310 environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os,urllib.request,hashlib,subprocess
+          from pathlib import Path
+          lock=json.loads(Path('config/ci-bootstrap-lock.json').read_text())['miniforge']
+          target=Path(os.environ['RUNNER_TEMP'])/'miniforge.sh'
+          urllib.request.urlretrieve(lock['url'],target)
+          assert hashlib.sha256(target.read_bytes()).hexdigest()==lock['sha256']
+          subprocess.run(['bash',str(target),'-b','-p',os.environ['RUNNER_TEMP']+'/miniforge'],check=True)
+          PY
+          sudo mkdir -p /opt/conda/glwy/envs
+          sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
+          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py310 --file config/locks/conda-linux-64.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py310.lock
+      - name: Install locked UI and browser
+        shell: bash
+        run: |
+          npm --prefix frontend ci --no-audit --no-fund
+          npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
+      - name: Run actual engineering gates
+        run: |
+          "$PYTHON" scripts/run_ci.py all
+          "$PYTHON" scripts/verify_ci_failure_gate.py
+          "$PYTHON" scripts/check_repository_secrets.py
+      - name: Preserve non-secret validation evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: py310-validation-${{ github.run_id }}
+          retention-days: 14
+          path: |
+            docs/00-project/validation/*report.json
+            docs/00-project/validation/poc-ui.png
+      - name: Stop ephemeral development services
+        if: always()
+        shell: bash
+        run: |
+          if [ -x "$PYTHON" ]; then "$PYTHON" scripts/poc_control.py down; fi

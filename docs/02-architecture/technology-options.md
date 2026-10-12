@@ -13,7 +13,7 @@
 | 传播图 | PostgreSQL 关系表方向与递归 SQL 检查 | Neo4j；专用图服务 | 3 节点带环查询通过；并未实现业务传播关系分析 |
 | 训练 | PyTorch CPU / 固定种子 / 版本化实验 JSON | MLflow；独立训练平台 | 实际训练 64 条自建张量 120 步；不足以替代业务模型训练管理 |
 | 推理 | 独立 FastAPI / PyTorch CPU | ONNX Runtime；Triton | 复用 M15 请求/响应 Schema，记录版本与对象引用；不使用 GPU 或未经授权权重 |
-| 媒体 | Pillow / imageio-ffmpeg 自带 FFmpeg | PyAV；OpenCV | 图片原件/副本分离；合成视频编码与解码通过；时间戳映射未完成 |
+| 媒体 | Pillow / imageio-ffmpeg 自带 FFmpeg | PyAV；OpenCV | 图片原件/副本分离；合成视频编码与解码通过；非零原点合成抽帧PTS已核验；VFR/正式视频链路未验收 |
 | 认证安全 | 研发 Bearer + 独立内部令牌 | OIDC 统一身份；完整 RBAC/ABAC | 默认拒绝、秘密不入库；单固定测试案件，不能作生产案件隔离方案 |
 | 部署 | Docker Compose 独立项目 | 裸进程/systemd；Kubernetes | 共享节点上可运行并有资源限制；没有新增集群，也不改变其他项目 |
 

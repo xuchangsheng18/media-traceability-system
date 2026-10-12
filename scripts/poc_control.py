@@ -14,8 +14,14 @@ PY310 = Path("/opt/conda/glwy/envs/py310/bin/python")
 
 
 def docker_env():
-    endpoint = subprocess.run(["docker", "context", "inspect", "desktop-linux", "--format", "{{.Endpoints.docker.Host}}"],
-                              text=True, capture_output=True, check=True).stdout.strip()
+    context = os.environ.get("MT_DOCKER_CONTEXT", "desktop-linux")
+    inspected = subprocess.run(["docker", "context", "inspect", context, "--format", "{{.Endpoints.docker.Host}}"],
+                               text=True, capture_output=True)
+    if inspected.returncode:
+        context = subprocess.run(["docker", "context", "show"], text=True, capture_output=True, check=True).stdout.strip()
+        inspected = subprocess.run(["docker", "context", "inspect", context, "--format", "{{.Endpoints.docker.Host}}"],
+                                   text=True, capture_output=True, check=True)
+    endpoint = os.environ.get("DOCKER_HOST") or inspected.stdout.strip()
     client = Path.home()/".cache/media-trace-docker-client"
     client.mkdir(parents=True, exist_ok=True, mode=0o700)
     config = client/"config.json"
@@ -57,11 +63,13 @@ def initialize(c):
     from botocore.config import Config
     from psycopg import sql
     with psycopg.connect(host="127.0.0.1", port=14432, user="mt_admin", password=c["admin"], dbname="media_trace_poc") as conn:
-        conn.execute((ROOT/"backend/migrations/0001_poc.sql").read_text())
+        import sys
+        sys.path.insert(0,str(ROOT/"backend"))
+        from app.migrations import configure_application_grants, run_migrations
+        run_migrations(conn)
         if not conn.execute("SELECT 1 FROM pg_roles WHERE rolname='poc_app'").fetchone():
             conn.execute(sql.SQL("CREATE ROLE poc_app LOGIN PASSWORD {} NOSUPERUSER NOBYPASSRLS").format(sql.Literal(c["app"])))
-        conn.execute("GRANT USAGE ON SCHEMA poc TO poc_app")
-        conn.execute("GRANT SELECT,INSERT,UPDATE ON ALL TABLES IN SCHEMA poc TO poc_app")
+        configure_application_grants(conn)
     s3 = boto3.client("s3", endpoint_url="http://127.0.0.1:14833", aws_access_key_id=c["s3_access"],
                      aws_secret_access_key=c["s3_secret"], region_name="us-east-1",
                      config=Config(signature_version="s3v4", s3={"addressing_style": "path"}))

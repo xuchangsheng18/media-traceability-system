@@ -21,3 +21,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 外部API源docs/03-api/openapi.yaml；内部入口源inference-openapi.yaml；模型/数据结构源schemas/model及schemas/dataset。任务范围仍为12模块170项。
 
 完整CI会启动开发栈，恢复检查短暂停止/重启本项目服务；SQL创建新临时无网络容器并清理。资料校验不证明业务实现；主动失败探针FAIL为预期并另有PASS判定。
+
+## 1.1工程补充
+
+1.1新增verify_migrations_and_fencing.py（15隔离项）、verify_media_timestamps.py（非零源PTS）、verify_development_recovery.py（8冷恢复项，维护时段暂停本项目服务）；run_ci.py完整21门禁。

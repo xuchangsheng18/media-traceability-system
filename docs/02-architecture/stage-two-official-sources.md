@@ -19,3 +19,15 @@
 | [Docker Desktop条款](https://docs.docker.com/subscription-billing/desktop-license/) | Desktop与Engine不同，政府实体订阅要求需核验 |
 
 所有未选择的产品版本和GPU组合不作已锁定声明。外部信息变化时更新此记录及对应ADR，不能照抄原手册中的环境示例作实际清单。
+
+## 1.1工程补充依据（2026-10-12）
+
+| 官方依据 | 对应项目验证 |
+| --- | --- |
+| [PostgreSQL16事务锁](https://www.postgresql.org/docs/16/explicit-locking.html) | 迁移串行锁和条件领取/写回；15隔离项 |
+| [PostgreSQL16 SQL Dump](https://www.postgresql.org/docs/16/backup-dump.html) | pg_dump/pg_restore隔离开发恢复；不是WAL/PITR |
+| [FFmpeg命令文档](https://ffmpeg.org/ffmpeg.html) | copyts/抽帧/PTS保留；5秒原点合成验证，未测VFR |
+| [GitHub托管Runner](https://docs.github.com/en/actions/reference/runners/github-hosted-runners) | 独立ubuntu-24.04复建锁定py310，与172主机分开 |
+| [Actions安全配置](https://docs.github.com/en/actions/reference/security/secure-use) | Actions提交摘要、read权限、临时配置与制品边界 |
+
+上述说明是机制参考；是否成功以仓库实际报告、环境、源码SHA和未测范围判断，不将官方通用说明当成本项目业务批准。

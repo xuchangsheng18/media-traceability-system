@@ -1,7 +1,7 @@
 {
-  "revision": "1.0-py310-cpu",
+  "revision": "1.1-py310-cpu",
   "status": "DEVELOPMENT_VALIDATED_NOT_PRODUCTION_FROZEN",
-  "scope": "environment_versions_real_cpu_mvp_local_ci",
+  "scope": "environment_versions_real_cpu_mvp_extended_gates_github_connection",
   "steps": [
     {
       "step": 1,
@@ -68,7 +68,7 @@
       "title": "关系库与访问",
       "planned_outputs": "TB-ADR-003-relational-database.md",
       "directories": "backend、docs、tests",
-      "current_state": "PostgreSQL16.15、PoC迁移、隔离73SQL案例通过；正式迁移/RLS未验收",
+      "current_state": "PoC迁移账本/0002升级及15竞态/权限检查；正式62表迁移/RLS仍待验收",
       "completion_asserted": false,
       "development_status": "DEV_VALIDATED",
       "formal_completion_asserted": false
@@ -78,7 +78,7 @@
       "title": "对象存储",
       "planned_outputs": "TB-ADR-004-object-storage.md",
       "directories": "backend、deploy、config",
-      "current_state": "S3版本/摘要/重启读回通过；WORM/保留/撤销未验收",
+      "current_state": "S3版本/摘要/重启及物理冷恢复通过；WORM/生命周期/密钥灾备未验收",
       "completion_asserted": false,
       "development_status": "DEV_VALIDATED",
       "formal_completion_asserted": false
@@ -88,7 +88,7 @@
       "title": "缓存与队列",
       "planned_outputs": "TB-ADR-005-cache-and-messaging.md",
       "directories": "backend、deploy、config",
-      "current_state": "固定Rabbit/Celery，确认/outbox/幂等/单worker恢复通过",
+      "current_state": "Rabbit/Celery、确认/outbox/幂等、原子领取与旧租约写回拒绝通过；真实多worker故障仍待验收",
       "completion_asserted": false,
       "development_status": "DEV_VALIDATED",
       "formal_completion_asserted": false
@@ -138,7 +138,7 @@
       "title": "视频媒体处理",
       "planned_outputs": "TB-ADR-010-media-processing.md",
       "directories": "backend、ai-services",
-      "current_state": "PNG/JPEG及合成10帧编解码通过；源时间映射未测",
+      "current_state": "合成10帧及非零源PTS抽帧映射通过；VFR/正式视频流水线未验收",
       "completion_asserted": false,
       "development_status": "DEV_PARTIAL",
       "formal_completion_asserted": false
@@ -148,7 +148,7 @@
       "title": "安全认证审计",
       "planned_outputs": "docs/02-architecture/security-baseline.md；TB-ADR-011-security.md",
       "directories": "backend、config、tests",
-      "current_state": "研发Bearer/秘密/Problem与日志；正式身份/RLS/审计待补",
+      "current_state": "研发鉴权、统一Problem/全任务追踪、普通角色追加审计通过；正式身份/RLS/防篡改未验收",
       "completion_asserted": false,
       "development_status": "DEV_PARTIAL",
       "formal_completion_asserted": false
@@ -188,9 +188,9 @@
       "title": "接口事件契约",
       "planned_outputs": "权威契约源、shared-contracts生成物与事件规范",
       "directories": "shared-contracts、schemas、docs",
-      "current_state": "两份API类型生成无漂移、模型Schema实际执行；完整事件信封未完成",
+      "current_state": "两份API及一份事件Schema生成3份类型无漂移；PoC完整事件及M15运行验证通过",
       "completion_asserted": false,
-      "development_status": "DEV_PARTIAL",
+      "development_status": "DEV_VALIDATED_POC",
       "formal_completion_asserted": false
     },
     {
@@ -208,9 +208,9 @@
       "title": "CI质量门禁",
       "planned_outputs": "平台CI配置；docs/03-development/ci-cd.md",
       "directories": "tests、scripts、服务目录",
-      "current_state": "同源本机完整CI和失败阻断通过；托管Runner未注册",
+      "current_state": "本机21门禁及失败阻断通过，私有GitHub已接入；平台结论按github-actions-report.json",
       "completion_asserted": false,
-      "development_status": "LOCAL_CI_VALIDATED",
+      "development_status": "LOCAL_CI_VALIDATED_HOSTED_RECORDED_SEPARATELY",
       "formal_completion_asserted": false
     },
     {
@@ -218,7 +218,7 @@
       "title": "基线评审包",
       "planned_outputs": "technical-baseline.md、ADR索引、评审与决议材料",
       "directories": "docs、tasks",
-      "current_state": "技术基线、12ADR和证据已形成；正式评审未签署",
+      "current_state": "技术基线、14ADR和实际证据已形成；正式责任人/评审未签署",
       "completion_asserted": false,
       "development_status": "REVIEW_PACKAGE_READY",
       "formal_completion_asserted": false

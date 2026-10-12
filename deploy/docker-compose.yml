@@ -29,7 +29,7 @@ services:
     pids_limit: 256
   s3:
     image: chrislusf/seaweedfs:4.48@sha256:4e61d15fd35994cb1e43e1e553dff106794841fd9a99ade2fc8c8bfce4d7872d
-    command: ["server", "-dir=/data", "-ip=s3", "-master.volumeSizeLimitMB=128", "-volume.max=8", "-volume.port=8080", "-s3", "-s3.port=8333", "-s3.config=/etc/mt/s3.json"]
+    command: ["server", "-dir=/data", "-ip=s3", "-master.telemetry=false", "-master.volumeSizeLimitMB=128", "-volume.max=8", "-volume.port=8080", "-s3", "-s3.port=8333", "-s3.config=/etc/mt/s3.json"]
     volumes: ["object-data:/data", "secrets-data:/etc/mt:ro"]
     ports: ["127.0.0.1:14833:8333"]
     mem_limit: 1g

@@ -17,19 +17,24 @@ def main():
     parser.add_argument("--failure-probe", action="store_true", help="Insert an intentional failed gate; never build or deploy")
     args = parser.parse_args()
     env = dict(os.environ, PYTHONPATH=str(ROOT/"backend"), PYTHONDONTWRITEBYTECODE="1")
-    env["PATH"] = "/home/glwy/.cache/media-trace-node/node-v22.21.1-linux-x64/bin:"+env["PATH"]
-    env["PLAYWRIGHT_BROWSERS_PATH"] = "/home/glwy/.cache/media-trace-browsers"
+    env["PATH"] = os.environ.get("MT_NODE_BIN", "/home/glwy/.cache/media-trace-node/node-v22.21.1-linux-x64/bin")+":"+env["PATH"]
+    env["PLAYWRIGHT_BROWSERS_PATH"] = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/home/glwy/.cache/media-trace-browsers")
+    hosted = os.environ.get("GITHUB_ACTIONS") == "true"
     report = {"started_at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "runner": "local-shell",
-              "python": sys.version, "stage": args.stage, "checks": [], "hosted_pipeline_executed": False}
+              "python": sys.version, "stage": args.stage, "checks": [], "hosted_pipeline_executed": hosted,
+              "provider": "github_actions" if hosted else "local_shell",
+              "source_commit": os.environ.get("GITHUB_SHA"), "workflow_run_id": os.environ.get("GITHUB_RUN_ID")}
     stages = {
-        "validate": [[PYTHON, "-m", "pip", "check"], [PYTHON, "scripts/verify_runtime_lock.py"], [PYTHON, "-m", "ruff", "check", "--config", "ruff.toml", "backend/app", "ai-services/inference", "tests/poc", "scripts/poc_control.py", "scripts/run_ci.py", "scripts/verify_poc.py", "scripts/verify_poc_resilience.py", "scripts/verify_generated_contracts.py", "scripts/verify_media_and_queries.py", "scripts/verify_sql_baseline.py", "scripts/verify_runtime_lock.py", "scripts/collect_environment.py", "scripts/verify_ci_failure_gate.py", "scripts/check_repository_secrets.py"],
+        "validate": [[PYTHON, "-m", "pip", "check"], [PYTHON, "scripts/verify_runtime_lock.py"], [PYTHON, "-m", "ruff", "check", "--config", "ruff.toml", "backend/app", "ai-services/inference", "tests/poc", "scripts/poc_control.py", "scripts/run_ci.py", "scripts/verify_poc.py", "scripts/verify_poc_resilience.py", "scripts/verify_generated_contracts.py", "scripts/verify_media_and_queries.py", "scripts/verify_sql_baseline.py", "scripts/verify_runtime_lock.py", "scripts/collect_environment.py", "scripts/verify_ci_failure_gate.py", "scripts/check_repository_secrets.py", "scripts/verify_migrations_and_fencing.py", "scripts/verify_media_timestamps.py", "scripts/verify_development_recovery.py"],
                      [PYTHON, "-m", "pytest", "tests/poc", "-q"], [PYTHON, "scripts/validate_inputs.py"],
                      [PYTHON, "scripts/validate_database_contracts.py"], ["npm", "--prefix", "frontend", "ci", "--no-audit", "--no-fund"],
                      [PYTHON, "scripts/verify_generated_contracts.py"], ["npm", "--prefix", "frontend", "audit", "--audit-level=high"]],
         "build": [[PYTHON, "-m", "build", "--no-isolation", "backend"], [PYTHON, "scripts/poc_control.py", "pack"], [PYTHON, "scripts/poc_control.py", "build"]],
         "integration": [[PYTHON, "scripts/poc_control.py", "up"], [PYTHON, "scripts/verify_sql_baseline.py"],
+                        [PYTHON, "scripts/verify_migrations_and_fencing.py"],
                         [PYTHON, "scripts/verify_poc.py"], [PYTHON, "scripts/verify_poc_resilience.py"],
-                        [PYTHON, "scripts/verify_media_and_queries.py"],
+                        [PYTHON, "scripts/verify_media_and_queries.py"], [PYTHON, "scripts/verify_media_timestamps.py"],
+                        [PYTHON, "scripts/verify_development_recovery.py"],
                         ["npm", "--prefix", "frontend", "exec", "--", "playwright", "test", "--config=frontend/playwright.config.ts"]],
     }
     if args.failure_probe:
@@ -56,7 +61,7 @@ def main():
     else:
         (destination/f"ci-{args.stage}-report.json").write_text(json.dumps(report, indent=2)+"\n")
         (destination/"ci-report.json").write_text(json.dumps(report, indent=2)+"\n")
-    print(json.dumps({"status": report["status"], "checks": len(report["checks"]), "hosted_pipeline_executed": False}))
+    print(json.dumps({"status": report["status"], "checks": len(report["checks"]), "hosted_pipeline_executed": hosted}))
     return report["status"] != "PASS"
 
 

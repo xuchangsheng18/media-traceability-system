@@ -13,7 +13,8 @@ from pathlib import Path
 import numpy as np
 import torch
 from app.common import ROOT, get_object, put_object
-from fastapi import FastAPI, Header, HTTPException
+from app.observability import configure
+from fastapi import FastAPI, Header, HTTPException, Request
 from jsonschema import Draft202012Validator, FormatChecker
 from PIL import Image
 from referencing import Registry, Resource
@@ -60,6 +61,7 @@ async def lifespan(_):
 
 
 app = FastAPI(title="Synthetic CPU inference baseline", lifespan=lifespan)
+configure(app, trust_request_id=True)
 
 
 @app.get("/healthz")
@@ -69,18 +71,24 @@ def health():
 
 
 @app.post("/internal/v1/inference/retrieval.image_embedding")
-def inference(body: dict, authorization: str | None = Header(default=None)):
+def inference(body: dict, request: Request, authorization: str | None = Header(default=None)):
     if not authorization or not hmac.compare_digest(authorization, "Bearer "+os.environ["INTERNAL_TOKEN"]):
         raise HTTPException(401, "AUTH_REQUIRED")
     errors = list(VALIDATORS["request"].iter_errors(body))
     if errors:
         raise HTTPException(422, "MODEL_CONTRACT_INVALID")
+    if request.headers.get("X-Request-ID") and request.state.request_id != str(uuid.UUID(body["request_id"])):
+        raise HTTPException(422, "REQUEST_ID_MISMATCH")
+    request.state.request_id = body["request_id"]
     if body["model_name"] != "synthetic-cpu-encoder" or body["model_version"] != "demo-1" or len(body["object_refs"]) != 1:
         raise HTTPException(422, "MODEL_NOT_SUPPORTED")
     if datetime.datetime.fromisoformat(body["deadline_at"].replace("Z", "+00:00")) <= datetime.datetime.now(datetime.timezone.utc):
         raise HTTPException(422, "DEADLINE_EXPIRED")
     started = time.monotonic()
-    raw = get_object(body["object_refs"][0], "analysis")
+    try:
+        raw = get_object(body["object_refs"][0], "analysis")
+    except ValueError as exc:
+        raise HTTPException(422, "OBJECT_INTEGRITY_FAILED") from exc
     with Image.open(io.BytesIO(raw)) as image:
         x = torch.from_numpy(np.asarray(image.convert("L").resize((4, 4)), dtype=np.float32).reshape(1, 16)/255)
     with torch.no_grad():

@@ -10,6 +10,6 @@
 
 验证证据：docs/00-project/validation内的 poc-resilience-report.json、poc-integration-report.json；实际命令见ci-all-report.json及运行手册。资源按专用Compose上限和环境快照，不把快照当峰值。
 
-未验证及后续要求：集群、死信、多worker与旧租约fencing；禁用远控/mingle/gossip后再引入需复测。
+1.0时未验证；1.1已补旧租约写回拒绝，见TB-ADR-013。后续要求：集群、死信、真实多worker传输故障演练；禁用远控/mingle/gossip后再引入需复测。
 
 回退/变更：以旧Git快照和锁文件恢复应用；卷与数据保留，数据库另经版本迁移；新选型新增ADR并引用本记录，不删旧证据。正式环境变化时重测相关CI、契约、恢复和许可。

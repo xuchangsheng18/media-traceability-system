@@ -20,3 +20,7 @@ npm --prefix frontend run generate:contracts
 外部API源docs/03-api/openapi.yaml；内部入口源inference-openapi.yaml；模型/数据结构源schemas/model及schemas/dataset。任务范围仍为12模块170项。
 
 生成的是TS类型声明，不是完整SDK或运行时校验；不能手改生成文件。跨模块正式事件总线仍待实现。
+
+## 1.1工程补充
+
+1.1增加generated/poc-event.d.ts；唯一源schemas/events/poc.analysis.requested.v1.schema.json，由临时包装生成，共3份类型。详见[契约生成](../docs/03-development/contract-generation.md)。

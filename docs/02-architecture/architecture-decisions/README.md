@@ -18,3 +18,8 @@
 | TB-ADR-012 | 部署编排 | [TB-ADR-012-deployment-platform.md](TB-ADR-012-deployment-platform.md) |
 
 新增决定使用[模板](template.md)，并补充环境、版本、许可、实测、资源、回退及真实决定状态。
+
+| TB-ADR-013 | 开发迁移、事件与写回 | [TB-ADR-013-development-state-and-events.md](TB-ADR-013-development-state-and-events.md) |
+| TB-ADR-014 | 私有GitHub托管CI | [TB-ADR-014-github-hosted-ci.md](TB-ADR-014-github-hosted-ci.md) |
+
+以上两项补充原12项研发决定，正式生产仍未批准。

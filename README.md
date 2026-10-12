@@ -1,6 +1,6 @@
 # 短视频与图片智能识别溯源系统
 
-当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定、前后端/数据库/对象/队列/真实推理闭环和本机CI。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；本轮没有宣称全部业务实现。
+当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定、前后端/数据库/对象/队列/真实推理闭环和本机21道CI门禁；GitHub实际运行另见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；本轮没有宣称全部业务实现。
 
 服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py310/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
 
@@ -32,7 +32,7 @@ cd /workspace/glwy/projects/media-traceability-system
 | [frontend](frontend/README.md) | Vue/TS研发界面、依赖锁、类型/单元/浏览器测试 |
 | [backend](backend/README.md) | FastAPI、配置/错误/日志、PoC迁移、事务任务与worker |
 | [ai-services](ai-services/README.md) | 真实CPU合成训练与M15契约推理；后续正式模型 |
-| [shared-contracts](shared-contracts/README.md) | 从两份权威OpenAPI生成的TS类型 |
+| [shared-contracts](shared-contracts/README.md) | 从两份OpenAPI及事件Schema生成的3份TS类型 |
 | [schemas](schemas/README.md) | 模型/数据Schema、夹具及语义检查 |
 | [config](config/README.md) | 精确版本、包/镜像/环境摘要、资源样例 |
 | [deploy](deploy/README.md) | 7服务Compose、镜像构建、代理及命名卷 |
@@ -45,8 +45,10 @@ cd /workspace/glwy/projects/media-traceability-system
 
 ## 判定范围
 
-本机CI真实运行，含7项后端、2项前端、1项浏览器、15项集成、5项恢复、6项媒体/查询、73项SQL断言/案例及契约/输入检查，详细数量和命令以报告为准。.gitlab-ci.yml已有同源门禁配置；未注册远程托管项目或Runner，不能声称托管CI成功。
+本机CI真实运行，含15项后端、2项前端、1项浏览器、21项集成、5项恢复、6项媒体/查询、73项SQL断言/案例及契约/输入检查，详细数量和命令以报告为准。新增15项迁移/竞态、源PTS映射与8项冷备恢复。用户指定[私有GitHub](https://github.com/xuchangsheng18/media-traceability-system)采用Actions执行同源门禁，实际平台run、源码SHA与制品结论见[平台报告](docs/00-project/validation/github-actions-report.json)。
 
-PoC3表与正式62表/824字段设计分开；仅单固定测试案件。正式身份/案件隔离、审批、审计、WORM、业务模型/GPU、20/100并发、中文/大型索引、灾备和生产准入仍需后续验证。Desktop虚拟磁盘余量约1.9GiB，新增大模型/素材前先落实容量；宿主磁盘空闲不能代替虚拟机余量。
+开发5表（含审计和迁移账本）与正式62表/824字段设计分开；仅单固定测试案件。正式身份/案件隔离、审批、审计、WORM、业务模型/GPU、20/100并发、中文/大型索引、生产灾备/密钥恢复和生产准入仍需后续验证。Desktop虚拟磁盘余量约1.9GiB，新增大模型/素材前先落实容量；宿主磁盘空闲不能代替虚拟机余量。
 
-源Word及其SHA256保持；Git保存本轮研发快照，没有创建已批准生产基线标签或虚构origin。同步证据见docs/00-project/server-sync-receipt.json。
+源Word及其SHA256保持；Git保存本轮研发快照，origin采用用户提供私有GitHub，没有创建已批准生产基线标签。同步证据见docs/00-project/server-sync-receipt.json。
+
+当前1.1补充的使用要求见[迁移事件手册](docs/03-development/migrations-and-events.md)、[开发冷恢复](docs/10-deployment/development-backup-restore.md)与[剩余条件/关闭标准](docs/03-development/stage-two-gap-register.md)。

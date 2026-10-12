@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:event:poc.analysis.requested:1.0.0",
+  "title": "PocAnalysisRequestedEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_type", "event_id", "occurred_at", "request_id", "trace_origin", "case_id", "producer", "payload"],
+  "properties": {
+    "schema_version": {"const": "1.0.0", "type": "string"},
+    "event_type": {"const": "poc.analysis.requested.v1", "type": "string"},
+    "event_id": {"type": "string", "format": "uuid"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "request_id": {"type": "string", "format": "uuid"},
+    "trace_origin": {"type": "string", "enum": ["api", "migration_job_id"]},
+    "case_id": {"type": "string", "format": "uuid"},
+    "producer": {"type": "string", "enum": ["backend.poc", "migration.poc.v1"]},
+    "payload": {
+      "type": "object", "additionalProperties": false, "required": ["job_id", "asset_id"],
+      "properties": {"job_id": {"type": "string", "format": "uuid"}, "asset_id": {"type": "string", "format": "uuid"}}
+    }
+  }
+}

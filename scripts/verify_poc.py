@@ -9,6 +9,7 @@ import uuid
 from pathlib import Path
 
 import httpx
+import psycopg
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +58,20 @@ def main():
         check("real_cpu_inference", result["mock"] is False and result["payload"]["dimension"] == 8)
         check("model_and_mapping_versions", result["model_name"] == "synthetic-cpu-encoder" and result["mapping_version"] == "poc-analysis-copy-1")
         check("result_object_version", bool(result["payload"]["vector_ref"]["version_id"]))
+        check("task_and_inference_trace_match", created.json()["task_request_id"] == status["request_id"] == result["request_id"])
+        check("run_version_matches_claim", status["run_version"] == result["run_version"] and status["run_version"] == status["attempts"])
+        terminal = client.post(base+"/poc/jobs", headers=h, json=body)
+        check("idempotent_response_preserves_terminal_state", terminal.json()["state"] == "SUCCEEDED")
+        with psycopg.connect(host="127.0.0.1", port=14432, user="poc_app", password=c["app"], dbname="media_trace_poc") as connection:
+            rows = connection.execute("SELECT event_type,request_id FROM poc.job_events WHERE job_id=%s", (job,)).fetchall()
+            check("append_only_events_keep_trace", {row[0] for row in rows} >= {"job.created", "job.claimed", "job.succeeded"}
+                  and {str(row[1]) for row in rows} == {status["request_id"]})
+        internal = client.post("http://127.0.0.1:14201/internal/v1/inference/retrieval.image_embedding", json={})
+        check("internal_error_uses_safe_problem", internal.status_code == 401 and internal.json()["code"] == "AUTH_REQUIRED"
+              and internal.json()["request_id"] == internal.headers["x-request-id"])
+        invalid_internal = client.post("http://127.0.0.1:14201/internal/v1/inference/retrieval.image_embedding", json={},
+                                       headers={"Authorization": "Bearer "+c["internal_token"]})
+        check("internal_contract_error_uses_problem", invalid_internal.status_code == 422 and invalid_internal.json()["code"] == "MODEL_CONTRACT_INVALID")
         inference = client.get("http://127.0.0.1:14201/healthz").json()
         check("container_python310", inference["python"].startswith("3.10."))
         check("CPU_profile", inference["device"] == "cpu" and inference["business_model"] is False)

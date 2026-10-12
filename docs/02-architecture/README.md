@@ -7,4 +7,4 @@
 - [兼容矩阵](compatibility-matrix.md)、[许可](licenses.md)、[安全基线](security-baseline.md)。
 - [非功能测量](non-functional-requirements.md)、[官方核验](stage-two-official-sources.md)、[变更控制](technical-baseline-change-control.md)。
 
-原件、范围、API和数据库来源关系不因最小工程被覆盖；PoC接口和3表数据库在各专题文档中明确区别于53操作/62表设计。
+原件、范围、API和数据库来源关系不因最小工程被覆盖；PoC接口和5表开发数据库在各专题文档中明确区别于53操作/62表设计。

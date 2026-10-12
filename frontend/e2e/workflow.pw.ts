@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 test('browser submits image and displays a real CPU result', async ({ page }) => {
-  const credentials = JSON.parse(readFileSync('/workspace/glwy/runtime/media-traceability-system/credentials.json', 'utf8'))
+  const credentials = JSON.parse(readFileSync((process.env.MT_RUNTIME_DIR || '/workspace/glwy/runtime/media-traceability-system') + '/credentials.json', 'utf8'))
   await page.goto('/')
   await expect(page.getByRole('heading', { name: '媒体溯源研发验证台' })).toBeVisible()
   await page.getByLabel('研发访问令牌').fill(credentials.api_token)
