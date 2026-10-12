@@ -1,4 +1,4 @@
-"""Portable CI gate runner. Invoked identically locally and by the shell-runner YAML."""
+"""Portable CI gates invoked locally and by the isolated GitHub-hosted workflow."""
 import argparse
 import datetime
 import json
@@ -20,7 +20,8 @@ def main():
     env["PATH"] = os.environ.get("MT_NODE_BIN", "/home/glwy/.cache/media-trace-node/node-v22.21.1-linux-x64/bin")+":"+env["PATH"]
     env["PLAYWRIGHT_BROWSERS_PATH"] = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/home/glwy/.cache/media-trace-browsers")
     hosted = os.environ.get("GITHUB_ACTIONS") == "true"
-    report = {"started_at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "runner": "local-shell",
+    report = {"started_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "runner": "github-hosted-ubuntu-24.04" if hosted else "local-shell",
               "python": sys.version, "stage": args.stage, "checks": [], "hosted_pipeline_executed": hosted,
               "provider": "github_actions" if hosted else "local_shell",
               "source_commit": os.environ.get("GITHUB_SHA"), "workflow_run_id": os.environ.get("GITHUB_RUN_ID")}
