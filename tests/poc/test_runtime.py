@@ -63,8 +63,9 @@ def test_configuration_rejects_invalid_values_without_disclosing_secrets(monkeyp
 
 def test_unexpected_case_override_is_rejected_before_database_access(monkeypatch):
     import uuid
-    from fastapi.testclient import TestClient
+
     from app.main import app
+    from fastapi.testclient import TestClient
     monkeypatch.setenv("POC_API_TOKEN", "synthetic-unit-token")
     response = TestClient(app).post("/poc/jobs", headers={"Authorization": "Bearer synthetic-unit-token", "Idempotency-Key": "test"},
                                     json={"asset_id": str(uuid.uuid4()), "case_id": str(uuid.uuid4())})
