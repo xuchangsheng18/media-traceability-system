@@ -21,10 +21,13 @@ jobs:
       PYTHON: /opt/conda/glwy/envs/py310/bin/python
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
-      MT_RUNTIME_DIR: ${{ runner.temp }}/media-trace-runtime
-      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/media-trace-browsers
       MT_DOCKER_CONTEXT: default
     steps:
+      - name: Configure isolated runtime paths
+        shell: bash
+        run: |
+          echo "MT_RUNTIME_DIR=$RUNNER_TEMP/media-trace-runtime" >> "$GITHUB_ENV"
+          echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/media-trace-browsers" >> "$GITHUB_ENV"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
