@@ -1,0 +1,3113 @@
+{
+  "status": "DETAIL_DOCUMENTED_WITH_OPEN_CONTRACT_GAPS",
+  "formal_frozen": false,
+  "business_operation_count": 53,
+  "business_schema_count": 83,
+  "internal_capability_count": 34,
+  "source_hashes": {
+    "docs/03-api/openapi.yaml": "c3471938106ec4211159d46b93c972416c2a678cd967214b2d23c48a12d8b2e7",
+    "docs/03-api/inference-openapi.yaml": "5f8d735bedd4eb5b1aa7e182d83c6c714815ad53781aebf3eb9ce109e61bce3b",
+    "docs/03-api/operation-index.json": "af8a90174415a261ca17d439513207b86722a8d75b4f88545247f40b6eb7bc2a",
+    "docs/03-api/interface-annotations.json": "05cf645d0fc83146e902f02a00ec1b506f798e3b65ed4fbb5c3e38cdffb246cb",
+    "docs/00-project/requirement-traceability.yaml": "a3a9efd585510c8c0b296f230bf2e15b35b16fa3e6c4526e28151ac089da092b",
+    "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
+    "docs/04-database/api-field-mapping.json": "03418c469db224ce549df4390a48fe743e618426304a414a4575404795ef1d4a",
+    "docs/04-database/field-provenance.json": "052881b912bdd9d16744756133b1ca8dc00f4fbe13cd5509c47d3e7f45b1f23f",
+    "docs/06-algorithms/model-catalog.yaml": "398dcd073fd79bf17ff1dea8a83627e2839097b4b81a8f8faa0f4329a75d3cb3",
+    "schemas/api/common.schema.json": "e435370cd018c5161c08be9aed1e661ce02d8d28e8fa9ce1efbcf2aaec3fe969",
+    "scripts/generate_interface_docs.py": "d1a5225da006a8f75d4447d291a086e2d4505a317e2792f8a6d09ea2fab2804a",
+    "schemas/model/M01.request.schema.json": "5e0c46c8437e662016ce516f0c2a1bb31da2b41c24b8d903b5e8595be23b4a2c",
+    "schemas/model/M01.response.schema.json": "eb14e0e01f75c7f81c44ad3e002fa229da656c4f6bada1687826ebcfb8054a6b",
+    "schemas/model/M02.request.schema.json": "8f54f991ae47b70d5354f3bbd8fd875b57c093aff14985f5a6786452c1f10b5f",
+    "schemas/model/M02.response.schema.json": "8d7355453b72e1ab6e59c96434872d5f147da3fd798288af027fc02eeb06a83b",
+    "schemas/model/M03.request.schema.json": "d43995493ae87eb64e92e928dea0b61d3255aab598a6e4c843d57cedbdda17db",
+    "schemas/model/M03.response.schema.json": "0cee1382efacf2a1bcff8e9b9d5b7309b3e39694b0b720b5c3009434b3739b4c",
+    "schemas/model/M04.request.schema.json": "a1e1b17099dc06eb8368a40d33e051dfab663b3de5d7164a0da40aebd5de5dd4",
+    "schemas/model/M04.response.schema.json": "1a61254088a92506716927fea66b224923c97dcd954b5e309a3b5bbdaa23719d",
+    "schemas/model/M05.request.schema.json": "72d8905d4b1e4b6141a4dbfbcc16163de4be2435eca5171cd00bca95a42d2553",
+    "schemas/model/M05.response.schema.json": "ba6a0aaaa225c5d959def6183cc2b9b74447f23e308ebf6eff531e7ad242e2e8",
+    "schemas/model/M06.request.schema.json": "f2f7398b4e4b10a899688c155b0f5f500c229a66c4ed45de563b5295ec1b17cb",
+    "schemas/model/M06.response.schema.json": "e4466e2b8228cf691c6fb97174e132e9d39d1c6cdca6d77a7d3485f5a8cc40ce",
+    "schemas/model/M07.request.schema.json": "332ac665a3fb6ecef423deced0b39c8c0d7ee7db282c0d18117edd58bd92c7c2",
+    "schemas/model/M07.response.schema.json": "8d47afd241df29fe9968a6470454aab6645fe3e5ccb3336ca83625e557176369",
+    "schemas/model/M08.request.schema.json": "a1f694cdbdd42ac78edee5a137f75d2ddbfbfd0fee151ae38772b25feb5e9b38",
+    "schemas/model/M08.response.schema.json": "9a960fdd6380c7b76f25d163014402fd07c44d9c1193cc2300508785d7488374",
+    "schemas/model/M09.request.schema.json": "f08a4b64f31f3e94cd1e48f249550ffe0526758b706bcf244f6b17ccc485b4a0",
+    "schemas/model/M09.response.schema.json": "e307119c883ac51300f4b0c308af43b95d48825c06c3541994880e8969019567",
+    "schemas/model/M10.request.schema.json": "604e7703b7de68d22e977a462fee25ced990d2f52ffcc224716754b5758878fe",
+    "schemas/model/M10.response.schema.json": "09ecc9a1f2a2520480463006fe4b5c4a457f2dea6ae56e0361564657dbadfc41",
+    "schemas/model/M11.request.schema.json": "38a137aaff2b37447c7e86acbc4050904805648d974056076a832084dcf8e2f1",
+    "schemas/model/M11.response.schema.json": "377b4232d5932b680ee598b1aca0664aaa4be47a298c6043eb7db24c6889b4a7",
+    "schemas/model/M12.request.schema.json": "fc42712453a04fb3aa67c151ca700e5003c62f59e21df5279a5662a96f319aed",
+    "schemas/model/M12.response.schema.json": "a7c46cb6414375530f15641075f4d18a96fbd90f75bfbab5fa1a5e7b7e7a8007",
+    "schemas/model/M13.request.schema.json": "5dcbf588f723f8277a16f5c7e15b75c5bcec1c782fc975511f04e64f55832e91",
+    "schemas/model/M13.response.schema.json": "c1c4d168c880fe1f06a068d3f14a78545b468fb71c58182a889a83dbdb0093e9",
+    "schemas/model/M14.request.schema.json": "382402b148fdee5f37e57f5fb96fbbab1c8fed335e165e0c8c22faefe3a89255",
+    "schemas/model/M14.response.schema.json": "dad9dd6ecfa49a45dac1570793dcc89c83eb0ac9a66b0440c299b5a2acb462c3",
+    "schemas/model/M15.request.schema.json": "b6ff27909ba2ceae33ccfb8dced6110a6960574870163fb5a5d449279f5b1a04",
+    "schemas/model/M15.response.schema.json": "451f39aeb437ee7aec9d5ab96a778e2fdb653f4ae6749b6786c42ff9ee906d6e",
+    "schemas/model/M16.request.schema.json": "e62346b0e461ceadb9f3fbd1b2de70673f534614692f90975027eb10ceaf3231",
+    "schemas/model/M16.response.schema.json": "e543297889bc2104fd483a9f4cb2246fa713538e727ab638540a541d9b12f26a",
+    "schemas/model/M17.request.schema.json": "258ea6c04c4851a93c5f8e54eee772a0f904170c7da9cbab875b85fde79c830a",
+    "schemas/model/M17.response.schema.json": "12cb5b771e0ae99913a925525aa3d4a15074bc9fa36d3d6efd645f787bb2c00b",
+    "schemas/model/M18.request.schema.json": "23e297885bc372439eef98474a46d0a34bdd044c9311cb368142fb822698682c",
+    "schemas/model/M18.response.schema.json": "8b3cb98646268d511bb3421d70ed9368034c3bec156c960d89e26d6274d51cda",
+    "schemas/model/M19.request.schema.json": "ebb1ffe9801b7c2a3dea96f0df227e1e1b07fe98b38c77bc56159af09ab3b556",
+    "schemas/model/M19.response.schema.json": "29ee7960b06c23ef8fa13eae41ae3e20be8ee6a41f5348d996c534389eed8b08",
+    "schemas/model/M20.request.schema.json": "2138dbe6f27ebc4cd5d2151b605efe916d5ddcb9081e69df7f212f5c04b78f7a",
+    "schemas/model/M20.response.schema.json": "e6589811fa8fead2143120608da0cba651a1eea0c133804e9a606c8b92c244a5",
+    "schemas/model/M21.request.schema.json": "446fb004ec37df342e775841a56f96100bd7372ab2c0d6d5324f4d590d2b21df",
+    "schemas/model/M21.response.schema.json": "66efc59d6f4eefe125c3826f6e3f35ac7c1cfe183dbc7da2b9d06f76a65ae1ea",
+    "schemas/model/M22.request.schema.json": "42370fe693b339c1ae60998531e0166f5f95eebb4335c4f85a8d5e8573f10a99",
+    "schemas/model/M22.response.schema.json": "a4f47676a9c1c4b5b42c5a50ccc878c8a3daa8f3dadbedb747d3489abb9c8909",
+    "schemas/model/M23.request.schema.json": "d954cc49fd22131a8634b10e963bc316355edda8ee300445ff579eb67b456e9b",
+    "schemas/model/M23.response.schema.json": "779b2809a04814c4c785fa25240baa89c7f2361831640e337bd520e200a8e3f1",
+    "schemas/model/M24.request.schema.json": "9559019daa61e5228584497902ff5397278e29e77dc283be49a0ce0c77a0c764",
+    "schemas/model/M24.response.schema.json": "fbc5bf151e576d2e0ce0294fcf8f00f89ab00210daa502860753d96752b7715f",
+    "schemas/model/M25.request.schema.json": "315f4f01cf668671d0e05d1f6496e7f67de17fd9e2b9b826d94ac2229887b508",
+    "schemas/model/M25.response.schema.json": "8e5d251b24e4da32f9625ea37a8f33921e56af4f769b0b5c3304a48927ff8ddc",
+    "schemas/model/M26.request.schema.json": "0fd995974d223b2872952b95449b36bf5416c30b144da7f79be28fd10c5865fa",
+    "schemas/model/M26.response.schema.json": "118ce756f9467587a484b90f4ed9a399fd5e9b842935df7ba37480166ff0ba55",
+    "schemas/model/M27.request.schema.json": "9485deaa26ccbced2b803cbb8c6dcb2f0d80656378c6a42481b81b21a134533e",
+    "schemas/model/M27.response.schema.json": "101bb5a5cc58b4117921631afe54485f3a20a9ccb745cf7f6763554867071844",
+    "schemas/model/M28.request.schema.json": "2667776eeb7cef19b6301b12dc6e1a0792bca3a6f1cb63dee89986ac592e5d69",
+    "schemas/model/M28.response.schema.json": "6f9e308aa5a3de545d71332ecdb781500e8121c275eec8950f7b8835e0ab6e1d",
+    "schemas/model/M29.request.schema.json": "ba51f21659c2060ebe7ee1c607337d837615b7a48f122c329570aac92b5ea94e",
+    "schemas/model/M29.response.schema.json": "63700d32cc905d60125b275bca38d15b7b8f403d9aa5b156267ea8324a2394cc",
+    "schemas/model/M30.request.schema.json": "4c3661daf93b612c75ff41fbbd706e3970f7a1389b2638cede34199a7f573925",
+    "schemas/model/M30.response.schema.json": "d881032e059536b73ec9d006eb62600bbf09d5f0238d588dc93d1fd28e8e3c37",
+    "schemas/model/M31.request.schema.json": "8d2bb0a5f4e344527602657d5da7a8f3551e4b37eb12945f67e7bd91932c766c",
+    "schemas/model/M31.response.schema.json": "5b22e54b53eabcf7e69a7abf925a6cf9c807ffa94c03be987f090c3cd679dc1d",
+    "schemas/model/M32.request.schema.json": "5db779f49931dcea86083ed450a4a497cad1797aa17034c2b8e69a0a05102e70",
+    "schemas/model/M32.response.schema.json": "c95aaa58accf2fe321992fea52fec6c723d4ce2bb7d0286f7860ea0a30d972a9",
+    "schemas/model/M33.request.schema.json": "b62bcf07e623e876d90464f37c0321bfb325514e2c82bcc48520b4aba5f5f704",
+    "schemas/model/M33.response.schema.json": "e7f9c72c3ddf0629ba864f95b71a050253b13187a5f33184dfe8e008ac8d81fb",
+    "schemas/model/M34.request.schema.json": "1abb9fc19653c9f461f6adfa6c047babb60d0de256fe8fe23090c88be5b22508",
+    "schemas/model/M34.response.schema.json": "da5e4dc4e3045af6faf4ba61b3da7cef5c59055042dfbfabb486caee2c44ef5c"
+  },
+  "operations": [
+    {
+      "operation_id": "health",
+      "method": "GET",
+      "path": "/api/v1/health",
+      "source_pointer": "/paths/~1health/get",
+      "modules_from_business_trace": [],
+      "task_ids": [
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "table_names": [],
+      "requirement_ids": [
+        "ER-T002",
+        "ER-T003",
+        "ER-T004",
+        "NFR-COMPAT-001",
+        "NFR-DEPLOY-001"
+      ],
+      "test_ids": [
+        "TV-T002-E",
+        "TV-T002-N",
+        "TV-T003-E",
+        "TV-T003-N",
+        "TV-T004-E",
+        "TV-T004-N",
+        "TV-T007-E",
+        "TV-T007-N",
+        "TV-T051-E",
+        "TV-T051-N",
+        "TV-T052-E",
+        "TV-T052-N",
+        "TV-T053-E",
+        "TV-T053-N",
+        "TV-T054-E",
+        "TV-T054-N",
+        "TV-T055-E",
+        "TV-T055-N",
+        "TV-T081-E",
+        "TV-T081-N",
+        "TV-T120-E",
+        "TV-T120-N",
+        "TV-T121-E",
+        "TV-T121-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/health.md",
+      "implementation_status": "DEV_PARTIAL",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Health"
+    },
+    {
+      "operation_id": "devLogin",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "source_pointer": "/paths/~1auth~1login/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T013"
+      ],
+      "table_names": [
+        "users"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T013",
+        "NFR-SEC-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T118-E",
+        "TV-T118-N"
+      ],
+      "detail_file": "docs/03-api/operations/devLogin.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "AuthLogin",
+      "response_schema": "AuthSession"
+    },
+    {
+      "operation_id": "getCurrentUser",
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "source_pointer": "/paths/~1auth~1me/get",
+      "modules_from_business_trace": [
+        "OPS",
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T013",
+        "T014",
+        "T015"
+      ],
+      "table_names": [
+        "users",
+        "user_roles",
+        "case_membership"
+      ],
+      "requirement_ids": [
+        "FR-RESOURCE-003",
+        "FR-OPS-001",
+        "ER-T013",
+        "ER-T014",
+        "ER-T015",
+        "NFR-SEC-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-RESOURCE-003-E",
+        "TC-RESOURCE-003-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T118-E",
+        "TV-T118-N"
+      ],
+      "detail_file": "docs/03-api/operations/getCurrentUser.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "CurrentUser"
+    },
+    {
+      "operation_id": "createSource",
+      "method": "POST",
+      "path": "/api/v1/sources",
+      "source_pointer": "/paths/~1sources/post",
+      "modules_from_business_trace": [
+        "INGEST",
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T021"
+      ],
+      "table_names": [
+        "source_registry"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-001",
+        "FR-RESOURCE-003",
+        "ER-T021",
+        "NFR-DATA-001"
+      ],
+      "test_ids": [
+        "TC-INGEST-001-E",
+        "TC-INGEST-001-N",
+        "TC-RESOURCE-003-E",
+        "TC-RESOURCE-003-N",
+        "TV-T021-E",
+        "TV-T021-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T109-E",
+        "TV-T109-N",
+        "TV-T110-E",
+        "TV-T110-N",
+        "TV-T111-E",
+        "TV-T111-N",
+        "TV-T112-E",
+        "TV-T112-N",
+        "TV-T126-E",
+        "TV-T126-N",
+        "TV-T127-E",
+        "TV-T127-N",
+        "TV-T156-E",
+        "TV-T156-N"
+      ],
+      "detail_file": "docs/03-api/operations/createSource.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "SourceCreate",
+      "response_schema": "Source"
+    },
+    {
+      "operation_id": "listSources",
+      "method": "GET",
+      "path": "/api/v1/sources",
+      "source_pointer": "/paths/~1sources/get",
+      "modules_from_business_trace": [
+        "INGEST",
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T021"
+      ],
+      "table_names": [
+        "source_registry"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-001",
+        "FR-RESOURCE-003",
+        "ER-T021",
+        "NFR-DATA-001"
+      ],
+      "test_ids": [
+        "TC-INGEST-001-E",
+        "TC-INGEST-001-N",
+        "TC-RESOURCE-003-E",
+        "TC-RESOURCE-003-N",
+        "TV-T021-E",
+        "TV-T021-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T109-E",
+        "TV-T109-N",
+        "TV-T110-E",
+        "TV-T110-N",
+        "TV-T111-E",
+        "TV-T111-N",
+        "TV-T112-E",
+        "TV-T112-N",
+        "TV-T126-E",
+        "TV-T126-N",
+        "TV-T127-E",
+        "TV-T127-N",
+        "TV-T156-E",
+        "TV-T156-N"
+      ],
+      "detail_file": "docs/03-api/operations/listSources.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "SourcePage"
+    },
+    {
+      "operation_id": "createUpload",
+      "method": "POST",
+      "path": "/api/v1/uploads",
+      "source_pointer": "/paths/~1uploads/post",
+      "modules_from_business_trace": [
+        "INGEST"
+      ],
+      "task_ids": [
+        "T022"
+      ],
+      "table_names": [
+        "upload_session",
+        "source_registry"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-002",
+        "ER-T022"
+      ],
+      "test_ids": [
+        "TC-INGEST-002-E",
+        "TC-INGEST-002-N",
+        "TV-T022-E",
+        "TV-T022-N"
+      ],
+      "detail_file": "docs/03-api/operations/createUpload.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "UploadCreate",
+      "response_schema": "UploadSession"
+    },
+    {
+      "operation_id": "putUploadPart",
+      "method": "PUT",
+      "path": "/api/v1/uploads/{id}/parts/{part_no}",
+      "source_pointer": "/paths/~1uploads~1{id}~1parts~1{part_no}/put",
+      "modules_from_business_trace": [
+        "INGEST"
+      ],
+      "task_ids": [
+        "T023"
+      ],
+      "table_names": [
+        "upload_part",
+        "upload_session"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-002",
+        "ER-T023"
+      ],
+      "test_ids": [
+        "TC-INGEST-002-E",
+        "TC-INGEST-002-N",
+        "TV-T023-E",
+        "TV-T023-N"
+      ],
+      "detail_file": "docs/03-api/operations/putUploadPart.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "UploadPart"
+    },
+    {
+      "operation_id": "completeUpload",
+      "method": "POST",
+      "path": "/api/v1/uploads/{id}/complete",
+      "source_pointer": "/paths/~1uploads~1{id}~1complete/post",
+      "modules_from_business_trace": [
+        "INGEST",
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T024",
+        "T026",
+        "T027"
+      ],
+      "table_names": [
+        "upload_session",
+        "upload_part",
+        "media_asset"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-002",
+        "FR-INGEST-003",
+        "FR-RESOURCE-002",
+        "ER-T024",
+        "ER-T026",
+        "ER-T027"
+      ],
+      "test_ids": [
+        "TC-INGEST-002-E",
+        "TC-INGEST-002-N",
+        "TC-INGEST-003-E",
+        "TC-INGEST-003-N",
+        "TC-RESOURCE-002-E",
+        "TC-RESOURCE-002-N",
+        "TV-T024-E",
+        "TV-T024-N",
+        "TV-T026-E",
+        "TV-T026-N",
+        "TV-T027-E",
+        "TV-T027-N"
+      ],
+      "detail_file": "docs/03-api/operations/completeUpload.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "UploadComplete",
+      "response_schema": "UploadResult"
+    },
+    {
+      "operation_id": "listAssets",
+      "method": "GET",
+      "path": "/api/v1/assets",
+      "source_pointer": "/paths/~1assets/get",
+      "modules_from_business_trace": [
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T030"
+      ],
+      "table_names": [
+        "media_asset"
+      ],
+      "requirement_ids": [
+        "FR-RESOURCE-001",
+        "FR-RESOURCE-003",
+        "ER-T030"
+      ],
+      "test_ids": [
+        "TC-RESOURCE-001-E",
+        "TC-RESOURCE-001-N",
+        "TC-RESOURCE-003-E",
+        "TC-RESOURCE-003-N",
+        "TV-T030-E",
+        "TV-T030-N"
+      ],
+      "detail_file": "docs/03-api/operations/listAssets.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "AssetPage"
+    },
+    {
+      "operation_id": "getAsset",
+      "method": "GET",
+      "path": "/api/v1/assets/{id}",
+      "source_pointer": "/paths/~1assets~1{id}/get",
+      "modules_from_business_trace": [
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T030"
+      ],
+      "table_names": [
+        "media_asset",
+        "asset_lineage"
+      ],
+      "requirement_ids": [
+        "FR-RESOURCE-001",
+        "FR-RESOURCE-003",
+        "ER-T030"
+      ],
+      "test_ids": [
+        "TC-RESOURCE-001-E",
+        "TC-RESOURCE-001-N",
+        "TC-RESOURCE-003-E",
+        "TC-RESOURCE-003-N",
+        "TV-T030-E",
+        "TV-T030-N"
+      ],
+      "detail_file": "docs/03-api/operations/getAsset.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Asset"
+    },
+    {
+      "operation_id": "downloadAsset",
+      "method": "GET",
+      "path": "/api/v1/assets/{id}/content",
+      "source_pointer": "/paths/~1assets~1{id}~1content/get",
+      "modules_from_business_trace": [
+        "INGEST",
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T025",
+        "T030"
+      ],
+      "table_names": [
+        "media_asset",
+        "object_version",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-003",
+        "FR-RESOURCE-001",
+        "FR-RESOURCE-003",
+        "ER-T025",
+        "ER-T030",
+        "NFR-AVAIL-002"
+      ],
+      "test_ids": [
+        "TC-INGEST-003-E",
+        "TC-INGEST-003-N",
+        "TC-RESOURCE-001-E",
+        "TC-RESOURCE-001-N",
+        "TC-RESOURCE-003-E",
+        "TC-RESOURCE-003-N",
+        "TV-T025-E",
+        "TV-T025-N",
+        "TV-T030-E",
+        "TV-T030-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T105-E",
+        "TV-T105-N",
+        "TV-T121-E",
+        "TV-T121-N",
+        "TV-T124-E",
+        "TV-T124-N"
+      ],
+      "detail_file": "docs/03-api/operations/downloadAsset.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": null
+    },
+    {
+      "operation_id": "getTimeline",
+      "method": "GET",
+      "path": "/api/v1/assets/{id}/timeline",
+      "source_pointer": "/paths/~1assets~1{id}~1timeline/get",
+      "modules_from_business_trace": [
+        "MEDIA"
+      ],
+      "task_ids": [
+        "T050"
+      ],
+      "table_names": [
+        "keyframe",
+        "shot",
+        "text_segment",
+        "media_asset"
+      ],
+      "requirement_ids": [
+        "FR-MEDIA-003",
+        "ER-T050"
+      ],
+      "test_ids": [
+        "TC-MEDIA-003-E",
+        "TC-MEDIA-003-N",
+        "TV-T050-E",
+        "TV-T050-N"
+      ],
+      "detail_file": "docs/03-api/operations/getTimeline.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Timeline"
+    },
+    {
+      "operation_id": "createImport",
+      "method": "POST",
+      "path": "/api/v1/imports",
+      "source_pointer": "/paths/~1imports/post",
+      "modules_from_business_trace": [
+        "INGEST"
+      ],
+      "task_ids": [
+        "T028"
+      ],
+      "table_names": [
+        "import_job",
+        "import_item"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-001",
+        "ER-T028"
+      ],
+      "test_ids": [
+        "TC-INGEST-001-E",
+        "TC-INGEST-001-N",
+        "TV-T028-E",
+        "TV-T028-N"
+      ],
+      "detail_file": "docs/03-api/operations/createImport.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ImportRequest",
+      "response_schema": "ImportStatus"
+    },
+    {
+      "operation_id": "getImport",
+      "method": "GET",
+      "path": "/api/v1/imports/{id}",
+      "source_pointer": "/paths/~1imports~1{id}/get",
+      "modules_from_business_trace": [
+        "INGEST"
+      ],
+      "task_ids": [
+        "T028"
+      ],
+      "table_names": [
+        "import_job",
+        "import_item"
+      ],
+      "requirement_ids": [
+        "FR-INGEST-001",
+        "ER-T028"
+      ],
+      "test_ids": [
+        "TC-INGEST-001-E",
+        "TC-INGEST-001-N",
+        "TV-T028-E",
+        "TV-T028-N"
+      ],
+      "detail_file": "docs/03-api/operations/getImport.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "ImportStatus"
+    },
+    {
+      "operation_id": "createTask",
+      "method": "POST",
+      "path": "/api/v1/analysis/tasks",
+      "source_pointer": "/paths/~1analysis~1tasks/post",
+      "modules_from_business_trace": [],
+      "task_ids": [
+        "T034"
+      ],
+      "table_names": [
+        "analysis_task",
+        "outbox_event",
+        "idempotency_record"
+      ],
+      "requirement_ids": [
+        "ER-T034",
+        "NFR-AVAIL-001"
+      ],
+      "test_ids": [
+        "TV-T031-E",
+        "TV-T031-N",
+        "TV-T032-E",
+        "TV-T032-N",
+        "TV-T033-E",
+        "TV-T033-N",
+        "TV-T034-E",
+        "TV-T034-N",
+        "TV-T035-E",
+        "TV-T035-N",
+        "TV-T036-E",
+        "TV-T036-N",
+        "TV-T037-E",
+        "TV-T037-N",
+        "TV-T038-E",
+        "TV-T038-N",
+        "TV-T039-E",
+        "TV-T039-N"
+      ],
+      "detail_file": "docs/03-api/operations/createTask.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "TaskCreate",
+      "response_schema": "Accepted"
+    },
+    {
+      "operation_id": "listTasks",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks",
+      "source_pointer": "/paths/~1analysis~1tasks/get",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T035",
+        "T040"
+      ],
+      "table_names": [
+        "analysis_task"
+      ],
+      "requirement_ids": [
+        "FR-OPS-002",
+        "ER-T035",
+        "ER-T040",
+        "NFR-AVAIL-001"
+      ],
+      "test_ids": [
+        "TC-OPS-002-E",
+        "TC-OPS-002-N",
+        "TV-T031-E",
+        "TV-T031-N",
+        "TV-T032-E",
+        "TV-T032-N",
+        "TV-T033-E",
+        "TV-T033-N",
+        "TV-T034-E",
+        "TV-T034-N",
+        "TV-T035-E",
+        "TV-T035-N",
+        "TV-T036-E",
+        "TV-T036-N",
+        "TV-T037-E",
+        "TV-T037-N",
+        "TV-T038-E",
+        "TV-T038-N",
+        "TV-T039-E",
+        "TV-T039-N",
+        "TV-T040-E",
+        "TV-T040-N"
+      ],
+      "detail_file": "docs/03-api/operations/listTasks.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "TaskPage"
+    },
+    {
+      "operation_id": "getTask",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}",
+      "source_pointer": "/paths/~1analysis~1tasks~1{id}/get",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T035",
+        "T040"
+      ],
+      "table_names": [
+        "analysis_task",
+        "task_node_run"
+      ],
+      "requirement_ids": [
+        "FR-OPS-002",
+        "ER-T035",
+        "ER-T040",
+        "NFR-AVAIL-001"
+      ],
+      "test_ids": [
+        "TC-OPS-002-E",
+        "TC-OPS-002-N",
+        "TV-T031-E",
+        "TV-T031-N",
+        "TV-T032-E",
+        "TV-T032-N",
+        "TV-T033-E",
+        "TV-T033-N",
+        "TV-T034-E",
+        "TV-T034-N",
+        "TV-T035-E",
+        "TV-T035-N",
+        "TV-T036-E",
+        "TV-T036-N",
+        "TV-T037-E",
+        "TV-T037-N",
+        "TV-T038-E",
+        "TV-T038-N",
+        "TV-T039-E",
+        "TV-T039-N",
+        "TV-T040-E",
+        "TV-T040-N"
+      ],
+      "detail_file": "docs/03-api/operations/getTask.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Task"
+    },
+    {
+      "operation_id": "cancelTask",
+      "method": "POST",
+      "path": "/api/v1/analysis/tasks/{id}/cancel",
+      "source_pointer": "/paths/~1analysis~1tasks~1{id}~1cancel/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T039",
+        "T040"
+      ],
+      "table_names": [
+        "analysis_task",
+        "task_event",
+        "outbox_event"
+      ],
+      "requirement_ids": [
+        "FR-OPS-002",
+        "ER-T039",
+        "ER-T040",
+        "NFR-AVAIL-001"
+      ],
+      "test_ids": [
+        "TC-OPS-002-E",
+        "TC-OPS-002-N",
+        "TV-T031-E",
+        "TV-T031-N",
+        "TV-T032-E",
+        "TV-T032-N",
+        "TV-T033-E",
+        "TV-T033-N",
+        "TV-T034-E",
+        "TV-T034-N",
+        "TV-T035-E",
+        "TV-T035-N",
+        "TV-T036-E",
+        "TV-T036-N",
+        "TV-T037-E",
+        "TV-T037-N",
+        "TV-T038-E",
+        "TV-T038-N",
+        "TV-T039-E",
+        "TV-T039-N",
+        "TV-T040-E",
+        "TV-T040-N"
+      ],
+      "detail_file": "docs/03-api/operations/cancelTask.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "TaskAction",
+      "response_schema": "Accepted"
+    },
+    {
+      "operation_id": "rerunTask",
+      "method": "POST",
+      "path": "/api/v1/analysis/tasks/{id}/rerun",
+      "source_pointer": "/paths/~1analysis~1tasks~1{id}~1rerun/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T039",
+        "T040"
+      ],
+      "table_names": [
+        "analysis_task",
+        "task_run",
+        "task_event",
+        "outbox_event"
+      ],
+      "requirement_ids": [
+        "FR-OPS-002",
+        "ER-T039",
+        "ER-T040",
+        "NFR-AVAIL-001"
+      ],
+      "test_ids": [
+        "TC-OPS-002-E",
+        "TC-OPS-002-N",
+        "TV-T031-E",
+        "TV-T031-N",
+        "TV-T032-E",
+        "TV-T032-N",
+        "TV-T033-E",
+        "TV-T033-N",
+        "TV-T034-E",
+        "TV-T034-N",
+        "TV-T035-E",
+        "TV-T035-N",
+        "TV-T036-E",
+        "TV-T036-N",
+        "TV-T037-E",
+        "TV-T037-N",
+        "TV-T038-E",
+        "TV-T038-N",
+        "TV-T039-E",
+        "TV-T039-N",
+        "TV-T040-E",
+        "TV-T040-N"
+      ],
+      "detail_file": "docs/03-api/operations/rerunTask.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "Rerun",
+      "response_schema": "Accepted"
+    },
+    {
+      "operation_id": "getRiskFindings",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/risk-findings",
+      "source_pointer": "/paths/~1analysis~1tasks~1{id}~1risk-findings/get",
+      "modules_from_business_trace": [
+        "RISK"
+      ],
+      "task_ids": [
+        "T070"
+      ],
+      "table_names": [
+        "risk_finding",
+        "finding_evidence"
+      ],
+      "requirement_ids": [
+        "FR-RISK-003",
+        "ER-T070"
+      ],
+      "test_ids": [
+        "TC-RISK-003-E",
+        "TC-RISK-003-N",
+        "TV-T070-E",
+        "TV-T070-N"
+      ],
+      "detail_file": "docs/03-api/operations/getRiskFindings.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Findings"
+    },
+    {
+      "operation_id": "getForensics",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/forensics",
+      "source_pointer": "/paths/~1analysis~1tasks~1{id}~1forensics/get",
+      "modules_from_business_trace": [
+        "FORENSIC"
+      ],
+      "task_ids": [
+        "T078"
+      ],
+      "table_names": [
+        "tamper_finding",
+        "finding_evidence"
+      ],
+      "requirement_ids": [
+        "FR-FORENSIC-003",
+        "ER-T078"
+      ],
+      "test_ids": [
+        "TC-FORENSIC-003-E",
+        "TC-FORENSIC-003-N",
+        "TV-T078-E",
+        "TV-T078-N"
+      ],
+      "detail_file": "docs/03-api/operations/getForensics.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Findings"
+    },
+    {
+      "operation_id": "getTaskEvidence",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/evidence",
+      "source_pointer": "/paths/~1analysis~1tasks~1{id}~1evidence/get",
+      "modules_from_business_trace": [
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T101",
+        "T103"
+      ],
+      "table_names": [
+        "evidence_item",
+        "task_evidence"
+      ],
+      "requirement_ids": [
+        "FR-REVIEW-001",
+        "ER-T101",
+        "ER-T103"
+      ],
+      "test_ids": [
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TV-T101-E",
+        "TV-T101-N",
+        "TV-T103-E",
+        "TV-T103-N"
+      ],
+      "detail_file": "docs/03-api/operations/getTaskEvidence.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "EvidencePage"
+    },
+    {
+      "operation_id": "searchImage",
+      "method": "POST",
+      "path": "/api/v1/search/image",
+      "source_pointer": "/paths/~1search~1image/post",
+      "modules_from_business_trace": [
+        "IMGRET",
+        "RESOURCE"
+      ],
+      "task_ids": [
+        "T082",
+        "T084",
+        "T085"
+      ],
+      "table_names": [
+        "source_match",
+        "index_registry",
+        "media_asset"
+      ],
+      "requirement_ids": [
+        "FR-RESOURCE-002",
+        "FR-IMGRET-001",
+        "FR-IMGRET-002",
+        "FR-IMGRET-003",
+        "ER-T082",
+        "ER-T084",
+        "ER-T085"
+      ],
+      "test_ids": [
+        "TC-IMGRET-001-E",
+        "TC-IMGRET-001-N",
+        "TC-IMGRET-002-E",
+        "TC-IMGRET-002-N",
+        "TC-IMGRET-003-E",
+        "TC-IMGRET-003-N",
+        "TC-RESOURCE-002-E",
+        "TC-RESOURCE-002-N",
+        "TV-T082-E",
+        "TV-T082-N",
+        "TV-T084-E",
+        "TV-T084-N",
+        "TV-T085-E",
+        "TV-T085-N"
+      ],
+      "detail_file": "docs/03-api/operations/searchImage.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ImageSearch",
+      "response_schema": "SearchAccepted"
+    },
+    {
+      "operation_id": "searchImageRegion",
+      "method": "POST",
+      "path": "/api/v1/search/image-region",
+      "source_pointer": "/paths/~1search~1image-region/post",
+      "modules_from_business_trace": [
+        "IMGRET"
+      ],
+      "task_ids": [
+        "T085"
+      ],
+      "table_names": [
+        "source_match",
+        "index_registry"
+      ],
+      "requirement_ids": [
+        "FR-IMGRET-001",
+        "FR-IMGRET-003",
+        "ER-T085"
+      ],
+      "test_ids": [
+        "TC-IMGRET-001-E",
+        "TC-IMGRET-001-N",
+        "TC-IMGRET-003-E",
+        "TC-IMGRET-003-N",
+        "TV-T085-E",
+        "TV-T085-N"
+      ],
+      "detail_file": "docs/03-api/operations/searchImageRegion.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ImageSearch",
+      "response_schema": "SearchAccepted"
+    },
+    {
+      "operation_id": "searchVideo",
+      "method": "POST",
+      "path": "/api/v1/search/video",
+      "source_pointer": "/paths/~1search~1video/post",
+      "modules_from_business_trace": [
+        "VIDTRACE"
+      ],
+      "task_ids": [
+        "T089"
+      ],
+      "table_names": [
+        "source_match",
+        "index_registry"
+      ],
+      "requirement_ids": [
+        "FR-VIDTRACE-003",
+        "ER-T089"
+      ],
+      "test_ids": [
+        "TC-VIDTRACE-003-E",
+        "TC-VIDTRACE-003-N",
+        "TV-T089-E",
+        "TV-T089-N"
+      ],
+      "detail_file": "docs/03-api/operations/searchVideo.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "VideoSearch",
+      "response_schema": "SearchAccepted"
+    },
+    {
+      "operation_id": "getSearchJob",
+      "method": "GET",
+      "path": "/api/v1/search/jobs/{id}",
+      "source_pointer": "/paths/~1search~1jobs~1{id}/get",
+      "modules_from_business_trace": [
+        "IMGRET",
+        "RESOURCE",
+        "VIDTRACE"
+      ],
+      "task_ids": [
+        "T082",
+        "T085",
+        "T089"
+      ],
+      "table_names": [
+        "search_job",
+        "source_match"
+      ],
+      "requirement_ids": [
+        "FR-RESOURCE-002",
+        "FR-IMGRET-001",
+        "FR-IMGRET-003",
+        "FR-VIDTRACE-003",
+        "ER-T082",
+        "ER-T085",
+        "ER-T089"
+      ],
+      "test_ids": [
+        "TC-IMGRET-001-E",
+        "TC-IMGRET-001-N",
+        "TC-IMGRET-003-E",
+        "TC-IMGRET-003-N",
+        "TC-RESOURCE-002-E",
+        "TC-RESOURCE-002-N",
+        "TC-VIDTRACE-003-E",
+        "TC-VIDTRACE-003-N",
+        "TV-T082-E",
+        "TV-T082-N",
+        "TV-T085-E",
+        "TV-T085-N",
+        "TV-T089-E",
+        "TV-T089-N"
+      ],
+      "detail_file": "docs/03-api/operations/getSearchJob.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "SearchJob"
+    },
+    {
+      "operation_id": "getFirstSource",
+      "method": "GET",
+      "path": "/api/v1/clusters/{id}/first-source",
+      "source_pointer": "/paths/~1clusters~1{id}~1first-source/get",
+      "modules_from_business_trace": [
+        "ORIGIN"
+      ],
+      "task_ids": [
+        "T093"
+      ],
+      "table_names": [
+        "content_cluster",
+        "cluster_member",
+        "first_source_candidate",
+        "first_source_ranking"
+      ],
+      "requirement_ids": [
+        "FR-ORIGIN-002",
+        "FR-ORIGIN-003",
+        "ER-T093"
+      ],
+      "test_ids": [
+        "TC-ORIGIN-002-E",
+        "TC-ORIGIN-002-N",
+        "TC-ORIGIN-003-E",
+        "TC-ORIGIN-003-N",
+        "TV-T093-E",
+        "TV-T093-N"
+      ],
+      "detail_file": "docs/03-api/operations/getFirstSource.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "FirstSource"
+    },
+    {
+      "operation_id": "getPropagation",
+      "method": "GET",
+      "path": "/api/v1/propagation/{cluster_id}",
+      "source_pointer": "/paths/~1propagation~1{cluster_id}/get",
+      "modules_from_business_trace": [
+        "PROPAGATION"
+      ],
+      "task_ids": [
+        "T095",
+        "T097"
+      ],
+      "table_names": [
+        "propagation_node",
+        "propagation_edge"
+      ],
+      "requirement_ids": [
+        "FR-PROPAGATION-001",
+        "FR-PROPAGATION-002",
+        "FR-PROPAGATION-003",
+        "ER-T095",
+        "ER-T097"
+      ],
+      "test_ids": [
+        "TC-PROPAGATION-001-E",
+        "TC-PROPAGATION-001-N",
+        "TC-PROPAGATION-002-E",
+        "TC-PROPAGATION-002-N",
+        "TC-PROPAGATION-003-E",
+        "TC-PROPAGATION-003-N",
+        "TV-T095-E",
+        "TV-T095-N",
+        "TV-T097-E",
+        "TV-T097-N"
+      ],
+      "detail_file": "docs/03-api/operations/getPropagation.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Graph"
+    },
+    {
+      "operation_id": "decidePropagationEdge",
+      "method": "POST",
+      "path": "/api/v1/propagation/edges/{id}/decisions",
+      "source_pointer": "/paths/~1propagation~1edges~1{id}~1decisions/post",
+      "modules_from_business_trace": [
+        "PROPAGATION",
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T096",
+        "T097",
+        "T102"
+      ],
+      "table_names": [
+        "propagation_edge",
+        "review_record"
+      ],
+      "requirement_ids": [
+        "FR-PROPAGATION-001",
+        "FR-PROPAGATION-002",
+        "FR-PROPAGATION-003",
+        "FR-REVIEW-001",
+        "ER-T096",
+        "ER-T097",
+        "ER-T102",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-PROPAGATION-001-E",
+        "TC-PROPAGATION-001-N",
+        "TC-PROPAGATION-002-E",
+        "TC-PROPAGATION-002-N",
+        "TC-PROPAGATION-003-E",
+        "TC-PROPAGATION-003-N",
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T096-E",
+        "TV-T096-N",
+        "TV-T097-E",
+        "TV-T097-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N"
+      ],
+      "detail_file": "docs/03-api/operations/decidePropagationEdge.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "GraphDecision",
+      "response_schema": "GraphEdge"
+    },
+    {
+      "operation_id": "extractClaims",
+      "method": "POST",
+      "path": "/api/v1/claims/extract",
+      "source_pointer": "/paths/~1claims~1extract/post",
+      "modules_from_business_trace": [
+        "CLAIM"
+      ],
+      "task_ids": [
+        "T098"
+      ],
+      "table_names": [
+        "claim",
+        "text_segment"
+      ],
+      "requirement_ids": [
+        "FR-CLAIM-001",
+        "ER-T098"
+      ],
+      "test_ids": [
+        "TC-CLAIM-001-E",
+        "TC-CLAIM-001-N",
+        "TV-T098-E",
+        "TV-T098-N"
+      ],
+      "detail_file": "docs/03-api/operations/extractClaims.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ClaimExtract",
+      "response_schema": "ClaimList"
+    },
+    {
+      "operation_id": "verifyClaim",
+      "method": "POST",
+      "path": "/api/v1/claims/{id}/verify",
+      "source_pointer": "/paths/~1claims~1{id}~1verify/post",
+      "modules_from_business_trace": [
+        "CLAIM"
+      ],
+      "task_ids": [
+        "T099"
+      ],
+      "table_names": [
+        "claim",
+        "claim_evidence_relation"
+      ],
+      "requirement_ids": [
+        "FR-CLAIM-002",
+        "ER-T099"
+      ],
+      "test_ids": [
+        "TC-CLAIM-002-E",
+        "TC-CLAIM-002-N",
+        "TV-T099-E",
+        "TV-T099-N"
+      ],
+      "detail_file": "docs/03-api/operations/verifyClaim.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ClaimVerify",
+      "response_schema": "Relation"
+    },
+    {
+      "operation_id": "createReview",
+      "method": "POST",
+      "path": "/api/v1/reviews",
+      "source_pointer": "/paths/~1reviews/post",
+      "modules_from_business_trace": [
+        "PROPAGATION",
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T102",
+        "T103"
+      ],
+      "table_names": [
+        "review_record",
+        "review_evidence",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-PROPAGATION-003",
+        "FR-REVIEW-001",
+        "ER-T102",
+        "ER-T103",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-PROPAGATION-003-E",
+        "TC-PROPAGATION-003-N",
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T103-E",
+        "TV-T103-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N"
+      ],
+      "detail_file": "docs/03-api/operations/createReview.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ReviewCreate",
+      "response_schema": "Review"
+    },
+    {
+      "operation_id": "requestApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals",
+      "source_pointer": "/paths/~1approvals/post",
+      "modules_from_business_trace": [
+        "OPS",
+        "PROPAGATION",
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T016",
+        "T102",
+        "T108"
+      ],
+      "table_names": [
+        "approval_request"
+      ],
+      "requirement_ids": [
+        "FR-PROPAGATION-003",
+        "FR-REVIEW-001",
+        "FR-OPS-001",
+        "ER-T016",
+        "ER-T102",
+        "ER-T108",
+        "NFR-SEC-001",
+        "NFR-AUDIT-001",
+        "NFR-DATA-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-PROPAGATION-003-E",
+        "TC-PROPAGATION-003-N",
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T021-E",
+        "TV-T021-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T109-E",
+        "TV-T109-N",
+        "TV-T110-E",
+        "TV-T110-N",
+        "TV-T111-E",
+        "TV-T111-N",
+        "TV-T112-E",
+        "TV-T112-N",
+        "TV-T118-E",
+        "TV-T118-N",
+        "TV-T126-E",
+        "TV-T126-N",
+        "TV-T127-E",
+        "TV-T127-N",
+        "TV-T156-E",
+        "TV-T156-N"
+      ],
+      "detail_file": "docs/03-api/operations/requestApproval.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ApprovalCreate",
+      "response_schema": "Approval"
+    },
+    {
+      "operation_id": "decideApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/decisions",
+      "source_pointer": "/paths/~1approvals~1{id}~1decisions/post",
+      "modules_from_business_trace": [
+        "OPS",
+        "PROPAGATION",
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T016",
+        "T102",
+        "T108"
+      ],
+      "table_names": [
+        "approval_request",
+        "approval_decision",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-PROPAGATION-003",
+        "FR-REVIEW-001",
+        "FR-OPS-001",
+        "ER-T016",
+        "ER-T102",
+        "ER-T108",
+        "NFR-SEC-001",
+        "NFR-AUDIT-001",
+        "NFR-DATA-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-PROPAGATION-003-E",
+        "TC-PROPAGATION-003-N",
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T021-E",
+        "TV-T021-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T109-E",
+        "TV-T109-N",
+        "TV-T110-E",
+        "TV-T110-N",
+        "TV-T111-E",
+        "TV-T111-N",
+        "TV-T112-E",
+        "TV-T112-N",
+        "TV-T118-E",
+        "TV-T118-N",
+        "TV-T126-E",
+        "TV-T126-N",
+        "TV-T127-E",
+        "TV-T127-N",
+        "TV-T156-E",
+        "TV-T156-N"
+      ],
+      "detail_file": "docs/03-api/operations/decideApproval.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ApprovalDecision",
+      "response_schema": "Approval"
+    },
+    {
+      "operation_id": "issueOperationToken",
+      "method": "POST",
+      "path": "/api/v1/operation-tokens",
+      "source_pointer": "/paths/~1operation-tokens/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T016"
+      ],
+      "table_names": [
+        "operation_token"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T016",
+        "NFR-SEC-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T118-E",
+        "TV-T118-N"
+      ],
+      "detail_file": "docs/03-api/operations/issueOperationToken.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "OperationTokenRequest",
+      "response_schema": "OperationToken"
+    },
+    {
+      "operation_id": "sealEvidence",
+      "method": "POST",
+      "path": "/api/v1/evidence-packages/{case_id}/seal",
+      "source_pointer": "/paths/~1evidence-packages~1{case_id}~1seal/post",
+      "modules_from_business_trace": [
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T104",
+        "T105"
+      ],
+      "table_names": [
+        "evidence_package",
+        "package_item",
+        "object_version",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-REVIEW-002",
+        "ER-T104",
+        "ER-T105",
+        "NFR-AUDIT-001",
+        "NFR-AVAIL-002"
+      ],
+      "test_ids": [
+        "TC-REVIEW-002-E",
+        "TC-REVIEW-002-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T025-E",
+        "TV-T025-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T105-E",
+        "TV-T105-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T121-E",
+        "TV-T121-N",
+        "TV-T124-E",
+        "TV-T124-N"
+      ],
+      "detail_file": "docs/03-api/operations/sealEvidence.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "SealRequest",
+      "response_schema": "EvidencePackage"
+    },
+    {
+      "operation_id": "createReportDraft",
+      "method": "POST",
+      "path": "/api/v1/reports/drafts",
+      "source_pointer": "/paths/~1reports~1drafts/post",
+      "modules_from_business_trace": [
+        "CLAIM",
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T106"
+      ],
+      "table_names": [
+        "report",
+        "report_evidence"
+      ],
+      "requirement_ids": [
+        "FR-CLAIM-003",
+        "FR-REVIEW-003",
+        "ER-T106"
+      ],
+      "test_ids": [
+        "TC-CLAIM-003-E",
+        "TC-CLAIM-003-N",
+        "TC-REVIEW-003-E",
+        "TC-REVIEW-003-N",
+        "TV-T106-E",
+        "TV-T106-N"
+      ],
+      "detail_file": "docs/03-api/operations/createReportDraft.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ReportDraft",
+      "response_schema": "Report"
+    },
+    {
+      "operation_id": "createReport",
+      "method": "POST",
+      "path": "/api/v1/reports",
+      "source_pointer": "/paths/~1reports/post",
+      "modules_from_business_trace": [
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T107"
+      ],
+      "table_names": [
+        "report",
+        "report_evidence",
+        "approval_request"
+      ],
+      "requirement_ids": [
+        "FR-REVIEW-003",
+        "ER-T107",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-REVIEW-003-E",
+        "TC-REVIEW-003-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N"
+      ],
+      "detail_file": "docs/03-api/operations/createReport.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ReportCreate",
+      "response_schema": "Report"
+    },
+    {
+      "operation_id": "getReport",
+      "method": "GET",
+      "path": "/api/v1/reports/{id}",
+      "source_pointer": "/paths/~1reports~1{id}/get",
+      "modules_from_business_trace": [
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T107"
+      ],
+      "table_names": [
+        "report"
+      ],
+      "requirement_ids": [
+        "FR-REVIEW-003",
+        "ER-T107",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-REVIEW-003-E",
+        "TC-REVIEW-003-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N"
+      ],
+      "detail_file": "docs/03-api/operations/getReport.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Report"
+    },
+    {
+      "operation_id": "downloadReport",
+      "method": "GET",
+      "path": "/api/v1/reports/{id}/content",
+      "source_pointer": "/paths/~1reports~1{id}~1content/get",
+      "modules_from_business_trace": [
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T107"
+      ],
+      "table_names": [
+        "report",
+        "approval_request",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-REVIEW-003",
+        "ER-T107",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-REVIEW-003-E",
+        "TC-REVIEW-003-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N"
+      ],
+      "detail_file": "docs/03-api/operations/downloadReport.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": null
+    },
+    {
+      "operation_id": "requestFeedback",
+      "method": "POST",
+      "path": "/api/v1/feedback/samples",
+      "source_pointer": "/paths/~1feedback~1samples/post",
+      "modules_from_business_trace": [
+        "REVIEW"
+      ],
+      "task_ids": [
+        "T108"
+      ],
+      "table_names": [
+        "feedback_request",
+        "approval_request"
+      ],
+      "requirement_ids": [
+        "FR-REVIEW-001",
+        "ER-T108",
+        "NFR-AUDIT-001",
+        "NFR-DATA-001"
+      ],
+      "test_ids": [
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T021-E",
+        "TV-T021-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T109-E",
+        "TV-T109-N",
+        "TV-T110-E",
+        "TV-T110-N",
+        "TV-T111-E",
+        "TV-T111-N",
+        "TV-T112-E",
+        "TV-T112-N",
+        "TV-T126-E",
+        "TV-T126-N",
+        "TV-T127-E",
+        "TV-T127-N",
+        "TV-T156-E",
+        "TV-T156-N"
+      ],
+      "detail_file": "docs/03-api/operations/requestFeedback.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "Feedback",
+      "response_schema": "FeedbackRecord"
+    },
+    {
+      "operation_id": "registerModel",
+      "method": "POST",
+      "path": "/api/v1/models",
+      "source_pointer": "/paths/~1models/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T052"
+      ],
+      "table_names": [
+        "model_registry"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T052",
+        "NFR-COMPAT-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T002-E",
+        "TV-T002-N",
+        "TV-T003-E",
+        "TV-T003-N",
+        "TV-T051-E",
+        "TV-T051-N",
+        "TV-T052-E",
+        "TV-T052-N",
+        "TV-T053-E",
+        "TV-T053-N",
+        "TV-T054-E",
+        "TV-T054-N",
+        "TV-T081-E",
+        "TV-T081-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/registerModel.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "ModelCreate",
+      "response_schema": "Model"
+    },
+    {
+      "operation_id": "listModels",
+      "method": "GET",
+      "path": "/api/v1/models",
+      "source_pointer": "/paths/~1models/get",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T052",
+        "T060"
+      ],
+      "table_names": [
+        "model_registry"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "FR-OPS-003",
+        "ER-T052",
+        "ER-T060",
+        "NFR-COMPAT-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-OPS-003-E",
+        "TC-OPS-003-N",
+        "TV-T002-E",
+        "TV-T002-N",
+        "TV-T003-E",
+        "TV-T003-N",
+        "TV-T051-E",
+        "TV-T051-N",
+        "TV-T052-E",
+        "TV-T052-N",
+        "TV-T053-E",
+        "TV-T053-N",
+        "TV-T054-E",
+        "TV-T054-N",
+        "TV-T060-E",
+        "TV-T060-N",
+        "TV-T081-E",
+        "TV-T081-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/listModels.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "ModelPage"
+    },
+    {
+      "operation_id": "getModelHealth",
+      "method": "GET",
+      "path": "/api/v1/models/{id}/health",
+      "source_pointer": "/paths/~1models~1{id}~1health/get",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T056",
+        "T060"
+      ],
+      "table_names": [
+        "model_registry"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "FR-OPS-002",
+        "FR-OPS-003",
+        "ER-T056",
+        "ER-T060"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-OPS-002-E",
+        "TC-OPS-002-N",
+        "TC-OPS-003-E",
+        "TC-OPS-003-N",
+        "TV-T056-E",
+        "TV-T056-N",
+        "TV-T060-E",
+        "TV-T060-N"
+      ],
+      "detail_file": "docs/03-api/operations/getModelHealth.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "Health"
+    },
+    {
+      "operation_id": "rolloutModel",
+      "method": "POST",
+      "path": "/api/v1/models/{id}/rollouts",
+      "source_pointer": "/paths/~1models~1{id}~1rollouts/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T057",
+        "T060",
+        "T170"
+      ],
+      "table_names": [
+        "model_release",
+        "approval_request",
+        "index_registry"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "FR-OPS-003",
+        "ER-T057",
+        "ER-T060",
+        "ER-T170",
+        "NFR-COMPAT-001",
+        "NFR-AI-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-OPS-003-E",
+        "TC-OPS-003-N",
+        "TV-T002-E",
+        "TV-T002-N",
+        "TV-T003-E",
+        "TV-T003-N",
+        "TV-T051-E",
+        "TV-T051-N",
+        "TV-T052-E",
+        "TV-T052-N",
+        "TV-T053-E",
+        "TV-T053-N",
+        "TV-T054-E",
+        "TV-T054-N",
+        "TV-T057-E",
+        "TV-T057-N",
+        "TV-T058-E",
+        "TV-T058-N",
+        "TV-T060-E",
+        "TV-T060-N",
+        "TV-T081-E",
+        "TV-T081-N",
+        "TV-T113-E",
+        "TV-T113-N",
+        "TV-T114-E",
+        "TV-T114-N",
+        "TV-T115-E",
+        "TV-T115-N",
+        "TV-T116-E",
+        "TV-T116-N",
+        "TV-T125-E",
+        "TV-T125-N",
+        "TV-T128-E",
+        "TV-T128-N",
+        "TV-T141-E",
+        "TV-T141-N",
+        "TV-T153-E",
+        "TV-T153-N",
+        "TV-T163-E",
+        "TV-T163-N",
+        "TV-T165-E",
+        "TV-T165-N",
+        "TV-T167-E",
+        "TV-T167-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/rolloutModel.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "Rollout",
+      "response_schema": "ActionAck"
+    },
+    {
+      "operation_id": "recordEvaluation",
+      "method": "POST",
+      "path": "/api/v1/model-evaluations",
+      "source_pointer": "/paths/~1model-evaluations/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T058"
+      ],
+      "table_names": [
+        "model_evaluation"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T058",
+        "NFR-AI-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T058-E",
+        "TV-T058-N",
+        "TV-T113-E",
+        "TV-T113-N",
+        "TV-T114-E",
+        "TV-T114-N",
+        "TV-T115-E",
+        "TV-T115-N",
+        "TV-T116-E",
+        "TV-T116-N",
+        "TV-T125-E",
+        "TV-T125-N",
+        "TV-T128-E",
+        "TV-T128-N",
+        "TV-T141-E",
+        "TV-T141-N",
+        "TV-T153-E",
+        "TV-T153-N",
+        "TV-T163-E",
+        "TV-T163-N",
+        "TV-T165-E",
+        "TV-T165-N",
+        "TV-T167-E",
+        "TV-T167-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/recordEvaluation.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "EvaluationCreate",
+      "response_schema": "Evaluation"
+    },
+    {
+      "operation_id": "listEvaluations",
+      "method": "GET",
+      "path": "/api/v1/model-evaluations",
+      "source_pointer": "/paths/~1model-evaluations/get",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T058"
+      ],
+      "table_names": [
+        "model_evaluation"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T058",
+        "NFR-AI-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T058-E",
+        "TV-T058-N",
+        "TV-T113-E",
+        "TV-T113-N",
+        "TV-T114-E",
+        "TV-T114-N",
+        "TV-T115-E",
+        "TV-T115-N",
+        "TV-T116-E",
+        "TV-T116-N",
+        "TV-T125-E",
+        "TV-T125-N",
+        "TV-T128-E",
+        "TV-T128-N",
+        "TV-T141-E",
+        "TV-T141-N",
+        "TV-T153-E",
+        "TV-T153-N",
+        "TV-T163-E",
+        "TV-T163-N",
+        "TV-T165-E",
+        "TV-T165-N",
+        "TV-T167-E",
+        "TV-T167-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/listEvaluations.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "EvaluationPage"
+    },
+    {
+      "operation_id": "listAuditEvents",
+      "method": "GET",
+      "path": "/api/v1/audit/events",
+      "source_pointer": "/paths/~1audit~1events/get",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T018"
+      ],
+      "table_names": [
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T018",
+        "NFR-SEC-001",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T118-E",
+        "TV-T118-N"
+      ],
+      "detail_file": "docs/03-api/operations/listAuditEvents.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "AuditEventPage"
+    },
+    {
+      "operation_id": "exportAudit",
+      "method": "POST",
+      "path": "/api/v1/audit/exports",
+      "source_pointer": "/paths/~1audit~1exports/post",
+      "modules_from_business_trace": [
+        "OPS"
+      ],
+      "task_ids": [
+        "T018"
+      ],
+      "table_names": [
+        "audit_export",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-OPS-001",
+        "ER-T018",
+        "NFR-SEC-001",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T011-E",
+        "TV-T011-N",
+        "TV-T012-E",
+        "TV-T012-N",
+        "TV-T013-E",
+        "TV-T013-N",
+        "TV-T014-E",
+        "TV-T014-N",
+        "TV-T015-E",
+        "TV-T015-N",
+        "TV-T016-E",
+        "TV-T016-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N",
+        "TV-T118-E",
+        "TV-T118-N"
+      ],
+      "detail_file": "docs/03-api/operations/exportAudit.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "AuditExport",
+      "response_schema": "ActionAck"
+    },
+    {
+      "operation_id": "getIndex",
+      "method": "GET",
+      "path": "/api/v1/indices/{id}",
+      "source_pointer": "/paths/~1indices~1{id}/get",
+      "modules_from_business_trace": [
+        "IMGRET",
+        "VIDTRACE"
+      ],
+      "task_ids": [
+        "T081",
+        "T157"
+      ],
+      "table_names": [
+        "index_registry"
+      ],
+      "requirement_ids": [
+        "FR-IMGRET-001",
+        "FR-IMGRET-003",
+        "FR-VIDTRACE-001",
+        "ER-T081",
+        "ER-T157",
+        "NFR-COMPAT-001",
+        "NFR-PERF-001"
+      ],
+      "test_ids": [
+        "TC-IMGRET-001-E",
+        "TC-IMGRET-001-N",
+        "TC-IMGRET-003-E",
+        "TC-IMGRET-003-N",
+        "TC-VIDTRACE-001-E",
+        "TC-VIDTRACE-001-N",
+        "TV-T002-E",
+        "TV-T002-N",
+        "TV-T003-E",
+        "TV-T003-N",
+        "TV-T051-E",
+        "TV-T051-N",
+        "TV-T052-E",
+        "TV-T052-N",
+        "TV-T053-E",
+        "TV-T053-N",
+        "TV-T054-E",
+        "TV-T054-N",
+        "TV-T055-E",
+        "TV-T055-N",
+        "TV-T081-E",
+        "TV-T081-N",
+        "TV-T120-E",
+        "TV-T120-N",
+        "TV-T122-E",
+        "TV-T122-N",
+        "TV-T123-E",
+        "TV-T123-N",
+        "TV-T157-E",
+        "TV-T157-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/getIndex.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "IndexVersion"
+    },
+    {
+      "operation_id": "switchIndex",
+      "method": "POST",
+      "path": "/api/v1/indices/{id}/switch",
+      "source_pointer": "/paths/~1indices~1{id}~1switch/post",
+      "modules_from_business_trace": [
+        "IMGRET",
+        "VIDTRACE"
+      ],
+      "task_ids": [
+        "T081",
+        "T157"
+      ],
+      "table_names": [
+        "index_registry",
+        "audit_event"
+      ],
+      "requirement_ids": [
+        "FR-IMGRET-001",
+        "FR-IMGRET-003",
+        "FR-VIDTRACE-001",
+        "ER-T081",
+        "ER-T157",
+        "NFR-COMPAT-001",
+        "NFR-PERF-001"
+      ],
+      "test_ids": [
+        "TC-IMGRET-001-E",
+        "TC-IMGRET-001-N",
+        "TC-IMGRET-003-E",
+        "TC-IMGRET-003-N",
+        "TC-VIDTRACE-001-E",
+        "TC-VIDTRACE-001-N",
+        "TV-T002-E",
+        "TV-T002-N",
+        "TV-T003-E",
+        "TV-T003-N",
+        "TV-T051-E",
+        "TV-T051-N",
+        "TV-T052-E",
+        "TV-T052-N",
+        "TV-T053-E",
+        "TV-T053-N",
+        "TV-T054-E",
+        "TV-T054-N",
+        "TV-T055-E",
+        "TV-T055-N",
+        "TV-T081-E",
+        "TV-T081-N",
+        "TV-T120-E",
+        "TV-T120-N",
+        "TV-T122-E",
+        "TV-T122-N",
+        "TV-T123-E",
+        "TV-T123-N",
+        "TV-T157-E",
+        "TV-T157-N",
+        "TV-T170-E",
+        "TV-T170-N"
+      ],
+      "detail_file": "docs/03-api/operations/switchIndex.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "IndexSwitch",
+      "response_schema": "IndexVersion"
+    },
+    {
+      "operation_id": "createPolicy",
+      "method": "POST",
+      "path": "/api/v1/policies",
+      "source_pointer": "/paths/~1policies/post",
+      "modules_from_business_trace": [
+        "OPS",
+        "PROPAGATION",
+        "REVIEW",
+        "RISK"
+      ],
+      "task_ids": [
+        "T061",
+        "T068",
+        "T069",
+        "T102"
+      ],
+      "table_names": [
+        "policy_registry"
+      ],
+      "requirement_ids": [
+        "FR-RISK-001",
+        "FR-RISK-003",
+        "FR-PROPAGATION-003",
+        "FR-REVIEW-001",
+        "FR-OPS-001",
+        "ER-T061",
+        "ER-T068",
+        "ER-T069",
+        "ER-T102",
+        "NFR-AUDIT-001"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-PROPAGATION-003-E",
+        "TC-PROPAGATION-003-N",
+        "TC-REVIEW-001-E",
+        "TC-REVIEW-001-N",
+        "TC-RISK-001-E",
+        "TC-RISK-001-N",
+        "TC-RISK-003-E",
+        "TC-RISK-003-N",
+        "TV-T008-E",
+        "TV-T008-N",
+        "TV-T017-E",
+        "TV-T017-N",
+        "TV-T018-E",
+        "TV-T018-N",
+        "TV-T061-E",
+        "TV-T061-N",
+        "TV-T068-E",
+        "TV-T068-N",
+        "TV-T069-E",
+        "TV-T069-N",
+        "TV-T102-E",
+        "TV-T102-N",
+        "TV-T104-E",
+        "TV-T104-N",
+        "TV-T107-E",
+        "TV-T107-N",
+        "TV-T108-E",
+        "TV-T108-N"
+      ],
+      "detail_file": "docs/03-api/operations/createPolicy.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": "PolicyCreate",
+      "response_schema": "Policy"
+    },
+    {
+      "operation_id": "listPolicies",
+      "method": "GET",
+      "path": "/api/v1/policies",
+      "source_pointer": "/paths/~1policies/get",
+      "modules_from_business_trace": [
+        "OPS",
+        "RISK"
+      ],
+      "task_ids": [
+        "T061",
+        "T068",
+        "T069"
+      ],
+      "table_names": [
+        "policy_registry"
+      ],
+      "requirement_ids": [
+        "FR-RISK-001",
+        "FR-RISK-003",
+        "FR-OPS-001",
+        "ER-T061",
+        "ER-T068",
+        "ER-T069"
+      ],
+      "test_ids": [
+        "TC-OPS-001-E",
+        "TC-OPS-001-N",
+        "TC-RISK-001-E",
+        "TC-RISK-001-N",
+        "TC-RISK-003-E",
+        "TC-RISK-003-N",
+        "TV-T061-E",
+        "TV-T061-N",
+        "TV-T068-E",
+        "TV-T068-N",
+        "TV-T069-E",
+        "TV-T069-N"
+      ],
+      "detail_file": "docs/03-api/operations/listPolicies.md",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "PolicyPage"
+    }
+  ],
+  "modules": [
+    {
+      "module": "INGEST",
+      "name": "数据接入",
+      "requirement_ids": [
+        "FR-INGEST-001",
+        "FR-INGEST-002",
+        "FR-INGEST-003"
+      ],
+      "declared_business_operations": [
+        "completeUpload",
+        "createImport",
+        "createSource",
+        "createUpload",
+        "downloadAsset",
+        "getImport",
+        "listSources",
+        "putUploadPart"
+      ],
+      "source_task_ids": [
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029"
+      ],
+      "doc_file": "docs/03-api/modules/ingest.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "RESOURCE",
+      "name": "资源库",
+      "requirement_ids": [
+        "FR-RESOURCE-001",
+        "FR-RESOURCE-002",
+        "FR-RESOURCE-003"
+      ],
+      "declared_business_operations": [
+        "completeUpload",
+        "createSource",
+        "downloadAsset",
+        "getAsset",
+        "getCurrentUser",
+        "getSearchJob",
+        "listAssets",
+        "listSources",
+        "searchImage"
+      ],
+      "source_task_ids": [
+        "T015",
+        "T019",
+        "T020",
+        "T021",
+        "T025",
+        "T027",
+        "T030",
+        "T079",
+        "T082",
+        "T090"
+      ],
+      "doc_file": "docs/03-api/modules/resource.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "MEDIA",
+      "name": "媒体预处理",
+      "requirement_ids": [
+        "FR-MEDIA-001",
+        "FR-MEDIA-002",
+        "FR-MEDIA-003"
+      ],
+      "declared_business_operations": [
+        "getTimeline"
+      ],
+      "source_task_ids": [
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T066"
+      ],
+      "doc_file": "docs/03-api/modules/media.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "RISK",
+      "name": "风险识别",
+      "requirement_ids": [
+        "FR-RISK-001",
+        "FR-RISK-002",
+        "FR-RISK-003"
+      ],
+      "declared_business_operations": [
+        "createPolicy",
+        "getRiskFindings",
+        "listPolicies"
+      ],
+      "source_task_ids": [
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T069",
+        "T070",
+        "T130",
+        "T131",
+        "T132",
+        "T133",
+        "T134",
+        "T135",
+        "T136",
+        "T137",
+        "T138",
+        "T139",
+        "T140",
+        "T141"
+      ],
+      "doc_file": "docs/03-api/modules/risk.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "FORENSIC",
+      "name": "篡改取证",
+      "requirement_ids": [
+        "FR-FORENSIC-001",
+        "FR-FORENSIC-002",
+        "FR-FORENSIC-003"
+      ],
+      "declared_business_operations": [
+        "getForensics"
+      ],
+      "source_task_ids": [
+        "T071",
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076",
+        "T077",
+        "T078",
+        "T142",
+        "T143",
+        "T144",
+        "T145",
+        "T146",
+        "T147",
+        "T148",
+        "T149",
+        "T150",
+        "T151",
+        "T152",
+        "T153"
+      ],
+      "doc_file": "docs/03-api/modules/forensic.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "IMGRET",
+      "name": "图片检索",
+      "requirement_ids": [
+        "FR-IMGRET-001",
+        "FR-IMGRET-002",
+        "FR-IMGRET-003"
+      ],
+      "declared_business_operations": [
+        "getIndex",
+        "getSearchJob",
+        "searchImage",
+        "searchImageRegion",
+        "switchIndex"
+      ],
+      "source_task_ids": [
+        "T079",
+        "T080",
+        "T081",
+        "T082",
+        "T083",
+        "T084",
+        "T085",
+        "T154",
+        "T155",
+        "T156",
+        "T157"
+      ],
+      "doc_file": "docs/03-api/modules/imgret.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "VIDTRACE",
+      "name": "视频溯源",
+      "requirement_ids": [
+        "FR-VIDTRACE-001",
+        "FR-VIDTRACE-002",
+        "FR-VIDTRACE-003"
+      ],
+      "declared_business_operations": [
+        "getIndex",
+        "getSearchJob",
+        "searchVideo",
+        "switchIndex"
+      ],
+      "source_task_ids": [
+        "T080",
+        "T081",
+        "T086",
+        "T087",
+        "T088",
+        "T089",
+        "T158",
+        "T159",
+        "T160",
+        "T161",
+        "T162",
+        "T163"
+      ],
+      "doc_file": "docs/03-api/modules/vidtrace.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "ORIGIN",
+      "name": "首发分析",
+      "requirement_ids": [
+        "FR-ORIGIN-001",
+        "FR-ORIGIN-002",
+        "FR-ORIGIN-003"
+      ],
+      "declared_business_operations": [
+        "getFirstSource"
+      ],
+      "source_task_ids": [
+        "T090",
+        "T091",
+        "T092",
+        "T093",
+        "T164",
+        "T165"
+      ],
+      "doc_file": "docs/03-api/modules/origin.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "PROPAGATION",
+      "name": "传播分析",
+      "requirement_ids": [
+        "FR-PROPAGATION-001",
+        "FR-PROPAGATION-002",
+        "FR-PROPAGATION-003"
+      ],
+      "declared_business_operations": [
+        "createPolicy",
+        "createReview",
+        "decideApproval",
+        "decidePropagationEdge",
+        "getPropagation",
+        "requestApproval"
+      ],
+      "source_task_ids": [
+        "T094",
+        "T095",
+        "T096",
+        "T097",
+        "T102"
+      ],
+      "doc_file": "docs/03-api/modules/propagation.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "CLAIM",
+      "name": "证据核查",
+      "requirement_ids": [
+        "FR-CLAIM-001",
+        "FR-CLAIM-002",
+        "FR-CLAIM-003"
+      ],
+      "declared_business_operations": [
+        "createReportDraft",
+        "extractClaims",
+        "verifyClaim"
+      ],
+      "source_task_ids": [
+        "T098",
+        "T099",
+        "T106",
+        "T166",
+        "T167",
+        "T168",
+        "T169"
+      ],
+      "doc_file": "docs/03-api/modules/claim.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "REVIEW",
+      "name": "人工审核与报告",
+      "requirement_ids": [
+        "FR-REVIEW-001",
+        "FR-REVIEW-002",
+        "FR-REVIEW-003"
+      ],
+      "declared_business_operations": [
+        "createPolicy",
+        "createReport",
+        "createReportDraft",
+        "createReview",
+        "decideApproval",
+        "decidePropagationEdge",
+        "downloadReport",
+        "getReport",
+        "getTaskEvidence",
+        "requestApproval",
+        "requestFeedback",
+        "sealEvidence"
+      ],
+      "source_task_ids": [
+        "T100",
+        "T101",
+        "T102",
+        "T103",
+        "T104",
+        "T105",
+        "T106",
+        "T107",
+        "T108"
+      ],
+      "doc_file": "docs/03-api/modules/review.md",
+      "all_business_implemented": false
+    },
+    {
+      "module": "OPS",
+      "name": "系统运维",
+      "requirement_ids": [
+        "FR-OPS-001",
+        "FR-OPS-002",
+        "FR-OPS-003"
+      ],
+      "declared_business_operations": [
+        "cancelTask",
+        "createPolicy",
+        "decideApproval",
+        "devLogin",
+        "exportAudit",
+        "getCurrentUser",
+        "getModelHealth",
+        "getTask",
+        "issueOperationToken",
+        "listAuditEvents",
+        "listEvaluations",
+        "listModels",
+        "listPolicies",
+        "listTasks",
+        "recordEvaluation",
+        "registerModel",
+        "requestApproval",
+        "rerunTask",
+        "rolloutModel"
+      ],
+      "source_task_ids": [
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T016",
+        "T017",
+        "T018",
+        "T035",
+        "T040",
+        "T051",
+        "T052",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T117",
+        "T118",
+        "T119",
+        "T120",
+        "T121",
+        "T122",
+        "T123",
+        "T124",
+        "T170"
+      ],
+      "doc_file": "docs/03-api/modules/ops.md",
+      "all_business_implemented": false
+    }
+  ],
+  "generated_docs": [
+    "docs/03-api/data-structures.md",
+    "docs/03-api/detailed-interface-index.md",
+    "docs/03-api/inference-interfaces.md",
+    "docs/03-api/interface-catalog.json",
+    "docs/03-api/modules/claim.md",
+    "docs/03-api/modules/forensic.md",
+    "docs/03-api/modules/imgret.md",
+    "docs/03-api/modules/ingest.md",
+    "docs/03-api/modules/media.md",
+    "docs/03-api/modules/ops.md",
+    "docs/03-api/modules/origin.md",
+    "docs/03-api/modules/propagation.md",
+    "docs/03-api/modules/resource.md",
+    "docs/03-api/modules/review.md",
+    "docs/03-api/modules/risk.md",
+    "docs/03-api/modules/vidtrace.md",
+    "docs/03-api/operations/cancelTask.md",
+    "docs/03-api/operations/completeUpload.md",
+    "docs/03-api/operations/createImport.md",
+    "docs/03-api/operations/createPolicy.md",
+    "docs/03-api/operations/createReport.md",
+    "docs/03-api/operations/createReportDraft.md",
+    "docs/03-api/operations/createReview.md",
+    "docs/03-api/operations/createSource.md",
+    "docs/03-api/operations/createTask.md",
+    "docs/03-api/operations/createUpload.md",
+    "docs/03-api/operations/decideApproval.md",
+    "docs/03-api/operations/decidePropagationEdge.md",
+    "docs/03-api/operations/devLogin.md",
+    "docs/03-api/operations/downloadAsset.md",
+    "docs/03-api/operations/downloadReport.md",
+    "docs/03-api/operations/exportAudit.md",
+    "docs/03-api/operations/extractClaims.md",
+    "docs/03-api/operations/getAsset.md",
+    "docs/03-api/operations/getCurrentUser.md",
+    "docs/03-api/operations/getFirstSource.md",
+    "docs/03-api/operations/getForensics.md",
+    "docs/03-api/operations/getImport.md",
+    "docs/03-api/operations/getIndex.md",
+    "docs/03-api/operations/getModelHealth.md",
+    "docs/03-api/operations/getPropagation.md",
+    "docs/03-api/operations/getReport.md",
+    "docs/03-api/operations/getRiskFindings.md",
+    "docs/03-api/operations/getSearchJob.md",
+    "docs/03-api/operations/getTask.md",
+    "docs/03-api/operations/getTaskEvidence.md",
+    "docs/03-api/operations/getTimeline.md",
+    "docs/03-api/operations/health.md",
+    "docs/03-api/operations/issueOperationToken.md",
+    "docs/03-api/operations/listAssets.md",
+    "docs/03-api/operations/listAuditEvents.md",
+    "docs/03-api/operations/listEvaluations.md",
+    "docs/03-api/operations/listModels.md",
+    "docs/03-api/operations/listPolicies.md",
+    "docs/03-api/operations/listSources.md",
+    "docs/03-api/operations/listTasks.md",
+    "docs/03-api/operations/putUploadPart.md",
+    "docs/03-api/operations/recordEvaluation.md",
+    "docs/03-api/operations/registerModel.md",
+    "docs/03-api/operations/requestApproval.md",
+    "docs/03-api/operations/requestFeedback.md",
+    "docs/03-api/operations/rerunTask.md",
+    "docs/03-api/operations/rolloutModel.md",
+    "docs/03-api/operations/sealEvidence.md",
+    "docs/03-api/operations/searchImage.md",
+    "docs/03-api/operations/searchImageRegion.md",
+    "docs/03-api/operations/searchVideo.md",
+    "docs/03-api/operations/switchIndex.md",
+    "docs/03-api/operations/verifyClaim.md"
+  ],
+  "generation_source": "scripts/generate_interface_docs.py"
+}

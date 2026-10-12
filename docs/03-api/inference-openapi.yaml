@@ -11915,12 +11915,14 @@ paths:
                                     type: string
                                     format: uuid
                                   minItems: 1
+                                  uniqueItems: true
                                 counter_evidence_ids:
                                   type: array
                                   items:
                                     type: string
                                     format: uuid
                                   minItems: 0
+                                  uniqueItems: true
                               required:
                               - asset_id
                               - rank
@@ -11930,6 +11932,7 @@ paths:
                               - counter_evidence_ids
                               additionalProperties: false
                             minItems: 0
+                            maxItems: 3
                           status:
                             type: string
                             enum:

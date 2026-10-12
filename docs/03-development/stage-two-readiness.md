@@ -22,7 +22,7 @@
 | 16 | 容器与编排 | 7服务/5卷/配额/健康/重启验证；生产平台未批准 | DEV_VALIDATED |
 | 17 | 版本兼容许可 | 精确锁/摘要/兼容与许可盘点；PythonEOL、FFmpeg/Desktop及OS审查待补 | DEV_LOCKED |
 | 18 | 规范和目录 | 真实目录、Ruff/TS检查、README与运行手册 | DEV_VALIDATED |
-| 19 | 接口事件契约 | 两份API及一份事件Schema生成3份类型无漂移；PoC完整事件及M15运行验证通过 | DEV_VALIDATED_POC |
+| 19 | 接口事件契约 | [整体说明](../03-api/system-interface-specification.md)/53逐接口/83组件/34能力已详细化；M24副本3项约束修正，PoC实测保留；[13项整体缺口](../03-api/interface-gap-register.md)仍开放 | DEV_VALIDATED_POC_OVERALL_CONTRACT_GAPS |
 | 20 | 最小可运行工程 | 浏览器/对象/SQL/queue/worker/真实合成CPU结果已运行 | DEV_VALIDATED |
 | 21 | CI质量门禁 | 本机21门禁及失败阻断通过，私有GitHub已接入；平台结论按github-actions-report.json | LOCAL_CI_VALIDATED_HOSTED_RECORDED_SEPARATELY |
 | 22 | 基线评审包 | 技术基线、14ADR和实际证据已形成；正式责任人/评审未签署 | REVIEW_PACKAGE_READY |

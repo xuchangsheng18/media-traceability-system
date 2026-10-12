@@ -26,7 +26,8 @@ def build():
         seeds.update(item["outputs"])
     for item in json.loads((ROOT / (PREFIX + "source-section-map.json")).read_text(encoding="utf-8"))["records"]:
         seeds.update(item["target_refs"])
-    seeds.update(["scripts/stage_one_source_audit.py", "scripts/build_stage_one_candidate.py", "scripts/validate_stage_one.py"])
+    seeds.update(["scripts/stage_one_source_audit.py", "scripts/build_stage_one_candidate.py", "scripts/validate_stage_one.py",
+                  "scripts/generate_interface_docs.py", "scripts/validate_interface_docs.py"])
     files = set()
     for seed in sorted(seeds):
         path = ROOT / seed

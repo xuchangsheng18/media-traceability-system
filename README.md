@@ -63,3 +63,7 @@ cd /workspace/glwy/projects/media-traceability-system
 源Word及其SHA256保持；Git保存本轮研发快照，origin采用用户提供私有GitHub，没有创建已批准生产基线标签。同步证据见docs/00-project/server-sync-receipt.json。
 
 当前1.1补充的使用要求见[迁移事件手册](docs/03-development/migrations-and-events.md)、[开发冷恢复](docs/10-deployment/development-backup-restore.md)与[剩余条件/关闭标准](docs/03-development/stage-two-gap-register.md)。
+
+## 整体接口详细入口
+
+[系统整体接口说明](docs/03-api/system-interface-specification.md)、[53份逐操作/12模块导航](docs/03-api/detailed-interface-index.md)、[83组件字段](docs/03-api/data-structures.md)、[34内部能力](docs/03-api/inference-interfaces.md)已显式整理。第二阶段第19步保留PoC实测，整体接口仍有[13项开放缺口](docs/03-api/interface-gap-register.md)；候选路径不可调用，未标全系统接口冻结。

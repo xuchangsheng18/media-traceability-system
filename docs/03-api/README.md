@@ -18,3 +18,15 @@
 ## 第一阶段归属
 
 本专题承接第一阶段第12步的候选输入，操作、产物和确认要求见[24步对应表](../00-project/stage-one/steps-and-deliverables.md)。专题结构源保持不变，设计/计划与实际实施结果分开。
+
+## 第二阶段整体与详细接口
+
+- [系统整体接口说明](system-interface-specification.md)：七类接口面、服务边界、完整性标准及当前结论。
+- [逐接口目录](detailed-interface-index.md)：53份操作说明和12模块导航。
+- [83类数据结构](data-structures.md)：必填/可空、枚举/约束、字段与完整源Schema。
+- [34类内部模型接口](inference-interfaces.md)：输入/输出字段、能力路径与独立Schema。
+- [共用接口规则](common-interface-rules.md)、[服务/事件契约](service-and-event-contracts.md)：权限、幂等、ETag、异步、版本对象与PoC消息。
+- [13项缺口及拟补方案](interface-gap-register.md)、[机器缺口](interface-gap-register.json)：候选路径未加入OpenAPI，不可调用。
+- [覆盖来源索引](interface-catalog.json)、[生成解释](interface-annotations.json)、[检查报告](../00-project/validation/interface-documentation-report.json)。
+
+明细由scripts/generate_interface_docs.py从唯一结构源生成，--check检查漂移；不独立手改字段。第二阶段第19步现为“PoC验证＋整体详细文档＋开放缺口”，尚不是全系统接口已实现/冻结。

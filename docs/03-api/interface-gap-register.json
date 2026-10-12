@@ -1,0 +1,343 @@
+{
+  "revision": "interface-detail-20261012",
+  "status": "OPEN",
+  "formal_frozen": false,
+  "items": [
+    {
+      "id": "IF-G01",
+      "priority": "P0",
+      "title": "上传续传与校验状态查询",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T022",
+        "T023",
+        "T024",
+        "T026",
+        "T027"
+      ],
+      "existing_operation_ids": [
+        "createUpload",
+        "putUploadPart",
+        "completeUpload"
+      ],
+      "candidate_routes_for_review": [
+        "GET /uploads/{id}",
+        "GET /uploads/{id}/parts"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "无读取上传进度、分片记录与VALIDATING终态的契约。",
+      "proposed_detail": "复用UploadSession/UploadPart/UploadResult组成投影，定义已接收分片、总量/摘要、到期/校验终态，asset_id仅VALID后可分析。",
+      "closure_criteria": "补唯一契约/样例/映射/类型，测中断续传、重复/摘要冲突、到期和异步成功/失败。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G02",
+      "priority": "P0",
+      "title": "审批读取与撤销链路",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T016",
+        "T102",
+        "T107",
+        "T108",
+        "T170"
+      ],
+      "existing_operation_ids": [
+        "requestApproval",
+        "decideApproval",
+        "issueOperationToken"
+      ],
+      "candidate_routes_for_review": [
+        "GET /approvals",
+        "GET /approvals/{id}"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "Approval有REQUESTED/REVOKED，但缺工作台读取和有效状态查询，权威撤销入口未定。",
+      "proposed_detail": "复用Approval，定义有权对象列表/详情/决定历史、游标/ETag、目的/版本/到期；撤销是否走现有decisions需规则决定，不能自动赋予审批权。",
+      "closure_criteria": "正式规则确认后补契约/SQL映射/追踪，测跨案件、两人独立性、到期与重算使旧批准失效。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G03",
+      "priority": "P0",
+      "title": "复核工作台读取与版本冲突",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T102",
+        "T103"
+      ],
+      "existing_operation_ids": [
+        "createReview"
+      ],
+      "candidate_routes_for_review": [
+        "GET /reviews",
+        "GET /reviews/{id}"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "只有提交复核，缺记录/待办及绑定版本读取。",
+      "proposed_detail": "复用Review设计有权待办/记录读取，明确task/run/result/review绑定、筛选、ETag和只追加历史，不自动放行报告。",
+      "closure_criteria": "补源契约和追踪，测提交前读取版本、同时复核冲突、退回后历史可查。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G04",
+      "priority": "P1",
+      "title": "反馈审批与回流状态读取",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T108",
+        "T109",
+        "T126",
+        "T127"
+      ],
+      "existing_operation_ids": [
+        "requestFeedback"
+      ],
+      "candidate_routes_for_review": [
+        "GET /feedback/samples/{id}"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "返回FeedbackRecord但无审批进度/APPLIED和数据版本查询。",
+      "proposed_detail": "复用反馈结构补受控数据版本投影、撤销停止/去重；用途/划分核验，禁止封存测试集回流。",
+      "closure_criteria": "补契约/数据卡/审批引用，测拒绝、撤销、重复消费与样本计数不重复。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G05",
+      "priority": "P0",
+      "title": "模型灰度及回滚操作查询",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T057",
+        "T060",
+        "T170"
+      ],
+      "existing_operation_ids": [
+        "rolloutModel",
+        "getModelHealth"
+      ],
+      "candidate_routes_for_review": [
+        "GET /model-operations/{id}"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "rollback已在Rollout.mode中；缺202 ActionAck后的进度/失败查询，健康不等于切换完成。",
+      "proposed_detail": "以ActionAck.object_id绑定发布操作，定义状态、release_bundle/模型/索引版本、失败/进度/回滚终态。",
+      "closure_criteria": "补操作Schema/映射与受理至终态链路，测不兼容拒绝、幂等/失败后回滚、许可/批准。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G06",
+      "priority": "P0",
+      "title": "审计导出作业及产物读取",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T017",
+        "T018"
+      ],
+      "existing_operation_ids": [
+        "exportAudit",
+        "listAuditEvents"
+      ],
+      "candidate_routes_for_review": [
+        "GET /audit/exports/{id}",
+        "GET /audit/exports/{id}/content"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "202 ActionAck缺状态查询/受控下载及导出产物结构。",
+      "proposed_detail": "以object_id绑定导出，补状态和固定ObjectRef；限定组织/案件/时间、批准目的、脱敏/到期；下载按Range/当前授权核验。",
+      "closure_criteria": "补唯一结构/投影及来源确认，测受理/失败/终态/摘要下载和撤销后下一Range拒绝。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G07",
+      "priority": "P0",
+      "title": "正式身份与角色案件授权边界",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015"
+      ],
+      "existing_operation_ids": [
+        "devLogin",
+        "getCurrentUser"
+      ],
+      "candidate_routes_for_review": [],
+      "candidate_routes_callable": false,
+      "evidence": "开发登录不是统一身份协议；角色/单位/案件授权及撤销权威来源未定。",
+      "proposed_detail": "确认身份方协议、主体映射、令牌/撤销、授权同步/审计；先确定统一平台或仓库管理API的责任，不能制造第二权限源。",
+      "closure_criteria": "取得Q-05/Q-16/Q-25决定和实际材料，补协议/Schema与授权、撤销、越权联调证据。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G08",
+      "priority": "P0",
+      "title": "来源授权验证和失效同步",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T021",
+        "T029",
+        "T108"
+      ],
+      "existing_operation_ids": [
+        "createSource",
+        "listSources"
+      ],
+      "candidate_routes_for_review": [],
+      "candidate_routes_callable": false,
+      "evidence": "Source含expired/revoked，但权威验证/更新/撤销同步协议缺失。",
+      "proposed_detail": "明确权威授权记录、用途/到期/撤销版本及适配器/事件；客户端authorization_status不能完成授权。确定动作后才加入OpenAPI。",
+      "closure_criteria": "补核验协议与追踪，撤销后分析/导出/训练回流拒绝且历史和审计可追溯。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G09",
+      "priority": "P0",
+      "title": "按历史运行结果查询",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T031",
+        "T035",
+        "T038",
+        "T039",
+        "T102",
+        "T104"
+      ],
+      "existing_operation_ids": [
+        "getTask",
+        "getRiskFindings",
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "candidate_routes_for_review": [
+        "GET /analysis/tasks/{id}/runs/{run_version}"
+      ],
+      "candidate_routes_callable": false,
+      "evidence": "除首发ranking_id外，任务/结果读取未明确历史run/result选择，当前响应不等于旧快照。",
+      "proposed_detail": "按run/result读取状态、候选、证据及复核/报告不可变视图；新旧运行分别授权，不隐式恢复旧批准。",
+      "closure_criteria": "补路径/参数/字段/追踪，测两次重算后精确版本、旧结果不可变和跨案件拒绝。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G10",
+      "priority": "P1",
+      "title": "第三方数据平台适配器协议",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T021",
+        "T028",
+        "T029"
+      ],
+      "existing_operation_ids": [
+        "createImport",
+        "getImport"
+      ],
+      "candidate_routes_for_review": [],
+      "candidate_routes_callable": false,
+      "evidence": "清单导入有结构，但外部回调/拉取的身份、映射、签验/重试未提供。",
+      "proposed_detail": "逐平台登记批准方式/版本、来源标识、发布时间/观测时间/可见范围、签验、游标/去重/限流，不虚构URL或账号。",
+      "closure_criteria": "取得Q-17/Q-28和平台资料后补协议，测重复、签验/到期错误、字段缺失及限流。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G11",
+      "priority": "P0",
+      "title": "全业务DAG与跨模块事件",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T031",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T053",
+        "T055"
+      ],
+      "existing_operation_ids": [
+        "createTask",
+        "cancelTask",
+        "rerunTask"
+      ],
+      "candidate_routes_for_review": [],
+      "candidate_routes_callable": false,
+      "evidence": "只实现poc.analysis.requested.v1，不能推导12模块取消/重算/完成总线已定义。",
+      "proposed_detail": "先决定API/消息边界，定义必要事件的结构版本、生产消费方、运行身份、去重/租约fencing、顺序/重试/取消/死信与授权；每个实际事件单独Schema。",
+      "closure_criteria": "确定DAG/取消后补必要Schema/类型，测真实多worker、重复乱序、旧运行/超时及死信恢复。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G12",
+      "priority": "P1",
+      "title": "配置值、聚合ETag及策略生效",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T007",
+        "T009",
+        "T016",
+        "T061",
+        "T069",
+        "T102"
+      ],
+      "existing_operation_ids": [
+        "createReview",
+        "decideApproval",
+        "createPolicy",
+        "listPolicies"
+      ],
+      "candidate_routes_for_review": [],
+      "candidate_routes_callable": false,
+      "evidence": "幂等/分页有原则，但保留期、限流/超时数值、复核ETag目标与策略激活/撤销未冻结。",
+      "proposed_detail": "明确资源/聚合强ETag与原子更新；配置引用唯一版本，数值待资源/规则决定；草案、批准和生效分别定义。",
+      "closure_criteria": "形成决定及适用契约，测同键不同摘要、旧ETag、权限/重算失效、稳定分页/背压。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    },
+    {
+      "id": "IF-G13",
+      "priority": "P0",
+      "title": "内部34能力服务语义与一致性",
+      "status": "OPEN_CONTRACT_OR_FORMAL_DESIGN_GAP",
+      "task_ids": [
+        "T051",
+        "T053",
+        "T054",
+        "T055",
+        "T056"
+      ],
+      "existing_operation_ids": [],
+      "candidate_routes_for_review": [],
+      "candidate_routes_callable": false,
+      "evidence": "34Schema存在，只有M15合成CPU运行；能力/身份/用途/期限/取消和后端兼容无全能力证据。",
+      "proposed_detail": "模型Schema保持唯一；调用/响应核验path/body能力、model/run/request身份、对象版本/摘要、授权、deadline和输出语义；支持列表应匹配实际部署。",
+      "closure_criteria": "逐能力补实现/授权样本验证，测能力错配、非法对象、超时/取消；不拿mock或Schema当准确率通过。",
+      "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
+      "owner_name": null,
+      "approved": false
+    }
+  ]
+}

@@ -60,6 +60,17 @@ def main():
         "00-project/validation/repository-secrets-report.json": "确切开发凭据值及已知秘密文件名检查，非完整DLP。",
     }
     entries.update({
+        "03-api/system-interface-specification.md": "第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。",
+        "03-api/detailed-interface-index.md": "53份逐操作说明及12模块导航；方法/路径、来源、实现边界和明细落点。",
+        "03-api/data-structures.md": "83业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。",
+        "03-api/inference-interfaces.md": "34能力逐请求/响应字段、路径、任务/数据及Schema摘要，只有M15合成CPU子范围已实测。",
+        "03-api/common-interface-rules.md": "身份/权限、追踪、分页、幂等、ETag、异步、错误/Range和版本；未定配置保持待定。",
+        "03-api/service-and-event-contracts.md": "服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。",
+        "03-api/interface-catalog.json": "53操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。",
+        "03-api/interface-annotations.json": "53操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。",
+        "03-api/interface-gap-register.md": "13项接口设计/实施缺口、候选路径/方案/影响与关闭标准，候选路径不可调用。",
+        "03-api/interface-gap-register.json": "上述开放缺口的机器索引；姓名未知/未批准，不改任务依赖。",
+        "00-project/validation/interface-documentation-report.json": "6项明细覆盖/生成漂移/12模块/68能力分支/13缺口/源码实现边界检查，非全接口运行验收。",
         "03-development/migrations-and-events.md": "专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。",
         "03-development/stage-two-gap-register.md": "剩余正式条件、输入、责任角色与关闭标准；不补造姓名和批准。",
         "03-development/stage-two-gap-register.json": "上述条件机器索引，真实状态与负责人未知值保留。",
@@ -97,6 +108,10 @@ def main():
         first_entries[path] = "第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。"
     descriptions.update(first_entries)
     descriptions.update(entries)
+    for path in (ROOT/"docs/03-api/operations").glob("*.md"):
+        descriptions[path.relative_to(ROOT/"docs").as_posix()] = "逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。"
+    for path in (ROOT/"docs/03-api/modules").glob("*.md"):
+        descriptions[path.relative_to(ROOT/"docs").as_posix()] = "该模块三条来源业务需求、已有操作/任务及详细入口；直接API未绑定不等于需求删除或全部内部处理已完成。"
     first_section = "\n## 第一阶段实际材料\n\n第一阶段来源、做法与当前交付入口：\n\n| 文档 | 含义与严格判定要求 |\n| --- | --- |\n"
     for path, description in first_entries.items():
         first_section += f"| [{path}](<{path}>) | {description} |\n"

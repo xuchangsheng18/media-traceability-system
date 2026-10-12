@@ -1,0 +1,430 @@
+{
+  "status": "ENGINEERING_REVIEW_NOT_APPROVED",
+  "formal_frozen": false,
+  "operations": {
+    "health": {
+      "title": "依赖健康检查",
+      "purpose": "依赖健康检查；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "服务健康范围，不能凭空要求绑定案件；研发实现只固定Bearer/数据库检查。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "按当前PoC说明核验开发子范围",
+      "completion_and_followup": "同路径研发实现只核验固定Bearer和数据库连通；不是正式身份/策略或全部依赖健康验收。"
+    },
+    "devLogin": {
+      "title": "开发身份登录",
+      "purpose": "开发身份登录；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "仅开发匿名登录入口，需关闭策略、限流及安全日志，不当生产身份。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "development-only且security=[]；生产关闭。当前PoC用预置研发Bearer，未实现此密码登录端点，不当正式单点登录。"
+    },
+    "getCurrentUser": {
+      "title": "读取当前用户与范围",
+      "purpose": "读取当前用户与范围；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "当前已验证主体及有效范围；不允许客户端指定任意主体，角色不自动授予案件内容访问。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createSource": {
+      "title": "登记来源授权",
+      "purpose": "登记来源授权；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "登记不等于授权验证；核验用途、到期/撤销；Source虽含revoked状态，权威更新机制IF-G08尚缺。"
+    },
+    "listSources": {
+      "title": "查询来源清单",
+      "purpose": "查询来源清单；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createUpload": {
+      "title": "创建分片上传会话",
+      "purpose": "创建分片上传会话；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "putUploadPart": {
+      "title": "提交指定分片",
+      "purpose": "提交指定分片；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "completeUpload": {
+      "title": "合并并校验上传",
+      "purpose": "合并并校验上传；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202仅受理合并/校验；VALIDATING时不能创建分析任务，只有VALID且用途授权有效才能继续。没有上传会话/校验查询契约，见IF-G01，不能编造轮询地址。"
+    },
+    "listAssets": {
+      "title": "查询媒体资产",
+      "purpose": "查询媒体资产；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getAsset": {
+      "title": "读取媒体资产详情",
+      "purpose": "读取媒体资产详情；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "downloadAsset": {
+      "title": "受控读取固定版本原件",
+      "purpose": "受控读取固定版本原件；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "服务端按资产ObjectRef固定version_id读取，逐次Range核验当前授权及摘要；200/206/416及If-Range按源，no-store。"
+    },
+    "getTimeline": {
+      "title": "读取媒体时间轴",
+      "purpose": "读取媒体时间轴；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createImport": {
+      "title": "受理清单导入",
+      "purpose": "受理清单导入；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回导入标识；GET /api/v1/imports/{id}读取实际状态与失败项，受理不是全部导入完成。"
+    },
+    "getImport": {
+      "title": "查询导入状态",
+      "purpose": "查询导入状态；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createTask": {
+      "title": "受理分析任务",
+      "purpose": "受理分析任务；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回task_id/status_url；GET /api/v1/analysis/tasks/{id}查询。任务成功、人工复核、报告批准是不同条件。"
+    },
+    "listTasks": {
+      "title": "查询分析任务",
+      "purpose": "查询分析任务；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getTask": {
+      "title": "读取任务与运行状态",
+      "purpose": "读取任务与运行状态；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "cancelTask": {
+      "title": "请求取消任务",
+      "purpose": "请求取消任务；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202表示取消意图；继续查任务状态，对应运行确实CANCELLED才算停止，旧运行写回仍受fencing核验。"
+    },
+    "rerunTask": {
+      "title": "请求新版本重算",
+      "purpose": "请求新版本重算；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202受理新run_version；旧结果/证据/复核保留历史，旧批准不可用于新结果。历史版本查询见IF-G09。"
+    },
+    "getRiskFindings": {
+      "title": "读取风险候选结果",
+      "purpose": "读取风险候选结果；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getForensics": {
+      "title": "读取取证候选结果",
+      "purpose": "读取取证候选结果；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getTaskEvidence": {
+      "title": "查询任务证据",
+      "purpose": "查询任务证据；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "searchImage": {
+      "title": "受理图片检索",
+      "purpose": "受理图片检索；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回search_id/status_url，通过GET /api/v1/search/jobs/{id}查询，SUCCEEDED才有非null结果。召回/几何或时序验证与整内容同源判断分开。"
+    },
+    "searchImageRegion": {
+      "title": "受理图片局部区域检索",
+      "purpose": "受理图片局部区域检索；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回search_id/status_url，通过GET /api/v1/search/jobs/{id}查询，SUCCEEDED才有非null结果。召回/几何或时序验证与整内容同源判断分开。"
+    },
+    "searchVideo": {
+      "title": "受理视频片段检索",
+      "purpose": "受理视频片段检索；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回search_id/status_url，通过GET /api/v1/search/jobs/{id}查询，SUCCEEDED才有非null结果。召回/几何或时序验证与整内容同源判断分开。"
+    },
+    "getSearchJob": {
+      "title": "查询异步检索结果",
+      "purpose": "查询异步检索结果；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getFirstSource": {
+      "title": "读取首发候选排序快照",
+      "purpose": "读取首发候选排序快照；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "ranking_id绑定不可变快照；0候选须insufficient，最多3条连续名次且资产唯一。无计算快照404；证据不足保留未知。"
+    },
+    "getPropagation": {
+      "title": "读取传播关系图",
+      "purpose": "读取传播关系图；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "decidePropagationEdge": {
+      "title": "提交传播边复核决定",
+      "purpose": "提交传播边复核决定；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "extractClaims": {
+      "title": "提取结构化主张",
+      "purpose": "提取结构化主张；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "verifyClaim": {
+      "title": "核查主张与证据关系",
+      "purpose": "核查主张与证据关系；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createReview": {
+      "title": "提交人工复核记录",
+      "purpose": "提交人工复核记录；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "201追加复核版本，绑定task/run/result/review；不替代报告导出或训练回流批准。工作台读取缺口IF-G03。"
+    },
+    "requestApproval": {
+      "title": "创建审批申请",
+      "purpose": "创建审批申请；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "201创建REQUESTED申请，不签发批准；缺审批读取/有效状态与撤销链路，见IF-G02。"
+    },
+    "decideApproval": {
+      "title": "提交审批决定",
+      "purpose": "提交审批决定；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "201返回追加决定版本；核验独立审批角色、策略、目的/对象版本/到期，历史不覆盖。"
+    },
+    "issueOperationToken": {
+      "title": "签发受限操作确认凭据",
+      "purpose": "签发受限操作确认凭据；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "操作确认只防误操作，不替代身份、权限或审批；执行仍核验撤销、版本、到期与单次使用规则。"
+    },
+    "sealEvidence": {
+      "title": "固化批准版本证据包",
+      "purpose": "固化批准版本证据包；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createReportDraft": {
+      "title": "受理报告草稿生成",
+      "purpose": "受理报告草稿生成；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回报告状态；GET /api/v1/reports/{id}查询，草稿不是批准报告或执法结论。"
+    },
+    "createReport": {
+      "title": "受理批准报告生成",
+      "purpose": "受理批准报告生成；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回生成状态；GET /api/v1/reports/{id}查询，READY仍须当前导出批准和固定版本才可下载。"
+    },
+    "getReport": {
+      "title": "读取报告版本与状态",
+      "purpose": "读取报告版本与状态；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "downloadReport": {
+      "title": "受控下载固定报告版本",
+      "purpose": "受控下载固定报告版本；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "逐次Range核验report_export批准、当前授权和固定报告/对象版本；撤销后下一请求拒绝，READY不自动准许导出。"
+    },
+    "requestFeedback": {
+      "title": "申请样本训练回流",
+      "purpose": "申请样本训练回流；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "201返回申请/审批关联，不代表已进训练集。用途/划分分别核验，禁止封存测试集回流；状态查询见IF-G04。"
+    },
+    "registerModel": {
+      "title": "登记模型候选",
+      "purpose": "登记模型候选；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "201登记候选，许可、评测和发布审批分别核验，不自动成为正式在线业务模型。"
+    },
+    "listModels": {
+      "title": "查询模型目录",
+      "purpose": "查询模型目录；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getModelHealth": {
+      "title": "读取模型健康状态",
+      "purpose": "读取模型健康状态；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "rolloutModel": {
+      "title": "申请模型灰度激活或回滚",
+      "purpose": "申请模型灰度激活或回滚；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回ActionAck；mode已有shadow/canary/activate/rollback。缺进度/失败/最终切换查询IF-G05，模型健康不是灰度完成。"
+    },
+    "recordEvaluation": {
+      "title": "登记模型评测记录",
+      "purpose": "登记模型评测记录；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "listEvaluations": {
+      "title": "查询评测记录",
+      "purpose": "查询评测记录；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "listAuditEvents": {
+      "title": "查询审计事件",
+      "purpose": "查询审计事件；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验审计组织/案件范围；case_id=null不是全库许可，跨范围策略待确认。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "exportAudit": {
+      "title": "受理批准审计导出",
+      "purpose": "受理批准审计导出；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "核验审计组织/案件范围；case_id=null不是全库许可，跨范围策略待确认。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "202返回ActionAck，没有导出状态/产物下载接口IF-G06；不能将object_id当已生成文件地址。"
+    },
+    "getIndex": {
+      "title": "读取索引版本",
+      "purpose": "读取索引版本；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "switchIndex": {
+      "title": "切换兼容索引版本",
+      "purpose": "切换兼容索引版本；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "createPolicy": {
+      "title": "登记策略草案",
+      "purpose": "登记策略草案；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "201登记版本化草案，DRAFT不能自动生效；批准、激活/撤销协议IF-G12待确定。"
+    },
+    "listPolicies": {
+      "title": "查询版本化策略",
+      "purpose": "查询版本化策略；按已授权流程及以下源契约提交或读取。",
+      "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
+      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "scope_note": "当前无此正式业务端点完成证据",
+      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    }
+  }
+}
