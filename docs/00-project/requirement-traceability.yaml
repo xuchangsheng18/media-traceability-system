@@ -1,0 +1,5275 @@
+requirements:
+- requirement_id: FR-INGEST-001
+  name: 登记来源与授权用途
+  type: functional
+  task_ids:
+  - T021
+  - T028
+  - T029
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - createSource
+  - listSources
+  - createImport
+  - getImport
+  table_names:
+  - import_item
+  - import_job
+  - source_registry
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-INGEST-001-N
+  - TC-INGEST-001-E
+  acceptance: 无来源授权不得处理
+  status: pending_review_not_executed
+- requirement_id: FR-INGEST-002
+  name: 分片上传及断点续传
+  type: functional
+  task_ids:
+  - T022
+  - T023
+  - T024
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - createUpload
+  - putUploadPart
+  - completeUpload
+  table_names:
+  - media_asset
+  - source_registry
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-INGEST-002-N
+  - TC-INGEST-002-E
+  acceptance: 重复分片不重复登记
+  status: pending_review_not_executed
+- requirement_id: FR-INGEST-003
+  name: 合并哈希和格式安全校验
+  type: functional
+  task_ids:
+  - T024
+  - T025
+  - T026
+  - T027
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  - downloadAsset
+  table_names:
+  - audit_event
+  - media_asset
+  - object_version
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-INGEST-003-N
+  - TC-INGEST-003-E
+  acceptance: 不合格素材隔离并显示原因
+  status: pending_review_not_executed
+- requirement_id: FR-RESOURCE-001
+  name: 管理原始及派生媒体
+  type: functional
+  task_ids:
+  - T019
+  - T020
+  - T025
+  - T030
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - listAssets
+  - getAsset
+  - downloadAsset
+  table_names:
+  - asset_lineage
+  - audit_event
+  - media_asset
+  - object_version
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-RESOURCE-001-N
+  - TC-RESOURCE-001-E
+  acceptance: 原件与版本可查
+  status: pending_review_not_executed
+- requirement_id: FR-RESOURCE-002
+  name: 区分完全重复与近重复候选
+  type: functional
+  task_ids:
+  - T027
+  - T079
+  - T082
+  - T090
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  - searchImage
+  - getSearchJob
+  table_names:
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  - upload_part
+  - upload_session
+  model_ids:
+  - M23
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  test_ids:
+  - TC-RESOURCE-002-N
+  - TC-RESOURCE-002-E
+  acceptance: 近重复不能自动确认为同源
+  status: pending_review_not_executed
+- requirement_id: FR-RESOURCE-003
+  name: 按权限及生命周期检索资产
+  type: functional
+  task_ids:
+  - T015
+  - T021
+  - T025
+  - T030
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - getCurrentUser
+  - createSource
+  - listSources
+  - listAssets
+  - getAsset
+  - downloadAsset
+  table_names:
+  - asset_lineage
+  - audit_event
+  - case_membership
+  - media_asset
+  - object_version
+  - source_registry
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-RESOURCE-003-N
+  - TC-RESOURCE-003-E
+  acceptance: 查询不能泄露其他案件资产
+  status: pending_review_not_executed
+- requirement_id: FR-MEDIA-001
+  name: 解析媒体元数据并保留原件
+  type: functional
+  task_ids:
+  - T041
+  - T042
+  - T043
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-MEDIA-001-N
+  - TC-MEDIA-001-E
+  acceptance: 副本不覆盖原件
+  status: pending_review_not_executed
+- requirement_id: FR-MEDIA-002
+  name: 提取关键帧与音轨字幕
+  type: functional
+  task_ids:
+  - T044
+  - T045
+  - T046
+  - T047
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M33
+  dataset_ids:
+  - D04
+  - D10
+  test_ids:
+  - TC-MEDIA-002-N
+  - TC-MEDIA-002-E
+  acceptance: 帧和片段回指原始时间
+  status: pending_review_not_executed
+- requirement_id: FR-MEDIA-003
+  name: OCR和ASR对齐统一时间轴
+  type: functional
+  task_ids:
+  - T048
+  - T049
+  - T050
+  - T066
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids:
+  - getTimeline
+  table_names:
+  - keyframe
+  - media_asset
+  - shot
+  - text_segment
+  model_ids:
+  - M31
+  - M32
+  dataset_ids:
+  - D01
+  - D03
+  - D04
+  - D05
+  - D13
+  test_ids:
+  - TC-MEDIA-003-N
+  - TC-MEDIA-003-E
+  acceptance: 缺失模态显示影响范围
+  status: pending_review_not_executed
+- requirement_id: FR-RISK-001
+  name: 多标签和敏感目标定位
+  type: functional
+  task_ids:
+  - T061
+  - T062
+  - T063
+  - T130
+  - T131
+  - T132
+  - T133
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids:
+  - M01
+  - M02
+  - M03
+  dataset_ids:
+  - D01
+  - D02
+  test_ids:
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  acceptance: 结果绑定标签与模型版本
+  status: pending_review_not_executed
+- requirement_id: FR-RISK-002
+  name: 对齐文字语音视觉及动作
+  type: functional
+  task_ids:
+  - T064
+  - T065
+  - T066
+  - T067
+  - T134
+  - T135
+  - T136
+  - T137
+  - T138
+  - T139
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M04
+  - M05
+  - M06
+  - M07
+  dataset_ids:
+  - D03
+  - D04
+  - D05
+  test_ids:
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  acceptance: 缺失或冲突不输出确定法律结论
+  status: pending_review_not_executed
+- requirement_id: FR-RISK-003
+  name: 输出风险证据与模态冲突
+  type: functional
+  task_ids:
+  - T068
+  - T069
+  - T070
+  - T140
+  - T141
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - getRiskFindings
+  - createPolicy
+  - listPolicies
+  table_names:
+  - finding_evidence
+  - policy_registry
+  - risk_finding
+  model_ids:
+  - M08
+  - M25
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D10
+  - D12
+  test_ids:
+  - TC-RISK-003-N
+  - TC-RISK-003-E
+  acceptance: 转人工依据规则版本
+  status: pending_review_not_executed
+- requirement_id: FR-FORENSIC-001
+  name: 定位图片疑似篡改区域
+  type: functional
+  task_ids:
+  - T071
+  - T072
+  - T073
+  - T142
+  - T143
+  - T144
+  - T145
+  - T146
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  - M10
+  dataset_ids:
+  - D06
+  test_ids:
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  acceptance: 区域掩码回指原件
+  status: pending_review_not_executed
+- requirement_id: FR-FORENSIC-002
+  name: 分析视频时空及音画异常
+  type: functional
+  task_ids:
+  - T074
+  - T075
+  - T076
+  - T147
+  - T148
+  - T149
+  - T150
+  - T151
+  - T152
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  - M12
+  - M13
+  - M14
+  dataset_ids:
+  - D07
+  - D08
+  test_ids:
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  acceptance: 异常片段保留起止边界
+  status: pending_review_not_executed
+- requirement_id: FR-FORENSIC-003
+  name: 输出可靠性与证据不足
+  type: functional
+  task_ids:
+  - T077
+  - T078
+  - T153
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids:
+  - getForensics
+  table_names:
+  - finding_evidence
+  - tamper_finding
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  test_ids:
+  - TC-FORENSIC-003-N
+  - TC-FORENSIC-003-E
+  acceptance: 低可靠性标记而非强制判真伪
+  status: pending_review_not_executed
+- requirement_id: FR-IMGRET-001
+  name: 整图局部及关键帧多路召回
+  type: functional
+  task_ids:
+  - T079
+  - T080
+  - T081
+  - T082
+  - T085
+  - T154
+  - T155
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  - searchImageRegion
+  - getSearchJob
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  model_ids:
+  - M15
+  - M19
+  dataset_ids:
+  - D09
+  - D10
+  - D15
+  test_ids:
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  acceptance: 权限范围内候选可查
+  status: pending_review_not_executed
+- requirement_id: FR-IMGRET-002
+  name: 进行局部几何验证
+  type: functional
+  task_ids:
+  - T083
+  - T084
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  table_names:
+  - index_registry
+  - media_asset
+  - source_match
+  model_ids:
+  - M16
+  - M17
+  - M18
+  dataset_ids:
+  - D09
+  test_ids:
+  - TC-IMGRET-002-N
+  - TC-IMGRET-002-E
+  acceptance: 匹配点区域及变换可解释
+  status: pending_review_not_executed
+- requirement_id: FR-IMGRET-003
+  name: 区分相似候选与高可信同源
+  type: functional
+  task_ids:
+  - T082
+  - T084
+  - T085
+  - T156
+  - T157
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  - searchImageRegion
+  - getSearchJob
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  model_ids:
+  - M18
+  dataset_ids:
+  - D09
+  test_ids:
+  - TC-IMGRET-003-N
+  - TC-IMGRET-003-E
+  acceptance: 语义相似不直接确认同源
+  status: pending_review_not_executed
+- requirement_id: FR-VIDTRACE-001
+  name: 按关键帧召回候选来源
+  type: functional
+  task_ids:
+  - T080
+  - T081
+  - T086
+  - T158
+  - T159
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids:
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  model_ids:
+  - M15
+  - M19
+  - M33
+  dataset_ids:
+  - D04
+  - D09
+  - D10
+  - D15
+  test_ids:
+  - TC-VIDTRACE-001-N
+  - TC-VIDTRACE-001-E
+  acceptance: 查询来源区间明确
+  status: pending_review_not_executed
+- requirement_id: FR-VIDTRACE-002
+  name: 时序对齐定位来源区间
+  type: functional
+  task_ids:
+  - T087
+  - T088
+  - T160
+  - T161
+  - T163
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  - M21
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  test_ids:
+  - TC-VIDTRACE-002-N
+  - TC-VIDTRACE-002-E
+  acceptance: 变速方向和时间映射保留
+  status: pending_review_not_executed
+- requirement_id: FR-VIDTRACE-003
+  name: 多源拼接逐段映射
+  type: functional
+  task_ids:
+  - T089
+  - T162
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids:
+  - searchVideo
+  - getSearchJob
+  table_names:
+  - index_registry
+  - search_job
+  - source_match
+  model_ids:
+  - M22
+  dataset_ids:
+  - D11
+  test_ids:
+  - TC-VIDTRACE-003-N
+  - TC-VIDTRACE-003-E
+  acceptance: 未知来源不编造候选
+  status: pending_review_not_executed
+- requirement_id: FR-ORIGIN-001
+  name: 按高可信边形成内容簇
+  type: functional
+  task_ids:
+  - T090
+  - T164
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M23
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  test_ids:
+  - TC-ORIGIN-001-N
+  - TC-ORIGIN-001-E
+  acceptance: 不跨未验证簇排序
+  status: pending_review_not_executed
+- requirement_id: FR-ORIGIN-002
+  name: 内容簇内排序Top-3
+  type: functional
+  task_ids:
+  - T091
+  - T092
+  - T093
+  - T165
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids:
+  - getFirstSource
+  table_names:
+  - cluster_member
+  - content_cluster
+  - first_source_candidate
+  - first_source_ranking
+  model_ids:
+  - M24
+  dataset_ids:
+  - D12
+  test_ids:
+  - TC-ORIGIN-002-N
+  - TC-ORIGIN-002-E
+  acceptance: 候选绑定真实时间证据
+  status: pending_review_not_executed
+- requirement_id: FR-ORIGIN-003
+  name: 展示支持反对及覆盖不确定性
+  type: functional
+  task_ids:
+  - T091
+  - T092
+  - T093
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids:
+  - getFirstSource
+  table_names:
+  - cluster_member
+  - content_cluster
+  - first_source_candidate
+  - first_source_ranking
+  model_ids:
+  - M24
+  dataset_ids:
+  - D12
+  test_ids:
+  - TC-ORIGIN-003-N
+  - TC-ORIGIN-003-E
+  acceptance: 无法确认保留未知状态
+  status: pending_review_not_executed
+- requirement_id: FR-PROPAGATION-001
+  name: 管理显式及推断传播关系
+  type: functional
+  task_ids:
+  - T094
+  - T095
+  - T096
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  - decidePropagationEdge
+  table_names:
+  - propagation_edge
+  - propagation_node
+  - review_record
+  model_ids:
+  - M26
+  - M27
+  dataset_ids:
+  - D12
+  test_ids:
+  - TC-PROPAGATION-001-N
+  - TC-PROPAGATION-001-E
+  acceptance: 推断边标概率与证据
+  status: pending_review_not_executed
+- requirement_id: FR-PROPAGATION-002
+  name: 展示时间线和版本差异
+  type: functional
+  task_ids:
+  - T095
+  - T097
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  - decidePropagationEdge
+  table_names:
+  - propagation_edge
+  - propagation_node
+  - review_record
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  test_ids:
+  - TC-PROPAGATION-002-N
+  - TC-PROPAGATION-002-E
+  acceptance: 时间方向和关系来源可查
+  status: pending_review_not_executed
+- requirement_id: FR-PROPAGATION-003
+  name: 人工确认或驳回推断边
+  type: functional
+  task_ids:
+  - T096
+  - T097
+  - T102
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  - decidePropagationEdge
+  - createReview
+  - requestApproval
+  - decideApproval
+  - createPolicy
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - policy_registry
+  - propagation_edge
+  - propagation_node
+  - review_evidence
+  - review_record
+  model_ids:
+  - M26
+  - M27
+  dataset_ids:
+  - D12
+  test_ids:
+  - TC-PROPAGATION-003-N
+  - TC-PROPAGATION-003-E
+  acceptance: 更正关系保存新版本
+  status: pending_review_not_executed
+- requirement_id: FR-CLAIM-001
+  name: 抽取结构化主张
+  type: functional
+  task_ids:
+  - T098
+  - T166
+  - T167
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - extractClaims
+  table_names:
+  - claim
+  - text_segment
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  test_ids:
+  - TC-CLAIM-001-N
+  - TC-CLAIM-001-E
+  acceptance: 主张关联来源片段
+  status: pending_review_not_executed
+- requirement_id: FR-CLAIM-002
+  name: 检索白名单证据并判断关系
+  type: functional
+  task_ids:
+  - T099
+  - T168
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - verifyClaim
+  table_names:
+  - claim
+  - claim_evidence_relation
+  model_ids:
+  - M29
+  dataset_ids:
+  - D14
+  test_ids:
+  - TC-CLAIM-002-N
+  - TC-CLAIM-002-E
+  acceptance: 不足证据保留不足状态
+  status: pending_review_not_executed
+- requirement_id: FR-CLAIM-003
+  name: 生成带证据引用摘要
+  type: functional
+  task_ids:
+  - T106
+  - T169
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - createReportDraft
+  table_names:
+  - report
+  - report_evidence
+  model_ids:
+  - M30
+  dataset_ids:
+  - D13
+  - D14
+  test_ids:
+  - TC-CLAIM-003-N
+  - TC-CLAIM-003-E
+  acceptance: 无有效依据句不进入报告
+  status: pending_review_not_executed
+- requirement_id: FR-REVIEW-001
+  name: 人工复核会审及退回重算
+  type: functional
+  task_ids:
+  - T100
+  - T101
+  - T102
+  - T103
+  - T108
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - getTaskEvidence
+  - decidePropagationEdge
+  - createReview
+  - requestApproval
+  - decideApproval
+  - requestFeedback
+  - createPolicy
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - evidence_item
+  - feedback_request
+  - policy_registry
+  - propagation_edge
+  - review_evidence
+  - review_record
+  - task_evidence
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-REVIEW-001-N
+  - TC-REVIEW-001-E
+  acceptance: 复核绑定结果版本
+  status: pending_review_not_executed
+- requirement_id: FR-REVIEW-002
+  name: 固化证据并保留版本
+  type: functional
+  task_ids:
+  - T104
+  - T105
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - sealEvidence
+  table_names:
+  - audit_event
+  - evidence_package
+  - object_version
+  - package_item
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-REVIEW-002-N
+  - TC-REVIEW-002-E
+  acceptance: 原件与固化内容不可普通覆盖
+  status: pending_review_not_executed
+- requirement_id: FR-REVIEW-003
+  name: 生成报告及受控导出
+  type: functional
+  task_ids:
+  - T106
+  - T107
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - createReportDraft
+  - createReport
+  - getReport
+  - downloadReport
+  table_names:
+  - approval_request
+  - audit_event
+  - report
+  - report_evidence
+  model_ids:
+  - M30
+  dataset_ids:
+  - D13
+  - D14
+  test_ids:
+  - TC-REVIEW-003-N
+  - TC-REVIEW-003-E
+  acceptance: 导出受权限审批并留痕
+  status: pending_review_not_executed
+- requirement_id: FR-OPS-001
+  name: 管理角色模型标签阈值规则
+  type: functional
+  task_ids:
+  - T011
+  - T012
+  - T013
+  - T014
+  - T016
+  - T017
+  - T018
+  - T051
+  - T052
+  - T058
+  - T060
+  - T061
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - devLogin
+  - getCurrentUser
+  - requestApproval
+  - decideApproval
+  - issueOperationToken
+  - registerModel
+  - listModels
+  - getModelHealth
+  - rolloutModel
+  - recordEvaluation
+  - listEvaluations
+  - listAuditEvents
+  - exportAudit
+  - createPolicy
+  - listPolicies
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - audit_export
+  - case_membership
+  - index_registry
+  - model_evaluation
+  - model_registry
+  - model_release
+  - operation_token
+  - policy_registry
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  acceptance: 配置变更追踪及授权
+  status: pending_review_not_executed
+- requirement_id: FR-OPS-002
+  name: 监控任务GPU队列存储及索引
+  type: functional
+  task_ids:
+  - T035
+  - T040
+  - T055
+  - T056
+  - T059
+  - T117
+  - T118
+  - T119
+  - T120
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listTasks
+  - getTask
+  - cancelTask
+  - rerunTask
+  - getModelHealth
+  table_names:
+  - analysis_task
+  - model_registry
+  - outbox_event
+  - task_event
+  - task_node_run
+  - task_run
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  acceptance: 指标异常能诊断
+  status: pending_review_not_executed
+- requirement_id: FR-OPS-003
+  name: 灰度回滚及备份恢复
+  type: functional
+  task_ids:
+  - T057
+  - T060
+  - T121
+  - T122
+  - T123
+  - T124
+  - T170
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listModels
+  - getModelHealth
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_registry
+  - model_release
+  model_ids:
+  - M34
+  dataset_ids:
+  - D01
+  - D06
+  - D09
+  - D10
+  - D13
+  test_ids:
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  acceptance: 回滚恢复有版本和演练记录
+  status: pending_review_not_executed
+- requirement_id: ER-T001
+  name: 建立单仓库目录与基础README
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T001
+  test_ids:
+  - TV-T001-N
+  - TV-T001-E
+  acceptance: 仓库结构与设计一致；README包含启动、测试、提交规范；不得包含真实密钥。
+  status: pending_review_not_executed
+- requirement_id: ER-T002
+  name: 配置Python后端工程
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T002
+  test_ids:
+  - TV-T002-N
+  - TV-T002-E
+  acceptance: 服务可启动；缺少必要配置时给出明确错误；依赖版本锁定。
+  status: pending_review_not_executed
+- requirement_id: ER-T003
+  name: 配置Vue前端工程
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T003
+  test_ids:
+  - TV-T003-N
+  - TV-T003-E
+  acceptance: 开发服务器可启动；严格类型检查通过；API地址环境化。
+  status: pending_review_not_executed
+- requirement_id: ER-T004
+  name: 建立本地容器开发环境
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T004
+  test_ids:
+  - TV-T004-N
+  - TV-T004-E
+  acceptance: 一条命令启动；隔离数据卷和密钥；按获准项目配额设置CPU、内存、进程和临时盘限制，核对实际cgroup生效；不认定单机容器为生产高可用。
+  status: pending_review_not_executed
+- requirement_id: ER-T005
+  name: 配置代码格式化与静态检查
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T005
+  test_ids:
+  - TV-T005-N
+  - TV-T005-E
+  acceptance: 本地和CI命令一致；示例违规代码能被拦截。
+  status: pending_review_not_executed
+- requirement_id: ER-T006
+  name: 建立基础持续集成流水线
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T006
+  test_ids:
+  - TV-T006-N
+  - TV-T006-E
+  acceptance: 任一门禁失败阻止合并；产出测试报告；缓存不影响正确性。
+  status: pending_review_not_executed
+- requirement_id: ER-T007
+  name: 建立统一配置和密钥规范
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T007
+  test_ids:
+  - TV-T007-N
+  - TV-T007-E
+  acceptance: 仓库无真实密钥；敏感配置不写日志；启动时校验必需项。
+  status: pending_review_not_executed
+- requirement_id: ER-T008
+  name: 建立统一日志与请求追踪
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T008
+  test_ids:
+  - TV-T008-N
+  - TV-T008-E
+  acceptance: 所有API日志可关联请求；令牌、密码、原始敏感文本被过滤。
+  status: pending_review_not_executed
+- requirement_id: ER-T009
+  name: 建立统一异常与错误码框架
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T009
+  test_ids:
+  - TV-T009-N
+  - TV-T009-E
+  acceptance: 未知异常不泄露堆栈；已知异常映射稳定；错误码不可重复。
+  status: pending_review_not_executed
+- requirement_id: ER-T010
+  name: 建立架构决策记录和变更模板
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T010
+  test_ids:
+  - TV-T010-N
+  - TV-T010-E
+  acceptance: 重要决策有状态、背景、方案、影响和回滚；模板可直接复用。
+  status: pending_review_not_executed
+- requirement_id: ER-T011
+  name: 设计用户角色与数据范围模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T011
+  test_ids:
+  - TV-T011-N
+  - TV-T011-E
+  acceptance: 覆盖管理员、数据管理员、算法管理员、审核员、核查人员和审计员；默认拒绝。
+  status: pending_review_not_executed
+- requirement_id: ER-T012
+  name: 实现用户角色数据库模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - users
+  - roles
+  - permissions
+  - user_roles
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T012
+  test_ids:
+  - TV-T012-N
+  - TV-T012-E
+  acceptance: 唯一约束、外键和软禁用正确；迁移升级可验证；可逆回退或不可逆恢复/前向修复方案齐全。
+  status: pending_review_not_executed
+- requirement_id: ER-T013
+  name: 实现认证与令牌校验
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - devLogin
+  - getCurrentUser
+  table_names:
+  - case_membership
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T013
+  test_ids:
+  - TV-T013-N
+  - TV-T013-E
+  acceptance: 过期、伪造、禁用用户均被拒绝；生产接口可替换为统一身份认证。
+  status: pending_review_not_executed
+- requirement_id: ER-T014
+  name: 实现接口级权限控制
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - getCurrentUser
+  table_names:
+  - case_membership
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T014
+  test_ids:
+  - TV-T014-N
+  - TV-T014-E
+  acceptance: 未认证401、无权限403；所有受保护接口默认启用。
+  status: pending_review_not_executed
+- requirement_id: ER-T015
+  name: 实现数据范围访问控制
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - getCurrentUser
+  table_names:
+  - case_membership
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T015
+  test_ids:
+  - TV-T015-N
+  - TV-T015-E
+  acceptance: 跨单位和跨案件访问被拒绝；管理员越权需显式授权。
+  status: pending_review_not_executed
+- requirement_id: ER-T016
+  name: 实现高风险操作二次确认
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - requestApproval
+  - decideApproval
+  - issueOperationToken
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - operation_token
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T016
+  test_ids:
+  - TV-T016-N
+  - TV-T016-E
+  acceptance: 二次确认仅防误操作，不代替业务审批；服务端按获准策略核验审批链。operation_token一次性、短时有效，绑定用户、用途、对象/操作版本及批准记录；正式策略未取得不放行受控操作，全程审计。
+  status: pending_review_not_executed
+- requirement_id: ER-T017
+  name: 实现操作审计事件模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - audit_event
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T017
+  test_ids:
+  - TV-T017-N
+  - TV-T017-E
+  acceptance: 事件追加写；包含操作者、对象、动作、结果、时间和request_id。
+  status: pending_review_not_executed
+- requirement_id: ER-T018
+  name: 开发审计查询页面与接口
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listAuditEvents
+  - exportAudit
+  table_names:
+  - audit_event
+  - audit_export
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T018
+  test_ids:
+  - TV-T018-N
+  - TV-T018-E
+  acceptance: 仅审计权限可访问；导出留痕并脱敏；支持时间、用户、对象过滤。
+  status: pending_review_not_executed
+- requirement_id: ER-T019
+  name: 设计内容与媒体资产模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T019
+  test_ids:
+  - TV-T019-N
+  - TV-T019-E
+  acceptance: 区分逻辑内容、原始媒体和派生媒体；记录授权、哈希、父对象和保存期限。
+  status: pending_review_not_executed
+- requirement_id: ER-T020
+  name: 实现内容与媒体资产表
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - source_registry
+  - content_item
+  - media_asset
+  - asset_lineage
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T020
+  test_ids:
+  - TV-T020-N
+  - TV-T020-E
+  acceptance: SHA-256和对象键有合理索引；迁移升级及回退/恢复方案可验证；原始与派生约束正确。
+  status: pending_review_not_executed
+- requirement_id: ER-T021
+  name: 实现数据来源授权登记
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - createSource
+  - listSources
+  table_names:
+  - source_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T021
+  test_ids:
+  - TV-T021-N
+  - TV-T021-E
+  acceptance: 无有效来源不得批量导入；到期来源触发告警；修改有审计。
+  status: pending_review_not_executed
+- requirement_id: ER-T022
+  name: 实现分片上传初始化
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - createUpload
+  table_names:
+  - source_registry
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T022
+  test_ids:
+  - TV-T022-N
+  - TV-T022-E
+  acceptance: 校验大小、类型、授权与会话状态；重复幂等键返回同一会话。upload_id只作标识，不作访问凭证；对象访问由当前身份和权限控制。
+  status: pending_review_not_executed
+- requirement_id: ER-T023
+  name: 实现分片接收与校验
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - putUploadPart
+  table_names:
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T023
+  test_ids:
+  - TV-T023-N
+  - TV-T023-E
+  acceptance: 重复分片幂等；错误哈希拒绝；不能写入其他用户会话。
+  status: pending_review_not_executed
+- requirement_id: ER-T024
+  name: 实现分片合并与完整哈希
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  table_names:
+  - media_asset
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T024
+  test_ids:
+  - TV-T024-N
+  - TV-T024-E
+  acceptance: 哈希不一致不入库；重复完成幂等；临时文件有清理策略。
+  status: pending_review_not_executed
+- requirement_id: ER-T025
+  name: 实现MinIO对象存储适配器
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - downloadAsset
+  table_names:
+  - audit_event
+  - media_asset
+  - object_version
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T025
+  test_ids:
+  - TV-T025-N
+  - TV-T025-E
+  acceptance: 上传/下载均校验权限；记录对象version_id和SHA-256；校验实际候选产品的版本控制与对象锁兼容性，锁定与保留策略待审批。
+  status: pending_review_not_executed
+- requirement_id: ER-T026
+  name: 实现媒体格式探测与安全校验
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  table_names:
+  - media_asset
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T026
+  test_ids:
+  - TV-T026-N
+  - TV-T026-E
+  acceptance: 允许格式、签名/容器探测、查毒及资源预算均通过才发布资产；查毒不可用或恶意内容隔离；解析非特权且限制网络和协议。
+  status: pending_review_not_executed
+- requirement_id: ER-T027
+  name: 实现SHA-256完全重复检测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  table_names:
+  - media_asset
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T027
+  test_ids:
+  - TV-T027-N
+  - TV-T027-E
+  acceptance: 不得覆盖既有对象；重复文件复用分析结果需经过权限和版本校验。
+  status: pending_review_not_executed
+- requirement_id: ER-T028
+  name: 实现批量清单导入
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - createImport
+  - getImport
+  table_names:
+  - import_item
+  - import_job
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T028
+  test_ids:
+  - TV-T028-N
+  - TV-T028-E
+  acceptance: 逐条状态、可重试、错误不阻断全批；来源和授权必填。
+  status: pending_review_not_executed
+- requirement_id: ER-T029
+  name: 实现第三方接入适配器协议
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T029
+  test_ids:
+  - TV-T029-N
+  - TV-T029-E
+  acceptance: 只接获准来源；URL使用scheme/host/port及DNS/IP验证，默认禁重定向；必要跳转逐跳验证，日志和授权可追溯。
+  status: pending_review_not_executed
+- requirement_id: ER-T030
+  name: 开发媒体资产管理页面
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - listAssets
+  - getAsset
+  - downloadAsset
+  table_names:
+  - asset_lineage
+  - audit_event
+  - media_asset
+  - object_version
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T030
+  test_ids:
+  - TV-T030-N
+  - TV-T030-E
+  acceptance: 支持筛选和详情；原始对象不可直接编辑；下载受权限和审计控制。
+  status: pending_review_not_executed
+- requirement_id: ER-T031
+  name: 设计分析任务与节点执行模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T031
+  test_ids:
+  - TV-T031-N
+  - TV-T031-E
+  acceptance: 支持快速筛查、深度核查、取证溯源三级策略；节点可重试和恢复。
+  status: pending_review_not_executed
+- requirement_id: ER-T032
+  name: 实现任务及节点数据库模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - analysis_task
+  - task_node_run
+  - task_event
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T032
+  test_ids:
+  - TV-T032-N
+  - TV-T032-E
+  acceptance: 状态使用受控枚举；版本和时间字段完备；迁移升级及回退/恢复方案可验证。
+  status: pending_review_not_executed
+- requirement_id: ER-T033
+  name: 实现任务状态机
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T033
+  test_ids:
+  - TV-T033-N
+  - TV-T033-E
+  acceptance: 有效资产才能创建分析任务；非法转换返回TASK_STATE_CONFLICT；RETURNED补证回审核，重算关联新版本入队；终态历史不可覆盖，正式路径由Q-24确认。
+  status: pending_review_not_executed
+- requirement_id: ER-T034
+  name: 实现任务创建接口
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - createTask
+  table_names:
+  - analysis_task
+  - idempotency_record
+  - outbox_event
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T034
+  test_ids:
+  - TV-T034-N
+  - TV-T034-E
+  acceptance: 校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。
+  status: pending_review_not_executed
+- requirement_id: ER-T035
+  name: 实现任务查询和进度接口
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listTasks
+  - getTask
+  table_names:
+  - analysis_task
+  - task_node_run
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T035
+  test_ids:
+  - TV-T035-N
+  - TV-T035-E
+  acceptance: 仅授权范围可见；进度单调限定同一run_version与固定DAG；重算新版本单列，部分/延期能力明确，不泄露堆栈。
+  status: pending_review_not_executed
+- requirement_id: ER-T036
+  name: 实现异步队列与优先级
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T036
+  test_ids:
+  - TV-T036-N
+  - TV-T036-E
+  acceptance: 固定broker/版本支持项目worker拓扑、确认与重投；Kafka执行路线需另证明官方限制的处置。提交后故障可恢复，重复事件无重复业务效果，最终业务状态以SQL为准。
+  status: pending_review_not_executed
+- requirement_id: ER-T037
+  name: 实现DAG任务编排器
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - report
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T037
+  test_ids:
+  - TV-T037-N
+  - TV-T037-E
+  acceptance: 必需/可选边按契约满足；合法SKIPPED可满足可选边，失败/未执行不冒充成功；无音轨等不死等，部分能力不形成完整正式结果。
+  status: pending_review_not_executed
+- requirement_id: ER-T038
+  name: 实现节点级重试与检查点
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T038
+  test_ids:
+  - TV-T038-N
+  - TV-T038-E
+  acceptance: 唯一幂等键包含任务/运行版本/节点/输入摘要；租约回收后旧进程结果拒绝；允许重试重新入队，历史尝试留痕。
+  status: pending_review_not_executed
+- requirement_id: ER-T039
+  name: 实现任务取消和退回重算
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - cancelTask
+  - rerunTask
+  table_names:
+  - analysis_task
+  - outbox_event
+  - task_event
+  - task_run
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T039
+  test_ids:
+  - TV-T039-N
+  - TV-T039-E
+  acceptance: 协作取消确认停止；补证与重算分流，重算关联新run_version回QUEUED；保留历史、原因、权限及审批，正式制度按Q-24。
+  status: pending_review_not_executed
+- requirement_id: ER-T040
+  name: 开发任务监控页面
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listTasks
+  - getTask
+  - cancelTask
+  - rerunTask
+  table_names:
+  - analysis_task
+  - outbox_event
+  - task_event
+  - task_node_run
+  - task_run
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T040
+  test_ids:
+  - TV-T040-N
+  - TV-T040-E
+  acceptance: 状态实时刷新；操作受权限控制；节点错误可定位。
+  status: pending_review_not_executed
+- requirement_id: ER-T041
+  name: 实现图片元数据解析
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T041
+  test_ids:
+  - TV-T041-N
+  - TV-T041-E
+  acceptance: 异常EXIF不中断；保留原始摘要；敏感定位信息按权限脱敏。
+  status: pending_review_not_executed
+- requirement_id: ER-T042
+  name: 实现视频ffprobe解析
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T042
+  test_ids:
+  - TV-T042-N
+  - TV-T042-E
+  acceptance: 保存各流PTS/time_base/start_time和VFR、缺失时间戳标记；不以帧号/平均帧率一律代替播放时间；估算时间标记来源。
+  status: pending_review_not_executed
+- requirement_id: ER-T043
+  name: 实现标准化媒体副本生成
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T043
+  test_ids:
+  - TV-T043-N
+  - TV-T043-E
+  acceptance: 只生成派生副本并记mapping_version；每能力声明原件字节/原件解码像素/允许副本，取证输入不默认使用重编码副本；原件摘要不变。
+  status: pending_review_not_executed
+- requirement_id: ER-T044
+  name: 实现镜头边界检测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - shot
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T044
+  test_ids:
+  - TV-T044-N
+  - TV-T044-E
+  acceptance: 支持硬切与渐变基础场景；短镜头规则配置化；结果可重复。
+  status: pending_review_not_executed
+- requirement_id: ER-T045
+  name: 实现固定间隔抽帧
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T045
+  test_ids:
+  - TV-T045-N
+  - TV-T045-E
+  acceptance: 帧时间误差受控；长视频分批；重复任务不重复写。
+  status: pending_review_not_executed
+- requirement_id: ER-T046
+  name: 实现镜头代表帧选择
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - keyframe
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T046
+  test_ids:
+  - TV-T046-N
+  - TV-T046-E
+  acceptance: 每镜头至少一帧；最小时间间隔生效；评分参数配置化。
+  status: pending_review_not_executed
+- requirement_id: ER-T047
+  name: 实现音轨与字幕提取
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M33
+  dataset_ids:
+  - D04
+  - D10
+  task_ids:
+  - T047
+  test_ids:
+  - TV-T047-N
+  - TV-T047-E
+  acceptance: 无音轨/字幕正常处理；时间轴与原视频一致；血缘完整。
+  status: pending_review_not_executed
+- requirement_id: ER-T048
+  name: 接入OCR并建立时间片段
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M31
+  dataset_ids:
+  - D01
+  - D05
+  - D13
+  task_ids:
+  - T048
+  test_ids:
+  - TV-T048-N
+  - TV-T048-E
+  acceptance: 保留框坐标和模型版本；低置信标记而非静默删除。
+  status: pending_review_not_executed
+- requirement_id: ER-T049
+  name: 接入ASR并建立时间片段
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M32
+  dataset_ids:
+  - D03
+  - D04
+  - D05
+  - D13
+  task_ids:
+  - T049
+  test_ids:
+  - TV-T049-N
+  - TV-T049-E
+  acceptance: 长音频分段；无语音可识别；模型与词表版本记录。
+  status: pending_review_not_executed
+- requirement_id: ER-T050
+  name: 实现媒体统一时间轴服务
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids:
+  - getTimeline
+  table_names:
+  - keyframe
+  - media_asset
+  - shot
+  - text_segment
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T050
+  test_ids:
+  - TV-T050-N
+  - TV-T050-E
+  acceptance: 原件和分析副本的时间/坐标映射有版本；毫秒区间与变速/倒放关系明确；OCR/ASR、掩码及关键帧能定位原件。
+  status: pending_review_not_executed
+- requirement_id: ER-T051
+  name: 定义统一模型输入输出契约
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T051
+  test_ids:
+  - TV-T051-N
+  - TV-T051-E
+  acceptance: Schema可表达分类/框/时间/掩码/向量；明确分数、missing_modality、部分能力、输入字节/像素路径与前处理版本；版本化及错误可校验。
+  status: pending_review_not_executed
+- requirement_id: ER-T052
+  name: 实现模型注册表
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - registerModel
+  - listModels
+  table_names:
+  - model_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T052
+  test_ids:
+  - TV-T052-N
+  - TV-T052-E
+  acceptance: 版本唯一；上线/下线需权限；模型卡必填；修改审计。
+  status: pending_review_not_executed
+- requirement_id: ER-T053
+  name: 实现统一推理网关
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T053
+  test_ids:
+  - TV-T053-N
+  - TV-T053-E
+  acceptance: 业务服务不导入模型代码；超时/错误/trace统一；实际backend锁版本并验证维护补丁路径及环境；Mock只计接口验证。
+  status: pending_review_not_executed
+- requirement_id: ER-T054
+  name: 实现HTTP与本地Mock适配器
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T054
+  test_ids:
+  - TV-T054-N
+  - TV-T054-E
+  acceptance: 适配器可替换；Mock可配置成功、失败、超时和异常输出。
+  status: pending_review_not_executed
+- requirement_id: ER-T055
+  name: 实现推理批处理与GPU队列
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T055
+  test_ids:
+  - TV-T055-N
+  - TV-T055-E
+  acceptance: 批量结果顺序正确；超时不长期阻塞，显存/队列背压可观察；当前无已确认GPU，GPU专项测试保持未执行，CPU/Mock不计入GPU达标。
+  status: pending_review_not_executed
+- requirement_id: ER-T056
+  name: 实现模型健康检查与熔断
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - getModelHealth
+  table_names:
+  - model_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T056
+  test_ids:
+  - TV-T056-N
+  - TV-T056-E
+  acceptance: 连续失败触发；半开恢复；降级被记录且不隐藏版本变化。
+  status: pending_review_not_executed
+- requirement_id: ER-T057
+  name: 实现模型灰度发布
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_release
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T057
+  test_ids:
+  - TV-T057-N
+  - TV-T057-E
+  acceptance: 灰度配置有审批；正式结论使用主版本；对比结果隔离。
+  status: pending_review_not_executed
+- requirement_id: ER-T058
+  name: 实现模型评测记录管理
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - recordEvaluation
+  - listEvaluations
+  table_names:
+  - model_evaluation
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T058
+  test_ids:
+  - TV-T058-N
+  - TV-T058-E
+  acceptance: 没有合格评测记录不能进入发布审批；报告不可覆盖。
+  status: pending_review_not_executed
+- requirement_id: ER-T059
+  name: 实现输入输出漂移监测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T059
+  test_ids:
+  - TV-T059-N
+  - TV-T059-E
+  acceptance: 不保存不必要原始敏感内容；阈值可配置；按模型版本区分。
+  status: pending_review_not_executed
+- requirement_id: ER-T060
+  name: 开发模型运维页面
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listModels
+  - getModelHealth
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_registry
+  - model_release
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T060
+  test_ids:
+  - TV-T060-N
+  - TV-T060-E
+  acceptance: 模型上线/回滚页面有二次确认，并显示获准发布策略、包版本和批准记录；二次确认不代替审批，后端校验发布授权和权限分离，失效或未批准包不得正式上线。
+  status: pending_review_not_executed
+- requirement_id: ER-T061
+  name: 定义风险标签和版本管理
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T061
+  test_ids:
+  - TV-T061-N
+  - TV-T061-E
+  acceptance: 标签变更不覆盖历史；未知和证据不足可表达；权限与审计完整。
+  status: pending_review_not_executed
+- requirement_id: ER-T062
+  name: 接入图片多标签分类模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  task_ids:
+  - T062
+  test_ids:
+  - TV-T062-N
+  - TV-T062-E
+  acceptance: 使用Sigmoid多标签；返回原始与校准分数、阈值、模型版本。
+  status: pending_review_not_executed
+- requirement_id: ER-T063
+  name: 接入敏感目标检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M02
+  dataset_ids:
+  - D02
+  task_ids:
+  - T063
+  test_ids:
+  - TV-T063-N
+  - TV-T063-E
+  acceptance: 坐标归一化；视频结果带时间戳；类别与标签版本匹配。
+  status: pending_review_not_executed
+- requirement_id: ER-T064
+  name: 接入视频行为识别模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M04
+  dataset_ids:
+  - D03
+  task_ids:
+  - T064
+  test_ids:
+  - TV-T064-N
+  - TV-T064-E
+  acceptance: 窗口重叠结果合并；边界不越界；模型版本记录。
+  status: pending_review_not_executed
+- requirement_id: ER-T065
+  name: 接入音频事件识别模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M06
+  dataset_ids:
+  - D04
+  task_ids:
+  - T065
+  test_ids:
+  - TV-T065-N
+  - TV-T065-E
+  acceptance: 静音和无音轨正常处理；结果绑定音轨和模型版本。
+  status: pending_review_not_executed
+- requirement_id: ER-T066
+  name: 实现多模态时间对齐
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-MEDIA-001
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T066
+  test_ids:
+  - TV-T066-N
+  - TV-T066-E
+  acceptance: 处理缺失模态；时间单位一致；不因缺失模态丢弃窗口。
+  status: pending_review_not_executed
+- requirement_id: ER-T067
+  name: 实现跨模态矛盾检测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids:
+  - M07
+  dataset_ids:
+  - D05
+  task_ids:
+  - T067
+  test_ids:
+  - TV-T067-N
+  - TV-T067-E
+  acceptance: 输出一致、矛盾、无关或证据不足；绑定两侧证据。
+  status: pending_review_not_executed
+- requirement_id: ER-T068
+  name: 实现综合风险融合与校准
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids:
+  - M08
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  task_ids:
+  - T068
+  test_ids:
+  - TV-T068-N
+  - TV-T068-E
+  acceptance: 按类别独立阈值；不得以单一总分替代重点类别；结果可解释。
+  status: pending_review_not_executed
+- requirement_id: ER-T069
+  name: 实现风险转人工规则
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T069
+  test_ids:
+  - TV-T069-N
+  - TV-T069-E
+  acceptance: 触发原因明确；优先级可配置；规则版本可追溯。
+  status: pending_review_not_executed
+- requirement_id: ER-T070
+  name: 开发风险识别研判界面
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - getRiskFindings
+  table_names:
+  - finding_evidence
+  - risk_finding
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T070
+  test_ids:
+  - TV-T070-N
+  - TV-T070-E
+  acceptance: 点击结论定位帧/时间/区域；显示模型版本、阈值和人工状态。
+  status: pending_review_not_executed
+- requirement_id: ER-T071
+  name: 实现图片取证基础特征
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T071
+  test_ids:
+  - TV-T071-N
+  - TV-T071-E
+  acceptance: 每项特征记录算法版本；不把单项异常直接作为篡改结论。
+  status: pending_review_not_executed
+- requirement_id: ER-T072
+  name: 接入图片篡改区域模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  task_ids:
+  - T072
+  test_ids:
+  - TV-T072-N
+  - TV-T072-E
+  acceptance: 掩码尺寸可回映射原图；保存模型版本；支持证据不足。
+  status: pending_review_not_executed
+- requirement_id: ER-T073
+  name: 实现复制粘贴与局部生成分类
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M10
+  dataset_ids:
+  - D06
+  task_ids:
+  - T073
+  test_ids:
+  - TV-T073-N
+  - TV-T073-E
+  acceptance: 类型与区域一致；低置信不强制分类；提供特征证据。
+  status: pending_review_not_executed
+- requirement_id: ER-T074
+  name: 实现视频时间结构异常检测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  dataset_ids:
+  - D07
+  task_ids:
+  - T074
+  test_ids:
+  - TV-T074-N
+  - TV-T074-E
+  acceptance: 定位删除、插入、重排、变速、倒放和重复片段候选。
+  status: pending_review_not_executed
+- requirement_id: ER-T075
+  name: 实现视频空间篡改跟踪
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M12
+  dataset_ids:
+  - D07
+  task_ids:
+  - T075
+  test_ids:
+  - TV-T075-N
+  - TV-T075-E
+  acceptance: 短暂误检可过滤；区域轨迹可视化；不越出帧边界。
+  status: pending_review_not_executed
+- requirement_id: ER-T076
+  name: 接入深度伪造与音画同步检测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M13
+  - M14
+  dataset_ids:
+  - D08
+  task_ids:
+  - T076
+  test_ids:
+  - TV-T076-N
+  - TV-T076-E
+  acceptance: 按人脸轨迹输出；无脸内容不报错；压缩条件下分组评测。
+  status: pending_review_not_executed
+- requirement_id: ER-T077
+  name: 实现篡改多证据融合
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T077
+  test_ids:
+  - TV-T077-N
+  - TV-T077-E
+  acceptance: 结论区分确认候选和证据不足；冲突证据进入人工复核。
+  status: pending_review_not_executed
+- requirement_id: ER-T078
+  name: 开发篡改取证界面
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids:
+  - getForensics
+  table_names:
+  - finding_evidence
+  - tamper_finding
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T078
+  test_ids:
+  - TV-T078-N
+  - TV-T078-E
+  acceptance: 证据与原媒体坐标/时间联动；显示算法限制和人工状态。
+  status: pending_review_not_executed
+- requirement_id: ER-T079
+  name: 实现图片感知哈希特征
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - feature
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T079
+  test_ids:
+  - TV-T079-N
+  - TV-T079-E
+  acceptance: 同一图片稳定；模型/算法版本记录；完全重复与近重复分开。
+  status: pending_review_not_executed
+- requirement_id: ER-T080
+  name: 实现视觉与复制检测向量生成
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M15
+  - M19
+  dataset_ids:
+  - D09
+  - D10
+  - D15
+  task_ids:
+  - T080
+  test_ids:
+  - TV-T080-N
+  - TV-T080-E
+  acceptance: 归一化规则明确；不同版本隔离；失败可重试。
+  status: pending_review_not_executed
+- requirement_id: ER-T081
+  name: 建立Milvus索引与版本管理
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids:
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T081
+  test_ids:
+  - TV-T081-N
+  - TV-T081-E
+  acceptance: 保留≥2000万索引源目标，按20万/200万/2000万逐级验证；权限条件由服务端生成并复核返回资产；实测写入可见性。
+  status: pending_review_not_executed
+- requirement_id: ER-T082
+  name: 实现图片多路候选召回
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  - getSearchJob
+  table_names:
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T082
+  test_ids:
+  - TV-T082-N
+  - TV-T082-E
+  acceptance: 召回在当前授权域内执行；结果逐对象复核；近似相似不得直接确认同源；版本不匹配报错。
+  status: pending_review_not_executed
+- requirement_id: ER-T083
+  name: 实现局部特征提取与匹配
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M16
+  - M17
+  dataset_ids:
+  - D09
+  task_ids:
+  - T083
+  test_ids:
+  - TV-T083-N
+  - TV-T083-E
+  acceptance: 代码/权重/提取器许可分别核验，LightGlue许可不覆盖SuperPoint；整图/局部/低纹理与资源条件明确，许可未闭环不作正式发布。
+  status: pending_review_not_executed
+- requirement_id: ER-T084
+  name: 实现RANSAC几何验证
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  table_names:
+  - index_registry
+  - media_asset
+  - source_match
+  model_ids:
+  - M18
+  dataset_ids:
+  - D09
+  task_ids:
+  - T084
+  test_ids:
+  - TV-T084-N
+  - TV-T084-E
+  acceptance: 验证失败不得标记高可信同源；参数配置化；生成匹配证据图。
+  status: pending_review_not_executed
+- requirement_id: ER-T085
+  name: 实现图片局部区域检索
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  - searchImageRegion
+  - getSearchJob
+  table_names:
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T085
+  test_ids:
+  - TV-T085-N
+  - TV-T085-E
+  acceptance: 坐标校验；输出候选匹配区域；区域权限继承原资产。
+  status: pending_review_not_executed
+- requirement_id: ER-T086
+  name: 实现视频帧检索候选聚合
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M33
+  dataset_ids:
+  - D04
+  - D10
+  task_ids:
+  - T086
+  test_ids:
+  - TV-T086-N
+  - TV-T086-E
+  acceptance: 过滤孤立单帧；保留帧时间对应；候选Top-N可配置。
+  status: pending_review_not_executed
+- requirement_id: ER-T087
+  name: 实现视频相似度矩阵构建
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  dataset_ids:
+  - D10
+  task_ids:
+  - T087
+  test_ids:
+  - TV-T087-N
+  - TV-T087-E
+  acceptance: 时间戳顺序正确；大矩阵分块；可生成可视化。
+  status: pending_review_not_executed
+- requirement_id: ER-T088
+  name: 实现局部DTW与倒放对齐
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  dataset_ids:
+  - D10
+  task_ids:
+  - T088
+  test_ids:
+  - TV-T088-N
+  - TV-T088-E
+  acceptance: 不能由单帧确认；边界回映射正确；参数配置化。
+  status: pending_review_not_executed
+- requirement_id: ER-T089
+  name: 实现多源拼接来源映射
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids:
+  - searchVideo
+  - getSearchJob
+  table_names:
+  - index_registry
+  - search_job
+  - source_match
+  model_ids:
+  - M22
+  dataset_ids:
+  - D11
+  task_ids:
+  - T089
+  test_ids:
+  - TV-T089-N
+  - TV-T089-E
+  acceptance: 覆盖率和未匹配区段明确；重叠来源有冲突处理；平均定位误差可计算。
+  status: pending_review_not_executed
+- requirement_id: ER-T090
+  name: 实现高可信同源内容聚类
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-ORIGIN-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - content_cluster
+  - cluster_member
+  model_ids:
+  - M23
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  task_ids:
+  - T090
+  test_ids:
+  - TV-T090-N
+  - TV-T090-E
+  acceptance: 语义相似不直接入簇；A—拼接Q—B不能仅按连通合成整内容簇；合并/拆分审核，首发范围明确，防泄漏组与业务簇分开。
+  status: pending_review_not_executed
+- requirement_id: ER-T091
+  name: 实现首发排序特征工程
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T091
+  test_ids:
+  - TV-T091-N
+  - TV-T091-E
+  acceptance: 缺失值与来源证据明确；不把缺失当负面；特征版本化。
+  status: pending_review_not_executed
+- requirement_id: ER-T092
+  name: 训练和注册首发排序模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M24
+  dataset_ids:
+  - D12
+  task_ids:
+  - T092
+  test_ids:
+  - TV-T092-N
+  - TV-T092-E
+  acceptance: 训练数据/许可/簇真值明确，Top-3源目标及正式性质按Q-13/Q-22；工程训练完成和正式发布达标分别记，特征贡献及覆盖未知可复查。
+  status: pending_review_not_executed
+- requirement_id: ER-T093
+  name: 实现首发候选查询服务
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids:
+  - getFirstSource
+  table_names:
+  - cluster_member
+  - content_cluster
+  - first_source_candidate
+  - first_source_ranking
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T093
+  test_ids:
+  - TV-T093-N
+  - TV-T093-E
+  acceptance: 措辞限定授权数据范围；证据不足不输出确定原创；人工状态可见。
+  status: pending_review_not_executed
+- requirement_id: ER-T094
+  name: 设计传播图谱数据模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  task_ids:
+  - T094
+  test_ids:
+  - TV-T094-N
+  - TV-T094-E
+  acceptance: 显式与推断关系分离；边含时间、概率、证据和确认状态。
+  status: pending_review_not_executed
+- requirement_id: ER-T095
+  name: 实现传播图谱写入与查询
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  table_names:
+  - propagation_edge
+  - propagation_node
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  task_ids:
+  - T095
+  test_ids:
+  - TV-T095-N
+  - TV-T095-E
+  acceptance: 写入幂等；权限过滤；路径结果带证据ID。
+  status: pending_review_not_executed
+- requirement_id: ER-T096
+  name: 实现隐式传播关系推断
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - decidePropagationEdge
+  table_names:
+  - propagation_edge
+  - review_record
+  model_ids:
+  - M27
+  dataset_ids:
+  - D12
+  task_ids:
+  - T096
+  test_ids:
+  - TV-T096-N
+  - TV-T096-E
+  acceptance: 不得覆盖显式关系；低概率不默认展示为事实；可人工确认或驳回。
+  status: pending_review_not_executed
+- requirement_id: ER-T097
+  name: 开发传播时间线和图谱界面
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  - decidePropagationEdge
+  table_names:
+  - propagation_edge
+  - propagation_node
+  - review_record
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  task_ids:
+  - T097
+  test_ids:
+  - TV-T097-N
+  - TV-T097-E
+  acceptance: 显式/推断边视觉区分；点击显示证据；大图支持聚合。
+  status: pending_review_not_executed
+- requirement_id: ER-T098
+  name: 实现结构化主张抽取服务
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - extractClaims
+  table_names:
+  - claim
+  - text_segment
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  task_ids:
+  - T098
+  test_ids:
+  - TV-T098-N
+  - TV-T098-E
+  acceptance: 只输出结构化JSON；未知为null；每项引用输入片段；提示模板版本化。
+  status: pending_review_not_executed
+- requirement_id: ER-T099
+  name: 实现权威证据检索与关系判断
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - verifyClaim
+  table_names:
+  - claim
+  - claim_evidence_relation
+  model_ids:
+  - M29
+  dataset_ids:
+  - D14
+  task_ids:
+  - T099
+  test_ids:
+  - TV-T099-N
+  - TV-T099-E
+  acceptance: 仅访问授权白名单证据源；URL出站按§9.7控制；每条关系关联可定位证据，不以网页/模型文本作为工具命令。
+  status: pending_review_not_executed
+- requirement_id: ER-T100
+  name: 实现统一证据对象模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - evidence_item
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T100
+  test_ids:
+  - TV-T100-N
+  - TV-T100-E
+  acceptance: 证据引用原件、时间/坐标映射、模型/结果/授权版本；统一Schema可校验且先于算法正式联调；不要求机械等到第十一组才实施。
+  status: pending_review_not_executed
+- requirement_id: ER-T101
+  name: 实现风险与取证证据卡片接口
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - getTaskEvidence
+  table_names:
+  - evidence_item
+  - task_evidence
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T101
+  test_ids:
+  - TV-T101-N
+  - TV-T101-E
+  acceptance: 核心结论均有证据；支持过滤类型和人工状态；坐标时间可定位。
+  status: pending_review_not_executed
+- requirement_id: ER-T102
+  name: 实现人工复核工作流
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-PROPAGATION-001
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - decidePropagationEdge
+  - createReview
+  - requestApproval
+  - decideApproval
+  - createPolicy
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - policy_registry
+  - propagation_edge
+  - review_evidence
+  - review_record
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T102
+  test_ids:
+  - TV-T102-N
+  - TV-T102-E
+  acceptance: 服务端核验当前对象权限和审批授权；策略缺失/失效不批准。并发提交校验review_version，记录理由、证据和审计，变更后重新审批；会审/职责分离按Q-18/Q-20/Q-24/Q-32确认。
+  status: pending_review_not_executed
+- requirement_id: ER-T103
+  name: 开发人工复核工作台
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - getTaskEvidence
+  - createReview
+  table_names:
+  - audit_event
+  - evidence_item
+  - review_evidence
+  - review_record
+  - task_evidence
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T103
+  test_ids:
+  - TV-T103-N
+  - TV-T103-E
+  acceptance: 证据可定位，显示对象/策略版本、待审或失效原因和允许动作；二次确认仅防误操作，不等于独立复核；模拟/未批准结果有标识，草稿可保存。
+  status: pending_review_not_executed
+- requirement_id: ER-T104
+  name: 实现证据固化与完整性校验
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - sealEvidence
+  table_names:
+  - audit_event
+  - evidence_package
+  - object_version
+  - package_item
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T104
+  test_ids:
+  - TV-T104-N
+  - TV-T104-E
+  acceptance: 绑定对象版本和SHA-256清单；候选对象锁/完整性实测通过。更正建立新版本并触发关联批准校验，原记录保留；保留/legal hold策略及权限按Q-19/Q-20/Q-31确认，技术固化不自动认定证据效力。
+  status: pending_review_not_executed
+- requirement_id: ER-T105
+  name: 实现可信时间与签名适配层
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - sealEvidence
+  table_names:
+  - audit_event
+  - evidence_package
+  - object_version
+  - package_item
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T105
+  test_ids:
+  - TV-T105-N
+  - TV-T105-E
+  acceptance: 时间来源、证书/算法、验证链和故障策略可追溯；提供获准服务/授权依据及配置版本。模拟签名标识明确，未确认Q-26不宣称正式可信服务已接入。
+  status: pending_review_not_executed
+- requirement_id: ER-T106
+  name: 实现证据约束核查摘要
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - createReportDraft
+  table_names:
+  - report
+  - report_evidence
+  model_ids:
+  - M30
+  dataset_ids:
+  - D13
+  - D14
+  task_ids:
+  - T106
+  test_ids:
+  - TV-T106-N
+  - TV-T106-E
+  acceptance: 逐句核验事实与证据支持关系，无证据拒绝或转人工；生成内容保持草稿/未批准身份，外部内容和模型不得触发批准或导出权限。
+  status: pending_review_not_executed
+- requirement_id: ER-T107
+  name: 实现核查报告生成
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - createReport
+  - getReport
+  - downloadReport
+  table_names:
+  - approval_request
+  - audit_event
+  - report
+  - report_evidence
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T107
+  test_ids:
+  - TV-T107-N
+  - TV-T107-E
+  acceptance: 报告、结果、证据摘要与有效批准绑定；服务端校验当前权限/用途/策略和版本，缺少批准不作为正式报告导出。变更后旧批准按获准策略失效，下载授权可撤销并留审计；批准角色/独立性仍待Q-20/Q-32确认。
+  status: pending_review_not_executed
+- requirement_id: ER-T108
+  name: 实现样本纠错与回流审批
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - requestApproval
+  - decideApproval
+  - requestFeedback
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - feedback_request
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T108
+  test_ids:
+  - TV-T108-N
+  - TV-T108-E
+  acceptance: 业务复核不自动批准训练使用；用途授权、脱敏/去重/质检和隔离检查通过后按批准版本入库。用途或授权撤销按获准政策处置并记录，不擅定删除期限。
+  status: pending_review_not_executed
+- requirement_id: ER-T109
+  name: 建立标注规范与标签质检工具
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T109
+  test_ids:
+  - TV-T109-N
+  - TV-T109-E
+  acceptance: 强制必填和边界合法；支持未知/证据不足；双人标注和仲裁。
+  status: pending_review_not_executed
+- requirement_id: ER-T110
+  name: 实现原始素材分组划分
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T110
+  test_ids:
+  - TV-T110-N
+  - TV-T110-E
+  acceptance: 原始素材及增强版本同组不跨集合；多源组合样本检查来源组交叉；比例可配置，清单/哈希/种子可复查；授权及事件/人物外推分层另记录。
+  status: pending_review_not_executed
+- requirement_id: ER-T111
+  name: 实现可控编辑数据增强流水线
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T111
+  test_ids:
+  - TV-T111-N
+  - TV-T111-E
+  acceptance: 不覆盖原始样本；每个增强可复现；标注同步变换。
+  status: pending_review_not_executed
+- requirement_id: ER-T112
+  name: 建立难负样本挖掘流程
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T112
+  test_ids:
+  - TV-T112-N
+  - TV-T112-E
+  acceptance: 未经人工确认不作为金标准；记录触发模型与相似度。
+  status: pending_review_not_executed
+- requirement_id: ER-T113
+  name: 实现风险模型训练与评测流水线
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  task_ids:
+  - T113
+  test_ids:
+  - TV-T113-N
+  - TV-T113-E
+  acceptance: 流水线建设以输入清单、Macro-F1/召回/校准公式与失败计数、冒烟和复算通过判定；95%/0.85源目标保留，真实模型候选发布另按生效MetricProtocol，不以代码运行判达标。
+  status: pending_review_not_executed
+- requirement_id: ER-T114
+  name: 实现篡改模型评测流水线
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T114
+  test_ids:
+  - TV-T114-N
+  - TV-T114-E
+  acceptance: 保留IoU≥0.70及视频篡改召回≥90%源目标，正式口径按Q-13；掩码映射原件，漏检正例IoU=0，逐图宏平均与面积分层、负例误报单列。
+  status: pending_review_not_executed
+- requirement_id: ER-T115
+  name: 实现同源与片段检索评测流水线
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T115
+  test_ids:
+  - TV-T115-N
+  - TV-T115-E
+  acceptance: 评测代码/分母/失败计数/时间误差与复算正确；95%/90%及≤1秒源目标保留，在模型发布包上按生效协议受控评测，工程完成与模型达标分开。
+  status: pending_review_not_executed
+- requirement_id: ER-T116
+  name: 实现首发和大模型核查评测
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T116
+  test_ids:
+  - TV-T116-N
+  - TV-T116-E
+  acceptance: Top-3/NDCG/校准/关系及引用支持指标实现可复算；Top-3≥90%为保留源目标，范围/真值/未知按生效协议，独立测试不用于选择候选。
+  status: pending_review_not_executed
+- requirement_id: ER-T117
+  name: 建立应用安全自动化扫描
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T117
+  test_ids:
+  - TV-T117-N
+  - TV-T117-E
+  acceptance: 严重/高危问题阻止合并或发布；误报有审批豁免期限。
+  status: pending_review_not_executed
+- requirement_id: ER-T118
+  name: 实施上传与接口安全测试
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T118
+  test_ids:
+  - TV-T118-N
+  - TV-T118-E
+  acceptance: 早期上传/任务接口验证通过单列阶段结果；T102/T107/T108就绪后审批/导出/回流专项复测及适用高危用例全部关闭才签本任务最终完成。
+  status: pending_review_not_executed
+- requirement_id: ER-T119
+  name: 实施大模型安全测试
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T119
+  test_ids:
+  - TV-T119-N
+  - TV-T119-E
+  acceptance: 工具白名单有效；无证据句拦截；攻击输入不改变系统权限。
+  status: pending_review_not_executed
+- requirement_id: ER-T120
+  name: 实现监控指标与告警
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T120
+  test_ids:
+  - TV-T120-N
+  - TV-T120-E
+  acceptance: 排队/解码/推理/端到端、失败重试、CPU/内存/磁盘与配额可观察；无GPU不显示虚假GPU指标；日志/trace不替代全量审计。
+  status: pending_review_not_executed
+- requirement_id: ER-T121
+  name: 实现备份恢复与灾备演练
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T121
+  test_ids:
+  - TV-T121-N
+  - TV-T121-E
+  acceptance: 真实恢复、权限/授权、报告版本与原件摘要验证通过；备份损坏、WAL缺段及恢复点不一致可检测；同盘复制不作为独立灾备。
+  status: pending_review_not_executed
+- requirement_id: ER-T122
+  name: 执行20并发验收性能测试
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T122
+  test_ids:
+  - TV-T122-N
+  - TV-T122-E
+  acceptance: 20及100均待确认；冻结素材、模型、索引、资源与计时范围后记录P50/P95/P99、吞吐、错误、排队和成功率；不得凭源标题认定已批准验收基线。
+  status: pending_review_not_executed
+- requirement_id: ER-T123
+  name: 执行100并发容量与长稳测试
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T123
+  test_ids:
+  - TV-T123-N
+  - TV-T123-E
+  acceptance: 不预判100为可选扩展或非硬指标；按批准负载执行，无数据损坏并明确瓶颈、错误率和资源需求；资源未落实保持未验证。
+  status: pending_review_not_executed
+- requirement_id: ER-T124
+  name: 完成三类业务场景验收
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T124
+  test_ids:
+  - TV-T124-N
+  - TV-T124-E
+  acceptance: 按生效三类场景与真实模型包验收；T113—T123、T170及全范围170条适用交付矩阵有关闭证据，T118最终安全复测完成。场景演示不能代替整体算法、负载和恢复评测；T124依据本轮场景报告关闭。
+  status: pending_review_not_executed
+- requirement_id: ER-T125
+  name: 建立算法实验公共框架
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T125
+  test_ids:
+  - TV-T125-N
+  - TV-T125-E
+  acceptance: 同代码/数据/配置及固定软件硬件条件可重复实验并记录容许误差；保存框架/镜像/设备/种子/确定性设置；不承诺跨版本或CPU/GPU逐位一致；测试集不调参。
+  status: pending_review_not_executed
+- requirement_id: ER-T126
+  name: 建立训练数据版本与数据卡
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T126
+  test_ids:
+  - TV-T126-N
+  - TV-T126-E
+  acceptance: 记录来源、授权、标签版本、分组划分、类别分布、已知偏差和哈希。
+  status: pending_review_not_executed
+- requirement_id: ER-T127
+  name: 冻结公安业务独立测试集
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T127
+  test_ids:
+  - TV-T127-N
+  - TV-T127-E
+  acceptance: 独立测试清单按素材组隔离并防组合来源泄漏；研发不得用于训练/阈值/难例挖掘；验收角色执行和全部访问有记录。
+  status: pending_review_not_executed
+- requirement_id: ER-T128
+  name: 建立算法基线结果台账
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - model_evaluation
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T128
+  test_ids:
+  - TV-T128-N
+  - TV-T128-E
+  acceptance: 每条算法线至少一个可复现基线；记录吞吐、显存、错误样本和限制。
+  status: pending_review_not_executed
+- requirement_id: ER-T129
+  name: 开展图片多标签风险数据分析
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T129
+  test_ids:
+  - TV-T129-N
+  - TV-T129-E
+  acceptance: 识别类别不平衡、标签冲突和数据缺口；不得修改冻结测试标签。
+  status: pending_review_not_executed
+- requirement_id: ER-T130
+  name: 训练图片多标签风险基线模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  task_ids:
+  - T130
+  test_ids:
+  - TV-T130-N
+  - TV-T130-E
+  acceptance: 使用Sigmoid与BCE基线；验证集Macro-F1优于通用零样本结果；训练可复现。
+  status: pending_review_not_executed
+- requirement_id: ER-T131
+  name: 优化风险类别不平衡与长尾召回
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  task_ids:
+  - T131
+  test_ids:
+  - TV-T131-N
+  - TV-T131-E
+  acceptance: 重点类别召回提升且Macro-F1无不可接受退化；报告每类指标。
+  status: pending_review_not_executed
+- requirement_id: ER-T132
+  name: 训练敏感目标检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M02
+  dataset_ids:
+  - D02
+  task_ids:
+  - T132
+  test_ids:
+  - TV-T132-N
+  - TV-T132-E
+  acceptance: mAP@0.5达到阶段目标；按类别、尺寸和遮挡分组报告；类别映射稳定。
+  status: pending_review_not_executed
+- requirement_id: ER-T133
+  name: 开展小目标低清目标专项优化
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M03
+  dataset_ids:
+  - D02
+  task_ids:
+  - T133
+  test_ids:
+  - TV-T133-N
+  - TV-T133-E
+  acceptance: 小目标和低清子集召回提升；延迟增幅在预算内；不制造明显误报。
+  status: pending_review_not_executed
+- requirement_id: ER-T134
+  name: 构建视频行为训练片段与时间边界
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  task_ids:
+  - T134
+  test_ids:
+  - TV-T134-N
+  - TV-T134-E
+  acceptance: 窗口与原视频时间可回映射；跨窗口事件完整；同源组不泄漏。
+  status: pending_review_not_executed
+- requirement_id: ER-T135
+  name: 微调视频行为识别模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M04
+  dataset_ids:
+  - D03
+  task_ids:
+  - T135
+  test_ids:
+  - TV-T135-N
+  - TV-T135-E
+  acceptance: 验证集分类型指标优于基线；按时长、压缩和清晰度报告；可导出推理。
+  status: pending_review_not_executed
+- requirement_id: ER-T136
+  name: 训练视频事件时间定位模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M05
+  dataset_ids:
+  - D03
+  task_ids:
+  - T136
+  test_ids:
+  - TV-T136-N
+  - TV-T136-E
+  acceptance: 时间边界误差优于窗口分类基线；短事件和跨镜头事件有专项结果。
+  status: pending_review_not_executed
+- requirement_id: ER-T137
+  name: 微调音频事件识别模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M06
+  dataset_ids:
+  - D04
+  task_ids:
+  - T137
+  test_ids:
+  - TV-T137-N
+  - TV-T137-E
+  acceptance: 分类型召回优于通用模型；噪声、静音和重编码条件分组报告。
+  status: pending_review_not_executed
+- requirement_id: ER-T138
+  name: 构建跨模态一致与矛盾训练集
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M07
+  dataset_ids:
+  - D05
+  task_ids:
+  - T138
+  test_ids:
+  - TV-T138-N
+  - TV-T138-E
+  acceptance: 每条样本绑定两侧证据；控制模板泄漏；包含旧闻新炒和虚假地点时间。
+  status: pending_review_not_executed
+- requirement_id: ER-T139
+  name: 训练跨模态矛盾检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M07
+  dataset_ids:
+  - D05
+  task_ids:
+  - T139
+  test_ids:
+  - TV-T139-N
+  - TV-T139-E
+  acceptance: 四类关系指标优于文本或视觉单模态基线；输出证据对和校准概率。
+  status: pending_review_not_executed
+- requirement_id: ER-T140
+  name: 训练多模态风险融合模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M08
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  task_ids:
+  - T140
+  test_ids:
+  - TV-T140-N
+  - TV-T140-E
+  acceptance: 重点类别召回≥95%、Macro-F1≥0.85作为发布目标；完成单模态消融。
+  status: pending_review_not_executed
+- requirement_id: ER-T141
+  name: 实施风险概率校准和业务阈值优化
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  task_ids:
+  - T141
+  test_ids:
+  - TV-T141-N
+  - TV-T141-E
+  acceptance: 使用验证集调阈值、独立测试集只验收；输出ECE、可靠性图和代价分析。
+  status: pending_review_not_executed
+- requirement_id: ER-T142
+  name: 构建图片篡改成组训练集
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  task_ids:
+  - T142
+  test_ids:
+  - TV-T142-N
+  - TV-T142-E
+  acceptance: 覆盖拼接、复制、擦除、替换、局部生成及多压缩；掩码与图像对齐。
+  status: pending_review_not_executed
+- requirement_id: ER-T143
+  name: 训练图片噪声残差分支
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  task_ids:
+  - T143
+  test_ids:
+  - TV-T143-N
+  - TV-T143-E
+  acceptance: 在跨相机、跨压缩验证集优于固定残差基线；记录失败类型。
+  status: pending_review_not_executed
+- requirement_id: ER-T144
+  name: 训练RGB语义与边界分支
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  task_ids:
+  - T144
+  test_ids:
+  - TV-T144-N
+  - TV-T144-E
+  acceptance: 验证集IoU和边界F1优于分割基线；小区域单独报告。
+  status: pending_review_not_executed
+- requirement_id: ER-T145
+  name: 训练图片多分支融合篡改模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  task_ids:
+  - T145
+  test_ids:
+  - TV-T145-N
+  - TV-T145-E
+  acceptance: 项目多分支与原模型基线分别报告；IoU≥0.70为保留发布目标，固定独立协议；RGB/噪声/编码消融、可靠性及失效模态齐全，不以接入原权重当扩展完成。
+  status: pending_review_not_executed
+- requirement_id: ER-T146
+  name: 训练图片篡改类型分类模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M10
+  dataset_ids:
+  - D06
+  task_ids:
+  - T146
+  test_ids:
+  - TV-T146-N
+  - TV-T146-E
+  acceptance: 按类型报告召回和混淆矩阵；低置信输出证据不足，不强制归类。
+  status: pending_review_not_executed
+- requirement_id: ER-T147
+  name: 构建视频篡改与深伪训练集
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  dataset_ids:
+  - D07
+  task_ids:
+  - T147
+  test_ids:
+  - TV-T147-N
+  - TV-T147-E
+  acceptance: 保存原始来源、编辑参数、时间边界和人脸轨迹；训练测试按原视频组隔离。
+  status: pending_review_not_executed
+- requirement_id: ER-T148
+  name: 训练视频时间篡改检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  dataset_ids:
+  - D07
+  task_ids:
+  - T148
+  test_ids:
+  - TV-T148-N
+  - TV-T148-E
+  acceptance: 重点时间篡改类型召回达到阶段目标；输出片段边界和证据特征。
+  status: pending_review_not_executed
+- requirement_id: ER-T149
+  name: 训练视频空间篡改检测与跟踪模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M12
+  dataset_ids:
+  - D07
+  task_ids:
+  - T149
+  test_ids:
+  - TV-T149-N
+  - TV-T149-E
+  acceptance: 区域轨迹稳定；短暂误检率受控；按遮挡和运动强度分组评测。
+  status: pending_review_not_executed
+- requirement_id: ER-T150
+  name: 微调人脸深度伪造检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M13
+  dataset_ids:
+  - D08
+  task_ids:
+  - T150
+  test_ids:
+  - TV-T150-N
+  - TV-T150-E
+  acceptance: 跨生成器测试优于基线；多脸逐轨迹输出；报告公平性和局限。
+  status: pending_review_not_executed
+- requirement_id: ER-T151
+  name: 训练口型语音同步检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M14
+  dataset_ids:
+  - D08
+  task_ids:
+  - T151
+  test_ids:
+  - TV-T151-N
+  - TV-T151-E
+  acceptance: 对已知偏移量可正确定位；无清晰人脸或语音时输出证据不足。
+  status: pending_review_not_executed
+- requirement_id: ER-T152
+  name: 实施跨压缩跨生成器泛化训练
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T152
+  test_ids:
+  - TV-T152-N
+  - TV-T152-E
+  acceptance: 未知压缩/生成器子集退化受控；不以已知生成器过拟合换取总体指标。
+  status: pending_review_not_executed
+- requirement_id: ER-T153
+  name: 实施篡改模型校准与不确定性估计
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  task_ids:
+  - T153
+  test_ids:
+  - TV-T153-N
+  - TV-T153-E
+  acceptance: 固定验证/校准数据、ECE分箱/类别汇总/空箱及比较条件、OOD协议；目标未定记录待确认，不写ECE已达标。版本可回滚，高不确定触发复核，封存集不调参。
+  status: pending_review_not_executed
+- requirement_id: ER-T154
+  name: 构建图片复制检测对比学习样本
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M15
+  dataset_ids:
+  - D09
+  - D15
+  task_ids:
+  - T154
+  test_ids:
+  - TV-T154-N
+  - TV-T154-E
+  acceptance: 正负关系经规则和人工复核；编辑参数覆盖压缩、裁剪、镜像、水印和遮挡。
+  status: pending_review_not_executed
+- requirement_id: ER-T155
+  name: 训练图片复制检测向量模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M15
+  dataset_ids:
+  - D09
+  - D15
+  task_ids:
+  - T155
+  test_ids:
+  - TV-T155-N
+  - TV-T155-E
+  acceptance: 复制召回优于语义向量基线；难负误命中下降；向量维度与归一化固定。
+  status: pending_review_not_executed
+- requirement_id: ER-T156
+  name: 实施难负样本迭代训练
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T156
+  test_ids:
+  - TV-T156-N
+  - TV-T156-E
+  acceptance: 每轮样本经人工确认；独立测试集不参与挖掘；记录误命中变化。
+  status: pending_review_not_executed
+- requirement_id: ER-T157
+  name: 优化复制向量与索引联合参数
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  model_ids: []
+  dataset_ids: []
+  task_ids:
+  - T157
+  test_ids:
+  - TV-T157-N
+  - TV-T157-E
+  acceptance: 2000万目标规模下满足召回和时延折中；切换可回滚。
+  status: pending_review_not_executed
+- requirement_id: ER-T158
+  name: 构建视频帧复制检测训练集
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M19
+  dataset_ids:
+  - D10
+  task_ids:
+  - T158
+  test_ids:
+  - TV-T158-N
+  - TV-T158-E
+  acceptance: 正对时间映射准确；镜头、平台和原视频分组隔离；包含重编码与字幕版本。
+  status: pending_review_not_executed
+- requirement_id: ER-T159
+  name: 训练视频关键帧复制检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M19
+  dataset_ids:
+  - D10
+  task_ids:
+  - T159
+  test_ids:
+  - TV-T159-N
+  - TV-T159-E
+  acceptance: 固定帧召回/覆盖基线及素材、预处理与真实硬件，报告吞吐/延迟预算及目标状态；未知目标不签达标，真实样例和发布协议可追溯。
+  status: pending_review_not_executed
+- requirement_id: ER-T160
+  name: 优化视频帧相似度模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  dataset_ids:
+  - D10
+  task_ids:
+  - T160
+  test_ids:
+  - TV-T160-N
+  - TV-T160-E
+  acceptance: 降低相似场景误匹配；矩阵轨迹更连续；输出可解释通道分数。
+  status: pending_review_not_executed
+- requirement_id: ER-T161
+  name: 训练学习型视频片段定位模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M21
+  dataset_ids:
+  - D10
+  task_ids:
+  - T161
+  test_ids:
+  - TV-T161-N
+  - TV-T161-E
+  acceptance: 视频片段Recall@10≥90%、平均边界误差≤1秒为发布目标；与DTW对比。
+  status: pending_review_not_executed
+- requirement_id: ER-T162
+  name: 训练多源拼接边界检测模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M22
+  dataset_ids:
+  - D11
+  task_ids:
+  - T162
+  test_ids:
+  - TV-T162-N
+  - TV-T162-E
+  acceptance: 双源、三源和无来源片段可表达；边界误差与误切率分开报告。
+  status: pending_review_not_executed
+- requirement_id: ER-T163
+  name: 实施视频检索分数校准
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  task_ids:
+  - T163
+  test_ids:
+  - TV-T163-N
+  - TV-T163-E
+  acceptance: 同源与相似非同源可分；阈值仅用验证集确定；低置信进入人工复核。
+  status: pending_review_not_executed
+- requirement_id: ER-T164
+  name: 构建首发排序训练内容簇
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M23
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  task_ids:
+  - T164
+  test_ids:
+  - TV-T164-N
+  - TV-T164-E
+  acceptance: 时间、完整度、水印、账号和传播证据齐全；不确定簇单独标记。
+  status: pending_review_not_executed
+- requirement_id: ER-T165
+  name: 开展首发排序模型消融与校准
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M24
+  dataset_ids:
+  - D12
+  task_ids:
+  - T165
+  test_ids:
+  - TV-T165-N
+  - TV-T165-E
+  acceptance: Top-3≥90%为发布目标；报告采集覆盖不足影响；特征贡献可解释。
+  status: pending_review_not_executed
+- requirement_id: ER-T166
+  name: 构建主张抽取监督微调数据
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  task_ids:
+  - T166
+  test_ids:
+  - TV-T166-N
+  - TV-T166-E
+  acceptance: 主体、行为、时间、地点、结果和source_segment_ids完整；未知字段为null。
+  status: pending_review_not_executed
+- requirement_id: ER-T167
+  name: 微调主张抽取模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  task_ids:
+  - T167
+  test_ids:
+  - TV-T167-N
+  - TV-T167-E
+  acceptance: 结构字段F1、JSON有效率、来源引用存在/语义正确分别定义协议与待定目标；固定验证集基线，未知值不宣称达标，数据与模型可复现。
+  status: pending_review_not_executed
+- requirement_id: ER-T168
+  name: 构建并训练证据关系判断模型
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M29
+  dataset_ids:
+  - D14
+  task_ids:
+  - T168
+  test_ids:
+  - TV-T168-N
+  - TV-T168-E
+  acceptance: 五类Macro-F1优于基线；证据不足不被误判为反驳；必须引用evidence_id。
+  status: pending_review_not_executed
+- requirement_id: ER-T169
+  name: 研发无证据生成检测与句级引用校验
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M30
+  dataset_ids:
+  - D13
+  - D14
+  task_ids:
+  - T169
+  test_ids:
+  - TV-T169-N
+  - TV-T169-E
+  acceptance: 无引用或不被证据支持的事实句阻止进入报告；误拦截率可评估。
+  status: pending_review_not_executed
+- requirement_id: ER-T170
+  name: 实施模型压缩导出与发布候选冻结
+  type: source_task_elaboration
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_release
+  model_ids:
+  - M34
+  dataset_ids:
+  - D01
+  - D06
+  - D09
+  - D10
+  - D13
+  task_ids:
+  - T170
+  test_ids:
+  - TV-T170-N
+  - TV-T170-E
+  acceptance: 按逐能力ModelReleaseBundle清单核验训练、校准/阈值（风险含T141）、标签/Schema/前处理、数据代码摘要、许可用途及环境；每能力转换/量化实测。不适合ONNX的后端使用原生包，不强制全模型统一导出；回滚兼容索引，未验证能力不计发布。
+  status: pending_review_not_executed
+- requirement_id: NFR-SEC-001
+  name: 默认拒绝与案件范围隔离
+  type: nonfunctional
+  task_ids:
+  - T011
+  - T012
+  - T013
+  - T014
+  - T015
+  - T016
+  - T018
+  - T118
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - decideApproval
+  - devLogin
+  - exportAudit
+  - getCurrentUser
+  - issueOperationToken
+  - listAuditEvents
+  - requestApproval
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - audit_export
+  - case_membership
+  - operation_token
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T011-N
+  - TV-T011-E
+  - TV-T012-N
+  - TV-T012-E
+  - TV-T013-N
+  - TV-T013-E
+  - TV-T014-N
+  - TV-T014-E
+  - TV-T015-N
+  - TV-T015-E
+  - TV-T016-N
+  - TV-T016-E
+  - TV-T018-N
+  - TV-T018-E
+  - TV-T118-N
+  - TV-T118-E
+  acceptance: 无认证401，无功能权限403；对象范围拒绝或统一隐藏；撤销后下一请求不可读取。
+  status: pending_review_not_executed
+- requirement_id: NFR-AVAIL-001
+  name: 任务幂等租约故障恢复
+  type: nonfunctional
+  task_ids:
+  - T031
+  - T032
+  - T033
+  - T034
+  - T035
+  - T036
+  - T037
+  - T038
+  - T039
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - cancelTask
+  - createTask
+  - getTask
+  - listTasks
+  - rerunTask
+  table_names:
+  - analysis_task
+  - idempotency_record
+  - outbox_event
+  - task_event
+  - task_node_run
+  - task_run
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T031-N
+  - TV-T031-E
+  - TV-T032-N
+  - TV-T032-E
+  - TV-T033-N
+  - TV-T033-E
+  - TV-T034-N
+  - TV-T034-E
+  - TV-T035-N
+  - TV-T035-E
+  - TV-T036-N
+  - TV-T036-E
+  - TV-T037-N
+  - TV-T037-E
+  - TV-T038-N
+  - TV-T038-E
+  - TV-T039-N
+  - TV-T039-E
+  acceptance: 同主体同键同摘要无重复效果；旧租约提交拒绝，失败与延期可观察。
+  status: pending_review_not_executed
+- requirement_id: NFR-COMPAT-001
+  name: 版本与契约兼容
+  type: nonfunctional
+  task_ids:
+  - T002
+  - T003
+  - T051
+  - T052
+  - T053
+  - T054
+  - T081
+  - T170
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - getIndex
+  - health
+  - listModels
+  - registerModel
+  - rolloutModel
+  - switchIndex
+  table_names:
+  - approval_request
+  - audit_event
+  - index_registry
+  - model_registry
+  - model_release
+  model_ids:
+  - M34
+  dataset_ids: []
+  test_ids:
+  - TV-T002-N
+  - TV-T002-E
+  - TV-T003-N
+  - TV-T003-E
+  - TV-T051-N
+  - TV-T051-E
+  - TV-T052-N
+  - TV-T052-E
+  - TV-T053-N
+  - TV-T053-E
+  - TV-T054-N
+  - TV-T054-E
+  - TV-T081-N
+  - TV-T081-E
+  - TV-T170-N
+  - TV-T170-E
+  acceptance: 客户端、模型、索引、前后处理版本不兼容明确拒绝；Mock标识不能混入正式成果。
+  status: pending_review_not_executed
+- requirement_id: NFR-AUDIT-001
+  name: 重要操作审计与脱敏
+  type: nonfunctional
+  task_ids:
+  - T008
+  - T017
+  - T018
+  - T102
+  - T104
+  - T107
+  - T108
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - createPolicy
+  - createReport
+  - createReview
+  - decideApproval
+  - decidePropagationEdge
+  - downloadReport
+  - exportAudit
+  - getReport
+  - listAuditEvents
+  - requestApproval
+  - requestFeedback
+  - sealEvidence
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - audit_export
+  - evidence_package
+  - feedback_request
+  - object_version
+  - package_item
+  - policy_registry
+  - propagation_edge
+  - report
+  - report_evidence
+  - review_evidence
+  - review_record
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T008-N
+  - TV-T008-E
+  - TV-T017-N
+  - TV-T017-E
+  - TV-T018-N
+  - TV-T018-E
+  - TV-T102-N
+  - TV-T102-E
+  - TV-T104-N
+  - TV-T104-E
+  - TV-T107-N
+  - TV-T107-E
+  - TV-T108-N
+  - TV-T108-E
+  acceptance: 审计主体对象时间结果及请求ID完整；普通用户不能改事实；日志无令牌和密钥。
+  status: pending_review_not_executed
+- requirement_id: NFR-MAINTAIN-001
+  name: 开发规范与持续集成
+  type: nonfunctional
+  task_ids:
+  - T001
+  - T005
+  - T006
+  - T007
+  - T009
+  - T010
+  - T117
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T001-N
+  - TV-T001-E
+  - TV-T005-N
+  - TV-T005-E
+  - TV-T006-N
+  - TV-T006-E
+  - TV-T007-N
+  - TV-T007-E
+  - TV-T009-N
+  - TV-T009-E
+  - TV-T010-N
+  - TV-T010-E
+  - TV-T117-N
+  - TV-T117-E
+  acceptance: 格式、类型、契约、SQL及必要安全门禁失败时阻断；保留实际报告。
+  status: pending_review_not_executed
+- requirement_id: NFR-DATA-001
+  name: 授权与数据集防泄漏
+  type: nonfunctional
+  task_ids:
+  - T021
+  - T108
+  - T109
+  - T110
+  - T111
+  - T112
+  - T126
+  - T127
+  - T156
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - createSource
+  - decideApproval
+  - listSources
+  - requestApproval
+  - requestFeedback
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - feedback_request
+  - source_registry
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T021-N
+  - TV-T021-E
+  - TV-T108-N
+  - TV-T108-E
+  - TV-T109-N
+  - TV-T109-E
+  - TV-T110-N
+  - TV-T110-E
+  - TV-T111-N
+  - TV-T111-E
+  - TV-T112-N
+  - TV-T112-E
+  - TV-T126-N
+  - TV-T126-E
+  - TV-T127-N
+  - TV-T127-E
+  - TV-T156-N
+  - TV-T156-E
+  acceptance: 来源与用途授权有效；组合父组同集合；封存验收数据不得训练、调参或难例挖掘。
+  status: pending_review_not_executed
+- requirement_id: NFR-AI-001
+  name: 真实模型评测与概率校准
+  type: nonfunctional
+  task_ids:
+  - T058
+  - T113
+  - T114
+  - T115
+  - T116
+  - T125
+  - T128
+  - T141
+  - T153
+  - T163
+  - T165
+  - T167
+  - T170
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - listEvaluations
+  - recordEvaluation
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_evaluation
+  - model_release
+  model_ids:
+  - M01
+  - M24
+  - M25
+  - M28
+  - M34
+  dataset_ids: []
+  test_ids:
+  - TV-T058-N
+  - TV-T058-E
+  - TV-T113-N
+  - TV-T113-E
+  - TV-T114-N
+  - TV-T114-E
+  - TV-T115-N
+  - TV-T115-E
+  - TV-T116-N
+  - TV-T116-E
+  - TV-T125-N
+  - TV-T125-E
+  - TV-T128-N
+  - TV-T128-E
+  - TV-T141-N
+  - TV-T141-E
+  - TV-T153-N
+  - TV-T153-E
+  - TV-T163-N
+  - TV-T163-E
+  - TV-T165-N
+  - TV-T165-E
+  - TV-T167-N
+  - TV-T167-E
+  - TV-T170-N
+  - TV-T170-E
+  acceptance: 工程流水线与模型指标分开；按固定MetricProtocol记录分母、失败、分组及未知。
+  status: pending_review_not_executed
+- requirement_id: NFR-PERF-001
+  name: 真实混合负载与容量
+  type: nonfunctional
+  task_ids:
+  - T055
+  - T081
+  - T120
+  - T122
+  - T123
+  - T157
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T055-N
+  - TV-T055-E
+  - TV-T081-N
+  - TV-T081-E
+  - TV-T120-N
+  - TV-T120-E
+  - TV-T122-N
+  - TV-T122-E
+  - TV-T123-N
+  - TV-T123-E
+  - TV-T157-N
+  - TV-T157-E
+  acceptance: 20/100均待确认；固定素材模型索引资源与计时范围，记录P50/P95/P99和吞吐，不用Mock声明达标。
+  status: pending_review_not_executed
+- requirement_id: NFR-DEPLOY-001
+  name: 现场环境与资源约束
+  type: nonfunctional
+  task_ids:
+  - T004
+  - T007
+  - T053
+  - T055
+  - T120
+  - T121
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T004-N
+  - TV-T004-E
+  - TV-T007-N
+  - TV-T007-E
+  - TV-T053-N
+  - TV-T053-E
+  - TV-T055-N
+  - TV-T055-E
+  - TV-T120-N
+  - TV-T120-E
+  - TV-T121-N
+  - TV-T121-E
+  acceptance: 记录实际CPU内存IO配额和软件环境；无GPU项目不能声称GPU验证通过。
+  status: pending_review_not_executed
+- requirement_id: NFR-AVAIL-002
+  name: 恢复与证据完整性
+  type: nonfunctional
+  task_ids:
+  - T025
+  - T104
+  - T105
+  - T121
+  - T124
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids:
+  - BR-016
+  operation_ids:
+  - downloadAsset
+  - sealEvidence
+  table_names:
+  - audit_event
+  - evidence_package
+  - media_asset
+  - object_version
+  - package_item
+  model_ids: []
+  dataset_ids: []
+  test_ids:
+  - TV-T025-N
+  - TV-T025-E
+  - TV-T104-N
+  - TV-T104-E
+  - TV-T105-N
+  - TV-T105-E
+  - TV-T121-N
+  - TV-T121-E
+  - TV-T124-N
+  - TV-T124-E
+  acceptance: 隔离恢复后对账对象version_id与SHA-256；RPO/RTO待确认，损坏/WAL缺段可检测。
+  status: pending_review_not_executed

@@ -1,0 +1,1362 @@
+note: 170条ER是源任务验收的编号化，不增加业务范围；FR36为业务概览，两层共同追踪。
+requirements:
+- id: ER-T001
+  name: 建立单仓库目录与基础README
+  type: engineering_elaboration_of_source_task
+  source_task_id: T001
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 按DES-001 §8.6核验并沿用既有backend、frontend、ai-services、shared-contracts、schemas、docs、tasks、prompts、config、deploy、scripts、tests目录；仅补充获准的缺项，建立职责与原目录映射，不直接迁移。
+  acceptance: 仓库结构与设计一致；README包含启动、测试、提交规范；不得包含真实密钥。
+  status: proposal_pending_review
+- id: ER-T002
+  name: 配置Python后端工程
+  type: engineering_elaboration_of_source_task
+  source_task_id: T002
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 建立Python 3.11项目、依赖锁定、FastAPI入口、配置管理和日志初始化。
+  acceptance: 服务可启动；缺少必要配置时给出明确错误；依赖版本锁定。
+  status: proposal_pending_review
+- id: ER-T003
+  name: 配置Vue前端工程
+  type: engineering_elaboration_of_source_task
+  source_task_id: T003
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 建立Vue 3、TypeScript、Vite、路由、状态管理和API客户端。
+  acceptance: 开发服务器可启动；严格类型检查通过；API地址环境化。
+  status: proposal_pending_review
+- id: ER-T004
+  name: 建立本地容器开发环境
+  type: engineering_elaboration_of_source_task
+  source_task_id: T004
+  source_design: DES-001 V1.4 §8.7、§8.11；本书§7补充技术验证。
+  scope: 使用固定版本编排SQL、一个执行broker、对象存储、API/Web及媒体worker；缓存按需启用，全文/图/向量按能力逐项接入；不默认部署全部生产组件。
+  acceptance: 一条命令启动；隔离数据卷和密钥；按获准项目配额设置CPU、内存、进程和临时盘限制，核对实际cgroup生效；不认定单机容器为生产高可用。
+  status: proposal_pending_review
+- id: ER-T005
+  name: 配置代码格式化与静态检查
+  type: engineering_elaboration_of_source_task
+  source_task_id: T005
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 配置Ruff/Black或等价工具、mypy、ESLint、Prettier和提交前检查。
+  acceptance: 本地和CI命令一致；示例违规代码能被拦截。
+  status: proposal_pending_review
+- id: ER-T006
+  name: 建立基础持续集成流水线
+  type: engineering_elaboration_of_source_task
+  source_task_id: T006
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 建立后端、前端、迁移、单元测试和构建流水线。
+  acceptance: 任一门禁失败阻止合并；产出测试报告；缓存不影响正确性。
+  status: proposal_pending_review
+- id: ER-T007
+  name: 建立统一配置和密钥规范
+  type: engineering_elaboration_of_source_task
+  source_task_id: T007
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 划分开发、测试、生产配置；密钥只从Secret或环境注入。
+  acceptance: 仓库无真实密钥；敏感配置不写日志；启动时校验必需项。
+  status: proposal_pending_review
+- id: ER-T008
+  name: 建立统一日志与请求追踪
+  type: engineering_elaboration_of_source_task
+  source_task_id: T008
+  source_design: DES-001 V1.4 §8.11；本书§7补充技术验证。
+  scope: 统一日志和request_id，跨API、队列、节点及网关传播trace_id并关联task_id/run_version/attempt；敏感字段脱敏。
+  acceptance: 所有API日志可关联请求；令牌、密码、原始敏感文本被过滤。
+  status: proposal_pending_review
+- id: ER-T009
+  name: 建立统一异常与错误码框架
+  type: engineering_elaboration_of_source_task
+  source_task_id: T009
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 实现业务异常、HTTP映射、错误码注册和统一响应。
+  acceptance: 未知异常不泄露堆栈；已知异常映射稳定；错误码不可重复。
+  status: proposal_pending_review
+- id: ER-T010
+  name: 建立架构决策记录和变更模板
+  type: engineering_elaboration_of_source_task
+  source_task_id: T010
+  source_design: DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。
+  scope: 建立ADR、需求变更、模型变更和数据库变更模板。
+  acceptance: 重要决策有状态、背景、方案、影响和回滚；模板可直接复用。
+  status: proposal_pending_review
+- id: ER-T011
+  name: 设计用户角色与数据范围模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T011
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 设计用户、角色、权限、单位、案件范围和数据密级模型。
+  acceptance: 覆盖管理员、数据管理员、算法管理员、审核员、核查人员和审计员；默认拒绝。
+  status: proposal_pending_review
+- id: ER-T012
+  name: 实现用户角色数据库模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T012
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 实现用户、角色、权限和关联表及迁移。
+  acceptance: 唯一约束、外键和软禁用正确；迁移升级可验证；可逆回退或不可逆恢复/前向修复方案齐全。
+  status: proposal_pending_review
+- id: ER-T013
+  name: 实现认证与令牌校验
+  type: engineering_elaboration_of_source_task
+  source_task_id: T013
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 实现统一认证适配层、访问令牌验证和会话失效。
+  acceptance: 过期、伪造、禁用用户均被拒绝；生产接口可替换为统一身份认证。
+  status: proposal_pending_review
+- id: ER-T014
+  name: 实现接口级权限控制
+  type: engineering_elaboration_of_source_task
+  source_task_id: T014
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 实现路由权限装饰器和最小权限校验。
+  acceptance: 未认证401、无权限403；所有受保护接口默认启用。
+  status: proposal_pending_review
+- id: ER-T015
+  name: 实现数据范围访问控制
+  type: engineering_elaboration_of_source_task
+  source_task_id: T015
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 按单位、案件、任务和密级过滤查询与写入。
+  acceptance: 跨单位和跨案件访问被拒绝；管理员越权需显式授权。
+  status: proposal_pending_review
+- id: ER-T016
+  name: 实现高风险操作二次确认
+  type: engineering_elaboration_of_source_task
+  source_task_id: T016
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 对批量导出、删除、证据解封和模型上线增加二次确认或审批钩子。
+  acceptance: 二次确认仅防误操作，不代替业务审批；服务端按获准策略核验审批链。operation_token一次性、短时有效，绑定用户、用途、对象/操作版本及批准记录；正式策略未取得不放行受控操作，全程审计。
+  status: proposal_pending_review
+- id: ER-T017
+  name: 实现操作审计事件模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T017
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 记录登录、查询、下载、修改、审核、导出和配置变更。
+  acceptance: 事件追加写；包含操作者、对象、动作、结果、时间和request_id。
+  status: proposal_pending_review
+- id: ER-T018
+  name: 开发审计查询页面与接口
+  type: engineering_elaboration_of_source_task
+  source_task_id: T018
+  source_design: DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。
+  scope: 实现审计日志筛选、详情和受控导出。
+  acceptance: 仅审计权限可访问；导出留痕并脱敏；支持时间、用户、对象过滤。
+  status: proposal_pending_review
+- id: ER-T019
+  name: 设计内容与媒体资产模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T019
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 定义content_item、media_asset、source_registry和asset_lineage。
+  acceptance: 区分逻辑内容、原始媒体和派生媒体；记录授权、哈希、父对象和保存期限。
+  status: proposal_pending_review
+- id: ER-T020
+  name: 实现内容与媒体资产表
+  type: engineering_elaboration_of_source_task
+  source_task_id: T020
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 创建核心表、索引和数据库迁移。
+  acceptance: SHA-256和对象键有合理索引；迁移升级及回退/恢复方案可验证；原始与派生约束正确。
+  status: proposal_pending_review
+- id: ER-T021
+  name: 实现数据来源授权登记
+  type: engineering_elaboration_of_source_task
+  source_task_id: T021
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 登记来源类型、授权依据、用途、有效期和责任人。
+  acceptance: 无有效来源不得批量导入；到期来源触发告警；修改有审计。
+  status: proposal_pending_review
+- id: ER-T022
+  name: 实现分片上传初始化
+  type: engineering_elaboration_of_source_task
+  source_task_id: T022
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 创建upload_session并返回分片参数。
+  acceptance: 校验大小、类型、授权与会话状态；重复幂等键返回同一会话。upload_id只作标识，不作访问凭证；对象访问由当前身份和权限控制。
+  status: proposal_pending_review
+- id: ER-T023
+  name: 实现分片接收与校验
+  type: engineering_elaboration_of_source_task
+  source_task_id: T023
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 接收分片、校验长度和哈希并记录偏移。
+  acceptance: 重复分片幂等；错误哈希拒绝；不能写入其他用户会话。
+  status: proposal_pending_review
+- id: ER-T024
+  name: 实现分片合并与完整哈希
+  type: engineering_elaboration_of_source_task
+  source_task_id: T024
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 按序合并分片，计算完整SHA-256并原子完成会话。
+  acceptance: 哈希不一致不入库；重复完成幂等；临时文件有清理策略。
+  status: proposal_pending_review
+- id: ER-T025
+  name: 实现MinIO对象存储适配器
+  type: engineering_elaboration_of_source_task
+  source_task_id: T025
+  source_design: DES-001 V1.4 §8.10；本书§7补充技术验证。
+  scope: 封装经ADR评审的S3兼容对象产品；原MinIO任务名保留来源，社区/AIStor维护许可和业务/Milvus依赖分别核查。提供put/get/head、对象版本与摘要；逐请求撤销路径使用受控代理，不把预签名等同即时撤销。
+  acceptance: 上传/下载均校验权限；记录对象version_id和SHA-256；校验实际候选产品的版本控制与对象锁兼容性，锁定与保留策略待审批。
+  status: proposal_pending_review
+- id: ER-T026
+  name: 实现媒体格式探测与安全校验
+  type: engineering_elaboration_of_source_task
+  source_task_id: T026
+  source_design: DES-001 V1.4 §9.7；本书§7补充技术验证。
+  scope: 基于文件头和解码结果校验类型，接入查毒和异常压缩限制。
+  acceptance: 允许格式、签名/容器探测、查毒及资源预算均通过才发布资产；查毒不可用或恶意内容隔离；解析非特权且限制网络和协议。
+  status: proposal_pending_review
+- id: ER-T027
+  name: 实现SHA-256完全重复检测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T027
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 上传完成后查询完全相同资产并建立关联。
+  acceptance: 不得覆盖既有对象；重复文件复用分析结果需经过权限和版本校验。
+  status: proposal_pending_review
+- id: ER-T028
+  name: 实现批量清单导入
+  type: engineering_elaboration_of_source_task
+  source_task_id: T028
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 支持授权CSV/JSON清单和对象文件批量导入。
+  acceptance: 逐条状态、可重试、错误不阻断全批；来源和授权必填。
+  status: proposal_pending_review
+- id: ER-T029
+  name: 实现第三方接入适配器协议
+  type: engineering_elaboration_of_source_task
+  source_task_id: T029
+  source_design: DES-001 V1.4 §9.7；本书§7补充技术验证。
+  scope: 定义合法授权第三方API和消息接入接口，不实现绕过访问控制逻辑。
+  acceptance: 只接获准来源；URL使用scheme/host/port及DNS/IP验证，默认禁重定向；必要跳转逐跳验证，日志和授权可追溯。
+  status: proposal_pending_review
+- id: ER-T030
+  name: 开发媒体资产管理页面
+  type: engineering_elaboration_of_source_task
+  source_task_id: T030
+  source_design: DES-001 V1.4 §7.4、§8.3.1、§8.5.2、§8.10、§9.7；本书§7补充技术验证。
+  scope: 展示媒体元数据、版本、血缘、来源和权限状态。
+  acceptance: 支持筛选和详情；原始对象不可直接编辑；下载受权限和审计控制。
+  status: proposal_pending_review
+- id: ER-T031
+  name: 设计分析任务与节点执行模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T031
+  source_design: DES-001 V1.4 §4.3—4.4、§4.7、§8.5.2；本书§7补充技术验证。
+  scope: 设计analysis_task、task_node_run、task_event和policy_version。
+  acceptance: 支持快速筛查、深度核查、取证溯源三级策略；节点可重试和恢复。
+  status: proposal_pending_review
+- id: ER-T032
+  name: 实现任务及节点数据库模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T032
+  source_design: DES-001 V1.4 §4.3—4.4、§4.7、§8.5.2；本书§7补充技术验证。
+  scope: 创建任务、节点运行、事件和策略表及迁移。
+  acceptance: 状态使用受控枚举；版本和时间字段完备；迁移升级及回退/恢复方案可验证。
+  status: proposal_pending_review
+- id: ER-T033
+  name: 实现任务状态机
+  type: engineering_elaboration_of_source_task
+  source_task_id: T033
+  source_design: DES-001 V1.4 §4.4、§4.7；本书§7补充技术验证。
+  scope: 分别维护上传会话和分析任务状态；分析状态转移校验当前状态与run_version，状态与审计在同一事务提交。
+  acceptance: 有效资产才能创建分析任务；非法转换返回TASK_STATE_CONFLICT；RETURNED补证回审核，重算关联新版本入队；终态历史不可覆盖，正式路径由Q-24确认。
+  status: proposal_pending_review
+- id: ER-T034
+  name: 实现任务创建接口
+  type: engineering_elaboration_of_source_task
+  source_task_id: T034
+  source_design: DES-001 V1.4 §8.5.2；本书§7补充技术验证。
+  scope: 按场景和模块创建异步分析任务。
+  acceptance: 校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。
+  status: proposal_pending_review
+- id: ER-T035
+  name: 实现任务查询和进度接口
+  type: engineering_elaboration_of_source_task
+  source_task_id: T035
+  source_design: DES-001 V1.4 §4.3—4.4、§4.7、§8.5.2；本书§7补充技术验证。
+  scope: 查询任务、节点、进度、错误和结果版本。
+  acceptance: 仅授权范围可见；进度单调限定同一run_version与固定DAG；重算新版本单列，部分/延期能力明确，不泄露堆栈。
+  status: proposal_pending_review
+- id: ER-T036
+  name: 实现异步队列与优先级
+  type: engineering_elaboration_of_source_task
+  source_task_id: T036
+  source_design: DES-001 V1.4 §4.7；本书§7补充技术验证。
+  scope: SQL任务/outbox持久化，成熟broker候选优先做故障PoC；Kafka接入/事件流与执行broker分开。长短队列、容量背压与优先级可配置，重复投递允许且消费者幂等，不承诺抢占已运行GPU。
+  acceptance: 固定broker/版本支持项目worker拓扑、确认与重投；Kafka执行路线需另证明官方限制的处置。提交后故障可恢复，重复事件无重复业务效果，最终业务状态以SQL为准。
+  status: proposal_pending_review
+- id: ER-T037
+  name: 实现DAG任务编排器
+  type: engineering_elaboration_of_source_task
+  source_task_id: T037
+  source_design: DES-001 V1.4 §4.3—4.4、§4.7、§8.5.2；本书§7补充技术验证。
+  scope: 按策略生成预处理、识别、取证、检索和报告节点依赖。
+  acceptance: 必需/可选边按契约满足；合法SKIPPED可满足可选边，失败/未执行不冒充成功；无音轨等不死等，部分能力不形成完整正式结果。
+  status: proposal_pending_review
+- id: ER-T038
+  name: 实现节点级重试与检查点
+  type: engineering_elaboration_of_source_task
+  source_task_id: T038
+  source_design: DES-001 V1.4 §4.7；本书§7补充技术验证。
+  scope: 实现运行期retry_policy、超时退避和检查点；节点租约与fencing_token防止旧执行覆盖，永久错误和OOM不无限重投。
+  acceptance: 唯一幂等键包含任务/运行版本/节点/输入摘要；租约回收后旧进程结果拒绝；允许重试重新入队，历史尝试留痕。
+  status: proposal_pending_review
+- id: ER-T039
+  name: 实现任务取消和退回重算
+  type: engineering_elaboration_of_source_task
+  source_task_id: T039
+  source_design: DES-001 V1.4 §4.4、§4.7；本书§7补充技术验证。
+  scope: 取消意图/停止确认与版本条件提交；退回补证与重算分流，旧fencing执行结果拒绝，进度按新run_version记录。
+  acceptance: 协作取消确认停止；补证与重算分流，重算关联新run_version回QUEUED；保留历史、原因、权限及审批，正式制度按Q-24。
+  status: proposal_pending_review
+- id: ER-T040
+  name: 开发任务监控页面
+  type: engineering_elaboration_of_source_task
+  source_task_id: T040
+  source_design: DES-001 V1.4 §4.3—4.4、§4.7、§8.5.2；本书§7补充技术验证。
+  scope: 展示任务列表、节点DAG、进度、错误、重试和取消。
+  acceptance: 状态实时刷新；操作受权限控制；节点错误可定位。
+  status: proposal_pending_review
+- id: ER-T041
+  name: 实现图片元数据解析
+  type: engineering_elaboration_of_source_task
+  source_task_id: T041
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 提取格式、尺寸、色彩、EXIF、质量和重采样基础信息。
+  acceptance: 异常EXIF不中断；保留原始摘要；敏感定位信息按权限脱敏。
+  status: proposal_pending_review
+- id: ER-T042
+  name: 实现视频ffprobe解析
+  type: engineering_elaboration_of_source_task
+  source_task_id: T042
+  source_design: DES-001 V1.4 §8.5.3；本书§7补充技术验证。
+  scope: 安全调用ffprobe提取容器、编解码、时长、帧率、码率、时基、音轨和字幕。
+  acceptance: 保存各流PTS/time_base/start_time和VFR、缺失时间戳标记；不以帧号/平均帧率一律代替播放时间；估算时间标记来源。
+  status: proposal_pending_review
+- id: ER-T043
+  name: 实现标准化媒体副本生成
+  type: engineering_elaboration_of_source_task
+  source_task_id: T043
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 生成内部分析副本并保留原始编码信息和血缘。
+  acceptance: 只生成派生副本并记mapping_version；每能力声明原件字节/原件解码像素/允许副本，取证输入不默认使用重编码副本；原件摘要不变。
+  status: proposal_pending_review
+- id: ER-T044
+  name: 实现镜头边界检测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T044
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 集成镜头检测组件并输出镜头起止时间。
+  acceptance: 支持硬切与渐变基础场景；短镜头规则配置化；结果可重复。
+  status: proposal_pending_review
+- id: ER-T045
+  name: 实现固定间隔抽帧
+  type: engineering_elaboration_of_source_task
+  source_task_id: T045
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 按可配置间隔抽取带精确时间戳的帧。
+  acceptance: 帧时间误差受控；长视频分批；重复任务不重复写。
+  status: proposal_pending_review
+- id: ER-T046
+  name: 实现镜头代表帧选择
+  type: engineering_elaboration_of_source_task
+  source_task_id: T046
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 按清晰度、信息熵和邻帧差异为每镜头选Top-K。
+  acceptance: 每镜头至少一帧；最小时间间隔生效；评分参数配置化。
+  status: proposal_pending_review
+- id: ER-T047
+  name: 实现音轨与字幕提取
+  type: engineering_elaboration_of_source_task
+  source_task_id: T047
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 提取音轨、内嵌字幕和时间戳，生成派生资产。
+  acceptance: 无音轨/字幕正常处理；时间轴与原视频一致；血缘完整。
+  status: proposal_pending_review
+- id: ER-T048
+  name: 接入OCR并建立时间片段
+  type: engineering_elaboration_of_source_task
+  source_task_id: T048
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 对图片和关键帧执行OCR，合并相邻帧重复文本。
+  acceptance: 保留框坐标和模型版本；低置信标记而非静默删除。
+  status: proposal_pending_review
+- id: ER-T049
+  name: 接入ASR并建立时间片段
+  type: engineering_elaboration_of_source_task
+  source_task_id: T049
+  source_design: DES-001 V1.4 §4.2、§6.7、§8.5.3、§9.7；本书§7补充技术验证。
+  scope: 对音轨执行ASR并输出字词或句级时间戳。
+  acceptance: 长音频分段；无语音可识别；模型与词表版本记录。
+  status: proposal_pending_review
+- id: ER-T050
+  name: 实现媒体统一时间轴服务
+  type: engineering_elaboration_of_source_task
+  source_task_id: T050
+  source_design: DES-001 V1.4 §8.5.3；本书§7补充技术验证。
+  scope: 聚合镜头、关键帧、OCR、ASR、字幕和后续风险事件。
+  acceptance: 原件和分析副本的时间/坐标映射有版本；毫秒区间与变速/倒放关系明确；OCR/ASR、掩码及关键帧能定位原件。
+  status: proposal_pending_review
+- id: ER-T051
+  name: 定义统一模型输入输出契约
+  type: engineering_elaboration_of_source_task
+  source_task_id: T051
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 定义推理请求、发现项、证据、警告和运行信息Schema。
+  acceptance: Schema可表达分类/框/时间/掩码/向量；明确分数、missing_modality、部分能力、输入字节/像素路径与前处理版本；版本化及错误可校验。
+  status: proposal_pending_review
+- id: ER-T052
+  name: 实现模型注册表
+  type: engineering_elaboration_of_source_task
+  source_task_id: T052
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 管理模型名称、版本、镜像摘要、指标、数据版本和状态。
+  acceptance: 版本唯一；上线/下线需权限；模型卡必填；修改审计。
+  status: proposal_pending_review
+- id: ER-T053
+  name: 实现统一推理网关
+  type: engineering_elaboration_of_source_task
+  source_task_id: T053
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 按能力/版本路由独立PyTorch/ONNX Runtime服务或经评审Triton；保留ModelAdapter抽象，TorchServe不作常规长期首选；后端维护与兼容矩阵纳入评审。
+  acceptance: 业务服务不导入模型代码；超时/错误/trace统一；实际backend锁版本并验证维护补丁路径及环境；Mock只计接口验证。
+  status: proposal_pending_review
+- id: ER-T054
+  name: 实现HTTP与本地Mock适配器
+  type: engineering_elaboration_of_source_task
+  source_task_id: T054
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 提供HTTP模型服务和测试Mock适配器。
+  acceptance: 适配器可替换；Mock可配置成功、失败、超时和异常输出。
+  status: proposal_pending_review
+- id: ER-T055
+  name: 实现推理批处理与GPU队列
+  type: engineering_elaboration_of_source_task
+  source_task_id: T055
+  source_design: DES-001 V1.4 §8.7、§8.11；本书§7补充技术验证。
+  scope: 按模型、尺寸和等待窗口合批，控制显存和优先级。
+  acceptance: 批量结果顺序正确；超时不长期阻塞，显存/队列背压可观察；当前无已确认GPU，GPU专项测试保持未执行，CPU/Mock不计入GPU达标。
+  status: proposal_pending_review
+- id: ER-T056
+  name: 实现模型健康检查与熔断
+  type: engineering_elaboration_of_source_task
+  source_task_id: T056
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 探测模型实例，失败时熔断、恢复和可选版本降级。
+  acceptance: 连续失败触发；半开恢复；降级被记录且不隐藏版本变化。
+  status: proposal_pending_review
+- id: ER-T057
+  name: 实现模型灰度发布
+  type: engineering_elaboration_of_source_task
+  source_task_id: T057
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 按单位、任务比例或场景路由新模型，并支持双写对比。
+  acceptance: 灰度配置有审批；正式结论使用主版本；对比结果隔离。
+  status: proposal_pending_review
+- id: ER-T058
+  name: 实现模型评测记录管理
+  type: engineering_elaboration_of_source_task
+  source_task_id: T058
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 保存数据集版本、总体和分组指标、报告文件。
+  acceptance: 没有合格评测记录不能进入发布审批；报告不可覆盖。
+  status: proposal_pending_review
+- id: ER-T059
+  name: 实现输入输出漂移监测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T059
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。
+  scope: 统计输入质量、嵌入分布、置信度和人工纠错变化。
+  acceptance: 不保存不必要原始敏感内容；阈值可配置；按模型版本区分。
+  status: proposal_pending_review
+- id: ER-T060
+  name: 开发模型运维页面
+  type: engineering_elaboration_of_source_task
+  source_task_id: T060
+  source_design: DES-001 V1.4 §6.6、§6.8、§8.11；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 展示模型卡、版本、评测、灰度、漂移和回滚。
+  acceptance: 模型上线/回滚页面有二次确认，并显示获准发布策略、包版本和批准记录；二次确认不代替审批，后端校验发布授权和权限分离，失效或未批准包不得正式上线。
+  status: proposal_pending_review
+- id: ER-T061
+  name: 定义风险标签和版本管理
+  type: engineering_elaboration_of_source_task
+  source_task_id: T061
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 建立多标签体系、层级、定义、示例、阈值和版本。
+  acceptance: 标签变更不覆盖历史；未知和证据不足可表达；权限与审计完整。
+  status: proposal_pending_review
+- id: ER-T062
+  name: 接入图片多标签分类模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T062
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 实现图片风险分类适配器和证据生成。
+  acceptance: 使用Sigmoid多标签；返回原始与校准分数、阈值、模型版本。
+  status: proposal_pending_review
+- id: ER-T063
+  name: 接入敏感目标检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T063
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 检测火焰、烟雾、危险物品、事故车辆和敏感标识。
+  acceptance: 坐标归一化；视频结果带时间戳；类别与标签版本匹配。
+  status: proposal_pending_review
+- id: ER-T064
+  name: 接入视频行为识别模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T064
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 对2～8秒窗口识别打斗、追逐、跌倒、碰撞和爆炸等事件。
+  acceptance: 窗口重叠结果合并；边界不越界；模型版本记录。
+  status: proposal_pending_review
+- id: ER-T065
+  name: 接入音频事件识别模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T065
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 识别爆炸、撞击、呼喊等音频事件。
+  acceptance: 静音和无音轨正常处理；结果绑定音轨和模型版本。
+  status: proposal_pending_review
+- id: ER-T066
+  name: 实现多模态时间对齐
+  type: engineering_elaboration_of_source_task
+  source_task_id: T066
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 将视觉、目标、动作、OCR、ASR和音频事件映射到统一窗口。
+  acceptance: 处理缺失模态；时间单位一致；不因缺失模态丢弃窗口。
+  status: proposal_pending_review
+- id: ER-T067
+  name: 实现跨模态矛盾检测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T067
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 判断标题/字幕/语音主张与画面事件的一致性。
+  acceptance: 输出一致、矛盾、无关或证据不足；绑定两侧证据。
+  status: proposal_pending_review
+- id: ER-T068
+  name: 实现综合风险融合与校准
+  type: engineering_elaboration_of_source_task
+  source_task_id: T068
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 融合多模态结果、业务规则和概率校准。
+  acceptance: 按类别独立阈值；不得以单一总分替代重点类别；结果可解释。
+  status: proposal_pending_review
+- id: ER-T069
+  name: 实现风险转人工规则
+  type: engineering_elaboration_of_source_task
+  source_task_id: T069
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 对高风险低置信、模型冲突、分布外和强制类别进入复核。
+  acceptance: 触发原因明确；优先级可配置；规则版本可追溯。
+  status: proposal_pending_review
+- id: ER-T070
+  name: 开发风险识别研判界面
+  type: engineering_elaboration_of_source_task
+  source_task_id: T070
+  source_design: DES-001 V1.4 §5.3—5.4、§6.7—6.8、§11.1、§11.6；本书§7补充技术验证。
+  scope: 播放器、时间轴、目标框、文本和证据卡片联动。
+  acceptance: 点击结论定位帧/时间/区域；显示模型版本、阈值和人工状态。
+  status: proposal_pending_review
+- id: ER-T071
+  name: 实现图片取证基础特征
+  type: engineering_elaboration_of_source_task
+  source_task_id: T071
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 从受控只读原件提取JPEG量化/EXIF/容器痕迹，噪声及像素特征按验证解码/缩放版本处理；不从标准化副本反推原始取证信号。
+  acceptance: 每项特征记录算法版本；不把单项异常直接作为篡改结论。
+  status: proposal_pending_review
+- id: ER-T072
+  name: 接入图片篡改区域模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T072
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 接入许可和环境可接受的取证模型；原TruFor采用RGB与学习噪声指纹并输出整图/定位/可靠性。项目三分支扩展单列训练消融，未校准不称概率。
+  acceptance: 掩码尺寸可回映射原图；保存模型版本；支持证据不足。
+  status: proposal_pending_review
+- id: ER-T073
+  name: 实现复制粘贴与局部生成分类
+  type: engineering_elaboration_of_source_task
+  source_task_id: T073
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 综合区域、噪声、几何和语义特征区分篡改类型。
+  acceptance: 类型与区域一致；低置信不强制分类；提供特征证据。
+  status: proposal_pending_review
+- id: ER-T074
+  name: 实现视频时间结构异常检测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T074
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 分析帧间相似、光流、时间戳、GOP、重复帧和音频连续性。
+  acceptance: 定位删除、插入、重排、变速、倒放和重复片段候选。
+  status: proposal_pending_review
+- id: ER-T075
+  name: 实现视频空间篡改跟踪
+  type: engineering_elaboration_of_source_task
+  source_task_id: T075
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 将逐帧篡改区域在视频中跟踪并聚合为时间段。
+  acceptance: 短暂误检可过滤；区域轨迹可视化；不越出帧边界。
+  status: proposal_pending_review
+- id: ER-T076
+  name: 接入深度伪造与音画同步检测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T076
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 检测换脸、人脸时序异常、口型语音不同步和音轨替换。
+  acceptance: 按人脸轨迹输出；无脸内容不报错；压缩条件下分组评测。
+  status: proposal_pending_review
+- id: ER-T077
+  name: 实现篡改多证据融合
+  type: engineering_elaboration_of_source_task
+  source_task_id: T077
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 融合空间、时间、编码、元数据和音视频证据。
+  acceptance: 结论区分确认候选和证据不足；冲突证据进入人工复核。
+  status: proposal_pending_review
+- id: ER-T078
+  name: 开发篡改取证界面
+  type: engineering_elaboration_of_source_task
+  source_task_id: T078
+  source_design: DES-001 V1.4 §6.7—6.8、§8.5.3、§11.1、§11.6；本书§7补充技术验证。
+  scope: 展示热力图、可靠性图、时间点、区域轨迹、GOP和音频异常。
+  acceptance: 证据与原媒体坐标/时间联动；显示算法限制和人工状态。
+  status: proposal_pending_review
+- id: ER-T079
+  name: 实现图片感知哈希特征
+  type: engineering_elaboration_of_source_task
+  source_task_id: T079
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 计算pHash/PDQ等特征并版本化保存。
+  acceptance: 同一图片稳定；模型/算法版本记录；完全重复与近重复分开。
+  status: proposal_pending_review
+- id: ER-T080
+  name: 实现视觉与复制检测向量生成
+  type: engineering_elaboration_of_source_task
+  source_task_id: T080
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 为图片和关键帧生成语义向量与复制检测向量。
+  acceptance: 归一化规则明确；不同版本隔离；失败可重试。
+  status: proposal_pending_review
+- id: ER-T081
+  name: 建立Milvus索引与版本管理
+  type: engineering_elaboration_of_source_task
+  source_task_id: T081
+  source_design: DES-001 V1.4 §8.9；本书§7补充技术验证。
+  scope: 按模型/预处理/维数/度量管理collection、索引版本和过滤字段；构建校验后切换，回滚不混合向量。
+  acceptance: 保留≥2000万索引源目标，按20万/200万/2000万逐级验证；权限条件由服务端生成并复核返回资产；实测写入可见性。
+  status: proposal_pending_review
+- id: ER-T082
+  name: 实现图片多路候选召回
+  type: engineering_elaboration_of_source_task
+  source_task_id: T082
+  source_design: DES-001 V1.4 §8.9；本书§7补充技术验证。
+  scope: 并行执行SHA-256、哈希、复制向量和语义向量召回并融合排名。
+  acceptance: 召回在当前授权域内执行；结果逐对象复核；近似相似不得直接确认同源；版本不匹配报错。
+  status: proposal_pending_review
+- id: ER-T083
+  name: 实现局部特征提取与匹配
+  type: engineering_elaboration_of_source_task
+  source_task_id: T083
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 集成SIFT或SuperPoint/LightGlue，输出匹配点。
+  acceptance: 代码/权重/提取器许可分别核验，LightGlue许可不覆盖SuperPoint；整图/局部/低纹理与资源条件明确，许可未闭环不作正式发布。
+  status: proposal_pending_review
+- id: ER-T084
+  name: 实现RANSAC几何验证
+  type: engineering_elaboration_of_source_task
+  source_task_id: T084
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 估计单应矩阵、内点率、覆盖率、旋转和缩放。
+  acceptance: 验证失败不得标记高可信同源；参数配置化；生成匹配证据图。
+  status: proposal_pending_review
+- id: ER-T085
+  name: 实现图片局部区域检索
+  type: engineering_elaboration_of_source_task
+  source_task_id: T085
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 支持用户框选查询区域并检索图片或视频帧。
+  acceptance: 坐标校验；输出候选匹配区域；区域权限继承原资产。
+  status: proposal_pending_review
+- id: ER-T086
+  name: 实现视频帧检索候选聚合
+  type: engineering_elaboration_of_source_task
+  source_task_id: T086
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 按来源视频聚合关键帧命中、覆盖率、连续性和相似度。
+  acceptance: 过滤孤立单帧；保留帧时间对应；候选Top-N可配置。
+  status: proposal_pending_review
+- id: ER-T087
+  name: 实现视频相似度矩阵构建
+  type: engineering_elaboration_of_source_task
+  source_task_id: T087
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 构建查询与候选关键帧余弦相似度矩阵并压缩存储。
+  acceptance: 时间戳顺序正确；大矩阵分块；可生成可视化。
+  status: proposal_pending_review
+- id: ER-T088
+  name: 实现局部DTW与倒放对齐
+  type: engineering_elaboration_of_source_task
+  source_task_id: T088
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 支持正常、变速、倒放和局部片段的序列对齐。
+  acceptance: 不能由单帧确认；边界回映射正确；参数配置化。
+  status: proposal_pending_review
+- id: ER-T089
+  name: 实现多源拼接来源映射
+  type: engineering_elaboration_of_source_task
+  source_task_id: T089
+  source_design: DES-001 V1.4 §6.7、§8.5.3、§8.9、§11.6；本书§7补充技术验证。
+  scope: 按镜头独立检索并合并为查询片段到多个来源的映射。
+  acceptance: 覆盖率和未匹配区段明确；重叠来源有冲突处理；平均定位误差可计算。
+  status: proposal_pending_review
+- id: ER-T090
+  name: 实现高可信同源内容聚类
+  type: engineering_elaboration_of_source_task
+  source_task_id: T090
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 只使用通过几何或时序验证的关系构建内容簇。
+  acceptance: 语义相似不直接入簇；A—拼接Q—B不能仅按连通合成整内容簇；合并/拆分审核，首发范围明确，防泄漏组与业务簇分开。
+  status: proposal_pending_review
+- id: ER-T091
+  name: 实现首发排序特征工程
+  type: engineering_elaboration_of_source_task
+  source_task_id: T091
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 计算时间可信度、完整度、质量、音轨、水印、字幕、账号和图特征。
+  acceptance: 缺失值与来源证据明确；不把缺失当负面；特征版本化。
+  status: proposal_pending_review
+- id: ER-T092
+  name: 训练和注册首发排序模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T092
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 使用T164或等价已核查首发簇清单、参考来源和簇级切分训练LambdaMART及基线；验证/校准集调参，锁候选后受控独立评测。
+  acceptance: 训练数据/许可/簇真值明确，Top-3源目标及正式性质按Q-13/Q-22；工程训练完成和正式发布达标分别记，特征贡献及覆盖未知可复查。
+  status: proposal_pending_review
+- id: ER-T093
+  name: 实现首发候选查询服务
+  type: engineering_elaboration_of_source_task
+  source_task_id: T093
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 返回Top-3候选、概率、不确定性和支持/反对证据。
+  acceptance: 措辞限定授权数据范围；证据不足不输出确定原创；人工状态可见。
+  status: proposal_pending_review
+- id: ER-T094
+  name: 设计传播图谱数据模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T094
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 定义内容、账号、平台、事件、机构、地点、话题和关系证据。
+  acceptance: 显式与推断关系分离；边含时间、概率、证据和确认状态。
+  status: proposal_pending_review
+- id: ER-T095
+  name: 实现传播图谱写入与查询
+  type: engineering_elaboration_of_source_task
+  source_task_id: T095
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 将发布、转发、同源、搬运和篡改关系写图并查询路径。
+  acceptance: 写入幂等；权限过滤；路径结果带证据ID。
+  status: proposal_pending_review
+- id: ER-T096
+  name: 实现隐式传播关系推断
+  type: engineering_elaboration_of_source_task
+  source_task_id: T096
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 根据同源、时间方向、水印、字幕和账号关系计算推断边。
+  acceptance: 不得覆盖显式关系；低概率不默认展示为事实；可人工确认或驳回。
+  status: proposal_pending_review
+- id: ER-T097
+  name: 开发传播时间线和图谱界面
+  type: engineering_elaboration_of_source_task
+  source_task_id: T097
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 联动展示节点、关系、时间线、版本差异和关键节点。
+  acceptance: 显式/推断边视觉区分；点击显示证据；大图支持聚合。
+  status: proposal_pending_review
+- id: ER-T098
+  name: 实现结构化主张抽取服务
+  type: engineering_elaboration_of_source_task
+  source_task_id: T098
+  source_design: DES-001 V1.4 §5.3、§6.7、§9.7、§11.6；本书§7补充技术验证。
+  scope: 从标题、正文、OCR和ASR抽取主体、行为、时间、地点和结果。
+  acceptance: 只输出结构化JSON；未知为null；每项引用输入片段；提示模板版本化。
+  status: proposal_pending_review
+- id: ER-T099
+  name: 实现权威证据检索与关系判断
+  type: engineering_elaboration_of_source_task
+  source_task_id: T099
+  source_design: DES-001 V1.4 §9.7；本书§7补充技术验证。
+  scope: 检索白名单证据库并判断支持、反驳、部分支持、无关或不足。
+  acceptance: 仅访问授权白名单证据源；URL出站按§9.7控制；每条关系关联可定位证据，不以网页/模型文本作为工具命令。
+  status: proposal_pending_review
+- id: ER-T100
+  name: 实现统一证据对象模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T100
+  source_design: DES-001 V1.4 §5.1、§8.5.3；本书§7补充技术验证。
+  scope: 统一帧、区域、时间段、匹配、文本、页面截图和模型证据。
+  acceptance: 证据引用原件、时间/坐标映射、模型/结果/授权版本；统一Schema可校验且先于算法正式联调；不要求机械等到第十一组才实施。
+  status: proposal_pending_review
+- id: ER-T101
+  name: 实现风险与取证证据卡片接口
+  type: engineering_elaboration_of_source_task
+  source_task_id: T101
+  source_design: DES-001 V1.4 §4.4、§5.4、§8.10、§9.7；本书§7补充技术验证。
+  scope: 将算法结果转换为统一证据卡片。
+  acceptance: 核心结论均有证据；支持过滤类型和人工状态；坐标时间可定位。
+  status: proposal_pending_review
+- id: ER-T102
+  name: 实现人工复核工作流
+  type: engineering_elaboration_of_source_task
+  source_task_id: T102
+  source_design: DES-001 V1.4 §5.4、§4.7；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 按DES §5.4建立业务复核和独立审批请求，支持领取、确认、驳回、退回补证/重算及按获准策略会审；绑定对象、策略和审核版本。
+  acceptance: 服务端核验当前对象权限和审批授权；策略缺失/失效不批准。并发提交校验review_version，记录理由、证据和审计，变更后重新审批；会审/职责分离按Q-18/Q-20/Q-24/Q-32确认。
+  status: proposal_pending_review
+- id: ER-T103
+  name: 开发人工复核工作台
+  type: engineering_elaboration_of_source_task
+  source_task_id: T103
+  source_design: DES-001 V1.4 §4.4、§5.4、§8.10、§9.7；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 统一展示媒体、时间轴、风险、篡改、来源、传播和审核表单。
+  acceptance: 证据可定位，显示对象/策略版本、待审或失效原因和允许动作；二次确认仅防误操作，不等于独立复核；模拟/未批准结果有标识，草稿可保存。
+  status: proposal_pending_review
+- id: ER-T104
+  name: 实现证据固化与完整性校验
+  type: engineering_elaboration_of_source_task
+  source_task_id: T104
+  source_design: DES-001 V1.4 §8.10；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 固化原始文件、结果、截图、日志和模型信息，生成清单哈希。
+  acceptance: 绑定对象版本和SHA-256清单；候选对象锁/完整性实测通过。更正建立新版本并触发关联批准校验，原记录保留；保留/legal hold策略及权限按Q-19/Q-20/Q-31确认，技术固化不自动认定证据效力。
+  status: proposal_pending_review
+- id: ER-T105
+  name: 实现可信时间与签名适配层
+  type: engineering_elaboration_of_source_task
+  source_task_id: T105
+  source_design: DES-001 V1.4 §8.10；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 定义可信时间和数字签名接口，提供开发环境适配器。
+  acceptance: 时间来源、证书/算法、验证链和故障策略可追溯；提供获准服务/授权依据及配置版本。模拟签名标识明确，未确认Q-26不宣称正式可信服务已接入。
+  status: proposal_pending_review
+- id: ER-T106
+  name: 实现证据约束核查摘要
+  type: engineering_elaboration_of_source_task
+  source_task_id: T106
+  source_design: DES-001 V1.4 §5.4、§9.7；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 生成句级绑定evidence_id的核查摘要。
+  acceptance: 逐句核验事实与证据支持关系，无证据拒绝或转人工；生成内容保持草稿/未批准身份，外部内容和模型不得触发批准或导出权限。
+  status: proposal_pending_review
+- id: ER-T107
+  name: 实现核查报告生成
+  type: engineering_elaboration_of_source_task
+  source_task_id: T107
+  source_design: DES-001 V1.4 §5.4；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 按模板生成版本化Word/PDF及证据目录；审批请求、报告展示状态和导出事件分别记录，支持退回、撤销、失效及受控导出。
+  acceptance: 报告、结果、证据摘要与有效批准绑定；服务端校验当前权限/用途/策略和版本，缺少批准不作为正式报告导出。变更后旧批准按获准策略失效，下载授权可撤销并留审计；批准角色/独立性仍待Q-20/Q-32确认。
+  status: proposal_pending_review
+- id: ER-T108
+  name: 实现样本纠错与回流审批
+  type: engineering_elaboration_of_source_task
+  source_task_id: T108
+  source_design: DES-001 V1.4 §5.4、§7.4；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 记录纠错申请、训练/评测用途授权及独立回流审批；按获准策略进入训练集、难例库或另行管理的评测集，禁止自动污染冻结测试集。
+  acceptance: 业务复核不自动批准训练使用；用途授权、脱敏/去重/质检和隔离检查通过后按批准版本入库。用途或授权撤销按获准政策处置并记录，不擅定删除期限。
+  status: proposal_pending_review
+- id: ER-T109
+  name: 建立标注规范与标签质检工具
+  type: engineering_elaboration_of_source_task
+  source_task_id: T109
+  source_design: DES-001 V1.4 §7.3、§7.6—7.7、§11.1、§11.6；本书§7补充技术验证。
+  scope: 前期按风险标签与证据Schema建立内容/时间/区域/关系标注规范及质量校验；不等待T090完整视频聚类。后期接入内容簇补查，未知关系人工确认。
+  acceptance: 强制必填和边界合法；支持未知/证据不足；双人标注和仲裁。
+  status: proposal_pending_review
+- id: ER-T110
+  name: 实现原始素材分组划分
+  type: engineering_elaboration_of_source_task
+  source_task_id: T110
+  source_design: DES-001 V1.4 §7.7；本书§7补充技术验证。
+  scope: 按授权来源、原素材/父子编辑血缘、人工已知同源关系先划分；组合素材保守分组防泄漏，T090后补查而非唯一真值。
+  acceptance: 原始素材及增强版本同组不跨集合；多源组合样本检查来源组交叉；比例可配置，清单/哈希/种子可复查；授权及事件/人物外推分层另记录。
+  status: proposal_pending_review
+- id: ER-T111
+  name: 实现可控编辑数据增强流水线
+  type: engineering_elaboration_of_source_task
+  source_task_id: T111
+  source_design: DES-001 V1.4 §7.3、§7.6—7.7、§11.1、§11.6；本书§7补充技术验证。
+  scope: 生成压缩、裁剪、旋转、镜像、字幕、水印、遮挡、变速、倒放和拼接版本。
+  acceptance: 不覆盖原始样本；每个增强可复现；标注同步变换。
+  status: proposal_pending_review
+- id: ER-T112
+  name: 建立难负样本挖掘流程
+  type: engineering_elaboration_of_source_task
+  source_task_id: T112
+  source_design: DES-001 V1.4 §7.3、§7.6—7.7、§11.1、§11.6；本书§7补充技术验证。
+  scope: 收集语义相似但非同源的图片和视频候选并人工确认。
+  acceptance: 未经人工确认不作为金标准；记录触发模型与相似度。
+  status: proposal_pending_review
+- id: ER-T113
+  name: 实现风险模型训练与评测流水线
+  type: engineering_elaboration_of_source_task
+  source_task_id: T113
+  source_design: DES-001 V1.4 §7.3、§7.6—7.7、§11.1、§11.6；本书§7补充技术验证。
+  scope: 训练多标签分类/融合模型并输出Macro-F1、分类召回和校准结果。
+  acceptance: 流水线建设以输入清单、Macro-F1/召回/校准公式与失败计数、冒烟和复算通过判定；95%/0.85源目标保留，真实模型候选发布另按生效MetricProtocol，不以代码运行判达标。
+  status: proposal_pending_review
+- id: ER-T114
+  name: 实现篡改模型评测流水线
+  type: engineering_elaboration_of_source_task
+  source_task_id: T114
+  source_design: DES-001 V1.4 §11.6；本书§7补充技术验证。
+  scope: 评测图片IoU、视频篡改分类型召回和可靠性。
+  acceptance: 保留IoU≥0.70及视频篡改召回≥90%源目标，正式口径按Q-13；掩码映射原件，漏检正例IoU=0，逐图宏平均与面积分层、负例误报单列。
+  status: proposal_pending_review
+- id: ER-T115
+  name: 实现同源与片段检索评测流水线
+  type: engineering_elaboration_of_source_task
+  source_task_id: T115
+  source_design: DES-001 V1.4 §7.3、§7.6—7.7、§11.1、§11.6；本书§7补充技术验证。
+  scope: 计算Recall@K、MRR、难负误命中率和时间定位误差。
+  acceptance: 评测代码/分母/失败计数/时间误差与复算正确；95%/90%及≤1秒源目标保留，在模型发布包上按生效协议受控评测，工程完成与模型达标分开。
+  status: proposal_pending_review
+- id: ER-T116
+  name: 实现首发和大模型核查评测
+  type: engineering_elaboration_of_source_task
+  source_task_id: T116
+  source_design: DES-001 V1.4 §7.3、§7.6—7.7、§11.1、§11.6；本书§7补充技术验证。
+  scope: 评测Top-3、NDCG、校准误差、主张抽取和证据关系。
+  acceptance: Top-3/NDCG/校准/关系及引用支持指标实现可复算；Top-3≥90%为保留源目标，范围/真值/未知按生效协议，独立测试不用于选择候选。
+  status: proposal_pending_review
+- id: ER-T117
+  name: 建立应用安全自动化扫描
+  type: engineering_elaboration_of_source_task
+  source_task_id: T117
+  source_design: DES-001 V1.4 §8.7—8.8、§8.11—8.12、§9.7、§11；本书§7补充技术验证。
+  scope: 集成依赖、SAST、镜像和密钥扫描。
+  acceptance: 严重/高危问题阻止合并或发布；误报有审批豁免期限。
+  status: proposal_pending_review
+- id: ER-T118
+  name: 实施上传与接口安全测试
+  type: engineering_elaboration_of_source_task
+  source_task_id: T118
+  source_design: DES-001 V1.4 §8.7—8.8、§8.11—8.12、§9.7、§11；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 覆盖恶意上传、路径穿越、注入、SSRF、重放、限流和越权。
+  acceptance: 早期上传/任务接口验证通过单列阶段结果；T102/T107/T108就绪后审批/导出/回流专项复测及适用高危用例全部关闭才签本任务最终完成。
+  status: proposal_pending_review
+- id: ER-T119
+  name: 实施大模型安全测试
+  type: engineering_elaboration_of_source_task
+  source_task_id: T119
+  source_design: DES-001 V1.4 §8.7—8.8、§8.11—8.12、§9.7、§11；本书§7补充技术验证。
+  scope: 测试提示注入、越权工具调用、证据污染、敏感泄露和无依据生成。
+  acceptance: 工具白名单有效；无证据句拦截；攻击输入不改变系统权限。
+  status: proposal_pending_review
+- id: ER-T120
+  name: 实现监控指标与告警
+  type: engineering_elaboration_of_source_task
+  source_task_id: T120
+  source_design: DES-001 V1.4 §8.11；本书§7补充技术验证。
+  scope: 监控API、队列、任务、GPU、存储、索引、模型和审计服务。
+  acceptance: 排队/解码/推理/端到端、失败重试、CPU/内存/磁盘与配额可观察；无GPU不显示虚假GPU指标；日志/trace不替代全量审计。
+  status: proposal_pending_review
+- id: ER-T121
+  name: 实现备份恢复与灾备演练
+  type: engineering_elaboration_of_source_task
+  source_task_id: T121
+  source_design: DES-001 V1.4 §8.12；本书§7补充技术验证。
+  scope: 按批准RPO/RTO实施SQL及对象/模型/配置备份；需要PITR时验证基础备份与连续WAL；隔离恢复后跨存储对账。
+  acceptance: 真实恢复、权限/授权、报告版本与原件摘要验证通过；备份损坏、WAL缺段及恢复点不一致可检测；同盘复制不作为独立灾备。
+  status: proposal_pending_review
+- id: ER-T122
+  name: 执行20并发验收性能测试
+  type: engineering_elaboration_of_source_task
+  source_task_id: T122
+  source_design: DES-001 V1.4 §11.2、§11.6、Q-14；本书§7补充技术验证。
+  scope: 保留20混合任务负载档的性能验证任务；正式验收性质与成功率/时延范围按Q-14和Q-13确认。
+  acceptance: 20及100均待确认；冻结素材、模型、索引、资源与计时范围后记录P50/P95/P99、吞吐、错误、排队和成功率；不得凭源标题认定已批准验收基线。
+  status: proposal_pending_review
+- id: ER-T123
+  name: 执行100并发容量与长稳测试
+  type: engineering_elaboration_of_source_task
+  source_task_id: T123
+  source_design: DES-001 V1.4 §11.2、§11.6、Q-14；本书§7补充技术验证。
+  scope: 保留100混合任务负载档的容量与长稳任务；源建议72小时仅为候选，持续时间和正式性质按Q-14确认。
+  acceptance: 不预判100为可选扩展或非硬指标；按批准负载执行，无数据损坏并明确瓶颈、错误率和资源需求；资源未落实保持未验证。
+  status: proposal_pending_review
+- id: ER-T124
+  name: 完成三类业务场景验收
+  type: engineering_elaboration_of_source_task
+  source_task_id: T124
+  source_design: DES-001 V1.4 §8.7—8.8、§8.11—8.12、§9.7、§11；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 验证事故灾害谣言、违法有害内容、搬运篡改溯源三类场景。
+  acceptance: 按生效三类场景与真实模型包验收；T113—T123、T170及全范围170条适用交付矩阵有关闭证据，T118最终安全复测完成。场景演示不能代替整体算法、负载和恢复评测；T124依据本轮场景报告关闭。
+  status: proposal_pending_review
+- id: ER-T125
+  name: 建立算法实验公共框架
+  type: engineering_elaboration_of_source_task
+  source_task_id: T125
+  source_design: DES-001 V1.4 §6.8；本书§7补充技术验证。
+  scope: 建立统一训练入口、配置继承、随机种子、实验目录、断点续训和产物登记。
+  acceptance: 同代码/数据/配置及固定软件硬件条件可重复实验并记录容许误差；保存框架/镜像/设备/种子/确定性设置；不承诺跨版本或CPU/GPU逐位一致；测试集不调参。
+  status: proposal_pending_review
+- id: ER-T126
+  name: 建立训练数据版本与数据卡
+  type: engineering_elaboration_of_source_task
+  source_task_id: T126
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 为风险、取证、检索、视频对齐和证据核查数据集建立版本、统计和数据卡。
+  acceptance: 记录来源、授权、标签版本、分组划分、类别分布、已知偏差和哈希。
+  status: proposal_pending_review
+- id: ER-T127
+  name: 冻结公安业务独立测试集
+  type: engineering_elaboration_of_source_task
+  source_task_id: T127
+  source_design: DES-001 V1.4 §7.7；本书§7补充技术验证。
+  scope: 从项目数据中冻结独立测试集并建立访问和解封审批。
+  acceptance: 独立测试清单按素材组隔离并防组合来源泄漏；研发不得用于训练/阈值/难例挖掘；验收角色执行和全部访问有记录。
+  status: proposal_pending_review
+- id: ER-T128
+  name: 建立算法基线结果台账
+  type: engineering_elaboration_of_source_task
+  source_task_id: T128
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 先以开发回归/验证集运行传统与预训练基线，记录指标/资源；不等待封存集才能做基线，也不按封存成绩反复选型。最终候选交隔离角色评测。
+  acceptance: 每条算法线至少一个可复现基线；记录吞吐、显存、错误样本和限制。
+  status: proposal_pending_review
+- id: ER-T129
+  name: 开展图片多标签风险数据分析
+  type: engineering_elaboration_of_source_task
+  source_task_id: T129
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 分析类别频次、共现、长尾、平台、分辨率和编辑条件分布。
+  acceptance: 识别类别不平衡、标签冲突和数据缺口；不得修改冻结测试标签。
+  status: proposal_pending_review
+- id: ER-T130
+  name: 训练图片多标签风险基线模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T130
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 以ConvNeXt、Swin或ViT建立多标签训练基线。
+  acceptance: 使用Sigmoid与BCE基线；验证集Macro-F1优于通用零样本结果；训练可复现。
+  status: proposal_pending_review
+- id: ER-T131
+  name: 优化风险类别不平衡与长尾召回
+  type: engineering_elaboration_of_source_task
+  source_task_id: T131
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 比较类别权重、Focal Loss、重采样和阈值分类型优化。
+  acceptance: 重点类别召回提升且Macro-F1无不可接受退化；报告每类指标。
+  status: proposal_pending_review
+- id: ER-T132
+  name: 训练敏感目标检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T132
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 基于业务目标框数据微调YOLO或RT-DETR，覆盖固定重点类别。
+  acceptance: mAP@0.5达到阶段目标；按类别、尺寸和遮挡分组报告；类别映射稳定。
+  status: proposal_pending_review
+- id: ER-T133
+  name: 开展小目标低清目标专项优化
+  type: engineering_elaboration_of_source_task
+  source_task_id: T133
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 优化多尺度训练、切片推理、超分辨率可选支路和困难样本采样。
+  acceptance: 小目标和低清子集召回提升；延迟增幅在预算内；不制造明显误报。
+  status: proposal_pending_review
+- id: ER-T134
+  name: 构建视频行为训练片段与时间边界
+  type: engineering_elaboration_of_source_task
+  source_task_id: T134
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 按2～8秒窗口生成行为片段、负样本和起止边界真值。
+  acceptance: 窗口与原视频时间可回映射；跨窗口事件完整；同源组不泄漏。
+  status: proposal_pending_review
+- id: ER-T135
+  name: 微调视频行为识别模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T135
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 微调VideoMAE、SlowFast或MViT，识别重点动作和事件。
+  acceptance: 验证集分类型指标优于基线；按时长、压缩和清晰度报告；可导出推理。
+  status: proposal_pending_review
+- id: ER-T136
+  name: 训练视频事件时间定位模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T136
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 在行为识别特征上训练帧级或边界回归时间定位头。
+  acceptance: 时间边界误差优于窗口分类基线；短事件和跨镜头事件有专项结果。
+  status: proposal_pending_review
+- id: ER-T137
+  name: 微调音频事件识别模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T137
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 微调AST、BEATs或PANNs识别爆炸、撞击、呼喊等声音。
+  acceptance: 分类型召回优于通用模型；噪声、静音和重编码条件分组报告。
+  status: proposal_pending_review
+- id: ER-T138
+  name: 构建跨模态一致与矛盾训练集
+  type: engineering_elaboration_of_source_task
+  source_task_id: T138
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 构造画面—标题、画面—字幕、画面—语音的一致、矛盾、无关和不足样本。
+  acceptance: 每条样本绑定两侧证据；控制模板泄漏；包含旧闻新炒和虚假地点时间。
+  status: proposal_pending_review
+- id: ER-T139
+  name: 训练跨模态矛盾检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T139
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 训练多模态Transformer或视觉语言NLI分类模型。
+  acceptance: 四类关系指标优于文本或视觉单模态基线；输出证据对和校准概率。
+  status: proposal_pending_review
+- id: ER-T140
+  name: 训练多模态风险融合模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T140
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 融合图片、目标、行为、音频、文本和一致性特征。
+  acceptance: 重点类别召回≥95%、Macro-F1≥0.85作为发布目标；完成单模态消融。
+  status: proposal_pending_review
+- id: ER-T141
+  name: 实施风险概率校准和业务阈值优化
+  type: engineering_elaboration_of_source_task
+  source_task_id: T141
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 温度缩放、等渗回归（isotonic）等候选；多标签Sigmoid按标签定义校准，骨干训练与校准样本隔离；验证集确定阈值，独立测试只验收。
+  acceptance: 使用验证集调阈值、独立测试集只验收；输出ECE、可靠性图和代价分析。
+  status: proposal_pending_review
+- id: ER-T142
+  name: 构建图片篡改成组训练集
+  type: engineering_elaboration_of_source_task
+  source_task_id: T142
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 整理原图、编辑图、像素掩码、篡改类型和编辑参数。
+  acceptance: 覆盖拼接、复制、擦除、替换、局部生成及多压缩；掩码与图像对齐。
+  status: proposal_pending_review
+- id: ER-T143
+  name: 训练图片噪声残差分支
+  type: engineering_elaboration_of_source_task
+  source_task_id: T143
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 项目噪声/高频分支扩展或适配，与原TruFor学习噪声指纹区分；原作者训练部分开放状态、许可及真值先核查，不承诺未开放部分全部复现。
+  acceptance: 在跨相机、跨压缩验证集优于固定残差基线；记录失败类型。
+  status: proposal_pending_review
+- id: ER-T144
+  name: 训练RGB语义与边界分支
+  type: engineering_elaboration_of_source_task
+  source_task_id: T144
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 训练语义、边缘、光照和空间关系分支输出篡改掩码。
+  acceptance: 验证集IoU和边界F1优于分割基线；小区域单独报告。
+  status: proposal_pending_review
+- id: ER-T145
+  name: 训练图片多分支融合篡改模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T145
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 融合RGB、噪声、高频、JPEG和元数据特征，联合图像级与像素级目标。
+  acceptance: 项目多分支与原模型基线分别报告；IoU≥0.70为保留发布目标，固定独立协议；RGB/噪声/编码消融、可靠性及失效模态齐全，不以接入原权重当扩展完成。
+  status: proposal_pending_review
+- id: ER-T146
+  name: 训练图片篡改类型分类模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T146
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 基于区域与取证特征训练拼接、复制、擦除、替换、局部生成分类器。
+  acceptance: 按类型报告召回和混淆矩阵；低置信输出证据不足，不强制归类。
+  status: proposal_pending_review
+- id: ER-T147
+  name: 构建视频篡改与深伪训练集
+  type: engineering_elaboration_of_source_task
+  source_task_id: T147
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 生成和整理删除、插入、重排、变速、倒放、字幕/音轨替换、换脸和生成视频。
+  acceptance: 保存原始来源、编辑参数、时间边界和人脸轨迹；训练测试按原视频组隔离。
+  status: proposal_pending_review
+- id: ER-T148
+  name: 训练视频时间篡改检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T148
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 融合光流、帧间相似、时间戳、GOP和音频连续性训练时序模型。
+  acceptance: 重点时间篡改类型召回达到阶段目标；输出片段边界和证据特征。
+  status: proposal_pending_review
+- id: ER-T149
+  name: 训练视频空间篡改检测与跟踪模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T149
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 微调逐帧取证模型并训练跨帧一致性或区域跟踪模块。
+  acceptance: 区域轨迹稳定；短暂误检率受控；按遮挡和运动强度分组评测。
+  status: proposal_pending_review
+- id: ER-T150
+  name: 微调人脸深度伪造检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T150
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 明确图像/视频分类骨干、人脸轨迹与时序头，SBI仅为训练增强候选；音画同步由T151独立网络实施，代码/权重许可与跨生成器样例先核。
+  acceptance: 跨生成器测试优于基线；多脸逐轨迹输出；报告公平性和局限。
+  status: proposal_pending_review
+- id: ER-T151
+  name: 训练口型语音同步检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T151
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 训练或适配音视频同步网络，识别配音替换与口型驱动。
+  acceptance: 对已知偏移量可正确定位；无清晰人脸或语音时输出证据不足。
+  status: proposal_pending_review
+- id: ER-T152
+  name: 实施跨压缩跨生成器泛化训练
+  type: engineering_elaboration_of_source_task
+  source_task_id: T152
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 采用压缩增强、域泛化、模型集成或对比学习提升未知条件泛化。
+  acceptance: 未知压缩/生成器子集退化受控；不以已知生成器过拟合换取总体指标。
+  status: proposal_pending_review
+- id: ER-T153
+  name: 实施篡改模型校准与不确定性估计
+  type: engineering_elaboration_of_source_task
+  source_task_id: T153
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 对图片、视频和深伪模型实施概率校准、集成方差或分布外检测。
+  acceptance: 固定验证/校准数据、ECE分箱/类别汇总/空箱及比较条件、OOD协议；目标未定记录待确认，不写ECE已达标。版本可回滚，高不确定触发复核，封存集不调参。
+  status: proposal_pending_review
+- id: ER-T154
+  name: 构建图片复制检测对比学习样本
+  type: engineering_elaboration_of_source_task
+  source_task_id: T154
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 组织复杂编辑正样本对和同事件不同角度等难负样本。
+  acceptance: 正负关系经规则和人工复核；编辑参数覆盖压缩、裁剪、镜像、水印和遮挡。
+  status: proposal_pending_review
+- id: ER-T155
+  name: 训练图片复制检测向量模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T155
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 以对比学习或度量学习微调SSCD/DINO类复制检测模型。
+  acceptance: 复制召回优于语义向量基线；难负误命中下降；向量维度与归一化固定。
+  status: proposal_pending_review
+- id: ER-T156
+  name: 实施难负样本迭代训练
+  type: engineering_elaboration_of_source_task
+  source_task_id: T156
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 利用线上/离线高相似误命中挖掘难负样本并进行多轮训练。
+  acceptance: 每轮样本经人工确认；独立测试集不参与挖掘；记录误命中变化。
+  status: proposal_pending_review
+- id: ER-T157
+  name: 优化复制向量与索引联合参数
+  type: engineering_elaboration_of_source_task
+  source_task_id: T157
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 联合优化向量维度、量化、Milvus索引类型、召回参数和重排数量。
+  acceptance: 2000万目标规模下满足召回和时延折中；切换可回滚。
+  status: proposal_pending_review
+- id: ER-T158
+  name: 构建视频帧复制检测训练集
+  type: engineering_elaboration_of_source_task
+  source_task_id: T158
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 从同源视频对生成带时间戳正对、邻近负对和相似场景难负对。
+  acceptance: 正对时间映射准确；镜头、平台和原视频分组隔离；包含重编码与字幕版本。
+  status: proposal_pending_review
+- id: ER-T159
+  name: 训练视频关键帧复制检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T159
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 微调帧级复制向量模型并适应视频压缩、字幕和低清。
+  acceptance: 固定帧召回/覆盖基线及素材、预处理与真实硬件，报告吞吐/延迟预算及目标状态；未知目标不签达标，真实样例和发布协议可追溯。
+  status: proposal_pending_review
+- id: ER-T160
+  name: 优化视频帧相似度模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T160
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 学习或校准帧间相似度，融合视觉、局部与时间上下文。
+  acceptance: 降低相似场景误匹配；矩阵轨迹更连续；输出可解释通道分数。
+  status: proposal_pending_review
+- id: ER-T161
+  name: 训练学习型视频片段定位模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T161
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 在DTW基线基础上训练片段边界定位或局部匹配网络。
+  acceptance: 视频片段Recall@10≥90%、平均边界误差≤1秒为发布目标；与DTW对比。
+  status: proposal_pending_review
+- id: ER-T162
+  name: 训练多源拼接边界检测模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T162
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 根据相似轨迹、镜头边界、编码和音频变化定位来源切换。
+  acceptance: 双源、三源和无来源片段可表达；边界误差与误切率分开报告。
+  status: proposal_pending_review
+- id: ER-T163
+  name: 实施视频检索分数校准
+  type: engineering_elaboration_of_source_task
+  source_task_id: T163
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 将帧召回、序列对齐、覆盖率和几何证据融合为可校准同源置信度。
+  acceptance: 同源与相似非同源可分；阈值仅用验证集确定；低置信进入人工复核。
+  status: proposal_pending_review
+- id: ER-T164
+  name: 构建首发排序训练内容簇
+  type: engineering_elaboration_of_source_task
+  source_task_id: T164
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 形成经人工确认的原始素材与较早来源候选内容簇。
+  acceptance: 时间、完整度、水印、账号和传播证据齐全；不确定簇单独标记。
+  status: proposal_pending_review
+- id: ER-T165
+  name: 开展首发排序模型消融与校准
+  type: engineering_elaboration_of_source_task
+  source_task_id: T165
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 比较时间排序、逻辑回归、LambdaMART及不同特征组，并重新校准。
+  acceptance: Top-3≥90%为发布目标；报告采集覆盖不足影响；特征贡献可解释。
+  status: proposal_pending_review
+- id: ER-T166
+  name: 构建主张抽取监督微调数据
+  type: engineering_elaboration_of_source_task
+  source_task_id: T166
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 从标题、OCR、ASR和正文构建主张及来源片段结构化标注。
+  acceptance: 主体、行为、时间、地点、结果和source_segment_ids完整；未知字段为null。
+  status: proposal_pending_review
+- id: ER-T167
+  name: 微调主张抽取模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T167
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 在私有化基础模型上进行LoRA/SFT并约束JSON输出。
+  acceptance: 结构字段F1、JSON有效率、来源引用存在/语义正确分别定义协议与待定目标；固定验证集基线，未知值不宣称达标，数据与模型可复现。
+  status: proposal_pending_review
+- id: ER-T168
+  name: 构建并训练证据关系判断模型
+  type: engineering_elaboration_of_source_task
+  source_task_id: T168
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 构建支持、反驳、部分支持、无关和不足数据，并微调NLI或大模型。
+  acceptance: 五类Macro-F1优于基线；证据不足不被误判为反驳；必须引用evidence_id。
+  status: proposal_pending_review
+- id: ER-T169
+  name: 研发无证据生成检测与句级引用校验
+  type: engineering_elaboration_of_source_task
+  source_task_id: T169
+  source_design: DES-001 V1.4 §6.6—6.8、§7.7、§8.9、§11.6；本书§7补充技术验证。
+  scope: 实现句子—证据蕴含检查、引用存在性和无依据事实检测。
+  acceptance: 无引用或不被证据支持的事实句阻止进入报告；误拦截率可评估。
+  status: proposal_pending_review
+- id: ER-T170
+  name: 实施模型压缩导出与发布候选冻结
+  type: engineering_elaboration_of_source_task
+  source_task_id: T170
+  source_design: DES-001 V1.4 §6.6、§6.8；本书§7补充技术验证。 审批控制另见§5.4.1—5.4.4、§13.7；冻结与验收见§10.12。
+  scope: 对候选模型进行蒸馏、量化或ONNX/Triton导出，冻结发布包。
+  acceptance: 按逐能力ModelReleaseBundle清单核验训练、校准/阈值（风险含T141）、标签/Schema/前处理、数据代码摘要、许可用途及环境；每能力转换/量化实测。不适合ONNX的后端使用原生包，不强制全模型统一导出；回滚兼容索引，未验证能力不计发布。
+  status: proposal_pending_review

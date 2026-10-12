@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:model:M31:response:0.1.0",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "capability": {
+      "const": "media.ocr"
+    },
+    "model_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "model_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "preprocessing_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "mapping_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SUCCEEDED",
+        "FAILED",
+        "SKIPPED",
+        "DEFERRED",
+        "NOT_SUPPORTED"
+      ]
+    },
+    "output_kind": {
+      "const": "text_segments"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:media-trace:api:0.1.0#/$defs/Finding"
+      },
+      "minItems": 0
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:media-trace:api:0.1.0#/$defs/ObjectRef"
+      },
+      "minItems": 0
+    },
+    "missing_modalities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "latency_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "mock": {
+      "type": "boolean"
+    },
+    "payload": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "segments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "time_range": {
+                    "anyOf": [
+                      {
+                        "$ref": "urn:media-trace:api:0.1.0#/$defs/TimeRange"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "bbox": {
+                    "anyOf": [
+                      {
+                        "$ref": "urn:media-trace:api:0.1.0#/$defs/BoundingBox"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                },
+                "required": [
+                  "text",
+                  "time_range",
+                  "bbox",
+                  "score"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "segments"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "request_id",
+    "task_id",
+    "run_version",
+    "capability",
+    "model_name",
+    "model_version",
+    "preprocessing_version",
+    "mapping_version",
+    "status",
+    "output_kind",
+    "findings",
+    "artifacts",
+    "missing_modalities",
+    "warnings",
+    "reason",
+    "latency_ms",
+    "mock",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "SUCCEEDED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "not": {
+              "type": "null"
+            }
+          }
+        },
+        "required": [
+          "payload"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "FAILED",
+              "SKIPPED",
+              "DEFERRED",
+              "NOT_SUPPORTED"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "payload": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "x-semantic-rules": [
+    "capability/model/version映射注册表",
+    "非Mock正式输出有批准包",
+    "时间与坐标检查",
+    "失败输出不得有候选正式结论"
+  ]
+}

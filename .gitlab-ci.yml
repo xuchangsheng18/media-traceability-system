@@ -1,0 +1,34 @@
+# Shell runner on the configured Linux development host, tag mt-py310.
+# No remote GitLab project/runner registration is fabricated by this file.
+stages: [validate, build, integration]
+variables:
+  PYTHON: "/opt/conda/glwy/envs/py310/bin/python"
+  PYTHONPATH: "$CI_PROJECT_DIR/backend"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MT_RUNTIME_DIR: "/workspace/glwy/runtime/media-traceability-system"
+default:
+  tags: [mt-py310]
+validate:
+  stage: validate
+  script:
+    - "$PYTHON scripts/run_ci.py validate"
+    - "$PYTHON scripts/verify_ci_failure_gate.py"
+    - "$PYTHON scripts/check_repository_secrets.py"
+  artifacts:
+    when: always
+    paths:
+      - docs/00-project/validation/*report.json
+build:
+  stage: build
+  script:
+    - "$PYTHON scripts/run_ci.py build"
+integration:
+  stage: integration
+  resource_group: media-trace-py310-poc
+  script:
+    - "$PYTHON scripts/run_ci.py integration"
+  artifacts:
+    when: always
+    paths:
+      - docs/00-project/validation/*report.json
+      - docs/00-project/validation/poc-ui.png

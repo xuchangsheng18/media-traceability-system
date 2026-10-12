@@ -1,0 +1,71 @@
+"""Real loopback API/queue/storage/inference checks using generated development credentials."""
+import base64
+import hashlib
+import io
+import json
+import os
+import time
+import uuid
+from pathlib import Path
+
+import httpx
+from PIL import Image
+
+ROOT = Path(__file__).resolve().parents[1]
+RUNTIME = Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
+
+
+def main():
+    c = json.loads((RUNTIME/"credentials.json").read_text())
+    base = "http://127.0.0.1:14180"
+    headers = {"Authorization": "Bearer "+c["api_token"]}
+    checks = []
+    with httpx.Client(timeout=30) as client:
+        def check(name, condition):
+            assert condition, name
+            checks.append({"name": name, "status": "PASS"})
+        check("frontend_served", "媒体溯源" in client.get(base).text)
+        check("unauthorized_health_denied", client.get(base+"/api/v1/health").status_code == 401)
+        health = client.get(base+"/api/v1/health", headers=headers)
+        check("database_connected", health.status_code == 200 and health.json()["status"] == "ok")
+        image = io.BytesIO()
+        Image.new("RGB", (64, 64), (60, 110, 180)).save(image, "PNG")
+        raw = image.getvalue()
+        bad = client.post(base+"/poc/assets", headers=headers, json={"filename": "bad.png", "image_base64": base64.b64encode(b"bad").decode()})
+        check("bad_media_rejected", bad.status_code == 422)
+        uploaded = client.post(base+"/poc/assets", headers=headers, json={"filename": "synthetic-ci.png", "image_base64": base64.b64encode(raw).decode()})
+        check("S3_versioned_upload", uploaded.status_code == 201 and bool(uploaded.json()["object_ref"]["version_id"]))
+        check("original_digest_preserved", uploaded.json()["object_ref"]["sha256"] == hashlib.sha256(raw).hexdigest())
+        asset = uploaded.json()["asset_id"]
+        key = "ci-"+str(uuid.uuid4())
+        h = dict(headers, **{"Idempotency-Key": key})
+        body = {"asset_id": asset}
+        created = client.post(base+"/poc/jobs", headers=h, json=body)
+        check("queue_submission", created.status_code == 202)
+        job = created.json()["job_id"]
+        repeated = client.post(base+"/poc/jobs", headers=h, json=body)
+        check("idempotent_submit", repeated.status_code == 202 and repeated.json()["job_id"] == job)
+        unknown = client.get(base+"/poc/jobs/"+str(uuid.uuid4()), headers=headers)
+        check("unknown_job_hidden", unknown.status_code == 404)
+        for _ in range(60):
+            status = client.get(base+"/poc/jobs/"+job, headers=headers).json()
+            if status["state"] in {"FAILED", "SUCCEEDED"}:
+                break
+            time.sleep(1)
+        check("worker_completed", status["state"] == "SUCCEEDED")
+        result = status["result"]
+        check("real_cpu_inference", result["mock"] is False and result["payload"]["dimension"] == 8)
+        check("model_and_mapping_versions", result["model_name"] == "synthetic-cpu-encoder" and result["mapping_version"] == "poc-analysis-copy-1")
+        check("result_object_version", bool(result["payload"]["vector_ref"]["version_id"]))
+        inference = client.get("http://127.0.0.1:14201/healthz").json()
+        check("container_python310", inference["python"].startswith("3.10."))
+        check("CPU_profile", inference["device"] == "cpu" and inference["business_model"] is False)
+        # Capture a durable task ID for a separate restart/persistence check, no secrets.
+        report = {"status": "PASS", "scope": "real_cpu_development_vertical_slice", "checks": checks,
+                  "job_id": job, "asset_id": asset, "model": inference, "business_model_validated": False}
+        (ROOT/"docs/00-project/validation/poc-integration-report.json").write_text(json.dumps(report, indent=2)+"\n")
+    print(json.dumps({"status": "PASS", "checks": len(checks), "job_id": job}))
+
+
+if __name__ == "__main__":
+    main()

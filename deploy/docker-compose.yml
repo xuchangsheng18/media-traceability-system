@@ -1,0 +1,108 @@
+name: media-trace-py310
+services:
+  postgres:
+    image: postgres:16@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+    env_file: ${MT_RUNTIME_DIR}/postgres.env
+    ports: ["127.0.0.1:14432:5432"]
+    volumes: ["db-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mt_admin -d media_trace_poc"]
+      interval: 5s
+      retries: 20
+    mem_limit: 1g
+    cpus: 1
+    pids_limit: 128
+  rabbitmq:
+    image: rabbitmq:4.3.6-management@sha256:8dd6e3570ddaa2ef82a6c3a8950e79c1f73893adfbdddbc374fc1f1ac8a0f5dd
+    env_file: ${MT_RUNTIME_DIR}/rabbitmq.env
+    environment:
+      ERL_FLAGS: "+S 2:2 +SDcpu 1 +SDio 1 +A 4"
+      RABBITMQ_CTL_ERL_ARGS: "+S 2:2 +SDcpu 1 +SDio 1 +A 4"
+    ports: ["127.0.0.1:14672:5672"]
+    volumes: ["queue-data:/var/lib/rabbitmq"]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      retries: 25
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 256
+  s3:
+    image: chrislusf/seaweedfs:4.48@sha256:4e61d15fd35994cb1e43e1e553dff106794841fd9a99ade2fc8c8bfce4d7872d
+    command: ["server", "-dir=/data", "-ip=s3", "-master.volumeSizeLimitMB=128", "-volume.max=8", "-volume.port=8080", "-s3", "-s3.port=8333", "-s3.config=/etc/mt/s3.json"]
+    volumes: ["object-data:/data", "secrets-data:/etc/mt:ro"]
+    ports: ["127.0.0.1:14833:8333"]
+    mem_limit: 1g
+    cpus: 1
+    pids_limit: 128
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:9333/healthz && wget -q -O /dev/null 'http://127.0.0.1:8888/?pretty=y'"]
+      interval: 5s
+      retries: 20
+  api:
+    image: media-trace-py310:1.0.0-dev
+    build: {context: .., dockerfile: deploy/Dockerfile.py310}
+    env_file: ${MT_RUNTIME_DIR}/poc.env
+    depends_on:
+      postgres: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    ports: ["127.0.0.1:14200:8000"]
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    healthcheck:
+      test: ["CMD", "/opt/py310/bin/python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
+      interval: 5s
+      retries: 20
+  inference:
+    image: media-trace-py310:1.0.0-dev
+    env_file: ${MT_RUNTIME_DIR}/poc.env
+    command: ["/opt/py310/bin/python", "-m", "uvicorn", "service:app", "--host", "0.0.0.0", "--port", "8001"]
+    volumes: ["model-data:/runtime"]
+    ports: ["127.0.0.1:14201:8001"]
+    mem_limit: 2g
+    cpus: 1
+    pids_limit: 128
+    environment: {MODEL_DIR: /runtime, OMP_NUM_THREADS: "1"}
+    healthcheck:
+      test: ["CMD", "/opt/py310/bin/python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8001/healthz')"]
+      interval: 5s
+      retries: 30
+  worker:
+    image: media-trace-py310:1.0.0-dev
+    env_file: ${MT_RUNTIME_DIR}/poc.env
+    command: ["/opt/py310/bin/python", "-m", "celery", "-A", "app.worker:celery", "worker", "--concurrency=1", "--beat", "--without-mingle", "--without-gossip", "--schedule=/tmp/mt-celerybeat", "--loglevel=INFO"]
+    depends_on:
+      rabbitmq: {condition: service_healthy}
+      api: {condition: service_healthy}
+      inference: {condition: service_healthy}
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 128
+    healthcheck:
+      test: ["CMD", "/opt/py310/bin/python", "-c", "import pathlib,time;assert time.time()-pathlib.Path('/tmp/mt-worker-heartbeat').stat().st_mtime < 30"]
+      interval: 5s
+      start_period: 45s
+      retries: 8
+  web:
+    image: media-trace-web:1.0.0-dev
+    environment: {NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE: "1"}
+    build: {context: .., dockerfile: frontend/Dockerfile}
+    depends_on: {api: {condition: service_healthy}}
+    ports: ["127.0.0.1:14180:80"]
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 64
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/"]
+      interval: 5s
+      retries: 10
+volumes:
+  db-data:
+  queue-data:
+  object-data:
+  model-data:
+  secrets-data:
+networks:
+  default:
+    name: media-trace-py310-development

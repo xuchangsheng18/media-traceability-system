@@ -1,0 +1,122 @@
+checked_at: '2026-10-12'
+sources:
+- id: W01
+  title: OpenAPI 3.1.0
+  url: https://spec.openapis.org/oas/v3.1.0.html
+  section: §4.8.24、§4.8.30
+  usage: Schema基于2020-12；安全方案声明不替代对象授权。
+  verified_at: '2026-10-12'
+- id: W02
+  title: JSON Schema 2020-12
+  url: https://json-schema.org/draft/2020-12/json-schema-validation
+  section: format、required、additionalProperties
+  usage: 结构校验及format断言需分别验证；跨字段关系由语义校验补充。
+  verified_at: '2026-10-12'
+- id: W03
+  title: PostgreSQL 16约束
+  url: https://www.postgresql.org/docs/16/ddl-constraints.html
+  section: CHECK、UNIQUE、FOREIGN KEY
+  usage: 列约束与关联完整性需分别建模；跨案件复合外键是项目设计。
+  verified_at: '2026-10-12'
+- id: W04
+  title: PostgreSQL 16行安全
+  url: https://www.postgresql.org/docs/16/ddl-rowsecurity.html
+  section: 默认拒绝、owner/BYPASSRLS
+  usage: RLS与表权限叠加；超级用户绕过边界，运行角色不得为超级用户。
+  verified_at: '2026-10-12'
+- id: W05
+  title: PostgreSQL 16触发器
+  url: https://www.postgresql.org/docs/16/sql-createtrigger.html
+  section: BEFORE与TRUNCATE事件
+  usage: 追加记录保护同时考虑UPDATE、DELETE和TRUNCATE；不作为管理员防篡改保证。
+  verified_at: '2026-10-12'
+- id: W06
+  title: HTTP Semantics RFC 9110
+  url: https://www.rfc-editor.org/rfc/rfc9110.html
+  section: §13.1.1、§14、§15.5.13
+  usage: If-Match控制旧版本更新；受控下载Range需要再次授权。
+  verified_at: '2026-10-12'
+- id: W07
+  title: HTTP Problem Details RFC 9457
+  url: https://www.rfc-editor.org/rfc/rfc9457.html
+  section: §3、§5
+  usage: 项目保留原code/message/request_id/details并增加Problem字段；不泄露堆栈。
+  verified_at: '2026-10-12'
+- id: W08
+  title: OWASP Authorization
+  url: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+  section: 默认拒绝、逐请求授权
+  usage: 授权覆盖每次请求及对象范围；角色本身不代表所有案件可见。
+  verified_at: '2026-10-12'
+- id: W09
+  title: OWASP File Upload
+  url: https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html
+  section: 类型、大小、存储、安全扫描
+  usage: 类型签名与资源限制共同设计；查毒不可用不能静默作为安全通过。
+  verified_at: '2026-10-12'
+- id: W10
+  title: jsonschema校验器
+  url: https://python-jsonschema.readthedocs.io/en/stable/validate/
+  section: Draft202012Validator、FormatChecker
+  usage: 显式启用格式校验与本地引用注册，防止只检查Schema不检查实例。
+  verified_at: '2026-10-12'
+- id: W11
+  title: OpenAPI Spec Validator
+  url: https://openapi-spec-validator.readthedocs.io/en/latest/
+  section: OpenAPI 3.1支持
+  usage: 仅验证契约文档，不证明HTTP服务鉴权与业务执行正确。
+  verified_at: '2026-10-12'
+- id: W12
+  title: scikit-learn校准
+  url: https://scikit-learn.org/stable/modules/calibration.html
+  section: 校准数据独立于训练拟合
+  usage: 训练、阈值选择与独立验收用途分开，不用封存测试集选择模型。
+  verified_at: '2026-10-12'
+- id: W13
+  title: S3 Object Lock
+  url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html
+  section: 对象版本锁、删除标记
+  usage: 锁保护指定version_id；同键新版本不等于修改已固化证据。
+  verified_at: '2026-10-12'
+- id: W14
+  title: S3预签名访问
+  url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html
+  section: Bearer与到期
+  usage: 项目受控代理负责逐请求撤销；预签名不能宣称立即撤销。
+  verified_at: '2026-10-12'
+- id: W15
+  title: GB/T 22239-2019公开状态
+  url: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=BAFB47E8874764186BDB7865E8344DAF
+  section: 标准登记信息
+  usage: 作为安全要求审查来源；系统等级与公安厅具体准入仍待专责确认。
+  verified_at: '2026-10-12'
+- id: W16
+  title: 个人信息保护法公开文本
+  url: https://www.cac.gov.cn/2021-08/20/c_1631050028355286.htm
+  section: 处理规则与安全责任
+  usage: 仅建立法律适用性审查入口，不据公开文本宣称本项目已合规批准。
+  verified_at: '2026-10-12'
+- id: W17
+  title: TruFor作者仓库
+  url: https://github.com/grip-unina/TruFor
+  section: 输入机制与许可
+  usage: 原RGB与学习噪声指纹机制和项目扩展分开；许可用途逐组件核验。
+  verified_at: '2026-10-12'
+- id: W18
+  title: LightGlue作者仓库
+  url: https://github.com/cvg/LightGlue
+  section: 特征组件许可
+  usage: 匹配器许可不能覆盖SuperPoint特征模型；候选许可未核准不得正式交付。
+  verified_at: '2026-10-12'
+- id: W19
+  title: Celery broker文档
+  url: https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html
+  section: broker能力
+  usage: 执行broker与Kafka事件用途分开，故障验证在第二阶段实际运行。
+  verified_at: '2026-10-12'
+- id: W20
+  title: PostgreSQL 16 JSON类型
+  url: https://www.postgresql.org/docs/16/datatype-json.html
+  section: JSONB与索引
+  usage: JSONB可保存可扩展发现明细；主关联、版本、权限不得仅藏入无约束JSON。
+  verified_at: '2026-10-12'

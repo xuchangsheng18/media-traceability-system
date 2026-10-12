@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "scope": "fresh_venv_from_exact_linux_python_lock",
+  "checks": [
+    {
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/lock-repro-venv/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "returncode": 0,
+      "output": "No broken requirements found."
+    },
+    {
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/lock-repro-venv/bin/python",
+        "-c",
+        "import fastapi,torch,sqlalchemy,sys;assert sys.version.startswith(\"3.10.\");assert torch.__version__==\"2.14.1+cpu\";print(\"py310 imports passed\")"
+      ],
+      "returncode": 0,
+      "output": "py310 imports passed"
+    }
+  ]
+}

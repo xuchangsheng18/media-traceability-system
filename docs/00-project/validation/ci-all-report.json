@@ -1,0 +1,215 @@
+{
+  "started_at": "2026-10-12T10:02:33.734382+00:00",
+  "runner": "local-shell",
+  "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+  "stage": "all",
+  "checks": [
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 1.317031
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_runtime_lock.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.214693
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "--config",
+        "ruff.toml",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/poc_control.py",
+        "scripts/run_ci.py",
+        "scripts/verify_poc.py",
+        "scripts/verify_poc_resilience.py",
+        "scripts/verify_generated_contracts.py",
+        "scripts/verify_media_and_queries.py",
+        "scripts/verify_sql_baseline.py",
+        "scripts/verify_runtime_lock.py",
+        "scripts/collect_environment.py",
+        "scripts/verify_ci_failure_gate.py",
+        "scripts/check_repository_secrets.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.164734
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/poc",
+        "-q"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 2.519572
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/validate_inputs.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 26.030667
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/validate_database_contracts.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 5.076345
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 1.718028
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_generated_contracts.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 2.319915
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "audit",
+        "--audit-level=high"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 1.167063
+    },
+    {
+      "stage": "build",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "build",
+        "--no-isolation",
+        "backend"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 1.066901
+    },
+    {
+      "stage": "build",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/poc_control.py",
+        "pack"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.816265
+    },
+    {
+      "stage": "build",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/poc_control.py",
+        "build"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 16.65566
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/poc_control.py",
+        "up"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 52.0871
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_sql_baseline.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 19.358073
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_poc.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 2.220043
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_poc_resilience.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 51.438751
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_media_and_queries.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.615706
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "exec",
+        "--",
+        "playwright",
+        "test",
+        "--config=frontend/playwright.config.ts"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 4.675519
+    }
+  ],
+  "hosted_pipeline_executed": false,
+  "status": "PASS",
+  "ended_at": "2026-10-12T10:05:43.196743+00:00"
+}

@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:dataset:split:0.1.0",
+  "type": "object",
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "grouping_policy_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "frozen"
+      ]
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sample_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "split": {
+            "type": "string",
+            "enum": [
+              "train",
+              "validation",
+              "calibration",
+              "holdout"
+            ]
+          },
+          "source_group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "parent_sample_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "person_group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "event_group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "sample_id",
+          "split",
+          "source_group_ids",
+          "parent_sample_ids",
+          "person_group_ids",
+          "event_group_ids",
+          "sha256"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "holdout_access": {
+      "type": "string",
+      "enum": [
+        "not_frozen",
+        "acceptance_only"
+      ]
+    },
+    "purposes_disjoint": {
+      "const": true
+    }
+  },
+  "required": [
+    "dataset_id",
+    "version",
+    "seed",
+    "grouping_policy_version",
+    "status",
+    "records",
+    "sha256",
+    "holdout_access",
+    "purposes_disjoint"
+  ],
+  "additionalProperties": false
+}

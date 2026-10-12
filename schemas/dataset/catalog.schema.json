@@ -1,0 +1,370 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:dataset:catalog:0.1.0",
+  "type": "object",
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "enum": [
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "draft",
+        "released",
+        "frozen",
+        "revoked"
+      ]
+    },
+    "authorization": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "verified",
+            "expired",
+            "revoked"
+          ]
+        },
+        "record_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowed_purposes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "training",
+              "validation",
+              "calibration",
+              "holdout",
+              "annotation"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "record_ref",
+        "allowed_purposes",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "actual_count": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "counting_unit": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_scale_recommendation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 1
+    },
+    "model_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "M01",
+          "M02",
+          "M03",
+          "M04",
+          "M05",
+          "M06",
+          "M07",
+          "M08",
+          "M09",
+          "M10",
+          "M11",
+          "M12",
+          "M13",
+          "M14",
+          "M15",
+          "M16",
+          "M17",
+          "M18",
+          "M19",
+          "M20",
+          "M21",
+          "M22",
+          "M23",
+          "M24",
+          "M25",
+          "M26",
+          "M27",
+          "M28",
+          "M29",
+          "M30",
+          "M31",
+          "M32",
+          "M33",
+          "M34"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^T[0-9]{3}$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "label_version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "split_manifest_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "catalog_sha256": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sensitive_data_status": {
+      "type": "string",
+      "enum": [
+        "not_imported",
+        "synthetic",
+        "approved_scope"
+      ]
+    },
+    "allowed_storage_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "known_biases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      },
+      "minItems": 0
+    },
+    "owner": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved"
+      ]
+    }
+  },
+  "required": [
+    "dataset_id",
+    "name",
+    "version",
+    "status",
+    "authorization",
+    "actual_count",
+    "counting_unit",
+    "source_scale_recommendation",
+    "source_refs",
+    "model_ids",
+    "task_ids",
+    "label_version",
+    "split_manifest_ref",
+    "catalog_sha256",
+    "sensitive_data_status",
+    "allowed_storage_ref",
+    "known_biases",
+    "owner",
+    "review_status"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "released",
+              "frozen"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              },
+              "record_ref": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "allowed_purposes": {
+                "minItems": 1
+              }
+            }
+          },
+          "actual_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "counting_unit": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "label_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "split_manifest_ref": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "catalog_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "review_status": {
+            "const": "approved"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "allowed_storage_ref": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1097 @@
+[
+  {
+    "method": "get",
+    "path": "/health",
+    "id": "health",
+    "request": null,
+    "response": "Health",
+    "tasks": [
+      "T002",
+      "T003",
+      "T004"
+    ],
+    "tables": [],
+    "permission": "health.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/auth/login",
+    "id": "devLogin",
+    "request": "AuthLogin",
+    "response": "AuthSession",
+    "tasks": [
+      "T013"
+    ],
+    "tables": [
+      "users"
+    ],
+    "permission": "development.login",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/auth/me",
+    "id": "getCurrentUser",
+    "request": null,
+    "response": "CurrentUser",
+    "tasks": [
+      "T013",
+      "T014",
+      "T015"
+    ],
+    "tables": [
+      "users",
+      "user_roles",
+      "case_membership"
+    ],
+    "permission": "identity.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/sources",
+    "id": "createSource",
+    "request": "SourceCreate",
+    "response": "Source",
+    "tasks": [
+      "T021"
+    ],
+    "tables": [
+      "source_registry"
+    ],
+    "permission": "source.manage",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/sources",
+    "id": "listSources",
+    "request": null,
+    "response": "SourcePage",
+    "tasks": [
+      "T021"
+    ],
+    "tables": [
+      "source_registry"
+    ],
+    "permission": "source.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "post",
+    "path": "/uploads",
+    "id": "createUpload",
+    "request": "UploadCreate",
+    "response": "UploadSession",
+    "tasks": [
+      "T022"
+    ],
+    "tables": [
+      "upload_session",
+      "source_registry"
+    ],
+    "permission": "asset.upload",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "put",
+    "path": "/uploads/{id}/parts/{part_no}",
+    "id": "putUploadPart",
+    "request": null,
+    "response": "UploadPart",
+    "tasks": [
+      "T023"
+    ],
+    "tables": [
+      "upload_part",
+      "upload_session"
+    ],
+    "permission": "asset.upload",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": true,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/uploads/{id}/complete",
+    "id": "completeUpload",
+    "request": "UploadComplete",
+    "response": "UploadResult",
+    "tasks": [
+      "T024",
+      "T026",
+      "T027"
+    ],
+    "tables": [
+      "upload_session",
+      "upload_part",
+      "media_asset"
+    ],
+    "permission": "asset.upload",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/assets",
+    "id": "listAssets",
+    "request": null,
+    "response": "AssetPage",
+    "tasks": [
+      "T030"
+    ],
+    "tables": [
+      "media_asset"
+    ],
+    "permission": "asset.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/assets/{id}",
+    "id": "getAsset",
+    "request": null,
+    "response": "Asset",
+    "tasks": [
+      "T030"
+    ],
+    "tables": [
+      "media_asset",
+      "asset_lineage"
+    ],
+    "permission": "asset.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/assets/{id}/content",
+    "id": "downloadAsset",
+    "request": null,
+    "response": null,
+    "tasks": [
+      "T025",
+      "T030"
+    ],
+    "tables": [
+      "media_asset",
+      "object_version",
+      "audit_event"
+    ],
+    "permission": "asset.download",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": true,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/assets/{id}/timeline",
+    "id": "getTimeline",
+    "request": null,
+    "response": "Timeline",
+    "tasks": [
+      "T050"
+    ],
+    "tables": [
+      "keyframe",
+      "shot",
+      "text_segment",
+      "media_asset"
+    ],
+    "permission": "asset.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/imports",
+    "id": "createImport",
+    "request": "ImportRequest",
+    "response": "ImportStatus",
+    "tasks": [
+      "T028"
+    ],
+    "tables": [
+      "import_job",
+      "import_item"
+    ],
+    "permission": "asset.import",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/imports/{id}",
+    "id": "getImport",
+    "request": null,
+    "response": "ImportStatus",
+    "tasks": [
+      "T028"
+    ],
+    "tables": [
+      "import_job",
+      "import_item"
+    ],
+    "permission": "asset.import",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/analysis/tasks",
+    "id": "createTask",
+    "request": "TaskCreate",
+    "response": "Accepted",
+    "tasks": [
+      "T034"
+    ],
+    "tables": [
+      "analysis_task",
+      "outbox_event",
+      "idempotency_record"
+    ],
+    "permission": "task.create",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks",
+    "id": "listTasks",
+    "request": null,
+    "response": "TaskPage",
+    "tasks": [
+      "T035",
+      "T040"
+    ],
+    "tables": [
+      "analysis_task"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}",
+    "id": "getTask",
+    "request": null,
+    "response": "Task",
+    "tasks": [
+      "T035",
+      "T040"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_node_run"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/analysis/tasks/{id}/cancel",
+    "id": "cancelTask",
+    "request": "TaskAction",
+    "response": "Accepted",
+    "tasks": [
+      "T039",
+      "T040"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_event",
+      "outbox_event"
+    ],
+    "permission": "task.cancel",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/analysis/tasks/{id}/rerun",
+    "id": "rerunTask",
+    "request": "Rerun",
+    "response": "Accepted",
+    "tasks": [
+      "T039",
+      "T040"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_run",
+      "task_event",
+      "outbox_event"
+    ],
+    "permission": "task.rerun",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/risk-findings",
+    "id": "getRiskFindings",
+    "request": null,
+    "response": "Findings",
+    "tasks": [
+      "T070"
+    ],
+    "tables": [
+      "risk_finding",
+      "finding_evidence"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/forensics",
+    "id": "getForensics",
+    "request": null,
+    "response": "Findings",
+    "tasks": [
+      "T078"
+    ],
+    "tables": [
+      "tamper_finding",
+      "finding_evidence"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/evidence",
+    "id": "getTaskEvidence",
+    "request": null,
+    "response": "EvidencePage",
+    "tasks": [
+      "T101",
+      "T103"
+    ],
+    "tables": [
+      "evidence_item",
+      "task_evidence"
+    ],
+    "permission": "evidence.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "post",
+    "path": "/search/image",
+    "id": "searchImage",
+    "request": "ImageSearch",
+    "response": "SearchAccepted",
+    "tasks": [
+      "T082",
+      "T084",
+      "T085"
+    ],
+    "tables": [
+      "source_match",
+      "index_registry",
+      "media_asset"
+    ],
+    "permission": "asset.search",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/search/image-region",
+    "id": "searchImageRegion",
+    "request": "ImageSearch",
+    "response": "SearchAccepted",
+    "tasks": [
+      "T085"
+    ],
+    "tables": [
+      "source_match",
+      "index_registry"
+    ],
+    "permission": "asset.search",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/search/video",
+    "id": "searchVideo",
+    "request": "VideoSearch",
+    "response": "SearchAccepted",
+    "tasks": [
+      "T089"
+    ],
+    "tables": [
+      "source_match",
+      "index_registry"
+    ],
+    "permission": "asset.search",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/search/jobs/{id}",
+    "id": "getSearchJob",
+    "request": null,
+    "response": "SearchJob",
+    "tasks": [
+      "T082",
+      "T085",
+      "T089"
+    ],
+    "tables": [
+      "search_job",
+      "source_match"
+    ],
+    "permission": "asset.search",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/clusters/{id}/first-source",
+    "id": "getFirstSource",
+    "request": null,
+    "response": "FirstSource",
+    "tasks": [
+      "T093"
+    ],
+    "tables": [
+      "content_cluster",
+      "cluster_member",
+      "first_source_candidate",
+      "first_source_ranking"
+    ],
+    "permission": "origin.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/propagation/{cluster_id}",
+    "id": "getPropagation",
+    "request": null,
+    "response": "Graph",
+    "tasks": [
+      "T095",
+      "T097"
+    ],
+    "tables": [
+      "propagation_node",
+      "propagation_edge"
+    ],
+    "permission": "propagation.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/propagation/edges/{id}/decisions",
+    "id": "decidePropagationEdge",
+    "request": "GraphDecision",
+    "response": "GraphEdge",
+    "tasks": [
+      "T096",
+      "T097",
+      "T102"
+    ],
+    "tables": [
+      "propagation_edge",
+      "review_record"
+    ],
+    "permission": "review.perform",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/claims/extract",
+    "id": "extractClaims",
+    "request": "ClaimExtract",
+    "response": "ClaimList",
+    "tasks": [
+      "T098"
+    ],
+    "tables": [
+      "claim",
+      "text_segment"
+    ],
+    "permission": "claim.analyze",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/claims/{id}/verify",
+    "id": "verifyClaim",
+    "request": "ClaimVerify",
+    "response": "Relation",
+    "tasks": [
+      "T099"
+    ],
+    "tables": [
+      "claim",
+      "claim_evidence_relation"
+    ],
+    "permission": "claim.analyze",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/reviews",
+    "id": "createReview",
+    "request": "ReviewCreate",
+    "response": "Review",
+    "tasks": [
+      "T102",
+      "T103"
+    ],
+    "tables": [
+      "review_record",
+      "review_evidence",
+      "audit_event"
+    ],
+    "permission": "review.perform",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/approvals",
+    "id": "requestApproval",
+    "request": "ApprovalCreate",
+    "response": "Approval",
+    "tasks": [
+      "T016",
+      "T102",
+      "T108"
+    ],
+    "tables": [
+      "approval_request"
+    ],
+    "permission": "approval.request",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/approvals/{id}/decisions",
+    "id": "decideApproval",
+    "request": "ApprovalDecision",
+    "response": "Approval",
+    "tasks": [
+      "T016",
+      "T102",
+      "T108"
+    ],
+    "tables": [
+      "approval_request",
+      "approval_decision",
+      "audit_event"
+    ],
+    "permission": "approval.decide",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/operation-tokens",
+    "id": "issueOperationToken",
+    "request": "OperationTokenRequest",
+    "response": "OperationToken",
+    "tasks": [
+      "T016"
+    ],
+    "tables": [
+      "operation_token"
+    ],
+    "permission": "operation.confirm",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/evidence-packages/{case_id}/seal",
+    "id": "sealEvidence",
+    "request": "SealRequest",
+    "response": "EvidencePackage",
+    "tasks": [
+      "T104",
+      "T105"
+    ],
+    "tables": [
+      "evidence_package",
+      "package_item",
+      "object_version",
+      "audit_event"
+    ],
+    "permission": "evidence.seal",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/reports/drafts",
+    "id": "createReportDraft",
+    "request": "ReportDraft",
+    "response": "Report",
+    "tasks": [
+      "T106"
+    ],
+    "tables": [
+      "report",
+      "report_evidence"
+    ],
+    "permission": "report.draft",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/reports",
+    "id": "createReport",
+    "request": "ReportCreate",
+    "response": "Report",
+    "tasks": [
+      "T107"
+    ],
+    "tables": [
+      "report",
+      "report_evidence",
+      "approval_request"
+    ],
+    "permission": "report.generate",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/reports/{id}",
+    "id": "getReport",
+    "request": null,
+    "response": "Report",
+    "tasks": [
+      "T107"
+    ],
+    "tables": [
+      "report"
+    ],
+    "permission": "report.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/reports/{id}/content",
+    "id": "downloadReport",
+    "request": null,
+    "response": null,
+    "tasks": [
+      "T107"
+    ],
+    "tables": [
+      "report",
+      "approval_request",
+      "audit_event"
+    ],
+    "permission": "report.export",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": true,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/feedback/samples",
+    "id": "requestFeedback",
+    "request": "Feedback",
+    "response": "FeedbackRecord",
+    "tasks": [
+      "T108"
+    ],
+    "tables": [
+      "feedback_request",
+      "approval_request"
+    ],
+    "permission": "feedback.request",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/models",
+    "id": "registerModel",
+    "request": "ModelCreate",
+    "response": "Model",
+    "tasks": [
+      "T052"
+    ],
+    "tables": [
+      "model_registry"
+    ],
+    "permission": "model.manage",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/models",
+    "id": "listModels",
+    "request": null,
+    "response": "ModelPage",
+    "tasks": [
+      "T052",
+      "T060"
+    ],
+    "tables": [
+      "model_registry"
+    ],
+    "permission": "model.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/models/{id}/health",
+    "id": "getModelHealth",
+    "request": null,
+    "response": "Health",
+    "tasks": [
+      "T056",
+      "T060"
+    ],
+    "tables": [
+      "model_registry"
+    ],
+    "permission": "model.manage",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/models/{id}/rollouts",
+    "id": "rolloutModel",
+    "request": "Rollout",
+    "response": "ActionAck",
+    "tasks": [
+      "T057",
+      "T060",
+      "T170"
+    ],
+    "tables": [
+      "model_release",
+      "approval_request",
+      "index_registry"
+    ],
+    "permission": "model.release",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/model-evaluations",
+    "id": "recordEvaluation",
+    "request": "EvaluationCreate",
+    "response": "Evaluation",
+    "tasks": [
+      "T058"
+    ],
+    "tables": [
+      "model_evaluation"
+    ],
+    "permission": "model.evaluate",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/model-evaluations",
+    "id": "listEvaluations",
+    "request": null,
+    "response": "EvaluationPage",
+    "tasks": [
+      "T058"
+    ],
+    "tables": [
+      "model_evaluation"
+    ],
+    "permission": "model.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/audit/events",
+    "id": "listAuditEvents",
+    "request": null,
+    "response": "AuditEventPage",
+    "tasks": [
+      "T018"
+    ],
+    "tables": [
+      "audit_event"
+    ],
+    "permission": "audit.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "post",
+    "path": "/audit/exports",
+    "id": "exportAudit",
+    "request": "AuditExport",
+    "response": "ActionAck",
+    "tasks": [
+      "T018"
+    ],
+    "tables": [
+      "audit_export",
+      "audit_event"
+    ],
+    "permission": "audit.export",
+    "status": "202",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/indices/{id}",
+    "id": "getIndex",
+    "request": null,
+    "response": "IndexVersion",
+    "tasks": [
+      "T081",
+      "T157"
+    ],
+    "tables": [
+      "index_registry"
+    ],
+    "permission": "index.manage",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/indices/{id}/switch",
+    "id": "switchIndex",
+    "request": "IndexSwitch",
+    "response": "IndexVersion",
+    "tasks": [
+      "T081",
+      "T157"
+    ],
+    "tables": [
+      "index_registry",
+      "audit_event"
+    ],
+    "permission": "index.manage",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/policies",
+    "id": "createPolicy",
+    "request": "PolicyCreate",
+    "response": "Policy",
+    "tasks": [
+      "T061",
+      "T068",
+      "T069",
+      "T102"
+    ],
+    "tables": [
+      "policy_registry"
+    ],
+    "permission": "policy.manage",
+    "status": "201",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/policies",
+    "id": "listPolicies",
+    "request": null,
+    "response": "PolicyPage",
+    "tasks": [
+      "T061",
+      "T068",
+      "T069"
+    ],
+    "tables": [
+      "policy_registry"
+    ],
+    "permission": "policy.read",
+    "status": "200",
+    "source": "TASK-derived proposal",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  }
+]

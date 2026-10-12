@@ -1,0 +1,7691 @@
+status: draft_pending_review
+tasks:
+- id: T001
+  name: 建立单仓库目录与基础README
+  status: draft_pending_review
+  source_role: 架构/全栈
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: 无
+  execution_dependencies_candidate: []
+  requirement_ids:
+  - NFR-MAINTAIN-001
+  - ER-T001
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - README.md
+  - docs/02-architecture/repository-layout.md
+  test_refs:
+  - TV-T001-N
+  - TV-T001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T001.md
+- id: T002
+  name: 配置Python后端工程
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T001
+  execution_dependencies_candidate:
+  - T001
+  requirement_ids:
+  - NFR-COMPAT-001
+  - ER-T002
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - scripts/t002/
+  test_refs:
+  - TV-T002-N
+  - TV-T002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T002.md
+- id: T003
+  name: 配置Vue前端工程
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T001
+  execution_dependencies_candidate:
+  - T001
+  requirement_ids:
+  - NFR-COMPAT-001
+  - ER-T003
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t003/
+  test_refs:
+  - TV-T003-N
+  - TV-T003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T003.md
+- id: T004
+  name: 建立本地容器开发环境
+  status: draft_pending_review
+  source_role: DevOps
+  assignee: null
+  source_effort: 2人日
+  source_dependencies: T002,T003
+  execution_dependencies_candidate:
+  - T002
+  - T003
+  requirement_ids:
+  - NFR-DEPLOY-001
+  - ER-T004
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - health
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - scripts/t004/
+  test_refs:
+  - TV-T004-N
+  - TV-T004-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T004.md
+- id: T005
+  name: 配置代码格式化与静态检查
+  status: draft_pending_review
+  source_role: 全栈
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T002,T003
+  execution_dependencies_candidate:
+  - T002
+  - T003
+  requirement_ids:
+  - NFR-MAINTAIN-001
+  - ER-T005
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t005/
+  test_refs:
+  - TV-T005-N
+  - TV-T005-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T005.md
+- id: T006
+  name: 建立基础持续集成流水线
+  status: draft_pending_review
+  source_role: DevOps
+  assignee: null
+  source_effort: 2人日
+  source_dependencies: T004,T005
+  execution_dependencies_candidate:
+  - T004
+  - T005
+  requirement_ids:
+  - NFR-MAINTAIN-001
+  - ER-T006
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t006/
+  test_refs:
+  - TV-T006-N
+  - TV-T006-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T006.md
+- id: T007
+  name: 建立统一配置和密钥规范
+  status: draft_pending_review
+  source_role: 后端/DevOps
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T002,T004
+  execution_dependencies_candidate:
+  - T002
+  - T004
+  requirement_ids:
+  - NFR-MAINTAIN-001
+  - NFR-DEPLOY-001
+  - ER-T007
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t007/
+  test_refs:
+  - TV-T007-N
+  - TV-T007-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T007.md
+- id: T008
+  name: 建立统一日志与请求追踪
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T002
+  execution_dependencies_candidate:
+  - T002
+  requirement_ids:
+  - NFR-AUDIT-001
+  - ER-T008
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t008/
+  test_refs:
+  - TV-T008-N
+  - TV-T008-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T008.md
+- id: T009
+  name: 建立统一异常与错误码框架
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T002
+  execution_dependencies_candidate:
+  - T002
+  requirement_ids:
+  - NFR-MAINTAIN-001
+  - ER-T009
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t009/
+  test_refs:
+  - TV-T009-N
+  - TV-T009-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T009.md
+- id: T010
+  name: 建立架构决策记录和变更模板
+  status: draft_pending_review
+  source_role: 架构
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T001
+  execution_dependencies_candidate:
+  - T001
+  requirement_ids:
+  - NFR-MAINTAIN-001
+  - ER-T010
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t010/
+  test_refs:
+  - TV-T010-N
+  - TV-T010-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T010.md
+- id: T011
+  name: 设计用户角色与数据范围模型
+  status: draft_pending_review
+  source_role: 后端/安全
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T002,T010
+  execution_dependencies_candidate:
+  - T002
+  - T010
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-SEC-001
+  - ER-T011
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t011/
+  test_refs:
+  - TV-T011-N
+  - TV-T011-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T011.md
+- id: T012
+  name: 实现用户角色数据库模型
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T011
+  execution_dependencies_candidate:
+  - T011
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-SEC-001
+  - ER-T012
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - users
+  - roles
+  - permissions
+  - user_roles
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t012/
+  test_refs:
+  - TV-T012-N
+  - TV-T012-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T012.md
+- id: T013
+  name: 实现认证与令牌校验
+  status: draft_pending_review
+  source_role: 后端/安全
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T012
+  execution_dependencies_candidate:
+  - T012
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-SEC-001
+  - ER-T013
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - devLogin
+  - getCurrentUser
+  table_names:
+  - case_membership
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - scripts/t013/
+  test_refs:
+  - TV-T013-N
+  - TV-T013-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T013.md
+- id: T014
+  name: 实现接口级权限控制
+  status: draft_pending_review
+  source_role: 后端/安全
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T012,T013
+  execution_dependencies_candidate:
+  - T012
+  - T013
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-SEC-001
+  - ER-T014
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - getCurrentUser
+  table_names:
+  - case_membership
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - scripts/t014/
+  test_refs:
+  - TV-T014-N
+  - TV-T014-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T014.md
+- id: T015
+  name: 实现数据范围访问控制
+  status: draft_pending_review
+  source_role: 后端/安全
+  assignee: null
+  source_effort: 2人日
+  source_dependencies: T014
+  execution_dependencies_candidate:
+  - T014
+  requirement_ids:
+  - FR-RESOURCE-003
+  - NFR-SEC-001
+  - ER-T015
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - getCurrentUser
+  table_names:
+  - case_membership
+  - user_roles
+  - users
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - scripts/t015/
+  test_refs:
+  - TV-T015-N
+  - TV-T015-E
+  - TC-RESOURCE-003-N
+  - TC-RESOURCE-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T015.md
+- id: T016
+  name: 实现高风险操作二次确认
+  status: draft_pending_review
+  source_role: 前后端/安全
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T014
+  execution_dependencies_candidate:
+  - T014
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-SEC-001
+  - ER-T016
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - requestApproval
+  - decideApproval
+  - issueOperationToken
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - operation_token
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - scripts/t016/
+  test_refs:
+  - TV-T016-N
+  - TV-T016-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T016.md
+- id: T017
+  name: 实现操作审计事件模型
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T008,T012
+  execution_dependencies_candidate:
+  - T008
+  - T012
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-AUDIT-001
+  - ER-T017
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - audit_event
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t017/
+  test_refs:
+  - TV-T017-N
+  - TV-T017-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/platform/T017.md
+- id: T018
+  name: 开发审计查询页面与接口
+  status: draft_pending_review
+  source_role: 前后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T015,T017
+  execution_dependencies_candidate:
+  - T015
+  - T017
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-SEC-001
+  - NFR-AUDIT-001
+  - ER-T018
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listAuditEvents
+  - exportAudit
+  table_names:
+  - audit_event
+  - audit_export
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t018/
+  test_refs:
+  - TV-T018-N
+  - TV-T018-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T018.md
+- id: T019
+  name: 设计内容与媒体资产模型
+  status: draft_pending_review
+  source_role: 数据/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T010,T011
+  execution_dependencies_candidate:
+  - T010
+  - T011
+  requirement_ids:
+  - FR-RESOURCE-001
+  - ER-T019
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t019/
+  test_refs:
+  - TV-T019-N
+  - TV-T019-E
+  - TC-RESOURCE-001-N
+  - TC-RESOURCE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T019.md
+- id: T020
+  name: 实现内容与媒体资产表
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T019
+  execution_dependencies_candidate:
+  - T019
+  requirement_ids:
+  - FR-RESOURCE-001
+  - ER-T020
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - source_registry
+  - content_item
+  - media_asset
+  - asset_lineage
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t020/
+  test_refs:
+  - TV-T020-N
+  - TV-T020-E
+  - TC-RESOURCE-001-N
+  - TC-RESOURCE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T020.md
+- id: T021
+  name: 实现数据来源授权登记
+  status: draft_pending_review
+  source_role: 前后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T020,T014
+  execution_dependencies_candidate:
+  - T020
+  - T014
+  requirement_ids:
+  - FR-INGEST-001
+  - FR-RESOURCE-003
+  - NFR-DATA-001
+  - ER-T021
+  usecase_ids:
+  - UC-INGEST-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - createSource
+  - listSources
+  table_names:
+  - source_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t021/
+  test_refs:
+  - TV-T021-N
+  - TV-T021-E
+  - TC-INGEST-001-N
+  - TC-INGEST-001-E
+  - TC-RESOURCE-003-N
+  - TC-RESOURCE-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T021.md
+- id: T022
+  name: 实现分片上传初始化
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T020,T014
+  execution_dependencies_candidate:
+  - T020
+  - T014
+  requirement_ids:
+  - FR-INGEST-002
+  - ER-T022
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - createUpload
+  table_names:
+  - source_registry
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t022/
+  test_refs:
+  - TV-T022-N
+  - TV-T022-E
+  - TC-INGEST-002-N
+  - TC-INGEST-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T022.md
+- id: T023
+  name: 实现分片接收与校验
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T022
+  execution_dependencies_candidate:
+  - T022
+  requirement_ids:
+  - FR-INGEST-002
+  - ER-T023
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - putUploadPart
+  table_names:
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t023/
+  test_refs:
+  - TV-T023-N
+  - TV-T023-E
+  - TC-INGEST-002-N
+  - TC-INGEST-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T023.md
+- id: T024
+  name: 实现分片合并与完整哈希
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T023
+  execution_dependencies_candidate:
+  - T023
+  requirement_ids:
+  - FR-INGEST-002
+  - FR-INGEST-003
+  - ER-T024
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  table_names:
+  - media_asset
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t024/
+  test_refs:
+  - TV-T024-N
+  - TV-T024-E
+  - TC-INGEST-002-N
+  - TC-INGEST-002-E
+  - TC-INGEST-003-N
+  - TC-INGEST-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T024.md
+- id: T025
+  name: 实现MinIO对象存储适配器
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T004,T024
+  execution_dependencies_candidate:
+  - T004
+  - T024
+  requirement_ids:
+  - FR-INGEST-003
+  - FR-RESOURCE-001
+  - FR-RESOURCE-003
+  - NFR-AVAIL-002
+  - ER-T025
+  usecase_ids:
+  - UC-INGEST-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - downloadAsset
+  table_names:
+  - audit_event
+  - media_asset
+  - object_version
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t025/
+  test_refs:
+  - TV-T025-N
+  - TV-T025-E
+  - TC-INGEST-003-N
+  - TC-INGEST-003-E
+  - TC-RESOURCE-001-N
+  - TC-RESOURCE-001-E
+  - TC-RESOURCE-003-N
+  - TC-RESOURCE-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T025.md
+- id: T026
+  name: 实现媒体格式探测与安全校验
+  status: draft_pending_review
+  source_role: 后端/安全
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T024
+  execution_dependencies_candidate:
+  - T024
+  requirement_ids:
+  - FR-INGEST-003
+  - ER-T026
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  table_names:
+  - media_asset
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t026/
+  test_refs:
+  - TV-T026-N
+  - TV-T026-E
+  - TC-INGEST-003-N
+  - TC-INGEST-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T026.md
+- id: T027
+  name: 实现SHA-256完全重复检测
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T020,T24
+  execution_dependencies_candidate:
+  - T020
+  - T024
+  requirement_ids:
+  - FR-INGEST-003
+  - FR-RESOURCE-002
+  - ER-T027
+  usecase_ids:
+  - UC-INGEST-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - completeUpload
+  table_names:
+  - media_asset
+  - upload_part
+  - upload_session
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t027/
+  test_refs:
+  - TV-T027-N
+  - TV-T027-E
+  - TC-INGEST-003-N
+  - TC-INGEST-003-E
+  - TC-RESOURCE-002-N
+  - TC-RESOURCE-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T027.md
+- id: T028
+  name: 实现批量清单导入
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T021,T026
+  execution_dependencies_candidate:
+  - T021
+  - T026
+  requirement_ids:
+  - FR-INGEST-001
+  - ER-T028
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids:
+  - createImport
+  - getImport
+  table_names:
+  - import_item
+  - import_job
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t028/
+  test_refs:
+  - TV-T028-N
+  - TV-T028-E
+  - TC-INGEST-001-N
+  - TC-INGEST-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T028.md
+- id: T029
+  name: 实现第三方接入适配器协议
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T021
+  execution_dependencies_candidate:
+  - T021
+  requirement_ids:
+  - FR-INGEST-001
+  - ER-T029
+  usecase_ids:
+  - UC-INGEST-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t029/
+  test_refs:
+  - TV-T029-N
+  - TV-T029-E
+  - TC-INGEST-001-N
+  - TC-INGEST-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T029.md
+- id: T030
+  name: 开发媒体资产管理页面
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T20,T25,T27
+  execution_dependencies_candidate:
+  - T020
+  - T025
+  - T027
+  requirement_ids:
+  - FR-RESOURCE-001
+  - FR-RESOURCE-003
+  - ER-T030
+  usecase_ids:
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - listAssets
+  - getAsset
+  - downloadAsset
+  table_names:
+  - asset_lineage
+  - audit_event
+  - media_asset
+  - object_version
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t030/
+  test_refs:
+  - TV-T030-N
+  - TV-T030-E
+  - TC-RESOURCE-001-N
+  - TC-RESOURCE-001-E
+  - TC-RESOURCE-003-N
+  - TC-RESOURCE-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T030.md
+- id: T031
+  name: 设计分析任务与节点执行模型
+  status: draft_pending_review
+  source_role: 架构/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T010,T020
+  execution_dependencies_candidate:
+  - T010
+  - T020
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T031
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t031/
+  test_refs:
+  - TV-T031-N
+  - TV-T031-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T031.md
+- id: T032
+  name: 实现任务及节点数据库模型
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T031
+  execution_dependencies_candidate:
+  - T031
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T032
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - analysis_task
+  - task_node_run
+  - task_event
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t032/
+  test_refs:
+  - TV-T032-N
+  - TV-T032-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T032.md
+- id: T033
+  name: 实现任务状态机
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T032,T017
+  execution_dependencies_candidate:
+  - T032
+  - T017
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T033
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t033/
+  test_refs:
+  - TV-T033-N
+  - TV-T033-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T033.md
+- id: T034
+  name: 实现任务创建接口
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T033,T015
+  execution_dependencies_candidate:
+  - T033
+  - T015
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T034
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - createTask
+  table_names:
+  - analysis_task
+  - idempotency_record
+  - outbox_event
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t034/
+  test_refs:
+  - TV-T034-N
+  - TV-T034-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T034.md
+- id: T035
+  name: 实现任务查询和进度接口
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T034
+  execution_dependencies_candidate:
+  - T034
+  requirement_ids:
+  - FR-OPS-002
+  - NFR-AVAIL-001
+  - ER-T035
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listTasks
+  - getTask
+  table_names:
+  - analysis_task
+  - task_node_run
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t035/
+  test_refs:
+  - TV-T035-N
+  - TV-T035-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T035.md
+- id: T036
+  name: 实现异步队列与优先级
+  status: draft_pending_review
+  source_role: 后端/DevOps
+  assignee: null
+  source_effort: 2人日
+  source_dependencies: T004,T034
+  execution_dependencies_candidate:
+  - T004
+  - T034
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T036
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t036/
+  test_refs:
+  - TV-T036-N
+  - TV-T036-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T036.md
+- id: T037
+  name: 实现DAG任务编排器
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T033,T036
+  execution_dependencies_candidate:
+  - T033
+  - T036
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T037
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - report
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t037/
+  test_refs:
+  - TV-T037-N
+  - TV-T037-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T037.md
+- id: T038
+  name: 实现节点级重试与检查点
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 2人日
+  source_dependencies: T037
+  execution_dependencies_candidate:
+  - T037
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T038
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t038/
+  test_refs:
+  - TV-T038-N
+  - TV-T038-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T038.md
+- id: T039
+  name: 实现任务取消和退回重算
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T033,T037
+  execution_dependencies_candidate:
+  - T033
+  - T037
+  requirement_ids:
+  - NFR-AVAIL-001
+  - ER-T039
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - cancelTask
+  - rerunTask
+  table_names:
+  - analysis_task
+  - outbox_event
+  - task_event
+  - task_run
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t039/
+  test_refs:
+  - TV-T039-N
+  - TV-T039-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T039.md
+- id: T040
+  name: 开发任务监控页面
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T035,T039
+  execution_dependencies_candidate:
+  - T035
+  - T039
+  requirement_ids:
+  - FR-OPS-002
+  - ER-T040
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listTasks
+  - getTask
+  - cancelTask
+  - rerunTask
+  table_names:
+  - analysis_task
+  - outbox_event
+  - task_event
+  - task_node_run
+  - task_run
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t040/
+  test_refs:
+  - TV-T040-N
+  - TV-T040-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T040.md
+- id: T041
+  name: 实现图片元数据解析
+  status: draft_pending_review
+  source_role: 后端/算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T025,T037
+  execution_dependencies_candidate:
+  - T025
+  - T037
+  requirement_ids:
+  - FR-MEDIA-001
+  - ER-T041
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t041/
+  test_refs:
+  - TV-T041-N
+  - TV-T041-E
+  - TC-MEDIA-001-N
+  - TC-MEDIA-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T041.md
+- id: T042
+  name: 实现视频ffprobe解析
+  status: draft_pending_review
+  source_role: 后端/算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T025,T037
+  execution_dependencies_candidate:
+  - T025
+  - T037
+  requirement_ids:
+  - FR-MEDIA-001
+  - ER-T042
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t042/
+  test_refs:
+  - TV-T042-N
+  - TV-T042-E
+  - TC-MEDIA-001-N
+  - TC-MEDIA-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T042.md
+- id: T043
+  name: 实现标准化媒体副本生成
+  status: draft_pending_review
+  source_role: 后端/算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T041,T042
+  execution_dependencies_candidate:
+  - T041
+  - T042
+  requirement_ids:
+  - FR-MEDIA-001
+  - ER-T043
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t043/
+  test_refs:
+  - TV-T043-N
+  - TV-T043-E
+  - TC-MEDIA-001-N
+  - TC-MEDIA-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T043.md
+- id: T044
+  name: 实现镜头边界检测
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T043
+  execution_dependencies_candidate:
+  - T043
+  requirement_ids:
+  - FR-MEDIA-002
+  - ER-T044
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - shot
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t044/
+  test_refs:
+  - TV-T044-N
+  - TV-T044-E
+  - TC-MEDIA-002-N
+  - TC-MEDIA-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T044.md
+- id: T045
+  name: 实现固定间隔抽帧
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T043
+  execution_dependencies_candidate:
+  - T043
+  requirement_ids:
+  - FR-MEDIA-002
+  - ER-T045
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t045/
+  test_refs:
+  - TV-T045-N
+  - TV-T045-E
+  - TC-MEDIA-002-N
+  - TC-MEDIA-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T045.md
+- id: T046
+  name: 实现镜头代表帧选择
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T044,T045
+  execution_dependencies_candidate:
+  - T044
+  - T045
+  requirement_ids:
+  - FR-MEDIA-002
+  - ER-T046
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - keyframe
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t046/
+  test_refs:
+  - TV-T046-N
+  - TV-T046-E
+  - TC-MEDIA-002-N
+  - TC-MEDIA-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T046.md
+- id: T047
+  name: 实现音轨与字幕提取
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T042,T043
+  execution_dependencies_candidate:
+  - T042
+  - T043
+  requirement_ids:
+  - FR-MEDIA-002
+  - ER-T047
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M33
+  dataset_ids:
+  - D04
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t047/
+  test_refs:
+  - TV-T047-N
+  - TV-T047-E
+  - TC-MEDIA-002-N
+  - TC-MEDIA-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T047.md
+- id: T048
+  name: 接入OCR并建立时间片段
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T046,T037
+  execution_dependencies_candidate:
+  - T046
+  - T037
+  requirement_ids:
+  - FR-MEDIA-003
+  - ER-T048
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M31
+  dataset_ids:
+  - D01
+  - D05
+  - D13
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t048/
+  test_refs:
+  - TV-T048-N
+  - TV-T048-E
+  - TC-MEDIA-003-N
+  - TC-MEDIA-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T048.md
+- id: T049
+  name: 接入ASR并建立时间片段
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T047,T037
+  execution_dependencies_candidate:
+  - T047
+  - T037
+  requirement_ids:
+  - FR-MEDIA-003
+  - ER-T049
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M32
+  dataset_ids:
+  - D03
+  - D04
+  - D05
+  - D13
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t049/
+  test_refs:
+  - TV-T049-N
+  - TV-T049-E
+  - TC-MEDIA-003-N
+  - TC-MEDIA-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T049.md
+- id: T050
+  name: 实现媒体统一时间轴服务
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T044,T046,T048,T049
+  execution_dependencies_candidate:
+  - T044
+  - T046
+  - T048
+  - T049
+  requirement_ids:
+  - FR-MEDIA-003
+  - ER-T050
+  usecase_ids:
+  - UC-MEDIA-001
+  rule_ids: []
+  operation_ids:
+  - getTimeline
+  table_names:
+  - keyframe
+  - media_asset
+  - shot
+  - text_segment
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t050/
+  test_refs:
+  - TV-T050-N
+  - TV-T050-E
+  - TC-MEDIA-003-N
+  - TC-MEDIA-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T050.md
+- id: T051
+  name: 定义统一模型输入输出契约
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T010,T037
+  execution_dependencies_candidate:
+  - T010
+  - T037
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-COMPAT-001
+  - ER-T051
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t051/
+  test_refs:
+  - TV-T051-N
+  - TV-T051-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T051.md
+- id: T052
+  name: 实现模型注册表
+  status: draft_pending_review
+  source_role: 后端/算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T051,T014
+  execution_dependencies_candidate:
+  - T051
+  - T014
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-COMPAT-001
+  - ER-T052
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - registerModel
+  - listModels
+  table_names:
+  - model_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t052/
+  test_refs:
+  - TV-T052-N
+  - TV-T052-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T052.md
+- id: T053
+  name: 实现统一推理网关
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T051,T052
+  execution_dependencies_candidate:
+  - T051
+  - T052
+  requirement_ids:
+  - NFR-COMPAT-001
+  - NFR-DEPLOY-001
+  - ER-T053
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t053/
+  test_refs:
+  - TV-T053-N
+  - TV-T053-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T053.md
+- id: T054
+  name: 实现HTTP与本地Mock适配器
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053
+  execution_dependencies_candidate:
+  - T053
+  requirement_ids:
+  - NFR-COMPAT-001
+  - ER-T054
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t054/
+  test_refs:
+  - TV-T054-N
+  - TV-T054-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T054.md
+- id: T055
+  name: 实现推理批处理与GPU队列
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T053,T036
+  execution_dependencies_candidate:
+  - T053
+  - T036
+  requirement_ids:
+  - FR-OPS-002
+  - NFR-PERF-001
+  - NFR-DEPLOY-001
+  - ER-T055
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t055/
+  test_refs:
+  - TV-T055-N
+  - TV-T055-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T055.md
+- id: T056
+  name: 实现模型健康检查与熔断
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053
+  execution_dependencies_candidate:
+  - T053
+  requirement_ids:
+  - FR-OPS-002
+  - ER-T056
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - getModelHealth
+  table_names:
+  - model_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t056/
+  test_refs:
+  - TV-T056-N
+  - TV-T056-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T056.md
+- id: T057
+  name: 实现模型灰度发布
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T052,T053
+  execution_dependencies_candidate:
+  - T052
+  - T053
+  requirement_ids:
+  - FR-OPS-003
+  - ER-T057
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_release
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t057/
+  test_refs:
+  - TV-T057-N
+  - TV-T057-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T057.md
+- id: T058
+  name: 实现模型评测记录管理
+  status: draft_pending_review
+  source_role: 后端/算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T052
+  execution_dependencies_candidate:
+  - T052
+  requirement_ids:
+  - FR-OPS-001
+  - NFR-AI-001
+  - ER-T058
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - recordEvaluation
+  - listEvaluations
+  table_names:
+  - model_evaluation
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t058/
+  test_refs:
+  - TV-T058-N
+  - TV-T058-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T058.md
+- id: T059
+  name: 实现输入输出漂移监测
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T058
+  execution_dependencies_candidate:
+  - T053
+  - T058
+  requirement_ids:
+  - FR-OPS-002
+  - ER-T059
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t059/
+  test_refs:
+  - TV-T059-N
+  - TV-T059-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T059.md
+- id: T060
+  name: 开发模型运维页面
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T052,T057,T058,T059
+  execution_dependencies_candidate:
+  - T052
+  - T057
+  - T058
+  - T059
+  requirement_ids:
+  - FR-OPS-001
+  - FR-OPS-003
+  - ER-T060
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - listModels
+  - getModelHealth
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_registry
+  - model_release
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t060/
+  test_refs:
+  - TV-T060-N
+  - TV-T060-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T060.md
+- id: T061
+  name: 定义风险标签和版本管理
+  status: draft_pending_review
+  source_role: 业务/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T021,T052
+  execution_dependencies_candidate:
+  - T021
+  - T052
+  requirement_ids:
+  - FR-RISK-001
+  - FR-OPS-001
+  - ER-T061
+  usecase_ids:
+  - UC-OPS-001
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t061/
+  test_refs:
+  - TV-T061-N
+  - TV-T061-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  - TC-OPS-001-N
+  - TC-OPS-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T061.md
+- id: T062
+  name: 接入图片多标签分类模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T061,T041
+  execution_dependencies_candidate:
+  - T053
+  - T061
+  - T041
+  requirement_ids:
+  - FR-RISK-001
+  - ER-T062
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t062/
+  test_refs:
+  - TV-T062-N
+  - TV-T062-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T062.md
+- id: T063
+  name: 接入敏感目标检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T061,T046
+  execution_dependencies_candidate:
+  - T053
+  - T061
+  - T046
+  requirement_ids:
+  - FR-RISK-001
+  - ER-T063
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M02
+  dataset_ids:
+  - D02
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t063/
+  test_refs:
+  - TV-T063-N
+  - TV-T063-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T063.md
+- id: T064
+  name: 接入视频行为识别模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T050
+  execution_dependencies_candidate:
+  - T053
+  - T050
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T064
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M04
+  dataset_ids:
+  - D03
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t064/
+  test_refs:
+  - TV-T064-N
+  - TV-T064-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T064.md
+- id: T065
+  name: 接入音频事件识别模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T047,T053
+  execution_dependencies_candidate:
+  - T047
+  - T053
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T065
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M06
+  dataset_ids:
+  - D04
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t065/
+  test_refs:
+  - TV-T065-N
+  - TV-T065-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T065.md
+- id: T066
+  name: 实现多模态时间对齐
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T048,T049,T063,T064,T065
+  execution_dependencies_candidate:
+  - T048
+  - T049
+  - T063
+  - T064
+  - T065
+  requirement_ids:
+  - FR-MEDIA-003
+  - FR-RISK-002
+  - ER-T066
+  usecase_ids:
+  - UC-MEDIA-001
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t066/
+  test_refs:
+  - TV-T066-N
+  - TV-T066-E
+  - TC-MEDIA-003-N
+  - TC-MEDIA-003-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T066.md
+- id: T067
+  name: 实现跨模态矛盾检测
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T066,T053
+  execution_dependencies_candidate:
+  - T066
+  - T053
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T067
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids:
+  - M07
+  dataset_ids:
+  - D05
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t067/
+  test_refs:
+  - TV-T067-N
+  - TV-T067-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T067.md
+- id: T068
+  name: 实现综合风险融合与校准
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T062-T067
+  execution_dependencies_candidate:
+  - T062
+  - T063
+  - T064
+  - T065
+  - T066
+  - T067
+  requirement_ids:
+  - FR-RISK-003
+  - ER-T068
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids:
+  - M08
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t068/
+  test_refs:
+  - TV-T068-N
+  - TV-T068-E
+  - TC-RISK-003-N
+  - TC-RISK-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T068.md
+- id: T069
+  name: 实现风险转人工规则
+  status: draft_pending_review
+  source_role: 后端/业务
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T068,T033
+  execution_dependencies_candidate:
+  - T068
+  - T033
+  requirement_ids:
+  - FR-RISK-003
+  - ER-T069
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - createPolicy
+  - listPolicies
+  table_names:
+  - policy_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t069/
+  test_refs:
+  - TV-T069-N
+  - TV-T069-E
+  - TC-RISK-003-N
+  - TC-RISK-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T069.md
+- id: T070
+  name: 开发风险识别研判界面
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T050,T068,T069
+  execution_dependencies_candidate:
+  - T050
+  - T068
+  - T069
+  requirement_ids:
+  - FR-RISK-003
+  - ER-T070
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids:
+  - getRiskFindings
+  table_names:
+  - finding_evidence
+  - risk_finding
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t070/
+  test_refs:
+  - TV-T070-N
+  - TV-T070-E
+  - TC-RISK-003-N
+  - TC-RISK-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T070.md
+- id: T071
+  name: 实现图片取证基础特征
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T041,T043
+  execution_dependencies_candidate:
+  - T041
+  - T043
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T071
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t071/
+  test_refs:
+  - TV-T071-N
+  - TV-T071-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T071.md
+- id: T072
+  name: 接入图片篡改区域模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T071
+  execution_dependencies_candidate:
+  - T053
+  - T071
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T072
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t072/
+  test_refs:
+  - TV-T072-N
+  - TV-T072-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T072.md
+- id: T073
+  name: 实现复制粘贴与局部生成分类
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T071,T072
+  execution_dependencies_candidate:
+  - T071
+  - T072
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T073
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M10
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t073/
+  test_refs:
+  - TV-T073-N
+  - TV-T073-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T073.md
+- id: T074
+  name: 实现视频时间结构异常检测
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T042,T047
+  execution_dependencies_candidate:
+  - T042
+  - T047
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T074
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  dataset_ids:
+  - D07
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t074/
+  test_refs:
+  - TV-T074-N
+  - TV-T074-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T074.md
+- id: T075
+  name: 实现视频空间篡改跟踪
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T072,T050
+  execution_dependencies_candidate:
+  - T072
+  - T050
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T075
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M12
+  dataset_ids:
+  - D07
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t075/
+  test_refs:
+  - TV-T075-N
+  - TV-T075-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T075.md
+- id: T076
+  name: 接入深度伪造与音画同步检测
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T047,T050
+  execution_dependencies_candidate:
+  - T053
+  - T047
+  - T050
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T076
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M13
+  - M14
+  dataset_ids:
+  - D08
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t076/
+  test_refs:
+  - TV-T076-N
+  - TV-T076-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T076.md
+- id: T077
+  name: 实现篡改多证据融合
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T072-T076
+  execution_dependencies_candidate:
+  - T072
+  - T073
+  - T074
+  - T075
+  - T076
+  requirement_ids:
+  - FR-FORENSIC-003
+  - ER-T077
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t077/
+  test_refs:
+  - TV-T077-N
+  - TV-T077-E
+  - TC-FORENSIC-003-N
+  - TC-FORENSIC-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T077.md
+- id: T078
+  name: 开发篡改取证界面
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T077,T050
+  execution_dependencies_candidate:
+  - T077
+  - T050
+  requirement_ids:
+  - FR-FORENSIC-003
+  - ER-T078
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids:
+  - getForensics
+  table_names:
+  - finding_evidence
+  - tamper_finding
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t078/
+  test_refs:
+  - TV-T078-N
+  - TV-T078-E
+  - TC-FORENSIC-003-N
+  - TC-FORENSIC-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T078.md
+- id: T079
+  name: 实现图片感知哈希特征
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T041,T020
+  execution_dependencies_candidate:
+  - T041
+  - T020
+  requirement_ids:
+  - FR-RESOURCE-002
+  - FR-IMGRET-001
+  - ER-T079
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - feature
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t079/
+  test_refs:
+  - TV-T079-N
+  - TV-T079-E
+  - TC-RESOURCE-002-N
+  - TC-RESOURCE-002-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T079.md
+- id: T080
+  name: 实现视觉与复制检测向量生成
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T053,T041,T046
+  execution_dependencies_candidate:
+  - T053
+  - T041
+  - T046
+  requirement_ids:
+  - FR-IMGRET-001
+  - FR-VIDTRACE-001
+  - ER-T080
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M15
+  - M19
+  dataset_ids:
+  - D09
+  - D10
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t080/
+  test_refs:
+  - TV-T080-N
+  - TV-T080-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  - TC-VIDTRACE-001-N
+  - TC-VIDTRACE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T080.md
+- id: T081
+  name: 建立Milvus索引与版本管理
+  status: draft_pending_review
+  source_role: 数据/算法平台
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T080
+  execution_dependencies_candidate:
+  - T080
+  requirement_ids:
+  - FR-IMGRET-001
+  - FR-VIDTRACE-001
+  - NFR-COMPAT-001
+  - NFR-PERF-001
+  - ER-T081
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids:
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t081/
+  test_refs:
+  - TV-T081-N
+  - TV-T081-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  - TC-VIDTRACE-001-N
+  - TC-VIDTRACE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T081.md
+- id: T082
+  name: 实现图片多路候选召回
+  status: draft_pending_review
+  source_role: 算法/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T027,T079-T081
+  execution_dependencies_candidate:
+  - T027
+  - T079
+  - T080
+  - T081
+  requirement_ids:
+  - FR-RESOURCE-002
+  - FR-IMGRET-001
+  - FR-IMGRET-003
+  - ER-T082
+  usecase_ids:
+  - UC-IMGRET-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  - getSearchJob
+  table_names:
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t082/
+  test_refs:
+  - TV-T082-N
+  - TV-T082-E
+  - TC-RESOURCE-002-N
+  - TC-RESOURCE-002-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  - TC-IMGRET-003-N
+  - TC-IMGRET-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T082.md
+- id: T083
+  name: 实现局部特征提取与匹配
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T041
+  execution_dependencies_candidate:
+  - T041
+  requirement_ids:
+  - FR-IMGRET-002
+  - ER-T083
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M16
+  - M17
+  dataset_ids:
+  - D09
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t083/
+  test_refs:
+  - TV-T083-N
+  - TV-T083-E
+  - TC-IMGRET-002-N
+  - TC-IMGRET-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T083.md
+- id: T084
+  name: 实现RANSAC几何验证
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T082,T083
+  execution_dependencies_candidate:
+  - T082
+  - T083
+  requirement_ids:
+  - FR-IMGRET-002
+  - FR-IMGRET-003
+  - ER-T084
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  table_names:
+  - index_registry
+  - media_asset
+  - source_match
+  model_ids:
+  - M18
+  dataset_ids:
+  - D09
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t084/
+  test_refs:
+  - TV-T084-N
+  - TV-T084-E
+  - TC-IMGRET-002-N
+  - TC-IMGRET-002-E
+  - TC-IMGRET-003-N
+  - TC-IMGRET-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T084.md
+- id: T085
+  name: 实现图片局部区域检索
+  status: draft_pending_review
+  source_role: 前后端/算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T082,T084
+  execution_dependencies_candidate:
+  - T082
+  - T084
+  requirement_ids:
+  - FR-IMGRET-001
+  - FR-IMGRET-003
+  - ER-T085
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - searchImage
+  - searchImageRegion
+  - getSearchJob
+  table_names:
+  - index_registry
+  - media_asset
+  - search_job
+  - source_match
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t085/
+  test_refs:
+  - TV-T085-N
+  - TV-T085-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  - TC-IMGRET-003-N
+  - TC-IMGRET-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T085.md
+- id: T086
+  name: 实现视频帧检索候选聚合
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T080-T082
+  execution_dependencies_candidate:
+  - T080
+  - T081
+  - T082
+  requirement_ids:
+  - FR-VIDTRACE-001
+  - ER-T086
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M33
+  dataset_ids:
+  - D04
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t086/
+  test_refs:
+  - TV-T086-N
+  - TV-T086-E
+  - TC-VIDTRACE-001-N
+  - TC-VIDTRACE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T086.md
+- id: T087
+  name: 实现视频相似度矩阵构建
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T086
+  execution_dependencies_candidate:
+  - T086
+  requirement_ids:
+  - FR-VIDTRACE-002
+  - ER-T087
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  dataset_ids:
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t087/
+  test_refs:
+  - TV-T087-N
+  - TV-T087-E
+  - TC-VIDTRACE-002-N
+  - TC-VIDTRACE-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T087.md
+- id: T088
+  name: 实现局部DTW与倒放对齐
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T087
+  execution_dependencies_candidate:
+  - T087
+  requirement_ids:
+  - FR-VIDTRACE-002
+  - ER-T088
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  dataset_ids:
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t088/
+  test_refs:
+  - TV-T088-N
+  - TV-T088-E
+  - TC-VIDTRACE-002-N
+  - TC-VIDTRACE-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T088.md
+- id: T089
+  name: 实现多源拼接来源映射
+  status: draft_pending_review
+  source_role: 算法/后端
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T044,T088
+  execution_dependencies_candidate:
+  - T044
+  - T088
+  requirement_ids:
+  - FR-VIDTRACE-003
+  - ER-T089
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids:
+  - searchVideo
+  - getSearchJob
+  table_names:
+  - index_registry
+  - search_job
+  - source_match
+  model_ids:
+  - M22
+  dataset_ids:
+  - D11
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t089/
+  test_refs:
+  - TV-T089-N
+  - TV-T089-E
+  - TC-VIDTRACE-003-N
+  - TC-VIDTRACE-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T089.md
+- id: T090
+  name: 实现高可信同源内容聚类
+  status: draft_pending_review
+  source_role: 算法/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T084,T089
+  execution_dependencies_candidate:
+  - T084
+  - T089
+  requirement_ids:
+  - FR-RESOURCE-002
+  - FR-ORIGIN-001
+  - ER-T090
+  usecase_ids:
+  - UC-ORIGIN-001
+  - UC-RESOURCE-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - content_cluster
+  - cluster_member
+  model_ids:
+  - M23
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t090/
+  test_refs:
+  - TV-T090-N
+  - TV-T090-E
+  - TC-RESOURCE-002-N
+  - TC-RESOURCE-002-E
+  - TC-ORIGIN-001-N
+  - TC-ORIGIN-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T090.md
+- id: T091
+  name: 实现首发排序特征工程
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T090,T021
+  execution_dependencies_candidate:
+  - T090
+  - T021
+  requirement_ids:
+  - FR-ORIGIN-002
+  - FR-ORIGIN-003
+  - ER-T091
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/04-database/first-source-ranking.md
+  output_refs_planned:
+  - backend/t091/
+  test_refs:
+  - TV-T091-N
+  - TV-T091-E
+  - TC-ORIGIN-002-N
+  - TC-ORIGIN-002-E
+  - TC-ORIGIN-003-N
+  - TC-ORIGIN-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T091.md
+- id: T092
+  name: 训练和注册首发排序模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T091,T058
+  execution_dependencies_candidate:
+  - T091
+  - T058
+  - T164
+  requirement_ids:
+  - FR-ORIGIN-002
+  - FR-ORIGIN-003
+  - ER-T092
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M24
+  dataset_ids:
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  - docs/04-database/first-source-ranking.md
+  output_refs_planned:
+  - backend/t092/
+  test_refs:
+  - TV-T092-N
+  - TV-T092-E
+  - TC-ORIGIN-002-N
+  - TC-ORIGIN-002-E
+  - TC-ORIGIN-003-N
+  - TC-ORIGIN-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T092.md
+- id: T093
+  name: 实现首发候选查询服务
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T090-T092
+  execution_dependencies_candidate:
+  - T090
+  - T091
+  - T092
+  requirement_ids:
+  - FR-ORIGIN-002
+  - FR-ORIGIN-003
+  - ER-T093
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids:
+  - getFirstSource
+  table_names:
+  - cluster_member
+  - content_cluster
+  - first_source_candidate
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/04-database/first-source-ranking.md
+  output_refs_planned:
+  - backend/t093/
+  test_refs:
+  - TV-T093-N
+  - TV-T093-E
+  - TC-ORIGIN-002-N
+  - TC-ORIGIN-002-E
+  - TC-ORIGIN-003-N
+  - TC-ORIGIN-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T093.md
+- id: T094
+  name: 设计传播图谱数据模型
+  status: draft_pending_review
+  source_role: 数据/架构
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T090
+  execution_dependencies_candidate:
+  - T090
+  requirement_ids:
+  - FR-PROPAGATION-001
+  - ER-T094
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t094/
+  test_refs:
+  - TV-T094-N
+  - TV-T094-E
+  - TC-PROPAGATION-001-N
+  - TC-PROPAGATION-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T094.md
+- id: T095
+  name: 实现传播图谱写入与查询
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T094
+  execution_dependencies_candidate:
+  - T094
+  requirement_ids:
+  - FR-PROPAGATION-001
+  - FR-PROPAGATION-002
+  - ER-T095
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  table_names:
+  - propagation_edge
+  - propagation_node
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t095/
+  test_refs:
+  - TV-T095-N
+  - TV-T095-E
+  - TC-PROPAGATION-001-N
+  - TC-PROPAGATION-001-E
+  - TC-PROPAGATION-002-N
+  - TC-PROPAGATION-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T095.md
+- id: T096
+  name: 实现隐式传播关系推断
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T084,T089,T095
+  execution_dependencies_candidate:
+  - T084
+  - T089
+  - T095
+  requirement_ids:
+  - FR-PROPAGATION-001
+  - FR-PROPAGATION-003
+  - ER-T096
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - decidePropagationEdge
+  table_names:
+  - propagation_edge
+  - review_record
+  model_ids:
+  - M27
+  dataset_ids:
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t096/
+  test_refs:
+  - TV-T096-N
+  - TV-T096-E
+  - TC-PROPAGATION-001-N
+  - TC-PROPAGATION-001-E
+  - TC-PROPAGATION-003-N
+  - TC-PROPAGATION-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T096.md
+- id: T097
+  name: 开发传播时间线和图谱界面
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T093,T095,T096
+  execution_dependencies_candidate:
+  - T093
+  - T095
+  - T096
+  requirement_ids:
+  - FR-PROPAGATION-002
+  - FR-PROPAGATION-003
+  - ER-T097
+  usecase_ids:
+  - UC-PROPAGATION-001
+  rule_ids: []
+  operation_ids:
+  - getPropagation
+  - decidePropagationEdge
+  table_names:
+  - propagation_edge
+  - propagation_node
+  - review_record
+  model_ids:
+  - M26
+  dataset_ids:
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - frontend/t097/
+  test_refs:
+  - TV-T097-N
+  - TV-T097-E
+  - TC-PROPAGATION-002-N
+  - TC-PROPAGATION-002-E
+  - TC-PROPAGATION-003-N
+  - TC-PROPAGATION-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T097.md
+- id: T098
+  name: 实现结构化主张抽取服务
+  status: draft_pending_review
+  source_role: 大模型/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T048,T049,T053
+  execution_dependencies_candidate:
+  - T048
+  - T049
+  - T053
+  requirement_ids:
+  - FR-CLAIM-001
+  - ER-T098
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - extractClaims
+  table_names:
+  - claim
+  - text_segment
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t098/
+  test_refs:
+  - TV-T098-N
+  - TV-T098-E
+  - TC-CLAIM-001-N
+  - TC-CLAIM-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T098.md
+- id: T099
+  name: 实现权威证据检索与关系判断
+  status: draft_pending_review
+  source_role: 大模型/检索
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T098,T021
+  execution_dependencies_candidate:
+  - T098
+  - T021
+  requirement_ids:
+  - FR-CLAIM-002
+  - ER-T099
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids:
+  - verifyClaim
+  table_names:
+  - claim
+  - claim_evidence_relation
+  model_ids:
+  - M29
+  dataset_ids:
+  - D14
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t099/
+  test_refs:
+  - TV-T099-N
+  - TV-T099-E
+  - TC-CLAIM-002-N
+  - TC-CLAIM-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T099.md
+- id: T100
+  name: 实现统一证据对象模型
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T051,T017,T020
+  execution_dependencies_candidate:
+  - T051
+  - T017
+  - T020
+  requirement_ids:
+  - FR-REVIEW-001
+  - ER-T100
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - evidence_item
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t100/
+  test_refs:
+  - TV-T100-N
+  - TV-T100-E
+  - TC-REVIEW-001-N
+  - TC-REVIEW-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T100.md
+- id: T101
+  name: 实现风险与取证证据卡片接口
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T068,T077,T084,T089,T100
+  execution_dependencies_candidate:
+  - T068
+  - T077
+  - T084
+  - T089
+  - T100
+  requirement_ids:
+  - FR-REVIEW-001
+  - ER-T101
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - getTaskEvidence
+  table_names:
+  - evidence_item
+  - task_evidence
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t101/
+  test_refs:
+  - TV-T101-N
+  - TV-T101-E
+  - TC-REVIEW-001-N
+  - TC-REVIEW-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T101.md
+- id: T102
+  name: 实现人工复核工作流
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T069,T101,T033
+  execution_dependencies_candidate:
+  - T069
+  - T101
+  - T033
+  requirement_ids:
+  - FR-PROPAGATION-003
+  - FR-REVIEW-001
+  - NFR-AUDIT-001
+  - ER-T102
+  usecase_ids:
+  - UC-PROPAGATION-001
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - decidePropagationEdge
+  - createReview
+  - requestApproval
+  - decideApproval
+  - createPolicy
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - policy_registry
+  - propagation_edge
+  - review_evidence
+  - review_record
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t102/
+  test_refs:
+  - TV-T102-N
+  - TV-T102-E
+  - TC-PROPAGATION-003-N
+  - TC-PROPAGATION-003-E
+  - TC-REVIEW-001-N
+  - TC-REVIEW-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T102.md
+- id: T103
+  name: 开发人工复核工作台
+  status: draft_pending_review
+  source_role: 前端
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T070,T078,T097,T102
+  execution_dependencies_candidate:
+  - T070
+  - T078
+  - T097
+  - T102
+  requirement_ids:
+  - FR-REVIEW-001
+  - ER-T103
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - getTaskEvidence
+  - createReview
+  table_names:
+  - audit_event
+  - evidence_item
+  - review_evidence
+  - review_record
+  - task_evidence
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - frontend/t103/
+  test_refs:
+  - TV-T103-N
+  - TV-T103-E
+  - TC-REVIEW-001-N
+  - TC-REVIEW-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/frontend/T103.md
+- id: T104
+  name: 实现证据固化与完整性校验
+  status: draft_pending_review
+  source_role: 后端/安全
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T100,T102,T025
+  execution_dependencies_candidate:
+  - T100
+  - T102
+  - T025
+  requirement_ids:
+  - FR-REVIEW-002
+  - NFR-AUDIT-001
+  - NFR-AVAIL-002
+  - ER-T104
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - sealEvidence
+  table_names:
+  - audit_event
+  - evidence_package
+  - object_version
+  - package_item
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t104/
+  test_refs:
+  - TV-T104-N
+  - TV-T104-E
+  - TC-REVIEW-002-N
+  - TC-REVIEW-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T104.md
+- id: T105
+  name: 实现可信时间与签名适配层
+  status: draft_pending_review
+  source_role: 安全/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T104
+  execution_dependencies_candidate:
+  - T104
+  requirement_ids:
+  - FR-REVIEW-002
+  - NFR-AVAIL-002
+  - ER-T105
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - sealEvidence
+  table_names:
+  - audit_event
+  - evidence_package
+  - object_version
+  - package_item
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t105/
+  test_refs:
+  - TV-T105-N
+  - TV-T105-E
+  - TC-REVIEW-002-N
+  - TC-REVIEW-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T105.md
+- id: T106
+  name: 实现证据约束核查摘要
+  status: draft_pending_review
+  source_role: 大模型/后端
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T099,T101,T053
+  execution_dependencies_candidate:
+  - T099
+  - T101
+  - T053
+  requirement_ids:
+  - FR-CLAIM-003
+  - FR-REVIEW-003
+  - ER-T106
+  usecase_ids:
+  - UC-CLAIM-001
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - createReportDraft
+  table_names:
+  - report
+  - report_evidence
+  model_ids:
+  - M30
+  dataset_ids:
+  - D13
+  - D14
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t106/
+  test_refs:
+  - TV-T106-N
+  - TV-T106-E
+  - TC-CLAIM-003-N
+  - TC-CLAIM-003-E
+  - TC-REVIEW-003-N
+  - TC-REVIEW-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T106.md
+- id: T107
+  name: 实现核查报告生成
+  status: draft_pending_review
+  source_role: 后端
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T102,T104,T106
+  execution_dependencies_candidate:
+  - T102
+  - T104
+  - T106
+  requirement_ids:
+  - FR-REVIEW-003
+  - NFR-AUDIT-001
+  - ER-T107
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - createReport
+  - getReport
+  - downloadReport
+  table_names:
+  - approval_request
+  - audit_event
+  - report
+  - report_evidence
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t107/
+  test_refs:
+  - TV-T107-N
+  - TV-T107-E
+  - TC-REVIEW-003-N
+  - TC-REVIEW-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T107.md
+- id: T108
+  name: 实现样本纠错与回流审批
+  status: draft_pending_review
+  source_role: 前后端/算法平台
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T102,T058
+  execution_dependencies_candidate:
+  - T102
+  - T058
+  requirement_ids:
+  - FR-REVIEW-001
+  - NFR-AUDIT-001
+  - NFR-DATA-001
+  - ER-T108
+  usecase_ids:
+  - UC-REVIEW-001
+  rule_ids: []
+  operation_ids:
+  - requestApproval
+  - decideApproval
+  - requestFeedback
+  table_names:
+  - approval_decision
+  - approval_request
+  - audit_event
+  - feedback_request
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - backend/t108/
+  test_refs:
+  - TV-T108-N
+  - TV-T108-E
+  - TC-REVIEW-001-N
+  - TC-REVIEW-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T108.md
+- id: T109
+  name: 建立标注规范与标签质检工具
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T061,T090,T100
+  execution_dependencies_candidate:
+  - T061
+  - T100
+  requirement_ids:
+  - NFR-DATA-001
+  - ER-T109
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t109/
+  test_refs:
+  - TV-T109-N
+  - TV-T109-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T109.md
+- id: T110
+  name: 实现原始素材分组划分
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T090,T109
+  execution_dependencies_candidate:
+  - T019
+  - T021
+  - T109
+  requirement_ids:
+  - NFR-DATA-001
+  - ER-T110
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t110/
+  test_refs:
+  - TV-T110-N
+  - TV-T110-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T110.md
+- id: T111
+  name: 实现可控编辑数据增强流水线
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T109,T110
+  execution_dependencies_candidate:
+  - T109
+  - T110
+  requirement_ids:
+  - NFR-DATA-001
+  - ER-T111
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t111/
+  test_refs:
+  - TV-T111-N
+  - TV-T111-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T111.md
+- id: T112
+  name: 建立难负样本挖掘流程
+  status: draft_pending_review
+  source_role: 算法/数据
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T082,T084,T089
+  execution_dependencies_candidate:
+  - T082
+  - T084
+  - T089
+  requirement_ids:
+  - NFR-DATA-001
+  - ER-T112
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t112/
+  test_refs:
+  - TV-T112-N
+  - TV-T112-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T112.md
+- id: T113
+  name: 实现风险模型训练与评测流水线
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T062-T068,T110
+  execution_dependencies_candidate:
+  - T062
+  - T063
+  - T064
+  - T065
+  - T066
+  - T067
+  - T068
+  - T110
+  requirement_ids:
+  - NFR-AI-001
+  - ER-T113
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - backend/t113/
+  test_refs:
+  - TV-T113-N
+  - TV-T113-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T113.md
+- id: T114
+  name: 实现篡改模型评测流水线
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T072-T077,T110
+  execution_dependencies_candidate:
+  - T072
+  - T073
+  - T074
+  - T075
+  - T076
+  - T077
+  - T110
+  requirement_ids:
+  - NFR-AI-001
+  - ER-T114
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t114/
+  test_refs:
+  - TV-T114-N
+  - TV-T114-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T114.md
+- id: T115
+  name: 实现同源与片段检索评测流水线
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T082-T089,T110
+  execution_dependencies_candidate:
+  - T082
+  - T083
+  - T084
+  - T085
+  - T086
+  - T087
+  - T088
+  - T089
+  - T110
+  requirement_ids:
+  - NFR-AI-001
+  - ER-T115
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t115/
+  test_refs:
+  - TV-T115-N
+  - TV-T115-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T115.md
+- id: T116
+  name: 实现首发和大模型核查评测
+  status: draft_pending_review
+  source_role: 算法/大模型
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T092,T098,T099,T110
+  execution_dependencies_candidate:
+  - T092
+  - T098
+  - T099
+  - T110
+  requirement_ids:
+  - NFR-AI-001
+  - ER-T116
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t116/
+  test_refs:
+  - TV-T116-N
+  - TV-T116-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T116.md
+- id: T117
+  name: 建立应用安全自动化扫描
+  status: draft_pending_review
+  source_role: 安全/DevOps
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T006
+  execution_dependencies_candidate:
+  - T006
+  requirement_ids:
+  - FR-OPS-002
+  - NFR-MAINTAIN-001
+  - ER-T117
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - tests/t117/
+  test_refs:
+  - TV-T117-N
+  - TV-T117-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/testing/T117.md
+- id: T118
+  name: 实施上传与接口安全测试
+  status: draft_pending_review
+  source_role: 安全/测试
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T022-T029,T034
+  execution_dependencies_candidate:
+  - T022
+  - T023
+  - T024
+  - T025
+  - T026
+  - T027
+  - T028
+  - T029
+  - T034
+  requirement_ids:
+  - FR-OPS-002
+  - NFR-SEC-001
+  - ER-T118
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - tests/t118/
+  test_refs:
+  - TV-T118-N
+  - TV-T118-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/testing/T118.md
+- id: T119
+  name: 实施大模型安全测试
+  status: draft_pending_review
+  source_role: 安全/大模型
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T098,T099,T106
+  execution_dependencies_candidate:
+  - T098
+  - T099
+  - T106
+  requirement_ids:
+  - FR-OPS-002
+  - ER-T119
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - tests/t119/
+  test_refs:
+  - TV-T119-N
+  - TV-T119-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/testing/T119.md
+- id: T120
+  name: 实现监控指标与告警
+  status: draft_pending_review
+  source_role: DevOps
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T037,T053,T081
+  execution_dependencies_candidate:
+  - T037
+  - T053
+  - T081
+  requirement_ids:
+  - FR-OPS-002
+  - NFR-PERF-001
+  - NFR-DEPLOY-001
+  - ER-T120
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - backend/t120/
+  test_refs:
+  - TV-T120-N
+  - TV-T120-E
+  - TC-OPS-002-N
+  - TC-OPS-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/backend/T120.md
+- id: T121
+  name: 实现备份恢复与灾备演练
+  status: draft_pending_review
+  source_role: DevOps/数据
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T020,T025,T081,T095,T104
+  execution_dependencies_candidate:
+  - T020
+  - T025
+  - T081
+  - T095
+  - T104
+  requirement_ids:
+  - FR-OPS-003
+  - NFR-DEPLOY-001
+  - NFR-AVAIL-002
+  - ER-T121
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - scripts/t121/
+  test_refs:
+  - TV-T121-N
+  - TV-T121-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/deployment/T121.md
+- id: T122
+  name: 执行20并发验收性能测试
+  status: draft_pending_review
+  source_role: 测试/DevOps
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T107,T120
+  execution_dependencies_candidate:
+  - T107
+  - T120
+  requirement_ids:
+  - FR-OPS-003
+  - NFR-PERF-001
+  - ER-T122
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - tests/t122/
+  test_refs:
+  - TV-T122-N
+  - TV-T122-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  - Q-13
+  - Q-14
+  approval_status: pending
+  doc_file: tasks/testing/T122.md
+- id: T123
+  name: 执行100并发容量与长稳测试
+  status: draft_pending_review
+  source_role: 测试/DevOps
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T122
+  execution_dependencies_candidate:
+  - T122
+  requirement_ids:
+  - FR-OPS-003
+  - NFR-PERF-001
+  - ER-T123
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - tests/t123/
+  test_refs:
+  - TV-T123-N
+  - TV-T123-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  - Q-13
+  - Q-14
+  approval_status: pending
+  doc_file: tasks/testing/T123.md
+- id: T124
+  name: 完成三类业务场景验收
+  status: draft_pending_review
+  source_role: 业务/测试
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T103,T107,T114-T123
+  execution_dependencies_candidate:
+  - T103
+  - T107
+  - T108
+  - T113
+  - T114
+  - T115
+  - T116
+  - T117
+  - T118
+  - T119
+  - T120
+  - T121
+  - T122
+  - T123
+  - T170
+  requirement_ids:
+  - FR-OPS-003
+  - NFR-AVAIL-002
+  - ER-T124
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - tests/t124/
+  test_refs:
+  - TV-T124-N
+  - TV-T124-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  - Q-13
+  - Q-14
+  approval_status: pending
+  doc_file: tasks/testing/T124.md
+- id: T125
+  name: 建立算法实验公共框架
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T051,T058
+  execution_dependencies_candidate:
+  - T051
+  - T058
+  requirement_ids:
+  - NFR-AI-001
+  - ER-T125
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t125/
+  test_refs:
+  - TV-T125-N
+  - TV-T125-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T125.md
+- id: T126
+  name: 建立训练数据版本与数据卡
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T109,T110,T125
+  execution_dependencies_candidate:
+  - T109
+  - T110
+  - T125
+  requirement_ids:
+  - NFR-DATA-001
+  - ER-T126
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t126/
+  test_refs:
+  - TV-T126-N
+  - TV-T126-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T126.md
+- id: T127
+  name: 冻结公安业务独立测试集
+  status: draft_pending_review
+  source_role: 业务/数据
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T110,T126
+  execution_dependencies_candidate:
+  - T110
+  - T126
+  requirement_ids:
+  - NFR-DATA-001
+  - ER-T127
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t127/
+  test_refs:
+  - TV-T127-N
+  - TV-T127-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T127.md
+- id: T128
+  name: 建立算法基线结果台账
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T125-T127
+  execution_dependencies_candidate:
+  - T125
+  - T126
+  requirement_ids:
+  - NFR-AI-001
+  - ER-T128
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - model_evaluation
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t128/
+  test_refs:
+  - TV-T128-N
+  - TV-T128-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T128.md
+- id: T129
+  name: 开展图片多标签风险数据分析
+  status: draft_pending_review
+  source_role: 算法/数据
+  assignee: null
+  source_effort: 1～2人日
+  source_dependencies: T061,T126
+  execution_dependencies_candidate:
+  - T061
+  - T126
+  requirement_ids:
+  - ER-T129
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t129/
+  test_refs:
+  - TV-T129-N
+  - TV-T129-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T129.md
+- id: T130
+  name: 训练图片多标签风险基线模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T128,T129
+  execution_dependencies_candidate:
+  - T128
+  - T129
+  requirement_ids:
+  - FR-RISK-001
+  - ER-T130
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t130/
+  test_refs:
+  - TV-T130-N
+  - TV-T130-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T130.md
+- id: T131
+  name: 优化风险类别不平衡与长尾召回
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T130
+  execution_dependencies_candidate:
+  - T130
+  requirement_ids:
+  - FR-RISK-001
+  - ER-T131
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  dataset_ids:
+  - D01
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t131/
+  test_refs:
+  - TV-T131-N
+  - TV-T131-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T131.md
+- id: T132
+  name: 训练敏感目标检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T063,T126,T128
+  execution_dependencies_candidate:
+  - T063
+  - T126
+  - T128
+  requirement_ids:
+  - FR-RISK-001
+  - ER-T132
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M02
+  dataset_ids:
+  - D02
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t132/
+  test_refs:
+  - TV-T132-N
+  - TV-T132-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T132.md
+- id: T133
+  name: 开展小目标低清目标专项优化
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T132
+  execution_dependencies_candidate:
+  - T132
+  requirement_ids:
+  - FR-RISK-001
+  - ER-T133
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M03
+  dataset_ids:
+  - D02
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t133/
+  test_refs:
+  - TV-T133-N
+  - TV-T133-E
+  - TC-RISK-001-N
+  - TC-RISK-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T133.md
+- id: T134
+  name: 构建视频行为训练片段与时间边界
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T050,T109,T126
+  execution_dependencies_candidate:
+  - T050
+  - T109
+  - T126
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T134
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M01
+  - M02
+  - M03
+  - M04
+  - M05
+  - M06
+  - M07
+  - M08
+  - M09
+  - M10
+  - M11
+  - M12
+  - M13
+  - M14
+  - M15
+  - M16
+  - M17
+  - M18
+  - M19
+  - M20
+  - M21
+  - M22
+  - M23
+  - M24
+  - M25
+  - M26
+  - M27
+  - M28
+  - M29
+  - M30
+  - M31
+  - M32
+  - M33
+  - M34
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  - D06
+  - D07
+  - D08
+  - D09
+  - D10
+  - D11
+  - D12
+  - D13
+  - D14
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t134/
+  test_refs:
+  - TV-T134-N
+  - TV-T134-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T134.md
+- id: T135
+  name: 微调视频行为识别模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T064,T128,T134
+  execution_dependencies_candidate:
+  - T064
+  - T128
+  - T134
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T135
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M04
+  dataset_ids:
+  - D03
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t135/
+  test_refs:
+  - TV-T135-N
+  - TV-T135-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T135.md
+- id: T136
+  name: 训练视频事件时间定位模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T134,T135
+  execution_dependencies_candidate:
+  - T134
+  - T135
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T136
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M05
+  dataset_ids:
+  - D03
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t136/
+  test_refs:
+  - TV-T136-N
+  - TV-T136-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T136.md
+- id: T137
+  name: 微调音频事件识别模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T065,T126,T128
+  execution_dependencies_candidate:
+  - T065
+  - T126
+  - T128
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T137
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M06
+  dataset_ids:
+  - D04
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t137/
+  test_refs:
+  - TV-T137-N
+  - TV-T137-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T137.md
+- id: T138
+  name: 构建跨模态一致与矛盾训练集
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T066,T109,T126
+  execution_dependencies_candidate:
+  - T066
+  - T109
+  - T126
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T138
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M07
+  dataset_ids:
+  - D05
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t138/
+  test_refs:
+  - TV-T138-N
+  - TV-T138-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T138.md
+- id: T139
+  name: 训练跨模态矛盾检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T067,T128,T138
+  execution_dependencies_candidate:
+  - T067
+  - T128
+  - T138
+  requirement_ids:
+  - FR-RISK-002
+  - ER-T139
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M07
+  dataset_ids:
+  - D05
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t139/
+  test_refs:
+  - TV-T139-N
+  - TV-T139-E
+  - TC-RISK-002-N
+  - TC-RISK-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T139.md
+- id: T140
+  name: 训练多模态风险融合模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T130-T139,T068
+  execution_dependencies_candidate:
+  - T130
+  - T131
+  - T132
+  - T133
+  - T134
+  - T135
+  - T136
+  - T137
+  - T138
+  - T139
+  - T068
+  requirement_ids:
+  - FR-RISK-003
+  - ER-T140
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M08
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t140/
+  test_refs:
+  - TV-T140-N
+  - TV-T140-E
+  - TC-RISK-003-N
+  - TC-RISK-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T140.md
+- id: T141
+  name: 实施风险概率校准和业务阈值优化
+  status: draft_pending_review
+  source_role: 算法/业务
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T140,T127
+  execution_dependencies_candidate:
+  - T140
+  - T127
+  requirement_ids:
+  - FR-RISK-003
+  - NFR-AI-001
+  - ER-T141
+  usecase_ids:
+  - UC-RISK-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t141/
+  test_refs:
+  - TV-T141-N
+  - TV-T141-E
+  - TC-RISK-003-N
+  - TC-RISK-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T141.md
+- id: T142
+  name: 构建图片篡改成组训练集
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T111,T126
+  execution_dependencies_candidate:
+  - T111
+  - T126
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T142
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t142/
+  test_refs:
+  - TV-T142-N
+  - TV-T142-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T142.md
+- id: T143
+  name: 训练图片噪声残差分支
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T071,T142
+  execution_dependencies_candidate:
+  - T071
+  - T142
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T143
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t143/
+  test_refs:
+  - TV-T143-N
+  - TV-T143-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T143.md
+- id: T144
+  name: 训练RGB语义与边界分支
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T072,T142
+  execution_dependencies_candidate:
+  - T072
+  - T142
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T144
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t144/
+  test_refs:
+  - TV-T144-N
+  - TV-T144-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T144.md
+- id: T145
+  name: 训练图片多分支融合篡改模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T143,T144,T071
+  execution_dependencies_candidate:
+  - T143
+  - T144
+  - T071
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T145
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M09
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t145/
+  test_refs:
+  - TV-T145-N
+  - TV-T145-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T145.md
+- id: T146
+  name: 训练图片篡改类型分类模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T073,T145
+  execution_dependencies_candidate:
+  - T073
+  - T145
+  requirement_ids:
+  - FR-FORENSIC-001
+  - ER-T146
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M10
+  dataset_ids:
+  - D06
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t146/
+  test_refs:
+  - TV-T146-N
+  - TV-T146-E
+  - TC-FORENSIC-001-N
+  - TC-FORENSIC-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T146.md
+- id: T147
+  name: 构建视频篡改与深伪训练集
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T111,T126
+  execution_dependencies_candidate:
+  - T111
+  - T126
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T147
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  dataset_ids:
+  - D07
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t147/
+  test_refs:
+  - TV-T147-N
+  - TV-T147-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T147.md
+- id: T148
+  name: 训练视频时间篡改检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T074,T147
+  execution_dependencies_candidate:
+  - T074
+  - T147
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T148
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M11
+  dataset_ids:
+  - D07
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t148/
+  test_refs:
+  - TV-T148-N
+  - TV-T148-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T148.md
+- id: T149
+  name: 训练视频空间篡改检测与跟踪模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T075,T145,T147
+  execution_dependencies_candidate:
+  - T075
+  - T145
+  - T147
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T149
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M12
+  dataset_ids:
+  - D07
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t149/
+  test_refs:
+  - TV-T149-N
+  - TV-T149-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T149.md
+- id: T150
+  name: 微调人脸深度伪造检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T076,T147
+  execution_dependencies_candidate:
+  - T076
+  - T147
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T150
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M13
+  dataset_ids:
+  - D08
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t150/
+  test_refs:
+  - TV-T150-N
+  - TV-T150-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T150.md
+- id: T151
+  name: 训练口型语音同步检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T076,T147
+  execution_dependencies_candidate:
+  - T076
+  - T147
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T151
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M14
+  dataset_ids:
+  - D08
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t151/
+  test_refs:
+  - TV-T151-N
+  - TV-T151-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T151.md
+- id: T152
+  name: 实施跨压缩跨生成器泛化训练
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T145,T148-T151
+  execution_dependencies_candidate:
+  - T145
+  - T148
+  - T149
+  - T150
+  - T151
+  requirement_ids:
+  - FR-FORENSIC-002
+  - ER-T152
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t152/
+  test_refs:
+  - TV-T152-N
+  - TV-T152-E
+  - TC-FORENSIC-002-N
+  - TC-FORENSIC-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T152.md
+- id: T153
+  name: 实施篡改模型校准与不确定性估计
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T152,T127
+  execution_dependencies_candidate:
+  - T152
+  - T127
+  requirement_ids:
+  - FR-FORENSIC-003
+  - NFR-AI-001
+  - ER-T153
+  usecase_ids:
+  - UC-FORENSIC-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t153/
+  test_refs:
+  - TV-T153-N
+  - TV-T153-E
+  - TC-FORENSIC-003-N
+  - TC-FORENSIC-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T153.md
+- id: T154
+  name: 构建图片复制检测对比学习样本
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T111,T112,T126
+  execution_dependencies_candidate:
+  - T111
+  - T112
+  - T126
+  requirement_ids:
+  - FR-IMGRET-001
+  - ER-T154
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M15
+  dataset_ids:
+  - D09
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t154/
+  test_refs:
+  - TV-T154-N
+  - TV-T154-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T154.md
+- id: T155
+  name: 训练图片复制检测向量模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T080,T128,T154
+  execution_dependencies_candidate:
+  - T080
+  - T128
+  - T154
+  requirement_ids:
+  - FR-IMGRET-001
+  - ER-T155
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M15
+  dataset_ids:
+  - D09
+  - D15
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t155/
+  test_refs:
+  - TV-T155-N
+  - TV-T155-E
+  - TC-IMGRET-001-N
+  - TC-IMGRET-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T155.md
+- id: T156
+  name: 实施难负样本迭代训练
+  status: draft_pending_review
+  source_role: 算法/数据
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T112,T155
+  execution_dependencies_candidate:
+  - T112
+  - T155
+  requirement_ids:
+  - FR-IMGRET-003
+  - NFR-DATA-001
+  - ER-T156
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  output_refs_planned:
+  - ai-services/t156/
+  test_refs:
+  - TV-T156-N
+  - TV-T156-E
+  - TC-IMGRET-003-N
+  - TC-IMGRET-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T156.md
+- id: T157
+  name: 优化复制向量与索引联合参数
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T081,T155
+  execution_dependencies_candidate:
+  - T081
+  - T155
+  requirement_ids:
+  - FR-IMGRET-003
+  - NFR-PERF-001
+  - ER-T157
+  usecase_ids:
+  - UC-IMGRET-001
+  rule_ids: []
+  operation_ids:
+  - getIndex
+  - switchIndex
+  table_names:
+  - audit_event
+  - index_registry
+  model_ids: []
+  dataset_ids: []
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  output_refs_planned:
+  - ai-services/t157/
+  test_refs:
+  - TV-T157-N
+  - TV-T157-E
+  - TC-IMGRET-003-N
+  - TC-IMGRET-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T157.md
+- id: T158
+  name: 构建视频帧复制检测训练集
+  status: draft_pending_review
+  source_role: 数据/算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T134,T147,T154
+  execution_dependencies_candidate:
+  - T134
+  - T147
+  - T154
+  requirement_ids:
+  - FR-VIDTRACE-001
+  - ER-T158
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M19
+  dataset_ids:
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t158/
+  test_refs:
+  - TV-T158-N
+  - TV-T158-E
+  - TC-VIDTRACE-001-N
+  - TC-VIDTRACE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T158.md
+- id: T159
+  name: 训练视频关键帧复制检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T080,T158
+  execution_dependencies_candidate:
+  - T080
+  - T158
+  requirement_ids:
+  - FR-VIDTRACE-001
+  - ER-T159
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M19
+  dataset_ids:
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t159/
+  test_refs:
+  - TV-T159-N
+  - TV-T159-E
+  - TC-VIDTRACE-001-N
+  - TC-VIDTRACE-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T159.md
+- id: T160
+  name: 优化视频帧相似度模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T087,T159
+  execution_dependencies_candidate:
+  - T087
+  - T159
+  requirement_ids:
+  - FR-VIDTRACE-002
+  - ER-T160
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M20
+  dataset_ids:
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t160/
+  test_refs:
+  - TV-T160-N
+  - TV-T160-E
+  - TC-VIDTRACE-002-N
+  - TC-VIDTRACE-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T160.md
+- id: T161
+  name: 训练学习型视频片段定位模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 6人日
+  source_dependencies: T088,T158-T160
+  execution_dependencies_candidate:
+  - T088
+  - T158
+  - T159
+  - T160
+  requirement_ids:
+  - FR-VIDTRACE-002
+  - ER-T161
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M21
+  dataset_ids:
+  - D10
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t161/
+  test_refs:
+  - TV-T161-N
+  - TV-T161-E
+  - TC-VIDTRACE-002-N
+  - TC-VIDTRACE-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T161.md
+- id: T162
+  name: 训练多源拼接边界检测模型
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T089,T147,T161
+  execution_dependencies_candidate:
+  - T089
+  - T147
+  - T161
+  requirement_ids:
+  - FR-VIDTRACE-003
+  - ER-T162
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M22
+  dataset_ids:
+  - D11
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t162/
+  test_refs:
+  - TV-T162-N
+  - TV-T162-E
+  - TC-VIDTRACE-003-N
+  - TC-VIDTRACE-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T162.md
+- id: T163
+  name: 实施视频检索分数校准
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 3人日
+  source_dependencies: T161,T162,T127
+  execution_dependencies_candidate:
+  - T161
+  - T162
+  - T127
+  requirement_ids:
+  - FR-VIDTRACE-002
+  - NFR-AI-001
+  - ER-T163
+  usecase_ids:
+  - UC-VIDTRACE-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M25
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t163/
+  test_refs:
+  - TV-T163-N
+  - TV-T163-E
+  - TC-VIDTRACE-002-N
+  - TC-VIDTRACE-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T163.md
+- id: T164
+  name: 构建首发排序训练内容簇
+  status: draft_pending_review
+  source_role: 数据/业务
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T090,T109,T126
+  execution_dependencies_candidate:
+  - T090
+  - T109
+  - T126
+  requirement_ids:
+  - FR-ORIGIN-001
+  - ER-T164
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M23
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t164/
+  test_refs:
+  - TV-T164-N
+  - TV-T164-E
+  - TC-ORIGIN-001-N
+  - TC-ORIGIN-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T164.md
+- id: T165
+  name: 开展首发排序模型消融与校准
+  status: draft_pending_review
+  source_role: 算法
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T092,T164
+  execution_dependencies_candidate:
+  - T092
+  - T164
+  requirement_ids:
+  - FR-ORIGIN-002
+  - NFR-AI-001
+  - ER-T165
+  usecase_ids:
+  - UC-ORIGIN-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M24
+  dataset_ids:
+  - D12
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t165/
+  test_refs:
+  - TV-T165-N
+  - TV-T165-E
+  - TC-ORIGIN-002-N
+  - TC-ORIGIN-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T165.md
+- id: T166
+  name: 构建主张抽取监督微调数据
+  status: draft_pending_review
+  source_role: 数据/大模型
+  assignee: null
+  source_effort: 4人日
+  source_dependencies: T098,T109,T126
+  execution_dependencies_candidate:
+  - T098
+  - T109
+  - T126
+  requirement_ids:
+  - FR-CLAIM-001
+  - ER-T166
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t166/
+  test_refs:
+  - TV-T166-N
+  - TV-T166-E
+  - TC-CLAIM-001-N
+  - TC-CLAIM-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/data/T166.md
+- id: T167
+  name: 微调主张抽取模型
+  status: draft_pending_review
+  source_role: 大模型
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T125,T166
+  execution_dependencies_candidate:
+  - T125
+  - T166
+  requirement_ids:
+  - FR-CLAIM-001
+  - NFR-AI-001
+  - ER-T167
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names:
+  - claim
+  model_ids:
+  - M28
+  dataset_ids:
+  - D13
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t167/
+  test_refs:
+  - TV-T167-N
+  - TV-T167-E
+  - TC-CLAIM-001-N
+  - TC-CLAIM-001-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T167.md
+- id: T168
+  name: 构建并训练证据关系判断模型
+  status: draft_pending_review
+  source_role: 数据/大模型
+  assignee: null
+  source_effort: 6人日
+  source_dependencies: T099,T166
+  execution_dependencies_candidate:
+  - T099
+  - T166
+  requirement_ids:
+  - FR-CLAIM-002
+  - ER-T168
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M29
+  dataset_ids:
+  - D14
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t168/
+  test_refs:
+  - TV-T168-N
+  - TV-T168-E
+  - TC-CLAIM-002-N
+  - TC-CLAIM-002-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T168.md
+- id: T169
+  name: 研发无证据生成检测与句级引用校验
+  status: draft_pending_review
+  source_role: 大模型/安全
+  assignee: null
+  source_effort: 5人日
+  source_dependencies: T106,T167,T168
+  execution_dependencies_candidate:
+  - T106
+  - T167
+  - T168
+  requirement_ids:
+  - FR-CLAIM-003
+  - ER-T169
+  usecase_ids:
+  - UC-CLAIM-001
+  rule_ids: []
+  operation_ids: []
+  table_names: []
+  model_ids:
+  - M30
+  dataset_ids:
+  - D13
+  - D14
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t169/
+  test_refs:
+  - TV-T169-N
+  - TV-T169-E
+  - TC-CLAIM-003-N
+  - TC-CLAIM-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T169.md
+- id: T170
+  name: 实施模型压缩导出与发布候选冻结
+  status: draft_pending_review
+  source_role: 算法平台
+  assignee: null
+  source_effort: 6人日
+  source_dependencies: T140,T153,T157,T163,T165,T167-T169
+  execution_dependencies_candidate:
+  - T127
+  - T140
+  - T141
+  - T146
+  - T153
+  - T156
+  - T157
+  - T163
+  - T165
+  - T167
+  - T168
+  - T169
+  requirement_ids:
+  - FR-OPS-003
+  - NFR-COMPAT-001
+  - NFR-AI-001
+  - ER-T170
+  usecase_ids:
+  - UC-OPS-001
+  rule_ids: []
+  operation_ids:
+  - rolloutModel
+  table_names:
+  - approval_request
+  - index_registry
+  - model_release
+  model_ids:
+  - M34
+  dataset_ids:
+  - D01
+  - D06
+  - D09
+  - D10
+  - D13
+  input_refs:
+  - docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx
+  - docs/source/revisions/项目任务书_技术修订版V1.3.docx
+  - docs/00-project/open-questions.md
+  - docs/01-requirements/engineering-requirements.yaml
+  - docs/09-testing/task-test-scenarios.yaml
+  - docs/03-api/openapi.yaml
+  - docs/04-database/data-dictionary.md
+  - docs/06-algorithms/model-contract.md
+  - docs/06-algorithms/model-catalog.yaml
+  - docs/07-datasets/dataset-split-policy.md
+  - datasets/catalog-index.yaml
+  output_refs_planned:
+  - ai-services/t170/
+  test_refs:
+  - TV-T170-N
+  - TV-T170-E
+  - TC-OPS-003-N
+  - TC-OPS-003-E
+  blocking_questions:
+  - Q-33
+  approval_status: pending
+  doc_file: tasks/algorithm/T170.md

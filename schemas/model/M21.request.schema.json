@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:model:M21:request:0.1.0",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "capability": {
+      "const": "retrieval.segment_localizer"
+    },
+    "model_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "model_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "input_kind": {
+      "const": "features"
+    },
+    "asset_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "object_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:media-trace:api:0.1.0#/$defs/ObjectRef"
+      },
+      "minItems": 1
+    },
+    "source_segment_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 0
+    },
+    "preprocessing_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "mapping_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "missing_modalities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "deadline_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authorization_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    }
+  },
+  "required": [
+    "request_id",
+    "case_id",
+    "task_id",
+    "run_version",
+    "capability",
+    "model_name",
+    "model_version",
+    "input_kind",
+    "asset_ids",
+    "object_refs",
+    "source_segment_ids",
+    "preprocessing_version",
+    "mapping_version",
+    "missing_modalities",
+    "deadline_at",
+    "authorization_version"
+  ],
+  "additionalProperties": false
+}

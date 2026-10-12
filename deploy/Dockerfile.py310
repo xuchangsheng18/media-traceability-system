@@ -1,0 +1,14 @@
+FROM python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+# This is an OS/bootstrap base. All service commands use the packed Miniforge Python 3.10.22.
+COPY deploy/build/py310.tar.gz /tmp/py310.tar.gz
+RUN mkdir -p /opt/py310 && tar -xzf /tmp/py310.tar.gz -C /opt/py310 && /opt/py310/bin/conda-unpack && rm /tmp/py310.tar.gz
+ENV PATH=/opt/py310/bin:$PATH PYTHONPATH=/app/backend:/app/ai-services/inference PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY backend /app/backend
+COPY ai-services/inference /app/ai-services/inference
+COPY schemas /app/schemas
+COPY scripts /app/scripts
+COPY ruff.toml /app/ruff.toml
+RUN mkdir -p /runtime && chown 1000:1000 /runtime
+USER 1000:1000
+CMD ["/opt/py310/bin/python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,24 @@
+{
+  "name": "media-trace-poc-ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vue-tsc --noEmit && vite build",
+    "test": "vitest run",
+    "generate:contracts": "openapi-typescript ../docs/03-api/openapi.yaml -o ../shared-contracts/generated/business-api.d.ts && openapi-typescript ../docs/03-api/inference-openapi.yaml -o ../shared-contracts/generated/inference-api.d.ts"
+  },
+  "dependencies": {
+    "vue": "3.5.43"
+  },
+  "devDependencies": {
+    "vite": "8.3.4",
+    "typescript": "5.9.3",
+    "vue-tsc": "3.3.13",
+    "vitest": "5.0.3",
+    "@vitejs/plugin-vue": "6.0.10",
+    "@playwright/test": "1.64.0",
+    "openapi-typescript": "7.13.0"
+  }
+}

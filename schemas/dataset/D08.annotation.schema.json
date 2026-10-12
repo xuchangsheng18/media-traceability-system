@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:dataset:D08:annotation:0.1.0",
+  "type": "object",
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "dataset_id": {
+      "const": "D08"
+    },
+    "asset_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_authorization_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "annotation_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "annotation_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewed",
+        "disputed",
+        "unknown"
+      ]
+    },
+    "reviewer_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "quality_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "original_asset_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "edited_asset_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "generator_family": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "person_group_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "minItems": 1
+        },
+        "face_tracks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "track_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "time_range": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/TimeRange"
+              },
+              "label": {
+                "type": "string",
+                "enum": [
+                  "authentic",
+                  "synthetic",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "track_id",
+              "time_range",
+              "label"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "audio_offset_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "original_asset_id",
+        "edited_asset_id",
+        "generator_family",
+        "person_group_ids",
+        "face_tracks",
+        "audio_offset_ms"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "sample_id",
+    "dataset_id",
+    "asset_ids",
+    "source_group_ids",
+    "source_authorization_ref",
+    "annotation_version",
+    "annotation_status",
+    "reviewer_refs",
+    "quality_tags",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "annotation_status": {
+            "const": "reviewed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reviewer_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

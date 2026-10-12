@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:dataset:D11:annotation:0.1.0",
+  "type": "object",
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "dataset_id": {
+      "const": "D11"
+    },
+    "asset_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_authorization_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "annotation_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "annotation_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewed",
+        "disputed",
+        "unknown"
+      ]
+    },
+    "reviewer_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "quality_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "query_asset_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "mappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_asset_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "query_range": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/TimeRange"
+              },
+              "source_range": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/TimeRange"
+              },
+              "direction": {
+                "type": "string",
+                "enum": [
+                  "forward",
+                  "reverse"
+                ]
+              },
+              "speed_ratio": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "source_asset_id",
+              "query_range",
+              "source_range",
+              "direction",
+              "speed_ratio"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2
+        },
+        "unknown_ranges": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:media-trace:api:0.1.0#/$defs/TimeRange"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "query_asset_id",
+        "mappings",
+        "unknown_ranges"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "sample_id",
+    "dataset_id",
+    "asset_ids",
+    "source_group_ids",
+    "source_authorization_ref",
+    "annotation_version",
+    "annotation_status",
+    "reviewer_refs",
+    "quality_tags",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "annotation_status": {
+            "const": "reviewed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reviewer_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

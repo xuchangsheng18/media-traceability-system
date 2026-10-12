@@ -1,0 +1,237 @@
+{
+  "revision": "1.0-py310-cpu",
+  "status": "DEVELOPMENT_VALIDATED_NOT_PRODUCTION_FROZEN",
+  "scope": "environment_versions_real_cpu_mvp_local_ci",
+  "steps": [
+    {
+      "step": 1,
+      "title": "环境约束",
+      "planned_outputs": "docs/02-architecture/environment-constraints.md",
+      "directories": "config、deploy、docs",
+      "current_state": "已核验开发Linux/py310/Desktop、网络与挂载限制；生产边界待确认",
+      "completion_asserted": false,
+      "development_status": "DEV_RECORDED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 2,
+      "title": "资源与团队",
+      "planned_outputs": "docs/02-architecture/resource-and-team-inventory.md；config/hardware-inventory.example.yaml",
+      "directories": "config、docs",
+      "current_state": "宿主/虚拟机/容器配额已盘点；GPU、独占配额和人员待落实",
+      "completion_asserted": false,
+      "development_status": "DEV_RECORDED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 3,
+      "title": "非功能指标",
+      "planned_outputs": "docs/02-architecture/non-functional-requirements.md",
+      "directories": "docs、tests",
+      "current_state": "沿用需求源，明确实测口径；正式指标与并发未定",
+      "completion_asserted": false,
+      "development_status": "DEV_SCOPED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 4,
+      "title": "候选架构",
+      "planned_outputs": "docs/02-architecture/technology-options.md",
+      "directories": "docs、backend、ai-services",
+      "current_state": "12域比较及本轮选择已记录",
+      "completion_asserted": false,
+      "development_status": "DEV_DECIDED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 5,
+      "title": "前端选型",
+      "planned_outputs": "TB-ADR-001-frontend-stack.md",
+      "directories": "frontend、docs",
+      "current_state": "Vue/TS/Vite锁与真实构建/browser；组件库未定",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 6,
+      "title": "后端选型",
+      "planned_outputs": "TB-ADR-002-backend-stack.md",
+      "directories": "backend、docs",
+      "current_state": "用户指定py310、FastAPI工程/锁/配置/API已运行",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 7,
+      "title": "关系库与访问",
+      "planned_outputs": "TB-ADR-003-relational-database.md",
+      "directories": "backend、docs、tests",
+      "current_state": "PostgreSQL16.15、PoC迁移、隔离73SQL案例通过；正式迁移/RLS未验收",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 8,
+      "title": "对象存储",
+      "planned_outputs": "TB-ADR-004-object-storage.md",
+      "directories": "backend、deploy、config",
+      "current_state": "S3版本/摘要/重启读回通过；WORM/保留/撤销未验收",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 9,
+      "title": "缓存与队列",
+      "planned_outputs": "TB-ADR-005-cache-and-messaging.md",
+      "directories": "backend、deploy、config",
+      "current_state": "固定Rabbit/Celery，确认/outbox/幂等/单worker恢复通过",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 10,
+      "title": "全文与向量",
+      "planned_outputs": "TB-ADR-006-search-and-vector-database.md",
+      "directories": "ai-services、backend、deploy",
+      "current_state": "simple SQL和3向量机制通过；未完成中文或大型索引/业务API",
+      "completion_asserted": false,
+      "development_status": "DEV_PARTIAL",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 11,
+      "title": "传播关系存储",
+      "planned_outputs": "TB-ADR-007-graph-storage.md",
+      "directories": "backend、docs",
+      "current_state": "递归带环微型SQL通过；正式传播图业务待实现",
+      "completion_asserted": false,
+      "development_status": "DEV_PARTIAL",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 12,
+      "title": "训练和实验",
+      "planned_outputs": "TB-ADR-008-model-training-stack.md；ai-services/README.md",
+      "directories": "ai-services、datasets",
+      "current_state": "实际合成训练、权重/实验JSON；正式业务模型/实验平台待补",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED_SYNTHETIC",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 13,
+      "title": "推理服务",
+      "planned_outputs": "TB-ADR-009-model-serving.md；内部推理契约",
+      "directories": "ai-services、schemas、shared-contracts",
+      "current_state": "独立CPU真实推理与M15契约通过；正式模型/GPU未测",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED_SYNTHETIC",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 14,
+      "title": "视频媒体处理",
+      "planned_outputs": "TB-ADR-010-media-processing.md",
+      "directories": "backend、ai-services",
+      "current_state": "PNG/JPEG及合成10帧编解码通过；源时间映射未测",
+      "completion_asserted": false,
+      "development_status": "DEV_PARTIAL",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 15,
+      "title": "安全认证审计",
+      "planned_outputs": "docs/02-architecture/security-baseline.md；TB-ADR-011-security.md",
+      "directories": "backend、config、tests",
+      "current_state": "研发Bearer/秘密/Problem与日志；正式身份/RLS/审计待补",
+      "completion_asserted": false,
+      "development_status": "DEV_PARTIAL",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 16,
+      "title": "容器与编排",
+      "planned_outputs": "TB-ADR-012-deployment-platform.md；deploy工程",
+      "directories": "deploy、config",
+      "current_state": "7服务/5卷/配额/健康/重启验证；生产平台未批准",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 17,
+      "title": "版本兼容许可",
+      "planned_outputs": "compatibility-matrix.md；licenses.md；config/versions.yaml",
+      "directories": "config、服务目录、docs",
+      "current_state": "精确锁/摘要/兼容与许可盘点；PythonEOL、FFmpeg/Desktop及OS审查待补",
+      "completion_asserted": false,
+      "development_status": "DEV_LOCKED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 18,
+      "title": "规范和目录",
+      "planned_outputs": "docs/03-development/coding-standards.md；目录骨架",
+      "directories": "全部目录",
+      "current_state": "真实目录、Ruff/TS检查、README与运行手册",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 19,
+      "title": "接口事件契约",
+      "planned_outputs": "权威契约源、shared-contracts生成物与事件规范",
+      "directories": "shared-contracts、schemas、docs",
+      "current_state": "两份API类型生成无漂移、模型Schema实际执行；完整事件信封未完成",
+      "completion_asserted": false,
+      "development_status": "DEV_PARTIAL",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 20,
+      "title": "最小可运行工程",
+      "planned_outputs": "服务工程；运行README；technical-validation-report.md",
+      "directories": "frontend、backend、ai-services、deploy、tests",
+      "current_state": "浏览器/对象/SQL/queue/worker/真实合成CPU结果已运行",
+      "completion_asserted": false,
+      "development_status": "DEV_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 21,
+      "title": "CI质量门禁",
+      "planned_outputs": "平台CI配置；docs/03-development/ci-cd.md",
+      "directories": "tests、scripts、服务目录",
+      "current_state": "同源本机完整CI和失败阻断通过；托管Runner未注册",
+      "completion_asserted": false,
+      "development_status": "LOCAL_CI_VALIDATED",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 22,
+      "title": "基线评审包",
+      "planned_outputs": "technical-baseline.md、ADR索引、评审与决议材料",
+      "directories": "docs、tasks",
+      "current_state": "技术基线、12ADR和证据已形成；正式评审未签署",
+      "completion_asserted": false,
+      "development_status": "REVIEW_PACKAGE_READY",
+      "formal_completion_asserted": false
+    },
+    {
+      "step": 23,
+      "title": "冻结与变更",
+      "planned_outputs": "Technical Baseline 1.0、有效决定和版本标签",
+      "directories": "docs、config、Git",
+      "current_state": "开发源码快照与变更规则；正式生产NOT_FROZEN",
+      "completion_asserted": false,
+      "development_status": "NOT_FROZEN",
+      "formal_completion_asserted": false
+    }
+  ]
+}

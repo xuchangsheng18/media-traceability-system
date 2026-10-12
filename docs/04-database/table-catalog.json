@@ -1,0 +1,4934 @@
+{
+  "organizations": {
+    "name": "organizations",
+    "pk": "org_id",
+    "description": "单位目录",
+    "columns": {
+      "org_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "name": [
+        "text",
+        "NOT NULL",
+        "名称，供目录显示和识别；与稳定标识分离，不能用名称代替主键"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [],
+    "immutable": false
+  },
+  "users": {
+    "name": "users",
+    "pk": "user_id",
+    "description": "用户与认证主体",
+    "columns": {
+      "user_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.organizations(org_id)",
+        "记录所属单位标识；单位授权范围由服务端认证上下文确定"
+      ],
+      "subject": [
+        "text",
+        "NOT NULL UNIQUE",
+        "来自批准身份源，开发适配器另存密码散列，不设默认密码"
+      ],
+      "enabled": [
+        "boolean",
+        "NOT NULL DEFAULT false",
+        "认证主体是否启用；false禁止建立有效业务身份，true仍需核验角色与案件授权"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [],
+    "immutable": false
+  },
+  "roles": {
+    "name": "roles",
+    "pk": "role_id",
+    "description": "角色目录",
+    "columns": {
+      "role_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "code": [
+        "text",
+        "NOT NULL UNIQUE",
+        "稳定业务编码，供权限检查或角色绑定使用；显示名称变化不应改变该编码"
+      ],
+      "description": [
+        "text",
+        "NOT NULL",
+        "该目录条目的中文职责或权限说明，不用于替代机器权限编码"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [],
+    "immutable": false
+  },
+  "permissions": {
+    "name": "permissions",
+    "pk": "permission_id",
+    "description": "权限目录",
+    "columns": {
+      "permission_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "code": [
+        "text",
+        "NOT NULL UNIQUE",
+        "稳定业务编码，供权限检查或角色绑定使用；显示名称变化不应改变该编码"
+      ],
+      "description": [
+        "text",
+        "NOT NULL",
+        "该目录条目的中文职责或权限说明，不用于替代机器权限编码"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [],
+    "immutable": false
+  },
+  "user_roles": {
+    "name": "user_roles",
+    "pk": "user_role_id",
+    "description": "用户角色绑定",
+    "columns": {
+      "user_role_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "user_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "用户与认证主体标识，指向users.user_id"
+      ],
+      "role_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.roles(role_id)",
+        "角色标识，指向roles.role_id"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [
+      "UNIQUE(user_id,role_id)"
+    ],
+    "immutable": false
+  },
+  "role_permissions": {
+    "name": "role_permissions",
+    "pk": "role_permission_id",
+    "description": "角色功能权限映射",
+    "columns": {
+      "role_permission_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "role_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.roles(role_id)",
+        "角色标识，指向roles.role_id"
+      ],
+      "permission_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.permissions(permission_id)",
+        "功能权限标识，指向permissions.permission_id"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [
+      "UNIQUE(role_id,permission_id)"
+    ],
+    "immutable": false
+  },
+  "cases": {
+    "name": "cases",
+    "pk": "case_id",
+    "description": "案件隔离域",
+    "columns": {
+      "case_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.organizations(org_id)",
+        "记录所属单位标识；单位授权范围由服务端认证上下文确定"
+      ],
+      "display_code": [
+        "text",
+        "NOT NULL",
+        "同单位内展示和检索案件使用的业务编号，不是数据库主键"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('ACTIVE','ARCHIVED'))",
+        "案件隔离域的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [
+      "UNIQUE(case_id,org_id)",
+      "UNIQUE(org_id,display_code)"
+    ],
+    "immutable": false
+  },
+  "case_membership": {
+    "name": "case_membership",
+    "pk": "membership_id",
+    "description": "显式案件授权",
+    "columns": {
+      "membership_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "案件隔离域标识；写入和读取均须验证当前主体有访问该案件的权限"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "记录所属单位标识；单位授权范围由服务端认证上下文确定"
+      ],
+      "user_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "用户与认证主体标识，指向users.user_id"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "revoked_at": [
+        "timestamptz",
+        "",
+        "授权被撤销的时刻；为空表示尚未登记撤销，不替代到期与成员身份校验；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "global",
+    "extra": [
+      "UNIQUE(case_id,user_id)",
+      "FOREIGN KEY(case_id,org_id) REFERENCES mt.cases(case_id,org_id)"
+    ],
+    "immutable": false
+  },
+  "source_registry": {
+    "name": "source_registry",
+    "pk": "source_id",
+    "description": "来源与用途授权",
+    "columns": {
+      "source_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "name": [
+        "text",
+        "NOT NULL",
+        "名称，供目录显示和识别；与稳定标识分离，不能用名称代替主键"
+      ],
+      "source_type": [
+        "text",
+        "NOT NULL",
+        "素材来源类别的编码；分类词表由接入配置定义，当前DDL未枚举限制"
+      ],
+      "authorization_ref": [
+        "text",
+        "NOT NULL",
+        "来源授权凭据的受控引用，供核查用途和期限；不存访问令牌或明文密钥"
+      ],
+      "purpose": [
+        "text[]",
+        "NOT NULL",
+        "本记录声明或申请的处理用途，实际动作需与有效授权用途相符"
+      ],
+      "authorization_status": [
+        "text",
+        "NOT NULL CHECK(authorization_status IN ('pending','verified','expired','revoked'))",
+        "来源或数据集用途授权的当前审核状态，未验证状态不得解释为可正式使用"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "authorization_version": [
+        "text",
+        "NOT NULL",
+        "本次处理采用的来源授权版本，用于撤销核查及历史追溯"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [],
+    "immutable": false
+  },
+  "content_item": {
+    "name": "content_item",
+    "pk": "content_id",
+    "description": "逻辑内容对象",
+    "columns": {
+      "content_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "source_id": [
+        "uuid",
+        "NOT NULL",
+        "数据来源登记标识，指向source_registry.source_id"
+      ],
+      "platform": [
+        "text",
+        "",
+        "原始内容发布平台的标识或名称；缺失时为空，不推断平台"
+      ],
+      "account_id": [
+        "text",
+        "",
+        "来源平台内的账号标识；属于平台命名空间，不是本系统users主键"
+      ],
+      "published_at": [
+        "timestamptz",
+        "",
+        "可核查的来源发布时间；未知为NULL，不用发现时间或当前时间填补；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "discovered_at": [
+        "timestamptz",
+        "NOT NULL",
+        "系统首次发现该逻辑内容的时刻，与平台发布时间分开记录；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "title": [
+        "text",
+        "",
+        "来源内容标题；未知时为空，不强制生成标题代替原文"
+      ],
+      "status": [
+        "text",
+        "NOT NULL",
+        "逻辑内容对象的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, source_id) REFERENCES mt.source_registry (case_id, source_id)"
+    ],
+    "immutable": false
+  },
+  "object_version": {
+    "name": "object_version",
+    "pk": "object_id",
+    "description": "对象版本与摘要清单",
+    "columns": {
+      "object_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "bucket_alias": [
+        "text",
+        "NOT NULL",
+        "配置别名，不是云账号或外部地址"
+      ],
+      "object_key": [
+        "text",
+        "NOT NULL",
+        "对象存储内部键，与bucket_alias和version_id共同定位字节版本；不直接作为公开下载地址"
+      ],
+      "version_id": [
+        "text",
+        "NOT NULL",
+        "对象存储返回的版本标识；绑定确定字节版本，不等同数据库row_version"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "该对象版本实际字节的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "size_bytes": [
+        "bigint",
+        "NOT NULL CHECK(size_bytes>0)",
+        "文件或分片的字节长度，单位byte；有效值必须大于0"
+      ],
+      "retention_policy_version": [
+        "text",
+        "",
+        "用于本对象或证据包的保留策略版本；版本本身不代表底层保留能力已生效"
+      ],
+      "retain_until": [
+        "timestamptz",
+        "",
+        "对象计划保留截止时刻；NULL表示未登记具体截止时间，不能自动推导可删除；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "legal_hold": [
+        "boolean",
+        "NOT NULL DEFAULT false",
+        "对象是否登记暂停删除要求；底层存储的实际执行结果需独立核验"
+      ],
+      "object_lock_verified": [
+        "boolean",
+        "NOT NULL DEFAULT false",
+        "是否已核验对象存储的锁定能力和该对象版本的锁定状态；不是普通文件只读标志"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "对象版本登记入库时刻；TIMESTAMPTZ保存时间点，显示时区由会话决定，不保留原始时区名称"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "UNIQUE(bucket_alias,object_key,version_id)"
+    ],
+    "immutable": true
+  },
+  "media_asset": {
+    "name": "media_asset",
+    "pk": "asset_id",
+    "description": "原始或派生媒体",
+    "columns": {
+      "asset_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "content_id": [
+        "uuid",
+        "NOT NULL",
+        "所属逻辑内容标识，指向content_item.content_id"
+      ],
+      "source_id": [
+        "uuid",
+        "NOT NULL",
+        "数据来源登记标识，指向source_registry.source_id"
+      ],
+      "object_id": [
+        "uuid",
+        "NOT NULL",
+        "所关联对象字节版本的内部标识；具体引用目标见本表外键，不能与对象存储version_id混用"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "媒体资产字节的SHA-256，应与引用对象版本核对；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "mime": [
+        "text",
+        "NOT NULL",
+        "探测或声明的媒体类型字符串，例如image/png；服务端须核对实际内容，不能只信文件扩展名"
+      ],
+      "size_bytes": [
+        "bigint",
+        "NOT NULL CHECK(size_bytes>0)",
+        "文件或分片的字节长度，单位byte；有效值必须大于0"
+      ],
+      "duration_ms": [
+        "bigint",
+        "CHECK(duration_ms>=0)",
+        "媒体时长，单位毫秒；静态图像或未知时长允许NULL，0不能替代未知"
+      ],
+      "width": [
+        "integer",
+        "CHECK(width>0)",
+        "媒体帧或图像宽度，单位像素；有值时为正整数"
+      ],
+      "height": [
+        "integer",
+        "CHECK(height>0)",
+        "媒体帧或图像高度，单位像素；有值时为正整数"
+      ],
+      "kind": [
+        "text",
+        "NOT NULL CHECK(kind IN ('original','derived'))",
+        "媒体身份：original为原始输入，derived为派生副本"
+      ],
+      "parent_asset_id": [
+        "uuid",
+        "",
+        "父媒体资产标识；原件可空，多父派生关系同时登记asset_lineage"
+      ],
+      "mapping_version": [
+        "text",
+        "NOT NULL",
+        "派生坐标或时间戳回映射到原媒体所用映射规则版本；原件也需明确恒等映射版本"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('VALIDATING','VALID','QUARANTINED','ARCHIVED'))",
+        "原始或派生媒体的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, content_id) REFERENCES mt.content_item (case_id, content_id)",
+      "FOREIGN KEY (case_id, source_id) REFERENCES mt.source_registry (case_id, source_id)",
+      "FOREIGN KEY (case_id, object_id) REFERENCES mt.object_version (case_id, object_id)",
+      "FOREIGN KEY (case_id, parent_asset_id) REFERENCES mt.media_asset (case_id, asset_id)"
+    ],
+    "immutable": false
+  },
+  "asset_lineage": {
+    "name": "asset_lineage",
+    "pk": "lineage_id",
+    "description": "多父对象血缘",
+    "columns": {
+      "lineage_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "parent_asset_id": [
+        "uuid",
+        "NOT NULL",
+        "父媒体资产标识；原件可空，多父派生关系同时登记asset_lineage"
+      ],
+      "child_asset_id": [
+        "uuid",
+        "NOT NULL",
+        "派生得到的子媒体资产标识；不能与本行父资产相同"
+      ],
+      "operation": [
+        "text",
+        "NOT NULL",
+        "由父媒体生成子媒体的处理操作编码，与参数、代码摘要和映射版本一起重现派生过程"
+      ],
+      "parameters": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "媒体派生操作参数对象，例如抽帧策略和编码设置；值须按操作对应Schema校验并排除秘密。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "code_digest": [
+        "text",
+        "NOT NULL CHECK(code_digest ~ '^[a-f0-9]{64}$')",
+        "执行派生处理代码或发布包的SHA-256，摘要范围由发布规范固定；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "mapping_version": [
+        "text",
+        "NOT NULL",
+        "派生坐标或时间戳回映射到原媒体所用映射规则版本；原件也需明确恒等映射版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, parent_asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY (case_id, child_asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "CHECK(parent_asset_id<>child_asset_id)",
+      "UNIQUE(case_id,parent_asset_id,child_asset_id,operation,mapping_version)"
+    ],
+    "immutable": true
+  },
+  "upload_session": {
+    "name": "upload_session",
+    "pk": "upload_id",
+    "description": "上传会话",
+    "columns": {
+      "upload_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "source_id": [
+        "uuid",
+        "NOT NULL",
+        "数据来源登记标识，指向source_registry.source_id"
+      ],
+      "filename": [
+        "text",
+        "NOT NULL",
+        "上传时提供的展示文件名；不得直接拼接为服务器文件路径"
+      ],
+      "size_bytes": [
+        "bigint",
+        "NOT NULL CHECK(size_bytes>0)",
+        "文件或分片的字节长度，单位byte；有效值必须大于0"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "上传方声明的完整文件SHA-256，合并后必须以实际字节重新计算核对；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "mime": [
+        "text",
+        "NOT NULL",
+        "探测或声明的媒体类型字符串，例如image/png；服务端须核对实际内容，不能只信文件扩展名"
+      ],
+      "part_size_bytes": [
+        "bigint",
+        "NOT NULL CHECK(part_size_bytes>0)",
+        "上传会话约定的标准分片大小，单位字节；末片可小于此值"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('UPLOADING','VALIDATING','COMPLETED','REJECTED','EXPIRED'))",
+        "上传会话的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "NOT NULL",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "owner_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "创建并持有上传会话的用户标识；不能直接接受客户端冒充"
+      ],
+      "asset_id": [
+        "uuid",
+        "",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, source_id) REFERENCES mt.source_registry (case_id, source_id)",
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)"
+    ],
+    "immutable": false
+  },
+  "upload_part": {
+    "name": "upload_part",
+    "pk": "part_id",
+    "description": "分片接收与校验",
+    "columns": {
+      "part_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "upload_id": [
+        "uuid",
+        "NOT NULL",
+        "所属上传会话标识，指向upload_session.upload_id"
+      ],
+      "part_no": [
+        "integer",
+        "NOT NULL CHECK(part_no>0)",
+        "上传分片编号，从1开始；同一会话内不得重复"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "该分片实际字节的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "size_bytes": [
+        "bigint",
+        "NOT NULL CHECK(size_bytes>0)",
+        "文件或分片的字节长度，单位byte；有效值必须大于0"
+      ],
+      "object_id": [
+        "uuid",
+        "NOT NULL",
+        "所关联对象字节版本的内部标识；具体引用目标见本表外键，不能与对象存储version_id混用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, upload_id) REFERENCES mt.upload_session (case_id, upload_id)",
+      "FOREIGN KEY (case_id, object_id) REFERENCES mt.object_version (case_id, object_id)",
+      "UNIQUE(case_id,upload_id,part_no)"
+    ],
+    "immutable": false
+  },
+  "import_job": {
+    "name": "import_job",
+    "pk": "import_id",
+    "description": "批量清单导入作业",
+    "columns": {
+      "import_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "state": [
+        "text",
+        "NOT NULL",
+        "批量清单导入作业的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "requested_count": [
+        "integer",
+        "NOT NULL CHECK(requested_count>0)",
+        "导入作业申请处理的条目总数，必须大于0；不等于成功导入数量"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [],
+    "immutable": false
+  },
+  "import_item": {
+    "name": "import_item",
+    "pk": "item_id",
+    "description": "逐条导入结果",
+    "columns": {
+      "item_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "import_id": [
+        "uuid",
+        "NOT NULL",
+        "所属批量导入作业标识，指向import_job.import_id"
+      ],
+      "ordinal": [
+        "integer",
+        "NOT NULL CHECK(ordinal>=0)",
+        "导入清单内的条目位置，从0开始；同一导入作业内唯一"
+      ],
+      "source_id": [
+        "uuid",
+        "NOT NULL",
+        "数据来源登记标识，指向source_registry.source_id"
+      ],
+      "asset_id": [
+        "uuid",
+        "",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "state": [
+        "text",
+        "NOT NULL",
+        "逐条导入结果的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "error_code": [
+        "text",
+        "",
+        "失败原因的稳定错误码；无失败时允许NULL，用户说明与诊断堆栈分开"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, import_id) REFERENCES mt.import_job (case_id, import_id)",
+      "FOREIGN KEY (case_id, source_id) REFERENCES mt.source_registry (case_id, source_id)",
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "UNIQUE(case_id,import_id,ordinal)"
+    ],
+    "immutable": false
+  },
+  "idempotency_record": {
+    "name": "idempotency_record",
+    "pk": "idempotency_id",
+    "description": "主体请求摘要幂等",
+    "columns": {
+      "idempotency_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "actor_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "操作主体标识；从服务端认证上下文取得，系统动作的可空条件须另有审计规则"
+      ],
+      "operation": [
+        "text",
+        "NOT NULL",
+        "执行操作的稳定名称；用于审计、幂等分域或重现派生步骤，具体取值由对应模块登记"
+      ],
+      "idempotency_key": [
+        "text",
+        "NOT NULL",
+        "客户端提交的幂等键；与案件、主体和操作共同分域，同键请求摘要不同应报冲突"
+      ],
+      "request_sha256": [
+        "text",
+        "NOT NULL CHECK(request_sha256 ~ '^[a-f0-9]{64}$')",
+        "规范化请求内容的SHA-256，规范化规则由操作契约固定；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "response_ref": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "首次成功处理的响应或结果引用对象，用于幂等重放；不缓存越权敏感内容。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "NOT NULL",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "UNIQUE(case_id,actor_id,operation,idempotency_key)"
+    ],
+    "immutable": false
+  },
+  "policy_registry": {
+    "name": "policy_registry",
+    "pk": "policy_id",
+    "description": "标签阈值流程保留等策略",
+    "columns": {
+      "policy_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "kind": [
+        "text",
+        "NOT NULL",
+        "策略类别，如标签、阈值、流程或保留规则；类别词表由配置登记"
+      ],
+      "version": [
+        "text",
+        "NOT NULL",
+        "此记录对应的业务或模型版本，具体命名由所属目录约定；不同于并发控制row_version"
+      ],
+      "definition_ref": [
+        "text",
+        "NOT NULL",
+        "完整策略定义文档或配置的受控引用，应可定位不可变版本"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('DRAFT','APPROVED'))",
+        "标签阈值流程保留等策略的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "approval_id": [
+        "uuid",
+        "",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "UNIQUE(org_id,kind,version)"
+    ],
+    "immutable": false
+  },
+  "analysis_task": {
+    "name": "analysis_task",
+    "pk": "task_id",
+    "description": "分析任务当前投影",
+    "columns": {
+      "task_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "scene": [
+        "text",
+        "NOT NULL",
+        "分析场景编码，用于选择任务处理流程；实际场景词表仍依业务配置"
+      ],
+      "priority": [
+        "text",
+        "NOT NULL CHECK(priority IN ('low','normal','high'))",
+        "调度优先级；只影响排队策略，不改变权限或审核要求"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('CREATED','QUEUED','RUNNING','WAIT_REVIEW','REVIEWING','SUCCEEDED','FAILED','RETURNED','CANCEL_REQUESTED','CANCELLED','ARCHIVED'))",
+        "分析任务当前投影的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "progress": [
+        "double precision",
+        "NOT NULL DEFAULT 0 CHECK(progress>=0 AND progress<=1)",
+        "当前运行版本的进度比例，0到1；不是准确率或任务正式通过率"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(run_version>0)",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(result_version>0)",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "modules": [
+        "text[]",
+        "NOT NULL",
+        "任务请求运行的模块编码列表；服务端检查模块是否允许、依赖是否满足"
+      ],
+      "missing_modalities": [
+        "text[]",
+        "NOT NULL DEFAULT '{}'",
+        "输入缺失的模态列表，例如无音轨；空数组表示未登记缺失，不等于全部分析成功"
+      ],
+      "report_eligibility": [
+        "text",
+        "NOT NULL CHECK(report_eligibility IN ('draft_only','reviewable','formal_eligible'))",
+        "当前结果允许的报告使用等级；正式报告仍需核验审批和结果版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)"
+    ],
+    "immutable": false
+  },
+  "task_run": {
+    "name": "task_run",
+    "pk": "task_run_id",
+    "description": "任务运行历史",
+    "columns": {
+      "task_run_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL CHECK(run_version>0)",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "input_sha256": [
+        "text",
+        "NOT NULL CHECK(input_sha256 ~ '^[a-f0-9]{64}$')",
+        "本次运行输入清单或输入对象的SHA-256，摘要对象须由DAG契约固定；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "dag_version": [
+        "text",
+        "NOT NULL",
+        "本次运行采用的任务依赖图版本，用于重现节点和执行顺序"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "fencing_epoch": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(fencing_epoch>0)",
+        "防止旧worker写回的栅栏代数；服务层必须比较最新代数，正整数CHECK本身不阻止旧worker"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "UNIQUE(case_id,task_id,run_version)"
+    ],
+    "immutable": true
+  },
+  "task_result": {
+    "name": "task_result",
+    "pk": "result_id",
+    "description": "结果版本快照",
+    "columns": {
+      "result_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL CHECK(run_version>0)",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL CHECK(result_version>0)",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "结果快照规范化表示的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "summary": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "结果快照的结构化摘要对象；不能作为证据事实表的替代。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY(case_id,task_id,run_version) REFERENCES mt.task_run(case_id,task_id,run_version)",
+      "UNIQUE(case_id,task_id,run_version,result_version)"
+    ],
+    "immutable": true
+  },
+  "task_node_run": {
+    "name": "task_node_run",
+    "pk": "run_id",
+    "description": "节点尝试与租约",
+    "columns": {
+      "run_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL CHECK(run_version>0)",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "node_code": [
+        "text",
+        "NOT NULL",
+        "任务依赖图中的节点编码，在对应dag_version内解析"
+      ],
+      "attempt": [
+        "integer",
+        "NOT NULL CHECK(attempt>0)",
+        "同一任务运行节点的尝试次数，从1开始，重试递增"
+      ],
+      "model_version": [
+        "text",
+        "",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "input_hash": [
+        "text",
+        "NOT NULL CHECK(input_hash ~ '^[a-f0-9]{64}$')",
+        "节点输入规范化清单的SHA-256，用于重试与缓存一致性；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('PENDING','READY','RUNNING','SUCCEEDED','FAILED','SKIPPED','DEFERRED','CANCELLED','NOT_SUPPORTED'))",
+        "节点尝试与租约的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "required": [
+        "boolean",
+        "NOT NULL",
+        "该节点是否为本次DAG完成所必需；必需节点缺失不能直接当任务成功"
+      ],
+      "reason": [
+        "text",
+        "",
+        "状态变化、跳过、拒绝或审批决定的原因说明，应足以定位业务原因且不泄露秘密"
+      ],
+      "lease_token": [
+        "text",
+        "",
+        "worker领取节点时获得的租约标识；写回须同时核验租约和fencing_epoch"
+      ],
+      "fencing_epoch": [
+        "bigint",
+        "NOT NULL CHECK(fencing_epoch>0)",
+        "防止旧worker写回的栅栏代数；服务层必须比较最新代数，正整数CHECK本身不阻止旧worker"
+      ],
+      "started_at": [
+        "timestamptz",
+        "",
+        "该节点尝试实际开始执行的时刻；尚未开始时为空；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "ended_at": [
+        "timestamptz",
+        "",
+        "该节点尝试结束时刻；未结束为空，不能早于开始时刻；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY(case_id,task_id,run_version) REFERENCES mt.task_run(case_id,task_id,run_version)",
+      "UNIQUE(case_id,task_id,run_version,node_code,attempt)",
+      "CHECK(ended_at IS NULL OR started_at IS NOT NULL AND ended_at>=started_at)"
+    ],
+    "immutable": false
+  },
+  "task_event": {
+    "name": "task_event",
+    "pk": "event_id",
+    "description": "任务状态事件",
+    "columns": {
+      "event_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL CHECK(run_version>0)",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "from_state": [
+        "text",
+        "",
+        "状态事件发生前的状态；首次创建事件可为空"
+      ],
+      "to_state": [
+        "text",
+        "NOT NULL",
+        "状态事件发生后的状态；须由所属状态机验证合法转移"
+      ],
+      "reason": [
+        "text",
+        "NOT NULL",
+        "状态变化、跳过、拒绝或审批决定的原因说明，应足以定位业务原因且不泄露秘密"
+      ],
+      "request_id": [
+        "uuid",
+        "NOT NULL",
+        "贯穿接口、任务和审计的请求追踪标识；不充当权限凭证"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)"
+    ],
+    "immutable": true
+  },
+  "outbox_event": {
+    "name": "outbox_event",
+    "pk": "event_id",
+    "description": "事务发件箱",
+    "columns": {
+      "event_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "topic": [
+        "text",
+        "NOT NULL",
+        "发件箱消息的逻辑主题名称，由消息契约登记"
+      ],
+      "aggregate_id": [
+        "uuid",
+        "NOT NULL",
+        "事件所属聚合对象标识；具体对象类型由topic确定，不是通用外键"
+      ],
+      "aggregate_version": [
+        "bigint",
+        "NOT NULL CHECK(aggregate_version>0)",
+        "该事件所描述聚合对象的版本号，同主题和对象下用于去重及顺序判断"
+      ],
+      "payload": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "按事件或发现类型定义的结构化负载，须由对应Schema验证；JSONB类型不验证业务字段。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "published_at": [
+        "timestamptz",
+        "",
+        "事件已确认投递至消息后端的时刻；NULL表示未确认投递，与媒体发布时间无关；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "attempts": [
+        "integer",
+        "NOT NULL DEFAULT 0 CHECK(attempts>=0)",
+        "发件箱事件已尝试投递次数，从0开始；成功与否另看published_at"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "UNIQUE(case_id,topic,aggregate_id,aggregate_version)"
+    ],
+    "immutable": false
+  },
+  "event_receipt": {
+    "name": "event_receipt",
+    "pk": "receipt_id",
+    "description": "消费去重记录",
+    "columns": {
+      "receipt_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "event_id": [
+        "uuid",
+        "NOT NULL",
+        "已处理的外部或内部事件标识；与consumer共同去重，未必来自本地发件箱"
+      ],
+      "consumer": [
+        "text",
+        "NOT NULL",
+        "消费逻辑的稳定标识，区分不同消费者独立处理同一事件"
+      ],
+      "effect_sha256": [
+        "text",
+        "NOT NULL CHECK(effect_sha256 ~ '^[a-f0-9]{64}$')",
+        "消费已产生效果的规范化结果摘要，用于校验重复消费是否一致；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "UNIQUE(case_id,event_id,consumer)"
+    ],
+    "immutable": true
+  },
+  "shot": {
+    "name": "shot",
+    "pk": "shot_id",
+    "description": "镜头时间区间",
+    "columns": {
+      "shot_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "start_ms": [
+        "bigint",
+        "NOT NULL CHECK(start_ms>=0)",
+        "源媒体半开区间起点，单位毫秒，包含该时刻；静态或不适用时按可空规则处理"
+      ],
+      "end_ms": [
+        "bigint",
+        "NOT NULL",
+        "源媒体半开区间终点，单位毫秒，不包含该时刻；有效区间必须大于start_ms"
+      ],
+      "score": [
+        "double precision",
+        "CHECK(score>=0 AND score<=1)",
+        "镜头时间区间对应的原始模型评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "mapping_version": [
+        "text",
+        "NOT NULL",
+        "派生坐标或时间戳回映射到原媒体所用映射规则版本；原件也需明确恒等映射版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "CHECK(end_ms>start_ms)"
+    ],
+    "immutable": true
+  },
+  "keyframe": {
+    "name": "keyframe",
+    "pk": "frame_id",
+    "description": "关键帧",
+    "columns": {
+      "frame_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "shot_id": [
+        "uuid",
+        "",
+        "关键帧所属镜头记录标识；未进行镜头切分时允许为空"
+      ],
+      "timestamp_ms": [
+        "bigint",
+        "NOT NULL CHECK(timestamp_ms>=0)",
+        "关键帧在源媒体时间轴上的位置，单位毫秒，非负"
+      ],
+      "object_id": [
+        "uuid",
+        "NOT NULL",
+        "所关联对象字节版本的内部标识；具体引用目标见本表外键，不能与对象存储version_id混用"
+      ],
+      "quality_score": [
+        "double precision",
+        "CHECK(quality_score>=0 AND quality_score<=1)",
+        "关键帧对应的质量评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "mapping_version": [
+        "text",
+        "NOT NULL",
+        "派生坐标或时间戳回映射到原媒体所用映射规则版本；原件也需明确恒等映射版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY (case_id, shot_id) REFERENCES mt.shot (case_id, shot_id)",
+      "FOREIGN KEY (case_id, object_id) REFERENCES mt.object_version (case_id, object_id)"
+    ],
+    "immutable": true
+  },
+  "text_segment": {
+    "name": "text_segment",
+    "pk": "segment_id",
+    "description": "OCR ASR字幕原文",
+    "columns": {
+      "segment_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "type": [
+        "text",
+        "NOT NULL CHECK(type IN ('OCR','ASR','SUBTITLE'))",
+        "提取模态类别：OCR、ASR或SUBTITLE"
+      ],
+      "start_ms": [
+        "bigint",
+        "CHECK(start_ms>=0)",
+        "源媒体半开区间起点，单位毫秒，包含该时刻；静态或不适用时按可空规则处理"
+      ],
+      "end_ms": [
+        "bigint",
+        "",
+        "源媒体半开区间终点，单位毫秒，不包含该时刻；有效区间必须大于start_ms"
+      ],
+      "text": [
+        "text",
+        "NOT NULL",
+        "OCR、ASR或字幕提取的文本原文；纠错或摘要应另存，不覆盖原文"
+      ],
+      "confidence": [
+        "double precision",
+        "CHECK(confidence>=0 AND confidence<=1)",
+        "OCR ASR字幕原文对应的提取置信分数，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "bbox": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "源图像归一化定位框对象，使用x、y、width、height；不适用可用空对象，非空须校验边界。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "mapping_version": [
+        "text",
+        "NOT NULL",
+        "派生坐标或时间戳回映射到原媒体所用映射规则版本；原件也需明确恒等映射版本"
+      ],
+      "model_name": [
+        "text",
+        "NOT NULL",
+        "模型注册名称，与model_version共同定位产生该结果的模型"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "CHECK((start_ms IS NULL AND end_ms IS NULL) OR (start_ms IS NOT NULL AND end_ms IS NOT NULL AND end_ms>start_ms))"
+    ],
+    "immutable": true
+  },
+  "model_registry": {
+    "name": "model_registry",
+    "pk": "model_id",
+    "description": "模型版本与许可引用",
+    "columns": {
+      "model_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "name": [
+        "text",
+        "NOT NULL",
+        "名称，供目录显示和识别；与稳定标识分离，不能用名称代替主键"
+      ],
+      "version": [
+        "text",
+        "NOT NULL",
+        "此记录对应的业务或模型版本，具体命名由所属目录约定；不同于并发控制row_version"
+      ],
+      "capability": [
+        "text",
+        "NOT NULL",
+        "模型或索引提供的能力编码，取值对应内部推理能力契约"
+      ],
+      "digest": [
+        "text",
+        "NOT NULL CHECK(digest ~ '^[a-f0-9]{64}$')",
+        "注册模型权重或模型包的SHA-256，具体制品范围记录于模型卡；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "metric_json": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "模型评测指标摘要对象，须包含所用指标口径对应值；具体证据引用model_evaluation。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "dataset_version": [
+        "text",
+        "NOT NULL",
+        "本次训练或评测采用的数据集版本，不能用最新版本覆盖历史记录"
+      ],
+      "model_card_ref": [
+        "text",
+        "NOT NULL",
+        "模型卡的受控版本引用，说明用途、限制和训练评测信息"
+      ],
+      "license_record_ref": [
+        "text",
+        "NOT NULL",
+        "代码与权重许可核查记录引用，需覆盖本项目预定用途"
+      ],
+      "backend": [
+        "text",
+        "NOT NULL",
+        "实际运行推理后端标识，例如经选型的框架适配器；不是模型名称"
+      ],
+      "environment_ref": [
+        "text",
+        "NOT NULL",
+        "可重建运行环境说明或镜像摘要的受控引用"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('REGISTERED','EVALUATED','CANDIDATE','APPROVED','ACTIVE','RETIRED'))",
+        "模型版本与许可引用的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "UNIQUE(org_id,name,version)",
+      "UNIQUE(org_id,model_id)"
+    ],
+    "immutable": false
+  },
+  "model_evaluation": {
+    "name": "model_evaluation",
+    "pk": "evaluation_id",
+    "description": "不可覆盖评测记录",
+    "columns": {
+      "evaluation_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "model_id": [
+        "uuid",
+        "NOT NULL",
+        "模型注册记录标识，引用同单位的model_registry.model_id"
+      ],
+      "dataset_id": [
+        "text",
+        "NOT NULL",
+        "数据集目录的稳定文本编号，例如D01；不是数据库UUID主键"
+      ],
+      "dataset_version": [
+        "text",
+        "NOT NULL",
+        "本次训练或评测采用的数据集版本，不能用最新版本覆盖历史记录"
+      ],
+      "protocol_id": [
+        "text",
+        "NOT NULL",
+        "评测协议标识，决定指标公式、样本计数、阈值及统计口径"
+      ],
+      "split": [
+        "text",
+        "NOT NULL CHECK(split IN ('validation','calibration','holdout'))",
+        "此次评测使用的划分用途；封存holdout不能用于训练或调参"
+      ],
+      "sample_count": [
+        "integer",
+        "NOT NULL CHECK(sample_count>0)",
+        "按照评测协议统计的样本数，必须为正；不能混用帧数、素材组数和文件数"
+      ],
+      "failure_count": [
+        "integer",
+        "NOT NULL CHECK(failure_count>=0 AND failure_count<=sample_count)",
+        "处理失败样本数，范围0到sample_count，不应从评测分母中隐式删除"
+      ],
+      "metrics": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "评测协议规定的指标结果对象；需保留失败计数和适用样本口径。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "artifact_ref": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "评测产物或导出文件的受控定位与摘要对象，禁止包含临时访问秘密。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "FOREIGN KEY(org_id,model_id) REFERENCES mt.model_registry(org_id,model_id)"
+    ],
+    "immutable": true
+  },
+  "model_release": {
+    "name": "model_release",
+    "pk": "release_id",
+    "description": "模型发布包",
+    "columns": {
+      "release_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "model_id": [
+        "uuid",
+        "NOT NULL",
+        "模型注册记录标识，引用同单位的model_registry.model_id"
+      ],
+      "bundle_sha256": [
+        "text",
+        "NOT NULL CHECK(bundle_sha256 ~ '^[a-f0-9]{64}$')",
+        "完整模型发布包的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "calibration_version": [
+        "text",
+        "",
+        "分数校准方法和参数版本；未校准时为空，不把原始分数称为概率"
+      ],
+      "backend": [
+        "text",
+        "NOT NULL",
+        "实际运行推理后端标识，例如经选型的框架适配器；不是模型名称"
+      ],
+      "index_version": [
+        "text",
+        "",
+        "本次使用或发布的检索索引版本；不能混合不同模型维度和预处理版本"
+      ],
+      "approval_id": [
+        "uuid",
+        "",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('CANDIDATE','APPROVED','ACTIVE','RETIRED'))",
+        "模型发布包的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "environment_ref": [
+        "text",
+        "NOT NULL",
+        "可重建运行环境说明或镜像摘要的受控引用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "FOREIGN KEY(org_id,model_id) REFERENCES mt.model_registry(org_id,model_id)",
+      "FOREIGN KEY(org_id,approval_id) REFERENCES mt.approval_request(org_id,approval_id)"
+    ],
+    "immutable": false
+  },
+  "index_registry": {
+    "name": "index_registry",
+    "pk": "index_id",
+    "description": "索引版本不混向量",
+    "columns": {
+      "index_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "capability": [
+        "text",
+        "NOT NULL",
+        "模型或索引提供的能力编码，取值对应内部推理能力契约"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "dimension": [
+        "integer",
+        "NOT NULL CHECK(dimension>0)",
+        "特征向量维度，必须为正整数并与模型及索引配置一致"
+      ],
+      "normalization": [
+        "text",
+        "NOT NULL CHECK(normalization IN ('l2','none'))",
+        "特征归一化方法，例如l2或none；应与训练、查询和索引构建保持一致"
+      ],
+      "index_version": [
+        "text",
+        "NOT NULL",
+        "本次使用或发布的检索索引版本；不能混合不同模型维度和预处理版本"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('BUILDING','READY','ACTIVE','RETIRED'))",
+        "索引版本不混向量的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "configuration": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "索引构建参数对象，包括距离与索引配置；具体字段由所选索引适配器校验。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "UNIQUE(org_id,capability,index_version)"
+    ],
+    "immutable": false
+  },
+  "feature": {
+    "name": "feature",
+    "pk": "feature_id",
+    "description": "模型特征元数据",
+    "columns": {
+      "feature_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "model_id": [
+        "uuid",
+        "NOT NULL",
+        "模型注册记录标识，引用同单位的model_registry.model_id"
+      ],
+      "dimension": [
+        "integer",
+        "NOT NULL CHECK(dimension>0)",
+        "特征向量维度，必须为正整数并与模型及索引配置一致"
+      ],
+      "normalization": [
+        "text",
+        "NOT NULL",
+        "特征归一化方法，例如l2或none；应与训练、查询和索引构建保持一致"
+      ],
+      "feature_ref": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "特征数据的受控存储定位与版本对象，不在该字段内混入不同模型向量。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "index_version": [
+        "text",
+        "NOT NULL",
+        "本次使用或发布的检索索引版本；不能混合不同模型维度和预处理版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY(org_id,model_id) REFERENCES mt.model_registry(org_id,model_id)"
+    ],
+    "immutable": true
+  },
+  "evidence_item": {
+    "name": "evidence_item",
+    "pk": "evidence_id",
+    "description": "证据事实版本",
+    "columns": {
+      "evidence_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "type": [
+        "text",
+        "NOT NULL",
+        "证据类别编码，决定对象、时间范围和定位解释"
+      ],
+      "object_id": [
+        "uuid",
+        "",
+        "所关联对象字节版本的内部标识；具体引用目标见本表外键，不能与对象存储version_id混用"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "该证据版本绑定内容的SHA-256，摘要对象需在证据类型契约中明确；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "captured_at": [
+        "timestamptz",
+        "NOT NULL",
+        "证据采集或记录的实际时刻；可信时间来源由取证规则确定，不保证机器时钟天然可信；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "model_name": [
+        "text",
+        "",
+        "模型注册名称，与model_version共同定位产生该结果的模型"
+      ],
+      "model_version": [
+        "text",
+        "",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "mapping_version": [
+        "text",
+        "NOT NULL",
+        "派生坐标或时间戳回映射到原媒体所用映射规则版本；原件也需明确恒等映射版本"
+      ],
+      "authorization_version": [
+        "text",
+        "NOT NULL",
+        "本次处理采用的来源授权版本，用于撤销核查及历史追溯"
+      ],
+      "immutable_state": [
+        "text",
+        "NOT NULL CHECK(immutable_state IN ('RECORDED','SEALED'))",
+        "证据事实版本的不可变记录状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "time_range": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "源媒体时间范围对象，使用start_ms、end_ms；非空时必须校验先后与源媒体范围。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "bbox": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "源图像归一化定位框对象，使用x、y、width、height；不适用可用空对象，非空须校验边界。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY (case_id, object_id) REFERENCES mt.object_version (case_id, object_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)"
+    ],
+    "immutable": true
+  },
+  "risk_finding": {
+    "name": "risk_finding",
+    "pk": "finding_id",
+    "description": "风险候选发现",
+    "columns": {
+      "finding_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "category": [
+        "text",
+        "NOT NULL",
+        "风险分类编码；取值、阈值和法律业务含义由有效标签策略确定"
+      ],
+      "score": [
+        "double precision",
+        "CHECK(score>=0 AND score<=1)",
+        "风险候选发现对应的原始模型评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "calibrated_score": [
+        "double precision",
+        "CHECK(calibrated_score>=0 AND calibrated_score<=1)",
+        "校准后的模型分数，范围0至1；未进行校准时为NULL，必须绑定相应校准版本和评测口径"
+      ],
+      "start_ms": [
+        "bigint",
+        "CHECK(start_ms>=0)",
+        "源媒体半开区间起点，单位毫秒，包含该时刻；静态或不适用时按可空规则处理"
+      ],
+      "end_ms": [
+        "bigint",
+        "",
+        "源媒体半开区间终点，单位毫秒，不包含该时刻；有效区间必须大于start_ms"
+      ],
+      "model_name": [
+        "text",
+        "NOT NULL",
+        "模型注册名称，与model_version共同定位产生该结果的模型"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "threshold_version": [
+        "text",
+        "",
+        "将模型分数转为候选标签时使用的阈值配置版本"
+      ],
+      "payload": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "按事件或发现类型定义的结构化负载，须由对应Schema验证；JSONB类型不验证业务字段。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('candidate','insufficient','reviewed'))",
+        "风险候选发现的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)",
+      "CHECK((start_ms IS NULL AND end_ms IS NULL) OR (start_ms IS NOT NULL AND end_ms IS NOT NULL AND end_ms>start_ms))"
+    ],
+    "immutable": true
+  },
+  "tamper_finding": {
+    "name": "tamper_finding",
+    "pk": "tamper_id",
+    "description": "疑似篡改发现",
+    "columns": {
+      "tamper_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "type": [
+        "text",
+        "NOT NULL",
+        "疑似篡改类型编码，取值由模型及标签策略约定"
+      ],
+      "score": [
+        "double precision",
+        "CHECK(score>=0 AND score<=1)",
+        "疑似篡改发现对应的原始模型评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "calibrated_score": [
+        "double precision",
+        "CHECK(calibrated_score>=0 AND calibrated_score<=1)",
+        "校准后的模型分数，范围0至1；未进行校准时为NULL，必须绑定相应校准版本和评测口径"
+      ],
+      "start_ms": [
+        "bigint",
+        "CHECK(start_ms>=0)",
+        "源媒体半开区间起点，单位毫秒，包含该时刻；静态或不适用时按可空规则处理"
+      ],
+      "end_ms": [
+        "bigint",
+        "",
+        "源媒体半开区间终点，单位毫秒，不包含该时刻；有效区间必须大于start_ms"
+      ],
+      "model_name": [
+        "text",
+        "NOT NULL",
+        "模型注册名称，与model_version共同定位产生该结果的模型"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "threshold_version": [
+        "text",
+        "",
+        "将模型分数转为候选标签时使用的阈值配置版本"
+      ],
+      "payload": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "按事件或发现类型定义的结构化负载，须由对应Schema验证；JSONB类型不验证业务字段。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('candidate','insufficient','reviewed'))",
+        "疑似篡改发现的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)",
+      "CHECK((start_ms IS NULL AND end_ms IS NULL) OR (start_ms IS NOT NULL AND end_ms IS NOT NULL AND end_ms>start_ms))"
+    ],
+    "immutable": true
+  },
+  "finding_evidence": {
+    "name": "finding_evidence",
+    "pk": "link_id",
+    "description": "发现与证据多对多",
+    "columns": {
+      "link_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "risk_finding_id": [
+        "uuid",
+        "",
+        "关联风险发现标识；与tamper_finding_id按表级互斥规则择一"
+      ],
+      "tamper_finding_id": [
+        "uuid",
+        "",
+        "关联疑似篡改发现标识；与risk_finding_id按表级互斥规则择一"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, risk_finding_id) REFERENCES mt.risk_finding (case_id, finding_id)",
+      "FOREIGN KEY (case_id, tamper_finding_id) REFERENCES mt.tamper_finding (case_id, tamper_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)",
+      "CHECK(num_nonnulls(risk_finding_id,tamper_finding_id)=1)"
+    ],
+    "immutable": true
+  },
+  "task_evidence": {
+    "name": "task_evidence",
+    "pk": "link_id",
+    "description": "任务证据引用",
+    "columns": {
+      "link_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)",
+      "UNIQUE(case_id,task_id,evidence_id)"
+    ],
+    "immutable": true
+  },
+  "search_job": {
+    "name": "search_job",
+    "pk": "search_id",
+    "description": "异步检索任务",
+    "columns": {
+      "search_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "query_asset_id": [
+        "uuid",
+        "NOT NULL",
+        "作为检索输入的媒体资产标识，需处于当前授权范围"
+      ],
+      "kind": [
+        "text",
+        "NOT NULL CHECK(kind IN ('image','image_region','video'))",
+        "检索作业类别，用于区分图片与视频等查询流程"
+      ],
+      "state": [
+        "text",
+        "NOT NULL",
+        "异步检索任务的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "index_version": [
+        "text",
+        "NOT NULL",
+        "本次使用或发布的检索索引版本；不能混合不同模型维度和预处理版本"
+      ],
+      "error_code": [
+        "text",
+        "",
+        "失败原因的稳定错误码；无失败时允许NULL，用户说明与诊断堆栈分开"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, query_asset_id) REFERENCES mt.media_asset (case_id, asset_id)"
+    ],
+    "immutable": false
+  },
+  "source_match": {
+    "name": "source_match",
+    "pk": "match_id",
+    "description": "同源或片段映射候选",
+    "columns": {
+      "match_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "search_id": [
+        "uuid",
+        "NOT NULL",
+        "产生匹配候选的异步检索作业标识"
+      ],
+      "query_asset_id": [
+        "uuid",
+        "NOT NULL",
+        "作为检索输入的媒体资产标识，需处于当前授权范围"
+      ],
+      "candidate_asset_id": [
+        "uuid",
+        "NOT NULL",
+        "被检索返回的候选来源媒体资产标识；候选相似不能直接认定同源"
+      ],
+      "score": [
+        "double precision",
+        "CHECK(score>=0 AND score<=1)",
+        "同源或片段映射候选对应的原始模型评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "verification_type": [
+        "text",
+        "NOT NULL CHECK(verification_type IN ('unverified','geometry','temporal','human'))",
+        "支持本匹配结果的验证方法编码，例如几何或时序验证；具体取值见约束"
+      ],
+      "relation": [
+        "text",
+        "NOT NULL CHECK(relation IN ('similar','full_copy','partial_copy','contains','segment_map','unknown'))",
+        "查询与候选媒体间的关系类型，整体同源、局部包含和语义相似必须区分"
+      ],
+      "query_start_ms": [
+        "bigint",
+        "CHECK(query_start_ms>=0)",
+        "查询媒体中匹配片段起点，单位毫秒，半开区间包含起点"
+      ],
+      "query_end_ms": [
+        "bigint",
+        "",
+        "查询媒体中匹配片段终点，单位毫秒，半开区间不包含终点"
+      ],
+      "source_start_ms": [
+        "bigint",
+        "CHECK(source_start_ms>=0)",
+        "候选来源媒体中匹配片段起点，单位毫秒"
+      ],
+      "source_end_ms": [
+        "bigint",
+        "",
+        "候选来源媒体中匹配片段终点，单位毫秒，必须大于对应起点"
+      ],
+      "direction": [
+        "text",
+        "NOT NULL CHECK(direction IN ('forward','reverse','not_applicable'))",
+        "查询与来源片段的播放对应方向，不改变存储区间起点小于终点的约定"
+      ],
+      "speed_ratio": [
+        "double precision",
+        "NOT NULL CHECK(speed_ratio>0)",
+        "查询片段时长除以来源片段时长的正比例（本轮工程约定）；倒放由direction单独表示，模型适配器负责转换其原生定义"
+      ],
+      "evidence_refs": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "支持与反对证据引用的结构化对象；引用需存在并属于授权案件，JSONB本身不建立外键。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "index_version": [
+        "text",
+        "NOT NULL",
+        "本次使用或发布的检索索引版本；不能混合不同模型维度和预处理版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, search_id) REFERENCES mt.search_job (case_id, search_id)",
+      "FOREIGN KEY (case_id, query_asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY (case_id, candidate_asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "CHECK(query_asset_id<>candidate_asset_id)",
+      "CHECK((query_start_ms IS NULL AND query_end_ms IS NULL) OR (query_start_ms IS NOT NULL AND query_end_ms IS NOT NULL AND query_end_ms>query_start_ms))",
+      "CHECK((source_start_ms IS NULL AND source_end_ms IS NULL) OR (source_start_ms IS NOT NULL AND source_end_ms IS NOT NULL AND source_end_ms>source_start_ms))"
+    ],
+    "immutable": true
+  },
+  "content_cluster": {
+    "name": "content_cluster",
+    "pk": "cluster_id",
+    "description": "高可信整内容簇",
+    "columns": {
+      "cluster_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "scope": [
+        "text",
+        "NOT NULL",
+        "内容簇覆盖的比较范围标识或说明；整体同源与指定片段范围必须区分"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "status": [
+        "text",
+        "NOT NULL",
+        "高可信整内容簇的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [],
+    "immutable": false
+  },
+  "cluster_member": {
+    "name": "cluster_member",
+    "pk": "member_id",
+    "description": "簇成员整内容证据",
+    "columns": {
+      "member_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "cluster_id": [
+        "uuid",
+        "NOT NULL",
+        "高可信内容簇标识，指向同案件content_cluster.cluster_id；不得用相似度连通关系替代整内容同源验证"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "relation": [
+        "text",
+        "NOT NULL CHECK(relation IN ('full_copy'))",
+        "成员与整内容簇的关系；当前只允许full_copy，片段拼接不能加入为整内容成员"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, cluster_id) REFERENCES mt.content_cluster (case_id, cluster_id)",
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)",
+      "UNIQUE(case_id,cluster_id,asset_id)"
+    ],
+    "immutable": true
+  },
+  "first_source_candidate": {
+    "name": "first_source_candidate",
+    "pk": "candidate_id",
+    "description": "首发候选及覆盖范围",
+    "columns": {
+      "candidate_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "cluster_id": [
+        "uuid",
+        "NOT NULL",
+        "高可信内容簇标识，指向同案件content_cluster.cluster_id；不得用相似度连通关系替代整内容同源验证"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本批次列为首发候选的媒体资产标识；必须属于同案件及本簇cluster_member，不能引用簇外素材"
+      ],
+      "rank": [
+        "integer",
+        "NOT NULL CHECK(rank BETWEEN 1 AND 3)",
+        "本次排序批次内的候选名次，从1连续排列到候选数量，最多3；不是确定首发结论"
+      ],
+      "probability": [
+        "double precision",
+        "CHECK(probability>=0 AND probability<=1)",
+        "已校准的候选可信度，范围0至1；未校准为NULL，不用于替代候选名次或确定首发结论"
+      ],
+      "published_at": [
+        "timestamptz",
+        "",
+        "可核查的来源发布时间；未知为NULL，不用发现时间或当前时间填补；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "evidence_refs": [
+        "jsonb",
+        "NOT NULL",
+        "首发候选证据对象，必须包含evidence_ids和counter_evidence_ids两个数组且无额外键；支持证据至少1项，各数组内UUID不可重复。SQL插入触发器核验ID格式、存在及同案件；证据是否有效支持该候选、实际用途授权与引用语义仍由应用复核"
+      ],
+      "coverage_note": [
+        "text",
+        "NOT NULL",
+        "本次观察的平台、时间和素材覆盖范围及缺失说明；不能声称覆盖未知全网"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('candidate','insufficient','reviewed'))",
+        "首发候选及覆盖范围的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ],
+      "ranking_id": [
+        "uuid",
+        "NOT NULL",
+        "所属首发排序快照ID；与案件及簇共同绑定first_source_ranking，不能混合不同计算结果"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, cluster_id) REFERENCES mt.content_cluster (case_id, cluster_id)",
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY(case_id,ranking_id,cluster_id) REFERENCES mt.first_source_ranking(case_id,ranking_id,cluster_id)",
+      "FOREIGN KEY(case_id,cluster_id,asset_id) REFERENCES mt.cluster_member(case_id,cluster_id,asset_id)",
+      "UNIQUE(case_id,ranking_id,rank)",
+      "UNIQUE(case_id,ranking_id,asset_id)"
+    ],
+    "immutable": true
+  },
+  "propagation_node": {
+    "name": "propagation_node",
+    "pk": "node_id",
+    "description": "传播图节点",
+    "columns": {
+      "node_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "cluster_id": [
+        "uuid",
+        "NOT NULL",
+        "高可信内容簇标识，指向同案件content_cluster.cluster_id；不得用相似度连通关系替代整内容同源验证"
+      ],
+      "type": [
+        "text",
+        "NOT NULL",
+        "传播图节点类型，决定其展示及业务对象解释"
+      ],
+      "display_label": [
+        "text",
+        "NOT NULL",
+        "传播图节点的人类可读展示标签，不作为节点主键或关系证据"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, cluster_id) REFERENCES mt.content_cluster (case_id, cluster_id)"
+    ],
+    "immutable": false
+  },
+  "propagation_edge": {
+    "name": "propagation_edge",
+    "pk": "edge_id",
+    "description": "显式推断传播边",
+    "columns": {
+      "edge_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "from_node_id": [
+        "uuid",
+        "NOT NULL",
+        "传播关系起点节点标识"
+      ],
+      "to_node_id": [
+        "uuid",
+        "NOT NULL",
+        "传播关系终点节点标识"
+      ],
+      "relation": [
+        "text",
+        "NOT NULL",
+        "传播关系类别；是否事实另由origin和证据决定"
+      ],
+      "origin": [
+        "text",
+        "NOT NULL CHECK(origin IN ('observed','inferred','human'))",
+        "传播边依据类别，区分明确记录与算法推断；推断不能展示为事实"
+      ],
+      "probability": [
+        "double precision",
+        "CHECK(probability>=0 AND probability<=1)",
+        "传播关系推断的已校准概率，范围0至1；未校准时为NULL，不能据此把推断边改成事实边"
+      ],
+      "evidence_refs": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "支持与反对证据引用的结构化对象；引用需存在并属于授权案件，JSONB本身不建立外键。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('candidate','confirmed','rejected'))",
+        "显式推断传播边的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, from_node_id) REFERENCES mt.propagation_node (case_id, node_id)",
+      "FOREIGN KEY (case_id, to_node_id) REFERENCES mt.propagation_node (case_id, node_id)",
+      "CHECK(from_node_id<>to_node_id)"
+    ],
+    "immutable": false
+  },
+  "claim": {
+    "name": "claim",
+    "pk": "claim_id",
+    "description": "结构化主张与来源",
+    "columns": {
+      "claim_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "asset_id": [
+        "uuid",
+        "NOT NULL",
+        "本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用"
+      ],
+      "subject": [
+        "text",
+        "",
+        "结构化主张中的主体表述，来自原文或模型抽取；不能当用户身份"
+      ],
+      "action": [
+        "text",
+        "",
+        "主张所描述行为或审计动作编码，具体语义由本表决定"
+      ],
+      "claim_time": [
+        "text",
+        "",
+        "主张原文中的时间表述，可能含模糊日期；未知为NULL，不强行转成精确时间戳"
+      ],
+      "place": [
+        "text",
+        "",
+        "主张原文中的地点表述；未知为空，不自动地理定位"
+      ],
+      "result": [
+        "text",
+        "",
+        "主张所陈述的结果，不代表系统已核实为真"
+      ],
+      "source_segment_refs": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "主张对应文本或媒体片段引用对象，需定位到资产、片段和时间或字符范围。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)"
+    ],
+    "immutable": true
+  },
+  "claim_evidence_relation": {
+    "name": "claim_evidence_relation",
+    "pk": "relation_id",
+    "description": "主张证据关系",
+    "columns": {
+      "relation_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "claim_id": [
+        "uuid",
+        "NOT NULL",
+        "被证据支持、反对或关联的主张标识"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "relation": [
+        "text",
+        "NOT NULL CHECK(relation IN ('supports','contradicts','partially_supports','unrelated','insufficient'))",
+        "主张与证据的关系类别，支持、反对或不足等取值以CHECK枚举为准"
+      ],
+      "score": [
+        "double precision",
+        "CHECK(score>=0 AND score<=1)",
+        "主张证据关系对应的原始模型评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, claim_id) REFERENCES mt.claim (case_id, claim_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)"
+    ],
+    "immutable": true
+  },
+  "approval_request": {
+    "name": "approval_request",
+    "pk": "approval_id",
+    "description": "按目的独立审批申请",
+    "columns": {
+      "approval_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "",
+        "案件隔离域标识；写入和读取均须验证当前主体有访问该案件的权限"
+      ],
+      "object_type": [
+        "text",
+        "NOT NULL",
+        "审批或审计目标对象类型，决定object_id应指向哪种业务对象"
+      ],
+      "object_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录绑定的业务目标对象ID；由object_type确定对象类型，不是对象存储版本ID；多态引用需服务端核验实际对象、案件和版本，DDL没有通用对象外键"
+      ],
+      "object_version": [
+        "bigint",
+        "NOT NULL CHECK(object_version>0)",
+        "审批或审计绑定的业务对象版本，正整数；新版本不能复用旧审批"
+      ],
+      "purpose": [
+        "text",
+        "NOT NULL",
+        "本记录声明或申请的处理用途，实际动作需与有效授权用途相符"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "requested_by": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "审批申请人的认证主体标识，由服务端设置"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('REQUESTED','APPROVED','REJECTED','RETURNED','REVOKED','EXPIRED','INVALIDATED'))",
+        "按目的独立审批申请的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "reason": [
+        "text",
+        "NOT NULL",
+        "状态变化、跳过、拒绝或审批决定的原因说明，应足以定位业务原因且不泄露秘密"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ],
+      "run_version": [
+        "bigint",
+        "CHECK(run_version>0)",
+        "分析对象绑定运行版本"
+      ],
+      "result_version": [
+        "bigint",
+        "CHECK(result_version>0)",
+        "分析对象绑定结果版本"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "UNIQUE(case_id,approval_id)",
+      "UNIQUE(org_id,approval_id)",
+      "FOREIGN KEY(case_id,org_id) REFERENCES mt.cases(case_id,org_id)",
+      "CHECK((object_type='model_release' AND case_id IS NULL) OR (object_type<>'model_release' AND case_id IS NOT NULL))",
+      "CHECK(object_type<>'task' OR (run_version IS NOT NULL AND result_version IS NOT NULL))"
+    ],
+    "immutable": false
+  },
+  "approval_decision": {
+    "name": "approval_decision",
+    "pk": "decision_id",
+    "description": "审批历史决定",
+    "columns": {
+      "decision_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "",
+        "案件隔离域标识；写入和读取均须验证当前主体有访问该案件的权限"
+      ],
+      "approval_id": [
+        "uuid",
+        "NOT NULL",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "decision": [
+        "text",
+        "NOT NULL CHECK(decision IN ('approve','reject','return','revoke','invalidate'))",
+        "本次审批决定；取值由CHECK限制，不能替代对象版本和权限校验"
+      ],
+      "decision_actor_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "作出审批决定的用户标识，由认证上下文与职责分离规则核验"
+      ],
+      "reason": [
+        "text",
+        "NOT NULL",
+        "状态变化、跳过、拒绝或审批决定的原因说明，应足以定位业务原因且不泄露秘密"
+      ],
+      "evidence_refs": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "支持与反对证据引用的结构化对象；引用需存在并属于授权案件，JSONB本身不建立外键。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "FOREIGN KEY(org_id,approval_id) REFERENCES mt.approval_request(org_id,approval_id)",
+      "FOREIGN KEY(case_id,org_id) REFERENCES mt.cases(case_id,org_id)"
+    ],
+    "immutable": true
+  },
+  "operation_token": {
+    "name": "operation_token",
+    "pk": "token_id",
+    "description": "一次性确认授权记录",
+    "columns": {
+      "token_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "",
+        "案件隔离域标识；写入和读取均须验证当前主体有访问该案件的权限"
+      ],
+      "approval_id": [
+        "uuid",
+        "NOT NULL",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "actor_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "操作主体标识；从服务端认证上下文取得，系统动作的可空条件须另有审计规则"
+      ],
+      "purpose": [
+        "text",
+        "NOT NULL",
+        "本记录声明或申请的处理用途，实际动作需与有效授权用途相符"
+      ],
+      "object_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录绑定的业务目标对象ID；沿用关联审批请求的对象类型，不是对象存储版本ID；多态引用需服务端核验实际对象、案件和版本，DDL没有通用对象外键"
+      ],
+      "object_version": [
+        "bigint",
+        "NOT NULL CHECK(object_version>0)",
+        "审批或审计绑定的业务对象版本，正整数；新版本不能复用旧审批"
+      ],
+      "token_sha256": [
+        "text",
+        "NOT NULL CHECK(token_sha256 ~ '^[a-f0-9]{64}$')",
+        "一次性操作凭据的SHA-256，不保存明文凭据，不能代替有效期与消费检查；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "expires_at": [
+        "timestamptz",
+        "NOT NULL",
+        "此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "consumed_at": [
+        "timestamptz",
+        "",
+        "一次性操作凭据被消费的时刻；非空后不得重用；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "UNIQUE(token_sha256)",
+      "FOREIGN KEY(org_id,approval_id) REFERENCES mt.approval_request(org_id,approval_id)",
+      "FOREIGN KEY(case_id,org_id) REFERENCES mt.cases(case_id,org_id)"
+    ],
+    "immutable": false
+  },
+  "review_record": {
+    "name": "review_record",
+    "pk": "review_id",
+    "description": "业务复核事实",
+    "columns": {
+      "review_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "reviewer_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "执行本次业务复核的用户标识，需有对应功能和案件权限"
+      ],
+      "decision": [
+        "text",
+        "NOT NULL CHECK(decision IN ('confirm_candidate','reject_candidate','return_for_evidence','request_rerun'))",
+        "本次业务复核决定；取值由CHECK限制，不能替代对象版本和权限校验"
+      ],
+      "comments": [
+        "text",
+        "NOT NULL",
+        "复核意见原文，说明证据取舍及处理理由，后续更正追加版本"
+      ],
+      "review_version": [
+        "bigint",
+        "NOT NULL CHECK(review_version>0)",
+        "针对结果形成的复核版本号，复核更正不能覆盖历史记录"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)",
+      "UNIQUE(case_id,task_id,review_version)"
+    ],
+    "immutable": true
+  },
+  "review_evidence": {
+    "name": "review_evidence",
+    "pk": "link_id",
+    "description": "复核证据引用",
+    "columns": {
+      "link_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "review_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用业务复核记录标识"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, review_id) REFERENCES mt.review_record (case_id, review_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)"
+    ],
+    "immutable": true
+  },
+  "evidence_package": {
+    "name": "evidence_package",
+    "pk": "package_id",
+    "description": "固化证据包版本",
+    "columns": {
+      "package_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "version": [
+        "bigint",
+        "NOT NULL CHECK(version>0)",
+        "此记录对应的业务或模型版本，具体命名由所属目录约定；不同于并发控制row_version"
+      ],
+      "manifest_sha256": [
+        "text",
+        "NOT NULL CHECK(manifest_sha256 ~ '^[a-f0-9]{64}$')",
+        "固化证据包规范化清单的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "approval_id": [
+        "uuid",
+        "NOT NULL",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "signature_status": [
+        "text",
+        "NOT NULL CHECK(signature_status IN ('not_signed','mock','verified','failed'))",
+        "证据包签名处理状态；状态文字不能代替签名验证证据"
+      ],
+      "retention_policy_version": [
+        "text",
+        "NOT NULL",
+        "用于本对象或证据包的保留策略版本；版本本身不代表底层保留能力已生效"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('DRAFT','SEALED','SUPERSEDED'))",
+        "固化证据包版本的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY (case_id, approval_id) REFERENCES mt.approval_request (case_id, approval_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)",
+      "UNIQUE(case_id,task_id,version)"
+    ],
+    "immutable": true
+  },
+  "package_item": {
+    "name": "package_item",
+    "pk": "package_item_id",
+    "description": "固化包版本引用",
+    "columns": {
+      "package_item_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "package_id": [
+        "uuid",
+        "NOT NULL",
+        "固化证据包的版本记录标识"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "object_id": [
+        "uuid",
+        "NOT NULL",
+        "所关联对象字节版本的内部标识；具体引用目标见本表外键，不能与对象存储version_id混用"
+      ],
+      "sha256": [
+        "text",
+        "NOT NULL CHECK(sha256 ~ '^[a-f0-9]{64}$')",
+        "清单中引用对象固定版本字节的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, package_id) REFERENCES mt.evidence_package (case_id, package_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)",
+      "FOREIGN KEY (case_id, object_id) REFERENCES mt.object_version (case_id, object_id)",
+      "UNIQUE(case_id,package_id,evidence_id)"
+    ],
+    "immutable": true
+  },
+  "report": {
+    "name": "report",
+    "pk": "report_id",
+    "description": "报告生成与下载状态",
+    "columns": {
+      "report_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "version": [
+        "bigint",
+        "NOT NULL CHECK(version>0)",
+        "此记录对应的业务或模型版本，具体命名由所属目录约定；不同于并发控制row_version"
+      ],
+      "template_version": [
+        "text",
+        "NOT NULL",
+        "生成报告使用的模板版本，确保历史报告可以重现"
+      ],
+      "approval_id": [
+        "uuid",
+        "",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "object_id": [
+        "uuid",
+        "",
+        "所关联对象字节版本的内部标识；具体引用目标见本表外键，不能与对象存储version_id混用"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('DRAFT','GENERATING','READY','FAILED','SUPERSEDED'))",
+        "报告生成与下载状态的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "snapshot_sha256": [
+        "text",
+        "NOT NULL CHECK(snapshot_sha256 ~ '^[a-f0-9]{64}$')",
+        "报告所绑定内容快照的SHA-256，不代表数字签名；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, task_id) REFERENCES mt.analysis_task (case_id, task_id)",
+      "FOREIGN KEY (case_id, approval_id) REFERENCES mt.approval_request (case_id, approval_id)",
+      "FOREIGN KEY (case_id, object_id) REFERENCES mt.object_version (case_id, object_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)",
+      "UNIQUE(case_id,task_id,version)"
+    ],
+    "immutable": false
+  },
+  "report_evidence": {
+    "name": "report_evidence",
+    "pk": "link_id",
+    "description": "报告证据引用",
+    "columns": {
+      "link_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "report_id": [
+        "uuid",
+        "NOT NULL",
+        "报告版本记录标识"
+      ],
+      "evidence_id": [
+        "uuid",
+        "NOT NULL",
+        "所引用证据事实版本标识，指向同案件evidence_item.evidence_id"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, report_id) REFERENCES mt.report (case_id, report_id)",
+      "FOREIGN KEY (case_id, evidence_id) REFERENCES mt.evidence_item (case_id, evidence_id)"
+    ],
+    "immutable": true
+  },
+  "feedback_request": {
+    "name": "feedback_request",
+    "pk": "feedback_id",
+    "description": "纠错训练用途申请",
+    "columns": {
+      "feedback_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "finding_id": [
+        "uuid",
+        "NOT NULL",
+        "申请回流的风险发现标识；用途审批通过也须另核验来源授权"
+      ],
+      "approval_id": [
+        "uuid",
+        "NOT NULL",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "label_version": [
+        "text",
+        "NOT NULL",
+        "本次标注使用的标签体系版本"
+      ],
+      "label": [
+        "text",
+        "NOT NULL",
+        "人工确认或申请使用的训练标签；不可直接把模型预测视为真值"
+      ],
+      "purpose": [
+        "text",
+        "NOT NULL CHECK(purpose='training')",
+        "本记录声明或申请的处理用途，实际动作需与有效授权用途相符"
+      ],
+      "source_authorization_ref": [
+        "text",
+        "NOT NULL",
+        "允许该素材用于指定回流或训练用途的来源授权记录引用"
+      ],
+      "state": [
+        "text",
+        "NOT NULL CHECK(state IN ('REQUESTED','APPROVED','REJECTED','REVOKED','APPLIED'))",
+        "纠错训练用途申请的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, finding_id) REFERENCES mt.risk_finding (case_id, finding_id)",
+      "FOREIGN KEY (case_id, approval_id) REFERENCES mt.approval_request (case_id, approval_id)"
+    ],
+    "immutable": false
+  },
+  "dataset_version": {
+    "name": "dataset_version",
+    "pk": "dataset_version_id",
+    "description": "数据版本元数据不存真实样本",
+    "columns": {
+      "dataset_version_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "dataset_id": [
+        "text",
+        "NOT NULL",
+        "数据集目录的稳定文本编号，例如D01；不是数据库UUID主键"
+      ],
+      "version": [
+        "text",
+        "NOT NULL",
+        "此记录对应的业务或模型版本，具体命名由所属目录约定；不同于并发控制row_version"
+      ],
+      "catalog_sha256": [
+        "text",
+        "NOT NULL CHECK(catalog_sha256 ~ '^[a-f0-9]{64}$')",
+        "数据集版本目录规范化清单的SHA-256；存储64位小写十六进制，正则只检查格式不验证字节真实性"
+      ],
+      "authorization_status": [
+        "text",
+        "NOT NULL CHECK(authorization_status IN ('pending','verified','expired','revoked'))",
+        "来源或数据集用途授权的当前审核状态，未验证状态不得解释为可正式使用"
+      ],
+      "split_manifest_ref": [
+        "text",
+        "NOT NULL",
+        "数据集训练、验证、校准及封存测试划分清单的版本引用"
+      ],
+      "actual_count": [
+        "bigint",
+        "CHECK(actual_count>=0)",
+        "按数据卡计数单位核验的实际数量；NULL表示未核验，不用预算数量代替"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('PLANNING','DRAFT','RELEASED','FROZEN','REVOKED'))",
+        "数据版本元数据不存真实样本的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "UNIQUE(org_id,dataset_id,version)"
+    ],
+    "immutable": true
+  },
+  "audit_event": {
+    "name": "audit_event",
+    "pk": "event_id",
+    "description": "追加式审计事实",
+    "columns": {
+      "event_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "",
+        "案件隔离域标识；写入和读取均须验证当前主体有访问该案件的权限"
+      ],
+      "actor_id": [
+        "uuid",
+        "NOT NULL REFERENCES mt.users(user_id)",
+        "操作主体标识；从服务端认证上下文取得，系统动作的可空条件须另有审计规则"
+      ],
+      "action": [
+        "text",
+        "NOT NULL",
+        "被审计业务操作的稳定编码，不是主张文本中的行为"
+      ],
+      "object_type": [
+        "text",
+        "NOT NULL",
+        "审批或审计目标对象类型，决定object_id应指向哪种业务对象"
+      ],
+      "object_id": [
+        "uuid",
+        "",
+        "该记录绑定的业务目标对象ID；由object_type确定对象类型，不是对象存储版本ID；多态引用需服务端核验实际对象、案件和版本，DDL没有通用对象外键"
+      ],
+      "object_version": [
+        "bigint",
+        "CHECK(object_version>0)",
+        "审批或审计绑定的业务对象版本，正整数；新版本不能复用旧审批"
+      ],
+      "outcome": [
+        "text",
+        "NOT NULL CHECK(outcome IN ('allowed','denied','failed'))",
+        "审计操作的结果编码，例如允许、拒绝或失败；须与实际处理一致"
+      ],
+      "request_id": [
+        "uuid",
+        "NOT NULL",
+        "贯穿接口、任务和审计的请求追踪标识；不充当权限凭证"
+      ],
+      "occurred_at": [
+        "timestamptz",
+        "NOT NULL",
+        "被审计操作实际发生时刻，区别于记录写入时间created_at；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "details": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "脱敏后的审计上下文对象，记录必要原因和关联ID，不记录令牌、密码或原始敏感内容。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "org",
+    "extra": [
+      "FOREIGN KEY(case_id,org_id) REFERENCES mt.cases(case_id,org_id)"
+    ],
+    "immutable": true
+  },
+  "audit_export": {
+    "name": "audit_export",
+    "pk": "export_id",
+    "description": "审计导出作业",
+    "columns": {
+      "export_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "主键，由应用提供UUID；不视为访问凭证"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属单位标识；与案件归属、认证上下文和RLS共同限定访问，客户端不得自行指定越权单位"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "该记录所属案件标识；复合外键阻止跨案件关联，访问还须通过案件授权校验"
+      ],
+      "approval_id": [
+        "uuid",
+        "NOT NULL",
+        "与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过"
+      ],
+      "start_at": [
+        "timestamptz",
+        "NOT NULL",
+        "审计导出查询的起始时刻；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "end_at": [
+        "timestamptz",
+        "NOT NULL",
+        "审计导出查询的结束时刻，必须与起始时刻构成有效区间；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "purpose": [
+        "text",
+        "NOT NULL",
+        "本记录声明或申请的处理用途，实际动作需与有效授权用途相符"
+      ],
+      "state": [
+        "text",
+        "NOT NULL",
+        "审计导出作业的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效"
+      ],
+      "artifact_ref": [
+        "jsonb",
+        "NOT NULL DEFAULT '{}'::jsonb",
+        "评测产物或导出文件的受控定位与摘要对象，禁止包含临时访问秘密。数据库仅保存JSON值；键名、类型、引用存在性及版本需按关联接口/模型Schema在写入前检查，未关联Schema的扩展参数由适配器定义后启用"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "extra": [
+      "FOREIGN KEY (case_id, approval_id) REFERENCES mt.approval_request (case_id, approval_id)",
+      "CHECK(end_at>start_at)"
+    ],
+    "immutable": false
+  },
+  "first_source_ranking": {
+    "name": "first_source_ranking",
+    "pk": "ranking_id",
+    "description": "首发排序不可变结果快照",
+    "columns": {
+      "ranking_id": [
+        "uuid",
+        "PRIMARY KEY",
+        "一次首发排序结果快照的唯一标识；重算或复核更正生成新快照"
+      ],
+      "org_id": [
+        "uuid",
+        "NOT NULL",
+        "记录所属单位标识；单位授权范围由服务端认证上下文确定"
+      ],
+      "case_id": [
+        "uuid",
+        "NOT NULL",
+        "案件隔离域标识；写入和读取均须验证当前主体有访问该案件的权限"
+      ],
+      "cluster_id": [
+        "uuid",
+        "NOT NULL",
+        "高可信内容簇标识，指向同案件content_cluster.cluster_id；不得用相似度连通关系替代整内容同源验证"
+      ],
+      "task_id": [
+        "uuid",
+        "NOT NULL",
+        "关联分析任务标识，指向analysis_task.task_id；历史结果需结合运行和结果版本"
+      ],
+      "run_version": [
+        "bigint",
+        "NOT NULL CHECK(run_version>0)",
+        "分析任务的运行版本号；重新计算创建新版本，节点重试不等同重算"
+      ],
+      "result_version": [
+        "bigint",
+        "NOT NULL CHECK(result_version>0)",
+        "给定任务运行下的结果快照版本号；与task_id和run_version共同定位结果"
+      ],
+      "candidate_count": [
+        "integer",
+        "NOT NULL CHECK(candidate_count BETWEEN 0 AND 3)",
+        "该快照应包含的候选总数；事务提交时必须与明细数量相等，0表示有结果但无足够候选"
+      ],
+      "model_version": [
+        "text",
+        "NOT NULL",
+        "生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本"
+      ],
+      "policy_version": [
+        "text",
+        "NOT NULL",
+        "本记录使用的业务、阈值或流程策略版本，需按其实际用途解析"
+      ],
+      "coverage_note": [
+        "text",
+        "NOT NULL",
+        "本次观察的平台、时间和素材覆盖范围及缺失说明；不能声称覆盖未知全网"
+      ],
+      "status": [
+        "text",
+        "NOT NULL CHECK(status IN ('candidate','insufficient','reviewed'))",
+        "candidate为待核查候选，insufficient为证据不足，reviewed为已复核快照；reviewed仍非法律结论"
+      ],
+      "created_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名"
+      ],
+      "updated_at": [
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区"
+      ],
+      "row_version": [
+        "bigint",
+        "NOT NULL DEFAULT 1 CHECK(row_version>0)",
+        "本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值"
+      ],
+      "created_by": [
+        "uuid",
+        "",
+        "创建主体；迁移/系统事件可空，业务应用必须填"
+      ]
+    },
+    "scope": "case",
+    "immutable": true,
+    "extra": [
+      "UNIQUE(case_id,ranking_id,cluster_id)",
+      "UNIQUE(case_id,cluster_id,task_id,run_version,result_version)",
+      "FOREIGN KEY(case_id,cluster_id) REFERENCES mt.content_cluster(case_id,cluster_id)",
+      "FOREIGN KEY(case_id,task_id,run_version,result_version) REFERENCES mt.task_result(case_id,task_id,run_version,result_version)",
+      "CHECK(candidate_count<>0 OR status='insufficient')"
+    ]
+  }
+}

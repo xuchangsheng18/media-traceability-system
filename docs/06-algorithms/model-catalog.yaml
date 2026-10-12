@@ -1,0 +1,570 @@
+status: candidate_pending_review
+models:
+- id: M01
+  name: 图片多标签风险分类
+  capability: risk.image_classification
+  candidate: ConvNeXt-B
+  alternatives: Swin-B、ViT-B
+  training: 业务数据微调
+  output_kind: classification
+  input_kind: decoded_original
+  task_ids:
+  - T062
+  - T113
+  - T130
+  - T131
+  dataset_ids:
+  - D01
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M02
+  name: 敏感目标检测
+  capability: risk.object_detection
+  candidate: RT-DETR-R50
+  alternatives: YOLO11、DINO
+  training: 专项训练
+  output_kind: detections
+  input_kind: decoded_original
+  task_ids:
+  - T063
+  - T132
+  dataset_ids:
+  - D02
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M03
+  name: 小目标检测
+  capability: risk.small_object
+  candidate: SAHI＋RT-DETR
+  alternatives: YOLO-P2、切片检测
+  training: 微调与参数优化
+  output_kind: detections
+  input_kind: decoded_original
+  task_ids:
+  - T133
+  dataset_ids:
+  - D02
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M04
+  name: 视频行为识别
+  capability: risk.video_action
+  candidate: VideoMAE V2
+  alternatives: SlowFast、MViT V2
+  training: 业务视频微调
+  output_kind: temporal_events
+  input_kind: analysis_copy
+  task_ids:
+  - T064
+  - T135
+  dataset_ids:
+  - D03
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M05
+  name: 视频事件时间定位
+  capability: risk.temporal_event
+  candidate: ActionFormer
+  alternatives: TriDet、TCANet
+  training: 专项训练
+  output_kind: temporal_events
+  input_kind: analysis_copy
+  task_ids:
+  - T136
+  dataset_ids:
+  - D03
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M06
+  name: 音频事件识别
+  capability: risk.audio_event
+  candidate: BEATs
+  alternatives: AST、PANNs
+  training: 音频数据微调
+  output_kind: temporal_events
+  input_kind: audio
+  task_ids:
+  - T065
+  - T137
+  dataset_ids:
+  - D04
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M07
+  name: 跨模态矛盾检测
+  capability: risk.consistency
+  candidate: Qwen2.5-VL＋NLI头
+  alternatives: InternVL、SigLIP＋XLM-R
+  training: LoRA或监督微调
+  output_kind: relations
+  input_kind: multimodal
+  task_ids:
+  - T067
+  - T138
+  - T139
+  dataset_ids:
+  - D05
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M08
+  name: 多模态风险融合
+  capability: risk.fusion
+  candidate: Multimodal Transformer
+  alternatives: LightGBM、门控网络
+  training: 训练
+  output_kind: classification
+  input_kind: multimodal
+  task_ids:
+  - T068
+  - T140
+  dataset_ids:
+  - D01
+  - D02
+  - D03
+  - D04
+  - D05
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M09
+  name: 图片篡改检测定位
+  capability: forensic.image_localization
+  candidate: TruFor
+  alternatives: MVSS-Net、CAT-Net
+  training: 业务适配微调
+  output_kind: masks
+  input_kind: original_bytes
+  task_ids:
+  - T072
+  - T142
+  - T143
+  - T144
+  - T145
+  dataset_ids:
+  - D06
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M10
+  name: 图片篡改类型分类
+  capability: forensic.tamper_type
+  candidate: ConvNeXt＋取证特征
+  alternatives: Swin Transformer
+  training: 训练
+  output_kind: classification
+  input_kind: original_bytes
+  task_ids:
+  - T073
+  - T146
+  dataset_ids:
+  - D06
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M11
+  name: 视频时间篡改检测
+  capability: forensic.video_temporal
+  candidate: VideoMAE＋时序Transformer
+  alternatives: TCN、BiLSTM
+  training: 训练
+  output_kind: temporal_events
+  input_kind: original_bytes
+  task_ids:
+  - T074
+  - T147
+  - T148
+  dataset_ids:
+  - D07
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M12
+  name: 视频空间篡改
+  capability: forensic.video_spatial
+  candidate: TruFor＋XMem
+  alternatives: SAM2＋时序一致性
+  training: 微调
+  output_kind: masks
+  input_kind: decoded_original
+  task_ids:
+  - T075
+  - T149
+  dataset_ids:
+  - D07
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M13
+  name: 人脸深度伪造
+  capability: forensic.deepfake
+  candidate: VideoMAE等分类骨干；SBI仅训练增强候选
+  alternatives: Xception、Swin
+  training: 跨生成器微调
+  output_kind: classification
+  input_kind: face_track
+  task_ids:
+  - T076
+  - T150
+  dataset_ids:
+  - D08
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M14
+  name: 音画同步
+  capability: forensic.avsync
+  candidate: VocaLiST
+  alternatives: SyncNet
+  training: 适配训练
+  output_kind: temporal_events
+  input_kind: audio_face
+  task_ids:
+  - T076
+  - T151
+  dataset_ids:
+  - D08
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M15
+  name: 图片复制检测向量
+  capability: retrieval.image_embedding
+  candidate: SSCD
+  alternatives: DINOv2、SigLIP
+  training: 对比学习微调
+  output_kind: embedding
+  input_kind: analysis_copy
+  task_ids:
+  - T080
+  - T154
+  - T155
+  dataset_ids:
+  - D09
+  - D15
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M16
+  name: 局部特征提取
+  capability: retrieval.local_features
+  candidate: SuperPoint
+  alternatives: DISK、SIFT
+  training: 可直接用或微调
+  output_kind: local_features
+  input_kind: decoded_original
+  task_ids:
+  - T083
+  dataset_ids:
+  - D09
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M17
+  name: 局部特征匹配
+  capability: retrieval.local_match
+  candidate: LightGlue
+  alternatives: SuperGlue、LoFTR
+  training: 可直接用或微调
+  output_kind: local_matches
+  input_kind: features
+  task_ids:
+  - T083
+  dataset_ids:
+  - D09
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M18
+  name: 几何验证
+  capability: retrieval.geometry
+  candidate: MAGSAC++/USAC
+  alternatives: RANSAC
+  training: 无需训练
+  output_kind: geometry
+  input_kind: features
+  task_ids:
+  - T084
+  dataset_ids:
+  - D09
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M19
+  name: 视频关键帧复制向量
+  capability: retrieval.frame_embedding
+  candidate: SSCD/DINOv2适配版
+  alternatives: SigLIP、VideoMAE特征
+  training: 对比学习微调
+  output_kind: embedding
+  input_kind: analysis_copy
+  task_ids:
+  - T080
+  - T158
+  - T159
+  dataset_ids:
+  - D10
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M20
+  name: 视频序列对齐
+  capability: retrieval.temporal_alignment
+  candidate: 局部DTW＋Smith-Waterman
+  alternatives: OTAM、Soft-DTW
+  training: 基础版无需训练
+  output_kind: source_mapping
+  input_kind: features
+  task_ids:
+  - T087
+  - T088
+  - T160
+  dataset_ids:
+  - D10
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M21
+  name: 学习型片段定位
+  capability: retrieval.segment_localizer
+  candidate: Temporal Transformer
+  alternatives: ActionFormer、VSLNet式模型
+  training: 训练
+  output_kind: source_mapping
+  input_kind: features
+  task_ids:
+  - T161
+  dataset_ids:
+  - D10
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M22
+  name: 多源拼接边界
+  capability: retrieval.source_boundary
+  candidate: TCN
+  alternatives: Transformer Encoder
+  training: 训练
+  output_kind: source_mapping
+  input_kind: features
+  task_ids:
+  - T089
+  - T162
+  dataset_ids:
+  - D11
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M23
+  name: 同源内容聚类
+  capability: origin.content_cluster
+  candidate: 高可信整内容关系聚类；片段/包含关系独立表达
+  alternatives: 层次聚类、连通分量
+  training: 无需训练
+  output_kind: cluster_relations
+  input_kind: verified_relations
+  task_ids:
+  - T090
+  - T164
+  dataset_ids:
+  - D09
+  - D10
+  - D11
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M24
+  name: 首发候选排序
+  capability: origin.first_source_rank
+  candidate: LightGBM LambdaMART
+  alternatives: XGBoost Rank、RankNet
+  training: 训练
+  output_kind: ranked_candidates
+  input_kind: cluster_features
+  task_ids:
+  - T092
+  - T165
+  dataset_ids:
+  - D12
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M25
+  name: 概率校准
+  capability: model.calibration
+  candidate: 等渗回归/温度缩放/Platt候选
+  alternatives: Temperature/Platt Scaling
+  training: 拟合
+  output_kind: calibration
+  input_kind: scores
+  task_ids:
+  - T141
+  - T153
+  - T163
+  dataset_ids:
+  - D01
+  - D06
+  - D10
+  - D12
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M26
+  name: 传播路径分析
+  capability: propagation.path
+  candidate: 时间约束图推理＋PageRank
+  alternatives: Louvain、标签传播
+  training: 无需训练
+  output_kind: graph
+  input_kind: graph
+  task_ids:
+  - T094
+  - T095
+  - T097
+  dataset_ids:
+  - D12
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M27
+  name: 隐式传播关系
+  capability: propagation.inferred_edge
+  candidate: LightGBM/XGBoost
+  alternatives: GraphSAGE、GAT
+  training: 训练
+  output_kind: graph
+  input_kind: graph
+  task_ids:
+  - T096
+  dataset_ids:
+  - D12
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M28
+  name: 结构化主张抽取
+  capability: claim.extract
+  candidate: Qwen2.5-7B/14B
+  alternatives: Qwen2.5-VL、XLM-R
+  training: LoRA微调
+  output_kind: claims
+  input_kind: text
+  task_ids:
+  - T098
+  - T166
+  - T167
+  dataset_ids:
+  - D13
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M29
+  name: 证据关系判断
+  capability: claim.evidence_relation
+  candidate: DeBERTa-v3/XLM-R NLI
+  alternatives: Qwen LoRA
+  training: 监督微调
+  output_kind: relations
+  input_kind: claims_evidence
+  task_ids:
+  - T099
+  - T168
+  dataset_ids:
+  - D14
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M30
+  name: 无证据生成检测
+  capability: claim.grounding
+  candidate: NLI＋规则
+  alternatives: Cross-Encoder＋大模型复核
+  training: 微调
+  output_kind: grounding
+  input_kind: claims_evidence
+  task_ids:
+  - T106
+  - T169
+  dataset_ids:
+  - D13
+  - D14
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M31
+  name: OCR
+  capability: media.ocr
+  candidate: PaddleOCR PP-OCR
+  alternatives: TrOCR
+  training: 中文场景微调
+  output_kind: text_segments
+  input_kind: decoded_original
+  task_ids:
+  - T048
+  dataset_ids:
+  - D01
+  - D05
+  - D13
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M32
+  name: ASR
+  capability: media.asr
+  candidate: FunASR Paraformer
+  alternatives: Whisper、SenseVoice
+  training: 方言噪声微调
+  output_kind: text_segments
+  input_kind: audio
+  task_ids:
+  - T049
+  dataset_ids:
+  - D03
+  - D04
+  - D05
+  - D13
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M33
+  name: 音频指纹
+  capability: media.audio_fingerprint
+  candidate: Chromaprint
+  alternatives: 神经音频向量
+  training: 基础版不训练
+  output_kind: fingerprint
+  input_kind: audio
+  task_ids:
+  - T047
+  - T086
+  dataset_ids:
+  - D04
+  - D10
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
+- id: M34
+  name: 模型压缩
+  capability: model.compression
+  candidate: 蒸馏＋ONNX INT8
+  alternatives: TensorRT FP16/INT8
+  training: 校准或蒸馏
+  output_kind: release_bundle
+  input_kind: model_bundle
+  task_ids:
+  - T170
+  dataset_ids:
+  - D01
+  - D06
+  - D09
+  - D10
+  - D13
+  status: candidate_pending_review
+  license_status: unverified
+  runtime_status: not_verified
