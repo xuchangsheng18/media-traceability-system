@@ -2,7 +2,7 @@
 
 2026-10-12；候选输入已整理并通过结构与相关隔离SQL检查，正式输入基线仍NOT_FROZEN。第一阶段是将本地设计、任务、算法/数据、模型与原型材料转为开发可用的依据；第二阶段是选择和验证实际技术组合。两阶段分别判断，不能因第二阶段PoC/CI通过，就补造第一阶段签认。
 
-直接入口：[第一阶段24步实际状态](stage-one-readiness.md)、[逐步机器状态](stage-one-readiness.json)。24行逐步列实际产物、技术状态、待办/边界和正式状态，来源仍为deliverables.json，不另行编造完成结果。
+现有[24步状态、操作与交付表](steps-and-deliverables.md)已更新，逐步列实际产物、技术状态、待办/边界和正式状态；机器状态直接维护在[deliverables.json](deliverables.json)，不再保留重复展示页。
 
 - [24步操作与交付物](steps-and-deliverables.md)：原步骤、具体做法、实际文件、当前状态与限制。
 - [机器交付清单](deliverables.json)：24步文件引用和明确未冻结状态。

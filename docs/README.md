@@ -48,8 +48,8 @@
 
 | 阶段 | 含义及阅读入口 | 严格判定 |
 | --- | --- | --- |
-| 第一阶段（24步） | [24步实际状态](00-project/stage-one/stage-one-readiness.md)、[材料总入口](00-project/stage-one/README.md)、[操作/交付对应表](00-project/stage-one/steps-and-deliverables.md)、[机器清单](00-project/stage-one/deliverables.json)、[历史材料](00-project/stage-one/history/README.md) | 逐步列已形成材料、技术源状态、待办/边界及正式状态；输入冻结未自动完成 |
-| 第二阶段（23步） | [技术基线](02-architecture/technical-baseline.md)、[23步实际状态](03-development/stage-two-readiness.md)、[接口与数据库文件导航](03-development/stage-two-interface-database-navigation.md)、[整体接口](03-api/README.md)、[业务数据库](04-database/README.md)、[剩余条件](03-development/stage-two-gap-register.md) | 整体业务契约/62表与已运行PoC/5表分别导航；正式技术基线NOT_FROZEN |
+| 第一阶段（24步） | [24步实际状态](00-project/stage-one/steps-and-deliverables.md)、[材料总入口](00-project/stage-one/README.md)、[机器清单](00-project/stage-one/deliverables.json)、[历史材料](00-project/stage-one/history/README.md) | 逐步列已形成材料、技术源状态、待办/边界及正式状态；输入冻结未自动完成 |
+| 第二阶段（23步） | [技术基线](02-architecture/technical-baseline.md)、[23步实际状态](03-development/stage-two-readiness.md)、[接口与数据库文件导航](02-architecture/technical-baseline.md#接口与数据库文件导航)、[整体接口](03-api/README.md)、[业务数据库](04-database/README.md)、[剩余条件](03-development/stage-two-gap-register.md) | 整体业务契约/62表与已运行PoC/5表分别导航；正式技术基线NOT_FROZEN |
 
 [阶段衔接](00-project/stage-one/handoff.md)说明源资料如何成为技术工程输入。阶段编号不是170任务编号；两份修订Word不能替代24步全部材料，第二阶段开发验证也不能替代第一阶段签认。历史文件中的旧服务器、61表、旧工具环境按记录时点阅读。
 
@@ -325,8 +325,6 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
-| [00-project/stage-one/stage-one-readiness.md](<00-project/stage-one/stage-one-readiness.md>) | 第一阶段24步实际材料/技术状态：逐步原工作、已形成产物、源状态、待办/边界和正式状态，不把输入整理当170业务任务完成。 |
-| [00-project/stage-one/stage-one-readiness.json](<00-project/stage-one/stage-one-readiness.json>) | 从24步交付唯一台账生成的实际状态派生/来源摘要，关联剩余事项；正式完成false、实际负责人未确认。 |
 | [00-project/execution-planning-scenario-inputs.json](<00-project/execution-planning-scenario-inputs.json>) | 用户授权的10人占位工时/角色/起点/数据和GPU日期假设，后续替换；不填为实际人员或资源事实。 |
 | [00-project/execution-schedule-scenario.md](<00-project/execution-schedule-scenario.md>) | 170任务按占位容量生成日期与分期；明确超过源2027年6月末月，需调整投入/分工，未删功能或承诺实际日期。 |
 | [00-project/execution-schedule-scenario.json](<00-project/execution-schedule-scenario.json>) | 逐任务假设角色/日期/工时与源周期差异，actual_people_confirmed=false，实际输入表保持未确认。 |
@@ -352,7 +350,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/four-item-completion.md](<00-project/stage-one/four-item-completion.md>) | 本轮图表/36语义/24验收协议/170排期四项总览及第二阶段接入；实际人员和日期不足明确保留。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
-| [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。 |
+| [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/deliverables.json](<00-project/stage-one/deliverables.json>) | 24步机器清单、源手册摘要、实际路径、状态和未确认事项；无虚构批准/负责人。 |
 | [00-project/stage-one/handoff.md](<00-project/stage-one/handoff.md>) | 第一阶段输入如何被第二阶段技术工程消费；两种基线与实际研发任务分别判断。 |
 | [00-project/stage-one/materials-manifest.json](<00-project/stage-one/materials-manifest.json>) | 14份本地历史材料来源、原始字节摘要与身份；不混入正式业务原件清单。 |
@@ -392,7 +390,6 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
-| [03-development/stage-two-interface-database-navigation.md](<03-development/stage-two-interface-database-navigation.md>) | 第二阶段第7/19/20步的整体接口及数据库文件直达目录：16类接口入口、16类数据库入口；53操作/34能力和62业务表与PoC/5表分开，附来源/映射/迁移/缺口及证据。 |
 | [00-project/remaining-work-navigation.md](<00-project/remaining-work-navigation.md>) | 两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。 |
 | [00-project/remaining-work-navigation.json](<00-project/remaining-work-navigation.json>) | 从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。 |
 | [02-architecture/environment-constraints.md](<02-architecture/environment-constraints.md>) | 实际Linux、Miniforge py310、Desktop挂载/网络/CPU与PythonEOL边界。 |
@@ -488,7 +485,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共548份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共545份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -574,9 +571,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/source-content-audit.md](<00-project/stage-one/source-content-audit.md>) | 历史结构检查：9Word/495表/12PPT/92批注/200链接/2图/1700字段；158目录登记，当时视觉未验证，本轮补充另见visual-layout-audit。 |
 | [00-project/stage-one/source-section-map.json](<00-project/stage-one/source-section-map.json>) | 上述映射的原件摘要、准确位置、标题、实际目标路径和候选状态；可逐项核验。 |
 | [00-project/stage-one/source-section-map.md](<00-project/stage-one/source-section-map.md>) | 955处来源标题的准确原件位置与候选工程阅读/变更入口；未批准、未宣称全部实现。 |
-| [00-project/stage-one/stage-one-readiness.json](<00-project/stage-one/stage-one-readiness.json>) | 从24步交付唯一台账生成的实际状态派生/来源摘要，关联剩余事项；正式完成false、实际负责人未确认。 |
-| [00-project/stage-one/stage-one-readiness.md](<00-project/stage-one/stage-one-readiness.md>) | 第一阶段24步实际材料/技术状态：逐步原工作、已形成产物、源状态、待办/边界和正式状态，不把输入整理当170业务任务完成。 |
-| [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。 |
+| [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
@@ -900,7 +895,6 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-two-gap-register.json](<03-development/stage-two-gap-register.json>) | 上述条件机器索引，真实状态与负责人未知值保留。 |
 | [03-development/stage-two-gap-register.md](<03-development/stage-two-gap-register.md>) | 剩余正式条件、输入、责任角色与关闭标准；不补造姓名和批准。 |
 | [03-development/stage-two-implementation-plan.md](<03-development/stage-two-implementation-plan.md>) | 资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。 |
-| [03-development/stage-two-interface-database-navigation.md](<03-development/stage-two-interface-database-navigation.md>) | 第二阶段第7/19/20步的整体接口及数据库文件直达目录：16类接口入口、16类数据库入口；53操作/34能力和62业务表与PoC/5表分开，附来源/映射/迁移/缺口及证据。 |
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |

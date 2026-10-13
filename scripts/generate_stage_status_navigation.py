@@ -1,14 +1,14 @@
 """Render 24-step artifact status and second-stage API/database navigation from existing sources."""
 import argparse
-import hashlib
 import json
 import posixpath
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FIRST = "docs/00-project/stage-one/stage-one-readiness.md"
-MACHINE = "docs/00-project/stage-one/stage-one-readiness.json"
-SECOND = "docs/03-development/stage-two-interface-database-navigation.md"
+FIRST = "docs/00-project/stage-one/steps-and-deliverables.md"
+SECOND = "docs/02-architecture/technical-baseline.md"
+START = "<!-- phase-contract-file-navigation:start -->"
+END = "<!-- phase-contract-file-navigation:end -->"
 SOURCE = "docs/00-project/stage-one/deliverables.json"
 LEDGER = "docs/00-project/phase-readiness-register.json"
 STATUSES = {
@@ -87,12 +87,8 @@ def build():
                         "completed_material_work": step["operation"], "outputs": step["outputs"], "output_paths_available": True,
                         "remaining_or_scope_note": step["remaining"], "related_remaining_item_ids": [item["id"] for item in related if not item["completion_asserted"]],
                         "formal_completion_asserted": False, "actual_owner": None, "full_business_implementation_asserted": False})
-    paths = [SOURCE, LEDGER, "scripts/generate_stage_status_navigation.py"]
-    machine = {"revision": "stage-status-navigation-20261013", "scope": "derived_actual_artifact_status_not_formal_approval_or_all_business_implementation",
-               "authoritative_source": SOURCE, "source_hashes": {path: hashlib.sha256((ROOT/path).read_bytes()).hexdigest() for path in paths},
-               "steps_count": 24, "formal_frozen": False, "records": records}
-    first = "# 第一阶段24步实际状态\n\n"
-    first += "2026-10-13。每一步按现有产物台账和证据说明技术状态、待完成事项与正式状态，不把文件存在当业务实施完成。状态唯一源为"+link(FIRST, SOURCE)+"；同源派生记录为"+link(FIRST, MACHINE)+"。原手册标题/步骤保留，第一阶段正式输入基线仍NOT_FROZEN。\n\n"
+    first = "# 第一阶段24步：实际状态、操作与交付\n\n"
+    first += "2026-10-13更新。已补齐的状态直接并入本对应表，不另建展示页。每一步按现有产物台账和证据说明技术状态、待完成事项与正式状态。状态唯一源为"+link(FIRST, SOURCE)+"。原手册标题/步骤保留，第一阶段正式输入基线仍NOT_FROZEN。\n\n"
     first += "## 状态判定\n\n“资料已整理登记”表示候选文档/配置已形成；“结构已校验”表示相应材料检查通过；图表/隔离SQL仅按已记录范围判定。第22步评审包已形成，第23步仅应用已有授权选择，第24步正式冻结未完成。实际责任人和正式业务决定尚未提供。\n\n"
     first += "## 24步逐项实际状态\n\n| 步骤/工作 | 已完成材料工作及技术状态 | 尚需完成/适用边界 | 实际文件与证据 | 正式状态 |\n| --- | --- | --- | --- | --- |\n"
     for item in records:
@@ -101,23 +97,31 @@ def build():
         if item["related_remaining_item_ids"]:
             remaining += "<br>关联未闭合事项："+",".join(item["related_remaining_item_ids"])
         first += f"| {item['step']} {cell(item['title'])} | {cell(item['technical_status_cn'])}<br>{cell(item['completed_material_work'])}<br>源状态：{item['artifact_status']} | {remaining} | {refs} | 未宣称正式完成；实际负责人待定 |\n"
-    first += "\n详细操作、原来源标题见"+link(FIRST, "docs/00-project/stage-one/steps-and-deliverables.md", "24步操作与交付")+"；实际缺项/前置/关闭标准见"+link(FIRST, "docs/00-project/remaining-work-navigation.md", "两阶段剩余工作总导航")+"。\n\n"
+    first += "\n原来源标题、操作和实际产物均保留在本表；实际缺项/前置/关闭标准见"+link(FIRST, "docs/00-project/remaining-work-navigation.md", "两阶段剩余工作总导航")+"。\n\n"
     first += "技术证据见"+"、".join(link(FIRST, path) for path in ["docs/00-project/validation/stage-one-validation-report.json", "docs/00-project/stage-one/visual-layout-audit.md", "docs/00-project/requirement-semantic-review.md", "docs/00-project/validation/stage-one-controls-report.json", "docs/00-project/validation/stage-one-input-preflight-report.json"])+"；未知真实输入仍保持待定。24步不是170业务任务的完成率，资料冻结与后续业务实现分别判断。\n"
-    second = "# 第二阶段接口与数据库文件导航\n\n"
+    second = "## 接口与数据库文件导航\n\n"
     second += "2026-10-13。该页承接第二阶段第7步（数据库）、第19步（接口/事件）和第20步（最小工程）。整体接口/62表业务设计与已运行PoC/5表分别导航；不从设计文件推导正式部署。\n\n"
-    second += "## 阅读顺序\n\n1. 整体接口说明→逐操作目录→OpenAPI/模型Schema→字段与权限/版本/事件规则。\n2. 数据库设计→ER→字典/SQL→逐字段来源→接口映射→任务引用/校验。\n3. 实际PoC API/5表与迁移→相应运行证据，再核对13接口缺口和后续业务迁移/RLS。\n\n"
+    second += "### 阅读顺序\n\n1. 整体接口说明→逐操作目录→OpenAPI/模型Schema→字段与权限/版本/事件规则。\n2. 数据库设计→ER→字典/SQL→逐字段来源→接口映射→任务引用/校验。\n3. 实际PoC API/5表与迁移→相应运行证据，再核对13接口缺口和后续业务迁移/RLS。\n\n"
     for title, entries in [("整体接口及契约文件", INTERFACES), ("业务数据库及研发迁移文件", DATABASES)]:
-        second += f"## {title}\n\n| 内容 | 文件入口 | 含义和使用要求 |\n| --- | --- | --- |\n"
+        second += f"### {title}\n\n| 内容 | 文件入口 | 含义和使用要求 |\n| --- | --- | --- |\n"
         for category, path, label, meaning in entries:
             assert (ROOT/path).exists(), path
             second += f"| {category} | {link(SECOND, path, label)} | {cell(meaning)} |\n"
         second += "\n"
-    second += "## 相互对应与实际状态\n\n"
+    second += "### 相互对应与实际状态\n\n"
     second += "API字段须按"+link(SECOND, "docs/04-database/api-field-mapping.json", "字段投影")+"定位数据库列/运行组合，再用"+link(SECOND, "docs/04-database/field-provenance.json", "字段来源")+"核对来源文件/指针；模型结构不与业务HTTP结构混为一份。SQL/字典/Schema/映射/生成类型变化须同步。\n\n"
     second += "cluster_id、asset_id、rank等字段的来源契约是逐字段可追踪的结构/设计依据，不能靠“见来源契约”一句作为实际约束说明。请联合阅读字典、field-provenance、映射和首发排序规范。\n\n"
     second += "53业务操作/83组件/34能力、62表824字段是当前候选设计；PoC和代表性隔离实验有独立证据，完整业务API/62表访问迁移/RLS未全部实现。13接口缺口仍开放，初始化SQL不得直接作用于既有库。状态见"+link(SECOND, "docs/03-development/stage-two-readiness.md", "第二阶段23步实际状态")+"、"+link(SECOND, "docs/03-development/stage-two-completion-matrix.md", "12项补齐与剩余")+"和"+link(SECOND, "docs/00-project/remaining-work-navigation.md", "两阶段总导航")+"。\n\n"
     second += "证据："+"、".join(link(SECOND, path) for path in ["docs/00-project/validation/interface-documentation-report.json", "docs/00-project/validation/database-contract-report.json", "docs/00-project/validation/database-foundation-report.json", "docs/00-project/validation/migration-fencing-report.json", "docs/00-project/validation/stage-two-isolation-report.json"])+"。检查通过范围与实际业务验收分别判断。\n"
-    return {FIRST: first, MACHINE: json.dumps(machine, ensure_ascii=False, indent=2)+"\n", SECOND: second}
+    original = (ROOT/SECOND).read_text(encoding="utf-8")
+    block = START+"\n"+second.rstrip()+"\n"+END
+    if START in original:
+        before, rest = original.split(START, 1)
+        _, after = rest.split(END, 1)
+        integrated = before+block+after
+    else:
+        integrated = original.rstrip()+"\n\n"+block+"\n"
+    return {FIRST: first, SECOND: integrated}
 
 
 def main():

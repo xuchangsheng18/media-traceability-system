@@ -28,7 +28,6 @@ def main():
     prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
                             "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
     entries = {
-        "03-development/stage-two-interface-database-navigation.md": "第二阶段第7/19/20步的整体接口及数据库文件直达目录：16类接口入口、16类数据库入口；53操作/34能力和62业务表与PoC/5表分开，附来源/映射/迁移/缺口及证据。",
         "00-project/remaining-work-navigation.md": "两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。",
         "00-project/remaining-work-navigation.json": "从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。",
         "02-architecture/environment-constraints.md": "实际Linux、Miniforge py310、Desktop挂载/网络/CPU与PythonEOL边界。",
@@ -125,8 +124,6 @@ def main():
         "00-project/validation/image-sbom.spdx.json": "实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。",
     })
     first_entries = {
-        "00-project/stage-one/stage-one-readiness.md": "第一阶段24步实际材料/技术状态：逐步原工作、已形成产物、源状态、待办/边界和正式状态，不把输入整理当170业务任务完成。",
-        "00-project/stage-one/stage-one-readiness.json": "从24步交付唯一台账生成的实际状态派生/来源摘要，关联剩余事项；正式完成false、实际负责人未确认。",
         "00-project/execution-planning-scenario-inputs.json": "用户授权的10人占位工时/角色/起点/数据和GPU日期假设，后续替换；不填为实际人员或资源事实。",
         "00-project/execution-schedule-scenario.md": "170任务按占位容量生成日期与分期；明确超过源2027年6月末月，需调整投入/分工，未删功能或承诺实际日期。",
         "00-project/execution-schedule-scenario.json": "逐任务假设角色/日期/工时与源周期差异，actual_people_confirmed=false，实际输入表保持未确认。",
@@ -152,7 +149,7 @@ def main():
         "00-project/stage-one/four-item-completion.md": "本轮图表/36语义/24验收协议/170排期四项总览及第二阶段接入；实际人员和日期不足明确保留。",
         "00-project/stage-one/visual-layout-audit.md": "9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。",
         "00-project/stage-one/visual-layout-audit.json": "10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。",
-        "00-project/stage-one/steps-and-deliverables.md": "逐条对应原手册24步、具体做法、实际产物与确认要求，不与23步或170任务混号。",
+        "00-project/stage-one/steps-and-deliverables.md": "已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。",
         "00-project/stage-one/deliverables.json": "24步机器清单、源手册摘要、实际路径、状态和未确认事项；无虚构批准/负责人。",
         "00-project/stage-one/handoff.md": "第一阶段输入如何被第二阶段技术工程消费；两种基线与实际研发任务分别判断。",
         "00-project/stage-one/materials-manifest.json": "14份本地历史材料来源、原始字节摘要与身份；不混入正式业务原件清单。",

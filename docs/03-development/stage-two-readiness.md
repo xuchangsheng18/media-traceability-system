@@ -1,6 +1,6 @@
 # 第二阶段23步交付与实际状态
 
-第7/19/20步直接文件入口：[接口与数据库文件导航](stage-two-interface-database-navigation.md)、[整体接口](../03-api/README.md)、[业务数据库](../04-database/README.md)。第一阶段对应入口为[24步实际状态](../00-project/stage-one/stage-one-readiness.md)。
+第7/19/20步直接文件入口：[接口与数据库文件导航](../02-architecture/technical-baseline.md#接口与数据库文件导航)、[整体接口](../03-api/README.md)、[业务数据库](../04-database/README.md)。第一阶段对应入口为[24步实际状态](../00-project/stage-one/steps-and-deliverables.md)。
 
 2026-10-12；1.1-py310-cpu。优先要求的环境清单→版本锁定→最小工程→CI已经在用户Miniforge py310实测；新增迁移/事件/租约/追踪/PTS/冷恢复已补齐。开发基线DEVELOPMENT_VALIDATED，正式业务/生产NOT_FROZEN；GitHub平台结论独立记录。不是全部23步正式批准或170任务全实现。
 
