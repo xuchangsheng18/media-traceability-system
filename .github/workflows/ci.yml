@@ -61,6 +61,8 @@ jobs:
           "$PYTHON" -m ruff check --config ruff.toml scripts/validate_stage_one.py scripts/update_docs_navigation.py scripts/stage_one_source_audit.py scripts/build_stage_one_candidate.py scripts/generate_interface_docs.py scripts/validate_interface_docs.py scripts/generate_phase_readiness.py scripts/validate_phase_readiness.py scripts/collect_readiness_resources.py scripts/plan_project_schedule.py scripts/evaluate_acceptance_metrics.py scripts/validate_stage_one_completion.py
           "$PYTHON" -m ruff check --config ruff.toml scripts/stage_one_controls.py scripts/validate_stage_one_controls.py scripts/generate_workflow_types.py scripts/verify_generated_contracts.py
           "$PYTHON" -m ruff check --config ruff.toml scripts/plan_placeholder_schedule.py
+          "$PYTHON" -m ruff check --config ruff.toml scripts/generate_remaining_work_navigation.py
+          "$PYTHON" scripts/generate_remaining_work_navigation.py --check
           "$PYTHON" -m ruff check --config ruff.toml scripts/verify_stage_two_isolation.py scripts/verify_stage_two_media.py scripts/stage_two_readiness.py scripts/collect_stage_two_software.py scripts/validate_stage_two_completion.py
           "$PYTHON" scripts/plan_placeholder_schedule.py --check
           "$PYTHON" scripts/stage_one_controls.py

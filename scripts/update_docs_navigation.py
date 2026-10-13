@@ -4,10 +4,14 @@ import re
 from pathlib import Path
 from urllib.parse import unquote
 
+from generate_remaining_work_navigation import build as remaining_navigation
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    for path, content in remaining_navigation().items():
+        (ROOT/path).write_bytes(content.encode("utf-8"))
     nav = ROOT/"docs/README.md"
     old = nav.read_text(encoding="utf-8")
     descriptions = {}
@@ -21,6 +25,8 @@ def main():
     prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
                             "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
     entries = {
+        "00-project/remaining-work-navigation.md": "两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。",
+        "00-project/remaining-work-navigation.json": "从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。",
         "02-architecture/environment-constraints.md": "实际Linux、Miniforge py310、Desktop挂载/网络/CPU与PythonEOL边界。",
         "02-architecture/resource-and-team-inventory.md": "宿主、Desktop虚拟机与容器配额分别盘点；磁盘、GPU与责任人未决。",
         "02-architecture/technical-baseline.md": "1.1-py310-cpu研发执行基线，区别于正式生产冻结和全部业务实现。",
@@ -197,7 +203,7 @@ def main():
             else:
                 description = "项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。"
         index += f"| [{relative}](<{relative}>) | {description} |\n"
-    nav.write_text(prefix.rstrip()+"\n"+first_section+section+index, encoding="utf-8")
+    nav.write_bytes((prefix.rstrip()+"\n"+first_section+section+index).encode("utf-8"))
     print(f"Indexed {len(files)} actual docs files")
 
 

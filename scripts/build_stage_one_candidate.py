@@ -32,7 +32,7 @@ def build():
                   "scripts/plan_project_schedule.py", "scripts/evaluate_acceptance_metrics.py", "scripts/validate_stage_one_completion.py",
                   "tests/fixtures/acceptance-metric-reference.json", "tests/fixtures/claim-insufficient-cases.json",
                   "scripts/stage_one_controls.py", "scripts/validate_stage_one_controls.py", "scripts/generate_workflow_types.py",
-                  "scripts/verify_generated_contracts.py", "tests/fixtures/stage-one-controls.json",
+                  "scripts/verify_generated_contracts.py", "scripts/generate_remaining_work_navigation.py", "tests/fixtures/stage-one-controls.json",
                   "config/business-parameters.candidate.json", "shared-contracts/generated/workflow.d.ts", "scripts/plan_placeholder_schedule.py"])
     files = set()
     for seed in sorted(seeds):
