@@ -64,8 +64,8 @@ cd /workspace/glwy/projects/media-traceability-system
 
 | 阶段 | 工作范围 | 当前入口与状态 |
 | --- | --- | --- |
-| 第一阶段 | 24步，来源归档→需求/契约/数据/任务/测试→评审与输入冻结 | [第一阶段材料导航](docs/00-project/stage-one/README.md)、[24步操作与交付](docs/00-project/stage-one/steps-and-deliverables.md)；候选已整理，正式NOT_FROZEN |
-| 第二阶段 | 23步，环境/资源→选型与版本→最小工程→CI→技术评审与冻结 | [23步状态](docs/03-development/stage-two-readiness.md)；开发工程/CI已验证，正式NOT_FROZEN |
+| 第一阶段 | 24步，来源归档→需求/契约/数据/任务/测试→评审与输入冻结 | [24步实际状态](docs/00-project/stage-one/stage-one-readiness.md)、[第一阶段材料导航](docs/00-project/stage-one/README.md)、[24步操作与交付](docs/00-project/stage-one/steps-and-deliverables.md)；候选已整理，正式NOT_FROZEN |
+| 第二阶段 | 23步，环境/资源→选型与版本→最小工程→CI→技术评审与冻结 | [23步实际状态](docs/03-development/stage-two-readiness.md)、[接口与数据库文件导航](docs/03-development/stage-two-interface-database-navigation.md)、[整体接口](docs/03-api/README.md)、[业务数据库](docs/04-database/README.md)；开发工程/CI已验证，正式NOT_FROZEN |
 
 先核对第一阶段输入与来源，再阅读第二阶段技术执行依据；[阶段衔接](docs/00-project/stage-one/handoff.md)明确哪些输入由实际工程消费。24步、23步与170研发任务是三套编号。
 
