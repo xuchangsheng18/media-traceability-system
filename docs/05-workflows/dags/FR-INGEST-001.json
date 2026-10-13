@@ -1,0 +1,184 @@
+{
+  "dag_id": "FR-INGEST-001",
+  "dag_version": "candidate-1",
+  "status": "ENGINEERING_CANDIDATE",
+  "requirement_id": "FR-INGEST-001",
+  "source_task_ids": [
+    "T021",
+    "T028",
+    "T029"
+  ],
+  "external_inputs": [
+    "effective authorization and policy",
+    "exact per-model input bindings/weights/index/evidence as required by request Schema"
+  ],
+  "nodes": [
+    {
+      "node_id": "control.authorize",
+      "kind": "control",
+      "dependencies": [],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "entry.operation_id",
+          "source": "explicit entry_variants selection; current authentication/case/purpose and corresponding request Schema"
+        }
+      ],
+      "outputs": [
+        "authorized_entry_context"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC",
+        "CONTROL_TRANSACTION",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "node_id": "media.prepare",
+      "kind": "media",
+      "dependencies": [
+        "control.authorize"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "input_refs",
+          "source": "authorized immutable asset ObjectRef and request scope"
+        }
+      ],
+      "outputs": [
+        "validated_input_manifest"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "project.result",
+      "kind": "projection",
+      "dependencies": [
+        "media.prepare"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "binding",
+          "source": "fixed task/run/result/policy/dag scope; lease fenced transaction"
+        }
+      ],
+      "outputs": [
+        "validated_result_projection"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "publish.snapshot",
+      "kind": "publish",
+      "dependencies": [
+        "project.result"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": "urn:media-trace:stage-one:run-result:0.1.0",
+      "input_bindings": [
+        {
+          "field_path": "binding",
+          "source": "fixed task/run/result/policy/dag scope; lease fenced transaction"
+        }
+      ],
+      "outputs": [
+        "immutable_result_snapshot"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "project.control",
+      "kind": "control",
+      "dependencies": [
+        "control.authorize"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "operation_request",
+          "source": "selected source OpenAPI request/parameters; upload/source/role identity instead of assumed asset ObjectRef"
+        }
+      ],
+      "outputs": [
+        "selected_operation_projection"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "CONTROL_TRANSACTION",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "node_id": "response.emit",
+      "kind": "response",
+      "dependencies": [
+        "publish.snapshot",
+        "project.control"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "response",
+          "source": "selected operation source response; inactive branch NOT_SELECTED, no fabricated result snapshot"
+        }
+      ],
+      "outputs": [
+        "operation_response"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC",
+        "CONTROL_TRANSACTION",
+        "READ_ONLY"
+      ]
+    }
+  ],
+  "entry_variants": [
+    {
+      "operation_id": "createSource",
+      "mode": "CONTROL_TRANSACTION",
+      "request_structure_source": "docs/03-api/openapi.yaml#/components/schemas/SourceCreate",
+      "internal_run_record_required": false
+    },
+    {
+      "operation_id": "createImport",
+      "mode": "CONTROL_TRANSACTION",
+      "request_structure_source": "docs/03-api/openapi.yaml#/components/schemas/ImportRequest",
+      "internal_run_record_required": false
+    }
+  ]
+}

@@ -17,3 +17,7 @@
 ## 本轮四项输入的消费
 
 [四项补充](four-item-completion.md)是当前阅读入口。图表发现按现行任务卡、错误码和图边字段读取；第二阶段第2步使用[人员容量输入](../execution-planning-inputs.json)，第3步使用[测量协议](../../09-testing/metric-protocols.md)，第19步使用[结果身份与投影](../../05-workflows/result-identity-and-projection.md)，第21步运行新增补充检查。人员和到位日期未知时实际日历仍为null。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+[第一阶段工程补充](remaining-work-completion.md)提供单一结构源和可填真实输入；阶段2消费结构/版本与代表性验证，正式业务模型、运行编排、资源/数据与全业务验收继续逐任务交付。

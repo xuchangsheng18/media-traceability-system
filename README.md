@@ -75,3 +75,7 @@ cd /workspace/glwy/projects/media-traceability-system
 ## 图表、语义、验收与排期补充（2026-10-13）
 
 [四项总览](docs/00-project/stage-one/four-item-completion.md)包含357页Word＋12页原型核验、36需求逐项技术语义复核、24测量协议及170任务证据/容量排期。insufficient零证据契约已同步修正；补充5项检查纳入CI。实际人员和资源到位日未知，因此未生成实际交付承诺；完整业务与正式冻结分别判断。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+[第一阶段六类工程补充](docs/00-project/stage-one/remaining-work-completion.md)已接入来源/规则/历史读取/编排事件/34能力投影/验收/数据/排期控制；实际外部输入未提供，正式冻结仍待定。

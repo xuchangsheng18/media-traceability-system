@@ -22,3 +22,7 @@
 ## 本轮补充（2026-10-13）
 
 [24项验收测量协议](metric-protocols.md)及[机器定义](metric-protocols.json)保持来源目标，明确失败/未知、分母、分层及未执行真实验收。8组公式检查和实际模型/负载验收分开。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+[24验收执行配置](acceptance-execution-configuration.md)及逐项预检查补全真实条件，资料齐全仅READY_FOR_EXECUTION，不自动形成PASS。

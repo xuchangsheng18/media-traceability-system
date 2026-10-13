@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:stage-one:acceptance-inputs:0.1.0",
+  "type": "object",
+  "properties": {
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "metric_id": {
+            "enum": [
+              "MP-A01",
+              "MP-A02",
+              "MP-A03",
+              "MP-A04",
+              "MP-A05",
+              "MP-A06",
+              "MP-A07",
+              "MP-A08",
+              "MP-A09",
+              "MP-A10",
+              "MP-A11",
+              "MP-A12",
+              "MP-A13",
+              "MP-A14",
+              "MP-A15",
+              "MP-P01",
+              "MP-P02",
+              "MP-P03",
+              "MP-P04",
+              "MP-P05",
+              "MP-P06",
+              "MP-R01",
+              "MP-D01",
+              "MP-S01"
+            ]
+          },
+          "protocol_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "approval_record_ref": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "approved_target": {
+            "anyOf": [
+              {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "const": "all_required_cases"
+                  }
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "dataset_manifest_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "independent_group_count": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sample_size": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "strata_counts": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "label_or_truth_version": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "code_commit": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "model_bundle_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "index_manifest_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mapping_version": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "threshold_version": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "resource_snapshot_ref": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "load_profile": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "repetitions": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "confidence_interval_method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "executor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reviewer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "measurement_started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "measurement_ended_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "metric_id",
+          "protocol_version",
+          "approval_record_ref",
+          "approved_target",
+          "dataset_manifest_sha256",
+          "independent_group_count",
+          "sample_size",
+          "strata_counts",
+          "label_or_truth_version",
+          "code_commit",
+          "model_bundle_sha256",
+          "index_manifest_sha256",
+          "mapping_version",
+          "threshold_version",
+          "resource_snapshot_ref",
+          "load_profile",
+          "repetitions",
+          "confidence_interval_method",
+          "executor",
+          "reviewer",
+          "measurement_started_at",
+          "measurement_ended_at"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 24,
+      "maxItems": 24
+    }
+  },
+  "required": [
+    "revision",
+    "scope",
+    "metrics"
+  ],
+  "additionalProperties": false
+}

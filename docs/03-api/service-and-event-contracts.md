@@ -33,4 +33,8 @@
 
 全业务节点、优先级、取消/重算、结果事件、真实多worker超时/续租/乱序/死信见IF-G11；身份/授权撤销见IF-G07/08，平台签验/游标/字段转换见IF-G10。必要事件进入schemas/events单一结构源并生成类型，不虚构主题、消费方、外部URL或批准。
 
-[3份类型生成与漂移检查](../03-development/contract-generation.md)是编译时声明；运行时还需Schema与业务语义/授权检查。实际结果见[技术验证](../02-architecture/technical-validation-report.md)，计划与实测分开。
+[4份类型生成与漂移检查](../03-development/contract-generation.md)是编译时声明；运行时还需Schema与业务语义/授权检查。实际结果见[技术验证](../02-architecture/technical-validation-report.md)，计划与实测分开。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+新增[运行事件/节点/快照](../05-workflows/workflow-contracts.md)及单一事件Schema，7类正式候选事件有身份/状态/旧租约检查；已有PoC队列未更换，未宣称正式总线运行。

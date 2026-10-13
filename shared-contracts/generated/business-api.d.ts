@@ -2985,7 +2985,15 @@ export interface operations {
     };
     getTimeline: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    /** Format: uuid */
+                    task_id: string;
+                    run_version: number;
+                    result_version: number;
+                };
+            };
             header?: {
                 "X-Request-Id"?: string;
             };
@@ -3001,6 +3009,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {
@@ -3482,7 +3496,13 @@ export interface operations {
     };
     getTask: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    run_version: number;
+                    result_version: number;
+                };
+            };
             header?: {
                 "X-Request-Id"?: string;
             };
@@ -3498,6 +3518,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {
@@ -3826,7 +3852,13 @@ export interface operations {
     };
     getRiskFindings: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    run_version: number;
+                    result_version: number;
+                };
+            };
             header?: {
                 "X-Request-Id"?: string;
             };
@@ -3842,6 +3874,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {
@@ -3924,7 +3962,13 @@ export interface operations {
     };
     getForensics: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    run_version: number;
+                    result_version: number;
+                };
+            };
             header?: {
                 "X-Request-Id"?: string;
             };
@@ -3940,6 +3984,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {
@@ -4025,6 +4075,11 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    run_version: number;
+                    result_version: number;
+                };
             };
             header?: {
                 "X-Request-Id"?: string;
@@ -4041,6 +4096,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {
@@ -4527,6 +4588,13 @@ export interface operations {
             query?: {
                 /** @description 指定历史排序快照；省略时在当前授权簇中按created_at DESC、ranking_id DESC选最新快照，无快照404，不虚构空结果。 */
                 ranking_id?: string;
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    /** Format: uuid */
+                    task_id: string;
+                    run_version: number;
+                    result_version: number;
+                };
             };
             header?: {
                 "X-Request-Id"?: string;
@@ -4543,6 +4611,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {
@@ -4625,7 +4699,15 @@ export interface operations {
     };
     getPropagation: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。 */
+                history?: {
+                    /** Format: uuid */
+                    task_id: string;
+                    run_version: number;
+                    result_version: number;
+                };
+            };
             header?: {
                 "X-Request-Id"?: string;
             };
@@ -4641,6 +4723,12 @@ export interface operations {
                 headers: {
                     "X-Request-Id"?: string;
                     ETag?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Task-Id"?: string;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Run-Version"?: number;
+                    /** @description 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。 */
+                    "X-Result-Version"?: number;
                     [name: string]: unknown;
                 };
                 content: {

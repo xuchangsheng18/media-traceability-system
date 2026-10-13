@@ -231,12 +231,16 @@
         "GET /analysis/tasks/{id}/runs/{run_version}"
       ],
       "candidate_routes_callable": false,
-      "evidence": "除首发ranking_id外，任务/结果读取未明确历史run/result选择，当前响应不等于旧快照。",
-      "proposed_detail": "按run/result读取状态、候选、证据及复核/报告不可变视图；新旧运行分别授权，不隐式恢复旧批准。",
+      "evidence": "7个现有操作已增加精确history对象及响应绑定头设计，候选历史列表路径未加入；正式业务读取/两次重算联调仍未实施。",
+      "proposed_detail": "版本字段成组必填；严格按当前案件/对象和task/run/result匹配、404不回退最新。快照保存34能力原响应，列表/完整专用公开投影及后端联调仍待实现。",
       "closure_criteria": "补路径/参数/字段/追踪，测两次重算后精确版本、旧结果不可变和跨案件拒绝。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
       "owner_name": null,
-      "approved": false
+      "approved": false,
+      "engineering_contract_refs": [
+        "docs/03-api/historical-result-reading.md",
+        "schemas/workflow/run-result.schema.json"
+      ]
     },
     {
       "id": "IF-G10",
@@ -282,12 +286,17 @@
       ],
       "candidate_routes_for_review": [],
       "candidate_routes_callable": false,
-      "evidence": "只实现poc.analysis.requested.v1，不能推导12模块取消/重算/完成总线已定义。",
+      "evidence": "36候选需求节点图、节点/发布快照Schema及7类事件已补；真实调度/多worker/乱序死信恢复未完成。",
       "proposed_detail": "先决定API/消息边界，定义必要事件的结构版本、生产消费方、运行身份、去重/租约fencing、顺序/重试/取消/死信与授权；每个实际事件单独Schema。",
       "closure_criteria": "确定DAG/取消后补必要Schema/类型，测真实多worker、重复乱序、旧运行/超时及死信恢复。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
       "owner_name": null,
-      "approved": false
+      "approved": false,
+      "engineering_contract_refs": [
+        "docs/05-workflows/workflow-contracts.md",
+        "schemas/workflow/dag.schema.json",
+        "schemas/events/workflow.domain.v1.schema.json"
+      ]
     },
     {
       "id": "IF-G12",
@@ -315,7 +324,11 @@
       "closure_criteria": "形成决定及适用契约，测同键不同摘要、旧ETag、权限/重算失效、稳定分页/背压。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
       "owner_name": null,
-      "approved": false
+      "approved": false,
+      "engineering_contract_refs": [
+        "config/business-parameters.candidate.json",
+        "schemas/controls/business-parameters.schema.json"
+      ]
     },
     {
       "id": "IF-G13",
@@ -337,7 +350,11 @@
       "closure_criteria": "逐能力补实现/授权样本验证，测能力错配、非法对象、超时/取消；不拿mock或Schema当准确率通过。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
       "owner_name": null,
-      "approved": false
+      "approved": false,
+      "engineering_contract_refs": [
+        "docs/06-algorithms/capability-projection-register.json",
+        "schemas/workflow/run-result.schema.json"
+      ]
     }
   ]
 }

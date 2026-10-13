@@ -23,3 +23,7 @@
 详细操作以源parameters/responses为准；通用错误列表不能证明每个服务已实现每个分支，具体错误条件和测试逐任务登记。现有PoC鉴权、幂等、Problem和结果核验实测不能外推为53接口验收。
 
 格式依据：[OpenAPI 3.1.0](https://spec.openapis.org/oas/v3.1.0.html)、[RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html)、[RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html)。code/message/request_id/details是项目扩展，不能表述为RFC规定的所有业务服务必填字段。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+[精确历史读取](historical-result-reading.md)为7个操作增加扁平history对象，版本字段成组必填、未命中不回退最新，响应绑定头按选择器核对。

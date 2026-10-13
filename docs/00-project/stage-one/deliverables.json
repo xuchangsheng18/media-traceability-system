@@ -14,7 +14,8 @@
       "outputs": [
         "docs/00-project/source-document-inventory.md",
         "docs/00-project/source-inventory.json",
-        "docs/00-project/open-questions.md"
+        "docs/00-project/open-questions.md",
+        "docs/00-project/source-authority-register.json"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "正式依据身份仍须责任方确认。",
@@ -31,7 +32,8 @@
         "docs/00-project/document-conversion-plan.md",
         "docs/02-architecture/repository-layout.md",
         "docs/00-project/stage-one/source-section-map.md",
-        "docs/00-project/stage-one/source-section-map.json"
+        "docs/00-project/stage-one/source-section-map.json",
+        "docs/00-project/source-authority-and-change-control.md"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "目录规划不是服务全部实现。",
@@ -66,7 +68,8 @@
       "title": "建立术语表",
       "operation": "统一术语、相似/同源/片段、首发候选及证据的边界，登记歧义。",
       "outputs": [
-        "docs/00-project/glossary.md"
+        "docs/00-project/glossary.md",
+        "docs/01-requirements/business-parameter-contract.md"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "不自行确定法律或公安认定标准。",
@@ -95,7 +98,8 @@
       "operation": "分开描述功能权限与案件/单位数据范围，列出高风险操作与角色冲突。",
       "outputs": [
         "docs/01-requirements/user-roles.md",
-        "docs/08-security/permission-matrix.md"
+        "docs/08-security/permission-matrix.md",
+        "schemas/controls/business-parameters.schema.json"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "正式角色、权限策略与审批尚待确认。",
@@ -143,7 +147,9 @@
       "outputs": [
         "docs/01-requirements/non-functional-requirements.md",
         "docs/09-testing/metric-protocols.md",
-        "docs/09-testing/metric-protocols.json"
+        "docs/09-testing/metric-protocols.json",
+        "docs/09-testing/acceptance-execution-inputs.json",
+        "schemas/controls/acceptance-inputs.schema.json"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "未确认指标保持待定，20/100并发未作正式验收。",
@@ -157,7 +163,9 @@
       "title": "整理业务规则",
       "operation": "编号整理业务规则，并区分来源明确、工程建议和待确认内容。",
       "outputs": [
-        "docs/01-requirements/business-rules.md"
+        "docs/01-requirements/business-rules.md",
+        "config/business-parameters.candidate.json",
+        "docs/01-requirements/business-parameter-source-audit.json"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "不可将建议阈值转成批准规则。",
@@ -173,7 +181,12 @@
       "outputs": [
         "docs/05-workflows/task-state-machine.md",
         "docs/05-workflows/review-state-machine.md",
-        "docs/05-workflows/evidence-state-machine.md"
+        "docs/05-workflows/evidence-state-machine.md",
+        "docs/05-workflows/workflow-contracts.md",
+        "docs/05-workflows/dag-index.json",
+        "schemas/workflow/dag.schema.json",
+        "schemas/workflow/run-result.schema.json",
+        "schemas/events/workflow.domain.v1.schema.json"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "正式全状态机实现与权限仍按业务卡验收。",
@@ -191,7 +204,8 @@
         "docs/03-api/inference-openapi.yaml",
         "docs/03-api/error-codes.md",
         "docs/03-api/examples/",
-        "docs/05-workflows/result-identity-and-projection.md"
+        "docs/05-workflows/result-identity-and-projection.md",
+        "docs/03-api/historical-result-reading.md"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "53个正式操作设计与已运行PoC接口分开。",
@@ -230,7 +244,9 @@
         "docs/06-algorithms/model-contract.md",
         "docs/06-algorithms/model-evaluation.md",
         "schemas/model/",
-        "docs/00-project/requirement-semantic-review.json"
+        "docs/00-project/requirement-semantic-review.json",
+        "docs/06-algorithms/capability-projection-register.json",
+        "shared-contracts/generated/workflow.d.ts"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "68个模型Schema是能力契约，合成CPU验证不是业务模型效果。",
@@ -250,7 +266,11 @@
         "docs/07-datasets/data-compliance.md",
         "docs/07-datasets/data-card-template.md",
         "datasets/catalog/",
-        "schemas/dataset/"
+        "schemas/dataset/",
+        "docs/07-datasets/actual-input-inventory.json",
+        "docs/07-datasets/data-cards/",
+        "schemas/controls/data-card.schema.json",
+        "schemas/dataset/authorized-inventory-manifest.schema.json"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "不编造样本规模、授权或封存测试集。",
@@ -288,7 +308,12 @@
         "tasks/dependency-report.md",
         "docs/00-project/execution-schedule.md",
         "docs/00-project/execution-planning-inputs.json",
-        "tasks/execution-schedule.csv"
+        "tasks/execution-schedule.csv",
+        "scripts/stage_one_controls.py",
+        "docs/00-project/execution-planning-scenario-inputs.json",
+        "docs/00-project/execution-schedule-scenario.md",
+        "tasks/execution-schedule-scenario.csv",
+        "scripts/plan_placeholder_schedule.py"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "执行依赖是候选；不将全部170任务标为完成。",
@@ -309,7 +334,9 @@
         "docs/09-testing/security-test-scenarios.md",
         "docs/09-testing/model-test-scenarios.md",
         "scripts/evaluate_acceptance_metrics.py",
-        "tests/fixtures/acceptance-metric-reference.json"
+        "tests/fixtures/acceptance-metric-reference.json",
+        "scripts/validate_stage_one_controls.py",
+        "tests/fixtures/stage-one-controls.json"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "计划中的场景不是已执行测试结果。",
@@ -360,7 +387,8 @@
         "docs/00-project/validation/stage-one-validation-report.json",
         "docs/00-project/stage-one/source-content-audit.json",
         "docs/00-project/stage-one/four-item-completion.md",
-        "scripts/validate_stage_one_completion.py"
+        "scripts/validate_stage_one_completion.py",
+        "docs/00-project/validation/stage-one-controls-report.json"
       ],
       "artifact_status": "STRUCTURE_VALIDATED_WITH_FORMAL_GAPS",
       "remaining": "人工语义评审与业务验收未由机器校验代替。",
@@ -382,7 +410,8 @@
         "docs/00-project/review-package/dataset-review.md",
         "docs/00-project/review-package/open-questions-review.md",
         "docs/00-project/review-package/README.md",
-        "docs/00-project/stage-one/review-register.json"
+        "docs/00-project/stage-one/review-register.json",
+        "docs/00-project/stage-one/review-resolution-inputs.json"
       ],
       "artifact_status": "33_QUESTIONS_IN_7_DETAILED_REVIEW_PACKETS",
       "remaining": "33项输入、已有引用/影响建议及关闭条件已列明；实际负责人、正式决定和签认仍未提供。",
@@ -397,7 +426,8 @@
       "operation": "只将已收到的有效决定/用户执行选择同步到适用文件，保留未决项。",
       "outputs": [
         "docs/00-project/review-decisions.yaml",
-        "docs/00-project/review-decision-application-report.md"
+        "docs/00-project/review-decision-application-report.md",
+        "docs/00-project/source-authority-and-change-control.md"
       ],
       "artifact_status": "EXISTING_SELECTIONS_APPLIED_FORMAL_REVIEW_PENDING",
       "remaining": "目前没有新增正式业务签认，不能自动关闭全部Q。",
@@ -417,7 +447,9 @@
         "docs/00-project/baseline-validation-report.md",
         "docs/00-project/freeze-checklist.md",
         "docs/00-project/stage-one/input-baseline-candidate.md",
-        "docs/00-project/stage-one/input-baseline-candidate.json"
+        "docs/00-project/stage-one/input-baseline-candidate.json",
+        "docs/00-project/validation/stage-one-input-preflight-report.json",
+        "docs/00-project/stage-one/remaining-work-completion.md"
       ],
       "artifact_status": "NOT_FROZEN",
       "remaining": "现存基线文件是检查稿/历史快照，不是正式批准Development Input Baseline。",

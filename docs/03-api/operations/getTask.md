@@ -1,6 +1,6 @@
 # 读取任务与运行状态：getTask
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `556c92bd7b22602c83bd71aa3ea5cc11cdefb48926a18c03428b293860e2f7ba`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `072aa69af85cff9b18212db91b8ac493a9aacc6f1df04ffadb9a7456f1424388`。契约未冻结，文档存在不代表接口已实现。
 
 `GET /api/v1/analysis/tasks/{id}`；operationId=`getTask`；源指针=`/paths/~1analysis~1tasks~1{id}/get`。
 
@@ -24,6 +24,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`task.read`�
 | --- | --- | --- | --- |
 | id | path | True | string; format="uuid" |
 | X-Request-Id | header | False | string; format="uuid" |
+| history | query | False | object; additionalProperties=false |
 
 源契约未定义请求体；查询通过上述路径/查询参数传入。
 
@@ -31,7 +32,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`task.read`�
 
 | HTTP | 描述 | 媒体类型/结构 | 响应头 |
 | --- | --- | --- | --- |
-| 200 | 契约成功响应；异步受理不代表结果完成 | application/json: Task | X-Request-Id: string; format="uuid"; ETag: string; minLength=1; maxLength=128 |
+| 200 | 契约成功响应；异步受理不代表结果完成 | application/json: Task | X-Request-Id: string; format="uuid"; ETag: string; minLength=1; maxLength=128; X-Task-Id: string; format="uuid"; X-Run-Version: integer; minimum=1; X-Result-Version: integer; minimum=1 |
 | 400 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
 | 401 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
 | 403 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |

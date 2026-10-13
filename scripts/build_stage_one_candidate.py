@@ -30,7 +30,10 @@ def build():
                   "scripts/generate_interface_docs.py", "scripts/validate_interface_docs.py",
                   "scripts/generate_phase_readiness.py", "scripts/validate_phase_readiness.py", "scripts/collect_readiness_resources.py",
                   "scripts/plan_project_schedule.py", "scripts/evaluate_acceptance_metrics.py", "scripts/validate_stage_one_completion.py",
-                  "tests/fixtures/acceptance-metric-reference.json", "tests/fixtures/claim-insufficient-cases.json"])
+                  "tests/fixtures/acceptance-metric-reference.json", "tests/fixtures/claim-insufficient-cases.json",
+                  "scripts/stage_one_controls.py", "scripts/validate_stage_one_controls.py", "scripts/generate_workflow_types.py",
+                  "scripts/verify_generated_contracts.py", "tests/fixtures/stage-one-controls.json",
+                  "config/business-parameters.candidate.json", "shared-contracts/generated/workflow.d.ts", "scripts/plan_placeholder_schedule.py"])
     files = set()
     for seed in sorted(seeds):
         path = ROOT / seed

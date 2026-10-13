@@ -24,3 +24,7 @@ npm --prefix frontend run generate:contracts
 ## 1.1工程补充
 
 1.1增加generated/poc-event.d.ts；唯一源schemas/events/poc.analysis.requested.v1.schema.json，由临时包装生成，共3份类型。详见[契约生成](../docs/03-development/contract-generation.md)。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+第四份generated/workflow.d.ts从workflow/event/controls及34模型响应单一源生成，运行scripts/generate_workflow_types.py；漂移校验增加第四份，Schema与运行语义仍须验证。

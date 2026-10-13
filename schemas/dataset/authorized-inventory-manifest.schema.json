@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:dataset:authorized-inventory:0.1.0",
+  "type": "object",
+  "properties": {
+    "authorization_status": {
+      "enum": [
+        "pending",
+        "verified",
+        "expired",
+        "revoked"
+      ]
+    },
+    "authorization_record_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "label_version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "quality_protocol_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sample_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "split": {
+            "enum": [
+              "train",
+              "validation",
+              "calibration",
+              "sealed_test"
+            ]
+          },
+          "authorized_purpose": {
+            "enum": [
+              "training",
+              "validation",
+              "calibration",
+              "holdout",
+              "annotation"
+            ]
+          },
+          "source_group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "person_group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          "event_group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          "original_asset_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "uniqueItems": true
+          },
+          "derived_asset_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "uniqueItems": true
+          },
+          "annotation_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "uniqueItems": true
+          },
+          "cluster_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "parent_sample_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "uniqueItems": true
+          },
+          "quality_passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sample_id",
+          "split",
+          "authorized_purpose",
+          "source_group_ids",
+          "person_group_ids",
+          "event_group_ids",
+          "original_asset_ids",
+          "derived_asset_ids",
+          "annotation_ids",
+          "cluster_id",
+          "parent_sample_ids",
+          "quality_passed"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "authorization_status",
+    "authorization_record_ref",
+    "label_version",
+    "quality_protocol_ref",
+    "records"
+  ],
+  "additionalProperties": false
+}

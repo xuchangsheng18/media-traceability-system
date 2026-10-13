@@ -47,7 +47,7 @@ def main():
         "00-project/validation/ci-failure-gate-report.json": "验证故意失败确实阻断构建/部署的判定，PASS不等于探针本身成功。",
         "00-project/validation/runtime-lock-report.json": "实际Python补丁与全部第三方包是否匹配精确锁。",
         "00-project/validation/lock-reproduction-report.json": "全新venv按精确锁安装后的依赖与导入结果。",
-        "00-project/validation/generated-contract-report.json": "3份TS类型临时重新生成后的字节一致性。",
+        "00-project/validation/generated-contract-report.json": "4份TS类型临时重新生成后的字节一致性，新增workflow来源包装仍需运行Schema检查。",
         "00-project/validation/poc-integration-report.json": "21项真实API/对象/SQL/队列/CPU/追踪/Problem结果检查，不是业务模型验收。",
         "00-project/validation/poc-resilience-report.json": "5项队列/过期租约/服务及版本对象重启/幂等冲突检查，服务恢复记录。",
         "00-project/validation/media-query-report.json": "6项合成媒体和微型SQL/向量/鉴权检查；不代表中文或大规模业务。",
@@ -99,6 +99,27 @@ def main():
         "00-project/validation/development-recovery-report.json": "8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。",
     })
     first_entries = {
+        "00-project/execution-planning-scenario-inputs.json": "用户授权的10人占位工时/角色/起点/数据和GPU日期假设，后续替换；不填为实际人员或资源事实。",
+        "00-project/execution-schedule-scenario.md": "170任务按占位容量生成日期与分期；明确超过源2027年6月末月，需调整投入/分工，未删功能或承诺实际日期。",
+        "00-project/execution-schedule-scenario.json": "逐任务假设角色/日期/工时与源周期差异，actual_people_confirmed=false，实际输入表保持未确认。",
+        "01-requirements/business-parameter-source-audit.md": "14类参数本地V1.4实际条款与V1.3交叉检查；候选可用率/RETURNED保留性质，未确认值不冒充批准。",
+        "01-requirements/business-parameter-source-audit.json": "逐参数精确正文行/文本、来源候选与未定值，登记CLOSED在当前Task枚举未定义的差异。",
+        "00-project/stage-one/remaining-work-completion.md": "第一阶段六类工程补充、阶段22—24接入及仍需真实输入；不把配置/Schema/工具当业务运行或正式冻结。",
+        "00-project/source-authority-and-change-control.md": "唯一工程结构源、成对修订稿与历史身份、优先关系和变更/迁移/验证记录规则；正式依据仍需确认。",
+        "00-project/source-authority-register.json": "10原件摘要/版本身份、2处V2/V1.0冲突及13类唯一结构源；实际负责人/正式依据未填。",
+        "00-project/stage-one/review-resolution-inputs.json": "33问题可填写意见/责任人/依据/范围/例外/证据入口；不自动修改主Q或生成正式决定。",
+        "01-requirements/business-parameter-contract.md": "14类业务参数的值/状态/依据/版本、RETURNED两路径与未知拒绝，适用规则不凭建议值确定。",
+        "03-api/historical-result-reading.md": "7现有操作history成组参数、精确task/run/result与响应绑定头，404不回退最新；正式业务API尚未实现。",
+        "05-workflows/workflow-contracts.md": "普通媒体/模型/投影/发布节点、7类事件、旧租约/取消/幂等与完整结果快照的单一Schema设计。",
+        "05-workflows/dag-index.json": "36需求保守串行候选节点图、原任务引用和外部输入前提；不是170运行节点或已运行worker。",
+        "06-algorithms/capability-projection-register.md": "34能力逐请求/响应/专用payload路径及全量原响应保存规则；公开专用投影实现单独登记。",
+        "06-algorithms/capability-projection-register.json": "34结构摘要、输入字段/源任务、summary数组选择器与payload路径；不编造实体表或模型效果。",
+        "09-testing/acceptance-execution-configuration.md": "24项实际样本/版本/资源/负载/目标/人员配置与NOT_EVALUABLE缺项，READY也不是验收成绩。",
+        "09-testing/acceptance-execution-inputs.json": "24协议待填实际执行配置；正式目标和环境保持null，按Schema及适用指标检查。",
+        "07-datasets/actual-input-inventory.md": "D01—D15实际元信息与计数口径，真实授权数量未知；64合成训练样本单列，不计正式数据。",
+        "07-datasets/actual-input-inventory.json": "15规划数据卡/目录摘要、未知业务计数及真实合成证明；无真实数据扫描、导入或训练。",
+        "00-project/validation/stage-one-controls-report.json": "8组来源、规则、RETURNED、36DAG/34模型快照、7历史读取/事件fencing、15数据卡/计数、24配置/33评审及170占位排期/14本地来源正反检查。",
+        "00-project/validation/stage-one-input-preflight-report.json": "真实条件缺项报告：14参数/24验收/15数据/170排期/33评审；状态外部输入待填和NOT_READY，禁止冒称正式PASS。",
         "00-project/stage-one/README.md": "第一阶段24步总入口：本地来源、材料归属、候选状态和正式未冻结边界。",
         "00-project/stage-one/four-item-completion.md": "本轮图表/36语义/24验收协议/170排期四项总览及第二阶段接入；实际人员和日期不足明确保留。",
         "00-project/stage-one/visual-layout-audit.md": "9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。",
@@ -129,6 +150,10 @@ def main():
         first_entries[path] = "第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。"
     descriptions.update(first_entries)
     descriptions.update(entries)
+    for path in (ROOT / "docs/05-workflows/dags").glob("*.json"):
+        descriptions[path.relative_to(ROOT / "docs").as_posix()] = "该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。"
+    for path in (ROOT / "docs/07-datasets/data-cards").glob("*.json"):
+        descriptions[path.relative_to(ROOT / "docs").as_posix()] = "该数据集实际来源/授权/计数/标签/质检/切分/负责人/到位日填写入口；未知null，不自动发布或冻结。"
     for path in (ROOT/"docs/03-api/operations").glob("*.md"):
         descriptions[path.relative_to(ROOT/"docs").as_posix()] = "逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。"
     for path in (ROOT/"docs/03-api/modules").glob("*.md"):

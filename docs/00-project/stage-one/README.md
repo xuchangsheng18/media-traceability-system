@@ -40,3 +40,7 @@
 ## 图表、语义、验收及排期补充（2026-10-13）
 
 [四项补充总览](four-item-completion.md)登记当前完成范围与未落实的实际排期输入。全页概览/关键图表核验已执行，[36需求](../requirement-semantic-review.md)已逐项技术复核，[24协议](../../09-testing/metric-protocols.md)和[170任务排期](../execution-schedule.md)已建立。历史内容检查的视觉限制保留，但不代表本轮视觉仍未检查；正式业务规则与运行验收另判定。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+[六类剩余工作工程补充](remaining-work-completion.md)已落到可校验配置/Schema和逐项预检查；正式依据、实际人员/数据/日期未虚构。

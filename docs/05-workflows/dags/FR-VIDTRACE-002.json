@@ -1,0 +1,435 @@
+{
+  "dag_id": "FR-VIDTRACE-002",
+  "dag_version": "candidate-1",
+  "status": "ENGINEERING_CANDIDATE",
+  "requirement_id": "FR-VIDTRACE-002",
+  "source_task_ids": [
+    "T087",
+    "T088",
+    "T160",
+    "T161",
+    "T163"
+  ],
+  "external_inputs": [
+    "effective authorization and policy",
+    "exact per-model input bindings/weights/index/evidence as required by request Schema"
+  ],
+  "nodes": [
+    {
+      "node_id": "control.authorize",
+      "kind": "control",
+      "dependencies": [],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "entry.operation_id",
+          "source": "explicit entry_variants selection; current authentication/case/purpose and corresponding request Schema"
+        }
+      ],
+      "outputs": [
+        "authorized_entry_context"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC",
+        "CONTROL_TRANSACTION",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "node_id": "media.prepare",
+      "kind": "media",
+      "dependencies": [
+        "control.authorize"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "input_refs",
+          "source": "authorized immutable asset ObjectRef and request scope"
+        }
+      ],
+      "outputs": [
+        "validated_input_manifest"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "model.M20",
+      "kind": "model",
+      "dependencies": [
+        "media.prepare"
+      ],
+      "required": true,
+      "model_id": "M20",
+      "request_schema_id": "urn:media-trace:model:M20:request:0.1.0",
+      "response_schema_id": "urn:media-trace:model:M20:response:0.1.0",
+      "input_bindings": [
+        {
+          "field_path": "request_id",
+          "source": "request_manifest.request_id"
+        },
+        {
+          "field_path": "case_id",
+          "source": "authorization_scope.case_id"
+        },
+        {
+          "field_path": "task_id",
+          "source": "run_manifest.task_id"
+        },
+        {
+          "field_path": "run_version",
+          "source": "run_manifest.run_version"
+        },
+        {
+          "field_path": "capability",
+          "source": "model_catalog.capability constant"
+        },
+        {
+          "field_path": "model_name",
+          "source": "approved_model_registry.name"
+        },
+        {
+          "field_path": "model_version",
+          "source": "approved_model_registry.version"
+        },
+        {
+          "field_path": "input_kind",
+          "source": "model_catalog.input_kind constant"
+        },
+        {
+          "field_path": "asset_ids",
+          "source": "validated_input_manifest.asset_ids in current case"
+        },
+        {
+          "field_path": "object_refs",
+          "source": "validated_input_manifest.object_refs fixed versions and digests; content must match capability input_kind"
+        },
+        {
+          "field_path": "source_segment_ids",
+          "source": "validated_input_manifest.source_segment_ids"
+        },
+        {
+          "field_path": "preprocessing_version",
+          "source": "validated_input_manifest.preprocessing_version"
+        },
+        {
+          "field_path": "mapping_version",
+          "source": "validated_input_manifest.mapping_version"
+        },
+        {
+          "field_path": "missing_modalities",
+          "source": "validated_input_manifest.missing_modalities"
+        },
+        {
+          "field_path": "deadline_at",
+          "source": "run_manifest.deadline_at from configured resource/timeout policy"
+        },
+        {
+          "field_path": "authorization_version",
+          "source": "authorization_scope.authorization_version"
+        }
+      ],
+      "outputs": [
+        "urn:media-trace:model:M20:response:0.1.0"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "model.M21",
+      "kind": "model",
+      "dependencies": [
+        "model.M20"
+      ],
+      "required": true,
+      "model_id": "M21",
+      "request_schema_id": "urn:media-trace:model:M21:request:0.1.0",
+      "response_schema_id": "urn:media-trace:model:M21:response:0.1.0",
+      "input_bindings": [
+        {
+          "field_path": "request_id",
+          "source": "request_manifest.request_id"
+        },
+        {
+          "field_path": "case_id",
+          "source": "authorization_scope.case_id"
+        },
+        {
+          "field_path": "task_id",
+          "source": "run_manifest.task_id"
+        },
+        {
+          "field_path": "run_version",
+          "source": "run_manifest.run_version"
+        },
+        {
+          "field_path": "capability",
+          "source": "model_catalog.capability constant"
+        },
+        {
+          "field_path": "model_name",
+          "source": "approved_model_registry.name"
+        },
+        {
+          "field_path": "model_version",
+          "source": "approved_model_registry.version"
+        },
+        {
+          "field_path": "input_kind",
+          "source": "model_catalog.input_kind constant"
+        },
+        {
+          "field_path": "asset_ids",
+          "source": "validated_input_manifest.asset_ids in current case"
+        },
+        {
+          "field_path": "object_refs",
+          "source": "validated_input_manifest.object_refs fixed versions and digests; content must match capability input_kind"
+        },
+        {
+          "field_path": "source_segment_ids",
+          "source": "validated_input_manifest.source_segment_ids"
+        },
+        {
+          "field_path": "preprocessing_version",
+          "source": "validated_input_manifest.preprocessing_version"
+        },
+        {
+          "field_path": "mapping_version",
+          "source": "validated_input_manifest.mapping_version"
+        },
+        {
+          "field_path": "missing_modalities",
+          "source": "validated_input_manifest.missing_modalities"
+        },
+        {
+          "field_path": "deadline_at",
+          "source": "run_manifest.deadline_at from configured resource/timeout policy"
+        },
+        {
+          "field_path": "authorization_version",
+          "source": "authorization_scope.authorization_version"
+        }
+      ],
+      "outputs": [
+        "urn:media-trace:model:M21:response:0.1.0"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "model.M25",
+      "kind": "model",
+      "dependencies": [
+        "model.M21"
+      ],
+      "required": true,
+      "model_id": "M25",
+      "request_schema_id": "urn:media-trace:model:M25:request:0.1.0",
+      "response_schema_id": "urn:media-trace:model:M25:response:0.1.0",
+      "input_bindings": [
+        {
+          "field_path": "request_id",
+          "source": "request_manifest.request_id"
+        },
+        {
+          "field_path": "case_id",
+          "source": "authorization_scope.case_id"
+        },
+        {
+          "field_path": "task_id",
+          "source": "run_manifest.task_id"
+        },
+        {
+          "field_path": "run_version",
+          "source": "run_manifest.run_version"
+        },
+        {
+          "field_path": "capability",
+          "source": "model_catalog.capability constant"
+        },
+        {
+          "field_path": "model_name",
+          "source": "approved_model_registry.name"
+        },
+        {
+          "field_path": "model_version",
+          "source": "approved_model_registry.version"
+        },
+        {
+          "field_path": "input_kind",
+          "source": "model_catalog.input_kind constant"
+        },
+        {
+          "field_path": "asset_ids",
+          "source": "validated_input_manifest.asset_ids in current case"
+        },
+        {
+          "field_path": "object_refs",
+          "source": "validated_input_manifest.object_refs fixed versions and digests; content must match capability input_kind"
+        },
+        {
+          "field_path": "source_segment_ids",
+          "source": "validated_input_manifest.source_segment_ids"
+        },
+        {
+          "field_path": "preprocessing_version",
+          "source": "validated_input_manifest.preprocessing_version"
+        },
+        {
+          "field_path": "mapping_version",
+          "source": "validated_input_manifest.mapping_version"
+        },
+        {
+          "field_path": "missing_modalities",
+          "source": "validated_input_manifest.missing_modalities"
+        },
+        {
+          "field_path": "deadline_at",
+          "source": "run_manifest.deadline_at from configured resource/timeout policy"
+        },
+        {
+          "field_path": "authorization_version",
+          "source": "authorization_scope.authorization_version"
+        }
+      ],
+      "outputs": [
+        "urn:media-trace:model:M25:response:0.1.0"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "project.result",
+      "kind": "projection",
+      "dependencies": [
+        "model.M25"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "binding",
+          "source": "fixed task/run/result/policy/dag scope; lease fenced transaction"
+        }
+      ],
+      "outputs": [
+        "validated_result_projection"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "publish.snapshot",
+      "kind": "publish",
+      "dependencies": [
+        "project.result"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": "urn:media-trace:stage-one:run-result:0.1.0",
+      "input_bindings": [
+        {
+          "field_path": "binding",
+          "source": "fixed task/run/result/policy/dag scope; lease fenced transaction"
+        }
+      ],
+      "outputs": [
+        "immutable_result_snapshot"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC"
+      ]
+    },
+    {
+      "node_id": "project.control",
+      "kind": "control",
+      "dependencies": [
+        "control.authorize"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "operation_request",
+          "source": "selected source OpenAPI request/parameters; upload/source/role identity instead of assumed asset ObjectRef"
+        }
+      ],
+      "outputs": [
+        "selected_operation_projection"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "CONTROL_TRANSACTION",
+        "READ_ONLY"
+      ]
+    },
+    {
+      "node_id": "response.emit",
+      "kind": "response",
+      "dependencies": [
+        "publish.snapshot",
+        "project.control"
+      ],
+      "required": true,
+      "model_id": null,
+      "request_schema_id": null,
+      "response_schema_id": null,
+      "input_bindings": [
+        {
+          "field_path": "response",
+          "source": "selected operation source response; inactive branch NOT_SELECTED, no fabricated result snapshot"
+        }
+      ],
+      "outputs": [
+        "operation_response"
+      ],
+      "missing_policy": "FAIL_REQUIRED",
+      "active_entry_modes": [
+        "ANALYSIS_ASYNC",
+        "MODEL_SYNC",
+        "CONTROL_TRANSACTION",
+        "READ_ONLY"
+      ]
+    }
+  ],
+  "entry_variants": [
+    {
+      "operation_id": "searchVideo",
+      "mode": "ANALYSIS_ASYNC",
+      "request_structure_source": "docs/03-api/openapi.yaml#/components/schemas/VideoSearch",
+      "internal_run_record_required": true
+    }
+  ]
+}

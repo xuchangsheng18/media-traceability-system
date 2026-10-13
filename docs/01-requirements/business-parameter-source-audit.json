@@ -1,0 +1,267 @@
+{
+  "scope": "actual_local_V1_4_source_review_not_web_defined_business_thresholds",
+  "parameter_reviews": [
+    {
+      "parameter": "risk_label_version",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 491,
+          "text": "【建议】所有正式业务结论及正式报告由授权人员确认。重点复核入口包括高风险低置信、模型冲突、候选时间接近、跨模态矛盾、新型篡改和证据不足；具体阈值、单人或会审、双人审批范围待Q-18、Q-20确认。"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "VALUE_OR_SCOPE_EXPLICITLY_UNCONFIRMED_IN_SOURCE",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "review_thresholds",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 491,
+          "text": "【建议】所有正式业务结论及正式报告由授权人员确认。重点复核入口包括高风险低置信、模型冲突、候选时间接近、跨模态矛盾、新型篡改和证据不足；具体阈值、单人或会审、双人审批范围待Q-18、Q-20确认。"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "VALUE_OR_SCOPE_EXPLICITLY_UNCONFIRMED_IN_SOURCE",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "returned_mode",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 373,
+          "text": "| RETURNED | 授权人员退回补充或重算 | WAIT_REVIEW、CLOSED；重算关联新版本QUEUED | 不直接进RUNNING；保留原意见及重算关联 |"
+        }
+      ],
+      "source_proposals": [
+        "supplement_same_run",
+        "recompute_new_run",
+        "reason_selected"
+      ],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null,
+      "open_contract_difference": "源含CLOSED分支，但当前Task枚举没有CLOSED；不得擅自映射为ARCHIVED/FAILED。现有补证/重算路径可设计，关闭语义仍需有效决定。"
+    },
+    {
+      "parameter": "unknown_origin_policy",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 1397,
+          "text": "| 首发Top-3准确率 | ≥90% | 人工确认且有可核验参考来源的内容簇；不人为要求每簇≥5来源；覆盖不足记录未知，已知测试失败计未命中 |"
+        }
+      ],
+      "source_proposals": [
+        "insufficient_no_certain_origin"
+      ],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "approval_purposes",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 517,
+          "text": "候选审批请求状态为DRAFT、PENDING、RETURNED、APPROVED、REJECTED、WITHDRAWN、INVALIDATED。仅批准当前对象版本；退回补证或重算建立新对象版本与审批请求。结果、证据、报告或审批策略变化时，按批准的变更规则使旧授权失效或重新校验，并保留原因。报告导出为独立事件，不把已批准报告简单改为EXPORTED后丢失批准/撤销信息；§5.4原状态名称用于报告展示，对象状态与审批请求状态分别建模。"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "dual_approval_purposes",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 491,
+          "text": "【建议】所有正式业务结论及正式报告由授权人员确认。重点复核入口包括高风险低置信、模型冲突、候选时间接近、跨模态矛盾、新型篡改和证据不足；具体阈值、单人或会审、双人审批范围待Q-18、Q-20确认。"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "VALUE_OR_SCOPE_EXPLICITLY_UNCONFIRMED_IN_SOURCE",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "feedback_allowed_purposes",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 523,
+          "text": "页面分别显示审核对象及版本、证据引用、申请用途、审批策略及批准依据、待审/退回/失效原因和当前可执行动作。未审批或模拟报告有明确标识；确认按钮的二次确认只防误操作，不构成人员独立复核。数据回流页面另显示训练用途授权、脱敏、去重、质检及独立测试集隔离结果。"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "retention_days_by_data_class",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 150,
+          "text": "| 合法授权 | 所有数据源登记权属、授权范围、用途和保存期限；不设计绕过访问控制的采集能力 |"
+        },
+        {
+          "line": 694,
+          "text": "| 授权业务数据 | 公开授权内容、历史核查材料、用户提交 | 业务微调和阈值优化 | 来源、授权、脱敏、权限和保存期限完整 |"
+        },
+        {
+          "line": 768,
+          "text": "| 生产 | 授权业务数据 | 测试残留数据 | 只读原件 | 按保存期限 | 数据区，禁止公网 |"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "VALUE_OR_SCOPE_EXPLICITLY_UNCONFIRMED_IN_SOURCE",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "legal_hold_policy",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 11,
+          "text": "本版与TASK-001 V1.3成对评审，保留12模块、170任务及全部源目标。依据2026年10月12日技术复核，修正候选组件、模型机制与许可、接口路径和执行依赖；补齐资源、节点语义、下载撤销及验证条件。文档修正不表示组件已选定、资源已落实或实测已通过。"
+        },
+        {
+          "line": 15,
+          "text": "| 13 | 章总体设计 | 保留主体结构并补充可执行设计 |"
+        },
+        {
+          "line": 16,
+          "text": "| 12 | 个功能模块 | 全部保留，分阶段交付，界面与任务多对多 |"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "accepted_concurrency_20",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 1409,
+          "text": "| 混合任务并发 | 20与100均保留待确认 | 明确在途／运行／用户并发、任务混合、吞吐、错误率和排队时延；实际CPU/GPU条件随报告冻结 |"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "accepted_concurrency_100",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 1409,
+          "text": "| 混合任务并发 | 20与100均保留待确认 | 明确在途／运行／用户并发、任务混合、吞吐、错误率和排队时延；实际CPU/GPU条件随报告冻结 |"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "availability_target",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 1413,
+          "text": "| 可用率 | 源建议99.5%与99.9% | 测量窗口、计划维护和故障口径待确认；单主机不宣称可满足生产高可用 |"
+        }
+      ],
+      "source_proposals": [
+        0.995,
+        0.999
+      ],
+      "classification": "SOURCE_CANDIDATE_OR_EXPLICIT_RULE_NOT_FORMAL_PARAMETER_APPROVAL",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "rpo_seconds",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 1414,
+          "text": "| 恢复 | 源提出重试、断点与节点级恢复 | 区分任务恢复、系统恢复与备份恢复；RPO、RTO、检查点边界及可接受丢失待确认 |"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "VALUE_OR_SCOPE_EXPLICITLY_UNCONFIRMED_IN_SOURCE",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    },
+    {
+      "parameter": "rto_seconds",
+      "source": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+      "exact_source_lines": [
+        {
+          "line": 1414,
+          "text": "| 恢复 | 源提出重试、断点与节点级恢复 | 区分任务恢复、系统恢复与备份恢复；RPO、RTO、检查点边界及可接受丢失待确认 |"
+        }
+      ],
+      "source_proposals": [],
+      "classification": "VALUE_OR_SCOPE_EXPLICITLY_UNCONFIRMED_IN_SOURCE",
+      "decision": "已有条款作为设计依据；数值/范围未确认时不写CONFIRMED。",
+      "formal_parameter_value": null
+    }
+  ],
+  "source_original": "docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx",
+  "task_original": "docs/source/revisions/项目任务书_技术修订版V1.3.docx",
+  "formal_parameters_approved": false,
+  "task_source_cross_check": {
+    "path": "docs/_converted/revision/项目任务书_技术修订版V1.3.md",
+    "matches": [
+      {
+        "line": 38,
+        "text": "| 并发 | 20和100均待确认；正式性质、负载、成功率和时延按Q-13/Q-14 |"
+      },
+      {
+        "line": 704,
+        "text": "| 验收标准 | 有效资产才能创建分析任务；非法转换返回TASK_STATE_CONFLICT；RETURNED补证回审核，重算关联新版本入队；终态历史不可覆盖，正式路径由Q-24确认。 |"
+      },
+      {
+        "line": 792,
+        "text": "| 工作范围 | 取消意图/停止确认与版本条件提交；退回补证与重算分流，旧fencing执行结果拒绝，进度按新run_version记录。 |"
+      },
+      {
+        "line": 794,
+        "text": "| 验收标准 | 协作取消确认停止；补证与重算分流，重算关联新run_version回QUEUED；保留历史、原因、权限及审批，正式制度按Q-24。 |"
+      },
+      {
+        "line": 1797,
+        "text": "| 验收标准 | 绑定对象版本和SHA-256清单；候选对象锁/完整性实测通过。更正建立新版本并触发关联批准校验，原记录保留；保留/legal hold策略及权限按Q-19/Q-20/Q-31确认，技术固化不自动认定证据效力。 |"
+      },
+      {
+        "line": 1842,
+        "text": "| 验收标准 | 报告、结果、证据摘要与有效批准绑定；服务端校验当前权限/用途/策略和版本，缺少批准不作为正式报告导出。变更后旧批准按获准策略失效，下载授权可撤销并留审计；批准角色/独立性仍待Q-20/Q-32确认。 |"
+      },
+      {
+        "line": 2058,
+        "text": "| 工作范围 | 按批准RPO/RTO实施SQL及对象/模型/配置备份；需要PITR时验证基础备份与连续WAL；隔离恢复后跨存储对账。 |"
+      },
+      {
+        "line": 2088,
+        "text": "| 工作范围 | 保留100混合任务负载档的容量与长稳任务；源建议72小时仅为候选，持续时间和正式性质按Q-14确认。 |"
+      }
+    ]
+  }
+}

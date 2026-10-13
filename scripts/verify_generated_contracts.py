@@ -4,6 +4,7 @@ import json
 import os
 import subprocess
 import tempfile
+from pathlib import Path
 
 from poc_control import ROOT
 
@@ -29,6 +30,15 @@ def main():
                 assert stream.read() == expected, "GENERATED_CONTRACT_DRIFT:"+target
             checks.append({"source": "schemas/events/poc.analysis.requested.v1.schema.json" if target == "poc-event.d.ts" else source, "generated": target, "status": "PASS",
                            "sha256": hashlib.sha256(expected).hexdigest()})
+    from generate_workflow_types import generate
+
+    with tempfile.TemporaryDirectory(prefix="mt-workflow-drift-") as workflow_folder:
+        output = Path(workflow_folder) / "workflow.d.ts"
+        generate(output)
+        expected = (ROOT / "shared-contracts/generated/workflow.d.ts").read_bytes()
+        assert output.read_bytes() == expected, "GENERATED_WORKFLOW_CONTRACT_DRIFT"
+        checks.append({"source": "schemas/workflow and schemas/events/workflow.domain.v1.schema.json and schemas/controls", "generated": "workflow.d.ts",
+                       "status": "PASS", "sha256": hashlib.sha256(expected).hexdigest()})
     (ROOT/"docs/00-project/validation/generated-contract-report.json").write_text(json.dumps({"status": "PASS", "checks": checks}, indent=2)+"\n")
 
 

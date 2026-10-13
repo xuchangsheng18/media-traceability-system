@@ -1,0 +1,721 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:stage-one:run-result:0.1.0",
+  "type": "object",
+  "properties": {
+    "binding": {
+      "type": "object",
+      "properties": {
+        "org_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "case_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "task_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "run_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "result_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "dag_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      },
+      "required": [
+        "org_id",
+        "case_id",
+        "task_id",
+        "run_version",
+        "result_version",
+        "policy_version",
+        "dag_version"
+      ],
+      "additionalProperties": false
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "input_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:media-trace:api:0.1.0#/$defs/ObjectRef"
+      },
+      "minItems": 1
+    },
+    "capability_outputs": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M01"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M01:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M02"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M02:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M03"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M03:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M04"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M04:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M05"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M05:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M06"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M06:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M07"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M07:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M08"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M08:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M09"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M09:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M10"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M10:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M11"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M11:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M12"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M12:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M13"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M13:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M14"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M14:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M15"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M15:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M16"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M16:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M17"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M17:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M18"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M18:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M19"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M19:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M20"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M20:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M21"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M21:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M22"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M22:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M23"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M23:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M24"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M24:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M25"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M25:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M26"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M26:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M27"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M27:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M28"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M28:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M29"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M29:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M30"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M30:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M31"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M31:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M32"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M32:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M33"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M33:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "const": "M34"
+              },
+              "response": {
+                "$ref": "urn:media-trace:model:M34:response:0.1.0"
+              }
+            },
+            "required": [
+              "model_id",
+              "response"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 0
+    },
+    "ordinary_media_outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "enum": [
+              "probe",
+              "normalized_media",
+              "frame",
+              "audio",
+              "subtitle",
+              "lineage"
+            ]
+          },
+          "object_ref": {
+            "$ref": "urn:media-trace:api:0.1.0#/$defs/ObjectRef"
+          },
+          "mapping_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "metadata": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "kind",
+          "object_ref",
+          "mapping_version",
+          "metadata"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "projection_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "schema_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "json_pointer": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "mapping_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "operation_id",
+          "schema_id",
+          "json_pointer",
+          "mapping_version"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "missing_modalities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "formal_eligibility": {
+      "enum": [
+        "draft_only",
+        "requires_review",
+        "formally_authorized"
+      ]
+    }
+  },
+  "required": [
+    "binding",
+    "request_id",
+    "published_at",
+    "input_refs",
+    "capability_outputs",
+    "ordinary_media_outputs",
+    "projection_refs",
+    "missing_modalities",
+    "formal_eligibility"
+  ],
+  "additionalProperties": false
+}

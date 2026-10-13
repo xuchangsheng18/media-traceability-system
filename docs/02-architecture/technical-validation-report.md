@@ -9,7 +9,7 @@
 | 托管平台 | [github-actions-report.json](../00-project/validation/github-actions-report.json) | 独立一次性GitHub Runner；按status/run/head SHA/制品摘要认结果，不冒用本机报告 |
 | 输入/字段 | [local-validation-report.json](../00-project/validation/local-validation-report.json)、[database-contract-report.json](../00-project/validation/database-contract-report.json) | 10资料项、17数据库契约项、335夹具；设计62表824字段，非全业务实现 |
 | 正式SQL基础 | [database-foundation-report.json](../00-project/validation/database-foundation-report.json) | 新建隔离数据库25常规+48首发/证据=73断言/案例，报告51执行记录 |
-| 生成契约 | [generated-contract-report.json](../00-project/validation/generated-contract-report.json) | 两份OpenAPI与一份事件Schema生成共3份TS类型，无字节漂移 |
+| 生成契约 | [generated-contract-report.json](../00-project/validation/generated-contract-report.json) | 两份OpenAPI与一份事件Schema生成共4份TS类型，无字节漂移 |
 | 迁移/竞态 | [migration-fencing-report.json](../00-project/validation/migration-fencing-report.json) | 15项；8数据库竞争者单领取、摘要篡改拒绝、旧租约拒绝、列/表权限；非8Celery完整演练 |
 | 开发集成 | [poc-integration-report.json](../00-project/validation/poc-integration-report.json) | 21项真实对象/SQL/queue/worker/CPU、状态/审计/原始追踪、内部Problem |
 | 故障恢复 | [poc-resilience-report.json](../00-project/validation/poc-resilience-report.json) | 5项broker/租约/重启持久/版本读回/幂等冲突 |

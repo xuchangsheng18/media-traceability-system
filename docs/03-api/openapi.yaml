@@ -1066,19 +1066,66 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            task_id:
+              type: string
+              format: uuid
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - task_id
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -1141,6 +1188,17 @@ paths:
       x-required-permission: asset.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: false
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /imports:
     post:
       operationId: createImport
@@ -1512,19 +1570,62 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -1586,6 +1687,17 @@ paths:
       x-required-permission: task.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: true
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /analysis/tasks/{id}/cancel:
     post:
       operationId: cancelTask
@@ -1830,19 +1942,62 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -1903,6 +2058,17 @@ paths:
       x-required-permission: task.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: true
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /analysis/tasks/{id}/forensics:
     get:
       operationId: getForensics
@@ -1914,19 +2080,62 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -1987,6 +2196,17 @@ paths:
       x-required-permission: task.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: true
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /analysis/tasks/{id}/evidence:
     get:
       operationId: getTaskEvidence
@@ -1998,11 +2218,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -2012,15 +2236,57 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -2082,6 +2348,17 @@ paths:
       x-required-permission: evidence.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: true
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /search/image:
     post:
       operationId: searchImage
@@ -2454,19 +2731,22 @@ paths:
     get:
       operationId: getFirstSource
       summary: getFirstSource
-      description: 依据T093；接口结构为本包待审核提案。服务端核验origin.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
-        返回一份排序快照，不合并历史批次。0候选返回insufficient；未计算返回404。
+      description: 依据T093；接口结构为本包待审核提案。服务端核验origin.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。 返回一份排序快照，不合并历史批次。0候选返回insufficient；未计算返回404。
       tags:
       - clusters
       parameters:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: ranking_id
         in: query
         required: false
@@ -2474,14 +2754,57 @@ paths:
           type: string
           format: uuid
         description: 指定历史排序快照；省略时在当前授权簇中按created_at DESC、ranking_id DESC选最新快照，无快照404，不虚构空结果。
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            task_id:
+              type: string
+              format: uuid
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - task_id
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -2544,6 +2867,17 @@ paths:
       x-required-permission: origin.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: false
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /propagation/{cluster_id}:
     get:
       operationId: getPropagation
@@ -2555,19 +2889,66 @@ paths:
       - name: cluster_id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
+      - name: history
+        in: query
+        required: false
+        style: deepObject
+        explode: true
+        schema:
+          type: object
+          properties:
+            task_id:
+              type: string
+              format: uuid
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
+          required:
+          - task_id
+          - run_version
+          - result_version
+          additionalProperties: false
+        description: 指定历史运行/结果版本；对象内字段必须全部提供。精确匹配当前授权案件及路径对象，未命中404，不回退最新；与ranking_id同时提供时必须绑定同一快照。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
+            X-Task-Id:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: string
+                format: uuid
+            X-Run-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
+            X-Result-Version:
+              description: 历史选择时必须返回实际读取快照的绑定值；与选择器不一致视为契约错误。
+              schema:
+                type: integer
+                minimum: 1
           content:
             application/json:
               schema:
@@ -2629,6 +3010,17 @@ paths:
       x-required-permission: propagation.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+      x-history-read-contract:
+        snapshot_schema: schemas/workflow/run-result.schema.json
+        exact_match: true
+        fallback_to_latest: false
+        path_task_identity: false
+        response_binding_headers_required_when_history_selected:
+        - X-Task-Id
+        - X-Run-Version
+        - X-Result-Version
+        implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
+
   /propagation/edges/{id}/decisions:
     post:
       operationId: decidePropagationEdge
@@ -7354,3 +7746,8 @@ components:
           properties:
             result:
               type: 'null'
+x-workflow-contracts:
+  dag: schemas/workflow/dag.schema.json
+  result: schemas/workflow/run-result.schema.json
+  event: schemas/events/workflow.domain.v1.schema.json
+  status: ENGINEERING_CANDIDATE_NOT_RUNTIME_OR_FORMAL_APPROVAL

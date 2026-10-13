@@ -27,3 +27,7 @@ Celery poc.dispatch无参数；poc.analyze携带完整版本信封，JSON序列�
 新增6项材料检查，包括展开权威共享引用后对齐68个模型请求/响应分支，不能将内联副本与URN引用的字面差异当漂移。该检查发现M24内部OpenAPI漏maxItems=3与两个证据列表uniqueItems=true，已按模型源同步。53业务操作/83结构/34能力的详细文档不等于全部运行，13项缺口仍开放。
 
 事件类型生成入口改为直接用当前Node调用锁定openapi-typescript的JS CLI，使Windows与Linux均可执行；临时目录删除前核验范围。本机3份类型已重新生成，约束如uniqueItems/maxItems仍由运行时Schema检查，不由TypeScript类型替代。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+第四份workflow.d.ts由generate_workflow_types.py在临时目录包装本地Schema生成；业务/内部/Poc事件三份保留。verify_generated_contracts.py检查4份字节一致性。

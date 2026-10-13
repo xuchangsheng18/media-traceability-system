@@ -29,3 +29,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 ## 本轮补充（2026-10-13）
 
 plan_project_schedule.py重建170任务JSON/CSV/阅读页；evaluate_acceptance_metrics.py运行8组参考公式；validate_stage_one_completion.py执行5项图表证据/语义/指标/容量/零证据契约检查，均不代替真实业务验收。
+
+## 第一阶段工程控制补充（2026-10-13）
+
+stage_one_controls.py生成实际输入预检查，或对显式提供的授权元信息清单只输出聚合计数；validate_stage_one_controls.py执行正反边界；generate_workflow_types.py生成第四份类型。
