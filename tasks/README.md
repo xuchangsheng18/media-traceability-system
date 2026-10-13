@@ -189,14 +189,10 @@
 
 py310 CPU最小工程已实际运行；对应证据见[技术验证报告](../docs/02-architecture/technical-validation-report.md)和[23步状态](../docs/03-development/stage-two-readiness.md)。源170任务编号、目标、角色、人日、依赖和候选状态保留，不能把基础PoC通过当所有任务完成。T002源Python3.11候选与本轮用户指定3.10执行差异见TB-ADR-002。
 
-## 1.1工程补充
-
 1.1工程子范围证据：T004运行/恢复、T008/T009追踪/Problem、T031—T039迁移/单节点状态/outbox/租约、T042/T045/T050合成源PTS、T121冷恢复、T006私有GitHub接入。仅补证据，不改源目标/责任人/170任务完成状态。
 
 ## 第一阶段第17—19步来源
 
 独立任务卡、依赖、测试与追踪由第一阶段输入整理形成，见[24步对应](../docs/00-project/stage-one/steps-and-deliverables.md)。它们是170源研发任务，不能把第一阶段步骤17或第二阶段步骤20当任务T017/T020；候选资料与实际任务验收分开。
-
-## 本轮补充（2026-10-13）
 
 [170任务排期CSV](execution-schedule.csv)与[源工时/证据说明](../docs/00-project/execution-schedule.md)覆盖全部任务；21条部分开发证据未变为完整完成。实际人员/有效工时/剩余工时/到位日期在独立输入表登记。

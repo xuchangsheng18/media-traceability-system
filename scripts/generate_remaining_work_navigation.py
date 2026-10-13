@@ -90,7 +90,7 @@ def build():
         # The remaining source-identity input must be explicit after engineering controls exist.
         if item["id"] == "S1-N02":
             item["navigation_remaining_work"] = "确认正式权威版本、适用范围、V2/V1.0身份冲突处置及实际变更责任人；唯一工程来源规则已完成。"
-        item["navigation_status"] = "本轮记录范围已完成" if item["completion_asserted"] else "已有工程补充；实际条件/交付仍待落实"
+        item["navigation_status"] = "记录范围内已完成" if item["completion_asserted"] else "待落实实际条件及对应交付"
         item["required_role"] = ROLES[item["id"]]
         item["prerequisites"] = PREREQUISITES.get(item["id"], "正式出版稿如修订，需另行全页交付核验。")
         assert all((ROOT/path).is_file() for path in item["evidence_refs"])

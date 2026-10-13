@@ -1,6 +1,6 @@
 # 工程与验证工具
 
-2026-10-12；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
+2026-10-13文档状态更新；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
 
 poc_control.py控制独立开发栈；run_ci.py串行质量门禁；verify_poc、resilience、media_and_queries、sql_baseline提供真实检查；verify_runtime_lock、generated_contracts、ci_failure_gate、check_repository_secrets及collect_environment记录证据。原资料/字典/导航脚本仍保留。
 
@@ -22,18 +22,11 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 
 完整CI会启动开发栈，恢复检查短暂停止/重启本项目服务；SQL创建新临时无网络容器并清理。资料校验不证明业务实现；主动失败探针FAIL为预期并另有PASS判定。
 
-## 1.1工程补充
-
-1.1新增verify_migrations_and_fencing.py（15隔离项）、verify_media_timestamps.py（非零源PTS）、verify_development_recovery.py（8冷恢复项，维护时段暂停本项目服务）；run_ci.py完整21门禁。
-
-## 本轮补充（2026-10-13）
+现有1.1工程包含verify_migrations_and_fencing.py（15隔离项）、verify_media_timestamps.py（非零源PTS）、verify_development_recovery.py（8冷恢复项，维护时段暂停本项目服务）；run_ci.py现有25道工程门禁（21道为原1.1历史范围）。
 
 plan_project_schedule.py重建170任务JSON/CSV/阅读页；evaluate_acceptance_metrics.py运行8组参考公式；validate_stage_one_completion.py执行5项图表证据/语义/指标/容量/零证据契约检查，均不代替真实业务验收。
 
-## 第一阶段工程控制补充（2026-10-13）
-
 stage_one_controls.py生成实际输入预检查，或对显式提供的授权元信息清单只输出聚合计数；validate_stage_one_controls.py执行正反边界；generate_workflow_types.py生成第四份类型。
 
-## 第二阶段2026-10-13补充
 
-[12类补齐与剩余条件](../docs/03-development/stage-two-completion-matrix.md)、[实施计划](../docs/03-development/stage-two-implementation-plan.md)和[实际外部输入](../docs/03-development/stage-two-external-inputs.json)已纳入阶段导航。新增隔离权限/中文查询21项、VFR媒体11项、运维/离线摘要6组检查以及镜像OS物料采集；CI工程门禁扩为25道。实际PASS以本轮服务器和托管报告为准，正式身份/业务模型/资源及生产冻结仍未完成。
+现有验证还包括verify_stage_two_isolation.py的21项隔离/中文查询、verify_stage_two_media.py的11项VFR媒体及validate_stage_two_completion.py的6组交付控制；软件采集记录实际镜像OS物料。实际命令、结论和边界见[23步状态](../docs/03-development/stage-two-readiness.md)及[代表性验证](../docs/09-testing/stage-two-representative-validation.md)。

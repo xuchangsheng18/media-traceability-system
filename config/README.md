@@ -1,6 +1,6 @@
 # 版本、环境与资源
 
-2026-10-12；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
+2026-10-13文档状态更新；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
 
 versions.yaml记录py310与服务版本；locks目录含100包精确锁、Conda explicit、观测freeze、镜像摘要和环境包摘要；hardware-inventory.example.yaml区分宿主和Desktop虚拟机。
 
@@ -20,10 +20,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 
 凭据存仓库外私有runtime，不放此目录。样例为开发时点，非生产设备配置、独占配额或GPU清单。
 
-## 1.1工程补充
-
 ci-bootstrap-lock.json固定GitHub复建用Miniforge安装包URL/SHA与Actions提交摘要；同源py310锁不变。固定摘要是复建输入，平台执行证据另存validation/github-actions-report.json。
 
-## 第二阶段2026-10-13补充
 
-[12类补齐与剩余条件](../docs/03-development/stage-two-completion-matrix.md)、[实施计划](../docs/03-development/stage-two-implementation-plan.md)和[实际外部输入](../docs/03-development/stage-two-external-inputs.json)已纳入阶段导航。新增隔离权限/中文查询21项、VFR媒体11项、运维/离线摘要6组检查以及镜像OS物料采集；CI工程门禁扩为25道。实际PASS以本轮服务器和托管报告为准，正式身份/业务模型/资源及生产冻结仍未完成。
+实际资源/身份/用途授权数据仍填写[第二阶段输入表](../docs/03-development/stage-two-external-inputs.json)，尚未确认的值保持待定；服务器研发数据卷容量按[资源快照](../docs/00-project/validation/resource-readiness-snapshot.json)及[23步状态](../docs/03-development/stage-two-readiness.md)判断。

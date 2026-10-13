@@ -10,29 +10,29 @@
 
 | 编号/原步骤/责任角色 | 工作及已有状态 | 仍需完成 | 文档与关闭标准 |
 | --- | --- | --- | --- |
-| S1-N02 / P0<br>步1,2,23<br>项目/业务/文档管理（实际姓名待定） | 来源身份、版本优先级与变更权责<br>已有工程补充；实际条件/交付仍待落实 | 确认正式权威版本、适用范围、V2/V1.0身份冲突处置及实际变更责任人；唯一工程来源规则已完成。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n02>)<br>[source-document-inventory.md](<source-document-inventory.md>)、[document-conversion-plan.md](<document-conversion-plan.md>) |
-| S1-N03 / P0<br>步4,6,10,11<br>业务/安全/架构（实际姓名待定） | 术语、业务规则与状态参数细化<br>已有工程补充；实际条件/交付仍待落实 | 确定风险/人工阈值、RETURNED后继、首发未知、审批目的与回流/保留规则的适用参数和例外。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n03>)<br>[glossary.md](<glossary.md>)、[task-state-machine.md](<../05-workflows/task-state-machine.md>) |
-| S1-N04 / P0<br>步7,8,12,14,19,21<br>架构/前后端/算法/测试（实际姓名待定） | 需求到内部处理与结果读取的语义闭环<br>已有工程补充；实际条件/交付仍待落实 | 13项契约缺口和真实业务实现/联调按对应任务继续；正式规则需实际依据。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n04>)<br>[requirement-processing-map.md](<requirement-processing-map.md>)、[source-section-map.md](<stage-one/source-section-map.md>) |
-| S1-N05 / P0<br>步9,18<br>业务验收/测试/算法/运维（实际姓名待定） | 可执行的指标和验收测量协议<br>已有工程补充；实际条件/交付仍待落实 | 补真实封存样本/分层数量、正式目标、负载/资源/版本，实施对应真实验收。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n05>)<br>[non-functional-requirements.md](<../01-requirements/non-functional-requirements.md>)、[acceptance-criteria.md](<../09-testing/acceptance-criteria.md>) |
-| S1-N06 / P0<br>步15<br>数据/业务授权/算法（实际姓名待定） | 数据集计数、标签和可用输入清单<br>已有工程补充；实际条件/交付仍待落实 | 落实来源/用途材料、标签版本/质检、原件与派生/内容簇计数及独立封存集规则；盘点实际可用样本。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n06>)<br>[dataset-catalog.md](<../07-datasets/dataset-catalog.md>)、[annotation-specification.md](<../07-datasets/annotation-specification.md>) |
-| S1-N07 / P0<br>步17,19,23<br>项目计划/各研发负责人（实际姓名待定） | 人员投入、实际进度和分期执行台账<br>已有工程补充；实际条件/交付仍待落实 | 实际人员/投入、剩余工时、计划起点/工作日历和数据/GPU到位日未提供，实际日历排期待补。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n07>)<br>[backlog.yaml](<../../tasks/backlog.yaml>)、[dependency-report.md](<../../tasks/dependency-report.md>) |
+| S1-N02 / P0<br>步1,2,23<br>项目/业务/文档管理（实际姓名待定） | 来源身份、版本优先级与变更权责<br>待落实实际条件及对应交付 | 确认正式权威版本、适用范围、V2/V1.0身份冲突处置及实际变更责任人；唯一工程来源规则已完成。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n02>)<br>[source-document-inventory.md](<source-document-inventory.md>)、[document-conversion-plan.md](<document-conversion-plan.md>) |
+| S1-N03 / P0<br>步4,6,10,11<br>业务/安全/架构（实际姓名待定） | 术语、业务规则与状态参数细化<br>待落实实际条件及对应交付 | 确定风险/人工阈值、RETURNED后继、首发未知、审批目的与回流/保留规则的适用参数和例外。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n03>)<br>[glossary.md](<glossary.md>)、[task-state-machine.md](<../05-workflows/task-state-machine.md>) |
+| S1-N04 / P0<br>步7,8,12,14,19,21<br>架构/前后端/算法/测试（实际姓名待定） | 需求到内部处理与结果读取的语义闭环<br>待落实实际条件及对应交付 | 13项契约缺口和真实业务实现/联调按对应任务继续；正式规则需实际依据。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n04>)<br>[requirement-processing-map.md](<requirement-processing-map.md>)、[source-section-map.md](<stage-one/source-section-map.md>) |
+| S1-N05 / P0<br>步9,18<br>业务验收/测试/算法/运维（实际姓名待定） | 可执行的指标和验收测量协议<br>待落实实际条件及对应交付 | 补真实封存样本/分层数量、正式目标、负载/资源/版本，实施对应真实验收。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n05>)<br>[non-functional-requirements.md](<../01-requirements/non-functional-requirements.md>)、[acceptance-criteria.md](<../09-testing/acceptance-criteria.md>) |
+| S1-N06 / P0<br>步15<br>数据/业务授权/算法（实际姓名待定） | 数据集计数、标签和可用输入清单<br>待落实实际条件及对应交付 | 落实来源/用途材料、标签版本/质检、原件与派生/内容簇计数及独立封存集规则；盘点实际可用样本。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n06>)<br>[dataset-catalog.md](<../07-datasets/dataset-catalog.md>)、[annotation-specification.md](<../07-datasets/annotation-specification.md>) |
+| S1-N07 / P0<br>步17,19,23<br>项目计划/各研发负责人（实际姓名待定） | 人员投入、实际进度和分期执行台账<br>待落实实际条件及对应交付 | 实际人员/投入、剩余工时、计划起点/工作日历和数据/GPU到位日未提供，实际日历排期待补。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s1-n07>)<br>[backlog.yaml](<../../tasks/backlog.yaml>)、[dependency-report.md](<../../tasks/dependency-report.md>) |
 
 ## 第2阶段剩余工作
 
 | 编号/原步骤/责任角色 | 工作及已有状态 | 仍需完成 | 文档与关闭标准 |
 | --- | --- | --- | --- |
-| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>已有工程补充；实际条件/交付仍待落实 | 补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<../03-api/interface-gap-register.md>)、[contract-generation.md](<../03-development/contract-generation.md>) |
-| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>已有工程补充；实际条件/交付仍待落实 | 按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<../04-database/database-design.md>)、[poc-database.md](<../04-database/poc-database.md>) |
-| S2-N03 / P0<br>步9,19,20<br>后端/算法/测试（实际姓名待定） | 完整任务编排、取消与多worker故障<br>已有工程补充；实际条件/交付仍待落实 | 实施实际调度器与多worker消息故障演练；当前8数据库竞争者不是8Celery worker，全业务DAG未运行。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n03>)<br>[task-state-machine.md](<../05-workflows/task-state-machine.md>)、[migrations-and-events.md](<../03-development/migrations-and-events.md>) |
-| S2-N04 / P0<br>步15<br>身份平台/业务安全/后端（实际姓名待定） | 正式身份与案件/单位隔离<br>已有工程补充；实际条件/交付仍待落实 | 取得身份issuer/JWKS或其他正式协议、角色/单位/案件权威映射和撤销SLA，实施验证后联调；共享DB设置不能充当身份认证。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n04>)<br>[security-baseline.md](<../02-architecture/security-baseline.md>)、[permission-matrix.md](<../08-security/permission-matrix.md>) |
-| S2-N05 / P0<br>步1,2,8,16<br>Linux及Docker运维/资源管理（实际姓名待定） | 项目配额与研发数据卷容量<br>已有工程补充；实际条件/交付仍待落实 | 落实Docker虚拟机数据盘扩容或经批准迁移，独占资源配额、维护人、权重/样本容量和GPU权限；完成后重新读取卷内df。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n05>)<br>[resource-readiness-snapshot.json](<validation/resource-readiness-snapshot.json>)、[resource-and-team-inventory.md](<../02-architecture/resource-and-team-inventory.md>) |
-| S2-N06 / P0<br>步12,13<br>数据/算法/GPU运维（实际姓名待定） | 业务模型、OCR/ASR及GPU验证<br>已有工程补充；实际条件/交付仍待落实 | 提供有用途授权的数据目录、权重许可/来源/摘要、实际GPU与驱动，实施逐能力训练/推理和独立封存盲测；M15合成CPU不代替业务能力。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n06>)<br>[model-catalog.yaml](<../06-algorithms/model-catalog.yaml>)、[model-evaluation.md](<../06-algorithms/model-evaluation.md>) |
-| S2-N07 / P1<br>步14<br>媒体/算法/后端/测试（实际姓名待定） | 真实媒体、VFR和全时间轴链路<br>已有工程补充；实际条件/交付仍待落实 | 实际授权媒体的多编码/VFR/缺模态/裁剪/转码链路及OCR/ASR、长视频性能仍需实现和实测；本轮仅自建夹具。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n07>)<br>[media-timestamp-report.json](<validation/media-timestamp-report.json>)、[TB-ADR-010-media-processing.md](<../02-architecture/architecture-decisions/TB-ADR-010-media-processing.md>) |
-| S2-N08 / P1<br>步10,11<br>检索/算法/后端/测试（实际姓名待定） | 中文/规模化检索与传播图验证<br>已有工程补充；实际条件/交付仍待落实 | 确定正式中文分词/排序选型，实施实际大索引/向量及传播图业务、授权过滤和规模性能；4条文本不是业务检索指标。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n08>)<br>[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)、[media-query-report.json](<validation/media-query-report.json>) |
-| S2-N09 / P0<br>步8,15<br>业务审核/安全/后端/存储（实际姓名待定） | 正式安全与证据防篡改机制<br>已有工程补充；实际条件/交付仍待落实 | 落实双人审批适用规则、可信时间/签名、保留期、WORM/密钥及管理员边界，实施下载每次授权核验和到期/撤销演练。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n09>)<br>[security-baseline.md](<../02-architecture/security-baseline.md>)、[audit-requirements.md](<../08-security/audit-requirements.md>) |
-| S2-N10 / P1<br>步8,16<br>运维/数据库/安全/测试（实际姓名待定） | 生产灾备、PITR和密钥恢复<br>已有工程补充；实际条件/交付仍待落实 | 提供真实异地目标和密钥恢复授权、批准RPO/RTO；实施全业务异机恢复及对账，不能用开发冷备结果证明生产灾备。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n10>)<br>[development-backup-restore.md](<../10-deployment/development-backup-restore.md>)、[development-recovery-report.json](<validation/development-recovery-report.json>) |
-| S2-N11 / P0<br>步1,17<br>技术/软件准入/许可审查/安全（实际姓名待定） | 支持版本、OS物料和离线交付<br>已有工程补充；实际条件/交付仍待落实 | 确定支持中的生产Python/OS并重锁全CI；补未托管二进制/FFmpeg源码与notices、模型许可、漏洞数据库扫描及软件准入；不自动升级当前环境。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n11>)<br>[environment-constraints.md](<../02-architecture/environment-constraints.md>)、[licenses.md](<../02-architecture/licenses.md>) |
-| S2-N12 / P1<br>步21,22,23<br>仓库管理/构建发布/安全（实际姓名待定） | CI组织治理与受控制品交付<br>已有工程补充；实际条件/交付仍待落实 | 落实私有仓库保护功能套餐/管理员配置、签名与离线镜像库/依赖缓存/保留策略；运行中镜像缺失须先重新构建验真再导出。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n12>)<br>[repository-governance-snapshot.json](<validation/repository-governance-snapshot.json>)、[ci-cd.md](<../03-development/ci-cd.md>) |
+| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<../03-api/interface-gap-register.md>)、[contract-generation.md](<../03-development/contract-generation.md>) |
+| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<../04-database/database-design.md>)、[poc-database.md](<../04-database/poc-database.md>) |
+| S2-N03 / P0<br>步9,19,20<br>后端/算法/测试（实际姓名待定） | 完整任务编排、取消与多worker故障<br>待落实实际条件及对应交付 | 实施实际调度器与多worker消息故障演练；当前8数据库竞争者不是8Celery worker，全业务DAG未运行。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n03>)<br>[task-state-machine.md](<../05-workflows/task-state-machine.md>)、[migrations-and-events.md](<../03-development/migrations-and-events.md>) |
+| S2-N04 / P0<br>步15<br>身份平台/业务安全/后端（实际姓名待定） | 正式身份与案件/单位隔离<br>待落实实际条件及对应交付 | 取得身份issuer/JWKS或其他正式协议、角色/单位/案件权威映射和撤销SLA，实施验证后联调；共享DB设置不能充当身份认证。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n04>)<br>[security-baseline.md](<../02-architecture/security-baseline.md>)、[permission-matrix.md](<../08-security/permission-matrix.md>) |
+| S2-N05 / P0<br>步1,2,8,16<br>Linux及Docker运维/资源管理（实际姓名待定） | 项目配额与研发数据卷容量<br>待落实实际条件及对应交付 | 落实Docker虚拟机数据盘扩容或经批准迁移，独占资源配额、维护人、权重/样本容量和GPU权限；完成后重新读取卷内df。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n05>)<br>[resource-readiness-snapshot.json](<validation/resource-readiness-snapshot.json>)、[resource-and-team-inventory.md](<../02-architecture/resource-and-team-inventory.md>) |
+| S2-N06 / P0<br>步12,13<br>数据/算法/GPU运维（实际姓名待定） | 业务模型、OCR/ASR及GPU验证<br>待落实实际条件及对应交付 | 提供有用途授权的数据目录、权重许可/来源/摘要、实际GPU与驱动，实施逐能力训练/推理和独立封存盲测；M15合成CPU不代替业务能力。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n06>)<br>[model-catalog.yaml](<../06-algorithms/model-catalog.yaml>)、[model-evaluation.md](<../06-algorithms/model-evaluation.md>) |
+| S2-N07 / P1<br>步14<br>媒体/算法/后端/测试（实际姓名待定） | 真实媒体、VFR和全时间轴链路<br>待落实实际条件及对应交付 | 实际授权媒体的多编码/VFR/缺模态/裁剪/转码链路及OCR/ASR、长视频性能仍需实现和实测；本轮仅自建夹具。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n07>)<br>[media-timestamp-report.json](<validation/media-timestamp-report.json>)、[TB-ADR-010-media-processing.md](<../02-architecture/architecture-decisions/TB-ADR-010-media-processing.md>) |
+| S2-N08 / P1<br>步10,11<br>检索/算法/后端/测试（实际姓名待定） | 中文/规模化检索与传播图验证<br>待落实实际条件及对应交付 | 确定正式中文分词/排序选型，实施实际大索引/向量及传播图业务、授权过滤和规模性能；4条文本不是业务检索指标。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n08>)<br>[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)、[media-query-report.json](<validation/media-query-report.json>) |
+| S2-N09 / P0<br>步8,15<br>业务审核/安全/后端/存储（实际姓名待定） | 正式安全与证据防篡改机制<br>待落实实际条件及对应交付 | 落实双人审批适用规则、可信时间/签名、保留期、WORM/密钥及管理员边界，实施下载每次授权核验和到期/撤销演练。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n09>)<br>[security-baseline.md](<../02-architecture/security-baseline.md>)、[audit-requirements.md](<../08-security/audit-requirements.md>) |
+| S2-N10 / P1<br>步8,16<br>运维/数据库/安全/测试（实际姓名待定） | 生产灾备、PITR和密钥恢复<br>待落实实际条件及对应交付 | 提供真实异地目标和密钥恢复授权、批准RPO/RTO；实施全业务异机恢复及对账，不能用开发冷备结果证明生产灾备。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n10>)<br>[development-backup-restore.md](<../10-deployment/development-backup-restore.md>)、[development-recovery-report.json](<validation/development-recovery-report.json>) |
+| S2-N11 / P0<br>步1,17<br>技术/软件准入/许可审查/安全（实际姓名待定） | 支持版本、OS物料和离线交付<br>待落实实际条件及对应交付 | 确定支持中的生产Python/OS并重锁全CI；补未托管二进制/FFmpeg源码与notices、模型许可、漏洞数据库扫描及软件准入；不自动升级当前环境。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n11>)<br>[environment-constraints.md](<../02-architecture/environment-constraints.md>)、[licenses.md](<../02-architecture/licenses.md>) |
+| S2-N12 / P1<br>步21,22,23<br>仓库管理/构建发布/安全（实际姓名待定） | CI组织治理与受控制品交付<br>待落实实际条件及对应交付 | 落实私有仓库保护功能套餐/管理员配置、签名与离线镜像库/依赖缓存/保留策略；运行中镜像缺失须先重新构建验真再导出。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n12>)<br>[repository-governance-snapshot.json](<validation/repository-governance-snapshot.json>)、[ci-cd.md](<../03-development/ci-cd.md>) |
 
 ## 逐项要求与证据
 
@@ -40,7 +40,7 @@
 
 **图表、流程图与原型视觉核验**。原阶段1，步骤3，优先级P1。
 
-当前状态：本轮记录范围已完成。所需责任角色：文档/业务/技术复核，实际姓名未确认。
+当前状态：记录范围内已完成。所需责任角色：文档/业务/技术复核，实际姓名未确认。
 
 已有完成范围：10原件只读导出，357页Word＋12页PPT共369页，66张全页概览和关键图表放大检查，8项发现已有仓库处置。
 
@@ -58,7 +58,7 @@
 
 **来源身份、版本优先级与变更权责**。原阶段1，步骤1,2,23，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：项目/业务/文档管理，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：项目/业务/文档管理，实际姓名未确认。
 
 已有完成范围：10原件摘要与成对修订稿保留，V2文件名/正文身份冲突已登记。 仓库唯一源/技术优先关系与变更字段已落实；10原件身份及版本冲突如实保留。
 
@@ -76,7 +76,7 @@
 
 **术语、业务规则与状态参数细化**。原阶段1，步骤4,6,10,11，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：业务/安全/架构，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：业务/安全/架构，实际姓名未确认。
 
 已有完成范围：术语/规则/状态机候选已形成，Q事项保留。 14类参数有状态/值/依据/版本及范围约束；RETURNED两条路径和缺项拒绝已有校验工具。
 
@@ -94,7 +94,7 @@
 
 **需求到内部处理与结果读取的语义闭环**。原阶段1，步骤7,8,12,14,19,21，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：架构/前后端/算法/测试，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：架构/前后端/算法/测试，实际姓名未确认。
 
 已有完成范围：36需求逐项技术语义复核完成，错误读取/入口已纠正；结果身份与投影已明确，insufficient零证据契约冲突已修复。 7个既有API增加精确history选择设计；36候选节点图、7类事件和34模型严格响应快照/投影登记已形成。
 
@@ -112,7 +112,7 @@
 
 **可执行的指标和验收测量协议**。原阶段1，步骤9,18，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：业务验收/测试/算法/运维，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：业务验收/测试/算法/运维，实际姓名未确认。
 
 已有完成范围：24项测量协议及8组失败/未知/分母公式夹具已完成；源目标不变，真实验收结果未执行。 24项执行配置已有逐项缺失检查，不生成正式成绩；源目标与正式目标分开。
 
@@ -130,7 +130,7 @@
 
 **数据集计数、标签和可用输入清单**。原阶段1，步骤15，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：数据/业务授权/算法，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：数据/业务授权/算法，实际姓名未确认。
 
 已有完成范围：15目录/标注/分组切分Schema与数据卡结构存在，实际样本规模未知。 15张实际数据卡及唯一ID/分组计数工具已形成；64条合成训练证据单列，真实授权数据数量未知。
 
@@ -148,7 +148,7 @@
 
 **人员投入、实际进度和分期执行台账**。原阶段1，步骤17,19,23，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：项目计划/各研发负责人，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：项目计划/各研发负责人，实际姓名未确认。
 
 已有完成范围：170任务源工时397—491人日已复算，21条部分开发证据登记；可计算排期输入/工具/CSV已建立。 完整170任务输入/容量算法保留，自动预检查逐字段列实际人员/日历/剩余工时/到位日缺项。 用户已授权10名占位人员、假设投入与到位日的170任务排期方案；实际人员仍未确认。
 
@@ -166,7 +166,7 @@
 
 **整体接口流程和必要服务契约**。原阶段2，步骤19，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：架构/前后端/算法/测试，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：架构/前后端/算法/测试，实际姓名未确认。
 
 已有完成范围：复核53业务操作/83组件/34能力及13接口缺口，建立缺口与23步/后续170任务的边界清单；不把候选路径当已实现端点。
 
@@ -184,7 +184,7 @@
 
 **业务数据库访问层与升级迁移**。原阶段2，步骤7，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：数据库/后端/安全，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：数据库/后端/安全，实际姓名未确认。
 
 已有完成范围：新增隔离PostgreSQL16验证，真实执行案件/单位RLS、追加历史、普通角色拒绝及事务上下文清除；未修改62表业务草案或现有5表。
 
@@ -202,7 +202,7 @@
 
 **完整任务编排、取消与多worker故障**。原阶段2，步骤9,19,20，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：后端/算法/测试，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：后端/算法/测试，实际姓名未确认。
 
 已有完成范围：复核36候选DAG、7类域事件和现有原子领取/旧租约拒绝；列出真实多worker、取消、续租、乱序和死信的执行前置条件。
 
@@ -220,7 +220,7 @@
 
 **正式身份与案件/单位隔离**。原阶段2，步骤15，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：身份平台/业务安全/后端，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：身份平台/业务安全/后端，实际姓名未确认。
 
 已有完成范围：真实RLS隔离检查已验证跨单位/案件、缺身份上下文、撤销后下一条读写拒绝和连接复用；正式身份适配器所需材料已列出。
 
@@ -238,7 +238,7 @@
 
 **项目配额与研发数据卷容量**。原阶段2，步骤1,2,8,16，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：Linux及Docker运维/资源管理，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：Linux及Docker运维/资源管理，实际姓名未确认。
 
 已有完成范围：重新读取7服务和数据卷容量，增加可运行85%预警/95%严重或不足5GiB的候选检查；实际CRITICAL/NOT_READY保留。
 
@@ -256,7 +256,7 @@
 
 **业务模型、OCR/ASR及GPU验证**。原阶段2，步骤12,13，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：数据/算法/GPU运维，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：数据/算法/GPU运维，实际姓名未确认。
 
 已有完成范围：复核15实际数据卡、24验收执行输入与34能力投影，未知用途/数据量/GPU/模型许可继续拒绝正式验收。
 
@@ -274,7 +274,7 @@
 
 **真实媒体、VFR和全时间轴链路**。原阶段2，步骤14，优先级P1。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：媒体/算法/后端/测试，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：媒体/算法/后端/测试，实际姓名未确认。
 
 已有完成范围：新增11项实际FFmpeg检查：8帧VFR、非零PTS、抽帧像素、音频样本与时间原点、字幕区间及90度旋转坐标。
 
@@ -292,7 +292,7 @@
 
 **中文/规模化检索与传播图验证**。原阶段2，步骤10,11，优先级P1。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：检索/算法/后端/测试，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：检索/算法/后端/测试，实际姓名未确认。
 
 已有完成范围：新增真实中文字符词项、标点边界、AND查询、空查询拒绝和GIN索引执行计划检查；普通SQL传播环路验证沿用。
 
@@ -310,7 +310,7 @@
 
 **正式安全与证据防篡改机制**。原阶段2，步骤8,15，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：业务审核/安全/后端/存储，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：业务审核/安全/后端/存储，实际姓名未确认。
 
 已有完成范围：追加结果UPDATE/DELETE拒绝和撤销后写入拒绝的真实验证；明确管理员绕过RLS/修改存储的边界，未称WORM或正式批准。
 
@@ -328,7 +328,7 @@
 
 **生产灾备、PITR和密钥恢复**。原阶段2，步骤8,16，优先级P1。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：运维/数据库/安全/测试，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：运维/数据库/安全/测试，实际姓名未确认。
 
 已有完成范围：复核8项开发冷恢复证据，补PITR/WAL、异机/密钥恢复/索引重建逐项演练操作与RPO/RTO计算要求。
 
@@ -346,7 +346,7 @@
 
 **支持版本、OS物料和离线交付**。原阶段2，步骤1,17，优先级P0。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：技术/软件准入/许可审查/安全，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：技术/软件准入/许可审查/安全，实际姓名未确认。
 
 已有完成范围：保留指定Miniforge py310；新增实际5镜像OS物料/SPDX清单及来源覆盖说明，登记旧web镜像无法inspect的事实。
 
@@ -364,7 +364,7 @@
 
 **CI组织治理与受控制品交付**。原阶段2，步骤21,22,23，优先级P1。
 
-当前状态：已有工程补充；实际条件/交付仍待落实。所需责任角色：仓库管理/构建发布/安全，实际姓名未确认。
+当前状态：待落实实际条件及对应交付。所需责任角色：仓库管理/构建发布/安全，实际姓名未确认。
 
 已有完成范围：将新增6组控制、21项隔离/中文、11项媒体与镜像物料采集接入CI；准备无秘密离线制品摘要检查及必需分支检查配置。
 

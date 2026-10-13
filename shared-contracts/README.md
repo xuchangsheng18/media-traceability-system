@@ -1,6 +1,6 @@
 # 生成类型与契约共享
 
-2026-10-12；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
+2026-10-13文档状态更新；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
 
 generated/business-api.d.ts和inference-api.d.ts由openapi-typescript7.13.0生成；外部业务与内部入口分别有唯一来源，模型Schema继续独立管理。
 
@@ -21,10 +21,6 @@ npm --prefix frontend run generate:contracts
 
 生成的是TS类型声明，不是完整SDK或运行时校验；不能手改生成文件。跨模块正式事件总线仍待实现。
 
-## 1.1工程补充
-
-1.1增加generated/poc-event.d.ts；唯一源schemas/events/poc.analysis.requested.v1.schema.json，由临时包装生成，共3份类型。详见[契约生成](../docs/03-development/contract-generation.md)。
-
-## 第一阶段工程控制补充（2026-10-13）
+现有类型包含generated/poc-event.d.ts；唯一源schemas/events/poc.analysis.requested.v1.schema.json，由临时包装生成；连同workflow.d.ts共4份类型。详见[契约生成](../docs/03-development/contract-generation.md)。
 
 第四份generated/workflow.d.ts从workflow/event/controls及34模型响应单一源生成，运行scripts/generate_workflow_types.py；漂移校验增加第四份，Schema与运行语义仍须验证。
