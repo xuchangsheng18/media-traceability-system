@@ -109,6 +109,7 @@ def main():
         "00-project/validation/stage-two-isolation-report.json": "新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。",
         "00-project/validation/stage-two-media-report.json": "11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。",
         "00-project/validation/stage-two-supplement-report.json": "6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。",
+        "00-project/validation/stage-two-completion-report.json": "2026-10-12阶段工程总结历史快照，21门禁及当时run按原时点读；本轮新增6组检查另见stage-two-supplement-report。",
         "00-project/validation/stage-two-resource-report.json": "真实卷容量快照按候选阈值评估CRITICAL/NOT_READY；不把采集成功当容量达标。",
         "00-project/validation/stage-two-software-report.json": "7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。",
         "00-project/validation/image-sbom.spdx.json": "实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。",
