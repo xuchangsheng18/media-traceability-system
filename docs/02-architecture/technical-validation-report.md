@@ -23,3 +23,7 @@
 1.0历史证据位于validation/history/1.0-py310-cpu，按原时间/scope阅读。源Word及摘要不改；新功能增加测试，未删除测试或放宽断言。开发冷恢复临时S3对启动瞬态5xx作限次等待，其他错误仍失败。
 
 未完成正式身份/RLS/审批/WORM、真实模型/GPU与授权测试集、VFR/大型中文索引、DAG/取消/长任务续租、生产灾备/密钥/指标/20和100并发、OS/许可审查、资源/人员和有效评审。完整关闭条件见[剩余条件登记](../03-development/stage-two-gap-register.md)。
+
+## 2026-10-13第二阶段补充
+
+新增[21项权限/中文](../00-project/validation/stage-two-isolation-report.json)、[11项VFR音频字幕旋转](../00-project/validation/stage-two-media-report.json)、[6组运维离线控制](../00-project/validation/stage-two-supplement-report.json)和[实际镜像OS采集](../00-project/validation/stage-two-software-report.json)。新增检查已接入25道CI，平台实际结果按最新GitHub run/源码SHA读取。已有服务未重启，正式业务与生产限制仍在[12项清单](../03-development/stage-two-completion-matrix.md)。

@@ -23,3 +23,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 ## 1.1工程补充
 
 1.1后端15单元，包括7事件Schema测试及额外字段拒绝；迁移/竞态、源PTS与冷备测试由scripts进入完整21门禁。真实8Celery/VFR/生产灾备不计为通过。
+
+## 第二阶段2026-10-13补充
+
+[12类补齐与剩余条件](../docs/03-development/stage-two-completion-matrix.md)、[实施计划](../docs/03-development/stage-two-implementation-plan.md)和[实际外部输入](../docs/03-development/stage-two-external-inputs.json)已纳入阶段导航。新增隔离权限/中文查询21项、VFR媒体11项、运维/离线摘要6组检查以及镜像OS物料采集；CI工程门禁扩为25道。实际PASS以本轮服务器和托管报告为准，正式身份/业务模型/资源及生产冻结仍未完成。

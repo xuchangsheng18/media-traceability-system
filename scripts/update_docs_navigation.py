@@ -98,6 +98,21 @@ def main():
         "00-project/validation/media-timestamp-report.json": "真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。",
         "00-project/validation/development-recovery-report.json": "8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。",
     })
+    entries.update({
+        "03-development/stage-two-completion-matrix.md": "第二阶段12类剩余工作的本轮补齐、实际证据、23步对应与仍需输入/实现；不将后续170业务任务强制当第二阶段全部完成。",
+        "03-development/stage-two-completion-matrix.json": "12项阶段核查与补充/实际条件机器台账，正式完成false，真实负责人仍未知。",
+        "03-development/stage-two-external-inputs.json": "16类实际资源/身份/数据/模型/GPU/生产/治理输入，未知为null，占位人员不当实际责任人。",
+        "03-development/stage-two-implementation-plan.md": "资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。",
+        "04-database/authorization-isolation-prototype.md": "隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。",
+        "09-testing/stage-two-representative-validation.md": "21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。",
+        "10-deployment/stage-two-operations-and-offline-delivery.md": "99%容量处理、候选阈值、镜像OS物料、离线摘要/复建与治理；未声称扩容/全部制品/正式保护已完成。",
+        "00-project/validation/stage-two-isolation-report.json": "新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。",
+        "00-project/validation/stage-two-media-report.json": "11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。",
+        "00-project/validation/stage-two-supplement-report.json": "6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。",
+        "00-project/validation/stage-two-resource-report.json": "真实卷容量快照按候选阈值评估CRITICAL/NOT_READY；不把采集成功当容量达标。",
+        "00-project/validation/stage-two-software-report.json": "7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。",
+        "00-project/validation/image-sbom.spdx.json": "实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。",
+    })
     first_entries = {
         "00-project/execution-planning-scenario-inputs.json": "用户授权的10人占位工时/角色/起点/数据和GPU日期假设，后续替换；不填为实际人员或资源事实。",
         "00-project/execution-schedule-scenario.md": "170任务按占位容量生成日期与分期；明确超过源2027年6月末月，需调整投入/分工，未删功能或承诺实际日期。",

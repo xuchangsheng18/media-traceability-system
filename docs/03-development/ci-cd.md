@@ -27,3 +27,7 @@ push main、PR或手动触发；并发按ref取消旧任务，同一栈仅在单
 ```
 
 未配置自动发布或生产部署。分支保护/必须检查仍须结合账号套餐、组织管理与有效责任人设置，不能把21门禁等同生产审批。GitHub额度/网络/虚拟机资源变化按实际失败处理，不降低断言。遵循[Runner环境](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)及[Actions安全配置](https://docs.github.com/en/actions/reference/security/secure-use)官方说明，实际以本次制品和运行结果为准。
+
+## 2026-10-13门禁扩展
+
+原21道保留，新增stage-two材料/运维交付控制、隔离RLS/中文词项、VFR音视频字幕坐标和运行镜像OS物料采集4道，共25道。材料控制6组、隔离21项、媒体11项的实际报告也上传；SPDX清单单独留存。正式资源容量报告CRITICAL不冒充工程测试失败或生产就绪，功能/生产条件仍按第二阶段清单。托管结果以github-actions-report.json实际run、SHA、25条命令及制品摘要为准。

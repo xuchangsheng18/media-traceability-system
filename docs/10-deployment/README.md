@@ -12,3 +12,5 @@
 ## 1.1工程补充
 
 开发数据备份与隔离恢复的范围、维护时段、VersionId保留和密钥边界见[冷备恢复手册](development-backup-restore.md)。
+
+[第二阶段容量与离线交付](stage-two-operations-and-offline-delivery.md)提供真实资源告警、软件物料、制品校验/复建与治理步骤；未把未准备的镜像/依赖包记已交付。

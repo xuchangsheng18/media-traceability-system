@@ -23,3 +23,5 @@
 ## 第一阶段第13/19步
 
 [62表任务引用](table-task-usage.md)及[逐关系来源](table-task-usage.json)补齐表的候选职责/追踪关系，明确未批准负责人和未证明代码使用。旧61表版本保存于第一阶段历史资料，当前SQL/字典仍保持唯一来源。
+
+[案件单位隔离原型](authorization-isolation-prototype.md)提供新隔离PostgreSQL16的RLS/撤销/追加历史验证，区别于62表业务源与现有5表迁移。

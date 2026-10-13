@@ -31,3 +31,5 @@ Celery poc.dispatch无参数；poc.analyze携带完整版本信封，JSON序列�
 ## 第一阶段工程控制补充（2026-10-13）
 
 第四份workflow.d.ts由generate_workflow_types.py在临时目录包装本地Schema生成；业务/内部/Poc事件三份保留。verify_generated_contracts.py检查4份字节一致性。
+
+2026-10-13当前派生类型共4份，新增workflow.d.ts从工作流/控制和模型来源包装生成；详见scripts/generate_workflow_types.py，不另建手写结构源。

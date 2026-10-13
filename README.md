@@ -43,7 +43,7 @@ cd /workspace/glwy/projects/media-traceability-system
 | [frontend](frontend/README.md) | Vue/TS研发界面、依赖锁、类型/单元/浏览器测试 |
 | [backend](backend/README.md) | FastAPI、配置/错误/日志、PoC迁移、事务任务与worker |
 | [ai-services](ai-services/README.md) | 真实CPU合成训练与M15契约推理；后续正式模型 |
-| [shared-contracts](shared-contracts/README.md) | 从两份OpenAPI及事件Schema生成的3份TS类型 |
+| [shared-contracts](shared-contracts/README.md) | 从两份OpenAPI及事件Schema生成的4份TS类型 |
 | [schemas](schemas/README.md) | 模型/数据Schema、夹具及语义检查 |
 | [config](config/README.md) | 精确版本、包/镜像/环境摘要、资源样例 |
 | [deploy](deploy/README.md) | 7服务Compose、镜像构建、代理及命名卷 |
@@ -79,3 +79,7 @@ cd /workspace/glwy/projects/media-traceability-system
 ## 第一阶段工程控制补充（2026-10-13）
 
 [第一阶段六类工程补充](docs/00-project/stage-one/remaining-work-completion.md)已接入来源/规则/历史读取/编排事件/34能力投影/验收/数据/排期控制；实际外部输入未提供，正式冻结仍待定。
+
+## 第二阶段2026-10-13补充
+
+[12类补齐与剩余条件](docs/03-development/stage-two-completion-matrix.md)、[实施计划](docs/03-development/stage-two-implementation-plan.md)和[实际外部输入](docs/03-development/stage-two-external-inputs.json)已纳入阶段导航。新增隔离权限/中文查询21项、VFR媒体11项、运维/离线摘要6组检查以及镜像OS物料采集；CI工程门禁扩为25道。实际PASS以本轮服务器和托管报告为准，正式身份/业务模型/资源及生产冻结仍未完成。

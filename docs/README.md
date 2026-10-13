@@ -11,6 +11,8 @@
 
 [阶段衔接](00-project/stage-one/handoff.md)说明源资料如何成为技术工程输入。阶段编号不是170任务编号；两份修订Word不能替代24步全部材料，第二阶段开发验证也不能替代第一阶段签认。历史文件中的旧服务器、61表、旧工具环境按记录时点阅读。
 
+[本轮第二阶段补齐与实际剩余](03-development/stage-two-completion-matrix.md)明确已执行检查和外部/后续任务，不以签字代替实际工作。
+
 ## 建议阅读顺序
 
 1. 先读[第一阶段24步与材料](00-project/stage-one/README.md)及[阶段衔接](00-project/stage-one/handoff.md)，再读[当前状态](00-project/repository-readiness.md)、[范围](00-project/project-scope.md)、[来源清单](00-project/source-document-inventory.md)和[未决问题](00-project/open-questions.md)。
@@ -420,12 +422,25 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
 | [00-project/validation/development-recovery-report.json](<00-project/validation/development-recovery-report.json>) | 8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。 |
+| [03-development/stage-two-completion-matrix.md](<03-development/stage-two-completion-matrix.md>) | 第二阶段12类剩余工作的本轮补齐、实际证据、23步对应与仍需输入/实现；不将后续170业务任务强制当第二阶段全部完成。 |
+| [03-development/stage-two-completion-matrix.json](<03-development/stage-two-completion-matrix.json>) | 12项阶段核查与补充/实际条件机器台账，正式完成false，真实负责人仍未知。 |
+| [03-development/stage-two-external-inputs.json](<03-development/stage-two-external-inputs.json>) | 16类实际资源/身份/数据/模型/GPU/生产/治理输入，未知为null，占位人员不当实际责任人。 |
+| [03-development/stage-two-implementation-plan.md](<03-development/stage-two-implementation-plan.md>) | 资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。 |
+| [04-database/authorization-isolation-prototype.md](<04-database/authorization-isolation-prototype.md>) | 隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。 |
+| [09-testing/stage-two-representative-validation.md](<09-testing/stage-two-representative-validation.md>) | 21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。 |
+| [10-deployment/stage-two-operations-and-offline-delivery.md](<10-deployment/stage-two-operations-and-offline-delivery.md>) | 99%容量处理、候选阈值、镜像OS物料、离线摘要/复建与治理；未声称扩容/全部制品/正式保护已完成。 |
+| [00-project/validation/stage-two-isolation-report.json](<00-project/validation/stage-two-isolation-report.json>) | 新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。 |
+| [00-project/validation/stage-two-media-report.json](<00-project/validation/stage-two-media-report.json>) | 11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。 |
+| [00-project/validation/stage-two-supplement-report.json](<00-project/validation/stage-two-supplement-report.json>) | 6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。 |
+| [00-project/validation/stage-two-resource-report.json](<00-project/validation/stage-two-resource-report.json>) | 真实卷容量快照按候选阈值评估CRITICAL/NOT_READY；不把采集成功当容量达标。 |
+| [00-project/validation/stage-two-software-report.json](<00-project/validation/stage-two-software-report.json>) | 7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。 |
+| [00-project/validation/image-sbom.spdx.json](<00-project/validation/image-sbom.spdx.json>) | 实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。 |
 
 源Word、170任务和正式业务契约保持；PoC的可运行/真实合成模型与正式业务/GPU/生产冻结分开。当前版本和完整运行依赖在仓库根config/versions.yaml、config/locks和frontend/package-lock.json，不由旧手册示例推定。
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共529份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共543份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -559,6 +574,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/history/1.0-py310-cpu/stage-two-completion-report.json](<00-project/validation/history/1.0-py310-cpu/stage-two-completion-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/history/1.0-py310-cpu/stage-two-readme-report.json](<00-project/validation/history/1.0-py310-cpu/stage-two-readme-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/history/1.0-py310-cpu/synthetic-training-experiment.json](<00-project/validation/history/1.0-py310-cpu/synthetic-training-experiment.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/image-sbom.spdx.json](<00-project/validation/image-sbom.spdx.json>) | 实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。 |
 | [00-project/validation/interface-documentation-report.json](<00-project/validation/interface-documentation-report.json>) | 6项明细覆盖/生成漂移/12模块/68能力分支/13缺口/源码实现边界检查，非全接口运行验收。 |
 | [00-project/validation/local-attempt-01.json](<00-project/validation/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/local-validation-report.json](<00-project/validation/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -586,8 +602,14 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-one-controls-report.json](<00-project/validation/stage-one-controls-report.json>) | 8组来源、规则、RETURNED、36DAG/34模型快照、7历史读取/事件fencing、15数据卡/计数、24配置/33评审及170占位排期/14本地来源正反检查。 |
 | [00-project/validation/stage-one-input-preflight-report.json](<00-project/validation/stage-one-input-preflight-report.json>) | 真实条件缺项报告：14参数/24验收/15数据/170排期/33评审；状态外部输入待填和NOT_READY，禁止冒称正式PASS。 |
 | [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 12项来源/24步/62表/原件内容/章节映射/33项评审/候选摘要检查；不代替批准。 |
-| [00-project/validation/stage-two-completion-report.json](<00-project/validation/stage-two-completion-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-two-completion-report.json](<00-project/validation/stage-two-completion-report.json>) | 6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。 |
+| [00-project/validation/stage-two-isolation-report.json](<00-project/validation/stage-two-isolation-report.json>) | 新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。 |
+| [00-project/validation/stage-two-media-report.json](<00-project/validation/stage-two-media-report.json>) | 11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。 |
 | [00-project/validation/stage-two-readme-report.json](<00-project/validation/stage-two-readme-report.json>) | 根目录和13个目录README、23步及170任务导航的本轮检查 |
+| [00-project/validation/stage-two-resource-report.json](<00-project/validation/stage-two-resource-report.json>) | 真实卷容量快照按候选阈值评估CRITICAL/NOT_READY；不把采集成功当容量达标。 |
+| [00-project/validation/stage-two-sbom-format-report.json](<00-project/validation/stage-two-sbom-format-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-two-software-report.json](<00-project/validation/stage-two-software-report.json>) | 7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。 |
+| [00-project/validation/stage-two-supplement-report.json](<00-project/validation/stage-two-supplement-report.json>) | 6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。 |
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -819,13 +841,18 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/migrations-and-events.md](<03-development/migrations-and-events.md>) | 专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |
+| [03-development/stage-two-completion-matrix.json](<03-development/stage-two-completion-matrix.json>) | 12项阶段核查与补充/实际条件机器台账，正式完成false，真实负责人仍未知。 |
+| [03-development/stage-two-completion-matrix.md](<03-development/stage-two-completion-matrix.md>) | 第二阶段12类剩余工作的本轮补齐、实际证据、23步对应与仍需输入/实现；不将后续170业务任务强制当第二阶段全部完成。 |
 | [03-development/stage-two-deliverables.json](<03-development/stage-two-deliverables.json>) | 逐步机器对照；保留计划并区分开发验证与正式完成。 |
+| [03-development/stage-two-external-inputs.json](<03-development/stage-two-external-inputs.json>) | 16类实际资源/身份/数据/模型/GPU/生产/治理输入，未知为null，占位人员不当实际责任人。 |
 | [03-development/stage-two-gap-register.json](<03-development/stage-two-gap-register.json>) | 上述条件机器索引，真实状态与负责人未知值保留。 |
 | [03-development/stage-two-gap-register.md](<03-development/stage-two-gap-register.md>) | 剩余正式条件、输入、责任角色与关闭标准；不补造姓名和批准。 |
+| [03-development/stage-two-implementation-plan.md](<03-development/stage-two-implementation-plan.md>) | 资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。 |
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
+| [04-database/authorization-isolation-prototype.md](<04-database/authorization-isolation-prototype.md>) | 隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。 |
 | [04-database/data-dictionary.md](<04-database/data-dictionary.md>) | 数据字典：逐表逐字段的类型、约束、含义与精确来源。 |
 | [04-database/database-design-references.md](<04-database/database-design-references.md>) | 本轮查阅的PostgreSQL/OpenAPI/JSON Schema官方机制及采用方式。 |
 | [04-database/database-design.md](<04-database/database-design.md>) | 数据库职责、关系、事务与版本设计的总说明。 |
@@ -926,6 +953,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [09-testing/model-test-scenarios.md](<09-testing/model-test-scenarios.md>) | 模型效果、未知、鲁棒性及评测划分测试。 |
 | [09-testing/README.md](<09-testing/README.md>) | 所在专题的局部导航与阅读入口 |
 | [09-testing/security-test-scenarios.md](<09-testing/security-test-scenarios.md>) | 鉴权、越权、撤销、输入和审计等测试。 |
+| [09-testing/stage-two-representative-validation.md](<09-testing/stage-two-representative-validation.md>) | 21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。 |
 | [09-testing/task-test-scenarios.yaml](<09-testing/task-test-scenarios.yaml>) | 各任务的验证场景，不等同已实现测试程序。 |
 | [09-testing/test-scenarios.yaml](<09-testing/test-scenarios.yaml>) | 业务功能正常与异常场景。 |
 | [09-testing/test-strategy.md](<09-testing/test-strategy.md>) | 测试层级、数据、环境和执行策略。 |
@@ -934,6 +962,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [10-deployment/development-runbook.md](<10-deployment/development-runbook.md>) | 真实启动、复建、SSH页面访问、令牌、端口、卷、停止与排查。 |
 | [10-deployment/README.md](<10-deployment/README.md>) | 所在专题的局部导航与阅读入口 |
 | [10-deployment/server-observation.md](<10-deployment/server-observation.md>) | 归档前服务器的时点观测；不能当实时环境或归档后文件数。 |
+| [10-deployment/stage-two-operations-and-offline-delivery.md](<10-deployment/stage-two-operations-and-offline-delivery.md>) | 99%容量处理、候选阈值、镜像OS物料、离线摘要/复建与治理；未声称扩容/全部制品/正式保护已完成。 |
 | [_converted/conversion-report.md](<_converted/conversion-report.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md](<_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/guide/第二阶段系统技术基线分步提示词手册.md](<_converted/guide/第二阶段系统技术基线分步提示词手册.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |

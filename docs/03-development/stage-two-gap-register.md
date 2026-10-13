@@ -26,3 +26,7 @@
 ## 审批之外的19项工作
 
 详见[统一清单](../00-project/phase-readiness-register.md)：第一阶段7项、第二阶段12项，列明实际证据、缺失工作、关闭标准及后续任务边界。13项接口缺口和本清单不是两组可相加的完成率，二者有交叉引用。最新[资源](../00-project/validation/resource-readiness-snapshot.json)/[治理](../00-project/validation/repository-governance-snapshot.json)按各自时点读；main protected=false与规则集不可查询不混作全部规则不存在。
+
+## 2026-10-13已执行补充与真实剩余
+
+[12项详细对照](stage-two-completion-matrix.md)与[实施计划](stage-two-implementation-plan.md)已补齐。当前卷可用1.63GiB/99%且候选容量判定NOT_READY；新增隔离RLS/中文21项、VFR媒体11项、运维离线6组和OS镜像物料采集。13项接口缺口、正式身份/业务模型/GPU、业务数据库/DAG以及生产灾备/交付治理仍需实际实现和输入，未靠补文档关闭。

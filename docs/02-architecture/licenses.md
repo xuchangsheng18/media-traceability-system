@@ -17,3 +17,7 @@
 FFmpeg 许可依实际编译选项变化，依据 [FFmpeg 官方说明](https://ffmpeg.org/legal.html)；Desktop 的政府实体条款依据 [Docker 官方说明](https://docs.docker.com/subscription-billing/desktop-license/)。SeaweedFS 标签依据 [4.48 LICENSE](https://github.com/seaweedfs/seaweedfs/blob/4.48/LICENSE)。
 
 Python pip-audit 与 npm audit 已运行；Python 报告跳过 PyPI 不识别的 torch 2.14.1+cpu，不能据“零已知漏洞”声称全部包和 OS 镜像无漏洞。生产补齐容器 OS SBOM/扫描、GPU驱动和模型许可、离线来源核验、软件准入与 Python EOL 迁移。修改许可/分发范围须更新制品清单。
+
+## 2026-10-13物料补充
+
+新增[实际OS镜像物料](../00-project/validation/image-sbom.spdx.json)和[采集报告](../00-project/validation/stage-two-software-report.json)，当前7服务/5镜像含449项物料；不代表所有未托管二进制/许可证或漏洞扫描完备。旧web运行镜像目录缺失已登记，不能直接当离线镜像包齐备。

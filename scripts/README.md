@@ -33,3 +33,7 @@ plan_project_schedule.py重建170任务JSON/CSV/阅读页；evaluate_acceptance_
 ## 第一阶段工程控制补充（2026-10-13）
 
 stage_one_controls.py生成实际输入预检查，或对显式提供的授权元信息清单只输出聚合计数；validate_stage_one_controls.py执行正反边界；generate_workflow_types.py生成第四份类型。
+
+## 第二阶段2026-10-13补充
+
+[12类补齐与剩余条件](../docs/03-development/stage-two-completion-matrix.md)、[实施计划](../docs/03-development/stage-two-implementation-plan.md)和[实际外部输入](../docs/03-development/stage-two-external-inputs.json)已纳入阶段导航。新增隔离权限/中文查询21项、VFR媒体11项、运维/离线摘要6组检查以及镜像OS物料采集；CI工程门禁扩为25道。实际PASS以本轮服务器和托管报告为准，正式身份/业务模型/资源及生产冻结仍未完成。

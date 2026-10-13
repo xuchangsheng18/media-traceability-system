@@ -11,7 +11,8 @@
       "owner_name": null,
       "required_inputs": "支持中的Python目标、OS/国产化/离线/网络准入",
       "closure_criteria": "新环境重新锁包、构建、全CI与差异评审；签署准入记录",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P0",
@@ -23,7 +24,9 @@
       "required_inputs": "独占CPU/内存/磁盘配额、扩容方案、GPU型号和可用权限",
       "closure_criteria": "落实存储余量/告警；真实权重和样本容量、GPU兼容实测",
       "status": "OPEN_FOR_FORMAL_SCOPE",
-      "resource_snapshot_ref": "docs/00-project/validation/resource-readiness-snapshot.json"
+      "resource_snapshot_ref": "docs/00-project/validation/resource-readiness-snapshot.json",
+      "engineering_supplement_20261013": "独占CPU/内存/磁盘配额、实际运维人和数据卷扩容/迁移目标；本轮实际余量1.63GiB/99%、候选告警CRITICAL；GPU仍待实测。",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P0",
@@ -34,7 +37,9 @@
       "owner_name": null,
       "required_inputs": "身份源、角色与案件范围矩阵、撤销规则",
       "closure_criteria": "跨单位/案件拒绝、令牌撤销、RLS及策略版本测试",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "engineering_supplement_20261013": "正式身份/角色单位案件权威映射与撤销协议；14项RLS/历史权限原型已实测但正式62表/身份未部署。",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P0",
@@ -45,7 +50,8 @@
       "owner_name": null,
       "required_inputs": "审批链、保留期限、WORM/签名/可信时间及撤销决定",
       "closure_criteria": "批准策略后实施；特权/普通身份、到期及撤销测试",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P0",
@@ -56,7 +62,8 @@
       "owner_name": null,
       "required_inputs": "合法用途授权、真实模型/权重许可、独立封存测试集、指标",
       "closure_criteria": "盲测与模型版本台账；跨场景泛化、GPU/批量/不确定性证据",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P1",
@@ -67,7 +74,8 @@
       "owner_name": null,
       "required_inputs": "批准RPO/RTO、异地位置、密钥恢复及保留要求",
       "closure_criteria": "异机PITR/WAL、密钥丢失、索引重建与完整业务演练",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P1",
@@ -78,7 +86,9 @@
       "owner_name": null,
       "required_inputs": "20/100并发口径、真实视频VFR/时轴、规模与中文检索指标",
       "closure_criteria": "实际多worker故障/取消/DAG/续租；VFR映射、中文及大索引性能",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "engineering_supplement_20261013": "真实多Celery worker/取消/DAG/死信、20/100口径、正式媒体与规模检索；11项VFR音频字幕坐标及7项中文词项GIN已实测，不能代替真实业务。",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P1",
@@ -89,7 +99,9 @@
       "owner_name": null,
       "required_inputs": "FFmpeg/Desktop/权重再分发决定、OS扫描工具和准入清单",
       "closure_criteria": "完整OS/镜像SBOM、漏洞处置与许可审查证据",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "engineering_supplement_20261013": "实际OS清单已采集；未托管二进制、漏洞数据库扫描、完整许可notices和准入仍待；旧运行web镜像不在镜像目录，导出前须补齐。",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P1",
@@ -100,7 +112,9 @@
       "owner_name": null,
       "required_inputs": "账号套餐、保护分支/必须检查、制品保留/镜像库及离线策略",
       "closure_criteria": "真实平台run和制品已验真后，补分支治理与受控制品发布",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "engineering_supplement_20261013": "本轮新增门禁至25道，实际run以GitHub报告为准；主分支治理套餐/管理员、正式制品签名/离线镜像依赖和长期保留仍需。",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P0",
@@ -111,7 +125,8 @@
       "owner_name": null,
       "required_inputs": "真实责任人、有效决议及上述P0项处理结果",
       "closure_criteria": "逐项签署范围/风险/版本；创建有批准依据的正式基线标签",
-      "status": "OPEN_FOR_FORMAL_SCOPE"
+      "status": "OPEN_FOR_FORMAL_SCOPE",
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     },
     {
       "priority": "P0",
@@ -126,11 +141,13 @@
       "detail_refs": [
         "docs/03-api/interface-gap-register.json",
         "docs/03-api/system-interface-specification.md"
-      ]
+      ],
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
     }
   ],
   "non_signature_work_refs": [
     "docs/00-project/phase-readiness-register.json",
     "docs/00-project/requirement-processing-map.json"
-  ]
+  ],
+  "supplement_revision": "stage-two-completion-20261013"
 }

@@ -22,3 +22,7 @@
 [两阶段19项未完成工作](../00-project/phase-readiness-register.md)将第一阶段7项与第二阶段12项的当前证据、缺失工作、关闭标准和后续业务交付边界逐项列明。优先落实资源/存储、关键接口和处理/结果关联、规则/指标/排期；完整业务研发及生产级安全/灾备/容量按适用任务推进。
 
 [36需求处理与读取映射](../00-project/requirement-processing-map.md)为候选设计；[最新资源快照](../00-project/validation/resource-readiness-snapshot.json)和[仓库治理快照](../00-project/validation/repository-governance-snapshot.json)是时点观测，不等于配额或治理验收。
+
+## 第二阶段2026-10-13补充
+
+[12类补齐与剩余条件](stage-two-completion-matrix.md)、[实施计划](stage-two-implementation-plan.md)和[实际外部输入](stage-two-external-inputs.json)已纳入阶段导航。新增隔离权限/中文查询21项、VFR媒体11项、运维/离线摘要6组检查以及镜像OS物料采集；CI工程门禁扩为25道。实际PASS以本轮服务器和托管报告为准，正式身份/业务模型/资源及生产冻结仍未完成。

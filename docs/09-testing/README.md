@@ -26,3 +26,5 @@
 ## 第一阶段工程控制补充（2026-10-13）
 
 [24验收执行配置](acceptance-execution-configuration.md)及逐项预检查补全真实条件，资料齐全仅READY_FOR_EXECUTION，不自动形成PASS。
+
+[第二阶段代表性验证](stage-two-representative-validation.md)列出新增21项隔离中文、11项VFR媒体和6组运维交付控制的命令、断言及未验证范围。
