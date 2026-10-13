@@ -54,11 +54,12 @@
 
 ```sh
 cd /workspace/glwy/projects/media-traceability-system
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py pack
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py build
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py up
-/opt/conda/glwy/envs/py310/bin/python scripts/run_ci.py all
+/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help
+/opt/conda/glwy/envs/py310/bin/python scripts/dev.py setup
+/opt/conda/glwy/envs/py310/bin/python scripts/dev.py dev
 ```
+
+统一入口为`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，当前99%容量问题未整改时拒绝执行，避免照旧命令直接重建；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 页面在服务器回环地址 `http://127.0.0.1:14180`；从本机通过SSH转发访问。启动前提、首次复建、研发令牌取得方法和停止操作见[运行手册](docs/10-deployment/development-runbook.md)。秘密与权重在仓库外/命名卷中，不入Git。
 
@@ -70,12 +71,15 @@ cd /workspace/glwy/projects/media-traceability-system
 | --- | --- | --- |
 | 第一阶段 | 24步，来源归档→需求/契约/数据/任务/测试→评审与输入冻结 | [24步实际状态](docs/00-project/stage-one/steps-and-deliverables.md)、[第一阶段材料导航](docs/00-project/stage-one/README.md)；候选已整理，正式NOT_FROZEN |
 | 第二阶段 | 23步，环境/资源→选型与版本→最小工程→CI→技术评审与冻结 | [23步实际状态](docs/03-development/stage-two-readiness.md)、[接口与数据库文件导航](docs/02-architecture/technical-baseline.md#接口与数据库文件导航)、[整体接口](docs/03-api/README.md)、[业务数据库](docs/04-database/README.md)；开发工程/CI已验证，正式NOT_FROZEN |
+| 第三阶段 | 16步，仓库治理/目录→工作环境/质量/最小连通性→启动/CI→实际验证和环境冻结 | [16步状态与导航](docs/03-development/stage-three/readiness.md)、[实际验证](docs/03-development/development-environment-validation-report.md)；正式NOT_FROZEN |
 
-先核对第一阶段输入与来源，再阅读第二阶段技术执行依据；[阶段衔接](docs/00-project/stage-one/handoff.md)明确哪些输入由实际工程消费。24步、23步与170研发任务是三套编号。
+先核对第一阶段输入与来源，再阅读第二阶段技术执行依据；[阶段衔接](docs/00-project/stage-one/handoff.md)明确哪些输入由实际工程消费。24步、23步、第三阶段16步与170研发任务分别编号。
 
 第二阶段已完成环境盘点、py310版本锁定、最小工程和25道CI工程门禁配置；代表性权限/中文查询、VFR媒体和软件物料验证见[23步状态](docs/03-development/stage-two-readiness.md)及[交付对照](docs/03-development/stage-two-completion-matrix.md)。后续按[实施计划](docs/03-development/stage-two-implementation-plan.md)和[实际输入表](docs/03-development/stage-two-external-inputs.json)推进，正式冻结仍未完成。
 
 第一阶段已完成[原件内容核对](docs/00-project/stage-one/source-content-audit.md)、[955处来源章节映射](docs/00-project/stage-one/source-section-map.md)、[33项具体评审清单](docs/00-project/review-package/README.md)和[当前候选输入摘要](docs/00-project/stage-one/input-baseline-candidate.md)。图表版式、36需求技术语义、24测量协议及170任务容量排期的文档工作已完成，范围见[核验记录](docs/00-project/stage-one/four-item-completion.md)；[工程输入控制](docs/00-project/stage-one/remaining-work-completion.md)已接入现有状态表。实际人员、日期、正式规则和真实验收仍按对应待办落实。
+
+第三阶段[16步实际状态与导航](docs/03-development/stage-three/readiness.md)集中展示两份归档手册、仓库治理、开发命令、Codex项目配置、独立工具层、三服务模拟夹具与实际验证；正式开发环境冻结和平台权限仍按实际条件判断。
 
 ## 文档入口
 

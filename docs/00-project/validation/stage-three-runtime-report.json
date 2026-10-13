@@ -1,0 +1,205 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-10-13T16:49:55.690378+00:00",
+  "checks": [
+    {
+      "name": "setup_existing_locks_and_separate_tools",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "setup",
+        "--tools"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 3.324175
+    },
+    {
+      "name": "lint_and_TS",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "lint"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 2.122217
+    },
+    {
+      "name": "new_code_format_and_text",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "format-check"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 0.217653
+    },
+    {
+      "name": "unit_and_frontend_tests",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "test"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 2.623285
+    },
+    {
+      "name": "unique_contract_SQL_and_generated_types",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "contract-test"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 36.252213
+    },
+    {
+      "name": "secret_and_dependency_scans",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "security-scan"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 6.230314
+    },
+    {
+      "name": "actual_precommit_all_files_no_hooks_installed",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/stage-three-quality-tools/bin/python",
+        "-m",
+        "pre_commit",
+        "run",
+        "--all-files"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 0.667475
+    },
+    {
+      "name": "actual_three_process_and_browser_fixture",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/verify_stage_three_demo.py"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 5.027564
+    },
+    {
+      "name": "existing_stack_read_only_status",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "status"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 0.518943
+    },
+    {
+      "name": "clean_preview_only",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "clean",
+        "--dry-run"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 0.065761
+    },
+    {
+      "name": "full_CI_entry_plan_only_actual_run_evidence_separate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/dev.py",
+        "ci",
+        "--dry-run"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 0.065407
+    },
+    {
+      "name": "original_runtime_lock_after_tool_layer",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python3.10",
+        "scripts/verify_runtime_lock.py"
+      ],
+      "status": "PASS",
+      "scope": "current_locked_CPU_development_only",
+      "elapsed_seconds": 0.216671
+    },
+    {
+      "name": "compose_syntax_without_dumping_secrets",
+      "command": [
+        "docker",
+        "compose",
+        "config",
+        "--quiet"
+      ],
+      "status": "PASS",
+      "scope": "existing_named_development_stack_read_only"
+    }
+  ],
+  "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+  "python_executable": "/opt/conda/glwy/envs/py310/bin/python",
+  "node": "v22.21.1",
+  "provider": "Linux_server",
+  "source_commit": null,
+  "actual_count": 13,
+  "existing_application_code_changed": false,
+  "existing_Docker_stack_restarted": false,
+  "full_build_or_recovery_repeated_by_this_report": false,
+  "full_CI_evidence_ref": "docs/00-project/validation/github-actions-report.json",
+  "Windows_native_install_GPU_or_formal_business_validation": false,
+  "formal_frozen": false,
+  "Git_hooks_installed_or_platform_settings_modified": false,
+  "previous_attempts": [
+    {
+      "status": "FAIL",
+      "reason": "slow_public_wheel_download_timed_out_after_300_seconds",
+      "owned_orphan_installer_stopped": true,
+      "fix": "verified_twelve_wheel_SHA256_cache_outside_Git"
+    },
+    {
+      "status": "FAIL",
+      "reason": "browser_test_outside_frontend_could_not_resolve_playwright_package",
+      "fix": "moved_own_test_under_frontend_e2e_stage_three_without_changing_assertions"
+    },
+    {
+      "status": "FAIL",
+      "reason": "Vitest_also_discovered_Playwright_spec_file",
+      "fix": "used_existing_pw_ts_browser_test_convention_and_explicit_Playwright_testMatch"
+    }
+  ],
+  "auxiliary_observations": [
+    {
+      "name": "Windows_PowerShell_SSH_help_and_status",
+      "status": "PASS",
+      "scope": "Windows_client_coordinates_existing_Linux_py310_not_native_Windows_install",
+      "observed_at": "2026-10-13T16:58:46.683502+00:00",
+      "healthy_services": 7
+    },
+    {
+      "name": "make_on_current_Linux_server",
+      "status": "NOT_INSTALLED",
+      "scope": "optional_alias_Python_equivalent_entry_verified",
+      "actual_result": "make: command not found"
+    },
+    {
+      "name": "shared_stack_capacity_protection",
+      "status": "GUARD_BLOCKED_AS_EXPECTED",
+      "scope": "read_only_guard_call_no_build_or_services_changed",
+      "reason": "DEVELOPMENT_DATA_FILESYSTEM_CAPACITY_BELOW_STACK_CHANGE_GUARD",
+      "build_executed": false
+    }
+  ]
+}

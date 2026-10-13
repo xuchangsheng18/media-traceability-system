@@ -6,12 +6,15 @@ from urllib.parse import unquote
 
 from generate_remaining_work_navigation import build as remaining_navigation
 from generate_requirements_document import build as requirements_document
+from generate_stage_three_docs import build as stage_three_documents
 from generate_stage_status_navigation import build as stage_status_navigation
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    for path, content in stage_three_documents().items():
+        (ROOT/path).write_bytes(content.encode("utf-8"))
     content, summary = requirements_document()
     (ROOT/summary["document"]).write_bytes(content.encode("utf-8"))
     for path, content in stage_status_navigation().items():
@@ -31,6 +34,14 @@ def main():
     prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
                             "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
     entries = {
+        "03-development/stage-three/readiness.md": "第三阶段16步实际导航：归档原件、适用差异、实际产物/命令/证据及正式条件，与24/23步和170任务分开。",
+        "03-development/stage-three/deliverables.json": "16源步骤及责任/必要输入/原验收、当前操作/输出和剩余条件；不伪造人员或批准。",
+        "03-development/development-environment-validation-report.md": "第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。",
+        "03-development/development-environment-baseline.md": "Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。",
+        "00-project/validation/stage-three-runtime-report.json": "实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。",
+        "00-project/validation/stage-three-demo-report.json": "三独立临时进程Vue/后端/模拟推理9项实际检查，显式mock标记，无DB/对象/权重或GPU访问。",
+        "00-project/validation/stage-three-dependency-scan-report.json": "Python/npm实际已知漏洞扫描、退出状态和包跳过；不是全面安全或PythonEOL/OS准入证明。",
+        "00-project/validation/stage-three-platform-observation.json": "只读GitHub真实所有者、私有性、保护标志/规则查询及Actions；不冒充已配置权限。",
         "01-requirements/functional-requirements.md": "单文档详细需求：36业务需求逐项输入/流程/输出/异常/权限/验收与开发关联，全文170任务展开及10NFR/16规则/24协议；源目标、工程证据和未决/正式状态分别标注。",
         "00-project/remaining-work-navigation.md": "两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。",
         "00-project/remaining-work-navigation.json": "从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。",

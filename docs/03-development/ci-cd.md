@@ -1,5 +1,9 @@
 # 持续集成与实际执行范围
 
+第三阶段由[dev.py](../../scripts/dev.py)提供统一入口，ci命令委托原run_ci.py的25门禁，不改计数。工作流另外核验第三阶段10项来源/配置、13项实际运行、25例Python单元（15原PoC+10新增入口）、2例前端单元及三服务模拟夹具9项/1例浏览器；这些是独立范围，不能当成额外业务任务完成。
+
+开发命令、独立pre-commit工具层及Python/npm扫描见[第三阶段验证报告](development-environment-validation-report.md)。扫描不把被跳过CPU Torch发行包记为安全通过。服务器make未安装，实际使用Python入口；共享Docker数据盘不足时统一入口拒绝构建/恢复，完整复建仍在独立托管Runner进行。
+
 统一入口为[run_ci.py](../../scripts/run_ci.py)，当前共25道工程门禁；服务器本机21道完整门禁记录属于原1.1历史范围。用户提供的实际私有GitHub仓库为[media-traceability-system](https://github.com/xuchangsheng18/media-traceability-system)，使用[ci.yml](../../.github/workflows/ci.yml)接入GitHub Actions；当前25道的托管实际运行ID、源码SHA、结论和制品验真见[github-actions-report.json](../00-project/validation/github-actions-report.json)，不得将配置文件存在写成执行成功。原.gitlab-ci.yml保留为同源Runner参考，当前平台选择GitHub。
 
 | 阶段 | 门禁与适用范围 |

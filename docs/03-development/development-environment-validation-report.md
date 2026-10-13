@@ -1,0 +1,28 @@
+# 第三阶段开发环境实际验证报告
+
+状态：PASS；资料一致性：PASS。正式冻结和完整业务验收均未断言。机器报告和具体来源摘要是执行依据，本文是阅读视图。
+
+验证资料：[stage-three-validation-report.json](<../00-project/validation/stage-three-validation-report.json>)；实际命令/环境：[stage-three-runtime-report.json](<../00-project/validation/stage-three-runtime-report.json>)；实际托管源码/25工程门禁/制品：[github-actions-report.json](<../00-project/validation/github-actions-report.json>)。
+
+| 项 | 当前记录与严格含义 |
+| --- | --- |
+| setup_existing_locks_and_separate_tools | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py setup --tools`；current_locked_CPU_development_only |
+| lint_and_TS | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py lint`；current_locked_CPU_development_only |
+| new_code_format_and_text | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py format-check`；current_locked_CPU_development_only |
+| unit_and_frontend_tests | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py test`；current_locked_CPU_development_only |
+| unique_contract_SQL_and_generated_types | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py contract-test`；current_locked_CPU_development_only |
+| secret_and_dependency_scans | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py security-scan`；current_locked_CPU_development_only |
+| actual_precommit_all_files_no_hooks_installed | PASS；`/workspace/glwy/runtime/media-traceability-system/stage-three-quality-tools/bin/python -m pre_commit run --all-files`；current_locked_CPU_development_only |
+| actual_three_process_and_browser_fixture | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/verify_stage_three_demo.py`；current_locked_CPU_development_only |
+| existing_stack_read_only_status | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py status`；current_locked_CPU_development_only |
+| clean_preview_only | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py clean --dry-run`；current_locked_CPU_development_only |
+| full_CI_entry_plan_only_actual_run_evidence_separate | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py ci --dry-run`；current_locked_CPU_development_only |
+| original_runtime_lock_after_tool_layer | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/verify_runtime_lock.py`；current_locked_CPU_development_only |
+| compose_syntax_without_dumping_secrets | PASS；`docker compose config --quiet`；existing_named_development_stack_read_only |
+
+入口前置条件：当前Linux服务器make未安装，使用实际已验证的Python等价入口；Windows PowerShell经SSH的help/status已核验，Windows原生环境未安装/验证。共享栈容量保护实测会拒绝当前不足容量下的构建，未执行构建或更改服务。详见机器报告auxiliary_observations，不把未安装的可选工具记成PASS。
+
+
+扫描原始输入/结果：[stage-three-secrets-report.json](<../00-project/validation/stage-three-secrets-report.json>)、[stage-three-python-dependency-report.json](<../00-project/validation/stage-three-python-dependency-report.json>)、[stage-three-npm-dependency-report.json](<../00-project/validation/stage-three-npm-dependency-report.json>)、[stage-three-quality-dependency-report.json](<../00-project/validation/stage-three-quality-dependency-report.json>)、[stage-three-dependency-scan-report.json](<../00-project/validation/stage-three-dependency-scan-report.json>)。扫描跳过包不能判安全，CPU Torch发行包的版本/漏洞/供应商维护需进一步核查；Python3.10 EOL、镜像OS、模型许可与数据DLP独立管理。
+
+未执行/限制：共享Docker数据盘容量未整改，本轮未在该栈重新执行构建/恢复；Windows原生安装、GPU/CUDA/真实模型、正式网络/业务数据、主分支保护正反验证及冻结未完成。三服务模拟夹具只证明健康/就绪、调用、trace和页面；真实模型/业务能力另验。模板、资料PASS、代表性模型/数据库结果都不代替这些工作。现有应用代码与锁保持，完整工程复建由实际GitHub run认定。

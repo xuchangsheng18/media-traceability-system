@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:development:mock-connectivity-response:1",
+  "title": "Development connectivity fixture response only",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "nonce", "mock", "business_result", "model_name", "model_version", "request_id"],
+  "properties": {
+    "schema_version": {"const": "development-connectivity-v1"},
+    "nonce": {"type": "string", "format": "uuid"},
+    "mock": {"const": true},
+    "business_result": {"const": false},
+    "model_name": {"const": "mock-connectivity"},
+    "model_version": {"const": "example-1"},
+    "request_id": {"type": "string", "format": "uuid"}
+  }
+}

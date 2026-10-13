@@ -4,4 +4,6 @@ Python、TypeScript、SQL、YAML保持一致命名和UTF-8。接口、Schema、�
 
 代码提交前运行格式/静态检查、适用单元/契约/SQL和安全扫描；重要事务、并发/幂等、租约与权限处理有有意义测试。迁移使用版本脚本，生产禁止直接初始化空库脚本；错误处理有稳定code/request_id，不泄露堆栈和敏感字段。
 
+新增代码质量、格式和开发命令范围见[贡献规则](../../CONTRIBUTING.md)与[第三阶段验证](development-environment-validation-report.md)；新增pre-commit是独立锁定工具层，不将未选工具或旧代码格式债务记成已完成。
+
 本轮已有py310/FastAPI/Vue工程、Ruff根配置、TS类型检查、真实合成训练与CI构建/集成。CI严格核验完整第三方包锁和生成类型；具体命令见ci-cd.md。正式日志审计/权限和全部业务仍按任务实现，源任务的计划位置不代表现有入口。

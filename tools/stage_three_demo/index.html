@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>研发服务连通性检查</title>
+<style>body{margin:0;background:#f4f6fa;color:#203047;font-family:system-ui,"Microsoft YaHei",sans-serif}main{max-width:760px;margin:64px auto;padding:28px;background:#fff;border:1px solid #dbe3ec;border-radius:12px}button{padding:12px 24px;background:#225aa4;color:#fff;border:0;border-radius:6px;cursor:pointer}p{line-height:1.7}.muted{color:#607086}</style></head>
+<body><main id="app"><h1>研发服务连通性检查</h1><p class="muted">检查页面、接口和模拟推理服务是否连通。此页面使用自建测试数据，不生成业务研判结果。</p><button @click="check" :disabled="busy">{{ busy ? '检查中…' : '检查服务' }}</button><p role="status">{{ message }}</p><p v-if="result" data-testid="mock-label">模拟结果，仅用于连接验证</p></main>
+<script src="/vue.js"></script>
+<script>
+Vue.createApp({data(){return {busy:false,message:'等待检查',result:false}},methods:{async check(){this.busy=true;this.result=false;try{const response=await fetch('/demo/check',{method:'POST'});if(!response.ok)throw new Error('服务尚未就绪，请查看研发验证记录');const result=await response.json();if(result.mock!==true||result.business_result!==false)throw new Error('测试结果标识不符合要求');this.result=true;this.message='页面、接口和模拟推理服务均已连通'}catch(error){this.message=error.message}finally{this.busy=false}}}}).mount('#app')
+</script></body></html>

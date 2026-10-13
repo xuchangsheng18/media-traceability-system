@@ -4,6 +4,8 @@
 
 ## 已有环境启动
 
+第三阶段已提供[统一入口与验证](../03-development/stage-three/readiness.md)。当前服务器优先执行`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py status`观察现有7服务；共享Docker数据盘容量问题未整改时不执行重建/恢复。下列低层生命周期命令用于说明工程机制，不能绕过统一入口的容量保护而视作当前安全的直接操作步骤。
+
 ```sh
 cd /workspace/glwy/projects/media-traceability-system
 /opt/conda/glwy/envs/py310/bin/python scripts/verify_runtime_lock.py

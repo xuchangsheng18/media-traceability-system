@@ -5,6 +5,7 @@
 直接入口：[接口与数据库文件导航](../02-architecture/technical-baseline.md#接口与数据库文件导航)、[系统整体接口](../03-api/README.md)、[业务数据库](../04-database/README.md)、[第一阶段24步实际状态](../00-project/stage-one/steps-and-deliverables.md)。整体业务契约/62表与实际PoC/5表分开阅读。
 
 - [第二阶段23步状态](stage-two-readiness.md)：逐项事实、边界和待办。
+- [第三阶段16步](stage-three/readiness.md)、[实际验证报告](development-environment-validation-report.md)、[开发环境基线候选](development-environment-baseline.md)。
 - [工程入口](repository-bootstrap.md)、[编码规则](coding-standards.md)。
 - [CI实际门禁](ci-cd.md)、[生成类型与消息约定](contract-generation.md)。
 - [运行手册](../10-deployment/development-runbook.md)、[验证报告](../02-architecture/technical-validation-report.md)。

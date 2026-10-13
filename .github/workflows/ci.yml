@@ -54,7 +54,7 @@ jobs:
       - name: Install locked UI and browser
         shell: bash
         run: |
-          npm --prefix frontend ci --no-audit --no-fund
+          "$PYTHON" scripts/dev.py setup --tools
           npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
       - name: Validate phase materials and navigation
         run: |
@@ -78,13 +78,18 @@ jobs:
           "$PYTHON" scripts/validate_stage_one.py
           "$PYTHON" -m ruff check --config ruff.toml scripts/generate_requirements_document.py
           "$PYTHON" scripts/generate_requirements_document.py --check
+          "$PYTHON" -m ruff check --config ruff.toml scripts/dev.py scripts/stage_three_quality.py scripts/generate_stage_three_docs.py scripts/validate_stage_three.py scripts/verify_stage_three_demo.py tools/stage_three_demo/app.py tests/stage_three
+          "$PYTHON" scripts/dev.py format-check
+          "$PYTHON" scripts/generate_stage_three_docs.py --check
+          "$PYTHON" scripts/validate_stage_three.py
           "$PYTHON" scripts/validate_repository_docs.py
           "$PYTHON" scripts/validate_documentation_completion.py
       - name: Run actual engineering gates
         run: |
-          "$PYTHON" scripts/run_ci.py all
+          "$PYTHON" scripts/dev.py ci
           "$PYTHON" scripts/verify_ci_failure_gate.py
           "$PYTHON" scripts/check_repository_secrets.py
+          "$PYTHON" scripts/validate_stage_three.py --runtime
       - name: Preserve non-secret validation evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

@@ -23,3 +23,12 @@
 
 工程包根目录安装requirements-input-validation.txt，运行python scripts/validate_inputs.py；单任务可加--task T001。报告为输入资料校验，不是对应业务任务实现验证。
 SQL验证仅使用新建隔离PostgreSQL16数据库，参见docs/04-database/database-validation.md；不得向已有数据库执行初始化。
+
+## 第三阶段与统一入口
+
+- 16步状态及适用边界见docs/03-development/stage-three/readiness.md；Development Environment Baseline 1.0仍NOT_FROZEN，沿用现有Miniforge py310与原100包锁。新增pre-commit仅放在外部独立工具层。
+- Windows入口scripts/dev.ps1默认协调指定Linux；Linux用make或scripts/dev.py。先读取help/status，具体检查用lint、format-check、type-check、test、contract-test和security-scan；修改资料执行validate_stage_three及对应生成漂移检查。
+- dev默认观察既有7服务，clean默认只预览精确缓存；共享栈build/integration/ci受显式命令标志和卷内容量保护。不得删除源件、Git、权重、数据和数据库卷。
+- tools/stage_three_demo只作三服务模拟连通性夹具，mock=true/business_result=false；不得当真实M15/34业务模型，不将夹具结构并入正式业务API或持久化业务结果。
+- 本次用户已明确授权当前仓库、GitHub和Linux同步，可完成相应本地提交/推送；授权不扩展到账号/可见性/主分支保护、正式发布、真实数据或生产冻结。候选团队/评审人数不当生效制度，未知实际输入继续留空。
+- .codex/config.toml仅设置项目文档限额，继承用户模型/权限；根AGENTS是工程指导，不是平台ACL或审批系统。正式源件、旧历史和原170任务不可被新阶段覆盖。

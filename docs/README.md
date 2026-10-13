@@ -1,5 +1,7 @@
 # 项目文档导航
 
+第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
+
 需求全文入口：[软件需求详细说明与开发验收映射](01-requirements/functional-requirements.md)，集中展示业务、工程、非功能、规则、场景、验收与开发关联；源目标/候选/实测范围分开。
 
 本导航说明docs中各文档的含义、使用顺序、质量要求和来源关系。2026-10-13修订；当前CPU研发最小工程已运行，本机21门禁历史保留；托管25门禁实际运行另认平台报告；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。
@@ -396,6 +398,14 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/stage-three/readiness.md](<03-development/stage-three/readiness.md>) | 第三阶段16步实际导航：归档原件、适用差异、实际产物/命令/证据及正式条件，与24/23步和170任务分开。 |
+| [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤及责任/必要输入/原验收、当前操作/输出和剩余条件；不伪造人员或批准。 |
+| [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
+| [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
+| [00-project/validation/stage-three-runtime-report.json](<00-project/validation/stage-three-runtime-report.json>) | 实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。 |
+| [00-project/validation/stage-three-demo-report.json](<00-project/validation/stage-three-demo-report.json>) | 三独立临时进程Vue/后端/模拟推理9项实际检查，显式mock标记，无DB/对象/权重或GPU访问。 |
+| [00-project/validation/stage-three-dependency-scan-report.json](<00-project/validation/stage-three-dependency-scan-report.json>) | Python/npm实际已知漏洞扫描、退出状态和包跳过；不是全面安全或PythonEOL/OS准入证明。 |
+| [00-project/validation/stage-three-platform-observation.json](<00-project/validation/stage-three-platform-observation.json>) | 只读GitHub真实所有者、私有性、保护标志/规则查询及Actions；不冒充已配置权限。 |
 | [01-requirements/functional-requirements.md](<01-requirements/functional-requirements.md>) | 单文档详细需求：36业务需求逐项输入/流程/输出/异常/权限/验收与开发关联，全文170任务展开及10NFR/16规则/24协议；源目标、工程证据和未决/正式状态分别标注。 |
 | [00-project/remaining-work-navigation.md](<00-project/remaining-work-navigation.md>) | 两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。 |
 | [00-project/remaining-work-navigation.json](<00-project/remaining-work-navigation.json>) | 从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。 |
@@ -492,7 +502,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共545份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共576份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -656,6 +666,16 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-one-controls-report.json](<00-project/validation/stage-one-controls-report.json>) | 8组来源、规则、RETURNED、36DAG/34模型快照、7历史读取/事件fencing、15数据卡/计数、24配置/33评审及170占位排期/14本地来源正反检查。 |
 | [00-project/validation/stage-one-input-preflight-report.json](<00-project/validation/stage-one-input-preflight-report.json>) | 真实条件缺项报告：14参数/24验收/15数据/170排期/33评审；状态外部输入待填和NOT_READY，禁止冒称正式PASS。 |
 | [00-project/validation/stage-one-validation-report.json](<00-project/validation/stage-one-validation-report.json>) | 12项来源/24步/62表/原件内容/章节映射/33项评审/候选摘要检查；不代替批准。 |
+| [00-project/validation/stage-three-browser-report.json](<00-project/validation/stage-three-browser-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-demo-report.json](<00-project/validation/stage-three-demo-report.json>) | 三独立临时进程Vue/后端/模拟推理9项实际检查，显式mock标记，无DB/对象/权重或GPU访问。 |
+| [00-project/validation/stage-three-dependency-scan-report.json](<00-project/validation/stage-three-dependency-scan-report.json>) | Python/npm实际已知漏洞扫描、退出状态和包跳过；不是全面安全或PythonEOL/OS准入证明。 |
+| [00-project/validation/stage-three-npm-dependency-report.json](<00-project/validation/stage-three-npm-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-platform-observation.json](<00-project/validation/stage-three-platform-observation.json>) | 只读GitHub真实所有者、私有性、保护标志/规则查询及Actions；不冒充已配置权限。 |
+| [00-project/validation/stage-three-python-dependency-report.json](<00-project/validation/stage-three-python-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-quality-dependency-report.json](<00-project/validation/stage-three-quality-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-runtime-report.json](<00-project/validation/stage-three-runtime-report.json>) | 实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。 |
+| [00-project/validation/stage-three-secrets-report.json](<00-project/validation/stage-three-secrets-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-validation-report.json](<00-project/validation/stage-three-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-two-completion-report.json](<00-project/validation/stage-two-completion-report.json>) | 2026-10-12阶段工程总结历史快照，21门禁及当时run按原时点读；本轮新增6组检查另见stage-two-supplement-report。 |
 | [00-project/validation/stage-two-isolation-report.json](<00-project/validation/stage-two-isolation-report.json>) | 新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。 |
 | [00-project/validation/stage-two-media-report.json](<00-project/validation/stage-two-media-report.json>) | 11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。 |
@@ -693,6 +713,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [01-requirements/use-cases/UC-RISK-001.md](<01-requirements/use-cases/UC-RISK-001.md>) | 对应模块用例，描述用户目标、正常异常和权限流程 |
 | [01-requirements/use-cases/UC-VIDTRACE-001.md](<01-requirements/use-cases/UC-VIDTRACE-001.md>) | 对应模块用例，描述用户目标、正常异常和权限流程 |
 | [01-requirements/user-roles.md](<01-requirements/user-roles.md>) | 角色职责及访问边界，不能只列角色名称。 |
+| [02-architecture/architecture-decisions/ADR-013-repository-structure.md](<02-architecture/architecture-decisions/ADR-013-repository-structure.md>) | 说明文档：ADR-013 仓库结构；结合正文的状态、来源和适用范围阅读。 |
 | [02-architecture/architecture-decisions/README.md](<02-architecture/architecture-decisions/README.md>) | 所在专题的局部导航与阅读入口 |
 | [02-architecture/architecture-decisions/TB-ADR-001-frontend-stack.md](<02-architecture/architecture-decisions/TB-ADR-001-frontend-stack.md>) | 已执行的研发技术选择：替代方案、版本来源、实际证据、资源、未测范围与回退；非正式生产批准。 |
 | [02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md](<02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md>) | 已执行的研发技术选择：替代方案、版本来源、实际证据、资源、未测范围与回退；非正式生产批准。 |
@@ -889,12 +910,28 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/README.md](<03-api/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-api/service-and-event-contracts.md](<03-api/service-and-event-contracts.md>) | 服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。 |
 | [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。 |
+| [03-development/ci-administrator-guide.md](<03-development/ci-administrator-guide.md>) | 说明文档：Runner Secret与分支保护操作手册；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/ci-cd.md](<03-development/ci-cd.md>) | 保留本机21门禁历史；本轮托管CI扩展25道，实际run/源码SHA/制品另认报告，非生产发布。 |
+| [03-development/codex-permission-boundary.md](<03-development/codex-permission-boundary.md>) | 说明文档：Codex操作边界与授权记录；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/coding-standards.md](<03-development/coding-standards.md>) | 编码、命名、变更和检查规范；校验依赖不等于业务依赖。 |
 | [03-development/contract-generation.md](<03-development/contract-generation.md>) | 两份OpenAPI及事件/工作流Schema生成4份TS类型；唯一来源包装、版本信封与旧消息兼容桥接。 |
+| [03-development/development-environment-acceptance-record.md](<03-development/development-environment-acceptance-record.md>) | 说明文档：开发环境验收记录候选；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
+| [03-development/development-environment-change-request.md](<03-development/development-environment-change-request.md>) | 说明文档：开发环境变更和恢复要求；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
 | [03-development/migrations-and-events.md](<03-development/migrations-and-events.md>) | 专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
+| [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |
+| [03-development/repository-layout.md](<03-development/repository-layout.md>) | 说明文档：仓库目录与依赖边界；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/repository-platform-options.md](<03-development/repository-platform-options.md>) | 说明文档：仓库平台选择与实际执行依据；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/repository-review-package.md](<03-development/repository-review-package.md>) | 说明文档：仓库和分支治理评审材料；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/repository-structure-decision.md](<03-development/repository-structure-decision.md>) | 说明文档：Monorepo模式与拆分边界；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤及责任/必要输入/原验收、当前操作/输出和剩余条件；不伪造人员或批准。 |
+| [03-development/stage-three/external-inputs.json](<03-development/stage-three/external-inputs.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
+| [03-development/stage-three/readiness.md](<03-development/stage-three/readiness.md>) | 第三阶段16步实际导航：归档原件、适用差异、实际产物/命令/证据及正式条件，与24/23步和170任务分开。 |
+| [03-development/stage-three/README.md](<03-development/stage-three/README.md>) | 说明文档：第三阶段材料与实际状态；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/stage-three/source-inventory.json](<03-development/stage-three/source-inventory.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/stage-two-completion-matrix.json](<03-development/stage-two-completion-matrix.json>) | 12项阶段核查与补充/实际条件机器台账，正式完成false，真实负责人仍未知。 |
 | [03-development/stage-two-completion-matrix.md](<03-development/stage-two-completion-matrix.md>) | 第二阶段12类剩余工作的本轮补齐、实际证据、23步对应与仍需输入/实现；不将后续170业务任务强制当第二阶段全部完成。 |
 | [03-development/stage-two-deliverables.json](<03-development/stage-two-deliverables.json>) | 逐步机器对照；保留计划并区分开发验证与正式完成。 |
@@ -1019,6 +1056,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [10-deployment/stage-two-operations-and-offline-delivery.md](<10-deployment/stage-two-operations-and-offline-delivery.md>) | 99%容量处理、候选阈值、镜像OS物料、离线摘要/复建与治理；未声称扩容/全部制品/正式保护已完成。 |
 | [_converted/conversion-report.md](<_converted/conversion-report.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md](<_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
+| [_converted/guide/第三阶段建立代码仓库和Codex工作环境分步提示词手册.md](<_converted/guide/第三阶段建立代码仓库和Codex工作环境分步提示词手册.md>) | 说明文档：第三阶段建立代码仓库和Codex工作环境分步提示词手册；结合正文的状态、来源和适用范围阅读。 |
+| [_converted/guide/第三阶段建立代码仓库和Codex工作环境实施指南.md](<_converted/guide/第三阶段建立代码仓库和Codex工作环境实施指南.md>) | 说明文档：第三阶段建立代码仓库和Codex工作环境实施指南；结合正文的状态、来源和适用范围阅读。 |
 | [_converted/guide/第二阶段系统技术基线分步提示词手册.md](<_converted/guide/第二阶段系统技术基线分步提示词手册.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/guide/第二阶段系统技术基线确定与Codex协作实施指南.md](<_converted/guide/第二阶段系统技术基线确定与Codex协作实施指南.md>) | 来源材料的检索转换文本或转换报告；图表和原始语义需对照原件 |
 | [_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md](<_converted/original/短视频与图片智能识别溯源系统功能模块界面原型图.md>) | 补回本地PPT逐页文字转换，来源摘要与原件一致；不代表视觉无损还原。 |
@@ -1032,6 +1071,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [assets/source/S08-image2.png](<assets/source/S08-image2.png>) | 来源材料配套图像 |
 | [guides/README.md](<guides/README.md>) | 三份手册与24/23步、170任务的关系及当前落点；手册是流程来源。 |
 | [guides/第一阶段：Codex整理开发输入材料分步提示词手册.docx](<guides/第一阶段：Codex整理开发输入材料分步提示词手册.docx>) | 阶段工作流程手册 |
+| [guides/第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx](<guides/第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
+| [guides/第三阶段建立代码仓库和Codex工作环境实施指南.docx](<guides/第三阶段建立代码仓库和Codex工作环境实施指南.docx>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [guides/第二阶段系统技术基线分步提示词手册.docx](<guides/第二阶段系统技术基线分步提示词手册.docx>) | 阶段工作流程手册 |
 | [guides/第二阶段系统技术基线确定与Codex协作实施指南.docx](<guides/第二阶段系统技术基线确定与Codex协作实施指南.docx>) | 阶段工作流程手册 |
 | [source/original/短视频与图片智能识别溯源系统功能模块界面原型图.pptx](<source/original/短视频与图片智能识别溯源系统功能模块界面原型图.pptx>) | 按摘要保护的业务来源原件或当前修订原件 |

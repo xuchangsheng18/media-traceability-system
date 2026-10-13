@@ -1,0 +1,11 @@
+repos:
+  - repo: local
+    hooks:
+      - id: development-static-and-secrets
+        name: Locked CPU development static and secret checks
+        entry: python scripts/dev.py pre-commit
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+# No automatic hook installation. Use the isolated quality-tools environment described in CONTRIBUTING.md.
