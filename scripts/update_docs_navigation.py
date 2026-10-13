@@ -5,12 +5,15 @@ from pathlib import Path
 from urllib.parse import unquote
 
 from generate_remaining_work_navigation import build as remaining_navigation
+from generate_requirements_document import build as requirements_document
 from generate_stage_status_navigation import build as stage_status_navigation
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    content, summary = requirements_document()
+    (ROOT/summary["document"]).write_bytes(content.encode("utf-8"))
     for path, content in stage_status_navigation().items():
         (ROOT/path).write_bytes(content.encode("utf-8"))
     for path, content in remaining_navigation().items():
@@ -28,6 +31,7 @@ def main():
     prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
                             "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
     entries = {
+        "01-requirements/functional-requirements.md": "单文档详细需求：36业务需求逐项输入/流程/输出/异常/权限/验收与开发关联，全文170任务展开及10NFR/16规则/24协议；源目标、工程证据和未决/正式状态分别标注。",
         "00-project/remaining-work-navigation.md": "两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。",
         "00-project/remaining-work-navigation.json": "从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。",
         "02-architecture/environment-constraints.md": "实际Linux、Miniforge py310、Desktop挂载/网络/CPU与PythonEOL边界。",

@@ -28,5 +28,7 @@ plan_project_schedule.py重建170任务JSON/CSV/阅读页；evaluate_acceptance_
 
 stage_one_controls.py生成实际输入预检查，或对显式提供的授权元信息清单只输出聚合计数；validate_stage_one_controls.py执行正反边界；generate_workflow_types.py生成第四份类型。
 
+generate_requirements_document.py把既有来源集中展示到原functional-requirements.md，覆盖36业务条目、170任务展开及非功能/规则/验收；--check核验同源内容和覆盖，不能作为业务已实现证明。更新完整导航会同时重建该需求阅读视图。
+
 
 现有验证还包括verify_stage_two_isolation.py的21项隔离/中文查询、verify_stage_two_media.py的11项VFR媒体及validate_stage_two_completion.py的6组交付控制；软件采集记录实际镜像OS物料。实际命令、结论和边界见[23步状态](../docs/03-development/stage-two-readiness.md)及[代表性验证](../docs/09-testing/stage-two-representative-validation.md)。

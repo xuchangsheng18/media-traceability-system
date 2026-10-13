@@ -1,5 +1,7 @@
 # 项目文档导航
 
+需求全文入口：[软件需求详细说明与开发验收映射](01-requirements/functional-requirements.md)，集中展示业务、工程、非功能、规则、场景、验收与开发关联；源目标/候选/实测范围分开。
+
 本导航说明docs中各文档的含义、使用顺序、质量要求和来源关系。2026-10-13修订；当前CPU研发最小工程已运行，本机21门禁历史保留；托管25门禁实际运行另认平台报告；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。
 
 
@@ -394,6 +396,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [01-requirements/functional-requirements.md](<01-requirements/functional-requirements.md>) | 单文档详细需求：36业务需求逐项输入/流程/输出/异常/权限/验收与开发关联，全文170任务展开及10NFR/16规则/24协议；源目标、工程证据和未决/正式状态分别标注。 |
 | [00-project/remaining-work-navigation.md](<00-project/remaining-work-navigation.md>) | 两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。 |
 | [00-project/remaining-work-navigation.json](<00-project/remaining-work-navigation.json>) | 从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。 |
 | [02-architecture/environment-constraints.md](<02-architecture/environment-constraints.md>) | 实际Linux、Miniforge py310、Desktop挂载/网络/CPU与PythonEOL边界。 |
@@ -673,7 +676,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [01-requirements/business-parameter-source-audit.md](<01-requirements/business-parameter-source-audit.md>) | 14类参数本地V1.4实际条款与V1.3交叉检查；候选可用率/RETURNED保留性质，未确认值不冒充批准。 |
 | [01-requirements/business-rules.md](<01-requirements/business-rules.md>) | 控制业务行为的规则；区分规则建议和已确认决定。 |
 | [01-requirements/engineering-requirements.yaml](<01-requirements/engineering-requirements.yaml>) | 与工程任务对应的要求和编号。 |
-| [01-requirements/functional-requirements.md](<01-requirements/functional-requirements.md>) | 系统必须提供的业务功能及编号。 |
+| [01-requirements/functional-requirements.md](<01-requirements/functional-requirements.md>) | 单文档详细需求：36业务需求逐项输入/流程/输出/异常/权限/验收与开发关联，全文170任务展开及10NFR/16规则/24协议；源目标、工程证据和未决/正式状态分别标注。 |
 | [01-requirements/non-functional-requirements.md](<01-requirements/non-functional-requirements.md>) | 性能、可靠性、维护、安全等约束及验证口径。 |
 | [01-requirements/README.md](<01-requirements/README.md>) | 所在专题的局部导航与阅读入口 |
 | [01-requirements/use-cases/README.md](<01-requirements/use-cases/README.md>) | 所在专题的局部导航与阅读入口 |

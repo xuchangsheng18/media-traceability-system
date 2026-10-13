@@ -79,6 +79,7 @@ cd /workspace/glwy/projects/media-traceability-system
 
 ## 文档入口
 
+- [单文档完整需求说明](docs/01-requirements/functional-requirements.md)：36条业务需求详细行为、170任务全文展开、规则/角色/场景、非功能与验收测量，以及开发关联和未决条件。
 - [完整文档导航](docs/README.md)：逐文件职责、要求、来源和实际索引。
 - [技术基线](docs/02-architecture/technical-baseline.md)、[23步状态](docs/03-development/stage-two-readiness.md)。
 - [技术验证报告](docs/02-architecture/technical-validation-report.md)、[CI说明](docs/03-development/ci-cd.md)、[版本锁](config/versions.yaml)。
