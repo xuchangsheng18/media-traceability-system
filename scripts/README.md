@@ -25,3 +25,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 ## 1.1工程补充
 
 1.1新增verify_migrations_and_fencing.py（15隔离项）、verify_media_timestamps.py（非零源PTS）、verify_development_recovery.py（8冷恢复项，维护时段暂停本项目服务）；run_ci.py完整21门禁。
+
+## 本轮补充（2026-10-13）
+
+plan_project_schedule.py重建170任务JSON/CSV/阅读页；evaluate_acceptance_metrics.py运行8组参考公式；validate_stage_one_completion.py执行5项图表证据/语义/指标/容量/零证据契约检查，均不代替真实业务验收。

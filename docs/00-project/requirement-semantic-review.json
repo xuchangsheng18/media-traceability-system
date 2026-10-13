@@ -1,0 +1,2475 @@
+{
+  "revision": "stage-one-four-items-20261013",
+  "scope": "36_requirement_specific_semantic_reviews_by_Codex_not_business_approval",
+  "reviewed_requirements": 36,
+  "original_trace_changed": false,
+  "review_method": "source_acceptance_task_scope_operation_request_response_model_payload_and_result_identity",
+  "reviewer": "Codex technical review",
+  "human_business_approval": false,
+  "records": [
+    {
+      "requirement_id": "FR-INGEST-001",
+      "source_acceptance": "无来源授权不得处理",
+      "reviewed_source_tasks": [
+        "T021",
+        "T028",
+        "T029"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "createSource",
+        "createImport"
+      ],
+      "result_operations": [
+        "listSources",
+        "getImport"
+      ],
+      "result_identity": "Source.source_id / ImportStatus.import_id",
+      "review_conclusion": "登记来源用途后再导入；客户端授权状态不具批准效力，服务端核验当前来源授权。普通单文件上传为关联流程，不替代本条来源登记。",
+      "open_interface_gaps": [
+        "IF-G08",
+        "IF-G10"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createSource",
+          "request": "SourceCreate",
+          "response": "Source",
+          "task_ids": [
+            "T021"
+          ],
+          "table_names": [
+            "source_registry"
+          ]
+        },
+        {
+          "operation_id": "createImport",
+          "request": "ImportRequest",
+          "response": "ImportStatus",
+          "task_ids": [
+            "T028"
+          ],
+          "table_names": [
+            "import_job",
+            "import_item"
+          ]
+        },
+        {
+          "operation_id": "listSources",
+          "request": null,
+          "response": "SourcePage",
+          "task_ids": [
+            "T021"
+          ],
+          "table_names": [
+            "source_registry"
+          ]
+        },
+        {
+          "operation_id": "getImport",
+          "request": null,
+          "response": "ImportStatus",
+          "task_ids": [
+            "T028"
+          ],
+          "table_names": [
+            "import_job",
+            "import_item"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-INGEST-002",
+      "source_acceptance": "重复分片不重复登记",
+      "reviewed_source_tasks": [
+        "T022",
+        "T023",
+        "T024"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "createUpload",
+        "putUploadPart",
+        "completeUpload"
+      ],
+      "result_operations": [],
+      "result_identity": "UploadSession.upload_id / UploadPart.part_no / UploadResult.upload_id",
+      "review_conclusion": "按upload_id与part_no重试；同编号同摘要重复不增计，冲突拒绝。completeUpload返回VALIDATING后缺进度/分片/终态读取，不能以getImport查询上传，也不能提前使用asset_id。",
+      "open_interface_gaps": [
+        "IF-G01"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createUpload",
+          "request": "UploadCreate",
+          "response": "UploadSession",
+          "task_ids": [
+            "T022"
+          ],
+          "table_names": [
+            "upload_session",
+            "source_registry"
+          ]
+        },
+        {
+          "operation_id": "putUploadPart",
+          "request": null,
+          "response": "UploadPart",
+          "task_ids": [
+            "T023"
+          ],
+          "table_names": [
+            "upload_part",
+            "upload_session"
+          ]
+        },
+        {
+          "operation_id": "completeUpload",
+          "request": "UploadComplete",
+          "response": "UploadResult",
+          "task_ids": [
+            "T024",
+            "T026",
+            "T027"
+          ],
+          "table_names": [
+            "upload_session",
+            "upload_part",
+            "media_asset"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-INGEST-003",
+      "source_acceptance": "不合格素材隔离并显示原因",
+      "reviewed_source_tasks": [
+        "T024",
+        "T025",
+        "T026",
+        "T027"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "completeUpload"
+      ],
+      "result_operations": [
+        "getAsset",
+        "downloadAsset"
+      ],
+      "result_identity": "UploadResult.asset_id / Asset.state / ObjectRef.version_id",
+      "review_conclusion": "合并摘要、格式与恶意素材检查在后端处理；VALID且当前授权生效才允许分析。QUARANTINED/REJECTED保留原因；当前UploadResult没有完整拒绝原因和异步终态读取，下载不是校验状态接口。",
+      "open_interface_gaps": [
+        "IF-G01",
+        "IF-G08"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "completeUpload",
+          "request": "UploadComplete",
+          "response": "UploadResult",
+          "task_ids": [
+            "T024",
+            "T026",
+            "T027"
+          ],
+          "table_names": [
+            "upload_session",
+            "upload_part",
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "getAsset",
+          "request": null,
+          "response": "Asset",
+          "task_ids": [
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "asset_lineage"
+          ]
+        },
+        {
+          "operation_id": "downloadAsset",
+          "request": null,
+          "response": null,
+          "task_ids": [
+            "T025",
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "object_version",
+            "audit_event"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-RESOURCE-001",
+      "source_acceptance": "原件与版本可查",
+      "reviewed_source_tasks": [
+        "T019",
+        "T020",
+        "T025",
+        "T030"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "listAssets",
+        "getAsset"
+      ],
+      "result_operations": [
+        "getAsset",
+        "downloadAsset"
+      ],
+      "result_identity": "Asset.asset_id / kind / object_ref / version",
+      "review_conclusion": "资源管理只读取原件/副本；已移除上一版不相关searchImage入口。Asset有kind和固定ObjectRef但未返回完整parent_asset_id、lineage及转换参数，不能声称完整血缘已覆盖。",
+      "open_interface_gaps": [
+        "IF-G09"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "listAssets",
+          "request": null,
+          "response": "AssetPage",
+          "task_ids": [
+            "T030"
+          ],
+          "table_names": [
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "getAsset",
+          "request": null,
+          "response": "Asset",
+          "task_ids": [
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "asset_lineage"
+          ]
+        },
+        {
+          "operation_id": "downloadAsset",
+          "request": null,
+          "response": null,
+          "task_ids": [
+            "T025",
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "object_version",
+            "audit_event"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-RESOURCE-002",
+      "source_acceptance": "近重复不能自动确认为同源",
+      "reviewed_source_tasks": [
+        "T027",
+        "T079",
+        "T082",
+        "T090"
+      ],
+      "reviewed_models": [
+        "M23"
+      ],
+      "entry_operations": [
+        "completeUpload",
+        "searchImage"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "UploadResult.duplicate_of / SearchJob.search_id / SourceMatch.relation",
+      "review_conclusion": "摘要相同仅在有权范围内判完全重复；近重复是检索及几何/时序验证候选。M23只产出关系建议，不允许语义相似或partial_copy自动并整内容簇；两种结果分别返回。",
+      "open_interface_gaps": [
+        "IF-G01",
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "completeUpload",
+          "request": "UploadComplete",
+          "response": "UploadResult",
+          "task_ids": [
+            "T024",
+            "T026",
+            "T027"
+          ],
+          "table_names": [
+            "upload_session",
+            "upload_part",
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "searchImage",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T082",
+            "T084",
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry",
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-RESOURCE-003",
+      "source_acceptance": "查询不能泄露其他案件资产",
+      "reviewed_source_tasks": [
+        "T015",
+        "T021",
+        "T025",
+        "T030"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "getCurrentUser",
+        "listAssets",
+        "getAsset"
+      ],
+      "result_operations": [
+        "listAssets",
+        "getAsset",
+        "downloadAsset"
+      ],
+      "result_identity": "Asset.case_id / source_id / object_ref",
+      "review_conclusion": "逐次读取及每个Range请求均校验当前单位、案件、用途与到期/撤销；文件哈希或历史批准不是访问权。生命周期过滤和跨案拒绝由访问层执行。",
+      "open_interface_gaps": [
+        "IF-G07",
+        "IF-G08"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "getCurrentUser",
+          "request": null,
+          "response": "CurrentUser",
+          "task_ids": [
+            "T013",
+            "T014",
+            "T015"
+          ],
+          "table_names": [
+            "users",
+            "user_roles",
+            "case_membership"
+          ]
+        },
+        {
+          "operation_id": "listAssets",
+          "request": null,
+          "response": "AssetPage",
+          "task_ids": [
+            "T030"
+          ],
+          "table_names": [
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "getAsset",
+          "request": null,
+          "response": "Asset",
+          "task_ids": [
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "asset_lineage"
+          ]
+        },
+        {
+          "operation_id": "downloadAsset",
+          "request": null,
+          "response": null,
+          "task_ids": [
+            "T025",
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "object_version",
+            "audit_event"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-MEDIA-001",
+      "source_acceptance": "副本不覆盖原件",
+      "reviewed_source_tasks": [
+        "T041",
+        "T042",
+        "T043"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getAsset"
+      ],
+      "result_identity": "Task.task_id / Asset.asset_id / ObjectRef / asset_lineage",
+      "review_conclusion": "T041—T043执行ffprobe/标准化副本，属于普通媒体处理而非模型能力。输入原件ObjectRef不可覆盖；完整编码/流/派生参数尚缺对外投影，不能把Asset的mime/宽高时长摘要当全部元数据。",
+      "open_interface_gaps": [
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getAsset",
+          "request": null,
+          "response": "Asset",
+          "task_ids": [
+            "T030"
+          ],
+          "table_names": [
+            "media_asset",
+            "asset_lineage"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-MEDIA-002",
+      "source_acceptance": "帧和片段回指原始时间",
+      "reviewed_source_tasks": [
+        "T044",
+        "T045",
+        "T046",
+        "T047"
+      ],
+      "reviewed_models": [
+        "M33"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getTimeline"
+      ],
+      "result_identity": "Timeline.asset_id / mapping_version / TimelineItem",
+      "review_conclusion": "T044—T047负责镜头/帧/音轨/字幕和原始PTS映射，M33只覆盖音频指纹。音轨/字幕对象版本和派生资产绑定需补完整契约；Timeline投影不等于全部媒体输出已返回。",
+      "open_interface_gaps": [
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getTimeline",
+          "request": null,
+          "response": "Timeline",
+          "task_ids": [
+            "T050"
+          ],
+          "table_names": [
+            "keyframe",
+            "shot",
+            "text_segment",
+            "media_asset"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-MEDIA-003",
+      "source_acceptance": "缺失模态显示影响范围",
+      "reviewed_source_tasks": [
+        "T048",
+        "T049",
+        "T050",
+        "T066"
+      ],
+      "reviewed_models": [
+        "M31",
+        "M32"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getTimeline"
+      ],
+      "result_identity": "Timeline.asset_id / mapping_version / text_segment",
+      "review_conclusion": "OCR=M31、ASR=M32，普通媒体处理先生成输入；OCR框映射原件空间，ASR按原音轨时间。缺失/失败模态需进入任务missing_modalities及对应时间范围，不能以空文本假装识别完成。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getTimeline",
+          "request": null,
+          "response": "Timeline",
+          "task_ids": [
+            "T050"
+          ],
+          "table_names": [
+            "keyframe",
+            "shot",
+            "text_segment",
+            "media_asset"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-RISK-001",
+      "source_acceptance": "结果绑定标签与模型版本",
+      "reviewed_source_tasks": [
+        "T061",
+        "T062",
+        "T063",
+        "T130",
+        "T131",
+        "T132",
+        "T133"
+      ],
+      "reviewed_models": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Findings.binding / Finding / Evidence",
+      "review_conclusion": "createPolicy/listPolicies属于配置前置，已从结果入口中分离。M01/M02/M03输出标签/目标候选；应用融合绑定标签、模型、阈值及结果版本。框/类别投影覆盖逐字段核验，不能用策略列表读取风险结果。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getRiskFindings",
+          "request": null,
+          "response": "Findings",
+          "task_ids": [
+            "T070"
+          ],
+          "table_names": [
+            "risk_finding",
+            "finding_evidence"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-RISK-002",
+      "source_acceptance": "缺失或冲突不输出确定法律结论",
+      "reviewed_source_tasks": [
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T134",
+        "T135",
+        "T136",
+        "T137",
+        "T138",
+        "T139"
+      ],
+      "reviewed_models": [
+        "M04",
+        "M05",
+        "M06",
+        "M07"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Findings.binding / missing_modalities / evidence_refs",
+      "review_conclusion": "M04—M07分别处理动作、事件、音频、跨模态关系；融合节点须按原时间区间对齐并保存冲突和缺失范围。跨模态矛盾不是违法或法律结论；一般Finding未完整表达全部融合payload，保留投影差异。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getRiskFindings",
+          "request": null,
+          "response": "Findings",
+          "task_ids": [
+            "T070"
+          ],
+          "table_names": [
+            "risk_finding",
+            "finding_evidence"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-RISK-003",
+      "source_acceptance": "转人工依据规则版本",
+      "reviewed_source_tasks": [
+        "T068",
+        "T069",
+        "T070",
+        "T140",
+        "T141"
+      ],
+      "reviewed_models": [
+        "M08",
+        "M25"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Findings.binding / risk_finding / finding_evidence",
+      "review_conclusion": "M08融合与M25校准后，依policy_version/threshold_version触发人工分流；任务计算完成不能替代审核通过。必须保存原始分数、校准值、缺失模态和转人工原因。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getRiskFindings",
+          "request": null,
+          "response": "Findings",
+          "task_ids": [
+            "T070"
+          ],
+          "table_names": [
+            "risk_finding",
+            "finding_evidence"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-FORENSIC-001",
+      "source_acceptance": "区域掩码回指原件",
+      "reviewed_source_tasks": [
+        "T071",
+        "T072",
+        "T073",
+        "T142",
+        "T143",
+        "T144",
+        "T145",
+        "T146"
+      ],
+      "reviewed_models": [
+        "M09",
+        "M10"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Findings.binding / ObjectRef / mapping_version",
+      "review_conclusion": "M09/M10产生疑似区域和类型；掩码固定ObjectRef并回映射原图。当前Findings通用投影不足以证明掩码/类型payload完整外露，不能只凭Schema存在判定闭环。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getForensics",
+          "request": null,
+          "response": "Findings",
+          "task_ids": [
+            "T078"
+          ],
+          "table_names": [
+            "tamper_finding",
+            "finding_evidence"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-FORENSIC-002",
+      "source_acceptance": "异常片段保留起止边界",
+      "reviewed_source_tasks": [
+        "T074",
+        "T075",
+        "T076",
+        "T147",
+        "T148",
+        "T149",
+        "T150",
+        "T151",
+        "T152"
+      ],
+      "reviewed_models": [
+        "M11",
+        "M12",
+        "M13",
+        "M14"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Findings.binding / TimeRange / mapping_version",
+      "review_conclusion": "M11—M14覆盖时间、空间、深伪和音画异常；半开区间[start_ms,end_ms)使用原件时间，轨迹映射原件坐标。逐能力失败/缺失与证据保留，未查明异常不能强制输出真伪。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getForensics",
+          "request": null,
+          "response": "Findings",
+          "task_ids": [
+            "T078"
+          ],
+          "table_names": [
+            "tamper_finding",
+            "finding_evidence"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-FORENSIC-003",
+      "source_acceptance": "低可靠性标记而非强制判真伪",
+      "reviewed_source_tasks": [
+        "T077",
+        "T078",
+        "T153"
+      ],
+      "reviewed_models": [
+        "M25"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Findings.binding / warnings / M25 payload",
+      "review_conclusion": "M25校准仅在对应模型/任务/数据域下有效；低可靠性、OOD和证据不足应输出可见状态。Findings的warnings可提示但不是所有可靠性字段的确定映射，阈值与投影仍需唯一契约。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getForensics",
+          "request": null,
+          "response": "Findings",
+          "task_ids": [
+            "T078"
+          ],
+          "table_names": [
+            "tamper_finding",
+            "finding_evidence"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-IMGRET-001",
+      "source_acceptance": "权限范围内候选可查",
+      "reviewed_source_tasks": [
+        "T079",
+        "T080",
+        "T081",
+        "T082",
+        "T085",
+        "T154",
+        "T155"
+      ],
+      "reviewed_models": [
+        "M15",
+        "M19"
+      ],
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "SearchAccepted.search_id / SearchJob / SearchResults",
+      "review_conclusion": "整图/局部请求明确查询资产与区域；M15/M19召回，固定索引/模型/过滤范围。getIndex/switchIndex是管理前置，不能当查询结果。接收202后仅SUCCEEDED且result非空可展示正式候选。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "searchImage",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T082",
+            "T084",
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry",
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "searchImageRegion",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-IMGRET-002",
+      "source_acceptance": "匹配点区域及变换可解释",
+      "reviewed_source_tasks": [
+        "T083",
+        "T084"
+      ],
+      "reviewed_models": [
+        "M16",
+        "M17",
+        "M18"
+      ],
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "SearchJob.search_id / SourceMatch.verification_type / evidence_refs",
+      "review_conclusion": "M16—M18做匹配点、几何变换和验证；几何证据、查询/候选区域及坐标映射需明示。source_match的relation和verification_type可表示验证类别，不能把召回相似度当几何验证成功。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "searchImage",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T082",
+            "T084",
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry",
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "searchImageRegion",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-IMGRET-003",
+      "source_acceptance": "语义相似不直接确认同源",
+      "reviewed_source_tasks": [
+        "T082",
+        "T084",
+        "T085",
+        "T156",
+        "T157"
+      ],
+      "reviewed_models": [
+        "M18"
+      ],
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "SourceMatch.relation / verification_type / index_version",
+      "review_conclusion": "将semantic_candidate、partial_copy/contains与高可信full_copy分别解释；T156难负样本不读取封存验收集。源绑定M18保留，未据模块默认引入全部能力。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "searchImage",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T082",
+            "T084",
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry",
+            "media_asset"
+          ]
+        },
+        {
+          "operation_id": "searchImageRegion",
+          "request": "ImageSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T085"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-VIDTRACE-001",
+      "source_acceptance": "查询来源区间明确",
+      "reviewed_source_tasks": [
+        "T080",
+        "T081",
+        "T086",
+        "T158",
+        "T159"
+      ],
+      "reviewed_models": [
+        "M15",
+        "M19",
+        "M33"
+      ],
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "SearchJob.search_id / SearchResults / source_match",
+      "review_conclusion": "按M15/M19帧特征与M33音频指纹召回；原追踪仅getIndex/switchIndex为管理关联，补充视频查询技术入口。保留查询/来源时间区间及索引版本，不能由索引查询替代视频结果。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "searchVideo",
+          "request": "VideoSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T089"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-VIDTRACE-002",
+      "source_acceptance": "变速方向和时间映射保留",
+      "reviewed_source_tasks": [
+        "T087",
+        "T088",
+        "T160",
+        "T161",
+        "T163"
+      ],
+      "reviewed_models": [
+        "M20",
+        "M21",
+        "M25"
+      ],
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "M20/M21 payload.mappings / SourceMatch query/source range",
+      "review_conclusion": "M20/M21及M25完成对齐/校准；query_range与source_range分别为各自原时间，direction和speed_ratio不能丢失。所有未知段单列；重算不能将旧mapping_version或旧索引静默替换。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "searchVideo",
+          "request": "VideoSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T089"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-VIDTRACE-003",
+      "source_acceptance": "未知来源不编造候选",
+      "reviewed_source_tasks": [
+        "T089",
+        "T162"
+      ],
+      "reviewed_models": [
+        "M22"
+      ],
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "result_identity": "M22 payload / SourceMatch per-segment range",
+      "review_conclusion": "逐查询片段保存来源资产、源区间和验证证据；多源拼接允许多个来源及unknown_ranges。A—拼接Q—B的片段关系不推导A与B整内容同源。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "searchVideo",
+          "request": "VideoSearch",
+          "response": "SearchAccepted",
+          "task_ids": [
+            "T089"
+          ],
+          "table_names": [
+            "source_match",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "getSearchJob",
+          "request": null,
+          "response": "SearchJob",
+          "task_ids": [
+            "T082",
+            "T085",
+            "T089"
+          ],
+          "table_names": [
+            "search_job",
+            "source_match"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-ORIGIN-001",
+      "source_acceptance": "不跨未验证簇排序",
+      "reviewed_source_tasks": [
+        "T090",
+        "T164"
+      ],
+      "reviewed_models": [
+        "M23"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [],
+      "result_identity": "M23.payload.relations / content_cluster.cluster_id / cluster_member",
+      "review_conclusion": "M23只输出关系，未返回cluster_id/成员簇。候选应用事务按当前案件验证full_copy后生成UUID并落content_cluster/cluster_member，部分包含不合并；任务到簇及成员读取接口仍缺。已移除将getFirstSource当聚类完整读取的映射。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-ORIGIN-002",
+      "source_acceptance": "候选绑定真实时间证据",
+      "reviewed_source_tasks": [
+        "T091",
+        "T092",
+        "T093",
+        "T165"
+      ],
+      "reviewed_models": [
+        "M24"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getFirstSource"
+      ],
+      "result_identity": "FirstSource.ranking_id / task_id / run_version / result_version / cluster_id",
+      "review_conclusion": "M24输出簇内候选，应用分配ranking_id并保存不可变批次。cluster_id指真实簇，asset_id必须同案同簇，rank为连续1..candidate_count且最多3；rank不是发布时间。指定ranking_id读取，概率不是原创确定性。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getFirstSource",
+          "request": null,
+          "response": "FirstSource",
+          "task_ids": [
+            "T093"
+          ],
+          "table_names": [
+            "content_cluster",
+            "cluster_member",
+            "first_source_candidate",
+            "first_source_ranking"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-ORIGIN-003",
+      "source_acceptance": "无法确认保留未知状态",
+      "reviewed_source_tasks": [
+        "T091",
+        "T092",
+        "T093"
+      ],
+      "reviewed_models": [
+        "M24"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getFirstSource"
+      ],
+      "result_identity": "FirstSource.evidence_ids / counter_evidence_ids / coverage_note / status",
+      "review_conclusion": "支持与反对证据分开；published_at来自可核验发布时间，discovered_at不可自动代替。真值/覆盖不足保留insufficient、未知发布时间/概率可null，不凑满3条且不跨簇补候选。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getFirstSource",
+          "request": null,
+          "response": "FirstSource",
+          "task_ids": [
+            "T093"
+          ],
+          "table_names": [
+            "content_cluster",
+            "cluster_member",
+            "first_source_candidate",
+            "first_source_ranking"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-PROPAGATION-001",
+      "source_acceptance": "推断边标概率与证据",
+      "reviewed_source_tasks": [
+        "T094",
+        "T095",
+        "T096"
+      ],
+      "reviewed_models": [
+        "M26",
+        "M27"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getPropagation"
+      ],
+      "result_identity": "Graph.cluster_id / version / GraphEdge.origin / probability / evidence_ids",
+      "review_conclusion": "M26/M27与普通图处理分工；observed来自记录，inferred带模型与证据，human来自复核记录。图快照按版本固定，当前Graph缺完整task/run/result绑定，不能把候选边当事实传播。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getPropagation",
+          "request": null,
+          "response": "Graph",
+          "task_ids": [
+            "T095",
+            "T097"
+          ],
+          "table_names": [
+            "propagation_node",
+            "propagation_edge"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-PROPAGATION-002",
+      "source_acceptance": "时间方向和关系来源可查",
+      "reviewed_source_tasks": [
+        "T095",
+        "T097"
+      ],
+      "reviewed_models": [
+        "M26"
+      ],
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getPropagation"
+      ],
+      "result_identity": "Graph.version / GraphNode / GraphEdge",
+      "review_conclusion": "展示的是指定图版本的时间线与版本差异；关系时间不能仅用数据库created_at代替发布时间/观察时间。当前响应未定义前后版本差异投影与完整来源时间字段，登记为未覆盖。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createTask",
+          "request": "TaskCreate",
+          "response": "Accepted",
+          "task_ids": [
+            "T034"
+          ],
+          "table_names": [
+            "analysis_task",
+            "outbox_event",
+            "idempotency_record"
+          ]
+        },
+        {
+          "operation_id": "getPropagation",
+          "request": null,
+          "response": "Graph",
+          "task_ids": [
+            "T095",
+            "T097"
+          ],
+          "table_names": [
+            "propagation_node",
+            "propagation_edge"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-PROPAGATION-003",
+      "source_acceptance": "更正关系保存新版本",
+      "reviewed_source_tasks": [
+        "T096",
+        "T097",
+        "T102"
+      ],
+      "reviewed_models": [
+        "M26",
+        "M27"
+      ],
+      "entry_operations": [
+        "decidePropagationEdge",
+        "createReview"
+      ],
+      "result_operations": [
+        "decidePropagationEdge",
+        "getPropagation"
+      ],
+      "result_identity": "GraphDecision / GraphEdge.version / Review.review_version",
+      "review_conclusion": "人工确认/驳回只改明确edge_id和期望版本；理由/证据/审批按适用规则处理。原边与模型概率保留，产生新关系版本和审计；getPropagation不能代替复核待办读取。",
+      "open_interface_gaps": [
+        "IF-G02",
+        "IF-G03",
+        "IF-G09",
+        "IF-G12"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "decidePropagationEdge",
+          "request": "GraphDecision",
+          "response": "GraphEdge",
+          "task_ids": [
+            "T096",
+            "T097",
+            "T102"
+          ],
+          "table_names": [
+            "propagation_edge",
+            "review_record"
+          ]
+        },
+        {
+          "operation_id": "createReview",
+          "request": "ReviewCreate",
+          "response": "Review",
+          "task_ids": [
+            "T102",
+            "T103"
+          ],
+          "table_names": [
+            "review_record",
+            "review_evidence",
+            "audit_event"
+          ]
+        },
+        {
+          "operation_id": "getPropagation",
+          "request": null,
+          "response": "Graph",
+          "task_ids": [
+            "T095",
+            "T097"
+          ],
+          "table_names": [
+            "propagation_node",
+            "propagation_edge"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-CLAIM-001",
+      "source_acceptance": "主张关联来源片段",
+      "reviewed_source_tasks": [
+        "T098",
+        "T166",
+        "T167"
+      ],
+      "reviewed_models": [
+        "M28"
+      ],
+      "entry_operations": [
+        "extractClaims"
+      ],
+      "result_operations": [
+        "extractClaims"
+      ],
+      "result_identity": "ClaimList.claims / Claim.claim_id / source segment",
+      "review_conclusion": "当前契约同步返回ClaimList，结果从同次响应读取；已移除getReport映射。M28抽取主体、事件、时间地点等字段并绑定来源片段；后续历史claim查询尚无专用契约。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "extractClaims",
+          "request": "ClaimExtract",
+          "response": "ClaimList",
+          "task_ids": [
+            "T098"
+          ],
+          "table_names": [
+            "claim",
+            "text_segment"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-CLAIM-002",
+      "source_acceptance": "不足证据保留不足状态",
+      "reviewed_source_tasks": [
+        "T099",
+        "T168"
+      ],
+      "reviewed_models": [
+        "M29"
+      ],
+      "entry_operations": [
+        "verifyClaim"
+      ],
+      "result_operations": [
+        "verifyClaim"
+      ],
+      "result_identity": "Relation.claim_id / relation / evidence_ids / model_version",
+      "review_conclusion": "当前同步返回Relation，结果从同次响应读取；白名单检索与M29关系判断分别校验，已移除getReport映射。本轮已修正Relation及M29/inference：insufficient允许空证据，其他关系仍要求证据；持久化无证据状态存于固定task_result摘要且不虚构关系行，实际服务联调仍未完成。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "verifyClaim",
+          "request": "ClaimVerify",
+          "response": "Relation",
+          "task_ids": [
+            "T099"
+          ],
+          "table_names": [
+            "claim",
+            "claim_evidence_relation"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-CLAIM-003",
+      "source_acceptance": "无有效依据句不进入报告",
+      "reviewed_source_tasks": [
+        "T106",
+        "T169"
+      ],
+      "reviewed_models": [
+        "M30"
+      ],
+      "entry_operations": [
+        "createReportDraft"
+      ],
+      "result_operations": [
+        "getReport"
+      ],
+      "result_identity": "Report.report_id / state / evidence_ids / ObjectRef",
+      "review_conclusion": "M30生成带引用摘要，报告草稿受理后查report_id终态；DRAFT/READY与正式批准不同。句级引用必须语义支持且固定版本；只有ID存在/JSON合法不能证明内容可入报告。",
+      "open_interface_gaps": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createReportDraft",
+          "request": "ReportDraft",
+          "response": "Report",
+          "task_ids": [
+            "T106"
+          ],
+          "table_names": [
+            "report",
+            "report_evidence"
+          ]
+        },
+        {
+          "operation_id": "getReport",
+          "request": null,
+          "response": "Report",
+          "task_ids": [
+            "T107"
+          ],
+          "table_names": [
+            "report"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-REVIEW-001",
+      "source_acceptance": "复核绑定结果版本",
+      "reviewed_source_tasks": [
+        "T100",
+        "T101",
+        "T102",
+        "T103",
+        "T108"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "createReview",
+        "requestApproval",
+        "decideApproval",
+        "requestFeedback"
+      ],
+      "result_operations": [
+        "createReview",
+        "requestApproval",
+        "decideApproval",
+        "getTaskEvidence"
+      ],
+      "result_identity": "Review task/run/result/review_version / Approval / FeedbackRecord",
+      "review_conclusion": "提交响应可读但缺工作台/审批/反馈历史查询；退回补证和request_rerun按不同动作办理，重算产生新运行/结果版本而不覆盖旧意见。反馈不等于已获训练用途授权。",
+      "open_interface_gaps": [
+        "IF-G02",
+        "IF-G03",
+        "IF-G04",
+        "IF-G09",
+        "IF-G12"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createReview",
+          "request": "ReviewCreate",
+          "response": "Review",
+          "task_ids": [
+            "T102",
+            "T103"
+          ],
+          "table_names": [
+            "review_record",
+            "review_evidence",
+            "audit_event"
+          ]
+        },
+        {
+          "operation_id": "requestApproval",
+          "request": "ApprovalCreate",
+          "response": "Approval",
+          "task_ids": [
+            "T016",
+            "T102",
+            "T108"
+          ],
+          "table_names": [
+            "approval_request"
+          ]
+        },
+        {
+          "operation_id": "decideApproval",
+          "request": "ApprovalDecision",
+          "response": "Approval",
+          "task_ids": [
+            "T016",
+            "T102",
+            "T108"
+          ],
+          "table_names": [
+            "approval_request",
+            "approval_decision",
+            "audit_event"
+          ]
+        },
+        {
+          "operation_id": "requestFeedback",
+          "request": "Feedback",
+          "response": "FeedbackRecord",
+          "task_ids": [
+            "T108"
+          ],
+          "table_names": [
+            "feedback_request",
+            "approval_request"
+          ]
+        },
+        {
+          "operation_id": "getTaskEvidence",
+          "request": null,
+          "response": "EvidencePage",
+          "task_ids": [
+            "T101",
+            "T103"
+          ],
+          "table_names": [
+            "evidence_item",
+            "task_evidence"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-REVIEW-002",
+      "source_acceptance": "原件与固化内容不可普通覆盖",
+      "reviewed_source_tasks": [
+        "T104",
+        "T105"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "sealEvidence"
+      ],
+      "result_operations": [
+        "sealEvidence"
+      ],
+      "result_identity": "EvidencePackage.package_id / version / manifest_sha256 / manifest",
+      "review_conclusion": "固化响应包含清单；固定证据ObjectRef.version_id及摘要，保留包版本。现有接口缺包列表/历史详情/签验读取，不借用报告读取；mock/not_signed状态不得表述为正式签验通过。",
+      "open_interface_gaps": [
+        "IF-G09"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "sealEvidence",
+          "request": "SealRequest",
+          "response": "EvidencePackage",
+          "task_ids": [
+            "T104",
+            "T105"
+          ],
+          "table_names": [
+            "evidence_package",
+            "package_item",
+            "object_version",
+            "audit_event"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-REVIEW-003",
+      "source_acceptance": "导出受权限审批并留痕",
+      "reviewed_source_tasks": [
+        "T106",
+        "T107"
+      ],
+      "reviewed_models": [
+        "M30"
+      ],
+      "entry_operations": [
+        "createReportDraft",
+        "createReport"
+      ],
+      "result_operations": [
+        "getReport",
+        "downloadReport"
+      ],
+      "result_identity": "Report.report_id / run_version / result_version / approval_id / object_ref",
+      "review_conclusion": "草稿和正式报告生成分开；READY仅产物生成成功，导出仍校验当前权限、目的及有效批准。旧批准不随重算继承；下载绑定固定产物版本，撤销后下一Range拒绝。",
+      "open_interface_gaps": [
+        "IF-G02",
+        "IF-G09",
+        "IF-G12"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "createReportDraft",
+          "request": "ReportDraft",
+          "response": "Report",
+          "task_ids": [
+            "T106"
+          ],
+          "table_names": [
+            "report",
+            "report_evidence"
+          ]
+        },
+        {
+          "operation_id": "createReport",
+          "request": "ReportCreate",
+          "response": "Report",
+          "task_ids": [
+            "T107"
+          ],
+          "table_names": [
+            "report",
+            "report_evidence",
+            "approval_request"
+          ]
+        },
+        {
+          "operation_id": "getReport",
+          "request": null,
+          "response": "Report",
+          "task_ids": [
+            "T107"
+          ],
+          "table_names": [
+            "report"
+          ]
+        },
+        {
+          "operation_id": "downloadReport",
+          "request": null,
+          "response": null,
+          "task_ids": [
+            "T107"
+          ],
+          "table_names": [
+            "report",
+            "approval_request",
+            "audit_event"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-OPS-001",
+      "source_acceptance": "配置变更追踪及授权",
+      "reviewed_source_tasks": [
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T016",
+        "T017",
+        "T018",
+        "T051",
+        "T052",
+        "T058",
+        "T060",
+        "T061"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "registerModel",
+        "recordEvaluation",
+        "createPolicy",
+        "requestApproval",
+        "decideApproval"
+      ],
+      "result_operations": [
+        "listModels",
+        "listEvaluations",
+        "listPolicies",
+        "listAuditEvents"
+      ],
+      "result_identity": "Model / Evaluation / Policy / Approval",
+      "review_conclusion": "按管理对象分别配置和查询；开发devLogin不是正式身份接入，rolloutModel为发布动作且不是标签配置入口。角色/阈值激活撤销及管理API责任仍待定；不混同组织权限与案件数据范围。",
+      "open_interface_gaps": [
+        "IF-G02",
+        "IF-G05",
+        "IF-G06",
+        "IF-G07",
+        "IF-G12"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "registerModel",
+          "request": "ModelCreate",
+          "response": "Model",
+          "task_ids": [
+            "T052"
+          ],
+          "table_names": [
+            "model_registry"
+          ]
+        },
+        {
+          "operation_id": "recordEvaluation",
+          "request": "EvaluationCreate",
+          "response": "Evaluation",
+          "task_ids": [
+            "T058"
+          ],
+          "table_names": [
+            "model_evaluation"
+          ]
+        },
+        {
+          "operation_id": "createPolicy",
+          "request": "PolicyCreate",
+          "response": "Policy",
+          "task_ids": [
+            "T061",
+            "T068",
+            "T069",
+            "T102"
+          ],
+          "table_names": [
+            "policy_registry"
+          ]
+        },
+        {
+          "operation_id": "requestApproval",
+          "request": "ApprovalCreate",
+          "response": "Approval",
+          "task_ids": [
+            "T016",
+            "T102",
+            "T108"
+          ],
+          "table_names": [
+            "approval_request"
+          ]
+        },
+        {
+          "operation_id": "decideApproval",
+          "request": "ApprovalDecision",
+          "response": "Approval",
+          "task_ids": [
+            "T016",
+            "T102",
+            "T108"
+          ],
+          "table_names": [
+            "approval_request",
+            "approval_decision",
+            "audit_event"
+          ]
+        },
+        {
+          "operation_id": "listModels",
+          "request": null,
+          "response": "ModelPage",
+          "task_ids": [
+            "T052",
+            "T060"
+          ],
+          "table_names": [
+            "model_registry"
+          ]
+        },
+        {
+          "operation_id": "listEvaluations",
+          "request": null,
+          "response": "EvaluationPage",
+          "task_ids": [
+            "T058"
+          ],
+          "table_names": [
+            "model_evaluation"
+          ]
+        },
+        {
+          "operation_id": "listPolicies",
+          "request": null,
+          "response": "PolicyPage",
+          "task_ids": [
+            "T061",
+            "T068",
+            "T069"
+          ],
+          "table_names": [
+            "policy_registry"
+          ]
+        },
+        {
+          "operation_id": "listAuditEvents",
+          "request": null,
+          "response": "AuditEventPage",
+          "task_ids": [
+            "T018"
+          ],
+          "table_names": [
+            "audit_event"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-OPS-002",
+      "source_acceptance": "指标异常能诊断",
+      "reviewed_source_tasks": [
+        "T035",
+        "T040",
+        "T055",
+        "T056",
+        "T059",
+        "T117",
+        "T118",
+        "T119",
+        "T120"
+      ],
+      "reviewed_models": [],
+      "entry_operations": [
+        "listTasks",
+        "getTask",
+        "getModelHealth"
+      ],
+      "result_operations": [
+        "listTasks",
+        "getTask",
+        "getModelHealth"
+      ],
+      "result_identity": "Task.state / nodes / Health",
+      "review_conclusion": "只读任务/模型健康有契约；cancelTask/rerunTask为独立控制动作，已移出监控读入口。GPU、队列、存储、索引监控目前由运维指标规划，不能把Health当全量监控或任务完成证据。",
+      "open_interface_gaps": [
+        "IF-G05",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "listTasks",
+          "request": null,
+          "response": "TaskPage",
+          "task_ids": [
+            "T035",
+            "T040"
+          ],
+          "table_names": [
+            "analysis_task"
+          ]
+        },
+        {
+          "operation_id": "getTask",
+          "request": null,
+          "response": "Task",
+          "task_ids": [
+            "T035",
+            "T040"
+          ],
+          "table_names": [
+            "analysis_task",
+            "task_node_run"
+          ]
+        },
+        {
+          "operation_id": "getModelHealth",
+          "request": null,
+          "response": "Health",
+          "task_ids": [
+            "T056",
+            "T060"
+          ],
+          "table_names": [
+            "model_registry"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    },
+    {
+      "requirement_id": "FR-OPS-003",
+      "source_acceptance": "回滚恢复有版本和演练记录",
+      "reviewed_source_tasks": [
+        "T057",
+        "T060",
+        "T121",
+        "T122",
+        "T123",
+        "T124",
+        "T170"
+      ],
+      "reviewed_models": [
+        "M34"
+      ],
+      "entry_operations": [
+        "rolloutModel"
+      ],
+      "result_operations": [
+        "listModels",
+        "getModelHealth"
+      ],
+      "result_identity": "ActionAck.object_id / release_bundle / Model.version",
+      "review_conclusion": "rolloutModel含灰度/rollback，但202后的操作终态查询仍缺，健康只能旁证；备份恢复是受控离线运维流程，M34运行转换不代表所有包可部署。数据库/对象/模型/索引/密钥恢复分别对账。",
+      "open_interface_gaps": [
+        "IF-G05",
+        "IF-G13"
+      ],
+      "operation_structures": [
+        {
+          "operation_id": "rolloutModel",
+          "request": "Rollout",
+          "response": "ActionAck",
+          "task_ids": [
+            "T057",
+            "T060",
+            "T170"
+          ],
+          "table_names": [
+            "model_release",
+            "approval_request",
+            "index_registry"
+          ]
+        },
+        {
+          "operation_id": "listModels",
+          "request": null,
+          "response": "ModelPage",
+          "task_ids": [
+            "T052",
+            "T060"
+          ],
+          "table_names": [
+            "model_registry"
+          ]
+        },
+        {
+          "operation_id": "getModelHealth",
+          "request": null,
+          "response": "Health",
+          "task_ids": [
+            "T056",
+            "T060"
+          ],
+          "table_names": [
+            "model_registry"
+          ]
+        }
+      ],
+      "technical_review_completed": true,
+      "business_approved": false,
+      "runtime_verification_completed": false
+    }
+  ],
+  "source_hashes": {
+    "docs/00-project/requirement-traceability.yaml": "a3a9efd585510c8c0b296f230bf2e15b35b16fa3e6c4526e28151ac089da092b",
+    "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
+    "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
+    "docs/03-api/openapi.yaml": "556c92bd7b22602c83bd71aa3ea5cc11cdefb48926a18c03428b293860e2f7ba",
+    "docs/03-api/operation-index.json": "af8a90174415a261ca17d439513207b86722a8d75b4f88545247f40b6eb7bc2a",
+    "docs/04-database/table-catalog.json": "3d7f5221c28a9cdb439704b959f08d780abdef56ac6d609105eac11d6f565f26",
+    "docs/06-algorithms/model-catalog.yaml": "398dcd073fd79bf17ff1dea8a83627e2839097b4b81a8f8faa0f4329a75d3cb3",
+    "docs/00-project/requirement-flow-proposals.json": "23592c03e0c7dbd456c2f2d65bf6ddea16818665d62036be4804b6ac1909e8c1"
+  }
+}

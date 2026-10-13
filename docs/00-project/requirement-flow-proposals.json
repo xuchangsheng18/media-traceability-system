@@ -204,7 +204,14 @@
       "result_operations": [
         "listSources",
         "getImport"
-      ]
+      ],
+      "note": "登记来源用途后再导入；客户端授权状态不具批准效力，服务端核验当前来源授权。普通单文件上传为关联流程，不替代本条来源登记。",
+      "interface_gap_ids": [
+        "IF-G08",
+        "IF-G10"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Source.source_id / ImportStatus.import_id"
     },
     "FR-INGEST-002": {
       "entry_operations": [
@@ -212,7 +219,13 @@
         "putUploadPart",
         "completeUpload"
       ],
-      "result_operations": []
+      "result_operations": [],
+      "note": "按upload_id与part_no重试；同编号同摘要重复不增计，冲突拒绝。completeUpload返回VALIDATING后缺进度/分片/终态读取，不能以getImport查询上传，也不能提前使用asset_id。",
+      "interface_gap_ids": [
+        "IF-G01"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "UploadSession.upload_id / UploadPart.part_no / UploadResult.upload_id"
     },
     "FR-INGEST-003": {
       "entry_operations": [
@@ -221,29 +234,573 @@
       "result_operations": [
         "getAsset",
         "downloadAsset"
-      ]
+      ],
+      "note": "合并摘要、格式与恶意素材检查在后端处理；VALID且当前授权生效才允许分析。QUARANTINED/REJECTED保留原因；当前UploadResult没有完整拒绝原因和异步终态读取，下载不是校验状态接口。",
+      "interface_gap_ids": [
+        "IF-G01",
+        "IF-G08"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "UploadResult.asset_id / Asset.state / ObjectRef.version_id"
     },
     "FR-MEDIA-001": {
-      "note": "T041/T042/T043承接原件探测和标准化副本。主来源无模型/直接API绑定；候选入口为统一分析任务，getAsset仅含mime/尺寸/时长等摘要，完整元数据/派生血缘的返回与对象关联尚需确定。"
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getAsset"
+      ],
+      "note": "T041—T043执行ffprobe/标准化副本，属于普通媒体处理而非模型能力。输入原件ObjectRef不可覆盖；完整编码/流/派生参数尚缺对外投影，不能把Asset的mime/宽高时长摘要当全部元数据。",
+      "interface_gap_ids": [
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Task.task_id / Asset.asset_id / ObjectRef / asset_lineage"
     },
     "FR-MEDIA-002": {
-      "note": "T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不能把指纹Schema当全部视频解码契约。getTimeline有frame/shot/audio/subtitle等候选投影，派生资产和映射身份待设计/实现。"
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getTimeline"
+      ],
+      "note": "T044—T047负责镜头/帧/音轨/字幕和原始PTS映射，M33只覆盖音频指纹。音轨/字幕对象版本和派生资产绑定需补完整契约；Timeline投影不等于全部媒体输出已返回。",
+      "interface_gap_ids": [
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Timeline.asset_id / mapping_version / TimelineItem"
     },
     "FR-RISK-002": {
-      "note": "M04—M07是行为/事件/音频/一致性能力来源，内部对齐和融合按任务处理；候选风险/证据读取须包含映射和缺失模态，不能自行新增HTTP或把能力存在当完整融合。"
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "note": "M04—M07分别处理动作、事件、音频、跨模态关系；融合节点须按原时间区间对齐并保存冲突和缺失范围。跨模态矛盾不是违法或法律结论；一般Finding未完整表达全部融合payload，保留投影差异。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Findings.binding / missing_modalities / evidence_refs"
     },
     "FR-FORENSIC-001": {
-      "note": "M09/M10承接疑似区域/类型，getForensics可作候选结果投影，掩码对象、原件坐标及可靠性需完整语义/业务验证。"
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "note": "M09/M10产生疑似区域和类型；掩码固定ObjectRef并回映射原图。当前Findings通用投影不足以证明掩码/类型payload完整外露，不能只凭Schema存在判定闭环。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Findings.binding / ObjectRef / mapping_version"
     },
     "FR-FORENSIC-002": {
-      "note": "M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍需源时间轴、轨迹/模态/证据关联，不能把静态Schema当全视频链路。"
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "note": "M11—M14覆盖时间、空间、深伪和音画异常；半开区间[start_ms,end_ms)使用原件时间，轨迹映射原件坐标。逐能力失败/缺失与证据保留，未查明异常不能强制输出真伪。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Findings.binding / TimeRange / mapping_version"
     },
     "FR-VIDTRACE-002": {
-      "note": "M20/M21/M25承接时序定位和校准，searchVideo/getSearchJob为候选外部链路；查询区间与源区间、速度/倒放/未知段语义和历史结果选择尚需核验。"
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "M20/M21及M25完成对齐/校准；query_range与source_range分别为各自原时间，direction和speed_ratio不能丢失。所有未知段单列；重算不能将旧mapping_version或旧索引静默替换。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "M20/M21 payload.mappings / SourceMatch query/source range"
     },
     "FR-ORIGIN-001": {
-      "note": "M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFirstSource只返回排序快照；cluster_id/簇成员与任务结果身份的持久化/读取尚需设计，不能将片段关系闭包自动合并整簇。"
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [],
+      "note": "M23只输出关系，未返回cluster_id/成员簇。候选应用事务按当前案件验证full_copy后生成UUID并落content_cluster/cluster_member，部分包含不合并；任务到簇及成员读取接口仍缺。已移除将getFirstSource当聚类完整读取的映射。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "M23.payload.relations / content_cluster.cluster_id / cluster_member"
+    },
+    "FR-RESOURCE-001": {
+      "entry_operations": [
+        "listAssets",
+        "getAsset"
+      ],
+      "result_operations": [
+        "getAsset",
+        "downloadAsset"
+      ],
+      "note": "资源管理只读取原件/副本；已移除上一版不相关searchImage入口。Asset有kind和固定ObjectRef但未返回完整parent_asset_id、lineage及转换参数，不能声称完整血缘已覆盖。",
+      "interface_gap_ids": [
+        "IF-G09"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Asset.asset_id / kind / object_ref / version"
+    },
+    "FR-RESOURCE-002": {
+      "entry_operations": [
+        "completeUpload",
+        "searchImage"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "摘要相同仅在有权范围内判完全重复；近重复是检索及几何/时序验证候选。M23只产出关系建议，不允许语义相似或partial_copy自动并整内容簇；两种结果分别返回。",
+      "interface_gap_ids": [
+        "IF-G01",
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "UploadResult.duplicate_of / SearchJob.search_id / SourceMatch.relation"
+    },
+    "FR-RESOURCE-003": {
+      "entry_operations": [
+        "getCurrentUser",
+        "listAssets",
+        "getAsset"
+      ],
+      "result_operations": [
+        "listAssets",
+        "getAsset",
+        "downloadAsset"
+      ],
+      "note": "逐次读取及每个Range请求均校验当前单位、案件、用途与到期/撤销；文件哈希或历史批准不是访问权。生命周期过滤和跨案拒绝由访问层执行。",
+      "interface_gap_ids": [
+        "IF-G07",
+        "IF-G08"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Asset.case_id / source_id / object_ref"
+    },
+    "FR-MEDIA-003": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getTimeline"
+      ],
+      "note": "OCR=M31、ASR=M32，普通媒体处理先生成输入；OCR框映射原件空间，ASR按原音轨时间。缺失/失败模态需进入任务missing_modalities及对应时间范围，不能以空文本假装识别完成。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Timeline.asset_id / mapping_version / text_segment"
+    },
+    "FR-RISK-001": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "note": "createPolicy/listPolicies属于配置前置，已从结果入口中分离。M01/M02/M03输出标签/目标候选；应用融合绑定标签、模型、阈值及结果版本。框/类别投影覆盖逐字段核验，不能用策略列表读取风险结果。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Findings.binding / Finding / Evidence"
+    },
+    "FR-RISK-003": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getRiskFindings",
+        "getTaskEvidence"
+      ],
+      "note": "M08融合与M25校准后，依policy_version/threshold_version触发人工分流；任务计算完成不能替代审核通过。必须保存原始分数、校准值、缺失模态和转人工原因。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Findings.binding / risk_finding / finding_evidence"
+    },
+    "FR-FORENSIC-003": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getForensics",
+        "getTaskEvidence"
+      ],
+      "note": "M25校准仅在对应模型/任务/数据域下有效；低可靠性、OOD和证据不足应输出可见状态。Findings的warnings可提示但不是所有可靠性字段的确定映射，阈值与投影仍需唯一契约。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G12",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Findings.binding / warnings / M25 payload"
+    },
+    "FR-IMGRET-001": {
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "整图/局部请求明确查询资产与区域；M15/M19召回，固定索引/模型/过滤范围。getIndex/switchIndex是管理前置，不能当查询结果。接收202后仅SUCCEEDED且result非空可展示正式候选。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "SearchAccepted.search_id / SearchJob / SearchResults"
+    },
+    "FR-IMGRET-002": {
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "M16—M18做匹配点、几何变换和验证；几何证据、查询/候选区域及坐标映射需明示。source_match的relation和verification_type可表示验证类别，不能把召回相似度当几何验证成功。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "SearchJob.search_id / SourceMatch.verification_type / evidence_refs"
+    },
+    "FR-IMGRET-003": {
+      "entry_operations": [
+        "searchImage",
+        "searchImageRegion"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "将semantic_candidate、partial_copy/contains与高可信full_copy分别解释；T156难负样本不读取封存验收集。源绑定M18保留，未据模块默认引入全部能力。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "SourceMatch.relation / verification_type / index_version"
+    },
+    "FR-VIDTRACE-001": {
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "按M15/M19帧特征与M33音频指纹召回；原追踪仅getIndex/switchIndex为管理关联，补充视频查询技术入口。保留查询/来源时间区间及索引版本，不能由索引查询替代视频结果。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "SearchJob.search_id / SearchResults / source_match"
+    },
+    "FR-VIDTRACE-003": {
+      "entry_operations": [
+        "searchVideo"
+      ],
+      "result_operations": [
+        "getSearchJob"
+      ],
+      "note": "逐查询片段保存来源资产、源区间和验证证据；多源拼接允许多个来源及unknown_ranges。A—拼接Q—B的片段关系不推导A与B整内容同源。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "M22 payload / SourceMatch per-segment range"
+    },
+    "FR-ORIGIN-002": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getFirstSource"
+      ],
+      "note": "M24输出簇内候选，应用分配ranking_id并保存不可变批次。cluster_id指真实簇，asset_id必须同案同簇，rank为连续1..candidate_count且最多3；rank不是发布时间。指定ranking_id读取，概率不是原创确定性。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "FirstSource.ranking_id / task_id / run_version / result_version / cluster_id"
+    },
+    "FR-ORIGIN-003": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getFirstSource"
+      ],
+      "note": "支持与反对证据分开；published_at来自可核验发布时间，discovered_at不可自动代替。真值/覆盖不足保留insufficient、未知发布时间/概率可null，不凑满3条且不跨簇补候选。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "FirstSource.evidence_ids / counter_evidence_ids / coverage_note / status"
+    },
+    "FR-PROPAGATION-001": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getPropagation"
+      ],
+      "note": "M26/M27与普通图处理分工；observed来自记录，inferred带模型与证据，human来自复核记录。图快照按版本固定，当前Graph缺完整task/run/result绑定，不能把候选边当事实传播。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Graph.cluster_id / version / GraphEdge.origin / probability / evidence_ids"
+    },
+    "FR-PROPAGATION-002": {
+      "entry_operations": [
+        "createTask"
+      ],
+      "result_operations": [
+        "getPropagation"
+      ],
+      "note": "展示的是指定图版本的时间线与版本差异；关系时间不能仅用数据库created_at代替发布时间/观察时间。当前响应未定义前后版本差异投影与完整来源时间字段，登记为未覆盖。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Graph.version / GraphNode / GraphEdge"
+    },
+    "FR-PROPAGATION-003": {
+      "entry_operations": [
+        "decidePropagationEdge",
+        "createReview"
+      ],
+      "result_operations": [
+        "decidePropagationEdge",
+        "getPropagation"
+      ],
+      "note": "人工确认/驳回只改明确edge_id和期望版本；理由/证据/审批按适用规则处理。原边与模型概率保留，产生新关系版本和审计；getPropagation不能代替复核待办读取。",
+      "interface_gap_ids": [
+        "IF-G02",
+        "IF-G03",
+        "IF-G09",
+        "IF-G12"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "GraphDecision / GraphEdge.version / Review.review_version"
+    },
+    "FR-CLAIM-001": {
+      "entry_operations": [
+        "extractClaims"
+      ],
+      "result_operations": [
+        "extractClaims"
+      ],
+      "note": "当前契约同步返回ClaimList，结果从同次响应读取；已移除getReport映射。M28抽取主体、事件、时间地点等字段并绑定来源片段；后续历史claim查询尚无专用契约。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "ClaimList.claims / Claim.claim_id / source segment"
+    },
+    "FR-CLAIM-002": {
+      "entry_operations": [
+        "verifyClaim"
+      ],
+      "result_operations": [
+        "verifyClaim"
+      ],
+      "note": "当前同步返回Relation，结果从同次响应读取；白名单检索与M29关系判断分别校验，已移除getReport映射。本轮已修正Relation及M29/inference：insufficient允许空证据，其他关系仍要求证据；持久化无证据状态存于固定task_result摘要且不虚构关系行，实际服务联调仍未完成。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Relation.claim_id / relation / evidence_ids / model_version"
+    },
+    "FR-CLAIM-003": {
+      "entry_operations": [
+        "createReportDraft"
+      ],
+      "result_operations": [
+        "getReport"
+      ],
+      "note": "M30生成带引用摘要，报告草稿受理后查report_id终态；DRAFT/READY与正式批准不同。句级引用必须语义支持且固定版本；只有ID存在/JSON合法不能证明内容可入报告。",
+      "interface_gap_ids": [
+        "IF-G09",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Report.report_id / state / evidence_ids / ObjectRef"
+    },
+    "FR-REVIEW-001": {
+      "entry_operations": [
+        "createReview",
+        "requestApproval",
+        "decideApproval",
+        "requestFeedback"
+      ],
+      "result_operations": [
+        "createReview",
+        "requestApproval",
+        "decideApproval",
+        "getTaskEvidence"
+      ],
+      "note": "提交响应可读但缺工作台/审批/反馈历史查询；退回补证和request_rerun按不同动作办理，重算产生新运行/结果版本而不覆盖旧意见。反馈不等于已获训练用途授权。",
+      "interface_gap_ids": [
+        "IF-G02",
+        "IF-G03",
+        "IF-G04",
+        "IF-G09",
+        "IF-G12"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Review task/run/result/review_version / Approval / FeedbackRecord"
+    },
+    "FR-REVIEW-002": {
+      "entry_operations": [
+        "sealEvidence"
+      ],
+      "result_operations": [
+        "sealEvidence"
+      ],
+      "note": "固化响应包含清单；固定证据ObjectRef.version_id及摘要，保留包版本。现有接口缺包列表/历史详情/签验读取，不借用报告读取；mock/not_signed状态不得表述为正式签验通过。",
+      "interface_gap_ids": [
+        "IF-G09"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "EvidencePackage.package_id / version / manifest_sha256 / manifest"
+    },
+    "FR-REVIEW-003": {
+      "entry_operations": [
+        "createReportDraft",
+        "createReport"
+      ],
+      "result_operations": [
+        "getReport",
+        "downloadReport"
+      ],
+      "note": "草稿和正式报告生成分开；READY仅产物生成成功，导出仍校验当前权限、目的及有效批准。旧批准不随重算继承；下载绑定固定产物版本，撤销后下一Range拒绝。",
+      "interface_gap_ids": [
+        "IF-G02",
+        "IF-G09",
+        "IF-G12"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Report.report_id / run_version / result_version / approval_id / object_ref"
+    },
+    "FR-OPS-001": {
+      "entry_operations": [
+        "registerModel",
+        "recordEvaluation",
+        "createPolicy",
+        "requestApproval",
+        "decideApproval"
+      ],
+      "result_operations": [
+        "listModels",
+        "listEvaluations",
+        "listPolicies",
+        "listAuditEvents"
+      ],
+      "note": "按管理对象分别配置和查询；开发devLogin不是正式身份接入，rolloutModel为发布动作且不是标签配置入口。角色/阈值激活撤销及管理API责任仍待定；不混同组织权限与案件数据范围。",
+      "interface_gap_ids": [
+        "IF-G02",
+        "IF-G05",
+        "IF-G06",
+        "IF-G07",
+        "IF-G12"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Model / Evaluation / Policy / Approval"
+    },
+    "FR-OPS-002": {
+      "entry_operations": [
+        "listTasks",
+        "getTask",
+        "getModelHealth"
+      ],
+      "result_operations": [
+        "listTasks",
+        "getTask",
+        "getModelHealth"
+      ],
+      "note": "只读任务/模型健康有契约；cancelTask/rerunTask为独立控制动作，已移出监控读入口。GPU、队列、存储、索引监控目前由运维指标规划，不能把Health当全量监控或任务完成证据。",
+      "interface_gap_ids": [
+        "IF-G05",
+        "IF-G11",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "Task.state / nodes / Health"
+    },
+    "FR-OPS-003": {
+      "entry_operations": [
+        "rolloutModel"
+      ],
+      "result_operations": [
+        "listModels",
+        "getModelHealth"
+      ],
+      "note": "rolloutModel含灰度/rollback，但202后的操作终态查询仍缺，健康只能旁证；备份恢复是受控离线运维流程，M34运行转换不代表所有包可部署。数据库/对象/模型/索引/密钥恢复分别对账。",
+      "interface_gap_ids": [
+        "IF-G05",
+        "IF-G13"
+      ],
+      "semantic_review_status": "TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED",
+      "result_identity_note": "ActionAck.object_id / release_bundle / Model.version"
     }
   },
-  "formal_frozen": false
+  "formal_frozen": false,
+  "semantic_review_ref": "docs/00-project/requirement-semantic-review.json"
 }

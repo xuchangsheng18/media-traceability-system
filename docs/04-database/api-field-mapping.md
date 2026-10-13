@@ -20,3 +20,7 @@ api-field-mapping.csv/json逐操作覆盖请求及响应的顶层和嵌套字段
 ## 首发证据投影的持久化约束
 
 evidence_refs使用evidence_ids/counter_evidence_ids两个数组键，与FirstSource逐项同名投影；列表内部不可重复，支持列表非空。SQL触发器检查引用存在及同案件，应用继续核验具体用途、证据关系和版本适用性。该规则只适用于首发候选，不泛化为所有JSON字段已经自动建立外键。
+
+## 本轮补充（2026-10-13）
+
+insufficient没有证据时使用运行结果summary的Relation结构保留未知结论；不插入证据关联表的虚假evidence_id，不修改真实证据外键。完整投影边界见[结果身份](../05-workflows/result-identity-and-projection.md)。

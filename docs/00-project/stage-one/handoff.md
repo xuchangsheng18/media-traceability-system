@@ -13,3 +13,7 @@
 依当前用户授权可继续可逆的工程建设和无敏感数据验证；并不因此宣称第一阶段已经正式冻结，亦不授权未确认的真实业务/证据动作。业务任务实施前读取任务卡、来源版本、执行依赖和适用未决项；正式冻结时登记实际责任人和决定，不使用空签字或虚构负责人。
 
 当前状态请联合阅读[第一阶段24步](steps-and-deliverables.md)、[第二阶段23步](../../03-development/stage-two-readiness.md)、[第二阶段剩余条件](../../03-development/stage-two-gap-register.md)、[正式输入冻结检查](../baseline-1.0.md)。最新平台运行按[github-actions-report.json](../validation/github-actions-report.json)；历史评审中的“未上传”“未初始化”是先前时点，不能倒退当前实际工程状态。
+
+## 本轮四项输入的消费
+
+[四项补充](four-item-completion.md)是当前阅读入口。图表发现按现行任务卡、错误码和图边字段读取；第二阶段第2步使用[人员容量输入](../execution-planning-inputs.json)，第3步使用[测量协议](../../09-testing/metric-protocols.md)，第19步使用[结果身份与投影](../../05-workflows/result-identity-and-projection.md)，第21步运行新增补充检查。人员和到位日期未知时实际日历仍为null。

@@ -6316,7 +6316,9 @@ components:
     Relation:
       type: object
       properties:
-        claim_id: *id001
+        claim_id:
+          type: string
+          format: uuid
         relation:
           type: string
           enum:
@@ -6327,10 +6329,18 @@ components:
           - insufficient
         evidence_ids:
           type: array
-          items: *id001
-          minItems: 1
-        score: *id005
-        model_version: *id002
+          items:
+            type: string
+            format: uuid
+          minItems: 0
+        score:
+          type: number
+          minimum: 0
+          maximum: 1
+        model_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - claim_id
       - relation
@@ -6338,6 +6348,19 @@ components:
       - score
       - model_version
       additionalProperties: false
+      allOf:
+      - if:
+          properties:
+            relation:
+              not:
+                const: insufficient
+          required:
+          - relation
+        then:
+          properties:
+            evidence_ids:
+              minItems: 1
+      description: insufficient允许没有有效证据并返回空evidence_ids；其他关系至少引用一条同案件有权证据，不得为不足状态伪造证据UUID。
     ReviewCreate:
       type: object
       properties:

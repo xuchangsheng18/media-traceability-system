@@ -35,3 +35,7 @@
 ## 第一阶段资料入口
 
 [第一阶段24步、来源和材料](stage-one/README.md)记录输入整理做法；与第二阶段23步、根170研发任务分开。当前两阶段的正式冻结都未完成。
+
+## 本轮补充（2026-10-13）
+
+[四项补充](stage-one/four-item-completion.md)、[36需求技术复核](requirement-semantic-review.md)、[实际排期输入](execution-planning-inputs.json)已补充；正式决定和真实日期仍以实际信息为准。

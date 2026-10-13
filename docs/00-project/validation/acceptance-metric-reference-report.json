@@ -1,0 +1,149 @@
+{
+  "status": "PASS",
+  "scope": "reference_formula_and_failure_counting_on_synthetic_fixtures_not_real_model_acceptance",
+  "checks": [
+    {
+      "name": "failed_positive_and_empty_label_counted_in_fixed_macro",
+      "status": "PASS",
+      "computed": {
+        "per_label": {
+          "A": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 1,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "positive_support": 2
+          },
+          "B": {
+            "tp": 0,
+            "fp": 1,
+            "fn": 1,
+            "recall": 0.0,
+            "f1": 0.0,
+            "positive_support": 1
+          },
+          "C": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "recall": null,
+            "f1": 0,
+            "positive_support": 0
+          }
+        },
+        "macro_f1": 0.2222222222222222,
+        "zero_division_f1_policy": 0,
+        "samples": 4,
+        "failed_samples": 1,
+        "unknown_truth_samples": 1,
+        "eligible_truth_samples": 3,
+        "zero_positive_labels": [
+          "C"
+        ]
+      }
+    },
+    {
+      "name": "missed_positive_zero_iou_negative_not_in_positive_mean",
+      "status": "PASS",
+      "computed": {
+        "positive_image_macro_iou": 0.25,
+        "positive_images": 2,
+        "negative_images": 1,
+        "negative_image_false_alarm_rate": 1.0,
+        "positive_image_values": [
+          0.5,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "query_hit_and_item_recall_are_distinct_failures_retained",
+      "status": "PASS",
+      "computed": {
+        "query_hit_rate_at_k": 0.5,
+        "query_macro_item_recall_at_k": 0.25,
+        "eligible_queries": 2,
+        "unknown_or_no_relevant_queries": 1,
+        "failed_eligible_queries": 1,
+        "hits": 1,
+        "k": 2
+      }
+    },
+    {
+      "name": "conditional_boundary_error_reports_unmatched_coverage",
+      "status": "PASS",
+      "computed": {
+        "matched_mean_boundary_error_seconds": 0.75,
+        "matched_segments": 1,
+        "unmatched_segments": 1,
+        "matched_coverage": 0.5
+      }
+    },
+    {
+      "name": "top3_known_failure_and_unknown_separate",
+      "status": "PASS",
+      "computed": {
+        "known_reference_top3_hit_rate": 0.5,
+        "known_reference_clusters": 2,
+        "unknown_reference_clusters": 1,
+        "unknown_false_certainty": 0
+      }
+    },
+    {
+      "name": "accepted_failure_and_missing_terminal_latency_not_dropped",
+      "status": "PASS",
+      "computed": {
+        "p50_ms": 100,
+        "p95_ms": 900,
+        "p99_ms": 900,
+        "accepted_tasks": 4,
+        "successful_tasks": 1,
+        "accepted_success_rate": 0.25,
+        "observed_terminal_latencies": 2,
+        "missing_latency_observations": 2,
+        "accepted_nonterminal_tasks": 1,
+        "rejected_requests": 1,
+        "quantile_method": "nearest_rank",
+        "successful_throughput_per_second": 0.1
+      }
+    },
+    {
+      "name": "confidence_one_last_bin_and_invalid_confidence_visible",
+      "status": "PASS",
+      "computed": {
+        "ece": 0.1,
+        "valid_confidence_predictions": 2,
+        "invalid_confidence_predictions": 1,
+        "binning": "equal_width_left_closed_right_open_last_includes_one",
+        "bins": [
+          {
+            "count": 1,
+            "confidence_sum": 0.2,
+            "correct_sum": 0
+          },
+          {
+            "count": 1,
+            "confidence_sum": 1,
+            "correct_sum": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "existing_reference_without_semantic_support_is_not_traceable",
+      "status": "PASS",
+      "computed": {
+        "fully_traceable_conclusions": 1,
+        "conclusions": 2,
+        "full_traceability_rate": 0.5,
+        "semantic_support_rate": 0.5
+      }
+    }
+  ],
+  "formal_business_acceptance": false,
+  "source_hashes": {
+    "tests/fixtures/acceptance-metric-reference.json": "0570175ec40318d8d462f9c0a043a2335069e23d89eb0a922a1f430aa70b74c8",
+    "scripts/evaluate_acceptance_metrics.py": "64fccef9e8a3633f529c06287f60287987df921154b010ba02c5c2bebfe96c52"
+  }
+}

@@ -38,12 +38,15 @@ def outputs():
                         "candidate_entry_operations": proposal["entry_operations"],
                         "candidate_result_operations": proposal["result_operations"],
                         "processing_and_reading_note": proposal["note"], "interface_gap_ids": proposal["interface_gap_ids"],
-                        "binding_status": "CANDIDATE_FLOW_REQUIRES_SEMANTIC_REVIEW",
+                        "binding_status": proposal.get("semantic_review_status", "CANDIDATE_FLOW_REQUIRES_SEMANTIC_REVIEW"),
+                        "result_identity_note": proposal.get("result_identity_note"),
+                        "semantic_review_ref": PREFIX + "requirement-semantic-review.json",
                         "new_HTTP_paths_created": False, "full_business_implementation_asserted": False,
                         "formal_approved": False})
     source_paths = [trace_path, "tasks/backlog.yaml", "docs/06-algorithms/model-catalog.yaml",
                     "docs/03-api/operation-index.json", "docs/03-api/interface-gap-register.json",
-                    PREFIX + "requirement-flow-proposals.json", "scripts/generate_phase_readiness.py"]
+                    PREFIX + "requirement-flow-proposals.json", PREFIX + "requirement-semantic-review.json",
+                    "docs/05-workflows/result-identity-and-projection.md", "scripts/generate_phase_readiness.py"]
     model_schema_paths = sorted({c[k] for r in records for c in r["internal_contract_refs"] for k in ["request_schema", "response_schema"]})
     source_paths.extend(model_schema_paths)
     mapping = {"revision": "phase-readiness-20261013", "source_hashes": {p: digest(p) for p in source_paths},
@@ -51,14 +54,15 @@ def outputs():
                "business_requirements": len(records), "direct_API_unbound_requirements": [r["requirement_id"] for r in records if not r["declared_operation_ids"]],
                "formal_frozen": False, "records": records}
     mapping_text = "# 业务需求、内部处理与结果读取对应\n\n"
-    mapping_text += "36条业务需求的主来源、任务/模型/表/测试引用保持原值。入口与结果读取是独立标记的候选设计，未更改主追踪、接口结构、任务状态或批准；源操作未直接绑定不等于内部计算需求丢失。机器记录见[requirement-processing-map.json](requirement-processing-map.json)。\n\n"
-    mapping_text += "对七条无直接operation_ids的需求，已补内部任务/Schema与候选读取说明；节点调度、持久化对象身份和完整结果返回仍需语义设计/实现，不将本文作为完整DAG或新增可调用路径。\n\n"
+    mapping_text += "36条业务需求的主来源、任务/模型/表/测试引用保持原值。本轮已逐需求执行技术语义复核并纠正模块默认入口过宽和错误结果读取；正式规则与运行实现仍分别登记。机器记录见[requirement-processing-map.json](requirement-processing-map.json)，逐条结论见[语义复核](requirement-semantic-review.md)。\n\n"
+    mapping_text += "七条无直接operation_ids的来源需求保持完整；内部处理、结果身份和当前投影的覆盖/缺口逐项写明。本文不代表完整DAG或所有接口已运行。共同规则见[结果身份与投影](../05-workflows/result-identity-and-projection.md)。\n\n"
     for item in records:
         mapping_text += f"## {item['requirement_id']} {item['name']}\n\n源位置：`{trace_path}{item['source_pointer']}`。\n\n"
         mapping_text += "主追踪已有API：" + (", ".join(item["declared_operation_ids"]) or "未直接绑定") + "；任务：" + ", ".join(item["declared_task_ids"]) + "。\n\n"
         mapping_text += "来源任务卡：" + "、".join(f"[{p.rsplit('/',1)[-1]}](../../{p})" for p in item["task_card_refs"]) + "。\n\n"
         mapping_text += "候选流程入口：" + (", ".join(item["candidate_entry_operations"]) or "按离线/私有处理任务继续设计") + "；候选结果读取：" + (", ".join(item["candidate_result_operations"]) or "当前尚无完整读取契约") + "。\n\n"
         mapping_text += item["processing_and_reading_note"] + "\n\n"
+        mapping_text += f"结果身份：{item['result_identity_note']}。技术复核状态：`{item['binding_status']}`。\n\n"
         if item["internal_contract_refs"]:
             mapping_text += "| 来源能力 | 输入/输出路径 | 结构源 |\n| --- | --- | --- |\n"
             for capability in item["internal_contract_refs"]:
@@ -74,15 +78,16 @@ def outputs():
     text = "# 第一、第二阶段：审批之外的未完成工作\n\n"
     text += "2026-10-13。第一阶段为开发输入整理，第二阶段为技术基线/代表性最小验证；170业务研发任务另按交付计划实施。当前原件/导航/结构、CPU最小工程与CI已有证据，仍存在资料核验、规则参数、契约/技术实现和真实资源缺口。正式签认不能代替这些工作。机器清单见[phase-readiness-register.json](phase-readiness-register.json)。\n\n"
     text += "## 读表范围\n\n每项区分“本阶段需要明确的输入/设计/验证”和“后续对应功能启用或生产前的实现”。不能把全部业务研发强行计入第二阶段，也不能用PoC通过把后续工作标完成。审批签字本身未计为下表独立完成项；有外部材料/规则依赖的项仍需输入，不能自动关闭。\n\n"
+    text += f"共核查19项：版式核验按本轮记录范围完成，剩余{ledger['remaining_non_signature_items']}项仍有待落实条件。36需求技术复核、验收方法和排期材料的已补部分单独登记，不再表述为全部未开展。\n\n"
     for stage in [1, 2]:
         text += f"## 第{stage}阶段\n\n| 编号/优先级 | 工作与当前范围 | 仍需完善 | 关闭标准与阶段边界 |\n| --- | --- | --- | --- |\n"
         for item in ledger["items"]:
             if item["stage"] != stage:
                 continue
             refs = "、".join(f"[{p.rsplit('/',1)[-1]}](../../{p})" for p in item["evidence_refs"])
-            text += f"| {item['id']} / {item['priority']} | {escaped(item['title'])}；{escaped(item['current_evidence'])}<br>{refs} | {escaped(item['remaining_work'])} | {escaped(item['closure_criteria'])}<br>{escaped(item['phase_boundary'])} |\n"
+            text += f"| {item['id']} / {item['priority']} | {escaped(item['title'])}；{escaped(item['current_evidence'])}<br>状态：{item['status']}<br>{refs} | {escaped(item['remaining_work'])} | {escaped(item['closure_criteria'])}<br>{escaped(item['phase_boundary'])} |\n"
         text += "\n"
-    text += "## 本轮可直接完成的资料补充\n\n已新增[36需求→内部处理→结果读取映射](requirement-processing-map.md)，准确保留来源引用并补七条未直接绑API需求的候选流程；它是可评审材料，语义/运行验证仍开放。已新增本清单并接入两阶段导航、来源及机械校验，没有改写正式决定或任务完成状态。\n\n"
+    text += "## 本轮已完成的资料与技术复核\n\n[36需求映射](requirement-processing-map.md)已逐条完成[技术语义复核](requirement-semantic-review.md)；正式业务规则、接口实现与真实联调仍开放。[图表版式核验](stage-one/visual-layout-audit.md)登记全页渲染/浏览和关键图表复核；[24项验收口径](../09-testing/metric-protocols.md)已定义计算/分母/失败处理并有自建公式验证；[170任务排期台账](execution-schedule.md)按源工时与依赖复算并保存部分开发证据，实际负责人/有效投入/剩余工时与到位日仍需真实输入。没有改写正式决定或任务完成状态。\n\n"
     volume = resource["development_postgres_volume_filesystem"]
     text += f"资源只读观测时间：`{resource['observed_at']}`；研发PostgreSQL卷所在文件系统可用约 **{volume['available_bytes']/1024**3:.2f} GiB**，df使用率 **{volume['used_percent_observed']}**。宿主机剩余空间不能直接当该卷可用空间，也不代表项目独占配额。GPU工具可用性={resource['gpu']['tool_available']}，没有据工具不可用宣称GPU不存在。详见[时点快照](validation/resource-readiness-snapshot.json)。\n\n"
     text += f"仓库治理观测时间：`{governance['observed_at']}`；GitHub报告main protected={governance['branch']['protected_reported_by_provider']}；rulesets查询结果为 `{governance['rulesets']['query']}`，不可据不可查询认定规则集为空。Actions已启用不等于组织治理闭合。详见[治理快照](validation/repository-governance-snapshot.json)，本轮没有修改设置。\n\n"

@@ -130,7 +130,7 @@
                       "type": "string",
                       "format": "uuid"
                     },
-                    "minItems": 1
+                    "minItems": 0
                   },
                   "right_evidence_ids": {
                     "type": "array",
@@ -138,7 +138,7 @@
                       "type": "string",
                       "format": "uuid"
                     },
-                    "minItems": 1
+                    "minItems": 0
                   },
                   "score": {
                     "type": "number",
@@ -152,7 +152,33 @@
                   "right_evidence_ids",
                   "score"
                 ],
-                "additionalProperties": false
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "relation": {
+                          "not": {
+                            "const": "insufficient"
+                          }
+                        }
+                      },
+                      "required": [
+                        "relation"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "left_evidence_ids": {
+                          "minItems": 1
+                        },
+                        "right_evidence_ids": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
               },
               "minItems": 0
             }

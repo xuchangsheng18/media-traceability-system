@@ -1455,6 +1455,7 @@ export interface components {
             evidence_ids: string[];
             policy_version: string;
         };
+        /** @description insufficient允许没有有效证据并返回空evidence_ids；其他关系至少引用一条同案件有权证据，不得为不足状态伪造证据UUID。 */
         Relation: {
             /** Format: uuid */
             claim_id: string;
@@ -1463,7 +1464,7 @@ export interface components {
             evidence_ids: string[];
             score: number;
             model_version: string;
-        };
+        } & unknown;
         /** @description 业务复核决定不自动批准导出或训练回流。审批人员身份从服务端认证取得，不接受客户端reviewer_id。 */
         ReviewCreate: {
             /** Format: uuid */

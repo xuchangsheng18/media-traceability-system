@@ -3186,13 +3186,13 @@ export interface operations {
                         latency_ms: number;
                         mock: boolean;
                         payload: {
-                            relations: {
+                            relations: ({
                                 /** @enum {string} */
                                 relation: "consistent" | "contradicts" | "supports" | "partially_supports" | "unrelated" | "insufficient";
                                 left_evidence_ids: string[];
                                 right_evidence_ids: string[];
                                 score: number;
-                            }[];
+                            } & unknown)[];
                         } | null;
                     } & (unknown & unknown)) | ({
                         /** Format: uuid */

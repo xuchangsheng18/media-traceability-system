@@ -28,7 +28,9 @@ def build():
         seeds.update(item["target_refs"])
     seeds.update(["scripts/stage_one_source_audit.py", "scripts/build_stage_one_candidate.py", "scripts/validate_stage_one.py",
                   "scripts/generate_interface_docs.py", "scripts/validate_interface_docs.py",
-                  "scripts/generate_phase_readiness.py", "scripts/validate_phase_readiness.py", "scripts/collect_readiness_resources.py"])
+                  "scripts/generate_phase_readiness.py", "scripts/validate_phase_readiness.py", "scripts/collect_readiness_resources.py",
+                  "scripts/plan_project_schedule.py", "scripts/evaluate_acceptance_metrics.py", "scripts/validate_stage_one_completion.py",
+                  "tests/fixtures/acceptance-metric-reference.json", "tests/fixtures/claim-insufficient-cases.json"])
     files = set()
     for seed in sorted(seeds):
         path = ROOT / seed

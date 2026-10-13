@@ -50,10 +50,12 @@
         "docs/_converted/revision/",
         "docs/assets/source/",
         "docs/00-project/stage-one/source-content-audit.md",
-        "docs/00-project/stage-one/source-content-audit.json"
+        "docs/00-project/stage-one/source-content-audit.json",
+        "docs/00-project/stage-one/visual-layout-audit.md",
+        "docs/00-project/stage-one/visual-layout-audit.json"
       ],
-      "artifact_status": "TEXT_TABLE_COMMENTS_LINKS_MEDIA_AUDITED_VISUAL_PENDING",
-      "remaining": "正文存在性及1700来源字段核对通过；158条自动目录/页码明确登记，视觉版式与语义仍需人工核验。",
+      "artifact_status": "TEXT_AND_VISUAL_REVIEW_COMPLETED_WITH_RECORDED_SCOPE",
+      "remaining": "全页概览与关键图表核验已完成；范围限制和8项阅读处置见visual-layout-audit，不声称全页逐像素出版审校。",
       "formal_completion_asserted": false,
       "owner_name": null,
       "source_guide": "docs/_converted/guide/第一阶段：Codex整理开发输入材料分步提示词手册.md",
@@ -108,7 +110,8 @@
       "operation": "将业务功能和源任务工程要求编号，写明正常/异常行为与来源。",
       "outputs": [
         "docs/01-requirements/functional-requirements.md",
-        "docs/01-requirements/engineering-requirements.yaml"
+        "docs/01-requirements/engineering-requirements.yaml",
+        "docs/00-project/requirement-semantic-review.md"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "36条业务需求与170条工程展开分别统计，不将216追踪条目当216业务功能。",
@@ -123,7 +126,8 @@
       "operation": "建立12模块用例及正常、备选、异常、权限与审计场景。",
       "outputs": [
         "docs/01-requirements/use-cases/README.md",
-        "docs/01-requirements/use-cases/"
+        "docs/01-requirements/use-cases/",
+        "docs/00-project/requirement-processing-map.md"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "场景资料不是三类业务实际验收。",
@@ -137,7 +141,9 @@
       "title": "提取非功能需求",
       "operation": "登记性能、并发、可靠性、安全等指标的来源、统计口径和验证办法。",
       "outputs": [
-        "docs/01-requirements/non-functional-requirements.md"
+        "docs/01-requirements/non-functional-requirements.md",
+        "docs/09-testing/metric-protocols.md",
+        "docs/09-testing/metric-protocols.json"
       ],
       "artifact_status": "CANDIDATE_RECORDED",
       "remaining": "未确认指标保持待定，20/100并发未作正式验收。",
@@ -184,7 +190,8 @@
         "docs/03-api/openapi.yaml",
         "docs/03-api/inference-openapi.yaml",
         "docs/03-api/error-codes.md",
-        "docs/03-api/examples/"
+        "docs/03-api/examples/",
+        "docs/05-workflows/result-identity-and-projection.md"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "53个正式操作设计与已运行PoC接口分开。",
@@ -222,7 +229,8 @@
         "docs/06-algorithms/model-catalog.yaml",
         "docs/06-algorithms/model-contract.md",
         "docs/06-algorithms/model-evaluation.md",
-        "schemas/model/"
+        "schemas/model/",
+        "docs/00-project/requirement-semantic-review.json"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "68个模型Schema是能力契约，合成CPU验证不是业务模型效果。",
@@ -277,7 +285,10 @@
         "tasks/backlog.yaml",
         "tasks/source-task-cards.json",
         "tasks/execution-dependencies-candidate.json",
-        "tasks/dependency-report.md"
+        "tasks/dependency-report.md",
+        "docs/00-project/execution-schedule.md",
+        "docs/00-project/execution-planning-inputs.json",
+        "tasks/execution-schedule.csv"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "执行依赖是候选；不将全部170任务标为完成。",
@@ -296,7 +307,9 @@
         "docs/09-testing/test-scenarios.yaml",
         "docs/09-testing/task-test-scenarios.yaml",
         "docs/09-testing/security-test-scenarios.md",
-        "docs/09-testing/model-test-scenarios.md"
+        "docs/09-testing/model-test-scenarios.md",
+        "scripts/evaluate_acceptance_metrics.py",
+        "tests/fixtures/acceptance-metric-reference.json"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "计划中的场景不是已执行测试结果。",
@@ -312,7 +325,8 @@
       "outputs": [
         "docs/00-project/requirement-traceability.md",
         "docs/00-project/requirement-traceability.yaml",
-        "docs/04-database/table-task-usage.json"
+        "docs/04-database/table-task-usage.json",
+        "docs/00-project/requirement-semantic-review.json"
       ],
       "artifact_status": "CANDIDATE_STRUCTURE_VALIDATED",
       "remaining": "引用完整不代表语义已批准或代码已实现。",
@@ -344,7 +358,9 @@
         "docs/00-project/validation/local-validation-report.json",
         "docs/00-project/validation/database-contract-report.json",
         "docs/00-project/validation/stage-one-validation-report.json",
-        "docs/00-project/stage-one/source-content-audit.json"
+        "docs/00-project/stage-one/source-content-audit.json",
+        "docs/00-project/stage-one/four-item-completion.md",
+        "scripts/validate_stage_one_completion.py"
       ],
       "artifact_status": "STRUCTURE_VALIDATED_WITH_FORMAL_GAPS",
       "remaining": "人工语义评审与业务验收未由机器校验代替。",

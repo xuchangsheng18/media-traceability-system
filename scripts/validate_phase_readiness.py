@@ -69,10 +69,19 @@ def main():
             assert item["original_stage_steps"] and all(1 <= step <= (24 if item["stage"] == 1 else 23) for step in item["original_stage_steps"])
             assert set(item["source_gap_ids"]) <= known_gaps
             assert all((ROOT / path).is_file() for path in item["evidence_refs"]), item["evidence_refs"]
-            assert item["signature_only"] is False and item["completion_asserted"] is False and item["formal_approved"] is False
+            assert item["signature_only"] is False and item["formal_approved"] is False
+            if item["completion_asserted"]:
+                assert item["id"] == "S1-N01" and item["technical_supplement_completed"]
+                audit = read(PREFIX + "stage-one/visual-layout-audit.json")
+                assert audit["all_pages_overview_reviewed"] and audit["total_pages_and_slides"] == 369
+                assert len(audit["layout_findings"]) == 8 and audit["original_files_changed"] is False
+                assert item["status"] == "COMPLETED_WITH_RECORDED_VISUAL_REVIEW_SCOPE"
+            else:
+                assert item["completion_asserted"] is False
             assert item["owner_name"] is None and item["remaining_work"] and item["closure_criteria"] and item["phase_boundary"]
         assert ledger["decisions_or_task_states_changed"] is False and ledger["full_business_implementation_is_later_task_scope"] is True
-        return {"non_signature_items": 19, "stage_one": 7, "stage_two": 12, "all_170_tasks_forced_into_stage_two": False}
+        assert ledger["remaining_non_signature_items"] == sum(not r["completion_asserted"] for r in ledger["items"]) == 18
+        return {"non_signature_items_audited": 19, "remaining_items": 18, "stage_one": 7, "stage_two": 12, "all_170_tasks_forced_into_stage_two": False}
 
     check("19_non_signature_items_and_correct_phase_boundaries", register)
 

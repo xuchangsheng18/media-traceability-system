@@ -70,4 +70,8 @@ cd /workspace/glwy/projects/media-traceability-system
 
 ## 审批之外的剩余工作
 
-[两阶段19项统一清单](docs/00-project/phase-readiness-register.md)列第一阶段7项、第二阶段12项的资料/设计/资源/实现/验证及完成标准；[36需求处理与读取映射](docs/00-project/requirement-processing-map.md)保持原主追踪，候选流程待语义复核。审批不能代替这些工作，后续完整业务研发与本阶段技术设计分别安排。
+[两阶段19项统一清单](docs/00-project/phase-readiness-register.md)列第一阶段7项、第二阶段12项的资料/设计/资源/实现/验证及完成标准；[36需求处理与读取映射](docs/00-project/requirement-processing-map.md)保持原主追踪，逐条技术语义已复核，正式规则/实现与运行待对应任务核验。审批不能代替这些工作，后续完整业务研发与本阶段技术设计分别安排。
+
+## 图表、语义、验收与排期补充（2026-10-13）
+
+[四项总览](docs/00-project/stage-one/four-item-completion.md)包含357页Word＋12页原型核验、36需求逐项技术语义复核、24测量协议及170任务证据/容量排期。insufficient零证据契约已同步修正；补充5项检查纳入CI。实际人员和资源到位日未知，因此未生成实际交付承诺；完整业务与正式冻结分别判断。

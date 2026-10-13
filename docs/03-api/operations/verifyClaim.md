@@ -1,6 +1,6 @@
 # 核查主张与证据关系：verifyClaim
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `c3471938106ec4211159d46b93c972416c2a678cd967214b2d23c48a12d8b2e7`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `556c92bd7b22602c83bd71aa3ea5cc11cdefb48926a18c03428b293860e2f7ba`。契约未冻结，文档存在不代表接口已实现。
 
 `POST /api/v1/claims/{id}/verify`；operationId=`verifyClaim`；源指针=`/paths/~1claims~1{id}~1verify/post`。
 
@@ -70,7 +70,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`claim.analy
 | --- | --- | --- | --- |
 | claim_id | 必须 | string; format="uuid" | 候选字段来源：claim.claim_id：主键，由应用提供UUID；不视为访问凭证；claim_evidence_relation.claim_id：被证据支持、反对或关联的主张标识。来源引用不是写入许可，完整处理按操作核验。 |
 | relation | 必须 | string; enum=["supports", "contradicts", "partially_supports", "unrelated", "insufficient"] | 候选字段来源：claim_evidence_relation.relation：主张与证据的关系类别，支持、反对或不足等取值以CHECK枚举为准。来源引用不是写入许可，完整处理按操作核验。 |
-| evidence_ids | 必须 | array; minItems=1; items=string; format="uuid" | 候选字段来源：claim_evidence_relation.evidence_id：所引用证据事实版本标识，指向同案件evidence_item.evidence_id。来源引用不是写入许可，完整处理按操作核验。 |
+| evidence_ids | 必须 | array; minItems=0; items=string; format="uuid" | 候选字段来源：claim_evidence_relation.evidence_id：所引用证据事实版本标识，指向同案件evidence_item.evidence_id。来源引用不是写入许可，完整处理按操作核验。 |
 | score | 必须 | number; minimum=0; maximum=1 | 候选字段来源：claim_evidence_relation.score：主张证据关系对应的原始模型评分，本候选契约限定0至1；NULL表示未产生评分，未经校准不称为概率，不同模型分数不得直接比较。来源引用不是写入许可，完整处理按操作核验。 |
 | model_version | 必须 | string; minLength=1; maxLength=128 | 候选字段来源：claim.model_version：生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本；claim_evidence_relation.model_version：生成结果或特征的具体模型版本；绑定相应模型名称或能力，不等同策略版本。来源引用不是写入许可，完整处理按操作核验。 |
 

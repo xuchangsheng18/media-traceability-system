@@ -1,8 +1,8 @@
 # 业务需求、内部处理与结果读取对应
 
-36条业务需求的主来源、任务/模型/表/测试引用保持原值。入口与结果读取是独立标记的候选设计，未更改主追踪、接口结构、任务状态或批准；源操作未直接绑定不等于内部计算需求丢失。机器记录见[requirement-processing-map.json](requirement-processing-map.json)。
+36条业务需求的主来源、任务/模型/表/测试引用保持原值。本轮已逐需求执行技术语义复核并纠正模块默认入口过宽和错误结果读取；正式规则与运行实现仍分别登记。机器记录见[requirement-processing-map.json](requirement-processing-map.json)，逐条结论见[语义复核](requirement-semantic-review.md)。
 
-对七条无直接operation_ids的需求，已补内部任务/Schema与候选读取说明；节点调度、持久化对象身份和完整结果返回仍需语义设计/实现，不将本文作为完整DAG或新增可调用路径。
+七条无直接operation_ids的来源需求保持完整；内部处理、结果身份和当前投影的覆盖/缺口逐项写明。本文不代表完整DAG或所有接口已运行。共同规则见[结果身份与投影](../05-workflows/result-identity-and-projection.md)。
 
 ## FR-INGEST-001 登记来源与授权用途
 
@@ -14,13 +14,15 @@
 
 候选流程入口：createSource, createImport；候选结果读取：listSources, getImport。
 
-来源/分片/导入按已声明契约；上传VALIDATING终态缺查询，不能把受理当有效资产。
+登记来源用途后再导入；客户端授权状态不具批准效力，服务端核验当前来源授权。普通单文件上传为关联流程，不替代本条来源登记。
+
+结果身份：Source.source_id / ImportStatus.import_id。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：import_item, import_job, source_registry；计划测试：TC-INGEST-001-N, TC-INGEST-001-E。
 
-关联接口缺口：IF-G01, IF-G08, IF-G10；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G08, IF-G10；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-INGEST-002 分片上传及断点续传
 
@@ -32,13 +34,15 @@
 
 候选流程入口：createUpload, putUploadPart, completeUpload；候选结果读取：当前尚无完整读取契约。
 
-来源/分片/导入按已声明契约；上传VALIDATING终态缺查询，不能把受理当有效资产。
+按upload_id与part_no重试；同编号同摘要重复不增计，冲突拒绝。completeUpload返回VALIDATING后缺进度/分片/终态读取，不能以getImport查询上传，也不能提前使用asset_id。
+
+结果身份：UploadSession.upload_id / UploadPart.part_no / UploadResult.upload_id。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：media_asset, source_registry, upload_part, upload_session；计划测试：TC-INGEST-002-N, TC-INGEST-002-E。
 
-关联接口缺口：IF-G01, IF-G08, IF-G10；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G01；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-INGEST-003 合并哈希和格式安全校验
 
@@ -50,13 +54,15 @@
 
 候选流程入口：completeUpload；候选结果读取：getAsset, downloadAsset。
 
-来源/分片/导入按已声明契约；上传VALIDATING终态缺查询，不能把受理当有效资产。
+合并摘要、格式与恶意素材检查在后端处理；VALID且当前授权生效才允许分析。QUARANTINED/REJECTED保留原因；当前UploadResult没有完整拒绝原因和异步终态读取，下载不是校验状态接口。
+
+结果身份：UploadResult.asset_id / Asset.state / ObjectRef.version_id。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：audit_event, media_asset, object_version, upload_part, upload_session；计划测试：TC-INGEST-003-N, TC-INGEST-003-E。
 
-关联接口缺口：IF-G01, IF-G08, IF-G10；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G01, IF-G08；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-RESOURCE-001 管理原始及派生媒体
 
@@ -66,15 +72,17 @@
 
 来源任务卡：[T019.md](../../tasks/backend/T019.md)、[T020.md](../../tasks/backend/T020.md)、[T025.md](../../tasks/backend/T025.md)、[T030.md](../../tasks/frontend/T030.md)。
 
-候选流程入口：listAssets, searchImage；候选结果读取：getAsset, downloadAsset, getSearchJob。
+候选流程入口：listAssets, getAsset；候选结果读取：getAsset, downloadAsset。
 
-资源读取和检索候选分开，来源用途与授权生命周期逐次核验。
+资源管理只读取原件/副本；已移除上一版不相关searchImage入口。Asset有kind和固定ObjectRef但未返回完整parent_asset_id、lineage及转换参数，不能声称完整血缘已覆盖。
+
+结果身份：Asset.asset_id / kind / object_ref / version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：asset_lineage, audit_event, media_asset, object_version；计划测试：TC-RESOURCE-001-N, TC-RESOURCE-001-E。
 
-关联接口缺口：IF-G08, IF-G09；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G09；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-RESOURCE-002 区分完全重复与近重复候选
 
@@ -84,9 +92,11 @@
 
 来源任务卡：[T027.md](../../tasks/backend/T027.md)、[T079.md](../../tasks/algorithm/T079.md)、[T082.md](../../tasks/algorithm/T082.md)、[T090.md](../../tasks/backend/T090.md)。
 
-候选流程入口：listAssets, searchImage；候选结果读取：getAsset, downloadAsset, getSearchJob。
+候选流程入口：completeUpload, searchImage；候选结果读取：getSearchJob。
 
-资源读取和检索候选分开，来源用途与授权生命周期逐次核验。
+摘要相同仅在有权范围内判完全重复；近重复是检索及几何/时序验证候选。M23只产出关系建议，不允许语义相似或partial_copy自动并整内容簇；两种结果分别返回。
+
+结果身份：UploadResult.duplicate_of / SearchJob.search_id / SourceMatch.relation。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -94,7 +104,7 @@
 
 候选表：index_registry, media_asset, search_job, source_match, upload_part, upload_session；计划测试：TC-RESOURCE-002-N, TC-RESOURCE-002-E。
 
-关联接口缺口：IF-G08, IF-G09；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G01, IF-G09, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-RESOURCE-003 按权限及生命周期检索资产
 
@@ -104,15 +114,17 @@
 
 来源任务卡：[T015.md](../../tasks/platform/T015.md)、[T021.md](../../tasks/backend/T021.md)、[T025.md](../../tasks/backend/T025.md)、[T030.md](../../tasks/frontend/T030.md)。
 
-候选流程入口：listAssets, searchImage；候选结果读取：getAsset, downloadAsset, getSearchJob。
+候选流程入口：getCurrentUser, listAssets, getAsset；候选结果读取：listAssets, getAsset, downloadAsset。
 
-资源读取和检索候选分开，来源用途与授权生命周期逐次核验。
+逐次读取及每个Range请求均校验当前单位、案件、用途与到期/撤销；文件哈希或历史批准不是访问权。生命周期过滤和跨案拒绝由访问层执行。
+
+结果身份：Asset.case_id / source_id / object_ref。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：asset_lineage, audit_event, case_membership, media_asset, object_version, source_registry, user_roles, users；计划测试：TC-RESOURCE-003-N, TC-RESOURCE-003-E。
 
-关联接口缺口：IF-G08, IF-G09；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G07, IF-G08；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-MEDIA-001 解析媒体元数据并保留原件
 
@@ -122,9 +134,11 @@
 
 来源任务卡：[T041.md](../../tasks/backend/T041.md)、[T042.md](../../tasks/backend/T042.md)、[T043.md](../../tasks/backend/T043.md)。
 
-候选流程入口：createTask；候选结果读取：getAsset, getTimeline。
+候选流程入口：createTask；候选结果读取：getAsset。
 
-T041/T042/T043承接原件探测和标准化副本。主来源无模型/直接API绑定；候选入口为统一分析任务，getAsset仅含mime/尺寸/时长等摘要，完整元数据/派生血缘的返回与对象关联尚需确定。
+T041—T043执行ffprobe/标准化副本，属于普通媒体处理而非模型能力。输入原件ObjectRef不可覆盖；完整编码/流/派生参数尚缺对外投影，不能把Asset的mime/宽高时长摘要当全部元数据。
+
+结果身份：Task.task_id / Asset.asset_id / ObjectRef / asset_lineage。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
@@ -140,9 +154,11 @@ T041/T042/T043承接原件探测和标准化副本。主来源无模型/直接AP
 
 来源任务卡：[T044.md](../../tasks/backend/T044.md)、[T045.md](../../tasks/backend/T045.md)、[T046.md](../../tasks/backend/T046.md)、[T047.md](../../tasks/backend/T047.md)。
 
-候选流程入口：createTask；候选结果读取：getAsset, getTimeline。
+候选流程入口：createTask；候选结果读取：getTimeline。
 
-T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不能把指纹Schema当全部视频解码契约。getTimeline有frame/shot/audio/subtitle等候选投影，派生资产和映射身份待设计/实现。
+T044—T047负责镜头/帧/音轨/字幕和原始PTS映射，M33只覆盖音频指纹。音轨/字幕对象版本和派生资产绑定需补完整契约；Timeline投影不等于全部媒体输出已返回。
+
+结果身份：Timeline.asset_id / mapping_version / TimelineItem。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -160,9 +176,11 @@ T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不�
 
 来源任务卡：[T048.md](../../tasks/backend/T048.md)、[T049.md](../../tasks/backend/T049.md)、[T050.md](../../tasks/backend/T050.md)、[T066.md](../../tasks/algorithm/T066.md)。
 
-候选流程入口：createTask；候选结果读取：getAsset, getTimeline。
+候选流程入口：createTask；候选结果读取：getTimeline。
 
-候选DAG触发媒体处理；getAsset只含部分媒体摘要，getTimeline为帧/镜头/OCR/ASR等投影。完整元数据、派生对象/时轴关联仍需设计。
+OCR=M31、ASR=M32，普通媒体处理先生成输入；OCR框映射原件空间，ASR按原音轨时间。缺失/失败模态需进入任务missing_modalities及对应时间范围，不能以空文本假装识别完成。
+
+结果身份：Timeline.asset_id / mapping_version / text_segment。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -171,7 +189,7 @@ T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不�
 
 候选表：keyframe, media_asset, shot, text_segment；计划测试：TC-MEDIA-003-N, TC-MEDIA-003-E。
 
-关联接口缺口：IF-G11, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G09, IF-G11, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-RISK-001 多标签和敏感目标定位
 
@@ -183,7 +201,9 @@ T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不�
 
 候选流程入口：createTask；候选结果读取：getRiskFindings, getTaskEvidence。
 
-候选内部能力与融合后由风险/证据读取；标签/阈值/模态缺失与时间映射需语义核验。
+createPolicy/listPolicies属于配置前置，已从结果入口中分离。M01/M02/M03输出标签/目标候选；应用融合绑定标签、模型、阈值及结果版本。框/类别投影覆盖逐字段核验，不能用策略列表读取风险结果。
+
+结果身份：Findings.binding / Finding / Evidence。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -205,7 +225,9 @@ T044—T047为镜头/帧/音轨字幕处理，主来源M33为音频指纹，不�
 
 候选流程入口：createTask；候选结果读取：getRiskFindings, getTaskEvidence。
 
-M04—M07是行为/事件/音频/一致性能力来源，内部对齐和融合按任务处理；候选风险/证据读取须包含映射和缺失模态，不能自行新增HTTP或把能力存在当完整融合。
+M04—M07分别处理动作、事件、音频、跨模态关系；融合节点须按原时间区间对齐并保存冲突和缺失范围。跨模态矛盾不是违法或法律结论；一般Finding未完整表达全部融合payload，保留投影差异。
+
+结果身份：Findings.binding / missing_modalities / evidence_refs。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -216,7 +238,7 @@ M04—M07是行为/事件/音频/一致性能力来源，内部对齐和融合�
 
 候选表：无；计划测试：TC-RISK-002-N, TC-RISK-002-E。
 
-关联接口缺口：IF-G09, IF-G11, IF-G12, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G09, IF-G11, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-RISK-003 输出风险证据与模态冲突
 
@@ -228,7 +250,9 @@ M04—M07是行为/事件/音频/一致性能力来源，内部对齐和融合�
 
 候选流程入口：createTask；候选结果读取：getRiskFindings, getTaskEvidence。
 
-候选内部能力与融合后由风险/证据读取；标签/阈值/模态缺失与时间映射需语义核验。
+M08融合与M25校准后，依policy_version/threshold_version触发人工分流；任务计算完成不能替代审核通过。必须保存原始分数、校准值、缺失模态和转人工原因。
+
+结果身份：Findings.binding / risk_finding / finding_evidence。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -249,7 +273,9 @@ M04—M07是行为/事件/音频/一致性能力来源，内部对齐和融合�
 
 候选流程入口：createTask；候选结果读取：getForensics, getTaskEvidence。
 
-M09/M10承接疑似区域/类型，getForensics可作候选结果投影，掩码对象、原件坐标及可靠性需完整语义/业务验证。
+M09/M10产生疑似区域和类型；掩码固定ObjectRef并回映射原图。当前Findings通用投影不足以证明掩码/类型payload完整外露，不能只凭Schema存在判定闭环。
+
+结果身份：Findings.binding / ObjectRef / mapping_version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -270,7 +296,9 @@ M09/M10承接疑似区域/类型，getForensics可作候选结果投影，掩码
 
 候选流程入口：createTask；候选结果读取：getForensics, getTaskEvidence。
 
-M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍需源时间轴、轨迹/模态/证据关联，不能把静态Schema当全视频链路。
+M11—M14覆盖时间、空间、深伪和音画异常；半开区间[start_ms,end_ms)使用原件时间，轨迹映射原件坐标。逐能力失败/缺失与证据保留，未查明异常不能强制输出真伪。
+
+结果身份：Findings.binding / TimeRange / mapping_version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -293,7 +321,9 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选流程入口：createTask；候选结果读取：getForensics, getTaskEvidence。
 
-取证计算可由内部能力执行，掩码/轨迹/音画映射与版本需校验；读取候选不等于法定结论。
+M25校准仅在对应模型/任务/数据域下有效；低可靠性、OOD和证据不足应输出可见状态。Findings的warnings可提示但不是所有可靠性字段的确定映射，阈值与投影仍需唯一契约。
+
+结果身份：Findings.binding / warnings / M25 payload。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -301,7 +331,7 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选表：finding_evidence, tamper_finding；计划测试：TC-FORENSIC-003-N, TC-FORENSIC-003-E。
 
-关联接口缺口：IF-G09, IF-G11, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G09, IF-G12, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-IMGRET-001 整图局部及关键帧多路召回
 
@@ -313,7 +343,9 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选流程入口：searchImage, searchImageRegion；候选结果读取：getSearchJob。
 
-异步检索返回search_id；候选、几何验证、同源关系分别核验，不能用微型向量PoC代替完整查询。
+整图/局部请求明确查询资产与区域；M15/M19召回，固定索引/模型/过滤范围。getIndex/switchIndex是管理前置，不能当查询结果。接收202后仅SUCCEEDED且result非空可展示正式候选。
+
+结果身份：SearchAccepted.search_id / SearchJob / SearchResults。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -334,7 +366,9 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选流程入口：searchImage, searchImageRegion；候选结果读取：getSearchJob。
 
-异步检索返回search_id；候选、几何验证、同源关系分别核验，不能用微型向量PoC代替完整查询。
+M16—M18做匹配点、几何变换和验证；几何证据、查询/候选区域及坐标映射需明示。source_match的relation和verification_type可表示验证类别，不能把召回相似度当几何验证成功。
+
+结果身份：SearchJob.search_id / SourceMatch.verification_type / evidence_refs。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -356,7 +390,9 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选流程入口：searchImage, searchImageRegion；候选结果读取：getSearchJob。
 
-异步检索返回search_id；候选、几何验证、同源关系分别核验，不能用微型向量PoC代替完整查询。
+将semantic_candidate、partial_copy/contains与高可信full_copy分别解释；T156难负样本不读取封存验收集。源绑定M18保留，未据模块默认引入全部能力。
+
+结果身份：SourceMatch.relation / verification_type / index_version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -376,7 +412,9 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选流程入口：searchVideo；候选结果读取：getSearchJob。
 
-候选召回/时序对齐/多源定位在内部处理，查询与源半开区间、未知段及结果身份仍需全链路定义。
+按M15/M19帧特征与M33音频指纹召回；原追踪仅getIndex/switchIndex为管理关联，补充视频查询技术入口。保留查询/来源时间区间及索引版本，不能由索引查询替代视频结果。
+
+结果身份：SearchJob.search_id / SearchResults / source_match。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -398,7 +436,9 @@ M11—M14承接视频时间/空间/深伪/音画能力，候选结果读取仍�
 
 候选流程入口：searchVideo；候选结果读取：getSearchJob。
 
-M20/M21/M25承接时序定位和校准，searchVideo/getSearchJob为候选外部链路；查询区间与源区间、速度/倒放/未知段语义和历史结果选择尚需核验。
+M20/M21及M25完成对齐/校准；query_range与source_range分别为各自原时间，direction和speed_ratio不能丢失。所有未知段单列；重算不能将旧mapping_version或旧索引静默替换。
+
+结果身份：M20/M21 payload.mappings / SourceMatch query/source range。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -420,7 +460,9 @@ M20/M21/M25承接时序定位和校准，searchVideo/getSearchJob为候选外部
 
 候选流程入口：searchVideo；候选结果读取：getSearchJob。
 
-候选召回/时序对齐/多源定位在内部处理，查询与源半开区间、未知段及结果身份仍需全链路定义。
+逐查询片段保存来源资产、源区间和验证证据；多源拼接允许多个来源及unknown_ranges。A—拼接Q—B的片段关系不推导A与B整内容同源。
+
+结果身份：M22 payload / SourceMatch per-segment range。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -438,9 +480,11 @@ M20/M21/M25承接时序定位和校准，searchVideo/getSearchJob为候选外部
 
 来源任务卡：[T090.md](../../tasks/backend/T090.md)、[T164.md](../../tasks/data/T164.md)。
 
-候选流程入口：createTask；候选结果读取：getFirstSource。
+候选流程入口：createTask；候选结果读取：当前尚无完整读取契约。
 
-M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFirstSource只返回排序快照；cluster_id/簇成员与任务结果身份的持久化/读取尚需设计，不能将片段关系闭包自动合并整簇。
+M23只输出关系，未返回cluster_id/成员簇。候选应用事务按当前案件验证full_copy后生成UUID并落content_cluster/cluster_member，部分包含不合并；任务到簇及成员读取接口仍缺。已移除将getFirstSource当聚类完整读取的映射。
+
+结果身份：M23.payload.relations / content_cluster.cluster_id / cluster_member。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -460,7 +504,9 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 候选流程入口：createTask；候选结果读取：getFirstSource。
 
-高可信聚类→排序是候选DAG；已有查询返回ranking快照，cluster_id从任务到持久化/用户读取的关联仍需明确，不能把排序API当全部聚类结果接口。
+M24输出簇内候选，应用分配ranking_id并保存不可变批次。cluster_id指真实簇，asset_id必须同案同簇，rank为连续1..candidate_count且最多3；rank不是发布时间。指定ranking_id读取，概率不是原创确定性。
+
+结果身份：FirstSource.ranking_id / task_id / run_version / result_version / cluster_id。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -480,7 +526,9 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 候选流程入口：createTask；候选结果读取：getFirstSource。
 
-高可信聚类→排序是候选DAG；已有查询返回ranking快照，cluster_id从任务到持久化/用户读取的关联仍需明确，不能把排序API当全部聚类结果接口。
+支持与反对证据分开；published_at来自可核验发布时间，discovered_at不可自动代替。真值/覆盖不足保留insufficient、未知发布时间/概率可null，不凑满3条且不跨簇补候选。
+
+结果身份：FirstSource.evidence_ids / counter_evidence_ids / coverage_note / status。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -498,9 +546,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T094.md](../../tasks/backend/T094.md)、[T095.md](../../tasks/backend/T095.md)、[T096.md](../../tasks/backend/T096.md)。
 
-候选流程入口：createTask, decidePropagationEdge；候选结果读取：getPropagation。
+候选流程入口：createTask；候选结果读取：getPropagation。
 
-图写入/推断与人工决定分别处理，完整对象版本/查询规模/内部任务入口尚需实施验证。
+M26/M27与普通图处理分工；observed来自记录，inferred带模型与证据，human来自复核记录。图快照按版本固定，当前Graph缺完整task/run/result绑定，不能把候选边当事实传播。
+
+结果身份：Graph.cluster_id / version / GraphEdge.origin / probability / evidence_ids。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -519,9 +569,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T095.md](../../tasks/backend/T095.md)、[T097.md](../../tasks/frontend/T097.md)。
 
-候选流程入口：createTask, decidePropagationEdge；候选结果读取：getPropagation。
+候选流程入口：createTask；候选结果读取：getPropagation。
 
-图写入/推断与人工决定分别处理，完整对象版本/查询规模/内部任务入口尚需实施验证。
+展示的是指定图版本的时间线与版本差异；关系时间不能仅用数据库created_at代替发布时间/观察时间。当前响应未定义前后版本差异投影与完整来源时间字段，登记为未覆盖。
+
+结果身份：Graph.version / GraphNode / GraphEdge。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -539,9 +591,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T096.md](../../tasks/backend/T096.md)、[T097.md](../../tasks/frontend/T097.md)、[T102.md](../../tasks/backend/T102.md)。
 
-候选流程入口：createTask, decidePropagationEdge；候选结果读取：getPropagation。
+候选流程入口：decidePropagationEdge, createReview；候选结果读取：decidePropagationEdge, getPropagation。
 
-图写入/推断与人工决定分别处理，完整对象版本/查询规模/内部任务入口尚需实施验证。
+人工确认/驳回只改明确edge_id和期望版本；理由/证据/审批按适用规则处理。原边与模型概率保留，产生新关系版本和审计；getPropagation不能代替复核待办读取。
+
+结果身份：GraphDecision / GraphEdge.version / Review.review_version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -550,7 +604,7 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 候选表：approval_decision, approval_request, audit_event, policy_registry, propagation_edge, propagation_node, review_evidence, review_record；计划测试：TC-PROPAGATION-003-N, TC-PROPAGATION-003-E。
 
-关联接口缺口：IF-G09, IF-G11, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G02, IF-G03, IF-G09, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-CLAIM-001 抽取结构化主张
 
@@ -560,9 +614,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T098.md](../../tasks/algorithm/T098.md)、[T166.md](../../tasks/data/T166.md)、[T167.md](../../tasks/algorithm/T167.md)。
 
-候选流程入口：extractClaims, verifyClaim, createReportDraft；候选结果读取：getReport。
+候选流程入口：extractClaims；候选结果读取：extractClaims。
 
-现有主张提取/关系响应可作为读取投影，摘要异步生成用报告状态查询；引用支持不能只看JSON/ID存在。
+当前契约同步返回ClaimList，结果从同次响应读取；已移除getReport映射。M28抽取主体、事件、时间地点等字段并绑定来源片段；后续历史claim查询尚无专用契约。
+
+结果身份：ClaimList.claims / Claim.claim_id / source segment。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -580,9 +636,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T099.md](../../tasks/algorithm/T099.md)、[T168.md](../../tasks/algorithm/T168.md)。
 
-候选流程入口：extractClaims, verifyClaim, createReportDraft；候选结果读取：getReport。
+候选流程入口：verifyClaim；候选结果读取：verifyClaim。
 
-现有主张提取/关系响应可作为读取投影，摘要异步生成用报告状态查询；引用支持不能只看JSON/ID存在。
+当前同步返回Relation，结果从同次响应读取；白名单检索与M29关系判断分别校验，已移除getReport映射。本轮已修正Relation及M29/inference：insufficient允许空证据，其他关系仍要求证据；持久化无证据状态存于固定task_result摘要且不虚构关系行，实际服务联调仍未完成。
+
+结果身份：Relation.claim_id / relation / evidence_ids / model_version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -600,9 +658,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T106.md](../../tasks/backend/T106.md)、[T169.md](../../tasks/algorithm/T169.md)。
 
-候选流程入口：extractClaims, verifyClaim, createReportDraft；候选结果读取：getReport。
+候选流程入口：createReportDraft；候选结果读取：getReport。
 
-现有主张提取/关系响应可作为读取投影，摘要异步生成用报告状态查询；引用支持不能只看JSON/ID存在。
+M30生成带引用摘要，报告草稿受理后查report_id终态；DRAFT/READY与正式批准不同。句级引用必须语义支持且固定版本；只有ID存在/JSON合法不能证明内容可入报告。
+
+结果身份：Report.report_id / state / evidence_ids / ObjectRef。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -620,9 +680,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T100.md](../../tasks/backend/T100.md)、[T101.md](../../tasks/backend/T101.md)、[T102.md](../../tasks/backend/T102.md)、[T103.md](../../tasks/frontend/T103.md)、[T108.md](../../tasks/backend/T108.md)。
 
-候选流程入口：createReview, requestApproval, sealEvidence, createReport, requestFeedback；候选结果读取：getTaskEvidence, getReport, downloadReport。
+候选流程入口：createReview, requestApproval, decideApproval, requestFeedback；候选结果读取：createReview, requestApproval, decideApproval, getTaskEvidence。
 
-结果证据读取已有候选；复核/审批/反馈工作台和状态读取仍缺，不能用报告查询替代。
+提交响应可读但缺工作台/审批/反馈历史查询；退回补证和request_rerun按不同动作办理，重算产生新运行/结果版本而不覆盖旧意见。反馈不等于已获训练用途授权。
+
+结果身份：Review task/run/result/review_version / Approval / FeedbackRecord。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
@@ -638,15 +700,17 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T104.md](../../tasks/backend/T104.md)、[T105.md](../../tasks/backend/T105.md)。
 
-候选流程入口：createReview, requestApproval, sealEvidence, createReport, requestFeedback；候选结果读取：getTaskEvidence, getReport, downloadReport。
+候选流程入口：sealEvidence；候选结果读取：sealEvidence。
 
-结果证据读取已有候选；复核/审批/反馈工作台和状态读取仍缺，不能用报告查询替代。
+固化响应包含清单；固定证据ObjectRef.version_id及摘要，保留包版本。现有接口缺包列表/历史详情/签验读取，不借用报告读取；mock/not_signed状态不得表述为正式签验通过。
+
+结果身份：EvidencePackage.package_id / version / manifest_sha256 / manifest。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：audit_event, evidence_package, object_version, package_item；计划测试：TC-REVIEW-002-N, TC-REVIEW-002-E。
 
-关联接口缺口：IF-G02, IF-G03, IF-G04, IF-G09, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G09；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-REVIEW-003 生成报告及受控导出
 
@@ -656,9 +720,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T106.md](../../tasks/backend/T106.md)、[T107.md](../../tasks/backend/T107.md)。
 
-候选流程入口：createReview, requestApproval, sealEvidence, createReport, requestFeedback；候选结果读取：getTaskEvidence, getReport, downloadReport。
+候选流程入口：createReportDraft, createReport；候选结果读取：getReport, downloadReport。
 
-结果证据读取已有候选；复核/审批/反馈工作台和状态读取仍缺，不能用报告查询替代。
+草稿和正式报告生成分开；READY仅产物生成成功，导出仍校验当前权限、目的及有效批准。旧批准不随重算继承；下载绑定固定产物版本，撤销后下一Range拒绝。
+
+结果身份：Report.report_id / run_version / result_version / approval_id / object_ref。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -666,7 +732,7 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 候选表：approval_request, audit_event, report, report_evidence；计划测试：TC-REVIEW-003-N, TC-REVIEW-003-E。
 
-关联接口缺口：IF-G02, IF-G03, IF-G04, IF-G09, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G02, IF-G09, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-OPS-001 管理角色模型标签阈值规则
 
@@ -676,15 +742,17 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T011.md](../../tasks/platform/T011.md)、[T012.md](../../tasks/platform/T012.md)、[T013.md](../../tasks/platform/T013.md)、[T014.md](../../tasks/platform/T014.md)、[T016.md](../../tasks/platform/T016.md)、[T017.md](../../tasks/platform/T017.md)、[T018.md](../../tasks/frontend/T018.md)、[T051.md](../../tasks/algorithm/T051.md)、[T052.md](../../tasks/algorithm/T052.md)、[T058.md](../../tasks/algorithm/T058.md)、[T060.md](../../tasks/frontend/T060.md)、[T061.md](../../tasks/algorithm/T061.md)。
 
-候选流程入口：registerModel, rolloutModel, createPolicy, exportAudit；候选结果读取：listModels, getModelHealth, getIndex, listPolicies, listAuditEvents。
+候选流程入口：registerModel, recordEvaluation, createPolicy, requestApproval, decideApproval；候选结果读取：listModels, listEvaluations, listPolicies, listAuditEvents。
 
-组织级配置/模型与案件数据范围分开；健康检查不等于发布操作完成，审计导出查询缺口开放，训练/备份可为离线运维任务。
+按管理对象分别配置和查询；开发devLogin不是正式身份接入，rolloutModel为发布动作且不是标签配置入口。角色/阈值激活撤销及管理API责任仍待定；不混同组织权限与案件数据范围。
+
+结果身份：Model / Evaluation / Policy / Approval。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：approval_decision, approval_request, audit_event, audit_export, case_membership, index_registry, model_evaluation, model_registry, model_release, operation_token, policy_registry, user_roles, users；计划测试：TC-OPS-001-N, TC-OPS-001-E。
 
-关联接口缺口：IF-G05, IF-G06, IF-G07, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G02, IF-G05, IF-G06, IF-G07, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-OPS-002 监控任务GPU队列存储及索引
 
@@ -694,15 +762,17 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T035.md](../../tasks/backend/T035.md)、[T040.md](../../tasks/frontend/T040.md)、[T055.md](../../tasks/algorithm/T055.md)、[T056.md](../../tasks/algorithm/T056.md)、[T059.md](../../tasks/algorithm/T059.md)、[T117.md](../../tasks/testing/T117.md)、[T118.md](../../tasks/testing/T118.md)、[T119.md](../../tasks/testing/T119.md)、[T120.md](../../tasks/backend/T120.md)。
 
-候选流程入口：registerModel, rolloutModel, createPolicy, exportAudit；候选结果读取：listModels, getModelHealth, getIndex, listPolicies, listAuditEvents。
+候选流程入口：listTasks, getTask, getModelHealth；候选结果读取：listTasks, getTask, getModelHealth。
 
-组织级配置/模型与案件数据范围分开；健康检查不等于发布操作完成，审计导出查询缺口开放，训练/备份可为离线运维任务。
+只读任务/模型健康有契约；cancelTask/rerunTask为独立控制动作，已移出监控读入口。GPU、队列、存储、索引监控目前由运维指标规划，不能把Health当全量监控或任务完成证据。
+
+结果身份：Task.state / nodes / Health。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 主追踪没有模型ID；媒体探测/存储/权限等普通处理沿用任务卡，不凭空创建模型能力。
 
 候选表：analysis_task, model_registry, outbox_event, task_event, task_node_run, task_run；计划测试：TC-OPS-002-N, TC-OPS-002-E。
 
-关联接口缺口：IF-G05, IF-G06, IF-G07, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G05, IF-G11, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 
 ## FR-OPS-003 灰度回滚及备份恢复
 
@@ -712,9 +782,11 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 来源任务卡：[T057.md](../../tasks/algorithm/T057.md)、[T060.md](../../tasks/frontend/T060.md)、[T121.md](../../tasks/deployment/T121.md)、[T122.md](../../tasks/testing/T122.md)、[T123.md](../../tasks/testing/T123.md)、[T124.md](../../tasks/testing/T124.md)、[T170.md](../../tasks/algorithm/T170.md)。
 
-候选流程入口：registerModel, rolloutModel, createPolicy, exportAudit；候选结果读取：listModels, getModelHealth, getIndex, listPolicies, listAuditEvents。
+候选流程入口：rolloutModel；候选结果读取：listModels, getModelHealth。
 
-组织级配置/模型与案件数据范围分开；健康检查不等于发布操作完成，审计导出查询缺口开放，训练/备份可为离线运维任务。
+rolloutModel含灰度/rollback，但202后的操作终态查询仍缺，健康只能旁证；备份恢复是受控离线运维流程，M34运行转换不代表所有包可部署。数据库/对象/模型/索引/密钥恢复分别对账。
+
+结果身份：ActionAck.object_id / release_bundle / Model.version。技术复核状态：`TECHNICAL_REVIEW_COMPLETED_REMAINING_CONTRACT_GAPS_IDENTIFIED`。
 
 | 来源能力 | 输入/输出路径 | 结构源 |
 | --- | --- | --- |
@@ -722,5 +794,5 @@ M23和T090/T164承接高可信整内容聚类，候选统一任务调度。getFi
 
 候选表：approval_request, index_registry, model_registry, model_release；计划测试：TC-OPS-003-N, TC-OPS-003-E。
 
-关联接口缺口：IF-G05, IF-G06, IF-G07, IF-G12；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
+关联接口缺口：IF-G05, IF-G13；全部详见[接口缺口](../03-api/interface-gap-register.md)。实现/验收均未由本文宣称完成。
 

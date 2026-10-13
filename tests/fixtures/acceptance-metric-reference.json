@@ -1,0 +1,325 @@
+{
+  "synthetic_only": true,
+  "cases": [
+    {
+      "name": "failed_positive_and_empty_label_counted_in_fixed_macro",
+      "evaluator": "classification",
+      "input": {
+        "labels": [
+          "A",
+          "B",
+          "C"
+        ],
+        "samples": [
+          {
+            "truth": [
+              "A"
+            ],
+            "predicted": [
+              "A"
+            ],
+            "status": "SUCCEEDED"
+          },
+          {
+            "truth": [
+              "A",
+              "B"
+            ],
+            "predicted": [
+              "A",
+              "B"
+            ],
+            "status": "FAILED"
+          },
+          {
+            "truth": [],
+            "predicted": [
+              "B"
+            ],
+            "status": "SUCCEEDED"
+          },
+          {
+            "truth": null,
+            "predicted": [
+              "A"
+            ],
+            "status": "SUCCEEDED"
+          }
+        ]
+      },
+      "expected": {
+        "macro_f1": 0.2222222222222222,
+        "failed_samples": 1,
+        "zero_positive_labels": [
+          "C"
+        ],
+        "unknown_truth_samples": 1,
+        "eligible_truth_samples": 3
+      }
+    },
+    {
+      "name": "missed_positive_zero_iou_negative_not_in_positive_mean",
+      "evaluator": "mask_iou",
+      "input": {
+        "samples": [
+          {
+            "truth": [
+              1,
+              1,
+              0,
+              0
+            ],
+            "predicted": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "status": "SUCCEEDED"
+          },
+          {
+            "truth": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "predicted": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "status": "FAILED"
+          },
+          {
+            "truth": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "predicted": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "status": "SUCCEEDED"
+          }
+        ]
+      },
+      "expected": {
+        "positive_image_macro_iou": 0.25,
+        "positive_images": 2,
+        "negative_image_false_alarm_rate": 1
+      }
+    },
+    {
+      "name": "query_hit_and_item_recall_are_distinct_failures_retained",
+      "evaluator": "retrieval",
+      "input": {
+        "k": 2,
+        "samples": [
+          {
+            "relevant_ids": [
+              "a",
+              "b"
+            ],
+            "ranked_ids": [
+              "a",
+              "x"
+            ],
+            "status": "SUCCEEDED"
+          },
+          {
+            "relevant_ids": [
+              "c"
+            ],
+            "ranked_ids": [
+              "c"
+            ],
+            "status": "FAILED"
+          },
+          {
+            "relevant_ids": [],
+            "ranked_ids": [
+              "z"
+            ],
+            "status": "SUCCEEDED"
+          }
+        ]
+      },
+      "expected": {
+        "query_hit_rate_at_k": 0.5,
+        "query_macro_item_recall_at_k": 0.25,
+        "unknown_or_no_relevant_queries": 1,
+        "failed_eligible_queries": 1
+      }
+    },
+    {
+      "name": "conditional_boundary_error_reports_unmatched_coverage",
+      "evaluator": "boundaries",
+      "input": {
+        "samples": [
+          {
+            "truth_range_ms": [
+              1000,
+              5000
+            ],
+            "predicted_range_ms": [
+              1500,
+              6000
+            ],
+            "status": "SUCCEEDED"
+          },
+          {
+            "truth_range_ms": [
+              1000,
+              5000
+            ],
+            "predicted_range_ms": null,
+            "status": "FAILED"
+          }
+        ]
+      },
+      "expected": {
+        "matched_mean_boundary_error_seconds": 0.75,
+        "matched_coverage": 0.5,
+        "unmatched_segments": 1
+      }
+    },
+    {
+      "name": "top3_known_failure_and_unknown_separate",
+      "evaluator": "origin_top3",
+      "input": {
+        "samples": [
+          {
+            "reference_asset_id": "a",
+            "candidate_ids": [
+              "b",
+              "a"
+            ],
+            "status": "SUCCEEDED",
+            "claims_certain_origin": false
+          },
+          {
+            "reference_asset_id": "c",
+            "candidate_ids": [
+              "c"
+            ],
+            "status": "FAILED",
+            "claims_certain_origin": false
+          },
+          {
+            "reference_asset_id": null,
+            "candidate_ids": [],
+            "status": "SUCCEEDED",
+            "claims_certain_origin": false
+          }
+        ]
+      },
+      "expected": {
+        "known_reference_top3_hit_rate": 0.5,
+        "known_reference_clusters": 2,
+        "unknown_reference_clusters": 1,
+        "unknown_false_certainty": 0
+      }
+    },
+    {
+      "name": "accepted_failure_and_missing_terminal_latency_not_dropped",
+      "evaluator": "latency",
+      "input": {
+        "measurement_seconds": 10,
+        "requests": [
+          {
+            "accepted": true,
+            "terminal_status": "SUCCEEDED",
+            "latency_ms": 100
+          },
+          {
+            "accepted": true,
+            "terminal_status": "FAILED",
+            "latency_ms": 900
+          },
+          {
+            "accepted": true,
+            "terminal_status": "TIMEOUT",
+            "latency_ms": null
+          },
+          {
+            "accepted": false,
+            "terminal_status": "REJECTED",
+            "latency_ms": 10
+          },
+          {
+            "accepted": true,
+            "terminal_status": "RUNNING",
+            "latency_ms": 8000
+          }
+        ]
+      },
+      "expected": {
+        "accepted_success_rate": 0.25,
+        "p95_ms": 900,
+        "missing_latency_observations": 2,
+        "rejected_requests": 1,
+        "successful_throughput_per_second": 0.1,
+        "accepted_nonterminal_tasks": 1
+      }
+    },
+    {
+      "name": "confidence_one_last_bin_and_invalid_confidence_visible",
+      "evaluator": "ece",
+      "input": {
+        "bins": 2,
+        "predictions": [
+          {
+            "confidence": 0.2,
+            "correct": false
+          },
+          {
+            "confidence": 1,
+            "correct": true
+          },
+          {
+            "confidence": null,
+            "correct": false
+          }
+        ]
+      },
+      "expected": {
+        "ece": 0.1,
+        "valid_confidence_predictions": 2,
+        "invalid_confidence_predictions": 1
+      }
+    },
+    {
+      "name": "existing_reference_without_semantic_support_is_not_traceable",
+      "evaluator": "citations",
+      "input": {
+        "conclusions": [
+          {
+            "reference_exists": true,
+            "object_version_fixed": true,
+            "digest_matches": true,
+            "currently_authorized": true,
+            "supports_statement": true
+          },
+          {
+            "reference_exists": true,
+            "object_version_fixed": true,
+            "digest_matches": true,
+            "currently_authorized": true,
+            "supports_statement": false
+          }
+        ]
+      },
+      "expected": {
+        "full_traceability_rate": 0.5,
+        "semantic_support_rate": 0.5,
+        "fully_traceable_conclusions": 1
+      }
+    }
+  ]
+}

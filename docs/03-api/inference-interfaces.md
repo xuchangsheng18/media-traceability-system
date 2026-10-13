@@ -1,6 +1,6 @@
 # 内部模型调用详细说明
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/inference-openapi.yaml`，SHA-256 `5f8d735bedd4eb5b1aa7e182d83c6c714815ad53781aebf3eb9ce109e61bce3b`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/inference-openapi.yaml`，SHA-256 `99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad`。契约未冻结，文档存在不代表接口已实现。
 
 调用入口 `POST /internal/v1/inference/{capability}`；业务调用方是已授权任务的worker/模型网关，使用独立serviceAuth。该内部口不能作为前端直接接口，不能将调用令牌/任意URL装入消息。路径capability须与请求能力一致，按对应独立Schema校验，再核验案件/用途、对象版本/摘要、期限及运行身份。
 
@@ -1719,7 +1719,7 @@ SUCCEEDED必须满足能力payload及身份绑定；FAILED/SKIPPED/DEFERRED/NOT_
 
 ### response字段
 
-结构源：[schemas/model/M29.response.schema.json](../../schemas/model/M29.response.schema.json)；SHA-256：`63700d32cc905d60125b275bca38d15b7b8f403d9aa5b156267ea8324a2394cc`。
+结构源：[schemas/model/M29.response.schema.json](../../schemas/model/M29.response.schema.json)；SHA-256：`192c334cd0b85641c15fbc839c1f29a52de986afd8623f87d299b182c188fa15`。
 
 | 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
 | --- | --- | --- | --- |

@@ -1,0 +1,11 @@
+{
+  "synthetic_only": true,
+  "cases": [
+    {"name": "public_insufficient_no_evidence_valid", "schema": "public", "value": {"claim_id": "00000000-0000-4000-8000-000000000001", "relation": "insufficient", "evidence_ids": [], "score": 0.1, "model_version": "synthetic-test"}, "valid": true},
+    {"name": "public_supports_no_evidence_invalid", "schema": "public", "value": {"claim_id": "00000000-0000-4000-8000-000000000001", "relation": "supports", "evidence_ids": [], "score": 0.8, "model_version": "synthetic-test"}, "valid": false},
+    {"name": "public_contradicts_real_reference_shape_valid", "schema": "public", "value": {"claim_id": "00000000-0000-4000-8000-000000000001", "relation": "contradicts", "evidence_ids": ["00000000-0000-4000-8000-000000000002"], "score": 0.8, "model_version": "synthetic-test"}, "valid": true},
+    {"name": "M29_insufficient_missing_right_evidence_valid", "schema": "M29_item", "value": {"relation": "insufficient", "left_evidence_ids": ["00000000-0000-4000-8000-000000000002"], "right_evidence_ids": [], "score": 0.1}, "valid": true},
+    {"name": "M29_supports_missing_right_evidence_invalid", "schema": "M29_item", "value": {"relation": "supports", "left_evidence_ids": ["00000000-0000-4000-8000-000000000002"], "right_evidence_ids": [], "score": 0.8}, "valid": false},
+    {"name": "M29_insufficient_both_empty_valid", "schema": "M29_item", "value": {"relation": "insufficient", "left_evidence_ids": [], "right_evidence_ids": [], "score": 0.1}, "valid": true}
+  ]
+}

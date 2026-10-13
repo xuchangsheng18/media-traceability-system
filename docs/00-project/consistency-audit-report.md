@@ -23,3 +23,7 @@ SQL相关约束已有[隔离数据库实测](validation/database-foundation-repo
 | 当前候选快照 | 当前输入文件集合及SHA | [候选摘要](stage-one/input-baseline-candidate.md)可重算；旧baseline清单保留历史身份，不从快照产生批准 |
 
 开发PoC、服务器与GitHubCI结果另见[技术验证](../02-architecture/technical-validation-report.md)。人工语义评审、业务准确率、全部170任务完成和正式批准都不由上述结构报告代替。
+
+## 本轮补充（2026-10-13）
+
+[四项补充](stage-one/four-item-completion.md)记录本轮369页/幻灯片核验、36需求技术语义、24测量协议和170任务排期输入。历史视觉未验证记录不倒改；实际日历仍缺输入，Formal frozen仍为false。
