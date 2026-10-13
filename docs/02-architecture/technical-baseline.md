@@ -22,6 +22,8 @@
 
 正式基线尚需：生产软件准入/国产化/安全边界、受支持Python、身份与案件隔离、完整许可与镜像扫描、真实业务模型/GPU/正式指标、生产灾备与密钥恢复、资源配额、CI组织治理、实际责任人和有效评审。不能把本轮研发验证自动升级为23步全部正式冻结或170项功能已完成。
 
+生产Python按[TB-ADR-002](architecture-decisions/TB-ADR-002-backend-stack.md#生产python选型与验证条件)优先验证3.13、3.12备选；[versions.yaml](../../config/versions.yaml)区分已验证py310与未验证生产候选，[实际输入表](../03-development/stage-two-external-inputs.json)登记待填证据。3.10生产例外须有具体依赖限制、持续补丁维护、实际责任人与有效决定；本次未安装或切换任何候选环境。
+
 <!-- phase-contract-file-navigation:start -->
 ## 接口与数据库文件导航
 
@@ -48,7 +50,7 @@
 | DEV-DISK | CRITICAL_BLOCKS_HEAVY_SERVER_CONTAINER_WORK | Linux服务器Docker虚拟机研发卷需先落实扩容/迁移及新快照，当前df99%且约1.62GiB可用；宿主/workspace空闲不替代卷余量。<br>[resource-readiness-snapshot.json](<../00-project/validation/resource-readiness-snapshot.json>)、[stage-two-resource-report.json](<../00-project/validation/stage-two-resource-report.json>) |
 | DEV-CONTRACT | PER_TASK_GAPS_MUST_CLOSE | 13整体接口缺口、62表访问迁移及完整DAG依对应任务先补契约/绑定/实现，不自动当全部完成。 |
 | DEV-REAL-INPUTS | WAIT_ACTUAL_INPUTS_AND_IMPLEMENTATION | 正式身份、授权数据/真实权重、GPU/驱动、实际规模/并发、人员和资源需真实材料；模拟身份/合成CPU只作研发。 |
-| DEV-PRODUCTION | NOT_READY_NOT_FROZEN | 受支持生产版本/准入、WORM/审批/保留、PITR/密钥/异机恢复、许可扫描及治理必须实施验证后再正式冻结/启用。 |
+| DEV-PRODUCTION | NOT_READY_NOT_FROZEN | 生产Python按TB-ADR-002逐候选验证/重锁/全CI与准入；3.10例外需实际补丁维护和有效决定。WORM/审批/保留、PITR/密钥/异机恢复、许可扫描及治理仍须实施验证后正式冻结/启用。<br>[TB-ADR-002-backend-stack.md](<architecture-decisions/TB-ADR-002-backend-stack.md>)、[versions.yaml](<../../config/versions.yaml>)、[stage-two-external-inputs.json](<../03-development/stage-two-external-inputs.json>) |
 
 每个任务开始前检查：
 

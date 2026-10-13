@@ -199,13 +199,16 @@
         1,
         17
       ],
-      "completed_this_round": "保留指定Miniforge py310；新增实际5镜像OS物料/SPDX清单及来源覆盖说明，登记旧web镜像无法inspect的事实。",
-      "remaining_actual_requirements": "确定支持中的生产Python/OS并重锁全CI；补未托管二进制/FFmpeg源码与notices、模型许可、漏洞数据库扫描及软件准入；不自动升级当前环境。",
+      "completed_this_round": "保留指定Miniforge py310；新增实际5镜像OS物料/SPDX清单及来源覆盖说明，登记旧web镜像无法inspect的事实。 生产Python候选顺序、验证标准和3.10例外条件已写入现有ADR/版本配置及待填证据表；实际研发环境保持。",
+      "remaining_actual_requirements": "按TB-ADR-002验证3.13主候选/3.12备选或有实际维护依据的3.10例外，落实精确生产Python/OS、依赖/模型/CPU-GPU兼容、新锁/全CI与准入决定；补未托管二进制/FFmpeg源码与notices、模型许可、漏洞扫描及离线交付；未自动安装或升级当前环境。",
       "evidence_refs": [
         "scripts/collect_stage_two_software.py",
         "docs/00-project/validation/stage-two-software-report.json",
         "docs/00-project/validation/image-sbom.spdx.json",
-        "docs/02-architecture/licenses.md"
+        "docs/02-architecture/licenses.md",
+        "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+        "config/versions.yaml",
+        "docs/03-development/stage-two-external-inputs.json"
       ],
       "engineering_supplement_status": "COMPLETED_WITH_STATED_SCOPE",
       "formal_complete": false,

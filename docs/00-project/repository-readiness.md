@@ -31,4 +31,4 @@
 
 当前运行库只有5张PoC表；62表候选DDL的隔离验证不证明62表业务访问层、升级迁移或逐表隔离已部署。53份业务接口说明不等于53个业务端点已运行，完整DAG、取消/重算与实际多worker故障仍待对应任务实现。
 
-Python3.10.22于2026-10-01结束支持，依据[官方发布说明](https://www.python.org/downloads/release/python-31022/)。保留用户指定py310研发环境；生产目标需另选受支持组合、重新锁定并验证，不能把当前研发锁直接批准为生产基线。
+Python3.10.22于2026-10-01结束支持，依据[官方发布说明](https://www.python.org/downloads/release/python-31022/)。保留用户指定py310研发环境；生产优先验证3.13，3.12备选，精确版本与批准仍未确定。所需依赖/业务模型/CPU-GPU、新锁/完整CI、安全交付、回退和准入证据，以及3.10例外的补丁维护/退出标准，见[TB-ADR-002](../02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md#生产python选型与验证条件)、[机器候选配置](../../config/versions.yaml)及[实际证据输入](../03-development/stage-two-external-inputs.json)。候选标准已登记不代表候选环境已安装、兼容通过或获得生产批准；当前研发锁不能直接转记为生产验证。

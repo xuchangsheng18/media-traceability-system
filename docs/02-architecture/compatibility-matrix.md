@@ -4,7 +4,9 @@
 
 | 组合 | 本轮版本 | 验证 | 限制/升级路径 |
 | --- | --- | --- | --- |
-| Miniforge / Python / Linux | Python 3.10.22；Linux x86_64 | 原环境与全新 venv 安装、pip check、容器实际版本 | 3.10 EOL；生产前迁移到受支持版本，重新解决所有锁和运行验证 |
+| Miniforge / Python / Linux | Python 3.10.22；Linux x86_64 | 原环境与全新 venv 安装、pip check、容器实际版本 | 已验证研发组合；生产按[选型标准](architecture-decisions/TB-ADR-002-backend-stack.md)另核验支持、依赖/模型与完整CI。3.10例外未批准 |
+| 生产Python主候选 | 3.13分支；精确补丁/发行/OS未选 | 未安装、未运行本项目兼容验证、未批准 | 预计上游支持至2029-10；实施时复核官方维护、实际模型/原生依赖及现场准入后独立锁定 |
+| 生产Python兼容备选 | 3.12分支；精确补丁/发行/OS未选 | 未安装、未运行本项目兼容验证、未批准 | 预计上游支持至2028-10；选择需实际兼容结果和维护期/升级责任；旧py310锁不可直接复用 |
 | FastAPI / Pydantic / SQLAlchemy | 0.143.0 / 2.14.1 / 2.0.54 | API、配置、鉴权、错误、任务接口 | 保持 Python 版本约束；Starlette 测试客户端有 httpx 迁移提示，当前检查通过 |
 | psycopg / PostgreSQL | 3.3.6 / 16.15 | SQL、事务、scope FK、独立角色 | PoC 迁移与 62 表业务提案分别验证；不把初始化当升级 |
 | Celery / Kombu / RabbitMQ | 5.6.3 / 5.6.2 / 4.3.6 | 真队列、确认、outbox、中断和租约恢复 | 禁用远控/mingle/gossip；事件队列 exclusive；不开启已弃用的非独占临时队列兼容开关 |
@@ -17,3 +19,5 @@
 第三方 Python 依赖精确到全部100个包；npm 锁含传递依赖及 integrity；基础镜像按 digest；自建镜像记录 image_id；打包环境和权重记录摘要。没有宣称二进制位级可重现、完整离线供应链或全部 OS 包漏洞扫描已完成。
 
 外部支持依据见 [官方来源](stage-two-official-sources.md)。升版应创建新 ADR，重新生成类型、运行完整 CI 和故障恢复，并保留旧摘要与报告。
+
+候选顺序及维护月份是截至2026-10-13的选型信息，依据[官方版本表](https://devguide.python.org/versions/)，不证明100包、OCR/ASR/真实模型或GPU组合已经兼容。选型标准与3.10生产例外维护在TB-ADR-002；实际验证记录保持待填，正式选定后的新ADR须引用原研发决定。

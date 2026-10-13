@@ -12,6 +12,50 @@ python:
   end_of_life: '2026-10-01'
   full_lock: config/locks/requirements-py310.lock
   conda_lock: config/locks/conda-linux-64.explicit.txt
+production_python_selection:
+  status: CANDIDATES_NOT_VALIDATED_NOT_APPROVED
+  reviewed_at: '2026-10-13'
+  decision_ref: docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md
+  actual_evidence_ref: docs/03-development/stage-two-external-inputs.json
+  enforcement_scope: planning_material_consistency_only_not_production_deployment_authorization
+  current_development_profile: miniforge-py310-linux-x86_64-cpu
+  current_development_environment_preserved: true
+  candidate_priority: ['3.13', '3.12']
+  candidates:
+    - branch: '3.13'
+      role: primary_candidate
+      upstream_end_of_life_scheduled: '2029-10'
+      project_compatibility_validated: false
+    - branch: '3.12'
+      role: compatibility_fallback_candidate
+      upstream_end_of_life_scheduled: '2028-10'
+      project_compatibility_validated: false
+  support_must_be_rechecked_at_validation_and_deployment: true
+  selected_exact_version: null
+  production_approved: false
+  new_environment_installed_or_runtime_switched: false
+  existing_py310_lock_reusable_as_production_candidate_lock: false
+  required_evidence:
+    - upstream_or_documented_supplier_security_support_and_upgrade_plan
+    - approved_OS_architecture_driver_and_software_admission
+    - all_dependencies_native_wheels_and_backend_requires_python_review
+    - separate_exact_dependency_conda_OS_and_image_locks_and_digests
+    - enabled_business_models_OCR_ASR_CPU_GPU_and_media_validation
+    - full_CI_actual_source_run_artifact_and_failure_recovery_evidence
+    - SBOM_vulnerability_license_and_offline_delivery_review
+    - rollback_restore_plan_actual_owner_and_valid_admission_decision
+  eol_310_production_exception:
+    status: NOT_REQUESTED_NOT_APPROVED
+    upstream_support_ended_on: '2026-10-01'
+    concrete_dependency_blocker_ref: null
+    maintained_distribution_and_patch_source_ref: null
+    security_fix_coverage_and_service_commitment_ref: null
+    scope_isolation_expiry_and_exit_plan_ref: null
+    actual_maintenance_owner: null
+    valid_admission_decision_ref: null
+  official_sources:
+    - https://devguide.python.org/versions/
+    - https://www.python.org/downloads/release/python-31022/
 backend:
   fastapi: 0.143.0
   uvicorn: 0.54.0

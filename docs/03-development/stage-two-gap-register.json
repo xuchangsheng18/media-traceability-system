@@ -6,13 +6,16 @@
       "priority": "P0",
       "id": "S2-01",
       "title": "Python支持周期与生产准入",
-      "development_evidence": "保留用户py310研发环境；生产版本尚未批准",
+      "development_evidence": "保留已验证py310研发；生产3.13主候选/3.12备选与3.10例外标准已登记，未安装、未验证、未批准生产候选",
       "owner_role": "技术负责人/现场运维（姓名待定）",
       "owner_name": null,
-      "required_inputs": "支持中的Python目标、OS/国产化/离线/网络准入",
-      "closure_criteria": "新环境重新锁包、构建、全CI与差异评审；签署准入记录",
+      "required_inputs": "精确Python发行/补丁、OS/架构准入、全依赖/业务模型/CPU-GPU兼容、新锁与CI、实际维护期/责任人和有效决定；3.10例外需补丁维护及退出依据",
+      "closure_criteria": "按TB-ADR-002取得完整实际证据；独立新环境重锁、构建、全CI/模型/安全交付及回退验证后形成有效准入记录；未定不得标生产PASS",
       "status": "OPEN_FOR_FORMAL_SCOPE",
-      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json"
+      "completion_matrix_ref": "docs/03-development/stage-two-completion-matrix.json",
+      "decision_ref": "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+      "machine_policy_ref": "config/versions.yaml",
+      "actual_evidence_ref": "docs/03-development/stage-two-external-inputs.json"
     },
     {
       "priority": "P0",

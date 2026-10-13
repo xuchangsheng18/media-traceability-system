@@ -8,12 +8,15 @@
       "title": "环境约束",
       "planned_outputs": "docs/02-architecture/environment-constraints.md",
       "directories": "config、deploy、docs",
-      "current_state": "已核验开发Linux/py310/Desktop、网络与挂载限制；生产边界待确认",
+      "current_state": "已核验开发Linux/py310/Desktop、网络与挂载限制；生产边界待确认；生产3.13主候选/3.12备选及3.10例外标准已登记，候选未安装/验证/批准",
       "completion_asserted": false,
       "development_status": "DEV_RECORDED",
       "formal_completion_asserted": false,
       "detail_refs": [
-        "docs/03-development/stage-two-completion-matrix.json"
+        "docs/03-development/stage-two-completion-matrix.json",
+        "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+        "config/versions.yaml",
+        "docs/03-development/stage-two-external-inputs.json"
       ]
     },
     {
@@ -73,12 +76,15 @@
       "title": "后端选型",
       "planned_outputs": "TB-ADR-002-backend-stack.md",
       "directories": "backend、docs",
-      "current_state": "用户指定py310、FastAPI工程/锁/配置/API已运行",
+      "current_state": "用户指定py310、FastAPI工程/锁/配置/API已运行；生产3.13主候选/3.12备选及3.10例外标准已登记，候选未安装/验证/批准",
       "completion_asserted": false,
       "development_status": "DEV_VALIDATED",
       "formal_completion_asserted": false,
       "detail_refs": [
-        "docs/03-development/stage-two-completion-matrix.json"
+        "docs/03-development/stage-two-completion-matrix.json",
+        "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+        "config/versions.yaml",
+        "docs/03-development/stage-two-external-inputs.json"
       ]
     },
     {
@@ -220,12 +226,15 @@
       "title": "版本兼容许可",
       "planned_outputs": "compatibility-matrix.md；licenses.md；config/versions.yaml",
       "directories": "config、服务目录、docs",
-      "current_state": "服务器5镜像、449条SPDX物料记录已盘点；旧web镜像目录缺失、漏洞扫描、许可审查及生产版本仍待落实",
+      "current_state": "服务器5镜像、449条SPDX物料记录已盘点；旧web镜像目录缺失、漏洞扫描、许可审查及生产版本仍待落实；生产3.13主候选/3.12备选及3.10例外标准已登记，候选未安装/验证/批准",
       "completion_asserted": false,
       "development_status": "DEV_LOCKED",
       "formal_completion_asserted": false,
       "detail_refs": [
-        "docs/03-development/stage-two-completion-matrix.json"
+        "docs/03-development/stage-two-completion-matrix.json",
+        "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+        "config/versions.yaml",
+        "docs/03-development/stage-two-external-inputs.json"
       ]
     },
     {
@@ -318,7 +327,7 @@
       ]
     }
   ],
-  "documentation_revision": "existing-document-status-cleanup-20261013",
+  "documentation_revision": "python-production-selection-conditions-20261013",
   "supplement_refs": [
     "docs/03-development/stage-two-completion-matrix.md",
     "docs/03-development/stage-two-implementation-plan.md"
@@ -370,7 +379,12 @@
       {
         "id": "DEV-PRODUCTION",
         "state": "NOT_READY_NOT_FROZEN",
-        "requirement": "受支持生产版本/准入、WORM/审批/保留、PITR/密钥/异机恢复、许可扫描及治理必须实施验证后再正式冻结/启用。"
+        "requirement": "生产Python按TB-ADR-002逐候选验证/重锁/全CI与准入；3.10例外需实际补丁维护和有效决定。WORM/审批/保留、PITR/密钥/异机恢复、许可扫描及治理仍须实施验证后正式冻结/启用。",
+        "evidence_refs": [
+          "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+          "config/versions.yaml",
+          "docs/03-development/stage-two-external-inputs.json"
+        ]
       }
     ],
     "actual_people_and_dates_confirmed": false,
