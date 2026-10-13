@@ -6,8 +6,8 @@ from urllib.parse import unquote
 
 from generate_remaining_work_navigation import build as remaining_navigation
 from generate_requirements_document import build as requirements_document
-from generate_stage_three_docs import build as stage_three_documents
 from generate_stage_status_navigation import build as stage_status_navigation
+from generate_stage_three_docs import build as stage_three_documents
 
 ROOT = Path(__file__).resolve().parents[1]
 
