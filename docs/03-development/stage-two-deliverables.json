@@ -323,5 +323,65 @@
     "docs/03-development/stage-two-completion-matrix.md",
     "docs/03-development/stage-two-implementation-plan.md"
   ],
-  "document_update_status": "OVERALL_API_DATABASE_AND_STAGE_STATUS_INTEGRATED_IN_EXISTING_DOCUMENTS"
+  "document_update_status": "OVERALL_API_DATABASE_AND_STAGE_STATUS_INTEGRATED_IN_EXISTING_DOCUMENTS",
+  "development_entry": {
+    "status": "READY_FOR_BOUNDED_FOUNDATION_DEVELOPMENT",
+    "foundation_development_can_start": true,
+    "full_stage_technical_completion": false,
+    "formal_freeze_or_production_admission_asserted": false,
+    "first_stage_materials_and_second_stage_representative_validation_are_separate_from_170_business_task_completion": true,
+    "start_now": [
+      "按任务卡复核/完善现有前后端框架、配置/错误/追踪、生成类型及CI。",
+      "按唯一契约实现业务模块与适配器；未定业务参数保持可配置及缺项拒绝，不放行正式业务动作。",
+      "使用自建无敏感夹具和隔离环境开发接口、数据库迁移、权限/事件处理及相应测试。"
+    ],
+    "required_per_task_checks": [
+      "任务输入/执行依赖和源工时差异已读；明确本次子范围和未实现部分。",
+      "接口、SQL/字典/映射及运行身份在唯一来源间一致；缺项登记并先补本次所需契约。",
+      "测试使用自建或具备本次用途授权的输入；不能用Mock/结构通过代替真实业务效果。",
+      "任何正式动作仍核验有效身份、案件范围、规则/批准及输入用途；未知默认拒绝。",
+      "开始大体积服务器构建/镜像/素材写入前重新采集容量并通过候选容量检查。"
+    ],
+    "gates": [
+      {
+        "id": "DEV-FOUNDATION",
+        "state": "READY_WITH_DEFINED_SCOPE",
+        "requirement": "现有框架/锁/契约和代表性工程证据支持基础开发；按具体任务子范围实施。"
+      },
+      {
+        "id": "DEV-DISK",
+        "state": "CRITICAL_BLOCKS_HEAVY_SERVER_CONTAINER_WORK",
+        "requirement": "Linux服务器Docker虚拟机研发卷需先落实扩容/迁移及新快照，当前df99%且约1.62GiB可用；宿主/workspace空闲不替代卷余量。",
+        "evidence_refs": [
+          "docs/00-project/validation/resource-readiness-snapshot.json",
+          "docs/00-project/validation/stage-two-resource-report.json"
+        ]
+      },
+      {
+        "id": "DEV-CONTRACT",
+        "state": "PER_TASK_GAPS_MUST_CLOSE",
+        "requirement": "13整体接口缺口、62表访问迁移及完整DAG依对应任务先补契约/绑定/实现，不自动当全部完成。"
+      },
+      {
+        "id": "DEV-REAL-INPUTS",
+        "state": "WAIT_ACTUAL_INPUTS_AND_IMPLEMENTATION",
+        "requirement": "正式身份、授权数据/真实权重、GPU/驱动、实际规模/并发、人员和资源需真实材料；模拟身份/合成CPU只作研发。"
+      },
+      {
+        "id": "DEV-PRODUCTION",
+        "state": "NOT_READY_NOT_FROZEN",
+        "requirement": "受支持生产版本/准入、WORM/审批/保留、PITR/密钥/异机恢复、许可扫描及治理必须实施验证后再正式冻结/启用。"
+      }
+    ],
+    "actual_people_and_dates_confirmed": false,
+    "placeholder_staff_is_not_actual_capacity": true,
+    "no_phase_three_runtime_or_full_business_implementation_claimed": true,
+    "completed_technical_scope": [
+      "用户Miniforge py310环境、精确锁、7服务CPU最小工程、迁移/租约/媒体/RLS代表性验证及托管25门禁已有证据。",
+      "整体接口/数据库及现有24/23步状态已接入原文档，输入和运行边界明确。"
+    ],
+    "remaining_to_close": [
+      "12类实际资源/接口/数据库/DAG/身份/模型媒体/规模/安全灾备/版本物料/治理的对应条件；不强制先实现全部170任务才开始研发。"
+    ]
+  }
 }

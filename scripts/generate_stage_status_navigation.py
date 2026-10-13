@@ -72,6 +72,23 @@ def cell(value):
     return str(value).replace("|", "\\|").replace("\n", "<br>")
 
 
+def entry_section(target, source, heading="##"):
+    entry = source["development_entry"]
+    assert entry["foundation_development_can_start"] is True
+    assert entry["full_stage_technical_completion"] is False and entry["formal_freeze_or_production_admission_asserted"] is False
+    text = f"{heading} 技术完成程度与开发准入\n\n"
+    text += "用于启动基础开发的工程输入和代表性最小工程已经具备，但两阶段整体技术闭环仍未完成。可以按具体任务子范围进入基础开发；正式身份/数据/GPU/全业务实现及生产准入按所需条件继续。\n\n"
+    text += "已具备的技术范围：\n\n"+"\n".join("- "+value for value in entry["completed_technical_scope"])+"\n\n"
+    text += "现在可推进：\n\n"+"\n".join("- "+value for value in entry["start_now"])+"\n\n"
+    text += "| 开发范围/门槛 | 当前判断 | 执行条件 |\n| --- | --- | --- |\n"
+    for gate in entry["gates"]:
+        refs = "、".join(link(target, path) for path in gate.get("evidence_refs", []))
+        text += f"| {gate['id']} | {gate['state']} | {cell(gate['requirement'])}"+("<br>"+refs if refs else "")+" |\n"
+    text += "\n每个任务开始前检查：\n\n"+"\n".join("- "+value for value in entry["required_per_task_checks"])+"\n\n"
+    text += "现有输入对开发的帮助：统一"+link(target, "docs/03-api/openapi.yaml", "接口结构")+"、"+link(target, "docs/04-database/field-provenance.json", "字段来源")+"和"+link(target, "docs/04-database/api-field-mapping.json", "持久化投影")+"；用"+link(target, "tasks/README.md", "任务卡")+"明确输入/依赖/子范围，用生成类型与CI发现漂移。它们减少重复定义和字段/版本错配，不替代真实业务规则或数据授权。\n\n"
+    return text
+
+
 def build():
     source, ledger = read(SOURCE), read(LEDGER)
     assert len(source["steps"]) == source["steps_count"] == 24
@@ -90,6 +107,7 @@ def build():
     first = "# 第一阶段24步：实际状态、操作与交付\n\n"
     first += "2026-10-13更新。已补齐的状态直接并入本对应表，不另建展示页。每一步按现有产物台账和证据说明技术状态、待完成事项与正式状态。状态唯一源为"+link(FIRST, SOURCE)+"。原手册标题/步骤保留，第一阶段正式输入基线仍NOT_FROZEN。\n\n"
     first += "## 状态判定\n\n“资料已整理登记”表示候选文档/配置已形成；“结构已校验”表示相应材料检查通过；图表/隔离SQL仅按已记录范围判定。第22步评审包已形成，第23步仅应用已有授权选择，第24步正式冻结未完成。实际责任人和正式业务决定尚未提供。\n\n"
+    first += entry_section(FIRST, source)
     first += "## 24步逐项实际状态\n\n| 步骤/工作 | 已完成材料工作及技术状态 | 尚需完成/适用边界 | 实际文件与证据 | 正式状态 |\n| --- | --- | --- | --- | --- |\n"
     for item in records:
         refs = "、".join(link(FIRST, path) for path in item["outputs"])
@@ -101,6 +119,7 @@ def build():
     first += "技术证据见"+"、".join(link(FIRST, path) for path in ["docs/00-project/validation/stage-one-validation-report.json", "docs/00-project/stage-one/visual-layout-audit.md", "docs/00-project/requirement-semantic-review.md", "docs/00-project/validation/stage-one-controls-report.json", "docs/00-project/validation/stage-one-input-preflight-report.json"])+"；未知真实输入仍保持待定。24步不是170业务任务的完成率，资料冻结与后续业务实现分别判断。\n"
     second = "## 接口与数据库文件导航\n\n"
     second += "2026-10-13。该页承接第二阶段第7步（数据库）、第19步（接口/事件）和第20步（最小工程）。整体接口/62表业务设计与已运行PoC/5表分别导航；不从设计文件推导正式部署。\n\n"
+    second += entry_section(SECOND, read("docs/03-development/stage-two-deliverables.json"), "###")
     second += "### 阅读顺序\n\n1. 整体接口说明→逐操作目录→OpenAPI/模型Schema→字段与权限/版本/事件规则。\n2. 数据库设计→ER→字典/SQL→逐字段来源→接口映射→任务引用/校验。\n3. 实际PoC API/5表与迁移→相应运行证据，再核对13接口缺口和后续业务迁移/RLS。\n\n"
     for title, entries in [("整体接口及契约文件", INTERFACES), ("业务数据库及研发迁移文件", DATABASES)]:
         second += f"### {title}\n\n| 内容 | 文件入口 | 含义和使用要求 |\n| --- | --- | --- |\n"

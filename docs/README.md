@@ -2,12 +2,16 @@
 
 本导航说明docs中各文档的含义、使用顺序、质量要求和来源关系。2026-10-13修订；当前CPU研发最小工程已运行，本机21门禁历史保留；托管25门禁实际运行另认平台报告；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。
 
+
+<!-- development-entry-summary:start -->
+基础开发可以按任务子范围开始；两阶段整体技术闭环和正式冻结仍未完成。当前Linux服务器Docker虚拟机研发卷容量CRITICAL，大体积服务器构建/真实权重素材写入须先修复容量；正式身份、授权数据/GPU及生产验收仍有真实条件。范围与检查见[现有技术基线中的开发准入](02-architecture/technical-baseline.md#技术完成程度与开发准入)。
+<!-- development-entry-summary:end -->
 <!-- phase-remaining-navigation:start -->
 ## 第一、第二阶段剩余工作总导航
 
 第一阶段24步、第二阶段23步与170业务任务分别管理。核查19项工作：版式核验在记录范围内已完成；剩余18项，包括第一阶段6项、第二阶段12项。工程补充、实际输入、实现/联调、正式验收与冻结分别判断。13接口缺口与这些事项交叉，不能相加计算完成率。真实人员/责任人未确认，10人占位排期只作假设。
 
-容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T04:53:08.550543+00:00`：df使用率99%，可用约1.63 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。
+容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T06:40:28.669315+00:00`：df使用率99%，可用约1.62 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。
 
 完整逐项导航：[剩余任务、前置条件、关闭标准及13接口缺口](<00-project/remaining-work-navigation.md>)；[同源机器索引](<00-project/remaining-work-navigation.json>)。
 

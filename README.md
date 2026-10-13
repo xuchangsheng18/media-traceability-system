@@ -4,12 +4,16 @@
 
 服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py310/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
 
+
+<!-- development-entry-summary:start -->
+基础开发可以按任务子范围开始；两阶段整体技术闭环和正式冻结仍未完成。当前Linux服务器Docker虚拟机研发卷容量CRITICAL，大体积服务器构建/真实权重素材写入须先修复容量；正式身份、授权数据/GPU及生产验收仍有真实条件。范围与检查见[现有技术基线中的开发准入](docs/02-architecture/technical-baseline.md#技术完成程度与开发准入)。
+<!-- development-entry-summary:end -->
 <!-- phase-remaining-navigation:start -->
 ## 第一、第二阶段剩余工作总导航
 
 第一阶段24步、第二阶段23步与170业务任务分别管理。核查19项工作：版式核验在记录范围内已完成；剩余18项，包括第一阶段6项、第二阶段12项。工程补充、实际输入、实现/联调、正式验收与冻结分别判断。13接口缺口与这些事项交叉，不能相加计算完成率。真实人员/责任人未确认，10人占位排期只作假设。
 
-容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T04:53:08.550543+00:00`：df使用率99%，可用约1.63 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。
+容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T06:40:28.669315+00:00`：df使用率99%，可用约1.62 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。
 
 完整逐项导航：[剩余任务、前置条件、关闭标准及13接口缺口](<docs/00-project/remaining-work-navigation.md>)；[同源机器索引](<docs/00-project/remaining-work-navigation.json>)。
 
@@ -100,7 +104,7 @@ cd /workspace/glwy/projects/media-traceability-system
 
 本机CI真实运行，含15项后端、2项前端、1项浏览器、21项集成、5项恢复、6项媒体/查询、73项SQL断言/案例及契约/输入检查，详细数量和命令以报告为准。新增15项迁移/竞态、源PTS映射与8项冷备恢复。用户指定[私有GitHub](https://github.com/xuchangsheng18/media-traceability-system)采用Actions执行同源门禁，实际平台run、源码SHA与制品结论见[平台报告](docs/00-project/validation/github-actions-report.json)。
 
-开发5表（含审计和迁移账本）与正式62表/824字段设计分开；仅单固定测试案件。正式身份/案件隔离、审批、审计、WORM、业务模型/GPU、20/100并发、业务中文检索/大型索引、生产灾备/密钥恢复和生产准入仍需后续验证。2026-10-13仓库快照中Linux服务器上的Docker虚拟机研发数据卷所在文件系统余量约1.63GiB、df99%；新增大模型/素材前先落实容量。宿主空闲、Windows本地D盘与GitHub容量分别判断。
+开发5表（含审计和迁移账本）与正式62表/824字段设计分开；仅单固定测试案件。正式身份/案件隔离、审批、审计、WORM、业务模型/GPU、20/100并发、业务中文检索/大型索引、生产灾备/密钥恢复和生产准入仍需后续验证。Linux服务器上的Docker虚拟机研发卷最新容量按资源快照和开发准入说明读取；大体积构建/权重素材写入前先落实容量。宿主空闲、Windows本地D盘与GitHub容量分别判断。
 
 源Word及其SHA256保持；Git保存本轮研发快照，origin采用用户提供私有GitHub，没有创建已批准生产基线标签。同步证据见docs/00-project/server-sync-receipt.json。
 
