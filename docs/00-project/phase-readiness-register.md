@@ -41,7 +41,7 @@
 
 [36需求映射](requirement-processing-map.md)已逐条完成[技术语义复核](requirement-semantic-review.md)；正式业务规则、接口实现与真实联调仍开放。[图表版式核验](stage-one/visual-layout-audit.md)登记全页渲染/浏览和关键图表复核；[24项验收口径](../09-testing/metric-protocols.md)已定义计算/分母/失败处理并有自建公式验证；[170任务排期台账](execution-schedule.md)按源工时与依赖复算并保存部分开发证据，实际负责人/有效投入/剩余工时与到位日仍需真实输入。没有改写正式决定或任务完成状态。
 
-资源只读观测时间：`2026-10-13T06:40:28.669315+00:00`；研发PostgreSQL卷所在文件系统可用约 **1.62 GiB**，df使用率 **99%**。宿主机剩余空间不能直接当该卷可用空间，也不代表项目独占配额。GPU工具可用性=False，没有据工具不可用宣称GPU不存在。详见[时点快照](validation/resource-readiness-snapshot.json)。
+资源只读观测时间：`2026-10-13T09:34:20.877814+00:00`；研发PostgreSQL卷所在文件系统可用约 **1.62 GiB**，df使用率 **99%**。宿主机剩余空间不能直接当该卷可用空间，也不代表项目独占配额。GPU工具可用性=False，没有据工具不可用宣称GPU不存在。详见[时点快照](validation/resource-readiness-snapshot.json)。
 
 仓库治理观测时间：`2026-10-12T16:34:28.553610+00:00`；GitHub报告main protected=False；rulesets查询结果为 `UNAVAILABLE_OR_NOT_AUTHORIZED`，不可据不可查询认定规则集为空。Actions已启用不等于组织治理闭合。详见[治理快照](validation/repository-governance-snapshot.json)，本轮没有修改设置。
 

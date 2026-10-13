@@ -1,6 +1,6 @@
 # 短视频与图片智能识别溯源系统
 
-当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定、前后端/数据库/对象/队列/真实推理闭环和本机21道CI门禁；GitHub实际运行另见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；本轮没有宣称全部业务实现。
+当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定及前后端/数据库/对象/队列/真实合成推理闭环。本机21道CI记录为原1.1历史范围，当前25道托管实际运行另见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；未宣称全部业务实现。
 
 服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py310/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
 
@@ -13,7 +13,7 @@
 
 第一阶段24步、第二阶段23步与170业务任务分别管理。核查19项工作：版式核验在记录范围内已完成；剩余18项，包括第一阶段6项、第二阶段12项。工程补充、实际输入、实现/联调、正式验收与冻结分别判断。13接口缺口与这些事项交叉，不能相加计算完成率。真实人员/责任人未确认，10人占位排期只作假设。
 
-容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T06:40:28.669315+00:00`：df使用率99%，可用约1.62 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。
+容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T09:34:20.877814+00:00`：df使用率99%，可用约1.62 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。
 
 完整逐项导航：[剩余任务、前置条件、关闭标准及13接口缺口](<docs/00-project/remaining-work-navigation.md>)；[同源机器索引](<docs/00-project/remaining-work-navigation.json>)。
 
