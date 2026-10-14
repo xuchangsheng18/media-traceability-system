@@ -69,8 +69,17 @@ class UploadService:
         try:
             response = self.repository.put_part(scope, upload_id, number, stored, idempotency_key=key)
         except Exception:
-            self.store.record_orphan(stored)
+            self.store.record_orphan(stored, scope, upload_id)
             raise
+        with self.database.transaction(scope) as connection:
+            registered = connection.execute(
+                text(
+                    "SELECT object_id FROM mt.upload_part WHERE case_id=:case AND upload_id=:upload AND part_no=:number"
+                ),
+                {"case": scope.case_id, "upload": upload_id, "number": number},
+            ).scalar_one_or_none()
+        if registered != stored.ref.object_id:
+            self.store.record_orphan(stored, scope, upload_id, "UNREFERENCED_CONCURRENT_DUPLICATE")
         validate_api("UploadPart", response)
         return response
 
@@ -85,4 +94,27 @@ class UploadService:
             request_id = uuid4()
         response = self.repository.complete(scope, upload_id, payload, key, request_id)
         validate_api("UploadResult", response)
+        return response
+
+    def status(self, request: Request, upload_id: UUID) -> dict[str, Any]:
+        scope = self.scope(request, "asset.upload", upload_id=upload_id)
+        response = self.repository.status(scope, upload_id)
+        result = response["result"]
+        if result is not None and result["duplicate_of"] is not None:
+            with self.database.transaction(scope) as connection:
+                source = connection.execute(
+                    text("SELECT source_id FROM mt.media_asset WHERE case_id=:case AND asset_id=:asset"),
+                    {"case": scope.case_id, "asset": UUID(result["duplicate_of"])},
+                ).scalar_one_or_none()
+            authority = cast(AuthorityProvider, request.app.state.business_authority)
+            if source is None:
+                result["duplicate_of"] = None
+            else:
+                try:
+                    authority.authorize_source(scope, source, "upload")
+                except BusinessError as error:
+                    if error.http_status not in {403, 404}:
+                        raise
+                    result["duplicate_of"] = None
+        validate_api("UploadStatus", response)
         return response

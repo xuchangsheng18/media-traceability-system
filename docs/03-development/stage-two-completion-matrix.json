@@ -12,11 +12,17 @@
       "stage_steps": [
         19
       ],
-      "completed_this_round": "复核53业务操作/83组件/34能力及13接口缺口，建立缺口与23步/后续170任务的边界清单；不把候选路径当已实现端点。",
-      "remaining_actual_requirements": "补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。",
+      "completed_this_round": "55操作/85Schema；本批实际5上传及7历史，HTTP/消息/权限/绑定已实测。其余业务契约和正式权威平台需继续。",
+      "remaining_actual_requirements": "继续其余11项及正式身份/来源协议、审批/复核/反馈/发布/导出/配置等契约、实现与联调；首批所选范围见实际报告。",
       "evidence_refs": [
         "docs/03-api/interface-gap-register.json",
-        "docs/03-api/system-interface-specification.md"
+        "docs/03-api/system-interface-specification.md",
+        "docs/03-api/interface-gap-register.md",
+        "docs/03-development/contract-generation.md",
+        "docs/03-development/stage-two-completion-matrix.json",
+        "docs/03-development/stage-three/business-foundation-implementation.md",
+        "docs/00-project/validation/business-foundation-report.json",
+        "docs/00-project/validation/business-recovery-report.json"
       ],
       "engineering_supplement_status": "COMPLETED_WITH_STATED_SCOPE",
       "formal_complete": false,
@@ -29,12 +35,19 @@
       "stage_steps": [
         7
       ],
-      "completed_this_round": "新增隔离PostgreSQL16验证，真实执行案件/单位RLS、追加历史、普通角色拒绝及事务上下文清除；未修改62表业务草案或现有5表。",
-      "remaining_actual_requirements": "按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。",
+      "completed_this_round": "独立PG16冷迁移62表825字段、迁移摘要/回滚、事务RLS及上传/快照DAO已实测；尚非62表全部DAO与生产升级验收。",
+      "remaining_actual_requirements": "继续任务所需的其余表DAO、逐表RLS/关联隔离、生产升级及回退；当前冷迁移/上传/快照实测不替代全表业务验收。",
       "evidence_refs": [
         "tests/sql/authorization-prototype.sql",
         "docs/04-database/authorization-isolation-prototype.md",
-        "docs/00-project/validation/stage-two-isolation-report.json"
+        "docs/00-project/validation/stage-two-isolation-report.json",
+        "docs/04-database/database-design.md",
+        "docs/04-database/poc-database.md",
+        "docs/03-development/migrations-and-events.md",
+        "docs/03-development/stage-two-completion-matrix.json",
+        "docs/03-development/stage-three/business-foundation-implementation.md",
+        "docs/00-project/validation/business-foundation-report.json",
+        "docs/00-project/validation/business-recovery-report.json"
       ],
       "engineering_supplement_status": "COMPLETED_WITH_STATED_SCOPE",
       "formal_complete": false,
@@ -181,11 +194,16 @@
         8,
         16
       ],
-      "completed_this_round": "复核8项开发冷恢复证据，补PITR/WAL、异机/密钥恢复/索引重建逐项演练操作与RPO/RTO计算要求。",
+      "completed_this_round": "本批实际pg_dump/restore、固定版本对象及两次历史快照在独立研发目标恢复成功；生产灾备条件仍未落实。",
       "remaining_actual_requirements": "提供真实异地目标和密钥恢复授权、批准RPO/RTO；实施全业务异机恢复及对账，不能用开发冷备结果证明生产灾备。",
       "evidence_refs": [
         "docs/10-deployment/development-backup-restore.md",
-        "docs/03-development/stage-two-implementation-plan.md"
+        "docs/03-development/stage-two-implementation-plan.md",
+        "docs/00-project/validation/development-recovery-report.json",
+        "docs/03-development/stage-two-completion-matrix.json",
+        "docs/03-development/stage-three/business-foundation-implementation.md",
+        "docs/00-project/validation/business-foundation-report.json",
+        "docs/00-project/validation/business-recovery-report.json"
       ],
       "engineering_supplement_status": "COMPLETED_WITH_STATED_SCOPE",
       "formal_complete": false,

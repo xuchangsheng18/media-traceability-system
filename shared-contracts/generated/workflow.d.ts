@@ -1088,6 +1088,50 @@ export interface components {
             missing_modalities: string[];
             /** @enum {unknown} */
             formal_eligibility: "draft_only" | "requires_review" | "formally_authorized";
+            /** @description 已记录且经操作响应Schema验证的快照投影；projection_refs的JSON Pointer定位本快照内response，不是对象存储引用。 */
+            api_projections?: ({
+                /** @constant */
+                operation_id: "getTask";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["Task"];
+            } | {
+                /** @constant */
+                operation_id: "getRiskFindings";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["Findings"];
+            } | {
+                /** @constant */
+                operation_id: "getForensics";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["Findings"];
+            } | {
+                /** @constant */
+                operation_id: "getTaskEvidence";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["EvidencePage"];
+            } | {
+                /** @constant */
+                operation_id: "getTimeline";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["Timeline"];
+            } | {
+                /** @constant */
+                operation_id: "getFirstSource";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["FirstSource"];
+            } | {
+                /** @constant */
+                operation_id: "getPropagation";
+                /** Format: uuid */
+                resource_id: string;
+                response: components["schemas"]["Graph"];
+            })[];
         };
         WorkflowDomainEvent: {
             /** @constant */

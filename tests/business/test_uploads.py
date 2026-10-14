@@ -129,3 +129,36 @@ def test_cross_case_read_denied(upload_client, business_context):
         )
     assert upload_client.get(f"/api/v1/uploads/{upload}", headers=AUTH).status_code == 404
     assert upload_client.get(f"/api/v1/uploads/{uuid4()}", headers=AUTH).status_code == 404
+
+
+def test_concurrent_duplicate_preserves_orphan_recovery(upload_client, business_context, monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+    from uuid import UUID
+
+    from business_app.types import Scope
+
+    upload = create(upload_client, business_context)
+    service = upload_client.app.state.upload_service
+    existing = service.repository.existing_part
+    barrier = Barrier(2)
+
+    def synchronized(*args):
+        result = existing(*args)
+        barrier.wait(timeout=10)
+        return result
+
+    monkeypatch.setattr(service.repository, "existing_part", synchronized)
+    scope = Scope(business_context["actor"], business_context["case_id"])
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results = list(
+            pool.map(
+                lambda _: service.put_part(
+                    scope, UUID(upload), 1, b"ABC", hashlib.sha256(b"ABC").hexdigest(), "concurrent-part"
+                ),
+                range(2),
+            )
+        )
+    assert results[0] == results[1]
+    assert len(list(business_context["settings"].object_root.rglob("*.orphan.json"))) == 1
+    assert upload_client.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()["received_parts_count"] == 1

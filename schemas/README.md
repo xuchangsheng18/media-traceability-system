@@ -48,3 +48,7 @@ JSON合法不表示证据引用存在、主体授权有效或状态转移合法�
 独立推理服务已实际按M15请求/响应Schema验证合成CPU模型；不是SSCD业务效果验收。两份OpenAPI的TS类型生成到shared-contracts/generated；不复制Schema作第二编辑源。整体资料/夹具、字段契约和隔离SQL检查已运行，报告见docs/00-project/validation。正式其他模型与业务接口仍按任务实现。
 
 events/poc.analysis.requested.v1.schema.json定义版本化PoC信封1.0.0，extra字段拒绝；生产全模块事件另按业务任务建设，勿从PoC推出完整事件总线。
+
+## 首批真实业务基础更新
+
+[首批实现、运行与限制](../docs/03-development/stage-three/business-foundation-implementation.md)：独立迁移/RLS、5上传及7历史读取已有真实数据库/HTTP/消息/恢复验证；原PoC保留。新快照0.2及旧0.1识别分开，不宣称完整业务或正式环境已验收。

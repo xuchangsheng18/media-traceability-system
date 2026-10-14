@@ -8,7 +8,7 @@
 
 **Tech Stack:** 既有py310精确锁中的FastAPI、SQLAlchemy、psycopg、boto3、jsonschema、Celery及PostgreSQL16；首批不新增运行依赖或真实模型。
 
-**Spec:** [已认可的设计范围](../development-environment-change-request.md)、[上传及其他缺口台账](../../03-api/interface-gap-register.md)、[历史读取协议](../../03-api/historical-result-reading.md)。以下具体字段/版本方案为本计划待审阅内容，尚未修改业务契约或实现代码。
+**Spec:** [已认可的设计范围](../development-environment-change-request.md)、[上传及其他缺口台账](../../03-api/interface-gap-register.md)、[历史读取协议](../../03-api/historical-result-reading.md)。本计划已获用户认可；任务1—6已实际实施，任务7的最终CI/同步结果按实测报告认定。
 
 ## Global Constraints
 
@@ -42,7 +42,7 @@
 | docs/03-api/openapi.yaml及既有操作索引/样例/注解、schemas、生成类型 | 唯一契约源、派生内容及任务对应 |
 | docs/04-database/initial-schema.sql、table-catalog.json、data-dictionary.md及既有来源映射 | 追加字段与迁移一致，明确来源和执行状态 |
 
-实施时先核对既有文件与生成入口；以上新包未创建。backend/pyproject.toml仍保留PoC发行名，新增包打包策略在任务2明确，不把app入口替换为业务入口。
+实施时已核对既有文件与生成入口；以上新包已创建并实测。backend/pyproject.toml仍保留PoC发行名，新增包打包策略在任务2明确，不把app入口替换为业务入口。
 
 ## 首批固定接口及类型
 
@@ -66,11 +66,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 **Interfaces:** `runner.py`产出`apply_migrations(dsn: str, directory: Path) -> list[str]`；迁移账本为mt_meta.schema_migrations（version、sha256、applied_at），独立执行元数据不算新增业务表。
 
-- [ ] **Step 1: 写失败测试。** `test_empty_database_migrates_and_replay_noops`第一次应登记0001/0002、第二次无新增；`test_changed_migration_digest_rejected`改字节后拒绝；`test_untracked_existing_mt_schema_rejected`拒绝无账本旧schema；`test_mid_migration_failure_is_atomic`验证事务无半完成结构。conftest只创建随机隔离测试库并用显式管理员URL，不访问PoC库。
-- [ ] **Step 2:** 跑`python -m pytest tests/business/test_migrations.py -q`确认FAIL；记录当前824字段源摘要，禁止从修改后的生成SQL回填历史迁移。
-- [ ] **Step 3:** 实现账本、迁移摘要和事务锁；0001从当前SQL保留业务DDL/约束/RLS，去除外层BEGIN/COMMIT由runner管理；0002追加duplicate_of及FK。迁移权限与业务LOGIN分开，业务LOGIN为NOSUPERUSER/NOBYPASSRLS并受mt_runtime约束。
-- [ ] **Step 4:** 在托管或获准独立PostgreSQL16验证真实重放/失败/漂移以及业务角色无迁移权限；核对62表825字段、原PoC5表未改。
-- [ ] **Step 5:** 提交迁移及源摘要/说明，不提交私有DSN。
+- [x] **Step 1: 写失败测试。** `test_empty_database_migrates_and_replay_noops`第一次应登记0001/0002、第二次无新增；`test_changed_migration_digest_rejected`改字节后拒绝；`test_untracked_existing_mt_schema_rejected`拒绝无账本旧schema；`test_mid_migration_failure_is_atomic`验证事务无半完成结构。conftest只创建随机隔离测试库并用显式管理员URL，不访问PoC库。
+- [x] **Step 2:** 跑`python -m pytest tests/business/test_migrations.py -q`确认FAIL；记录当前824字段源摘要，禁止从修改后的生成SQL回填历史迁移。
+- [x] **Step 3:** 实现账本、迁移摘要和事务锁；0001从当前SQL保留业务DDL/约束/RLS，去除外层BEGIN/COMMIT由runner管理；0002追加duplicate_of及FK。迁移权限与业务LOGIN分开，业务LOGIN为NOSUPERUSER/NOBYPASSRLS并受mt_runtime约束。
+- [x] **Step 4:** 在托管或获准独立PostgreSQL16验证真实重放/失败/漂移以及业务角色无迁移权限；核对62表825字段、原PoC5表未改。
+- [x] **Step 5:** 提交迁移及源摘要/说明，不提交私有DSN。
 
 ### Task 2: 独立app、真实事务与默认拒绝授权
 
@@ -78,11 +78,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 **Interfaces:** 定义上述共享类型/AuthorityProvider及Database.transaction；`main.py`产出`create_app(settings: BusinessSettings, authority: AuthorityProvider | None = None) -> FastAPI`。BusinessSettings含独立DSN、对象配置、明确研发限额/期限；缺项拒绝启动或503，不自动选择现有PoC数据源。
 
-- [ ] **Step 1:** 写`test_no_authority_returns_503`、`test_invalid_token_returns_401`、`test_revoked_case_returns_404`和`test_RLS_context_does_not_leak_across_pool_reuse`；跨单位/跨案件直接SQL访问应读不到其他案件，事务退出后上下文不能残留。
-- [ ] **Step 2:** 跑`python -m pytest tests/business/test_authorization.py -q`确认FAIL。
-- [ ] **Step 3:** 实现app工厂/参数化事务、当前案件与来源动作校验；测试provider仅conftest注入。异常统一按OpenAPI Error返回，未知权威配置不建立第二权限源。
-- [ ] **Step 4:** 重跑真实DB+HTTP授权检查，核对LOGIN不具有owner/superuser/BYPASSRLS；再跑原PoC检查确认启动兼容。
-- [ ] **Step 5:** 提交共享基础；状态仍标权威身份平台未接入。
+- [x] **Step 1:** 写`test_no_authority_returns_503`、`test_invalid_token_returns_401`、`test_revoked_case_returns_404`和`test_RLS_context_does_not_leak_across_pool_reuse`；跨单位/跨案件直接SQL访问应读不到其他案件，事务退出后上下文不能残留。
+- [x] **Step 2:** 跑`python -m pytest tests/business/test_authorization.py -q`确认FAIL。
+- [x] **Step 3:** 实现app工厂/参数化事务、当前案件与来源动作校验；测试provider仅conftest注入。异常统一按OpenAPI Error返回，未知权威配置不建立第二权限源。
+- [x] **Step 4:** 重跑真实DB+HTTP授权检查，核对LOGIN不具有owner/superuser/BYPASSRLS；再跑原PoC检查确认启动兼容。
+- [x] **Step 5:** 提交共享基础；状态仍标权威身份平台未接入。
 
 ### Task 3: 分片账本、进度查询和续传HTTP
 
@@ -90,11 +90,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 **Interfaces:** `UploadRepository`产出`create(scope: Scope, payload: dict[str, JsonValue]) -> dict[str, JsonValue]`、`put_part(scope: Scope, upload_id: UUID, part_no: int, stored: StoredObject) -> dict[str, JsonValue]`、`status(scope: Scope, upload_id: UUID) -> dict[str, JsonValue]`、`parts(scope: Scope, upload_id: UUID, cursor: str | None, limit: int) -> dict[str, JsonValue]`。服务层每次调用先校验当前AuthorityProvider，再按唯一键与会话行锁提交。
 
-- [ ] **Step 1:** 写`test_resume_after_client_disconnect`核对只重传缺失分片；`test_same_part_hash_is_idempotent`只有一行；`test_conflicting_part_is_409`旧分片保持；`test_expired_session_is_rejected`不能写；`test_DB_failure_does_not_report_received`不能出现账本成功；`test_cursor_bound_to_session_version`变动游标409；跨案件GET返回404、不泄露duplicate_of。
-- [ ] **Step 2:** 跑`python -m pytest tests/business/test_uploads.py -q`确认FAIL，并对新增两个OpenAPI操作写正/反例契约检查。
-- [ ] **Step 3:** 实现流式字节计数/摘要、私有版本对象、真实object_version和upload_part事务。part_no与大小受会话总大小/part_size约束，客户端sha不替代服务端重算；原文件名不拼本机路径。存储已写但DB失败的私有孤立对象记录恢复清单，不能误列已接收。
-- [ ] **Step 4:** 在真实DB+支持固定版本的对象目标运行中断/冲突/到期/分页/权限检查；生成契约及TS类型并核对55操作，独立业务OpenAPI只发布实际挂载操作。
-- [ ] **Step 5:** 提交端点、迁移/源映射和证据；只更新IF-G01“进度/分片已实现”子状态，终态尚依赖任务4。
+- [x] **Step 1:** 写`test_resume_after_client_disconnect`核对只重传缺失分片；`test_same_part_hash_is_idempotent`只有一行；`test_conflicting_part_is_409`旧分片保持；`test_expired_session_is_rejected`不能写；`test_DB_failure_does_not_report_received`不能出现账本成功；`test_cursor_bound_to_session_version`变动游标409；跨案件GET返回404、不泄露duplicate_of。
+- [x] **Step 2:** 跑`python -m pytest tests/business/test_uploads.py -q`确认FAIL，并对新增两个OpenAPI操作写正/反例契约检查。
+- [x] **Step 3:** 实现流式字节计数/摘要、私有版本对象、真实object_version和upload_part事务。part_no与大小受会话总大小/part_size约束，客户端sha不替代服务端重算；原文件名不拼本机路径。存储已写但DB失败的私有孤立对象记录恢复清单，不能误列已接收。
+- [x] **Step 4:** 在真实DB+支持固定版本的对象目标运行中断/冲突/到期/分页/权限检查；生成契约及TS类型并核对55操作，独立业务OpenAPI只发布实际挂载操作。
+- [x] **Step 5:** 提交端点、迁移/源映射和证据；只更新IF-G01“进度/分片已实现”子状态，终态尚依赖任务4。
 
 ### Task 4: 完成上传、校验任务和终态
 
@@ -102,11 +102,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 **Interfaces:** `validator.py`产出`validate_upload(scope: Scope, upload_id: UUID, expected_version: int) -> dict[str, JsonValue]`；`worker.py`产出`consume_validation(event: dict[str, JsonValue]) -> None`。事件绑定org/case/upload/session_version/event_id/request_id，版本及Schema登记完成后才发送。
 
-- [ ] **Step 1:** 写`test_complete_enqueues_once`断言同一事务VALIDATING+一个outbox；`test_missing_part_rejects_complete`、`test_full_digest_mismatch_rejects_asset`、`test_duplicate_event_does_not_duplicate_asset`、`test_stale_version_cannot_overwrite_terminal`、`test_source_revoked_before_validation`和`test_authority_outage_keeps_pending`。
-- [ ] **Step 2:** 跑对应测试确认FAIL；明确开发limits/期限使用显式配置，不能把候选值当正式规则。
-- [ ] **Step 3:** complete验证分片连续1..N/总大小/摘要声明，再提交outbox；独立发布器确认消息持久投递后置published_at，重复可接受。worker重算实际拼接字节的完整摘要、检测允许媒体并重核当前来源，写content_item/object_version/media_asset和会话终态事务。无权/无来源拒绝或保持不可执行，不生成VALID假成功；重复消费靠行锁/会话版本和幂等响应。
-- [ ] **Step 4:** 跑真实消息+DB+对象终态检查，模拟提交前后中断/重复投递与权威暂不可用。任一不可核验对象版本、完整字节/摘要或格式条件时不能产出VALID。真实CPU解析成功不宣称模型检测准确率或生产病毒扫描完成。
-- [ ] **Step 5:** 提交证据；只有任务3、4的HTTP/持久化/异常检查通过才关闭IF-G01所选实现范围，正式身份/来源条件另保留。
+- [x] **Step 1:** 写`test_complete_enqueues_once`断言同一事务VALIDATING+一个outbox；`test_missing_part_rejects_complete`、`test_full_digest_mismatch_rejects_asset`、`test_duplicate_event_does_not_duplicate_asset`、`test_stale_version_cannot_overwrite_terminal`、`test_source_revoked_before_validation`和`test_authority_outage_keeps_pending`。
+- [x] **Step 2:** 跑对应测试确认FAIL；明确开发limits/期限使用显式配置，不能把候选值当正式规则。
+- [x] **Step 3:** complete验证分片连续1..N/总大小/摘要声明，再提交outbox；独立发布器确认消息持久投递后置published_at，重复可接受。worker重算实际拼接字节的完整摘要、检测允许媒体并重核当前来源，写content_item/object_version/media_asset和会话终态事务。无权/无来源拒绝或保持不可执行，不生成VALID假成功；重复消费靠行锁/会话版本和幂等响应。
+- [x] **Step 4:** 跑真实消息+DB+对象终态检查，模拟提交前后中断/重复投递与权威暂不可用。任一不可核验对象版本、完整字节/摘要或格式条件时不能产出VALID。真实CPU解析成功不宣称模型检测准确率或生产病毒扫描完成。
+- [x] **Step 5:** 提交证据；只有任务3、4的HTTP/持久化/异常检查通过才关闭IF-G01所选实现范围，正式身份/来源条件另保留。
 
 ### Task 5: 不可变快照、版本选择与投影
 
@@ -116,11 +116,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 待审阅的写入Schema版本为`urn:media-trace:stage-one:run-result:0.2.0`：保留旧结构，增加`api_projections`数组，项为operation_id、resource_id(UUID)、response，响应逐一引用既有7个操作响应Schema。projection_refs中的json_pointer指向同一快照`/api_projections/N/response`，mapping_version登记为history-api-projection/1；这不是ObjectRef，也不改原模型response。旧0.1快照只经显式登记的已有payload映射读取，缺少可验证映射时报不可用，禁止现场拼造成功。
 
-- [ ] **Step 1:** 写`test_two_runs_return_exact_old_snapshot`插入run1/result1与run2/result1并断言run1字节/摘要不变；`test_result_mutation_rejected_by_DB`拒绝UPDATE/DELETE/TRUNCATE；`test_missing_exact_version_is_404`；`test_invalid_projection_or_binding_rejected`拒绝操作Schema不符、指针越界、任务/路径绑定不符及ranking混合版本。
-- [ ] **Step 2:** 跑历史测试确认FAIL；fixture的能力响应只标受控测试数据，不冒充真实模型执行证据。
-- [ ] **Step 3:** 实现写入前Schema/对象引用/响应映射验证，将完整快照规范化JSON SHA-256和summary原子追加；规范化规定UTF-8、sort_keys=True、separators=(',', ':'),ensure_ascii=False,allow_nan=False，不允许NaN/Infinity。只读取既有append-only结果及同版本事实，不从可变最新字段覆盖历史响应。
-- [ ] **Step 4:** 用真实DB验证不可变约束、两次重算、旧版本及0.1兼容拒绝行为；明确写入方法是持久化边界，尚不是完整DAG/34模型结果生产器。
-- [ ] **Step 5:** 提交版本Schema、兼容登记及真实数据库证据。
+- [x] **Step 1:** 写`test_two_runs_return_exact_old_snapshot`插入run1/result1与run2/result1并断言run1字节/摘要不变；`test_result_mutation_rejected_by_DB`拒绝UPDATE/DELETE/TRUNCATE；`test_missing_exact_version_is_404`；`test_invalid_projection_or_binding_rejected`拒绝操作Schema不符、指针越界、任务/路径绑定不符及ranking混合版本。
+- [x] **Step 2:** 跑历史测试确认FAIL；fixture的能力响应只标受控测试数据，不冒充真实模型执行证据。
+- [x] **Step 3:** 实现写入前Schema/对象引用/响应映射验证，将完整快照规范化JSON SHA-256和summary原子追加；规范化规定UTF-8、sort_keys=True、separators=(',', ':'),ensure_ascii=False,allow_nan=False，不允许NaN/Infinity。只读取既有append-only结果及同版本事实，不从可变最新字段覆盖历史响应。
+- [x] **Step 4:** 用真实DB验证不可变约束、两次重算、旧版本及0.1兼容拒绝行为；明确写入方法是持久化边界，尚不是完整DAG/34模型结果生产器。
+- [x] **Step 5:** 提交版本Schema、兼容登记及真实数据库证据。
 
 ### Task 6: 七个历史读取操作和现行授权
 
@@ -128,11 +128,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 **Interfaces:** 消费任务2当前Scope及任务5ResultKey/project；7个已有operationId为getTask、getRiskFindings、getForensics、getTaskEvidence、getTimeline、getFirstSource、getPropagation，不新增历史路径。
 
-- [ ] **Step 1:** 参数化7个操作写`test_history_group_must_be_complete`（半组、未知键、重复版本键→422）、`test_history_headers_match_snapshot`、`test_current_access_revoked_denies_old_result`、`test_path_and_ranking_must_match_result`、`test_omitted_history_preserves_latest_selection`和`test_no_snapshot_does_not_return_empty_success`。
-- [ ] **Step 2:** 跑`python -m pytest tests/business/test_history.py -q`确认FAIL。
-- [ ] **Step 3:** 实现扁平deepObject解析：任务路径history[run_version]/[result_version]成组；资产/簇/传播还需history[task_id]；按当前授权查询、精确绑定并设置X-Task-Id/X-Run-Version/X-Result-Version。省略history只按同案件/同路径实际快照选最新；无匹配404。
-- [ ] **Step 4:** 对7条真实HTTP响应验证既有OpenAPI响应Schema和版本头；不能把空页/通用200或最新结果用作历史成功。读大型外置能力payload须固定对象版本/摘要核验，不省略缺失模态/未知区间。
-- [ ] **Step 5:** 提交并关闭IF-G09所选读取实现范围，保持实际结果生产和正式身份平台的前置条件。
+- [x] **Step 1:** 参数化7个操作写`test_history_group_must_be_complete`（半组、未知键、重复版本键→422）、`test_history_headers_match_snapshot`、`test_current_access_revoked_denies_old_result`、`test_path_and_ranking_must_match_result`、`test_omitted_history_preserves_latest_selection`和`test_no_snapshot_does_not_return_empty_success`。
+- [x] **Step 2:** 跑`python -m pytest tests/business/test_history.py -q`确认FAIL。
+- [x] **Step 3:** 实现扁平deepObject解析：任务路径history[run_version]/[result_version]成组；资产/簇/传播还需history[task_id]；按当前授权查询、精确绑定并设置X-Task-Id/X-Run-Version/X-Result-Version。省略history只按同案件/同路径实际快照选最新；无匹配404。
+- [x] **Step 4:** 对7条真实HTTP响应验证既有OpenAPI响应Schema和版本头；不能把空页/通用200或最新结果用作历史成功。读大型外置能力payload须固定对象版本/摘要核验，不省略缺失模态/未知区间。
+- [x] **Step 5:** 提交并关闭IF-G09所选读取实现范围，保持实际结果生产和正式身份平台的前置条件。
 
 ### Task 7: 批次回归、恢复与同步
 
@@ -148,7 +148,7 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 ## 自检与缺口边界
 
-共享类型和跨任务签名已明确；5类Review Focus分别有具体测试。IF-G01/09为首批，后续11项沿用总体计划的依赖顺序。新增55操作、825字段及快照0.2属于待审阅的具体变更；当前仓库仍为53/824/0.1，未提前改计数或关闭缺口。本计划不提供虚构身份平台、生产扫描、人员、日历排期或验收通过。
+共享类型和跨任务签名已明确；5类Review Focus分别有具体测试。IF-G01/09为首批，后续11项沿用总体计划的依赖顺序。已按认可范围更新55操作、825字段及快照0.2，保留原0001和0.1来源；所选技术范围见实际实现说明，全部13项正式条件仍开放。本计划不提供虚构身份平台、生产扫描、人员、日历排期或验收通过。
 
 ## 用户审阅决定
 

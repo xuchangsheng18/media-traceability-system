@@ -14,6 +14,68 @@ from PIL import Image
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
 
+def test_truncated_jpeg_never_becomes_valid():
+    from business_app.uploads.validator import inspect_uploaded_media
+
+    buffer = io.BytesIO()
+    Image.new("RGB", (8, 8), "white").save(buffer, format="JPEG")
+    data = buffer.getvalue()[:-2]
+    assert inspect_uploaded_media(data, hashlib.sha256(data).hexdigest(), "image/jpeg") is None
+
+
+def test_corrupted_fixed_part_is_rejected_not_retried_forever(business_context):
+    app, http, upload, descriptor = prepared_upload(business_context)
+    assert complete(http, upload, descriptor).status_code == 202
+    file = next(business_context["settings"].object_root.rglob("*.bin"))
+    file.write_bytes(b"corrupted-self-owned-test")
+    worker(app, business_context).consume_validation(event(business_context, upload))
+    response = http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()
+    assert response["session"]["state"] == "REJECTED" and response["result"]["asset_id"] is None
+    http.__exit__(None, None, None)
+
+
+def test_worker_database_failure_records_private_orphan(business_context):
+    from sqlalchemy.exc import SQLAlchemyError
+
+    app, http, upload, descriptor = prepared_upload(business_context)
+    assert complete(http, upload, descriptor).status_code == 202
+    with psycopg.connect(business_context["admin_dsn"]) as connection:
+        connection.execute("REVOKE INSERT ON mt.media_asset FROM mt_runtime")
+    with pytest.raises(SQLAlchemyError):
+        worker(app, business_context).consume_validation(event(business_context, upload))
+    with psycopg.connect(business_context["admin_dsn"]) as connection:
+        connection.execute("GRANT INSERT ON mt.media_asset TO mt_runtime")
+        assert scalar(connection, "SELECT count(*) FROM mt.media_asset") == 0
+    assert len(list(business_context["settings"].object_root.rglob("*.orphan.json"))) == 1
+    http.__exit__(None, None, None)
+
+
+def test_duplicate_source_revocation_hides_reference(business_context):
+    previous_source = uuid4()
+    with psycopg.connect(business_context["admin_dsn"]) as connection:
+        connection.execute(
+            """INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version)
+        VALUES(%s,%s,%s,'test-only','test-only','test-only',ARRAY['upload','analysis'],'verified','test-version-1')""",
+            (previous_source, business_context["actor"].org_id, business_context["case_id"]),
+        )
+    previous = dict(business_context, source_id=previous_source)
+    app, http, upload, descriptor = prepared_upload(previous)
+    assert complete(http, upload, descriptor, key=uuid4().hex).status_code == 202
+    worker(app, previous).consume_validation(event(previous, upload))
+    asset = http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()["result"]["asset_id"]
+    http.__exit__(None, None, None)
+    app, http, upload, descriptor = prepared_upload(business_context)
+    assert complete(http, upload, descriptor, key=uuid4().hex).status_code == 202
+    worker(app, business_context).consume_validation(event(business_context, upload))
+    assert http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()["result"]["duplicate_of"] == asset
+    with psycopg.connect(business_context["admin_dsn"]) as connection:
+        connection.execute(
+            "UPDATE mt.source_registry SET authorization_status='revoked' WHERE source_id=%s", (previous_source,)
+        )
+    assert http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()["result"]["duplicate_of"] is None
+    http.__exit__(None, None, None)
+
+
 def scalar(connection, statement, parameters=None):
     row = connection.execute(statement, parameters).fetchone()
     assert row is not None

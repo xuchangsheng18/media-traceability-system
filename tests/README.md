@@ -24,3 +24,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 
 
 [第二阶段代表性验证](../docs/09-testing/stage-two-representative-validation.md)记录21项隔离/中文查询、11项VFR媒体和6组运维交付控制；托管25道工程门禁的实际结果见[GitHub报告](../docs/00-project/validation/github-actions-report.json)。这些结果未覆盖真实业务模型、正式身份或完整62表实现。
+
+## 首批真实业务基础更新
+
+[首批实现、运行与限制](../docs/03-development/stage-three/business-foundation-implementation.md)：独立迁移/RLS、5上传及7历史读取已有真实数据库/HTTP/消息/恢复验证；原PoC保留。新快照0.2及旧0.1识别分开，不宣称完整业务或正式环境已验收。

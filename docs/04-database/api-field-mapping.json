@@ -11346,6 +11346,199 @@
       "handling": "persistence_or_join",
       "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
       "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "session.upload_id",
+      "required": true,
+      "targets": [
+        "upload_session.upload_id"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "session.part_size_bytes",
+      "required": true,
+      "targets": [
+        "upload_session.part_size_bytes"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "session.state",
+      "required": true,
+      "targets": [
+        "upload_session.state"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "session.expires_at",
+      "required": true,
+      "targets": [
+        "upload_session.expires_at"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "session.version",
+      "required": true,
+      "targets": [
+        "upload_session.row_version"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "result.upload_id",
+      "required": true,
+      "targets": [
+        "upload_session.upload_id"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "result.asset_id",
+      "required": true,
+      "targets": [
+        "upload_session.asset_id"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "result.validation",
+      "required": true,
+      "targets": [
+        "upload_session.state"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "result.duplicate_of",
+      "required": true,
+      "targets": [
+        "upload_session.duplicate_of"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "result.request_id",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "当前请求追踪标识，服务层生成/核验，不作为数据库对象或授权依据。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "direction": "response",
+      "schema": "UploadPartPage",
+      "field": "items[].part_no",
+      "required": true,
+      "targets": [
+        "upload_part.part_no"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "direction": "response",
+      "schema": "UploadPartPage",
+      "field": "items[].sha256",
+      "required": true,
+      "targets": [
+        "upload_part.sha256"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "direction": "response",
+      "schema": "UploadPartPage",
+      "field": "items[].size_bytes",
+      "required": true,
+      "targets": [
+        "upload_part.size_bytes"
+      ],
+      "handling": "persisted_or_derived_from_registered_rows",
+      "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
+      "status": "implemented_selected_development_not_formally_approved"
     }
   ]
 }

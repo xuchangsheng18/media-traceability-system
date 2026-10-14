@@ -4,7 +4,7 @@
 
 `PUT /api/v1/uploads/{id}/parts/{part_no}`；operationId=`putUploadPart`；源指针=`/paths/~1uploads~1{id}~1parts~1{part_no}/put`。
 
-实现范围：**DEV_PARTIAL**；独立业务HTTP和数据库实际实现，测试身份仅fixture；生产权威提供方未配置时拒绝。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**DEV_PARTIAL**；独立业务HTTP/真实PostgreSQL/RLS已实现；默认无权威身份提供方返回503，测试提供方仅在fixture注入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -67,7 +67,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 }
 ```
 
-中断续传/同摘要重放/冲突/到期/提交失败已实测；上传完整校验终态在后续任务验证。
+5项上传操作、摘要/PNG-JPEG校验、持久消息确认和重复恢复已实测；其他媒体/病毒扫描、S3及正式来源仍待验证。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

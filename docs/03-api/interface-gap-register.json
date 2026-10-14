@@ -25,7 +25,7 @@
         "GET /uploads/{id}/parts"
       ],
       "candidate_routes_callable": true,
-      "evidence": "进度与分片GET已进入唯一OpenAPI，独立业务HTTP/事务实测；上传完整校验终态和正式身份/来源尚待后续验证。",
+      "evidence": "已实现首批独立业务HTTP/持久化/异常检查；具体证据和限制见首批实现说明。正式权威、媒体/模型及剩余业务条件仍未满足。",
       "proposed_detail": "复用UploadSession/UploadPart/UploadResult组成投影，定义已接收分片、总量/摘要、到期/校验终态，asset_id仅VALID后可分析。",
       "closure_criteria": "补唯一契约/样例/映射/类型，测中断续传、重复/摘要冲突、到期和异步成功/失败。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
@@ -35,7 +35,10 @@
         "GET /uploads/{id}",
         "GET /uploads/{id}/parts"
       ],
-      "development_implementation_ref": "docs/03-development/stage-three/business-interface-implementation-plan.md"
+      "development_implementation_ref": "docs/03-development/stage-three/business-foundation-implementation.md",
+      "selected_development_implementation_status": "VERIFIED_SELECTED_SCOPE_LOCAL_CI_FINAL_PENDING",
+      "formal_gap_remains_open": true,
+      "development_verification_ref": "docs/00-project/validation/business-foundation-report.json"
     },
     {
       "id": "IF-G02",
@@ -236,7 +239,7 @@
         "GET /analysis/tasks/{id}/runs/{run_version}"
       ],
       "candidate_routes_callable": false,
-      "evidence": "7个现有操作已增加精确history对象及响应绑定头设计，候选历史列表路径未加入；正式业务读取/两次重算联调仍未实施。",
+      "evidence": "已实现首批独立业务HTTP/持久化/异常检查；具体证据和限制见首批实现说明。正式权威、媒体/模型及剩余业务条件仍未满足。",
       "proposed_detail": "版本字段成组必填；严格按当前案件/对象和task/run/result匹配、404不回退最新。快照保存34能力原响应，列表/完整专用公开投影及后端联调仍待实现。",
       "closure_criteria": "补路径/参数/字段/追踪，测两次重算后精确版本、旧结果不可变和跨案件拒绝。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
@@ -245,7 +248,11 @@
       "engineering_contract_refs": [
         "docs/03-api/historical-result-reading.md",
         "schemas/workflow/run-result.schema.json"
-      ]
+      ],
+      "selected_development_implementation_status": "VERIFIED_SELECTED_SCOPE_LOCAL_CI_FINAL_PENDING",
+      "development_implementation_ref": "docs/03-development/stage-three/business-foundation-implementation.md",
+      "formal_gap_remains_open": true,
+      "development_verification_ref": "docs/00-project/validation/business-foundation-report.json"
     },
     {
       "id": "IF-G10",

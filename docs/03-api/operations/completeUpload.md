@@ -4,7 +4,7 @@
 
 `POST /api/v1/uploads/{id}/complete`；operationId=`completeUpload`；源指针=`/paths/~1uploads~1{id}~1complete/post`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**DEV_PARTIAL**；独立业务HTTP/真实PostgreSQL/RLS已实现；默认无权威身份提供方返回503，测试提供方仅在fixture注入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -88,7 +88,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 }
 ```
 
-202仅受理合并/校验；VALIDATING时不能创建分析任务，只有VALID且用途授权有效才能继续。没有上传会话/校验查询契约，见IF-G01，不能编造轮询地址。
+5项上传操作、摘要/PNG-JPEG校验、持久消息确认和重复恢复已实测；其他媒体/病毒扫描、S3及正式来源仍待验证。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

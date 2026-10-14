@@ -187,6 +187,7 @@ def run_type_check(tool_python: Path, root: Path) -> subprocess.CompletedProcess
             for name in ["backend/business_app", "backend/business_migrations", "tests/business"]
             if (ROOT / name).exists()
         )
+        paths = list(dict.fromkeys(paths))
         if not all(path.exists() for path in paths):
             raise RuntimeError("TYPE_CHECK_SCOPE_MISSING")
     else:

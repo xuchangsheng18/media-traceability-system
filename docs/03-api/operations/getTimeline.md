@@ -4,7 +4,7 @@
 
 `GET /api/v1/assets/{id}/timeline`；operationId=`getTimeline`；源指针=`/paths/~1assets~1{id}~1timeline/get`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**DEV_PARTIAL**；独立业务HTTP/真实PostgreSQL/RLS已实现；默认无权威身份提供方返回503，测试提供方仅在fixture注入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -81,7 +81,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.read`
 }
 ```
 
-按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。
+按精确task/run/result及当前权限读取不可变快照，7项HTTP和版本头已实测；尚无实际业务结果生产器，缺失快照404、旧映射未登记503。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

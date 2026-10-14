@@ -12,6 +12,6 @@
 
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
-| [getTimeline](../operations/getTimeline.md) | GET /api/v1/assets/{id}/timeline | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [getTimeline](../operations/getTimeline.md) | GET /api/v1/assets/{id}/timeline | DEV_PARTIAL |
 
 模型能力、模块共享入口及异步事件见[内部调用](../inference-interfaces.md)和[服务/消息边界](../service-and-event-contracts.md)。结构覆盖不是完整业务流程覆盖或全部实施；本模块缺口与拟补方案见[缺口登记](../interface-gap-register.md)。

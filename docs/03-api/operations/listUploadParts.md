@@ -4,7 +4,7 @@
 
 `GET /api/v1/uploads/{id}/parts`；operationId=`listUploadParts`；源指针=`/paths/~1uploads~1{id}~1parts/get`。
 
-实现范围：**DEV_PARTIAL**；独立业务数据库与私有固定版本对象实测；正式权威身份/来源提供方尚未接入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**DEV_PARTIAL**；独立业务HTTP/真实PostgreSQL/RLS已实现；默认无权威身份提供方返回503，测试提供方仅在fixture注入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -63,7 +63,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 }
 ```
 
-进度/分片读取真实HTTP与事务，时效/重放/冲突已测试；完整上传终态及正式环境另验。
+5项上传操作、摘要/PNG-JPEG校验、持久消息确认和重复恢复已实测；其他媒体/病毒扫描、S3及正式来源仍待验证。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 
@@ -76,6 +76,9 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 | response/items | upload_part.part_no, upload_part.sha256, upload_part.size_bytes | 已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。 |
 | response/next_cursor | 服务层输入/聚合，不直接生成数据库列 | 已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。 |
 | response/session_version | upload_session.row_version | 已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。 |
+| response/items[].part_no | upload_part.part_no | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/items[].sha256 | upload_part.sha256 | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/items[].size_bytes | upload_part.size_bytes | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
 
 映射源：[api-field-mapping.json](../../04-database/api-field-mapping.json)。必须继续核验外键、案件域、版本、授权用途与SQL迁移，不能直接把任意字段写入表。
 

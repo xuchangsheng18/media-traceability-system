@@ -12,7 +12,7 @@
 
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
-| [getTaskEvidence](../operations/getTaskEvidence.md) | GET /api/v1/analysis/tasks/{id}/evidence | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [getTaskEvidence](../operations/getTaskEvidence.md) | GET /api/v1/analysis/tasks/{id}/evidence | DEV_PARTIAL |
 | [decidePropagationEdge](../operations/decidePropagationEdge.md) | POST /api/v1/propagation/edges/{id}/decisions | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createReview](../operations/createReview.md) | POST /api/v1/reviews | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |

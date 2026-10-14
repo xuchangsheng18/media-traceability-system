@@ -4,7 +4,7 @@
 
 `GET /api/v1/uploads/{id}`；operationId=`getUploadStatus`；源指针=`/paths/~1uploads~1{id}/get`。
 
-实现范围：**DEV_PARTIAL**；独立业务数据库与私有固定版本对象实测；正式权威身份/来源提供方尚未接入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**DEV_PARTIAL**；独立业务HTTP/真实PostgreSQL/RLS已实现；默认无权威身份提供方返回503，测试提供方仅在fixture注入。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -71,7 +71,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 }
 ```
 
-进度/分片读取真实HTTP与事务，时效/重放/冲突已测试；完整上传终态及正式环境另验。
+5项上传操作、摘要/PNG-JPEG校验、持久消息确认和重复恢复已实测；其他媒体/病毒扫描、S3及正式来源仍待验证。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 
@@ -86,6 +86,16 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 | response/received_parts_count | upload_part.part_no | 已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。 |
 | response/received_bytes | upload_part.size_bytes | 已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。 |
 | response/total_size_bytes | upload_session.size_bytes | 已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。 |
+| response/session.upload_id | upload_session.upload_id | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/session.part_size_bytes | upload_session.part_size_bytes | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/session.state | upload_session.state | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/session.expires_at | upload_session.expires_at | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/session.version | upload_session.row_version | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/result.upload_id | upload_session.upload_id | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/result.asset_id | upload_session.asset_id | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/result.validation | upload_session.state | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/result.duplicate_of | upload_session.duplicate_of | 会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。 |
+| response/result.request_id | 服务层输入/聚合，不直接生成数据库列 | 当前请求追踪标识，服务层生成/核验，不作为数据库对象或授权依据。 |
 
 映射源：[api-field-mapping.json](../../04-database/api-field-mapping.json)。必须继续核验外键、案件域、版本、授权用途与SQL迁移，不能直接把任意字段写入表。
 

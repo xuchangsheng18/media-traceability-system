@@ -15,6 +15,8 @@ def inspect_uploaded_media(data: bytes, expected_sha256: str, declared_mime: str
                 return None
             metadata = {"mime": mime, "width": image.width, "height": image.height}
             image.verify()
-            return metadata
+        with Image.open(io.BytesIO(data)) as decoded:
+            decoded.load()
+        return metadata
     except (ValueError, OSError, Image.DecompressionBombError):
         return None

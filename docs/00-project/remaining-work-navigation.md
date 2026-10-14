@@ -21,8 +21,8 @@
 
 | 编号/原步骤/责任角色 | 工作及已有状态 | 仍需完成 | 文档与关闭标准 |
 | --- | --- | --- | --- |
-| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<../03-api/interface-gap-register.md>)、[contract-generation.md](<../03-development/contract-generation.md>) |
-| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<../04-database/database-design.md>)、[poc-database.md](<../04-database/poc-database.md>) |
+| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 继续其余11项及正式身份/来源协议、审批/复核/反馈/发布/导出/配置等契约、实现与联调；首批所选范围见实际报告。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<../03-api/interface-gap-register.md>)、[contract-generation.md](<../03-development/contract-generation.md>) |
+| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 继续任务所需的其余表DAO、逐表RLS/关联隔离、生产升级及回退；当前冷迁移/上传/快照实测不替代全表业务验收。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<../04-database/database-design.md>)、[poc-database.md](<../04-database/poc-database.md>) |
 | S2-N03 / P0<br>步9,19,20<br>后端/算法/测试（实际姓名待定） | 完整任务编排、取消与多worker故障<br>待落实实际条件及对应交付 | 实施实际调度器与多worker消息故障演练；当前8数据库竞争者不是8Celery worker，全业务DAG未运行。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n03>)<br>[task-state-machine.md](<../05-workflows/task-state-machine.md>)、[migrations-and-events.md](<../03-development/migrations-and-events.md>) |
 | S2-N04 / P0<br>步15<br>身份平台/业务安全/后端（实际姓名待定） | 正式身份与案件/单位隔离<br>待落实实际条件及对应交付 | 取得身份issuer/JWKS或其他正式协议、角色/单位/案件权威映射和撤销SLA，实施验证后联调；共享DB设置不能充当身份认证。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n04>)<br>[security-baseline.md](<../02-architecture/security-baseline.md>)、[permission-matrix.md](<../08-security/permission-matrix.md>) |
 | S2-N05 / P0<br>步1,2,8,16<br>Linux及Docker运维/资源管理（实际姓名待定） | 项目配额与研发数据卷容量<br>待落实实际条件及对应交付 | 落实Docker虚拟机数据盘扩容或经批准迁移，独占资源配额、维护人、权重/样本容量和GPU权限；完成后重新读取卷内df。 | [前置条件、全部证据及关闭标准](<remaining-work-navigation.md#s2-n05>)<br>[resource-readiness-snapshot.json](<validation/resource-readiness-snapshot.json>)、[resource-and-team-inventory.md](<../02-architecture/resource-and-team-inventory.md>) |
@@ -96,7 +96,7 @@
 
 当前状态：待落实实际条件及对应交付。所需责任角色：架构/前后端/算法/测试，实际姓名未确认。
 
-已有完成范围：36需求逐项技术语义复核完成，错误读取/入口已纠正；结果身份与投影已明确，insufficient零证据契约冲突已修复。 7个既有API增加精确history选择设计；36候选节点图、7类事件和34模型严格响应快照/投影登记已形成。
+已有完成范围：首批上传/历史的实际代码、迁移、语义绑定和异常检查已落实；仍未完成全部13项正式关闭与170任务。
 
 仍需完成：13项契约缺口和真实业务实现/联调按对应任务继续；正式规则需实际依据。
 
@@ -106,7 +106,7 @@
 
 阶段边界：技术复核与契约设计材料已补；正式规则、能力专用输入/公开投影完整性及实际实现/联调仍待对应任务。
 
-文档/证据：[requirement-processing-map.md](<requirement-processing-map.md>)、[source-section-map.md](<stage-one/source-section-map.md>)、[system-interface-specification.md](<../03-api/system-interface-specification.md>)、[requirement-semantic-review.md](<requirement-semantic-review.md>)、[result-identity-and-projection.md](<../05-workflows/result-identity-and-projection.md>)、[historical-result-reading.md](<../03-api/historical-result-reading.md>)、[workflow-contracts.md](<../05-workflows/workflow-contracts.md>)、[capability-projection-register.json](<../06-algorithms/capability-projection-register.json>)。
+文档/证据：[requirement-processing-map.md](<requirement-processing-map.md>)、[source-section-map.md](<stage-one/source-section-map.md>)、[system-interface-specification.md](<../03-api/system-interface-specification.md>)、[requirement-semantic-review.md](<requirement-semantic-review.md>)、[result-identity-and-projection.md](<../05-workflows/result-identity-and-projection.md>)、[historical-result-reading.md](<../03-api/historical-result-reading.md>)、[workflow-contracts.md](<../05-workflows/workflow-contracts.md>)、[capability-projection-register.json](<../06-algorithms/capability-projection-register.json>)、[business-foundation-implementation.md](<../03-development/stage-three/business-foundation-implementation.md>)、[business-foundation-report.json](<validation/business-foundation-report.json>)、[business-recovery-report.json](<validation/business-recovery-report.json>)。
 
 ## S1-N05
 
@@ -168,9 +168,9 @@
 
 当前状态：待落实实际条件及对应交付。所需责任角色：架构/前后端/算法/测试，实际姓名未确认。
 
-已有完成范围：复核53业务操作/83组件/34能力及13接口缺口，建立缺口与23步/后续170任务的边界清单；不把候选路径当已实现端点。
+已有完成范围：55操作/85Schema；本批实际5上传及7历史，HTTP/消息/权限/绑定已实测。其余业务契约和正式权威平台需继续。
 
-仍需完成：补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。
+仍需完成：继续其余11项及正式身份/来源协议、审批/复核/反馈/发布/导出/配置等契约、实现与联调；首批所选范围见实际报告。
 
 执行前置：13项缺口的设计输入、状态/版本/权限/异步终态规则；外部平台接口资料。
 
@@ -178,7 +178,7 @@
 
 阶段边界：关键边界/契约设计属第二阶段；全部业务API实现按后续模块交付。
 
-文档/证据：[interface-gap-register.md](<../03-api/interface-gap-register.md>)、[contract-generation.md](<../03-development/contract-generation.md>)、[interface-gap-register.json](<../03-api/interface-gap-register.json>)、[system-interface-specification.md](<../03-api/system-interface-specification.md>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)。
+文档/证据：[interface-gap-register.md](<../03-api/interface-gap-register.md>)、[contract-generation.md](<../03-development/contract-generation.md>)、[interface-gap-register.json](<../03-api/interface-gap-register.json>)、[system-interface-specification.md](<../03-api/system-interface-specification.md>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)、[business-foundation-implementation.md](<../03-development/stage-three/business-foundation-implementation.md>)、[business-foundation-report.json](<validation/business-foundation-report.json>)、[business-recovery-report.json](<validation/business-recovery-report.json>)。
 
 ## S2-N02
 
@@ -186,9 +186,9 @@
 
 当前状态：待落实实际条件及对应交付。所需责任角色：数据库/后端/安全，实际姓名未确认。
 
-已有完成范围：新增隔离PostgreSQL16验证，真实执行案件/单位RLS、追加历史、普通角色拒绝及事务上下文清除；未修改62表业务草案或现有5表。
+已有完成范围：独立PG16冷迁移62表825字段、迁移摘要/回滚、事务RLS及上传/快照DAO已实测；尚非62表全部DAO与生产升级验收。
 
-仍需完成：按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。
+仍需完成：继续任务所需的其余表DAO、逐表RLS/关联隔离、生产升级及回退；当前冷迁移/上传/快照实测不替代全表业务验收。
 
 执行前置：业务表范围与唯一SQL/字典、逐表案件/单位隔离分类、增量迁移及升级副本/恢复方案。
 
@@ -196,7 +196,7 @@
 
 阶段边界：第二阶段需确定数据访问/事务和代表性验证；62表全业务实现按后续任务。
 
-文档/证据：[database-design.md](<../04-database/database-design.md>)、[poc-database.md](<../04-database/poc-database.md>)、[migrations-and-events.md](<../03-development/migrations-and-events.md>)、[authorization-prototype.sql](<../../tests/sql/authorization-prototype.sql>)、[authorization-isolation-prototype.md](<../04-database/authorization-isolation-prototype.md>)、[stage-two-isolation-report.json](<validation/stage-two-isolation-report.json>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)。
+文档/证据：[database-design.md](<../04-database/database-design.md>)、[poc-database.md](<../04-database/poc-database.md>)、[migrations-and-events.md](<../03-development/migrations-and-events.md>)、[authorization-prototype.sql](<../../tests/sql/authorization-prototype.sql>)、[authorization-isolation-prototype.md](<../04-database/authorization-isolation-prototype.md>)、[stage-two-isolation-report.json](<validation/stage-two-isolation-report.json>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)、[business-foundation-implementation.md](<../03-development/stage-three/business-foundation-implementation.md>)、[business-foundation-report.json](<validation/business-foundation-report.json>)、[business-recovery-report.json](<validation/business-recovery-report.json>)。
 
 ## S2-N03
 
@@ -330,7 +330,7 @@
 
 当前状态：待落实实际条件及对应交付。所需责任角色：运维/数据库/安全/测试，实际姓名未确认。
 
-已有完成范围：复核8项开发冷恢复证据，补PITR/WAL、异机/密钥恢复/索引重建逐项演练操作与RPO/RTO计算要求。
+已有完成范围：本批实际pg_dump/restore、固定版本对象及两次历史快照在独立研发目标恢复成功；生产灾备条件仍未落实。
 
 仍需完成：提供真实异地目标和密钥恢复授权、批准RPO/RTO；实施全业务异机恢复及对账，不能用开发冷备结果证明生产灾备。
 
@@ -340,7 +340,7 @@
 
 阶段边界：第二阶段确定方案与开发恢复验证；生产级演练在正式发布前。
 
-文档/证据：[development-backup-restore.md](<../10-deployment/development-backup-restore.md>)、[development-recovery-report.json](<validation/development-recovery-report.json>)、[stage-two-implementation-plan.md](<../03-development/stage-two-implementation-plan.md>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)。
+文档/证据：[development-backup-restore.md](<../10-deployment/development-backup-restore.md>)、[development-recovery-report.json](<validation/development-recovery-report.json>)、[stage-two-implementation-plan.md](<../03-development/stage-two-implementation-plan.md>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)、[business-foundation-implementation.md](<../03-development/stage-three/business-foundation-implementation.md>)、[business-foundation-report.json](<validation/business-foundation-report.json>)、[business-recovery-report.json](<validation/business-recovery-report.json>)。
 
 ## S2-N11
 
@@ -380,7 +380,7 @@
 
 ## 13项接口缺口的入口
 
-全部保持开放；下表的候选路径不是可调用接口，来源仍是唯一[业务OpenAPI](<../03-api/openapi.yaml>)及相关Schema。
+正式条件仍保持开放；IF-G01新增GET已进入唯一契约并实际实现，IF-G01/09首批技术范围见[实际实现说明](<../03-development/stage-three/business-foundation-implementation.md>)。其余候选新增路径仍不可调用，来源为唯一[业务OpenAPI](<../03-api/openapi.yaml>)及相关Schema。
 
 | 编号/工作 | 仍需工作 | 关闭标准/计划任务 |
 | --- | --- | --- |

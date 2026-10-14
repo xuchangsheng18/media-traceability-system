@@ -64,7 +64,11 @@ def plan(name):
             ["npm", "--prefix", "frontend", "exec", "--", "vue-tsc", "--noEmit", "-p", "frontend/tsconfig.json"],
         ]
     if name == "test":
-        return [[py, "-m", "pytest", "tests/poc", "tests/stage_three", "-q"], ["npm", "--prefix", "frontend", "test"]]
+        return [
+            [py, "-m", "pytest", "tests/poc", "tests/stage_three", "-q"],
+            [py, "scripts/verify_business_foundation.py", "run"],
+            ["npm", "--prefix", "frontend", "test"],
+        ]
     if name == "contract-test":
         return scripts("validate_inputs.py", "validate_database_contracts.py", "verify_generated_contracts.py")
     if name == "integration-test":

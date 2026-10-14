@@ -48,7 +48,13 @@ class FileObjectStore:
             os.fsync(output.fileno())
         return StoredObject(ObjectRef(object_id, version, digest.hexdigest()), count)
 
-    def record_orphan(self, stored: StoredObject) -> None:
+    def record_orphan(
+        self,
+        stored: StoredObject,
+        scope: Scope | None = None,
+        upload_id: UUID | None = None,
+        reason: str = "DATABASE_RECEIPT_NOT_COMMITTED",
+    ) -> None:
         path = self.root / str(stored.ref.object_id) / (stored.ref.version_id + ".orphan.json")
         with path.open("x") as output:
             os.chmod(path, 0o600)
@@ -58,7 +64,9 @@ class FileObjectStore:
                     "version_id": stored.ref.version_id,
                     "sha256": stored.ref.sha256,
                     "size_bytes": stored.size_bytes,
-                    "reason": "DATABASE_RECEIPT_NOT_COMMITTED",
+                    "reason": reason,
+                    "case_id": str(scope.case_id) if scope else None,
+                    "upload_id": str(upload_id) if upload_id else None,
                     "automatic_data_deletion": False,
                 },
                 output,

@@ -23,3 +23,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 开发环境包不提交Git；没有生产自动部署。down保留卷，禁止直接对既有业务库初始化或清理其他项目。Desktop磁盘/许可和生产Engine需落实。
 
 1.1 Seaweed master关闭telemetry，/data同时保留filerldb2及volume；冷备在新卷恢复原VersionId。支持MT_DOCKER_CONTEXT=default的托管Engine；生产部署未批准。
+
+## 首批真实业务基础更新
+
+[首批实现、运行与限制](../docs/03-development/stage-three/business-foundation-implementation.md)：独立迁移/RLS、5上传及7历史读取已有真实数据库/HTTP/消息/恢复验证；原PoC保留。新快照0.2及旧0.1识别分开，不宣称完整业务或正式环境已验收。

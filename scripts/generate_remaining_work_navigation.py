@@ -99,7 +99,7 @@ def build():
     assert len(items) == 19 and len(remaining) == 18
     assert sum(item["stage"] == 1 for item in remaining) == 6
     assert sum(item["stage"] == 2 for item in remaining) == 12
-    assert len(gaps) == 13 and all(gap["candidate_routes_callable"] is False for gap in gaps)
+    assert len(gaps) == 13 and all(gap["candidate_routes_callable"] is (gap["id"] == "IF-G01") for gap in gaps)
     volume = resource["development_postgres_volume_filesystem"]
     attribution = (f"容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，"
                    f"为PostgreSQL研发数据卷所在文件系统。仓库快照时点`{resource['observed_at']}`："
@@ -149,7 +149,7 @@ def build():
         central += "关闭标准："+item["closure_criteria"]+"\n\n"
         central += "阶段边界："+item["phase_boundary"]+"\n\n"
         central += "文档/证据："+"、".join(link(CENTRAL, path) for path in item["evidence_refs"])+"。\n\n"
-    central += "## 13项接口缺口的入口\n\n全部保持开放；下表的候选路径不是可调用接口，来源仍是唯一"+link(CENTRAL, "docs/03-api/openapi.yaml", "业务OpenAPI")+"及相关Schema。\n\n"
+    central += "## 13项接口缺口的入口\n\n正式条件仍保持开放；IF-G01新增GET已进入唯一契约并实际实现，IF-G01/09首批技术范围见"+link(CENTRAL,"docs/03-development/stage-three/business-foundation-implementation.md","实际实现说明")+"。其余候选新增路径仍不可调用，来源为唯一"+link(CENTRAL, "docs/03-api/openapi.yaml", "业务OpenAPI")+"及相关Schema。\n\n"
     central += "| 编号/工作 | 仍需工作 | 关闭标准/计划任务 |\n| --- | --- | --- |\n"
     for gap in gaps:
         central += f"| {gap['id']} {cell(gap['title'])} | {cell(gap['proposed_detail'])} | {cell(gap['closure_criteria'])}<br>"+",".join(gap["task_ids"])+" |\n"

@@ -50,7 +50,7 @@ async def put_upload_part(
 @router.get("/uploads/{id}", operation_id="getUploadStatus")
 def get_status(request: Request, id: UUID) -> dict[str, Any]:
     current = service(request)
-    return current.repository.status(current.scope(request, "asset.upload", upload_id=id), id)
+    return current.status(request, id)
 
 
 @router.post("/uploads/{id}/complete", status_code=202, operation_id="completeUpload")

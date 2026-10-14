@@ -36,8 +36,8 @@
 
 | 编号/原步骤/责任角色 | 工作及已有状态 | 仍需完成 | 文档与关闭标准 |
 | --- | --- | --- | --- |
-| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<03-api/interface-gap-register.md>)、[contract-generation.md](<03-development/contract-generation.md>) |
-| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<04-database/database-design.md>)、[poc-database.md](<04-database/poc-database.md>) |
+| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 继续其余11项及正式身份/来源协议、审批/复核/反馈/发布/导出/配置等契约、实现与联调；首批所选范围见实际报告。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<03-api/interface-gap-register.md>)、[contract-generation.md](<03-development/contract-generation.md>) |
+| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 继续任务所需的其余表DAO、逐表RLS/关联隔离、生产升级及回退；当前冷迁移/上传/快照实测不替代全表业务验收。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<04-database/database-design.md>)、[poc-database.md](<04-database/poc-database.md>) |
 | S2-N03 / P0<br>步9,19,20<br>后端/算法/测试（实际姓名待定） | 完整任务编排、取消与多worker故障<br>待落实实际条件及对应交付 | 实施实际调度器与多worker消息故障演练；当前8数据库竞争者不是8Celery worker，全业务DAG未运行。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n03>)<br>[task-state-machine.md](<05-workflows/task-state-machine.md>)、[migrations-and-events.md](<03-development/migrations-and-events.md>) |
 | S2-N04 / P0<br>步15<br>身份平台/业务安全/后端（实际姓名待定） | 正式身份与案件/单位隔离<br>待落实实际条件及对应交付 | 取得身份issuer/JWKS或其他正式协议、角色/单位/案件权威映射和撤销SLA，实施验证后联调；共享DB设置不能充当身份认证。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n04>)<br>[security-baseline.md](<02-architecture/security-baseline.md>)、[permission-matrix.md](<08-security/permission-matrix.md>) |
 | S2-N05 / P0<br>步1,2,8,16<br>Linux及Docker运维/资源管理（实际姓名待定） | 项目配额与研发数据卷容量<br>待落实实际条件及对应交付 | 落实Docker虚拟机数据盘扩容或经批准迁移，独占资源配额、维护人、权重/样本容量和GPU权限；完成后重新读取卷内df。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n05>)<br>[resource-readiness-snapshot.json](<00-project/validation/resource-readiness-snapshot.json>)、[resource-and-team-inventory.md](<02-architecture/resource-and-team-inventory.md>) |
@@ -431,7 +431,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
 | [03-development/stage-two-deliverables.json](<03-development/stage-two-deliverables.json>) | 逐步机器对照；保留计划并区分开发验证与正式完成。 |
 | [10-deployment/development-runbook.md](<10-deployment/development-runbook.md>) | 真实启动、复建、SSH页面访问、令牌、端口、卷、停止与排查。 |
-| [03-api/poc-api.md](<03-api/poc-api.md>) | 已实现PoC入口和53操作正式契约的区别，鉴权/错误与合成模型范围。 |
+| [03-api/poc-api.md](<03-api/poc-api.md>) | 已实现PoC入口和55操作正式契约的区别，鉴权/错误与合成模型范围。 |
 | [04-database/poc-database.md](<04-database/poc-database.md>) | 独立开发5表含账本/审计、逐字段来源、outbox与旧租约拒绝；区别于62表业务字典/SQL。 |
 | [00-project/review-package/technical-baseline-review.md](<00-project/review-package/technical-baseline-review.md>) | 实际技术评审输入与待正式确认事项，不能自动充当批准。 |
 | [00-project/validation/environment-inventory.json](<00-project/validation/environment-inventory.json>) | 实际宿主/引擎/服务版本、上限和时点快照；不是峰值或独占配额。 |
@@ -470,14 +470,14 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |
 | [00-project/validation/resource-readiness-snapshot.json](<00-project/validation/resource-readiness-snapshot.json>) | 2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。 |
 | [00-project/validation/repository-governance-snapshot.json](<00-project/validation/repository-governance-snapshot.json>) | 实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。 |
-| [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。 |
+| [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、55操作/83结构/34能力、详细阅读标准及13项开放缺口。 |
 | [03-api/detailed-interface-index.md](<03-api/detailed-interface-index.md>) | 53份逐操作说明及12模块导航；方法/路径、来源、实现边界和明细落点。 |
 | [03-api/data-structures.md](<03-api/data-structures.md>) | 83业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。 |
 | [03-api/inference-interfaces.md](<03-api/inference-interfaces.md>) | 34能力逐请求/响应字段、路径、任务/数据及Schema摘要，只有M15合成CPU子范围已实测。 |
 | [03-api/common-interface-rules.md](<03-api/common-interface-rules.md>) | 身份/权限、追踪、分页、幂等、ETag、异步、错误/Range和版本；未定配置保持待定。 |
 | [03-api/service-and-event-contracts.md](<03-api/service-and-event-contracts.md>) | 服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。 |
-| [03-api/interface-catalog.json](<03-api/interface-catalog.json>) | 53操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。 |
-| [03-api/interface-annotations.json](<03-api/interface-annotations.json>) | 53操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。 |
+| [03-api/interface-catalog.json](<03-api/interface-catalog.json>) | 55操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。 |
+| [03-api/interface-annotations.json](<03-api/interface-annotations.json>) | 55操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。 |
 | [03-api/interface-gap-register.md](<03-api/interface-gap-register.md>) | 13项接口设计/实施缺口、候选路径/方案/影响与关闭标准，候选路径不可调用。 |
 | [03-api/interface-gap-register.json](<03-api/interface-gap-register.json>) | 上述开放缺口的机器索引；姓名未知/未批准，不改任务依赖。 |
 | [00-project/validation/interface-documentation-report.json](<00-project/validation/interface-documentation-report.json>) | 6项明细覆盖/生成漂移/12模块/68能力分支/13缺口/源码实现边界检查，非全接口运行验收。 |
@@ -508,7 +508,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共581份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共590份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -601,6 +601,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
 | [00-project/validation/application-source-binding-report.json](<00-project/validation/application-source-binding-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/business-foundation-report.json](<00-project/validation/business-foundation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/business-recovery-report.json](<00-project/validation/business-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/ci-all-report.json](<00-project/validation/ci-all-report.json>) | 本机完整门禁逐命令实际状态、耗时与执行范围；托管执行为false。 |
 | [00-project/validation/ci-failure-gate-report.json](<00-project/validation/ci-failure-gate-report.json>) | 验证故意失败确实阻断构建/部署的判定，PASS不等于探针本身成功。 |
 | [00-project/validation/ci-failure-probe-report.json](<00-project/validation/ci-failure-probe-report.json>) | 故意插入失败后的真实非零门禁报告；FAIL为探针预期。 |
@@ -683,6 +685,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-three-quality-dependency-report.json](<00-project/validation/stage-three-quality-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-three-runtime-report.json](<00-project/validation/stage-three-runtime-report.json>) | 实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。 |
 | [00-project/validation/stage-three-secrets-report.json](<00-project/validation/stage-three-secrets-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-synthetic-typing-regression-report.json](<00-project/validation/stage-three-synthetic-typing-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-type-dependency-report.json](<00-project/validation/stage-three-type-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-three-validation-report.json](<00-project/validation/stage-three-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-two-completion-report.json](<00-project/validation/stage-two-completion-report.json>) | 2026-10-12阶段工程总结历史快照，21门禁及当时run按原时点读；本轮新增6组检查另见stage-two-supplement-report。 |
 | [00-project/validation/stage-two-isolation-report.json](<00-project/validation/stage-two-isolation-report.json>) | 新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。 |
@@ -836,15 +840,17 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/examples/UploadComplete.json](<03-api/examples/UploadComplete.json>) | UploadComplete接口结构的合成示例，不是业务运行结果 |
 | [03-api/examples/UploadCreate.json](<03-api/examples/UploadCreate.json>) | UploadCreate接口结构的合成示例，不是业务运行结果 |
 | [03-api/examples/UploadPart.json](<03-api/examples/UploadPart.json>) | UploadPart接口结构的合成示例，不是业务运行结果 |
+| [03-api/examples/UploadPartPage.json](<03-api/examples/UploadPartPage.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-api/examples/UploadResult.json](<03-api/examples/UploadResult.json>) | UploadResult接口结构的合成示例，不是业务运行结果 |
 | [03-api/examples/UploadSession.json](<03-api/examples/UploadSession.json>) | UploadSession接口结构的合成示例，不是业务运行结果 |
+| [03-api/examples/UploadStatus.json](<03-api/examples/UploadStatus.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-api/examples/VersionBinding.json](<03-api/examples/VersionBinding.json>) | VersionBinding接口结构的合成示例，不是业务运行结果 |
 | [03-api/examples/VideoSearch.json](<03-api/examples/VideoSearch.json>) | VideoSearch接口结构的合成示例，不是业务运行结果 |
 | [03-api/historical-result-reading.md](<03-api/historical-result-reading.md>) | 7现有操作history成组参数、精确task/run/result与响应绑定头，404不回退最新；正式业务API尚未实现。 |
 | [03-api/inference-interfaces.md](<03-api/inference-interfaces.md>) | 34能力逐请求/响应字段、路径、任务/数据及Schema摘要，只有M15合成CPU子范围已实测。 |
 | [03-api/inference-openapi.yaml](<03-api/inference-openapi.yaml>) | 业务后端调用内部算法的入口，与外部API隔离。 |
-| [03-api/interface-annotations.json](<03-api/interface-annotations.json>) | 53操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。 |
-| [03-api/interface-catalog.json](<03-api/interface-catalog.json>) | 53操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。 |
+| [03-api/interface-annotations.json](<03-api/interface-annotations.json>) | 55操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。 |
+| [03-api/interface-catalog.json](<03-api/interface-catalog.json>) | 55操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。 |
 | [03-api/interface-gap-register.json](<03-api/interface-gap-register.json>) | 上述开放缺口的机器索引；姓名未知/未批准，不改任务依赖。 |
 | [03-api/interface-gap-register.md](<03-api/interface-gap-register.md>) | 13项接口设计/实施缺口、候选路径/方案/影响与关闭标准，候选路径不可调用。 |
 | [03-api/modules/claim.md](<03-api/modules/claim.md>) | 该模块三条来源业务需求、已有操作/任务及详细入口；直接API未绑定不等于需求删除或全部内部处理已完成。 |
@@ -892,6 +898,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/operations/getTask.md](<03-api/operations/getTask.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/getTaskEvidence.md](<03-api/operations/getTaskEvidence.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/getTimeline.md](<03-api/operations/getTimeline.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
+| [03-api/operations/getUploadStatus.md](<03-api/operations/getUploadStatus.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/health.md](<03-api/operations/health.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/issueOperationToken.md](<03-api/operations/issueOperationToken.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/listAssets.md](<03-api/operations/listAssets.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
@@ -901,6 +908,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/operations/listPolicies.md](<03-api/operations/listPolicies.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/listSources.md](<03-api/operations/listSources.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/listTasks.md](<03-api/operations/listTasks.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
+| [03-api/operations/listUploadParts.md](<03-api/operations/listUploadParts.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/putUploadPart.md](<03-api/operations/putUploadPart.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/recordEvaluation.md](<03-api/operations/recordEvaluation.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/registerModel.md](<03-api/operations/registerModel.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
@@ -914,10 +922,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/operations/searchVideo.md](<03-api/operations/searchVideo.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/switchIndex.md](<03-api/operations/switchIndex.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
 | [03-api/operations/verifyClaim.md](<03-api/operations/verifyClaim.md>) | 逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。 |
-| [03-api/poc-api.md](<03-api/poc-api.md>) | 已实现PoC入口和53操作正式契约的区别，鉴权/错误与合成模型范围。 |
+| [03-api/poc-api.md](<03-api/poc-api.md>) | 已实现PoC入口和55操作正式契约的区别，鉴权/错误与合成模型范围。 |
 | [03-api/README.md](<03-api/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-api/service-and-event-contracts.md](<03-api/service-and-event-contracts.md>) | 服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。 |
-| [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。 |
+| [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、55操作/83结构/34能力、详细阅读标准及13项开放缺口。 |
 | [03-development/ci-administrator-guide.md](<03-development/ci-administrator-guide.md>) | 说明文档：Runner Secret与分支保护操作手册；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/ci-cd.md](<03-development/ci-cd.md>) | 保留本机21门禁历史；本轮托管CI扩展25道，实际run/源码SHA/制品另认报告，非生产发布。 |
 | [03-development/codex-permission-boundary.md](<03-development/codex-permission-boundary.md>) | 说明文档：Codex操作边界与授权记录；结合正文的状态、来源和适用范围阅读。 |
@@ -935,6 +943,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/repository-platform-options.md](<03-development/repository-platform-options.md>) | 说明文档：仓库平台选择与实际执行依据；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-review-package.md](<03-development/repository-review-package.md>) | 说明文档：仓库和分支治理评审材料；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-structure-decision.md](<03-development/repository-structure-decision.md>) | 说明文档：Monorepo模式与拆分边界；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/stage-three/business-foundation-implementation.md](<03-development/stage-three/business-foundation-implementation.md>) | 说明文档：首批业务基础实际实现及验收边界；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照方案已认可，当前契约尚未实施更新。 |
 | [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。 |
 | [03-development/stage-three/external-inputs.json](<03-development/stage-three/external-inputs.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |

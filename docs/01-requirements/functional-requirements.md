@@ -5579,7 +5579,7 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 
 ## 9 当前落地状态与来源摘要
 
-当前py310 CPU最小工程与托管25门禁已有实际证据；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将53业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
+当前py310 CPU最小工程与托管25门禁已有实际证据；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将55业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
 
 生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；研发环境与锁保留。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见[第一阶段24步](<../00-project/stage-one/steps-and-deliverables.md>)、[第二阶段23步](<../03-development/stage-two-readiness.md>)和[实际剩余条件](<../00-project/remaining-work-navigation.md>)。
 
@@ -5594,7 +5594,7 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | [项目任务书_技术修订版V1.3.md](<../_converted/revision/项目任务书_技术修订版V1.3.md>) | 1d38d1589f1fff1d2207d9872213ec05f6342955fe0a4f7ade1deab3fad83943 |
 | [requirement-traceability.yaml](<../00-project/requirement-traceability.yaml>) | a3a9efd585510c8c0b296f230bf2e15b35b16fa3e6c4526e28151ac089da092b |
 | [source-inventory.json](<../00-project/source-inventory.json>) | 24ef4bc967fad08ebfd96370ec3d76893b2bafc1b91fdc58a5e8581555467a16 |
-| [requirement-processing-map.json](<../00-project/requirement-processing-map.json>) | b1c133fa15a24ac8d3ab02935affd062c0a268faf57f4e3eb25d36b728b7bb9a |
+| [requirement-processing-map.json](<../00-project/requirement-processing-map.json>) | 114ec1a05e49a9763a648a63243b0948f134e25e231081ea42e63a150e28a41c |
 | [requirement-semantic-review.json](<../00-project/requirement-semantic-review.json>) | 21b8d096c949ee6d6a2ad2b9c79d39708224c76bc8264f192961df02600b03b9 |
 | [engineering-requirements.yaml](<engineering-requirements.yaml>) | 60ecfa7c9255d124fdc205b4b7ca9ce88cf9faf9733c70d437618842036d08ca |
 | [business-rules.md](<business-rules.md>) | a1de51d242165bb927ea570dd85e68ec1ecc039a75eb835d5f7517eb432f2527 |
@@ -5605,10 +5605,10 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | [metric-protocols.json](<../09-testing/metric-protocols.json>) | 03a4423748f5cddbe1f555fa1b2e640f95ad883e5037417703c8e95f8052c305 |
 | [dataset-catalog.md](<../07-datasets/dataset-catalog.md>) | 223e397f572dff631e3b30f455d68ce3d3cccf3ca89da3ebc18ec82776fd7347 |
 | [model-catalog.yaml](<../06-algorithms/model-catalog.yaml>) | 398dcd073fd79bf17ff1dea8a83627e2839097b4b81a8f8faa0f4329a75d3cb3 |
-| [operation-index.json](<../03-api/operation-index.json>) | af8a90174415a261ca17d439513207b86722a8d75b4f88545247f40b6eb7bc2a |
-| [interface-gap-register.json](<../03-api/interface-gap-register.json>) | b3fb251fb87bdbece6758bfd9a2b0b0de7b0eb8573c263f2c0bd1cf255a521a6 |
+| [operation-index.json](<../03-api/operation-index.json>) | f31ff0f43eb89d8b94e2f50a464c63caa2dee207d7c188868c46dda824afb3c7 |
+| [interface-gap-register.json](<../03-api/interface-gap-register.json>) | c04161d4fc66366368bcd309458a7025364ef56995a0ce493903c3914d0dd1a4 |
 | [open-questions.md](<../00-project/open-questions.md>) | 4fe41d59eef090247035010237684395bc1dfd8b0916ea3a143af01d71fbd9f0 |
 | [source-task-cards.json](<../../tasks/source-task-cards.json>) | de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565 |
 | [backlog.yaml](<../../tasks/backlog.yaml>) | f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d |
 | [versions.yaml](<../../config/versions.yaml>) | ee4cb5eed6d99f7a9e187635ca8e148ded726dd404cdf071ab641dbee1483ebd |
-| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | 6fc0e4ce1eb1315f5fb7b2b8d5097bba0f0163b3fa78ce69eef93b87da8d4eb9 |
+| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | 778800885b49ad6eba411005be40a8808b8a9588316369fdf7d1cf8961358d50 |

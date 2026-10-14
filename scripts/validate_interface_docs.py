@@ -123,8 +123,9 @@ def main():
         matching = {oid for oid, (method, path, _) in operations.items() if (method, path) in backend}
         assert matching == {"health"}
         business_routes = {(method, "/api/v1" + path) for method, path in routes("backend/business_app/uploads/router.py")}
+        business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/history/router.py")}
         business_matching = {oid for oid, (method, path, _) in operations.items() if (method, path) in business_routes}
-        assert business_matching == {"createUpload", "putUploadPart", "getUploadStatus", "listUploadParts"}
+        assert business_matching == {'completeUpload', 'getUploadStatus', 'getTask', 'putUploadPart', 'listUploadParts', 'getFirstSource', 'getTaskEvidence', 'createUpload', 'getForensics', 'getRiskFindings', 'getPropagation', 'getTimeline'}
         matching |= business_matching
         annotations = read(BASE + "interface-annotations.json")["operations"]
         assert {oid for oid, a in annotations.items() if a["implementation_status"] == "DEV_PARTIAL"} == matching
@@ -132,7 +133,7 @@ def main():
         assert ("POST", "/internal/v1/inference/retrieval.image_embedding") in routes("ai-services/inference/service.py")
         event = read("schemas/events/poc.analysis.requested.v1.schema.json")
         assert event["properties"]["event_type"]["const"] == "poc.analysis.requested.v1"
-        return {"business_matching_development_partial_routes": 5, "all_business_API_implementation_asserted": False,
+        return {"business_matching_development_partial_routes": 13, "all_business_API_implementation_asserted": False,
                 "new_runtime_tests_executed": False, "one_PoC_event_not_cross_module_bus": True}
 
     check("source_code_PoC_boundary_not_business_acceptance", implemented_boundary)

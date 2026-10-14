@@ -9,7 +9,7 @@ def prepare_history(context):
     from tests.business.test_upload_validation import complete, event, prepared_upload, worker
 
     app, http, upload, descriptor = prepared_upload(context)
-    assert complete(http, upload, descriptor).status_code == 202
+    assert complete(http, upload, descriptor, key=uuid4().hex).status_code == 202
     worker(app, context).consume_validation(event(context, upload))
     result = http.get(f"/api/v1/uploads/{upload}", headers={"Authorization": "Bearer test-only-valid-token"}).json()
     asset = result["result"]["asset_id"]

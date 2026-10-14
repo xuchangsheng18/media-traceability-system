@@ -123,6 +123,6 @@ def first_source(request: Request, id: UUID) -> JSONResponse:
     return read_result(request, id, "getFirstSource", "cluster", "origin.read")
 
 
-@router.get("/propagation/{id}", operation_id="getPropagation")
-def propagation(request: Request, id: UUID) -> JSONResponse:
-    return read_result(request, id, "getPropagation", "cluster", "propagation.read")
+@router.get("/propagation/{cluster_id}", operation_id="getPropagation")
+def propagation(request: Request, cluster_id: UUID) -> JSONResponse:
+    return read_result(request, cluster_id, "getPropagation", "cluster", "propagation.read")

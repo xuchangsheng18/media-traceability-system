@@ -16,6 +16,18 @@ RESPONSES = {
 }
 
 
+def nested_dicts(value: Any) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    if isinstance(value, dict):
+        result.append(value)
+        for child in value.values():
+            result.extend(nested_dicts(child))
+    elif isinstance(value, list):
+        for child in value:
+            result.extend(nested_dicts(child))
+    return result
+
+
 def resolve_pointer(snapshot: dict[str, Any], pointer: str) -> Any:
     if not pointer.startswith("/"):
         raise BusinessError("SNAPSHOT_MAPPING_INVALID", 503)
@@ -61,7 +73,7 @@ def project(
     response = dict(selected["response"])
     validate_api(RESPONSES[operation_id], response)
     binding = snapshot["binding"]
-    for body in [response, response.get("binding", {})]:
+    for body in nested_dicts(response):
         for field in ["task_id", "case_id", "run_version", "result_version", "policy_version"]:
             if field in body and body[field] != binding[field]:
                 raise BusinessError("SNAPSHOT_BINDING_INVALID", 409)

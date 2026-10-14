@@ -12,7 +12,7 @@
 
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
-| [getRiskFindings](../operations/getRiskFindings.md) | GET /api/v1/analysis/tasks/{id}/risk-findings | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [getRiskFindings](../operations/getRiskFindings.md) | GET /api/v1/analysis/tasks/{id}/risk-findings | DEV_PARTIAL |
 | [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [listPolicies](../operations/listPolicies.md) | GET /api/v1/policies | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 
