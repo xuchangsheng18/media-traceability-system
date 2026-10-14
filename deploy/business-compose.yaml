@@ -1,0 +1,17 @@
+name: media-trace-business-development
+services:
+  postgres:
+    image: postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+    env_file:
+      - ${MT_BUSINESS_PRIVATE_CONFIG:?Explicit isolated private config directory required}/postgres.env
+    ports:
+      - "127.0.0.1:${MT_BUSINESS_POSTGRES_PORT:?Explicit independent port required}:5432"
+    volumes:
+      - business_database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+volumes:
+  business_database:
