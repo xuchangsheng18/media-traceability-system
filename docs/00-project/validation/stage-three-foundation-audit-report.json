@@ -700,7 +700,10 @@
     "actual_server_checks": 13,
     "status": "PASS",
     "previous_failed_attempts_retained": 5,
-    "full_stage_technical_completion_asserted": false
+    "full_stage_technical_completion_asserted": false,
+    "final_source_commit": "d7d655d64ecbbb8ef7077a9a2051c52ac6320064",
+    "actual_business_checks": 76,
+    "source_bound_business_and_types_reports_verified": true
   },
   "implementation_planning": {
     "status": "USER_REVIEWED_APPROVED_NATIVE_EXECUTION",
@@ -744,5 +747,159 @@
     "full_business_completion_asserted": false,
     "formal_identity_provider_integrated": false,
     "original_100_package_lock_preserved": true
+  },
+  "business_review_closeout": {
+    "status": "REVIEW_FINDINGS_FIXED_AND_REGRESSION_VERIFIED",
+    "review_base": "c86160f",
+    "review_head": "03377fe",
+    "review_scope": "one_fresh_read_only_feature_review",
+    "critical_findings": 0,
+    "important_findings": 9,
+    "resolution_scope": "wholeisolatedbusinesssuite76pass;notindependentsecondreview",
+    "findings": [
+      {
+        "id": "secondary_reference_authorization",
+        "resolution": "Nested fixed object references, media sources and existing evidence now verify case/source/version and actualbytes; nonempty unimplemented capability/ordinary producer outputs503.",
+        "regression": "test_nested_object_version_is_actually_verified",
+        "status": "FIXED"
+      },
+      {
+        "id": "nested_response_versions",
+        "resolution": "All nested response task/case/run/result/policy fields validate against snapshot binding.",
+        "regression": "test_nested_evidence_versions_cannot_contradict_headers",
+        "status": "FIXED"
+      },
+      {
+        "id": "immutable_run_input",
+        "resolution": "Primarytask object required ininputrefs; existingrun input_sha256 compared.",
+        "regression": "test_primary_task_object_must_be_in_inputs;test_run_cannot_change_input_digest",
+        "status": "FIXED"
+      },
+      {
+        "id": "unreferenced_private_objects",
+        "resolution": "Concurrent duplicate and post-assembly database failure preserve privateorphan recovery records.",
+        "regression": "test_concurrent_duplicate_preserves_orphan_recovery;test_worker_database_failure_records_private_orphan",
+        "status": "FIXED"
+      },
+      {
+        "id": "truncated_JPEG",
+        "resolution": "Complete image decode follows verify; pinnedruntime truncatedJPEGreturns invalid.",
+        "regression": "test_truncated_jpeg_never_becomes_valid",
+        "status": "FIXED"
+      },
+      {
+        "id": "permanent_corrupt_validation",
+        "resolution": "Unverifiable fixedversion transitionsREJECTED and returns normally; transientAuthorityError stillpropagates pending.",
+        "regression": "test_corrupted_fixed_part_is_rejected_not_retried_forever;test_authority_outage_keeps_pending",
+        "status": "FIXED"
+      },
+      {
+        "id": "latest_across_tasks",
+        "resolution": "Asset/clusterlatest sort actual rowcreated_at/result_id; taskroutes retainrun/result order.",
+        "regression": "test_latest_across_tasks_uses_newest_snapshot",
+        "status": "FIXED"
+      },
+      {
+        "id": "ranking_identity",
+        "resolution": "Ranking/candidates registered atomically withsnapshot; duplicateID/inconsistentcounts/ranks/member/evidencereferences reject.",
+        "regression": "test_ranking_identity_cannot_be_rebound;canonicalSQL retainedfirstsourcecases",
+        "status": "FIXED"
+      },
+      {
+        "id": "revoked_duplicate_source",
+        "resolution": "Status reauthorizes duplicate source; revokedreference hidden whileownsource remainsallowed.",
+        "regression": "test_duplicate_source_revocation_hides_reference",
+        "status": "FIXED"
+      }
+    ],
+    "deferred_minor": {
+      "issue": "originalpartreceipt replayafterterminal may409",
+      "impact": "clientmayneedcurrentstatus aftercompletion;no duplicateassetorunverifiedsuccess",
+      "formal_scope": "developmentretainedreceiptsemantics"
+    },
+    "execution_rulings": [
+      "TaskrootisnotGit; verifiednestedrepo/manualGitworktreefallback; no primarycheckoutreset.",
+      "WindowsBashhelpersCRLF; equivalent perplanledger maintained.",
+      "Original100runtimepackages unchanged; independent12toolclosure/stubs only.",
+      "SharedDocker initiallyfull; separatehostloopbackPG16.15 tooling tested; notbusinessS3/Dockerdeployment.",
+      "OnlyPGonlinecomponentbackup initiallycreated; no claimofwholeVMbackup. Latercapacityexpansionobservedexternally,not performedbythissession.",
+      "Isolatedtestpassword rotated after traceback; privateDSNrepresentation redacted; no officialcredentialsused.",
+      "Task3 commit includedpartialTask4repository/eventschema; task4runtimeevidence recordedseparately.",
+      "Devobjects useimmutableprivateFS; PNG/JPEGonly; nonemptyunimplementedproduceroutput503, defaultproductionauthority503.",
+      "Old53API/83Schemaandold62/824catalog semantics checkedbefore renewinglineagehashes; currentcanonicalSQL constraintsrerun, previousproofbytespreserved.",
+      "Sameauthor regressionfixes tested after onefreshreview; no automaticproductionacceptance or13formalclosure."
+    ],
+    "additional_type_review": {
+      "important_prefix_install_order": "FIXED_BEFORE_PIP_with_regressions",
+      "source_identity_ambiguity": "source_code_dirtyadded;finalsourceboundreport required",
+      "hosted_failure_probe_minor": "expectedexitcode1 nowenforced;previousany-nonzero note superseded"
+    },
+    "formal_approved": false,
+    "formal_frozen": false,
+    "all_13_gaps_closed": false
+  },
+  "business_private_secret_verification": {
+    "status": "PASS",
+    "files_checked": 1331,
+    "private_credential_values_checked": 2,
+    "exact_private_values_available": true,
+    "secret_values_printed": false,
+    "error_files": [],
+    "scope": "current_source_owned_business_test_credentials_not_full_history_DLP"
+  },
+  "source_identity_reporting_fix": {
+    "commit": "d7d655d64ecbbb8ef7077a9a2051c52ac6320064",
+    "regression_cases": 3,
+    "regression_status": "PASS",
+    "actual_python_unit_tests": 59,
+    "source_changes_recorded_separately": true,
+    "only_expected_build_metadata_classified": "config/locks/runtime-archive.json",
+    "raw_source_change_detection_not_disabled": true
+  },
+  "platform_latest_recheck": {
+    "observed_at": "2026-10-14T14:20:16.102506+00:00",
+    "repository": "xuchangsheng18/media-traceability-system",
+    "read_only": true,
+    "user_account_choice": "existing_synced_repository_owner",
+    "actual_project_people_confirmed": false,
+    "actual_formal_environment_confirmed": false,
+    "operations": {
+      "main_protection": {
+        "query_status": 403,
+        "message": "Upgrade to GitHub Pro or make this repository public to enable this feature.",
+        "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection"
+      },
+      "registered_runners": {
+        "query_status": 200,
+        "total_count": 0,
+        "GitHub_hosted_runners_not_enumerated_by_this_endpoint": true
+      },
+      "secret_names": {
+        "query_status": 200,
+        "total_count": 0,
+        "secret_values_read": false
+      },
+      "collaborators": {
+        "query_status": 200,
+        "accounts": [
+          {
+            "login": "xuchangsheng18",
+            "role_name": "admin",
+            "permissions": {
+              "admin": true,
+              "maintain": true,
+              "push": true,
+              "triage": true,
+              "pull": true
+            }
+          }
+        ]
+      },
+      "workflow_token_permissions": {
+        "query_status": 200,
+        "default_workflow_permissions": "read",
+        "can_approve_pull_request_reviews": false
+      }
+    }
   }
 }
