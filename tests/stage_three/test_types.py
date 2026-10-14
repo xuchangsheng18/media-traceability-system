@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -115,3 +116,43 @@ def test_type_failure_propagates_to_dev_command(monkeypatch, capfd):
         assert "assignment" in observed.out
     finally:
         probe.unlink(missing_ok=True)
+
+
+@pytest.mark.parametrize("linked_bin", [False, True])
+def test_existing_nonvenv_python_never_installs(tmp_path, monkeypatch, linked_bin):
+    tools = load_types()
+    marker = tmp_path / "install-was-called"
+    target = tmp_path / "stage-three-type-tools/bin"
+    target.parent.mkdir(parents=True)
+    if linked_bin:
+        linked = tmp_path / "controlled-other-bin"
+        linked.mkdir()
+        target.symlink_to(linked, target_is_directory=True)
+    else:
+        target.mkdir()
+    (target.parent / "pyvenv.cfg").write_text("include-system-site-packages = true\n")
+    wrapper = target / "python"
+    wrapper.write_text(
+        "#!/bin/sh\n"
+        f'if [ "$1" = "-m" ] && [ "$2" = "pip" ] && [ "$3" = "install" ]; then touch "{marker}"; exit 0; fi\n'
+        f'exec "{sys.executable}" "$@"\n'
+    )
+    wrapper.chmod(0o700)
+    cache = tmp_path / "stage-three-type-artifacts"
+    cache.mkdir()
+    wheel = cache / "example.whl"
+    wheel.write_bytes(b"fixture")
+    digest = hashlib.sha256(b"fixture").hexdigest()
+    artifacts = tmp_path / "artifacts.json"
+    artifacts.write_text(
+        json.dumps({"artifacts": [{"name": "example", "version": "1.0", "filename": wheel.name, "sha256": digest}]})
+    )
+    lock = tmp_path / "requirements.lock"
+    lock.write_text(f"example==1.0 --hash=sha256:{digest}\n")
+    monkeypatch.setattr(tools, "ARTIFACTS", artifacts)
+    monkeypatch.setattr(tools, "LOCK", lock)
+    try:
+        tools.setup_type_environment(tmp_path, Path(sys.executable))
+    except (RuntimeError, subprocess.CalledProcessError):
+        pass
+    assert not marker.exists(), "non-venv executable reached pip installation"

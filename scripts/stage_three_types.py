@@ -66,6 +66,24 @@ def setup_type_environment(runtime_dir: Path, base_python: Path) -> Path:
     py = target / "bin/python"
     if not py.exists():
         subprocess.run([str(base_python), "-m", "venv", "--system-site-packages", str(target)], check=True)
+    if (target / "bin").is_symlink() or not (target / "pyvenv.cfg").is_file():
+        raise RuntimeError("TYPE_ENVIRONMENT_PREFIX_INVALID")
+    identity = json.loads(
+        subprocess.check_output(
+            [
+                str(py),
+                "-c",
+                "import json,sys; print(json.dumps(dict(prefix=sys.prefix,base_prefix=sys.base_prefix,version=list(sys.version_info[:3]))))",
+            ],
+            text=True,
+        )
+    )
+    if (
+        Path(identity["prefix"]).resolve() != target.resolve()
+        or Path(identity["base_prefix"]).resolve() == target.resolve()
+        or identity["version"] != [3, 10, 22]
+    ):
+        raise RuntimeError("TYPE_ENVIRONMENT_PREFIX_INVALID")
     subprocess.run(
         [
             str(py),
@@ -84,12 +102,8 @@ def setup_type_environment(runtime_dir: Path, base_python: Path) -> Path:
     )
     subprocess.run([str(py), "-m", "pip", "check"], check=True)
     after = subprocess.check_output([str(base_python), "-m", "pip", "freeze"])
-    if before != after or py.resolve() == base_python.resolve():
-        # venv python is normally a symlink to base; prefix identity, not binary identity,
-        # determines package installation destination.
-        prefix = subprocess.check_output([str(py), "-c", "import sys; print(sys.prefix)"], text=True).strip()
-        if before != after or Path(prefix).resolve() != target.resolve():
-            raise RuntimeError("ORIGINAL_RUNTIME_CHANGED_OR_INVALID_TOOL_PREFIX")
+    if before != after:
+        raise RuntimeError("ORIGINAL_RUNTIME_CHANGED")
     print(
         json.dumps(
             {
@@ -134,6 +148,25 @@ def main() -> int:
             "future_business_directories_included_when_present": True,
             "exit_code": result.returncode,
             "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+            "source_code_dirty": bool(
+                subprocess.check_output(
+                    [
+                        "git",
+                        "status",
+                        "--porcelain",
+                        "--",
+                        "scripts",
+                        "backend",
+                        "ai-services",
+                        "tests",
+                        "tools",
+                        "config",
+                        ".github",
+                    ],
+                    cwd=ROOT,
+                    text=True,
+                ).strip()
+            ),
             "original_100_package_lock_changed": False,
             "formal_frozen": False,
         }
