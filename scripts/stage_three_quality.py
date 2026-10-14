@@ -55,9 +55,7 @@ def text_check():
         raw.decode("utf-8")
         assert b"\r\n" not in raw and raw.endswith(b"\n"), name
     print(
-        json.dumps(
-            {"status": "PASS", "scope": "third_stage_new_text_not_bulk_reformatting_legacy_code", "files": len(paths)}
-        )
+        json.dumps({"status": "PASS", "scope": "selected_development_python_and_governance_text", "files": len(paths)})
     )
     return 0
 

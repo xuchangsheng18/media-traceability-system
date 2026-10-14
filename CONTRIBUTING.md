@@ -8,7 +8,7 @@ Linux在仓库根目录使用`/opt/conda/glwy/envs/py310/bin/python scripts/dev.
 
 `dev`默认只观察既有7服务；显式`--allow-stack-changes`才启动命名研发栈，且会检查数据库文件系统容量。`build/integration-test/ci`在所有环境均要求该标志；共享服务器容量不足或读不到容量即拒绝执行。冷启动例外仅适用于GitHub托管Runner、与仓库匹配的工作区、Runner临时目录内独立runtime、default Docker上下文且无DOCKER_HOST覆盖的组合；只有GITHUB_ACTIONS标记或自托管Runner仍走共享容量检查。这是操作保护，不代表平台授权或网络隔离。CI使用`python scripts/dev.py ci --allow-stack-changes`执行实际门禁。`stop`不删除卷，`clean`默认仅预览两个精确缓存目录，`--apply`才清理，原件、数据、权重、数据库、运行秘密和Git均不在允许清理范围。
 
-代码格式检查当前覆盖第三阶段新增Python；现有应用按原Ruff与TS检查，已有格式债务不以一次性改写解决。Black/MyPy/ESLint/Stylelint等未选工具不冒充已启用。新增适用工具需另锁版本并验证；本机与CI均使用同一任务入口。
+代码格式检查当前覆盖第三阶段7文件和backend/app、ai-services/inference、tests/poc的13文件，共20文件；旧代码的11处文件格式调整已核对AST一致。其余历史scripts和未来业务模块不在这项格式范围内。Python静态类型检查仍待建立，前端TS已有实际检查；Black/MyPy/ESLint/Stylelint等未选工具不冒充已启用。新增工具另锁版本并验证，本机与CI使用同一入口。
 
 `setup --tools`在仓库外建立单独锁定的pre-commit工具层，保留项目100包锁与py310。先运行`pre-commit run --all-files`验证，再由开发人员选择安装本地hook；本次不重写现有Git hooks。该工具层不作为生产Python或业务依赖变更。
 

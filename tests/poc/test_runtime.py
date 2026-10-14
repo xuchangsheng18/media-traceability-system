@@ -26,6 +26,7 @@ def test_valid_png_preserves_original_bytes():
 def test_missing_and_wrong_bearer_are_denied(monkeypatch):
     monkeypatch.setenv("POC_API_TOKEN", "synthetic-unit-token")
     from fastapi import HTTPException
+
     with pytest.raises(HTTPException):
         authorize(None)
     with pytest.raises(HTTPException):
@@ -35,6 +36,7 @@ def test_missing_and_wrong_bearer_are_denied(monkeypatch):
 
 def test_python_runtime_is_310():
     import sys
+
     assert sys.version_info[:2] == (3, 10)
 
 
@@ -45,6 +47,7 @@ def test_environment_path_is_explicit():
 def test_auth_error_has_traceable_safe_problem(monkeypatch):
     from app.main import app
     from fastapi.testclient import TestClient
+
     monkeypatch.setenv("POC_API_TOKEN", "synthetic-unit-token")
     response = TestClient(app).get("/api/v1/health", headers={"Authorization": "Bearer secret-value"})
     assert response.status_code == 401
@@ -55,6 +58,7 @@ def test_auth_error_has_traceable_safe_problem(monkeypatch):
 
 def test_configuration_rejects_invalid_values_without_disclosing_secrets(monkeypatch):
     from app.settings import validate_runtime
+
     monkeypatch.setenv("POC_API_TOKEN", "secret-invalid-short-token")
     monkeypatch.setenv("BROKER_URL", "not-a-url")
     with pytest.raises(RuntimeError, match="^CONFIGURATION_INVALID$"):
@@ -66,7 +70,11 @@ def test_unexpected_case_override_is_rejected_before_database_access(monkeypatch
 
     from app.main import app
     from fastapi.testclient import TestClient
+
     monkeypatch.setenv("POC_API_TOKEN", "synthetic-unit-token")
-    response = TestClient(app).post("/poc/jobs", headers={"Authorization": "Bearer synthetic-unit-token", "Idempotency-Key": "test"},
-                                    json={"asset_id": str(uuid.uuid4()), "case_id": str(uuid.uuid4())})
+    response = TestClient(app).post(
+        "/poc/jobs",
+        headers={"Authorization": "Bearer synthetic-unit-token", "Idempotency-Key": "test"},
+        json={"asset_id": str(uuid.uuid4()), "case_id": str(uuid.uuid4())},
+    )
     assert response.status_code == 422 and response.json()["code"] == "REQUEST_INVALID"

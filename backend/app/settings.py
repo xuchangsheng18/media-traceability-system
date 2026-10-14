@@ -1,4 +1,5 @@
 """Validate private runtime configuration without displaying secret field values."""
+
 from pydantic import AmqpDsn, AnyHttpUrl, Field, PostgresDsn, SecretStr, ValidationError
 from pydantic_settings import BaseSettings, SettingsConfigDict
 

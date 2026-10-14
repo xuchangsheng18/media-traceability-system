@@ -34,6 +34,9 @@ def main():
     prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
                             "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
     entries = {
+        "03-development/stage-three/foundation-implementation-plan.md": "六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围已认可，详细计划待审阅，非完成证据。",
+        "03-development/stage-three/python-type-check-implementation-plan.md": "独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，尚未实施。",
+        "03-development/stage-three/business-interface-implementation-plan.md": "独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照待审阅，当前契约未改。",
         "03-development/stage-three/readiness.md": "第三阶段16步及57条原验收逐条状态：文档、实测、部分/待落实与适用差异各列证据范围，与24/23步和170任务分开。",
         "03-development/stage-three/deliverables.json": "16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。",
         "03-development/development-environment-validation-report.md": "第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。",
@@ -41,6 +44,7 @@ def main():
         "00-project/validation/stage-three-runtime-report.json": "实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。",
         "00-project/validation/stage-three-demo-report.json": "三临时进程11项实测含三服务脱敏日志/trace及依赖停止503/502，1例浏览器；mock标记，无DB/权重/GPU访问。",
         "00-project/validation/stage-three-dependency-scan-report.json": "Python/npm实际已知漏洞扫描、退出状态和包跳过；不是全面安全或PythonEOL/OS准入证明。",
+        "00-project/validation/stage-three-foundation-audit-report.json": "开发基础实际审查：共享VM100%及31其他容器、私有保护403、格式AST保全、两端Codex配置启用、Torch官方摘要/12,240载荷和13接口未闭项；正式条件仍待。",
         "00-project/validation/stage-three-platform-observation.json": "只读GitHub真实所有者、私有性、保护标志/规则查询及Actions；不冒充已配置权限。",
         "01-requirements/functional-requirements.md": "单文档详细需求：36业务需求逐项输入/流程/输出/异常/权限/验收与开发关联，全文170任务展开及10NFR/16规则/24协议；源目标、工程证据和未决/正式状态分别标注。",
         "00-project/remaining-work-navigation.md": "两阶段剩余工作总导航：第一阶段6项、第二阶段12项，含已补范围、前置/责任角色/关闭标准、13接口缺口及正式冻结条件；资源位置明确为Linux上的Docker虚拟机数据盘。",

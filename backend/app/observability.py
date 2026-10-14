@@ -1,4 +1,5 @@
 """Shared safe Problem responses and request tracing for API and inference."""
+
 import json
 import logging
 import time
@@ -14,9 +15,19 @@ def configure(app, trust_request_id=False):
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     def problem(request, status, code):
-        return JSONResponse({"type": "about:blank", "title": code, "status": status, "code": code,
-                             "message": code, "request_id": request.state.request_id, "details": []},
-                            status_code=status, media_type="application/problem+json")
+        return JSONResponse(
+            {
+                "type": "about:blank",
+                "title": code,
+                "status": status,
+                "code": code,
+                "message": code,
+                "request_id": request.state.request_id,
+                "details": [],
+            },
+            status_code=status,
+            media_type="application/problem+json",
+        )
 
     @app.middleware("http")
     async def trace(request: Request, call_next):
@@ -32,9 +43,17 @@ def configure(app, trust_request_id=False):
         except Exception:
             response = problem(request, 500, "DEPENDENCY_FAILURE")
         response.headers["X-Request-ID"] = request.state.request_id
-        logger.info(json.dumps({"request_id": request.state.request_id, "method": request.method,
-                               "route": getattr(request.scope.get("route"), "path", "unmatched"),
-                               "status": response.status_code, "elapsed_ms": int((time.monotonic()-started)*1000)}))
+        logger.info(
+            json.dumps(
+                {
+                    "request_id": request.state.request_id,
+                    "method": request.method,
+                    "route": getattr(request.scope.get("route"), "path", "unmatched"),
+                    "status": response.status_code,
+                    "elapsed_ms": int((time.monotonic() - started) * 1000),
+                }
+            )
+        )
         return response
 
     @app.exception_handler(HTTPException)

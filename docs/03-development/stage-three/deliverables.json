@@ -194,11 +194,12 @@
       "development_status": "真实仓库所有者已核对；团队ACL及主分支保护尚未落实",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。",
+      "remaining": "当前私有GitHub保护API返回403并要求升级套餐；唯一已知账号为仓库所有者。付费/平台选择、真实团队、保护生效和权限正反验收仍待，不改公开可见性。",
       "engineering_status": "PARTIAL",
       "engineering_evidence": [
         "docs/03-development/repository-access-control.md",
-        "docs/00-project/validation/stage-three-platform-observation.json"
+        "docs/00-project/validation/stage-three-platform-observation.json",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json"
       ],
       "acceptance_review": [
         {
@@ -536,16 +537,20 @@
         "config/stage-three-profile.json",
         "tests/stage_three/test_dev.py"
       ],
-      "development_status": "所选Ruff/TS/测试/扫描已执行；全量格式、Python静态类型及Torch审计有缺项",
+      "development_status": "所选13个旧代码文件格式已治理且AST一致；Python静态类型和正式安全准入仍待",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。",
+      "remaining": "当前20文件格式范围可验证；Python静态类型方案、正式质量制度、OS/许可准入仍待。Torch官方制品摘要/已安装载荷已核对，OSV查询不等于全面二进制漏洞覆盖。",
       "engineering_status": "PARTIAL",
       "engineering_evidence": [
         "scripts/stage_three_quality.py",
         "config/stage-three-profile.json",
         "tests/stage_three/test_dev.py",
-        "docs/00-project/validation/stage-three-runtime-report.json"
+        "docs/00-project/validation/stage-three-runtime-report.json",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json",
+        "docs/03-development/stage-three/foundation-implementation-plan.md",
+        "docs/03-development/stage-three/python-type-check-implementation-plan.md",
+        "docs/03-development/stage-three/business-interface-implementation-plan.md"
       ],
       "acceptance_review": [
         {
@@ -613,22 +618,23 @@
         "SECURITY.md",
         "CODEOWNERS"
       ],
-      "development_status": "工程指导与项目配置已形成；实际客户端信任和规则加载未验证",
+      "development_status": "Windows/Linux CLI完整AGENTS加载、精确项目可信登记及项目配置层启用均已核验；桌面既有线程待验",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。",
+      "remaining": "桌面正在运行线程的有效权限/规则和实际人员审核待确认；不将CLI配置读回当全部客户端强制控制。",
       "engineering_status": "DOCUMENTED",
       "engineering_evidence": [
         "AGENTS.md",
         ".codex/config.toml",
         "CONTRIBUTING.md",
         "SECURITY.md",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json"
       ],
       "acceptance_review": [
         {
           "criterion": "边界和停止条件清楚",
-          "status": "DOCUMENTED",
+          "status": "VERIFIED_SELECTED_SCOPE",
           "evidence": [
             "AGENTS.md",
             ".codex/config.toml",
@@ -636,7 +642,7 @@
             "SECURITY.md",
             "CODEOWNERS"
           ],
-          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+          "scope_note": "两端CLI完整AGENTS进入实际prompt-input；精确仓库信任登记后config/read中项目层无禁用原因。桌面既有线程和强制ACL不由此推断。"
         },
         {
           "criterion": "验证命令明确",
@@ -767,13 +773,17 @@
       "development_status": "Python和Windows SSH入口已验证；共享卷容量阻断构建，原生Windows未验",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。",
+      "remaining": "共享Docker文件系统当前100%，仅约0.73GiB；扩容影响其他31个容器，维护窗口待确认。已备开发数据库快照并核对目录可读，未完成整个VM/对象/队列备份及恢复。",
       "engineering_status": "PARTIAL",
       "engineering_evidence": [
         "Makefile",
         "scripts/dev.py",
         "scripts/dev.ps1",
-        "docs/00-project/validation/stage-three-runtime-report.json"
+        "docs/00-project/validation/stage-three-runtime-report.json",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json",
+        "docs/03-development/stage-three/foundation-implementation-plan.md",
+        "docs/03-development/stage-three/python-type-check-implementation-plan.md",
+        "docs/03-development/stage-three/business-interface-implementation-plan.md"
       ],
       "acceptance_review": [
         {
@@ -900,11 +910,12 @@
       "development_status": "管理员配置与验证方法已编写；Runner隔离制度和主分支保护未验收",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。",
+      "remaining": "当前私有GitHub保护API返回403并要求升级套餐；唯一已知账号为仓库所有者。付费/平台选择、真实团队、保护生效和权限正反验收仍待，不改公开可见性。",
       "engineering_status": "PARTIAL",
       "engineering_evidence": [
         "docs/03-development/ci-administrator-guide.md",
-        "docs/00-project/validation/stage-three-platform-observation.json"
+        "docs/00-project/validation/stage-three-platform-observation.json",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json"
       ],
       "acceptance_review": [
         {
@@ -972,7 +983,11 @@
         "docs/03-development/development-environment-validation-report.md",
         "scripts/validate_stage_three.py",
         "docs/00-project/validation/stage-three-runtime-report.json",
-        "docs/00-project/validation/github-actions-report.json"
+        "docs/00-project/validation/github-actions-report.json",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json",
+        "docs/03-development/stage-three/foundation-implementation-plan.md",
+        "docs/03-development/stage-three/python-type-check-implementation-plan.md",
+        "docs/03-development/stage-three/business-interface-implementation-plan.md"
       ],
       "acceptance_review": [
         {
@@ -1037,9 +1052,12 @@
       "outputs": [
         "docs/03-development/development-environment-baseline.md",
         "docs/03-development/development-environment-change-request.md",
-        "docs/03-development/development-environment-acceptance-record.md"
+        "docs/03-development/development-environment-acceptance-record.md",
+        "docs/03-development/stage-three/foundation-implementation-plan.md",
+        "docs/03-development/stage-three/python-type-check-implementation-plan.md",
+        "docs/03-development/stage-three/business-interface-implementation-plan.md"
       ],
-      "development_status": "基线、变更和验收候选齐备；实际批准与资源条件未齐，未冻结",
+      "development_status": "设计范围已认可，六项整改及首批接口/类型详细计划已编制待审阅；正式批准和资源条件未齐，未冻结",
       "formal_completion_asserted": false,
       "owner_name": null,
       "remaining": "完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。",
@@ -1048,7 +1066,11 @@
         "docs/03-development/development-environment-baseline.md",
         "docs/03-development/development-environment-change-request.md",
         "docs/03-development/development-environment-acceptance-record.md",
-        "docs/03-development/stage-three/external-inputs.json"
+        "docs/03-development/stage-three/external-inputs.json",
+        "docs/00-project/validation/stage-three-foundation-audit-report.json",
+        "docs/03-development/stage-three/foundation-implementation-plan.md",
+        "docs/03-development/stage-three/python-type-check-implementation-plan.md",
+        "docs/03-development/stage-three/business-interface-implementation-plan.md"
       ],
       "acceptance_review": [
         {

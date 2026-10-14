@@ -21,3 +21,9 @@ Python pip-audit 与 npm audit 已运行；Python 报告跳过 PyPI 不识别的
 ## 2026-10-13物料补充
 
 新增[实际OS镜像物料](../00-project/validation/image-sbom.spdx.json)和[采集报告](../00-project/validation/stage-two-software-report.json)，当前7服务/5镜像含449项物料；不代表所有未托管二进制/许可证或漏洞扫描完备。旧web运行镜像目录缺失已登记，不能直接当离线镜像包齐备。
+
+## 2026年10月14日Torch来源核查
+
+[开发基础审查](../00-project/validation/stage-three-foundation-audit-report.json)记录官方CPU wheel及安装载荷核验。官方索引列出torch2.14.1+cpu、cp310、manylinux_2_28_x86_64发行包；下载SHA-256匹配官方索引，已安装12,240个有摘要的载荷文件匹配该包RECORD。安装包只在仓库外下载、读取，没有安装或执行，也没有改变原100包锁。
+
+OSV按精确版本2.14.1+cpu及基础版本2.14.1分别查询，当前均未返回漏洞条目；原pip-audit跳过继续保留。此结果证明指定来源载荷与已安装文件匹配、以及查询时点的版本级已知条目情况，不证明随包OS/所有第三方二进制、模型或许可证完成准入。查询方法依据[OSV官方接口](https://google.github.io/osv.dev/quickstart/)，实际官方包链接与摘要见机器报告。

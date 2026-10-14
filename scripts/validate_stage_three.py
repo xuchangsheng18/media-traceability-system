@@ -89,6 +89,19 @@ def static_checks():
     assert "NOT_FROZEN" in (ROOT / "docs/03-development/development-environment-baseline.md").read_text(
         encoding="utf-8"
     )
+    foundation = read("docs/00-project/validation/stage-three-foundation-audit-report.json")
+    assert foundation["formal_approved"] is False and foundation["formal_frozen"] is False
+    assert len(foundation["interface_gaps"]) == 13 and all(
+        item["business_implementation_asserted"] is False for item in foundation["interface_gaps"]
+    )
+    assert foundation["quality"]["formatter_remediation"]["old_scope_files_checked"] == 13
+    assert all(item["AST_identical"] for item in foundation["quality"]["formatter_remediation"]["records"])
+    assert foundation["torch"]["installed_payload_verification"]["files_checked"] == 12240
+    assert not foundation["torch"]["installed_payload_verification"]["mismatches"]
+    for platform in ["codex_windows", "codex_linux"]:
+        assert foundation[platform]["full_root_AGENTS_loaded_into_prompt_input"]
+        layers = foundation[platform]["effective_config_after"]["project_layer_metadata"]
+        assert any(layer["name"]["type"] == "project" and not layer.get("disabledReason") for layer in layers)
     checks.append({"name": "no_invented_people_formal_approvals_freeze_or_release", "status": "PASS"})
     for path in [
         "frontend",

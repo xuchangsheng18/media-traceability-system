@@ -13,3 +13,5 @@ Development Environment Baseline 1.0候选，NOT_FROZEN。此名称来自第三�
 源手册的比例30%—40%人工/60%—70%Codex是协作建议，不是本项目实测完成率。
 
 16步及57条原验收要求分别登记工程状态、证据范围和剩余条件，避免用统一“已补材料”代替实际进度。模拟骨架具备脱敏结构日志、三服务trace关联、独立浏览器验证及依赖停止后的503/502测试；它们属于研发连通性验证。共享栈修改均要求显式标志，CI环境名不能单独跳过容量保护，无法读取容量也停止。
+
+开发基础整改见[实际审查](../00-project/validation/stage-three-foundation-audit-report.json)及[变更和恢复要求](development-environment-change-request.md)：旧应用指定范围格式统一且AST保持；两端CLI规则及可信项目配置层已验证；Torch官方制品和安装载荷已核对。共享VM容量、私有平台保护套餐、实际人员、Python静态类型和正式环境决定仍未齐备，NOT_FROZEN保持。

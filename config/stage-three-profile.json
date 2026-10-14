@@ -9,9 +9,44 @@
   "quality_lock": "config/locks/requirements-stage-three-quality.lock",
   "minimum_free_bytes_before_stack_changes": 5368709120,
   "capacity_threshold_is_development_guard_not_formal_quota": true,
-  "format_scope": ["scripts/dev.py", "scripts/stage_three_quality.py", "scripts/generate_stage_three_docs.py", "scripts/validate_stage_three.py", "scripts/verify_stage_three_demo.py", "tools/stage_three_demo/app.py", "tests/stage_three/test_dev.py"],
-  "lint_scope": ["backend/app", "ai-services/inference", "tests/poc", "scripts/dev.py", "scripts/stage_three_quality.py", "scripts/generate_stage_three_docs.py", "scripts/validate_stage_three.py", "scripts/verify_stage_three_demo.py", "tools/stage_three_demo/app.py", "tests/stage_three"],
-  "clean_allowlist": [".pytest_cache", ".ruff_cache"],
+  "format_scope": [
+    "scripts/dev.py",
+    "scripts/stage_three_quality.py",
+    "scripts/generate_stage_three_docs.py",
+    "scripts/validate_stage_three.py",
+    "scripts/verify_stage_three_demo.py",
+    "tools/stage_three_demo/app.py",
+    "tests/stage_three/test_dev.py",
+    "ai-services/inference/service.py",
+    "backend/app/__init__.py",
+    "backend/app/common.py",
+    "backend/app/contracts.py",
+    "backend/app/db.py",
+    "backend/app/leases.py",
+    "backend/app/main.py",
+    "backend/app/migrations.py",
+    "backend/app/observability.py",
+    "backend/app/settings.py",
+    "backend/app/worker.py",
+    "tests/poc/test_event_contract.py",
+    "tests/poc/test_runtime.py"
+  ],
+  "lint_scope": [
+    "backend/app",
+    "ai-services/inference",
+    "tests/poc",
+    "scripts/dev.py",
+    "scripts/stage_three_quality.py",
+    "scripts/generate_stage_three_docs.py",
+    "scripts/validate_stage_three.py",
+    "scripts/verify_stage_three_demo.py",
+    "tools/stage_three_demo/app.py",
+    "tests/stage_three"
+  ],
+  "clean_allowlist": [
+    ".pytest_cache",
+    ".ruff_cache"
+  ],
   "formal_approval_refs": [],
   "production_release_or_formal_data_access": false
 }
