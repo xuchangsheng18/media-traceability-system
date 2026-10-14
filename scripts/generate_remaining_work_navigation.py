@@ -104,7 +104,8 @@ def build():
     attribution = (f"容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，"
                    f"为PostgreSQL研发数据卷所在文件系统。仓库快照时点`{resource['observed_at']}`："
                    f"df使用率{volume['used_percent_observed']}，可用约{volume['available_bytes']/1024**3:.2f} GiB。"
-                   "不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。")
+                   "不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足。"
+                   + ("容量已高于5GiB研发构建保护值；扩容不是本会话执行，维护/整盘备份及正式恢复仍未核验。" if volume['available_bytes'] > 5368709120 else "当前低于5GiB研发构建保护值，扩容及恢复尚未完成。"))
     machine = {"revision": "phase-remaining-navigation-20261013", "scope": "derived_navigation_only_no_task_or_approval_changes",
                "authoritative_register": SOURCES[0], "source_hashes": {
                    path: hashlib.sha256((ROOT/path).read_bytes()).hexdigest() for path in SOURCES},

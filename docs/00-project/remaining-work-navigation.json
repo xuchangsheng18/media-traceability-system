@@ -3,11 +3,11 @@
   "scope": "derived_navigation_only_no_task_or_approval_changes",
   "authoritative_register": "docs/00-project/phase-readiness-register.json",
   "source_hashes": {
-    "docs/00-project/phase-readiness-register.json": "a64143bb9ab9ffb0fd691f710f02bde4e6232542ade24a1f2a18b06062dbbf82",
-    "docs/03-development/stage-two-completion-matrix.json": "7f7f44b0975724ca62f417735eccd2f0044725bdb72a784b5b7186837ca3c2d7",
+    "docs/00-project/phase-readiness-register.json": "ec67acd9577f03cef8725747fc5a696d83027fc8a3706280cf450f24735e32df",
+    "docs/03-development/stage-two-completion-matrix.json": "557483c8ea8040b88a9fd2f3dbe2a268f611a6703c85d11286a5ffe650d8f8fd",
     "docs/03-api/interface-gap-register.json": "c04161d4fc66366368bcd309458a7025364ef56995a0ce493903c3914d0dd1a4",
-    "docs/00-project/validation/resource-readiness-snapshot.json": "59ed52cba97bd00370c57531d5d24b75352eea8c433da6e1c4f76b5e11214914",
-    "scripts/generate_remaining_work_navigation.py": "7b414b8f376f23d1a390dbe5d385d03ad9cae768e677b04c0bcb9c4407de5961"
+    "docs/00-project/validation/resource-readiness-snapshot.json": "5572f68b04457f159712abc0f83f6fa3a27ce91ba8f48265865fd8ddc4545ad6",
+    "scripts/generate_remaining_work_navigation.py": "9cf4bd3f57f44772debdee7133dce187fd8817718ff02cc5c0a02e8823e3cb70"
   },
   "stage_one_steps": 24,
   "stage_two_steps": 23,
@@ -20,7 +20,7 @@
   "interface_gaps_overlap_stage_items": true,
   "formal_stage_one_frozen": false,
   "formal_stage_two_frozen": false,
-  "resource_attribution": "容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-13T09:34:20.877814+00:00`：df使用率99%，可用约1.62 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足；尚未记录扩容完成。",
+  "resource_attribution": "容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，为PostgreSQL研发数据卷所在文件系统。仓库快照时点`2026-10-14T13:24:30.139139+00:00`：df使用率13%，可用约644.42 GiB。不是本地Windows D盘或GitHub容量，也不代表Linux宿主/workspace全部空间不足。容量已高于5GiB研发构建保护值；扩容不是本会话执行，维护/整盘备份及正式恢复仍未核验。",
   "items": [
     {
       "id": "S1-N01",
@@ -457,8 +457,8 @@
       "source_gap_ids": [
         "S2-02"
       ],
-      "current_evidence": "新增只读资源快照，卷余量/使用率见时点记录；项目独占配额仍未知。 重新读取7服务和数据卷容量，增加可运行85%预警/95%严重或不足5GiB的候选检查；实际CRITICAL/NOT_READY保留。",
-      "remaining_work": "落实Docker虚拟机数据盘扩容或经批准迁移，独占资源配额、维护人、权重/样本容量和GPU权限；完成后重新读取卷内df。",
+      "current_evidence": "2026-10-14实测Docker.raw虚拟容量约786.88GiB，卷内13%使用、约644GiB可用，容量高于5GiB研发保护值；扩容不是本会话执行，维护记录/完整备份恢复未核验。",
+      "remaining_work": "补实际扩容维护/整盘备份与恢复记录、项目独占配额和维护人；数据/权重/GPU授权及正式资源验收仍需落实。",
       "closure_criteria": "配额/路径可执行并实测，能容纳目标素材/权重/索引/备份，记录余量与告警。",
       "phase_boundary": "第二阶段资源基线项；批量数据和大模型/索引引入前必须落实。",
       "evidence_refs": [
@@ -476,8 +476,8 @@
       "completion_asserted": false,
       "formal_approved": false,
       "technical_supplement_completed": true,
-      "navigation_completed_part": "重新读取7服务和数据卷容量，增加可运行85%预警/95%严重或不足5GiB的候选检查；实际CRITICAL/NOT_READY保留。",
-      "navigation_remaining_work": "落实Docker虚拟机数据盘扩容或经批准迁移，独占资源配额、维护人、权重/样本容量和GPU权限；完成后重新读取卷内df。",
+      "navigation_completed_part": "2026-10-14实测Docker.raw虚拟容量约786.88GiB，卷内13%使用、约644GiB可用，容量高于5GiB研发保护值；扩容不是本会话执行，维护记录/完整备份恢复未核验。",
+      "navigation_remaining_work": "补实际扩容维护/整盘备份与恢复记录、项目独占配额和维护人；数据/权重/GPU授权及正式资源验收仍需落实。",
       "navigation_status": "待落实实际条件及对应交付",
       "required_role": "Linux及Docker运维/资源管理",
       "prerequisites": "Docker虚拟机数据盘的实际扩容或迁移目标、备份/恢复条件、资源配额、GPU权限和维护人。"
