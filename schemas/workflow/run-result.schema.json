@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:media-trace:stage-one:run-result:0.1.0",
+  "$id": "urn:media-trace:stage-one:run-result:0.2.0",
   "type": "object",
   "properties": {
     "binding": {
@@ -704,6 +704,162 @@
         "requires_review",
         "formally_authorized"
       ]
+    },
+    "api_projections": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getTask"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/Task"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getRiskFindings"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/Findings"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getForensics"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/Findings"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getTaskEvidence"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/EvidencePage"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getTimeline"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/Timeline"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getFirstSource"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/FirstSource"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "operation_id": {
+                "const": "getPropagation"
+              },
+              "resource_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "response": {
+                "$ref": "urn:media-trace:api:0.1.0#/$defs/Graph"
+              }
+            },
+            "required": [
+              "operation_id",
+              "resource_id",
+              "response"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 1,
+      "description": "已记录且经操作响应Schema验证的快照投影；projection_refs的JSON Pointer定位本快照内response，不是对象存储引用。"
     }
   },
   "required": [

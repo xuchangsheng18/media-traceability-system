@@ -10,6 +10,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from .auth import AuthorityProvider
 from .db import Database
 from .errors import BusinessError
+from .history.repository import ResultRepository
+from .history.router import router as history_router
 from .objects import FileObjectStore
 from .settings import BusinessSettings
 from .uploads.repository import UploadRepository
@@ -32,7 +34,9 @@ def create_app(settings: BusinessSettings, authority: AuthorityProvider | None =
     app.state.upload_service = UploadService(
         database, UploadRepository(database, settings), FileObjectStore(settings.object_root)
     )
+    app.state.result_repository = ResultRepository(database, app.state.upload_service.store, authority)
     app.include_router(upload_router)
+    app.include_router(history_router)
 
     @app.exception_handler(BusinessError)
     async def business_error(request: Request, exception: BusinessError) -> JSONResponse:
