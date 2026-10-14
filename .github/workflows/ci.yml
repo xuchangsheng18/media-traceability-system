@@ -84,6 +84,14 @@ jobs:
           "$PYTHON" scripts/validate_stage_three.py
           "$PYTHON" scripts/validate_repository_docs.py
           "$PYTHON" scripts/validate_documentation_completion.py
+      - name: Python static type check
+        shell: bash
+        run: |
+          "$PYTHON" scripts/stage_three_types.py check
+          if "$PYTHON" scripts/stage_three_types.py failure-probe; then
+            echo "Expected type-error probe unexpectedly passed"
+            exit 1
+          fi
       - name: Run actual engineering gates
         run: |
           "$PYTHON" scripts/dev.py ci --allow-stack-changes

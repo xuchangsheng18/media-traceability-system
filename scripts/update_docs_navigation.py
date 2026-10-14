@@ -1,4 +1,5 @@
 """Refresh the actual docs file index, retaining specific existing descriptions."""
+
 import json
 import re
 from pathlib import Path
@@ -14,14 +15,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     for path, content in stage_three_documents().items():
-        (ROOT/path).write_bytes(content.encode("utf-8"))
+        (ROOT / path).write_bytes(content.encode("utf-8"))
     content, summary = requirements_document()
-    (ROOT/summary["document"]).write_bytes(content.encode("utf-8"))
+    (ROOT / summary["document"]).write_bytes(content.encode("utf-8"))
     for path, content in stage_status_navigation().items():
-        (ROOT/path).write_bytes(content.encode("utf-8"))
+        (ROOT / path).write_bytes(content.encode("utf-8"))
     for path, content in remaining_navigation().items():
-        (ROOT/path).write_bytes(content.encode("utf-8"))
-    nav = ROOT/"docs/README.md"
+        (ROOT / path).write_bytes(content.encode("utf-8"))
+    nav = ROOT / "docs/README.md"
     old = nav.read_text(encoding="utf-8")
     descriptions = {}
     for line in old.splitlines():
@@ -31,12 +32,14 @@ def main():
     prefix = old.split("## 当前文件完整索引", 1)[0]
     prefix = prefix.split("## 第一阶段实际材料", 1)[0]
     prefix = prefix.split("## 第二阶段实际工程文档", 1)[0]
-    prefix = prefix.replace("当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
-                            "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。")
+    prefix = prefix.replace(
+        "当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
+        "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。",
+    )
     entries = {
-        "03-development/stage-three/foundation-implementation-plan.md": "六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围已认可，详细计划待审阅，非完成证据。",
-        "03-development/stage-three/python-type-check-implementation-plan.md": "独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，尚未实施。",
-        "03-development/stage-three/business-interface-implementation-plan.md": "独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照待审阅，当前契约未改。",
+        "03-development/stage-three/foundation-implementation-plan.md": "六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围及详细计划已认可，当前会话实施，计划本身非完成证据。",
+        "03-development/stage-three/python-type-check-implementation-plan.md": "独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，独立检查已实测，CI及后续状态看验证报告。",
+        "03-development/stage-three/business-interface-implementation-plan.md": "独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照方案已认可，当前契约尚未实施更新。",
         "03-development/stage-three/readiness.md": "第三阶段16步及57条原验收逐条状态：文档、实测、部分/待落实与适用差异各列证据范围，与24/23步和170任务分开。",
         "03-development/stage-three/deliverables.json": "16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。",
         "03-development/development-environment-validation-report.md": "第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。",
@@ -87,61 +90,65 @@ def main():
         "00-project/validation/npm-sbom.cdx.json": "锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。",
         "00-project/validation/repository-secrets-report.json": "确切开发凭据值及已知秘密文件名检查，非完整DLP。",
     }
-    entries.update({
-        "00-project/phase-readiness-register.md": "19项工作核查（第一阶段7/第二阶段12）：版式核验按本轮范围完成，18项仍有条件；技术补充与正式/真实交付分开。",
-        "00-project/phase-readiness-register.json": "19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。",
-        "00-project/requirement-processing-map.md": "36业务需求→来源任务/内部能力→结果身份及读取；逐条技术语义已复核，七条源未绑API保留，正式规则/实现另判。",
-        "00-project/requirement-processing-map.json": "上述逐需求源指针/摘要、原始引用与候选流程；不改主追踪或新增可调用HTTP。",
-        "00-project/requirement-flow-proposals.json": "12模块默认与36条逐需求复核覆盖：入口/读取/身份/缺口解释；不形成第二API结构源或运行实现证明。",
-        "00-project/requirement-semantic-review.md": "36需求逐条复核原验收/任务/能力/入口/结果读取，解释错误映射修正和投影缺口；无正式业务批准。",
-        "00-project/requirement-semantic-review.json": "36条技术语义结论、来源摘要、结果身份和明确未实现范围；主追踪原引用保持。",
-        "00-project/execution-planning-inputs.json": "可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，21条仅部分开发证据。",
-        "00-project/execution-schedule.md": "170任务原工时397—491人日、条件依赖计算及人力容量排期规则；实际日历输入不足未生成交付日期。",
-        "00-project/execution-schedule.json": "逐任务工时/依赖/证据与未填写实际日期；源状态不改、完整验收未凭PoC归零。",
-        "05-workflows/result-identity-and-projection.md": "案件/资产/task/run/result/cluster身份、应用投影及版本化读取规则，含簇成员/首发rank与insufficient零证据处置。",
-        "09-testing/metric-protocols.md": "24项验收方法：单位/分母/公式/失败/未知/分层/源目标及真实条件；8组公式夹具不充当算法性能成绩。",
-        "09-testing/metric-protocols.json": "24协议机器定义及待填样本/模型/版本/资源字段，approved_target为null、真实验收未执行。",
-        "00-project/validation/stage-one-completion-report.json": "本轮5组图表来源/36语义/24协议8公式/170排期容量与循环/6个零证据正反契约案例；非正式验收。",
-        "00-project/validation/acceptance-metric-reference-report.json": "8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。",
-        "00-project/validation/phase-readiness-report.json": "4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。",
-        "00-project/validation/resource-readiness-snapshot.json": "2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。",
-        "00-project/validation/repository-governance-snapshot.json": "实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。",
-        "03-api/system-interface-specification.md": "第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。",
-        "03-api/detailed-interface-index.md": "53份逐操作说明及12模块导航；方法/路径、来源、实现边界和明细落点。",
-        "03-api/data-structures.md": "83业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。",
-        "03-api/inference-interfaces.md": "34能力逐请求/响应字段、路径、任务/数据及Schema摘要，只有M15合成CPU子范围已实测。",
-        "03-api/common-interface-rules.md": "身份/权限、追踪、分页、幂等、ETag、异步、错误/Range和版本；未定配置保持待定。",
-        "03-api/service-and-event-contracts.md": "服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。",
-        "03-api/interface-catalog.json": "53操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。",
-        "03-api/interface-annotations.json": "53操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。",
-        "03-api/interface-gap-register.md": "13项接口设计/实施缺口、候选路径/方案/影响与关闭标准，候选路径不可调用。",
-        "03-api/interface-gap-register.json": "上述开放缺口的机器索引；姓名未知/未批准，不改任务依赖。",
-        "00-project/validation/interface-documentation-report.json": "6项明细覆盖/生成漂移/12模块/68能力分支/13缺口/源码实现边界检查，非全接口运行验收。",
-        "03-development/migrations-and-events.md": "专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。",
-        "03-development/stage-two-gap-register.md": "剩余正式条件、输入、责任角色与关闭标准；不补造姓名和批准。",
-        "03-development/stage-two-gap-register.json": "上述条件机器索引，真实状态与负责人未知值保留。",
-        "10-deployment/development-backup-restore.md": "维护时段开发冷备、原VersionId/DB/模型隔离恢复；凭据与生产RPO/RTO边界。",
-        "00-project/validation/github-actions-report.json": "实际GitHub run、源码SHA、结论、制品摘要/门禁验真；配置和执行严格分开。",
-        "00-project/validation/migration-fencing-report.json": "15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。",
-        "00-project/validation/media-timestamp-report.json": "真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。",
-        "00-project/validation/development-recovery-report.json": "8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。",
-    })
-    entries.update({
-        "03-development/stage-two-completion-matrix.md": "第二阶段12类剩余工作的本轮补齐、实际证据、23步对应与仍需输入/实现；不将后续170业务任务强制当第二阶段全部完成。",
-        "03-development/stage-two-completion-matrix.json": "12项阶段核查与补充/实际条件机器台账，正式完成false，真实负责人仍未知。",
-        "03-development/stage-two-external-inputs.json": "16类实际资源/身份/数据/模型/GPU/生产/治理输入，未知为null，占位人员不当实际责任人。",
-        "03-development/stage-two-implementation-plan.md": "资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。",
-        "04-database/authorization-isolation-prototype.md": "隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。",
-        "09-testing/stage-two-representative-validation.md": "21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。",
-        "10-deployment/stage-two-operations-and-offline-delivery.md": "99%容量处理、候选阈值、镜像OS物料、离线摘要/复建与治理；未声称扩容/全部制品/正式保护已完成。",
-        "00-project/validation/stage-two-isolation-report.json": "新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。",
-        "00-project/validation/stage-two-media-report.json": "11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。",
-        "00-project/validation/stage-two-supplement-report.json": "6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。",
-        "00-project/validation/stage-two-completion-report.json": "2026-10-12阶段工程总结历史快照，21门禁及当时run按原时点读；本轮新增6组检查另见stage-two-supplement-report。",
-        "00-project/validation/stage-two-resource-report.json": "真实卷容量快照按候选阈值评估CRITICAL/NOT_READY；不把采集成功当容量达标。",
-        "00-project/validation/stage-two-software-report.json": "7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。",
-        "00-project/validation/image-sbom.spdx.json": "实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。",
-    })
+    entries.update(
+        {
+            "00-project/phase-readiness-register.md": "19项工作核查（第一阶段7/第二阶段12）：版式核验按本轮范围完成，18项仍有条件；技术补充与正式/真实交付分开。",
+            "00-project/phase-readiness-register.json": "19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。",
+            "00-project/requirement-processing-map.md": "36业务需求→来源任务/内部能力→结果身份及读取；逐条技术语义已复核，七条源未绑API保留，正式规则/实现另判。",
+            "00-project/requirement-processing-map.json": "上述逐需求源指针/摘要、原始引用与候选流程；不改主追踪或新增可调用HTTP。",
+            "00-project/requirement-flow-proposals.json": "12模块默认与36条逐需求复核覆盖：入口/读取/身份/缺口解释；不形成第二API结构源或运行实现证明。",
+            "00-project/requirement-semantic-review.md": "36需求逐条复核原验收/任务/能力/入口/结果读取，解释错误映射修正和投影缺口；无正式业务批准。",
+            "00-project/requirement-semantic-review.json": "36条技术语义结论、来源摘要、结果身份和明确未实现范围；主追踪原引用保持。",
+            "00-project/execution-planning-inputs.json": "可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，21条仅部分开发证据。",
+            "00-project/execution-schedule.md": "170任务原工时397—491人日、条件依赖计算及人力容量排期规则；实际日历输入不足未生成交付日期。",
+            "00-project/execution-schedule.json": "逐任务工时/依赖/证据与未填写实际日期；源状态不改、完整验收未凭PoC归零。",
+            "05-workflows/result-identity-and-projection.md": "案件/资产/task/run/result/cluster身份、应用投影及版本化读取规则，含簇成员/首发rank与insufficient零证据处置。",
+            "09-testing/metric-protocols.md": "24项验收方法：单位/分母/公式/失败/未知/分层/源目标及真实条件；8组公式夹具不充当算法性能成绩。",
+            "09-testing/metric-protocols.json": "24协议机器定义及待填样本/模型/版本/资源字段，approved_target为null、真实验收未执行。",
+            "00-project/validation/stage-one-completion-report.json": "本轮5组图表来源/36语义/24协议8公式/170排期容量与循环/6个零证据正反契约案例；非正式验收。",
+            "00-project/validation/acceptance-metric-reference-report.json": "8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。",
+            "00-project/validation/phase-readiness-report.json": "4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。",
+            "00-project/validation/resource-readiness-snapshot.json": "2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。",
+            "00-project/validation/repository-governance-snapshot.json": "实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。",
+            "03-api/system-interface-specification.md": "第二阶段整体接口入口：七类服务边界、53操作/83结构/34能力、详细阅读标准及13项开放缺口。",
+            "03-api/detailed-interface-index.md": "53份逐操作说明及12模块导航；方法/路径、来源、实现边界和明细落点。",
+            "03-api/data-structures.md": "83业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。",
+            "03-api/inference-interfaces.md": "34能力逐请求/响应字段、路径、任务/数据及Schema摘要，只有M15合成CPU子范围已实测。",
+            "03-api/common-interface-rules.md": "身份/权限、追踪、分页、幂等、ETag、异步、错误/Range和版本；未定配置保持待定。",
+            "03-api/service-and-event-contracts.md": "服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。",
+            "03-api/interface-catalog.json": "53操作、12模块和34能力的唯一来源摘要及详细路径/需求/测试引用，不当实施证明。",
+            "03-api/interface-annotations.json": "53操作的工程用途/授权范围/下一步与实现状态解释；不独立定义Schema或授予权限。",
+            "03-api/interface-gap-register.md": "13项接口设计/实施缺口、候选路径/方案/影响与关闭标准，候选路径不可调用。",
+            "03-api/interface-gap-register.json": "上述开放缺口的机器索引；姓名未知/未批准，不改任务依赖。",
+            "00-project/validation/interface-documentation-report.json": "6项明细覆盖/生成漂移/12模块/68能力分支/13缺口/源码实现边界检查，非全接口运行验收。",
+            "03-development/migrations-and-events.md": "专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。",
+            "03-development/stage-two-gap-register.md": "剩余正式条件、输入、责任角色与关闭标准；不补造姓名和批准。",
+            "03-development/stage-two-gap-register.json": "上述条件机器索引，真实状态与负责人未知值保留。",
+            "10-deployment/development-backup-restore.md": "维护时段开发冷备、原VersionId/DB/模型隔离恢复；凭据与生产RPO/RTO边界。",
+            "00-project/validation/github-actions-report.json": "实际GitHub run、源码SHA、结论、制品摘要/门禁验真；配置和执行严格分开。",
+            "00-project/validation/migration-fencing-report.json": "15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。",
+            "00-project/validation/media-timestamp-report.json": "真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。",
+            "00-project/validation/development-recovery-report.json": "8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。",
+        }
+    )
+    entries.update(
+        {
+            "03-development/stage-two-completion-matrix.md": "第二阶段12类剩余工作的本轮补齐、实际证据、23步对应与仍需输入/实现；不将后续170业务任务强制当第二阶段全部完成。",
+            "03-development/stage-two-completion-matrix.json": "12项阶段核查与补充/实际条件机器台账，正式完成false，真实负责人仍未知。",
+            "03-development/stage-two-external-inputs.json": "16类实际资源/身份/数据/模型/GPU/生产/治理输入，未知为null，占位人员不当实际责任人。",
+            "03-development/stage-two-implementation-plan.md": "资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。",
+            "04-database/authorization-isolation-prototype.md": "隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。",
+            "09-testing/stage-two-representative-validation.md": "21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。",
+            "10-deployment/stage-two-operations-and-offline-delivery.md": "99%容量处理、候选阈值、镜像OS物料、离线摘要/复建与治理；未声称扩容/全部制品/正式保护已完成。",
+            "00-project/validation/stage-two-isolation-report.json": "新隔离PostgreSQL16的14权限历史+7中文词项GIN检查，既有数据库未修改，正式身份/业务表未联调。",
+            "00-project/validation/stage-two-media-report.json": "11项8帧VFR/非零PTS/抽帧像素/音频/字幕/90度旋转原件摘要检查，不充当真实OCR/ASR或业务媒体验收。",
+            "00-project/validation/stage-two-supplement-report.json": "6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。",
+            "00-project/validation/stage-two-completion-report.json": "2026-10-12阶段工程总结历史快照，21门禁及当时run按原时点读；本轮新增6组检查另见stage-two-supplement-report。",
+            "00-project/validation/stage-two-resource-report.json": "真实卷容量快照按候选阈值评估CRITICAL/NOT_READY；不把采集成功当容量达标。",
+            "00-project/validation/stage-two-software-report.json": "7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。",
+            "00-project/validation/image-sbom.spdx.json": "实际运行镜像与已安装OS包SPDX2.3清单；许可未知NOASSERTION，未托管二进制/Python/npm/权重另盘。",
+        }
+    )
     first_entries = {
         "00-project/execution-planning-scenario-inputs.json": "用户授权的10人占位工时/角色/起点/数据和GPU日期假设，后续替换；不填为实际人员或资源事实。",
         "00-project/execution-schedule-scenario.md": "170任务按占位容量生成日期与分期；明确超过源2027年6月末月，需调整投入/分工，未删功能或承诺实际日期。",
@@ -188,44 +195,63 @@ def main():
         "00-project/stage-one/input-baseline-candidate.json": "当前第一阶段输入集合、大小与SHA-256，可复算且无批准编号；不当全仓同步凭据。",
         "00-project/review-package/README.md": "七类详细评审导航，覆盖33项主Q，区分台账明确引用和建议检查范围。",
     }
-    imported = json.loads((ROOT/"docs/00-project/stage-one/materials-manifest.json").read_text(encoding="utf-8"))
+    imported = json.loads((ROOT / "docs/00-project/stage-one/materials-manifest.json").read_text(encoding="utf-8"))
     for item in imported["records"]:
         path = item["archived_path"].removeprefix("docs/")
         first_entries[path] = "第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。"
     descriptions.update(first_entries)
     descriptions.update(entries)
     for path in (ROOT / "docs/05-workflows/dags").glob("*.json"):
-        descriptions[path.relative_to(ROOT / "docs").as_posix()] = "该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。"
+        descriptions[path.relative_to(ROOT / "docs").as_posix()] = (
+            "该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。"
+        )
     for path in (ROOT / "docs/07-datasets/data-cards").glob("*.json"):
-        descriptions[path.relative_to(ROOT / "docs").as_posix()] = "该数据集实际来源/授权/计数/标签/质检/切分/负责人/到位日填写入口；未知null，不自动发布或冻结。"
-    for path in (ROOT/"docs/03-api/operations").glob("*.md"):
-        descriptions[path.relative_to(ROOT/"docs").as_posix()] = "逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。"
-    for path in (ROOT/"docs/03-api/modules").glob("*.md"):
-        descriptions[path.relative_to(ROOT/"docs").as_posix()] = "该模块三条来源业务需求、已有操作/任务及详细入口；直接API未绑定不等于需求删除或全部内部处理已完成。"
-    first_section = "\n## 第一阶段实际材料\n\n第一阶段来源、做法与当前交付入口：\n\n| 文档 | 含义与严格判定要求 |\n| --- | --- |\n"
+        descriptions[path.relative_to(ROOT / "docs").as_posix()] = (
+            "该数据集实际来源/授权/计数/标签/质检/切分/负责人/到位日填写入口；未知null，不自动发布或冻结。"
+        )
+    for path in (ROOT / "docs/03-api/operations").glob("*.md"):
+        descriptions[path.relative_to(ROOT / "docs").as_posix()] = (
+            "逐操作派生说明：参数/请求/响应/结构样例、授权/版本/异步下一步、字段映射及任务/测试计划；未实现与缺口明确。"
+        )
+    for path in (ROOT / "docs/03-api/modules").glob("*.md"):
+        descriptions[path.relative_to(ROOT / "docs").as_posix()] = (
+            "该模块三条来源业务需求、已有操作/任务及详细入口；直接API未绑定不等于需求删除或全部内部处理已完成。"
+        )
+    first_section = (
+        "\n## 第一阶段实际材料\n\n第一阶段来源、做法与当前交付入口：\n\n| 文档 | 含义与严格判定要求 |\n| --- | --- |\n"
+    )
     for path, description in first_entries.items():
         first_section += f"| [{path}](<{path}>) | {description} |\n"
     section = "\n## 第二阶段实际工程文档\n\n当前入口与适用要求：\n\n| 文档 | 含义与严格判定要求 |\n| --- | --- |\n"
     for path, description in entries.items():
         section += f"| [{path}](<{path}>) | {description} |\n"
     section += "\n源Word、170任务和正式业务契约保持；PoC的可运行/真实合成模型与正式业务/GPU/生产冻结分开。当前版本和完整运行依赖在仓库根config/versions.yaml、config/locks和frontend/package-lock.json，不由旧手册示例推定。\n"
-    files = sorted(p for p in (ROOT/"docs").rglob("*") if p.is_file() and p != nav)
+    files = sorted(p for p in (ROOT / "docs").rglob("*") if p.is_file() and p != nav)
     index = f"\n## 当前文件完整索引\n\n以下按实际文件生成，共{len(files)}份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。\n\n| 实际文件 | 含义与使用要求 |\n| --- | --- |\n"
     for path in files:
-        relative = path.relative_to(ROOT/"docs").as_posix()
+        relative = path.relative_to(ROOT / "docs").as_posix()
         description = descriptions.get(relative)
         if not description:
             if "architecture-decisions/TB-ADR-" in relative:
-                description = "已执行的研发技术选择：替代方案、版本来源、实际证据、资源、未测范围与回退；非正式生产批准。"
+                description = (
+                    "已执行的研发技术选择：替代方案、版本来源、实际证据、资源、未测范围与回退；非正式生产批准。"
+                )
             elif path.suffix == ".md":
-                title = next((line.lstrip("# ") for line in path.read_text(encoding="utf-8").splitlines() if line.startswith("# ")), path.stem)
-                description = "说明文档："+title.replace("|", "\\|")+"；结合正文的状态、来源和适用范围阅读。"
+                title = next(
+                    (
+                        line.lstrip("# ")
+                        for line in path.read_text(encoding="utf-8").splitlines()
+                        if line.startswith("# ")
+                    ),
+                    path.stem,
+                )
+                description = "说明文档：" + title.replace("|", "\\|") + "；结合正文的状态、来源和适用范围阅读。"
             elif "validation/" in relative:
                 description = "实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。"
             else:
                 description = "项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。"
         index += f"| [{relative}](<{relative}>) | {description} |\n"
-    nav.write_bytes((prefix.rstrip()+"\n"+first_section+section+index).encode("utf-8"))
+    nav.write_bytes((prefix.rstrip() + "\n" + first_section + section + index).encode("utf-8"))
     print(f"Indexed {len(files)} actual docs files")
 
 

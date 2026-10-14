@@ -30,7 +30,7 @@ def build():
     origin = paths[0]
     content = "# 第三阶段16步实际状态与导航\n\n2026-10-14；仓库和Codex研发环境实施，正式Development Environment Baseline 1.0仍NOT_FROZEN。第一阶段24步、第二阶段23步、第三阶段16步与170业务任务分别管理；本阶段不开展完整业务研发。\n\n"
     content += "两份Word原件已按字节归档，正文阅读版保留来源与提示词参考身份。当前用户已指定GitHub和Miniforge py310并要求同步，可继续已授权工程工作；原手册中的已批准Technical Baseline 1.0前提并未自动满足，当前实际为研发1.1-py310-cpu。审批、人事、正式网络/分支保护与资源条件分别登记。\n\n"
-    content += "设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划待审阅。Python类型工具、新业务HTTP/迁移和共享扩容尚未实施；计划不能关闭缺口。\n\n"
+    content += "设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划已获用户认可，采用当前会话实施。独立Python类型检查已通过，CI按实际新run认定；新业务HTTP/迁移和共享扩容尚未实施；计划不能关闭缺口。\n\n"
     for source in inventory["records"]:
         content += (
             "- "
@@ -80,7 +80,7 @@ def build():
             + "。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。\n\n"
         )
     content += "## 源建议与既有工程的适用差异\n\n"
-    content += "- 仓库名称沿用用户指定media-traceability-system；不另建示例名、不重复账号/环境。\n- 一级目录沿用原13目录，补data-pipeline/tools预留职责；不搬移原文件，不增加重复Schema。\n- Element Plus/ECharts、Transformers/MMEngine、Black/MyPy/ESLint/Stylelint等并未由实际技术源选定；不将它们伪装为已安装或冻结。当前质量范围是Ruff、TS、Pytest/Vitest、契约、pre-commit和依赖/秘密检查；格式范围扩大至20文件，旧13文件的格式调整核对AST一致，Python静态类型仍待。\n- 最小工程复用已有7服务和真实合成M15，mock=false并有明确非业务标识；不会改成假业务模型。已有后端/api/v1/health是鉴权后的数据库SELECT1，进程存活用/healthz，内部推理有/healthz。另建仓库内tools/stage_three_demo夹具实现三独立进程的Vue健康页、/api/v1/health、/api/v1/ready和模拟推理入口，并经浏览器实际验证。夹具不连已有数据库/对象存储、不加载权重，不是53业务API或34能力的新增实现。\n- Windows默认入口经SSH协调Linux py310，实际Windows原生py310安装未开展；Linux与GitHub隔离Runner是当前可验证的组合。\n- 两端CLI实际加载完整AGENTS，精确项目可信登记后config/read项目配置层启用；桌面既有线程未因此宣称重载，根规则不当强制ACL。\n- pre-commit配置与隔离工具层可以运行，Git hook是否安装由开发者选择；配置存在不等于实际钩子/平台保护已生效。\n\n"
+    content += "- 仓库名称沿用用户指定media-traceability-system；不另建示例名、不重复账号/环境。\n- 一级目录沿用原13目录，补data-pipeline/tools预留职责；不搬移原文件，不增加重复Schema。\n- Element Plus/ECharts、Transformers/MMEngine、Black/ESLint/Stylelint等并未由实际技术源选定；不将它们伪装为已安装或冻结。当前质量范围是Ruff、TS、Pytest/Vitest、契约、pre-commit和依赖/秘密检查；格式范围扩大至22文件，旧13文件的格式调整核对AST一致；独立Python类型检查22源文件通过，新增工具/类型修订有独立实测，CI按新run认定。\n- 最小工程复用已有7服务和真实合成M15，mock=false并有明确非业务标识；不会改成假业务模型。已有后端/api/v1/health是鉴权后的数据库SELECT1，进程存活用/healthz，内部推理有/healthz。另建仓库内tools/stage_three_demo夹具实现三独立进程的Vue健康页、/api/v1/health、/api/v1/ready和模拟推理入口，并经浏览器实际验证。夹具不连已有数据库/对象存储、不加载权重，不是53业务API或34能力的新增实现。\n- Windows默认入口经SSH协调Linux py310，实际Windows原生py310安装未开展；Linux与GitHub隔离Runner是当前可验证的组合。\n- 两端CLI实际加载完整AGENTS，精确项目可信登记后config/read项目配置层启用；桌面既有线程未因此宣称重载，根规则不当强制ACL。\n- pre-commit配置与隔离工具层可以运行，Git hook是否安装由开发者选择；配置存在不等于实际钩子/平台保护已生效。\n\n"
     content += (
         "## 开发入口与容量保护\n\nLinux使用已验证的`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help`；当前服务器make未安装，Makefile仅作已有make环境的可选等价入口。Windows：`& .\\scripts\\dev.ps1 help`，SSH协调入口已验证，原生安装未验证。全部命令、环境与审计见"
         + link("CONTRIBUTING.md", origin)

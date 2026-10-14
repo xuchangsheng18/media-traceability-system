@@ -4,7 +4,7 @@
 
 两份Word原件已按字节归档，正文阅读版保留来源与提示词参考身份。当前用户已指定GitHub和Miniforge py310并要求同步，可继续已授权工程工作；原手册中的已批准Technical Baseline 1.0前提并未自动满足，当前实际为研发1.1-py310-cpu。审批、人事、正式网络/分支保护与资源条件分别登记。
 
-设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划待审阅。Python类型工具、新业务HTTP/迁移和共享扩容尚未实施；计划不能关闭缺口。
+设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划已获用户认可，采用当前会话实施。独立Python类型检查已通过，CI按实际新run认定；新业务HTTP/迁移和共享扩容尚未实施；计划不能关闭缺口。
 
 - [第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx](<../../guides/第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx>)；[全文阅读版](<../../_converted/guide/第三阶段建立代码仓库和Codex工作环境分步提示词手册.md>)；SHA-256 `6a308104713810bfd3fee23584cddc42473ebf74e2c3b2124366f5aaf1aa7fd9`。
 - [第三阶段建立代码仓库和Codex工作环境实施指南.docx](<../../guides/第三阶段建立代码仓库和Codex工作环境实施指南.docx>)；[全文阅读版](<../../_converted/guide/第三阶段建立代码仓库和Codex工作环境实施指南.md>)；SHA-256 `2e6f44601de70ef94ff96eb1b44a2e529a080e4416d3024e86e10eb70066dadb`。
@@ -23,14 +23,14 @@
 | 6 | 人工评审目录和分支策略<br>人工评审，Codex准备评审包 | 准备评审议程、分支/审核/标签/紧急流程与决定模板，不代签。<br>[repository-review-package.md](<../repository-review-package.md>) | 逐项评审材料已准备；实际评审及分支策略决定尚未形成 | 实际评审者、会议/日期、分支及审核人数决定未提供。 |
 | 7 | 初始化仓库和基础文件<br>Codex执行，技术负责人监督 | 补贡献/安全/所有者/格式/环境模板等基础文件，保留全部原件与历史。<br>[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>)、[.editorconfig](<../../../.editorconfig>)、[.env.example](<../../../.env.example>)、[.pre-commit-config.yaml](<../../../.pre-commit-config.yaml>)、[README.md](<../../../data-pipeline/README.md>)、[README.md](<../../../tools/README.md>) | 基础工程文件与来源保全已校验；批准方案一致性尚不能认定 | 治理文件正式审核与实际人员策略待确认；只证明创建和验证。 |
 | 8 | 配置前端 后端和算法开发环境<br>Codex执行，相关负责人评审 | 沿用原100包py310/Node/前端/合成推理，另锁pre-commit工具层，不升级业务栈。<br>[versions.yaml](<../../../config/versions.yaml>)、[requirements-stage-three-quality.lock](<../../../config/locks/requirements-stage-three-quality.lock>)、[.python-version](<../../../.python-version>)、[.nvmrc](<../../../.nvmrc>) | Linux CPU版本、100包原锁和12包独立工具层已验证；其他环境未验 | Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。 |
-| 9 | 配置格式化 静态检查和测试工具<br>Codex执行，测试负责人评审 | 统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。<br>[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>) | 所选13个旧代码文件格式已治理且AST一致；Python静态类型和正式安全准入仍待 | 当前20文件格式范围可验证；Python静态类型方案、正式质量制度、OS/许可准入仍待。Torch官方制品摘要/已安装载荷已核对，OSV查询不等于全面二进制漏洞覆盖。 |
+| 9 | 配置格式化 静态检查和测试工具<br>Codex执行，测试负责人评审 | 统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。<br>[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>) | 旧13文件格式已治理；独立Python类型检查22源文件通过，52单元测试通过；新托管检查和正式准入分别核验 | 正式质量批准及二进制/镜像/许可准入未完成；当前Python类型范围不等于全部历史脚本。新托管run待实测。 |
 | 10 | 编写AGENTS.md等Codex规则<br>Codex生成，技术负责人审核 | 补根规则的阶段/命令/冲突要求和项目Codex配置，继承用户模型及权限设置。<br>[AGENTS.md](<../../../AGENTS.md>)、[config.toml](<../../../.codex/config.toml>)、[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>) | Windows/Linux CLI完整AGENTS加载、精确项目可信登记及项目配置层启用均已核验；桌面既有线程待验 | 桌面正在运行线程的有效权限/规则和实际人员审核待确认；不将CLI配置读回当全部客户端强制控制。 |
 | 11 | 建立最小骨架工程<br>Codex实现，技术负责人监督 | 沿用7服务真实合成链路，另实现三进程Vue/FastAPI/模拟推理夹具，具备health/ready/安全错误/trace和实际浏览器测试。<br>[README.md](<../../../tools/stage_three_demo/README.md>)、[app.py](<../../../tools/stage_three_demo/app.py>)、[mock-connectivity.response.schema.json](<../../../schemas/development/mock-connectivity.response.schema.json>)、[verify_stage_three_demo.py](<../../../scripts/verify_stage_three_demo.py>) | 三独立服务及浏览器调用已验证，补齐结构日志和依赖故障验证；仅为模拟夹具 | 夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。 |
 | 12 | 建立本地开发启动命令<br>Codex执行，开发负责人评审 | 建立Linux Make/Python入口与Windows PowerShell经SSH入口，非零失败、缓存清理保护和共享栈容量保护。<br>[Makefile](<../../../Makefile>)、[dev.py](<../../../scripts/dev.py>)、[dev.ps1](<../../../scripts/dev.ps1>) | Python和Windows SSH入口已验证；共享卷容量阻断构建，原生Windows未验 | 共享Docker文件系统当前100%，仅约0.73GiB；扩容影响其他31个容器，维护窗口待确认。已备开发数据库快照并核对目录可读，未完成整个VM/对象/队列备份及恢复。 |
 | 13 | 建立基础CI流水线<br>Codex生成，测试和技术负责人审核 | 沿用25门禁CPU托管CI，接入第三阶段原件/16步/统一命令/夹具与质量检查，不发布生产。<br>[ci.yml](<../../../.github/workflows/ci.yml>)、[.gitlab-ci.yml](<../../../.gitlab-ci.yml>) | GitHub CPU工程流水线已实际运行；required checks及正式Runner治理待落实 | 主分支required checks/签名/受控制品与正式Runner治理未验收。 |
 | 14 | 配置Runner Secret和分支保护<br>平台管理员执行，Codex生成操作手册 | 给出CPU/Docker/GPU Runner用途、Secret示例及主分支保护实测方法，只读观察平台。<br>[ci-administrator-guide.md](<../ci-administrator-guide.md>) | 管理员配置与验证方法已编写；Runner隔离制度和主分支保护未验收 | 当前私有GitHub保护API返回403并要求升级套餐；唯一已知账号为仓库所有者。付费/平台选择、真实团队、保护生效和权限正反验收仍待，不改公开可见性。 |
 | 15 | 执行自动化验证并形成报告<br>Codex执行，人工复核失败项 | 执行来源/配置一致性、实际py310版本和启动/质量/测试/扫描/夹具，记录未执行与正式阻断。<br>[development-environment-validation-report.md](<../development-environment-validation-report.md>)、[validate_stage_three.py](<../../../scripts/validate_stage_three.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>) | 来源、所选CPU检查和托管制品有实际证据；明确保留未验范围 | GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。 |
-| 16 | 验收并冻结开发环境基线<br>人工批准后Codex固化 | 形成开发环境基线/变更/验收候选与真实缺项，未获完整决定不冻结/改ADR/打标签。<br>[development-environment-baseline.md](<../development-environment-baseline.md>)、[development-environment-change-request.md](<../development-environment-change-request.md>)、[development-environment-acceptance-record.md](<../development-environment-acceptance-record.md>)、[foundation-implementation-plan.md](<foundation-implementation-plan.md>)、[python-type-check-implementation-plan.md](<python-type-check-implementation-plan.md>)、[business-interface-implementation-plan.md](<business-interface-implementation-plan.md>) | 设计范围已认可，六项整改及首批接口/类型详细计划已编制待审阅；正式批准和资源条件未齐，未冻结 | 完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。 |
+| 16 | 验收并冻结开发环境基线<br>人工批准后Codex固化 | 形成开发环境基线/变更/验收候选与真实缺项，未获完整决定不冻结/改ADR/打标签。<br>[development-environment-baseline.md](<../development-environment-baseline.md>)、[development-environment-change-request.md](<../development-environment-change-request.md>)、[development-environment-acceptance-record.md](<../development-environment-acceptance-record.md>)、[foundation-implementation-plan.md](<foundation-implementation-plan.md>)、[python-type-check-implementation-plan.md](<python-type-check-implementation-plan.md>)、[business-interface-implementation-plan.md](<business-interface-implementation-plan.md>) | 用户已认可详细整改计划并选择当前会话直接实施；正式批准和资源条件仍未齐，未冻结 | 完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。 |
 
 ## 各步骤原输入和验收要求
 
@@ -229,7 +229,7 @@
 - 未大规模改写
 - 结果可机器读取
 
-实际操作：统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。剩余条件：当前20文件格式范围可验证；Python静态类型方案、正式质量制度、OS/许可准入仍待。Torch官方制品摘要/已安装载荷已核对，OSV查询不等于全面二进制漏洞覆盖。
+实际操作：统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。剩余条件：正式质量批准及二进制/镜像/许可准入未完成；当前Python类型范围不等于全部历史脚本。新托管run待实测。
 
 | 原验收要求 | 当前状态 | 判定范围与限制 |
 | --- | --- | --- |
@@ -238,7 +238,7 @@
 | 未大规模改写 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
 | 结果可机器读取 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
 
-本步证据/候选产物：[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>)、[stage-three-foundation-audit-report.json](<../../00-project/validation/stage-three-foundation-audit-report.json>)、[foundation-implementation-plan.md](<foundation-implementation-plan.md>)、[python-type-check-implementation-plan.md](<python-type-check-implementation-plan.md>)、[business-interface-implementation-plan.md](<business-interface-implementation-plan.md>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
+本步证据/候选产物：[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>)、[stage-three-foundation-audit-report.json](<../../00-project/validation/stage-three-foundation-audit-report.json>)、[foundation-implementation-plan.md](<foundation-implementation-plan.md>)、[python-type-check-implementation-plan.md](<python-type-check-implementation-plan.md>)、[business-interface-implementation-plan.md](<business-interface-implementation-plan.md>)、[stage_three_types.py](<../../../scripts/stage_three_types.py>)、[mypy.ini](<../../../config/mypy.ini>)、[requirements-stage-three-types.lock](<../../../config/locks/requirements-stage-three-types.lock>)、[stage-three-python-types-report.json](<../../00-project/validation/stage-three-python-types-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第10步 编写AGENTS.md等Codex规则
 
@@ -408,7 +408,7 @@
 
 - 仓库名称沿用用户指定media-traceability-system；不另建示例名、不重复账号/环境。
 - 一级目录沿用原13目录，补data-pipeline/tools预留职责；不搬移原文件，不增加重复Schema。
-- Element Plus/ECharts、Transformers/MMEngine、Black/MyPy/ESLint/Stylelint等并未由实际技术源选定；不将它们伪装为已安装或冻结。当前质量范围是Ruff、TS、Pytest/Vitest、契约、pre-commit和依赖/秘密检查；格式范围扩大至20文件，旧13文件的格式调整核对AST一致，Python静态类型仍待。
+- Element Plus/ECharts、Transformers/MMEngine、Black/ESLint/Stylelint等并未由实际技术源选定；不将它们伪装为已安装或冻结。当前质量范围是Ruff、TS、Pytest/Vitest、契约、pre-commit和依赖/秘密检查；格式范围扩大至22文件，旧13文件的格式调整核对AST一致；独立Python类型检查22源文件通过，新增工具/类型修订有独立实测，CI按新run认定。
 - 最小工程复用已有7服务和真实合成M15，mock=false并有明确非业务标识；不会改成假业务模型。已有后端/api/v1/health是鉴权后的数据库SELECT1，进程存活用/healthz，内部推理有/healthz。另建仓库内tools/stage_three_demo夹具实现三独立进程的Vue健康页、/api/v1/health、/api/v1/ready和模拟推理入口，并经浏览器实际验证。夹具不连已有数据库/对象存储、不加载权重，不是53业务API或34能力的新增实现。
 - Windows默认入口经SSH协调Linux py310，实际Windows原生py310安装未开展；Linux与GitHub隔离Runner是当前可验证的组合。
 - 两端CLI实际加载完整AGENTS，精确项目可信登记后config/read项目配置层启用；桌面既有线程未因此宣称重载，根规则不当强制ACL。

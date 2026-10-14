@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -105,11 +106,41 @@ def setup_type_environment(runtime_dir: Path, base_python: Path) -> Path:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["setup"])
+    parser.add_argument("action", choices=["setup", "check", "failure-probe"])
     args = parser.parse_args()
     if args.action == "setup":
         setup_type_environment(RUNTIME, Path(sys.executable))
-    return 0
+        return 0
+    tool_python = RUNTIME / "stage-three-type-tools/bin/python"
+    if args.action == "failure-probe":
+        with tempfile.TemporaryDirectory(prefix="media-trace-type-failure-") as directory:
+            root = Path(directory)
+            (root / "controlled_error.py").write_text('value: int = "wrong"\n')
+            result = run_type_check(tool_python, root)
+        print(result.stdout, end="")
+        print(result.stderr, end="", file=sys.stderr)
+        return result.returncode
+    result = run_type_check(tool_python, ROOT)
+    print(result.stdout, end="")
+    print(result.stderr, end="", file=sys.stderr)
+    if os.environ.get("MT_TYPE_REPORT_DISABLED") != "1":
+        report = {
+            "status": "PASS" if result.returncode == 0 else "FAIL",
+            "python": "3.10.22",
+            "mypy": "2.4.0",
+            "locked_tool_artifacts": len(json.loads(ARTIFACTS.read_text())["artifacts"]),
+            "tool_lock_sha256": hashlib.sha256(LOCK.read_bytes()).hexdigest(),
+            "scope": json.loads((ROOT / "config/stage-three-profile.json").read_text())["type_scope"],
+            "future_business_directories_included_when_present": True,
+            "exit_code": result.returncode,
+            "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+            "original_100_package_lock_changed": False,
+            "formal_frozen": False,
+        }
+        (ROOT / "docs/00-project/validation/stage-three-python-types-report.json").write_text(
+            json.dumps(report, indent=2) + "\n"
+        )
+    return result.returncode
 
 
 def run_type_check(tool_python: Path, root: Path) -> subprocess.CompletedProcess[str]:

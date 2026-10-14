@@ -97,3 +97,21 @@ def test_valid_module_passes(tmp_path):
     assert hasattr(tools, "run_type_check")
     assert tools.run_type_check(type_python(), tmp_path).returncode == 0
 
+
+def test_type_failure_propagates_to_dev_command(monkeypatch, capfd):
+    monkeypatch.setenv("MT_TYPE_REPORT_DISABLED", "1")
+    spec = importlib.util.spec_from_file_location("type_dev_entry", ROOT / "scripts/dev.py")
+    assert spec is not None and spec.loader is not None
+    dev = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(dev)
+    monkeypatch.setattr(dev, "python", lambda: sys.executable)
+    probe = ROOT / "backend/app/_controlled_type_failure_probe.py"
+    assert not probe.exists()
+    try:
+        probe.write_text('value: int = "wrong"\n')
+        assert dev.main(["type-check"]) != 0
+        observed = capfd.readouterr()
+        assert "_controlled_type_failure_probe.py" in observed.out
+        assert "assignment" in observed.out
+    finally:
+        probe.unlink(missing_ok=True)

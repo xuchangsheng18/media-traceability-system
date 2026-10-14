@@ -400,9 +400,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
-| [03-development/stage-three/foundation-implementation-plan.md](<03-development/stage-three/foundation-implementation-plan.md>) | 六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围已认可，详细计划待审阅，非完成证据。 |
-| [03-development/stage-three/python-type-check-implementation-plan.md](<03-development/stage-three/python-type-check-implementation-plan.md>) | 独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，尚未实施。 |
-| [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照待审阅，当前契约未改。 |
+| [03-development/stage-three/foundation-implementation-plan.md](<03-development/stage-three/foundation-implementation-plan.md>) | 六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围及详细计划已认可，当前会话实施，计划本身非完成证据。 |
+| [03-development/stage-three/python-type-check-implementation-plan.md](<03-development/stage-three/python-type-check-implementation-plan.md>) | 独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，独立检查已实测，CI及后续状态看验证报告。 |
+| [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照方案已认可，当前契约尚未实施更新。 |
 | [03-development/stage-three/readiness.md](<03-development/stage-three/readiness.md>) | 第三阶段16步及57条原验收逐条状态：文档、实测、部分/待落实与适用差异各列证据范围，与24/23步和170任务分开。 |
 | [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。 |
 | [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
@@ -508,7 +508,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共580份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共581份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -679,6 +679,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-three-npm-dependency-report.json](<00-project/validation/stage-three-npm-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-three-platform-observation.json](<00-project/validation/stage-three-platform-observation.json>) | 只读GitHub真实所有者、私有性、保护标志/规则查询及Actions；不冒充已配置权限。 |
 | [00-project/validation/stage-three-python-dependency-report.json](<00-project/validation/stage-three-python-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/stage-three-python-types-report.json](<00-project/validation/stage-three-python-types-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-three-quality-dependency-report.json](<00-project/validation/stage-three-quality-dependency-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/stage-three-runtime-report.json](<00-project/validation/stage-three-runtime-report.json>) | 实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。 |
 | [00-project/validation/stage-three-secrets-report.json](<00-project/validation/stage-three-secrets-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -934,11 +935,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/repository-platform-options.md](<03-development/repository-platform-options.md>) | 说明文档：仓库平台选择与实际执行依据；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-review-package.md](<03-development/repository-review-package.md>) | 说明文档：仓库和分支治理评审材料；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-structure-decision.md](<03-development/repository-structure-decision.md>) | 说明文档：Monorepo模式与拆分边界；结合正文的状态、来源和适用范围阅读。 |
-| [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照待审阅，当前契约未改。 |
+| [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；55操作825字段0.2快照方案已认可，当前契约尚未实施更新。 |
 | [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。 |
 | [03-development/stage-three/external-inputs.json](<03-development/stage-three/external-inputs.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
-| [03-development/stage-three/foundation-implementation-plan.md](<03-development/stage-three/foundation-implementation-plan.md>) | 六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围已认可，详细计划待审阅，非完成证据。 |
-| [03-development/stage-three/python-type-check-implementation-plan.md](<03-development/stage-three/python-type-check-implementation-plan.md>) | 独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，尚未实施。 |
+| [03-development/stage-three/foundation-implementation-plan.md](<03-development/stage-three/foundation-implementation-plan.md>) | 六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围及详细计划已认可，当前会话实施，计划本身非完成证据。 |
+| [03-development/stage-three/python-type-check-implementation-plan.md](<03-development/stage-three/python-type-check-implementation-plan.md>) | 独立mypy候选锁/制品、真实类型治理、错误阻断和CI步骤；原100包锁保持，独立检查已实测，CI及后续状态看验证报告。 |
 | [03-development/stage-three/readiness.md](<03-development/stage-three/readiness.md>) | 第三阶段16步及57条原验收逐条状态：文档、实测、部分/待落实与适用差异各列证据范围，与24/23步和170任务分开。 |
 | [03-development/stage-three/README.md](<03-development/stage-three/README.md>) | 说明文档：第三阶段材料与实际状态；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/stage-three/source-inventory.json](<03-development/stage-three/source-inventory.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |

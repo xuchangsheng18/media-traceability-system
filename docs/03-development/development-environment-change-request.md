@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | 服务器数据卷 | 卷内df现显示100%，约0.73GiB可用；宿主/workspace约8.9TiB可用。开发数据库已在线导出到宿主私有目录，并以pg_restore目录读取核对24,129字节快照 | 当前VM还有其他项目31个运行容器，整机扩容会影响它们；完整离线VM备份、扩容、文件系统余量及恢复验证均待维护窗口。数据库快照不代替对象、队列、模型或整机备份 |
 | 团队及平台 | API核对唯一当前协作者为仓库所有者；工作流默认令牌权限read，不能批准PR；未注册自托管Runner，无仓库Secret，临时CPU CI仍可运行 | 私有仓库保护API返回403，提示升级GitHub Pro或公开仓库。保留私有，不擅自升级付费。套餐或批准平台、实际人员及独立审核需实际决定 |
-| 格式治理 | 对backend/app、ai-services/inference、tests/poc的13个Python文件检查，11文件统一格式，逐文件AST相同；统一格式范围由7扩至20文件 | 当前范围不覆盖全部历史scripts或未来业务模块；Python静态类型工具层及正式质量制度仍待实施 |
+| 格式治理 | 对backend/app、ai-services/inference、tests/poc的13个Python文件检查，11文件统一格式，逐文件AST相同；统一格式范围由7扩至20文件 | 当前范围不覆盖全部历史scripts或未来业务模块；独立Python类型工具层已实测，正式质量制度仍待落实 |
 | Torch核查 | 官方CPU wheel SHA-256匹配，已安装12,240个有摘要的载荷文件全部匹配；OSV分别查询2.14.1+cpu和2.14.1，均未返回已知漏洞条目 | 原pip-audit跳过仍保留；OSV空结果不证明版本数据库完整、所有随包二进制无漏洞、许可通过或生产准入 |
 | Codex实际配置 | Windows/Linux CLI完整AGENTS进入实际prompt-input；只登记两个精确仓库为trusted后，config/read项目层禁用原因消失。用户配置已私下备份，模型及全局权限参数保持 | 这是新建只读配置探针，不代表桌面正在运行线程已重载，也不代替正式ACL或实际人员审核 |
 | 接口及验收 | 13项缺口仍逐项关联原任务和已有候选协议；当前输入为CPU合成研发，正式范围保持未知 | 新业务端点、62表访问/迁移、34真实模型与外部权威服务不能由文档或通用返回值代替；正式验收决定尚无依据 |
@@ -53,7 +53,7 @@
 
 ## 质量检查和环境验收的下一步
 
-Python静态类型检查拟置于独立质量工具层，保留原100包锁；先确定支持3.10的工具及精确制品摘要，建立现有代码的实际错误清单，再修正注解/真实类型错误并接入统一type-check和CI。不得用全局ignore_errors、删除检查文件或降低断言换取绿色结果。当前仅前端类型检查已运行，Python类型检查不标完成。
+Python静态类型检查拟置于独立质量工具层，保留原100包锁；先确定支持3.10的工具及精确制品摘要，建立现有代码的实际错误清单，再修正注解/真实类型错误并接入统一type-check和CI。不得用全局ignore_errors、删除检查文件或降低断言换取绿色结果。Python类型检查已在独立工具层实测22源文件无错误，原环境保持；托管CI按对应源码run认定。
 
 CLI配置验证依据[OpenAI项目配置说明](https://learn.chatgpt.com/docs/config-file/config-basic)及[config/read接口](https://learn.chatgpt.com/docs/app-server)。Torch补充查询采用[OSV官方接口](https://google.github.io/osv.dev/quickstart/)，模型来源与执行边界按[PyTorch安全策略](https://github.com/pytorch/pytorch/security/policy)另核验。GitHub私有保护的套餐条件见[官方保护分支说明](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)。
 
@@ -61,4 +61,4 @@ CLI配置验证依据[OpenAI项目配置说明](https://learn.chatgpt.com/docs/c
 
 ## 详细计划与审阅状态
 
-用户于2026-10-14明确认可上述设计范围并要求继续制定实现计划。已编制[六项整改及实施顺序](stage-three/foundation-implementation-plan.md)、[Python类型检查](stage-three/python-type-check-implementation-plan.md)、[首批业务接口/数据库](stage-three/business-interface-implementation-plan.md)，均待详细审阅和执行方式选定。计划包含失败测试、真实DB/HTTP、迁移、恢复和同步条件，不把计划编制当作类型工具或业务代码完成。新增55操作、825字段及快照0.2为待审阅的具体方案；当前仍保留原53/824/0.1。认可设计范围不构成正式基线批准。
+用户于2026-10-14明确认可上述设计范围并要求继续制定实现计划。已编制[六项整改及实施顺序](stage-three/foundation-implementation-plan.md)、[Python类型检查](stage-three/python-type-check-implementation-plan.md)、[首批业务接口/数据库](stage-three/business-interface-implementation-plan.md)，均已获用户详细审阅认可，选择当前会话直接实施。计划包含失败测试、真实DB/HTTP、迁移、恢复和同步条件，不把计划编制当作类型工具或业务代码完成。新增55操作、825字段及快照0.2为已认可、待实现的具体方案；当前仍保留原53/824/0.1。认可设计范围不构成正式基线批准。

@@ -59,7 +59,10 @@ def plan(name):
             [py, "scripts/stage_three_quality.py", "text"],
         ]
     if name == "type-check":
-        return [["npm", "--prefix", "frontend", "exec", "--", "vue-tsc", "--noEmit", "-p", "frontend/tsconfig.json"]]
+        return [
+            [py, "scripts/stage_three_types.py", "check"],
+            ["npm", "--prefix", "frontend", "exec", "--", "vue-tsc", "--noEmit", "-p", "frontend/tsconfig.json"],
+        ]
     if name == "test":
         return [[py, "-m", "pytest", "tests/poc", "tests/stage_three", "-q"], ["npm", "--prefix", "frontend", "test"]]
     if name == "contract-test":
@@ -203,6 +206,7 @@ def main(argv=None):
     commands = plan(args.command)
     if args.command == "setup" and args.tools:
         commands.append([python(), "scripts/stage_three_quality.py", "setup-tools"])
+        commands.append([python(), "scripts/stage_three_types.py", "setup"])
     if args.command == "dev":
         commands = [[python(), "scripts/poc_control.py", "up"]] if args.allow_stack_changes else []
     if args.dry_run:
