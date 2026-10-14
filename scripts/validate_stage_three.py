@@ -10,13 +10,14 @@ import signal
 import subprocess
 import sys
 from pathlib import Path
+from typing import Any
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 
-try:
+if sys.version_info >= (3, 11):
     import tomllib
-except ModuleNotFoundError:
+else:
     import tomli as tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -246,7 +247,7 @@ def run_profile():
         ("full_CI_entry_plan_only_actual_run_evidence_separate", [python, "scripts/dev.py", "ci", "--dry-run"]),
         ("original_runtime_lock_after_tool_layer", [python, "scripts/verify_runtime_lock.py"]),
     ]
-    results = []
+    results: list[dict[str, Any]] = []
     prior_runtime = read("docs/00-project/validation/stage-three-runtime-report.json")
     previous_attempts = prior_runtime.get("previous_attempts", [])
     if prior_runtime.get("status") == "FAIL":

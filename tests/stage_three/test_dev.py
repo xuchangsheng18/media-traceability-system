@@ -9,6 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("development_tasks", ROOT / "scripts/dev.py")
+assert spec is not None and spec.loader is not None
 dev = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(dev)
 
@@ -185,6 +186,7 @@ def test_wrong_service_set_is_not_reported_healthy(monkeypatch, capsys):
 
 def quality_module():
     quality_spec = importlib.util.spec_from_file_location("quality_checks", ROOT / "scripts/stage_three_quality.py")
+    assert quality_spec is not None and quality_spec.loader is not None
     module = importlib.util.module_from_spec(quality_spec)
     quality_spec.loader.exec_module(module)
     return module

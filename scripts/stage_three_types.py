@@ -56,7 +56,12 @@ def setup_type_environment(runtime_dir: Path, base_python: Path) -> Path:
             urllib.request.urlretrieve(entry["url"], path)
         if hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
             raise RuntimeError("TYPE_ARTIFACT_DIGEST_MISMATCH")
-    verify_artifacts(LOCK, ARTIFACTS)
+    # Artifact verification uses the selected cache, even for a nondefault runtime.
+    verified = dict(metadata)
+    verified["artifacts"] = [dict(item, local_path=str(cache / item["filename"])) for item in metadata["artifacts"]]
+    verified_path = cache / "verified-artifacts.json"
+    verified_path.write_text(json.dumps(verified))
+    verify_artifacts(LOCK, verified_path)
     py = target / "bin/python"
     if not py.exists():
         subprocess.run([str(base_python), "-m", "venv", "--system-site-packages", str(target)], check=True)
@@ -105,6 +110,45 @@ def main() -> int:
     if args.action == "setup":
         setup_type_environment(RUNTIME, Path(sys.executable))
     return 0
+
+
+def run_type_check(tool_python: Path, root: Path) -> subprocess.CompletedProcess[str]:
+    if not tool_python.is_file():
+        raise RuntimeError("TYPE_TOOL_ENVIRONMENT_MISSING_RUN_SETUP")
+    if root.resolve() == ROOT.resolve():
+        profile = json.loads((ROOT / "config/stage-three-profile.json").read_text())
+        paths = [ROOT / name for name in profile["type_scope"]]
+        paths.extend(
+            ROOT / name
+            for name in ["backend/business_app", "backend/business_migrations", "tests/business"]
+            if (ROOT / name).exists()
+        )
+        if not all(path.exists() for path in paths):
+            raise RuntimeError("TYPE_CHECK_SCOPE_MISSING")
+    else:
+        # Ad-hoc diagnostic directories use the same rules and a complete file set.
+        paths = sorted(root.rglob("*.py"))
+    if not paths:
+        raise RuntimeError("TYPE_CHECK_EMPTY_SCOPE")
+    env = dict(os.environ, MYPYPATH=os.pathsep.join([str(root / "backend"), str(root / "scripts")]))
+    cache = RUNTIME / "stage-three-type-cache"
+    return subprocess.run(
+        [
+            str(tool_python),
+            "-m",
+            "mypy",
+            "--config-file",
+            str(ROOT / "config/mypy.ini"),
+            "--cache-dir",
+            str(cache),
+            *[str(path) for path in paths],
+        ],
+        cwd=root,
+        env=env,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
 
 if __name__ == "__main__":

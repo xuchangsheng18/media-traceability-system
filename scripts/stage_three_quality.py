@@ -10,6 +10,7 @@ import subprocess
 import sys
 import venv
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 VALIDATION = ROOT / "docs/00-project/validation"
@@ -213,9 +214,11 @@ def dependency_check():
     except json.JSONDecodeError:
         node_data, node_error = normalize_npm_report(None)
     node_path.write_bytes((json.dumps(node_data, indent=2) + "\n").encode())
-    python_data = json.loads(python_path.read_text()) if python_path.exists() else {"error": "PYTHON_AUDIT_NO_REPORT"}
+    python_data: dict[str, Any] = (
+        json.loads(python_path.read_text()) if python_path.exists() else {"error": "PYTHON_AUDIT_NO_REPORT"}
+    )
     dependencies = python_data.get("dependencies", [])
-    quality_data = (
+    quality_data: dict[str, Any] = (
         json.loads(quality_path.read_text()) if quality_path.exists() else {"error": "QUALITY_AUDIT_NO_REPORT"}
     )
     quality_dependencies = quality_data.get("dependencies", [])

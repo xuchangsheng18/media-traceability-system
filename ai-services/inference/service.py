@@ -9,6 +9,7 @@ import time
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import torch
@@ -39,7 +40,7 @@ def initialize_model():
     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not MODEL_PATH.exists():
         torch.manual_seed(20261012)
-        encoder.apply(lambda layer: layer.reset_parameters() if hasattr(layer, "reset_parameters") else None)
+        encoder.apply(lambda layer: layer.reset_parameters() if isinstance(layer, torch.nn.Linear) else None)
         decoder = torch.nn.Linear(8, 16)
         x = torch.rand(64, 16)
         optimizer = torch.optim.Adam([*encoder.parameters(), *decoder.parameters()], lr=0.02)
@@ -95,7 +96,7 @@ def health():
 
 
 @app.post("/internal/v1/inference/retrieval.image_embedding")
-def inference(body: dict, request: Request, authorization: str | None = Header(default=None)):
+def inference(body: dict[str, Any], request: Request, authorization: str | None = Header(default=None)):
     if not authorization or not hmac.compare_digest(authorization, "Bearer " + os.environ["INTERNAL_TOKEN"]):
         raise HTTPException(401, "AUTH_REQUIRED")
     errors = list(VALIDATORS["request"].iter_errors(body))

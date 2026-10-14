@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 CASE_ID = "00000000-0000-4000-8000-000000000001"
 BUCKET = "mt-poc-assets"
 MAX_BYTES = 1024 * 1024
-Image.MAX_IMAGE_PIXELS = 4_000_000
+MAX_IMAGE_PIXELS = 4_000_000
+Image.MAX_IMAGE_PIXELS = MAX_IMAGE_PIXELS
 
 
 def s3():
@@ -34,7 +35,7 @@ def decode_image(encoded: str) -> bytes:
         if not raw or len(raw) > MAX_BYTES:
             raise ValueError("FILE_TOO_LARGE")
         with Image.open(io.BytesIO(raw)) as image:
-            if image.format not in {"PNG", "JPEG"} or image.width * image.height > Image.MAX_IMAGE_PIXELS:
+            if image.format not in {"PNG", "JPEG"} or image.width * image.height > MAX_IMAGE_PIXELS:
                 raise ValueError("UNSUPPORTED_IMAGE")
             image.verify()
     except (ValueError, OSError, Image.DecompressionBombError) as exc:
@@ -42,7 +43,7 @@ def decode_image(encoded: str) -> bytes:
     return raw
 
 
-def put_object(object_id: str, data: bytes, kind="inputs") -> dict:
+def put_object(object_id: str, data: bytes, kind="inputs") -> dict[str, str]:
     digest = hashlib.sha256(data).hexdigest()
     response = s3().put_object(Bucket=BUCKET, Key=f"{kind}/{object_id}", Body=data, Metadata={"sha256": digest})
     version = response.get("VersionId")
@@ -51,7 +52,7 @@ def put_object(object_id: str, data: bytes, kind="inputs") -> dict:
     return {"object_id": object_id, "version_id": version, "sha256": digest}
 
 
-def get_object(ref: dict, kind="inputs") -> bytes:
+def get_object(ref: dict[str, str], kind="inputs") -> bytes:
     response = s3().get_object(Bucket=BUCKET, Key=f"{kind}/{ref['object_id']}", VersionId=ref["version_id"])
     data = response["Body"].read(MAX_BYTES + 1)
     if len(data) > MAX_BYTES or hashlib.sha256(data).hexdigest() != ref["sha256"]:
