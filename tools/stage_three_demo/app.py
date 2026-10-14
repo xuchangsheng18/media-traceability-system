@@ -1,7 +1,9 @@
 """Loopback-only three-service connectivity fixture; no business data or models."""
 
 import hmac
+import json
 import os
+import time
 import uuid
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -51,9 +53,30 @@ async def identity(request, call_next):
         request.state.request_id = str(uuid.UUID(request.headers.get("X-Request-ID", "")))
     except ValueError:
         request.state.request_id = str(uuid.uuid4())
-    response = await call_next(request)
-    response.headers["X-Request-ID"] = request.state.request_id
-    return response
+    started, status_code = time.monotonic(), 500
+    try:
+        response = await call_next(request)
+        status_code = response.status_code
+        response.headers["X-Request-ID"] = request.state.request_id
+        return response
+    finally:
+        route = request.scope.get("route")
+        print(
+            json.dumps(
+                {
+                    "event": "development_fixture_request",
+                    "role": ROLE,
+                    "method": request.method,
+                    "route": getattr(route, "path", "unmatched"),
+                    "status": status_code,
+                    "request_id": request.state.request_id,
+                    "elapsed_ms": round((time.monotonic() - started) * 1000, 3),
+                    "development_fixture": True,
+                    "business_result": False,
+                }
+            ),
+            flush=True,
+        )
 
 
 @app.exception_handler(HTTPException)

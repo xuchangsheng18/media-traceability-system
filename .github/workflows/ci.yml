@@ -86,7 +86,7 @@ jobs:
           "$PYTHON" scripts/validate_documentation_completion.py
       - name: Run actual engineering gates
         run: |
-          "$PYTHON" scripts/dev.py ci
+          "$PYTHON" scripts/dev.py ci --allow-stack-changes
           "$PYTHON" scripts/verify_ci_failure_gate.py
           "$PYTHON" scripts/check_repository_secrets.py
           "$PYTHON" scripts/validate_stage_three.py --runtime

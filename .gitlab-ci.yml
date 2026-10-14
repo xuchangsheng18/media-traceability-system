@@ -21,12 +21,12 @@ validate:
 build:
   stage: build
   script:
-    - "$PYTHON scripts/run_ci.py build"
+    - "$PYTHON scripts/dev.py build --allow-stack-changes"
 integration:
   stage: integration
   resource_group: media-trace-py310-poc
   script:
-    - "$PYTHON scripts/run_ci.py integration"
+    - "$PYTHON scripts/dev.py integration-test --allow-stack-changes"
   artifacts:
     when: always
     paths:

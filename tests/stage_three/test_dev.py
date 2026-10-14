@@ -1,6 +1,8 @@
 import importlib.util
 import json
 import os
+import sys
+import types
 from pathlib import Path
 
 import pytest
@@ -90,3 +92,132 @@ def test_environment_uses_explicit_runtime_and_preserves_custom_node_path(monkey
     env = dev.environment()
     assert env["PATH"].split(os.pathsep)[:2] == [str(Path(dev.python()).parent), "/synthetic/node/bin"]
     assert env["PYTHONDONTWRITEBYTECODE"] == "1"
+
+
+def hosted_environment(monkeypatch, tmp_path):
+    workspace = tmp_path / "checkout"
+    temporary = tmp_path / "runner-temp"
+    monkeypatch.setattr(dev, "ROOT", workspace)
+    for key, value in {
+        "GITHUB_ACTIONS": "true",
+        "RUNNER_ENVIRONMENT": "github-hosted",
+        "GITHUB_WORKSPACE": str(workspace),
+        "RUNNER_TEMP": str(temporary),
+        "MT_RUNTIME_DIR": str(temporary / "runtime"),
+        "MT_DOCKER_CONTEXT": "default",
+    }.items():
+        monkeypatch.setenv(key, value)
+    monkeypatch.delenv("DOCKER_HOST", raising=False)
+
+
+def test_hosted_runner_still_requires_explicit_stack_flag(monkeypatch, tmp_path):
+    hosted_environment(monkeypatch, tmp_path)
+    assert dev.isolated_ci_workspace()
+    with pytest.raises(RuntimeError, match="EXPLICIT_COMMAND_FLAG"):
+        dev.stack_change_guard(False)
+    dev.stack_change_guard(True)
+
+
+@pytest.mark.parametrize(
+    "key,value",
+    [
+        ("RUNNER_ENVIRONMENT", "self-hosted"),
+        ("GITHUB_WORKSPACE", "/workspace/glwy/projects/media-traceability-system"),
+        ("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"),
+        ("MT_RUNTIME_DIR", "/different-runtime"),
+        ("RUNNER_TEMP", "relative"),
+        ("MT_DOCKER_CONTEXT", "desktop-linux"),
+        ("DOCKER_HOST", "tcp://other-daemon:2375"),
+    ],
+)
+def test_ci_label_cannot_skip_shared_capacity_check(monkeypatch, tmp_path, key, value):
+    hosted_environment(monkeypatch, tmp_path)
+    monkeypatch.setenv(key, value)
+    assert not dev.isolated_ci_workspace()
+    monkeypatch.setitem(
+        sys.modules,
+        "poc_control",
+        types.SimpleNamespace(
+            compose=lambda *a, **k: types.SimpleNamespace(
+                stdout="Filesystem 1B Used Available Use% Mounted\n/dev/data 100 99 1 99% /data\n"
+            )
+        ),
+    )
+    with pytest.raises(RuntimeError, match="CAPACITY_BELOW"):
+        dev.stack_change_guard(True)
+
+
+@pytest.mark.parametrize("output", ["", "df failed", "/dev/data 100 0 unknown 0% /data"])
+def test_unreadable_capacity_stops_stack_action(monkeypatch, output):
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    monkeypatch.setitem(
+        sys.modules, "poc_control", types.SimpleNamespace(compose=lambda *a, **k: types.SimpleNamespace(stdout=output))
+    )
+    with pytest.raises(RuntimeError, match="CAPACITY_UNREADABLE"):
+        dev.stack_change_guard(True)
+
+
+def test_exact_capacity_threshold_allows_explicit_action(monkeypatch):
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+    minimum = dev.PROFILE["minimum_free_bytes_before_stack_changes"]
+    monkeypatch.setitem(
+        sys.modules,
+        "poc_control",
+        types.SimpleNamespace(
+            compose=lambda *a, **k: types.SimpleNamespace(stdout=f"/dev/data 9999999999 0 {minimum} 0% /data")
+        ),
+    )
+    dev.stack_change_guard(True)
+
+
+def test_wrong_service_set_is_not_reported_healthy(monkeypatch, capsys):
+    rows = [{"Service": "api", "State": "running", "Health": "healthy"}] * 7
+    monkeypatch.setitem(
+        sys.modules,
+        "poc_control",
+        types.SimpleNamespace(
+            compose=lambda *a, **k: types.SimpleNamespace(stdout="\n".join(json.dumps(row) for row in rows))
+        ),
+    )
+    assert dev.status() == 1
+    assert json.loads(capsys.readouterr().out)["status"] == "NOT_READY"
+
+
+def quality_module():
+    quality_spec = importlib.util.spec_from_file_location("quality_checks", ROOT / "scripts/stage_three_quality.py")
+    module = importlib.util.module_from_spec(quality_spec)
+    quality_spec.loader.exec_module(module)
+    return module
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        None,
+        [],
+        {},
+        {"metadata": {}},
+        {"error": {}, "headers": {"set-cookie": "private-example"}},
+        {"metadata": {"vulnerabilities": {"high": 0, "critical": 0}}},
+    ],
+)
+def test_failed_or_empty_audit_is_not_zero_vulnerabilities_and_does_not_publish_headers(raw):
+    normalized, failed = quality_module().normalize_npm_report(raw)
+    assert failed and "error" in normalized
+    assert "private-example" not in json.dumps(normalized)
+
+
+def test_complete_npm_report_keeps_all_severity_counts_and_drops_headers():
+    report = {
+        "auditReportVersion": 2,
+        "vulnerabilities": {},
+        "metadata": {
+            "vulnerabilities": {"info": 0, "low": 0, "moderate": 0, "high": 0, "critical": 0, "total": 0},
+            "dependencies": {"total": 123},
+        },
+        "headers": {"set-cookie": "private-example"},
+    }
+    normalized, failed = quality_module().normalize_npm_report(report)
+    assert not failed and normalized["metadata"]["vulnerabilities"]["total"] == 0
+    assert normalized["metadata"]["dependencies"]["total"] == 123
+    assert "headers" not in normalized

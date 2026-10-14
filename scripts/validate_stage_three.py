@@ -57,6 +57,21 @@ def static_checks():
         for item in record["steps"]
     )
     assert all((ROOT / path).is_file() for item in record["steps"] for path in item["outputs"])
+    assert sum(len(item["acceptance_review"]) for item in record["steps"]) == 57
+    for item in record["steps"]:
+        assert [review["criterion"] for review in item["acceptance_review"]] == item["source_acceptance"]
+        assert item["development_status"] != "工程产物/实际证据分别核验；正式条件待落实"
+        assert item["engineering_status"] in {"DOCUMENTED", "PARTIAL", "VERIFIED_SELECTED_SCOPE"}
+        for review in item["acceptance_review"]:
+            assert review["status"] in {
+                "DOCUMENTED",
+                "PARTIAL",
+                "VERIFIED_SELECTED_SCOPE",
+                "PENDING_EXTERNAL",
+                "ADAPTED_EXISTING_REPOSITORY",
+            }
+            assert review["scope_note"] and review["evidence"]
+            assert all((ROOT / path).is_file() for path in review["evidence"])
     checks.append({"name": "sixteen_source_steps_exact_titles_acceptance_and_real_outputs", "status": "PASS"})
     profile = read("config/stage-three-profile.json")
     versions = yaml.safe_load((ROOT / "config/versions.yaml").read_text(encoding="utf-8"))
@@ -221,6 +236,15 @@ def run_profile():
     results = []
     prior_runtime = read("docs/00-project/validation/stage-three-runtime-report.json")
     previous_attempts = prior_runtime.get("previous_attempts", [])
+    if prior_runtime.get("status") == "FAIL":
+        previous_attempts.append(
+            {
+                "status": "FAIL",
+                "observed_at": prior_runtime.get("observed_at"),
+                "failed_checks": [item for item in prior_runtime.get("checks", []) if item["status"] == "FAIL"],
+                "scope": "preserved_failed_attempt_before_retry_not_counted_as_current_pass",
+            }
+        )
     for name, command in commands:
         started = datetime.datetime.now(datetime.timezone.utc)
         try:
@@ -297,6 +321,7 @@ def main():
         "observed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "checks": checks,
         "source_steps": 16,
+        "source_acceptance_criteria_reviewed": 57,
         "originals_added": 2,
         "prior_originals_preserved": 10,
         "historical_files_preserved": 14,

@@ -1,6 +1,10 @@
 # 持续集成与实际执行范围
 
-第三阶段由[dev.py](../../scripts/dev.py)提供统一入口，ci命令委托原run_ci.py的25门禁，不改计数。工作流另外核验第三阶段10项来源/配置、13项实际运行、25例Python单元（15原PoC+10新增入口）、2例前端单元及三服务模拟夹具9项/1例浏览器；这些是独立范围，不能当成额外业务任务完成。
+第三阶段由[dev.py](../../scripts/dev.py)提供统一入口，ci命令委托原run_ci.py的25门禁，不改计数。工作流另外核验第三阶段10项来源/配置（含57条原验收要求逐项登记）、13项实际运行、45例Python单元（15原PoC+30入口/扫描保护）、2例前端单元及三服务模拟夹具11项/1例浏览器；这些是独立范围，不能当成额外业务任务完成。
+
+完整入口为`python scripts/dev.py ci --allow-stack-changes`；仅明确的GitHub托管临时工作区组合适用冷启动例外，环境标记本身不能绕过共享卷保护。GitLab文件仍为未注册/未实跑的候选，其build和integration也走容量保护，不能引用GitHub结果宣称GitLab通过。模拟夹具另核对三服务结构日志与同一request_id，实际停止自己启动的模拟推理后验证503/502，既有Docker服务不受该测试影响。
+
+扫描接口错误、缺少统计或空JSON返回均判失败，公开报告不保留外部响应的Cookie/头，失败尝试在下一次重试记录中保留。npm完整报告保留所有严重级别的数量；high阈值只影响失败条件，不过滤低级别结果，按[npm官方audit说明](https://docs.npmjs.com/cli/v11/commands/npm-audit/)核对。跳过的CPU Torch发行包仍不能判安全。
 
 开发命令、独立pre-commit工具层及Python/npm扫描见[第三阶段验证报告](development-environment-validation-report.md)。扫描不把被跳过CPU Torch发行包记为安全通过。服务器make未安装，实际使用Python入口；共享Docker数据盘不足时统一入口拒绝构建/恢复，完整复建仍在独立托管Runner进行。
 

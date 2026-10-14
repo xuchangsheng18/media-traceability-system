@@ -6,6 +6,7 @@ import secrets
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 import uuid
 from pathlib import Path
@@ -31,9 +32,14 @@ def main():
     env["MT_DEMO_INFERENCE_URL"] = "http://127.0.0.1:" + str(ports["inference"])
     env["MT_DEMO_BACKEND_URL"] = "http://127.0.0.1:" + str(ports["backend"])
     env["MT_DEMO_FRONTEND_URL"] = "http://127.0.0.1:" + str(ports["frontend"])
-    processes, checks = [], []
+    processes, checks, logs = [], [], {}
+    temporary = tempfile.TemporaryDirectory(prefix="media-trace-demo-")
+    streams = []
     try:
         for role, number in ports.items():
+            logs[role] = Path(temporary.name) / (role + ".jsonl")
+            stream = logs[role].open("wb")
+            streams.append(stream)
             process = subprocess.Popen(
                 [
                     sys.executable,
@@ -50,7 +56,7 @@ def main():
                 ],
                 cwd=ROOT,
                 env=dict(env, MT_DEMO_ROLE=role),
-                stdout=subprocess.DEVNULL,
+                stdout=stream,
                 stderr=subprocess.DEVNULL,
             )
             processes.append(process)
@@ -89,8 +95,10 @@ def main():
         assert response.json()["nonce"] == nonce and token not in response.text
         assert response.json()["request_id"] == response.headers["x-request-id"]
         checks.append({"name": "backend_calls_inference_schema_and_explicit_mock", "status": "PASS"})
-        front = httpx.post(env["MT_DEMO_FRONTEND_URL"] + "/demo/check", timeout=10)
+        trace = str(uuid.uuid4())
+        front = httpx.post(env["MT_DEMO_FRONTEND_URL"] + "/demo/check", headers={"X-Request-ID": trace}, timeout=10)
         assert front.status_code == 200 and front.json()["mock"] is True
+        assert front.json()["request_id"] == trace
         checks.append({"name": "frontend_proxy_backend_inference_actual_HTTP", "status": "PASS"})
         browser_env = dict(env)
         browser_env["PATH"] = (
@@ -116,15 +124,58 @@ def main():
             timeout=120,
         )
         checks.append({"name": "actual_Vue_browser_health_page", "status": "PASS"})
+        processes[0].terminate()
+        processes[0].wait(timeout=10)
+        unavailable = httpx.get(back + "/api/v1/ready", timeout=5)
+        failed = httpx.post(
+            back + "/api/v1/mock",
+            headers={"Authorization": "Bearer " + token},
+            json={"nonce": nonce},
+            timeout=5,
+        )
+        assert unavailable.status_code == 503 and unavailable.json()["code"] == "DEMO_DEPENDENCY_NOT_READY"
+        assert failed.status_code == 502 and failed.json()["code"] == "DEMO_INFERENCE_UNAVAILABLE"
+        assert token not in unavailable.text + failed.text and nonce not in failed.text
+        checks.append({"name": "stopped_mock_dependency_ready_503_and_call_502_no_input_echo", "status": "PASS"})
     finally:
         for process in reversed(processes):
-            process.terminate()
+            if process.poll() is None:
+                process.terminate()
         for process in processes:
             try:
                 process.wait(timeout=10)
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait(timeout=5)
+        for stream in streams:
+            stream.close()
+        if sys.exc_info()[0] is not None:
+            temporary.cleanup()
+    try:
+        records = {role: [json.loads(line) for line in path.read_text().splitlines()] for role, path in logs.items()}
+        for role, rows in records.items():
+            assert rows and all(row["role"] == role and row["development_fixture"] for row in rows)
+            assert all(row["business_result"] is False for row in rows)
+            assert any(row["request_id"] == trace and row["status"] == 200 for row in rows)
+            assert token not in logs[role].read_text() and nonce not in logs[role].read_text()
+            assert all(
+                set(row)
+                == {
+                    "event",
+                    "role",
+                    "method",
+                    "route",
+                    "status",
+                    "request_id",
+                    "elapsed_ms",
+                    "development_fixture",
+                    "business_result",
+                }
+                for row in rows
+            )
+        checks.append({"name": "three_service_structured_trace_logs_exclude_headers_body_and_token", "status": "PASS"})
+    finally:
+        temporary.cleanup()
     checks.append({"name": "own_three_processes_stopped_existing_stack_untouched", "status": "PASS"})
     report = {
         "status": "PASS",
@@ -134,6 +185,10 @@ def main():
         "database_or_object_store_accessed": False,
         "existing_Docker_stack_changed": False,
         "private_values_printed": False,
+        "structured_log_counts": {role: len(rows) for role, rows in records.items()},
+        "correlated_trace": {
+            role: [row for row in rows if row["request_id"] == trace] for role, rows in records.items()
+        },
     }
     (ROOT / "docs/00-project/validation/stage-three-demo-report.json").write_bytes(
         (json.dumps(report, indent=2) + "\n").encode()

@@ -47,7 +47,7 @@ ssh -N -L 14180:127.0.0.1:14180 glwy@172.16.58.179
 
 ## 验证和停止
 
-`python scripts/run_ci.py all`执行完整研发门禁；故障恢复会短暂停止本项目worker/broker并重启本项目API、S3、推理，结束恢复。`python scripts/poc_control.py down`停止并移除本项目容器/网络，保留数据卷。没有提供默认删除卷命令；复建不得清理其他项目。
+`python scripts/dev.py ci --allow-stack-changes`是完整研发门禁的受保护入口，内部委托run_ci.py；共享数据卷不足5GiB或不能读到容量时拒绝开始。故障恢复会短暂停止本项目worker/broker并重启本项目API、S3、推理，结束恢复，因此当前共享栈不得跳过入口直接运行完整恢复门禁。GitHub托管独立临时Runner按工作区/runtime/Docker条件适用冷启动例外，单一环境标记不够。`python scripts/poc_control.py down`停止并移除本项目容器/网络，保留数据卷。没有提供默认删除卷命令；复建不得清理其他项目。
 
 ## 已遇到的故障
 

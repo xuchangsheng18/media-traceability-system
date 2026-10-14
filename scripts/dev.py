@@ -100,19 +100,42 @@ def clean_paths(root=ROOT):
     return paths
 
 
+def isolated_ci_workspace():
+    # Environment labels alone do not establish separation from the shared host.
+    if os.environ.get("GITHUB_ACTIONS") != "true" or os.environ.get("RUNNER_ENVIRONMENT") != "github-hosted":
+        return False
+    paths = [os.environ.get(name, "") for name in ("GITHUB_WORKSPACE", "RUNNER_TEMP", "MT_RUNTIME_DIR")]
+    if not all(paths) or not all(Path(value).is_absolute() for value in paths):
+        return False
+    workspace, temporary, runtime = [Path(value).resolve() for value in paths]
+    shared = Path("/workspace/glwy").resolve()
+    if any(path == shared or path.is_relative_to(shared) for path in (workspace, temporary, runtime)):
+        return False
+    return (
+        ROOT.resolve() == workspace
+        and runtime != temporary
+        and runtime.is_relative_to(temporary)
+        and not temporary.is_relative_to(workspace)
+        and os.environ.get("MT_DOCKER_CONTEXT") == "default"
+        and not os.environ.get("DOCKER_HOST")
+    )
+
+
 def stack_change_guard(allowed):
-    if not allowed and os.environ.get("GITHUB_ACTIONS") != "true":
+    if not allowed:
         raise RuntimeError("STACK_CHANGE_REQUIRES_EXPLICIT_COMMAND_FLAG_USE_READ_ONLY_STATUS_FIRST")
-    # An independent GitHub runner has no shared development data volume.
-    if os.environ.get("GITHUB_ACTIONS") == "true":
+    # A hosted fresh workspace has no existing shared PostgreSQL filesystem to inspect.
+    # This is an operational guard, not an authorization or security boundary.
+    if isolated_ci_workspace():
         return
     from poc_control import compose
 
-    free = (
-        compose("exec", "-T", "postgres", "df", "-B1", "/var/lib/postgresql/data", capture=True)
-        .stdout.splitlines()[-1]
-        .split()
-    )
+    lines = compose(
+        "exec", "-T", "postgres", "df", "-P", "-B1", "/var/lib/postgresql/data", capture=True
+    ).stdout.splitlines()
+    free = lines[-1].split() if lines else []
+    if len(free) < 6 or not free[3].isdigit():
+        raise RuntimeError("DEVELOPMENT_DATA_FILESYSTEM_CAPACITY_UNREADABLE")
     if int(free[3]) < PROFILE["minimum_free_bytes_before_stack_changes"]:
         raise RuntimeError("DEVELOPMENT_DATA_FILESYSTEM_CAPACITY_BELOW_STACK_CHANGE_GUARD")
 
@@ -125,7 +148,12 @@ def status():
         {"service": item["Service"], "state": item["State"], "health": item.get("Health", "unknown")}
         for item in services
     ]
-    healthy = len(summary) == 7 and all(item["state"] == "running" and item["health"] == "healthy" for item in summary)
+    expected = {"api", "web", "worker", "inference", "postgres", "s3", "rabbitmq"}
+    healthy = (
+        len(summary) == len(expected)
+        and {item["service"] for item in summary} == expected
+        and all(item["state"] == "running" and item["health"] == "healthy" for item in summary)
+    )
     print(json.dumps({"status": "PASS" if healthy else "NOT_READY", "services": summary, "services_changed": False}))
     return 0 if healthy else 1
 

@@ -23,10 +23,53 @@
       "outputs": [
         "docs/03-development/repository-platform-options.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "平台比较和用户指定仓库已记录；实际管理员及平台准入待定",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "实际项目/技术/仓库管理人员及正式生产代码平台准入未落实。"
+      "remaining": "实际项目/技术/仓库管理人员及正式生产代码平台准入未落实。",
+      "engineering_status": "DOCUMENTED",
+      "engineering_evidence": [
+        "docs/03-development/repository-platform-options.md",
+        "docs/00-project/validation/stage-three-platform-observation.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "至少比较两种可落地平台",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-platform-options.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "推荐方案说明适用前提",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-platform-options.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "未创建外部仓库或账号",
+          "status": "ADAPTED_EXISTING_REPOSITORY",
+          "evidence": [
+            "docs/03-development/repository-platform-options.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "沿用用户给出的已有GitHub仓库；本阶段未另建仓库或团队账号，不能把源手册的空白仓库前提套用为禁止本次同步。"
+        },
+        {
+          "criterion": "管理人员使用角色占位符",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "docs/03-development/repository-platform-options.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "角色占位与owner_name=null均保留；已知GitHub所有者只用于仓库事实，不替代项目负责人。"
+        }
+      ]
     },
     {
       "step": 2,
@@ -44,10 +87,44 @@
         "docs/03-development/repository-structure-decision.md",
         "docs/02-architecture/architecture-decisions/ADR-013-repository-structure.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "Monorepo目录与ADR候选已形成；正式结构决策待定",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "实际团队边界和结构正式批准待填。"
+      "remaining": "实际团队边界和结构正式批准待填。",
+      "engineering_status": "DOCUMENTED",
+      "engineering_evidence": [
+        "docs/03-development/repository-structure-decision.md",
+        "docs/02-architecture/architecture-decisions/ADR-013-repository-structure.md"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "比较两种模式",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-structure-decision.md",
+            "docs/02-architecture/architecture-decisions/ADR-013-repository-structure.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "模型权重不进入普通Git",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-structure-decision.md",
+            "docs/02-architecture/architecture-decisions/ADR-013-repository-structure.md"
+          ],
+          "scope_note": "普通Git中明确禁止权重；提交规则与秘密扫描不能替代平台DLP或全历史扫描。"
+        },
+        {
+          "criterion": "ADR状态为待批准",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-structure-decision.md",
+            "docs/02-architecture/architecture-decisions/ADR-013-repository-structure.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 3,
@@ -64,10 +141,40 @@
       "outputs": [
         "docs/03-development/codex-permission-boundary.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "当前操作边界和权限矩阵已写明；正式网络及数据授权待定",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "正式网络、生产目录、审批角色/期限及真实数据用途授权待落实。"
+      "remaining": "正式网络、生产目录、审批角色/期限及真实数据用途授权待落实。",
+      "engineering_status": "DOCUMENTED",
+      "engineering_evidence": [
+        "docs/03-development/codex-permission-boundary.md"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "覆盖文件、Git、网络、容器、数据和GPU",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/codex-permission-boundary.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "每项有审批与审计方式",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/codex-permission-boundary.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "未把建议写成已授权",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/codex-permission-boundary.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 4,
@@ -84,10 +191,44 @@
       "outputs": [
         "docs/03-development/repository-access-control.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "真实仓库所有者已核对；团队ACL及主分支保护尚未落实",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。"
+      "remaining": "真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。",
+      "engineering_status": "PARTIAL",
+      "engineering_evidence": [
+        "docs/03-development/repository-access-control.md",
+        "docs/00-project/validation/stage-three-platform-observation.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "主分支合并严格受控",
+          "status": "PENDING_EXTERNAL",
+          "evidence": [
+            "docs/03-development/repository-access-control.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "实际main保护快照为false；候选CODEOWNERS与治理说明未强制主分支合并。"
+        },
+        {
+          "criterion": "Secret与Runner权限单列",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-access-control.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "有权限回收机制",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-access-control.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 5,
@@ -104,10 +245,40 @@
       "outputs": [
         "docs/03-development/repository-layout.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "15类目录职责及禁止提交内容已整理；团队职责评审待定",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "实际责任团队、目录/模块发布边界评审待确认。"
+      "remaining": "实际责任团队、目录/模块发布边界评审待确认。",
+      "engineering_status": "DOCUMENTED",
+      "engineering_evidence": [
+        "docs/03-development/repository-layout.md"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "目录职责无重叠",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-layout.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "禁止提交内容明确",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-layout.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "未迁移文件",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-layout.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 6,
@@ -124,10 +295,40 @@
       "outputs": [
         "docs/03-development/repository-review-package.md"
       ],
-      "development_status": "评审/验收材料已准备，实际决定待填",
+      "development_status": "逐项评审材料已准备；实际评审及分支策略决定尚未形成",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "实际评审者、会议/日期、分支及审核人数决定未提供。"
+      "remaining": "实际评审者、会议/日期、分支及审核人数决定未提供。",
+      "engineering_status": "DOCUMENTED",
+      "engineering_evidence": [
+        "docs/03-development/repository-review-package.md"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "评审点可逐项确认",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-review-package.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "含批准角色和日期",
+          "status": "PENDING_EXTERNAL",
+          "evidence": [
+            "docs/03-development/repository-review-package.md"
+          ],
+          "scope_note": "文档包含角色和日期字段，实际人员、批准日期及评审决定仍为空。"
+        },
+        {
+          "criterion": "未提前冻结方案",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/repository-review-package.md"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 7,
@@ -152,10 +353,88 @@
         "data-pipeline/README.md",
         "tools/README.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "基础工程文件与来源保全已校验；批准方案一致性尚不能认定",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "治理文件正式审核与实际人员策略待确认；只证明创建和验证。"
+      "remaining": "治理文件正式审核与实际人员策略待确认；只证明创建和验证。",
+      "engineering_status": "PARTIAL",
+      "engineering_evidence": [
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "CODEOWNERS",
+        ".editorconfig",
+        ".env.example",
+        ".pre-commit-config.yaml",
+        "data-pipeline/README.md",
+        "tools/README.md",
+        "docs/00-project/validation/stage-three-validation-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "结构与批准方案一致",
+          "status": "PENDING_EXTERNAL",
+          "evidence": [
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS",
+            ".editorconfig",
+            ".env.example",
+            ".pre-commit-config.yaml",
+            "data-pipeline/README.md",
+            "tools/README.md",
+            "docs/00-project/validation/stage-three-validation-report.json"
+          ],
+          "scope_note": "目录候选已落实，但未取得已批准结构方案，不能认定与正式批准方案一致。"
+        },
+        {
+          "criterion": "基础文件齐全",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS",
+            ".editorconfig",
+            ".env.example",
+            ".pre-commit-config.yaml",
+            "data-pipeline/README.md",
+            "tools/README.md",
+            "docs/00-project/validation/stage-three-validation-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "未破坏已有文件",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS",
+            ".editorconfig",
+            ".env.example",
+            ".pre-commit-config.yaml",
+            "data-pipeline/README.md",
+            "tools/README.md",
+            "docs/00-project/validation/stage-three-validation-report.json"
+          ],
+          "scope_note": "旧来源、历史、业务应用、正式契约与原锁按摘要比对；本次仅调整研发入口、独立夹具和阶段资料。"
+        },
+        {
+          "criterion": "无真实凭据",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS",
+            ".editorconfig",
+            ".env.example",
+            ".pre-commit-config.yaml",
+            "data-pipeline/README.md",
+            "tools/README.md",
+            "docs/00-project/validation/stage-three-validation-report.json"
+          ],
+          "scope_note": "当前源文件执行指定凭据/令牌规则扫描；不代表全历史、所有敏感数据或所有秘密类型均覆盖。"
+        }
+      ]
     },
     {
       "step": 8,
@@ -176,10 +455,68 @@
         ".python-version",
         ".nvmrc"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "Linux CPU版本、100包原锁和12包独立工具层已验证；其他环境未验",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。"
+      "remaining": "Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。",
+      "engineering_status": "VERIFIED_SELECTED_SCOPE",
+      "engineering_evidence": [
+        "config/versions.yaml",
+        "config/locks/requirements-stage-three-quality.lock",
+        ".python-version",
+        ".nvmrc",
+        "docs/00-project/validation/stage-three-runtime-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "版本与基线一致",
+          "status": "PARTIAL",
+          "evidence": [
+            "config/versions.yaml",
+            "config/locks/requirements-stage-three-quality.lock",
+            ".python-version",
+            ".nvmrc",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "与现有1.1-py310-cpu研发组合相符；源手册要求已批准Technical Baseline 1.0的正式前提仍未满足。"
+        },
+        {
+          "criterion": "模块依赖隔离",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "config/versions.yaml",
+            "config/locks/requirements-stage-three-quality.lock",
+            ".python-version",
+            ".nvmrc",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "pre-commit工具层置于仓库外；既有应用100包原锁不变。完整业务模块隔离还需后续研发实现。"
+        },
+        {
+          "criterion": "锁文件已生成",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "config/versions.yaml",
+            "config/locks/requirements-stage-three-quality.lock",
+            ".python-version",
+            ".nvmrc",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "未验证项明确",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "config/versions.yaml",
+            "config/locks/requirements-stage-three-quality.lock",
+            ".python-version",
+            ".nvmrc",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 9,
@@ -199,10 +536,63 @@
         "config/stage-three-profile.json",
         "tests/stage_three/test_dev.py"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "所选Ruff/TS/测试/扫描已执行；全量格式、Python静态类型及Torch审计有缺项",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。"
+      "remaining": "未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。",
+      "engineering_status": "PARTIAL",
+      "engineering_evidence": [
+        "scripts/stage_three_quality.py",
+        "config/stage-three-profile.json",
+        "tests/stage_three/test_dev.py",
+        "docs/00-project/validation/stage-three-runtime-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "前后端检查完整",
+          "status": "PARTIAL",
+          "evidence": [
+            "scripts/stage_three_quality.py",
+            "config/stage-three-profile.json",
+            "tests/stage_three/test_dev.py",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "当前所选Ruff、前端TS、单测、契约与扫描可执行；没有全量旧代码格式检查、Python静态类型或未选工具的完成证据。"
+        },
+        {
+          "criterion": "本地与CI一致",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "scripts/stage_three_quality.py",
+            "config/stage-three-profile.json",
+            "tests/stage_three/test_dev.py",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "未大规模改写",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "scripts/stage_three_quality.py",
+            "config/stage-three-profile.json",
+            "tests/stage_three/test_dev.py",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "结果可机器读取",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "scripts/stage_three_quality.py",
+            "config/stage-three-profile.json",
+            "tests/stage_three/test_dev.py",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        }
+      ]
     },
     {
       "step": 10,
@@ -223,10 +613,56 @@
         "SECURITY.md",
         "CODEOWNERS"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "工程指导与项目配置已形成；实际客户端信任和规则加载未验证",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。"
+      "remaining": "项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。",
+      "engineering_status": "DOCUMENTED",
+      "engineering_evidence": [
+        "AGENTS.md",
+        ".codex/config.toml",
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "CODEOWNERS"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "边界和停止条件清楚",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "AGENTS.md",
+            ".codex/config.toml",
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "验证命令明确",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "AGENTS.md",
+            ".codex/config.toml",
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "状态为待审核",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "AGENTS.md",
+            ".codex/config.toml",
+            "CONTRIBUTING.md",
+            "SECURITY.md",
+            "CODEOWNERS"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 11,
@@ -247,10 +683,68 @@
         "schemas/development/mock-connectivity.response.schema.json",
         "scripts/verify_stage_three_demo.py"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "三独立服务及浏览器调用已验证，补齐结构日志和依赖故障验证；仅为模拟夹具",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。"
+      "remaining": "夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。",
+      "engineering_status": "VERIFIED_SELECTED_SCOPE",
+      "engineering_evidence": [
+        "tools/stage_three_demo/README.md",
+        "tools/stage_three_demo/app.py",
+        "schemas/development/mock-connectivity.response.schema.json",
+        "scripts/verify_stage_three_demo.py",
+        "docs/00-project/validation/stage-three-demo-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "三类服务可独立启动",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "tools/stage_three_demo/README.md",
+            "tools/stage_three_demo/app.py",
+            "schemas/development/mock-connectivity.response.schema.json",
+            "scripts/verify_stage_three_demo.py",
+            "docs/00-project/validation/stage-three-demo-report.json"
+          ],
+          "scope_note": "loopback三进程和浏览器夹具可独立启动；原7服务与合成M15另有证据，均不替代完整业务。"
+        },
+        {
+          "criterion": "调用链可验证",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "tools/stage_three_demo/README.md",
+            "tools/stage_three_demo/app.py",
+            "schemas/development/mock-connectivity.response.schema.json",
+            "scripts/verify_stage_three_demo.py",
+            "docs/00-project/validation/stage-three-demo-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "使用模拟数据和模型",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "tools/stage_three_demo/README.md",
+            "tools/stage_three_demo/app.py",
+            "schemas/development/mock-connectivity.response.schema.json",
+            "scripts/verify_stage_three_demo.py",
+            "docs/00-project/validation/stage-three-demo-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "具备测试与日志",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "tools/stage_three_demo/README.md",
+            "tools/stage_three_demo/app.py",
+            "schemas/development/mock-connectivity.response.schema.json",
+            "scripts/verify_stage_three_demo.py",
+            "docs/00-project/validation/stage-three-demo-report.json"
+          ],
+          "scope_note": "实际测试检查三服务JSON日志、同一request_id关联及字段白名单，验证不含令牌/请求体；另实际停止自建推理进程验证ready 503和调用502。"
+        }
+      ]
     },
     {
       "step": 12,
@@ -270,10 +764,63 @@
         "scripts/dev.py",
         "scripts/dev.ps1"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "Python和Windows SSH入口已验证；共享卷容量阻断构建，原生Windows未验",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。"
+      "remaining": "共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。",
+      "engineering_status": "PARTIAL",
+      "engineering_evidence": [
+        "Makefile",
+        "scripts/dev.py",
+        "scripts/dev.ps1",
+        "docs/00-project/validation/stage-three-runtime-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "统一入口可用",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "Makefile",
+            "scripts/dev.py",
+            "scripts/dev.ps1",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "Windows与Linux方式明确",
+          "status": "PARTIAL",
+          "evidence": [
+            "Makefile",
+            "scripts/dev.py",
+            "scripts/dev.ps1",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "Linux Python入口和Windows通过SSH入口已验；make未安装，Windows原生环境未验。"
+        },
+        {
+          "criterion": "clean无误删风险",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "Makefile",
+            "scripts/dev.py",
+            "scripts/dev.ps1",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "仅两类精确缓存，默认预览，路径越界/软链接测试；这是限定范围保护，不宣称任何环境绝无误删风险。"
+        },
+        {
+          "criterion": "README与命令一致",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "Makefile",
+            "scripts/dev.py",
+            "scripts/dev.ps1",
+            "docs/00-project/validation/stage-three-runtime-report.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 13,
@@ -291,10 +838,48 @@
         ".github/workflows/ci.yml",
         ".gitlab-ci.yml"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "GitHub CPU工程流水线已实际运行；required checks及正式Runner治理待落实",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "主分支required checks/签名/受控制品与正式Runner治理未验收。"
+      "remaining": "主分支required checks/签名/受控制品与正式Runner治理未验收。",
+      "engineering_status": "VERIFIED_SELECTED_SCOPE",
+      "engineering_evidence": [
+        ".github/workflows/ci.yml",
+        ".gitlab-ci.yml",
+        "docs/00-project/validation/github-actions-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "普通Runner不依赖GPU",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            ".github/workflows/ci.yml",
+            ".gitlab-ci.yml",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "含安全与契约测试",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            ".github/workflows/ci.yml",
+            ".gitlab-ci.yml",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。"
+        },
+        {
+          "criterion": "未发布或部署",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            ".github/workflows/ci.yml",
+            ".gitlab-ci.yml",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "仅临时Runner的研发构建/启动/清理；没有生产部署或发布。"
+        }
+      ]
     },
     {
       "step": 14,
@@ -312,10 +897,53 @@
       "outputs": [
         "docs/03-development/ci-administrator-guide.md"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "管理员配置与验证方法已编写；Runner隔离制度和主分支保护未验收",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。"
+      "remaining": "平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。",
+      "engineering_status": "PARTIAL",
+      "engineering_evidence": [
+        "docs/03-development/ci-administrator-guide.md",
+        "docs/00-project/validation/stage-three-platform-observation.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "Runner按用途隔离",
+          "status": "PENDING_EXTERNAL",
+          "evidence": [
+            "docs/03-development/ci-administrator-guide.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "CPU临时Runner已用；正式Docker/GPU用途、管理员和权限隔离配置尚未落实。"
+        },
+        {
+          "criterion": "Secret无真实值",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/ci-administrator-guide.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "主分支保护明确",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/ci-administrator-guide.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "保护操作手册已写，实际main尚未保护；方案文字不能替代生效配置及正反验证。"
+        },
+        {
+          "criterion": "有验证方法",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/ci-administrator-guide.md",
+            "docs/00-project/validation/stage-three-platform-observation.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 15,
@@ -335,10 +963,63 @@
         "scripts/validate_stage_three.py",
         "docs/00-project/validation/stage-three-runtime-report.json"
       ],
-      "development_status": "工程产物/实际证据分别核验；正式条件待落实",
+      "development_status": "来源、所选CPU检查和托管制品有实际证据；明确保留未验范围",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。"
+      "remaining": "GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。",
+      "engineering_status": "VERIFIED_SELECTED_SCOPE",
+      "engineering_evidence": [
+        "docs/03-development/development-environment-validation-report.md",
+        "scripts/validate_stage_three.py",
+        "docs/00-project/validation/stage-three-runtime-report.json",
+        "docs/00-project/validation/github-actions-report.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "结果可复核",
+          "status": "VERIFIED_SELECTED_SCOPE",
+          "evidence": [
+            "docs/03-development/development-environment-validation-report.md",
+            "scripts/validate_stage_three.py",
+            "docs/00-project/validation/stage-three-runtime-report.json",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "本机与托管原始JSON/制品SHA和源提交保留；资料、计划、Mock与正式验收分开。"
+        },
+        {
+          "criterion": "状态严格区分",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/development-environment-validation-report.md",
+            "scripts/validate_stage_three.py",
+            "docs/00-project/validation/stage-three-runtime-report.json",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "失败项有修复建议",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/development-environment-validation-report.md",
+            "scripts/validate_stage_three.py",
+            "docs/00-project/validation/stage-three-runtime-report.json",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        },
+        {
+          "criterion": "明确冻结条件",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/development-environment-validation-report.md",
+            "scripts/validate_stage_three.py",
+            "docs/00-project/validation/stage-three-runtime-report.json",
+            "docs/00-project/validation/github-actions-report.json"
+          ],
+          "scope_note": "只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。"
+        }
+      ]
     },
     {
       "step": 16,
@@ -358,12 +1039,66 @@
         "docs/03-development/development-environment-change-request.md",
         "docs/03-development/development-environment-acceptance-record.md"
       ],
-      "development_status": "评审/验收材料已准备，实际决定待填",
+      "development_status": "基线、变更和验收候选齐备；实际批准与资源条件未齐，未冻结",
       "formal_completion_asserted": false,
       "owner_name": null,
-      "remaining": "完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。"
+      "remaining": "完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。",
+      "engineering_status": "PARTIAL",
+      "engineering_evidence": [
+        "docs/03-development/development-environment-baseline.md",
+        "docs/03-development/development-environment-change-request.md",
+        "docs/03-development/development-environment-acceptance-record.md",
+        "docs/03-development/stage-three/external-inputs.json"
+      ],
+      "acceptance_review": [
+        {
+          "criterion": "冻结依据存在",
+          "status": "PENDING_EXTERNAL",
+          "evidence": [
+            "docs/03-development/development-environment-baseline.md",
+            "docs/03-development/development-environment-change-request.md",
+            "docs/03-development/development-environment-acceptance-record.md",
+            "docs/03-development/stage-three/external-inputs.json"
+          ],
+          "scope_note": "尚无完整有效冻结决定和前置条件，因此NOT_FROZEN。"
+        },
+        {
+          "criterion": "只冻结获批内容",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/development-environment-baseline.md",
+            "docs/03-development/development-environment-change-request.md",
+            "docs/03-development/development-environment-acceptance-record.md",
+            "docs/03-development/stage-three/external-inputs.json"
+          ],
+          "scope_note": "未打冻结标签、发布或自动批准ADR；所有正式完成标记仍false。"
+        },
+        {
+          "criterion": "版本配置文档一致",
+          "status": "PARTIAL",
+          "evidence": [
+            "docs/03-development/development-environment-baseline.md",
+            "docs/03-development/development-environment-change-request.md",
+            "docs/03-development/development-environment-acceptance-record.md",
+            "docs/03-development/stage-three/external-inputs.json"
+          ],
+          "scope_note": "当前研发版本/锁/文件可对照；正式选型、人员与生产准入尚不完整。"
+        },
+        {
+          "criterion": "有变更和回滚机制",
+          "status": "DOCUMENTED",
+          "evidence": [
+            "docs/03-development/development-environment-baseline.md",
+            "docs/03-development/development-environment-change-request.md",
+            "docs/03-development/development-environment-acceptance-record.md",
+            "docs/03-development/stage-three/external-inputs.json"
+          ],
+          "scope_note": "候选变更与回滚要求已编写；共享卷容量不足，本次不在该栈实施恢复验证。"
+        }
+      ]
     }
   ],
   "full_business_completion_asserted": false,
-  "source_stages_one_and_two_frozen": false
+  "source_stages_one_and_two_frozen": false,
+  "acceptance_review_scope": "逐条审查原手册要求；文档已写、所选范围已验证、部分实现、外部待落实与既有仓库适用差异分别登记，不计算正式完成百分比。"
 }

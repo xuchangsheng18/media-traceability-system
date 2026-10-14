@@ -9,24 +9,26 @@
 
 第三阶段已有产物的机器对照见[deliverables.json](<deliverables.json>)，正式输入见[external-inputs.json](<external-inputs.json>)；完整执行报告见[development-environment-validation-report.md](<../development-environment-validation-report.md>)。
 
+57条原验收要求逐条登记。DOCUMENTED表示候选文档已写；VERIFIED_SELECTED_SCOPE表示仅在说明的研发范围有执行证据；PARTIAL表示仍有技术缺项；PENDING_EXTERNAL表示实际输入/配置/决定未落实；ADAPTED_EXISTING_REPOSITORY表示按已有仓库说明适用差异。工程状态与正式完成独立，不能将前两类换算成整个阶段的完成率。
+
 | 步 | 原步骤与责任 | 已落实内容/产物 | 当前工程判定 | 正式/实际剩余条件 |
 | --- | --- | --- | --- | --- |
-| 1 | 确定仓库平台 仓库名称及管理人员<br>人工决策，Codex形成比较报告和决策表 | 保留用户指定私有GitHub仓库和实际名称，补内网平台比较与职责/准入条件。<br>[repository-platform-options.md](<../repository-platform-options.md>) | 工程产物/实际证据分别核验；正式条件待落实 | 实际项目/技术/仓库管理人员及正式生产代码平台准入未落实。 |
-| 2 | 确定Monorepo或多仓库模式<br>人工决策，Codex分析 | 沿用既有Monorepo，比较多仓模式并生成独立ADR-013候选，不搬迁旧文件。<br>[repository-structure-decision.md](<../repository-structure-decision.md>)、[ADR-013-repository-structure.md](<../../02-architecture/architecture-decisions/ADR-013-repository-structure.md>) | 工程产物/实际证据分别核验；正式条件待落实 | 实际团队边界和结构正式批准待填。 |
-| 3 | 明确网络 安全和Codex权限边界<br>人工确定，Codex生成模板与权限矩阵 | 区分本次会话授权、正式环境边界和禁止数据；保留操作审计与撤销要求。<br>[codex-permission-boundary.md](<../codex-permission-boundary.md>) | 工程产物/实际证据分别核验；正式条件待落实 | 正式网络、生产目录、审批角色/期限及真实数据用途授权待落实。 |
-| 4 | 建立仓库和团队账号权限<br>仓库管理员执行，Codex生成配置建议 | 登记真实仓库所有者与专业角色候选矩阵，不创建账号或虚构团队。<br>[repository-access-control.md](<../repository-access-control.md>) | 工程产物/实际证据分别核验；正式条件待落实 | 真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。 |
-| 5 | 根据技术基线设计目录结构<br>Codex设计，技术负责人评审 | 说明原13目录与data-pipeline/tools的用途、依赖与禁止内容。<br>[repository-layout.md](<../repository-layout.md>) | 工程产物/实际证据分别核验；正式条件待落实 | 实际责任团队、目录/模块发布边界评审待确认。 |
-| 6 | 人工评审目录和分支策略<br>人工评审，Codex准备评审包 | 准备评审议程、分支/审核/标签/紧急流程与决定模板，不代签。<br>[repository-review-package.md](<../repository-review-package.md>) | 评审/验收材料已准备，实际决定待填 | 实际评审者、会议/日期、分支及审核人数决定未提供。 |
-| 7 | 初始化仓库和基础文件<br>Codex执行，技术负责人监督 | 补贡献/安全/所有者/格式/环境模板等基础文件，保留全部原件与历史。<br>[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>)、[.editorconfig](<../../../.editorconfig>)、[.env.example](<../../../.env.example>)、[.pre-commit-config.yaml](<../../../.pre-commit-config.yaml>)、[README.md](<../../../data-pipeline/README.md>)、[README.md](<../../../tools/README.md>) | 工程产物/实际证据分别核验；正式条件待落实；一致性检查PASS | 治理文件正式审核与实际人员策略待确认；只证明创建和验证。 |
-| 8 | 配置前端 后端和算法开发环境<br>Codex执行，相关负责人评审 | 沿用原100包py310/Node/前端/合成推理，另锁pre-commit工具层，不升级业务栈。<br>[versions.yaml](<../../../config/versions.yaml>)、[requirements-stage-three-quality.lock](<../../../config/locks/requirements-stage-three-quality.lock>)、[.python-version](<../../../.python-version>)、[.nvmrc](<../../../.nvmrc>) | 工程产物/实际证据分别核验；正式条件待落实；一致性检查PASS | Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。 |
-| 9 | 配置格式化 静态检查和测试工具<br>Codex执行，测试负责人评审 | 统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。<br>[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>) | 工程产物/实际证据分别核验；正式条件待落实；一致性检查PASS | 未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。 |
-| 10 | 编写AGENTS.md等Codex规则<br>Codex生成，技术负责人审核 | 补根规则的阶段/命令/冲突要求和项目Codex配置，继承用户模型及权限设置。<br>[AGENTS.md](<../../../AGENTS.md>)、[config.toml](<../../../.codex/config.toml>)、[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>) | 工程产物/实际证据分别核验；正式条件待落实 | 项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。 |
-| 11 | 建立最小骨架工程<br>Codex实现，技术负责人监督 | 沿用7服务真实合成链路，另实现三进程Vue/FastAPI/模拟推理夹具，具备health/ready/安全错误/trace和实际浏览器测试。<br>[README.md](<../../../tools/stage_three_demo/README.md>)、[app.py](<../../../tools/stage_three_demo/app.py>)、[mock-connectivity.response.schema.json](<../../../schemas/development/mock-connectivity.response.schema.json>)、[verify_stage_three_demo.py](<../../../scripts/verify_stage_three_demo.py>) | 工程产物/实际证据分别核验；正式条件待落实 | 夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。 |
-| 12 | 建立本地开发启动命令<br>Codex执行，开发负责人评审 | 建立Linux Make/Python入口与Windows PowerShell经SSH入口，非零失败、缓存清理保护和共享栈容量保护。<br>[Makefile](<../../../Makefile>)、[dev.py](<../../../scripts/dev.py>)、[dev.ps1](<../../../scripts/dev.ps1>) | 工程产物/实际证据分别核验；正式条件待落实；一致性检查PASS | 共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。 |
-| 13 | 建立基础CI流水线<br>Codex生成，测试和技术负责人审核 | 沿用25门禁CPU托管CI，接入第三阶段原件/16步/统一命令/夹具与质量检查，不发布生产。<br>[ci.yml](<../../../.github/workflows/ci.yml>)、[.gitlab-ci.yml](<../../../.gitlab-ci.yml>) | 工程产物/实际证据分别核验；正式条件待落实；一致性检查PASS | 主分支required checks/签名/受控制品与正式Runner治理未验收。 |
-| 14 | 配置Runner Secret和分支保护<br>平台管理员执行，Codex生成操作手册 | 给出CPU/Docker/GPU Runner用途、Secret示例及主分支保护实测方法，只读观察平台。<br>[ci-administrator-guide.md](<../ci-administrator-guide.md>) | 工程产物/实际证据分别核验；正式条件待落实 | 平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。 |
-| 15 | 执行自动化验证并形成报告<br>Codex执行，人工复核失败项 | 执行来源/配置一致性、实际py310版本和启动/质量/测试/扫描/夹具，记录未执行与正式阻断。<br>[development-environment-validation-report.md](<../development-environment-validation-report.md>)、[validate_stage_three.py](<../../../scripts/validate_stage_three.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>) | 工程产物/实际证据分别核验；正式条件待落实；一致性检查PASS | GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。 |
-| 16 | 验收并冻结开发环境基线<br>人工批准后Codex固化 | 形成开发环境基线/变更/验收候选与真实缺项，未获完整决定不冻结/改ADR/打标签。<br>[development-environment-baseline.md](<../development-environment-baseline.md>)、[development-environment-change-request.md](<../development-environment-change-request.md>)、[development-environment-acceptance-record.md](<../development-environment-acceptance-record.md>) | 评审/验收材料已准备，实际决定待填 | 完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。 |
+| 1 | 确定仓库平台 仓库名称及管理人员<br>人工决策，Codex形成比较报告和决策表 | 保留用户指定私有GitHub仓库和实际名称，补内网平台比较与职责/准入条件。<br>[repository-platform-options.md](<../repository-platform-options.md>) | 平台比较和用户指定仓库已记录；实际管理员及平台准入待定 | 实际项目/技术/仓库管理人员及正式生产代码平台准入未落实。 |
+| 2 | 确定Monorepo或多仓库模式<br>人工决策，Codex分析 | 沿用既有Monorepo，比较多仓模式并生成独立ADR-013候选，不搬迁旧文件。<br>[repository-structure-decision.md](<../repository-structure-decision.md>)、[ADR-013-repository-structure.md](<../../02-architecture/architecture-decisions/ADR-013-repository-structure.md>) | Monorepo目录与ADR候选已形成；正式结构决策待定 | 实际团队边界和结构正式批准待填。 |
+| 3 | 明确网络 安全和Codex权限边界<br>人工确定，Codex生成模板与权限矩阵 | 区分本次会话授权、正式环境边界和禁止数据；保留操作审计与撤销要求。<br>[codex-permission-boundary.md](<../codex-permission-boundary.md>) | 当前操作边界和权限矩阵已写明；正式网络及数据授权待定 | 正式网络、生产目录、审批角色/期限及真实数据用途授权待落实。 |
+| 4 | 建立仓库和团队账号权限<br>仓库管理员执行，Codex生成配置建议 | 登记真实仓库所有者与专业角色候选矩阵，不创建账号或虚构团队。<br>[repository-access-control.md](<../repository-access-control.md>) | 真实仓库所有者已核对；团队ACL及主分支保护尚未落实 | 真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。 |
+| 5 | 根据技术基线设计目录结构<br>Codex设计，技术负责人评审 | 说明原13目录与data-pipeline/tools的用途、依赖与禁止内容。<br>[repository-layout.md](<../repository-layout.md>) | 15类目录职责及禁止提交内容已整理；团队职责评审待定 | 实际责任团队、目录/模块发布边界评审待确认。 |
+| 6 | 人工评审目录和分支策略<br>人工评审，Codex准备评审包 | 准备评审议程、分支/审核/标签/紧急流程与决定模板，不代签。<br>[repository-review-package.md](<../repository-review-package.md>) | 逐项评审材料已准备；实际评审及分支策略决定尚未形成 | 实际评审者、会议/日期、分支及审核人数决定未提供。 |
+| 7 | 初始化仓库和基础文件<br>Codex执行，技术负责人监督 | 补贡献/安全/所有者/格式/环境模板等基础文件，保留全部原件与历史。<br>[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>)、[.editorconfig](<../../../.editorconfig>)、[.env.example](<../../../.env.example>)、[.pre-commit-config.yaml](<../../../.pre-commit-config.yaml>)、[README.md](<../../../data-pipeline/README.md>)、[README.md](<../../../tools/README.md>) | 基础工程文件与来源保全已校验；批准方案一致性尚不能认定 | 治理文件正式审核与实际人员策略待确认；只证明创建和验证。 |
+| 8 | 配置前端 后端和算法开发环境<br>Codex执行，相关负责人评审 | 沿用原100包py310/Node/前端/合成推理，另锁pre-commit工具层，不升级业务栈。<br>[versions.yaml](<../../../config/versions.yaml>)、[requirements-stage-three-quality.lock](<../../../config/locks/requirements-stage-three-quality.lock>)、[.python-version](<../../../.python-version>)、[.nvmrc](<../../../.nvmrc>) | Linux CPU版本、100包原锁和12包独立工具层已验证；其他环境未验 | Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。 |
+| 9 | 配置格式化 静态检查和测试工具<br>Codex执行，测试负责人评审 | 统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。<br>[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>) | 所选Ruff/TS/测试/扫描已执行；全量格式、Python静态类型及Torch审计有缺项 | 未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。 |
+| 10 | 编写AGENTS.md等Codex规则<br>Codex生成，技术负责人审核 | 补根规则的阶段/命令/冲突要求和项目Codex配置，继承用户模型及权限设置。<br>[AGENTS.md](<../../../AGENTS.md>)、[config.toml](<../../../.codex/config.toml>)、[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>) | 工程指导与项目配置已形成；实际客户端信任和规则加载未验证 | 项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。 |
+| 11 | 建立最小骨架工程<br>Codex实现，技术负责人监督 | 沿用7服务真实合成链路，另实现三进程Vue/FastAPI/模拟推理夹具，具备health/ready/安全错误/trace和实际浏览器测试。<br>[README.md](<../../../tools/stage_three_demo/README.md>)、[app.py](<../../../tools/stage_three_demo/app.py>)、[mock-connectivity.response.schema.json](<../../../schemas/development/mock-connectivity.response.schema.json>)、[verify_stage_three_demo.py](<../../../scripts/verify_stage_three_demo.py>) | 三独立服务及浏览器调用已验证，补齐结构日志和依赖故障验证；仅为模拟夹具 | 夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。 |
+| 12 | 建立本地开发启动命令<br>Codex执行，开发负责人评审 | 建立Linux Make/Python入口与Windows PowerShell经SSH入口，非零失败、缓存清理保护和共享栈容量保护。<br>[Makefile](<../../../Makefile>)、[dev.py](<../../../scripts/dev.py>)、[dev.ps1](<../../../scripts/dev.ps1>) | Python和Windows SSH入口已验证；共享卷容量阻断构建，原生Windows未验 | 共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。 |
+| 13 | 建立基础CI流水线<br>Codex生成，测试和技术负责人审核 | 沿用25门禁CPU托管CI，接入第三阶段原件/16步/统一命令/夹具与质量检查，不发布生产。<br>[ci.yml](<../../../.github/workflows/ci.yml>)、[.gitlab-ci.yml](<../../../.gitlab-ci.yml>) | GitHub CPU工程流水线已实际运行；required checks及正式Runner治理待落实 | 主分支required checks/签名/受控制品与正式Runner治理未验收。 |
+| 14 | 配置Runner Secret和分支保护<br>平台管理员执行，Codex生成操作手册 | 给出CPU/Docker/GPU Runner用途、Secret示例及主分支保护实测方法，只读观察平台。<br>[ci-administrator-guide.md](<../ci-administrator-guide.md>) | 管理员配置与验证方法已编写；Runner隔离制度和主分支保护未验收 | 平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。 |
+| 15 | 执行自动化验证并形成报告<br>Codex执行，人工复核失败项 | 执行来源/配置一致性、实际py310版本和启动/质量/测试/扫描/夹具，记录未执行与正式阻断。<br>[development-environment-validation-report.md](<../development-environment-validation-report.md>)、[validate_stage_three.py](<../../../scripts/validate_stage_three.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>) | 来源、所选CPU检查和托管制品有实际证据；明确保留未验范围 | GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。 |
+| 16 | 验收并冻结开发环境基线<br>人工批准后Codex固化 | 形成开发环境基线/变更/验收候选与真实缺项，未获完整决定不冻结/改ADR/打标签。<br>[development-environment-baseline.md](<../development-environment-baseline.md>)、[development-environment-change-request.md](<../development-environment-change-request.md>)、[development-environment-acceptance-record.md](<../development-environment-acceptance-record.md>) | 基线、变更和验收候选齐备；实际批准与资源条件未齐，未冻结 | 完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。 |
 
 ## 各步骤原输入和验收要求
 
@@ -43,7 +45,16 @@
 - 未创建外部仓库或账号
 - 管理人员使用角色占位符
 
-实际操作：保留用户指定私有GitHub仓库和实际名称，补内网平台比较与职责/准入条件。。剩余条件：实际项目/技术/仓库管理人员及正式生产代码平台准入未落实。
+实际操作：保留用户指定私有GitHub仓库和实际名称，补内网平台比较与职责/准入条件。剩余条件：实际项目/技术/仓库管理人员及正式生产代码平台准入未落实。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 至少比较两种可落地平台 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 推荐方案说明适用前提 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 未创建外部仓库或账号 | ADAPTED_EXISTING_REPOSITORY | 沿用用户给出的已有GitHub仓库；本阶段未另建仓库或团队账号，不能把源手册的空白仓库前提套用为禁止本次同步。 |
+| 管理人员使用角色占位符 | VERIFIED_SELECTED_SCOPE | 角色占位与owner_name=null均保留；已知GitHub所有者只用于仓库事实，不替代项目负责人。 |
+
+本步证据/候选产物：[repository-platform-options.md](<../repository-platform-options.md>)、[stage-three-platform-observation.json](<../../00-project/validation/stage-three-platform-observation.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第2步 确定Monorepo或多仓库模式
 
@@ -57,7 +68,15 @@
 - 模型权重不进入普通Git
 - ADR状态为待批准
 
-实际操作：沿用既有Monorepo，比较多仓模式并生成独立ADR-013候选，不搬迁旧文件。。剩余条件：实际团队边界和结构正式批准待填。
+实际操作：沿用既有Monorepo，比较多仓模式并生成独立ADR-013候选，不搬迁旧文件。剩余条件：实际团队边界和结构正式批准待填。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 比较两种模式 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 模型权重不进入普通Git | DOCUMENTED | 普通Git中明确禁止权重；提交规则与秘密扫描不能替代平台DLP或全历史扫描。 |
+| ADR状态为待批准 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[repository-structure-decision.md](<../repository-structure-decision.md>)、[ADR-013-repository-structure.md](<../../02-architecture/architecture-decisions/ADR-013-repository-structure.md>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第3步 明确网络 安全和Codex权限边界
 
@@ -71,7 +90,15 @@
 - 每项有审批与审计方式
 - 未把建议写成已授权
 
-实际操作：区分本次会话授权、正式环境边界和禁止数据；保留操作审计与撤销要求。。剩余条件：正式网络、生产目录、审批角色/期限及真实数据用途授权待落实。
+实际操作：区分本次会话授权、正式环境边界和禁止数据；保留操作审计与撤销要求。剩余条件：正式网络、生产目录、审批角色/期限及真实数据用途授权待落实。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 覆盖文件、Git、网络、容器、数据和GPU | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 每项有审批与审计方式 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 未把建议写成已授权 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[codex-permission-boundary.md](<../codex-permission-boundary.md>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第4步 建立仓库和团队账号权限
 
@@ -85,7 +112,15 @@
 - Secret与Runner权限单列
 - 有权限回收机制
 
-实际操作：登记真实仓库所有者与专业角色候选矩阵，不创建账号或虚构团队。。剩余条件：真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。
+实际操作：登记真实仓库所有者与专业角色候选矩阵，不创建账号或虚构团队。剩余条件：真实团队账号、最小权限开通/回收及主分支/Secret管理权限未验收。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 主分支合并严格受控 | PENDING_EXTERNAL | 实际main保护快照为false；候选CODEOWNERS与治理说明未强制主分支合并。 |
+| Secret与Runner权限单列 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 有权限回收机制 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[repository-access-control.md](<../repository-access-control.md>)、[stage-three-platform-observation.json](<../../00-project/validation/stage-three-platform-observation.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第5步 根据技术基线设计目录结构
 
@@ -99,7 +134,15 @@
 - 禁止提交内容明确
 - 未迁移文件
 
-实际操作：说明原13目录与data-pipeline/tools的用途、依赖与禁止内容。。剩余条件：实际责任团队、目录/模块发布边界评审待确认。
+实际操作：说明原13目录与data-pipeline/tools的用途、依赖与禁止内容。剩余条件：实际责任团队、目录/模块发布边界评审待确认。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 目录职责无重叠 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 禁止提交内容明确 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 未迁移文件 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[repository-layout.md](<../repository-layout.md>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第6步 人工评审目录和分支策略
 
@@ -113,7 +156,15 @@
 - 含批准角色和日期
 - 未提前冻结方案
 
-实际操作：准备评审议程、分支/审核/标签/紧急流程与决定模板，不代签。。剩余条件：实际评审者、会议/日期、分支及审核人数决定未提供。
+实际操作：准备评审议程、分支/审核/标签/紧急流程与决定模板，不代签。剩余条件：实际评审者、会议/日期、分支及审核人数决定未提供。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 评审点可逐项确认 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 含批准角色和日期 | PENDING_EXTERNAL | 文档包含角色和日期字段，实际人员、批准日期及评审决定仍为空。 |
+| 未提前冻结方案 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[repository-review-package.md](<../repository-review-package.md>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第7步 初始化仓库和基础文件
 
@@ -128,7 +179,16 @@
 - 未破坏已有文件
 - 无真实凭据
 
-实际操作：补贡献/安全/所有者/格式/环境模板等基础文件，保留全部原件与历史。。剩余条件：治理文件正式审核与实际人员策略待确认；只证明创建和验证。
+实际操作：补贡献/安全/所有者/格式/环境模板等基础文件，保留全部原件与历史。剩余条件：治理文件正式审核与实际人员策略待确认；只证明创建和验证。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 结构与批准方案一致 | PENDING_EXTERNAL | 目录候选已落实，但未取得已批准结构方案，不能认定与正式批准方案一致。 |
+| 基础文件齐全 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 未破坏已有文件 | VERIFIED_SELECTED_SCOPE | 旧来源、历史、业务应用、正式契约与原锁按摘要比对；本次仅调整研发入口、独立夹具和阶段资料。 |
+| 无真实凭据 | VERIFIED_SELECTED_SCOPE | 当前源文件执行指定凭据/令牌规则扫描；不代表全历史、所有敏感数据或所有秘密类型均覆盖。 |
+
+本步证据/候选产物：[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>)、[.editorconfig](<../../../.editorconfig>)、[.env.example](<../../../.env.example>)、[.pre-commit-config.yaml](<../../../.pre-commit-config.yaml>)、[README.md](<../../../data-pipeline/README.md>)、[README.md](<../../../tools/README.md>)、[stage-three-validation-report.json](<../../00-project/validation/stage-three-validation-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第8步 配置前端 后端和算法开发环境
 
@@ -143,7 +203,16 @@
 - 锁文件已生成
 - 未验证项明确
 
-实际操作：沿用原100包py310/Node/前端/合成推理，另锁pre-commit工具层，不升级业务栈。。剩余条件：Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。
+实际操作：沿用原100包py310/Node/前端/合成推理，另锁pre-commit工具层，不升级业务栈。剩余条件：Linux CPU组合可验证；Windows原生安装、生产新Python/GPU/离线准入未完成。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 版本与基线一致 | PARTIAL | 与现有1.1-py310-cpu研发组合相符；源手册要求已批准Technical Baseline 1.0的正式前提仍未满足。 |
+| 模块依赖隔离 | VERIFIED_SELECTED_SCOPE | pre-commit工具层置于仓库外；既有应用100包原锁不变。完整业务模块隔离还需后续研发实现。 |
+| 锁文件已生成 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 未验证项明确 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[versions.yaml](<../../../config/versions.yaml>)、[requirements-stage-three-quality.lock](<../../../config/locks/requirements-stage-three-quality.lock>)、[.python-version](<../../../.python-version>)、[.nvmrc](<../../../.nvmrc>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第9步 配置格式化 静态检查和测试工具
 
@@ -158,7 +227,16 @@
 - 未大规模改写
 - 结果可机器读取
 
-实际操作：统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。。剩余条件：未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。
+实际操作：统一原Ruff/TS/测试与新增格式、pre-commit、依赖/秘密扫描，记录工具适用范围与跳过项。剩余条件：未选择工具不当已启用；旧代码格式债务/完整静态类型方案与正式质量制度待定，Torch发行包审计覆盖仍待。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 前后端检查完整 | PARTIAL | 当前所选Ruff、前端TS、单测、契约与扫描可执行；没有全量旧代码格式检查、Python静态类型或未选工具的完成证据。 |
+| 本地与CI一致 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 未大规模改写 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 结果可机器读取 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+
+本步证据/候选产物：[stage_three_quality.py](<../../../scripts/stage_three_quality.py>)、[stage-three-profile.json](<../../../config/stage-three-profile.json>)、[test_dev.py](<../../../tests/stage_three/test_dev.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第10步 编写AGENTS.md等Codex规则
 
@@ -172,7 +250,15 @@
 - 验证命令明确
 - 状态为待审核
 
-实际操作：补根规则的阶段/命令/冲突要求和项目Codex配置，继承用户模型及权限设置。。剩余条件：项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。
+实际操作：补根规则的阶段/命令/冲突要求和项目Codex配置，继承用户模型及权限设置。剩余条件：项目层信任/不同客户端加载及实际审核待确认，不将文档当技术强制控制。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 边界和停止条件清楚 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 验证命令明确 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 状态为待审核 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[AGENTS.md](<../../../AGENTS.md>)、[config.toml](<../../../.codex/config.toml>)、[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)、[SECURITY.md](<../../../SECURITY.md>)、[CODEOWNERS](<../../../CODEOWNERS>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第11步 建立最小骨架工程
 
@@ -187,7 +273,16 @@
 - 使用模拟数据和模型
 - 具备测试与日志
 
-实际操作：沿用7服务真实合成链路，另实现三进程Vue/FastAPI/模拟推理夹具，具备health/ready/安全错误/trace和实际浏览器测试。。剩余条件：夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。
+实际操作：沿用7服务真实合成链路，另实现三进程Vue/FastAPI/模拟推理夹具，具备health/ready/安全错误/trace和实际浏览器测试。剩余条件：夹具只是模拟连通性；现有PoC依旧真实合成M15，53接口/62表/34能力及完整业务不在本阶段完成。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 三类服务可独立启动 | VERIFIED_SELECTED_SCOPE | loopback三进程和浏览器夹具可独立启动；原7服务与合成M15另有证据，均不替代完整业务。 |
+| 调用链可验证 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 使用模拟数据和模型 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 具备测试与日志 | VERIFIED_SELECTED_SCOPE | 实际测试检查三服务JSON日志、同一request_id关联及字段白名单，验证不含令牌/请求体；另实际停止自建推理进程验证ready 503和调用502。 |
+
+本步证据/候选产物：[README.md](<../../../tools/stage_three_demo/README.md>)、[app.py](<../../../tools/stage_three_demo/app.py>)、[mock-connectivity.response.schema.json](<../../../schemas/development/mock-connectivity.response.schema.json>)、[verify_stage_three_demo.py](<../../../scripts/verify_stage_three_demo.py>)、[stage-three-demo-report.json](<../../00-project/validation/stage-three-demo-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第12步 建立本地开发启动命令
 
@@ -202,7 +297,16 @@
 - clean无误删风险
 - README与命令一致
 
-实际操作：建立Linux Make/Python入口与Windows PowerShell经SSH入口，非零失败、缓存清理保护和共享栈容量保护。。剩余条件：共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。
+实际操作：建立Linux Make/Python入口与Windows PowerShell经SSH入口，非零失败、缓存清理保护和共享栈容量保护。剩余条件：共享Docker盘容量不足；build/integration/ci受保护，Windows原生/正式现场安装仍待。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 统一入口可用 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| Windows与Linux方式明确 | PARTIAL | Linux Python入口和Windows通过SSH入口已验；make未安装，Windows原生环境未验。 |
+| clean无误删风险 | VERIFIED_SELECTED_SCOPE | 仅两类精确缓存，默认预览，路径越界/软链接测试；这是限定范围保护，不宣称任何环境绝无误删风险。 |
+| README与命令一致 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[Makefile](<../../../Makefile>)、[dev.py](<../../../scripts/dev.py>)、[dev.ps1](<../../../scripts/dev.ps1>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第13步 建立基础CI流水线
 
@@ -216,7 +320,15 @@
 - 含安全与契约测试
 - 未发布或部署
 
-实际操作：沿用25门禁CPU托管CI，接入第三阶段原件/16步/统一命令/夹具与质量检查，不发布生产。。剩余条件：主分支required checks/签名/受控制品与正式Runner治理未验收。
+实际操作：沿用25门禁CPU托管CI，接入第三阶段原件/16步/统一命令/夹具与质量检查，不发布生产。剩余条件：主分支required checks/签名/受控制品与正式Runner治理未验收。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 普通Runner不依赖GPU | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 含安全与契约测试 | VERIFIED_SELECTED_SCOPE | 实际所选CPU研发范围有对应机器报告；不推断生产、业务或正式批准完成。 |
+| 未发布或部署 | VERIFIED_SELECTED_SCOPE | 仅临时Runner的研发构建/启动/清理；没有生产部署或发布。 |
+
+本步证据/候选产物：[ci.yml](<../../../.github/workflows/ci.yml>)、[.gitlab-ci.yml](<../../../.gitlab-ci.yml>)、[github-actions-report.json](<../../00-project/validation/github-actions-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第14步 配置Runner Secret和分支保护
 
@@ -231,7 +343,16 @@
 - 主分支保护明确
 - 有验证方法
 
-实际操作：给出CPU/Docker/GPU Runner用途、Secret示例及主分支保护实测方法，只读观察平台。。剩余条件：平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。
+实际操作：给出CPU/Docker/GPU Runner用途、Secret示例及主分支保护实测方法，只读观察平台。剩余条件：平台套餐/实际管理员、保护生效及未授权直推/失败不可合并正反验证待落实。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| Runner按用途隔离 | PENDING_EXTERNAL | CPU临时Runner已用；正式Docker/GPU用途、管理员和权限隔离配置尚未落实。 |
+| Secret无真实值 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 主分支保护明确 | DOCUMENTED | 保护操作手册已写，实际main尚未保护；方案文字不能替代生效配置及正反验证。 |
+| 有验证方法 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[ci-administrator-guide.md](<../ci-administrator-guide.md>)、[stage-three-platform-observation.json](<../../00-project/validation/stage-three-platform-observation.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第15步 执行自动化验证并形成报告
 
@@ -246,7 +367,16 @@
 - 失败项有修复建议
 - 明确冻结条件
 
-实际操作：执行来源/配置一致性、实际py310版本和启动/质量/测试/扫描/夹具，记录未执行与正式阻断。。剩余条件：GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。
+实际操作：执行来源/配置一致性、实际py310版本和启动/质量/测试/扫描/夹具，记录未执行与正式阻断。剩余条件：GPU/真实模型/业务数据/正式网络/Windows原生未验；共享栈未重建/恢复；扫描跳过不判安全。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 结果可复核 | VERIFIED_SELECTED_SCOPE | 本机与托管原始JSON/制品SHA和源提交保留；资料、计划、Mock与正式验收分开。 |
+| 状态严格区分 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 失败项有修复建议 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+| 明确冻结条件 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
+
+本步证据/候选产物：[development-environment-validation-report.md](<../development-environment-validation-report.md>)、[validate_stage_three.py](<../../../scripts/validate_stage_three.py>)、[stage-three-runtime-report.json](<../../00-project/validation/stage-three-runtime-report.json>)、[github-actions-report.json](<../../00-project/validation/github-actions-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ### 第16步 验收并冻结开发环境基线
 
@@ -261,7 +391,16 @@
 - 版本配置文档一致
 - 有变更和回滚机制
 
-实际操作：形成开发环境基线/变更/验收候选与真实缺项，未获完整决定不冻结/改ADR/打标签。。剩余条件：完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。
+实际操作：形成开发环境基线/变更/验收候选与真实缺项，未获完整决定不冻结/改ADR/打标签。剩余条件：完整实际决定、责任人、技术/安全输入、主分支保护及资源整改待落实，NOT_FROZEN。
+
+| 原验收要求 | 当前状态 | 判定范围与限制 |
+| --- | --- | --- |
+| 冻结依据存在 | PENDING_EXTERNAL | 尚无完整有效冻结决定和前置条件，因此NOT_FROZEN。 |
+| 只冻结获批内容 | DOCUMENTED | 未打冻结标签、发布或自动批准ADR；所有正式完成标记仍false。 |
+| 版本配置文档一致 | PARTIAL | 当前研发版本/锁/文件可对照；正式选型、人员与生产准入尚不完整。 |
+| 有变更和回滚机制 | DOCUMENTED | 候选变更与回滚要求已编写；共享卷容量不足，本次不在该栈实施恢复验证。 |
+
+本步证据/候选产物：[development-environment-baseline.md](<../development-environment-baseline.md>)、[development-environment-change-request.md](<../development-environment-change-request.md>)、[development-environment-acceptance-record.md](<../development-environment-acceptance-record.md>)、[external-inputs.json](<external-inputs.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。
 
 ## 源建议与既有工程的适用差异
 
@@ -274,7 +413,7 @@
 
 ## 开发入口与容量保护
 
-Linux使用已验证的`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help`；当前服务器make未安装，Makefile仅作已有make环境的可选等价入口。Windows：`& .\scripts\dev.ps1 help`，SSH协调入口已验证，原生安装未验证。全部命令、环境与审计见[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)。dev默认观察已运行栈，clean默认只预览缓存；完整构建/集成在共享服务器上须显式命令标志和足够容量。
+Linux使用已验证的`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help`；当前服务器make未安装，Makefile仅作已有make环境的可选等价入口。Windows：`& .\scripts\dev.ps1 help`，SSH协调入口已验证，原生安装未验证。全部命令、环境与审计见[CONTRIBUTING.md](<../../../CONTRIBUTING.md>)。dev默认观察已运行栈，clean默认只预览缓存；build/integration-test/ci均须显式--allow-stack-changes。仅GitHub托管Runner的匹配工作区、独立临时runtime、default Docker上下文且无远程DOCKER_HOST时适用冷启动例外；仅GITHUB_ACTIONS标记不能绕过共享卷容量检查。无法读取容量则拒绝执行。此为研发操作保护，不是平台权限或安全隔离证明。
 
 服务器研发数据盘位于Linux的Docker Desktop虚拟机，既有快照为99%使用率；本次未扩容，不能把宿主/workspace空闲容量当卷内容量。当前防护阈值5GiB只是研发操作保护，正式项目配额仍待确定。Docker服务变化和恢复类验证优先在GitHub独立临时Runner执行；当前共享栈维持运行。
 

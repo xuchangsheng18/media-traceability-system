@@ -25,4 +25,6 @@
 
 扫描原始输入/结果：[stage-three-secrets-report.json](<../00-project/validation/stage-three-secrets-report.json>)、[stage-three-python-dependency-report.json](<../00-project/validation/stage-three-python-dependency-report.json>)、[stage-three-npm-dependency-report.json](<../00-project/validation/stage-three-npm-dependency-report.json>)、[stage-three-quality-dependency-report.json](<../00-project/validation/stage-three-quality-dependency-report.json>)、[stage-three-dependency-scan-report.json](<../00-project/validation/stage-three-dependency-scan-report.json>)。扫描跳过包不能判安全，CPU Torch发行包的版本/漏洞/供应商维护需进一步核查；Python3.10 EOL、镜像OS、模型许可与数据DLP独立管理。
 
-未执行/限制：共享Docker数据盘容量未整改，本轮未在该栈重新执行构建/恢复；Windows原生安装、GPU/CUDA/真实模型、正式网络/业务数据、主分支保护正反验证及冻结未完成。三服务模拟夹具只证明健康/就绪、调用、trace和页面；真实模型/业务能力另验。模板、资料PASS、代表性模型/数据库结果都不代替这些工作。现有应用代码与锁保持，完整工程复建由实际GitHub run认定。
+三服务夹具新增实际结构日志关联与依赖停止验证：日志只包含固定事件/服务角色/方法/路由模板/状态/UUID/时长及模拟标识，不记录原始URL、请求体、头或令牌；同一request_id贯穿三服务。测试停止自建推理进程后核对ready=503、调用=502，且不回显输入。原始结果见stage-three-demo-report.json；只停止本验证创建的进程。
+
+未执行/限制：共享Docker数据盘容量未整改，本轮未在该栈重新执行构建/恢复；Windows原生安装、GPU/CUDA/真实模型、正式网络/业务数据、主分支保护正反验证及冻结未完成。三服务模拟夹具只证明健康/就绪、调用、trace、结构日志、故障和页面；真实模型/业务能力另验。模板、资料PASS、代表性模型/数据库结果都不代替这些工作。现有应用代码与锁保持，完整工程复建由实际GitHub run认定。

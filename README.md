@@ -79,7 +79,7 @@ cd /workspace/glwy/projects/media-traceability-system
 
 第一阶段已完成[原件内容核对](docs/00-project/stage-one/source-content-audit.md)、[955处来源章节映射](docs/00-project/stage-one/source-section-map.md)、[33项具体评审清单](docs/00-project/review-package/README.md)和[当前候选输入摘要](docs/00-project/stage-one/input-baseline-candidate.md)。图表版式、36需求技术语义、24测量协议及170任务容量排期的文档工作已完成，范围见[核验记录](docs/00-project/stage-one/four-item-completion.md)；[工程输入控制](docs/00-project/stage-one/remaining-work-completion.md)已接入现有状态表。实际人员、日期、正式规则和真实验收仍按对应待办落实。
 
-第三阶段[16步实际状态与导航](docs/03-development/stage-three/readiness.md)集中展示两份归档手册、仓库治理、开发命令、Codex项目配置、独立工具层、三服务模拟夹具与实际验证；正式开发环境冻结和平台权限仍按实际条件判断。
+第三阶段[16步及57条验收实际状态](docs/03-development/stage-three/readiness.md)集中展示两份归档手册、仓库治理、开发命令、Codex项目配置、独立工具层、三服务模拟夹具及脱敏日志/依赖故障验证；每条要求分别说明证据范围和缺项，正式开发环境冻结和平台权限仍按实际条件判断。
 
 ## 文档入口
 

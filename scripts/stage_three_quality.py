@@ -134,6 +134,32 @@ def setup_tools():
     return 0
 
 
+def normalize_npm_report(raw):
+    # Registry failures may include cookies/headers; never publish that response.
+    if isinstance(raw, dict):
+        metadata = raw.get("metadata")
+        if isinstance(metadata, dict):
+            counts, dependencies = metadata.get("vulnerabilities"), metadata.get("dependencies")
+            levels = {"info", "low", "moderate", "high", "critical", "total"}
+            if (
+                not raw.get("error")
+                and raw.get("auditReportVersion") == 2
+                and isinstance(raw.get("vulnerabilities"), dict)
+                and isinstance(counts, dict)
+                and levels <= counts.keys()
+                and all(type(counts[key]) is int and counts[key] >= 0 for key in levels)
+                and counts["total"] == sum(counts[key] for key in levels - {"total"})
+                and isinstance(dependencies, dict)
+                and type(dependencies.get("total")) is int
+                and dependencies["total"] > 0
+            ):
+                return {key: raw[key] for key in ("auditReportVersion", "vulnerabilities", "metadata")}, False
+    return {
+        "error": "NPM_AUDIT_EXECUTION_ERROR_OR_INCOMPLETE_REPORT",
+        "external_response_headers_or_cookies_published": False,
+    }, True
+
+
 def dependency_check():
     started = datetime.datetime.now(datetime.timezone.utc).isoformat()
     python_path = VALIDATION / "stage-three-python-dependency-report.json"
@@ -184,11 +210,10 @@ def dependency_check():
         capture_output=True,
         check=False,
     )
-    # Audit JSON has dependency metadata, never environment or runtime secrets.
     try:
-        node_data = json.loads(npm.stdout)
+        node_data, node_error = normalize_npm_report(json.loads(npm.stdout))
     except json.JSONDecodeError:
-        node_data = {"error": "NPM_AUDIT_DID_NOT_RETURN_JSON"}
+        node_data, node_error = normalize_npm_report(None)
     node_path.write_bytes((json.dumps(node_data, indent=2) + "\n").encode())
     python_data = json.loads(python_path.read_text()) if python_path.exists() else {"error": "PYTHON_AUDIT_NO_REPORT"}
     dependencies = python_data.get("dependencies", [])
@@ -209,6 +234,7 @@ def dependency_check():
     node_counts = node_data.get("metadata", {}).get("vulnerabilities", {})
     execution_error = bool(
         python_data.get("error")
+        or node_error
         or quality_data.get("error")
         or quality_audit.returncode not in {0, 1}
         or node_data.get("error")

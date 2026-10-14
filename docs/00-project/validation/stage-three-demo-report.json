@@ -35,6 +35,14 @@
       "status": "PASS"
     },
     {
+      "name": "stopped_mock_dependency_ready_503_and_call_502_no_input_echo",
+      "status": "PASS"
+    },
+    {
+      "name": "three_service_structured_trace_logs_exclude_headers_body_and_token",
+      "status": "PASS"
+    },
+    {
       "name": "own_three_processes_stopped_existing_stack_untouched",
       "status": "PASS"
     }
@@ -42,5 +50,51 @@
   "model_weights_or_GPU_loaded": false,
   "database_or_object_store_accessed": false,
   "existing_Docker_stack_changed": false,
-  "private_values_printed": false
+  "private_values_printed": false,
+  "structured_log_counts": {
+    "inference": 7,
+    "backend": 11,
+    "frontend": 5
+  },
+  "correlated_trace": {
+    "inference": [
+      {
+        "event": "development_fixture_request",
+        "role": "inference",
+        "method": "POST",
+        "route": "/api/v1/mock",
+        "status": 200,
+        "request_id": "12a3a478-8023-473c-990d-5fd9d5f3aeda",
+        "elapsed_ms": 1.909,
+        "development_fixture": true,
+        "business_result": false
+      }
+    ],
+    "backend": [
+      {
+        "event": "development_fixture_request",
+        "role": "backend",
+        "method": "POST",
+        "route": "/api/v1/mock",
+        "status": 200,
+        "request_id": "12a3a478-8023-473c-990d-5fd9d5f3aeda",
+        "elapsed_ms": 24.304,
+        "development_fixture": true,
+        "business_result": false
+      }
+    ],
+    "frontend": [
+      {
+        "event": "development_fixture_request",
+        "role": "frontend",
+        "method": "POST",
+        "route": "/demo/check",
+        "status": 200,
+        "request_id": "12a3a478-8023-473c-990d-5fd9d5f3aeda",
+        "elapsed_ms": 75.623,
+        "development_fixture": true,
+        "business_result": false
+      }
+    ]
+  }
 }
