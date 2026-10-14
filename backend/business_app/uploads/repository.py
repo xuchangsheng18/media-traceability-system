@@ -251,36 +251,82 @@ class UploadRepository:
                 "total_size_bytes": int(row["size_bytes"]),
             }
 
-    def complete(self, scope: Scope, upload_id: UUID, payload: dict[str, Any], key: str, request_id: UUID) -> dict[str, Any]:
-        signature = hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+    def complete(
+        self, scope: Scope, upload_id: UUID, payload: dict[str, Any], key: str, request_id: UUID
+    ) -> dict[str, Any]:
+        signature = hashlib.sha256(
+            json.dumps(
+                dict(upload_id=str(upload_id), payload=payload), sort_keys=True, separators=(",", ":"), allow_nan=False
+            ).encode()
+        ).hexdigest()
         with self.database.transaction(scope) as connection:
             row = self.session(scope, upload_id, connection)
             replay = self.replay(connection, scope, "completeUpload", key, signature)
             if replay is not None:
                 return replay
             self.assert_writable(row, scope)
-            parts = connection.execute(text("SELECT part_no,sha256,size_bytes FROM mt.upload_part WHERE case_id=:case AND upload_id=:id ORDER BY part_no"),
-                                       {"case": scope.case_id, "id": upload_id}).mappings().all()
+            parts = (
+                connection.execute(
+                    text(
+                        "SELECT part_no,sha256,size_bytes FROM mt.upload_part WHERE case_id=:case AND upload_id=:id ORDER BY part_no"
+                    ),
+                    {"case": scope.case_id, "id": upload_id},
+                )
+                .mappings()
+                .all()
+            )
             actual = [dict(part) for part in parts]
             total = int(row["size_bytes"])
             expected_count = (total + int(row["part_size_bytes"]) - 1) // int(row["part_size_bytes"])
-            if (payload["parts"] != actual or [part["part_no"] for part in actual] != list(range(1, expected_count + 1))
-                    or sum(part["size_bytes"] for part in actual) != total):
+            if (
+                payload["parts"] != actual
+                or [part["part_no"] for part in actual] != list(range(1, expected_count + 1))
+                or sum(part["size_bytes"] for part in actual) != total
+            ):
                 raise BusinessError("UPLOAD_PART_SET_INVALID", 422)
-            source = connection.execute(text("SELECT authorization_version FROM mt.source_registry WHERE case_id=:case AND source_id=:source"),
-                                        {"case": scope.case_id, "source": row["source_id"]}).scalar_one()
+            source = connection.execute(
+                text("SELECT authorization_version FROM mt.source_registry WHERE case_id=:case AND source_id=:source"),
+                {"case": scope.case_id, "source": row["source_id"]},
+            ).scalar_one()
             version = int(row["row_version"]) + 1
-            event = {"schema_version": "1.0.0", "event_type": "upload.validation.requested.v1", "event_id": str(uuid4()),
-                     "org_id": str(scope.actor.org_id), "case_id": str(scope.case_id), "actor_id": str(scope.actor.user_id),
-                     "upload_id": str(upload_id), "request_id": str(request_id), "session_version": version,
-                     "source_authorization_version": str(source)}
-            connection.execute(text("UPDATE mt.upload_session SET state='VALIDATING',row_version=:version,updated_at=now() WHERE upload_id=:id AND case_id=:case"),
-                               {"version": version, "id": upload_id, "case": scope.case_id})
-            connection.execute(text("""INSERT INTO mt.outbox_event(event_id,org_id,case_id,topic,aggregate_id,aggregate_version,payload,created_by)
+            event = {
+                "schema_version": "1.0.0",
+                "event_type": "upload.validation.requested.v1",
+                "event_id": str(uuid4()),
+                "org_id": str(scope.actor.org_id),
+                "case_id": str(scope.case_id),
+                "actor_id": str(scope.actor.user_id),
+                "upload_id": str(upload_id),
+                "request_id": str(request_id),
+                "session_version": version,
+                "source_authorization_version": str(source),
+            }
+            connection.execute(
+                text(
+                    "UPDATE mt.upload_session SET state='VALIDATING',row_version=:version,updated_at=now() WHERE upload_id=:id AND case_id=:case"
+                ),
+                {"version": version, "id": upload_id, "case": scope.case_id},
+            )
+            connection.execute(
+                text("""INSERT INTO mt.outbox_event(event_id,org_id,case_id,topic,aggregate_id,aggregate_version,payload,created_by)
                 VALUES(:event,:org,:case,'upload.validation.requested.v1',:upload,:version,CAST(:payload AS jsonb),:actor)"""),
-                               {"event": UUID(event["event_id"]), "org": scope.actor.org_id, "case": scope.case_id,
-                                "upload": upload_id, "version": version, "payload": json.dumps(event), "actor": scope.actor.user_id})
-            response = {"upload_id": str(upload_id), "asset_id": None, "validation": "VALIDATING", "duplicate_of": None, "request_id": str(request_id)}
+                {
+                    "event": UUID(str(event["event_id"])),
+                    "org": scope.actor.org_id,
+                    "case": scope.case_id,
+                    "upload": upload_id,
+                    "version": version,
+                    "payload": json.dumps(event),
+                    "actor": scope.actor.user_id,
+                },
+            )
+            response = {
+                "upload_id": str(upload_id),
+                "asset_id": None,
+                "validation": "VALIDATING",
+                "duplicate_of": None,
+                "request_id": str(request_id),
+            }
             self.remember(connection, scope, "completeUpload", key, signature, response)
             return response
 

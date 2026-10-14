@@ -53,6 +53,16 @@ def get_status(request: Request, id: UUID) -> dict[str, Any]:
     return current.repository.status(current.scope(request, "asset.upload", upload_id=id), id)
 
 
+@router.post("/uploads/{id}/complete", status_code=202, operation_id="completeUpload")
+def complete_upload(
+    request: Request,
+    id: UUID,
+    body: dict[str, Any],
+    idempotency_key: Annotated[str, Header(min_length=1, max_length=128)],
+) -> dict[str, Any]:
+    return service(request).complete(request, id, body, idempotency_key)
+
+
 @router.get("/uploads/{id}/parts", operation_id="listUploadParts")
 def list_parts(
     request: Request, id: UUID, cursor: str | None = None, limit: Annotated[int, Query(ge=1, le=100)] = 100

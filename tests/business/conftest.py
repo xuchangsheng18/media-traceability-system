@@ -17,7 +17,7 @@ class PrivateTestDSN(str):
 
 
 @pytest.fixture
-def database_dsn():
+def database_dsn(request, business_template):
     configured = os.environ.get("MT_BUSINESS_TEST_ADMIN_DSN")
     private = (
         Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
@@ -32,7 +32,8 @@ def database_dsn():
         pytest.fail("PoC database is forbidden as the business test administration target")
     name = "mt_business_test_" + uuid4().hex
     with psycopg.connect(configured, autocommit=True) as admin:
-        admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE template0").format(sql.Identifier(name)))
+        template = "template0" if request.node.path.name == "test_migrations.py" else business_template
+        admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(sql.Identifier(name), sql.Identifier(template)))
         try:
             yield PrivateTestDSN(make_conninfo(configured, dbname=name))
         finally:
@@ -50,9 +51,7 @@ def business_context(database_dsn, tmp_path):
     from business_app.errors import BusinessError
     from business_app.settings import BusinessSettings
     from business_app.types import Actor, Scope
-    from business_migrations.runner import apply_migrations
 
-    apply_migrations(database_dsn, root / "backend/business_migrations")
     org, other_org, case, other_case, user, other_user = [uuid4() for _ in range(6)]
     role = "mt_business_runtime_" + uuid4().hex
     password = uuid4().hex + uuid4().hex
@@ -118,7 +117,7 @@ def business_context(database_dsn, tmp_path):
     source = uuid4()
     with psycopg.connect(database_dsn) as connection:
         connection.execute(
-            "INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version) VALUES(%s,%s,%s,'synthetic','test-only','fixture-not-formal-authority',ARRAY['upload'],'verified','test-version-1')",
+            "INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version) VALUES(%s,%s,%s,'synthetic','test-only','fixture-not-formal-authority',ARRAY['upload','analysis'],'verified','test-version-1')",
             (source, org, case),
         )
     database = Database(runtime_dsn)
@@ -139,3 +138,30 @@ def business_context(database_dsn, tmp_path):
         with psycopg.connect(database_dsn) as connection:
             connection.execute(sql.SQL("DROP OWNED BY {}").format(sql.Identifier(role)))
             connection.execute(sql.SQL("DROP ROLE {}").format(sql.Identifier(role)))
+
+
+@pytest.fixture(scope="session")
+def business_template():
+    runtime = Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
+    configured = os.environ.get("MT_BUSINESS_TEST_ADMIN_DSN")
+    if not configured:
+        private = runtime / "business-test-postgres-private.json"
+        if not private.is_file():
+            pytest.fail("explicit isolated test database required")
+        configured = json.loads(private.read_text())["admin_dsn"]
+    if conninfo_to_dict(configured).get("dbname") == "media_trace_poc":
+        pytest.fail("PoC target forbidden")
+    name = "mt_business_template_" + uuid4().hex
+    with psycopg.connect(configured, autocommit=True) as admin:
+        admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE template0").format(sql.Identifier(name)))
+        from business_migrations.runner import apply_migrations
+
+        try:
+            apply_migrations(
+                PrivateTestDSN(make_conninfo(configured, dbname=name)),
+                Path(__file__).resolve().parents[2] / "backend/business_migrations",
+            )
+            yield name
+        finally:
+            assert name.startswith("mt_business_template_")
+            admin.execute(sql.SQL("DROP DATABASE {} WITH (FORCE)").format(sql.Identifier(name)))

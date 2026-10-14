@@ -73,3 +73,16 @@ class UploadService:
             raise
         validate_api("UploadPart", response)
         return response
+
+    def complete(self, request: Request, upload_id: UUID, payload: dict[str, Any], key: str) -> dict[str, Any]:
+        validate_api("UploadComplete", payload)
+        scope = self.scope(request, "asset.upload", upload_id=upload_id)
+        try:
+            request_id = UUID(request.headers.get("X-Request-Id", ""))
+        except ValueError:
+            from uuid import uuid4
+
+            request_id = uuid4()
+        response = self.repository.complete(scope, upload_id, payload, key, request_id)
+        validate_api("UploadResult", response)
+        return response
