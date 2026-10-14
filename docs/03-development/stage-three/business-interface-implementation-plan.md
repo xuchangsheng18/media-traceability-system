@@ -140,11 +140,11 @@ listUploadParts返回`items: UploadPart[]`、`next_cursor: string|null`、`sessi
 
 **Interfaces:** `verify_business_foundation.py`消费显式隔离运行配置；产出逐操作/迁移/RLS/对象/消息/历史/恢复的PASS/FAIL，未配置或前置不足记BLOCKED/NOT_RUN，不记PASS。
 
-- [ ] **Step 1:** 写`test_verification_requires_isolated_target`、`test_failed_business_check_returns_nonzero`；实际测试库/Compose项目必须区别PoC，禁止缺配置时回退。
-- [ ] **Step 2:** 实现统一验证并跑专项+既有契约/生成物/PoC回归；质量计划的Python类型检查应包含新业务包及测试。
-- [ ] **Step 3:** 在全新隔离数据库冷迁移，再由同批备份恢复另一独立目标，对账上传账本、对象版本和两个历史快照；只核验本批数据，不称生产灾备。
-- [ ] **Step 4:** 将本批检查接入真实GitHub CPU CI；保存提交SHA/锁/迁移摘要、通过及受控失败证据，不把原25门禁复用成新业务验收。
-- [ ] **Step 5:** 按总体计划同步源码/文档到GitHub和Linux并核验摘要；未获容量/维护条件时Linux新栈部署标待实施，不能把源码同步当新栈已运行。
+- [x] **Step 1:** 写`test_verification_requires_isolated_target`、`test_failed_business_check_returns_nonzero`；实际测试库/Compose项目必须区别PoC，禁止缺配置时回退。
+- [x] **Step 2:** 实现统一验证并跑专项+既有契约/生成物/PoC回归；质量计划的Python类型检查应包含新业务包及测试。
+- [x] **Step 3:** 在全新隔离数据库冷迁移，再由同批备份恢复另一独立目标，对账上传账本、对象版本和两个历史快照；只核验本批数据，不称生产灾备。
+- **Step 4（执行结果见托管报告）:**** 将本批检查接入真实GitHub CPU CI；保存提交SHA/锁/迁移摘要、通过及受控失败证据，不把原25门禁复用成新业务验收。
+- **Step 5（执行结果见同步回执）:**** 按总体计划同步源码/文档到GitHub和Linux并核验摘要；未获容量/维护条件时Linux新栈部署标待实施，不能把源码同步当新栈已运行。
 
 ## 自检与缺口边界
 
