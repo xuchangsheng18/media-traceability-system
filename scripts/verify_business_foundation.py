@@ -103,13 +103,9 @@ def main() -> int:
     except (OSError, RuntimeError, ValueError, subprocess.SubprocessError):
         report.update(status="BLOCKED_OR_FAIL", exit_code=2, test_count=0)
     report["source_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    report["source_code_dirty"] = bool(
-        subprocess.check_output(
-            ["git", "status", "--porcelain", "--", "backend", "tests", "scripts", "config", "schemas", ".github"],
-            cwd=ROOT,
-            text=True,
-        ).strip()
-    )
+    from stage_three_types import source_tree_state
+
+    report.update(source_tree_state(ROOT))
     report["workflow_run_id"] = os.environ.get("GITHUB_RUN_ID")
     (ROOT / "docs/00-project/validation/business-foundation-report.json").write_text(
         json.dumps(report, indent=2) + "\n"

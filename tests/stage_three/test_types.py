@@ -10,6 +10,22 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 
 
+@pytest.mark.parametrize(
+    "changed,dirty,metadata",
+    [
+        (b" M config/locks/runtime-archive.json\0", False, True),
+        (b" M config/locks/runtime-archive.json\0 M config/mypy.ini\0", True, True),
+        (b" M backend/business_app/main.py\0", True, False),
+    ],
+)
+def test_source_identity_separates_generated_archive_metadata(monkeypatch, changed, dirty, metadata):
+    module = load_types()
+    monkeypatch.setattr(module.subprocess, "check_output", lambda *args, **kwargs: changed)
+    state = module.source_tree_state(ROOT)
+    assert state["source_code_dirty"] is dirty
+    assert bool(state["build_metadata_changes"]) is metadata
+
+
 def load_types():
     source = ROOT / "scripts/stage_three_types.py"
     assert source.is_file(), "independent Python type tool entry is not implemented"

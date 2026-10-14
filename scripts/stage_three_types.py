@@ -10,11 +10,42 @@ import sys
 import tempfile
 import urllib.request
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
 LOCK = ROOT / "config/locks/requirements-stage-three-types.lock"
 ARTIFACTS = ROOT / "config/locks/stage-three-type-artifacts.json"
+
+
+def source_tree_state(root: Path) -> dict[str, Any]:
+    raw = subprocess.check_output(
+        [
+            "git",
+            "status",
+            "--porcelain=v1",
+            "-z",
+            "--",
+            "scripts",
+            "backend",
+            "ai-services",
+            "tests",
+            "tools",
+            "config",
+            "schemas",
+            ".github",
+        ],
+        cwd=root,
+    )
+    changes = [record.decode("utf-8")[3:] for record in raw.split(b"\0") if record]
+    generated = [path for path in changes if path == "config/locks/runtime-archive.json"]
+    source = [path for path in changes if path not in generated]
+    return {
+        "source_code_dirty": bool(source),
+        "source_changes": source,
+        "build_metadata_changes": generated,
+        "build_metadata_changes_are_not_dependency_lock_changes": True,
+    }
 
 
 def verify_artifacts(lock_path: Path, artifacts_path: Path) -> None:
@@ -148,25 +179,7 @@ def main() -> int:
             "future_business_directories_included_when_present": True,
             "exit_code": result.returncode,
             "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-            "source_code_dirty": bool(
-                subprocess.check_output(
-                    [
-                        "git",
-                        "status",
-                        "--porcelain",
-                        "--",
-                        "scripts",
-                        "backend",
-                        "ai-services",
-                        "tests",
-                        "tools",
-                        "config",
-                        ".github",
-                    ],
-                    cwd=ROOT,
-                    text=True,
-                ).strip()
-            ),
+            **source_tree_state(ROOT),
             "original_100_package_lock_changed": False,
             "formal_frozen": False,
         }
