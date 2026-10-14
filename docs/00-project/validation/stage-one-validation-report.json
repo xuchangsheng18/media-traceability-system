@@ -1,6 +1,6 @@
 {
-  "status": "PASS",
-  "observed_at": "2026-10-13T17:04:19.067119+00:00",
+  "status": "FAIL",
+  "observed_at": "2026-10-14T13:39:40.782431+00:00",
   "scope": "first_stage_material_lineage_navigation_and_declared_references_not_business_acceptance",
   "checks": [
     {
@@ -42,17 +42,13 @@
       "status": "PASS",
       "detail": {
         "business_tables": 62,
-        "fields": 824,
+        "fields": 825,
         "task_ids_valid": true
       }
     },
     {
       "name": "table_task_source_pointers_resolve",
-      "status": "PASS",
-      "detail": {
-        "source_pointers_resolved": 508,
-        "no_invented_usage_or_owner_approval": true
-      }
+      "status": "FAIL"
     },
     {
       "name": "stage_counts_and_no_false_approval",
@@ -109,13 +105,18 @@
       "name": "current_candidate_input_set_and_exact_hashes",
       "status": "PASS",
       "detail": {
-        "candidate_files": 708,
+        "candidate_files": 714,
         "historical_snapshots": 2,
         "formal_frozen": false
       }
     }
   ],
-  "errors": [],
+  "errors": [
+    {
+      "name": "table_task_source_pointers_resolve",
+      "error": "docs/04-database/table-catalog.json"
+    }
+  ],
   "services_or_database_modified": false,
   "formal_stage_one_frozen": false,
   "formal_stage_two_frozen": false

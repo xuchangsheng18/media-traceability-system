@@ -508,7 +508,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共590份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共591份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -608,6 +608,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/ci-failure-probe-report.json](<00-project/validation/ci-failure-probe-report.json>) | 故意插入失败后的真实非零门禁报告；FAIL为探针预期。 |
 | [00-project/validation/ci-report.json](<00-project/validation/ci-report.json>) | 最近一次正常CI入口执行报告；详细阶段与范围须核对。 |
 | [00-project/validation/database-contract-report.json](<00-project/validation/database-contract-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
+| [00-project/validation/database-foundation-20261012-history.json](<00-project/validation/database-foundation-20261012-history.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/database-foundation-report.json](<00-project/validation/database-foundation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/development-recovery-report.json](<00-project/validation/development-recovery-report.json>) | 8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。 |
 | [00-project/validation/documentation-completion-report.json](<00-project/validation/documentation-completion-report.json>) | 当前全量导航、字段来源及原件摘要的覆盖检查 |

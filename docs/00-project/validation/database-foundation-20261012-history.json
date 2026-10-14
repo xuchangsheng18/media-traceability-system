@@ -1,0 +1,266 @@
+{
+  "scope": "isolated_database_constraints_not_production",
+  "container": "mt-poc-sql-c312b735c192",
+  "image": "postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+  "started_at": "2026-10-12T12:40:17.414135+00:00",
+  "checks": [
+    {
+      "name": "docs/04-database/initial-schema.sql",
+      "sha256": "b5c7c19f58789412b050ed0ade118389b667dd65197de476d74eb53784c18c62",
+      "status": "PASS"
+    },
+    {
+      "name": "tests/sql/integrity-tests.sql",
+      "sha256": "e540e084c068fe2db8765e2dc8cba060feb25e1893c2871ac7146486e46fc176",
+      "status": "PASS"
+    },
+    {
+      "name": "tests/sql/ranking-fixtures.sql",
+      "sha256": "7f745f325dd9d7c24e5a38ca3ff33e3165680996dbd9737b8f6098374d7dd8fe",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-valid-0",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-valid-1",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-valid-2",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-valid-3",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-four-candidates",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-rank-four",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-duplicate-rank",
+      "expected_sqlstate": "23505",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-duplicate-asset",
+      "expected_sqlstate": "23505",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-gap",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-missing-all-items",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-zero-not-insufficient",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-nonmember-asset",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-wrong-cluster",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-cross-case-asset",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-wrong-model",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-wrong-coverage",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-wrong-status",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-unknown-result",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-duplicate-result-snapshot",
+      "expected_sqlstate": "23505",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-unknown-batch",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-cross-case-batch",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-header-immutable",
+      "expected_sqlstate": "55000",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-item-immutable",
+      "expected_sqlstate": "55000",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-no-delete",
+      "expected_sqlstate": "55000",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-no-truncate",
+      "expected_sqlstate": "55000",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-no-append-after-commit",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-runtime-valid",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-RLS-no-context",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-RLS-denied-insert",
+      "expected_sqlstate": "42501",
+      "status": "PASS"
+    },
+    {
+      "name": "RANK-history-preserved",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    },
+    {
+      "name": "REF-empty-object",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-JSON-null",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-array-root",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-missing-counter",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-null-support",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-empty-support",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-invalid-UUID",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-nonstring-ID",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-unknown-ID",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-duplicate-support",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-extra-key",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-null-counter",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-unknown-counter",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-duplicate-counter",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-cross-case",
+      "expected_sqlstate": "23503",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-noncanonical-UUID",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-duplicate-case-insensitive",
+      "expected_sqlstate": "23514",
+      "status": "PASS"
+    },
+    {
+      "name": "REF-valid-counter-evidence",
+      "expected_sqlstate": null,
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS",
+  "cleanup_exit_code": 0,
+  "ended_at": "2026-10-12T12:40:36.847469+00:00"
+}
