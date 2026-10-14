@@ -46,17 +46,17 @@
       "title": "创建分片上传会话",
       "purpose": "创建分片上传会话；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
-      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务HTTP和数据库实际实现，测试身份仅fixture；生产权威提供方未配置时拒绝。",
+      "completion_and_followup": "中断续传/同摘要重放/冲突/到期/提交失败已实测；上传完整校验终态在后续任务验证。"
     },
     "putUploadPart": {
       "title": "提交指定分片",
       "purpose": "提交指定分片；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
-      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务HTTP和数据库实际实现，测试身份仅fixture；生产权威提供方未配置时拒绝。",
+      "completion_and_followup": "中断续传/同摘要重放/冲突/到期/提交失败已实测；上传完整校验终态在后续任务验证。"
     },
     "completeUpload": {
       "title": "合并并校验上传",
@@ -425,6 +425,22 @@
       "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
       "scope_note": "当前无此正式业务端点完成证据",
       "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+    },
+    "getUploadStatus": {
+      "title": "读取上传实际进度",
+      "purpose": "读取上传实际进度；当前身份、单位、案件和来源均重新核验。",
+      "authorization_scope": "先在当前主体RLS范围查找上传所属案件，再核验asset.upload及来源用途；UUID不是凭证。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务数据库与私有固定版本对象实测；正式权威身份/来源提供方尚未接入。",
+      "completion_and_followup": "进度/分片读取真实HTTP与事务，时效/重放/冲突已测试；完整上传终态及正式环境另验。"
+    },
+    "listUploadParts": {
+      "title": "读取已接收分片用于续传",
+      "purpose": "读取已接收分片用于续传；当前身份、单位、案件和来源均重新核验。",
+      "authorization_scope": "先在当前主体RLS范围查找上传所属案件，再核验asset.upload及来源用途；UUID不是凭证。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务数据库与私有固定版本对象实测；正式权威身份/来源提供方尚未接入。",
+      "completion_and_followup": "进度/分片读取真实HTTP与事务，时效/重放/冲突已测试；完整上传终态及正式环境另验。"
     }
   }
 }

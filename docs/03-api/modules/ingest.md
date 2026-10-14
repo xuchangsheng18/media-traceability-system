@@ -14,8 +14,8 @@
 | --- | --- | --- |
 | [createSource](../operations/createSource.md) | POST /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [listSources](../operations/listSources.md) | GET /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createUpload](../operations/createUpload.md) | POST /api/v1/uploads | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [putUploadPart](../operations/putUploadPart.md) | PUT /api/v1/uploads/{id}/parts/{part_no} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [createUpload](../operations/createUpload.md) | POST /api/v1/uploads | DEV_PARTIAL |
+| [putUploadPart](../operations/putUploadPart.md) | PUT /api/v1/uploads/{id}/parts/{part_no} | DEV_PARTIAL |
 | [completeUpload](../operations/completeUpload.md) | POST /api/v1/uploads/{id}/complete | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [downloadAsset](../operations/downloadAsset.md) | GET /api/v1/assets/{id}/content | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createImport](../operations/createImport.md) | POST /api/v1/imports | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |

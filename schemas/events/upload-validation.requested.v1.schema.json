@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:event:upload.validation.requested:1.0.0",
+  "type": "object",
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "event_type": {"const": "upload.validation.requested.v1"},
+    "event_id": {"type": "string", "format": "uuid"},
+    "org_id": {"type": "string", "format": "uuid"},
+    "case_id": {"type": "string", "format": "uuid"},
+    "actor_id": {"type": "string", "format": "uuid"},
+    "upload_id": {"type": "string", "format": "uuid"},
+    "request_id": {"type": "string", "format": "uuid"},
+    "session_version": {"type": "integer", "minimum": 1},
+    "source_authorization_version": {"type": "string", "minLength": 1, "maxLength": 128}
+  },
+  "required": ["schema_version", "event_type", "event_id", "org_id", "case_id", "actor_id", "upload_id", "request_id", "session_version", "source_authorization_version"],
+  "additionalProperties": false
+}

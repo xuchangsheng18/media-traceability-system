@@ -3,12 +3,18 @@ from contextlib import asynccontextmanager
 from uuid import UUID, uuid4
 
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from sqlalchemy.exc import SQLAlchemyError
 
 from .auth import AuthorityProvider
 from .db import Database
 from .errors import BusinessError
+from .objects import FileObjectStore
 from .settings import BusinessSettings
+from .uploads.repository import UploadRepository
+from .uploads.router import router as upload_router
+from .uploads.service import UploadService
 
 
 def create_app(settings: BusinessSettings, authority: AuthorityProvider | None = None) -> FastAPI:
@@ -23,6 +29,10 @@ def create_app(settings: BusinessSettings, authority: AuthorityProvider | None =
     app.state.business_database = database
     app.state.business_authority = authority
     app.state.business_settings = settings
+    app.state.upload_service = UploadService(
+        database, UploadRepository(database, settings), FileObjectStore(settings.object_root)
+    )
+    app.include_router(upload_router)
 
     @app.exception_handler(BusinessError)
     async def business_error(request: Request, exception: BusinessError) -> JSONResponse:
@@ -44,5 +54,13 @@ def create_app(settings: BusinessSettings, authority: AuthorityProvider | None =
             },
             headers={"X-Request-Id": str(request_id)},
         )
+
+    @app.exception_handler(SQLAlchemyError)
+    async def database_error(request: Request, _: SQLAlchemyError) -> JSONResponse:
+        return await business_error(request, BusinessError("DATABASE_UNAVAILABLE", 503))
+
+    @app.exception_handler(RequestValidationError)
+    async def invalid_request(request: Request, _: RequestValidationError) -> JSONResponse:
+        return await business_error(request, BusinessError("INPUT_INVALID", 422))
 
     return app

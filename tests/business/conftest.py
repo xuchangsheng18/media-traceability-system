@@ -103,8 +103,24 @@ def business_context(database_dsn, tmp_path):
             return Scope(actor=current_actor, case_id=case_id)
 
         def authorize_source(self, scope, source_id, purpose):
-            raise BusinessError("SOURCE_AUTHORITY_UNAVAILABLE", 503)
+            with psycopg.connect(database_dsn) as connection:
+                row = connection.execute(
+                    "SELECT authorization_status,purpose,expires_at FROM mt.source_registry WHERE case_id=%s AND source_id=%s",
+                    (scope.case_id, source_id),
+                ).fetchone()
+            if not row or row[0] != "verified" or purpose not in row[1]:
+                raise BusinessError("SOURCE_AUTHORIZATION_REQUIRED", 403)
+            from datetime import datetime, timezone
 
+            if row[2] is not None and row[2] <= datetime.now(timezone.utc):
+                raise BusinessError("SOURCE_AUTHORIZATION_REQUIRED", 403)
+
+    source = uuid4()
+    with psycopg.connect(database_dsn) as connection:
+        connection.execute(
+            "INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version) VALUES(%s,%s,%s,'synthetic','test-only','fixture-not-formal-authority',ARRAY['upload'],'verified','test-version-1')",
+            (source, org, case),
+        )
     database = Database(runtime_dsn)
     try:
         yield dict(
@@ -114,6 +130,7 @@ def business_context(database_dsn, tmp_path):
             actor=actor,
             other_actor=other_actor,
             case_id=case,
+            source_id=source,
             other_case_id=other_case,
             admin_dsn=database_dsn,
         )

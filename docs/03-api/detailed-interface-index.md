@@ -1,6 +1,6 @@
 # 详细接口目录
 
-共53个外部业务候选操作、83个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。
+共55个外部业务候选操作、85个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。
 
 | operationId | 方法/路径 | 主业务模块 | 详细文件 |
 | --- | --- | --- | --- |
@@ -57,6 +57,8 @@
 | switchIndex | POST /api/v1/indices/{id}/switch | IMGRET, VIDTRACE | [逐接口说明](operations/switchIndex.md) |
 | createPolicy | POST /api/v1/policies | OPS, PROPAGATION, REVIEW, RISK | [逐接口说明](operations/createPolicy.md) |
 | listPolicies | GET /api/v1/policies | OPS, RISK | [逐接口说明](operations/listPolicies.md) |
+| getUploadStatus | GET /api/v1/uploads/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getUploadStatus.md) |
+| listUploadParts | GET /api/v1/uploads/{id}/parts | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listUploadParts.md) |
 
 ## 模块目录
 

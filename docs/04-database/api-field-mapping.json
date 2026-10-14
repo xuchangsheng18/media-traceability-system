@@ -880,8 +880,10 @@
       "schema": "UploadResult",
       "field": "duplicate_of",
       "required": true,
-      "targets": [],
-      "handling": "service_projection_or_input",
+      "targets": [
+        "upload_session.duplicate_of"
+      ],
+      "handling": "persistence_or_join",
       "semantics": "在当前可访问资产中查同摘要；禁止泄露其他案件",
       "status": "proposal_pending_review"
     },
@@ -11220,6 +11222,129 @@
       ],
       "handling": "persistence_or_join",
       "semantics": "按ranking_id关联单份快照；证据数组从evidence_refs对应键投影，需应用校验引用。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "session",
+      "required": true,
+      "targets": [
+        "upload_session.upload_id",
+        "upload_session.row_version",
+        "upload_session.state"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "result",
+      "required": true,
+      "targets": [
+        "upload_session.asset_id",
+        "upload_session.duplicate_of"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "received_parts_count",
+      "required": true,
+      "targets": [
+        "upload_part.part_no"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "received_bytes",
+      "required": true,
+      "targets": [
+        "upload_part.size_bytes"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "direction": "response",
+      "schema": "UploadStatus",
+      "field": "total_size_bytes",
+      "required": true,
+      "targets": [
+        "upload_session.size_bytes"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "direction": "response",
+      "schema": "UploadPartPage",
+      "field": "items",
+      "required": true,
+      "targets": [
+        "upload_part.part_no",
+        "upload_part.sha256",
+        "upload_part.size_bytes"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "direction": "response",
+      "schema": "UploadPartPage",
+      "field": "next_cursor",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
+      "status": "proposal_pending_review"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "direction": "response",
+      "schema": "UploadPartPage",
+      "field": "session_version",
+      "required": true,
+      "targets": [
+        "upload_session.row_version"
+      ],
+      "handling": "persistence_or_join",
+      "semantics": "已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。",
       "status": "proposal_pending_review"
     }
   ]

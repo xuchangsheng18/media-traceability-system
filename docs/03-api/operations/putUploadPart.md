@@ -1,10 +1,10 @@
 # 提交指定分片：putUploadPart
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `072aa69af85cff9b18212db91b8ac493a9aacc6f1df04ffadb9a7456f1424388`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4`。契约未冻结，文档存在不代表接口已实现。
 
 `PUT /api/v1/uploads/{id}/parts/{part_no}`；operationId=`putUploadPart`；源指针=`/paths/~1uploads~1{id}~1parts~1{part_no}/put`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。正式53业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**DEV_PARTIAL**；独立业务HTTP和数据库实际实现，测试身份仅fixture；生产权威提供方未配置时拒绝。。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -67,7 +67,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 }
 ```
 
-按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。
+中断续传/同摘要重放/冲突/到期/提交失败已实测；上传完整校验终态在后续任务验证。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

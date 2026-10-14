@@ -1093,5 +1093,49 @@
     "binary": false,
     "conditional": false,
     "query": true
+  },
+  {
+    "method": "get",
+    "path": "/uploads/{id}",
+    "id": "getUploadStatus",
+    "request": null,
+    "response": "UploadStatus",
+    "tasks": [
+      "T022",
+      "T023",
+      "T024"
+    ],
+    "tables": [
+      "upload_session",
+      "upload_part"
+    ],
+    "permission": "asset.upload",
+    "status": "200",
+    "source": "User-reviewed implementation plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/uploads/{id}/parts",
+    "id": "listUploadParts",
+    "request": null,
+    "response": "UploadPartPage",
+    "tasks": [
+      "T022",
+      "T023",
+      "T026"
+    ],
+    "tables": [
+      "upload_session",
+      "upload_part"
+    ],
+    "permission": "asset.upload",
+    "status": "200",
+    "source": "User-reviewed implementation plan",
+    "binary": false,
+    "conditional": false,
+    "query": true
   }
 ]

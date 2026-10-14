@@ -1,21 +1,21 @@
 {
   "status": "DETAIL_DOCUMENTED_WITH_OPEN_CONTRACT_GAPS",
   "formal_frozen": false,
-  "business_operation_count": 53,
-  "business_schema_count": 83,
+  "business_operation_count": 55,
+  "business_schema_count": 85,
   "internal_capability_count": 34,
   "source_hashes": {
-    "docs/03-api/openapi.yaml": "072aa69af85cff9b18212db91b8ac493a9aacc6f1df04ffadb9a7456f1424388",
+    "docs/03-api/openapi.yaml": "bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4",
     "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
-    "docs/03-api/operation-index.json": "af8a90174415a261ca17d439513207b86722a8d75b4f88545247f40b6eb7bc2a",
-    "docs/03-api/interface-annotations.json": "05cf645d0fc83146e902f02a00ec1b506f798e3b65ed4fbb5c3e38cdffb246cb",
+    "docs/03-api/operation-index.json": "f31ff0f43eb89d8b94e2f50a464c63caa2dee207d7c188868c46dda824afb3c7",
+    "docs/03-api/interface-annotations.json": "adcbebe7af62a74bdba3e571eb52c8b0dbf6b10c1e5213c650f5e2bcdab340d0",
     "docs/00-project/requirement-traceability.yaml": "a3a9efd585510c8c0b296f230bf2e15b35b16fa3e6c4526e28151ac089da092b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "docs/04-database/api-field-mapping.json": "03418c469db224ce549df4390a48fe743e618426304a414a4575404795ef1d4a",
-    "docs/04-database/field-provenance.json": "052881b912bdd9d16744756133b1ca8dc00f4fbe13cd5509c47d3e7f45b1f23f",
+    "docs/04-database/api-field-mapping.json": "7c97cc080c1624c49f7cd1bee4cc7096862d12c0a92d618eb08989f0318b400a",
+    "docs/04-database/field-provenance.json": "1ca91cef6523edd60733e4c1dc747be9ab2bb211973eaa8874631f5c01cef865",
     "docs/06-algorithms/model-catalog.yaml": "398dcd073fd79bf17ff1dea8a83627e2839097b4b81a8f8faa0f4329a75d3cb3",
-    "schemas/api/common.schema.json": "1de2c5438693c7bc09ff7f1a30bf27425a865dba70868f01a3d846dc4fcae801",
-    "scripts/generate_interface_docs.py": "d1a5225da006a8f75d4447d291a086e2d4505a317e2792f8a6d09ea2fab2804a",
+    "schemas/api/common.schema.json": "7d59f684f48e31729d999aaa2094257a219f014aaddccd2057b82c5f953bd552",
+    "scripts/generate_interface_docs.py": "96f0eec32956bdc70d1b9418cb0b605a7b70d5740c8185da6d641c81d0a74cfa",
     "schemas/model/M01.request.schema.json": "5e0c46c8437e662016ce516f0c2a1bb31da2b41c24b8d903b5e8595be23b4a2c",
     "schemas/model/M01.response.schema.json": "eb14e0e01f75c7f81c44ad3e002fa229da656c4f6bada1687826ebcfb8054a6b",
     "schemas/model/M02.request.schema.json": "8f54f991ae47b70d5354f3bbd8fd875b57c093aff14985f5a6786452c1f10b5f",
@@ -367,7 +367,7 @@
         "TV-T022-N"
       ],
       "detail_file": "docs/03-api/operations/createUpload.md",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "implementation_status": "DEV_PARTIAL",
       "formal_approved": false,
       "request_schema": "UploadCreate",
       "response_schema": "UploadSession"
@@ -398,7 +398,7 @@
         "TV-T023-N"
       ],
       "detail_file": "docs/03-api/operations/putUploadPart.md",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
+      "implementation_status": "DEV_PARTIAL",
       "formal_approved": false,
       "request_schema": null,
       "response_schema": "UploadPart"
@@ -2633,6 +2633,52 @@
       "formal_approved": false,
       "request_schema": null,
       "response_schema": "PolicyPage"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}",
+      "source_pointer": "/paths/~1uploads~1{id}/get",
+      "modules_from_business_trace": [],
+      "task_ids": [
+        "T022",
+        "T023",
+        "T024"
+      ],
+      "table_names": [
+        "upload_session",
+        "upload_part"
+      ],
+      "requirement_ids": [],
+      "test_ids": [],
+      "detail_file": "docs/03-api/operations/getUploadStatus.md",
+      "implementation_status": "DEV_PARTIAL",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "UploadStatus"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/api/v1/uploads/{id}/parts",
+      "source_pointer": "/paths/~1uploads~1{id}~1parts/get",
+      "modules_from_business_trace": [],
+      "task_ids": [
+        "T022",
+        "T023",
+        "T026"
+      ],
+      "table_names": [
+        "upload_session",
+        "upload_part"
+      ],
+      "requirement_ids": [],
+      "test_ids": [],
+      "detail_file": "docs/03-api/operations/listUploadParts.md",
+      "implementation_status": "DEV_PARTIAL",
+      "formal_approved": false,
+      "request_schema": null,
+      "response_schema": "UploadPartPage"
     }
   ],
   "modules": [
@@ -3086,6 +3132,7 @@
     "docs/03-api/operations/getTask.md",
     "docs/03-api/operations/getTaskEvidence.md",
     "docs/03-api/operations/getTimeline.md",
+    "docs/03-api/operations/getUploadStatus.md",
     "docs/03-api/operations/health.md",
     "docs/03-api/operations/issueOperationToken.md",
     "docs/03-api/operations/listAssets.md",
@@ -3095,6 +3142,7 @@
     "docs/03-api/operations/listPolicies.md",
     "docs/03-api/operations/listSources.md",
     "docs/03-api/operations/listTasks.md",
+    "docs/03-api/operations/listUploadParts.md",
     "docs/03-api/operations/putUploadPart.md",
     "docs/03-api/operations/recordEvaluation.md",
     "docs/03-api/operations/registerModel.md",

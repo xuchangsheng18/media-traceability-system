@@ -58,7 +58,7 @@ completeUpload,POST,/api/v1/uploads/{id}/complete,request,UploadComplete,parts[]
 completeUpload,POST,/api/v1/uploads/{id}/complete,response,UploadResult,upload_id,True,upload_part.upload_id;upload_session.upload_id,persistence_or_join,服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。,proposal_pending_review
 completeUpload,POST,/api/v1/uploads/{id}/complete,response,UploadResult,asset_id,True,media_asset.asset_id;upload_session.asset_id,persistence_or_join,服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。,proposal_pending_review
 completeUpload,POST,/api/v1/uploads/{id}/complete,response,UploadResult,validation,True,,service_projection_or_input,安全校验状态投影；未VALID不分析,proposal_pending_review
-completeUpload,POST,/api/v1/uploads/{id}/complete,response,UploadResult,duplicate_of,True,,service_projection_or_input,在当前可访问资产中查同摘要；禁止泄露其他案件,proposal_pending_review
+completeUpload,POST,/api/v1/uploads/{id}/complete,response,UploadResult,duplicate_of,True,upload_session.duplicate_of,persistence_or_join,在当前可访问资产中查同摘要；禁止泄露其他案件,proposal_pending_review
 completeUpload,POST,/api/v1/uploads/{id}/complete,response,UploadResult,request_id,True,,service_projection_or_input,请求追踪/审计，不作为业务对象ID,proposal_pending_review
 listAssets,GET,/api/v1/assets,response,AssetPage,items,True,,service_projection_or_input,分页/聚合投影，明细按子结构对应表,proposal_pending_review
 listAssets,GET,/api/v1/assets,response,AssetPage,items[].asset_id,True,media_asset.asset_id,persistence_or_join,服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。,proposal_pending_review
@@ -761,3 +761,11 @@ getFirstSource,GET,/api/v1/clusters/{id}/first-source,response,FirstSource,run_v
 getFirstSource,GET,/api/v1/clusters/{id}/first-source,response,FirstSource,result_version,True,first_source_ranking.result_version,persistence_or_join,按ranking_id关联单份快照；证据数组从evidence_refs对应键投影，需应用校验引用。,proposal_pending_review
 getFirstSource,GET,/api/v1/clusters/{id}/first-source,response,FirstSource,policy_version,True,first_source_ranking.policy_version,persistence_or_join,按ranking_id关联单份快照；证据数组从evidence_refs对应键投影，需应用校验引用。,proposal_pending_review
 getFirstSource,GET,/api/v1/clusters/{id}/first-source,response,FirstSource,candidate_count,True,first_source_ranking.candidate_count,persistence_or_join,按ranking_id关联单份快照；证据数组从evidence_refs对应键投影，需应用校验引用。,proposal_pending_review
+getUploadStatus,GET,/api/v1/uploads/{id},response,UploadStatus,session,True,upload_session.upload_id;upload_session.row_version;upload_session.state,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+getUploadStatus,GET,/api/v1/uploads/{id},response,UploadStatus,result,True,upload_session.asset_id;upload_session.duplicate_of,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+getUploadStatus,GET,/api/v1/uploads/{id},response,UploadStatus,received_parts_count,True,upload_part.part_no,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+getUploadStatus,GET,/api/v1/uploads/{id},response,UploadStatus,received_bytes,True,upload_part.size_bytes,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+getUploadStatus,GET,/api/v1/uploads/{id},response,UploadStatus,total_size_bytes,True,upload_session.size_bytes,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+listUploadParts,GET,/api/v1/uploads/{id}/parts,response,UploadPartPage,items,True,upload_part.part_no;upload_part.sha256;upload_part.size_bytes,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+listUploadParts,GET,/api/v1/uploads/{id}/parts,response,UploadPartPage,next_cursor,True,,service_projection_or_input,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review
+listUploadParts,GET,/api/v1/uploads/{id}/parts,response,UploadPartPage,session_version,True,upload_session.row_version,persistence_or_join,已认可首批实现方案：当前案件/来源核验、实际分片账本和绑定会话版本的签名游标；不作正式冻结。,proposal_pending_review

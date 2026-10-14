@@ -870,6 +870,19 @@ export interface components {
             result: components["schemas"]["SearchResults"] | null;
             error_code: string | null;
         } & unknown;
+        /** @description 真实持久化分片进度；UPLOADING/EXPIRED无结果，只有COMPLETED/VALID允许形成有效资产。 */
+        UploadStatus: {
+            session: components["schemas"]["UploadSession"];
+            result: components["schemas"]["UploadResult"] | null;
+            received_parts_count: number;
+            received_bytes: number;
+            total_size_bytes: number;
+        };
+        UploadPartPage: {
+            items: components["schemas"]["UploadPart"][];
+            next_cursor: string | null;
+            session_version: number;
+        };
         WorkflowDag: {
             dag_id: string;
             dag_version: string;

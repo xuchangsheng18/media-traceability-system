@@ -111,7 +111,7 @@ def outputs():
         records.append(record)
         text = f"# {annotation['title']}：{oid}\n\n" + source_note(BASE + "openapi.yaml")
         text += f"`{record['method']} {record['path']}`；operationId=`{oid}`；源指针=`{record['source_pointer']}`。\n\n"
-        text += f"实现范围：**{annotation['implementation_status']}**；{annotation['scope_note']}。正式53业务操作仍为候选，当前PoC只有专门列出的开发入口。\n\n"
+        text += f"实现范围：**{annotation['implementation_status']}**；{annotation['scope_note']}。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。\n\n"
         text += "## 调用目的与权限\n\n" + annotation["purpose"] + "\n\n"
         security = op.get("security", spec.get("security", []))
         text += "OpenAPI身份声明：`" + json.dumps(security, ensure_ascii=False) + "`；功能权限候选：`" + op["x-required-permission"] + "`。\n\n"
@@ -199,7 +199,7 @@ def outputs():
                "source_hashes": {path: digest(path) for path in contract_sources}, "operations": records, "modules": module_records,
                "generated_docs": sorted(list(docs) + [BASE + "interface-catalog.json", BASE + "detailed-interface-index.md"]), "generation_source": "scripts/generate_interface_docs.py"}
     docs[BASE + "interface-catalog.json"] = jdump(catalog) + "\n"
-    nav = "# 详细接口目录\n\n共53个外部业务候选操作、83个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。\n\n| operationId | 方法/路径 | 主业务模块 | 详细文件 |\n| --- | --- | --- | --- |\n"
+    nav = "# 详细接口目录\n\n共55个外部业务候选操作、85个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。\n\n| operationId | 方法/路径 | 主业务模块 | 详细文件 |\n| --- | --- | --- | --- |\n"
     for operation in records:
         nav += f"| {operation['operation_id']} | {operation['method']} {operation['path']} | {', '.join(operation['modules_from_business_trace']) or '共享/工程入口，按来源任务核验'} | [逐接口说明](operations/{operation['operation_id']}.md) |\n"
     nav += "\n## 模块目录\n\n" + "\n".join(f"- [{m['module']} {m['name']}]({m['doc_file'].removeprefix(BASE)})" for m in module_records)

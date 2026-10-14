@@ -12,4 +12,4 @@
 
 在仓库根目录运行`python scripts/validate_database_foundation.py --ssh-host 172.16.58.179`。脚本只使用已有PostgreSQL镜像，在无网络、无端口、无主机业务卷的临时容器执行修订DDL、原25项测试和当前48项首发排序与证据测试，最后清理容器。检查结果见[数据库报告](../00-project/validation/database-foundation-report.json)。
 
-`python scripts/validate_database_contracts.py`检查824个字段的定义/SQL/注释一致性及首发响应语义；见[契约报告](../00-project/validation/database-contract-report.json)。这是基础约束验证，不是生产迁移、并发压力或模型效果验收。历史sql-validation-report只适用于其中记录的旧SQL摘要。
+`python scripts/validate_database_contracts.py`检查825个字段的定义/SQL/注释一致性及首发响应语义；见[契约报告](../00-project/validation/database-contract-report.json)。这是基础约束验证，不是生产迁移、并发压力或模型效果验收。历史sql-validation-report只适用于其中记录的旧SQL摘要。

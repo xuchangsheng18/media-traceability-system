@@ -24,13 +24,18 @@
         "GET /uploads/{id}",
         "GET /uploads/{id}/parts"
       ],
-      "candidate_routes_callable": false,
-      "evidence": "无读取上传进度、分片记录与VALIDATING终态的契约。",
+      "candidate_routes_callable": true,
+      "evidence": "进度与分片GET已进入唯一OpenAPI，独立业务HTTP/事务实测；上传完整校验终态和正式身份/来源尚待后续验证。",
       "proposed_detail": "复用UploadSession/UploadPart/UploadResult组成投影，定义已接收分片、总量/摘要、到期/校验终态，asset_id仅VALID后可分析。",
       "closure_criteria": "补唯一契约/样例/映射/类型，测中断续传、重复/摘要冲突、到期和异步成功/失败。",
       "owner_role": "架构/后端/前端/算法/业务安全/测试按事项会审，负责人待指定",
       "owner_name": null,
-      "approved": false
+      "approved": false,
+      "implemented_development_routes": [
+        "GET /uploads/{id}",
+        "GET /uploads/{id}/parts"
+      ],
+      "development_implementation_ref": "docs/03-development/stage-three/business-interface-implementation-plan.md"
     },
     {
       "id": "IF-G02",

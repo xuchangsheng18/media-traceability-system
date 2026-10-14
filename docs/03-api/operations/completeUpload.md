@@ -1,10 +1,10 @@
 # 合并并校验上传：completeUpload
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `072aa69af85cff9b18212db91b8ac493a9aacc6f1df04ffadb9a7456f1424388`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4`。契约未冻结，文档存在不代表接口已实现。
 
 `POST /api/v1/uploads/{id}/complete`；operationId=`completeUpload`；源指针=`/paths/~1uploads~1{id}~1complete/post`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。正式53业务操作仍为候选，当前PoC只有专门列出的开发入口。
+实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。
 
 ## 调用目的与权限
 
@@ -71,7 +71,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 | upload_id | 必须 | string; format="uuid" | 候选字段来源：upload_part.upload_id：所属上传会话标识，指向upload_session.upload_id；upload_session.upload_id：主键，由应用提供UUID；不视为访问凭证。来源引用不是写入许可，完整处理按操作核验。 |
 | asset_id | 必须 | anyOf(string; format="uuid"; null) | 候选字段来源：media_asset.asset_id：主键，由应用提供UUID；不视为访问凭证；upload_session.asset_id：本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用。来源引用不是写入许可，完整处理按操作核验。 |
 | validation | 必须 | string; enum=["VALIDATING", "VALID", "REJECTED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
-| duplicate_of | 必须 | anyOf(string; format="uuid"; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| duplicate_of | 必须 | anyOf(string; format="uuid"; null) | 候选字段来源：upload_session.duplicate_of：同案件重复资产引用；仅在完整摘要/媒体校验成功后登记，读取仍核验当前案件权限；NULL表示未确定重复。。来源引用不是写入许可，完整处理按操作核验。 |
 | request_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
 
 是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
@@ -105,7 +105,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.uploa
 | response/upload_id | upload_part.upload_id, upload_session.upload_id | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
 | response/asset_id | media_asset.asset_id, upload_session.asset_id | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
 | response/validation | 服务层输入/聚合，不直接生成数据库列 | 安全校验状态投影；未VALID不分析 |
-| response/duplicate_of | 服务层输入/聚合，不直接生成数据库列 | 在当前可访问资产中查同摘要；禁止泄露其他案件 |
+| response/duplicate_of | upload_session.duplicate_of | 在当前可访问资产中查同摘要；禁止泄露其他案件 |
 | response/request_id | 服务层输入/聚合，不直接生成数据库列 | 请求追踪/审计，不作为业务对象ID |
 
 映射源：[api-field-mapping.json](../../04-database/api-field-mapping.json)。必须继续核验外键、案件域、版本、授权用途与SQL迁移，不能直接把任意字段写入表。

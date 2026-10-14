@@ -858,6 +858,7 @@ CREATE TABLE mt.upload_session (
     expires_at timestamptz NOT NULL,
     owner_id uuid NOT NULL REFERENCES mt.users(user_id),
     asset_id uuid ,
+    duplicate_of uuid ,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
     row_version bigint NOT NULL DEFAULT 1 CHECK(row_version>0),
@@ -865,7 +866,8 @@ CREATE TABLE mt.upload_session (
     FOREIGN KEY(case_id,org_id) REFERENCES mt.cases(case_id,org_id),
     UNIQUE(case_id,upload_id),
     FOREIGN KEY (case_id, source_id) REFERENCES mt.source_registry (case_id, source_id),
-    FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)
+    FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id),
+    FOREIGN KEY (case_id, duplicate_of) REFERENCES mt.media_asset (case_id, asset_id)
 );
 
 COMMENT ON TABLE mt.upload_session IS '上传会话；本包待评审设计';
@@ -2376,6 +2378,7 @@ COMMENT ON COLUMN mt.upload_session.part_size_bytes IS '上传会话约定的标
 COMMENT ON COLUMN mt.upload_session.state IS '上传会话的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效';
 COMMENT ON COLUMN mt.upload_session.expires_at IS '此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区';
 COMMENT ON COLUMN mt.upload_session.owner_id IS '创建并持有上传会话的用户标识；不能直接接受客户端冒充';
+COMMENT ON COLUMN mt.upload_session.duplicate_of IS '同案件重复资产引用；仅在完整摘要/媒体校验成功后登记，读取仍核验当前案件权限；NULL表示未确定重复。';
 COMMENT ON COLUMN mt.upload_session.asset_id IS '本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用';
 COMMENT ON COLUMN mt.upload_session.created_at IS '记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名';
 COMMENT ON COLUMN mt.upload_session.updated_at IS '更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区';

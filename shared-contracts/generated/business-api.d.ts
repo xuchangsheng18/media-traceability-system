@@ -984,6 +984,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/uploads/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 读取上传实际进度
+         * @description 依据T030；接口结构为本包待审核提案。服务端核验asset.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+         */
+        get: operations["getUploadStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/uploads/{id}/parts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 读取已接收分片用于续传
+         * @description 依据T030；接口结构为本包待审核提案。服务端核验asset.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+         */
+        get: operations["listUploadParts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1851,6 +1891,19 @@ export interface components {
             result: components["schemas"]["SearchResults"] | null;
             error_code: string | null;
         } & unknown;
+        /** @description 真实持久化分片进度；UPLOADING/EXPIRED无结果，只有COMPLETED/VALID允许形成有效资产。 */
+        UploadStatus: {
+            session: components["schemas"]["UploadSession"];
+            result: components["schemas"]["UploadResult"] | null;
+            received_parts_count: number;
+            received_bytes: number;
+            total_size_bytes: number;
+        };
+        UploadPartPage: {
+            items: components["schemas"]["UploadPart"][];
+            next_cursor: string | null;
+            session_version: number;
+        };
     };
     responses: never;
     parameters: never;
@@ -7375,6 +7428,203 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Policy"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getUploadStatus: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UploadStatus"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listUploadParts: {
+        parameters: {
+            query?: {
+                /** @description 服务端签名并绑定会话版本；版本变化409要求重读。 */
+                cursor?: string;
+                /** @description 研发分页参数，不是20/100生产并发指标。 */
+                limit?: number;
+            };
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UploadPartPage"];
                 };
             };
             /** @description 失败，错误码见error-codes.md */

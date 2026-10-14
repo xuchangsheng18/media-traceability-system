@@ -932,12 +932,18 @@
         "uuid",
         "",
         "创建主体；迁移/系统事件可空，业务应用必须填"
+      ],
+      "duplicate_of": [
+        "uuid",
+        "",
+        "同案件重复资产引用；仅在完整摘要/媒体校验成功后登记，读取仍核验当前案件权限；NULL表示未确定重复。"
       ]
     },
     "scope": "case",
     "extra": [
       "FOREIGN KEY (case_id, source_id) REFERENCES mt.source_registry (case_id, source_id)",
-      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)"
+      "FOREIGN KEY (case_id, asset_id) REFERENCES mt.media_asset (case_id, asset_id)",
+      "FOREIGN KEY (case_id, duplicate_of) REFERENCES mt.media_asset (case_id, asset_id)"
     ],
     "immutable": false
   },

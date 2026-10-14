@@ -6,7 +6,7 @@ from sqlalchemy import Connection, create_engine, text
 from sqlalchemy.engine import URL
 
 from .errors import BusinessError
-from .types import Scope
+from .types import Actor, Scope
 
 
 class Database:
@@ -26,7 +26,7 @@ class Database:
         self.engine = create_engine(url, pool_size=1, max_overflow=0, pool_pre_ping=True)
 
     @contextmanager
-    def transaction(self, scope: Scope) -> Iterator[Connection]:
+    def identity_transaction(self, actor: Actor) -> Iterator[Connection]:
         with self.engine.begin() as connection:
             if bool(
                 connection.execute(
@@ -36,8 +36,13 @@ class Database:
                 raise RuntimeError("PRIVILEGED_BUSINESS_CONNECTION_FORBIDDEN")
             connection.execute(
                 text("SELECT set_config('app.actor_id',:actor,true),set_config('app.org_id',:org,true)"),
-                {"actor": str(scope.actor.user_id), "org": str(scope.actor.org_id)},
+                {"actor": str(actor.user_id), "org": str(actor.org_id)},
             )
+            yield connection
+
+    @contextmanager
+    def transaction(self, scope: Scope) -> Iterator[Connection]:
+        with self.identity_transaction(scope.actor) as connection:
             if not bool(
                 connection.execute(text("SELECT mt.can_access_case(:case)"), {"case": scope.case_id}).scalar_one()
             ):

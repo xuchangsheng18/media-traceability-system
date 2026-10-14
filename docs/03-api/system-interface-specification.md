@@ -2,7 +2,7 @@
 
 2026-10-12；第二阶段第19步整体设计与详细阅读入口。状态：DETAIL_DOCUMENTED_WITH_OPEN_CONTRACT_GAPS，正式NOT_FROZEN。第二阶段应明确整体服务边界、关键请求/响应/事件与共用规则，支持技术选型、最小验证和并行开发；不要求此时全部170任务的接口实现已完成。第一阶段提供候选输入，第二阶段补实际技术、服务调用与契约验证。
 
-此前已有53业务操作、83个数据组件和34类模型能力，但缺集中可读明细及整体缺口说明。本轮详细展开既有结构，没有新增可调用业务端点，不把文档数量当接口完整性证明。
+此前已有55业务操作、85个数据组件和34类模型能力，但缺集中可读明细及整体缺口说明。本轮详细展开既有结构，没有新增可调用业务端点，不把文档数量当接口完整性证明。
 
 ## 阅读顺序
 
@@ -41,3 +41,5 @@
 实施缺失操作时先确认边界，再更新唯一OpenAPI/事件Schema、operation-index、样例/字段映射、任务/需求/测试追踪及生成类型；新增数据库字段须迁移。正式权限、用途、指标和审批状态继续引用主Q与有效决定。
 
 格式依据：[OpenAPI 3.1.0](https://spec.openapis.org/oas/v3.1.0.html)分别定义operationId、参数、请求体、响应和security；HTTP状态/条件/Range见[RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html)，Problem结构见[RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html)。本轮沿用仓库版本，不自动升级技术锁。
+
+首批独立业务工程已加入上传进度与分片GET，候选总数55、结构85；对应HTTP/事务逐项测试，正式身份/来源仍待实际平台接入。全部API、业务模型及生产验收不因这两项完成。实施入口见[首批计划](../03-development/stage-three/business-interface-implementation-plan.md)。

@@ -1,6 +1,6 @@
 # 数据字典与字段来源
 
-版本0.4-review，2026-10-12，NOT_FROZEN。当前62张表、824个字段。字段含义是本项目工程提案；与源设计、机器契约、数据库约束和实际验证分开登记。
+版本0.4-review，2026-10-12，NOT_FROZEN。当前62张表、825个字段。字段含义是本项目工程提案；与源设计、机器契约、数据库约束和实际验证分开登记。
 
 ## 使用方法
 
@@ -408,6 +408,7 @@ TIMESTAMPTZ存储时间点、按会话时区显示；JSONB不自动验证应用S
 | expires_at | timestamptz | 否 | 无 | NOT NULL | 此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区 | [工程定义](table-catalog.json) `/upload_session/columns/expires_at`；[SQL](initial-schema.sql) `mt.upload_session.expires_at`；[API](../03-api/openapi.yaml) `/components/schemas/UploadSession/properties/expires_at` (createUpload) |
 | owner_id | uuid | 否 | 无 | NOT NULL REFERENCES mt.users(user_id) | 创建并持有上传会话的用户标识；不能直接接受客户端冒充 | [工程定义](table-catalog.json) `/upload_session/columns/owner_id`；[SQL](initial-schema.sql) `mt.upload_session.owner_id`；内部字段，无外部API映射 |
 | asset_id | uuid | 是 | 无 | 无列级约束 | 本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用 | [工程定义](table-catalog.json) `/upload_session/columns/asset_id`；[SQL](initial-schema.sql) `mt.upload_session.asset_id`；[API](../03-api/openapi.yaml) `/components/schemas/UploadResult/properties/asset_id` (completeUpload) |
+| duplicate_of | uuid | 是 | 无 | 无 | 同案件重复资产引用；仅在完整摘要/媒体校验成功后登记，读取仍核验当前案件权限；NULL表示未确定重复。 | [工程定义](table-catalog.json) `/upload_session/columns/duplicate_of`；[SQL](initial-schema.sql) `mt.upload_session.duplicate_of`；[源映射](field-provenance.json)；[接口](../03-api/openapi.yaml) `UploadResult.duplicate_of`；[已认可实现方案](../03-development/stage-three/business-interface-implementation-plan.md) |
 | created_at | timestamptz | 否 | now() | NOT NULL DEFAULT now() | 记录创建时间点；TIMESTAMPTZ按会话时区显示，接口统一输出带时区时间，不保存原始时区名 | [工程定义](table-catalog.json) `/upload_session/columns/created_at`；[SQL](initial-schema.sql) `mt.upload_session.created_at`；内部字段，无外部API映射 |
 | updated_at | timestamptz | 否 | now() | NOT NULL DEFAULT now() | 更新时刻；不可变表保持原值；存储时间点，显示受会话时区影响，接口必须携带时区 | [工程定义](table-catalog.json) `/upload_session/columns/updated_at`；[SQL](initial-schema.sql) `mt.upload_session.updated_at`；内部字段，无外部API映射 |
 | row_version | bigint | 否 | 1 | NOT NULL DEFAULT 1 CHECK(row_version>0) | 本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值 | [工程定义](table-catalog.json) `/upload_session/columns/row_version`；[SQL](initial-schema.sql) `mt.upload_session.row_version`；[API](../03-api/openapi.yaml) `/components/schemas/UploadSession/properties/version` (createUpload) |

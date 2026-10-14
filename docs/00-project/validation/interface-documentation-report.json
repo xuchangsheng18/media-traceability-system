@@ -1,14 +1,14 @@
 {
   "status": "PASS",
-  "observed_at": "2026-10-13T14:04:21.352969+00:00",
+  "observed_at": "2026-10-14T12:02:17.840593+00:00",
   "scope": "interface_document_lineage_coverage_and_open_gaps_not_runtime_or_business_acceptance",
   "checks": [
     {
       "name": "business_operation_and_schema_detail_coverage",
       "status": "PASS",
       "detail": {
-        "business_operations": 53,
-        "components": 83,
+        "business_operations": 55,
+        "components": 85,
         "all_business_implemented": false
       }
     },
@@ -16,7 +16,7 @@
       "name": "source_hashes_and_all_generated_docs_no_drift",
       "status": "PASS",
       "detail": {
-        "derived_files": 69,
+        "derived_files": 71,
         "source_hashes": 79,
         "sources_or_types_rewritten_by_check": false
       }
@@ -44,7 +44,10 @@
       "status": "PASS",
       "detail": {
         "open_gaps": 13,
-        "candidate_routes_added_to_API": false,
+        "candidate_routes_added_to_API": [
+          "GET /uploads/{id}",
+          "GET /uploads/{id}/parts"
+        ],
         "task_dependencies_or_approvals_changed": false
       }
     },
@@ -52,7 +55,7 @@
       "name": "source_code_PoC_boundary_not_business_acceptance",
       "status": "PASS",
       "detail": {
-        "business_matching_development_partial_routes": 1,
+        "business_matching_development_partial_routes": 5,
         "all_business_API_implementation_asserted": false,
         "new_runtime_tests_executed": false,
         "one_PoC_event_not_cross_module_bus": true
@@ -63,7 +66,7 @@
   "formal_frozen": false,
   "business_contract_gap_count": 13,
   "contract_source_hashes": {
-    "docs/03-api/openapi.yaml": "072aa69af85cff9b18212db91b8ac493a9aacc6f1df04ffadb9a7456f1424388",
+    "docs/03-api/openapi.yaml": "bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4",
     "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
     "schemas/events/poc.analysis.requested.v1.schema.json": "9fbae279531d3bcb5b961b1ebbdfa48b5ec08b2c2dc45c207d4893b95141c84f"
   }

@@ -6,7 +6,7 @@ Development Environment Baseline 1.0候选，NOT_FROZEN。此名称来自第三�
 
 配置源：config/versions.yaml与原锁；Python为Miniforge3.10.22，Node22.21.1，FastAPI/Vue、CPU Torch、PostgreSQL/对象/队列与镜像组合按原源，不自行升级。新增pre-commit仅是独立研发工具层，另锁和验真，不改变项目100包。统一入口、质量范围及容量保护见config/stage-three-profile.json。
 
-已有7服务、5表PoC和合成M15链路沿用；不将真实34能力、GPU、53业务接口/62业务表、3场景或全部170任务写成完成。接口命名/模拟例子的手册建议与现有PoC的等价/差异见[第三阶段状态](stage-three/readiness.md)。源码与运行镜像一致性、CI源码SHA和报告制品以实际回执为准。
+已有7服务、5表PoC和合成M15链路沿用；不将真实34能力、GPU、55业务接口/62业务表、3场景或全部170任务写成完成。接口命名/模拟例子的手册建议与现有PoC的等价/差异见[第三阶段状态](stage-three/readiness.md)。源码与运行镜像一致性、CI源码SHA和报告制品以实际回执为准。
 
 冻结必须具备：获准平台/模式/分支和人员权限、有效技术输入与软件准入、受控Runner/Secret和主分支保护、足够资源及实际网络边界、适用质量/安全结果、可复现启动和用户验收、明确责任人与完整决定。当前正式输入未齐，阶段1/2冻结仍未完成；本文件只记录候选，不创建标签/发布或自动批准ADR。
 

@@ -4498,6 +4498,77 @@
           }
         }
       ]
+    },
+    "UploadStatus": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "$ref": "#/$defs/UploadSession"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UploadResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "received_parts_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "received_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "session",
+        "result",
+        "received_parts_count",
+        "received_bytes",
+        "total_size_bytes"
+      ],
+      "additionalProperties": false,
+      "description": "真实持久化分片进度；UPLOADING/EXPIRED无结果，只有COMPLETED/VALID允许形成有效资产。"
+    },
+    "UploadPartPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UploadPart"
+          }
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "session_version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "items",
+        "next_cursor",
+        "session_version"
+      ],
+      "additionalProperties": false
     }
   }
 }

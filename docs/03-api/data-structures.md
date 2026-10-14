@@ -1,6 +1,6 @@
 # 业务接口数据结构详表
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `072aa69af85cff9b18212db91b8ac493a9aacc6f1df04ffadb9a7456f1424388`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4`。契约未冻结，文档存在不代表接口已实现。
 
 共83个源组件；先读[整体说明](system-interface-specification.md)。每个组件给出字段表及完整原始Schema；required、null、枚举、引用、条件组合均保留。字段语义尚未独立定义的情况明确标记，不能把UUID当授权或把0—1分数当业务/法律概率。
 
@@ -964,7 +964,7 @@
 | upload_id | 必须 | string; format="uuid" | 候选字段来源：upload_part.upload_id：所属上传会话标识，指向upload_session.upload_id；upload_session.upload_id：主键，由应用提供UUID；不视为访问凭证。来源引用不是写入许可，完整处理按操作核验。 |
 | asset_id | 必须 | anyOf(string; format="uuid"; null) | 候选字段来源：media_asset.asset_id：主键，由应用提供UUID；不视为访问凭证；upload_session.asset_id：本记录关联的媒体资产标识，指向同案件media_asset.asset_id；NULL只在该列允许且资产尚未形成时使用。来源引用不是写入许可，完整处理按操作核验。 |
 | validation | 必须 | string; enum=["VALIDATING", "VALID", "REJECTED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
-| duplicate_of | 必须 | anyOf(string; format="uuid"; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| duplicate_of | 必须 | anyOf(string; format="uuid"; null) | 候选字段来源：upload_session.duplicate_of：同案件重复资产引用；仅在完整摘要/媒体校验成功后登记，读取仍核验当前案件权限；NULL表示未确定重复。。来源引用不是写入许可，完整处理按操作核验。 |
 | request_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
 
 是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
@@ -6156,6 +6156,113 @@
       }
     }
   ]
+}
+```
+
+## UploadStatus
+
+源指针：`#/components/schemas/UploadStatus`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| session | 必须 | UploadSession | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| result | 必须 | anyOf(UploadResult; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| received_parts_count | 必须 | integer; minimum=0 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| received_bytes | 必须 | integer; minimum=0 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| total_size_bytes | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "session": {
+      "$ref": "#/components/schemas/UploadSession"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/UploadResult"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "received_parts_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "received_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "total_size_bytes": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "session",
+    "result",
+    "received_parts_count",
+    "received_bytes",
+    "total_size_bytes"
+  ],
+  "additionalProperties": false,
+  "description": "真实持久化分片进度；UPLOADING/EXPIRED无结果，只有COMPLETED/VALID允许形成有效资产。"
+}
+```
+
+## UploadPartPage
+
+源指针：`#/components/schemas/UploadPartPage`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| items | 必须 | array; items=UploadPart | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| next_cursor | 必须 | anyOf(string; minLength=1; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| session_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/UploadPart"
+      }
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "session_version": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "items",
+    "next_cursor",
+    "session_version"
+  ],
+  "additionalProperties": false
 }
 ```
 

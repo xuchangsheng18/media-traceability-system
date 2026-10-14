@@ -1,6 +1,6 @@
 # 开发数据库、迁移与字段定义
 
-2026-10-12，1.1-py310-cpu。专用数据库media_trace_poc、schema poc。正式业务62表824字段仍以initial-schema.sql、data-dictionary.md、field-provenance.json和api-field-mapping.csv为定义来源；当前开发5表不等于62表已实现。
+2026-10-12，1.1-py310-cpu。专用数据库media_trace_poc、schema poc。正式业务62表825字段仍以initial-schema.sql、data-dictionary.md、field-provenance.json和api-field-mapping.csv为定义来源；当前开发5表不等于62表已实现。
 
 | 表 | 职责 | 约束和权限 |
 | --- | --- | --- |

@@ -576,7 +576,7 @@ paths:
       - name: X-Part-Sha256
         in: header
         required: true
-        schema: &id004
+        schema: &id006
           type: string
           pattern: ^[a-f0-9]{64}$
       - name: Content-Length
@@ -1198,7 +1198,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /imports:
     post:
       operationId: createImport
@@ -1697,7 +1696,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /analysis/tasks/{id}/cancel:
     post:
       operationId: cancelTask
@@ -2068,7 +2066,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /analysis/tasks/{id}/forensics:
     get:
       operationId: getForensics
@@ -2206,7 +2203,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /analysis/tasks/{id}/evidence:
     get:
       operationId: getTaskEvidence
@@ -2358,7 +2354,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /search/image:
     post:
       operationId: searchImage
@@ -2877,7 +2872,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /propagation/{cluster_id}:
     get:
       operationId: getPropagation
@@ -3020,7 +3014,6 @@ paths:
         - X-Run-Version
         - X-Result-Version
         implementation_status: CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API
-
   /propagation/edges/{id}/decisions:
     post:
       operationId: decidePropagationEdge
@@ -5456,6 +5449,188 @@ paths:
       x-required-permission: policy.read
       x-contract-status: proposal_pending_review
       x-source: TASK-derived proposal
+  /uploads/{id}:
+    get:
+      operationId: getUploadStatus
+      summary: 读取上传实际进度
+      description: 依据T030；接口结构为本包待审核提案。服务端核验asset.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+      tags:
+      - uploads
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema: &id004
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema: *id004
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadStatus'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T022
+      - T023
+      - T024
+      x-table-names:
+      - upload_session
+      - upload_part
+      x-required-permission: asset.upload
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /uploads/{id}/parts:
+    get:
+      operationId: listUploadParts
+      summary: 读取已接收分片用于续传
+      description: 依据T030；接口结构为本包待审核提案。服务端核验asset.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+      tags:
+      - uploads
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema: &id005
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema: *id005
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+        description: 服务端签名并绑定会话版本；版本变化409要求重读。
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+        description: 研发分页参数，不是20/100生产并发指标。
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPartPage'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T022
+      - T023
+      - T026
+      x-table-names:
+      - upload_session
+      - upload_part
+      x-required-permission: asset.upload
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
 components:
   securitySchemes:
     bearerAuth:
@@ -5464,11 +5639,11 @@ components:
       description: 服务端验证令牌有效期/撤销/主体；正式身份协议待确认。
   schemas:
     Uuid: *id001
-    Sha256: *id004
+    Sha256: *id006
     TimeRange:
       type: object
       properties:
-        start_ms: &id011
+        start_ms: &id013
           type: integer
           minimum: 0
         end_ms: *id003
@@ -5480,11 +5655,11 @@ components:
     BoundingBox:
       type: object
       properties:
-        x: &id005
+        x: &id007
           type: number
           minimum: 0
           maximum: 1
-        y: *id005
+        y: *id007
         width:
           type: number
           exclusiveMinimum: 0
@@ -5505,7 +5680,7 @@ components:
       properties:
         object_id: *id001
         version_id: *id002
-        sha256: *id004
+        sha256: *id006
       required:
       - object_id
       - version_id
@@ -5531,7 +5706,7 @@ components:
         type:
           type: string
           format: uri-reference
-        title: &id006
+        title: &id008
           type: string
           minLength: 1
           maxLength: 4096
@@ -5540,7 +5715,7 @@ components:
           minimum: 400
           maximum: 599
         code: *id002
-        message: *id006
+        message: *id008
         request_id: *id001
         details:
           type: array
@@ -5548,7 +5723,7 @@ components:
             type: object
             properties:
               field: *id002
-              reason: *id006
+              reason: *id008
             required:
             - field
             - reason
@@ -5670,7 +5845,7 @@ components:
       properties:
         case_id: *id001
         name: *id002
-        source_type: &id007
+        source_type: &id009
           type: string
           enum:
           - authorized_business
@@ -5678,14 +5853,14 @@ components:
           - user_submission
           - synthetic
         authorization_ref: *id002
-        purpose: &id008
+        purpose: &id010
           type: array
           items: *id002
           minItems: 1
           uniqueItems: true
-        expires_at: &id009
+        expires_at: &id011
           anyOf:
-          - &id010
+          - &id012
             type: string
             format: date-time
           - type: 'null'
@@ -5704,10 +5879,10 @@ components:
         source_id: *id001
         case_id: *id001
         name: *id002
-        source_type: *id007
+        source_type: *id009
         authorization_ref: *id002
-        purpose: *id008
-        expires_at: *id009
+        purpose: *id010
+        expires_at: *id011
         authorization_status:
           type: string
           enum:
@@ -5740,7 +5915,7 @@ components:
           type: integer
           minimum: 1
         mime: *id002
-        sha256: *id004
+        sha256: *id006
       required:
       - case_id
       - source_id
@@ -5763,7 +5938,7 @@ components:
           - COMPLETED
           - REJECTED
           - EXPIRED
-        expires_at: *id010
+        expires_at: *id012
         version: *id003
       required:
       - upload_id
@@ -5776,7 +5951,7 @@ components:
       type: object
       properties:
         part_no: *id003
-        sha256: *id004
+        sha256: *id006
         size_bytes: *id003
       required:
       - part_no
@@ -5840,7 +6015,7 @@ components:
         size_bytes: *id003
         duration_ms:
           anyOf:
-          - *id011
+          - *id013
           - type: 'null'
         width:
           anyOf:
@@ -5858,7 +6033,7 @@ components:
           - QUARANTINED
           - ARCHIVED
         version: *id003
-        created_at: *id010
+        created_at: *id012
       required:
       - asset_id
       - case_id
@@ -5912,7 +6087,7 @@ components:
           items:
             type: object
             properties:
-              ordinal: *id011
+              ordinal: *id013
               asset_id:
                 anyOf:
                 - *id001
@@ -6001,7 +6176,7 @@ components:
           - DEFERRED
           - CANCELLED
           - NOT_SUPPORTED
-        attempt: *id011
+        attempt: *id013
         reason:
           anyOf:
           - *id002
@@ -6039,7 +6214,7 @@ components:
         result_version: *id003
         policy_version: *id002
         version: *id003
-        progress: *id005
+        progress: *id007
         nodes:
           type: array
           items:
@@ -6055,7 +6230,7 @@ components:
           - draft_only
           - reviewable
           - formal_eligible
-        created_at: *id010
+        created_at: *id012
       required:
       - task_id
       - case_id
@@ -6075,7 +6250,7 @@ components:
     TaskAction:
       type: object
       properties:
-        reason: *id006
+        reason: *id008
         expected_run_version: *id003
         expected_version: *id003
         approval_id:
@@ -6091,7 +6266,7 @@ components:
     Rerun:
       type: object
       properties:
-        reason: *id006
+        reason: *id008
         expected_run_version: *id003
         expected_version: *id003
         node_codes:
@@ -6152,9 +6327,9 @@ components:
           - *id002
           - type: 'null'
         authorization_version: *id002
-        sha256: *id004
+        sha256: *id006
         version: *id003
-        created_at: *id010
+        created_at: *id012
       required:
       - evidence_id
       - case_id
@@ -6188,10 +6363,10 @@ components:
           - relation
           - claim
         label: *id002
-        raw_score: *id005
+        raw_score: *id007
         calibrated_score:
           anyOf:
-          - *id005
+          - *id007
           - type: 'null'
         threshold_version:
           anyOf:
@@ -6293,7 +6468,7 @@ components:
         asset_id: *id001
         text:
           anyOf:
-          - *id006
+          - *id008
           - type: 'null'
         bbox:
           anyOf:
@@ -6372,7 +6547,7 @@ components:
       type: object
       properties:
         candidate_asset_id: *id001
-        score: *id005
+        score: *id007
         relation:
           type: string
           enum:
@@ -6453,7 +6628,7 @@ components:
           type: string
           format: uuid
           description: 高可信内容簇标识，指向同案件content_cluster.cluster_id；不得用相似度连通关系替代整内容同源验证
-        scope: *id006
+        scope: *id008
         candidates:
           type: array
           items:
@@ -6470,11 +6645,11 @@ components:
                 description: 本次排序批次内的候选名次，从1连续排列到候选数量，最多3；不是确定首发结论
               probability:
                 anyOf:
-                - *id005
+                - *id007
                 - type: 'null'
               published_at:
                 anyOf:
-                - *id010
+                - *id012
                 - type: 'null'
               evidence_ids:
                 type: array
@@ -6503,7 +6678,7 @@ components:
           - candidate
           - insufficient
           - reviewed
-        coverage_note: *id006
+        coverage_note: *id008
         model_version: *id002
         ranking_id:
           type: string
@@ -6572,7 +6747,7 @@ components:
           - human
         probability:
           anyOf:
-          - *id005
+          - *id007
           - type: 'null'
         evidence_ids:
           type: array
@@ -6639,23 +6814,23 @@ components:
         asset_id: *id001
         subject:
           anyOf:
-          - *id006
+          - *id008
           - type: 'null'
         action:
           anyOf:
-          - *id006
+          - *id008
           - type: 'null'
         time:
           anyOf:
-          - *id006
+          - *id008
           - type: 'null'
         place:
           anyOf:
-          - *id006
+          - *id008
           - type: 'null'
         result:
           anyOf:
-          - *id006
+          - *id008
           - type: 'null'
         source_segment_ids:
           type: array
@@ -6759,16 +6934,16 @@ components:
         task_id: *id001
         run_version: *id003
         result_version: *id003
-        expected_review_version: *id011
-        decision: &id012
+        expected_review_version: *id013
+        decision: &id014
           type: string
           enum:
           - confirm_candidate
           - reject_candidate
           - return_for_evidence
           - request_rerun
-        reason: *id006
-        evidence_ids: &id013
+        reason: *id008
+        evidence_ids: &id015
           type: array
           items: *id001
           minItems: 1
@@ -6793,13 +6968,13 @@ components:
         task_id: *id001
         run_version: *id003
         result_version: *id003
-        expected_review_version: *id011
-        decision: *id012
-        reason: *id006
-        evidence_ids: *id013
+        expected_review_version: *id013
+        decision: *id014
+        reason: *id008
+        evidence_ids: *id015
         policy_version: *id002
         review_version: *id003
-        created_at: *id010
+        created_at: *id012
       required:
       - review_id
       - reviewer_id
@@ -6842,7 +7017,7 @@ components:
           - model_release
           - confirmation
         policy_version: *id002
-        reason: *id006
+        reason: *id008
         run_version:
           anyOf:
           - *id003
@@ -6895,7 +7070,7 @@ components:
           - approve
           - reject
           - return
-        reason: *id006
+        reason: *id008
         evidence_ids:
           type: array
           items: *id001
@@ -6926,7 +7101,7 @@ components:
         policy_version: *id002
         expires_at:
           anyOf:
-          - *id010
+          - *id012
           - type: 'null'
         decision_actor_id:
           anyOf:
@@ -6972,7 +7147,7 @@ components:
         operation_token:
           type: string
           minLength: 1
-        expires_at: *id010
+        expires_at: *id012
         object_version: *id003
       required:
       - operation_token
@@ -6991,7 +7166,7 @@ components:
           minItems: 1
           uniqueItems: true
         approval_id: *id001
-        operation_token: *id006
+        operation_token: *id008
         retention_policy_version: *id002
       required:
       - task_id
@@ -7014,7 +7189,7 @@ components:
           items:
             $ref: '#/components/schemas/Evidence'
           minItems: 0
-        manifest_sha256: *id004
+        manifest_sha256: *id006
         approval_id: *id001
         signature_status:
           type: string
@@ -7029,7 +7204,7 @@ components:
           - DRAFT
           - SEALED
           - SUPERSEDED
-        created_at: *id010
+        created_at: *id012
       required:
       - package_id
       - case_id
@@ -7050,7 +7225,7 @@ components:
         run_version: *id003
         result_version: *id003
         template_version: *id002
-        evidence_ids: &id014
+        evidence_ids: &id016
           type: array
           items: *id001
           minItems: 1
@@ -7071,9 +7246,9 @@ components:
         run_version: *id003
         result_version: *id003
         template_version: *id002
-        evidence_ids: *id014
+        evidence_ids: *id016
         approval_id: *id001
-        operation_token: *id006
+        operation_token: *id008
       required:
       - case_id
       - task_id
@@ -7113,7 +7288,7 @@ components:
           type: array
           items: *id001
           minItems: 1
-        created_at: *id010
+        created_at: *id012
       required:
       - report_id
       - case_id
@@ -7137,7 +7312,7 @@ components:
         purpose:
           const: training
         source_authorization_ref: *id002
-        reason: *id006
+        reason: *id008
       required:
       - case_id
       - finding_id
@@ -7172,7 +7347,7 @@ components:
       properties:
         name: *id002
         version: *id002
-        capability: &id015
+        capability: &id017
           type: string
           enum:
           - risk.image_classification
@@ -7209,11 +7384,11 @@ components:
           - media.asr
           - media.audio_fingerprint
           - model.compression
-        digest: *id004
+        digest: *id006
         dataset_version: *id002
         model_card_ref: *id002
         license_record_ref: *id002
-        backend: &id016
+        backend: &id018
           type: string
           enum:
           - pytorch
@@ -7238,12 +7413,12 @@ components:
         model_id: *id001
         name: *id002
         version: *id002
-        capability: *id015
-        digest: *id004
+        capability: *id017
+        digest: *id006
         dataset_version: *id002
         model_card_ref: *id002
         license_record_ref: *id002
-        backend: *id016
+        backend: *id018
         environment_ref: *id002
         status:
           type: string
@@ -7274,7 +7449,7 @@ components:
       properties:
         release_bundle_id: *id001
         approval_id: *id001
-        operation_token: *id006
+        operation_token: *id008
         expected_version: *id003
         mode:
           type: string
@@ -7307,36 +7482,36 @@ components:
         dataset_id: *id002
         dataset_version: *id002
         protocol_id: *id002
-        split: &id017
+        split: &id019
           type: string
           enum:
           - validation
           - calibration
           - holdout
         sample_count: *id003
-        failure_count: *id011
-        metrics: &id018
+        failure_count: *id013
+        metrics: &id020
           type: object
           properties:
             macro_f1:
               anyOf:
-              - *id005
+              - *id007
               - type: 'null'
             recall:
               anyOf:
-              - *id005
+              - *id007
               - type: 'null'
             iou:
               anyOf:
-              - *id005
+              - *id007
               - type: 'null'
             recall_at_k:
               anyOf:
-              - *id005
+              - *id007
               - type: 'null'
             ece:
               anyOf:
-              - *id005
+              - *id007
               - type: 'null'
             boundary_mae_ms:
               anyOf:
@@ -7351,7 +7526,7 @@ components:
           - ece
           - boundary_mae_ms
           additionalProperties: false
-        artifact_ref: &id019
+        artifact_ref: &id021
           $ref: '#/components/schemas/ObjectRef'
       required:
       - model_id
@@ -7372,12 +7547,12 @@ components:
         dataset_id: *id002
         dataset_version: *id002
         protocol_id: *id002
-        split: *id017
+        split: *id019
         sample_count: *id003
-        failure_count: *id011
-        metrics: *id018
-        artifact_ref: *id019
-        created_at: *id010
+        failure_count: *id013
+        metrics: *id020
+        artifact_ref: *id021
+        created_at: *id012
       required:
       - evaluation_id
       - model_id
@@ -7418,7 +7593,7 @@ components:
           - denied
           - failed
         request_id: *id001
-        occurred_at: *id010
+        occurred_at: *id012
       required:
       - event_id
       - actor_id
@@ -7435,8 +7610,8 @@ components:
     AuditExport:
       type: object
       properties:
-        start_at: *id010
-        end_at: *id010
+        start_at: *id012
+        end_at: *id012
         case_id:
           anyOf:
           - *id001
@@ -7487,7 +7662,7 @@ components:
         expected_version: *id003
         target_index_version: *id002
         approval_id: *id001
-        reason: *id006
+        reason: *id008
       required:
       - expected_version
       - target_index_version
@@ -7497,7 +7672,7 @@ components:
     PolicyCreate:
       type: object
       properties:
-        kind: &id020
+        kind: &id022
           type: string
           enum:
           - risk_taxonomy
@@ -7507,11 +7682,11 @@ components:
           - analysis
         version: *id002
         definition_ref: *id002
-        approval_id: &id021
+        approval_id: &id023
           anyOf:
           - *id001
           - type: 'null'
-        status: &id022
+        status: &id024
           type: string
           enum:
           - DRAFT
@@ -7527,11 +7702,11 @@ components:
       type: object
       properties:
         policy_id: *id001
-        kind: *id020
+        kind: *id022
         version: *id002
         definition_ref: *id002
-        approval_id: *id021
-        status: *id022
+        approval_id: *id023
+        status: *id024
         row_version: *id003
       required:
       - policy_id
@@ -7551,7 +7726,7 @@ components:
           enum:
           - confirm
           - reject
-        reason: *id006
+        reason: *id008
         evidence_ids:
           type: array
           items: *id001
@@ -7746,6 +7921,52 @@ components:
           properties:
             result:
               type: 'null'
+    UploadStatus:
+      type: object
+      properties:
+        session:
+          $ref: '#/components/schemas/UploadSession'
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/UploadResult'
+          - type: 'null'
+        received_parts_count:
+          type: integer
+          minimum: 0
+        received_bytes:
+          type: integer
+          minimum: 0
+        total_size_bytes:
+          type: integer
+          minimum: 1
+      required:
+      - session
+      - result
+      - received_parts_count
+      - received_bytes
+      - total_size_bytes
+      additionalProperties: false
+      description: 真实持久化分片进度；UPLOADING/EXPIRED无结果，只有COMPLETED/VALID允许形成有效资产。
+    UploadPartPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UploadPart'
+        next_cursor:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+        session_version:
+          type: integer
+          minimum: 1
+      required:
+      - items
+      - next_cursor
+      - session_version
+      additionalProperties: false
 x-workflow-contracts:
   dag: schemas/workflow/dag.schema.json
   result: schemas/workflow/run-result.schema.json
