@@ -18,24 +18,25 @@ def migrate(dsn, directory=MIGRATIONS):
     return module.apply_migrations(dsn, directory)
 
 
+def scalar(connection, query):
+    row = connection.execute(query).fetchone()
+    assert row is not None
+    return row[0]
+
+
 def test_empty_database_migrates_and_replay_noops(database_dsn):
     assert migrate(database_dsn) == ["0001", "0002"]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
         assert (
-            connection.execute(
-                "SELECT count(*) FROM information_schema.tables WHERE table_schema='mt' AND table_type='BASE TABLE'"
-            ).fetchone()[0]
+            scalar(
+                connection,
+                "SELECT count(*) FROM information_schema.tables WHERE table_schema='mt' AND table_type='BASE TABLE'",
+            )
             == 62
         )
-        assert (
-            connection.execute("SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'").fetchone()[0]
-            == 825
-        )
-        assert (
-            connection.execute("SELECT rolbypassrls OR rolsuper FROM pg_roles WHERE rolname='mt_runtime'").fetchone()[0]
-            is False
-        )
+        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 825
+        assert scalar(connection, "SELECT rolbypassrls OR rolsuper FROM pg_roles WHERE rolname='mt_runtime'") is False
 
 
 def test_changed_migration_digest_rejected(database_dsn, tmp_path):
@@ -59,5 +60,5 @@ def test_mid_migration_failure_is_atomic(database_dsn, tmp_path):
     with pytest.raises(psycopg.Error):
         migrate(database_dsn, tmp_path)
     with psycopg.connect(database_dsn) as connection:
-        assert connection.execute("SELECT to_regnamespace('mt')").fetchone()[0] is None
-        assert connection.execute("SELECT to_regclass('mt_meta.schema_migrations')").fetchone()[0] is None
+        assert scalar(connection, "SELECT to_regnamespace('mt')") is None
+        assert scalar(connection, "SELECT to_regclass('mt_meta.schema_migrations')") is None

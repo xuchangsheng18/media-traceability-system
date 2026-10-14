@@ -9,7 +9,7 @@ from psycopg.conninfo import conninfo_to_dict
 
 def apply_migrations(dsn: str, directory: Path) -> list[str]:
     database = conninfo_to_dict(dsn).get("dbname", "")
-    if not database.startswith("mt_business_"):
+    if not isinstance(database, str) or not database.startswith("mt_business_"):
         raise RuntimeError("EXPLICIT_ISOLATED_BUSINESS_DATABASE_REQUIRED")
     files = sorted(directory.glob("*.sql"))
     if not files:
@@ -30,7 +30,7 @@ def apply_migrations(dsn: str, directory: Path) -> list[str]:
         connection.execute("""CREATE TABLE IF NOT EXISTS mt_meta.schema_migrations (
             version text PRIMARY KEY, sha256 text NOT NULL, applied_at timestamptz NOT NULL DEFAULT now())""")
         rows = connection.execute("SELECT version,sha256 FROM mt_meta.schema_migrations ORDER BY version").fetchall()
-        registered = dict(rows)
+        registered: dict[str, str] = dict(rows)
         if set(registered) - set(versions):
             raise RuntimeError("UNKNOWN_APPLIED_BUSINESS_MIGRATION")
         if mt_exists[0] and not registered:
