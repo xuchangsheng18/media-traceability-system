@@ -10,8 +10,8 @@ from sqlalchemy import text
 from ..auth import AuthorityProvider
 from ..contracts import ROOT
 from ..errors import BusinessError
-from ..types import Actor, ObjectRef
 from ..objects import StoredObject
+from ..types import Actor, ObjectRef
 from .service import UploadService
 from .validator import inspect_uploaded_media
 
