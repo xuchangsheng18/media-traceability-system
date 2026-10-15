@@ -1,13 +1,17 @@
 import copy
+import logging
+import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 from uuid import UUID, uuid4
 
 import yaml
+from app.tracing import safe_log, trace_context, trace_id
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
 from sqlalchemy.exc import SQLAlchemyError
+from starlette.exceptions import HTTPException
 
 from .auth import AuthorityProvider
 from .contracts import ROOT
@@ -50,6 +54,7 @@ def create_app(
     service_authority: ServiceAuthority | None = None,
     inference_backends: dict[str, BackendRegistration] | None = None,
 ) -> FastAPI:
+    logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
 
     @asynccontextmanager
@@ -117,20 +122,35 @@ def create_app(
 
     @app.middleware("http")
     async def request_trace(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
+        started = time.monotonic()
+        request.state.request_id = uuid4()
         identifiers = request.headers.getlist("X-Request-Id")
         try:
             if len(identifiers) > 1:
                 raise ValueError()
             identifier = UUID(identifiers[0]) if identifiers else uuid4()
         except ValueError:
+            safe_log("request.rejected", request_id=str(request.state.request_id), status=422, route="unmatched")
             return await business_error(request, BusinessError("REQUEST_ID_INVALID", 422))
         request.state.request_id = identifier
         request.state.client_request_id_provided = bool(identifiers)
         request.scope["headers"] = [
             (key, value) for key, value in request.scope["headers"] if key.lower() != b"x-request-id"
         ] + [(b"x-request-id", str(identifier).encode("ascii"))]
-        response = await call_next(request)
+        with trace_context(str(identifier)):
+            try:
+                response = await call_next(request)
+            except Exception:
+                response = await business_error(request, BusinessError("INTERNAL_ERROR", 500))
+            safe_log(
+                "request.completed",
+                status=response.status_code,
+                method=request.method,
+                route=getattr(request.scope.get("route"), "path", "unmatched"),
+                elapsed_ms=int((time.monotonic() - started) * 1000),
+            )
         response.headers["X-Request-Id"] = str(request.state.request_id)
+        response.headers["X-Trace-Id"] = trace_id(str(request.state.request_id))
         return response
 
     @app.exception_handler(BusinessError)
@@ -151,7 +171,7 @@ def create_app(
                 "request_id": str(request_id),
                 "details": [],
             },
-            headers={"X-Request-Id": str(request_id)},
+            headers={"X-Request-Id": str(request_id), "X-Trace-Id": trace_id(str(request_id))},
         )
 
     @app.exception_handler(SQLAlchemyError)
@@ -161,5 +181,23 @@ def create_app(
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request: Request, _: RequestValidationError) -> JSONResponse:
         return await business_error(request, BusinessError("INPUT_INVALID", 422))
+
+    @app.exception_handler(HTTPException)
+    async def http_error(request: Request, exception: HTTPException) -> JSONResponse:
+        status = exception.status_code
+        if not 400 <= status <= 599:
+            status = 500
+        code = {403: "HTTP_FORBIDDEN", 404: "RESOURCE_NOT_FOUND", 405: "METHOD_NOT_ALLOWED"}.get(
+            status, f"HTTP_STATUS_{status}"
+        )
+        response = await business_error(request, BusinessError(code, status))
+        if status == 405:
+            permitted = {"GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE", "CONNECT"}
+            methods = {value.strip() for value in (exception.headers or {}).get("Allow", "").split(",")}
+            if methods and methods <= permitted:
+                response.headers["Allow"] = ", ".join(sorted(methods))
+        if status == 401:
+            response.headers["WWW-Authenticate"] = "Bearer"
+        return response
 
     return app

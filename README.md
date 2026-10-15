@@ -1,6 +1,6 @@
 # 短视频与图片智能识别溯源系统
 
-当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定及前后端/数据库/对象/队列/真实合成推理闭环。本机21道CI记录为原1.1历史范围，当前25道托管实际运行另见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；未宣称全部业务实现。
+当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定及前后端/数据库/对象/队列/真实合成推理闭环。本机21道CI记录为原1.1历史范围，托管CI本批已扩展检查，实际源码和数量见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；未宣称全部业务实现。
 
 服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py310/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
 
@@ -75,7 +75,7 @@ cd /workspace/glwy/projects/media-traceability-system
 
 先核对第一阶段输入与来源，再阅读第二阶段技术执行依据；[阶段衔接](docs/00-project/stage-one/handoff.md)明确哪些输入由实际工程消费。24步、23步、第三阶段16步与170研发任务分别编号。
 
-第二阶段已完成环境盘点、py310版本锁定、最小工程和25道CI工程门禁配置；代表性权限/中文查询、VFR媒体和软件物料验证见[23步状态](docs/03-development/stage-two-readiness.md)及[交付对照](docs/03-development/stage-two-completion-matrix.md)。后续按[实施计划](docs/03-development/stage-two-implementation-plan.md)和[实际输入表](docs/03-development/stage-two-external-inputs.json)推进，正式冻结仍未完成。
+第二阶段已完成环境盘点、py310版本锁定、最小工程和扩展CI工程门禁配置；代表性权限/中文查询、VFR媒体和软件物料验证见[23步状态](docs/03-development/stage-two-readiness.md)及[交付对照](docs/03-development/stage-two-completion-matrix.md)。后续按[实施计划](docs/03-development/stage-two-implementation-plan.md)和[实际输入表](docs/03-development/stage-two-external-inputs.json)推进，正式冻结仍未完成。
 
 第一阶段已完成[原件内容核对](docs/00-project/stage-one/source-content-audit.md)、[955处来源章节映射](docs/00-project/stage-one/source-section-map.md)、[33项具体评审清单](docs/00-project/review-package/README.md)和[当前候选输入摘要](docs/00-project/stage-one/input-baseline-candidate.md)。图表版式、36需求技术语义、24测量协议及170任务容量排期的文档工作已完成，范围见[核验记录](docs/00-project/stage-one/four-item-completion.md)；[工程输入控制](docs/00-project/stage-one/remaining-work-completion.md)已接入现有状态表。实际人员、日期、正式规则和真实验收仍按对应待办落实。
 
@@ -111,7 +111,7 @@ cd /workspace/glwy/projects/media-traceability-system
 
 本机CI真实运行，含15项后端、2项前端、1项浏览器、21项集成、5项恢复、6项媒体/查询、73项SQL断言/案例及契约/输入检查，详细数量和命令以报告为准。新增15项迁移/竞态、源PTS映射与8项冷备恢复。用户指定[私有GitHub](https://github.com/xuchangsheng18/media-traceability-system)采用Actions执行同源门禁，实际平台run、源码SHA与制品结论见[平台报告](docs/00-project/validation/github-actions-report.json)。
 
-开发5表（含审计和迁移账本）与正式62表/824字段设计分开；仅单固定测试案件。正式身份/案件隔离、审批、审计、WORM、业务模型/GPU、20/100并发、业务中文检索/大型索引、生产灾备/密钥恢复和生产准入仍需后续验证。Linux服务器上的Docker虚拟机研发卷最新容量按资源快照和开发准入说明读取；大体积构建/权重素材写入前先落实容量。宿主空闲、Windows本地D盘与GitHub容量分别判断。
+开发5表（含审计和迁移账本）与正式62表/825字段设计分开；仅单固定测试案件。正式身份/案件隔离、审批、审计、WORM、业务模型/GPU、20/100并发、业务中文检索/大型索引、生产灾备/密钥恢复和生产准入仍需后续验证。Linux服务器上的Docker虚拟机研发卷最新容量按资源快照和开发准入说明读取；大体积构建/权重素材写入前先落实容量。宿主空闲、Windows本地D盘与GitHub容量分别判断。
 
 源Word及其SHA256保持；Git保存本轮研发快照，origin采用用户提供私有GitHub，没有创建已批准生产基线标签。同步证据见docs/00-project/server-sync-receipt.json。
 

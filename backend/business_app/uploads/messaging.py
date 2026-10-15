@@ -1,5 +1,6 @@
 from typing import Any
 
+from app.tracing import trace_id
 from kombu import Connection, Consumer, Exchange, Producer, Queue
 from sqlalchemy import text
 
@@ -40,6 +41,10 @@ def pump_outbox_once(
                 delivery_mode=2,
                 mandatory=True,
                 declare=[queue],
+                headers={
+                    "request_id": item["payload"]["request_id"],
+                    "trace_id": trace_id(item["payload"]["request_id"]),
+                },
             )
             with service.database.transaction(scope) as sql_connection:
                 sql_connection.execute(

@@ -327,7 +327,7 @@
       ]
     }
   ],
-  "documentation_revision": "python-production-selection-conditions-20261013",
+  "documentation_revision": "foundation-closeout-20261016",
   "supplement_refs": [
     "docs/03-development/stage-two-completion-matrix.md",
     "docs/03-development/stage-two-implementation-plan.md"
@@ -359,11 +359,11 @@
       },
       {
         "id": "DEV-DISK",
-        "state": "CRITICAL_BLOCKS_HEAVY_SERVER_CONTAINER_WORK",
-        "requirement": "Linux服务器Docker虚拟机研发卷需先落实扩容/迁移及新快照，当前df99%且约1.62GiB可用；宿主/workspace空闲不替代卷余量。",
+        "state": "SNAPSHOT_OBSERVED_RECHECK_BEFORE_HEAVY_WORK",
+        "requirement": "容量及采样时间读取最新同步回执与资源报告；当前5GiB仅为研发操作保护，每次重操作前实时核验。历史容量不足不当当前状态；实际配额、维护与正式恢复另验。",
         "evidence_refs": [
-          "docs/00-project/validation/resource-readiness-snapshot.json",
-          "docs/00-project/validation/stage-two-resource-report.json"
+          "docs/00-project/server-sync-receipt.json",
+          "docs/00-project/validation/resource-readiness-snapshot.json"
         ]
       },
       {

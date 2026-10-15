@@ -10,7 +10,7 @@
 - [CI实际门禁](ci-cd.md)、[生成类型与消息约定](contract-generation.md)。
 - [运行手册](../10-deployment/development-runbook.md)、[验证报告](../02-architecture/technical-validation-report.md)。
 
-现有工程包含[迁移/事件/租约机制](migrations-and-events.md)、代表性隔离权限/中文查询、VFR媒体及镜像OS物料验证；25道CI工程门禁的实际结果见[CI说明](ci-cd.md)与平台报告。[交付对照](stage-two-completion-matrix.md)、[实施计划](stage-two-implementation-plan.md)和[实际输入](stage-two-external-inputs.json)已纳入23步状态，剩余条件见[关闭标准](stage-two-gap-register.md)。
+现有工程包含[迁移/事件/租约机制](migrations-and-events.md)、代表性隔离权限/中文查询、VFR媒体及镜像OS物料验证；CI工程门禁的实际结果见[CI说明](ci-cd.md)与平台报告。[交付对照](stage-two-completion-matrix.md)、[实施计划](stage-two-implementation-plan.md)和[实际输入](stage-two-external-inputs.json)已纳入23步状态，剩余条件见[关闭标准](stage-two-gap-register.md)。
 
 基础框架完成不等于全部170任务实现；从任务卡核验具体输入、权限、依赖和验收，新增业务应执行其专用验证。
 

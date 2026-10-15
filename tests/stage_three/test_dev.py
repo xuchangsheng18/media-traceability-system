@@ -14,10 +14,87 @@ dev = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(dev)
 
 
+@pytest.mark.parametrize("known", [True, False])
+def test_stage_capacity_text_uses_timestamped_snapshot_or_unknown(monkeypatch, known):
+    script_dir = str(ROOT / "scripts")
+    monkeypatch.syspath_prepend(script_dir)
+    import generate_stage_three_docs as generation
+
+    original = generation.read
+    receipt = (
+        {
+            "foundation_capacity_observation": {
+                "used_percent": "78%",
+                "available_bytes": 12 * 1024**3,
+                "observed_at": "synthetic-observation-2040",
+            },
+        }
+        if known
+        else {}
+    )
+    monkeypatch.setattr(
+        generation,
+        "read",
+        lambda name: receipt if name.endswith("resource-readiness-snapshot.json") else original(name),
+    )
+    combined = "\n".join(generation.build().values())
+    if known:
+        assert "78%" in combined and "12GiB" in combined and "synthetic-observation-2040" in combined
+    else:
+        assert "容量未知" in combined
+    assert "复查13%" not in combined and "观测使用率13%" not in combined
+
+
+@pytest.mark.parametrize("conflict", ["custom_hook", "core_hooks_path", "missing_tool"])
+def test_hook_installation_refuses_unsafe_or_incomplete_setup(monkeypatch, tmp_path, conflict):
+    quality_spec = importlib.util.spec_from_file_location("hook_quality", ROOT / "scripts/stage_three_quality.py")
+    assert quality_spec is not None and quality_spec.loader is not None
+    quality = importlib.util.module_from_spec(quality_spec)
+    quality_spec.loader.exec_module(quality)
+    installer = getattr(quality, "install_hook", None)
+    assert callable(installer), "safe hook installer is missing"
+    monkeypatch.setattr(quality, "ROOT", tmp_path)
+    monkeypatch.setattr(quality, "RUNTIME", tmp_path / "private-runtime")
+    monkeypatch.setattr(quality.sys, "platform", "linux")
+    hook = tmp_path / ".git/hooks/pre-commit"
+    hook.parent.mkdir(parents=True)
+    tool = quality.RUNTIME / quality.PROFILE["quality_environment_directory"] / "bin/python"
+    if conflict != "missing_tool":
+        tool.parent.mkdir(parents=True)
+        tool.write_text("isolated-test-tool", encoding="utf-8")
+    if conflict == "custom_hook":
+        hook.write_text("#!/bin/sh\nexit 7\n", encoding="utf-8")
+
+    def fake_run(command, **kwargs):
+        if command[0] != "git":
+            raise AssertionError("installer must not execute on a conflict")
+        output = ("private-hooks" if conflict == "core_hooks_path" else "") if "config" in command else str(hook)
+        return types.SimpleNamespace(returncode=0, stdout=output)
+
+    monkeypatch.setattr(quality.subprocess, "run", fake_run)
+    with pytest.raises(RuntimeError, match="CUSTOM_GIT_HOOK|CUSTOM_HOOKS_PATH|QUALITY_TOOLS_NOT_INSTALLED"):
+        installer()
+    if conflict == "custom_hook":
+        assert hook.read_text() == "#!/bin/sh\nexit 7\n"
+
+
 def test_unknown_command_is_rejected():
     with pytest.raises(SystemExit) as failure:
         dev.main(["delete-all"])
     assert failure.value.code == 2
+
+
+def test_precommit_contains_format_types_and_frontend_checks():
+    commands = dev.plan("pre-commit")
+    assert any("format" in command and "--check" in command for command in commands)
+    assert any("scripts/stage_three_types.py" in command for command in commands)
+    assert ["npm", "--prefix", "frontend", "run", "lint"] in commands
+    assert ["npm", "--prefix", "frontend", "run", "format-check"] in commands
+
+
+@pytest.mark.parametrize("name,frontend", [("lint", "lint"), ("format-check", "format-check")])
+def test_frontend_quality_is_part_of_same_local_ci_entry(name, frontend):
+    assert ["npm", "--prefix", "frontend", "run", frontend] in dev.plan(name)
 
 
 def test_dry_run_never_executes_or_validates_external_stack(monkeypatch, capsys):

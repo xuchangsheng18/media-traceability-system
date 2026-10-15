@@ -1,6 +1,6 @@
 {
-  "revision": "task-progress-20261015",
-  "observed_date": "2026-10-15",
+  "revision": "foundation-closeout-20261016",
+  "observed_date": "2026-10-16",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
   "completion_percentage_asserted": false,
@@ -25,8 +25,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档",
-      "summary_remaining": "逐项核对目录职责、启动/测试/提交入口，完成任务级复核记录；本轮补齐任务状态不能替代原验收",
+      "summary_completed": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档；目录职责、统一开发/测试/提交入口和新增变更模板已在现有导航连接核对",
+      "summary_remaining": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档",
@@ -55,12 +55,30 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "目录职责、统一开发/测试/提交入口和新增变更模板已在现有导航连接核对",
+          "evidence": [
+            {
+              "path": "README.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "CONTRIBUTING.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "逐项核对目录职责、启动/测试/提交入口，完成任务级复核记录；本轮补齐任务状态不能替代原验收"
+          "category": "接入与验收",
+          "description": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。"
         },
         {
           "category": "任务记录",
@@ -75,8 +93,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测",
-      "summary_remaining": "完成后端工程任务的启动、配置缺失和日志初始化逐项验收；生产解释器支持周期单独处理",
+      "summary_completed": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测；补齐启动profile校验、私密配置隐藏和安全结构日志，配置异常与并行关联回归已覆盖",
+      "summary_remaining": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测",
@@ -117,12 +135,34 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "补齐启动profile校验、私密配置隐藏和安全结构日志，配置异常与并行关联回归已覆盖",
+          "evidence": [
+            {
+              "path": "backend/app/settings.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/app/tracing.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "tests/stage_three/test_foundation_configuration.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "完成后端工程任务的启动、配置缺失和日志初始化逐项验收；生产解释器支持周期单独处理"
+          "category": "接入与验收",
+          "description": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。"
         },
         {
           "category": "任务记录",
@@ -137,8 +177,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据",
-      "summary_remaining": "补路由、共享状态管理及调用GET /health的健康页；补前端lint和格式化，明确API基地址/环境变量及同源代理策略，再跑启动/类型/组件测试",
+      "summary_completed": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据；实现路由、内存共享状态、真实健康页、安全API基地址和同源代理；加入lint/格式/类型及真实浏览器回归",
+      "summary_remaining": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据",
@@ -161,16 +201,46 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "实现路由、内存共享状态、真实健康页、安全API基地址和同源代理；加入lint/格式/类型及真实浏览器回归",
+          "evidence": [
+            {
+              "path": "frontend/src/router.ts",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "frontend/src/state.ts",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "frontend/src/views/HealthView.vue",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "frontend/src/api.ts",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "frontend/vite.config.ts",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "补路由、共享状态管理及调用GET /health的健康页"
-        },
-        {
-          "category": "实施/验证",
-          "description": "补前端lint和格式化，明确API基地址/环境变量及同源代理策略，再跑启动/类型/组件测试"
+          "category": "接入与验收",
+          "description": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。"
         },
         {
           "category": "任务记录",
@@ -229,8 +299,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础",
-      "summary_remaining": "补前端ESLint/格式化及持续集成强制检查；实际安装并验证本机提交钩子或受控等效入口，纳入格式/类型检查；当前配置文件存在不代表钩子已安装",
+      "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础；ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查",
+      "summary_remaining": "Linux选定工作区钩子按实际安装/运行报告认定；Windows原生环境及其他开发者端尚待安装验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础",
@@ -253,16 +323,38 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查",
+          "evidence": [
+            {
+              "path": "scripts/dev.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "scripts/verify-frontend-quality.mjs",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "scripts/stage_three_quality.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "tests/stage_three/test_dev.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "补前端ESLint/格式化及持续集成强制检查"
-        },
-        {
-          "category": "实施/验证",
-          "description": "实际安装并验证本机提交钩子或受控等效入口，纳入格式/类型检查；当前配置文件存在不代表钩子已安装"
+          "category": "接入与验收",
+          "description": "Linux选定工作区钩子按实际安装/运行报告认定；Windows原生环境及其他开发者端尚待安装验证。"
         },
         {
           "category": "任务记录",
@@ -321,8 +413,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "环境示例、Git外私密配置和启动时必要配置校验已实现",
-      "summary_remaining": "补dev/test/prod配置分层和选择规则；补缺失/非法值/错误环境/密钥泄露测试及轮换管理，正式环境值由实际责任人落实",
+      "summary_completed": "环境示例、Git外私密配置和启动时必要配置校验已实现；development/test/production显式选择及缺失/非法配置脱敏已实现；无有效生产配置时拒绝启动",
+      "summary_remaining": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "环境示例、Git外私密配置和启动时必要配置校验已实现",
@@ -345,16 +437,38 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "development/test/production显式选择及缺失/非法配置脱敏已实现；无有效生产配置时拒绝启动",
+          "evidence": [
+            {
+              "path": "backend/app/settings.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/business_app/settings.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "tests/stage_three/test_foundation_configuration.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": ".env.example",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "补dev/test/prod配置分层和选择规则"
-        },
-        {
-          "category": "实施/外部条件",
-          "description": "补缺失/非法值/错误环境/密钥泄露测试及轮换管理，正式环境值由实际责任人落实"
+          "category": "接入与验收",
+          "description": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。"
         },
         {
           "category": "任务记录",
@@ -369,8 +483,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "PoC JSON请求日志、request_id及trace_origin传播已有验证",
-      "summary_remaining": "统一PoC与业务应用日志格式，传播trace_id关联API/队列/节点/网关及task/run/attempt；补跨异步链路、采样、日志和指标标签脱敏测试；request_id或trace_origin不等于完整trace_id链路",
+      "summary_completed": "PoC JSON请求日志、request_id及trace_origin传播已有验证；API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号",
+      "summary_remaining": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "PoC JSON请求日志、request_id及trace_origin传播已有验证",
@@ -393,16 +507,42 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号",
+          "evidence": [
+            {
+              "path": "backend/app/tracing.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/app/observability.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/app/worker.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/business_app/uploads/messaging.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "tests/stage_three/test_foundation_tracing.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "统一PoC与业务应用日志格式，传播trace_id关联API/队列/节点/网关及task/run/attempt"
-        },
-        {
-          "category": "实施/验证",
-          "description": "补跨异步链路、采样、日志和指标标签脱敏测试；request_id或trace_origin不等于完整trace_id链路"
+          "category": "接入与验收",
+          "description": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。"
         },
         {
           "category": "任务记录",
@@ -417,8 +557,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现",
-      "summary_remaining": "统一业务应用未知异常500、HTTPException及未匹配404响应为code/message/request_id/details；建立错误码唯一性注册检查和完整HTTP/敏感信息回归；只读探测500仍为text/plain，404缺统一字段，不登记为已修复",
+      "summary_completed": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现；统一业务未知500/HTTPException/404/405及PoC错误脱敏；新增唯一错误码注册和安全回归",
+      "summary_remaining": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现",
@@ -445,16 +585,38 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "统一业务未知500/HTTPException/404/405及PoC错误脱敏；新增唯一错误码注册和安全回归",
+          "evidence": [
+            {
+              "path": "backend/business_app/errors.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/business_app/main.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "backend/app/observability.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "tests/business/test_foundation_errors.py",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "统一业务应用未知异常500、HTTPException及未匹配404响应为code/message/request_id/details"
-        },
-        {
-          "category": "实施/验证",
-          "description": "建立错误码唯一性注册检查和完整HTTP/敏感信息回归；只读探测500仍为text/plain，404缺统一字段，不登记为已修复"
+          "category": "接入与验收",
+          "description": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。"
         },
         {
           "category": "任务记录",
@@ -469,8 +631,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "ADR文档和开发环境变更/恢复要求已归档",
-      "summary_remaining": "补可复用PR模板及需求、模型、数据库分类变更模板；模板须关联影响、数据/模型/接口版本、回滚与实际验证，再完成至少一次使用复核；现有.github仅workflow不能算PR模板",
+      "summary_completed": "ADR文档和开发环境变更/恢复要求已归档；新增PR及需求/模型/数据库/ADR可复用模板，本批实施记录按模板核对影响、版本、验证、恢复与未验范围",
+      "summary_remaining": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "ADR文档和开发环境变更/恢复要求已归档",
@@ -485,16 +647,38 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "新增PR及需求/模型/数据库/ADR可复用模板，本批实施记录按模板核对影响、版本、验证、恢复与未验范围",
+          "evidence": [
+            {
+              "path": ".github/PULL_REQUEST_TEMPLATE.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/change-templates/requirement-change.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/change-templates/model-change.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/change-templates/database-change.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            },
+            {
+              "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+              "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/验证",
-          "description": "补可复用PR模板及需求、模型、数据库分类变更模板"
-        },
-        {
-          "category": "实施/验证",
-          "description": "模板须关联影响、数据/模型/接口版本、回滚与实际验证，再完成至少一次使用复核；现有.github仅workflow不能算PR模板"
+          "category": "接入与验收",
+          "description": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。"
         },
         {
           "category": "任务记录",

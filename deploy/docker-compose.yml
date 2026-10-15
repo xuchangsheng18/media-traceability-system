@@ -57,7 +57,7 @@ services:
   inference:
     image: media-trace-py310:1.0.0-dev
     env_file: ${MT_RUNTIME_DIR}/poc.env
-    command: ["/opt/py310/bin/python", "-m", "uvicorn", "service:app", "--host", "0.0.0.0", "--port", "8001"]
+    command: ["/opt/py310/bin/python", "-m", "uvicorn", "service:app", "--host", "0.0.0.0", "--port", "8001", "--no-access-log"]
     volumes: ["model-data:/runtime"]
     ports: ["127.0.0.1:14201:8001"]
     mem_limit: 2g

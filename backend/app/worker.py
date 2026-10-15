@@ -1,5 +1,4 @@
 import datetime
-import json
 import logging
 import os
 import uuid
@@ -13,8 +12,11 @@ from app.common import CASE_ID
 from app.contracts import EVENT, validate_model_result
 from app.db import engine
 from app.leases import audit, claim_job, finish_job
+from app.settings import validate_runtime
+from app.tracing import safe_log, trace_headers, trace_id
 
 log = logging.getLogger("media_trace")
+validate_runtime()
 celery = Celery("media_trace_poc", broker=os.environ["BROKER_URL"])
 celery.conf.update(
     task_acks_late=True,
@@ -76,7 +78,7 @@ def dispatch_outbox():
                 args=[event],
                 task_id=str(row["job_id"]),
                 argsrepr="[validated development event]",
-                headers={"request_id": event["request_id"]},
+                headers={"request_id": event["request_id"], "trace_id": trace_id(event["request_id"])},
             )
             connection.execute(text("UPDATE poc.outbox SET sent_at=now() WHERE job_id=:id"), {"id": row["job_id"]})
     Path("/tmp/mt-worker-heartbeat").touch()
@@ -103,6 +105,7 @@ def resolve_event(event):
 @celery.task(name="poc.analyze", bind=True, max_retries=2, soft_time_limit=25, time_limit=30)
 def analyze(self, event):
     event = resolve_event(event)
+    safe_log("job.received", request_id=event["request_id"], task_id=event["payload"]["job_id"])
     claim = claim_job(event)
     if claim is None:
         return "already handled or scope mismatch"
@@ -133,23 +136,20 @@ def analyze(self, event):
         response = httpx.post(
             os.environ["INFERENCE_URL"] + "/internal/v1/inference/retrieval.image_embedding",
             json=request,
-            headers={"Authorization": "Bearer " + os.environ["INTERNAL_TOKEN"], "X-Request-ID": request["request_id"]},
+            headers={"Authorization": "Bearer " + os.environ["INTERNAL_TOKEN"], **trace_headers(request["request_id"])},
             timeout=20,
         )
         response.raise_for_status()
         result = response.json()
         validate_model_result(request, result)
         accepted = finish_job(claim, result=result)
-        log.info(
-            json.dumps(
-                {
-                    "event": "job.finished",
-                    "job_id": request["task_id"],
-                    "request_id": request["request_id"],
-                    "run_version": request["run_version"],
-                    "accepted": accepted,
-                }
-            )
+        safe_log(
+            "job.finished",
+            request_id=request["request_id"],
+            task_id=request["task_id"],
+            run_version=request["run_version"],
+            attempt=claim["attempts"],
+            accepted=accepted,
         )
         return "complete" if accepted else "stale lease rejected"
     except Exception:

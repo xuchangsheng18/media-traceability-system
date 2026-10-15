@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID, uuid4
 
+from app.tracing import safe_log
 from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 from sqlalchemy import text
 
@@ -28,6 +29,7 @@ class UploadValidationWorker:
             Draft202012Validator(schema, format_checker=FormatChecker()).validate(event)
         except ValidationError:
             raise BusinessError("UPLOAD_EVENT_INVALID", 422) from None
+        safe_log("upload.validation.started", request_id=event["request_id"], upload_id=event["upload_id"])
         actor = Actor(UUID(event["actor_id"]), UUID(event["org_id"]))
         scope = self.authority.authorize_case(actor, UUID(event["case_id"]), "asset.upload")
         if scope.actor != actor or scope.case_id != UUID(event["case_id"]):

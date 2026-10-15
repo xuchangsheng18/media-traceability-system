@@ -15,6 +15,7 @@ import numpy as np
 import torch
 from app.common import ROOT, get_object, put_object
 from app.observability import configure
+from app.settings import validate_runtime
 from fastapi import FastAPI, Header, HTTPException, Request
 from jsonschema import Draft202012Validator, FormatChecker
 from PIL import Image
@@ -74,6 +75,7 @@ def initialize_model():
 
 @asynccontextmanager
 async def lifespan(_):
+    validate_runtime()
     initialize_model()
     yield
 

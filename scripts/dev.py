@@ -52,11 +52,16 @@ def plan(name):
             ["npm", "--prefix", "frontend", "ci", "--no-audit", "--no-fund"],
         ]
     if name == "lint":
-        return [[py, "-m", "ruff", "check", "--config", "ruff.toml", *PROFILE["lint_scope"]], *plan("type-check")]
+        return [
+            [py, "-m", "ruff", "check", "--config", "ruff.toml", *PROFILE["lint_scope"]],
+            ["npm", "--prefix", "frontend", "run", "lint"],
+            *plan("type-check"),
+        ]
     if name == "format-check":
         return [
             [py, "-m", "ruff", "format", "--check", *PROFILE["format_scope"]],
             [py, "scripts/stage_three_quality.py", "text"],
+            ["npm", "--prefix", "frontend", "run", "format-check"],
         ]
     if name == "type-check":
         return [
@@ -87,6 +92,9 @@ def plan(name):
             [py, "scripts/stage_three_quality.py", "text"],
             [py, "scripts/stage_three_quality.py", "secrets"],
             [py, "-m", "ruff", "check", "--config", "ruff.toml", *PROFILE["lint_scope"]],
+            *plan("format-check"),
+            *plan("type-check"),
+            ["npm", "--prefix", "frontend", "run", "lint"],
         ]
     if name == "stop":
         return [[py, "scripts/poc_control.py", "down"]]

@@ -1,18 +1,21 @@
 """Shared safe Problem responses and request tracing for API and inference."""
 
-import json
 import logging
 import time
 import uuid
 
-from fastapi import HTTPException, Request
+from business_app.errors import ERROR_STATUS
+from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from starlette.exceptions import HTTPException
+
+from app.tracing import safe_log, trace_context, trace_id
 
 
 def configure(app, trust_request_id=False):
-    logger = logging.getLogger("media_trace")
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    logging.getLogger("uvicorn.access").disabled = True
 
     def problem(request, status, code):
         return JSONResponse(
@@ -38,27 +41,37 @@ def configure(app, trust_request_id=False):
             except ValueError:
                 pass
         started = time.monotonic()
-        try:
-            response = await call_next(request)
-        except Exception:
-            response = problem(request, 500, "DEPENDENCY_FAILURE")
+        with trace_context(request.state.request_id):
+            try:
+                response = await call_next(request)
+            except Exception:
+                response = problem(request, 500, "DEPENDENCY_FAILURE")
         response.headers["X-Request-ID"] = request.state.request_id
-        logger.info(
-            json.dumps(
-                {
-                    "request_id": request.state.request_id,
-                    "method": request.method,
-                    "route": getattr(request.scope.get("route"), "path", "unmatched"),
-                    "status": response.status_code,
-                    "elapsed_ms": int((time.monotonic() - started) * 1000),
-                }
-            )
+        response.headers["X-Trace-Id"] = trace_id(request.state.request_id)
+        safe_log(
+            "request.completed",
+            request_id=request.state.request_id,
+            method=request.method,
+            route=getattr(request.scope.get("route"), "path", "unmatched"),
+            status=response.status_code,
+            elapsed_ms=int((time.monotonic() - started) * 1000),
         )
         return response
 
     @app.exception_handler(HTTPException)
     async def http_error(request: Request, error: HTTPException):
-        return problem(request, error.status_code, str(error.detail))
+        code = str(error.detail)
+        if ERROR_STATUS.get(code) != error.status_code:
+            code = {404: "RESOURCE_NOT_FOUND", 405: "METHOD_NOT_ALLOWED"}.get(
+                error.status_code, f"HTTP_STATUS_{error.status_code}"
+            )
+        response = problem(request, error.status_code, code)
+        if error.status_code == 405:
+            allowed = (error.headers or {}).get("Allow", "")
+            methods = {value.strip() for value in allowed.split(",")}
+            if methods and methods <= {"GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE", "CONNECT"}:
+                response.headers["Allow"] = ", ".join(sorted(methods))
+        return response
 
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request: Request, _):

@@ -73,16 +73,16 @@ def control_context(business_context):
     class TestRules:
         def approval(self, scope, purpose, version):
             if version != "policy-dev-1" or purpose not in {"review", "report_export"}:
-                raise BusinessError("TEST_RULE_UNAVAILABLE", 503)
+                raise BusinessError("APPROVAL_RULE_UNAVAILABLE", 503)
             return ApprovalRule(version, 3600, 2)
 
         def review(self, scope, version, decision):
             if version != "policy-dev-1":
-                raise BusinessError("TEST_RULE_UNAVAILABLE", 503)
+                raise BusinessError("APPROVAL_RULE_UNAVAILABLE", 503)
 
         def audit_export(self, scope, purpose):
             if purpose != "self-owned-test-audit":
-                raise BusinessError("TEST_EXPORT_PURPOSE_UNAVAILABLE", 403)
+                raise BusinessError("EXPORT_WINDOW_UNAUTHORIZED", 403)
             current = datetime.now(timezone.utc)
             return ExportRule(
                 "policy-dev-1",
@@ -95,7 +95,7 @@ def control_context(business_context):
 
         def cancellation(self, scope, approval_id):
             if approval_id is not None:
-                raise BusinessError("TEST_ONLY_NO_CONFIRMATION_ADAPTER", 503)
+                raise BusinessError("CANCELLATION_RULE_UNAVAILABLE", 503)
 
     class TestDirectory:
         def current(self, actor):

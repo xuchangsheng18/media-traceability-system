@@ -2272,7 +2272,7 @@ flowchart TD
 | NFR-AVAIL-001 任务幂等租约故障恢复 | 同主体同键同摘要无重复效果；旧租约提交拒绝，失败与延期可观察。 | outbox、原子领取、旧租约拒绝及开发恢复已验证。<br>[migration-fencing-report.json](<../00-project/validation/migration-fencing-report.json>)、[poc-resilience-report.json](<../00-project/validation/poc-resilience-report.json>) | 全业务DAG、真实多worker消息故障/取消/长任务续租待实现和验收。 |
 | NFR-COMPAT-001 版本与契约兼容 | 客户端、模型、索引、前后处理版本不兼容明确拒绝；Mock标识不能混入正式成果。 | 4份生成类型漂移、PoC事件及M15结果身份有检查。<br>[generated-contract-report.json](<../00-project/validation/generated-contract-report.json>)、[poc-integration-report.json](<../00-project/validation/poc-integration-report.json>) | 34能力的真实后端、旧版本迁移和生产Python候选兼容未全部验证。 |
 | NFR-AUDIT-001 重要操作审计与脱敏 | 审计主体对象时间结果及请求ID完整；普通用户不能改事实；日志无令牌和密钥。 | 请求追踪、安全Problem和普通应用追加审计已验证。<br>[migration-fencing-report.json](<../00-project/validation/migration-fencing-report.json>)、[repository-secrets-report.json](<../00-project/validation/repository-secrets-report.json>) | 正式审批审计、特权防篡改、WORM/可信时间尚待。 |
-| NFR-MAINTAIN-001 开发规范与持续集成 | 格式、类型、契约、SQL及必要安全门禁失败时阻断；保留实际报告。 | 当前py310托管25门禁及失败阻断已有实际run/制品。<br>[github-actions-report.json](<../00-project/validation/github-actions-report.json>)、[ci-failure-gate-report.json](<../00-project/validation/ci-failure-gate-report.json>) | 生产版本新锁/新环境及受控制品治理另验，不能转记其他Python PASS。 |
+| NFR-MAINTAIN-001 开发规范与持续集成 | 格式、类型、契约、SQL及必要安全门禁失败时阻断；保留实际报告。 | 当前py310托管门禁及失败阻断已有实际run/制品，新增范围以最新源码报告为准。<br>[github-actions-report.json](<../00-project/validation/github-actions-report.json>)、[ci-failure-gate-report.json](<../00-project/validation/ci-failure-gate-report.json>) | 生产版本新锁/新环境及受控制品治理另验，不能转记其他Python PASS。 |
 | NFR-DATA-001 授权与数据集防泄漏 | 来源与用途授权有效；组合父组同集合；封存验收数据不得训练、调参或难例挖掘。 | 合成元信息、父组计数与泄漏边界有控制检查。<br>[stage-one-controls-report.json](<../00-project/validation/stage-one-controls-report.json>) | 真实用途授权、样本质检和独立封存清单未落实，未据此训练业务模型。 |
 | NFR-AI-001 真实模型评测与概率校准 | 工程流水线与模型指标分开；按固定MetricProtocol记录分母、失败、分组及未知。 | 合成CPU训练/推理和8组验收公式夹具有证据。<br>[synthetic-training-experiment.json](<../00-project/validation/synthetic-training-experiment.json>)、[acceptance-metric-reference-report.json](<../00-project/validation/acceptance-metric-reference-report.json>) | 正式业务模型/校准、授权盲测及批准目标未验收。 |
 | NFR-PERF-001 真实混合负载与容量 | 20/100均待确认；固定素材模型索引资源与计时范围，记录P50/P95/P99和吞吐，不用Mock声明达标。 | 微型SQL/检索、代表性媒体与竞争边界已执行。<br>[media-query-report.json](<../00-project/validation/media-query-report.json>)、[stage-two-media-report.json](<../00-project/validation/stage-two-media-report.json>) | 20/100性质与混合负载/大索引、正式时延吞吐和项目配额未验收。 |
@@ -5579,7 +5579,7 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 
 ## 9 当前落地状态与来源摘要
 
-当前py310 CPU最小工程与托管25门禁已有实际证据；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
+当前py310 CPU最小工程与托管门禁已有实际证据，新增范围以最新源码报告为准；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
 
 生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；研发环境与锁保留。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见[第一阶段24步](<../00-project/stage-one/steps-and-deliverables.md>)、[第二阶段23步](<../03-development/stage-two-readiness.md>)和[实际剩余条件](<../00-project/remaining-work-navigation.md>)。
 
@@ -5610,5 +5610,5 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | [open-questions.md](<../00-project/open-questions.md>) | 4fe41d59eef090247035010237684395bc1dfd8b0916ea3a143af01d71fbd9f0 |
 | [source-task-cards.json](<../../tasks/source-task-cards.json>) | de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565 |
 | [backlog.yaml](<../../tasks/backlog.yaml>) | f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d |
-| [versions.yaml](<../../config/versions.yaml>) | ee4cb5eed6d99f7a9e187635ca8e148ded726dd404cdf071ab641dbee1483ebd |
-| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | 100db464833694cecacc309470fb0c7a5f1bbb1cfedd8968defa17ea554124ba |
+| [versions.yaml](<../../config/versions.yaml>) | 5d80c8c002584c9ba91e7fadbcc5f63c8b4dc5004082d188acc874d16afa8b8a |
+| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | c5234c3454f187a7fd83f3dc9316b3c9da6ce80df704616af92b6de4f0d181ef |

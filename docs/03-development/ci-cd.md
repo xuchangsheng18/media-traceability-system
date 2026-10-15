@@ -1,6 +1,6 @@
 # 持续集成与实际执行范围
 
-第三阶段由[dev.py](../../scripts/dev.py)提供统一入口，ci命令委托原run_ci.py的25门禁，不改计数。工作流另外核验第三阶段10项来源/配置（含57条原验收要求逐项登记）、13项实际运行、45例Python单元（15原PoC+30入口/扫描保护）、2例前端单元及三服务模拟夹具11项/1例浏览器；这些是独立范围，不能当成额外业务任务完成。
+统一入口scripts/dev.py委托run_ci.py，本批配置32道命令检查（16验证、3构建、13集成）。此前21/25门禁属于历史范围；是否实际通过必须核对最新GitHub报告的源码SHA、run及制品。工作流还执行阶段资料、Python静态类型、独立业务回归、三服务夹具和扫描，不把这些换算为170项业务任务完成。
 
 完整入口为`python scripts/dev.py ci --allow-stack-changes`；仅明确的GitHub托管临时工作区组合适用冷启动例外，环境标记本身不能绕过共享卷保护。GitLab文件仍为未注册/未实跑的候选，其build和integration也走容量保护，不能引用GitHub结果宣称GitLab通过。模拟夹具另核对三服务结构日志与同一request_id，实际停止自己启动的模拟推理后验证503/502，既有Docker服务不受该测试影响。
 
@@ -8,15 +8,15 @@
 
 开发命令、独立pre-commit工具层及Python/npm扫描见[第三阶段验证报告](development-environment-validation-report.md)。扫描不把被跳过CPU Torch发行包记为安全通过。服务器make未安装，实际使用Python入口；共享Docker数据盘不足时统一入口拒绝构建/恢复，完整复建仍在独立托管Runner进行。
 
-统一入口为[run_ci.py](../../scripts/run_ci.py)，当前共25道工程门禁；服务器本机21道完整门禁记录属于原1.1历史范围。用户提供的实际私有GitHub仓库为[media-traceability-system](https://github.com/xuchangsheng18/media-traceability-system)，使用[ci.yml](../../.github/workflows/ci.yml)接入GitHub Actions；当前25道的托管实际运行ID、源码SHA、结论和制品验真见[github-actions-report.json](../00-project/validation/github-actions-report.json)，不得将配置文件存在写成执行成功。原.gitlab-ci.yml保留为同源Runner参考，当前平台选择GitHub。
+统一入口为[run_ci.py](../../scripts/run_ci.py)，本批配置32道工程门禁；服务器本机21道完整门禁记录属于原1.1历史范围。用户提供的实际私有GitHub仓库为[media-traceability-system](https://github.com/xuchangsheng18/media-traceability-system)，使用[ci.yml](../../.github/workflows/ci.yml)接入GitHub Actions；当前源码的托管实际运行ID、源码SHA、结论和制品验真见[github-actions-report.json](../00-project/validation/github-actions-report.json)，不得将配置文件存在写成执行成功。原.gitlab-ci.yml保留为同源Runner参考，当前平台选择GitHub。
 
 | 阶段 | 门禁与适用范围 |
 | --- | --- |
-| validate（10） | pip check、100包锁、Ruff、后端15项、第二阶段运维/交付控制6组、输入资料10项、数据库契约17项、npm ci、4份类型无漂移、npm audit |
-| build（3） | 后端wheel、核验/打包实际py310、构建API/推理/worker共用镜像及Web镜像；Web构建含2单元、TS及产物 |
-| integration（12） | 启动7服务；隔离73SQL案例；迁移/竞态15项；21链路项；5恢复项；6媒体/查询；源PTS抽帧；冷备恢复8项；隔离RLS/中文词项21项；VFR媒体11项；镜像OS物料采集；Chromium端到端1项 |
+| validate（16） | pip check、100包锁、Ruff、PoC及第三阶段Python回归、第二阶段运维/交付控制6组、输入资料11组、数据库契约17项、npm ci、4份类型无漂移、前端lint/格式/类型/单元/违规探针/3浏览器、npm audit |
+| build（3） | 后端wheel、核验/打包实际py310、构建API/推理/worker共用镜像及Web镜像；Web构建含15单元、TS及产物 |
+| integration（13） | 启动7服务；隔离73SQL案例；迁移/竞态15项；21链路项；5恢复项；实际HTTP日志隐私4项；6媒体/查询；源PTS抽帧；冷备恢复8项；隔离RLS/中文词项21项；VFR媒体11项；镜像OS物料采集；Chromium端到端1项 |
 
-工作流另外执行阶段材料、接口明细及导航校验，并保存失败探针的预期阻断证据；这些步骤不另加到run_ci.py的25条命令计数。各门禁可能包含多项断言，门禁数、断言数和170业务任务数不能混用。
+工作流另外执行阶段材料、接口明细及导航校验，并保存失败探针的预期阻断证据；这些步骤不另加到run_ci.py的32条命令计数。各门禁可能包含多项断言，门禁数、断言数和170业务任务数不能混用。
 
 任一门禁非零立即停止。失败探针返回预期非零、独立报告，验证阻断后续构建/部署；不覆盖完整PASS报告。报告逐命令保存耗时与结果。冷备门禁在本项目维护时段短暂停服务，正式生产环境不直接执行本脚本。
 

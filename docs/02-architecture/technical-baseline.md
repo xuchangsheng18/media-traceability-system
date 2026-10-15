@@ -47,7 +47,7 @@
 | 开发范围/门槛 | 当前判断 | 执行条件 |
 | --- | --- | --- |
 | DEV-FOUNDATION | READY_WITH_DEFINED_SCOPE | 现有框架/锁/契约和代表性工程证据支持基础开发；按具体任务子范围实施。 |
-| DEV-DISK | CRITICAL_BLOCKS_HEAVY_SERVER_CONTAINER_WORK | Linux服务器Docker虚拟机研发卷需先落实扩容/迁移及新快照，当前df99%且约1.62GiB可用；宿主/workspace空闲不替代卷余量。<br>[resource-readiness-snapshot.json](<../00-project/validation/resource-readiness-snapshot.json>)、[stage-two-resource-report.json](<../00-project/validation/stage-two-resource-report.json>) |
+| DEV-DISK | SNAPSHOT_OBSERVED_RECHECK_BEFORE_HEAVY_WORK | 容量及采样时间读取最新同步回执与资源报告；当前5GiB仅为研发操作保护，每次重操作前实时核验。历史容量不足不当当前状态；实际配额、维护与正式恢复另验。<br>[server-sync-receipt.json](<../00-project/server-sync-receipt.json>)、[resource-readiness-snapshot.json](<../00-project/validation/resource-readiness-snapshot.json>) |
 | DEV-CONTRACT | PER_TASK_GAPS_MUST_CLOSE | 13整体接口缺口、62表访问迁移及完整DAG依对应任务先补契约/绑定/实现，不自动当全部完成。 |
 | DEV-REAL-INPUTS | WAIT_ACTUAL_INPUTS_AND_IMPLEMENTATION | 正式身份、授权数据/真实权重、GPU/驱动、实际规模/并发、人员和资源需真实材料；模拟身份/合成CPU只作研发。 |
 | DEV-PRODUCTION | NOT_READY_NOT_FROZEN | 生产Python按TB-ADR-002逐候选验证/重锁/全CI与准入；3.10例外需实际补丁维护和有效决定。WORM/审批/保留、PITR/密钥/异机恢复、许可扫描及治理仍须实施验证后正式冻结/启用。<br>[TB-ADR-002-backend-stack.md](<architecture-decisions/TB-ADR-002-backend-stack.md>)、[versions.yaml](<../../config/versions.yaml>)、[stage-two-external-inputs.json](<../03-development/stage-two-external-inputs.json>) |

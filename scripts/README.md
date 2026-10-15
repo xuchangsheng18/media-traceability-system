@@ -22,7 +22,7 @@ Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适
 
 完整CI会启动开发栈，恢复检查短暂停止/重启本项目服务；SQL创建新临时无网络容器并清理。资料校验不证明业务实现；主动失败探针FAIL为预期并另有PASS判定。
 
-现有1.1工程包含verify_migrations_and_fencing.py（15隔离项）、verify_media_timestamps.py（非零源PTS）、verify_development_recovery.py（8冷恢复项，维护时段暂停本项目服务）；run_ci.py现有25道工程门禁（21道为原1.1历史范围）。
+现有1.1工程包含verify_migrations_and_fencing.py（15隔离项）、verify_media_timestamps.py（非零源PTS）、verify_development_recovery.py（8冷恢复项，维护时段暂停本项目服务）；run_ci.py本批扩展为32道工程门禁配置，实际运行见平台报告（21道为原1.1历史范围）。
 
 plan_project_schedule.py重建170任务JSON/CSV/阅读页；evaluate_acceptance_metrics.py运行8组参考公式；validate_stage_one_completion.py执行5项图表证据/语义/指标/容量/零证据契约检查，均不代替真实业务验收。
 

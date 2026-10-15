@@ -8,9 +8,9 @@ Linux在仓库根目录使用`/opt/conda/glwy/envs/py310/bin/python scripts/dev.
 
 `dev`默认只观察既有7服务；显式`--allow-stack-changes`才启动命名研发栈，且会检查数据库文件系统容量。`build/integration-test/ci`在所有环境均要求该标志；共享服务器容量不足或读不到容量即拒绝执行。冷启动例外仅适用于GitHub托管Runner、与仓库匹配的工作区、Runner临时目录内独立runtime、default Docker上下文且无DOCKER_HOST覆盖的组合；只有GITHUB_ACTIONS标记或自托管Runner仍走共享容量检查。这是操作保护，不代表平台授权或网络隔离。CI使用`python scripts/dev.py ci --allow-stack-changes`执行实际门禁。`stop`不删除卷，`clean`默认仅预览两个精确缓存目录，`--apply`才清理，原件、数据、权重、数据库、运行秘密和Git均不在允许清理范围。
 
-代码格式检查当前覆盖第三阶段7文件和backend/app、ai-services/inference、tests/poc的13文件，共20文件；旧代码的11处文件格式调整已核对AST一致。其余历史scripts和未来业务模块不在这项格式范围内。Python静态类型检查仍待建立，前端TS已有实际检查；Black/MyPy/ESLint/Stylelint等未选工具不冒充已启用。新增工具另锁版本并验证，本机与CI使用同一入口。
+Python格式/静态检查范围以config/stage-three-profile.json为准，独立类型工具不修改原100包运行锁；前端ESLint、Prettier、vue-tsc和真实违规探针均纳入统一入口和托管CI。Ruff负责Python，Prettier负责前端格式，eslint-config-prettier仅关闭与其冲突的格式规则，Vue/TS语义检查保留。实际数量读取本批报告，不沿用旧20/22/52记录。前端`npm --prefix frontend run lint`、`format-check`、`type-check`、`test`和`test:foundation-browser`可分别执行，`node scripts/verify-frontend-quality.mjs`检查违规会被拦截。API与配置说明见[本批实现记录](docs/03-development/stage-three/foundation-closeout-implementation.md)。
 
-`setup --tools`在仓库外建立单独锁定的pre-commit工具层，保留项目100包锁与py310。先运行`pre-commit run --all-files`验证，再由开发人员选择安装本地hook；本次不重写现有Git hooks。该工具层不作为生产Python或业务依赖变更。
+`setup --tools`在Git外建立锁定的pre-commit及Python类型工具环境，保留项目py310。选定Linux仓库可显式执行`python scripts/stage_three_quality.py install-hook`，遇到自定义hook或core.hooksPath会拒绝覆盖；随后运行该仓库实际`.git/hooks/pre-commit`或独立工具的`pre_commit run --all-files`核验。安装结果以钩子报告为准；其他开发者端和Windows原生不自动安装。钩子不是分支保护，平台必需检查仍需管理员落实。统一pre-commit入口含秘密、Ruff、格式和Python/前端类型检查，不修改运行依赖。
 
 若网络较慢，可把工具锁中12个包按制品清单核验SHA-256后放到仓库外的`stage-three-quality-wheelhouse`；安装会使用该缓存并继续强制包摘要。也可通过`MT_QUALITY_WHEELHOUSE`指定获准外部缓存。缓存/安装包不提交Git，镜像源凭据由操作者私下提供。
 

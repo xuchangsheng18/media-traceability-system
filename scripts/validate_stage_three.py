@@ -150,7 +150,7 @@ def static_checks():
     owners = (ROOT / "CODEOWNERS").read_text()
     assert "* @xuchangsheng18" in owners
     precommit = yaml.safe_load((ROOT / ".pre-commit-config.yaml").read_text())
-    assert precommit["repos"][0]["hooks"][0]["entry"] == "python scripts/dev.py pre-commit"
+    assert precommit["repos"][0]["hooks"][0]["entry"] == profile["python_executable"] + " scripts/dev.py pre-commit"
     checks.append({"name": "project_config_preserves_user_model_permissions_and_valid_local_hook", "status": "PASS"})
     from dev import COMMANDS, plan
 
@@ -313,6 +313,7 @@ def run_profile():
         "source_commit": os.environ.get("GITHUB_SHA"),
         "actual_count": len(results),
         "existing_application_code_changed": False,
+        "state_field_scope": "actions_of_this_validation_invocation_not_source_changes_in_the_delivery",
         "existing_Docker_stack_restarted": False,
         "full_build_or_recovery_repeated_by_this_report": False,
         "full_CI_evidence_ref": "docs/00-project/validation/github-actions-report.json",

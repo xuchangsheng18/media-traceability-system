@@ -27,3 +27,20 @@ Python pip-audit 与 npm audit 已运行；Python 报告跳过 PyPI 不识别的
 [开发基础审查](../00-project/validation/stage-three-foundation-audit-report.json)记录官方CPU wheel及安装载荷核验。官方索引列出torch2.14.1+cpu、cp310、manylinux_2_28_x86_64发行包；下载SHA-256匹配官方索引，已安装12,240个有摘要的载荷文件匹配该包RECORD。安装包只在仓库外下载、读取，没有安装或执行，也没有改变原100包锁。
 
 OSV按精确版本2.14.1+cpu及基础版本2.14.1分别查询，当前均未返回漏洞条目；原pip-audit跳过继续保留。此结果证明指定来源载荷与已安装文件匹配、以及查询时点的版本级已知条目情况，不证明随包OS/所有第三方二进制、模型或许可证完成准入。查询方法依据[OSV官方接口](https://google.github.io/osv.dev/quickstart/)，实际官方包链接与摘要见机器报告。
+
+## 本批前端新增物料
+
+以下读取实际安装包package.json的license字段，并由frontend/package-lock.json锁定版本与完整性摘要；是物料登记，不替代组织准入或完整传递依赖审核。原Python100包锁未变。
+
+| 包 | 精确版本 | 发行包license字段 |
+| --- | --- | --- |
+| vue-router | 4.6.4 | MIT |
+| eslint | 10.12.0 | MIT |
+| @eslint/js | 10.0.1 | MIT |
+| eslint-plugin-vue | 10.11.1 | MIT |
+| typescript-eslint | 8.71.2 | MIT |
+| vue-eslint-parser | 10.4.1 | MIT |
+| prettier | 3.9.10 | MIT |
+| eslint-config-prettier | 10.1.8 | MIT |
+
+补充Node类型开发物料：@types/node 22.20.5，发行包license字段MIT；完整传递依赖仍以锁及扫描为准。
