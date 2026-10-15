@@ -12,7 +12,7 @@
 | unit_and_frontend_tests | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py test`；current_locked_CPU_development_only |
 | unique_contract_SQL_and_generated_types | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py contract-test`；current_locked_CPU_development_only |
 | secret_and_dependency_scans | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py security-scan`；current_locked_CPU_development_only |
-| actual_precommit_all_files_no_hooks_installed | PASS；`/workspace/glwy/runtime/media-traceability-system/stage-three-quality-tools/bin/python -m pre_commit run --all-files`；current_locked_CPU_development_only |
+| actual_precommit_all_files_no_hooks_installed | PASS；`/home/runner/work/_temp/media-trace-runtime/stage-three-quality-tools/bin/python -m pre_commit run --all-files`；current_locked_CPU_development_only |
 | actual_three_process_and_browser_fixture | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/verify_stage_three_demo.py`；current_locked_CPU_development_only |
 | existing_stack_read_only_status | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py status`；current_locked_CPU_development_only |
 | clean_preview_only | PASS；`/opt/conda/glwy/envs/py310/bin/python3.10 scripts/dev.py clean --dry-run`；current_locked_CPU_development_only |

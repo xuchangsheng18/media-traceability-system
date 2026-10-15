@@ -1,6 +1,6 @@
 {
-  "started_at": "2026-10-12T12:38:35.739684+00:00",
-  "runner": "local-shell",
+  "started_at": "2026-10-15T17:26:54.054336+00:00",
+  "runner": "github-hosted-ubuntu-24.04",
   "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
   "stage": "all",
   "checks": [
@@ -13,7 +13,7 @@
         "check"
       ],
       "status": "PASS",
-      "elapsed_seconds": 0.415044
+      "elapsed_seconds": 0.467587
     },
     {
       "stage": "validate",
@@ -22,7 +22,7 @@
         "scripts/verify_runtime_lock.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 0.214734
+      "elapsed_seconds": 0.165803
     },
     {
       "stage": "validate",
@@ -52,7 +52,7 @@
         "scripts/verify_development_recovery.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 0.114748
+      "elapsed_seconds": 0.064254
     },
     {
       "stage": "validate",
@@ -61,10 +61,20 @@
         "-m",
         "pytest",
         "tests/poc",
+        "tests/stage_three",
         "-q"
       ],
       "status": "PASS",
-      "elapsed_seconds": 1.216913
+      "elapsed_seconds": 9.769848
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/validate_stage_two_completion.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.064251
     },
     {
       "stage": "validate",
@@ -73,7 +83,7 @@
         "scripts/validate_inputs.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 24.020801
+      "elapsed_seconds": 24.157977
     },
     {
       "stage": "validate",
@@ -82,7 +92,7 @@
         "scripts/validate_database_contracts.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 5.076109
+      "elapsed_seconds": 6.18414
     },
     {
       "stage": "validate",
@@ -95,7 +105,7 @@
         "--no-fund"
       ],
       "status": "PASS",
-      "elapsed_seconds": 2.019365
+      "elapsed_seconds": 4.298965
     },
     {
       "stage": "validate",
@@ -104,7 +114,75 @@
         "scripts/verify_generated_contracts.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 3.272753
+      "elapsed_seconds": 7.514286
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "lint"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 2.406285
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "format-check"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.921621
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "type-check"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 3.15072
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "test"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 2.054295
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "node",
+        "scripts/verify-frontend-quality.mjs"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 11.014264
+    },
+    {
+      "stage": "validate",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "test:foundation-browser"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 5.161573
     },
     {
       "stage": "validate",
@@ -116,7 +194,7 @@
         "--audit-level=high"
       ],
       "status": "PASS",
-      "elapsed_seconds": 1.768262
+      "elapsed_seconds": 0.51566
     },
     {
       "stage": "build",
@@ -128,7 +206,7 @@
         "backend"
       ],
       "status": "PASS",
-      "elapsed_seconds": 1.066964
+      "elapsed_seconds": 1.469846
     },
     {
       "stage": "build",
@@ -138,7 +216,7 @@
         "pack"
       ],
       "status": "PASS",
-      "elapsed_seconds": 1.167257
+      "elapsed_seconds": 35.608638
     },
     {
       "stage": "build",
@@ -148,7 +226,7 @@
         "build"
       ],
       "status": "PASS",
-      "elapsed_seconds": 27.327859
+      "elapsed_seconds": 61.110531
     },
     {
       "stage": "integration",
@@ -158,7 +236,7 @@
         "up"
       ],
       "status": "PASS",
-      "elapsed_seconds": 33.945574
+      "elapsed_seconds": 31.954392
     },
     {
       "stage": "integration",
@@ -167,7 +245,7 @@
         "scripts/verify_sql_baseline.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 19.508186
+      "elapsed_seconds": 8.344733
     },
     {
       "stage": "integration",
@@ -176,7 +254,7 @@
         "scripts/verify_migrations_and_fencing.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 6.581041
+      "elapsed_seconds": 2.229342
     },
     {
       "stage": "integration",
@@ -185,7 +263,7 @@
         "scripts/verify_poc.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 2.520394
+      "elapsed_seconds": 2.545123
     },
     {
       "stage": "integration",
@@ -194,7 +272,16 @@
         "scripts/verify_poc_resilience.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 48.578331
+      "elapsed_seconds": 51.32238
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_http_log_privacy.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.427383
     },
     {
       "stage": "integration",
@@ -203,7 +290,7 @@
         "scripts/verify_media_and_queries.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 0.766332
+      "elapsed_seconds": 0.67533
     },
     {
       "stage": "integration",
@@ -212,7 +299,7 @@
         "scripts/verify_media_timestamps.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 0.214925
+      "elapsed_seconds": 0.165717
     },
     {
       "stage": "integration",
@@ -221,7 +308,34 @@
         "scripts/verify_development_recovery.py"
       ],
       "status": "PASS",
-      "elapsed_seconds": 75.541085
+      "elapsed_seconds": 63.221141
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_stage_two_isolation.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 1.770013
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_stage_two_media.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 0.338004
+    },
+    {
+      "stage": "integration",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/collect_stage_two_software.py"
+      ],
+      "status": "PASS",
+      "elapsed_seconds": 1.069532
     },
     {
       "stage": "integration",
@@ -236,13 +350,13 @@
         "--config=frontend/playwright.config.ts"
       ],
       "status": "PASS",
-      "elapsed_seconds": 4.575828
+      "elapsed_seconds": 7.250844
     }
   ],
-  "hosted_pipeline_executed": false,
-  "provider": "local_shell",
-  "source_commit": null,
-  "workflow_run_id": null,
+  "hosted_pipeline_executed": true,
+  "provider": "github_actions",
+  "source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
+  "workflow_run_id": "38776619729",
   "status": "PASS",
-  "ended_at": "2026-10-12T12:42:55.652508+00:00"
+  "ended_at": "2026-10-15T17:32:41.469182+00:00"
 }
