@@ -14,9 +14,9 @@
 | --- | --- | --- |
 | [getPropagation](../operations/getPropagation.md) | GET /api/v1/propagation/{cluster_id} | DEV_PARTIAL |
 | [decidePropagationEdge](../operations/decidePropagationEdge.md) | POST /api/v1/propagation/edges/{id}/decisions | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createReview](../operations/createReview.md) | POST /api/v1/reviews | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [createReview](../operations/createReview.md) | POST /api/v1/reviews | DEV_PARTIAL |
+| [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | DEV_PARTIAL |
+| [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | DEV_PARTIAL |
+| [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | DEV_PARTIAL |
 
 模型能力、模块共享入口及异步事件见[内部调用](../inference-interfaces.md)和[服务/消息边界](../service-and-event-contracts.md)。结构覆盖不是完整业务流程覆盖或全部实施；本模块缺口与拟补方案见[缺口登记](../interface-gap-register.md)。

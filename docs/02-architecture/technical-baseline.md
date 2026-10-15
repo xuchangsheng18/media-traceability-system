@@ -7,9 +7,9 @@
 | 环境与资源 | [环境约束](environment-constraints.md)、[资源清单](resource-and-team-inventory.md) | 实际节点、宿主/虚拟机差异、CPU配置及配额已记录 |
 | 技术选择 | [方案比较](technology-options.md)、[14项TB-ADR](architecture-decisions/README.md) | 本轮研发执行选择；不是生产批准 |
 | 版本与制品 | [versions.yaml](../../config/versions.yaml)、[锁文件](../../config/locks/) | Python、npm、基础镜像、环境包、权重都有实际版本/摘要 |
-| 整体接口导航 | [接口与数据库文件导航](#接口与数据库文件导航)、[接口专题](../03-api/README.md)、[整体接口说明](../03-api/system-interface-specification.md)、[53操作明细](../03-api/detailed-interface-index.md) | 整体系统接口及服务边界；候选契约与已运行PoC分别判断，13项接口缺口仍开放 |
-| 接口结构与规则 | [业务OpenAPI](../03-api/openapi.yaml)、[内部OpenAPI](../03-api/inference-openapi.yaml)、[83组件](../03-api/data-structures.md)、[34能力](../03-api/inference-interfaces.md)、[共用规则](../03-api/common-interface-rules.md) | 唯一结构源与逐字段/权限/幂等/版本要求；不从Schema存在认定全部API或模型运行 |
-| 业务数据库设计 | [数据库专题](../04-database/README.md)、[设计](../04-database/database-design.md)、[字典](../04-database/data-dictionary.md)、[SQL](../04-database/initial-schema.sql)、[ER图](../04-database/er-diagram.md) | 62表824字段候选业务设计；初始化DDL用于新隔离空库，不能替代既有数据库版本迁移 |
+| 整体接口导航 | [接口与数据库文件导航](#接口与数据库文件导航)、[接口专题](../03-api/README.md)、[整体接口说明](../03-api/system-interface-specification.md)、[73操作明细](../03-api/detailed-interface-index.md) | 整体系统接口及服务边界；候选契约与已运行PoC分别判断，13项接口缺口仍开放 |
+| 接口结构与规则 | [业务OpenAPI](../03-api/openapi.yaml)、[内部OpenAPI](../03-api/inference-openapi.yaml)、[102组件](../03-api/data-structures.md)、[34能力](../03-api/inference-interfaces.md)、[共用规则](../03-api/common-interface-rules.md) | 唯一结构源与逐字段/权限/幂等/版本要求；不从Schema存在认定全部API或模型运行 |
+| 业务数据库设计 | [数据库专题](../04-database/README.md)、[设计](../04-database/database-design.md)、[字典](../04-database/data-dictionary.md)、[SQL](../04-database/initial-schema.sql)、[ER图](../04-database/er-diagram.md) | 62表825字段候选业务设计；初始化DDL用于新隔离空库，不能替代既有数据库版本迁移 |
 | 字段来源与接口投影 | [字段来源](../04-database/field-provenance.json)、[API映射](../04-database/api-field-mapping.md)、[映射JSON](../04-database/api-field-mapping.json)、[表任务引用](../04-database/table-task-usage.md)、[首发排序](../04-database/first-source-ranking.md) | 核对cluster/asset/rank等来源指针、数据库列与API投影；任务引用不代表业务访问层已实施 |
 | 最小工程 | [运行手册](../10-deployment/development-runbook.md)、[PoC API](../03-api/poc-api.md)、[PoC 数据库](../04-database/poc-database.md) | 浏览器→API→对象/SQL→RabbitMQ→worker→CPU推理→结果已运行 |
 | 研发数据库与升级 | [研发5表](../04-database/poc-database.md)、[研发版本迁移](../../backend/migrations/)、[迁移事件机制](../03-development/migrations-and-events.md)、[RLS原型](../04-database/authorization-isolation-prototype.md) | 当前5表实际研发工程及代表性隔离机制；正式62表业务访问/迁移/RLS尚未全部实施 |
@@ -72,22 +72,23 @@
 
 | 内容 | 文件入口 | 含义和使用要求 |
 | --- | --- | --- |
-| 整体接口范围 | [系统整体接口说明](<../03-api/system-interface-specification.md>) | 七类接口面、55业务操作/85组件/34能力、服务边界和完整性要求。 |
-| 逐操作/模块目录 | [55操作与12模块导航](<../03-api/detailed-interface-index.md>) | 跳转每个操作的参数、请求/响应、权限、版本、异步终态、样例和任务引用。 |
-| 业务结构唯一源 | [业务OpenAPI](<../03-api/openapi.yaml>) | 外部接口结构源；候选55操作，不代表全部已实现。 |
+| 剩余接口实际实现 | [11类缺口实际子范围](<../03-development/stage-three/remaining-interface-implementation.md>) | 审批/复核/审计/配置及适配、任务控制和内部协议的真实代码、验证与正式接入边界。 |
+| 整体接口范围 | [系统整体接口说明](<../03-api/system-interface-specification.md>) | 七类接口面、73业务操作/102组件/34能力、服务边界和完整性要求。 |
+| 逐操作/模块目录 | [73操作与12模块导航](<../03-api/detailed-interface-index.md>) | 跳转每个操作的参数、请求/响应、权限、版本、异步终态、样例和任务引用。 |
+| 业务结构唯一源 | [业务OpenAPI](<../03-api/openapi.yaml>) | 外部接口结构源；候选73操作，不代表全部已实现。 |
 | 内部调用入口唯一源 | [内部推理OpenAPI](<../03-api/inference-openapi.yaml>) | 内部调用入口；能力请求/响应结构以schemas/model为源。 |
-| 业务字段说明 | [85组件字段说明](<../03-api/data-structures.md>) | 必填/可空/枚举/约束及完整Schema的只读派生。 |
+| 业务字段说明 | [102组件字段说明](<../03-api/data-structures.md>) | 必填/可空/枚举/约束及完整Schema的只读派生。 |
 | 内部能力字段 | [34能力接口说明](<../03-api/inference-interfaces.md>) | 能力路径/请求/响应/身份/来源摘要；业务模型未据此验收。 |
 | 能力Schema源 | [68模型Schema](<../../schemas/model>) | 34请求+34响应的唯一能力结构来源；不作为业务HTTP的第二结构源。 |
 | 共用行为 | [接口共用规则](<../03-api/common-interface-rules.md>) | 鉴权、追踪、分页、幂等、ETag、版本、异步、错误及Range。 |
 | 服务与事件 | [服务/事件契约](<../03-api/service-and-event-contracts.md>) | 边界及研发事件；完整业务调度实施另判。 |
 | 工作流/结果事件 | [工作流契约](<../05-workflows/workflow-contracts.md>) | 候选DAG、节点结果、7类域事件和运行版本身份。 |
-| 严格历史读取 | [历史结果读取](<../03-api/historical-result-reading.md>) | 7现有操作的精确task/run/result选择与不回退最新规则，业务联调未完成。 |
-| 接口缺口 | [13项接口缺口](<../03-api/interface-gap-register.md>) | 未冻结设计/实现和关闭标准；拟议路径不可调用。 |
+| 严格历史读取 | [历史结果读取](<../03-api/historical-result-reading.md>) | 7现有操作的精确task/run/result选择与不回退最新规则，所选历史读取已实测；完整业务生产器及正式接入另判。 |
+| 接口缺口 | [13项接口缺口](<../03-api/interface-gap-register.md>) | 正式条件与技术子范围分别登记；已挂载路径按逐操作实测，其余候选路径不可调用。 |
 | 接口追踪 | [接口来源索引](<../03-api/interface-catalog.json>) | 操作/模块/能力的来源和任务/测试引用，非运行证明。 |
 | 样例 | [请求响应样例](<../03-api/examples>) | 结构校验夹具，不能充当实际业务结果。 |
 | 生成类型 | [4份生成类型](<../../shared-contracts/generated>) | 由唯一来源生成，禁止反向手改Schema；结构约束仍需运行验证。 |
-| 已运行研发API | [PoC接口及范围](<../03-api/poc-api.md>) | 固定测试案件/图片上传/任务/合成CPU入口，与55操作设计分开。 |
+| 已运行研发API | [PoC接口及范围](<../03-api/poc-api.md>) | 固定测试案件/图片上传/任务/合成CPU入口，与73操作设计分开。 |
 
 ### 业务数据库及研发迁移文件
 
@@ -116,7 +117,9 @@ API字段须按[字段投影](<../04-database/api-field-mapping.json>)定位数�
 
 cluster_id、asset_id、rank等字段的来源契约是逐字段可追踪的结构/设计依据，不能靠“见来源契约”一句作为实际约束说明。请联合阅读字典、field-provenance、映射和首发排序规范。
 
-55业务操作/85组件/34能力、62表825字段是当前候选设计；PoC和代表性隔离实验有独立证据，完整业务API/62表访问迁移/RLS未全部实现。13接口缺口仍开放，初始化SQL不得直接作用于既有库。状态见[第二阶段23步实际状态](<../03-development/stage-two-readiness.md>)、[12项补齐与剩余](<../03-development/stage-two-completion-matrix.md>)和[两阶段总导航](<../00-project/remaining-work-navigation.md>)。
+73业务操作/102组件/34能力、62表825字段是当前候选设计；PoC和代表性隔离实验有独立证据，完整业务API/62表访问迁移/RLS未全部实现。13项正式条件仍开放；新增业务接口/约束迁移的实际子范围见剩余接口实现说明，初始化SQL不得直接作用于既有库。状态见[第二阶段23步实际状态](<../03-development/stage-two-readiness.md>)、[12项补齐与剩余](<../03-development/stage-two-completion-matrix.md>)和[两阶段总导航](<../00-project/remaining-work-navigation.md>)。
 
 证据：[interface-documentation-report.json](<../00-project/validation/interface-documentation-report.json>)、[database-contract-report.json](<../00-project/validation/database-contract-report.json>)、[database-foundation-report.json](<../00-project/validation/database-foundation-report.json>)、[migration-fencing-report.json](<../00-project/validation/migration-fencing-report.json>)、[stage-two-isolation-report.json](<../00-project/validation/stage-two-isolation-report.json>)。检查通过范围与实际业务验收分别判断。
 <!-- phase-contract-file-navigation:end -->
+
+当前开发补充：独立业务工程已实现62表版本迁移/RLS基础、5项上传、7项历史读取及本批控制接口技术子范围，42个外部和1个内部入口；PoC5表保持独立。具体实际状态与正式前置条件见[本批说明](../03-development/stage-three/remaining-interface-implementation.md)。早期“未实施”说明只对应当时批次，不能覆盖本批已验证实现；完整业务与生产验收仍未完成。

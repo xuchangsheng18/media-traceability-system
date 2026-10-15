@@ -25,3 +25,10 @@ def validate_api(name: str, payload: dict[str, Any]) -> None:
         validator.validate(payload)
     except ValidationError:
         raise BusinessError("INPUT_INVALID", 422) from None
+
+
+def validate_response(name: str, payload: dict[str, Any]) -> None:
+    try:
+        validate_api(name, payload)
+    except BusinessError:
+        raise BusinessError("RESPONSE_CONTRACT_UNAVAILABLE", 503) from None

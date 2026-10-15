@@ -11539,6 +11539,2882 @@
       "handling": "persisted_or_derived_from_registered_rows",
       "semantics": "会话/分片账本当前投影；到期与VALIDATING/COMPLETED/REJECTED状态按实际数据库及当前授权计算；duplicate_of在读取时重核来源，撤销则隐藏。",
       "status": "implemented_selected_development_not_formally_approved"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].review_id",
+      "required": true,
+      "targets": [
+        "review_evidence.review_id",
+        "review_record.review_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].reviewer_id",
+      "required": true,
+      "targets": [
+        "review_record.reviewer_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].task_id",
+      "required": true,
+      "targets": [
+        "review_record.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].run_version",
+      "required": true,
+      "targets": [
+        "review_record.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].result_version",
+      "required": true,
+      "targets": [
+        "review_record.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].expected_review_version",
+      "required": true,
+      "targets": [
+        "review_record.review_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].decision",
+      "required": true,
+      "targets": [
+        "review_record.decision"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].reason",
+      "required": true,
+      "targets": [
+        "review_record.comments"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].evidence_ids",
+      "required": true,
+      "targets": [
+        "review_evidence.evidence_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].policy_version",
+      "required": true,
+      "targets": [
+        "review_record.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].review_version",
+      "required": true,
+      "targets": [
+        "review_record.review_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "items[].created_at",
+      "required": true,
+      "targets": [
+        "audit_event.created_at",
+        "review_evidence.created_at",
+        "review_record.created_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews",
+      "direction": "response",
+      "schema": "ReviewPage",
+      "field": "next_cursor",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务端签名分页游标绑定主体、单位、案件、过滤条件、页大小及当前账本版本；伪造422，账本变化409。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.approval_id",
+      "required": true,
+      "targets": [
+        "approval_decision.approval_id",
+        "approval_request.approval_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.state",
+      "required": true,
+      "targets": [
+        "approval_request.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.version",
+      "required": true,
+      "targets": [
+        "approval_decision.row_version",
+        "approval_request.row_version",
+        "audit_event.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.object_version",
+      "required": true,
+      "targets": [
+        "approval_request.object_version",
+        "approval_request.result_version",
+        "audit_event.object_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.purpose",
+      "required": true,
+      "targets": [
+        "approval_request.purpose"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.policy_version",
+      "required": true,
+      "targets": [
+        "approval_decision.policy_version",
+        "approval_request.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.expires_at",
+      "required": true,
+      "targets": [
+        "approval_request.expires_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.decision_actor_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_actor_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.run_version",
+      "required": true,
+      "targets": [
+        "approval_request.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].approval.result_version",
+      "required": true,
+      "targets": [
+        "approval_request.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].binding",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].binding.case_id",
+      "required": true,
+      "targets": [
+        "approval_request.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].binding.object_type",
+      "required": true,
+      "targets": [
+        "approval_request.object_type"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].binding.object_id",
+      "required": true,
+      "targets": [
+        "approval_request.object_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].binding.requested_by",
+      "required": true,
+      "targets": [
+        "approval_request.requested_by"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions[].decision_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions[].decision",
+      "required": true,
+      "targets": [
+        "approval_decision.decision"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions[].actor_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_actor_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions[].reason",
+      "required": true,
+      "targets": [
+        "approval_decision.reason"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions[].evidence_ids",
+      "required": true,
+      "targets": [
+        "approval_decision.evidence_refs"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "items[].decisions[].created_at",
+      "required": true,
+      "targets": [
+        "approval_decision.created_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/api/v1/approvals",
+      "direction": "response",
+      "schema": "ApprovalPage",
+      "field": "next_cursor",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务端签名分页游标绑定主体、单位、案件、过滤条件、页大小及当前账本版本；伪造422，账本变化409。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.approval_id",
+      "required": true,
+      "targets": [
+        "approval_decision.approval_id",
+        "approval_request.approval_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.state",
+      "required": true,
+      "targets": [
+        "approval_request.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.version",
+      "required": true,
+      "targets": [
+        "approval_decision.row_version",
+        "approval_request.row_version",
+        "audit_event.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.object_version",
+      "required": true,
+      "targets": [
+        "approval_request.object_version",
+        "approval_request.result_version",
+        "audit_event.object_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.purpose",
+      "required": true,
+      "targets": [
+        "approval_request.purpose"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.policy_version",
+      "required": true,
+      "targets": [
+        "approval_decision.policy_version",
+        "approval_request.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.expires_at",
+      "required": true,
+      "targets": [
+        "approval_request.expires_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.decision_actor_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_actor_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.run_version",
+      "required": true,
+      "targets": [
+        "approval_request.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "approval.result_version",
+      "required": true,
+      "targets": [
+        "approval_request.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批当前有效状态/版本投影：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。；到期、来源撤销或结果变更使现行批准无效。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "binding",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "binding.case_id",
+      "required": true,
+      "targets": [
+        "approval_request.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "binding.object_type",
+      "required": true,
+      "targets": [
+        "approval_request.object_type"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "binding.object_id",
+      "required": true,
+      "targets": [
+        "approval_request.object_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "binding.requested_by",
+      "required": true,
+      "targets": [
+        "approval_request.requested_by"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "审批申请的精确案件/对象/申请人绑定；客户端不得替代认证申请人。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions[].decision_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions[].decision",
+      "required": true,
+      "targets": [
+        "approval_decision.decision"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions[].actor_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_actor_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions[].reason",
+      "required": true,
+      "targets": [
+        "approval_decision.reason"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions[].evidence_ids",
+      "required": true,
+      "targets": [
+        "approval_decision.evidence_refs"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/api/v1/approvals/{id}",
+      "direction": "response",
+      "schema": "ApprovalDetail",
+      "field": "decisions[].created_at",
+      "required": true,
+      "targets": [
+        "approval_decision.created_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "追加式审批历史字段；证据数组存于evidence_refs.evidence_ids，审批人数按独立主体及实际规则计算。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "request",
+      "schema": "ApprovalRevoke",
+      "field": "expected_version",
+      "required": true,
+      "targets": [
+        "approval_decision.row_version",
+        "approval_request.row_version",
+        "audit_event.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "request",
+      "schema": "ApprovalRevoke",
+      "field": "reason",
+      "required": true,
+      "targets": [
+        "approval_decision.reason",
+        "approval_request.reason"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "approval_id",
+      "required": true,
+      "targets": [
+        "approval_decision.approval_id",
+        "approval_request.approval_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "state",
+      "required": true,
+      "targets": [
+        "approval_request.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "approval_decision.row_version",
+        "approval_request.row_version",
+        "audit_event.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "object_version",
+      "required": true,
+      "targets": [
+        "approval_request.object_version",
+        "approval_request.result_version",
+        "audit_event.object_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "purpose",
+      "required": true,
+      "targets": [
+        "approval_request.purpose"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "policy_version",
+      "required": true,
+      "targets": [
+        "approval_decision.policy_version",
+        "approval_request.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "expires_at",
+      "required": true,
+      "targets": [
+        "approval_request.expires_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "decision_actor_id",
+      "required": true,
+      "targets": [
+        "approval_decision.decision_actor_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "run_version",
+      "required": true,
+      "targets": [
+        "approval_request.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/api/v1/approvals/{id}/revoke",
+      "direction": "response",
+      "schema": "Approval",
+      "field": "result_version",
+      "required": true,
+      "targets": [
+        "approval_request.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "review_id",
+      "required": true,
+      "targets": [
+        "review_evidence.review_id",
+        "review_record.review_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "reviewer_id",
+      "required": true,
+      "targets": [
+        "review_record.reviewer_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "task_id",
+      "required": true,
+      "targets": [
+        "review_record.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "run_version",
+      "required": true,
+      "targets": [
+        "review_record.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "result_version",
+      "required": true,
+      "targets": [
+        "review_record.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "expected_review_version",
+      "required": true,
+      "targets": [
+        "review_record.review_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "decision",
+      "required": true,
+      "targets": [
+        "review_record.decision"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "reason",
+      "required": true,
+      "targets": [
+        "review_record.comments"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "evidence_ids",
+      "required": true,
+      "targets": [
+        "review_evidence.evidence_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "policy_version",
+      "required": true,
+      "targets": [
+        "review_record.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "review_version",
+      "required": true,
+      "targets": [
+        "review_record.review_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/api/v1/reviews/{id}",
+      "direction": "response",
+      "schema": "Review",
+      "field": "created_at",
+      "required": true,
+      "targets": [
+        "audit_event.created_at",
+        "review_evidence.created_at",
+        "review_record.created_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "读取不可变复核记录：服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "task_id",
+      "required": true,
+      "targets": [
+        "analysis_task.task_id",
+        "task_result.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "run_version",
+      "required": true,
+      "targets": [
+        "task_result.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "result_version",
+      "required": true,
+      "targets": [
+        "task_result.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "policy_version",
+      "required": true,
+      "targets": [
+        "task_result.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "snapshot_sha256",
+      "required": true,
+      "targets": [
+        "task_result.sha256"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "object_version",
+      "required": true,
+      "targets": [
+        "analysis_task.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/review-context",
+      "direction": "response",
+      "schema": "ReviewContext",
+      "field": "review_version",
+      "required": true,
+      "targets": [
+        "review_record.review_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "export_id",
+      "required": true,
+      "targets": [
+        "audit_export.export_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "真实审计作业账本的标识、案件、状态及行版本。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "case_id",
+      "required": true,
+      "targets": [
+        "audit_export.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "真实审计作业账本的标识、案件、状态及行版本。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "state",
+      "required": true,
+      "targets": [
+        "audit_export.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "真实审计作业账本的标识、案件、状态及行版本。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "audit_export.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "真实审计作业账本的标识、案件、状态及行版本。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "artifact",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "artifact.object_id",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "artifact.version_id",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "artifact.sha256",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "size_bytes",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "expires_at",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/api/v1/audit/exports/{id}",
+      "direction": "response",
+      "schema": "AuditExportStatus",
+      "field": "error_code",
+      "required": true,
+      "targets": [
+        "audit_export.artifact_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "固定导出产物元数据存于artifact_ref；object_id/version_id/sha256另核验同案件object_version，过期、撤销或无READY产物拒绝下载。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getFeedback",
+      "method": "GET",
+      "path": "/api/v1/feedback/samples/{id}",
+      "direction": "response",
+      "schema": "FeedbackRecord",
+      "field": "feedback_id",
+      "required": true,
+      "targets": [
+        "feedback_request.feedback_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "反馈当前状态与有效用途审批交叉核验；APPLIED缺真实数据版本来源时503，不能伪造回流成功。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getFeedback",
+      "method": "GET",
+      "path": "/api/v1/feedback/samples/{id}",
+      "direction": "response",
+      "schema": "FeedbackRecord",
+      "field": "approval_id",
+      "required": true,
+      "targets": [
+        "approval_request.approval_id",
+        "feedback_request.approval_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "反馈当前状态与有效用途审批交叉核验；APPLIED缺真实数据版本来源时503，不能伪造回流成功。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getFeedback",
+      "method": "GET",
+      "path": "/api/v1/feedback/samples/{id}",
+      "direction": "response",
+      "schema": "FeedbackRecord",
+      "field": "state",
+      "required": true,
+      "targets": [
+        "approval_request.state",
+        "feedback_request.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "反馈当前状态与有效用途审批交叉核验；APPLIED缺真实数据版本来源时503，不能伪造回流成功。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getFeedback",
+      "method": "GET",
+      "path": "/api/v1/feedback/samples/{id}",
+      "direction": "response",
+      "schema": "FeedbackRecord",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "approval_request.row_version",
+        "feedback_request.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "反馈当前状态与有效用途审批交叉核验；APPLIED缺真实数据版本来源时503，不能伪造回流成功。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "operation_id",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "org_id",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "release_bundle_id",
+      "required": true,
+      "targets": [
+        "model_release.release_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "model_id",
+      "required": true,
+      "targets": [
+        "model_release.model_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "mode",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "state",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "version",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "progress",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "model_version",
+      "required": true,
+      "targets": [
+        "model_registry.version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "index_version",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/api/v1/model-operations/{id}",
+      "direction": "response",
+      "schema": "ModelOperation",
+      "field": "error_code",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "实际部署适配器的操作记录字段；所列SQL列只作发布包/模型绑定核验。operation_id、version、progress、state及error_code不得从模型健康或model_registry.row_version拼造。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "source_id",
+      "required": true,
+      "targets": [
+        "source_registry.source_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "case_id",
+      "required": true,
+      "targets": [
+        "source_registry.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "name",
+      "required": true,
+      "targets": [
+        "source_registry.name"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "source_type",
+      "required": true,
+      "targets": [
+        "source_registry.source_type"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "authorization_ref",
+      "required": true,
+      "targets": [
+        "source_registry.authorization_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "purpose",
+      "required": true,
+      "targets": [
+        "source_registry.purpose"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "expires_at",
+      "required": true,
+      "targets": [
+        "source_registry.expires_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "authorization_status",
+      "required": true,
+      "targets": [
+        "source_registry.authorization_status"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/api/v1/sources/{id}",
+      "direction": "response",
+      "schema": "Source",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "source_registry.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件来源元数据读取，到期的verified显示expired；登记或读取不等于取得正式用途授权。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "request",
+      "schema": "SourceSyncRequest",
+      "field": "expected_version",
+      "required": true,
+      "targets": [
+        "source_registry.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "客户端只提交expected_version；当前强ETag原子核验。授权状态、用途和授权版本只从显式权威提供方获得。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "source_id",
+      "required": true,
+      "targets": [
+        "source_registry.source_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "case_id",
+      "required": true,
+      "targets": [
+        "source_registry.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "name",
+      "required": true,
+      "targets": [
+        "source_registry.name"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "source_type",
+      "required": true,
+      "targets": [
+        "source_registry.source_type"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "authorization_ref",
+      "required": true,
+      "targets": [
+        "source_registry.authorization_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "purpose",
+      "required": true,
+      "targets": [
+        "source_registry.purpose"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "expires_at",
+      "required": true,
+      "targets": [
+        "source_registry.expires_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "authorization_status",
+      "required": true,
+      "targets": [
+        "source_registry.authorization_status"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/api/v1/sources/{id}/authorization/sync",
+      "direction": "response",
+      "schema": "Source",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "source_registry.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "权威授权同步后的来源记录；同一authorization_version改变内容拒绝，跨案件/失效条件拒绝。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "policy_id",
+      "required": true,
+      "targets": [
+        "policy_registry.policy_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "kind",
+      "required": true,
+      "targets": [
+        "policy_registry.kind"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "policy_registry.row_version",
+        "policy_registry.version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "definition_ref",
+      "required": true,
+      "targets": [
+        "policy_registry.definition_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "approval_id",
+      "required": true,
+      "targets": [
+        "policy_registry.approval_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "status",
+      "required": true,
+      "targets": [
+        "policy_registry.status"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。相应对象状态或健康聚合；按Schema与操作区分",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}",
+      "direction": "response",
+      "schema": "Policy",
+      "field": "row_version",
+      "required": true,
+      "targets": [
+        "policy_registry.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "组织策略版本读取；现有DRAFT/APPROVED状态不代表已激活，草稿定义变更需另建版本。服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicyDefinition",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}/definition",
+      "direction": "response",
+      "schema": "PolicyDefinition",
+      "field": "definition_ref",
+      "required": true,
+      "targets": [
+        "policy_registry.definition_ref"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "显式定义提供方的JSON值；sha256按规范JSON重算，definition_ref必须等于urn:sha256:<摘要>并与策略登记版本一致。未确认参数允许待定值，不产生生效批准。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicyDefinition",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}/definition",
+      "direction": "response",
+      "schema": "PolicyDefinition",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "policy_registry.version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "显式定义提供方的JSON值；sha256按规范JSON重算，definition_ref必须等于urn:sha256:<摘要>并与策略登记版本一致。未确认参数允许待定值，不产生生效批准。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicyDefinition",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}/definition",
+      "direction": "response",
+      "schema": "PolicyDefinition",
+      "field": "sha256",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "显式定义提供方的JSON值；sha256按规范JSON重算，definition_ref必须等于urn:sha256:<摘要>并与策略登记版本一致。未确认参数允许待定值，不产生生效批准。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getPolicyDefinition",
+      "method": "GET",
+      "path": "/api/v1/policies/{id}/definition",
+      "direction": "response",
+      "schema": "PolicyDefinition",
+      "field": "values",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "显式定义提供方的JSON值；sha256按规范JSON重算，definition_ref必须等于urn:sha256:<摘要>并与策略登记版本一致。未确认参数允许待定值，不产生生效批准。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "task_id",
+      "required": true,
+      "targets": [
+        "task_node_run.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "run_version",
+      "required": true,
+      "targets": [
+        "task_node_run.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].node_id",
+      "required": true,
+      "targets": [
+        "task_node_run.run_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].node_code",
+      "required": true,
+      "targets": [
+        "task_node_run.node_code"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].attempt",
+      "required": true,
+      "targets": [
+        "task_node_run.attempt"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].state",
+      "required": true,
+      "targets": [
+        "task_node_run.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].required",
+      "required": true,
+      "targets": [
+        "task_node_run.required"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].reason",
+      "required": true,
+      "targets": [
+        "task_node_run.reason"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].version",
+      "required": true,
+      "targets": [
+        "task_node_run.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].fencing_epoch",
+      "required": true,
+      "targets": [
+        "task_node_run.fencing_epoch"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].started_at",
+      "required": true,
+      "targets": [
+        "task_node_run.started_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/nodes",
+      "direction": "response",
+      "schema": "NodePage",
+      "field": "items[].ended_at",
+      "required": true,
+      "targets": [
+        "task_node_run.ended_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "所选真实task/run的节点执行账本；fencing_epoch阻止旧worker写入，响应不暴露lease_token，空节点列表不证明完整DAG已部署。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].event_id",
+      "required": true,
+      "targets": [
+        "task_event.event_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].task_id",
+      "required": true,
+      "targets": [
+        "task_event.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].run_version",
+      "required": true,
+      "targets": [
+        "task_event.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].from_state",
+      "required": true,
+      "targets": [
+        "task_event.from_state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].to_state",
+      "required": true,
+      "targets": [
+        "task_event.to_state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].reason",
+      "required": true,
+      "targets": [
+        "task_event.reason"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].request_id",
+      "required": true,
+      "targets": [
+        "task_event.request_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "items[].created_at",
+      "required": true,
+      "targets": [
+        "task_event.created_at"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "同案件、指定任务和运行的追加事件事实；不把空列表当全业务事件链执行证据。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/events",
+      "direction": "response",
+      "schema": "TaskEventPage",
+      "field": "next_cursor",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务端签名分页游标绑定主体、单位、案件、过滤条件、页大小及当前账本版本；伪造422，账本变化409。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务层按本操作源Schema组合的结构容器，不是一列JSON或新增业务表；其叶字段按逐行映射处理。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].task_id",
+      "required": true,
+      "targets": [
+        "analysis_task.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "实际待复核任务及案件/工作流状态；没有复核记录仍应出现在工作台。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].case_id",
+      "required": true,
+      "targets": [
+        "analysis_task.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "实际待复核任务及案件/工作流状态；没有复核记录仍应出现在工作台。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].task_state",
+      "required": true,
+      "targets": [
+        "analysis_task.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "实际待复核任务及案件/工作流状态；没有复核记录仍应出现在工作台。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].availability",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "READY只表示已有可读取结果版本和当前来源许可；缺结果RESULT_UNAVAILABLE，来源受限SOURCE_BLOCKED，不表示业务结论或正式复核通过。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "可空的版本/摘要聚合；不可用时明确null，不补造默认运行结果。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.task_id",
+      "required": true,
+      "targets": [
+        "analysis_task.task_id",
+        "task_result.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.run_version",
+      "required": true,
+      "targets": [
+        "task_result.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.result_version",
+      "required": true,
+      "targets": [
+        "task_result.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.policy_version",
+      "required": true,
+      "targets": [
+        "task_result.policy_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.snapshot_sha256",
+      "required": true,
+      "targets": [
+        "task_result.sha256"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.object_version",
+      "required": true,
+      "targets": [
+        "analysis_task.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "items[].context.review_version",
+      "required": true,
+      "targets": [
+        "review_record.review_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务行版本、最高实际运行/结果版本及全任务MAX(review_version)组成强ETag；没有复核时review_version=0；不能用任务默认版本伪造结果存在。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/api/v1/reviews/pending",
+      "direction": "response",
+      "schema": "PendingReviewPage",
+      "field": "next_cursor",
+      "required": true,
+      "targets": [],
+      "handling": "service_projection_or_input",
+      "semantics": "服务端签名分页游标绑定主体、单位、案件、过滤条件、页大小及当前账本版本；伪造422，账本变化409。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "task_id",
+      "required": true,
+      "targets": [
+        "analysis_task.task_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务控制记录；取消/当前If-Match读取本聚合，历史getTask快照不被控制状态更改覆盖。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "case_id",
+      "required": true,
+      "targets": [
+        "analysis_task.case_id"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务控制记录；取消/当前If-Match读取本聚合，历史getTask快照不被控制状态更改覆盖。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "state",
+      "required": true,
+      "targets": [
+        "analysis_task.state"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务控制记录；取消/当前If-Match读取本聚合，历史getTask快照不被控制状态更改覆盖。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "run_version",
+      "required": true,
+      "targets": [
+        "analysis_task.run_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务控制记录；取消/当前If-Match读取本聚合，历史getTask快照不被控制状态更改覆盖。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "result_version",
+      "required": true,
+      "targets": [
+        "analysis_task.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务控制记录；取消/当前If-Match读取本聚合，历史getTask快照不被控制状态更改覆盖。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "version",
+      "required": true,
+      "targets": [
+        "analysis_task.row_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前任务控制记录；取消/当前If-Match读取本聚合，历史getTask快照不被控制状态更改覆盖。",
+      "status": "development_implemented_formal_review_pending"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/api/v1/analysis/tasks/{id}/execution",
+      "direction": "response",
+      "schema": "TaskExecutionStatus",
+      "field": "result_available",
+      "required": true,
+      "targets": [
+        "task_result.task_id",
+        "task_result.run_version",
+        "task_result.result_version"
+      ],
+      "handling": "runtime_bound_projection",
+      "semantics": "当前控制task/run/result是否已有不可变快照；不是算法成功、准确率或正式报告资格。",
+      "status": "development_implemented_formal_review_pending"
     }
   ]
 }

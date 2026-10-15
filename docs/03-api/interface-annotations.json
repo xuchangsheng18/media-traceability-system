@@ -22,8 +22,8 @@
       "title": "读取当前用户与范围",
       "purpose": "读取当前用户与范围；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "当前已验证主体及有效范围；不允许客户端指定任意主体，角色不自动授予案件内容访问。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
     },
     "createSource": {
@@ -38,8 +38,8 @@
       "title": "查询来源清单",
       "purpose": "查询来源清单；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
     },
     "createUpload": {
@@ -102,16 +102,16 @@
       "title": "受理清单导入",
       "purpose": "受理清单导入；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "仅导入已登记、同案件同来源的固定对象；真实字节/摘要和账本已实施，外部平台下载适配仍待接入。",
       "completion_and_followup": "202返回导入标识；GET /api/v1/imports/{id}读取实际状态与失败项，受理不是全部导入完成。"
     },
     "getImport": {
       "title": "查询导入状态",
       "purpose": "查询导入状态；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
     },
     "createTask": {
@@ -142,8 +142,8 @@
       "title": "请求取消任务",
       "purpose": "请求取消任务；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实任务条件更新、取消域事件及outbox事务已实现；运行节点需真实停止确认，不能仅按超时判完成。",
       "completion_and_followup": "202表示取消意图；继续查任务状态，对应运行确实CANCELLED才算停止，旧运行写回仍受fencing核验。"
     },
     "rerunTask": {
@@ -254,24 +254,24 @@
       "title": "提交人工复核记录",
       "purpose": "提交人工复核记录；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "201追加复核版本，绑定task/run/result/review；不替代报告导出或训练回流批准。工作台读取缺口IF-G03。"
     },
     "requestApproval": {
       "title": "创建审批申请",
       "purpose": "创建审批申请；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "201创建REQUESTED申请，不签发批准；缺审批读取/有效状态与撤销链路，见IF-G02。"
     },
     "decideApproval": {
       "title": "提交审批决定",
       "purpose": "提交审批决定；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "201返回追加决定版本；核验独立审批角色、策略、目的/对象版本/到期，历史不覆盖。"
     },
     "issueOperationToken": {
@@ -382,16 +382,16 @@
       "title": "查询审计事件",
       "purpose": "查询审计事件；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验审计组织/案件范围；case_id=null不是全库许可，跨范围策略待确认。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
     },
     "exportAudit": {
       "title": "受理批准审计导出",
       "purpose": "受理批准审计导出；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验审计组织/案件范围；case_id=null不是全库许可，跨范围策略待确认。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "202返回ActionAck，没有导出状态/产物下载接口IF-G06；不能将object_id当已生成文件地址。"
     },
     "getIndex": {
@@ -414,16 +414,16 @@
       "title": "登记策略草案",
       "purpose": "登记策略草案；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "201登记版本化草案，DRAFT不能自动生效；批准、激活/撤销协议IF-G12待确定。"
     },
     "listPolicies": {
       "title": "查询版本化策略",
       "purpose": "查询版本化策略；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "组织级模型/配置/索引管理；系统管理员不自动取得案件原件，依赖数据仍核验用途。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "独立业务开发工程已挂载真实访问/校验；权威提供方未配置时拒绝，不提供生产模拟成功。",
       "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
     },
     "getUploadStatus": {
@@ -441,6 +441,150 @@
       "implementation_status": "DEV_PARTIAL",
       "scope_note": "独立业务HTTP/真实PostgreSQL/RLS已实现；默认无权威身份提供方返回503，测试提供方仅在fixture注入。",
       "completion_and_followup": "5项上传操作、摘要/PNG-JPEG校验、持久消息确认和重复恢复已实测；其他媒体/病毒扫描、S3及正式来源仍待验证。"
+    },
+    "listApprovals": {
+      "title": "listApprovals",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getApproval": {
+      "title": "getApproval",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "revokeApproval": {
+      "title": "revokeApproval",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "listReviews": {
+      "title": "listReviews",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getReview": {
+      "title": "getReview",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getReviewContext": {
+      "title": "getReviewContext",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getAuditExport": {
+      "title": "getAuditExport",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "downloadAuditExport": {
+      "title": "downloadAuditExport",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getFeedback": {
+      "title": "getFeedback",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getModelOperation": {
+      "title": "getModelOperation",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "组织权限、发布包/模型绑定及终态检查已实现；实际发布记录来自显式部署适配器，默认503。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getSource": {
+      "title": "getSource",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "syncSourceAuthorization": {
+      "title": "syncSourceAuthorization",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getPolicy": {
+      "title": "getPolicy",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getPolicyDefinition": {
+      "title": "getPolicyDefinition",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "只接受与策略版本和urn:sha256固定摘要一致的定义；没有实际定义提供方时503。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "listTaskNodes": {
+      "title": "listTaskNodes",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "listTaskEvents": {
+      "title": "listTaskEvents",
+      "purpose": "读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "listPendingReviews": {
+      "title": "待复核任务工作台",
+      "purpose": "列出真实WAIT_REVIEW/REVIEWING/RETURNED任务；结果未发布时明确显示不可用，不把无复核历史误当没有待复核任务。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
+    },
+    "getTaskExecution": {
+      "title": "当前任务控制状态",
+      "purpose": "读取当前任务控制状态及条件更新ETag；result_available表示已存快照，不证明实际算法执行。",
+      "authorization_scope": "每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。",
+      "completion_and_followup": "文档与路由不代表正式接入、真实模型或完整业务验收。"
     }
   }
 }

@@ -1,8 +1,8 @@
 # 业务接口数据结构详表
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
 
-共83个源组件；先读[整体说明](system-interface-specification.md)。每个组件给出字段表及完整原始Schema；required、null、枚举、引用、条件组合均保留。字段语义尚未独立定义的情况明确标记，不能把UUID当授权或把0—1分数当业务/法律概率。
+共102个源组件；先读[整体说明](system-interface-specification.md)。每个组件给出字段表及完整原始Schema；required、null、枚举、引用、条件组合均保留。字段语义尚未独立定义的情况明确标记，不能把UUID当授权或把0—1分数当业务/法律概率。
 
 ## Uuid
 
@@ -6261,6 +6261,1166 @@
     "items",
     "next_cursor",
     "session_version"
+  ],
+  "additionalProperties": false
+}
+```
+
+## ApprovalDetail
+
+源指针：`#/components/schemas/ApprovalDetail`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| approval | 必须 | Approval | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| binding | 必须 | object; additionalProperties=false | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| binding.case_id | 必须（父对象存在时） | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| binding.object_type | 必须（父对象存在时） | string; enum=["task", "report", "evidence_package", "feedback", "model_release", "operation"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| binding.object_id | 必须（父对象存在时） | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| binding.requested_by | 必须（父对象存在时） | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions | 必须 | array; items=object; additionalProperties=false | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions[].decision_id | 必须（父对象存在时） | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions[].decision | 必须（父对象存在时） | string; enum=["approve", "reject", "return", "revoke", "invalidate"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions[].actor_id | 必须（父对象存在时） | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions[].reason | 必须（父对象存在时） | string; minLength=1; maxLength=4096 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions[].evidence_ids | 必须（父对象存在时） | array; items=string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| decisions[].created_at | 必须（父对象存在时） | string; format="date-time" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "approval": {
+      "$ref": "#/components/schemas/Approval"
+    },
+    "binding": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "task",
+            "report",
+            "evidence_package",
+            "feedback",
+            "model_release",
+            "operation"
+          ]
+        },
+        "object_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requested_by": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "case_id",
+        "object_type",
+        "object_id",
+        "requested_by"
+      ],
+      "additionalProperties": false
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decision_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "reject",
+              "return",
+              "revoke",
+              "invalidate"
+            ]
+          },
+          "actor_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "decision_id",
+          "decision",
+          "actor_id",
+          "reason",
+          "evidence_ids",
+          "created_at"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "approval",
+    "binding",
+    "decisions"
+  ],
+  "additionalProperties": false
+}
+```
+
+## ApprovalPage
+
+源指针：`#/components/schemas/ApprovalPage`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| items | 必须 | array; items=ApprovalDetail | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| next_cursor | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ApprovalDetail"
+      }
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "items",
+    "next_cursor"
+  ],
+  "additionalProperties": false
+}
+```
+
+## ApprovalRevoke
+
+源指针：`#/components/schemas/ApprovalRevoke`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| expected_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| reason | 必须 | string; minLength=1; maxLength=4096 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "expected_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "expected_version",
+    "reason"
+  ],
+  "additionalProperties": false
+}
+```
+
+## ReviewPage
+
+源指针：`#/components/schemas/ReviewPage`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| items | 必须 | array; items=Review | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| next_cursor | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Review"
+      }
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "items",
+    "next_cursor"
+  ],
+  "additionalProperties": false
+}
+```
+
+## ReviewContext
+
+源指针：`#/components/schemas/ReviewContext`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| task_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| run_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| result_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| policy_version | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| snapshot_sha256 | 必须 | string; pattern="^[a-f0-9]{64}$" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| object_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| review_version | 必须 | integer; minimum=0 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "result_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "policy_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "object_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "review_version": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "task_id",
+    "run_version",
+    "result_version",
+    "policy_version",
+    "snapshot_sha256",
+    "object_version",
+    "review_version"
+  ],
+  "additionalProperties": false
+}
+```
+
+## AuditExportStatus
+
+源指针：`#/components/schemas/AuditExportStatus`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| export_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| case_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| state | 必须 | string; enum=["REQUESTED", "READY", "FAILED", "EXPIRED", "REVOKED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| artifact | 必须 | anyOf(ObjectRef; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| size_bytes | 必须 | anyOf(integer; minimum=0; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| expires_at | 必须 | anyOf(string; format="date-time"; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| error_code | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "export_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "READY",
+        "FAILED",
+        "EXPIRED",
+        "REVOKED"
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "artifact": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/ObjectRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "size_bytes": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "export_id",
+    "case_id",
+    "state",
+    "version",
+    "artifact",
+    "size_bytes",
+    "expires_at",
+    "error_code"
+  ],
+  "additionalProperties": false
+}
+```
+
+## ModelOperation
+
+源指针：`#/components/schemas/ModelOperation`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| operation_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| org_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| release_bundle_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| model_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| mode | 必须 | string; enum=["shadow", "canary", "activate", "rollback"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| state | 必须 | string; enum=["REQUESTED", "RUNNING", "SUCCEEDED", "FAILED", "CANCELLED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| progress | 必须 | number; minimum=0; maximum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| model_version | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| index_version | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| error_code | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "operation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "org_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "release_bundle_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "model_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "shadow",
+        "canary",
+        "activate",
+        "rollback"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "RUNNING",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "progress": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "model_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "index_version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "operation_id",
+    "org_id",
+    "release_bundle_id",
+    "model_id",
+    "mode",
+    "state",
+    "version",
+    "progress",
+    "model_version",
+    "index_version",
+    "error_code"
+  ],
+  "additionalProperties": false
+}
+```
+
+## SourceSyncRequest
+
+源指针：`#/components/schemas/SourceSyncRequest`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| expected_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "expected_version": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "expected_version"
+  ],
+  "additionalProperties": false
+}
+```
+
+## SourceAuthorizationUpdate
+
+源指针：`#/components/schemas/SourceAuthorizationUpdate`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| source_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| case_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| authorization_ref | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| authorization_version | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| purpose | 必须 | array; minItems=1; uniqueItems=true; items=string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| authorization_status | 必须 | string; enum=["pending", "verified", "expired", "revoked"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| expires_at | 必须 | anyOf(string; format="date-time"; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "authorization_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "purpose": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "authorization_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "verified",
+        "expired",
+        "revoked"
+      ]
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "source_id",
+    "case_id",
+    "authorization_ref",
+    "authorization_version",
+    "purpose",
+    "authorization_status",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}
+```
+
+## PolicyDefinition
+
+源指针：`#/components/schemas/PolicyDefinition`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| definition_ref | 必须 | string; minLength=1; maxLength=128; pattern="^urn:sha256:[a-f0-9]{64}$" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| version | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| sha256 | 必须 | string; pattern="^[a-f0-9]{64}$" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| values | 必须 | object; additionalProperties=true | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "definition_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^urn:sha256:[a-f0-9]{64}$"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "values": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "definition_ref",
+    "version",
+    "sha256",
+    "values"
+  ],
+  "additionalProperties": false
+}
+```
+
+## NodeRun
+
+源指针：`#/components/schemas/NodeRun`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| node_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| node_code | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| attempt | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| state | 必须 | string; enum=["PENDING", "READY", "RUNNING", "SUCCEEDED", "FAILED", "SKIPPED", "DEFERRED", "CANCELLED", "NOT_SUPPORTED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| required | 必须 | boolean | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| reason | 必须 | anyOf(string; minLength=1; maxLength=4096; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| fencing_epoch | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| started_at | 必须 | anyOf(string; format="date-time"; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| ended_at | 必须 | anyOf(string; format="date-time"; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "node_code": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "READY",
+        "RUNNING",
+        "SUCCEEDED",
+        "FAILED",
+        "SKIPPED",
+        "DEFERRED",
+        "CANCELLED",
+        "NOT_SUPPORTED"
+      ]
+    },
+    "required": {
+      "type": "boolean"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fencing_epoch": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ended_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "node_id",
+    "node_code",
+    "attempt",
+    "state",
+    "required",
+    "reason",
+    "version",
+    "fencing_epoch",
+    "started_at",
+    "ended_at"
+  ],
+  "additionalProperties": false
+}
+```
+
+## NodePage
+
+源指针：`#/components/schemas/NodePage`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| task_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| run_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| items | 必须 | array; items=NodeRun | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/NodeRun"
+      }
+    }
+  },
+  "required": [
+    "task_id",
+    "run_version",
+    "items"
+  ],
+  "additionalProperties": false
+}
+```
+
+## TaskEventRecord
+
+源指针：`#/components/schemas/TaskEventRecord`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| event_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| task_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| run_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| from_state | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| to_state | 必须 | string; minLength=1; maxLength=128 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| reason | 必须 | string; minLength=1; maxLength=4096 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| request_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| created_at | 必须 | string; format="date-time" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "run_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "from_state": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "to_state": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "event_id",
+    "task_id",
+    "run_version",
+    "from_state",
+    "to_state",
+    "reason",
+    "request_id",
+    "created_at"
+  ],
+  "additionalProperties": false
+}
+```
+
+## TaskEventPage
+
+源指针：`#/components/schemas/TaskEventPage`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| items | 必须 | array; items=TaskEventRecord | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| next_cursor | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TaskEventRecord"
+      }
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "items",
+    "next_cursor"
+  ],
+  "additionalProperties": false
+}
+```
+
+## PendingReviewItem
+
+源指针：`#/components/schemas/PendingReviewItem`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| task_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| case_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| task_state | 必须 | enum=["WAIT_REVIEW", "REVIEWING", "RETURNED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| availability | 必须 | enum=["READY", "RESULT_UNAVAILABLE", "SOURCE_BLOCKED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| context | 必须 | anyOf(ReviewContext; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task_state": {
+      "enum": [
+        "WAIT_REVIEW",
+        "REVIEWING",
+        "RETURNED"
+      ]
+    },
+    "availability": {
+      "enum": [
+        "READY",
+        "RESULT_UNAVAILABLE",
+        "SOURCE_BLOCKED"
+      ]
+    },
+    "context": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/ReviewContext"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "task_id",
+    "case_id",
+    "task_state",
+    "availability",
+    "context"
+  ],
+  "additionalProperties": false
+}
+```
+
+## PendingReviewPage
+
+源指针：`#/components/schemas/PendingReviewPage`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| items | 必须 | array; items=PendingReviewItem | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| next_cursor | 必须 | anyOf(string; minLength=1; maxLength=128; null) | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PendingReviewItem"
+      }
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "items",
+    "next_cursor"
+  ],
+  "additionalProperties": false
+}
+```
+
+## TaskExecutionStatus
+
+源指针：`#/components/schemas/TaskExecutionStatus`。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| task_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| case_id | 必须 | string; format="uuid" | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| state | 必须 | string; enum=["CREATED", "QUEUED", "RUNNING", "WAIT_REVIEW", "REVIEWING", "SUCCEEDED", "FAILED", "RETURNED", "CANCEL_REQUESTED", "CANCELLED", "ARCHIVED"] | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| run_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| result_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| result_available | 必须 | boolean | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+完整源结构（派生副本）：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "case_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "QUEUED",
+        "RUNNING",
+        "WAIT_REVIEW",
+        "REVIEWING",
+        "SUCCEEDED",
+        "FAILED",
+        "RETURNED",
+        "CANCEL_REQUESTED",
+        "CANCELLED",
+        "ARCHIVED"
+      ]
+    },
+    "run_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "result_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "result_available": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "task_id",
+    "case_id",
+    "state",
+    "run_version",
+    "result_version",
+    "version",
+    "result_available"
   ],
   "additionalProperties": false
 }

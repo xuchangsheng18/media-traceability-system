@@ -99,7 +99,7 @@ def build():
     assert len(items) == 19 and len(remaining) == 18
     assert sum(item["stage"] == 1 for item in remaining) == 6
     assert sum(item["stage"] == 2 for item in remaining) == 12
-    assert len(gaps) == 13 and all(gap["candidate_routes_callable"] is (gap["id"] == "IF-G01") for gap in gaps)
+    assert len(gaps) == 13 and all(gap["approved"] is False and isinstance(gap["candidate_routes_callable"], bool) for gap in gaps)
     volume = resource["development_postgres_volume_filesystem"]
     attribution = (f"容量问题位于Linux服务器172.16.58.179的Docker Desktop虚拟机内，"
                    f"为PostgreSQL研发数据卷所在文件系统。仓库快照时点`{resource['observed_at']}`："

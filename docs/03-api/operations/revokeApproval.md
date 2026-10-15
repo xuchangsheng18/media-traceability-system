@@ -1,0 +1,129 @@
+# revokeApproval：revokeApproval
+
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+
+`POST /api/v1/approvals/{id}/revoke`；operationId=`revokeApproval`；源指针=`/paths/~1approvals~1{id}~1revoke/post`。
+
+实现范围：**DEV_PARTIAL**；真实数据库或显式适配端口已实现，默认未接入的权威依赖返回503；实际结果按本批测试记录。。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
+
+## 调用目的与权限
+
+读取真实记录或执行明确授权的受控操作；具体边界见剩余接口实现说明。
+
+OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`approval.revoke`。
+
+每次核验当前身份/功能权限和单位/案件范围；组织级策略不借用虚构案件。
+
+来源任务：[T016 实现高风险操作二次确认](../../../tasks/platform/T016.md)、[T108 实现样本纠错与回流审批](../../../tasks/backend/T108.md)。
+
+关联需求：；关联候选表：approval_request、approval_decision、audit_event。表引用不证明代码已使用或有访问授权。
+
+## 参数与请求
+
+| 参数 | 位置 | 必填 | 结构限制 |
+| --- | --- | --- | --- |
+| id | path | True | string; format="uuid" |
+| X-Request-Id | header | False | string; format="uuid" |
+| Idempotency-Key | header | True | string; minLength=1; maxLength=128 |
+| If-Match | header | True | string; minLength=1; maxLength=128 |
+
+请求体必须出现：`True`；支持媒体类型：`application/json`。
+
+结构源：`#/components/schemas/ApprovalRevoke`；字段与完整约束见[数据结构](../data-structures.md#approvalrevoke)。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| expected_version | 必须 | integer; minimum=1 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+| reason | 必须 | string; minLength=1; maxLength=4096 | 未在源Schema写独立说明；结合业务规则与字段映射评审 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+结构样例（合成占位数据，非运行结果）：
+
+```json
+{
+  "expected_version": 1,
+  "reason": "synthetic-example"
+}
+```
+
+## 响应、状态与下一步
+
+| HTTP | 描述 | 媒体类型/结构 | 响应头 |
+| --- | --- | --- | --- |
+| 200 | 实际案件/来源权限核验后的当前上传记录 | application/json: Approval |  |
+| 400 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 401 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 403 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 404 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 409 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 422 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 429 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 503 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 412 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+| 428 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
+
+成功结构：`Approval`，详细字段见[数据结构](../data-structures.md#approval)。
+
+| 字段 | 是否必须出现 | 类型、可空及结构限制 | 说明 |
+| --- | --- | --- | --- |
+| approval_id | 必须 | string; format="uuid" | 候选字段来源：approval_decision.approval_id：与本动作对应的审批请求标识；必须核验用途、对象、版本、状态和有效期，非空不等于审批已通过；approval_request.approval_id：主键，由应用提供UUID；不视为访问凭证。来源引用不是写入许可，完整处理按操作核验。 |
+| state | 必须 | string; enum=["REQUESTED", "APPROVED", "REJECTED", "RETURNED", "REVOKED", "EXPIRED", "INVALIDATED"] | 候选字段来源：approval_request.state：按目的独立审批申请的业务状态；允许值以本行CHECK为准，状态转移还须服务层验证；未列CHECK时为待定词表，不代表任意值均业务有效。来源引用不是写入许可，完整处理按操作核验。 |
+| version | 必须 | integer; minimum=1 | 候选字段来源：approval_decision.row_version：本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值；approval_request.row_version：本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值；audit_event.row_version：本行乐观并发版本，初始1；可变表由应用条件更新并递增，无自动递增触发器；不可变快照保持原值。来源引用不是写入许可，完整处理按操作核验。 |
+| object_version | 必须 | integer; minimum=1 | 候选字段来源：approval_request.object_version：审批或审计绑定的业务对象版本，正整数；新版本不能复用旧审批；approval_request.result_version：分析对象绑定结果版本；audit_event.object_version：审批或审计绑定的业务对象版本，正整数；新版本不能复用旧审批。来源引用不是写入许可，完整处理按操作核验。 |
+| purpose | 必须 | string; minLength=1; maxLength=128 | 候选字段来源：approval_request.purpose：本记录声明或申请的处理用途，实际动作需与有效授权用途相符。来源引用不是写入许可，完整处理按操作核验。 |
+| policy_version | 必须 | string; minLength=1; maxLength=128 | 候选字段来源：approval_decision.policy_version：本记录使用的业务、阈值或流程策略版本，需按其实际用途解析；approval_request.policy_version：本记录使用的业务、阈值或流程策略版本，需按其实际用途解析。来源引用不是写入许可，完整处理按操作核验。 |
+| expires_at | 必须 | anyOf(string; format="date-time"; null) | 候选字段来源：approval_request.expires_at：此记录的有效截止时刻；到期后不能继续使用。可空时表示未记录截止，不自动表示已批准永久有效；存储时间点，显示受会话时区影响，接口必须携带时区。来源引用不是写入许可，完整处理按操作核验。 |
+| decision_actor_id | 必须 | anyOf(string; format="uuid"; null) | 候选字段来源：approval_decision.decision_actor_id：作出审批决定的用户标识，由认证上下文与职责分离规则核验。来源引用不是写入许可，完整处理按操作核验。 |
+| run_version | 必须 | anyOf(integer; minimum=1; null) | 候选字段来源：approval_request.run_version：分析对象绑定运行版本。来源引用不是写入许可，完整处理按操作核验。 |
+| result_version | 必须 | anyOf(integer; minimum=1; null) | 候选字段来源：approval_request.result_version：分析对象绑定结果版本。来源引用不是写入许可，完整处理按操作核验。 |
+
+是否必须出现与是否允许null是两件事。精确条件、组合与引用以完整源Schema为准；JSON Schema不替代权限、对象存在性、版本和跨字段业务校验。
+
+成功结构样例（不证明实际执行）：
+
+```json
+{
+  "approval_id": "eea80c33-3db7-58e6-94f3-37e54d1cfe23",
+  "state": "REQUESTED",
+  "version": 1,
+  "object_version": 1,
+  "purpose": "synthetic-v1",
+  "policy_version": "synthetic-v1",
+  "expires_at": "2030-01-01T00:00:00Z",
+  "decision_actor_id": "88c73d69-2717-536b-8984-9cc8bfd18d7d",
+  "run_version": 1,
+  "result_version": 1
+}
+```
+
+文档与路由不代表正式接入、真实模型或完整业务验收。
+
+该接口声明If-Match：必须服务端原子核验对象版本；缺少条件428、旧版本412、状态不许可409。ETag绑定对象/聚合的精确范围仍按业务设计及缺口评审，body expected_version不能代替条件更新。
+
+声明Idempotency-Key的操作按主体、操作和请求摘要去重；同键不同摘要409。有效保存期、超时/背压具体数值见待评审配置缺口，不能假定任意TTL。错误结构与恢复见[统一规则](../common-interface-rules.md)和[错误码](../error-codes.md)。
+
+## 字段与数据库对应
+
+| 方向/字段 | 当前映射 | 处理说明 |
+| --- | --- | --- |
+| request/expected_version | approval_decision.row_version, approval_request.row_version, audit_event.row_version | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| request/reason | approval_decision.reason, approval_request.reason | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/approval_id | approval_decision.approval_id, approval_request.approval_id | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/state | approval_request.state | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/version | approval_decision.row_version, approval_request.row_version, audit_event.row_version | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/object_version | approval_request.object_version, approval_request.result_version, audit_event.object_version | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/purpose | approval_request.purpose | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/policy_version | approval_decision.policy_version, approval_request.policy_version | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/expires_at | approval_request.expires_at | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/decision_actor_id | approval_decision.decision_actor_id | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/run_version | approval_request.run_version | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| response/result_version | approval_request.result_version | 撤销按当前审批聚合ETag、expected_version和当前撤销权限执行；服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+
+映射源：[api-field-mapping.json](../../04-database/api-field-mapping.json)。必须继续核验外键、案件域、版本、授权用途与SQL迁移，不能直接把任意字段写入表。
+
+## 联调与验收条件
+
+关联计划用例：。这些ID是测试计划引用，不是本页接口的运行通过证据。
+
+实施至少核验正常请求、Schema/跨字段错误、身份与跨案件拒绝、声明的幂等/条件并发、异步完成/失败及权限撤销；下载另测Range与版本完整性。实际端点的测试和证据按任务卡登记。未完成项见[接口缺口](../interface-gap-register.md)。

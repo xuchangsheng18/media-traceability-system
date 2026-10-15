@@ -6,7 +6,7 @@
 
 | 核查项/原23步 | 本轮补齐 | 仍需完成及启用条件 |
 | --- | --- | --- |
-| S2-N01 整体接口流程和必要服务契约；步[19] | 复核53业务操作/83组件/34能力及13接口缺口，建立缺口与23步/后续170任务的边界清单；不把候选路径当已实现端点。<br>[interface-gap-register.json](../../docs/03-api/interface-gap-register.json)、[system-interface-specification.md](../../docs/03-api/system-interface-specification.md) | 补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。 |
+| S2-N01 整体接口流程和必要服务契约；步[19] | 复核73候选外部操作/102组件/34能力及13接口缺口，建立缺口与23步/后续170任务的边界清单；不把候选路径当已实现端点。<br>[interface-gap-register.json](../../docs/03-api/interface-gap-register.json)、[system-interface-specification.md](../../docs/03-api/system-interface-specification.md) | 补上传、审批、复核、反馈、发布、导出状态读取的唯一源契约/映射/样例/生成类型与业务联调；身份/来源平台协议需实际资料。 |
 | S2-N02 业务数据库访问层与升级迁移；步[7] | 新增隔离PostgreSQL16验证，真实执行案件/单位RLS、追加历史、普通角色拒绝及事务上下文清除；未修改62表业务草案或现有5表。<br>[authorization-prototype.sql](../../tests/sql/authorization-prototype.sql)、[authorization-isolation-prototype.md](../../docs/04-database/authorization-isolation-prototype.md)、[stage-two-isolation-report.json](../../docs/00-project/validation/stage-two-isolation-report.json) | 按任务卡实现62表业务访问和版本迁移，逐表建立RLS/关联隔离与升级回退；不能将代表性两表套用为62表全部部署。 |
 | S2-N03 完整任务编排、取消与多worker故障；步[9, 19, 20] | 复核36候选DAG、7类域事件和现有原子领取/旧租约拒绝；列出真实多worker、取消、续租、乱序和死信的执行前置条件。<br>[workflow-contracts.md](../../docs/05-workflows/workflow-contracts.md)、[stage-two-implementation-plan.md](../../docs/03-development/stage-two-implementation-plan.md)、[migration-fencing-report.json](../../docs/00-project/validation/migration-fencing-report.json) | 实施实际调度器与多worker消息故障演练；当前8数据库竞争者不是8Celery worker，全业务DAG未运行。 |
 | S2-N04 正式身份与案件/单位隔离；步[15] | 真实RLS隔离检查已验证跨单位/案件、缺身份上下文、撤销后下一条读写拒绝和连接复用；正式身份适配器所需材料已列出。<br>[authorization-isolation-prototype.md](../../docs/04-database/authorization-isolation-prototype.md)、[stage-two-isolation-report.json](../../docs/00-project/validation/stage-two-isolation-report.json) | 取得身份issuer/JWKS或其他正式协议、角色/单位/案件权威映射和撤销SLA，实施验证后联调；共享DB设置不能充当身份认证。 |
@@ -21,4 +21,6 @@
 
 实际命令、断言与限制见[代表性验证](../09-testing/stage-two-representative-validation.md)；生产/业务实施顺序见[实施计划](stage-two-implementation-plan.md)；资源和离线操作见[运维交付手册](../10-deployment/stage-two-operations-and-offline-delivery.md)。
 
-13接口缺口仍开放，未新增可调用业务路径或把53接口标为运行。原23步第22—23步的正式评审/冻结未完成；实际人员、数据/GPU、身份及生产目标仍未知。托管验证结果按[GitHub实际报告](../00-project/validation/github-actions-report.json)的run/源码SHA/制品摘要读取。
+13接口正式缺口仍开放；本批已新增可调用技术子范围及实际验证，见[剩余接口实现](stage-three/remaining-interface-implementation.md)，不能推定73个候选操作全部运行。原23步第22—23步的正式评审/冻结未完成；实际人员、数据/GPU、身份及生产目标仍未知。托管验证结果按[GitHub实际报告](../00-project/validation/github-actions-report.json)的run/源码SHA/制品摘要读取。
+
+当前开发补充：独立业务工程已实现62表版本迁移/RLS基础、5项上传、7项历史读取及本批控制接口技术子范围，42个外部和1个内部入口；PoC5表保持独立。具体实际状态与正式前置条件见[本批说明](stage-three/remaining-interface-implementation.md)。早期“未实施”说明只对应当时批次，不能覆盖本批已验证实现；完整业务与生产验收仍未完成。

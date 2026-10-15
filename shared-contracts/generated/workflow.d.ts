@@ -883,6 +883,173 @@ export interface components {
             next_cursor: string | null;
             session_version: number;
         };
+        ApprovalDetail: {
+            approval: components["schemas"]["Approval"];
+            binding: {
+                /** Format: uuid */
+                case_id: string;
+                /** @enum {string} */
+                object_type: "task" | "report" | "evidence_package" | "feedback" | "model_release" | "operation";
+                /** Format: uuid */
+                object_id: string;
+                /** Format: uuid */
+                requested_by: string;
+            };
+            decisions: {
+                /** Format: uuid */
+                decision_id: string;
+                /** @enum {string} */
+                decision: "approve" | "reject" | "return" | "revoke" | "invalidate";
+                /** Format: uuid */
+                actor_id: string;
+                reason: string;
+                evidence_ids: string[];
+                /** Format: date-time */
+                created_at: string;
+            }[];
+        };
+        ApprovalPage: {
+            items: components["schemas"]["ApprovalDetail"][];
+            next_cursor: string | null;
+        };
+        ApprovalRevoke: {
+            expected_version: number;
+            reason: string;
+        };
+        ReviewPage: {
+            items: components["schemas"]["Review"][];
+            next_cursor: string | null;
+        };
+        ReviewContext: {
+            /** Format: uuid */
+            task_id: string;
+            run_version: number;
+            result_version: number;
+            policy_version: string;
+            snapshot_sha256: string;
+            object_version: number;
+            review_version: number;
+        };
+        AuditExportStatus: {
+            /** Format: uuid */
+            export_id: string;
+            /** Format: uuid */
+            case_id: string;
+            /** @enum {string} */
+            state: "REQUESTED" | "READY" | "FAILED" | "EXPIRED" | "REVOKED";
+            version: number;
+            artifact: components["schemas"]["ObjectRef"] | null;
+            size_bytes: number | null;
+            expires_at: string | null;
+            error_code: string | null;
+        };
+        ModelOperation: {
+            /** Format: uuid */
+            operation_id: string;
+            /** Format: uuid */
+            org_id: string;
+            /** Format: uuid */
+            release_bundle_id: string;
+            /** Format: uuid */
+            model_id: string;
+            /** @enum {string} */
+            mode: "shadow" | "canary" | "activate" | "rollback";
+            /** @enum {string} */
+            state: "REQUESTED" | "RUNNING" | "SUCCEEDED" | "FAILED" | "CANCELLED";
+            version: number;
+            progress: number;
+            model_version: string;
+            index_version: string | null;
+            error_code: string | null;
+        };
+        SourceSyncRequest: {
+            expected_version: number;
+        };
+        SourceAuthorizationUpdate: {
+            /** Format: uuid */
+            source_id: string;
+            /** Format: uuid */
+            case_id: string;
+            authorization_ref: string;
+            authorization_version: string;
+            purpose: string[];
+            /** @enum {string} */
+            authorization_status: "pending" | "verified" | "expired" | "revoked";
+            expires_at: string | null;
+        };
+        PolicyDefinition: {
+            definition_ref: string;
+            version: string;
+            sha256: string;
+            values: {
+                [key: string]: unknown;
+            };
+        };
+        NodeRun: {
+            /** Format: uuid */
+            node_id: string;
+            node_code: string;
+            attempt: number;
+            /** @enum {string} */
+            state: "PENDING" | "READY" | "RUNNING" | "SUCCEEDED" | "FAILED" | "SKIPPED" | "DEFERRED" | "CANCELLED" | "NOT_SUPPORTED";
+            required: boolean;
+            reason: string | null;
+            version: number;
+            fencing_epoch: number;
+            started_at: string | null;
+            ended_at: string | null;
+        };
+        NodePage: {
+            /** Format: uuid */
+            task_id: string;
+            run_version: number;
+            items: components["schemas"]["NodeRun"][];
+        };
+        TaskEventRecord: {
+            /** Format: uuid */
+            event_id: string;
+            /** Format: uuid */
+            task_id: string;
+            run_version: number;
+            from_state: string | null;
+            to_state: string;
+            reason: string;
+            /** Format: uuid */
+            request_id: string;
+            /** Format: date-time */
+            created_at: string;
+        };
+        TaskEventPage: {
+            items: components["schemas"]["TaskEventRecord"][];
+            next_cursor: string | null;
+        };
+        PendingReviewItem: {
+            /** Format: uuid */
+            task_id: string;
+            /** Format: uuid */
+            case_id: string;
+            /** @enum {unknown} */
+            task_state: "WAIT_REVIEW" | "REVIEWING" | "RETURNED";
+            /** @enum {unknown} */
+            availability: "READY" | "RESULT_UNAVAILABLE" | "SOURCE_BLOCKED";
+            context: components["schemas"]["ReviewContext"] | null;
+        };
+        PendingReviewPage: {
+            items: components["schemas"]["PendingReviewItem"][];
+            next_cursor: string | null;
+        };
+        TaskExecutionStatus: {
+            /** Format: uuid */
+            task_id: string;
+            /** Format: uuid */
+            case_id: string;
+            /** @enum {string} */
+            state: "CREATED" | "QUEUED" | "RUNNING" | "WAIT_REVIEW" | "REVIEWING" | "SUCCEEDED" | "FAILED" | "RETURNED" | "CANCEL_REQUESTED" | "CANCELLED" | "ARCHIVED";
+            run_version: number;
+            result_version: number;
+            version: number;
+            result_available: boolean;
+        };
         WorkflowDag: {
             dag_id: string;
             dag_version: string;

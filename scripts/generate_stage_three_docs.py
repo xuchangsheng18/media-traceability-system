@@ -30,7 +30,7 @@ def build():
     origin = paths[0]
     content = "# 第三阶段16步实际状态与导航\n\n2026-10-14；仓库和Codex研发环境实施，正式Development Environment Baseline 1.0仍NOT_FROZEN。第一阶段24步、第二阶段23步、第三阶段16步与170业务任务分别管理；本阶段不开展完整业务研发。\n\n"
     content += "两份Word原件已按字节归档，正文阅读版保留来源与提示词参考身份。当前用户已指定GitHub和Miniforge py310并要求同步，可继续已授权工程工作；原手册中的已批准Technical Baseline 1.0前提并未自动满足，当前实际为研发1.1-py310-cpu。审批、人事、正式网络/分支保护与资源条件分别登记。\n\n"
-    content += "设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划已获用户认可，采用当前会话实施。独立Python类型检查已通过，CI按实际新run认定；独立业务迁移/RLS、5上传及7历史读取已实际实现并验证，证据和范围见[首批实现说明](business-foundation-implementation.md)；共享扩容与正式条件仍待落实，不据此关闭全部13项缺口。\n\n"
+    content += "设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划已获用户认可，采用当前会话实施。独立Python类型检查已通过，CI按实际新run认定；独立业务迁移/RLS、5上传及7历史读取已实际实现并验证，证据和范围见[首批实现说明](business-foundation-implementation.md)；剩余接口技术子范围见[本批实现说明](remaining-interface-implementation.md)。容量复查13%使用、约644GiB可用，正式维护/恢复与业务条件仍待落实，不据此关闭全部13项缺口。\n\n"
     for source in inventory["records"]:
         content += (
             "- "
@@ -80,7 +80,7 @@ def build():
             + "。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。\n\n"
         )
     content += "## 源建议与既有工程的适用差异\n\n"
-    content += "- 仓库名称沿用用户指定media-traceability-system；不另建示例名、不重复账号/环境。\n- 一级目录沿用原13目录，补data-pipeline/tools预留职责；不搬移原文件，不增加重复Schema。\n- Element Plus/ECharts、Transformers/MMEngine、Black/ESLint/Stylelint等并未由实际技术源选定；不将它们伪装为已安装或冻结。当前质量范围是Ruff、TS、Pytest/Vitest、契约、pre-commit和依赖/秘密检查；旧13文件的格式调整曾核对AST一致；后续类型修订及新业务代码另有实测，格式/类型当前数量读取实际报告，CI按新run认定。\n- 最小工程复用已有7服务和真实合成M15，mock=false并有明确非业务标识；不会改成假业务模型。已有后端/api/v1/health是鉴权后的数据库SELECT1，进程存活用/healthz，内部推理有/healthz。另建仓库内tools/stage_three_demo夹具实现三独立进程的Vue健康页、/api/v1/health、/api/v1/ready和模拟推理入口，并经浏览器实际验证。夹具不连已有数据库/对象存储、不加载权重，不是55业务API或34能力的新增实现。\n- Windows默认入口经SSH协调Linux py310，实际Windows原生py310安装未开展；Linux与GitHub隔离Runner是当前可验证的组合。\n- 两端CLI实际加载完整AGENTS，精确项目可信登记后config/read项目配置层启用；桌面既有线程未因此宣称重载，根规则不当强制ACL。\n- pre-commit配置与隔离工具层可以运行，Git hook是否安装由开发者选择；配置存在不等于实际钩子/平台保护已生效。\n\n"
+    content += "- 仓库名称沿用用户指定media-traceability-system；不另建示例名、不重复账号/环境。\n- 一级目录沿用原13目录，补data-pipeline/tools预留职责；不搬移原文件，不增加重复Schema。\n- Element Plus/ECharts、Transformers/MMEngine、Black/ESLint/Stylelint等并未由实际技术源选定；不将它们伪装为已安装或冻结。当前质量范围是Ruff、TS、Pytest/Vitest、契约、pre-commit和依赖/秘密检查；旧13文件的格式调整曾核对AST一致；后续类型修订及新业务代码另有实测，格式/类型当前数量读取实际报告，CI按新run认定。\n- 最小工程复用已有7服务和真实合成M15，mock=false并有明确非业务标识；不会改成假业务模型。已有后端/api/v1/health是鉴权后的数据库SELECT1，进程存活用/healthz，内部推理有/healthz。另建仓库内tools/stage_three_demo夹具实现三独立进程的Vue健康页、/api/v1/health、/api/v1/ready和模拟推理入口，并经浏览器实际验证。夹具不连已有数据库/对象存储、不加载权重，不是73业务API或34能力的新增实现。\n- Windows默认入口经SSH协调Linux py310，实际Windows原生py310安装未开展；Linux与GitHub隔离Runner是当前可验证的组合。\n- 两端CLI实际加载完整AGENTS，精确项目可信登记后config/read项目配置层启用；桌面既有线程未因此宣称重载，根规则不当强制ACL。\n- pre-commit配置与隔离工具层可以运行，Git hook是否安装由开发者选择；配置存在不等于实际钩子/平台保护已生效。\n\n"
     content += (
         "## 开发入口与容量保护\n\nLinux使用已验证的`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help`；当前服务器make未安装，Makefile仅作已有make环境的可选等价入口。Windows：`& .\\scripts\\dev.ps1 help`，SSH协调入口已验证，原生安装未验证。全部命令、环境与审计见"
         + link("CONTRIBUTING.md", origin)
@@ -117,7 +117,7 @@ def build():
     for item in runtime.get("checks", []):
         command = " ".join(item.get("command", []))
         report += f"| {item['name']} | {item['status']}；`{command}`；{item.get('scope', '')} |\n"
-    report += "\n入口前置条件：当前Linux服务器make未安装，使用实际已验证的Python等价入口；Windows PowerShell经SSH的help/status已核验，Windows原生环境未安装/验证。共享栈容量保护实测会拒绝当前不足容量下的构建，未执行构建或更改服务。详见机器报告auxiliary_observations，不把未安装的可选工具记成PASS。\n\n"
+    report += "\n入口前置条件：当前Linux服务器make未安装，使用实际已验证的Python等价入口；Windows PowerShell经SSH的help/status已核验，Windows原生环境未安装/验证。早期容量不足时构建保护已实测拒绝；最新容量已满足研发保护值，本批未重启共享栈。详见机器报告auxiliary_observations，不把未安装的可选工具记成PASS。\n\n"
     report += (
         "\n扫描原始输入/结果："
         + "、".join(
@@ -133,7 +133,7 @@ def build():
         + "。原pip-audit跳过保持；新增基础审查已核对Torch官方wheel摘要及12,240安装载荷，OSV精确/基础版本查询均无返回条目，仍不代表所有二进制漏洞覆盖或准入。Python3.10维护、镜像OS、模型许可与数据DLP另核验。\n\n"
     )
     report += "三服务夹具新增实际结构日志关联与依赖停止验证：日志只包含固定事件/服务角色/方法/路由模板/状态/UUID/时长及模拟标识，不记录原始URL、请求体、头或令牌；同一request_id贯穿三服务。测试停止自建推理进程后核对ready=503、调用=502，且不回显输入。原始结果见stage-three-demo-report.json；只停止本验证创建的进程。\n\n"
-    report += "未执行/限制：共享Docker数据盘容量未整改，本轮未在该栈重新执行构建/恢复；Windows原生安装、GPU/CUDA/真实模型、正式网络/业务数据、主分支保护正反验证及冻结未完成。三服务模拟夹具只证明健康/就绪、调用、trace、结构日志、故障和页面；真实模型/业务能力另验。模板、资料PASS、代表性模型/数据库结果都不代替这些工作。现有应用代码与锁保持，完整工程复建由实际GitHub run认定。\n"
+    report += "未执行/限制：共享Docker数据盘最新复查13%使用、约644GiB可用；本轮未执行扩容停机或共享栈恢复，维护备份与正式恢复未验收；Windows原生安装、GPU/CUDA/真实模型、正式网络/业务数据、主分支保护正反验证及冻结未完成。三服务模拟夹具只证明健康/就绪、调用、trace、结构日志、故障和页面；真实模型/业务能力另验。模板、资料PASS、代表性模型/数据库结果都不代替这些工作。现有应用代码与锁保持，完整工程复建由实际GitHub run认定。\n"
     index = (
         "# 第三阶段材料与实际状态\n\n"
         + link(paths[0], paths[2], "16步实际操作、交付、适用差异和未完成条件")

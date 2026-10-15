@@ -12,6 +12,9 @@ class BusinessSettings:
     part_size_bytes: int
     upload_ttl_seconds: int
     cursor_secret: str = field(repr=False)
+    control_ttl_seconds: int | None = None
+    node_lease_seconds: int | None = None
+    max_import_entries: int | None = None
 
     def __post_init__(self) -> None:
         database = conninfo_to_dict(self.database_dsn).get("dbname")
@@ -21,3 +24,8 @@ class BusinessSettings:
             raise RuntimeError("EXPLICIT_POSITIVE_DEVELOPMENT_LIMITS_REQUIRED")
         if len(self.cursor_secret) < 32:
             raise RuntimeError("PRIVATE_CURSOR_KEY_REQUIRED")
+        if any(
+            value is not None and value <= 0
+            for value in [self.control_ttl_seconds, self.node_lease_seconds, self.max_import_entries]
+        ):
+            raise RuntimeError("EXPLICIT_POSITIVE_CONTROL_LIMITS_REQUIRED")

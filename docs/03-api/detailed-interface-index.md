@@ -1,6 +1,6 @@
 # 详细接口目录
 
-共55个外部业务候选操作、85个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。
+共73个外部业务候选操作、102个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。
 
 | operationId | 方法/路径 | 主业务模块 | 详细文件 |
 | --- | --- | --- | --- |
@@ -59,6 +59,24 @@
 | listPolicies | GET /api/v1/policies | OPS, RISK | [逐接口说明](operations/listPolicies.md) |
 | getUploadStatus | GET /api/v1/uploads/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getUploadStatus.md) |
 | listUploadParts | GET /api/v1/uploads/{id}/parts | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listUploadParts.md) |
+| listApprovals | GET /api/v1/approvals | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listApprovals.md) |
+| getApproval | GET /api/v1/approvals/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getApproval.md) |
+| revokeApproval | POST /api/v1/approvals/{id}/revoke | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/revokeApproval.md) |
+| listReviews | GET /api/v1/reviews | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listReviews.md) |
+| getReview | GET /api/v1/reviews/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getReview.md) |
+| getReviewContext | GET /api/v1/analysis/tasks/{id}/review-context | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getReviewContext.md) |
+| getAuditExport | GET /api/v1/audit/exports/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getAuditExport.md) |
+| downloadAuditExport | GET /api/v1/audit/exports/{id}/content | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/downloadAuditExport.md) |
+| getFeedback | GET /api/v1/feedback/samples/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getFeedback.md) |
+| getModelOperation | GET /api/v1/model-operations/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getModelOperation.md) |
+| getSource | GET /api/v1/sources/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getSource.md) |
+| syncSourceAuthorization | POST /api/v1/sources/{id}/authorization/sync | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/syncSourceAuthorization.md) |
+| getPolicy | GET /api/v1/policies/{id} | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getPolicy.md) |
+| getPolicyDefinition | GET /api/v1/policies/{id}/definition | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getPolicyDefinition.md) |
+| listTaskNodes | GET /api/v1/analysis/tasks/{id}/nodes | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listTaskNodes.md) |
+| listTaskEvents | GET /api/v1/analysis/tasks/{id}/events | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listTaskEvents.md) |
+| listPendingReviews | GET /api/v1/reviews/pending | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/listPendingReviews.md) |
+| getTaskExecution | GET /api/v1/analysis/tasks/{id}/execution | 共享/工程入口，按来源任务核验 | [逐接口说明](operations/getTaskExecution.md) |
 
 ## 模块目录
 

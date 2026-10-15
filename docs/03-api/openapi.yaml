@@ -20,7 +20,7 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: &id001
+        schema:
           type: string
           format: uuid
       responses:
@@ -28,9 +28,11 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: &id002
+              schema:
                 type: string
                 minLength: 1
                 maxLength: 128
@@ -105,7 +107,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -118,9 +122,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -199,15 +208,22 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -282,7 +298,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -295,9 +313,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -373,7 +396,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -383,15 +408,29 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: case_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -462,7 +501,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -475,9 +516,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -555,17 +601,21 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: part_no
         in: path
         required: true
-        schema: &id003
+        schema:
           type: integer
           minimum: 1
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -576,21 +626,28 @@ paths:
       - name: X-Part-Sha256
         in: header
         required: true
-        schema: &id006
+        schema:
           type: string
           pattern: ^[a-f0-9]{64}$
       - name: Content-Length
         in: header
         required: true
-        schema: *id003
+        schema:
+          type: integer
+          minimum: 1
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -669,11 +726,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -686,9 +747,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -769,7 +835,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -779,15 +847,23 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -858,19 +934,28 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -942,25 +1027,40 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Range
         in: header
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       - name: If-Range
         in: header
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 受控二进制内容，逐请求和Range均鉴权
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
             Cache-Control:
               schema:
                 const: no-store
@@ -1033,7 +1133,10 @@ paths:
               schema:
                 const: no-store
             Content-Range:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/octet-stream:
               schema:
@@ -1209,7 +1312,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -1222,9 +1327,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -1302,19 +1412,28 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -1386,7 +1505,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -1399,9 +1520,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -1479,7 +1605,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -1489,15 +1617,23 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -1700,18 +1836,22 @@ paths:
     post:
       operationId: cancelTask
       summary: cancelTask
-      description: 依据T039,T040；接口结构为本包待审核提案。服务端核验task.cancel及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+      description: 依据T039,T040；接口结构为本包待审核提案。服务端核验task.cancel及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。 本批If-Match取getTaskExecution的当前控制聚合，不使用不可变历史getTask响应替代；202后通过status_url读取，运行节点未停止前保持CANCEL_REQUESTED。
       tags:
       - analysis
       parameters:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -1722,16 +1862,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '202':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -1823,11 +1971,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -1838,16 +1990,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '202':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -2365,7 +2525,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -2378,9 +2540,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -2461,7 +2628,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -2474,9 +2643,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -2554,7 +2728,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -2567,9 +2743,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -2647,19 +2828,28 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3025,11 +3215,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3040,16 +3234,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3141,7 +3343,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3154,9 +3358,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3234,11 +3443,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3251,9 +3464,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3331,7 +3549,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3342,16 +3562,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '201':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3432,6 +3660,107 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ReviewCreate'
+    get:
+      operationId: listReviews
+      summary: listReviews
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - reviews
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: case_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: task_id
+        in: query
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewPage'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T102
+      - T103
+      x-table-names:
+      - review_record
+      - review_evidence
+      x-required-permission: review.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
   /approvals:
     post:
       operationId: requestApproval
@@ -3443,7 +3772,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3456,9 +3787,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3526,6 +3862,103 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ApprovalCreate'
+    get:
+      operationId: listApprovals
+      summary: listApprovals
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - approvals
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: case_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalPage'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T016
+      - T102
+      - T108
+      x-table-names:
+      - approval_request
+      - approval_decision
+      x-required-permission: approval.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
   /approvals/{id}/decisions:
     post:
       operationId: decideApproval
@@ -3537,11 +3970,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3552,16 +3989,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '201':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3654,7 +4099,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3667,9 +4114,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3746,11 +4198,15 @@ paths:
       - name: case_id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3763,9 +4219,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3846,7 +4307,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3859,9 +4322,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -3939,7 +4407,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -3952,9 +4422,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4033,19 +4508,28 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4116,25 +4600,40 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Range
         in: header
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       - name: If-Range
         in: header
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 受控二进制内容，逐请求和Range均鉴权
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
             Cache-Control:
               schema:
                 const: no-store
@@ -4207,7 +4706,10 @@ paths:
               schema:
                 const: no-store
             Content-Range:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/octet-stream:
               schema:
@@ -4239,7 +4741,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -4252,9 +4756,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4332,7 +4841,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -4345,9 +4856,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4423,7 +4939,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -4433,15 +4951,23 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4513,19 +5039,28 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4597,11 +5132,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -4612,16 +5151,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '202':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4714,7 +5261,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -4727,9 +5276,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4805,7 +5359,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -4815,15 +5371,23 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4894,7 +5458,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -4904,15 +5470,29 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: case_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -4976,14 +5556,16 @@ paths:
     post:
       operationId: exportAudit
       summary: exportAudit
-      description: 依据T018；接口结构为本包待审核提案。服务端核验audit.export及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+      description: 依据T018；接口结构为本包待审核提案。服务端核验audit.export及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。 本批仅支持明确case_id；case_id=null的组织级导出返回503，不扩大范围。202产生REQUESTED真实作业；受控执行器完成后读取状态/产物。
       tags:
       - audit
       parameters:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -4996,9 +5578,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -5076,19 +5663,28 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -5160,11 +5756,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -5175,16 +5775,24 @@ paths:
       - name: If-Match
         in: header
         required: true
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
         description: 服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -5275,7 +5883,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: Idempotency-Key
         in: header
         required: true
@@ -5288,9 +5898,14 @@ paths:
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -5369,7 +5984,9 @@ paths:
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id001
+        schema:
+          type: string
+          format: uuid
       - name: limit
         in: query
         schema:
@@ -5379,15 +5996,23 @@ paths:
           default: 20
       - name: cursor
         in: query
-        schema: *id002
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
       responses:
         '200':
           description: 契约成功响应；异步受理不代表结果完成
           headers:
             X-Request-Id:
-              schema: *id001
+              schema:
+                type: string
+                format: uuid
             ETag:
-              schema: *id002
+              schema:
+                type: string
+                minLength: 1
+                maxLength: 128
           content:
             application/json:
               schema:
@@ -5460,13 +6085,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: &id004
+        schema:
           type: string
           format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id004
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: 实际案件/来源权限核验后的当前上传记录
@@ -5543,13 +6170,15 @@ paths:
       - name: id
         in: path
         required: true
-        schema: &id005
+        schema:
           type: string
           format: uuid
       - name: X-Request-Id
         in: header
         required: false
-        schema: *id005
+        schema:
+          type: string
+          format: uuid
       - name: cursor
         in: query
         required: false
@@ -5631,6 +6260,1484 @@ paths:
       x-required-permission: asset.upload
       x-contract-status: development_candidate_not_formally_frozen
       x-source: user-reviewed first business implementation plan, 2026-10-14
+  /approvals/{id}:
+    get:
+      operationId: getApproval
+      summary: getApproval
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - approvals
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalDetail'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T016
+      - T102
+      - T108
+      x-table-names:
+      - approval_request
+      - approval_decision
+      x-required-permission: approval.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /approvals/{id}/revoke:
+    post:
+      operationId: revokeApproval
+      summary: revokeApproval
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - approvals
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Approval'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '412':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '428':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T016
+      - T108
+      x-table-names:
+      - approval_request
+      - approval_decision
+      - audit_event
+      x-required-permission: approval.revoke
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalRevoke'
+  /reviews/{id}:
+    get:
+      operationId: getReview
+      summary: getReview
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - reviews
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T102
+      - T103
+      x-table-names:
+      - review_record
+      - review_evidence
+      x-required-permission: review.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /analysis/tasks/{id}/review-context:
+    get:
+      operationId: getReviewContext
+      summary: getReviewContext
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - analysis
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewContext'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T102
+      - T103
+      x-table-names:
+      - analysis_task
+      - task_result
+      - review_record
+      x-required-permission: review.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /audit/exports/{id}:
+    get:
+      operationId: getAuditExport
+      summary: getAuditExport
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - audit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditExportStatus'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T017
+      - T018
+      x-table-names:
+      - audit_export
+      - approval_request
+      x-required-permission: audit.export
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /audit/exports/{id}/content:
+    get:
+      operationId: downloadAuditExport
+      summary: downloadAuditExport
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - audit
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: Range
+        in: header
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: If-Range
+        in: header
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '206':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '416':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T017
+      - T018
+      x-table-names:
+      - audit_export
+      - object_version
+      - approval_request
+      x-required-permission: audit.export
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /feedback/samples/{id}:
+    get:
+      operationId: getFeedback
+      summary: getFeedback
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - feedback
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackRecord'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T108
+      - T109
+      x-table-names:
+      - feedback_request
+      - approval_request
+      - risk_finding
+      x-required-permission: feedback.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /model-operations/{id}:
+    get:
+      operationId: getModelOperation
+      summary: getModelOperation
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - model-operations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelOperation'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T057
+      - T060
+      - T170
+      x-table-names:
+      - model_registry
+      - model_release
+      x-required-permission: model.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /sources/{id}:
+    get:
+      operationId: getSource
+      summary: getSource
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - sources
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T021
+      - T029
+      x-table-names:
+      - source_registry
+      x-required-permission: source.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /sources/{id}/authorization/sync:
+    post:
+      operationId: syncSourceAuthorization
+      summary: syncSourceAuthorization
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - sources
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      - name: If-Match
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '412':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '428':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T021
+      - T029
+      x-table-names:
+      - source_registry
+      - audit_event
+      x-required-permission: source.manage
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceSyncRequest'
+  /policies/{id}:
+    get:
+      operationId: getPolicy
+      summary: getPolicy
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - policies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T061
+      - T069
+      x-table-names:
+      - policy_registry
+      x-required-permission: policy.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /policies/{id}/definition:
+    get:
+      operationId: getPolicyDefinition
+      summary: getPolicyDefinition
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - policies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDefinition'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T061
+      - T069
+      x-table-names:
+      - policy_registry
+      x-required-permission: policy.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /analysis/tasks/{id}/nodes:
+    get:
+      operationId: listTaskNodes
+      summary: listTaskNodes
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - analysis
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: run_version
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodePage'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T036
+      - T037
+      - T038
+      x-table-names:
+      - analysis_task
+      - task_run
+      - task_node_run
+      x-required-permission: task.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /analysis/tasks/{id}/events:
+    get:
+      operationId: listTaskEvents
+      summary: listTaskEvents
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - analysis
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: run_version
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskEventPage'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T031
+      - T039
+      x-table-names:
+      - analysis_task
+      - task_event
+      x-required-permission: task.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /reviews/pending:
+    get:
+      operationId: listPendingReviews
+      summary: 待复核工作台
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - reviews
+      parameters:
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - name: case_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 128
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingReviewPage'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T102
+      - T103
+      x-table-names:
+      - analysis_task
+      - task_result
+      - review_record
+      x-required-permission: review.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
+  /analysis/tasks/{id}/execution:
+    get:
+      operationId: getTaskExecution
+      summary: 当前任务控制状态
+      description: 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+      tags:
+      - analysis
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: X-Request-Id
+        in: header
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 实际案件/来源权限核验后的当前上传记录
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskExecutionStatus'
+        '400':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '403':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '409':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '422':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '503':
+          description: 失败，错误码见error-codes.md
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      x-task-ids:
+      - T031
+      - T039
+      x-table-names:
+      - analysis_task
+      - task_result
+      x-required-permission: task.read
+      x-contract-status: development_candidate_not_formally_frozen
+      x-source: user-reviewed first business implementation plan, 2026-10-14
 components:
   securitySchemes:
     bearerAuth:
@@ -5638,15 +7745,21 @@ components:
       scheme: bearer
       description: 服务端验证令牌有效期/撤销/主体；正式身份协议待确认。
   schemas:
-    Uuid: *id001
-    Sha256: *id006
+    Uuid:
+      type: string
+      format: uuid
+    Sha256:
+      type: string
+      pattern: ^[a-f0-9]{64}$
     TimeRange:
       type: object
       properties:
-        start_ms: &id013
+        start_ms:
           type: integer
           minimum: 0
-        end_ms: *id003
+        end_ms:
+          type: integer
+          minimum: 1
       required:
       - start_ms
       - end_ms
@@ -5655,11 +7768,14 @@ components:
     BoundingBox:
       type: object
       properties:
-        x: &id007
+        x:
           type: number
           minimum: 0
           maximum: 1
-        y: *id007
+        y:
+          type: number
+          minimum: 0
+          maximum: 1
         width:
           type: number
           exclusiveMinimum: 0
@@ -5678,9 +7794,16 @@ components:
     ObjectRef:
       type: object
       properties:
-        object_id: *id001
-        version_id: *id002
-        sha256: *id006
+        object_id:
+          type: string
+          format: uuid
+        version_id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
       required:
       - object_id
       - version_id
@@ -5690,10 +7813,19 @@ components:
     VersionBinding:
       type: object
       properties:
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
-        policy_version: *id002
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - task_id
       - run_version
@@ -5706,7 +7838,7 @@ components:
         type:
           type: string
           format: uri-reference
-        title: &id008
+        title:
           type: string
           minLength: 1
           maxLength: 4096
@@ -5714,16 +7846,30 @@ components:
           type: integer
           minimum: 400
           maximum: 599
-        code: *id002
-        message: *id008
-        request_id: *id001
+        code:
+          type: string
+          minLength: 1
+          maxLength: 128
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        request_id:
+          type: string
+          format: uuid
         details:
           type: array
           items:
             type: object
             properties:
-              field: *id002
-              reason: *id008
+              field:
+                type: string
+                minLength: 1
+                maxLength: 128
+              reason:
+                type: string
+                minLength: 1
+                maxLength: 4096
             required:
             - field
             - reason
@@ -5744,7 +7890,9 @@ components:
     Accepted:
       type: object
       properties:
-        task_id: *id001
+        task_id:
+          type: string
+          format: uuid
         state:
           type: string
           enum:
@@ -5763,10 +7911,19 @@ components:
     ActionAck:
       type: object
       properties:
-        object_id: *id001
-        version: *id003
-        state: *id002
-        request_id: *id001
+        object_id:
+          type: string
+          format: uuid
+        version:
+          type: integer
+          minimum: 1
+        state:
+          type: string
+          minLength: 1
+          maxLength: 128
+        request_id:
+          type: string
+          format: uuid
       required:
       - object_id
       - version
@@ -5782,7 +7939,9 @@ components:
           - ok
           - degraded
           - unavailable
-        request_id: *id001
+        request_id:
+          type: string
+          format: uuid
       required:
       - status
       - request_id
@@ -5791,7 +7950,10 @@ components:
     AuthLogin:
       type: object
       properties:
-        username: *id002
+        username:
+          type: string
+          minLength: 1
+          maxLength: 128
         password:
           type: string
           minLength: 1
@@ -5809,7 +7971,9 @@ components:
           minLength: 1
         token_type:
           const: Bearer
-        expires_in: *id003
+        expires_in:
+          type: integer
+          minimum: 1
       required:
       - access_token
       - token_type
@@ -5819,19 +7983,31 @@ components:
     CurrentUser:
       type: object
       properties:
-        user_id: *id001
-        org_id: *id001
+        user_id:
+          type: string
+          format: uuid
+        org_id:
+          type: string
+          format: uuid
         roles:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
         permissions:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
         case_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 0
       required:
       - user_id
@@ -5843,25 +8019,35 @@ components:
     SourceCreate:
       type: object
       properties:
-        case_id: *id001
-        name: *id002
-        source_type: &id009
+        case_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        source_type:
           type: string
           enum:
           - authorized_business
           - public_licensed
           - user_submission
           - synthetic
-        authorization_ref: *id002
-        purpose: &id010
+        authorization_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        purpose:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 1
           uniqueItems: true
-        expires_at: &id011
+        expires_at:
           anyOf:
-          - &id012
-            type: string
+          - type: string
             format: date-time
           - type: 'null'
       required:
@@ -5876,13 +8062,40 @@ components:
     Source:
       type: object
       properties:
-        source_id: *id001
-        case_id: *id001
-        name: *id002
-        source_type: *id009
-        authorization_ref: *id002
-        purpose: *id010
-        expires_at: *id011
+        source_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        source_type:
+          type: string
+          enum:
+          - authorized_business
+          - public_licensed
+          - user_submission
+          - synthetic
+        authorization_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        purpose:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
+          minItems: 1
+          uniqueItems: true
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
         authorization_status:
           type: string
           enum:
@@ -5890,7 +8103,9 @@ components:
           - verified
           - expired
           - revoked
-        version: *id003
+        version:
+          type: integer
+          minimum: 1
       required:
       - source_id
       - case_id
@@ -5905,8 +8120,12 @@ components:
     UploadCreate:
       type: object
       properties:
-        case_id: *id001
-        source_id: *id001
+        case_id:
+          type: string
+          format: uuid
+        source_id:
+          type: string
+          format: uuid
         filename:
           type: string
           minLength: 1
@@ -5914,8 +8133,13 @@ components:
         size_bytes:
           type: integer
           minimum: 1
-        mime: *id002
-        sha256: *id006
+        mime:
+          type: string
+          minLength: 1
+          maxLength: 128
+        sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
       required:
       - case_id
       - source_id
@@ -5928,8 +8152,12 @@ components:
     UploadSession:
       type: object
       properties:
-        upload_id: *id001
-        part_size_bytes: *id003
+        upload_id:
+          type: string
+          format: uuid
+        part_size_bytes:
+          type: integer
+          minimum: 1
         state:
           type: string
           enum:
@@ -5938,8 +8166,12 @@ components:
           - COMPLETED
           - REJECTED
           - EXPIRED
-        expires_at: *id012
-        version: *id003
+        expires_at:
+          type: string
+          format: date-time
+        version:
+          type: integer
+          minimum: 1
       required:
       - upload_id
       - part_size_bytes
@@ -5950,9 +8182,15 @@ components:
     UploadPart:
       type: object
       properties:
-        part_no: *id003
-        sha256: *id006
-        size_bytes: *id003
+        part_no:
+          type: integer
+          minimum: 1
+        sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        size_bytes:
+          type: integer
+          minimum: 1
       required:
       - part_no
       - sha256
@@ -5973,10 +8211,13 @@ components:
     UploadResult:
       type: object
       properties:
-        upload_id: *id001
+        upload_id:
+          type: string
+          format: uuid
         asset_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
         validation:
           type: string
@@ -5986,9 +8227,12 @@ components:
           - REJECTED
         duplicate_of:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
-        request_id: *id001
+        request_id:
+          type: string
+          format: uuid
       required:
       - upload_id
       - asset_id
@@ -6000,10 +8244,18 @@ components:
     Asset:
       type: object
       properties:
-        asset_id: *id001
-        case_id: *id001
-        content_id: *id001
-        source_id: *id001
+        asset_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        content_id:
+          type: string
+          format: uuid
+        source_id:
+          type: string
+          format: uuid
         kind:
           type: string
           enum:
@@ -6011,19 +8263,27 @@ components:
           - derived
         object_ref:
           $ref: '#/components/schemas/ObjectRef'
-        mime: *id002
-        size_bytes: *id003
+        mime:
+          type: string
+          minLength: 1
+          maxLength: 128
+        size_bytes:
+          type: integer
+          minimum: 1
         duration_ms:
           anyOf:
-          - *id013
+          - type: integer
+            minimum: 0
           - type: 'null'
         width:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
         height:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
         state:
           type: string
@@ -6032,8 +8292,12 @@ components:
           - VALID
           - QUARANTINED
           - ARCHIVED
-        version: *id003
-        created_at: *id012
+        version:
+          type: integer
+          minimum: 1
+        created_at:
+          type: string
+          format: date-time
       required:
       - asset_id
       - case_id
@@ -6053,11 +8317,19 @@ components:
     ImportEntry:
       type: object
       properties:
-        source_id: *id001
+        source_id:
+          type: string
+          format: uuid
         object_ref:
           $ref: '#/components/schemas/ObjectRef'
-        filename: *id002
-        mime: *id002
+        filename:
+          type: string
+          minLength: 1
+          maxLength: 128
+        mime:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - source_id
       - object_ref
@@ -6067,7 +8339,9 @@ components:
     ImportRequest:
       type: object
       properties:
-        case_id: *id001
+        case_id:
+          type: string
+          format: uuid
         entries:
           type: array
           items:
@@ -6080,17 +8354,25 @@ components:
     ImportStatus:
       type: object
       properties:
-        import_id: *id001
-        state: *id002
+        import_id:
+          type: string
+          format: uuid
+        state:
+          type: string
+          minLength: 1
+          maxLength: 128
         items:
           type: array
           items:
             type: object
             properties:
-              ordinal: *id013
+              ordinal:
+                type: integer
+                minimum: 0
               asset_id:
                 anyOf:
-                - *id001
+                - type: string
+                  format: uuid
                 - type: 'null'
               state:
                 type: string
@@ -6100,7 +8382,9 @@ components:
                 - rejected
               error_code:
                 anyOf:
-                - *id002
+                - type: string
+                  minLength: 1
+                  maxLength: 128
                 - type: 'null'
             required:
             - ordinal
@@ -6117,15 +8401,22 @@ components:
     TaskCreate:
       type: object
       properties:
-        case_id: *id001
-        asset_id: *id001
+        case_id:
+          type: string
+          format: uuid
+        asset_id:
+          type: string
+          format: uuid
         scene:
           type: string
           enum:
           - accident_rumor
           - harmful_content
           - repost_tamper_trace
-        policy_version: *id002
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         modules:
           type: array
           items:
@@ -6163,7 +8454,10 @@ components:
     NodeStatus:
       type: object
       properties:
-        node_code: *id002
+        node_code:
+          type: string
+          minLength: 1
+          maxLength: 128
         state:
           type: string
           enum:
@@ -6176,10 +8470,14 @@ components:
           - DEFERRED
           - CANCELLED
           - NOT_SUPPORTED
-        attempt: *id013
+        attempt:
+          type: integer
+          minimum: 0
         reason:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
         required:
           type: boolean
@@ -6193,9 +8491,15 @@ components:
     Task:
       type: object
       properties:
-        task_id: *id001
-        case_id: *id001
-        asset_id: *id001
+        task_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        asset_id:
+          type: string
+          format: uuid
         state:
           type: string
           enum:
@@ -6210,11 +8514,23 @@ components:
           - CANCEL_REQUESTED
           - CANCELLED
           - ARCHIVED
-        run_version: *id003
-        result_version: *id003
-        policy_version: *id002
-        version: *id003
-        progress: *id007
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        version:
+          type: integer
+          minimum: 1
+        progress:
+          type: number
+          minimum: 0
+          maximum: 1
         nodes:
           type: array
           items:
@@ -6222,7 +8538,10 @@ components:
           minItems: 0
         missing_modalities:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
         report_eligibility:
           type: string
@@ -6230,7 +8549,9 @@ components:
           - draft_only
           - reviewable
           - formal_eligible
-        created_at: *id012
+        created_at:
+          type: string
+          format: date-time
       required:
       - task_id
       - case_id
@@ -6250,12 +8571,20 @@ components:
     TaskAction:
       type: object
       properties:
-        reason: *id008
-        expected_run_version: *id003
-        expected_version: *id003
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        expected_run_version:
+          type: integer
+          minimum: 1
+        expected_version:
+          type: integer
+          minimum: 1
         approval_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
       required:
       - reason
@@ -6266,17 +8595,28 @@ components:
     Rerun:
       type: object
       properties:
-        reason: *id008
-        expected_run_version: *id003
-        expected_version: *id003
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        expected_run_version:
+          type: integer
+          minimum: 1
+        expected_version:
+          type: integer
+          minimum: 1
         node_codes:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 1
           uniqueItems: true
         approval_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
       required:
       - reason
@@ -6288,11 +8628,21 @@ components:
     Evidence:
       type: object
       properties:
-        evidence_id: *id001
-        case_id: *id001
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
+        evidence_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
         kind:
           type: string
           enum:
@@ -6304,7 +8654,9 @@ components:
           - text
           - snapshot
           - model_output
-        asset_id: *id001
+        asset_id:
+          type: string
+          format: uuid
         object_ref:
           anyOf:
           - $ref: '#/components/schemas/ObjectRef'
@@ -6317,19 +8669,35 @@ components:
           anyOf:
           - $ref: '#/components/schemas/BoundingBox'
           - type: 'null'
-        mapping_version: *id002
+        mapping_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         model_name:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
         model_version:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
-        authorization_version: *id002
-        sha256: *id006
-        version: *id003
-        created_at: *id012
+        authorization_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        version:
+          type: integer
+          minimum: 1
+        created_at:
+          type: string
+          format: date-time
       required:
       - evidence_id
       - case_id
@@ -6352,7 +8720,9 @@ components:
     Finding:
       type: object
       properties:
-        finding_id: *id001
+        finding_id:
+          type: string
+          format: uuid
         kind:
           type: string
           enum:
@@ -6362,18 +8732,34 @@ components:
           - tamper
           - relation
           - claim
-        label: *id002
-        raw_score: *id007
+        label:
+          type: string
+          minLength: 1
+          maxLength: 128
+        raw_score:
+          type: number
+          minimum: 0
+          maximum: 1
         calibrated_score:
           anyOf:
-          - *id007
+          - type: number
+            minimum: 0
+            maximum: 1
           - type: 'null'
         threshold_version:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
-        model_name: *id002
-        model_version: *id002
+        model_name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        model_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         time_range:
           anyOf:
           - $ref: '#/components/schemas/TimeRange'
@@ -6388,7 +8774,9 @@ components:
           - type: 'null'
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
           uniqueItems: true
         status:
@@ -6397,14 +8785,20 @@ components:
           - candidate
           - insufficient
           - reviewed
-        mapping_version: *id002
+        mapping_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         track_id:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
         frame_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
       required:
       - finding_id
@@ -6436,11 +8830,17 @@ components:
           minItems: 0
         missing_modalities:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
         warnings:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
       required:
       - binding
@@ -6451,7 +8851,9 @@ components:
     TimelineItem:
       type: object
       properties:
-        item_id: *id001
+        item_id:
+          type: string
+          format: uuid
         kind:
           type: string
           enum:
@@ -6464,11 +8866,18 @@ components:
           - finding
         time_range:
           $ref: '#/components/schemas/TimeRange'
-        mapping_version: *id002
-        asset_id: *id001
+        mapping_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        asset_id:
+          type: string
+          format: uuid
         text:
           anyOf:
-          - *id008
+          - type: string
+            minLength: 1
+            maxLength: 4096
           - type: 'null'
         bbox:
           anyOf:
@@ -6476,7 +8885,8 @@ components:
           - type: 'null'
         evidence_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
       required:
       - item_id
@@ -6491,8 +8901,13 @@ components:
     Timeline:
       type: object
       properties:
-        asset_id: *id001
-        mapping_version: *id002
+        asset_id:
+          type: string
+          format: uuid
+        mapping_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         items:
           type: array
           items:
@@ -6506,8 +8921,12 @@ components:
     ImageSearch:
       type: object
       properties:
-        case_id: *id001
-        asset_id: *id001
+        case_id:
+          type: string
+          format: uuid
+        asset_id:
+          type: string
+          format: uuid
         region:
           anyOf:
           - $ref: '#/components/schemas/BoundingBox'
@@ -6516,7 +8935,10 @@ components:
           type: integer
           minimum: 1
           maximum: 100
-        index_version: *id002
+        index_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - case_id
       - asset_id
@@ -6527,15 +8949,22 @@ components:
     VideoSearch:
       type: object
       properties:
-        case_id: *id001
-        asset_id: *id001
+        case_id:
+          type: string
+          format: uuid
+        asset_id:
+          type: string
+          format: uuid
         range:
           $ref: '#/components/schemas/TimeRange'
         top_k:
           type: integer
           minimum: 1
           maximum: 100
-        index_version: *id002
+        index_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - case_id
       - asset_id
@@ -6546,8 +8975,13 @@ components:
     SearchCandidate:
       type: object
       properties:
-        candidate_asset_id: *id001
-        score: *id007
+        candidate_asset_id:
+          type: string
+          format: uuid
+        score:
+          type: number
+          minimum: 0
+          maximum: 1
         relation:
           type: string
           enum:
@@ -6565,7 +8999,9 @@ components:
           - human
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 0
         query_range:
           anyOf:
@@ -6598,8 +9034,13 @@ components:
     SearchResults:
       type: object
       properties:
-        search_id: *id001
-        index_version: *id002
+        search_id:
+          type: string
+          format: uuid
+        index_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         candidates:
           type: array
           items:
@@ -6612,7 +9053,10 @@ components:
           minItems: 0
         warnings:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
       required:
       - search_id
@@ -6628,7 +9072,10 @@ components:
           type: string
           format: uuid
           description: 高可信内容簇标识，指向同案件content_cluster.cluster_id；不得用相似度连通关系替代整内容同源验证
-        scope: *id008
+        scope:
+          type: string
+          minLength: 1
+          maxLength: 4096
         candidates:
           type: array
           items:
@@ -6645,20 +9092,27 @@ components:
                 description: 本次排序批次内的候选名次，从1连续排列到候选数量，最多3；不是确定首发结论
               probability:
                 anyOf:
-                - *id007
+                - type: number
+                  minimum: 0
+                  maximum: 1
                 - type: 'null'
               published_at:
                 anyOf:
-                - *id012
+                - type: string
+                  format: date-time
                 - type: 'null'
               evidence_ids:
                 type: array
-                items: *id001
+                items:
+                  type: string
+                  format: uuid
                 minItems: 1
                 uniqueItems: true
               counter_evidence_ids:
                 type: array
-                items: *id001
+                items:
+                  type: string
+                  format: uuid
                 minItems: 0
                 uniqueItems: true
             required:
@@ -6678,8 +9132,14 @@ components:
           - candidate
           - insufficient
           - reviewed
-        coverage_note: *id008
-        model_version: *id002
+        coverage_note:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        model_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         ranking_id:
           type: string
           format: uuid
@@ -6717,7 +9177,9 @@ components:
     GraphNode:
       type: object
       properties:
-        node_id: *id001
+        node_id:
+          type: string
+          format: uuid
         type:
           type: string
           enum:
@@ -6726,7 +9188,10 @@ components:
           - platform
           - event
           - place
-        display_label: *id002
+        display_label:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - node_id
       - type
@@ -6735,10 +9200,19 @@ components:
     GraphEdge:
       type: object
       properties:
-        edge_id: *id001
-        from_node_id: *id001
-        to_node_id: *id001
-        relation: *id002
+        edge_id:
+          type: string
+          format: uuid
+        from_node_id:
+          type: string
+          format: uuid
+        to_node_id:
+          type: string
+          format: uuid
+        relation:
+          type: string
+          minLength: 1
+          maxLength: 128
         origin:
           type: string
           enum:
@@ -6747,13 +9221,19 @@ components:
           - human
         probability:
           anyOf:
-          - *id007
+          - type: number
+            minimum: 0
+            maximum: 1
           - type: 'null'
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
-        version: *id003
+        version:
+          type: integer
+          minimum: 1
         state:
           type: string
           enum:
@@ -6774,8 +9254,12 @@ components:
     Graph:
       type: object
       properties:
-        cluster_id: *id001
-        version: *id003
+        cluster_id:
+          type: string
+          format: uuid
+        version:
+          type: integer
+          minimum: 1
         nodes:
           type: array
           items:
@@ -6795,11 +9279,17 @@ components:
     ClaimExtract:
       type: object
       properties:
-        case_id: *id001
-        asset_id: *id001
+        case_id:
+          type: string
+          format: uuid
+        asset_id:
+          type: string
+          format: uuid
         source_segment_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
       required:
       - case_id
@@ -6809,34 +9299,55 @@ components:
     Claim:
       type: object
       properties:
-        claim_id: *id001
-        case_id: *id001
-        asset_id: *id001
+        claim_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        asset_id:
+          type: string
+          format: uuid
         subject:
           anyOf:
-          - *id008
+          - type: string
+            minLength: 1
+            maxLength: 4096
           - type: 'null'
         action:
           anyOf:
-          - *id008
+          - type: string
+            minLength: 1
+            maxLength: 4096
           - type: 'null'
         time:
           anyOf:
-          - *id008
+          - type: string
+            minLength: 1
+            maxLength: 4096
           - type: 'null'
         place:
           anyOf:
-          - *id008
+          - type: string
+            minLength: 1
+            maxLength: 4096
           - type: 'null'
         result:
           anyOf:
-          - *id008
+          - type: string
+            minLength: 1
+            maxLength: 4096
           - type: 'null'
         source_segment_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
-        model_version: *id002
+        model_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - claim_id
       - case_id
@@ -6859,7 +9370,10 @@ components:
           minItems: 0
         warnings:
           type: array
-          items: *id002
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
           minItems: 0
       required:
       - claims
@@ -6868,13 +9382,20 @@ components:
     ClaimVerify:
       type: object
       properties:
-        case_id: *id001
+        case_id:
+          type: string
+          format: uuid
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
           uniqueItems: true
-        policy_version: *id002
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - case_id
       - evidence_ids
@@ -6931,24 +9452,40 @@ components:
     ReviewCreate:
       type: object
       properties:
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
-        expected_review_version: *id013
-        decision: &id014
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        expected_review_version:
+          type: integer
+          minimum: 0
+        decision:
           type: string
           enum:
           - confirm_candidate
           - reject_candidate
           - return_for_evidence
           - request_rerun
-        reason: *id008
-        evidence_ids: &id015
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
           uniqueItems: true
-        policy_version: *id002
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - task_id
       - run_version
@@ -6963,18 +9500,52 @@ components:
     Review:
       type: object
       properties:
-        review_id: *id001
-        reviewer_id: *id001
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
-        expected_review_version: *id013
-        decision: *id014
-        reason: *id008
-        evidence_ids: *id015
-        policy_version: *id002
-        review_version: *id003
-        created_at: *id012
+        review_id:
+          type: string
+          format: uuid
+        reviewer_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        expected_review_version:
+          type: integer
+          minimum: 0
+        decision:
+          type: string
+          enum:
+          - confirm_candidate
+          - reject_candidate
+          - return_for_evidence
+          - request_rerun
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        evidence_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          minItems: 1
+          uniqueItems: true
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        review_version:
+          type: integer
+          minimum: 1
+        created_at:
+          type: string
+          format: date-time
       required:
       - review_id
       - reviewer_id
@@ -6994,7 +9565,8 @@ components:
       properties:
         case_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
         object_type:
           type: string
@@ -7005,8 +9577,12 @@ components:
           - feedback
           - model_release
           - operation
-        object_id: *id001
-        object_version: *id003
+        object_id:
+          type: string
+          format: uuid
+        object_version:
+          type: integer
+          minimum: 1
         purpose:
           type: string
           enum:
@@ -7016,15 +9592,23 @@ components:
           - training_feedback
           - model_release
           - confirmation
-        policy_version: *id002
-        reason: *id008
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
         run_version:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
         result_version:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
       required:
       - case_id
@@ -7051,29 +9635,42 @@ components:
               const: model_release
         else:
           properties:
-            case_id: *id001
+            case_id:
+              type: string
+              format: uuid
       - if:
           properties:
             object_type:
               const: task
         then:
           properties:
-            run_version: *id003
-            result_version: *id003
+            run_version:
+              type: integer
+              minimum: 1
+            result_version:
+              type: integer
+              minimum: 1
     ApprovalDecision:
       type: object
       properties:
-        expected_version: *id003
+        expected_version:
+          type: integer
+          minimum: 1
         decision:
           type: string
           enum:
           - approve
           - reject
           - return
-        reason: *id008
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 0
       required:
       - expected_version
@@ -7084,7 +9681,9 @@ components:
     Approval:
       type: object
       properties:
-        approval_id: *id001
+        approval_id:
+          type: string
+          format: uuid
         state:
           type: string
           enum:
@@ -7095,25 +9694,39 @@ components:
           - REVOKED
           - EXPIRED
           - INVALIDATED
-        version: *id003
-        object_version: *id003
-        purpose: *id002
-        policy_version: *id002
+        version:
+          type: integer
+          minimum: 1
+        object_version:
+          type: integer
+          minimum: 1
+        purpose:
+          type: string
+          minLength: 1
+          maxLength: 128
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         expires_at:
           anyOf:
-          - *id012
+          - type: string
+            format: date-time
           - type: 'null'
         decision_actor_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
         run_version:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
         result_version:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
       required:
       - approval_id
@@ -7130,10 +9743,19 @@ components:
     OperationTokenRequest:
       type: object
       properties:
-        approval_id: *id001
-        object_id: *id001
-        object_version: *id003
-        purpose: *id002
+        approval_id:
+          type: string
+          format: uuid
+        object_id:
+          type: string
+          format: uuid
+        object_version:
+          type: integer
+          minimum: 1
+        purpose:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - approval_id
       - object_id
@@ -7147,8 +9769,12 @@ components:
         operation_token:
           type: string
           minLength: 1
-        expires_at: *id012
-        object_version: *id003
+        expires_at:
+          type: string
+          format: date-time
+        object_version:
+          type: integer
+          minimum: 1
       required:
       - operation_token
       - expires_at
@@ -7157,17 +9783,33 @@ components:
     SealRequest:
       type: object
       properties:
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
           uniqueItems: true
-        approval_id: *id001
-        operation_token: *id008
-        retention_policy_version: *id002
+        approval_id:
+          type: string
+          format: uuid
+        operation_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        retention_policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - task_id
       - run_version
@@ -7180,17 +9822,29 @@ components:
     EvidencePackage:
       type: object
       properties:
-        package_id: *id001
-        case_id: *id001
-        task_id: *id001
-        version: *id003
+        package_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        version:
+          type: integer
+          minimum: 1
         manifest:
           type: array
           items:
             $ref: '#/components/schemas/Evidence'
           minItems: 0
-        manifest_sha256: *id006
-        approval_id: *id001
+        manifest_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        approval_id:
+          type: string
+          format: uuid
         signature_status:
           type: string
           enum:
@@ -7204,7 +9858,9 @@ components:
           - DRAFT
           - SEALED
           - SUPERSEDED
-        created_at: *id012
+        created_at:
+          type: string
+          format: date-time
       required:
       - package_id
       - case_id
@@ -7220,14 +9876,27 @@ components:
     ReportDraft:
       type: object
       properties:
-        case_id: *id001
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
-        template_version: *id002
-        evidence_ids: &id016
+        case_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        template_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
           uniqueItems: true
       required:
@@ -7241,14 +9910,36 @@ components:
     ReportCreate:
       type: object
       properties:
-        case_id: *id001
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
-        template_version: *id002
-        evidence_ids: *id016
-        approval_id: *id001
-        operation_token: *id008
+        case_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        template_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        evidence_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          minItems: 1
+          uniqueItems: true
+        approval_id:
+          type: string
+          format: uuid
+        operation_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
       required:
       - case_id
       - task_id
@@ -7262,12 +9953,24 @@ components:
     Report:
       type: object
       properties:
-        report_id: *id001
-        case_id: *id001
-        task_id: *id001
-        run_version: *id003
-        result_version: *id003
-        version: *id003
+        report_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        version:
+          type: integer
+          minimum: 1
         state:
           type: string
           enum:
@@ -7278,7 +9981,8 @@ components:
           - SUPERSEDED
         approval_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
         object_ref:
           anyOf:
@@ -7286,9 +9990,13 @@ components:
           - type: 'null'
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
-        created_at: *id012
+        created_at:
+          type: string
+          format: date-time
       required:
       - report_id
       - case_id
@@ -7305,14 +10013,30 @@ components:
     Feedback:
       type: object
       properties:
-        case_id: *id001
-        finding_id: *id001
-        label_version: *id002
-        label: *id002
+        case_id:
+          type: string
+          format: uuid
+        finding_id:
+          type: string
+          format: uuid
+        label_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        label:
+          type: string
+          minLength: 1
+          maxLength: 128
         purpose:
           const: training
-        source_authorization_ref: *id002
-        reason: *id008
+        source_authorization_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
       required:
       - case_id
       - finding_id
@@ -7325,8 +10049,12 @@ components:
     FeedbackRecord:
       type: object
       properties:
-        feedback_id: *id001
-        approval_id: *id001
+        feedback_id:
+          type: string
+          format: uuid
+        approval_id:
+          type: string
+          format: uuid
         state:
           type: string
           enum:
@@ -7335,7 +10063,9 @@ components:
           - REJECTED
           - REVOKED
           - APPLIED
-        version: *id003
+        version:
+          type: integer
+          minimum: 1
       required:
       - feedback_id
       - approval_id
@@ -7345,9 +10075,15 @@ components:
     ModelCreate:
       type: object
       properties:
-        name: *id002
-        version: *id002
-        capability: &id017
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        capability:
           type: string
           enum:
           - risk.image_classification
@@ -7384,18 +10120,32 @@ components:
           - media.asr
           - media.audio_fingerprint
           - model.compression
-        digest: *id006
-        dataset_version: *id002
-        model_card_ref: *id002
-        license_record_ref: *id002
-        backend: &id018
+        digest:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        dataset_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        model_card_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        license_record_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        backend:
           type: string
           enum:
           - pytorch
           - onnxruntime
           - triton
           - other_reviewed
-        environment_ref: *id002
+        environment_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
       required:
       - name
       - version
@@ -7410,16 +10160,80 @@ components:
     Model:
       type: object
       properties:
-        model_id: *id001
-        name: *id002
-        version: *id002
-        capability: *id017
-        digest: *id006
-        dataset_version: *id002
-        model_card_ref: *id002
-        license_record_ref: *id002
-        backend: *id018
-        environment_ref: *id002
+        model_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        capability:
+          type: string
+          enum:
+          - risk.image_classification
+          - risk.object_detection
+          - risk.small_object
+          - risk.video_action
+          - risk.temporal_event
+          - risk.audio_event
+          - risk.consistency
+          - risk.fusion
+          - forensic.image_localization
+          - forensic.tamper_type
+          - forensic.video_temporal
+          - forensic.video_spatial
+          - forensic.deepfake
+          - forensic.avsync
+          - retrieval.image_embedding
+          - retrieval.local_features
+          - retrieval.local_match
+          - retrieval.geometry
+          - retrieval.frame_embedding
+          - retrieval.temporal_alignment
+          - retrieval.segment_localizer
+          - retrieval.source_boundary
+          - origin.content_cluster
+          - origin.first_source_rank
+          - model.calibration
+          - propagation.path
+          - propagation.inferred_edge
+          - claim.extract
+          - claim.evidence_relation
+          - claim.grounding
+          - media.ocr
+          - media.asr
+          - media.audio_fingerprint
+          - model.compression
+        digest:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        dataset_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        model_card_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        license_record_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        backend:
+          type: string
+          enum:
+          - pytorch
+          - onnxruntime
+          - triton
+          - other_reviewed
+        environment_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
         status:
           type: string
           enum:
@@ -7429,7 +10243,9 @@ components:
           - APPROVED
           - ACTIVE
           - RETIRED
-        row_version: *id003
+        row_version:
+          type: integer
+          minimum: 1
       required:
       - model_id
       - name
@@ -7447,10 +10263,19 @@ components:
     Rollout:
       type: object
       properties:
-        release_bundle_id: *id001
-        approval_id: *id001
-        operation_token: *id008
-        expected_version: *id003
+        release_bundle_id:
+          type: string
+          format: uuid
+        approval_id:
+          type: string
+          format: uuid
+        operation_token:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        expected_version:
+          type: integer
+          minimum: 1
         mode:
           type: string
           enum:
@@ -7464,7 +10289,9 @@ components:
           maximum: 100
         index_version:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - release_bundle_id
@@ -7478,40 +10305,65 @@ components:
     EvaluationCreate:
       type: object
       properties:
-        model_id: *id001
-        dataset_id: *id002
-        dataset_version: *id002
-        protocol_id: *id002
-        split: &id019
+        model_id:
+          type: string
+          format: uuid
+        dataset_id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        dataset_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        protocol_id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        split:
           type: string
           enum:
           - validation
           - calibration
           - holdout
-        sample_count: *id003
-        failure_count: *id013
-        metrics: &id020
+        sample_count:
+          type: integer
+          minimum: 1
+        failure_count:
+          type: integer
+          minimum: 0
+        metrics:
           type: object
           properties:
             macro_f1:
               anyOf:
-              - *id007
+              - type: number
+                minimum: 0
+                maximum: 1
               - type: 'null'
             recall:
               anyOf:
-              - *id007
+              - type: number
+                minimum: 0
+                maximum: 1
               - type: 'null'
             iou:
               anyOf:
-              - *id007
+              - type: number
+                minimum: 0
+                maximum: 1
               - type: 'null'
             recall_at_k:
               anyOf:
-              - *id007
+              - type: number
+                minimum: 0
+                maximum: 1
               - type: 'null'
             ece:
               anyOf:
-              - *id007
+              - type: number
+                minimum: 0
+                maximum: 1
               - type: 'null'
             boundary_mae_ms:
               anyOf:
@@ -7526,7 +10378,7 @@ components:
           - ece
           - boundary_mae_ms
           additionalProperties: false
-        artifact_ref: &id021
+        artifact_ref:
           $ref: '#/components/schemas/ObjectRef'
       required:
       - model_id
@@ -7542,17 +10394,87 @@ components:
     Evaluation:
       type: object
       properties:
-        evaluation_id: *id001
-        model_id: *id001
-        dataset_id: *id002
-        dataset_version: *id002
-        protocol_id: *id002
-        split: *id019
-        sample_count: *id003
-        failure_count: *id013
-        metrics: *id020
-        artifact_ref: *id021
-        created_at: *id012
+        evaluation_id:
+          type: string
+          format: uuid
+        model_id:
+          type: string
+          format: uuid
+        dataset_id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        dataset_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        protocol_id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        split:
+          type: string
+          enum:
+          - validation
+          - calibration
+          - holdout
+        sample_count:
+          type: integer
+          minimum: 1
+        failure_count:
+          type: integer
+          minimum: 0
+        metrics:
+          type: object
+          properties:
+            macro_f1:
+              anyOf:
+              - type: number
+                minimum: 0
+                maximum: 1
+              - type: 'null'
+            recall:
+              anyOf:
+              - type: number
+                minimum: 0
+                maximum: 1
+              - type: 'null'
+            iou:
+              anyOf:
+              - type: number
+                minimum: 0
+                maximum: 1
+              - type: 'null'
+            recall_at_k:
+              anyOf:
+              - type: number
+                minimum: 0
+                maximum: 1
+              - type: 'null'
+            ece:
+              anyOf:
+              - type: number
+                minimum: 0
+                maximum: 1
+              - type: 'null'
+            boundary_mae_ms:
+              anyOf:
+              - type: number
+                minimum: 0
+              - type: 'null'
+          required:
+          - macro_f1
+          - recall
+          - iou
+          - recall_at_k
+          - ece
+          - boundary_mae_ms
+          additionalProperties: false
+        artifact_ref:
+          $ref: '#/components/schemas/ObjectRef'
+        created_at:
+          type: string
+          format: date-time
       required:
       - evaluation_id
       - model_id
@@ -7569,22 +10491,37 @@ components:
     AuditEvent:
       type: object
       properties:
-        event_id: *id001
-        actor_id: *id001
-        org_id: *id001
+        event_id:
+          type: string
+          format: uuid
+        actor_id:
+          type: string
+          format: uuid
+        org_id:
+          type: string
+          format: uuid
         case_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
-        action: *id002
-        object_type: *id002
+        action:
+          type: string
+          minLength: 1
+          maxLength: 128
+        object_type:
+          type: string
+          minLength: 1
+          maxLength: 128
         object_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
         object_version:
           anyOf:
-          - *id003
+          - type: integer
+            minimum: 1
           - type: 'null'
         outcome:
           type: string
@@ -7592,8 +10529,12 @@ components:
           - allowed
           - denied
           - failed
-        request_id: *id001
-        occurred_at: *id012
+        request_id:
+          type: string
+          format: uuid
+        occurred_at:
+          type: string
+          format: date-time
       required:
       - event_id
       - actor_id
@@ -7610,14 +10551,24 @@ components:
     AuditExport:
       type: object
       properties:
-        start_at: *id012
-        end_at: *id012
+        start_at:
+          type: string
+          format: date-time
+        end_at:
+          type: string
+          format: date-time
         case_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
-        purpose: *id002
-        approval_id: *id001
+        purpose:
+          type: string
+          minLength: 1
+          maxLength: 128
+        approval_id:
+          type: string
+          format: uuid
       required:
       - start_at
       - end_at
@@ -7628,16 +10579,29 @@ components:
     IndexVersion:
       type: object
       properties:
-        index_id: *id001
-        capability: *id002
-        model_version: *id002
-        dimension: *id003
+        index_id:
+          type: string
+          format: uuid
+        capability:
+          type: string
+          minLength: 1
+          maxLength: 128
+        model_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        dimension:
+          type: integer
+          minimum: 1
         normalization:
           type: string
           enum:
           - l2
           - none
-        index_version: *id002
+        index_version:
+          type: string
+          minLength: 1
+          maxLength: 128
         state:
           type: string
           enum:
@@ -7645,7 +10609,9 @@ components:
           - READY
           - ACTIVE
           - RETIRED
-        row_version: *id003
+        row_version:
+          type: integer
+          minimum: 1
       required:
       - index_id
       - capability
@@ -7659,10 +10625,20 @@ components:
     IndexSwitch:
       type: object
       properties:
-        expected_version: *id003
-        target_index_version: *id002
-        approval_id: *id001
-        reason: *id008
+        expected_version:
+          type: integer
+          minimum: 1
+        target_index_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        approval_id:
+          type: string
+          format: uuid
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
       required:
       - expected_version
       - target_index_version
@@ -7672,7 +10648,7 @@ components:
     PolicyCreate:
       type: object
       properties:
-        kind: &id022
+        kind:
           type: string
           enum:
           - risk_taxonomy
@@ -7680,13 +10656,20 @@ components:
           - review
           - retention
           - analysis
-        version: *id002
-        definition_ref: *id002
-        approval_id: &id023
+        version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        definition_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        approval_id:
           anyOf:
-          - *id001
+          - type: string
+            format: uuid
           - type: 'null'
-        status: &id024
+        status:
           type: string
           enum:
           - DRAFT
@@ -7701,13 +10684,38 @@ components:
     Policy:
       type: object
       properties:
-        policy_id: *id001
-        kind: *id022
-        version: *id002
-        definition_ref: *id002
-        approval_id: *id023
-        status: *id024
-        row_version: *id003
+        policy_id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - risk_taxonomy
+          - threshold
+          - review
+          - retention
+          - analysis
+        version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        definition_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        approval_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+        status:
+          type: string
+          enum:
+          - DRAFT
+          - APPROVED
+        row_version:
+          type: integer
+          minimum: 1
       required:
       - policy_id
       - kind
@@ -7720,16 +10728,23 @@ components:
     GraphDecision:
       type: object
       properties:
-        expected_version: *id003
+        expected_version:
+          type: integer
+          minimum: 1
         decision:
           type: string
           enum:
           - confirm
           - reject
-        reason: *id008
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
         evidence_ids:
           type: array
-          items: *id001
+          items:
+            type: string
+            format: uuid
           minItems: 1
       required:
       - expected_version
@@ -7747,7 +10762,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7763,7 +10780,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7779,7 +10798,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7795,7 +10816,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7811,7 +10834,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7827,7 +10852,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7843,7 +10870,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7859,7 +10888,9 @@ components:
           minItems: 0
         next_cursor:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - items
@@ -7868,7 +10899,9 @@ components:
     SearchAccepted:
       type: object
       properties:
-        search_id: *id001
+        search_id:
+          type: string
+          format: uuid
         state:
           type: string
           enum:
@@ -7885,7 +10918,9 @@ components:
     SearchJob:
       type: object
       properties:
-        search_id: *id001
+        search_id:
+          type: string
+          format: uuid
         state:
           type: string
           enum:
@@ -7899,7 +10934,9 @@ components:
           - type: 'null'
         error_code:
           anyOf:
-          - *id002
+          - type: string
+            minLength: 1
+            maxLength: 128
           - type: 'null'
       required:
       - search_id
@@ -7966,6 +11003,587 @@ components:
       - items
       - next_cursor
       - session_version
+      additionalProperties: false
+    ApprovalDetail:
+      type: object
+      properties:
+        approval:
+          $ref: '#/components/schemas/Approval'
+        binding:
+          type: object
+          properties:
+            case_id:
+              type: string
+              format: uuid
+            object_type:
+              type: string
+              enum:
+              - task
+              - report
+              - evidence_package
+              - feedback
+              - model_release
+              - operation
+            object_id:
+              type: string
+              format: uuid
+            requested_by:
+              type: string
+              format: uuid
+          required:
+          - case_id
+          - object_type
+          - object_id
+          - requested_by
+          additionalProperties: false
+        decisions:
+          type: array
+          items:
+            type: object
+            properties:
+              decision_id:
+                type: string
+                format: uuid
+              decision:
+                type: string
+                enum:
+                - approve
+                - reject
+                - return
+                - revoke
+                - invalidate
+              actor_id:
+                type: string
+                format: uuid
+              reason:
+                type: string
+                minLength: 1
+                maxLength: 4096
+              evidence_ids:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+              created_at:
+                type: string
+                format: date-time
+            required:
+            - decision_id
+            - decision
+            - actor_id
+            - reason
+            - evidence_ids
+            - created_at
+            additionalProperties: false
+      required:
+      - approval
+      - binding
+      - decisions
+      additionalProperties: false
+    ApprovalPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApprovalDetail'
+        next_cursor:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+      required:
+      - items
+      - next_cursor
+      additionalProperties: false
+    ApprovalRevoke:
+      type: object
+      properties:
+        expected_version:
+          type: integer
+          minimum: 1
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
+      required:
+      - expected_version
+      - reason
+      additionalProperties: false
+    ReviewPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+        next_cursor:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+      required:
+      - items
+      - next_cursor
+      additionalProperties: false
+    ReviewContext:
+      type: object
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        policy_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        snapshot_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        object_version:
+          type: integer
+          minimum: 1
+        review_version:
+          type: integer
+          minimum: 0
+      required:
+      - task_id
+      - run_version
+      - result_version
+      - policy_version
+      - snapshot_sha256
+      - object_version
+      - review_version
+      additionalProperties: false
+    AuditExportStatus:
+      type: object
+      properties:
+        export_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        state:
+          type: string
+          enum:
+          - REQUESTED
+          - READY
+          - FAILED
+          - EXPIRED
+          - REVOKED
+        version:
+          type: integer
+          minimum: 1
+        artifact:
+          anyOf:
+          - $ref: '#/components/schemas/ObjectRef'
+          - type: 'null'
+        size_bytes:
+          anyOf:
+          - type: integer
+            minimum: 0
+          - type: 'null'
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+        error_code:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+      required:
+      - export_id
+      - case_id
+      - state
+      - version
+      - artifact
+      - size_bytes
+      - expires_at
+      - error_code
+      additionalProperties: false
+    ModelOperation:
+      type: object
+      properties:
+        operation_id:
+          type: string
+          format: uuid
+        org_id:
+          type: string
+          format: uuid
+        release_bundle_id:
+          type: string
+          format: uuid
+        model_id:
+          type: string
+          format: uuid
+        mode:
+          type: string
+          enum:
+          - shadow
+          - canary
+          - activate
+          - rollback
+        state:
+          type: string
+          enum:
+          - REQUESTED
+          - RUNNING
+          - SUCCEEDED
+          - FAILED
+          - CANCELLED
+        version:
+          type: integer
+          minimum: 1
+        progress:
+          type: number
+          minimum: 0
+          maximum: 1
+        model_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        index_version:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+        error_code:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+      required:
+      - operation_id
+      - org_id
+      - release_bundle_id
+      - model_id
+      - mode
+      - state
+      - version
+      - progress
+      - model_version
+      - index_version
+      - error_code
+      additionalProperties: false
+    SourceSyncRequest:
+      type: object
+      properties:
+        expected_version:
+          type: integer
+          minimum: 1
+      required:
+      - expected_version
+      additionalProperties: false
+    SourceAuthorizationUpdate:
+      type: object
+      properties:
+        source_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        authorization_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+        authorization_version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        purpose:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 128
+          minItems: 1
+          uniqueItems: true
+        authorization_status:
+          type: string
+          enum:
+          - pending
+          - verified
+          - expired
+          - revoked
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+      required:
+      - source_id
+      - case_id
+      - authorization_ref
+      - authorization_version
+      - purpose
+      - authorization_status
+      - expires_at
+      additionalProperties: false
+    PolicyDefinition:
+      type: object
+      properties:
+        definition_ref:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: ^urn:sha256:[a-f0-9]{64}$
+        version:
+          type: string
+          minLength: 1
+          maxLength: 128
+        sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        values:
+          type: object
+          additionalProperties: true
+      required:
+      - definition_ref
+      - version
+      - sha256
+      - values
+      additionalProperties: false
+    NodeRun:
+      type: object
+      properties:
+        node_id:
+          type: string
+          format: uuid
+        node_code:
+          type: string
+          minLength: 1
+          maxLength: 128
+        attempt:
+          type: integer
+          minimum: 1
+        state:
+          type: string
+          enum:
+          - PENDING
+          - READY
+          - RUNNING
+          - SUCCEEDED
+          - FAILED
+          - SKIPPED
+          - DEFERRED
+          - CANCELLED
+          - NOT_SUPPORTED
+        required:
+          type: boolean
+        reason:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 4096
+          - type: 'null'
+        version:
+          type: integer
+          minimum: 1
+        fencing_epoch:
+          type: integer
+          minimum: 1
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+        ended_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+      required:
+      - node_id
+      - node_code
+      - attempt
+      - state
+      - required
+      - reason
+      - version
+      - fencing_epoch
+      - started_at
+      - ended_at
+      additionalProperties: false
+    NodePage:
+      type: object
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeRun'
+      required:
+      - task_id
+      - run_version
+      - items
+      additionalProperties: false
+    TaskEventRecord:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+        run_version:
+          type: integer
+          minimum: 1
+        from_state:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+        to_state:
+          type: string
+          minLength: 1
+          maxLength: 128
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 4096
+        request_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - event_id
+      - task_id
+      - run_version
+      - from_state
+      - to_state
+      - reason
+      - request_id
+      - created_at
+      additionalProperties: false
+    TaskEventPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskEventRecord'
+        next_cursor:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+      required:
+      - items
+      - next_cursor
+      additionalProperties: false
+    PendingReviewItem:
+      type: object
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        task_state:
+          enum:
+          - WAIT_REVIEW
+          - REVIEWING
+          - RETURNED
+        availability:
+          enum:
+          - READY
+          - RESULT_UNAVAILABLE
+          - SOURCE_BLOCKED
+        context:
+          anyOf:
+          - $ref: '#/components/schemas/ReviewContext'
+          - type: 'null'
+      required:
+      - task_id
+      - case_id
+      - task_state
+      - availability
+      - context
+      additionalProperties: false
+    PendingReviewPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PendingReviewItem'
+        next_cursor:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 128
+          - type: 'null'
+      required:
+      - items
+      - next_cursor
+      additionalProperties: false
+    TaskExecutionStatus:
+      type: object
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        case_id:
+          type: string
+          format: uuid
+        state:
+          type: string
+          enum:
+          - CREATED
+          - QUEUED
+          - RUNNING
+          - WAIT_REVIEW
+          - REVIEWING
+          - SUCCEEDED
+          - FAILED
+          - RETURNED
+          - CANCEL_REQUESTED
+          - CANCELLED
+          - ARCHIVED
+        run_version:
+          type: integer
+          minimum: 1
+        result_version:
+          type: integer
+          minimum: 1
+        version:
+          type: integer
+          minimum: 1
+        result_available:
+          type: boolean
+      required:
+      - task_id
+      - case_id
+      - state
+      - run_version
+      - result_version
+      - version
+      - result_available
       additionalProperties: false
 x-workflow-contracts:
   dag: schemas/workflow/dag.schema.json

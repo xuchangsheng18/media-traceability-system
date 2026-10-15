@@ -1,0 +1,196 @@
+import base64
+import hashlib
+import hmac
+import json
+from datetime import datetime, timezone
+from typing import Any, cast
+from uuid import UUID, uuid4
+
+from fastapi import Request
+from fastapi.responses import JSONResponse
+from sqlalchemy import Connection, text
+
+from ..auth import AuthorityProvider, authorize_request
+from ..contracts import validate_response
+from ..db import Database
+from ..errors import BusinessError
+from ..types import Actor, Scope
+
+
+def canonical(value: Any) -> bytes:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode()
+
+
+def etag(value: Any) -> str:
+    return '"' + hashlib.sha256(canonical(value)).hexdigest() + '"'
+
+
+def match(request: Request, value: Any) -> None:
+    condition = request.headers.get("If-Match")
+    if not condition:
+        raise BusinessError("PRECONDITION_REQUIRED", 428)
+    if condition != etag(value):
+        raise BusinessError("PRECONDITION_FAILED", 412)
+
+
+def reply(name: str, value: dict[str, Any], status: int = 200, version: Any = None) -> JSONResponse:
+    validate_response(name, value)
+    return JSONResponse(value, status_code=status, headers={"ETag": etag(value if version is None else version)})
+
+
+def actor_for(request: Request) -> Actor:
+    authority = cast(AuthorityProvider | None, request.app.state.business_authority)
+    if authority is None:
+        raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
+    header = request.headers.get("Authorization", "")
+    if not header.startswith("Bearer ") or not header[7:]:
+        raise BusinessError("AUTHENTICATION_REQUIRED", 401)
+    actor = authority.authenticate(header[7:])
+    if not isinstance(actor, Actor):
+        raise BusinessError("AUTHORITY_ACTOR_INVALID", 503)
+    return actor
+
+
+RESOURCE_TABLES = {
+    "approval": ("approval_request", "approval_id"),
+    "review": ("review_record", "review_id"),
+    "export": ("audit_export", "export_id"),
+    "feedback": ("feedback_request", "feedback_id"),
+    "source": ("source_registry", "source_id"),
+    "import": ("import_job", "import_id"),
+    "task": ("analysis_task", "task_id"),
+}
+
+
+def resource_scope(request: Request, kind: str, resource_id: UUID, action: str) -> Scope:
+    actor = actor_for(request)
+    database = cast(Database, request.app.state.business_database)
+    table, key = RESOURCE_TABLES[kind]
+    with database.identity_transaction(actor) as connection:
+        case_id = connection.execute(
+            text(f"SELECT case_id FROM mt.{table} WHERE {key}=:id"), {"id": resource_id}
+        ).scalar_one_or_none()
+    if case_id is None:
+        raise BusinessError("RESOURCE_NOT_FOUND", 404)
+    scope = authorize_request(request, case_id, action)
+    if scope.actor != actor:
+        raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+    return scope
+
+
+def row(connection: Connection, table: str, key: str, identifier: UUID, lock: bool = False) -> dict[str, Any]:
+    result = (
+        connection.execute(
+            text(f"SELECT * FROM mt.{table} WHERE {key}=:id" + (" FOR UPDATE" if lock else "")), {"id": identifier}
+        )
+        .mappings()
+        .one_or_none()
+    )
+    if result is None:
+        raise BusinessError("RESOURCE_NOT_FOUND", 404)
+    return dict(result)
+
+
+def audit(
+    connection: Connection, scope: Scope, action: str, kind: str, identifier: UUID, version: int, request: Request
+) -> None:
+    try:
+        request_id = UUID(request.headers.get("X-Request-Id", ""))
+    except ValueError:
+        request_id = uuid4()
+    connection.execute(
+        text("""INSERT INTO mt.audit_event(event_id,org_id,case_id,actor_id,action,object_type,object_id,object_version,outcome,request_id,occurred_at,created_by)
+        VALUES(:id,:org,:case,:actor,:action,:kind,:object,:version,'allowed',:request,now(),:actor)"""),
+        dict(
+            id=uuid4(),
+            org=scope.actor.org_id,
+            case=scope.case_id,
+            actor=scope.actor.user_id,
+            action=action,
+            kind=kind,
+            object=identifier,
+            version=version,
+            request=request_id,
+        ),
+    )
+
+
+def page(
+    connection: Connection,
+    table: str,
+    key: str,
+    scope: Scope,
+    secret: str,
+    cursor: str | None,
+    limit: int,
+    *,
+    where: str = "case_id=:case",
+    filters: dict[str, Any] | None = None,
+    version_expression: str = "row_version::text",
+) -> tuple[list[dict[str, Any]], str | None]:
+    # Identifiers and predicates are exclusively internal constants, never client SQL.
+    params: dict[str, Any] = dict(case=scope.case_id, org=scope.actor.org_id, **(filters or {}))
+    signature = connection.execute(
+        text(
+            f"SELECT encode(sha256(convert_to(coalesce(string_agg({key}::text||':'||({version_expression}),',' ORDER BY {key}),''),'UTF8')),'hex') FROM mt.{table} WHERE {where}"
+        ),
+        params,
+    ).scalar_one()
+    binding = canonical(
+        [
+            table,
+            str(scope.actor.user_id),
+            str(scope.actor.org_id),
+            str(scope.case_id),
+            where,
+            version_expression,
+            {k: str(v) for k, v in (filters or {}).items()},
+            limit,
+        ]
+    )
+    after: UUID | None = None
+    if cursor:
+        try:
+            raw = base64.b64decode(cursor + "=" * (-len(cursor) % 4), altchars=b"-_", validate=True)
+            if len(raw) != 80 or not hmac.compare_digest(
+                raw[48:], hmac.new(secret.encode(), binding + raw[:48], hashlib.sha256).digest()
+            ):
+                raise ValueError()
+            if raw[16:48].hex() != signature:
+                raise BusinessError("PAGE_CURSOR_STALE", 409)
+            after = UUID(bytes=raw[:16])
+        except (ValueError, TypeError):
+            raise BusinessError("PAGE_CURSOR_INVALID", 422) from None
+    params.update(after=after, limit=limit + 1)
+    rows = (
+        connection.execute(
+            text(
+                f"SELECT * FROM mt.{table} WHERE {where} AND (CAST(:after AS uuid) IS NULL OR {key}>CAST(:after AS uuid)) ORDER BY {key} LIMIT :limit"
+            ),
+            params,
+        )
+        .mappings()
+        .all()
+    )
+    checked = connection.execute(
+        text(
+            f"SELECT encode(sha256(convert_to(coalesce(string_agg({key}::text||':'||({version_expression}),',' ORDER BY {key}),''),'UTF8')),'hex') FROM mt.{table} WHERE {where}"
+        ),
+        params,
+    ).scalar_one()
+    if checked != signature:
+        raise BusinessError("PAGE_CURSOR_STALE", 409)
+    items = [dict(item) for item in rows[:limit]]
+    following = None
+    if len(rows) > limit:
+        raw = UUID(str(items[-1][key])).bytes + bytes.fromhex(signature)
+        following = (
+            base64.urlsafe_b64encode(raw + hmac.new(secret.encode(), binding + raw, hashlib.sha256).digest())
+            .decode()
+            .rstrip("=")
+        )
+    return items, following
+
+
+def now() -> datetime:
+    return datetime.now(timezone.utc)

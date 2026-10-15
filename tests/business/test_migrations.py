@@ -25,7 +25,7 @@ def scalar(connection, query):
 
 
 def test_empty_database_migrates_and_replay_noops(database_dsn):
-    assert migrate(database_dsn) == ["0001", "0002"]
+    assert migrate(database_dsn) == ["0001", "0002", "0003"]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
         assert (

@@ -12,9 +12,9 @@
 
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
-| [getCurrentUser](../operations/getCurrentUser.md) | GET /api/v1/auth/me | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [getCurrentUser](../operations/getCurrentUser.md) | GET /api/v1/auth/me | DEV_PARTIAL |
 | [createSource](../operations/createSource.md) | POST /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [listSources](../operations/listSources.md) | GET /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listSources](../operations/listSources.md) | GET /api/v1/sources | DEV_PARTIAL |
 | [completeUpload](../operations/completeUpload.md) | POST /api/v1/uploads/{id}/complete | DEV_PARTIAL |
 | [listAssets](../operations/listAssets.md) | GET /api/v1/assets | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [getAsset](../operations/getAsset.md) | GET /api/v1/assets/{id} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |

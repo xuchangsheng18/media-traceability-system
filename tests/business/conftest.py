@@ -117,7 +117,7 @@ def business_context(database_dsn, tmp_path):
     source = uuid4()
     with psycopg.connect(database_dsn) as connection:
         connection.execute(
-            "INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version) VALUES(%s,%s,%s,'synthetic','test-only','fixture-not-formal-authority',ARRAY['upload','analysis'],'verified','test-version-1')",
+            "INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version) VALUES(%s,%s,%s,'synthetic','synthetic','fixture-not-formal-authority',ARRAY['upload','analysis'],'verified','test-version-1')",
             (source, org, case),
         )
     database = Database(runtime_dsn)

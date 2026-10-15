@@ -32,7 +32,7 @@ Linux服务器Docker虚拟机研发数据卷最新快照仍df99%、约1.62GiB可
 | 16 | 容器与编排 | 7服务/5卷/配额/健康/重启验证；生产平台未批准 | DEV_VALIDATED |
 | 17 | 版本兼容许可 | 服务器5镜像、449条SPDX物料记录已盘点；旧web镜像目录缺失、漏洞扫描、许可审查及生产版本仍待落实；生产3.13主候选/3.12备选及3.10例外标准已登记，候选未安装/验证/批准 | DEV_LOCKED |
 | 18 | 规范和目录 | 真实目录、Ruff/TS检查、README与运行手册 | DEV_VALIDATED |
-| 19 | 接口事件契约 | 53业务操作/83组件/34能力已详细化，4份生成类型与M24内部副本约束已校验；36需求技术语义、结果身份、history/DAG/事件/快照设计已复核，insufficient零证据冲突已修复；PoC实测范围保持，13项整体接口缺口和正式规则/真实业务联调仍开放 | DEV_VALIDATED_POC_OVERALL_CONTRACT_GAPS |
+| 19 | 接口事件契约 | 73候选外部操作/102组件/34能力已详细化，4份生成类型与M24内部副本约束已校验；36需求技术语义、结果身份、history/DAG/事件/快照设计已复核，insufficient零证据冲突已修复；PoC实测范围保持，13项整体接口缺口和正式规则/真实业务联调仍开放 | DEV_VALIDATED_POC_OVERALL_CONTRACT_GAPS |
 | 20 | 最小可运行工程 | 浏览器/对象/SQL/queue/worker/真实合成CPU结果已运行 | DEV_VALIDATED |
 | 21 | CI质量门禁 | 25道CI工程门禁配置已完成；托管实际运行、源码SHA和制品验真见最新GitHub报告，未作生产发布 | LOCAL_CI_VALIDATED_HOSTED_RECORDED_SEPARATELY |
 | 22 | 基线评审包 | 技术基线、14ADR和实际证据已形成；正式责任人/评审未签署 | REVIEW_PACKAGE_READY |

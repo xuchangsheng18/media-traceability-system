@@ -2046,4 +2046,4 @@ SUCCEEDED必须满足能力payload及身份绑定；FAILED/SKIPPED/DEFERRED/NOT_
 
 SUCCEEDED必须满足能力payload及身份绑定；FAILED/SKIPPED/DEFERRED/NOT_SUPPORTED不能夹带结果，reason与缺失模态须明确。时间/bbox范围、维度/dtype/归一化、证据存在性和授权范围还需业务校验。
 
-研发实现与统一Problem细节见[poc-api.md](poc-api.md)；输出mock=false只说明该次使用真实合成模型，不能说明业务准确率通过。服务协议/期限/路径能力一致等待实施校验见[缺口清单](interface-gap-register.md)。
+研发实现与统一Problem细节见[poc-api.md](poc-api.md)；输出mock=false只说明该次使用真实合成模型，不能说明业务准确率通过。独立业务网关已实施服务身份适配、期限、路径/消息/版本/固定对象/来源校验，并在执行后复核取消及撤销，见[本批说明](../03-development/stage-three/remaining-interface-implementation.md)。缺真实服务身份或能力提供方时503；34能力Schema不表示34真实模型完成，正式条件见[缺口清单](interface-gap-register.md)。

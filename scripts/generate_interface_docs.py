@@ -111,7 +111,7 @@ def outputs():
         records.append(record)
         text = f"# {annotation['title']}：{oid}\n\n" + source_note(BASE + "openapi.yaml")
         text += f"`{record['method']} {record['path']}`；operationId=`{oid}`；源指针=`{record['source_pointer']}`。\n\n"
-        text += f"实现范围：**{annotation['implementation_status']}**；{annotation['scope_note']}。正式55业务操作仍为候选，当前PoC只有专门列出的开发入口。\n\n"
+        text += f"实现范围：**{annotation['implementation_status']}**；{annotation['scope_note']}。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。\n\n"
         text += "## 调用目的与权限\n\n" + annotation["purpose"] + "\n\n"
         security = op.get("security", spec.get("security", []))
         text += "OpenAPI身份声明：`" + json.dumps(security, ensure_ascii=False) + "`；功能权限候选：`" + op["x-required-permission"] + "`。\n\n"
@@ -152,7 +152,7 @@ def outputs():
         text += "实施至少核验正常请求、Schema/跨字段错误、身份与跨案件拒绝、声明的幂等/条件并发、异步完成/失败及权限撤销；下载另测Range与版本完整性。实际端点的测试和证据按任务卡登记。未完成项见[接口缺口](../interface-gap-register.md)。\n"
         docs[detail_path] = text
     data_text = "# 业务接口数据结构详表\n\n" + source_note(BASE + "openapi.yaml")
-    data_text += "共83个源组件；先读[整体说明](system-interface-specification.md)。每个组件给出字段表及完整原始Schema；required、null、枚举、引用、条件组合均保留。字段语义尚未独立定义的情况明确标记，不能把UUID当授权或把0—1分数当业务/法律概率。\n\n"
+    data_text += "共102个源组件；先读[整体说明](system-interface-specification.md)。每个组件给出字段表及完整原始Schema；required、null、枚举、引用、条件组合均保留。字段语义尚未独立定义的情况明确标记，不能把UUID当授权或把0—1分数当业务/法律概率。\n\n"
     for name, schema in schemas.items():
         data_text += "## " + name + "\n\n源指针：`#/components/schemas/" + name + "`。\n\n" + field_table(schema, name) + "完整源结构（派生副本）：\n\n```json\n" + jdump(schema) + "\n```\n\n"
     docs[BASE + "data-structures.md"] = data_text
@@ -188,7 +188,7 @@ def outputs():
             path = f"schemas/model/{model['id']}.{kind}.schema.json"
             inf_text += f"### {kind}字段\n\n结构源：[{path}](../../{path})；SHA-256：`{digest(path)}`。\n\n" + field_table(read(path))
         inf_text += "SUCCEEDED必须满足能力payload及身份绑定；FAILED/SKIPPED/DEFERRED/NOT_SUPPORTED不能夹带结果，reason与缺失模态须明确。时间/bbox范围、维度/dtype/归一化、证据存在性和授权范围还需业务校验。\n\n"
-    inf_text += "研发实现与统一Problem细节见[poc-api.md](poc-api.md)；输出mock=false只说明该次使用真实合成模型，不能说明业务准确率通过。服务协议/期限/路径能力一致等待实施校验见[缺口清单](interface-gap-register.md)。\n"
+    inf_text += "研发实现与统一Problem细节见[poc-api.md](poc-api.md)；输出mock=false只说明该次使用真实合成模型，不能说明业务准确率通过。独立业务网关已实施服务身份适配、期限、路径/消息/版本/固定对象/来源校验，并在执行后复核取消及撤销，见[本批说明](../03-development/stage-three/remaining-interface-implementation.md)。缺真实服务身份或能力提供方时503；34能力Schema不表示34真实模型完成，正式条件见[缺口清单](interface-gap-register.md)。\n"
     docs[BASE + "inference-interfaces.md"] = inf_text
     contract_sources = [BASE + "openapi.yaml", BASE + "inference-openapi.yaml", BASE + "operation-index.json",
                         BASE + "interface-annotations.json", "docs/00-project/requirement-traceability.yaml",
@@ -199,7 +199,7 @@ def outputs():
                "source_hashes": {path: digest(path) for path in contract_sources}, "operations": records, "modules": module_records,
                "generated_docs": sorted(list(docs) + [BASE + "interface-catalog.json", BASE + "detailed-interface-index.md"]), "generation_source": "scripts/generate_interface_docs.py"}
     docs[BASE + "interface-catalog.json"] = jdump(catalog) + "\n"
-    nav = "# 详细接口目录\n\n共55个外部业务候选操作、85个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。\n\n| operationId | 方法/路径 | 主业务模块 | 详细文件 |\n| --- | --- | --- | --- |\n"
+    nav = "# 详细接口目录\n\n共73个外部业务候选操作、102个组件、34类内部能力，模块覆盖不等于流程/实现完整。先读[整体说明](system-interface-specification.md)、[统一规则](common-interface-rules.md)和[缺口与拟补方案](interface-gap-register.md)。以下由唯一来源生成，禁止直接改字段定义。\n\n| operationId | 方法/路径 | 主业务模块 | 详细文件 |\n| --- | --- | --- | --- |\n"
     for operation in records:
         nav += f"| {operation['operation_id']} | {operation['method']} {operation['path']} | {', '.join(operation['modules_from_business_trace']) or '共享/工程入口，按来源任务核验'} | [逐接口说明](operations/{operation['operation_id']}.md) |\n"
     nav += "\n## 模块目录\n\n" + "\n".join(f"- [{m['module']} {m['name']}]({m['doc_file'].removeprefix(BASE)})" for m in module_records)

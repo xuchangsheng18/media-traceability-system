@@ -13,13 +13,13 @@
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
 | [devLogin](../operations/devLogin.md) | POST /api/v1/auth/login | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [getCurrentUser](../operations/getCurrentUser.md) | GET /api/v1/auth/me | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [getCurrentUser](../operations/getCurrentUser.md) | GET /api/v1/auth/me | DEV_PARTIAL |
 | [listTasks](../operations/listTasks.md) | GET /api/v1/analysis/tasks | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [getTask](../operations/getTask.md) | GET /api/v1/analysis/tasks/{id} | DEV_PARTIAL |
-| [cancelTask](../operations/cancelTask.md) | POST /api/v1/analysis/tasks/{id}/cancel | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [cancelTask](../operations/cancelTask.md) | POST /api/v1/analysis/tasks/{id}/cancel | DEV_PARTIAL |
 | [rerunTask](../operations/rerunTask.md) | POST /api/v1/analysis/tasks/{id}/rerun | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | DEV_PARTIAL |
+| [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | DEV_PARTIAL |
 | [issueOperationToken](../operations/issueOperationToken.md) | POST /api/v1/operation-tokens | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [registerModel](../operations/registerModel.md) | POST /api/v1/models | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [listModels](../operations/listModels.md) | GET /api/v1/models | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
@@ -27,9 +27,9 @@
 | [rolloutModel](../operations/rolloutModel.md) | POST /api/v1/models/{id}/rollouts | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [recordEvaluation](../operations/recordEvaluation.md) | POST /api/v1/model-evaluations | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [listEvaluations](../operations/listEvaluations.md) | GET /api/v1/model-evaluations | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [listAuditEvents](../operations/listAuditEvents.md) | GET /api/v1/audit/events | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [exportAudit](../operations/exportAudit.md) | POST /api/v1/audit/exports | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [listPolicies](../operations/listPolicies.md) | GET /api/v1/policies | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listAuditEvents](../operations/listAuditEvents.md) | GET /api/v1/audit/events | DEV_PARTIAL |
+| [exportAudit](../operations/exportAudit.md) | POST /api/v1/audit/exports | DEV_PARTIAL |
+| [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | DEV_PARTIAL |
+| [listPolicies](../operations/listPolicies.md) | GET /api/v1/policies | DEV_PARTIAL |
 
 模型能力、模块共享入口及异步事件见[内部调用](../inference-interfaces.md)和[服务/消息边界](../service-and-event-contracts.md)。结构覆盖不是完整业务流程覆盖或全部实施；本模块缺口与拟补方案见[缺口登记](../interface-gap-register.md)。

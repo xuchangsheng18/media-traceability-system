@@ -14,15 +14,15 @@
 | --- | --- | --- |
 | [getTaskEvidence](../operations/getTaskEvidence.md) | GET /api/v1/analysis/tasks/{id}/evidence | DEV_PARTIAL |
 | [decidePropagationEdge](../operations/decidePropagationEdge.md) | POST /api/v1/propagation/edges/{id}/decisions | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createReview](../operations/createReview.md) | POST /api/v1/reviews | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [createReview](../operations/createReview.md) | POST /api/v1/reviews | DEV_PARTIAL |
+| [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | DEV_PARTIAL |
+| [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | DEV_PARTIAL |
 | [sealEvidence](../operations/sealEvidence.md) | POST /api/v1/evidence-packages/{case_id}/seal | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createReportDraft](../operations/createReportDraft.md) | POST /api/v1/reports/drafts | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createReport](../operations/createReport.md) | POST /api/v1/reports | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [getReport](../operations/getReport.md) | GET /api/v1/reports/{id} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [downloadReport](../operations/downloadReport.md) | GET /api/v1/reports/{id}/content | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [requestFeedback](../operations/requestFeedback.md) | POST /api/v1/feedback/samples | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | DEV_PARTIAL |
 
 模型能力、模块共享入口及异步事件见[内部调用](../inference-interfaces.md)和[服务/消息边界](../service-and-event-contracts.md)。结构覆盖不是完整业务流程覆盖或全部实施；本模块缺口与拟补方案见[缺口登记](../interface-gap-register.md)。

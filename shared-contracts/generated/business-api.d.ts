@@ -323,7 +323,7 @@ export interface paths {
         put?: never;
         /**
          * cancelTask
-         * @description 依据T039,T040；接口结构为本包待审核提案。服务端核验task.cancel及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+         * @description 依据T039,T040；接口结构为本包待审核提案。服务端核验task.cancel及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。 本批If-Match取getTaskExecution的当前控制聚合，不使用不可变历史getTask响应替代；202后通过status_url读取，运行节点未停止前保持CANCEL_REQUESTED。
          */
         post: operations["cancelTask"];
         delete?: never;
@@ -599,7 +599,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * listReviews
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["listReviews"];
         put?: never;
         /**
          * createReview
@@ -619,7 +623,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * listApprovals
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["listApprovals"];
         put?: never;
         /**
          * requestApproval
@@ -911,7 +919,7 @@ export interface paths {
         put?: never;
         /**
          * exportAudit
-         * @description 依据T018；接口结构为本包待审核提案。服务端核验audit.export及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
+         * @description 依据T018；接口结构为本包待审核提案。服务端核验audit.export及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。 本批仅支持明确case_id；case_id=null的组织级导出返回503，不扩大范围。202产生REQUESTED真实作业；受控执行器完成后读取状态/产物。
          */
         post: operations["exportAudit"];
         delete?: never;
@@ -1016,6 +1024,326 @@ export interface paths {
          * @description 依据T030；接口结构为本包待审核提案。服务端核验asset.read及单位/案件/对象授权，不信任客户端case_id、approved状态或actor_id。
          */
         get: operations["listUploadParts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/approvals/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getApproval
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getApproval"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/approvals/{id}/revoke": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * revokeApproval
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        post: operations["revokeApproval"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reviews/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getReview
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getReview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analysis/tasks/{id}/review-context": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getReviewContext
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getReviewContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/audit/exports/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getAuditExport
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getAuditExport"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/audit/exports/{id}/content": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * downloadAuditExport
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["downloadAuditExport"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/feedback/samples/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getFeedback
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getFeedback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/model-operations/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getModelOperation
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getModelOperation"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sources/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getSource
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getSource"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sources/{id}/authorization/sync": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * syncSourceAuthorization
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        post: operations["syncSourceAuthorization"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/policies/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getPolicy
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getPolicy"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/policies/{id}/definition": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * getPolicyDefinition
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getPolicyDefinition"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analysis/tasks/{id}/nodes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * listTaskNodes
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["listTaskNodes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analysis/tasks/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * listTaskEvents
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["listTaskEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/reviews/pending": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 待复核工作台
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["listPendingReviews"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/analysis/tasks/{id}/execution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 当前任务控制状态
+         * @description 本批独立业务开发子范围；正式身份/规则/外部接入未冻结。
+         */
+        get: operations["getTaskExecution"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1904,6 +2232,173 @@ export interface components {
             next_cursor: string | null;
             session_version: number;
         };
+        ApprovalDetail: {
+            approval: components["schemas"]["Approval"];
+            binding: {
+                /** Format: uuid */
+                case_id: string;
+                /** @enum {string} */
+                object_type: "task" | "report" | "evidence_package" | "feedback" | "model_release" | "operation";
+                /** Format: uuid */
+                object_id: string;
+                /** Format: uuid */
+                requested_by: string;
+            };
+            decisions: {
+                /** Format: uuid */
+                decision_id: string;
+                /** @enum {string} */
+                decision: "approve" | "reject" | "return" | "revoke" | "invalidate";
+                /** Format: uuid */
+                actor_id: string;
+                reason: string;
+                evidence_ids: string[];
+                /** Format: date-time */
+                created_at: string;
+            }[];
+        };
+        ApprovalPage: {
+            items: components["schemas"]["ApprovalDetail"][];
+            next_cursor: string | null;
+        };
+        ApprovalRevoke: {
+            expected_version: number;
+            reason: string;
+        };
+        ReviewPage: {
+            items: components["schemas"]["Review"][];
+            next_cursor: string | null;
+        };
+        ReviewContext: {
+            /** Format: uuid */
+            task_id: string;
+            run_version: number;
+            result_version: number;
+            policy_version: string;
+            snapshot_sha256: string;
+            object_version: number;
+            review_version: number;
+        };
+        AuditExportStatus: {
+            /** Format: uuid */
+            export_id: string;
+            /** Format: uuid */
+            case_id: string;
+            /** @enum {string} */
+            state: "REQUESTED" | "READY" | "FAILED" | "EXPIRED" | "REVOKED";
+            version: number;
+            artifact: components["schemas"]["ObjectRef"] | null;
+            size_bytes: number | null;
+            expires_at: string | null;
+            error_code: string | null;
+        };
+        ModelOperation: {
+            /** Format: uuid */
+            operation_id: string;
+            /** Format: uuid */
+            org_id: string;
+            /** Format: uuid */
+            release_bundle_id: string;
+            /** Format: uuid */
+            model_id: string;
+            /** @enum {string} */
+            mode: "shadow" | "canary" | "activate" | "rollback";
+            /** @enum {string} */
+            state: "REQUESTED" | "RUNNING" | "SUCCEEDED" | "FAILED" | "CANCELLED";
+            version: number;
+            progress: number;
+            model_version: string;
+            index_version: string | null;
+            error_code: string | null;
+        };
+        SourceSyncRequest: {
+            expected_version: number;
+        };
+        SourceAuthorizationUpdate: {
+            /** Format: uuid */
+            source_id: string;
+            /** Format: uuid */
+            case_id: string;
+            authorization_ref: string;
+            authorization_version: string;
+            purpose: string[];
+            /** @enum {string} */
+            authorization_status: "pending" | "verified" | "expired" | "revoked";
+            expires_at: string | null;
+        };
+        PolicyDefinition: {
+            definition_ref: string;
+            version: string;
+            sha256: string;
+            values: {
+                [key: string]: unknown;
+            };
+        };
+        NodeRun: {
+            /** Format: uuid */
+            node_id: string;
+            node_code: string;
+            attempt: number;
+            /** @enum {string} */
+            state: "PENDING" | "READY" | "RUNNING" | "SUCCEEDED" | "FAILED" | "SKIPPED" | "DEFERRED" | "CANCELLED" | "NOT_SUPPORTED";
+            required: boolean;
+            reason: string | null;
+            version: number;
+            fencing_epoch: number;
+            started_at: string | null;
+            ended_at: string | null;
+        };
+        NodePage: {
+            /** Format: uuid */
+            task_id: string;
+            run_version: number;
+            items: components["schemas"]["NodeRun"][];
+        };
+        TaskEventRecord: {
+            /** Format: uuid */
+            event_id: string;
+            /** Format: uuid */
+            task_id: string;
+            run_version: number;
+            from_state: string | null;
+            to_state: string;
+            reason: string;
+            /** Format: uuid */
+            request_id: string;
+            /** Format: date-time */
+            created_at: string;
+        };
+        TaskEventPage: {
+            items: components["schemas"]["TaskEventRecord"][];
+            next_cursor: string | null;
+        };
+        PendingReviewItem: {
+            /** Format: uuid */
+            task_id: string;
+            /** Format: uuid */
+            case_id: string;
+            /** @enum {unknown} */
+            task_state: "WAIT_REVIEW" | "REVIEWING" | "RETURNED";
+            /** @enum {unknown} */
+            availability: "READY" | "RESULT_UNAVAILABLE" | "SOURCE_BLOCKED";
+            context: components["schemas"]["ReviewContext"] | null;
+        };
+        PendingReviewPage: {
+            items: components["schemas"]["PendingReviewItem"][];
+            next_cursor: string | null;
+        };
+        TaskExecutionStatus: {
+            /** Format: uuid */
+            task_id: string;
+            /** Format: uuid */
+            case_id: string;
+            /** @enum {string} */
+            state: "CREATED" | "QUEUED" | "RUNNING" | "WAIT_REVIEW" | "REVIEWING" | "SUCCEEDED" | "FAILED" | "RETURNED" | "CANCEL_REQUESTED" | "CANCELLED" | "ARCHIVED";
+            run_version: number;
+            result_version: number;
+            version: number;
+            result_available: boolean;
+        };
     };
     responses: never;
     parameters: never;
@@ -2208,9 +2703,10 @@ export interface operations {
     };
     listSources: {
         parameters: {
-            query?: {
+            query: {
                 limit?: number;
                 cursor?: string;
+                case_id: string;
             };
             header?: {
                 "X-Request-Id"?: string;
@@ -5189,6 +5685,105 @@ export interface operations {
             };
         };
     };
+    listReviews: {
+        parameters: {
+            query: {
+                case_id: string;
+                limit?: number;
+                cursor?: string;
+                task_id?: string;
+            };
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewPage"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
     createReview: {
         parameters: {
             query?: never;
@@ -5283,6 +5878,104 @@ export interface operations {
             };
             /** @description 失败，错误码见error-codes.md */
             428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listApprovals: {
+        parameters: {
+            query: {
+                case_id: string;
+                limit?: number;
+                cursor?: string;
+            };
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApprovalPage"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -6885,9 +7578,10 @@ export interface operations {
     };
     listAuditEvents: {
         parameters: {
-            query?: {
+            query: {
                 limit?: number;
                 cursor?: string;
+                case_id: string;
             };
             header?: {
                 "X-Request-Id"?: string;
@@ -7625,6 +8319,1618 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UploadPartPage"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getApproval: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApprovalDetail"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    revokeApproval: {
+        parameters: {
+            query?: never;
+            header: {
+                "X-Request-Id"?: string;
+                "Idempotency-Key": string;
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApprovalRevoke"];
+            };
+        };
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Approval"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getReview: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Review"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getReviewContext: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReviewContext"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getAuditExport: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditExportStatus"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    downloadAuditExport: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+                Range?: string;
+                "If-Range"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            206: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            416: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getFeedback: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackRecord"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getModelOperation: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelOperation"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getSource: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Source"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    syncSourceAuthorization: {
+        parameters: {
+            query?: never;
+            header: {
+                "X-Request-Id"?: string;
+                "Idempotency-Key": string;
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SourceSyncRequest"];
+            };
+        };
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Source"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getPolicy: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Policy"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getPolicyDefinition: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PolicyDefinition"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listTaskNodes: {
+        parameters: {
+            query: {
+                run_version: number;
+            };
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NodePage"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listTaskEvents: {
+        parameters: {
+            query: {
+                run_version: number;
+                limit?: number;
+                cursor?: string;
+            };
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskEventPage"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listPendingReviews: {
+        parameters: {
+            query: {
+                case_id: string;
+                limit?: number;
+                cursor?: string;
+            };
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PendingReviewPage"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description 失败，错误码见error-codes.md */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getTaskExecution: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Request-Id"?: string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 实际案件/来源权限核验后的当前上传记录 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskExecutionStatus"];
                 };
             };
             /** @description 失败，错误码见error-codes.md */

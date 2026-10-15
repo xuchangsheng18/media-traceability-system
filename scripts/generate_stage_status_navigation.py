@@ -22,22 +22,23 @@ STATUSES = {
     "NOT_FROZEN": "正式输入基线未冻结",
 }
 INTERFACES = [
-    ("整体接口范围", "docs/03-api/system-interface-specification.md", "系统整体接口说明", "七类接口面、55业务操作/85组件/34能力、服务边界和完整性要求。"),
-    ("逐操作/模块目录", "docs/03-api/detailed-interface-index.md", "55操作与12模块导航", "跳转每个操作的参数、请求/响应、权限、版本、异步终态、样例和任务引用。"),
-    ("业务结构唯一源", "docs/03-api/openapi.yaml", "业务OpenAPI", "外部接口结构源；候选55操作，不代表全部已实现。"),
+    ("剩余接口实际实现", "docs/03-development/stage-three/remaining-interface-implementation.md", "11类缺口实际子范围", "审批/复核/审计/配置及适配、任务控制和内部协议的真实代码、验证与正式接入边界。"),
+    ("整体接口范围", "docs/03-api/system-interface-specification.md", "系统整体接口说明", "七类接口面、73业务操作/102组件/34能力、服务边界和完整性要求。"),
+    ("逐操作/模块目录", "docs/03-api/detailed-interface-index.md", "73操作与12模块导航", "跳转每个操作的参数、请求/响应、权限、版本、异步终态、样例和任务引用。"),
+    ("业务结构唯一源", "docs/03-api/openapi.yaml", "业务OpenAPI", "外部接口结构源；候选73操作，不代表全部已实现。"),
     ("内部调用入口唯一源", "docs/03-api/inference-openapi.yaml", "内部推理OpenAPI", "内部调用入口；能力请求/响应结构以schemas/model为源。"),
-    ("业务字段说明", "docs/03-api/data-structures.md", "85组件字段说明", "必填/可空/枚举/约束及完整Schema的只读派生。"),
+    ("业务字段说明", "docs/03-api/data-structures.md", "102组件字段说明", "必填/可空/枚举/约束及完整Schema的只读派生。"),
     ("内部能力字段", "docs/03-api/inference-interfaces.md", "34能力接口说明", "能力路径/请求/响应/身份/来源摘要；业务模型未据此验收。"),
     ("能力Schema源", "schemas/model/", "68模型Schema", "34请求+34响应的唯一能力结构来源；不作为业务HTTP的第二结构源。"),
     ("共用行为", "docs/03-api/common-interface-rules.md", "接口共用规则", "鉴权、追踪、分页、幂等、ETag、版本、异步、错误及Range。"),
     ("服务与事件", "docs/03-api/service-and-event-contracts.md", "服务/事件契约", "边界及研发事件；完整业务调度实施另判。"),
     ("工作流/结果事件", "docs/05-workflows/workflow-contracts.md", "工作流契约", "候选DAG、节点结果、7类域事件和运行版本身份。"),
-    ("严格历史读取", "docs/03-api/historical-result-reading.md", "历史结果读取", "7现有操作的精确task/run/result选择与不回退最新规则，业务联调未完成。"),
-    ("接口缺口", "docs/03-api/interface-gap-register.md", "13项接口缺口", "未冻结设计/实现和关闭标准；拟议路径不可调用。"),
+    ("严格历史读取", "docs/03-api/historical-result-reading.md", "历史结果读取", "7现有操作的精确task/run/result选择与不回退最新规则，所选历史读取已实测；完整业务生产器及正式接入另判。"),
+    ("接口缺口", "docs/03-api/interface-gap-register.md", "13项接口缺口", "正式条件与技术子范围分别登记；已挂载路径按逐操作实测，其余候选路径不可调用。"),
     ("接口追踪", "docs/03-api/interface-catalog.json", "接口来源索引", "操作/模块/能力的来源和任务/测试引用，非运行证明。"),
     ("样例", "docs/03-api/examples/", "请求响应样例", "结构校验夹具，不能充当实际业务结果。"),
     ("生成类型", "shared-contracts/generated/", "4份生成类型", "由唯一来源生成，禁止反向手改Schema；结构约束仍需运行验证。"),
-    ("已运行研发API", "docs/03-api/poc-api.md", "PoC接口及范围", "固定测试案件/图片上传/任务/合成CPU入口，与55操作设计分开。"),
+    ("已运行研发API", "docs/03-api/poc-api.md", "PoC接口及范围", "固定测试案件/图片上传/任务/合成CPU入口，与73操作设计分开。"),
 ]
 DATABASES = [
     ("业务设计与关系", "docs/04-database/database-design.md", "数据库设计", "62表候选职责、身份与关系，业务访问层尚未全部实施。"),
@@ -130,7 +131,7 @@ def build():
     second += "### 相互对应与实际状态\n\n"
     second += "API字段须按"+link(SECOND, "docs/04-database/api-field-mapping.json", "字段投影")+"定位数据库列/运行组合，再用"+link(SECOND, "docs/04-database/field-provenance.json", "字段来源")+"核对来源文件/指针；模型结构不与业务HTTP结构混为一份。SQL/字典/Schema/映射/生成类型变化须同步。\n\n"
     second += "cluster_id、asset_id、rank等字段的来源契约是逐字段可追踪的结构/设计依据，不能靠“见来源契约”一句作为实际约束说明。请联合阅读字典、field-provenance、映射和首发排序规范。\n\n"
-    second += "55业务操作/85组件/34能力、62表825字段是当前候选设计；PoC和代表性隔离实验有独立证据，完整业务API/62表访问迁移/RLS未全部实现。13接口缺口仍开放，初始化SQL不得直接作用于既有库。状态见"+link(SECOND, "docs/03-development/stage-two-readiness.md", "第二阶段23步实际状态")+"、"+link(SECOND, "docs/03-development/stage-two-completion-matrix.md", "12项补齐与剩余")+"和"+link(SECOND, "docs/00-project/remaining-work-navigation.md", "两阶段总导航")+"。\n\n"
+    second += "73业务操作/102组件/34能力、62表825字段是当前候选设计；PoC和代表性隔离实验有独立证据，完整业务API/62表访问迁移/RLS未全部实现。13项正式条件仍开放；新增业务接口/约束迁移的实际子范围见剩余接口实现说明，初始化SQL不得直接作用于既有库。状态见"+link(SECOND, "docs/03-development/stage-two-readiness.md", "第二阶段23步实际状态")+"、"+link(SECOND, "docs/03-development/stage-two-completion-matrix.md", "12项补齐与剩余")+"和"+link(SECOND, "docs/00-project/remaining-work-navigation.md", "两阶段总导航")+"。\n\n"
     second += "证据："+"、".join(link(SECOND, path) for path in ["docs/00-project/validation/interface-documentation-report.json", "docs/00-project/validation/database-contract-report.json", "docs/00-project/validation/database-foundation-report.json", "docs/00-project/validation/migration-fencing-report.json", "docs/00-project/validation/stage-two-isolation-report.json"])+"。检查通过范围与实际业务验收分别判断。\n"
     original = (ROOT/SECOND).read_text(encoding="utf-8")
     block = START+"\n"+second.rstrip()+"\n"+END

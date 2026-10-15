@@ -13,12 +13,12 @@
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
 | [createSource](../operations/createSource.md) | POST /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [listSources](../operations/listSources.md) | GET /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listSources](../operations/listSources.md) | GET /api/v1/sources | DEV_PARTIAL |
 | [createUpload](../operations/createUpload.md) | POST /api/v1/uploads | DEV_PARTIAL |
 | [putUploadPart](../operations/putUploadPart.md) | PUT /api/v1/uploads/{id}/parts/{part_no} | DEV_PARTIAL |
 | [completeUpload](../operations/completeUpload.md) | POST /api/v1/uploads/{id}/complete | DEV_PARTIAL |
 | [downloadAsset](../operations/downloadAsset.md) | GET /api/v1/assets/{id}/content | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [createImport](../operations/createImport.md) | POST /api/v1/imports | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [getImport](../operations/getImport.md) | GET /api/v1/imports/{id} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [createImport](../operations/createImport.md) | POST /api/v1/imports | DEV_PARTIAL |
+| [getImport](../operations/getImport.md) | GET /api/v1/imports/{id} | DEV_PARTIAL |
 
 模型能力、模块共享入口及异步事件见[内部调用](../inference-interfaces.md)和[服务/消息边界](../service-and-event-contracts.md)。结构覆盖不是完整业务流程覆盖或全部实施；本模块缺口与拟补方案见[缺口登记](../interface-gap-register.md)。

@@ -5579,7 +5579,7 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 
 ## 9 当前落地状态与来源摘要
 
-当前py310 CPU最小工程与托管25门禁已有实际证据；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将55业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
+当前py310 CPU最小工程与托管25门禁已有实际证据；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
 
 生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；研发环境与锁保留。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见[第一阶段24步](<../00-project/stage-one/steps-and-deliverables.md>)、[第二阶段23步](<../03-development/stage-two-readiness.md>)和[实际剩余条件](<../00-project/remaining-work-navigation.md>)。
 
@@ -5605,10 +5605,10 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | [metric-protocols.json](<../09-testing/metric-protocols.json>) | 03a4423748f5cddbe1f555fa1b2e640f95ad883e5037417703c8e95f8052c305 |
 | [dataset-catalog.md](<../07-datasets/dataset-catalog.md>) | 223e397f572dff631e3b30f455d68ce3d3cccf3ca89da3ebc18ec82776fd7347 |
 | [model-catalog.yaml](<../06-algorithms/model-catalog.yaml>) | 398dcd073fd79bf17ff1dea8a83627e2839097b4b81a8f8faa0f4329a75d3cb3 |
-| [operation-index.json](<../03-api/operation-index.json>) | f31ff0f43eb89d8b94e2f50a464c63caa2dee207d7c188868c46dda824afb3c7 |
-| [interface-gap-register.json](<../03-api/interface-gap-register.json>) | 63fd035218fd02614791fadc84ce55f458adb8e1830d349eadcb4bd1bf9cbae9 |
+| [operation-index.json](<../03-api/operation-index.json>) | 96ae226795cfd911921990df9ff2f682853f5764f5557274348a8eabadf91cb7 |
+| [interface-gap-register.json](<../03-api/interface-gap-register.json>) | ed26127b5d24ec7ef8e2e07fa9687133d72b8e6b57e96fee63b082e26c6a875f |
 | [open-questions.md](<../00-project/open-questions.md>) | 4fe41d59eef090247035010237684395bc1dfd8b0916ea3a143af01d71fbd9f0 |
 | [source-task-cards.json](<../../tasks/source-task-cards.json>) | de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565 |
 | [backlog.yaml](<../../tasks/backlog.yaml>) | f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d |
 | [versions.yaml](<../../config/versions.yaml>) | ee4cb5eed6d99f7a9e187635ca8e148ded726dd404cdf071ab641dbee1483ebd |
-| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | 778800885b49ad6eba411005be40a8808b8a9588316369fdf7d1cf8961358d50 |
+| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | 100db464833694cecacc309470fb0c7a5f1bbb1cfedd8968defa17ea554124ba |

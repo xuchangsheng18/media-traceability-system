@@ -122,7 +122,7 @@ class ResultRepository:
             task = (
                 connection.execute(
                     text(
-                        "SELECT t.asset_id,a.object_id FROM mt.analysis_task t JOIN mt.media_asset a ON a.case_id=t.case_id AND a.asset_id=t.asset_id WHERE t.case_id=:case AND t.task_id=:task"
+                        "SELECT t.asset_id,a.object_id FROM mt.analysis_task t JOIN mt.media_asset a ON a.case_id=t.case_id AND a.asset_id=t.asset_id WHERE t.case_id=:case AND t.task_id=:task FOR UPDATE OF t"
                     ),
                     {"case": scope.case_id, "task": key.task_id},
                 )

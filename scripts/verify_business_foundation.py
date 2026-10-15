@@ -76,7 +76,7 @@ def main() -> int:
     args = parser.parse_args()
     env = configured_environment()
     report: dict[str, Any] = {
-        "scope": "isolated_development_upload_and_seven_history_operations",
+        "scope": "isolated_development_upload_history_controls_adapters_execution_inference_boundaries",
         "formal_accepted": False,
         "all_13_gaps_closed": False,
         "observed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),

@@ -1137,5 +1137,390 @@
     "binary": false,
     "conditional": false,
     "query": true
+  },
+  {
+    "method": "get",
+    "path": "/approvals",
+    "id": "listApprovals",
+    "request": null,
+    "response": "ApprovalPage",
+    "tasks": [
+      "T016",
+      "T102",
+      "T108"
+    ],
+    "tables": [
+      "approval_request",
+      "approval_decision"
+    ],
+    "permission": "approval.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/approvals/{id}",
+    "id": "getApproval",
+    "request": null,
+    "response": "ApprovalDetail",
+    "tasks": [
+      "T016",
+      "T102",
+      "T108"
+    ],
+    "tables": [
+      "approval_request",
+      "approval_decision"
+    ],
+    "permission": "approval.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/approvals/{id}/revoke",
+    "id": "revokeApproval",
+    "request": "ApprovalRevoke",
+    "response": "Approval",
+    "tasks": [
+      "T016",
+      "T108"
+    ],
+    "tables": [
+      "approval_request",
+      "approval_decision",
+      "audit_event"
+    ],
+    "permission": "approval.revoke",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/reviews",
+    "id": "listReviews",
+    "request": null,
+    "response": "ReviewPage",
+    "tasks": [
+      "T102",
+      "T103"
+    ],
+    "tables": [
+      "review_record",
+      "review_evidence"
+    ],
+    "permission": "review.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/reviews/{id}",
+    "id": "getReview",
+    "request": null,
+    "response": "Review",
+    "tasks": [
+      "T102",
+      "T103"
+    ],
+    "tables": [
+      "review_record",
+      "review_evidence"
+    ],
+    "permission": "review.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/review-context",
+    "id": "getReviewContext",
+    "request": null,
+    "response": "ReviewContext",
+    "tasks": [
+      "T102",
+      "T103"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_result",
+      "review_record"
+    ],
+    "permission": "review.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/audit/exports/{id}",
+    "id": "getAuditExport",
+    "request": null,
+    "response": "AuditExportStatus",
+    "tasks": [
+      "T017",
+      "T018"
+    ],
+    "tables": [
+      "audit_export",
+      "approval_request"
+    ],
+    "permission": "audit.export",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/audit/exports/{id}/content",
+    "id": "downloadAuditExport",
+    "request": null,
+    "response": null,
+    "tasks": [
+      "T017",
+      "T018"
+    ],
+    "tables": [
+      "audit_export",
+      "object_version",
+      "approval_request"
+    ],
+    "permission": "audit.export",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/feedback/samples/{id}",
+    "id": "getFeedback",
+    "request": null,
+    "response": "FeedbackRecord",
+    "tasks": [
+      "T108",
+      "T109"
+    ],
+    "tables": [
+      "feedback_request",
+      "approval_request",
+      "risk_finding"
+    ],
+    "permission": "feedback.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/model-operations/{id}",
+    "id": "getModelOperation",
+    "request": null,
+    "response": "ModelOperation",
+    "tasks": [
+      "T057",
+      "T060",
+      "T170"
+    ],
+    "tables": [
+      "model_registry",
+      "model_release"
+    ],
+    "permission": "model.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/sources/{id}",
+    "id": "getSource",
+    "request": null,
+    "response": "Source",
+    "tasks": [
+      "T021",
+      "T029"
+    ],
+    "tables": [
+      "source_registry"
+    ],
+    "permission": "source.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "post",
+    "path": "/sources/{id}/authorization/sync",
+    "id": "syncSourceAuthorization",
+    "request": "SourceSyncRequest",
+    "response": "Source",
+    "tasks": [
+      "T021",
+      "T029"
+    ],
+    "tables": [
+      "source_registry",
+      "audit_event"
+    ],
+    "permission": "source.manage",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": true,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/policies/{id}",
+    "id": "getPolicy",
+    "request": null,
+    "response": "Policy",
+    "tasks": [
+      "T061",
+      "T069"
+    ],
+    "tables": [
+      "policy_registry"
+    ],
+    "permission": "policy.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/policies/{id}/definition",
+    "id": "getPolicyDefinition",
+    "request": null,
+    "response": "PolicyDefinition",
+    "tasks": [
+      "T061",
+      "T069"
+    ],
+    "tables": [
+      "policy_registry"
+    ],
+    "permission": "policy.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/nodes",
+    "id": "listTaskNodes",
+    "request": null,
+    "response": "NodePage",
+    "tasks": [
+      "T036",
+      "T037",
+      "T038"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_run",
+      "task_node_run"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/events",
+    "id": "listTaskEvents",
+    "request": null,
+    "response": "TaskEventPage",
+    "tasks": [
+      "T031",
+      "T039"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_event"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
+  },
+  {
+    "method": "get",
+    "path": "/reviews/pending",
+    "id": "listPendingReviews",
+    "request": null,
+    "response": "PendingReviewPage",
+    "tasks": [
+      "T102",
+      "T103"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_result",
+      "review_record"
+    ],
+    "permission": "review.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": true
+  },
+  {
+    "method": "get",
+    "path": "/analysis/tasks/{id}/execution",
+    "id": "getTaskExecution",
+    "request": null,
+    "response": "TaskExecutionStatus",
+    "tasks": [
+      "T031",
+      "T039"
+    ],
+    "tables": [
+      "analysis_task",
+      "task_result"
+    ],
+    "permission": "task.read",
+    "status": "200",
+    "source": "remaining-interface-implementation-plan",
+    "binary": false,
+    "conditional": false,
+    "query": false
   }
 ]

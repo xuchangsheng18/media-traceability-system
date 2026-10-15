@@ -20,10 +20,14 @@
 | 版本 | API路径、info.version、对象row/run/result/review版本含义各异 | 契约版本不是Python版本，事件版本不是运行版本；破坏性变更需兼容/迁移评审 |
 | 秘密与样例 | 结构样例是合成夹具；消息不放令牌/原件/任意URL | 文档不授予真实数据用途或网络准入 |
 
-详细操作以源parameters/responses为准；通用错误列表不能证明每个服务已实现每个分支，具体错误条件和测试逐任务登记。现有PoC鉴权、幂等、Problem和结果核验实测不能外推为53接口验收。
+详细操作以源parameters/responses为准；通用错误列表不能证明每个服务已实现每个分支，具体错误条件和测试逐任务登记。现有PoC鉴权、幂等、Problem和结果核验实测不能外推为73候选外部操作的完整验收。
 
 格式依据：[OpenAPI 3.1.0](https://spec.openapis.org/oas/v3.1.0.html)、[RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html)、[RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html)。code/message/request_id/details是项目扩展，不能表述为RFC规定的所有业务服务必填字段。
 
 ## 第一阶段工程控制补充（2026-10-13）
 
 [精确历史读取](historical-result-reading.md)为7个操作增加扁平history对象，版本字段成组必填、未命中不回退最新，响应绑定头按选择器核对。
+
+## 2026-10-15 控制接口实现
+
+独立业务运行时只发布实际挂载的42个外部操作和1个内部入口，其请求/响应结构从唯一契约源选择。审批聚合、复核上下文及当前执行状态分别提供条件更新ETag；不可变历史不作为当前控制状态。取消须当前栅栏持有人明确确认停止，租约超时本身不能当停止证据。新增复核证据逐项核验当前来源用途/版本和实际固定对象摘要。参数引用、导出限额、控制幂等TTL和节点租约均需显式提供，正式规则未知时拒绝动作。详见[实现及正式边界](../03-development/stage-three/remaining-interface-implementation.md)。
