@@ -2466,8 +2466,8 @@
     "docs/00-project/requirement-traceability.yaml": "a3a9efd585510c8c0b296f230bf2e15b35b16fa3e6c4526e28151ac089da092b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
-    "docs/03-api/openapi.yaml": "bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4",
-    "docs/03-api/operation-index.json": "f31ff0f43eb89d8b94e2f50a464c63caa2dee207d7c188868c46dda824afb3c7",
+    "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+    "docs/03-api/operation-index.json": "96ae226795cfd911921990df9ff2f682853f5764f5557274348a8eabadf91cb7",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "docs/06-algorithms/model-catalog.yaml": "398dcd073fd79bf17ff1dea8a83627e2839097b4b81a8f8faa0f4329a75d3cb3",
     "docs/00-project/requirement-flow-proposals.json": "23592c03e0c7dbd456c2f2d65bf6ddea16818665d62036be4804b6ac1909e8c1"
@@ -2499,5 +2499,33 @@
     },
     "business_approved": false,
     "scope": "existing36requirement semantic routing remains; two progress GETs are reviewed shared engineering additions"
+  },
+  "remaining_interface_followup_review": {
+    "date": "2026-10-15",
+    "reviewer": "Codex technical review",
+    "business_approved": false,
+    "runtime_verification_of_all_36_requirements": false,
+    "existing_requirements_preserved": 36,
+    "existing_operation_ids_preserved": 55,
+    "existing_components_unchanged": 85,
+    "added_operations": 18,
+    "added_components": 17,
+    "existing_operation_changes": {
+      "listSources": "明确必填case_id案件过滤，保留limit/cursor分页",
+      "listAuditEvents": "明确必填case_id案件过滤，保留limit/cursor分页",
+      "cancelTask": "说明202状态链接为getTaskExecution，历史响应保持不可变",
+      "exportAudit": "说明真实作业执行与产物读取边界"
+    },
+    "semantic_conclusion": "原36需求及170源任务、既有85组件保持；18新增控制读取/条件更新操作关联既有任务，不新增正式业务批准；11类技术子范围不替代原需求或实际平台/模型/规则。",
+    "changed_source_hashes": {
+      "docs/03-api/openapi.yaml": {
+        "previous": "bffa82adf57b9ccf1888d5589e7b3d54f03915c7b150bac6dcc627779d4769b4",
+        "current": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730"
+      },
+      "docs/03-api/operation-index.json": {
+        "previous": "f31ff0f43eb89d8b94e2f50a464c63caa2dee207d7c188868c46dda824afb3c7",
+        "current": "96ae226795cfd911921990df9ff2f682853f5764f5557274348a8eabadf91cb7"
+      }
+    }
   }
 }
