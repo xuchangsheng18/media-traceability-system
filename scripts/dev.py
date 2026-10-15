@@ -241,8 +241,11 @@ def main(argv=None):
             stack_change_guard(args.allow_stack_changes)
         if args.command in {"dev", "status"} and not commands:
             return status()
+        execution_env = environment()
+        if args.command == "pre-commit":
+            execution_env.update(MT_TYPE_REPORT_DISABLED="1", MT_QUALITY_REPORT_DISABLED="1")
         for command in commands:
-            result = subprocess.run(command, cwd=ROOT, env=environment(), check=False)
+            result = subprocess.run(command, cwd=ROOT, env=execution_env, check=False)
             if result.returncode:
                 return result.returncode
         return 0

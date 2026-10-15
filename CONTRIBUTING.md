@@ -10,7 +10,7 @@ Linux在仓库根目录使用`/opt/conda/glwy/envs/py310/bin/python scripts/dev.
 
 Python格式/静态检查范围以config/stage-three-profile.json为准，独立类型工具不修改原100包运行锁；前端ESLint、Prettier、vue-tsc和真实违规探针均纳入统一入口和托管CI。Ruff负责Python，Prettier负责前端格式，eslint-config-prettier仅关闭与其冲突的格式规则，Vue/TS语义检查保留。实际数量读取本批报告，不沿用旧20/22/52记录。前端`npm --prefix frontend run lint`、`format-check`、`type-check`、`test`和`test:foundation-browser`可分别执行，`node scripts/verify-frontend-quality.mjs`检查违规会被拦截。API与配置说明见[本批实现记录](docs/03-development/stage-three/foundation-closeout-implementation.md)。
 
-`setup --tools`在Git外建立锁定的pre-commit及Python类型工具环境，保留项目py310。选定Linux仓库可显式执行`python scripts/stage_three_quality.py install-hook`，遇到自定义hook或core.hooksPath会拒绝覆盖；随后运行该仓库实际`.git/hooks/pre-commit`或独立工具的`pre_commit run --all-files`核验。安装结果以钩子报告为准；其他开发者端和Windows原生不自动安装。钩子不是分支保护，平台必需检查仍需管理员落实。统一pre-commit入口含秘密、Ruff、格式和Python/前端类型检查，不修改运行依赖。
+`setup --tools`在Git外建立锁定的pre-commit及Python类型工具环境，保留项目py310。选定Linux仓库可显式执行`python scripts/stage_three_quality.py install-hook`，遇到自定义hook或core.hooksPath会拒绝覆盖；随后运行该仓库实际`.git/hooks/pre-commit`或独立工具的`pre_commit run --all-files`核验。安装结果以钩子报告为准；其他开发者端和Windows原生不自动安装。钩子不是分支保护，平台必需检查仍需管理员落实。统一pre-commit入口含秘密、Ruff、格式和Python/前端类型检查，不修改运行依赖。提交钩子只关闭报告写入，仍运行所有检查并保留失败退出码；独立验证及CI正常保存报告。
 
 若网络较慢，可把工具锁中12个包按制品清单核验SHA-256后放到仓库外的`stage-three-quality-wheelhouse`；安装会使用该缓存并继续强制包摘要。也可通过`MT_QUALITY_WHEELHOUSE`指定获准外部缓存。缓存/安装包不提交Git，镜像源凭据由操作者私下提供。
 

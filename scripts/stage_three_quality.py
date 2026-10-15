@@ -89,7 +89,8 @@ def secret_check():
         "comprehensive_DLP_or_history_scan": False,
         "secret_values_printed": False,
     }
-    (VALIDATION / "stage-three-secrets-report.json").write_bytes((json.dumps(summary, indent=2) + "\n").encode())
+    if os.environ.get("MT_QUALITY_REPORT_DISABLED") != "1":
+        (VALIDATION / "stage-three-secrets-report.json").write_bytes((json.dumps(summary, indent=2) + "\n").encode())
     print(json.dumps({key: value for key, value in summary.items() if key != "errors"}))
     return int(bool(errors))
 

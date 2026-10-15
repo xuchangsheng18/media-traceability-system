@@ -14,6 +14,42 @@ dev = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(dev)
 
 
+@pytest.mark.parametrize("command,read_only", [("pre-commit", True), ("lint", False)])
+def test_only_precommit_disables_report_writes_without_disabling_checks(monkeypatch, command, read_only):
+    monkeypatch.setenv("MT_PYTHON", sys.executable)
+    monkeypatch.delenv("MT_TYPE_REPORT_DISABLED", raising=False)
+    monkeypatch.delenv("MT_QUALITY_REPORT_DISABLED", raising=False)
+    calls = []
+
+    def run(arguments, **kwargs):
+        calls.append((arguments, kwargs["env"]))
+        return types.SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr(dev.subprocess, "run", run)
+    assert dev.main([command]) == 0
+    assert calls and any("secrets" in args for args, _ in calls) == read_only
+    assert any("scripts/stage_three_types.py" in args for args, _ in calls)
+    assert all((env.get("MT_TYPE_REPORT_DISABLED") == "1") == read_only for _, env in calls)
+    assert all((env.get("MT_QUALITY_REPORT_DISABLED") == "1") == read_only for _, env in calls)
+
+
+@pytest.mark.parametrize("unsafe", [False, True])
+def test_read_only_secret_check_still_rejects_prohibited_files(monkeypatch, tmp_path, unsafe):
+    script_dir = str(ROOT / "scripts")
+    monkeypatch.syspath_prepend(script_dir)
+    import stage_three_quality as quality
+
+    monkeypatch.setattr(quality, "ROOT", tmp_path)
+    monkeypatch.setattr(quality, "VALIDATION", tmp_path)
+    monkeypatch.setattr(quality, "RUNTIME", tmp_path / "private-runtime")
+    name = "credentials.json" if unsafe else "source.txt"
+    (tmp_path / name).write_text("self-owned-nonsecret-fixture", encoding="utf-8")
+    monkeypatch.setattr(quality, "tracked_files", lambda: [name])
+    monkeypatch.setenv("MT_QUALITY_REPORT_DISABLED", "1")
+    assert quality.secret_check() == int(unsafe)
+    assert not (tmp_path / "stage-three-secrets-report.json").exists()
+
+
 @pytest.mark.parametrize("known", [True, False])
 def test_stage_capacity_text_uses_timestamped_snapshot_or_unknown(monkeypatch, known):
     script_dir = str(ROOT / "scripts")
