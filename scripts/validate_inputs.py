@@ -89,6 +89,13 @@ def main():
                 if p.suffix in ['.yaml','.yml']:yread(p);counts['yaml']+=1
         return counts
     check('UTF8_JSON_YAML_no_duplicate_keys',syntax)
+    def task_progress():
+        from generate_task_progress import outputs
+        generated=outputs()
+        for path,content in generated.items():
+            assert (ROOT/path).read_bytes()==content.encode('utf-8'),path
+        return {'task_cards':170,'source_fields_preserved':True,'partial_evidence_is_not_full_acceptance':True}
+    check('current_task_progress_cards_and_index',task_progress)
     schemas={}
     for p in (ROOT/'schemas').rglob('*.schema.json'):
         s=json_read(p);schemas[s['$id']]=s

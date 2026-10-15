@@ -1,8 +1,10 @@
 # 项目文档导航
 
+任务执行入口：[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
+
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
-开发基础整改：[实际审查](00-project/validation/stage-three-foundation-audit-report.json)、[扩容与13项接口实施范围](03-development/development-environment-change-request.md)。最新卷内观测100%、可用约0.73GiB；共享VM另有31个运行容器，扩容维护窗口待确认。两端CLI项目配置启用和指定旧代码格式治理已落实，Python静态类型、平台保护、真实接口实现和正式环境验收分别保留未完成状态。
+开发基础整改：[实际审查](00-project/validation/stage-three-foundation-audit-report.json)、[扩容与13项接口实施范围](03-development/development-environment-change-request.md)。最近同步回执观测卷内13%、约644GiB可用，早期100%为历史记录。两端CLI配置、旧代码格式治理和Python类型工具已落实；业务接口仅登记已实现子范围，平台保护、真实身份/规则/模型及正式环境验收仍未完成。
 
 需求全文入口：[软件需求详细说明与开发验收映射](01-requirements/functional-requirements.md)，集中展示业务、工程、非功能、规则、场景、验收与开发关联；源目标/候选/实测范围分开。
 
@@ -10,7 +12,7 @@
 
 
 <!-- development-entry-summary:start -->
-基础开发可以按任务子范围开始；两阶段整体技术闭环和正式冻结仍未完成。当前Linux服务器Docker虚拟机研发卷容量CRITICAL，大体积服务器构建/真实权重素材写入须先修复容量；正式身份、授权数据/GPU及生产验收仍有真实条件。范围与检查见[现有技术基线中的开发准入](02-architecture/technical-baseline.md#技术完成程度与开发准入)。
+基础开发可以按任务子范围开始；两阶段整体技术闭环和正式冻结仍未完成。最近Linux服务器Docker虚拟机研发卷观测13%、约644GiB可用；正式配额、维护及整盘恢复仍需核验；正式身份、授权数据/GPU及生产验收仍有真实条件。范围与检查见[现有技术基线中的开发准入](02-architecture/technical-baseline.md#技术完成程度与开发准入)。
 <!-- development-entry-summary:end -->
 <!-- phase-remaining-navigation:start -->
 ## 第一、第二阶段剩余工作总导航
@@ -461,7 +463,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/requirement-flow-proposals.json](<00-project/requirement-flow-proposals.json>) | 12模块默认与36条逐需求复核覆盖：入口/读取/身份/缺口解释；不形成第二API结构源或运行实现证明。 |
 | [00-project/requirement-semantic-review.md](<00-project/requirement-semantic-review.md>) | 36需求逐条复核原验收/任务/能力/入口/结果读取，解释错误映射修正和投影缺口；无正式业务批准。 |
 | [00-project/requirement-semantic-review.json](<00-project/requirement-semantic-review.json>) | 36条技术语义结论、来源摘要、结果身份和明确未实现范围；主追踪原引用保持。 |
-| [00-project/execution-planning-inputs.json](<00-project/execution-planning-inputs.json>) | 可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，21条仅部分开发证据。 |
+| [00-project/execution-planning-inputs.json](<00-project/execution-planning-inputs.json>) | 可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，部分证据与tasks/execution-status.json同源，不等于整任务完成。 |
 | [00-project/execution-schedule.md](<00-project/execution-schedule.md>) | 170任务原工时397—491人日、条件依赖计算及人力容量排期规则；实际日历输入不足未生成交付日期。 |
 | [00-project/execution-schedule.json](<00-project/execution-schedule.json>) | 逐任务工时/依赖/证据与未填写实际日期；源状态不改、完整验收未凭PoC归零。 |
 | [05-workflows/result-identity-and-projection.md](<05-workflows/result-identity-and-projection.md>) | 案件/资产/task/run/result/cluster身份、应用投影及版本化读取规则，含簇成员/首发rank与insufficient零证据处置。 |
@@ -525,7 +527,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/consistency-audit-report.md](<00-project/consistency-audit-report.md>) | 当前输入审查、已修复资料缺口和未决正式条件；不拿引用或结构通过代替业务批准。 |
 | [00-project/document-conversion-plan.md](<00-project/document-conversion-plan.md>) | 转换目标、处理方法及保留原件的规则。 |
 | [00-project/document-governance.md](<00-project/document-governance.md>) | 来源优先级、候选身份和变更管理规则。 |
-| [00-project/execution-planning-inputs.json](<00-project/execution-planning-inputs.json>) | 可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，21条仅部分开发证据。 |
+| [00-project/execution-planning-inputs.json](<00-project/execution-planning-inputs.json>) | 可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，部分证据与tasks/execution-status.json同源，不等于整任务完成。 |
 | [00-project/execution-planning-scenario-inputs.json](<00-project/execution-planning-scenario-inputs.json>) | 用户授权的10人占位工时/角色/起点/数据和GPU日期假设，后续替换；不填为实际人员或资源事实。 |
 | [00-project/execution-schedule-scenario.json](<00-project/execution-schedule-scenario.json>) | 逐任务假设角色/日期/工时与源周期差异，actual_people_confirmed=false，实际输入表保持未确认。 |
 | [00-project/execution-schedule-scenario.md](<00-project/execution-schedule-scenario.md>) | 170任务按占位容量生成日期与分期；明确超过源2027年6月末月，需调整投入/分工，未删功能或承诺实际日期。 |

@@ -6,7 +6,7 @@
 
 
 <!-- development-entry-summary:start -->
-基础开发可以按任务子范围开始；两阶段整体技术闭环和正式冻结仍未完成。当前Linux服务器Docker虚拟机研发卷容量CRITICAL，大体积服务器构建/真实权重素材写入须先修复容量；正式身份、授权数据/GPU及生产验收仍有真实条件。范围与检查见[现有技术基线中的开发准入](docs/02-architecture/technical-baseline.md#技术完成程度与开发准入)。
+基础开发可以按任务子范围开始；两阶段整体技术闭环和正式冻结仍未完成。最近Linux服务器Docker虚拟机研发卷观测13%、约644GiB可用；正式配额、维护及整盘恢复仍需核验；正式身份、授权数据/GPU及生产验收仍有真实条件。范围与检查见[现有技术基线中的开发准入](docs/02-architecture/technical-baseline.md#技术完成程度与开发准入)。
 <!-- development-entry-summary:end -->
 <!-- phase-remaining-navigation:start -->
 ## 第一、第二阶段剩余工作总导航

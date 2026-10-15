@@ -86,7 +86,7 @@ def build():
         + link("CONTRIBUTING.md", origin)
         + "。dev默认观察已运行栈，clean默认只预览缓存；build/integration-test/ci均须显式--allow-stack-changes。仅GitHub托管Runner的匹配工作区、独立临时runtime、default Docker上下文且无远程DOCKER_HOST时适用冷启动例外；仅GITHUB_ACTIONS标记不能绕过共享卷容量检查。无法读取容量则拒绝执行。此为研发操作保护，不是平台权限或安全隔离证明。\n\n"
     )
-    content += "服务器研发数据盘位于Linux的Docker Desktop共享虚拟机；最新基础审查显示100%使用率、约0.73GiB可用，其他31个运行容器也使用该VM。扩容维护窗口未确认，宿主/workspace空闲不等于卷内容量。当前5GiB只是研发操作保护，正式配额仍待定。详见[开发基础审查](../../00-project/validation/stage-three-foundation-audit-report.json)及[变更和恢复方案](../development-environment-change-request.md)；Docker变化和恢复验证优先用GitHub独立临时Runner。\n\n"
+    content += "服务器研发数据盘位于Linux的Docker Desktop共享虚拟机；最近同步回执观测使用率13%、可用约644GiB，早期100%/约0.73GiB属于历史记录。扩容并非本会话执行，维护过程及整盘恢复仍未核验，实际配额/维护人待定。当前5GiB只是研发操作保护。详见[最新同步回执](../../00-project/server-sync-receipt.json)、[历史基础审查](../../00-project/validation/stage-three-foundation-audit-report.json)及[变更和恢复方案](../development-environment-change-request.md)。\n\n"
     content += "## 正式完成与下一阶段\n\n当前允许按已明确输入继续合成CPU基础开发；不能将第三阶段文档或CI转为生产准入、真实数据授权、真实GPU/34模型达标或全部170任务完成。正式冻结还需人员/账号权限、实际技术与安全输入、主分支保护、资源整改、适用质量结果及完整批准。三服务夹具的ready/健康页/模拟入口与原PoC均有独立范围说明，不能把夹具成功充当真实模型/业务实现。\n\n"
     content += (
         "第一/第二阶段剩余工作仍按"

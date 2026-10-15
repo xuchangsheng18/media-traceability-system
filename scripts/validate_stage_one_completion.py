@@ -101,7 +101,11 @@ def main():
         assert (plan["totals"]["source_effort_low_person_days"], plan["totals"]["source_effort_high_person_days"]) == (397, 491)
         assert plan["actual_capacity_plan"]["calendar_commitment_asserted"] is False
         assert not plan["source_task_states_changed"] and plan["original_scope_modules"] == 12
-        assert plan["totals"]["full_tasks_verified"] == 0 and plan["totals"]["partial_scope_tasks"] == 21
+        ledger = read("tasks/execution-status.json")
+        partial_ids = {r["task_id"] for r in ledger["tasks"] if r["status"] == "PARTIAL_VERIFIED_SCOPE"}
+        assert len(partial_ids) == 50
+        assert plan["totals"]["full_tasks_verified"] == 0 and plan["totals"]["partial_scope_tasks"] == len(partial_ids)
+        assert {r["task_id"] for r in plan["records"] if r["observed_verification_status"] == "PARTIAL_VERIFIED_SCOPE"} == partial_ids
         assert all(r["capacity_plan_start_date"] is None and r["capacity_plan_finish_date"] is None for r in plan["records"])
         tasks = [{"id": "T001", "name": "synthetic A", "source_role": "test", "status": "synthetic", "source_effort": "1～2人日", "execution_dependencies_candidate": []},
                  {"id": "T002", "name": "synthetic B", "source_role": "test", "status": "synthetic", "source_effort": "2人日", "execution_dependencies_candidate": ["T001"]},
@@ -126,7 +130,7 @@ def main():
             pass
         else:
             raise AssertionError("cycle incorrectly scheduled")
-        return {"tasks": 170, "source_person_days": [397, 491], "partial_scope_evidence_tasks": 21,
+        return {"tasks": 170, "source_person_days": [397, 491], "partial_scope_evidence_tasks": len(partial_ids),
                 "actual_people_or_dates_invented": False, "synthetic_capacity_dependency_and_release_tests": "PASS"}
 
     check("170_task_schedule_unknowns_capacity_and_cycle_rejection", schedule)

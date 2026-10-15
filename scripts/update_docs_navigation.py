@@ -101,7 +101,7 @@ def main():
             "00-project/requirement-flow-proposals.json": "12模块默认与36条逐需求复核覆盖：入口/读取/身份/缺口解释；不形成第二API结构源或运行实现证明。",
             "00-project/requirement-semantic-review.md": "36需求逐条复核原验收/任务/能力/入口/结果读取，解释错误映射修正和投影缺口；无正式业务批准。",
             "00-project/requirement-semantic-review.json": "36条技术语义结论、来源摘要、结果身份和明确未实现范围；主追踪原引用保持。",
-            "00-project/execution-planning-inputs.json": "可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，21条仅部分开发证据。",
+            "00-project/execution-planning-inputs.json": "可编辑实际人员/有效工时/日历/剩余工时/证据/到位日输入；未知为null，部分证据与tasks/execution-status.json同源，不等于整任务完成。",
             "00-project/execution-schedule.md": "170任务原工时397—491人日、条件依赖计算及人力容量排期规则；实际日历输入不足未生成交付日期。",
             "00-project/execution-schedule.json": "逐任务工时/依赖/证据与未填写实际日期；源状态不改、完整验收未凭PoC归零。",
             "05-workflows/result-identity-and-projection.md": "案件/资产/task/run/result/cluster身份、应用投影及版本化读取规则，含簇成员/首发rank与insufficient零证据处置。",

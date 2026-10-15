@@ -1,0 +1,177 @@
+"""Render reviewed task progress without converting partial evidence into acceptance."""
+import argparse
+import copy
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+LEDGER = "tasks/execution-status.json"
+START = "<!-- task-progress:start -->"
+END = "<!-- task-progress:end -->"
+LABELS = {
+    "PARTIAL_VERIFIED_SCOPE": "已验证部分范围；未关闭",
+    "NO_FULL_TASK_VERIFICATION_EVIDENCE": "尚无本任务已验证交付；未关闭",
+}
+
+
+def read(path):
+    return json.loads((ROOT / path).read_text(encoding="utf-8-sig"))
+
+
+def validate(ledger, source, planning):
+    expected = {f"T{i:03}" for i in range(1, 171)}
+    rows = ledger["tasks"]
+    assert len(rows) == 170 and {r["task_id"] for r in rows} == set(source) == expected
+    assert not ledger["formal_accepted"] and not ledger["completion_percentage_asserted"]
+    assert hashlib.sha256((ROOT / "tasks/source-task-cards.json").read_bytes()).hexdigest() == ledger["source_task_cards_sha256"]
+    actual = {r["task_id"]: r for r in planning["task_execution_inputs"]}
+    assert set(actual) == expected
+    for row in rows:
+        task = row["task_id"]
+        assert row["name"] == source[task]["name"]
+        assert row["status"] in LABELS and not row["full_task_verified"]
+        assert row["actual_owner"] is None and row["remaining_steps"]
+        assert row["status"] == actual[task]["verification_status"]
+        assert bool(row["completed_steps"]) == (row["status"] == "PARTIAL_VERIFIED_SCOPE")
+        assert {e["path"] for s in row["completed_steps"] for e in s["evidence"]} == {e["path"] for e in actual[task]["partial_scope_evidence"]}
+        assert not actual[task]["full_task_verification_refs"]
+        assert actual[task]["remaining_effort_hours"] is None and actual[task]["actual_end"] is None
+        path = (ROOT / row["card"])
+        assert path.is_file() and path.resolve().is_relative_to((ROOT / "tasks").resolve())
+        assert path.name == task + ".md"
+        assert row["summary_completed"] and row["summary_remaining"]
+        for step in row["completed_steps"]:
+            assert step["description"] and step["evidence"]
+            assert step["kind"] in {"DEVELOPMENT", "PROTOTYPE"}
+            for evidence in step["evidence"]:
+                evidence_path = (ROOT / evidence["path"]).resolve()
+                assert evidence_path.is_relative_to(ROOT) and evidence_path.is_file(), evidence["path"]
+                assert evidence["scope"]
+        assert all(s["description"] and s["category"] for s in row["remaining_steps"])
+
+
+def cell(text):
+    return text.replace("|", "\\|").replace("\n", " ")
+
+
+def self_test(ledger, source, planning):
+    """Reject false acceptance, missing evidence, omissions and inconsistent authorities."""
+    mutations = [
+        lambda value: value["tasks"][0].update(full_task_verified=True),
+        lambda value: value["tasks"][0].update(status="FULL_TASK_VERIFIED"),
+        lambda value: value["tasks"][0].update(remaining_steps=[]),
+        lambda value: value["tasks"][0].update(name="changed source name"),
+        lambda value: value["tasks"].pop(),
+        lambda value: value["tasks"][0]["completed_steps"][0]["evidence"][0].update(path="../missing-evidence"),
+        lambda value: value["tasks"][0].update(status="NO_FULL_TASK_VERIFICATION_EVIDENCE"),
+    ]
+    for mutate in mutations:
+        invalid = copy.deepcopy(ledger)
+        mutate(invalid)
+        try:
+            validate(invalid, source, planning)
+        except AssertionError:
+            continue
+        raise AssertionError("invalid task progress accepted")
+    return len(mutations)
+
+
+def link(path, card):
+    import posixpath
+
+    target = posixpath.relpath(path, posixpath.dirname(card))
+    return f"[{path}](<{target}>)"
+
+
+def block(row, ledger, source):
+    task, card = row["task_id"], row["card"]
+    text = f"{START}\n## 当前完成步骤与剩余工作\n\n"
+    text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。实际负责人、剩余工时及实际完成日期未确认；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+    text += f"同源[状态台账](../execution-status.json)、[全部170任务](../README.md)；实现审查快照 `{ledger['implementation_source_commit'][:12]}`，既有实现验证源码 `{ledger['validated_implementation_source_commit'][:12]}`，归档验证 [CI #{ledger['validated_ci_run_id']}](<{ledger['validated_ci_run_url']}>)。本轮资料校验及同步另见最新回执；开发子范围证据不能代替本卡完整验收。\n\n### 已完成步骤及证据\n\n"
+    if row["completed_steps"]:
+        text += "| 步骤 | 已完成的具体范围 | 证据及适用边界 |\n| --- | --- | --- |\n"
+        for number, step in enumerate(row["completed_steps"], 1):
+            refs = "；".join(link(e["path"], card) + "：" + cell(e["scope"]) for e in step["evidence"])
+            label = "原型验证" if step["kind"] == "PROTOTYPE" else "研发子范围"
+            text += f"| {task}-C{number:02}（{label}） | {cell(step['description'])} | {refs} |\n"
+    else:
+        text += "尚无足以登记为本任务已验证交付的实现证据。已有任务说明、候选契约、共享工程或其他任务的测试，均不自动算成本任务完成步骤；这也不表示已经证明仓库完全不存在相关代码。\n"
+    if row["completed_steps"]:
+        paths = {e["path"] for s in row["completed_steps"] for e in s["evidence"]}
+        text += "\n### 已执行验证与未执行边界\n\n"
+        if "docs/00-project/validation/business-foundation-report.json" in paths:
+            text += "已执行入口：`python scripts/verify_business_foundation.py run`，上述归档轮次共122项隔离业务开发测试通过；是相关子范围的共享回归证据，不是本任务122项验收。采用自建夹具/测试权威适配器，真实身份、正式规则或模型的联调不在该证明范围。\n\n"
+        if "docs/00-project/validation/ci-all-report.json" in paths or "docs/00-project/validation/github-actions-report.json" in paths:
+            text += "已执行入口：隔离Runner中 `python scripts/dev.py ci --allow-stack-changes`，上述归档轮次25道研发门禁通过。不得在共享环境直接照抄允许改栈参数；该命令不证明全部源功能或生产验收。\n\n"
+        if any(s["kind"] == "PROTOTYPE" for s in row["completed_steps"]):
+            scripts = sorted(p for p in paths if p.startswith("scripts/") and p.endswith(".py"))
+            text += "已执行原型入口：" + "、".join(f"`python {p}`" for p in scripts) + "；仅采用报告标注的自建夹具和规模，正式服务/真实业务验证尚未完成。\n\n"
+        text += "本次新增状态记录的检查入口：`python scripts/generate_task_progress.py --check`、`python scripts/validate_inputs.py`；只验证台账、卡片、引用与输入结构，不是补齐剩余业务功能的测试。\n"
+    text += "\n### 未完成的剩余工作\n\n"
+    for number, step in enumerate(row["remaining_steps"], 1):
+        text += f"- [ ] **{task}-R{number:02}／{step['category']}**：{step['description']}\n"
+    fields = source[task]["fields"]
+    text += "\n### 关闭本卡必须满足\n\n"
+    text += f"原验收要求：{fields['验收标准']}\n\n原测试要求：{fields['测试要求']}\n\n"
+    text += "关闭前逐项关联剩余工作、实际改动、输入/代码版本、真实执行命令及结果、异常/权限/回归证据和实际复核人。适用外部条件缺失时保留阻塞项，不能只因签字或CI通过就关闭。下文 `tests/.../test_txxx.py` 等计划位置不等于文件已存在，当前真实证据以上表为准。\n"
+    return text + END
+
+
+def outputs():
+    ledger = read(LEDGER)
+    source = read("tasks/source-task-cards.json")
+    planning = read("docs/00-project/execution-planning-inputs.json")
+    validate(ledger, source, planning)
+    self_test(ledger, source, planning)
+    result = {}
+    for row in ledger["tasks"]:
+        path = ROOT / row["card"]
+        old = path.read_text(encoding="utf-8-sig")
+        current = block(row, ledger, source)
+        if START in old:
+            assert old.count(START) == old.count(END) == 1
+            before, rest = old.split(START)
+            _, after = rest.split(END)
+            updated = before + current + after
+        else:
+            heading, body = old.split("\n", 1)
+            updated = heading + "\n\n" + current + "\n" + body
+        updated = updated.replace("本卡状态：待评审/未执行；实际测试：未执行；审批：待确认；是否可正式关闭：否。", "来源编制时记录：待评审/未执行。此句仅保留历史；当前完成步骤、实际证据及剩余工作以文首执行记录为准，正式审批仍待确认。")
+        updated = updated.replace("## 2026-10-12研发工程实施补充\n", "## 2026-10-12研发工程实施补充（历史快照，非当前状态）\n")
+        updated = updated.replace("本轮研发实施证据见文末", "当前研发实施证据见文首，文末补充为历史快照")
+        updated = updated.replace("状态：待评审独立执行卡；尚未实现。", "来源编制时说明：待评审独立执行卡；该历史描述不代表当前执行状态，当前以文首记录为准。")
+        result[row["card"]] = updated
+    counts = {key: sum(r["status"] == key for r in ledger["tasks"]) for key in LABELS}
+    text = "# 独立任务卡与执行清单\n\n170条源任务一任务一文件；角色、源工时、源依赖、工作范围和原验收要求保留。**每张卡文首均列当前完成步骤、真实证据、未完成清单和关闭条件**。计划输出路径、Mock、候选Schema和其他任务的成功不能充当本卡实现证据。\n\n"
+    text += f"核对日期：{ledger['observed_date']}。登记开发/原型子范围证据 **{counts['PARTIAL_VERIFIED_SCOPE']}项**；尚无本任务已验证交付 **{counts['NO_FULL_TASK_VERIFICATION_EVIDENCE']}项**；完整任务验收 **0/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。\n\n"
+    text += "[当前机器台账](execution-status.json)保存本表及卡片的执行记录；[源字段](source-task-cards.json)、[源索引](backlog.yaml)保留来源状态；[候选依赖](execution-dependencies-candidate.json)不自动当已满足依赖。实际人员、日期及工时在[实际输入](../docs/00-project/execution-planning-inputs.json)中仍为未确认；[排期](../docs/00-project/execution-schedule.md)与本台账的验证状态一致。\n\n"
+    text += "## 使用和更新规则\n\n按卡片的C编号查看已完成步骤，按R编号领取剩余工作；任务关闭仍须逐项满足原验收和测试要求。上传/历史读取/审批等仅登记实际实现的子范围；正式身份、规则、真实模型和生产验收仍有缺口。没有因材料齐全或122项开发测试通过就把170项源任务标为完成。\n\n"
+    text += "第二阶段23步入口见[交付清单](../docs/03-development/stage-two-readiness.md)，全部接口和数据库见[项目文档导航](../docs/README.md)。`output_refs_planned`与卡内计划测试是后续提案；实际证据列仅引用现有文件。更新台账后运行 `python scripts/generate_task_progress.py` 和相应资料生成器；提交前运行同命令加 `--check`，输入校验也会检查本表与170张卡没有漂移。\n\n"
+    text += "## 170任务当前状态与剩余工作\n\n| 任务 | 名称 | 类别 | 当前状态 | 已完成范围 | 未完成的主要工作 |\n| --- | --- | --- | --- | --- | --- |\n"
+    for row in ledger["tasks"]:
+        category = row["card"].split("/")[1]
+        target = row["card"].removeprefix("tasks/")
+        text += f"| [{row['task_id']}]({target}) | {cell(row['name'])} | {category} | {LABELS[row['status']]} | {cell(row['summary_completed'])} | {cell(row['summary_remaining'])} |\n"
+    result["tasks/README.md"] = text
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    differences = []
+    for path, content in outputs().items():
+        target = ROOT / path
+        if args.check:
+            if target.read_bytes() != content.encode():
+                differences.append(path)
+        else:
+            target.write_bytes(content.encode())
+    print(json.dumps({"status": "FAIL" if differences else "PASS", "task_cards": 170, "negative_guard_cases": 7, "full_task_acceptance_asserted": False, "differences": differences}, ensure_ascii=False))
+    return bool(differences)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
