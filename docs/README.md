@@ -38,10 +38,10 @@
 
 | 编号/原步骤/责任角色 | 工作及已有状态 | 仍需完成 | 文档与关闭标准 |
 | --- | --- | --- | --- |
-| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 继续其余11项及正式身份/来源协议、审批/复核/反馈/发布/导出/配置等契约、实现与联调；首批所选范围见实际报告。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<03-api/interface-gap-register.md>)、[contract-generation.md](<03-development/contract-generation.md>) |
-| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 继续任务所需的其余表DAO、逐表RLS/关联隔离、生产升级及回退；当前冷迁移/上传/快照实测不替代全表业务验收。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<04-database/database-design.md>)、[poc-database.md](<04-database/poc-database.md>) |
+| S2-N01 / P0<br>步19<br>架构/前后端/算法/测试（实际姓名待定） | 整体接口流程和必要服务契约<br>待落实实际条件及对应交付 | 其余业务操作和真实身份/来源/审批规则等正式接入仍需实施验证；已有子范围不重记为未实现，也不据此关闭全部13项正式缺口。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n01>)<br>[interface-gap-register.md](<03-api/interface-gap-register.md>)、[contract-generation.md](<03-development/contract-generation.md>) |
+| S2-N02 / P0<br>步7<br>数据库/后端/安全（实际姓名待定） | 业务数据库访问层与升级迁移<br>待落实实际条件及对应交付 | 按剩余任务补齐所有业务访问和逐表场景、生产升级/回退/特权边界验证；初始化SQL不能代替实际迁移，也不把现有隔离验证当正式生产部署。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n02>)<br>[database-design.md](<04-database/database-design.md>)、[poc-database.md](<04-database/poc-database.md>) |
 | S2-N03 / P0<br>步9,19,20<br>后端/算法/测试（实际姓名待定） | 完整任务编排、取消与多worker故障<br>待落实实际条件及对应交付 | 实施实际调度器与多worker消息故障演练；当前8数据库竞争者不是8Celery worker，全业务DAG未运行。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n03>)<br>[task-state-machine.md](<05-workflows/task-state-machine.md>)、[migrations-and-events.md](<03-development/migrations-and-events.md>) |
-| S2-N04 / P0<br>步15<br>身份平台/业务安全/后端（实际姓名待定） | 正式身份与案件/单位隔离<br>待落实实际条件及对应交付 | 取得身份issuer/JWKS或其他正式协议、角色/单位/案件权威映射和撤销SLA，实施验证后联调；共享DB设置不能充当身份认证。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n04>)<br>[security-baseline.md](<02-architecture/security-baseline.md>)、[permission-matrix.md](<08-security/permission-matrix.md>) |
+| S2-N04 / P0<br>步15<br>身份平台/业务安全/后端（实际姓名待定） | 正式身份与案件/单位隔离<br>待落实实际条件及对应交付 | 提供真实issuer/密钥或获准身份协议及用户/单位/案件映射，再验证签验、撤销、用途及正式权限策略。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n04>)<br>[security-baseline.md](<02-architecture/security-baseline.md>)、[permission-matrix.md](<08-security/permission-matrix.md>) |
 | S2-N05 / P0<br>步1,2,8,16<br>Linux及Docker运维/资源管理（实际姓名待定） | 项目配额与研发数据卷容量<br>待落实实际条件及对应交付 | 补实际扩容维护/整盘备份与恢复记录、项目独占配额和维护人；数据/权重/GPU授权及正式资源验收仍需落实。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n05>)<br>[resource-readiness-snapshot.json](<00-project/validation/resource-readiness-snapshot.json>)、[resource-and-team-inventory.md](<02-architecture/resource-and-team-inventory.md>) |
 | S2-N06 / P0<br>步12,13<br>数据/算法/GPU运维（实际姓名待定） | 业务模型、OCR/ASR及GPU验证<br>待落实实际条件及对应交付 | 提供有用途授权的数据目录、权重许可/来源/摘要、实际GPU与驱动，实施逐能力训练/推理和独立封存盲测；M15合成CPU不代替业务能力。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n06>)<br>[model-catalog.yaml](<06-algorithms/model-catalog.yaml>)、[model-evaluation.md](<06-algorithms/model-evaluation.md>) |
 | S2-N07 / P1<br>步14<br>媒体/算法/后端/测试（实际姓名待定） | 真实媒体、VFR和全时间轴链路<br>待落实实际条件及对应交付 | 实际授权媒体的多编码/VFR/缺模态/裁剪/转码链路及OCR/ASR、长视频性能仍需实现和实测；本轮仅自建夹具。 | [前置条件、全部证据及关闭标准](<00-project/remaining-work-navigation.md#s2-n07>)<br>[media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>)、[TB-ADR-010-media-processing.md](<02-architecture/architecture-decisions/TB-ADR-010-media-processing.md>) |
@@ -512,7 +512,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共638份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共639份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -705,6 +705,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-two-software-report.json](<00-project/validation/stage-two-software-report.json>) | 7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。 |
 | [00-project/validation/stage-two-supplement-report.json](<00-project/validation/stage-two-supplement-report.json>) | 6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。 |
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |
+| [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/sql-attempt-01.json](<00-project/validation/upstream/sql-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |

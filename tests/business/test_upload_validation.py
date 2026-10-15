@@ -8,10 +8,45 @@ from uuid import UUID, uuid4
 
 import psycopg
 import pytest
+from app.tracing import safe_log, trace_context
 from fastapi.testclient import TestClient
 from PIL import Image
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
+
+
+def test_replayed_upload_event_uses_its_own_trace_inside_another_request(business_context, caplog):
+    app, http, upload, descriptor = prepared_upload(business_context)
+    try:
+        assert complete(http, upload, descriptor).status_code == 202
+        message = event(business_context, upload)
+        outer = str(uuid4())
+        assert message["request_id"] != outer
+        with caplog.at_level("INFO", logger="media_trace"):
+            with trace_context(outer):
+                safe_log("test.replay.outer.before")
+                consumer = worker(app, business_context)
+                consumer.consume_validation(message)
+                consumer.consume_validation(message)
+                safe_log("test.replay.outer.after")
+        records = [json.loads(record.message) for record in caplog.records if record.name == "media_trace"]
+        deliveries = [record for record in records if record["event"] == "upload.validation.started"]
+        assert len(deliveries) == 2
+        assert all(
+            record["request_id"] == message["request_id"]
+            and record["trace_id"] == message["request_id"].replace("-", "")
+            and record["upload_id"] == str(upload)
+            for record in deliveries
+        )
+        assert [
+            (record["event"], record["request_id"]) for record in records if record["event"].startswith("test.replay.")
+        ] == [("test.replay.outer.before", outer), ("test.replay.outer.after", outer)]
+        result = http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()
+        assert result["session"]["state"] == "COMPLETED" and result["result"]["asset_id"] is not None
+        with psycopg.connect(business_context["admin_dsn"]) as connection:
+            assert scalar(connection, "SELECT count(*) FROM mt.media_asset") == 1
+    finally:
+        http.__exit__(None, None, None)
 
 
 def test_truncated_jpeg_never_becomes_valid():

@@ -101,7 +101,7 @@ def block(row, ledger, source):
         paths = {e["path"] for s in row["completed_steps"] for e in s["evidence"]}
         text += "\n### 已执行验证与未执行边界\n\n"
         if "docs/00-project/validation/business-foundation-report.json" in paths:
-            text += "已执行入口：`python scripts/verify_business_foundation.py run`，隔离业务开发测试的数量和源码以最新business-foundation-report及同步回执为准；是相关子范围的共享回归证据，不是本任务122项验收。采用自建夹具/测试权威适配器，真实身份、正式规则或模型的联调不在该证明范围。\n\n"
+            text += "已执行入口：`python scripts/verify_business_foundation.py run`，隔离业务开发测试的数量和源码以最新business-foundation-report及同步回执为准；是相关子范围的共享回归证据，不是本任务的全部验收。采用自建夹具/测试权威适配器，真实身份、正式规则或模型的联调不在该证明范围。\n\n"
         if "docs/00-project/validation/ci-all-report.json" in paths or "docs/00-project/validation/github-actions-report.json" in paths:
             text += "已执行入口：隔离Runner中 `python scripts/dev.py ci --allow-stack-changes`，逐道研发门禁及数量以最新ci-all-report与GitHub制品为准。不得在共享环境直接照抄允许改栈参数；该命令不证明全部源功能或生产验收。\n\n"
         if any(s["kind"] == "PROTOTYPE" for s in row["completed_steps"]):

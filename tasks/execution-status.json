@@ -1,21 +1,30 @@
 {
-  "revision": "foundation-closeout-20261016",
+  "revision": "strict-foundation-followup-20261016",
   "observed_date": "2026-10-16",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
   "completion_percentage_asserted": false,
-  "implementation_source_commit": "225060b494749e111cf49264094da14ab85c0cb0",
-  "validated_implementation_source_commit": "88dd5f681d0d3ba9d2f38fdad2c068d4f001962d",
-  "validated_ci_run_id": 38681114476,
-  "validated_ci_run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38681114476",
+  "implementation_source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
+  "validated_implementation_source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
+  "validated_ci_run_id": 38776619729,
+  "validated_ci_run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38776619729",
   "source_task_cards_sha256": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
   "audit_observations": {
+    "observed_at": "2026-10-15T17:54:27.270246+00:00",
     "branch_protected": false,
-    "branch_protection_and_rulesets_http_status": 403,
-    "local_pre_commit_hook_observed": false,
-    "business_unknown_500_content_type": "text/plain; charset=utf-8",
-    "business_unmatched_404_uniform_error": false,
-    "audit_is_not_a_fix": true
+    "branch_protection_http_status": 403,
+    "rulesets_http_status": 403,
+    "platform_evidence_ref": "docs/00-project/validation/repository-governance-snapshot.json",
+    "linux_pre_commit_hook_verified": true,
+    "linux_hook_evidence_ref": "docs/00-project/validation/development-hook-report.json",
+    "windows_native_pre_commit_hook_verified": false,
+    "business_unknown_500_content_type": "application/problem+json",
+    "business_unmatched_404_uniform_error": true,
+    "business_http_evidence_ref": "tests/business/test_foundation_errors.py",
+    "business_http_scope": "isolated_source_validation_not_shared_runtime_deployment",
+    "validated_source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
+    "validated_ci_run_id": 38776619729,
+    "audit_is_not_formal_acceptance": true
   },
   "tasks": [
     {
@@ -300,7 +309,7 @@
       "actual_owner": null,
       "full_task_verified": false,
       "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础；ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查",
-      "summary_remaining": "Linux选定工作区钩子按实际安装/运行报告认定；Windows原生环境及其他开发者端尚待安装验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础",
@@ -354,7 +363,7 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "Linux选定工作区钩子按实际安装/运行报告认定；Windows原生环境及其他开发者端尚待安装验证。"
+          "description": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。"
         },
         {
           "category": "任务记录",
@@ -483,7 +492,7 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "PoC JSON请求日志、request_id及trace_origin传播已有验证；API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号",
+      "summary_completed": "PoC JSON请求日志、request_id及trace_origin传播已有验证；API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号；新增同事件循环8请求内部日志逐条身份核对、嵌套异常后上下文恢复、真实数据库上传事件重复消费与外层上下文隔离；三种受控错误均被测试拒绝",
       "summary_remaining": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
@@ -535,6 +544,24 @@
             {
               "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
               "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+            }
+          ]
+        },
+        {
+          "description": "新增同事件循环8请求内部日志逐条身份核对、嵌套异常后上下文恢复、真实数据库上传事件重复消费与外层上下文隔离；三种受控错误均被测试拒绝",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "tests/stage_three/test_foundation_tracing.py",
+              "scope": "选定研发追踪回归及隔离变异验证；非完整DAG、采样、跨进程聚合或真实身份验收"
+            },
+            {
+              "path": "tests/business/test_upload_validation.py",
+              "scope": "选定研发追踪回归及隔离变异验证；非完整DAG、采样、跨进程聚合或真实身份验收"
+            },
+            {
+              "path": "docs/00-project/validation/trace-regression-report.json",
+              "scope": "选定研发追踪回归及隔离变异验证；非完整DAG、采样、跨进程聚合或真实身份验收"
             }
           ]
         }
@@ -5985,6 +6012,26 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ]
+    }
+  ],
+  "prior_archived_implementation_evidence": [
+    {
+      "implementation_source_commit": "225060b494749e111cf49264094da14ab85c0cb0",
+      "validated_implementation_source_commit": "88dd5f681d0d3ba9d2f38fdad2c068d4f001962d",
+      "validated_ci_run_id": 38681114476,
+      "validated_ci_run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38681114476"
+    }
+  ],
+  "audit_observation_history": [
+    {
+      "branch_protected": false,
+      "branch_protection_and_rulesets_http_status": 403,
+      "local_pre_commit_hook_observed": false,
+      "business_unknown_500_content_type": "text/plain; charset=utf-8",
+      "business_unmatched_404_uniform_error": false,
+      "audit_is_not_a_fix": true,
+      "scope": "prior_audit_before_foundation_closeout_not_current",
+      "implementation_source_commit": "225060b494749e111cf49264094da14ab85c0cb0"
     }
   ]
 }
