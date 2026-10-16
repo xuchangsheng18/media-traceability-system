@@ -2,7 +2,9 @@
 
 开源入口：[公开范围与Apache-2.0许可](00-project/open-source-publication.md)、[实际公开验证记录](00-project/validation/open-source-publication-report.json)。既有原件和历史记录保留，仓库公开与业务验收分别记录。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[686条执行事项逐项清单](00-project/task-execution-steps.txt)。分步导航按170项任务列已完成数、剩余数及全局序号范围；逐项清单按0001—0686编号，列65条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
+T011/T012身份底座：[本批设计](03-development/t012-identity-relations-design.md)、[数据库关系与补充字典](04-database/identity-relations.md)、[实际验证与研发库](00-project/validation/t012-identity-relations-report.json)。
+
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[689条执行事项逐项清单](00-project/task-execution-steps.txt)。分步导航按170项任务列已完成数、剩余数及全局序号范围；逐项清单按0001—0689编号，列68条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -404,7 +406,12 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
-| [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、单位和案件范围、八个既有实体关系、分类槽与撤销/版本边界；独立合成评审，不是正式权限源。 |
+| [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、九个实体及身份/单位/案件关系；候选权限评审与后续0004持久化分别列证据，尚无正式身份授权。 |
+| [03-development/t012-identity-relations-design.md](<03-development/t012-identity-relations-design.md>) | 身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。 |
+| [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
+| [04-database/identity-relations.md](<04-database/identity-relations.md>) | 新增身份映射13列、单位开关和角色撤销2列、复合约束及恢复要求；区分原62表825字段与迁移后63表840字段。 |
+| [04-database/identity-relations-catalog.json](<04-database/identity-relations-catalog.json>) | 0004逐列类型/约束/源码位置和摘要、既有表增量、实际结构版本及没有新增外部API字段的说明。 |
+| [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
 | [08-security/access-control-model.json](<08-security/access-control-model.json>) | T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。 |
 | [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
 | [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
@@ -519,7 +526,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共647份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共652份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -609,7 +616,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内686条执行事项逐条编号：65条完成子步骤、621条剩余工作；保留具体内容、C/R编号、证据及源依赖/测试/验收要求，整任务关闭仍为0。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内689条执行事项逐条编号：65条完成子步骤、621条剩余工作；保留具体内容、C/R编号、证据及源依赖/测试/验收要求，整任务关闭仍为0。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -717,6 +724,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |
 | [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
 | [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
+| [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1026,6 +1034,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-two-implementation-plan.md](<03-development/stage-two-implementation-plan.md>) | 资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。 |
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
 | [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
+| [03-development/t012-identity-relations-design.md](<03-development/t012-identity-relations-design.md>) | 身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。 |
+| [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
@@ -1038,6 +1048,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/er-diagram.md](<04-database/er-diagram.md>) | 表关系图，便于阅读；完整复合外键以SQL和字典为准。 |
 | [04-database/field-provenance.json](<04-database/field-provenance.json>) | 逐字段来源索引：定义状态、JSON Pointer、SQL对象和实际API字段映射。 |
 | [04-database/first-source-ranking.md](<04-database/first-source-ranking.md>) | 首发排序批次、0—3候选、版本、连续名次、唯一性及API语义。 |
+| [04-database/identity-relations-catalog.json](<04-database/identity-relations-catalog.json>) | 0004逐列类型/约束/源码位置和摘要、既有表增量、实际结构版本及没有新增外部API字段的说明。 |
+| [04-database/identity-relations.md](<04-database/identity-relations.md>) | 新增身份映射13列、单位开关和角色撤销2列、复合约束及恢复要求；区分原62表825字段与迁移后63表840字段。 |
 | [04-database/initial-schema.sql](<04-database/initial-schema.sql>) | 新空库候选初始化SQL，包含表、约束、权限、触发器及字段注释；不能直接覆盖现有业务库。 |
 | [04-database/poc-database.md](<04-database/poc-database.md>) | 独立开发5表含账本/审计、逐字段来源、outbox与旧租约拒绝；区别于62表业务字典/SQL。 |
 | [04-database/README.md](<04-database/README.md>) | 所在专题的局部导航与阅读入口 |
@@ -1118,7 +1130,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [07-datasets/dataset-split-policy.md](<07-datasets/dataset-split-policy.md>) | 按来源组等条件划分，隔离验证、校准与封存测试用途。 |
 | [07-datasets/README.md](<07-datasets/README.md>) | 所在专题的局部导航与阅读入口 |
 | [08-security/access-control-model.json](<08-security/access-control-model.json>) | T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。 |
-| [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、单位和案件范围、八个既有实体关系、分类槽与撤销/版本边界；独立合成评审，不是正式权限源。 |
+| [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、九个实体及身份/单位/案件关系；候选权限评审与后续0004持久化分别列证据，尚无正式身份授权。 |
 | [08-security/audit-requirements.md](<08-security/audit-requirements.md>) | 应记录的主体、对象、版本、动作、结果与追踪信息。 |
 | [08-security/data-classification.md](<08-security/data-classification.md>) | 数据类别、敏感性和处理要求。 |
 | [08-security/permission-matrix.md](<08-security/permission-matrix.md>) | 角色与动作权限的对应关系及限制。 |

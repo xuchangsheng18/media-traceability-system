@@ -2,7 +2,7 @@
 
 2026-10-16；状态为候选设计与合成评审验证，不是正式权限批准。对应[任务卡T011](../../tasks/platform/T011.md)、[机器模型](access-control-model.json)和[完整权限矩阵](permission-matrix.md#t011-全部权限码评审矩阵)。正式身份、业务策略、数据分级及真实负责人仍未落实。
 
-本轮交付是可核对的模型关系、六类角色与全部权限码的评审矩阵，以及默认拒绝和越权场景的可执行设计验证。校验工具位于tools，不由业务应用导入，不实现登录、令牌签验或真实授权；T012至T015仍负责实际访问层、权威身份和权限接入。当前业务路由、OpenAPI、已有迁移和原100包运行锁均沿用。
+本文原评审批次交付是可核对的模型关系、六类角色与全部权限码的评审矩阵，以及默认拒绝和越权场景的可执行设计验证。校验工具位于tools，不由业务应用导入，不实现登录、令牌签验或真实授权；T012至T015仍负责实际访问层、权威身份和权限接入。该评审批次未改变业务路由、OpenAPI和运行锁。2026-10-16后续身份数据补齐新增0004迁移及实际SQL访问层，见[数据库补充字典](../04-database/identity-relations.md)、[本批设计](../03-development/t012-identity-relations-design.md)及[T012实测记录](../00-project/validation/t012-identity-relations-report.json)；真实令牌验证和授权平台尚未接入。
 
 ## 输入与依赖核对
 
@@ -17,6 +17,7 @@
 erDiagram
     organizations ||--o{ users : contains
     organizations ||--o{ cases : owns
+    users ||--o{ user_identities : explicitly_maps
     users ||--o{ user_roles : receives
     roles ||--o{ user_roles : binds
     roles ||--o{ role_permissions : maps
@@ -28,15 +29,15 @@ erDiagram
 | 概念 | 现有字段与约束 | 本轮边界及后续要求 |
 | --- | --- | --- |
 | 单位 | organizations.org_id；users.org_id；cases.org_id | 操作者、案件成员和资源必须属于相同获准单位；跨单位共享不从角色名推定，等待正式协议。 |
-| 用户 | users.user_id、subject、enabled、row_version；enabled默认false | subject当前全局唯一，尚无issuer列；多身份方同名主体不能自动合并。后续权威映射如需新字段，须有契约和迁移。 |
+| 用户 | users.user_id、subject、enabled、row_version；enabled默认false | 旧subject仍是兼容唯一标签；外部映射使用新增user_identities的issuer/subject联合唯一键。不同身份方不自动合并，正式令牌验证和登记依据仍待接入。 |
 | 角色 | roles.role_id、code、description、row_version | 本文六个代码是候选标识，不创建实际账号或写入真实角色目录。管理员没有业务内容通配权限。 |
 | 功能权限 | permissions.permission_id、code及role_permissions | code绑定唯一OpenAPI的x-required-permission。角色职责只是评审依据，不产生正式允许值。 |
-| 角色绑定 | user_roles.user_id、role_id、expires_at、row_version | 角色到期与变更必须重新核验；当前未具备完整撤销和策略版本协议，T012/T013需补实际机制。 |
-| 案件范围 | case_membership.user_id、org_id、case_id、expires_at、revoked_at；case_id与org_id复合外键 | 功能权限和案件成员同时有效才可进入候选对象判定；SQL RLS是防御层，不认证HTTP身份。 |
+| 角色绑定 | user_roles.user_id、role_id、expires_at、row_version | 角色到期与变更必须重新核验；0004已增加revoked_at及终态保护，DAO支持条件撤销；权威撤销同步及完整策略版本仍待T013/T014接入。 |
+| 案件范围 | case_membership.user_id、org_id、case_id、expires_at、revoked_at；案件及用户分别与org_id组成复合外键 | 功能权限和案件成员同时有效才可进入候选对象判定；SQL RLS是防御层，不认证HTTP身份。 |
 | 对象与用途 | 由对应资源的org_id、case_id、object_id及其来源授权获得 | 对象、用途、来源撤销和结果版本按现有业务契约核验。评审夹具的对象授权不能直接落入现有角色绑定表。 |
 | 数据分类与密级 | 正式级别、标签策略和对应持久字段尚未确定 | 机器模型保留null政策引用和空正式等级。本批没有新增classification列、法定级别、数字阈值或映射表。 |
 
-上述字段从[既有版本迁移](../../backend/business_migrations/0001_business_baseline.sql)和[数据字典](../04-database/data-dictionary.md)核对。本轮不改变物理结构；用户角色有效性、用途、分类和策略版本的实际接入若需要存储变更，应由后续任务同步SQL、字典、映射和迁移，不能把评审数据类当已实现的业务表。
+上述字段从[既有版本迁移](../../backend/business_migrations/0001_business_baseline.sql)和[数据字典](../04-database/data-dictionary.md)核对。原评审批次不改变物理结构；后续0004身份扩展及其实际版本见补充字典；用户角色有效性、用途、分类和策略版本的实际接入若需要存储变更，应由后续任务同步SQL、字典、映射和迁移，不能把评审数据类当已实现的业务表。
 
 ## 六类角色与权限矩阵
 

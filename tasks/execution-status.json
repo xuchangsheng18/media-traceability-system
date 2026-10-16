@@ -1,5 +1,5 @@
 {
-  "revision": "t011-access-model-20261016",
+  "revision": "t011-t012-identity-relations-20261016",
   "observed_date": "2026-10-16",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
@@ -720,8 +720,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "T002/T010本批依赖已核对；六角色/单位/案件/分类槽设计、41权限码及73操作矩阵与56项合成评审测试已有证据",
-      "summary_remaining": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定；补正式身份方/主体映射、角色撤销和策略版本设计；实际持久化和运行时接入由T012至T015按依赖实现，本批评审器不得充当权威授权源；落实实际责任人及权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收",
+      "summary_completed": "T002/T010本批依赖已核对；六角色/单位/案件/分类槽设计、41权限码及73操作矩阵与56项合成评审测试已有证据；身份/单位/案件关系及稳定映射增量设计已与实际数据库验证对齐",
+      "summary_remaining": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定；接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权；落实实际责任人及权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收",
       "completed_steps": [
         {
           "description": "已核对T002配置追踪13例及T010五份模板，本批设计所需研发依赖满足；上游整卡仍未关闭",
@@ -790,6 +790,24 @@
               "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
             }
           ]
+        },
+        {
+          "description": "补齐issuer/subject到内部用户映射、单位/案件同域关系、稳定键和终态撤销设计，并与0004迁移及数据库专项验证对齐",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "docs/03-development/t012-identity-relations-design.md",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "docs/04-database/identity-relations.md",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "docs/00-project/validation/t012-identity-relations-report.json",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -799,7 +817,7 @@
         },
         {
           "category": "后续接入边界",
-          "description": "补正式身份方/主体映射、角色撤销和策略版本设计；实际持久化和运行时接入由T012至T015按依赖实现，本批评审器不得充当权威授权源"
+          "description": "接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权"
         },
         {
           "category": "任务复核",
@@ -815,8 +833,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "用户/角色/权限/案件成员候选表已通过隔离迁移验证",
-      "summary_remaining": "实现并验证完整身份模型访问/管理和约束；接入正式身份映射后核对禁用、角色变更和历史兼容",
+      "summary_completed": "用户/角色/权限/案件成员候选表已通过隔离迁移验证；身份映射和单位案件关系增量、受限目录DAO及独立空研发库已建立并验证",
+      "summary_remaining": "补完整角色/权限目录及绑定管理、正式人员生命周期审计和实际管理入口；本批内部身份DAO不等于全部用户权限管理完成；接入正式身份映射后核对禁用、角色变更和历史兼容；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "用户/角色/权限/案件成员候选表已通过隔离迁移验证",
@@ -835,12 +853,52 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "description": "0004增量迁移、精确外部身份映射、同单位复合外键、不可改绑及内部目录DAO已实现；禁用/到期/撤销/并发和权限隔离经真实PostgreSQL验证",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_migrations/0004_identity_relations.sql",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "backend/business_app/identity/directory.py",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "tests/business/test_identity_directory.py",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "tests/business/test_migrations.py",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "docs/00-project/validation/t012-identity-relations-report.json",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            }
+          ]
+        },
+        {
+          "description": "Linux已新建独立空身份研发库并应用0001—0004，实际63表840字段；没有真实账号和案件数据，私密连接信息留在Git外",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "docs/00-project/validation/t012-identity-relations-report.json",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            },
+            {
+              "path": "docs/04-database/identity-relations.md",
+              "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "实现并验证完整身份模型访问/管理和约束"
+          "description": "补完整角色/权限目录及绑定管理、正式人员生命周期审计和实际管理入口；本批内部身份DAO不等于全部用户权限管理完成"
         },
         {
           "category": "实施/外部条件",
@@ -850,7 +908,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "development_validation_report": "docs/00-project/validation/t012-identity-relations-report.json"
     },
     {
       "task_id": "T013",

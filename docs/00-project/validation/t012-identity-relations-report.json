@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "task_id": "T012",
+  "observed_at": "2026-10-16T12:50:59.369386+00:00",
+  "python": "3.10.22",
+  "postgres_version": "16.15",
+  "scope": "isolated_development_identity_mapping_units_cases_and_versioned_migrations",
+  "production_enabled": false,
+  "runtime_authorization_asserted": false,
+  "formal_accepted": false,
+  "local_source_base_commit": "29335ce6b70f8813fd743d80ae36cbecd3547940",
+  "source_is_private_snapshot": true,
+  "source_file_sha256": {
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/directory.py": "e1e190cfd35be005271028015a1d56ad93bf4b334405334e6a75ff2958e790d2",
+    "backend/business_app/errors.py": "27e056903171fefb7bef6e37be77ab356b46ddbdc57b6e7f75e24c324f9dba51",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "tests/business/test_identity_directory.py": "fe3b488246db600c843983a356187ceb746802de38b3c837ce96a75a2b41cab1",
+    "tests/business/test_migrations.py": "6a01b3a4e44aef9bf60e0754756efe0d9bbe37852faa463121e2f88938f00d8b",
+    "tests/platform/test_t011.py": "39cda3c8027ac6b163dba659525c64794ed3f5f8657f5a82eb240960b0f4bd20",
+    "scripts/validate_access_control_model.py": "44ae9ff2bb714a8815f19825a302bb6aba75a5b585c87452a940fa9cc2d90097",
+    "schemas/security/access-control-model.schema.json": "b7a72eade94d4a59e8c3b22e768f902b8af93eda0feca9613ff67b3e50897712"
+  },
+  "identity_test_run": {
+    "tests": 28,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "full_regression": {
+    "tests": 311,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "command": "python -m pytest tests/business tests/platform tests/stage_three tests/poc -q --tb=short",
+  "regression_warning": "one pre-existing FastAPI TestClient deprecation warning; runtime lock unchanged",
+  "baseline_tests": 276,
+  "development_database": {
+    "name": "mt_business_identity_dev_20261016",
+    "newly_created": true,
+    "isolated": true,
+    "shared_services_restarted": false,
+    "applied_migrations": [
+      "0001",
+      "0002",
+      "0003",
+      "0004"
+    ],
+    "migration_replay_noop": true,
+    "migration_ledger": [
+      {
+        "version": "0001",
+        "sha256": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa"
+      },
+      {
+        "version": "0002",
+        "sha256": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953"
+      },
+      {
+        "version": "0003",
+        "sha256": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6"
+      },
+      {
+        "version": "0004",
+        "sha256": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2"
+      }
+    ],
+    "tables": 63,
+    "fields": 840,
+    "identity_and_case_row_counts": {
+      "organizations": 0,
+      "users": 0,
+      "cases": 0,
+      "case_membership": 0,
+      "user_identities": 0,
+      "user_roles": 0
+    },
+    "credentials_committed": false,
+    "private_connection_file_mode": "0o600"
+  },
+  "red_green_evidence": [
+    {
+      "test": "identity directory missing",
+      "red": "new tests failed before implementation",
+      "green": "included in actual PostgreSQL regression"
+    },
+    {
+      "test": "test_expiry_rechecked_in_the_same_open_transaction",
+      "red": "1 failed, 27 passed with transaction-start time",
+      "green": "statement timestamp and full regression passed"
+    },
+    {
+      "test": "migration owner plus unsafe role inheritance",
+      "red": "5 selected PostgreSQL tests failed before fix",
+      "green": "all selected owner and direct/indirect inheritance cases included in full regression"
+    },
+    {
+      "test": "missing identity entity in candidate model",
+      "red": "missing entity was incorrectly accepted",
+      "green": "exact nine-entity coverage enforced"
+    }
+  ],
+  "independent_review": {
+    "required_findings": 2,
+    "minor_findings": 1,
+    "required_findings_fixed": true,
+    "minor_fixed": true,
+    "second_review_not_claimed": true
+  },
+  "remaining": [
+    "real identity protocol, provider keys/allowlist and authoritative personnel mapping",
+    "full role/permission administration, lifecycle audit and actual management endpoint",
+    "policy version and authoritative revocation synchronization",
+    "formal owner/review and production acceptance"
+  ],
+  "shared_poc_untouched": true,
+  "original_100_package_lock_unchanged": true
+}

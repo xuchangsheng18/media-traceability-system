@@ -2,6 +2,8 @@
 
 本轮0.4-review候选。先读设计与字典，再核对SQL、接口映射和排序契约。
 
+新增[T011/T012身份、单位与案件关系](identity-relations.md)、[机器扩展字典](identity-relations-catalog.json)及[0004迁移](../../backend/business_migrations/0004_identity_relations.sql)。原初始化基线62表825字段保留；应用0001—0004后的实际库为63表840字段，适用版本须区分。
+
 - [api-field-mapping.csv](api-field-mapping.csv)
 - [api-field-mapping.json](api-field-mapping.json)
 - [api-field-mapping.md](api-field-mapping.md)

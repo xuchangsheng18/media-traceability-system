@@ -1,0 +1,189 @@
+{
+  "revision": "t012-20261016",
+  "status": "DEVELOPMENT_IMPLEMENTED_FORMAL_INPUTS_PENDING",
+  "baseline": {
+    "tables": 62,
+    "fields": 825,
+    "catalog": "docs/04-database/table-catalog.json"
+  },
+  "runtime_after_0004": {
+    "tables": 63,
+    "fields": 840
+  },
+  "migration": {
+    "path": "backend/business_migrations/0004_identity_relations.sql",
+    "sha256": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2"
+  },
+  "new_tables": [
+    {
+      "name": "mt.user_identities",
+      "columns": [
+        {
+          "name": "identity_id",
+          "type": "uuid",
+          "constraints": " PRIMARY KEY",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 26
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "constraints": " NOT NULL",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 27
+        },
+        {
+          "name": "org_id",
+          "type": "uuid",
+          "constraints": " NOT NULL",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 28
+        },
+        {
+          "name": "issuer",
+          "type": "text",
+          "constraints": " COLLATE \"C\" NOT NULL CHECK(issuer<>'' AND issuer=btrim(issuer) AND length(issuer)<=2048 AND issuer !~ '[[:cntrl:]]')",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 29
+        },
+        {
+          "name": "subject",
+          "type": "text",
+          "constraints": " COLLATE \"C\" NOT NULL CHECK(subject<>'' AND subject=btrim(subject) AND length(subject)<=1024 AND subject !~ '[[:cntrl:]]')",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 30
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "constraints": " NOT NULL DEFAULT false",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 31
+        },
+        {
+          "name": "expires_at",
+          "type": "timestamptz",
+          "constraints": "",
+          "nullable": true,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 32
+        },
+        {
+          "name": "revoked_at",
+          "type": "timestamptz",
+          "constraints": "",
+          "nullable": true,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 33
+        },
+        {
+          "name": "mapping_version",
+          "type": "text",
+          "constraints": " NOT NULL CHECK(mapping_version<>'' AND mapping_version=btrim(mapping_version))",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 34
+        },
+        {
+          "name": "created_at",
+          "type": "timestamptz",
+          "constraints": " NOT NULL DEFAULT now()",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 35
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "constraints": " NOT NULL DEFAULT now()",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 36
+        },
+        {
+          "name": "row_version",
+          "type": "bigint",
+          "constraints": " NOT NULL DEFAULT 1 CHECK(row_version>0)",
+          "nullable": false,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 37
+        },
+        {
+          "name": "created_by",
+          "type": "uuid",
+          "constraints": "",
+          "nullable": true,
+          "source": "backend/business_migrations/0004_identity_relations.sql",
+          "source_line": 38
+        }
+      ],
+      "unique_keys": [
+        [
+          "identity_id"
+        ],
+        [
+          "issuer",
+          "subject"
+        ]
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "user_id",
+            "org_id"
+          ],
+          "target": "mt.users(user_id,org_id)"
+        }
+      ],
+      "definition": "docs/04-database/identity-relations.md"
+    }
+  ],
+  "added_columns": [
+    {
+      "table": "mt.organizations",
+      "name": "enabled",
+      "type": "boolean",
+      "nullable": false,
+      "default_sql": "true",
+      "meaning": "Compatibility-preserving unit switch; not formal authorization"
+    },
+    {
+      "table": "mt.user_roles",
+      "name": "revoked_at",
+      "type": "timestamptz",
+      "nullable": true,
+      "default_sql": null,
+      "meaning": "Terminal role binding revocation; runtime authority integration remains pending"
+    }
+  ],
+  "added_constraints": [
+    {
+      "table": "mt.users",
+      "name": "users_id_org_unique",
+      "kind": "UNIQUE",
+      "columns": [
+        "user_id",
+        "org_id"
+      ]
+    },
+    {
+      "table": "mt.case_membership",
+      "name": "membership_user_org_fk",
+      "kind": "FOREIGN KEY",
+      "columns": [
+        "user_id",
+        "org_id"
+      ],
+      "target": "mt.users(user_id,org_id)"
+    }
+  ],
+  "api_field_mapping_changed": false,
+  "api_field_mapping_reason": "Internal identity persistence; no new external API fields",
+  "formal_accepted": false
+}

@@ -37,7 +37,12 @@ def main():
         "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。",
     )
     entries = {
-        "08-security/access-control-model.md": "T011六角色、单位和案件范围、八个既有实体关系、分类槽与撤销/版本边界；独立合成评审，不是正式权限源。",
+        "08-security/access-control-model.md": "T011六角色、九个实体及身份/单位/案件关系；候选权限评审与后续0004持久化分别列证据，尚无正式身份授权。",
+        "03-development/t012-identity-relations-design.md": "身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。",
+        "03-development/t012-identity-relations-plan.md": "本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。",
+        "04-database/identity-relations.md": "新增身份映射13列、单位开关和角色撤销2列、复合约束及恢复要求；区分原62表825字段与迁移后63表840字段。",
+        "04-database/identity-relations-catalog.json": "0004逐列类型/约束/源码位置和摘要、既有表增量、实际结构版本及没有新增外部API字段的说明。",
+        "00-project/validation/t012-identity-relations-report.json": "实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。",
         "08-security/access-control-model.json": "T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。",
         "03-development/t011-access-model-implementation.md": "T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。",
         "00-project/validation/t011-access-model-report.json": "实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。",

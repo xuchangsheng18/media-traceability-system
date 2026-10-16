@@ -216,6 +216,13 @@ def test_policy_catalog_rejects_missing_operation_and_unknown_grant():
     unexpected["roles"][0]["permission_review"]["asset.read"] = "ALLOW"
     with pytest.raises(ValueError, match="MODEL_SCHEMA_INVALID"):
         validator.validate_model(unexpected, ROOT)
+    complete_entities = json.loads(json.dumps(model))
+    if "user_identities" not in complete_entities["entities"]:
+        complete_entities["entities"].append("user_identities")
+    validator.validate_model(complete_entities, ROOT)
+    complete_entities["entities"].remove("user_identities")
+    with pytest.raises(ValueError, match="MODEL_SCHEMA_INVALID"):
+        validator.validate_model(complete_entities, ROOT)
 
 
 def test_task_progress_grows_with_evidence_and_rejects_false_classification(monkeypatch):

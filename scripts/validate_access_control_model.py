@@ -65,7 +65,9 @@ def validate_model(model, root):
     for source in model["sources"]:
         if not (root / source).is_file():
             raise ValueError("MODEL_SOURCE_MISSING")
-    sql = (root / "backend/business_migrations/0001_business_baseline.sql").read_text(encoding="utf8")
+    sql = "\n".join(
+        path.read_text(encoding="utf8") for path in sorted((root / "backend/business_migrations").glob("*.sql"))
+    )
     for name in model["entities"]:
         if re.search(r"CREATE TABLE mt\." + re.escape(name) + r"\s*\(", sql) is None:
             raise ValueError("ENTITY_NOT_IN_EXISTING_MIGRATION")
