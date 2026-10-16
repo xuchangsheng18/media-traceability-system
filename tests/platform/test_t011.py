@@ -216,3 +216,36 @@ def test_policy_catalog_rejects_missing_operation_and_unknown_grant():
     unexpected["roles"][0]["permission_review"]["asset.read"] = "ALLOW"
     with pytest.raises(ValueError, match="MODEL_SCHEMA_INVALID"):
         validator.validate_model(unexpected, ROOT)
+
+
+def test_task_progress_grows_with_evidence_and_rejects_false_classification(monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "scripts"))
+    spec = importlib.util.spec_from_file_location(
+        "t011_progress_check", ROOT / "scripts/validate_stage_one_completion.py"
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    classify = getattr(module, "partial_task_ids", None)
+    assert callable(classify), "task evidence classifier is missing"
+    rows = [
+        {"task_id": "T001", "status": "PARTIAL_VERIFIED_SCOPE", "completed_steps": [{"evidence": ["fixture-a"]}]},
+        {"task_id": "T002", "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE", "completed_steps": []},
+    ]
+    assert classify({"tasks": rows}) == {"T001"}
+    rows[1] = {"task_id": "T002", "status": "PARTIAL_VERIFIED_SCOPE", "completed_steps": [{"evidence": ["fixture-b"]}]}
+    assert classify({"tasks": rows}) == {"T001", "T002"}
+    inconsistent = json.loads(json.dumps(rows))
+    inconsistent[1]["completed_steps"] = []
+    with pytest.raises(AssertionError):
+        classify({"tasks": inconsistent})
+    unsupported = json.loads(json.dumps(rows))
+    unsupported[1]["completed_steps"] = [{"evidence": []}]
+    with pytest.raises(AssertionError):
+        classify({"tasks": unsupported})
+    hidden = json.loads(json.dumps(rows))
+    hidden[1]["status"] = "NO_FULL_TASK_VERIFICATION_EVIDENCE"
+    with pytest.raises(AssertionError):
+        classify({"tasks": hidden})
+    with pytest.raises(AssertionError):
+        classify({"tasks": [rows[0], rows[0]]})

@@ -10,6 +10,20 @@ from plan_project_schedule import build_plan
 from plan_project_schedule import outputs as schedule_outputs
 
 
+def partial_task_ids(ledger):
+    rows = ledger["tasks"]
+    assert len({row["task_id"] for row in rows}) == len(rows), "duplicate task IDs"
+    partial = set()
+    for row in rows:
+        assert row["status"] in {"PARTIAL_VERIFIED_SCOPE", "NO_FULL_TASK_VERIFICATION_EVIDENCE"}
+        if row["status"] == "PARTIAL_VERIFIED_SCOPE":
+            assert row["completed_steps"] and all(step.get("evidence") for step in row["completed_steps"]), "partial task lacks evidence"
+            partial.add(row["task_id"])
+        else:
+            assert not row["completed_steps"], "unverified task hides evidence"
+    return partial
+
+
 def main():
     checks, errors = [], []
 
@@ -102,8 +116,9 @@ def main():
         assert plan["actual_capacity_plan"]["calendar_commitment_asserted"] is False
         assert not plan["source_task_states_changed"] and plan["original_scope_modules"] == 12
         ledger = read("tasks/execution-status.json")
-        partial_ids = {r["task_id"] for r in ledger["tasks"] if r["status"] == "PARTIAL_VERIFIED_SCOPE"}
-        assert len(partial_ids) == 50
+        assert len(ledger["tasks"]) == 170
+        assert {row["task_id"] for row in ledger["tasks"]} == {row["task_id"] for row in plan["records"]}
+        partial_ids = partial_task_ids(ledger)
         assert plan["totals"]["full_tasks_verified"] == 0 and plan["totals"]["partial_scope_tasks"] == len(partial_ids)
         assert {r["task_id"] for r in plan["records"] if r["observed_verification_status"] == "PARTIAL_VERIFIED_SCOPE"} == partial_ids
         assert all(r["capacity_plan_start_date"] is None and r["capacity_plan_finish_date"] is None for r in plan["records"])

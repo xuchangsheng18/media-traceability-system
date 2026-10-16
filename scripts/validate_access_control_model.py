@@ -156,6 +156,7 @@ def main():
             "tools/access_control_review.py",
             "tests/platform/test_t011.py",
             "scripts/validate_access_control_model.py",
+            "scripts/validate_stage_one_completion.py",
             "docs/03-api/openapi.yaml",
         ]
         report["source_file_sha256"] = {
