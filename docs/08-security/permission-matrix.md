@@ -68,8 +68,8 @@
 | model.release | 待定 | 待定 | 职责 | 待定 | 待定 | 待定 |
 | operation.confirm | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
 | origin.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
-| policy.manage | 职责 | 待定 | 待定 | 待定 | 待定 | 限制 |
-| policy.read | 职责 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| policy.manage | 待定 | 待定 | 待定 | 待定 | 待定 | 限制 |
+| policy.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
 | propagation.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
 | report.draft | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
 | report.export | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
