@@ -1,0 +1,664 @@
+{
+  "revision": "pre-t012-foundation-review-20261016",
+  "status": "DEVELOPMENT_SCOPE_REVIEWED_FULL_TASKS_NOT_ACCEPTED",
+  "observed_at": "2026-10-16T15:54:28.039232+00:00",
+  "scope": "T001-T011_only_no_new_T012_implementation",
+  "source_task_cards_sha256": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
+  "public_API_changed": false,
+  "database_schema_changed": false,
+  "runtime_package_lock_changed": false,
+  "shared_services_restarted": false,
+  "formal_accepted": false,
+  "tasks": [
+    {
+      "task_id": "T001",
+      "name": "建立单仓库目录与基础README",
+      "source_requirements": {
+        "责任角色": "架构/全栈",
+        "源前置依赖": "无",
+        "执行依赖候选": "无",
+        "工作范围": "按DES-001 §8.6核验并沿用既有backend、frontend、ai-services、shared-contracts、schemas、docs、tasks、prompts、config、deploy、scripts、tests目录；仅补充获准的缺项，建立职责与原目录映射，不直接迁移。",
+        "接口或数据契约": "根目录README；目录约定docs/architecture/repository-layout.md。",
+        "验收标准": "仓库结构与设计一致；README包含启动、测试、提交规范；不得包含真实密钥。",
+        "测试要求": "目录检查脚本和Markdown链接检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "目录与设计映射",
+          "result": "通过",
+          "evidence": "docs/02-architecture/repository-layout.md"
+        },
+        {
+          "criterion": "启动、测试、提交说明",
+          "result": "通过",
+          "evidence": "CONTRIBUTING.md"
+        },
+        {
+          "criterion": "已知私密值和基础密钥模式扫描",
+          "result": "通过（扫描范围内）",
+          "evidence": "scripts/stage_three_quality.py"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T002",
+      "name": "配置Python后端工程",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立Python 3.11项目、依赖锁定、FastAPI入口、配置管理和日志初始化。",
+        "接口或数据契约": "GET /health；环境变量Settings模型。",
+        "验收标准": "服务可启动；缺少必要配置时给出明确错误；依赖版本锁定。",
+        "测试要求": "健康检查单测、配置加载和非法配置测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "启动、健康、必需/非法配置和依赖锁",
+          "result": "通过（py310研发）",
+          "evidence": "tests/stage_three/test_foundation_configuration.py"
+        },
+        {
+          "criterion": "源Python 3.11与当前3.10.22差异",
+          "result": "已记录用户选择；正式版本未冻结",
+          "evidence": "docs/02-architecture/technical-baseline.md"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T003",
+      "name": "配置Vue前端工程",
+      "source_requirements": {
+        "责任角色": "前端",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立Vue 3、TypeScript、Vite、路由、状态管理和API客户端。",
+        "接口或数据契约": "前端/health页面调用GET /health。",
+        "验收标准": "开发服务器可启动；严格类型检查通过；API地址环境化。",
+        "测试要求": "lint、typecheck、组件冒烟测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "开发启动、严格类型、环境化API和组件冒烟",
+          "result": "通过（研发前端）",
+          "evidence": "frontend/package.json"
+        },
+        {
+          "criterion": "源/health映射到现有业务/api/v1/health",
+          "result": "已记录；保留现有契约",
+          "evidence": "docs/03-development/stage-three/foundation-closeout-implementation.md"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T004",
+      "name": "建立本地容器开发环境",
+      "source_requirements": {
+        "责任角色": "DevOps",
+        "源前置依赖": "T002,T003",
+        "执行依赖候选": "T002,T003",
+        "工作范围": "使用固定版本编排SQL、一个执行broker、对象存储、API/Web及媒体worker；缓存按需启用，全文/图/向量按能力逐项接入；不默认部署全部生产组件。",
+        "接口或数据契约": "docker compose配置；/health依赖状态。",
+        "验收标准": "一条命令启动；隔离数据卷和密钥；按获准项目配额设置CPU、内存、进程和临时盘限制，核对实际cgroup生效；不认定单机容器为生产高可用。",
+        "测试要求": "容器启动/依赖ready、配置校验、配额与cgroup生效、资源耗尽隔离；卷所在介质及对象存储间接依赖核验。",
+        "建议工作量": "2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.7、§8.11；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "单命令启动、服务ready、卷与密钥隔离",
+          "result": "已有研发验证",
+          "evidence": "docs/00-project/validation/ci-all-report.json"
+        },
+        {
+          "criterion": "Compose与Docker及真实cgroup v2的CPU/内存/pids一致",
+          "result": "通过（7服务，只读）",
+          "evidence": "docs/00-project/validation/development-container-limits-report.json"
+        },
+        {
+          "criterion": "获准配额、临时盘限制、资源耗尽隔离、介质/间接依赖",
+          "result": "未完成；需单独验证",
+          "evidence": "docs/02-architecture/resource-and-team-inventory.md"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T005",
+      "name": "配置代码格式化与静态检查",
+      "source_requirements": {
+        "责任角色": "全栈",
+        "源前置依赖": "T002,T003",
+        "执行依赖候选": "T002,T003",
+        "工作范围": "配置Ruff/Black或等价工具、mypy、ESLint、Prettier和提交前检查。",
+        "接口或数据契约": "pyproject、前端lint配置、pre-commit。",
+        "验收标准": "本地和CI命令一致；示例违规代码能被拦截。",
+        "测试要求": "运行格式、lint和类型检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "本地/提交钩子/CI使用同一门禁",
+          "result": "通过（选定Linux）",
+          "evidence": "scripts/dev.py"
+        },
+        {
+          "criterion": "新增模块自动纳入格式与文本检查，违规真实Ruff拒绝",
+          "result": "通过；新增3项回归",
+          "evidence": "tests/stage_three/test_dev.py"
+        },
+        {
+          "criterion": "其他开发者和Windows原生钩子",
+          "result": "未验证",
+          "evidence": "docs/00-project/validation/development-hook-report.json"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T006",
+      "name": "建立基础持续集成流水线",
+      "source_requirements": {
+        "责任角色": "DevOps",
+        "源前置依赖": "T004,T005",
+        "执行依赖候选": "T004,T005",
+        "工作范围": "建立后端、前端、迁移、单元测试和构建流水线。",
+        "接口或数据契约": "CI jobs：lint、typecheck、unit、build、migration-check。",
+        "验收标准": "任一门禁失败阻止合并；产出测试报告；缓存不影响正确性。",
+        "测试要求": "故意引入失败验证门禁。",
+        "建议工作量": "2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "后端/前端/迁移/测试/构建、失败探针及报告",
+          "result": "已有CI实测；本批按新CI核验",
+          "evidence": "docs/00-project/validation/github-actions-report.json"
+        },
+        {
+          "criterion": "失败阻止main合并",
+          "result": "未通过：main未保护，规则集为空",
+          "evidence": "docs/00-project/validation/repository-governance-snapshot.json"
+        },
+        {
+          "criterion": "平台维护人及权限/Secret治理",
+          "result": "未确认",
+          "evidence": "docs/03-development/repository-access-control.md"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T007",
+      "name": "建立统一配置和密钥规范",
+      "source_requirements": {
+        "责任角色": "后端/DevOps",
+        "源前置依赖": "T002,T004",
+        "执行依赖候选": "T002,T004",
+        "工作范围": "划分开发、测试、生产配置；密钥只从Secret或环境注入。",
+        "接口或数据契约": "Settings字段、.env.example、配置说明。",
+        "验收标准": "仓库无真实密钥；敏感配置不写日志；启动时校验必需项。",
+        "测试要求": "secret扫描、配置单测。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "环境/Secret注入、启动校验、秘密不回显",
+          "result": "通过（开发/测试范围）",
+          "evidence": "tests/stage_three/test_foundation_configuration.py"
+        },
+        {
+          "criterion": "生产配置、轮换/撤销与实际维护权限",
+          "result": "未完成；production当前拒绝启动",
+          "evidence": "backend/business_app/settings.py"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T008",
+      "name": "建立统一日志与请求追踪",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T002",
+        "执行依赖候选": "T002",
+        "工作范围": "统一日志和request_id，跨API、队列、节点及网关传播trace_id并关联task_id/run_version/attempt；敏感字段脱敏。",
+        "接口或数据契约": "X-Request-Id请求头；日志字段规范。",
+        "验收标准": "所有API日志可关联请求；令牌、密码、原始敏感文本被过滤。",
+        "测试要求": "请求与异步追踪、采样、日志及指标标签脱敏测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.11；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "既有API/队列/推理关联、并发隔离及脱敏",
+          "result": "通过（既有链路范围）",
+          "evidence": "tests/stage_three/test_foundation_tracing.py"
+        },
+        {
+          "criterion": "完整DAG/网关、跨进程聚合、采样及指标标签脱敏",
+          "result": "未完成",
+          "evidence": "docs/03-development/stage-three/foundation-closeout-implementation.md"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T009",
+      "name": "建立统一异常与错误码框架",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T002",
+        "执行依赖候选": "T002",
+        "工作范围": "实现业务异常、HTTP映射、错误码注册和统一响应。",
+        "接口或数据契约": "错误响应{code,message,request_id,details}。",
+        "验收标准": "未知异常不泄露堆栈；已知异常映射稳定；错误码不可重复。",
+        "测试要求": "异常映射与敏感信息测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "未知异常不泄密、稳定HTTP映射和错误码唯一",
+          "result": "通过（现有基础接口）",
+          "evidence": "tests/business/test_foundation_errors.py"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T010",
+      "name": "建立架构决策记录和变更模板",
+      "source_requirements": {
+        "责任角色": "架构",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立ADR、需求变更、模型变更和数据库变更模板。",
+        "接口或数据契约": "docs/adr与Pull Request模板。",
+        "验收标准": "重要决策有状态、背景、方案、影响和回滚；模板可直接复用。",
+        "测试要求": "文档结构和链接检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "ADR/需求/模型/数据库/PR模板的状态、背景、方案、影响、恢复及可复用性",
+          "result": "通过（文档结构范围）",
+          "evidence": "docs/00-project/validation/t011-dependency-report.json"
+        },
+        {
+          "criterion": "实际团队使用和有效复核",
+          "result": "未验证",
+          "evidence": "docs/03-development/repository-access-control.md"
+        }
+      ],
+      "full_task_accepted": false
+    },
+    {
+      "task_id": "T011",
+      "name": "设计用户角色与数据范围模型",
+      "source_requirements": {
+        "责任角色": "后端/安全",
+        "源前置依赖": "T002,T010",
+        "执行依赖候选": "T002,T010",
+        "工作范围": "设计用户、角色、权限、单位、案件范围和数据密级模型。",
+        "接口或数据契约": "ERD；RBAC+ABAC权限矩阵。",
+        "验收标准": "覆盖管理员、数据管理员、算法管理员、审核员、核查人员和审计员；默认拒绝。",
+        "测试要求": "权限矩阵评审用例。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。"
+      },
+      "checks": [
+        {
+          "criterion": "九实体关系、六角色权限矩阵、默认拒绝及越权用例",
+          "result": "通过（候选设计及56例合成评审）",
+          "evidence": "docs/00-project/validation/t011-access-model-report.json"
+        },
+        {
+          "criterion": "权威身份、正式六角色规则/分类、真实责任人与有效决定",
+          "result": "未确认；不放行正式业务",
+          "evidence": "docs/08-security/access-control-model.md"
+        }
+      ],
+      "full_task_accepted": false
+    }
+  ],
+  "local_py310_verification": {
+    "full": {
+      "mode": "full",
+      "python": "3.10.22",
+      "observed_at": "2026-10-16T15:56:10.330308+00:00",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/business",
+            "tests/platform",
+            "tests/stage_three",
+            "tests/poc",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/tmp/pre-t012-full.xml"
+          ],
+          "exit_code": 0,
+          "output": "=============================== warnings summary ===============================\n328 passed, 1 warning in 353.17s (0:05:53)"
+        }
+      ],
+      "shared_services_restarted": false
+    },
+    "quality": {
+      "mode": "quality",
+      "python": "3.10.22",
+      "observed_at": "2026-10-16T15:55:32.547805+00:00",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "format-check"
+          ],
+          "exit_code": 0,
+          "output": "88 files already formatted\n{\"status\": \"PASS\", \"scope\": \"selected_development_python_and_governance_text\", \"files\": 100}\n\n> media-trace-poc-ui@0.1.0 format-check\n> prettier --check \"src/**/*.{ts,vue}\" \"e2e/**/*.ts\" \"*.{ts,mjs,json,html}\"\n\nChecking formatting...\nAll matched files use Prettier code style!"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "lint"
+          ],
+          "exit_code": 0,
+          "output": "All checks passed!\n\n> media-trace-poc-ui@0.1.0 lint\n> eslint src e2e *.ts *.mjs --max-warnings=0\n\nSuccess: no issues found in 88 source files"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_quality.py",
+            "secrets"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"files_checked\": 1447, \"exact_runtime_values_available\": true, \"scope\": \"tracked_and_unignored_files_known_private_values_and_basic_key_patterns\", \"comprehensive_DLP_or_history_scan\": false, \"secret_values_printed\": false}"
+        }
+      ],
+      "shared_services_restarted": false
+    },
+    "container_limits": {
+      "status": "PASS",
+      "observed_at": "2026-10-16T15:47:56.318783+00:00",
+      "scope": "configured_development_limits_match_actual_cgroup_v2_only",
+      "python_profile": "py310",
+      "compose_sha256": "80eaebd95e708ffeac8ff0e42107ce3b897632b8edd38ac8019c38a42a782edf",
+      "services": [
+        {
+          "service": "api",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 805306368,
+            "nano_cpus": 1000000000,
+            "pids": 128
+          },
+          "cgroup_v2_limits": [
+            "805306368",
+            "100000 100000",
+            "128"
+          ]
+        },
+        {
+          "service": "inference",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 2147483648,
+            "nano_cpus": 1000000000,
+            "pids": 128
+          },
+          "cgroup_v2_limits": [
+            "2147483648",
+            "100000 100000",
+            "128"
+          ]
+        },
+        {
+          "service": "postgres",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 1073741824,
+            "nano_cpus": 1000000000,
+            "pids": 128
+          },
+          "cgroup_v2_limits": [
+            "1073741824",
+            "100000 100000",
+            "128"
+          ]
+        },
+        {
+          "service": "rabbitmq",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 805306368,
+            "nano_cpus": 1000000000,
+            "pids": 256
+          },
+          "cgroup_v2_limits": [
+            "805306368",
+            "100000 100000",
+            "256"
+          ]
+        },
+        {
+          "service": "s3",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 1073741824,
+            "nano_cpus": 1000000000,
+            "pids": 128
+          },
+          "cgroup_v2_limits": [
+            "1073741824",
+            "100000 100000",
+            "128"
+          ]
+        },
+        {
+          "service": "web",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 268435456,
+            "nano_cpus": 500000000,
+            "pids": 64
+          },
+          "cgroup_v2_limits": [
+            "268435456",
+            "50000 100000",
+            "64"
+          ]
+        },
+        {
+          "service": "worker",
+          "status": "PASS",
+          "docker_limits": {
+            "memory": 805306368,
+            "nano_cpus": 1000000000,
+            "pids": 128
+          },
+          "cgroup_v2_limits": [
+            "805306368",
+            "100000 100000",
+            "128"
+          ]
+        }
+      ],
+      "services_restarted": false,
+      "limits_changed": false,
+      "resource_exhaustion_tested": false,
+      "temporary_disk_limit_verified": false,
+      "formal_project_quotas_approved": false,
+      "production_or_HA_acceptance": false
+    }
+  },
+  "local_py310_tests": 328,
+  "current_python_type_checked_source_files": 88,
+  "new_regression_cases": 17,
+  "new_cases_red_observed": true,
+  "new_cases_red_scope": "3 format coverage/text cases and 14 missing actual cgroup verifier cases failed before implementation; Windows preliminary tests do not replace Linux final results",
+  "code_and_config_sha256": {
+    "scripts/stage_three_quality.py": "fb134e0944eaa14a64bc9bf09464b609b27aef41d7a0311eda463637e12c288d",
+    "scripts/verify_development_limits.py": "c26a3ba955b5ead38189e0182d5f028f6dd8d05cc564854e3a7a1645523e36fa",
+    "config/stage-three-profile.json": "6a4c1faed44857de242eb7bbb118d1a88b38d9066a2e452d2f2538dc620a59ae",
+    "tests/stage_three/test_dev.py": "9a46334b49c55fed9a258aefbf5a9c4588f49d19c41fabbe7e33af6f8bf0ab1e",
+    "tests/stage_three/test_development_limits.py": "d5e7e335e3e5273e1aec16349e8008e7d84e33fb5409e620253c9bbd695261fa",
+    ".github/workflows/ci.yml": "06ca2c4f8e40bb293a42a45de602d601c77030ccf7485b5aee24d59931369299"
+  },
+  "recorded_at": "2026-10-16T15:57:10.654403+00:00",
+  "navigation_and_input_verification": {
+    "mode": "views",
+    "python": "3.10.22",
+    "observed_at": "2026-10-16T15:56:56.444842+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"steps\": 16, \"formal_frozen\": false, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 17, \"database_navigation_entries\": 16, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"mode\": \"check\", \"business_modules\": 12, \"functional_requirements\": 36, \"engineering_requirements\": 170, \"non_functional_requirements\": 10, \"trace_records\": 216, \"business_rules\": 16, \"business_case_plans\": 72, \"task_case_plans\": 340, \"model_capabilities\": 34, \"dataset_categories\": 15, \"metric_protocols\": 24, \"open_questions\": 33, \"interface_gaps\": 13, \"document\": \"docs/01-requirements/functional-requirements.md\", \"formal_frozen\": false, \"full_business_completion_asserted\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 7, \"remaining_stage_one\": 6, \"remaining_stage_two\": 12, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_access_control_model.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-16T15:56:11.145707+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"time_utc\": \"2026-10-16T15:56:38.334735+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 655, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"links_checked\": 10026, \"errors\": [], \"historical_links\": 0}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 10, \"runtime_executed\": false, \"formal_frozen\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 4, \"errors\": []}"
+      }
+    ],
+    "shared_services_restarted": false
+  }
+}

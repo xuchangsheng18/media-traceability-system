@@ -116,6 +116,12 @@ def block(row, ledger, source):
         )
     else:
         text += f"同源[状态台账](../execution-status.json)、[全部170任务](../README.md)；实现审查快照 `{ledger['implementation_source_commit'][:12]}`，既有实现验证源码 `{ledger['validated_implementation_source_commit'][:12]}`，归档验证 [CI #{ledger['validated_ci_run_id']}](<{ledger['validated_ci_run_url']}>)。本轮资料校验及同步另见最新回执；开发子范围证据不能代替本卡完整验收。\n\n"
+    if row.get("acceptance_review_ref"):
+        text += (
+            "本轮按源验收标准的逐项结论和未闭条件见"
+            + link(row["acceptance_review_ref"], card)
+            + "；本轮核验限于T001—T011，整任务未因研发检查通过而自动关闭。\n\n"
+        )
     if row.get("development_validation_report"):
         development = read(row["development_validation_report"])
         assert development["status"] == "PASS" and development["task_id"] == task

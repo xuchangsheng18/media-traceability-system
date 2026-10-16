@@ -1,0 +1,113 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-10-16T15:47:56.318783+00:00",
+  "scope": "configured_development_limits_match_actual_cgroup_v2_only",
+  "python_profile": "py310",
+  "compose_sha256": "80eaebd95e708ffeac8ff0e42107ce3b897632b8edd38ac8019c38a42a782edf",
+  "services": [
+    {
+      "service": "api",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 805306368,
+        "nano_cpus": 1000000000,
+        "pids": 128
+      },
+      "cgroup_v2_limits": [
+        "805306368",
+        "100000 100000",
+        "128"
+      ]
+    },
+    {
+      "service": "inference",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 2147483648,
+        "nano_cpus": 1000000000,
+        "pids": 128
+      },
+      "cgroup_v2_limits": [
+        "2147483648",
+        "100000 100000",
+        "128"
+      ]
+    },
+    {
+      "service": "postgres",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 1073741824,
+        "nano_cpus": 1000000000,
+        "pids": 128
+      },
+      "cgroup_v2_limits": [
+        "1073741824",
+        "100000 100000",
+        "128"
+      ]
+    },
+    {
+      "service": "rabbitmq",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 805306368,
+        "nano_cpus": 1000000000,
+        "pids": 256
+      },
+      "cgroup_v2_limits": [
+        "805306368",
+        "100000 100000",
+        "256"
+      ]
+    },
+    {
+      "service": "s3",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 1073741824,
+        "nano_cpus": 1000000000,
+        "pids": 128
+      },
+      "cgroup_v2_limits": [
+        "1073741824",
+        "100000 100000",
+        "128"
+      ]
+    },
+    {
+      "service": "web",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 268435456,
+        "nano_cpus": 500000000,
+        "pids": 64
+      },
+      "cgroup_v2_limits": [
+        "268435456",
+        "50000 100000",
+        "64"
+      ]
+    },
+    {
+      "service": "worker",
+      "status": "PASS",
+      "docker_limits": {
+        "memory": 805306368,
+        "nano_cpus": 1000000000,
+        "pids": 128
+      },
+      "cgroup_v2_limits": [
+        "805306368",
+        "100000 100000",
+        "128"
+      ]
+    }
+  ],
+  "services_restarted": false,
+  "limits_changed": false,
+  "resource_exhaustion_tested": false,
+  "temporary_disk_limit_verified": false,
+  "formal_project_quotas_approved": false,
+  "production_or_HA_acceptance": false
+}

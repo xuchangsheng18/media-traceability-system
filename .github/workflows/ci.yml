@@ -130,6 +130,8 @@ jobs:
           "$PYTHON" scripts/verify_ci_failure_gate.py
           "$PYTHON" scripts/check_repository_secrets.py
           "$PYTHON" scripts/validate_stage_three.py --runtime
+      - name: Verify configured development cgroup limits
+        run: '"$PYTHON" scripts/verify_development_limits.py'
       - name: Preserve non-secret validation evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

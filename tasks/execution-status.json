@@ -1,5 +1,5 @@
 {
-  "revision": "t011-t012-identity-relations-20261016",
+  "revision": "pre-t012-foundation-review-20261016",
   "observed_date": "2026-10-16",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
@@ -10,10 +10,10 @@
   "validated_ci_run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38776619729",
   "source_task_cards_sha256": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
   "audit_observations": {
-    "observed_at": "2026-10-15T17:54:27.270246+00:00",
+    "observed_at": "2026-10-16T15:45:52.824369+00:00",
     "branch_protected": false,
-    "branch_protection_http_status": 403,
-    "rulesets_http_status": 403,
+    "branch_protection_http_status": 404,
+    "rulesets_http_status": 200,
     "platform_evidence_ref": "docs/00-project/validation/repository-governance-snapshot.json",
     "linux_pre_commit_hook_verified": true,
     "linux_hook_evidence_ref": "docs/00-project/validation/development-hook-report.json",
@@ -24,7 +24,8 @@
     "business_http_scope": "isolated_source_validation_not_shared_runtime_deployment",
     "validated_source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
     "validated_ci_run_id": 38776619729,
-    "audit_is_not_formal_acceptance": true
+    "audit_is_not_formal_acceptance": true,
+    "rulesets_observed_count": 0
   },
   "tasks": [
     {
@@ -93,7 +94,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T002",
@@ -177,7 +179,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T003",
@@ -255,7 +258,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T004",
@@ -264,8 +268,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "独立7服务Compose研发闭环及持久卷验证已执行",
-      "summary_remaining": "按已记录SeaweedFS、RabbitMQ/Celery及缓存适用性决策逐项验收启动/持久化/恢复；正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收",
+      "summary_completed": "独立7服务Compose研发闭环及持久卷验证已执行；逐项只读核验7服务Compose、Docker实际配置及cgroup v2的CPU/内存/进程限制一致；缺失、无限或漂移失败；不代替正式配额/临时盘/耗尽隔离",
+      "summary_remaining": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收；正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "独立7服务Compose研发闭环及持久卷验证已执行",
@@ -284,12 +288,30 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "逐项只读核验7服务Compose、Docker实际配置及cgroup v2的CPU/内存/进程限制一致；缺失、无限或漂移失败；不代替正式配额/临时盘/耗尽隔离",
+          "evidence": [
+            {
+              "path": "scripts/verify_development_limits.py",
+              "scope": "本轮研发子范围；不证明原任务全部验收"
+            },
+            {
+              "path": "tests/stage_three/test_development_limits.py",
+              "scope": "本轮研发子范围；不证明原任务全部验收"
+            },
+            {
+              "path": "docs/00-project/validation/development-container-limits-report.json",
+              "scope": "本轮研发子范围；不证明原任务全部验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "按已记录SeaweedFS、RabbitMQ/Celery及缓存适用性决策逐项验收启动/持久化/恢复"
+          "description": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收"
         },
         {
           "category": "实施/外部条件",
@@ -299,7 +321,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T005",
@@ -308,7 +331,7 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础；ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查",
+      "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础；ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查；格式门禁改为目录覆盖，新Python模块自动进入格式和文本检查；本地/钩子实际Ruff负向与修复回归已补齐",
       "summary_remaining": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
@@ -358,6 +381,24 @@
               "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "格式门禁改为目录覆盖，新Python模块自动进入格式和文本检查；本地/钩子实际Ruff负向与修复回归已补齐",
+          "evidence": [
+            {
+              "path": "config/stage-three-profile.json",
+              "scope": "本轮研发子范围；不证明原任务全部验收"
+            },
+            {
+              "path": "scripts/stage_three_quality.py",
+              "scope": "本轮研发子范围；不证明原任务全部验收"
+            },
+            {
+              "path": "tests/stage_three/test_dev.py",
+              "scope": "本轮研发子范围；不证明原任务全部验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -369,7 +410,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T006",
@@ -379,7 +421,7 @@
       "actual_owner": null,
       "full_task_verified": false,
       "summary_completed": "25道托管研发门禁及故障探针已通过归档验证",
-      "summary_remaining": "落实平台套餐/管理员条件，启用分支保护及必需CI检查并做失败阻止合并实测；确认Runner权限、Secret管理和真实维护人；最近只读观测main未保护，保护和rulesets查询返回403，不修改账号设置",
+      "summary_remaining": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置；确认Runner权限、Secret管理和真实维护人；最近只读观测main未保护，保护和rulesets查询返回403，不修改账号设置；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "25道托管研发门禁及故障探针已通过归档验证",
@@ -403,7 +445,7 @@
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "落实平台套餐/管理员条件，启用分支保护及必需CI检查并做失败阻止合并实测"
+          "description": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置"
         },
         {
           "category": "实施/验证",
@@ -413,7 +455,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T007",
@@ -483,7 +526,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T008",
@@ -575,7 +619,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T009",
@@ -649,7 +694,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T010",
@@ -711,7 +757,8 @@
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
-      ]
+      ],
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T011",
@@ -824,7 +871,8 @@
           "description": "落实实际责任人及权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收"
         }
       ],
-      "specific_validation_report": "docs/00-project/validation/t011-access-model-report.json"
+      "specific_validation_report": "docs/00-project/validation/t011-access-model-report.json",
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
     },
     {
       "task_id": "T012",
@@ -6157,6 +6205,23 @@
       "audit_is_not_a_fix": true,
       "scope": "prior_audit_before_foundation_closeout_not_current",
       "implementation_source_commit": "225060b494749e111cf49264094da14ab85c0cb0"
+    },
+    {
+      "observed_at": "2026-10-15T17:54:27.270246+00:00",
+      "branch_protected": false,
+      "branch_protection_http_status": 403,
+      "rulesets_http_status": 403,
+      "platform_evidence_ref": "docs/00-project/validation/repository-governance-snapshot.json",
+      "linux_pre_commit_hook_verified": true,
+      "linux_hook_evidence_ref": "docs/00-project/validation/development-hook-report.json",
+      "windows_native_pre_commit_hook_verified": false,
+      "business_unknown_500_content_type": "application/problem+json",
+      "business_unmatched_404_uniform_error": true,
+      "business_http_evidence_ref": "tests/business/test_foundation_errors.py",
+      "business_http_scope": "isolated_source_validation_not_shared_runtime_deployment",
+      "validated_source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
+      "validated_ci_run_id": 38776619729,
+      "audit_is_not_formal_acceptance": true
     }
   ]
 }

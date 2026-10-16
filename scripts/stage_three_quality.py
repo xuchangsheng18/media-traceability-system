@@ -37,7 +37,19 @@ def tracked_files():
 
 
 def text_check():
-    paths = PROFILE["format_scope"] + [
+    paths: list[str] = []
+    discovered = tracked_files()
+    for name in PROFILE["format_scope"]:
+        target = ROOT / name
+        assert target.resolve().is_relative_to(ROOT.resolve()) and not target.is_symlink(), name
+        if target.is_dir():
+            paths.extend(
+                item for item in discovered if Path(item).suffix == ".py" and Path(item).is_relative_to(Path(name))
+            )
+        else:
+            assert target.is_file(), name
+            paths.append(name)
+    paths += [
         "CONTRIBUTING.md",
         "SECURITY.md",
         "CODEOWNERS",
@@ -51,8 +63,11 @@ def text_check():
         "scripts/dev.ps1",
         "config/stage-three-profile.json",
     ]
+    paths = sorted(set(paths))
     for name in paths:
-        raw = (ROOT / name).read_bytes()
+        target = ROOT / name
+        assert target.resolve().is_relative_to(ROOT.resolve()) and not target.is_symlink(), name
+        raw = target.read_bytes()
         raw.decode("utf-8")
         assert b"\r\n" not in raw and raw.endswith(b"\n"), name
     print(

@@ -43,7 +43,7 @@
 
 资源只读观测时间：`2026-10-14T13:24:30.139139+00:00`；研发PostgreSQL卷所在文件系统可用约 **644.42 GiB**，df使用率 **13%**。宿主机剩余空间不能直接当该卷可用空间，也不代表项目独占配额。GPU工具可用性=False，没有据工具不可用宣称GPU不存在。详见[时点快照](validation/resource-readiness-snapshot.json)。
 
-仓库治理观测时间：`2026-10-15T17:54:27.270246+00:00`；GitHub报告main protected=False；rulesets查询结果为 `UNAVAILABLE_OR_NOT_AUTHORIZED`，不可据不可查询认定规则集为空。Actions已启用不等于组织治理闭合。详见[治理快照](validation/repository-governance-snapshot.json)，本轮没有修改设置。
+仓库治理观测时间：`2026-10-16T15:45:52.824369+00:00`；GitHub报告main protected=False；rulesets查询结果为 `SUCCESS`，不可据不可查询认定规则集为空。Actions已启用不等于组织治理闭合。详见[治理快照](validation/repository-governance-snapshot.json)，本轮没有修改设置。
 
 ## 建议推进顺序
 

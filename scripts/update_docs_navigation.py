@@ -37,6 +37,9 @@ def main():
         "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。",
     )
     entries = {
+        "03-development/t001-t011-foundation-review.md": "T012前11项任务逐项对照：本轮格式自动覆盖、7服务真实cgroup核验、当前GitHub治理和仍缺实测/真实输入的事项；不冒充整任务完成。",
+        "00-project/validation/t001-t011-foundation-review-report.json": "保留T001—T011源验收/测试/依赖全文，逐项结论与证据及当前实际验证；整任务均未正式验收。",
+        "00-project/validation/development-container-limits-report.json": "Compose、Docker设置与实际cgroup v2 CPU/内存/pids只读比对；缺失/无限/漂移拒绝，不代表临时盘或压力隔离已验证。",
         "08-security/access-control-model.md": "T011六角色、九个实体及身份/单位/案件关系；候选权限评审与后续0004持久化分别列证据，尚无正式身份授权。",
         "03-development/t012-identity-relations-design.md": "身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。",
         "03-development/t012-identity-relations-plan.md": "本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。",

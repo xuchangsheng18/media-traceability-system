@@ -336,3 +336,60 @@ def test_complete_npm_report_keeps_all_severity_counts_and_drops_headers():
     assert not failed and normalized["metadata"]["vulnerabilities"]["total"] == 0
     assert normalized["metadata"]["dependencies"]["total"] == 123
     assert "headers" not in normalized
+
+
+@pytest.mark.parametrize("command", ["format-check", "pre-commit"])
+def test_new_python_module_is_checked_without_updating_a_file_list(monkeypatch, tmp_path, command):
+    import subprocess
+
+    monkeypatch.setenv("MT_PYTHON", sys.executable)
+    for name in dev.PROFILE["format_scope"]:
+        target = tmp_path / name
+        if target.suffix == ".py":
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text("", encoding="utf-8")
+        else:
+            target.mkdir(parents=True, exist_ok=True)
+    added = tmp_path / "backend/business_app/identity/new_feature.py"
+    added.parent.mkdir(parents=True, exist_ok=True)
+    added.write_text("def unformatted( ):return 1\n", encoding="utf-8")
+    formatter = next(args for args in dev.plan(command) if args[1:4] == ["-m", "ruff", "format"])
+    result = subprocess.run(formatter, cwd=tmp_path, capture_output=True, text=True)
+    assert result.returncode == 1, "new modules must inherit the format gate"
+    assert "new_feature.py" in result.stdout + result.stderr
+    added.write_text("def unformatted():\n    return 1\n", encoding="utf-8")
+    result = subprocess.run(formatter, cwd=tmp_path, capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_directory_format_scope_also_checks_new_module_text(monkeypatch, tmp_path):
+    monkeypatch.syspath_prepend(str(ROOT / "scripts"))
+    import stage_three_quality as quality
+
+    for name in [
+        "CONTRIBUTING.md",
+        "SECURITY.md",
+        "CODEOWNERS",
+        ".editorconfig",
+        ".env.example",
+        ".python-version",
+        ".nvmrc",
+        ".pre-commit-config.yaml",
+        ".codex/config.toml",
+        "Makefile",
+        "scripts/dev.ps1",
+        "config/stage-three-profile.json",
+    ]:
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(b"fixture\n")
+    added = tmp_path / "backend/business_app/identity/new_feature.py"
+    added.parent.mkdir(parents=True)
+    added.write_bytes(b"VALUE = 1\r\n")
+    monkeypatch.setattr(quality, "ROOT", tmp_path)
+    monkeypatch.setattr(quality, "PROFILE", {"format_scope": ["backend/business_app"]})
+    monkeypatch.setattr(quality, "tracked_files", lambda: [added.relative_to(tmp_path).as_posix()])
+    with pytest.raises(AssertionError, match="new_feature.py"):
+        quality.text_check()
+    added.write_bytes(b"VALUE = 1\n")
+    assert quality.text_check() == 0
