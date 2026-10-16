@@ -8055,7 +8055,7 @@
     "runtime_authorization_asserted": false,
     "formal_approved": false
   },
-  "documentation_revision": "t011-access-model-20261016",
+  "documentation_revision": "task-step-detail-20261016",
   "stage_three_material_checks": 10,
   "stage_three_actual_runtime_checks": 13,
   "stage_three_demo_checks": 11,
@@ -8282,7 +8282,7 @@
   "post_ci_reading_view_checks": {
     "mode": "views",
     "python": "3.10.22",
-    "observed_at": "2026-10-16T03:56:59.735297+00:00",
+    "observed_at": "2026-10-16T04:24:59.095482+00:00",
     "checks": [
       {
         "command": [
@@ -8344,7 +8344,7 @@
           "scripts/validate_access_control_model.py"
         ],
         "exit_code": 0,
-        "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-16T03:56:10.173327+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}\n"
+        "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-16T04:24:08.444134+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}\n"
       },
       {
         "command": [
@@ -8365,10 +8365,18 @@
       {
         "command": [
           "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"time_utc\": \"2026-10-16T04:24:43.639990+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 645, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
           "scripts/validate_repository_docs.py"
         ],
         "exit_code": 0,
-        "output": "{\"status\": \"PASS\", \"links_checked\": 9555, \"errors\": [], \"historical_links\": 0}\n"
+        "output": "{\"status\": \"PASS\", \"links_checked\": 9557, \"errors\": [], \"historical_links\": 0}\n"
       },
       {
         "command": [
@@ -8389,17 +8397,151 @@
     ],
     "shared_services_restarted": false,
     "status": "PASS",
-    "scope": "private_linux_py310_reading_views_regenerated_after_hosted_artifact_import_only_no_runtime_source_changes",
+    "scope": "documentation_only_686_item_listing_and_645_document_navigation_no_runtime_source_changes",
+    "base_repository_commit": "6f0f4539e306763ae82c95912ddcfc34d10bcff9",
     "source_file_sha256": {
-      "tasks/platform/T011.md": "f97a3e6ef5b81a9eeec5526631f9ee8ec83718f9bde23511d6a076599faf6fa1",
-      "docs/03-development/t011-access-model-implementation.md": "0955626a10ae362e8db0519b9dabc8f8d261383ded467dbd32eade704ce237f1",
-      "docs/00-project/stage-one/input-baseline-candidate.json": "59f6f7a28ac720041928ebf1451ecdc645bbbffb2e44d31e969104286a98cc53"
-    },
-    "initial_auxiliary_windows_attempt": {
-      "status": "INCOMPLETE_MISSING_TOOL_DEPENDENCY",
-      "missing_module": "openapi_spec_validator",
-      "project_dependencies_changed": false,
-      "resolved_by": "rerun_all_12_view_checks_in_existing_linux_py310_environment"
+      "docs/00-project/task-execution-steps.txt": "8d944596119842a91e98dc68dc121cd2ced55e2e3abd958ea062fc0a241dd882",
+      "docs/README.md": "35c536d8df48abc6f4f152b884f787c644f426a7b13da7f45435657607ee78c0",
+      "docs/00-project/stage-one/input-baseline-candidate.json": "72414d8f4e5f04b92c0a95174f74cd98d34a00254f110d3fe0b1fdf43634db8a",
+      "docs/00-project/stage-one/input-baseline-candidate.md": "07a258be6a172a308771f14c1237ad8943b5384913b6740995fd5a55f0150b73"
     }
-  }
+  },
+  "previous_post_ci_reading_view_checks": [
+    {
+      "mode": "views",
+      "python": "3.10.22",
+      "observed_at": "2026-10-16T03:56:59.735297+00:00",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_task_progress.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"differences\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_stage_three_docs.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"steps\": 16, \"formal_frozen\": false, \"differences\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_stage_status_navigation.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 17, \"database_navigation_entries\": 16, \"differences\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_requirements_document.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"mode\": \"check\", \"business_modules\": 12, \"functional_requirements\": 36, \"engineering_requirements\": 170, \"non_functional_requirements\": 10, \"trace_records\": 216, \"business_rules\": 16, \"business_case_plans\": 72, \"task_case_plans\": 340, \"model_capabilities\": 34, \"dataset_categories\": 15, \"metric_protocols\": 24, \"open_questions\": 33, \"interface_gaps\": 13, \"document\": \"docs/01-requirements/functional-requirements.md\", \"formal_frozen\": false, \"full_business_completion_asserted\": false}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_remaining_work_navigation.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 7, \"remaining_stage_one\": 6, \"remaining_stage_two\": 12, \"differences\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/plan_project_schedule.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_access_control_model.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-16T03:56:10.173327+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_stage_one_completion.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 8, \"formal_business_acceptance\": false}\n{\"status\": \"PASS\", \"checks\": 5, \"errors\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_inputs.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_repository_docs.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"links_checked\": 9555, \"errors\": [], \"historical_links\": 0}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_stage_one.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}\n"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_stage_three.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 10, \"runtime_executed\": false, \"formal_frozen\": false}\n"
+        }
+      ],
+      "shared_services_restarted": false,
+      "status": "PASS",
+      "scope": "private_linux_py310_reading_views_regenerated_after_hosted_artifact_import_only_no_runtime_source_changes",
+      "source_file_sha256": {
+        "tasks/platform/T011.md": "f97a3e6ef5b81a9eeec5526631f9ee8ec83718f9bde23511d6a076599faf6fa1",
+        "docs/03-development/t011-access-model-implementation.md": "0955626a10ae362e8db0519b9dabc8f8d261383ded467dbd32eade704ce237f1",
+        "docs/00-project/stage-one/input-baseline-candidate.json": "59f6f7a28ac720041928ebf1451ecdc645bbbffb2e44d31e969104286a98cc53"
+      },
+      "initial_auxiliary_windows_attempt": {
+        "status": "INCOMPLETE_MISSING_TOOL_DEPENDENCY",
+        "missing_module": "openapi_spec_validator",
+        "project_dependencies_changed": false,
+        "resolved_by": "rerun_all_12_view_checks_in_existing_linux_py310_environment"
+      }
+    }
+  ],
+  "task_step_detail": {
+    "path": "docs/00-project/task-execution-steps.txt",
+    "sha256": "8d944596119842a91e98dc68dc121cd2ced55e2e3abd958ea062fc0a241dd882",
+    "source_ledger_sha256": "7231fbab6eeab04a595b568ec23376dca3a4ff1f94b860261173261a36312244",
+    "base_source_commit": "6f0f4539e306763ae82c95912ddcfc34d10bcff9",
+    "task_cards": 170,
+    "execution_items": 686,
+    "completed_substeps": 65,
+    "remaining_items": 621,
+    "full_task_acceptance": 0,
+    "descriptions_copied_exactly": true
+  },
+  "current_reading_view_docs_indexed": 645
 }
