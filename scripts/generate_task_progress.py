@@ -88,6 +88,10 @@ def block(row, ledger, source):
     task, card = row["task_id"], row["card"]
     text = f"{START}\n## 当前完成步骤与剩余工作\n\n"
     text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。实际负责人、剩余工时及实际完成日期未确认；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+    earlier = ledger["tasks"][:ledger["tasks"].index(row)]
+    first = 1 + sum(len(item["completed_steps"]) + len(item["remaining_steps"]) for item in earlier)
+    last = first + len(row["completed_steps"]) + len(row["remaining_steps"]) - 1
+    text += "分步导航：[170项任务及全局序号](../README.md#分步任务导航)、" + link("docs/00-project/task-execution-steps.txt", card) + f"。本卡已完成子步骤 **{len(row['completed_steps'])}条**，剩余工作 **{len(row['remaining_steps'])}条**；在逐项清单中对应全局编号 **{first:04}—{last:04}**。\n\n"
     if row.get("specific_validation_report"):
         report = read(row["specific_validation_report"])
         assert report["status"] == "PASS" and report["task_id"] == task
@@ -161,11 +165,19 @@ def outputs():
     text += "[当前机器台账](execution-status.json)保存本表及卡片的执行记录；[源字段](source-task-cards.json)、[源索引](backlog.yaml)保留来源状态；[候选依赖](execution-dependencies-candidate.json)不自动当已满足依赖。实际人员、日期及工时在[实际输入](../docs/00-project/execution-planning-inputs.json)中仍为未确认；[排期](../docs/00-project/execution-schedule.md)与本台账的验证状态一致。\n\n"
     text += "## 使用和更新规则\n\n按卡片的C编号查看已完成步骤，按R编号领取剩余工作；任务关闭仍须逐项满足原验收和测试要求。上传/历史读取/审批等仅登记实际实现的子范围；正式身份、规则、真实模型和生产验收仍有缺口。没有因材料齐全或122项开发测试通过就把170项源任务标为完成。\n\n"
     text += "第二阶段23步入口见[交付清单](../docs/03-development/stage-two-readiness.md)，全部接口和数据库见[项目文档导航](../docs/README.md)。`output_refs_planned`与卡内计划测试是后续提案；实际证据列仅引用现有文件。更新台账后运行 `python scripts/generate_task_progress.py` 和相应资料生成器；提交前运行同命令加 `--check`，输入校验也会检查本表与170张卡没有漂移。\n\n"
-    text += "## 170任务当前状态与剩余工作\n\n| 任务 | 名称 | 类别 | 当前状态 | 已完成范围 | 未完成的主要工作 |\n| --- | --- | --- | --- | --- | --- |\n"
+    completed = sum(len(row["completed_steps"]) for row in ledger["tasks"])
+    remaining = sum(len(row["remaining_steps"]) for row in ledger["tasks"])
+    text += f"## 分步任务导航\n\n当前台账共 **{completed + remaining}条执行事项**：已完成子步骤 **{completed}条**，剩余工作 **{remaining}条**。全局编号按台账中的任务顺序排列，任务卡内C编号表示已完成子步骤，R编号表示剩余工作；编号用于查阅，实际执行仍按源依赖与适用条件。\n\n"
+    text += f"逐项入口：[0001—{completed + remaining:04}完整清单](../docs/00-project/task-execution-steps.txt)；[同源台账](execution-status.json)；[项目文档导航](../docs/README.md)。下表逐项给出已完成数、剩余数和全局编号范围，点击任务编号查看具体C/R步骤及证据。记录粒度不同，不按这些数量换算统一功能完成率；整任务验收仍按各卡关闭条件。\n\n"
+    text += "## 170任务当前状态与剩余工作\n\n| 任务 | 名称 | 类别 | 当前状态 | 已完成子步骤 | 剩余工作项 | 全局编号 | 已完成范围 | 未完成的主要工作 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
+    next_number = 1
     for row in ledger["tasks"]:
         category = row["card"].split("/")[1]
         target = row["card"].removeprefix("tasks/")
-        text += f"| [{row['task_id']}]({target}) | {cell(row['name'])} | {category} | {LABELS[row['status']]} | {cell(row['summary_completed'])} | {cell(row['summary_remaining'])} |\n"
+        completed_count, remaining_count = len(row["completed_steps"]), len(row["remaining_steps"])
+        last_number = next_number + completed_count + remaining_count - 1
+        text += f"| [{row['task_id']}]({target}) | {cell(row['name'])} | {category} | {LABELS[row['status']]} | {completed_count} | {remaining_count} | {next_number:04}—{last_number:04} | {cell(row['summary_completed'])} | {cell(row['summary_remaining'])} |\n"
+        next_number = last_number + 1
     result["tasks/README.md"] = text
     return result
 

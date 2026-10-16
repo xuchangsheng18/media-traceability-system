@@ -1,6 +1,6 @@
 # 项目文档导航
 
-任务执行入口：[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[686条执行事项逐项清单](00-project/task-execution-steps.txt)。逐项清单按0001—0686编号，列65条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[686条执行事项逐项清单](00-project/task-execution-steps.txt)。分步导航按170项任务列已完成数、剩余数及全局序号范围；逐项清单按0001—0686编号，列65条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
