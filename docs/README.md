@@ -406,6 +406,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t012-role-model-implementation.md](<03-development/t012-role-model-implementation.md>) | T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。 |
+| [04-database/role-catalog-extension.md](<04-database/role-catalog-extension.md>) | 0005目录开关/撤销三列、旧状态与新默认、唯一/外键/终态、受限DAO和同实例恢复；当前63表843字段。 |
+| [04-database/role-catalog-extension.json](<04-database/role-catalog-extension.json>) | 0005三列精确类型、默认、源码行与摘要及不改公共API的机器扩展字典；保留历史62/825及0004的63/840。 |
+| [00-project/validation/t012-role-model-report.json](<00-project/validation/t012-role-model-report.json>) | 真实py310/PostgreSQL的RED/GREEN、368回归、源码摘要、新建空目录库及旧库保留、源验收范围；无连接凭据。 |
 | [03-development/t001-t011-foundation-review.md](<03-development/t001-t011-foundation-review.md>) | T012前11项任务逐项对照：本轮格式自动覆盖、7服务真实cgroup核验、当前GitHub治理和仍缺实测/真实输入的事项；不冒充整任务完成。 |
 | [00-project/validation/t001-t011-foundation-review-report.json](<00-project/validation/t001-t011-foundation-review-report.json>) | 保留T001—T011源验收/测试/依赖全文，逐项结论与证据及当前实际验证；整任务均未正式验收。 |
 | [00-project/validation/development-container-limits-report.json](<00-project/validation/development-container-limits-report.json>) | Compose、Docker设置与实际cgroup v2 CPU/内存/pids只读比对；缺失/无限/漂移拒绝，不代表临时盘或压力隔离已验证。 |
@@ -529,7 +533,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共655份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共659份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -730,6 +734,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
 | [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
+| [00-project/validation/t012-role-model-report.json](<00-project/validation/t012-role-model-report.json>) | 真实py310/PostgreSQL的RED/GREEN、368回归、源码摘要、新建空目录库及旧库保留、源验收范围；无连接凭据。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1042,6 +1047,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
 | [03-development/t012-identity-relations-design.md](<03-development/t012-identity-relations-design.md>) | 身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。 |
 | [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
+| [03-development/t012-role-model-implementation.md](<03-development/t012-role-model-implementation.md>) | T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
@@ -1059,6 +1065,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/initial-schema.sql](<04-database/initial-schema.sql>) | 新空库候选初始化SQL，包含表、约束、权限、触发器及字段注释；不能直接覆盖现有业务库。 |
 | [04-database/poc-database.md](<04-database/poc-database.md>) | 独立开发5表含账本/审计、逐字段来源、outbox与旧租约拒绝；区别于62表业务字典/SQL。 |
 | [04-database/README.md](<04-database/README.md>) | 所在专题的局部导航与阅读入口 |
+| [04-database/role-catalog-extension.json](<04-database/role-catalog-extension.json>) | 0005三列精确类型、默认、源码行与摘要及不改公共API的机器扩展字典；保留历史62/825及0004的63/840。 |
+| [04-database/role-catalog-extension.md](<04-database/role-catalog-extension.md>) | 0005目录开关/撤销三列、旧状态与新默认、唯一/外键/终态、受限DAO和同实例恢复；当前63表843字段。 |
 | [04-database/table-catalog.json](<04-database/table-catalog.json>) | 结构化表目录，保存字段定义和表级关系；应与SQL和字典同步。 |
 | [04-database/table-task-usage.json](<04-database/table-task-usage.json>) | 逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。 |
 | [04-database/table-task-usage.md](<04-database/table-task-usage.md>) | 当前62表与任务引用阅读表，区分职责提案、需求引用与API引用，非实际代码使用证明。 |

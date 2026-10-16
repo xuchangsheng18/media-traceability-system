@@ -41,6 +41,10 @@ INTERFACES = [
     ("已运行研发API", "docs/03-api/poc-api.md", "PoC接口及范围", "固定测试案件/图片上传/任务/合成CPU入口，与73操作设计分开。"),
 ]
 DATABASES = [
+    ("角色权限模型增量", "docs/04-database/role-catalog-extension.md", "T012角色与权限目录", "0005三列与管理DAO、默认停用/终态/恢复；当前63表843字段，未接入正式授权。"),
+    ("目录逐列来源", "docs/04-database/role-catalog-extension.json", "0005扩展字典", "源码行和摘要、约束、内部投影及外部API未变化；与原62表字典分开。"),
+    ("身份关系增量", "docs/04-database/identity-relations.md", "0004身份/单位/案件", "精确映射与复合外键；0004为63表840字段，旧版本保持。"),
+    ("实际T012验收", "docs/03-development/t012-role-model-implementation.md", "模型实施及验证", "源验收逐项对照、37目录专项和368回归；不等于认证/路由/人员审计或生产完成。"),
     ("业务设计与关系", "docs/04-database/database-design.md", "数据库设计", "62表候选职责、身份与关系，业务访问层尚未全部实施。"),
     ("业务字段字典", "docs/04-database/data-dictionary.md", "62表/825字段字典", "逐字段类型、空值、约束和来源；不从一句来源契约推导已确认业务规则。"),
     ("空库DDL唯一源", "docs/04-database/initial-schema.sql", "初始化SQL", "用于新隔离空库；不得当既有数据库增量升级脚本。"),

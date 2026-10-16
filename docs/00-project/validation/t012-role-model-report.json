@@ -1,0 +1,180 @@
+{
+  "status": "PASS",
+  "task_id": "T012",
+  "observed_at": "2026-10-16T17:35:51.350397+00:00",
+  "python": "3.10.22",
+  "postgres_version": "16.15",
+  "scope": "isolated_development_role_permission_catalog_binding_models_migrations_and_restore",
+  "production_enabled": false,
+  "runtime_authorization_asserted": false,
+  "formal_accepted": false,
+  "source_is_private_snapshot": true,
+  "local_source_base_commit": "47d4d1ac0f350b56b84ed9692ec5f0508f5f4cb1",
+  "source_file_sha256": {
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3",
+    "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
+    "tests/business/test_migrations.py": "56e9ddb027fd8b1ae4ffd6659cf386661689ee25ac197a06d79c3d05ad04c296"
+  },
+  "role_catalog_test_run": {
+    "tests": 37,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "full_regression": {
+    "tests": 368,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "red_green_evidence": {
+    "red_original_new_cases": {
+      "tests": 36,
+      "failures": 36,
+      "errors": 0,
+      "skipped": 0
+    },
+    "green_role_cases": 37,
+    "green_extra_upgrade_safety_cases": 3,
+    "baseline_tests": 95
+  },
+  "command": "python -m pytest tests/business tests/platform tests/stage_three tests/poc -q --tb=short",
+  "development_database": {
+    "name": "mt_business_role_catalog_dev_20261017",
+    "newly_created": true,
+    "isolated": true,
+    "shared_services_restarted": false,
+    "applied_migrations": [
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0005"
+    ],
+    "migration_replay_noop": true,
+    "migration_ledger": [
+      {
+        "version": "0001",
+        "sha256": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa"
+      },
+      {
+        "version": "0002",
+        "sha256": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953"
+      },
+      {
+        "version": "0003",
+        "sha256": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6"
+      },
+      {
+        "version": "0004",
+        "sha256": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2"
+      },
+      {
+        "version": "0005",
+        "sha256": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f"
+      }
+    ],
+    "tables": 63,
+    "fields": 843,
+    "catalog_and_identity_row_counts": {
+      "organizations": 0,
+      "users": 0,
+      "cases": 0,
+      "case_membership": 0,
+      "user_identities": 0,
+      "user_roles": 0,
+      "roles": 0,
+      "permissions": 0,
+      "role_permissions": 0
+    },
+    "credentials_committed": false,
+    "private_connection_file_mode": "0o600"
+  },
+  "previous_identity_database": {
+    "name": "mt_business_identity_dev_20261016",
+    "fields": 840,
+    "migrations": [
+      [
+        "0001"
+      ],
+      [
+        "0002"
+      ],
+      [
+        "0003"
+      ],
+      [
+        "0004"
+      ]
+    ],
+    "changed": false
+  },
+  "acceptance": [
+    {
+      "criterion": "unique keys, foreign keys and soft disable",
+      "result": "PASS_DEVELOPMENT",
+      "evidence": "tests/business/test_role_directory.py"
+    },
+    {
+      "criterion": "versioned upgrade, replay and atomic failure",
+      "result": "PASS_DEVELOPMENT",
+      "evidence": "tests/business/test_migrations.py"
+    },
+    {
+      "criterion": "restore or forward-repair plan",
+      "result": "PASS_DEVELOPMENT_SAME_INSTANCE_SAME_ROLES",
+      "evidence": "test_role_catalog_and_binding_backup_restore_preserves_states_and_ledger"
+    }
+  ],
+  "remaining": [
+    "formal role matrix and authorized seeds/management credentials",
+    "real identity integration and whole-chain revocation in T013/T014",
+    "actual personnel audit/management workflow in T017 and related tasks",
+    "actual owner, review and production acceptance"
+  ],
+  "shared_poc_untouched": true,
+  "original_100_package_lock_unchanged": true,
+  "old_migration_digests_unchanged": true,
+  "independent_review": {
+    "status": "NO_IMPORTANT_FINDINGS",
+    "scope": "0005, directory DAO, PostgreSQL tests and recovery boundaries; read-only; no test substitution",
+    "reviewer_task": "t012_role_catalog_review"
+  },
+  "local_quality_verification": {
+    "mode": "quality",
+    "python": "3.10.22",
+    "observed_at": "2026-10-16T17:14:43.749180+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "format-check"
+        ],
+        "exit_code": 0,
+        "output": "89 files already formatted\n{\"status\": \"PASS\", \"scope\": \"selected_development_python_and_governance_text\", \"files\": 101}\n\n> media-trace-poc-ui@0.1.0 format-check\n> prettier --check \"src/**/*.{ts,vue}\" \"e2e/**/*.ts\" \"*.{ts,mjs,json,html}\"\n\nChecking formatting...\nAll matched files use Prettier code style!"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "lint"
+        ],
+        "exit_code": 0,
+        "output": "All checks passed!\n\n> media-trace-poc-ui@0.1.0 lint\n> eslint src e2e *.ts *.mjs --max-warnings=0\n\nSuccess: no issues found in 89 source files"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_quality.py",
+          "secrets"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"files_checked\": 1450, \"exact_runtime_values_available\": true, \"scope\": \"tracked_and_unignored_files_known_private_values_and_basic_key_patterns\", \"comprehensive_DLP_or_history_scan\": false, \"secret_values_printed\": false}"
+      }
+    ],
+    "shared_services_restarted": false
+  }
+}

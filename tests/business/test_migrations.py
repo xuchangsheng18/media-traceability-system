@@ -25,7 +25,7 @@ def scalar(connection, query):
 
 
 def test_empty_database_migrates_and_replay_noops(database_dsn):
-    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004"]
+    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004", "0005"]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
         assert (
@@ -35,7 +35,7 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
             )
             == 63
         )
-        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 840
+        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 843
         assert scalar(connection, "SELECT rolbypassrls OR rolsuper FROM pg_roles WHERE rolname='mt_runtime'") is False
 
 
@@ -96,7 +96,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             assert scalar(connection, "SELECT to_regclass('mt.user_identities')") is None
             assert scalar(connection, "SELECT count(*) FROM mt.case_membership") == 1
     else:
-        assert migrate(database_dsn) == ["0004"]
+        assert migrate(database_dsn) == ["0004", "0005"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -122,7 +122,13 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             )
         )
     try:
-        assert migrate(make_conninfo(database_dsn, options="-crole=" + role)) == ["0001", "0002", "0003", "0004"]
+        assert migrate(make_conninfo(database_dsn, options="-crole=" + role)) == [
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+        ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
             admin.execute("INSERT INTO mt.organizations(org_id,name) VALUES(%s,'owner-test')", (org,))
@@ -178,3 +184,85 @@ def test_unsafe_identity_role_inheritance_aborts_migration(database_dsn, collisi
                 admin.execute(sql.SQL("REVOKE {} FROM {}").format(sql.Identifier(granted), sql.Identifier(member)))
             if collision.startswith("indirect"):
                 admin.execute(sql.SQL("DROP ROLE {}").format(sql.Identifier(middle)))
+
+
+@pytest.mark.parametrize("invalid_legacy", [False, True])
+def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database_dsn, tmp_path, invalid_legacy):
+    from uuid import uuid4
+
+    for original in sorted(MIGRATIONS.glob("*.sql"))[:4]:
+        (tmp_path / original.name).write_bytes(original.read_bytes())
+    assert migrate(database_dsn, tmp_path) == ["0001", "0002", "0003", "0004"]
+    role, permission, relation = [uuid4() for _ in range(3)]
+    with psycopg.connect(database_dsn) as connection:
+        connection.execute(
+            "INSERT INTO mt.roles(role_id,code,description) VALUES(%s,%s,'legacy')",
+            (role, " bad legacy" if invalid_legacy else "legacy.role"),
+        )
+        connection.execute(
+            "INSERT INTO mt.permissions(permission_id,code,description) VALUES(%s,'legacy.permission','legacy')",
+            (permission,),
+        )
+        connection.execute(
+            "INSERT INTO mt.role_permissions(role_permission_id,role_id,permission_id) VALUES(%s,%s,%s)",
+            (relation, role, permission),
+        )
+    if invalid_legacy:
+        with pytest.raises(psycopg.errors.CheckViolation):
+            migrate(database_dsn)
+        with psycopg.connect(database_dsn) as connection:
+            assert scalar(connection, "SELECT count(*) FROM mt_meta.schema_migrations") == 4
+            assert (
+                scalar(
+                    connection,
+                    "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt' AND table_name='roles' AND column_name='enabled'",
+                )
+                == 0
+            )
+            assert connection.execute("SELECT code FROM mt.roles WHERE role_id=%s", (role,)).fetchone() == (
+                " bad legacy",
+            )
+    else:
+        assert migrate(database_dsn) == ["0005"]
+        assert migrate(database_dsn) == []
+        with psycopg.connect(database_dsn) as connection:
+            assert connection.execute(
+                "SELECT enabled,code,row_version FROM mt.roles WHERE role_id=%s", (role,)
+            ).fetchone() == (True, "legacy.role", 1)
+            assert connection.execute(
+                "SELECT enabled,code,row_version FROM mt.permissions WHERE permission_id=%s", (permission,)
+            ).fetchone() == (True, "legacy.permission", 1)
+            assert connection.execute(
+                "SELECT role_id,permission_id,revoked_at,row_version FROM mt.role_permissions WHERE role_permission_id=%s",
+                (relation,),
+            ).fetchone() == (role, permission, None, 1)
+            new_role = uuid4()
+            connection.execute(
+                "INSERT INTO mt.roles(role_id,code,description) VALUES(%s,'new.role','new')", (new_role,)
+            )
+            assert connection.execute("SELECT enabled FROM mt.roles WHERE role_id=%s", (new_role,)).fetchone() == (
+                False,
+            )
+
+
+def test_new_catalog_migration_rechecks_unsafe_existing_role_inheritance(database_dsn, tmp_path):
+    for original in sorted(MIGRATIONS.glob("*.sql"))[:4]:
+        (tmp_path / original.name).write_bytes(original.read_bytes())
+    assert migrate(database_dsn, tmp_path) == ["0001", "0002", "0003", "0004"]
+    with psycopg.connect(database_dsn) as admin:
+        admin.execute("GRANT mt_directory_manager TO mt_runtime")
+    try:
+        with pytest.raises(psycopg.errors.ObjectNotInPrerequisiteState, match="UNSAFE_ROLE_CATALOG_MANAGEMENT"):
+            migrate(database_dsn)
+        with psycopg.connect(database_dsn) as connection:
+            assert scalar(connection, "SELECT count(*) FROM mt_meta.schema_migrations") == 4
+            assert (
+                scalar(
+                    connection,
+                    "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt' AND table_name='permissions' AND column_name='enabled'",
+                )
+                == 0
+            )
+    finally:
+        with psycopg.connect(database_dsn) as admin:
+            admin.execute("REVOKE mt_directory_manager FROM mt_runtime")

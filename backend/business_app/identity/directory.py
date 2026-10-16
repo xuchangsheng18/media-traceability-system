@@ -206,3 +206,67 @@ class IdentityDirectory:
             {"id": identity_id},
         ).one()
         return bool(row[0]), bool(row[1]), int(row[2])
+
+    def create_role(self, code: str, description: str, *, enabled: bool = False) -> UUID:
+        if not valid_key(code, 1024) or not valid_key(description, 4096) or type(enabled) is not bool:
+            raise BusinessError("DIRECTORY_INPUT_INVALID", 422)
+        return self._insert(
+            "INSERT INTO mt.roles(role_id,code,description,enabled) VALUES(:id,:code,:description,:enabled) RETURNING role_id",
+            {"id": uuid4(), "code": code, "description": description, "enabled": enabled},
+        )
+
+    def create_permission(self, code: str, description: str, *, enabled: bool = False) -> UUID:
+        if not valid_key(code, 1024) or not valid_key(description, 4096) or type(enabled) is not bool:
+            raise BusinessError("DIRECTORY_INPUT_INVALID", 422)
+        return self._insert(
+            "INSERT INTO mt.permissions(permission_id,code,description,enabled) VALUES(:id,:code,:description,:enabled) RETURNING permission_id",
+            {"id": uuid4(), "code": code, "description": description, "enabled": enabled},
+        )
+
+    def bind_role(self, user_id: UUID, role_id: UUID, *, expires_at: datetime | None = None) -> UUID:
+        self._expiry(expires_at)
+        return self._insert(
+            "INSERT INTO mt.user_roles(user_role_id,user_id,role_id,expires_at) VALUES(:id,:user,:role,:expiry) RETURNING user_role_id",
+            {"id": uuid4(), "user": user_id, "role": role_id, "expiry": expires_at},
+        )
+
+    def bind_permission(self, role_id: UUID, permission_id: UUID) -> UUID:
+        return self._insert(
+            "INSERT INTO mt.role_permissions(role_permission_id,role_id,permission_id) VALUES(:id,:role,:permission) RETURNING role_permission_id",
+            {"id": uuid4(), "role": role_id, "permission": permission_id},
+        )
+
+    def disable_role(self, role_id: UUID, *, expected_version: int) -> None:
+        self._change(
+            "UPDATE mt.roles SET enabled=false,updated_at=now(),row_version=row_version+1 WHERE role_id=:id AND row_version=:version RETURNING role_id",
+            role_id,
+            expected_version,
+        )
+
+    def disable_permission(self, permission_id: UUID, *, expected_version: int) -> None:
+        self._change(
+            "UPDATE mt.permissions SET enabled=false,updated_at=now(),row_version=row_version+1 WHERE permission_id=:id AND row_version=:version RETURNING permission_id",
+            permission_id,
+            expected_version,
+        )
+
+    def revoke_permission(self, role_permission_id: UUID, *, expected_version: int) -> None:
+        self._change(
+            "UPDATE mt.role_permissions SET revoked_at=now(),updated_at=now(),row_version=row_version+1 WHERE role_permission_id=:id AND row_version=:version AND revoked_at IS NULL RETURNING role_permission_id",
+            role_permission_id,
+            expected_version,
+        )
+
+    def permission_bindings(self, user_id: UUID) -> tuple[str, ...]:
+        """Manager-only catalog inspection; never a route, case or formal-policy ALLOW."""
+        self._manager()
+        rows = self.connection.execute(
+            text("""SELECT DISTINCT p.code FROM mt.users u JOIN mt.organizations o ON o.org_id=u.org_id
+                JOIN mt.user_roles ur ON ur.user_id=u.user_id JOIN mt.roles r ON r.role_id=ur.role_id
+                JOIN mt.role_permissions rp ON rp.role_id=r.role_id JOIN mt.permissions p ON p.permission_id=rp.permission_id
+                WHERE u.user_id=:user AND u.enabled AND o.enabled AND r.enabled AND p.enabled
+                AND ur.revoked_at IS NULL AND rp.revoked_at IS NULL
+                AND (ur.expires_at IS NULL OR ur.expires_at>statement_timestamp()) ORDER BY p.code"""),
+            {"user": user_id},
+        )
+        return tuple(str(row[0]) for row in rows)

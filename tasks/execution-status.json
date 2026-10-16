@@ -1,6 +1,6 @@
 {
-  "revision": "pre-t012-foundation-review-20261016",
-  "observed_date": "2026-10-16",
+  "revision": "t012-role-catalog-20261017",
+  "observed_date": "2026-10-17",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
   "completion_percentage_asserted": false,
@@ -881,8 +881,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "用户/角色/权限/案件成员候选表已通过隔离迁移验证；身份映射和单位案件关系增量、受限目录DAO及独立空研发库已建立并验证",
-      "summary_remaining": "补完整角色/权限目录及绑定管理、正式人员生命周期审计和实际管理入口；本批内部身份DAO不等于全部用户权限管理完成；接入正式身份映射后核对禁用、角色变更和历史兼容；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_completed": "身份/单位/案件及角色权限关联模型、0001—0005迁移和受限内部DAO已实现；唯一/外键/软禁用/升级及恢复研发验证通过，另建63表843字段空库",
+      "summary_remaining": "正式角色/权限矩阵、获授权种子及真实管理身份尚未确认；实际管理HTTP和人员生命周期审计按T013/T014/T017等相关任务交付，本轮内部DAO不等于完整用户权限系统；真实身份方接入后在T013/T014联调禁用、角色变更、撤销传播和历史兼容；目录持久化测试不能代替认证/路由整链验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "用户/角色/权限/案件成员候选表已通过隔离迁移验证",
@@ -941,23 +941,74 @@
               "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
             }
           ]
+        },
+        {
+          "description": "0005追加目录软禁用和权限绑定终态撤销，复用IdentityDirectory完成角色/权限创建、绑定、停用和受限有效绑定投影；不接入HTTP或正式ALLOW",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_migrations/0005_role_catalog.sql",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            },
+            {
+              "path": "backend/business_app/identity/directory.py",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            },
+            {
+              "path": "docs/04-database/role-catalog-extension.json",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            }
+          ]
+        },
+        {
+          "description": "37项目录实测及旧版本升级、原子拒绝、并发和同实例同角色备份恢复已验证；完整368项回归、格式和89文件类型检查通过",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "tests/business/test_role_directory.py",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            },
+            {
+              "path": "tests/business/test_migrations.py",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            },
+            {
+              "path": "docs/00-project/validation/t012-role-model-report.json",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            }
+          ]
+        },
+        {
+          "description": "Linux另建独立空角色目录研发库，0001—0005共63表843字段；旧63表840字段身份库及共享PoC保留不变，凭据在Git外",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "docs/00-project/validation/t012-role-model-report.json",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            },
+            {
+              "path": "docs/04-database/role-catalog-extension.md",
+              "scope": "仅证明T012数据库模型、受限内部目录与隔离PostgreSQL研发验证；不证明正式身份认证、路由授权、人员审计或生产验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补完整角色/权限目录及绑定管理、正式人员生命周期审计和实际管理入口；本批内部身份DAO不等于全部用户权限管理完成"
+          "description": "正式角色/权限矩阵、获授权种子及真实管理身份尚未确认；实际管理HTTP和人员生命周期审计按T013/T014/T017等相关任务交付，本轮内部DAO不等于完整用户权限系统"
         },
         {
           "category": "实施/外部条件",
-          "description": "接入正式身份映射后核对禁用、角色变更和历史兼容"
+          "description": "真实身份方接入后在T013/T014联调禁用、角色变更、撤销传播和历史兼容；目录持久化测试不能代替认证/路由整链验证"
         },
         {
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "development_validation_report": "docs/00-project/validation/t012-identity-relations-report.json"
+      "development_validation_report": "docs/00-project/validation/t012-identity-relations-report.json",
+      "role_model_validation_report": "docs/00-project/validation/t012-role-model-report.json"
     },
     {
       "task_id": "T013",

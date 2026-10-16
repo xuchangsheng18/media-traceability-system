@@ -1,0 +1,87 @@
+{
+  "revision": "t012-role-catalog-20261017",
+  "status": "DEVELOPMENT_VALIDATED_NOT_FORMALLY_ACCEPTED",
+  "formal_accepted": false,
+  "baseline": {
+    "tables": 62,
+    "fields": 825,
+    "catalog": "docs/04-database/table-catalog.json"
+  },
+  "previous_extension": {
+    "tables": 63,
+    "fields": 840,
+    "through_migration": "0004_identity_relations.sql"
+  },
+  "current_structure": {
+    "tables": 63,
+    "fields": 843,
+    "through_migration": "0005_role_catalog.sql"
+  },
+  "migration": {
+    "path": "backend/business_migrations/0005_role_catalog.sql",
+    "sha256": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f"
+  },
+  "added_columns": [
+    {
+      "table": "mt.roles",
+      "name": "enabled",
+      "type": "boolean",
+      "nullable": false,
+      "default_sql": "false",
+      "meaning": "角色目录开关；旧0004目录升级为true保留行为，新记录默认false；不构成正式授权",
+      "source": "backend/business_migrations/0005_role_catalog.sql",
+      "source_line": 14
+    },
+    {
+      "table": "mt.permissions",
+      "name": "enabled",
+      "type": "boolean",
+      "nullable": false,
+      "default_sql": "false",
+      "meaning": "权限目录开关；旧记录保留，新增默认false；不替代路由或对象范围检查",
+      "source": "backend/business_migrations/0005_role_catalog.sql",
+      "source_line": 16
+    },
+    {
+      "table": "mt.role_permissions",
+      "name": "revoked_at",
+      "type": "timestamptz",
+      "nullable": true,
+      "default_sql": null,
+      "meaning": "绑定终态撤销；历史唯一role_id/permission_id保留，不自动再授权",
+      "source": "backend/business_migrations/0005_role_catalog.sql",
+      "source_line": 18
+    }
+  ],
+  "existing_constraints_preserved": [
+    "roles(code) UNIQUE",
+    "permissions(code) UNIQUE",
+    "role_permissions(role_id,permission_id) UNIQUE including revoked rows",
+    "user_roles(user_id,role_id) UNIQUE including revoked rows",
+    "all existing primary and foreign keys"
+  ],
+  "new_guards": [
+    "immutable role/permission identifiers and codes",
+    "immutable role-permission binding identifiers and endpoints",
+    "terminal revoked_at in role_permissions",
+    "reject ordinary DELETE and TRUNCATE CASCADE on roles,permissions,role_permissions,user_roles",
+    "recheck manager group privilege and inheritance safety before granting catalog writes"
+  ],
+  "internal_projection": {
+    "path": "backend/business_app/identity/directory.py",
+    "method": "IdentityDirectory.permission_bindings",
+    "consumer": "privileged directory manager only",
+    "formal_authorization": false,
+    "case_or_source_access": false,
+    "auth_me_wired": false
+  },
+  "external_API": {
+    "changed": false,
+    "source": "docs/03-api/openapi.yaml",
+    "mapping": "docs/04-database/api-field-mapping.json",
+    "reason": "internal persistence switches/revocation and manager-only inspection; no new public fields or registered role grants"
+  },
+  "source_originals_unchanged": true,
+  "old_migration_digests_unchanged": true,
+  "verification_ref": "docs/00-project/validation/t012-role-model-report.json"
+}

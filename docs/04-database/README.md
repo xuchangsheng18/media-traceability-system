@@ -4,6 +4,8 @@
 
 新增[T011/T012身份、单位与案件关系](identity-relations.md)、[机器扩展字典](identity-relations-catalog.json)及[0004迁移](../../backend/business_migrations/0004_identity_relations.sql)。原初始化基线62表825字段保留；应用0001—0004后的实际库为63表840字段，适用版本须区分。
 
+本批[T012角色/权限目录及绑定](role-catalog-extension.md)、[逐字段扩展字典](role-catalog-extension.json)、[0005迁移](../../backend/business_migrations/0005_role_catalog.sql)和[实际实施/验收](../03-development/t012-role-model-implementation.md)补齐目录软禁用、终态撤销、受限管理及恢复。0005后实际63表843字段；独立空开发库和368项回归见[专属报告](../00-project/validation/t012-role-model-report.json)。内部模型没有自动接入认证或正式授权。
+
 - [api-field-mapping.csv](api-field-mapping.csv)
 - [api-field-mapping.json](api-field-mapping.json)
 - [api-field-mapping.md](api-field-mapping.md)

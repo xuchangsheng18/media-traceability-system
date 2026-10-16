@@ -133,6 +133,17 @@ def block(row, ledger, source):
             + link(row["development_validation_report"], card)
             + "为准；上面的共享历史CI不自动覆盖新增实现。\n\n"
         )
+    if row.get("role_model_validation_report"):
+        model = read(row["role_model_validation_report"])
+        assert model["status"] == "PASS" and model["task_id"] == task
+        assert not model["production_enabled"] and not model["runtime_authorization_asserted"]
+        totals = model["full_regression"]
+        assert totals["tests"] > 0 and totals["failures"] == totals["errors"] == totals["skipped"] == 0
+        text += (
+            "本批角色/权限目录、绑定、0005升级与恢复的真实PostgreSQL验证见"
+            + link(row["role_model_validation_report"], card)
+            + "；已覆盖源模型验收的研发范围，正式身份和后续整链验收仍待落实。\n\n"
+        )
     text += "### 已完成步骤及证据\n\n"
     if row["completed_steps"]:
         text += "| 步骤 | 已完成的具体范围 | 证据及适用边界 |\n| --- | --- | --- |\n"

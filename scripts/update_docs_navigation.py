@@ -37,6 +37,10 @@ def main():
         "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。",
     )
     entries = {
+        "03-development/t012-role-model-implementation.md": "T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。",
+        "04-database/role-catalog-extension.md": "0005目录开关/撤销三列、旧状态与新默认、唯一/外键/终态、受限DAO和同实例恢复；当前63表843字段。",
+        "04-database/role-catalog-extension.json": "0005三列精确类型、默认、源码行与摘要及不改公共API的机器扩展字典；保留历史62/825及0004的63/840。",
+        "00-project/validation/t012-role-model-report.json": "真实py310/PostgreSQL的RED/GREEN、368回归、源码摘要、新建空目录库及旧库保留、源验收范围；无连接凭据。",
         "03-development/t001-t011-foundation-review.md": "T012前11项任务逐项对照：本轮格式自动覆盖、7服务真实cgroup核验、当前GitHub治理和仍缺实测/真实输入的事项；不冒充整任务完成。",
         "00-project/validation/t001-t011-foundation-review-report.json": "保留T001—T011源验收/测试/依赖全文，逐项结论与证据及当前实际验证；整任务均未正式验收。",
         "00-project/validation/development-container-limits-report.json": "Compose、Docker设置与实际cgroup v2 CPU/内存/pids只读比对；缺失/无限/漂移拒绝，不代表临时盘或压力隔离已验证。",
