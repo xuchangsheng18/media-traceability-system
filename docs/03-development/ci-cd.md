@@ -38,4 +38,6 @@ push main、PR或手动触发；并发按ref取消旧任务，同一栈仅在单
 
 未配置自动发布或生产部署。分支保护/必须检查仍须结合账号套餐、组织管理与有效责任人设置，不能把工程门禁等同生产审批。GitHub额度/网络/虚拟机资源变化按实际失败处理，不降低断言。遵循[Runner环境](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)及[Actions安全配置](https://docs.github.com/en/actions/reference/security/secure-use)官方说明，实际以本次制品和运行结果为准。
 
-材料控制、隔离、媒体报告与SPDX清单分别保存。正式资源容量报告CRITICAL不冒充工程测试失败或生产就绪，功能/生产条件仍按第二阶段清单。服务器研发数据卷处于CRITICAL时不执行本机全量构建/恢复；先落实容量。托管25道在一次性隔离Runner执行，不借用该服务器已有业务数据或凭据。
+材料控制、隔离、媒体报告与SPDX清单分别保存。正式资源容量报告CRITICAL不冒充工程测试失败或生产就绪，功能/生产条件仍按第二阶段清单。服务器研发数据卷处于CRITICAL时不执行本机全量构建/恢复；先落实容量。托管32道在一次性隔离Runner执行，不借用该服务器已有业务数据或凭据。
+
+本轮补充[实际cgroup核验](../../scripts/verify_development_limits.py)，在托管临时栈上作为独立步骤执行，并上传development-container-limits-report.json；不把它误算为run_ci内部第33道，也不证明已获准生产配额。T001—T011逐项结论见[本轮复核](t001-t011-foundation-review.md)。

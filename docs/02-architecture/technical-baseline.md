@@ -1,6 +1,8 @@
 # Technical Baseline 1.1 — py310 CPU 研发基线
 
-2026-10-13更新；状态 `DEVELOPMENT_VALIDATED`；正式业务/生产基线 `NOT_FROZEN`。用户指定 Miniforge py310，已据此完成环境盘点、开发技术选择和锁定、真实最小工程及GitHub接入。本机21门禁历史保留，现有托管配置为25道工程门禁，实际源码/run/制品证据见[GitHub报告](../00-project/validation/github-actions-report.json)。
+2026-10-16更新；状态 `DEVELOPMENT_VALIDATED`；正式业务/生产基线 `NOT_FROZEN`。用户指定 Miniforge py310，已据此完成环境盘点、开发技术选择和锁定、真实最小工程及GitHub接入。本机21门禁历史保留，现有托管配置为32道工程门禁，实际源码/run/制品证据见[GitHub报告](../00-project/validation/github-actions-report.json)。
+
+T012之前的逐项工程核验、实际cgroup检查和仍未关闭的条件见[T001—T011复核](../03-development/t001-t011-foundation-review.md)；新增cgroup工作流检查与32项run_ci门禁分别记数。
 
 | 交付 | 权威入口 | 判定 |
 | --- | --- | --- |
@@ -13,7 +15,7 @@
 | 字段来源与接口投影 | [字段来源](../04-database/field-provenance.json)、[API映射](../04-database/api-field-mapping.md)、[映射JSON](../04-database/api-field-mapping.json)、[表任务引用](../04-database/table-task-usage.md)、[首发排序](../04-database/first-source-ranking.md) | 核对cluster/asset/rank等来源指针、数据库列与API投影；任务引用不代表业务访问层已实施 |
 | 最小工程 | [运行手册](../10-deployment/development-runbook.md)、[PoC API](../03-api/poc-api.md)、[PoC 数据库](../04-database/poc-database.md) | 浏览器→API→对象/SQL→RabbitMQ→worker→CPU推理→结果已运行 |
 | 研发数据库与升级 | [研发5表](../04-database/poc-database.md)、[研发版本迁移](../../backend/migrations/)、[迁移事件机制](../03-development/migrations-and-events.md)、[RLS原型](../04-database/authorization-isolation-prototype.md) | 当前5表实际研发工程及代表性隔离机制；正式62表业务访问/迁移/RLS尚未全部实施 |
-| CI与检查 | [CI说明](../03-development/ci-cd.md)、[技术验证报告](technical-validation-report.md)、[GitHub实际报告](../00-project/validation/github-actions-report.json) | 本机21门禁历史；托管25门禁及资料/导航检查按实际run和源码SHA判定 |
+| CI与检查 | [CI说明](../03-development/ci-cd.md)、[技术验证报告](technical-validation-report.md)、[GitHub实际报告](../00-project/validation/github-actions-report.json) | 本机21门禁历史；托管32门禁及资料/导航检查按实际run和源码SHA判定 |
 | 阶段状态与变更 | [第一阶段24步实际状态](../00-project/stage-one/steps-and-deliverables.md)、[第二阶段23步状态](../03-development/stage-two-readiness.md)、[变更控制](technical-baseline-change-control.md) | 保留全部12模块170任务；材料/开发实测/正式冻结分别判定 |
 
 服务：Vue 页面、FastAPI API、PostgreSQL16.15、SeaweedFS4.48、RabbitMQ4.3.6、Celery5.6.3 worker、独立 PyTorch2.14.1+cpu 推理。容器内实际解释器为 Python3.10.22，不使用宿主系统 Python 替代。部署独立项目 `media-trace-py310`、专用网络和5个数据/配置卷；不修改其他项目。
@@ -35,7 +37,7 @@
 
 已具备的技术范围：
 
-- 用户Miniforge py310环境、精确锁、7服务CPU最小工程、迁移/租约/媒体/RLS代表性验证及托管25门禁已有证据。
+- 用户Miniforge py310环境、精确锁、7服务CPU最小工程、迁移/租约/媒体/RLS代表性验证及托管32门禁已有证据。
 - 整体接口/数据库及现有24/23步状态已接入原文档，输入和运行边界明确。
 
 现在可推进：
