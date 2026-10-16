@@ -402,6 +402,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、单位和案件范围、八个既有实体关系、分类槽与撤销/版本边界；独立合成评审，不是正式权限源。 |
+| [08-security/access-control-model.json](<08-security/access-control-model.json>) | T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。 |
+| [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
+| [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
+| [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [03-development/stage-three/remaining-interface-implementation-plan.md](<03-development/stage-three/remaining-interface-implementation-plan.md>) | 剩余11类接口实施范围、顺序及正式前置条件；用户已授权继续实施。 |
 | [03-development/stage-three/remaining-interface-implementation.md](<03-development/stage-three/remaining-interface-implementation.md>) | 剩余11类接口真实代码/数据库/ETag/授权/模型边界说明；73操作102组件、实际42外部及1内部挂载，正式条件另判。 |
 | [03-development/stage-three/foundation-implementation-plan.md](<03-development/stage-three/foundation-implementation-plan.md>) | 六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围及详细计划已认可，当前会话实施，计划本身非完成证据。 |
@@ -512,7 +517,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共639份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共644份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -705,6 +710,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-two-software-report.json](<00-project/validation/stage-two-software-report.json>) | 7服务/5镜像的已安装OS物料采集、ID/RepoDigest/缺镜像覆盖；非漏洞扫描或许可批准。 |
 | [00-project/validation/stage-two-supplement-report.json](<00-project/validation/stage-two-supplement-report.json>) | 6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。 |
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |
+| [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
+| [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1013,6 +1020,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-two-gap-register.md](<03-development/stage-two-gap-register.md>) | 剩余正式条件、输入、责任角色与关闭标准；不补造姓名和批准。 |
 | [03-development/stage-two-implementation-plan.md](<03-development/stage-two-implementation-plan.md>) | 资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。 |
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
+| [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
@@ -1104,6 +1112,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [07-datasets/dataset-catalog.md](<07-datasets/dataset-catalog.md>) | 数据集类别、用途及对应模型方向。 |
 | [07-datasets/dataset-split-policy.md](<07-datasets/dataset-split-policy.md>) | 按来源组等条件划分，隔离验证、校准与封存测试用途。 |
 | [07-datasets/README.md](<07-datasets/README.md>) | 所在专题的局部导航与阅读入口 |
+| [08-security/access-control-model.json](<08-security/access-control-model.json>) | T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。 |
+| [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、单位和案件范围、八个既有实体关系、分类槽与撤销/版本边界；独立合成评审，不是正式权限源。 |
 | [08-security/audit-requirements.md](<08-security/audit-requirements.md>) | 应记录的主体、对象、版本、动作、结果与追踪信息。 |
 | [08-security/data-classification.md](<08-security/data-classification.md>) | 数据类别、敏感性和处理要求。 |
 | [08-security/permission-matrix.md](<08-security/permission-matrix.md>) | 角色与动作权限的对应关系及限制。 |

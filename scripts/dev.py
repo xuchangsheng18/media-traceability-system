@@ -70,7 +70,7 @@ def plan(name):
         ]
     if name == "test":
         return [
-            [py, "-m", "pytest", "tests/poc", "tests/stage_three", "-q"],
+            [py, "-m", "pytest", "tests/poc", "tests/stage_three", "tests/platform", "-q"],
             [py, "scripts/verify_business_foundation.py", "run"],
             ["npm", "--prefix", "frontend", "test"],
         ]

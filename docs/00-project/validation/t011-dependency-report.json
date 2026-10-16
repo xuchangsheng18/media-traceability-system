@@ -1,0 +1,85 @@
+{
+  "status": "PASS",
+  "task_id": "T011",
+  "scope": "required_development_dependencies_only_not_full_T002_or_T010_acceptance",
+  "base_source_commit": "7dcd47d4c9955feaff211880a6d1cc4f7a02ebc4",
+  "observed_at": "2026-10-16T03:18:14.301507+00:00",
+  "python": "3.10.22",
+  "baseline_checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/stage_three/test_foundation_configuration.py",
+        "tests/stage_three/test_foundation_tracing.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": ".............                                                            [100%]\n=============================== warnings summary ===============================\n../../../../../opt/conda/glwy/envs/py310/lib/python3.10/site-packages/fastapi/testclient.py:1\n  /opt/conda/glwy/envs/py310/lib/python3.10/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n13 passed, 1 warning in 0.47s\n"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/generate_stage_status_navigation.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 17, \"database_navigation_entries\": 16, \"differences\": []}\n"
+    }
+  ],
+  "template_checks": [
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "41bdfa79ba26f7dedc02f94e0e96b0d04a6a096d430825f9575b223a5ff67c86",
+      "sections": [
+        "问题与最终行为",
+        "变更依据与影响",
+        "实际验证",
+        "迁移 恢复与剩余条件"
+      ]
+    },
+    {
+      "path": "docs/03-development/change-templates/requirement-change.md",
+      "sha256": "5f3475b61611247bf131bcbcd7832c55f339fad19f6172c7d2e1930c53e46671",
+      "sections": [
+        "问题和拟议行为",
+        "影响核对",
+        "验证与验收",
+        "迁移 回退与决定"
+      ]
+    },
+    {
+      "path": "docs/03-development/change-templates/database-change.md",
+      "sha256": "6215eaec96ad21974e3d62c5621cf1e69fe50e2047800ef9d6e8e37fc5d67af4",
+      "sections": [
+        "变更与兼容",
+        "隔离和历史",
+        "执行与验证",
+        "回退或前向修复"
+      ]
+    },
+    {
+      "path": "docs/03-development/change-templates/model-change.md",
+      "sha256": "20377b9360799f680dc7d585dcf5b943c493603f2b8bf868cd155342111aaf23",
+      "sections": [
+        "输入输出与兼容",
+        "数据和评测",
+        "发布包与验证",
+        "灰度 回退与决定"
+      ]
+    },
+    {
+      "path": "docs/03-development/change-templates/architecture-decision.md",
+      "sha256": "bd9d05e08b62dc04d040515314bc2d9017268e3855703531c106dea2fbb28733",
+      "sections": [
+        "背景与约束",
+        "备选方案和决定",
+        "影响 验证与回退"
+      ]
+    }
+  ],
+  "formal_approved": false,
+  "full_upstream_acceptance_asserted": false,
+  "shared_services_restarted": false
+}

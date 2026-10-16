@@ -88,7 +88,17 @@ def block(row, ledger, source):
     task, card = row["task_id"], row["card"]
     text = f"{START}\n## 当前完成步骤与剩余工作\n\n"
     text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。实际负责人、剩余工时及实际完成日期未确认；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
-    text += f"同源[状态台账](../execution-status.json)、[全部170任务](../README.md)；实现审查快照 `{ledger['implementation_source_commit'][:12]}`，既有实现验证源码 `{ledger['validated_implementation_source_commit'][:12]}`，归档验证 [CI #{ledger['validated_ci_run_id']}](<{ledger['validated_ci_run_url']}>)。本轮资料校验及同步另见最新回执；开发子范围证据不能代替本卡完整验收。\n\n### 已完成步骤及证据\n\n"
+    if row.get("specific_validation_report"):
+        report = read(row["specific_validation_report"])
+        assert report["status"] == "PASS" and report["task_id"] == task
+        assert report["runtime_authorization_asserted"] is False and report["production_enabled"] is False
+        tests = report["test_run"]
+        assert tests["exit_code"] == tests["failures"] == tests["errors"] == tests["skipped"] == 0
+        assert tests["tests"] > 0
+        text += "同源[状态台账](../execution-status.json)、[全部170任务](../README.md)；本任务以" + link(row["specific_validation_report"], card) + "中的源码摘要、环境和执行时间为证据。共享历史CI不自动覆盖本批设计；最新托管和同步另见对应报告。开发子范围不代替整任务验收。\n\n"
+    else:
+        text += f"同源[状态台账](../execution-status.json)、[全部170任务](../README.md)；实现审查快照 `{ledger['implementation_source_commit'][:12]}`，既有实现验证源码 `{ledger['validated_implementation_source_commit'][:12]}`，归档验证 [CI #{ledger['validated_ci_run_id']}](<{ledger['validated_ci_run_url']}>)。本轮资料校验及同步另见最新回执；开发子范围证据不能代替本卡完整验收。\n\n"
+    text += "### 已完成步骤及证据\n\n"
     if row["completed_steps"]:
         text += "| 步骤 | 已完成的具体范围 | 证据及适用边界 |\n| --- | --- | --- |\n"
         for number, step in enumerate(row["completed_steps"], 1):
@@ -100,6 +110,9 @@ def block(row, ledger, source):
     if row["completed_steps"]:
         paths = {e["path"] for s in row["completed_steps"] for e in s["evidence"]}
         text += "\n### 已执行验证与未执行边界\n\n"
+        if row.get("specific_validation_report"):
+            report = read(row["specific_validation_report"])
+            text += f"本任务专属入口：`python scripts/validate_access_control_model.py --run-tests`，在Python {report['python']}执行{report['test_run']['tests']}项合成设计评审测试，失败/错误/跳过均为0。覆盖默认拒绝、显式夹具候选允许、角色和单位/案件/对象/用途/标签/版本及到期撤销边界；不是业务服务授权、真实身份或生产验证。当前精确摘要与结果见本任务专属报告。\n\n"
         if "docs/00-project/validation/business-foundation-report.json" in paths:
             text += "已执行入口：`python scripts/verify_business_foundation.py run`，隔离业务开发测试的数量和源码以最新business-foundation-report及同步回执为准；是相关子范围的共享回归证据，不是本任务的全部验收。采用自建夹具/测试权威适配器，真实身份、正式规则或模型的联调不在该证明范围。\n\n"
         if "docs/00-project/validation/ci-all-report.json" in paths or "docs/00-project/validation/github-actions-report.json" in paths:

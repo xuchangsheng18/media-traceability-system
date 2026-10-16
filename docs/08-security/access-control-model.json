@@ -1,0 +1,836 @@
+{
+  "revision": "T011-20261016-v1",
+  "status": "CANDIDATE_DESIGN_REVIEW_ONLY",
+  "production_enabled": false,
+  "formal_approved": false,
+  "default_effect": "DENY",
+  "sources": [
+    "docs/01-requirements/user-roles.md",
+    "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md",
+    "docs/03-api/openapi.yaml",
+    "backend/business_migrations/0001_business_baseline.sql",
+    "tasks/platform/T011.md"
+  ],
+  "entities": [
+    "organizations",
+    "users",
+    "roles",
+    "permissions",
+    "user_roles",
+    "role_permissions",
+    "cases",
+    "case_membership"
+  ],
+  "classification": {
+    "formal_policy_ref": null,
+    "formal_levels": [],
+    "storage_status": "DESIGN_SLOT_NO_COLUMN_OR_LEVEL_INVENTED",
+    "review_semantics": "EXPLICIT_SYNTHETIC_LABEL_MEMBERSHIP_NO_LEVEL_ORDER"
+  },
+  "permissions": [
+    "approval.decide",
+    "approval.read",
+    "approval.request",
+    "approval.revoke",
+    "asset.download",
+    "asset.import",
+    "asset.read",
+    "asset.search",
+    "asset.upload",
+    "audit.export",
+    "audit.read",
+    "claim.analyze",
+    "development.login",
+    "evidence.read",
+    "evidence.seal",
+    "feedback.read",
+    "feedback.request",
+    "health.read",
+    "identity.read",
+    "index.manage",
+    "model.evaluate",
+    "model.manage",
+    "model.read",
+    "model.release",
+    "operation.confirm",
+    "origin.read",
+    "policy.manage",
+    "policy.read",
+    "propagation.read",
+    "report.draft",
+    "report.export",
+    "report.generate",
+    "report.read",
+    "review.perform",
+    "review.read",
+    "source.manage",
+    "source.read",
+    "task.cancel",
+    "task.create",
+    "task.read",
+    "task.rerun"
+  ],
+  "case_review_permissions": [
+    "approval.decide",
+    "approval.read",
+    "approval.request",
+    "approval.revoke",
+    "asset.download",
+    "asset.import",
+    "asset.read",
+    "asset.search",
+    "asset.upload",
+    "audit.export",
+    "audit.read",
+    "claim.analyze",
+    "evidence.read",
+    "evidence.seal",
+    "feedback.read",
+    "feedback.request",
+    "operation.confirm",
+    "origin.read",
+    "propagation.read",
+    "report.draft",
+    "report.export",
+    "report.generate",
+    "report.read",
+    "review.perform",
+    "review.read",
+    "source.manage",
+    "source.read",
+    "task.cancel",
+    "task.create",
+    "task.read",
+    "task.rerun"
+  ],
+  "roles": [
+    {
+      "code": "system_admin",
+      "name": "系统管理员",
+      "source_ref": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md#24-用户与角色",
+      "permission_review": {
+        "approval.decide": "PENDING_CONFIRMATION",
+        "approval.read": "PENDING_CONFIRMATION",
+        "approval.request": "PENDING_CONFIRMATION",
+        "approval.revoke": "PENDING_CONFIRMATION",
+        "asset.download": "PENDING_CONFIRMATION",
+        "asset.import": "PENDING_CONFIRMATION",
+        "asset.read": "PENDING_CONFIRMATION",
+        "asset.search": "PENDING_CONFIRMATION",
+        "asset.upload": "PENDING_CONFIRMATION",
+        "audit.export": "PENDING_CONFIRMATION",
+        "audit.read": "PENDING_CONFIRMATION",
+        "claim.analyze": "PENDING_CONFIRMATION",
+        "development.login": "PENDING_CONFIRMATION",
+        "evidence.read": "PENDING_CONFIRMATION",
+        "evidence.seal": "PENDING_CONFIRMATION",
+        "feedback.read": "PENDING_CONFIRMATION",
+        "feedback.request": "PENDING_CONFIRMATION",
+        "health.read": "PENDING_CONFIRMATION",
+        "identity.read": "PENDING_CONFIRMATION",
+        "index.manage": "PENDING_CONFIRMATION",
+        "model.evaluate": "PENDING_CONFIRMATION",
+        "model.manage": "PENDING_CONFIRMATION",
+        "model.read": "PENDING_CONFIRMATION",
+        "model.release": "PENDING_CONFIRMATION",
+        "operation.confirm": "PENDING_CONFIRMATION",
+        "origin.read": "PENDING_CONFIRMATION",
+        "policy.manage": "SOURCE_RESPONSIBILITY",
+        "policy.read": "SOURCE_RESPONSIBILITY",
+        "propagation.read": "PENDING_CONFIRMATION",
+        "report.draft": "PENDING_CONFIRMATION",
+        "report.export": "PENDING_CONFIRMATION",
+        "report.generate": "PENDING_CONFIRMATION",
+        "report.read": "PENDING_CONFIRMATION",
+        "review.perform": "PENDING_CONFIRMATION",
+        "review.read": "PENDING_CONFIRMATION",
+        "source.manage": "PENDING_CONFIRMATION",
+        "source.read": "PENDING_CONFIRMATION",
+        "task.cancel": "PENDING_CONFIRMATION",
+        "task.create": "PENDING_CONFIRMATION",
+        "task.read": "PENDING_CONFIRMATION",
+        "task.rerun": "PENDING_CONFIRMATION"
+      }
+    },
+    {
+      "code": "data_admin",
+      "name": "数据管理员",
+      "source_ref": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md#24-用户与角色",
+      "permission_review": {
+        "approval.decide": "PENDING_CONFIRMATION",
+        "approval.read": "PENDING_CONFIRMATION",
+        "approval.request": "PENDING_CONFIRMATION",
+        "approval.revoke": "PENDING_CONFIRMATION",
+        "asset.download": "PENDING_CONFIRMATION",
+        "asset.import": "PENDING_CONFIRMATION",
+        "asset.read": "PENDING_CONFIRMATION",
+        "asset.search": "PENDING_CONFIRMATION",
+        "asset.upload": "PENDING_CONFIRMATION",
+        "audit.export": "PENDING_CONFIRMATION",
+        "audit.read": "PENDING_CONFIRMATION",
+        "claim.analyze": "PENDING_CONFIRMATION",
+        "development.login": "PENDING_CONFIRMATION",
+        "evidence.read": "PENDING_CONFIRMATION",
+        "evidence.seal": "PENDING_CONFIRMATION",
+        "feedback.read": "PENDING_CONFIRMATION",
+        "feedback.request": "PENDING_CONFIRMATION",
+        "health.read": "PENDING_CONFIRMATION",
+        "identity.read": "PENDING_CONFIRMATION",
+        "index.manage": "PENDING_CONFIRMATION",
+        "model.evaluate": "PENDING_CONFIRMATION",
+        "model.manage": "PENDING_CONFIRMATION",
+        "model.read": "PENDING_CONFIRMATION",
+        "model.release": "PENDING_CONFIRMATION",
+        "operation.confirm": "PENDING_CONFIRMATION",
+        "origin.read": "PENDING_CONFIRMATION",
+        "policy.manage": "PENDING_CONFIRMATION",
+        "policy.read": "PENDING_CONFIRMATION",
+        "propagation.read": "PENDING_CONFIRMATION",
+        "report.draft": "PENDING_CONFIRMATION",
+        "report.export": "PENDING_CONFIRMATION",
+        "report.generate": "PENDING_CONFIRMATION",
+        "report.read": "PENDING_CONFIRMATION",
+        "review.perform": "PENDING_CONFIRMATION",
+        "review.read": "PENDING_CONFIRMATION",
+        "source.manage": "SOURCE_RESPONSIBILITY",
+        "source.read": "PENDING_CONFIRMATION",
+        "task.cancel": "PENDING_CONFIRMATION",
+        "task.create": "PENDING_CONFIRMATION",
+        "task.read": "PENDING_CONFIRMATION",
+        "task.rerun": "PENDING_CONFIRMATION"
+      }
+    },
+    {
+      "code": "algorithm_admin",
+      "name": "算法管理员",
+      "source_ref": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md#24-用户与角色",
+      "permission_review": {
+        "approval.decide": "PENDING_CONFIRMATION",
+        "approval.read": "PENDING_CONFIRMATION",
+        "approval.request": "PENDING_CONFIRMATION",
+        "approval.revoke": "PENDING_CONFIRMATION",
+        "asset.download": "PENDING_CONFIRMATION",
+        "asset.import": "PENDING_CONFIRMATION",
+        "asset.read": "PENDING_CONFIRMATION",
+        "asset.search": "PENDING_CONFIRMATION",
+        "asset.upload": "PENDING_CONFIRMATION",
+        "audit.export": "PENDING_CONFIRMATION",
+        "audit.read": "PENDING_CONFIRMATION",
+        "claim.analyze": "PENDING_CONFIRMATION",
+        "development.login": "PENDING_CONFIRMATION",
+        "evidence.read": "PENDING_CONFIRMATION",
+        "evidence.seal": "PENDING_CONFIRMATION",
+        "feedback.read": "PENDING_CONFIRMATION",
+        "feedback.request": "PENDING_CONFIRMATION",
+        "health.read": "PENDING_CONFIRMATION",
+        "identity.read": "PENDING_CONFIRMATION",
+        "index.manage": "PENDING_CONFIRMATION",
+        "model.evaluate": "SOURCE_RESPONSIBILITY",
+        "model.manage": "SOURCE_RESPONSIBILITY",
+        "model.read": "SOURCE_RESPONSIBILITY",
+        "model.release": "SOURCE_RESPONSIBILITY",
+        "operation.confirm": "PENDING_CONFIRMATION",
+        "origin.read": "PENDING_CONFIRMATION",
+        "policy.manage": "PENDING_CONFIRMATION",
+        "policy.read": "PENDING_CONFIRMATION",
+        "propagation.read": "PENDING_CONFIRMATION",
+        "report.draft": "PENDING_CONFIRMATION",
+        "report.export": "PENDING_CONFIRMATION",
+        "report.generate": "PENDING_CONFIRMATION",
+        "report.read": "PENDING_CONFIRMATION",
+        "review.perform": "PENDING_CONFIRMATION",
+        "review.read": "PENDING_CONFIRMATION",
+        "source.manage": "PENDING_CONFIRMATION",
+        "source.read": "PENDING_CONFIRMATION",
+        "task.cancel": "PENDING_CONFIRMATION",
+        "task.create": "PENDING_CONFIRMATION",
+        "task.read": "PENDING_CONFIRMATION",
+        "task.rerun": "PENDING_CONFIRMATION"
+      }
+    },
+    {
+      "code": "business_reviewer",
+      "name": "业务审核员",
+      "source_ref": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md#24-用户与角色",
+      "permission_review": {
+        "approval.decide": "PENDING_CONFIRMATION",
+        "approval.read": "PENDING_CONFIRMATION",
+        "approval.request": "PENDING_CONFIRMATION",
+        "approval.revoke": "PENDING_CONFIRMATION",
+        "asset.download": "PENDING_CONFIRMATION",
+        "asset.import": "PENDING_CONFIRMATION",
+        "asset.read": "PENDING_CONFIRMATION",
+        "asset.search": "PENDING_CONFIRMATION",
+        "asset.upload": "PENDING_CONFIRMATION",
+        "audit.export": "PENDING_CONFIRMATION",
+        "audit.read": "PENDING_CONFIRMATION",
+        "claim.analyze": "PENDING_CONFIRMATION",
+        "development.login": "PENDING_CONFIRMATION",
+        "evidence.read": "PENDING_CONFIRMATION",
+        "evidence.seal": "PENDING_CONFIRMATION",
+        "feedback.read": "PENDING_CONFIRMATION",
+        "feedback.request": "PENDING_CONFIRMATION",
+        "health.read": "PENDING_CONFIRMATION",
+        "identity.read": "PENDING_CONFIRMATION",
+        "index.manage": "PENDING_CONFIRMATION",
+        "model.evaluate": "PENDING_CONFIRMATION",
+        "model.manage": "PENDING_CONFIRMATION",
+        "model.read": "PENDING_CONFIRMATION",
+        "model.release": "PENDING_CONFIRMATION",
+        "operation.confirm": "PENDING_CONFIRMATION",
+        "origin.read": "PENDING_CONFIRMATION",
+        "policy.manage": "PENDING_CONFIRMATION",
+        "policy.read": "PENDING_CONFIRMATION",
+        "propagation.read": "PENDING_CONFIRMATION",
+        "report.draft": "PENDING_CONFIRMATION",
+        "report.export": "PENDING_CONFIRMATION",
+        "report.generate": "PENDING_CONFIRMATION",
+        "report.read": "PENDING_CONFIRMATION",
+        "review.perform": "SOURCE_RESPONSIBILITY",
+        "review.read": "PENDING_CONFIRMATION",
+        "source.manage": "PENDING_CONFIRMATION",
+        "source.read": "PENDING_CONFIRMATION",
+        "task.cancel": "PENDING_CONFIRMATION",
+        "task.create": "PENDING_CONFIRMATION",
+        "task.read": "PENDING_CONFIRMATION",
+        "task.rerun": "PENDING_CONFIRMATION"
+      }
+    },
+    {
+      "code": "case_investigator",
+      "name": "案件核查人员",
+      "source_ref": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md#24-用户与角色",
+      "permission_review": {
+        "approval.decide": "PENDING_CONFIRMATION",
+        "approval.read": "PENDING_CONFIRMATION",
+        "approval.request": "PENDING_CONFIRMATION",
+        "approval.revoke": "PENDING_CONFIRMATION",
+        "asset.download": "PENDING_CONFIRMATION",
+        "asset.import": "PENDING_CONFIRMATION",
+        "asset.read": "PENDING_CONFIRMATION",
+        "asset.search": "PENDING_CONFIRMATION",
+        "asset.upload": "PENDING_CONFIRMATION",
+        "audit.export": "PENDING_CONFIRMATION",
+        "audit.read": "PENDING_CONFIRMATION",
+        "claim.analyze": "PENDING_CONFIRMATION",
+        "development.login": "PENDING_CONFIRMATION",
+        "evidence.read": "PENDING_CONFIRMATION",
+        "evidence.seal": "PENDING_CONFIRMATION",
+        "feedback.read": "PENDING_CONFIRMATION",
+        "feedback.request": "PENDING_CONFIRMATION",
+        "health.read": "PENDING_CONFIRMATION",
+        "identity.read": "PENDING_CONFIRMATION",
+        "index.manage": "PENDING_CONFIRMATION",
+        "model.evaluate": "PENDING_CONFIRMATION",
+        "model.manage": "PENDING_CONFIRMATION",
+        "model.read": "PENDING_CONFIRMATION",
+        "model.release": "PENDING_CONFIRMATION",
+        "operation.confirm": "PENDING_CONFIRMATION",
+        "origin.read": "PENDING_CONFIRMATION",
+        "policy.manage": "PENDING_CONFIRMATION",
+        "policy.read": "PENDING_CONFIRMATION",
+        "propagation.read": "PENDING_CONFIRMATION",
+        "report.draft": "PENDING_CONFIRMATION",
+        "report.export": "PENDING_CONFIRMATION",
+        "report.generate": "SOURCE_RESPONSIBILITY",
+        "report.read": "PENDING_CONFIRMATION",
+        "review.perform": "PENDING_CONFIRMATION",
+        "review.read": "PENDING_CONFIRMATION",
+        "source.manage": "PENDING_CONFIRMATION",
+        "source.read": "PENDING_CONFIRMATION",
+        "task.cancel": "PENDING_CONFIRMATION",
+        "task.create": "SOURCE_RESPONSIBILITY",
+        "task.read": "PENDING_CONFIRMATION",
+        "task.rerun": "PENDING_CONFIRMATION"
+      }
+    },
+    {
+      "code": "auditor",
+      "name": "审计员",
+      "source_ref": "docs/_converted/revision/项目总体设计方案_技术修订版V1.4.md#24-用户与角色",
+      "permission_review": {
+        "approval.decide": "PENDING_CONFIRMATION",
+        "approval.read": "PENDING_CONFIRMATION",
+        "approval.request": "PENDING_CONFIRMATION",
+        "approval.revoke": "PENDING_CONFIRMATION",
+        "asset.download": "PENDING_CONFIRMATION",
+        "asset.import": "PENDING_CONFIRMATION",
+        "asset.read": "PENDING_CONFIRMATION",
+        "asset.search": "PENDING_CONFIRMATION",
+        "asset.upload": "PENDING_CONFIRMATION",
+        "audit.export": "PENDING_CONFIRMATION",
+        "audit.read": "SOURCE_RESPONSIBILITY",
+        "claim.analyze": "PENDING_CONFIRMATION",
+        "development.login": "PENDING_CONFIRMATION",
+        "evidence.read": "PENDING_CONFIRMATION",
+        "evidence.seal": "SOURCE_RESTRICTION",
+        "feedback.read": "PENDING_CONFIRMATION",
+        "feedback.request": "PENDING_CONFIRMATION",
+        "health.read": "PENDING_CONFIRMATION",
+        "identity.read": "PENDING_CONFIRMATION",
+        "index.manage": "PENDING_CONFIRMATION",
+        "model.evaluate": "PENDING_CONFIRMATION",
+        "model.manage": "SOURCE_RESTRICTION",
+        "model.read": "PENDING_CONFIRMATION",
+        "model.release": "PENDING_CONFIRMATION",
+        "operation.confirm": "PENDING_CONFIRMATION",
+        "origin.read": "PENDING_CONFIRMATION",
+        "policy.manage": "SOURCE_RESTRICTION",
+        "policy.read": "PENDING_CONFIRMATION",
+        "propagation.read": "PENDING_CONFIRMATION",
+        "report.draft": "PENDING_CONFIRMATION",
+        "report.export": "PENDING_CONFIRMATION",
+        "report.generate": "PENDING_CONFIRMATION",
+        "report.read": "PENDING_CONFIRMATION",
+        "review.perform": "SOURCE_RESTRICTION",
+        "review.read": "PENDING_CONFIRMATION",
+        "source.manage": "PENDING_CONFIRMATION",
+        "source.read": "PENDING_CONFIRMATION",
+        "task.cancel": "PENDING_CONFIRMATION",
+        "task.create": "SOURCE_RESTRICTION",
+        "task.read": "PENDING_CONFIRMATION",
+        "task.rerun": "PENDING_CONFIRMATION"
+      }
+    }
+  ],
+  "operations": [
+    {
+      "operation_id": "cancelTask",
+      "method": "POST",
+      "path": "/analysis/tasks/{id}/cancel",
+      "permission": "task.cancel"
+    },
+    {
+      "operation_id": "completeUpload",
+      "method": "POST",
+      "path": "/uploads/{id}/complete",
+      "permission": "asset.upload"
+    },
+    {
+      "operation_id": "createImport",
+      "method": "POST",
+      "path": "/imports",
+      "permission": "asset.import"
+    },
+    {
+      "operation_id": "createPolicy",
+      "method": "POST",
+      "path": "/policies",
+      "permission": "policy.manage"
+    },
+    {
+      "operation_id": "createReport",
+      "method": "POST",
+      "path": "/reports",
+      "permission": "report.generate"
+    },
+    {
+      "operation_id": "createReportDraft",
+      "method": "POST",
+      "path": "/reports/drafts",
+      "permission": "report.draft"
+    },
+    {
+      "operation_id": "createReview",
+      "method": "POST",
+      "path": "/reviews",
+      "permission": "review.perform"
+    },
+    {
+      "operation_id": "createSource",
+      "method": "POST",
+      "path": "/sources",
+      "permission": "source.manage"
+    },
+    {
+      "operation_id": "createTask",
+      "method": "POST",
+      "path": "/analysis/tasks",
+      "permission": "task.create"
+    },
+    {
+      "operation_id": "createUpload",
+      "method": "POST",
+      "path": "/uploads",
+      "permission": "asset.upload"
+    },
+    {
+      "operation_id": "decideApproval",
+      "method": "POST",
+      "path": "/approvals/{id}/decisions",
+      "permission": "approval.decide"
+    },
+    {
+      "operation_id": "decidePropagationEdge",
+      "method": "POST",
+      "path": "/propagation/edges/{id}/decisions",
+      "permission": "review.perform"
+    },
+    {
+      "operation_id": "devLogin",
+      "method": "POST",
+      "path": "/auth/login",
+      "permission": "development.login"
+    },
+    {
+      "operation_id": "downloadAsset",
+      "method": "GET",
+      "path": "/assets/{id}/content",
+      "permission": "asset.download"
+    },
+    {
+      "operation_id": "downloadAuditExport",
+      "method": "GET",
+      "path": "/audit/exports/{id}/content",
+      "permission": "audit.export"
+    },
+    {
+      "operation_id": "downloadReport",
+      "method": "GET",
+      "path": "/reports/{id}/content",
+      "permission": "report.export"
+    },
+    {
+      "operation_id": "exportAudit",
+      "method": "POST",
+      "path": "/audit/exports",
+      "permission": "audit.export"
+    },
+    {
+      "operation_id": "extractClaims",
+      "method": "POST",
+      "path": "/claims/extract",
+      "permission": "claim.analyze"
+    },
+    {
+      "operation_id": "getApproval",
+      "method": "GET",
+      "path": "/approvals/{id}",
+      "permission": "approval.read"
+    },
+    {
+      "operation_id": "getAsset",
+      "method": "GET",
+      "path": "/assets/{id}",
+      "permission": "asset.read"
+    },
+    {
+      "operation_id": "getAuditExport",
+      "method": "GET",
+      "path": "/audit/exports/{id}",
+      "permission": "audit.export"
+    },
+    {
+      "operation_id": "getCurrentUser",
+      "method": "GET",
+      "path": "/auth/me",
+      "permission": "identity.read"
+    },
+    {
+      "operation_id": "getFeedback",
+      "method": "GET",
+      "path": "/feedback/samples/{id}",
+      "permission": "feedback.read"
+    },
+    {
+      "operation_id": "getFirstSource",
+      "method": "GET",
+      "path": "/clusters/{id}/first-source",
+      "permission": "origin.read"
+    },
+    {
+      "operation_id": "getForensics",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/forensics",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "getImport",
+      "method": "GET",
+      "path": "/imports/{id}",
+      "permission": "asset.import"
+    },
+    {
+      "operation_id": "getIndex",
+      "method": "GET",
+      "path": "/indices/{id}",
+      "permission": "index.manage"
+    },
+    {
+      "operation_id": "getModelHealth",
+      "method": "GET",
+      "path": "/models/{id}/health",
+      "permission": "model.manage"
+    },
+    {
+      "operation_id": "getModelOperation",
+      "method": "GET",
+      "path": "/model-operations/{id}",
+      "permission": "model.read"
+    },
+    {
+      "operation_id": "getPolicy",
+      "method": "GET",
+      "path": "/policies/{id}",
+      "permission": "policy.read"
+    },
+    {
+      "operation_id": "getPolicyDefinition",
+      "method": "GET",
+      "path": "/policies/{id}/definition",
+      "permission": "policy.read"
+    },
+    {
+      "operation_id": "getPropagation",
+      "method": "GET",
+      "path": "/propagation/{cluster_id}",
+      "permission": "propagation.read"
+    },
+    {
+      "operation_id": "getReport",
+      "method": "GET",
+      "path": "/reports/{id}",
+      "permission": "report.read"
+    },
+    {
+      "operation_id": "getReview",
+      "method": "GET",
+      "path": "/reviews/{id}",
+      "permission": "review.read"
+    },
+    {
+      "operation_id": "getReviewContext",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/review-context",
+      "permission": "review.read"
+    },
+    {
+      "operation_id": "getRiskFindings",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/risk-findings",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "getSearchJob",
+      "method": "GET",
+      "path": "/search/jobs/{id}",
+      "permission": "asset.search"
+    },
+    {
+      "operation_id": "getSource",
+      "method": "GET",
+      "path": "/sources/{id}",
+      "permission": "source.read"
+    },
+    {
+      "operation_id": "getTask",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "getTaskEvidence",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/evidence",
+      "permission": "evidence.read"
+    },
+    {
+      "operation_id": "getTaskExecution",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/execution",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "getTimeline",
+      "method": "GET",
+      "path": "/assets/{id}/timeline",
+      "permission": "asset.read"
+    },
+    {
+      "operation_id": "getUploadStatus",
+      "method": "GET",
+      "path": "/uploads/{id}",
+      "permission": "asset.upload"
+    },
+    {
+      "operation_id": "health",
+      "method": "GET",
+      "path": "/health",
+      "permission": "health.read"
+    },
+    {
+      "operation_id": "issueOperationToken",
+      "method": "POST",
+      "path": "/operation-tokens",
+      "permission": "operation.confirm"
+    },
+    {
+      "operation_id": "listApprovals",
+      "method": "GET",
+      "path": "/approvals",
+      "permission": "approval.read"
+    },
+    {
+      "operation_id": "listAssets",
+      "method": "GET",
+      "path": "/assets",
+      "permission": "asset.read"
+    },
+    {
+      "operation_id": "listAuditEvents",
+      "method": "GET",
+      "path": "/audit/events",
+      "permission": "audit.read"
+    },
+    {
+      "operation_id": "listEvaluations",
+      "method": "GET",
+      "path": "/model-evaluations",
+      "permission": "model.read"
+    },
+    {
+      "operation_id": "listModels",
+      "method": "GET",
+      "path": "/models",
+      "permission": "model.read"
+    },
+    {
+      "operation_id": "listPendingReviews",
+      "method": "GET",
+      "path": "/reviews/pending",
+      "permission": "review.read"
+    },
+    {
+      "operation_id": "listPolicies",
+      "method": "GET",
+      "path": "/policies",
+      "permission": "policy.read"
+    },
+    {
+      "operation_id": "listReviews",
+      "method": "GET",
+      "path": "/reviews",
+      "permission": "review.read"
+    },
+    {
+      "operation_id": "listSources",
+      "method": "GET",
+      "path": "/sources",
+      "permission": "source.read"
+    },
+    {
+      "operation_id": "listTaskEvents",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/events",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "listTaskNodes",
+      "method": "GET",
+      "path": "/analysis/tasks/{id}/nodes",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "listTasks",
+      "method": "GET",
+      "path": "/analysis/tasks",
+      "permission": "task.read"
+    },
+    {
+      "operation_id": "listUploadParts",
+      "method": "GET",
+      "path": "/uploads/{id}/parts",
+      "permission": "asset.upload"
+    },
+    {
+      "operation_id": "putUploadPart",
+      "method": "PUT",
+      "path": "/uploads/{id}/parts/{part_no}",
+      "permission": "asset.upload"
+    },
+    {
+      "operation_id": "recordEvaluation",
+      "method": "POST",
+      "path": "/model-evaluations",
+      "permission": "model.evaluate"
+    },
+    {
+      "operation_id": "registerModel",
+      "method": "POST",
+      "path": "/models",
+      "permission": "model.manage"
+    },
+    {
+      "operation_id": "requestApproval",
+      "method": "POST",
+      "path": "/approvals",
+      "permission": "approval.request"
+    },
+    {
+      "operation_id": "requestFeedback",
+      "method": "POST",
+      "path": "/feedback/samples",
+      "permission": "feedback.request"
+    },
+    {
+      "operation_id": "rerunTask",
+      "method": "POST",
+      "path": "/analysis/tasks/{id}/rerun",
+      "permission": "task.rerun"
+    },
+    {
+      "operation_id": "revokeApproval",
+      "method": "POST",
+      "path": "/approvals/{id}/revoke",
+      "permission": "approval.revoke"
+    },
+    {
+      "operation_id": "rolloutModel",
+      "method": "POST",
+      "path": "/models/{id}/rollouts",
+      "permission": "model.release"
+    },
+    {
+      "operation_id": "sealEvidence",
+      "method": "POST",
+      "path": "/evidence-packages/{case_id}/seal",
+      "permission": "evidence.seal"
+    },
+    {
+      "operation_id": "searchImage",
+      "method": "POST",
+      "path": "/search/image",
+      "permission": "asset.search"
+    },
+    {
+      "operation_id": "searchImageRegion",
+      "method": "POST",
+      "path": "/search/image-region",
+      "permission": "asset.search"
+    },
+    {
+      "operation_id": "searchVideo",
+      "method": "POST",
+      "path": "/search/video",
+      "permission": "asset.search"
+    },
+    {
+      "operation_id": "switchIndex",
+      "method": "POST",
+      "path": "/indices/{id}/switch",
+      "permission": "index.manage"
+    },
+    {
+      "operation_id": "syncSourceAuthorization",
+      "method": "POST",
+      "path": "/sources/{id}/authorization/sync",
+      "permission": "source.manage"
+    },
+    {
+      "operation_id": "verifyClaim",
+      "method": "POST",
+      "path": "/claims/{id}/verify",
+      "permission": "claim.analyze"
+    }
+  ]
+}

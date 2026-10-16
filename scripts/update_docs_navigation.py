@@ -37,6 +37,11 @@ def main():
         "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。",
     )
     entries = {
+        "08-security/access-control-model.md": "T011六角色、单位和案件范围、八个既有实体关系、分类槽与撤销/版本边界；独立合成评审，不是正式权限源。",
+        "08-security/access-control-model.json": "T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。",
+        "03-development/t011-access-model-implementation.md": "T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。",
+        "00-project/validation/t011-access-model-report.json": "实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。",
+        "00-project/validation/t011-dependency-report.json": "T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。",
         "03-development/stage-three/remaining-interface-implementation-plan.md": "剩余11类接口实施范围、顺序及正式前置条件；用户已授权继续实施。",
         "03-development/stage-three/remaining-interface-implementation.md": "剩余11类接口真实代码/数据库/ETag/授权/模型边界说明；73操作102组件、实际42外部及1内部挂载，正式条件另判。",
         "03-development/stage-three/foundation-implementation-plan.md": "六项整改实施顺序、共享维护/平台条件、Codex桌面与环境验收及每批同步；设计范围及详细计划已认可，当前会话实施，计划本身非完成证据。",

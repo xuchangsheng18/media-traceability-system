@@ -27,7 +27,7 @@ def main():
               "source_commit": os.environ.get("GITHUB_SHA"), "workflow_run_id": os.environ.get("GITHUB_RUN_ID")}
     stages = {
         "validate": [[PYTHON, "-m", "pip", "check"], [PYTHON, "scripts/verify_runtime_lock.py"], [PYTHON, "-m", "ruff", "check", "--config", "ruff.toml", "backend/app", "ai-services/inference", "tests/poc", "scripts/poc_control.py", "scripts/run_ci.py", "scripts/verify_poc.py", "scripts/verify_poc_resilience.py", "scripts/verify_generated_contracts.py", "scripts/verify_media_and_queries.py", "scripts/verify_sql_baseline.py", "scripts/verify_runtime_lock.py", "scripts/collect_environment.py", "scripts/verify_ci_failure_gate.py", "scripts/check_repository_secrets.py", "scripts/verify_migrations_and_fencing.py", "scripts/verify_media_timestamps.py", "scripts/verify_development_recovery.py"],
-                     [PYTHON, "-m", "pytest", "tests/poc", "tests/stage_three", "-q"], [PYTHON, "scripts/validate_stage_two_completion.py"], [PYTHON, "scripts/validate_inputs.py"],
+                     [PYTHON, "-m", "pytest", "tests/poc", "tests/stage_three", "tests/platform", "-q"], [PYTHON, "scripts/validate_stage_two_completion.py"], [PYTHON, "scripts/validate_inputs.py"],
                      [PYTHON, "scripts/validate_database_contracts.py"], ["npm", "--prefix", "frontend", "ci", "--no-audit", "--no-fund"],
                      [PYTHON, "scripts/verify_generated_contracts.py"],
                      ["npm", "--prefix", "frontend", "run", "lint"],

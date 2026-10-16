@@ -15,3 +15,5 @@
 
 
 具体权限矩阵见docs/08-security/permission-matrix.md；角色存在不代表已授予所有操作。
+
+T011已补[用户角色与数据范围模型](../08-security/access-control-model.md)、[机器评审矩阵](../08-security/access-control-model.json)及专属合成评审测试。六角色代码、职责映射和数据分类槽为候选设计；不代表正式账号或生效授权。当前执行状态见[任务卡](../../tasks/platform/T011.md)。

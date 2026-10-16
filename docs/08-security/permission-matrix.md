@@ -34,3 +34,55 @@
 
 
 本包API每操作声明权限码及案件范围；SQL行安全是后端受信上下文的防御层，不代替角色与审批检查。正式allow矩阵仍待确认，测试夹具权限不能拷贝为生产授权。
+
+<!-- t011-matrix:start -->
+## T011 全部权限码评审矩阵
+
+候选模型来源为[access-control-model.json](access-control-model.json)，关系和适用边界见[设计说明](access-control-model.md)。职责表示来源职责候选映射，限制表示来源约束，待定表示未获决定；三者均不是正式ALLOW。角色代码也是候选标识，未写入真实账号。
+
+| 权限码 | 系统管理员 | 数据管理员 | 算法管理员 | 业务审核员 | 案件核查人员 | 审计员 |
+| --- | --- | --- | --- | --- | --- | --- |
+| approval.decide | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| approval.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| approval.request | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| approval.revoke | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| asset.download | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| asset.import | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| asset.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| asset.search | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| asset.upload | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| audit.export | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| audit.read | 待定 | 待定 | 待定 | 待定 | 待定 | 职责 |
+| claim.analyze | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| development.login | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| evidence.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| evidence.seal | 待定 | 待定 | 待定 | 待定 | 待定 | 限制 |
+| feedback.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| feedback.request | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| health.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| identity.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| index.manage | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| model.evaluate | 待定 | 待定 | 职责 | 待定 | 待定 | 待定 |
+| model.manage | 待定 | 待定 | 职责 | 待定 | 待定 | 限制 |
+| model.read | 待定 | 待定 | 职责 | 待定 | 待定 | 待定 |
+| model.release | 待定 | 待定 | 职责 | 待定 | 待定 | 待定 |
+| operation.confirm | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| origin.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| policy.manage | 职责 | 待定 | 待定 | 待定 | 待定 | 限制 |
+| policy.read | 职责 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| propagation.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| report.draft | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| report.export | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| report.generate | 待定 | 待定 | 待定 | 待定 | 职责 | 待定 |
+| report.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| review.perform | 待定 | 待定 | 待定 | 职责 | 待定 | 限制 |
+| review.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| source.manage | 待定 | 职责 | 待定 | 待定 | 待定 | 待定 |
+| source.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| task.cancel | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| task.create | 待定 | 待定 | 待定 | 待定 | 职责 | 限制 |
+| task.read | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+| task.rerun | 待定 | 待定 | 待定 | 待定 | 待定 | 待定 |
+
+73个外部操作与权限码逐项绑定保存在机器模型；实际数量由校验器从唯一OpenAPI核对，不把多个操作共享一个权限码当成操作遗漏。
+<!-- t011-matrix:end -->
