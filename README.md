@@ -1,5 +1,7 @@
 # 短视频与图片智能识别溯源系统
 
+开源许可：[Apache-2.0](LICENSE)，归属与第三方边界见[NOTICE](NOTICE)；用户确认的完整公开范围及实际切换验证见[仓库公开说明](docs/00-project/open-source-publication.md)。研发与生产验收状态按下文保留。
+
 任务执行入口：[分步任务导航](tasks/README.md#分步任务导航)、[全部执行事项逐项清单](docs/00-project/task-execution-steps.txt)、[同源状态台账](tasks/execution-status.json)。分步导航逐项列出170项任务的完成子步骤数、剩余工作数、全局序号范围与任务卡入口。
 
 当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定及前后端/数据库/对象/队列/真实合成推理闭环。本机21道CI记录为原1.1历史范围，托管CI本批已扩展检查，实际源码和数量见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；未宣称全部业务实现。

@@ -1,6 +1,6 @@
 # 研发安全与问题处置
 
-当前仓库用于合成无敏感夹具的CPU研发。GitHub私有可见性、CODEOWNERS或仓库文件不能代替公安业务安全准入。阶段权限、来源用途和生产网络边界见[Codex权限边界](docs/03-development/codex-permission-boundary.md)及[安全基线](docs/02-architecture/security-baseline.md)。
+当前仓库用于合成无敏感夹具的CPU研发。仓库可见性、CODEOWNERS或仓库文件不能代替公安业务安全准入。用户已确认现有内容与历史的完整公开范围，见[仓库公开说明](docs/00-project/open-source-publication.md)；后续新增数据和秘密仍按本规范处理。阶段权限、来源用途和生产网络边界见[Codex权限边界](docs/03-development/codex-permission-boundary.md)及[安全基线](docs/02-architecture/security-baseline.md)。
 
 账号、令牌、密码、SSH私钥、数据库连接凭据和涉案素材存放于仓库外，按当前私有运行目录注入；不粘贴到Issue、PR、日志或提示词。环境示例只有非敏感路径/声明。不得将数据集和模型权重提交普通Git；许可和用途必须分别核验。
 

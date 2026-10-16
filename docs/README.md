@@ -1,5 +1,7 @@
 # 项目文档导航
 
+开源入口：[公开范围与Apache-2.0许可](00-project/open-source-publication.md)、[实际公开验证记录](00-project/validation/open-source-publication-report.json)。既有原件和历史记录保留，仓库公开与业务验收分别记录。
+
 任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[686条执行事项逐项清单](00-project/task-execution-steps.txt)。分步导航按170项任务列已完成数、剩余数及全局序号范围；逐项清单按0001—0686编号，列65条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
@@ -517,7 +519,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共645份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共647份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -543,6 +545,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/official-sources.yaml](<00-project/official-sources.yaml>) | 上述技术来源的机器索引。 |
 | [00-project/open-questions.md](<00-project/open-questions.md>) | 尚待确定的业务、资源与技术问题说明。 |
 | [00-project/open-questions.yaml](<00-project/open-questions.yaml>) | 未决事项的机器索引，不能自动将未知改为已解决。 |
+| [00-project/open-source-publication.md](<00-project/open-source-publication.md>) | 说明文档：仓库公开范围与开源许可；结合正文的状态、来源和适用范围阅读。 |
 | [00-project/phase-readiness-register.json](<00-project/phase-readiness-register.json>) | 19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。 |
 | [00-project/phase-readiness-register.md](<00-project/phase-readiness-register.md>) | 19项工作核查（第一阶段7/第二阶段12）：版式核验按本轮范围完成，18项仍有条件；技术补充与正式/真实交付分开。 |
 | [00-project/project-scope.md](<00-project/project-scope.md>) | 12模块、170任务及场景的范围与外部边界；分阶段不等于删功能。 |
@@ -669,6 +672,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
 | [00-project/validation/npm-sbom.cdx.json](<00-project/validation/npm-sbom.cdx.json>) | 锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。 |
+| [00-project/validation/open-source-publication-report.json](<00-project/validation/open-source-publication-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |
 | [00-project/validation/poc-browser-report.json](<00-project/validation/poc-browser-report.json>) | Chromium实际上传与显示异步结果的测试记录。 |
 | [00-project/validation/poc-integration-report.json](<00-project/validation/poc-integration-report.json>) | 21项真实API/对象/SQL/队列/CPU/追踪/Problem结果检查，不是业务模型验收。 |
