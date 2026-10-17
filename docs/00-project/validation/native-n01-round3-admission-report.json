@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-17T16:58:08.838257+00:00",
+  "observed_at": "2026-10-17T17:11:13.295177+00:00",
   "scope": "Linux_py310_CPU_N01_artifact_build_dependency_and_admission_evidence_not_native_service_acceptance",
   "status": "BLOCKED_ADMISSION_INCOMPLETE_CLOSURE",
   "installation_ready": false,
@@ -30,7 +30,7 @@
   "node_candidate_vulnerability_status": "PASS",
   "node_candidate_frontend_status": "PASS",
   "blockers": [
-    "Signed recovery inputs for all reused host OS/compiler dependencies; dlopen and optional runtime paths not completely validated",
+    "Targeted89 OS recovery inputs authenticated; optional dlopen/plugin and final native service configuration still need validation, not a full host recovery image",
     "Resolve absent license materials and review bundled Go/JAR/OS obligations; no formal software admission approval recorded",
     "Raw vulnerability matches require applicability triage and candidate fixes; zero findings is not a blanket security guarantee",
     "Native installation, resource enforcement and isolated recovery are subsequent unexecuted steps",
@@ -108,6 +108,11 @@
       "size_bytes": 1537
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/acquire-native-os-closure.py.txt",
+      "sha256": "f40c509521f519ab81c540ddcdd732098ad1f8a7e03939970a7a9369554ef8ec",
+      "size_bytes": 3800
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/acquire-native-python-cve-records.py.txt",
       "sha256": "8f0c4b287d76c6c99cf24fdd46c4411402603f28fb40181159924a3c3dbf47dc",
       "size_bytes": 1698
@@ -171,6 +176,11 @@
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/resolve-native-conda-graph.py.txt",
       "sha256": "dab7d972d7df4dec6f65e8a3425cc63809d63a37ea328673c463503cc2c71460",
       "size_bytes": 2223
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/resolve-native-os-dependency-graph.py.txt",
+      "sha256": "a9697488c1ceb089c8f7d83dfdfc939dfcf5d6bfb536d1abd7da43129b335843",
+      "size_bytes": 3341
     },
     {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/retry-native-age-candidate.py.txt",
@@ -253,6 +263,16 @@
       "size_bytes": 2560
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/verify-native-os-closure.initial.py.txt",
+      "sha256": "abc633e7eb4eee060fa1cf72d4964ea38a56a6625d37b4bc1e175e0cec727e99",
+      "size_bytes": 5066
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/verify-native-os-closure.py.txt",
+      "sha256": "cfa11d8d13d97d5b8c930ed132d5785ca93e0916ca5fbaff39ee8e0d5576ba02",
+      "size_bytes": 5094
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/verify-native-wheel-license-materials.py.txt",
       "sha256": "7670d2ce7a21ed5756b0e32d5cbeb763ea958941fe1563745953aaa7cb90cdc5",
       "size_bytes": 2865
@@ -286,6 +306,21 @@
       "path": "docs/00-project/validation/native-n01-round3/node-frontend-validation-report.json",
       "sha256": "649fbfd8b1a96ca7688ddf2ae24974b76a4dbb654bbabd009511fb8c8b9785a0",
       "size_bytes": 3873
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/os-dependency-graph-report.json",
+      "sha256": "98df99e79b7109dd6747985c98924532555c90699d0fda803912e70dcba74e91",
+      "size_bytes": 85242
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/os-recovery-initial-symlink-observation.json",
+      "sha256": "dd00ff0eb5a7c877a0d836d432aec959fa152fc2f74500eabc30f50d3fbcf407",
+      "size_bytes": 63702
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/os-recovery-package-verification-report.json",
+      "sha256": "8c994f34b43a7a32522fa2aec903adc1182718d12180dc433cb41694c83a9395",
+      "size_bytes": 63972
     },
     {
       "path": "docs/00-project/validation/native-n01-round3/os-runtime-package-origin-report.json",
@@ -417,6 +452,14 @@
       "sha256": "024c79a32333739ad86f61900de25632027d3ad6e557003635b10761c044f8f7"
     }
   ],
+  "targeted_OS_graph": {
+    "nodes": 89,
+    "edges": 232,
+    "unresolved": 0
+  },
+  "targeted_OS_recovery_inputs_status": "PASS_TARGETED_PACKAGE_BYTES_AND_CONTROL_ONLY",
+  "targeted_OS_recovery_lock_sha256": "489fed50238679ff663cda74d281793f53921a8eb0ae9b7b2a15a7b00015e0bd",
+  "targeted_OS_mapped_payload_files": 32,
   "GO-2026-5932_triage": {
     "upstream": "https://pkg.go.dev/vuln/GO-2026-5932",
     "affected_package_prefix": "golang.org/x/crypto/openpgp",

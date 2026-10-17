@@ -76,7 +76,13 @@ SeaweedFS候选已通过存储相关上游测试`go test ./weed/storage/...`、�
 
 [Go捆绑模块材料](../00-project/validation/native-n01-round3/go-bundled-license-materials-report.json)登记age的7个模块和SeaweedFS的253个模块，所有模块对应源码目录均存在，补充构建后模块校验通过。除flatbuffers/go子模块外均找到顶层许可/声明材料；已按其伪版本的精确提交追溯[仓库根许可](../00-project/validation/native-n01-round3/flatbuffers-license-source-report.json)。这是实际编译模块的来源/材料清单，不是全部嵌套许可义务已审阅。修补后的[go.mod/go.sum](../../config/native/security-candidate-module-locks/)独立归档，不替换已确认基线。
 
-宿主来源还进一步映射为[23个OS包及86个文件来源](../00-project/validation/native-n01-round3/os-runtime-package-origin-report.json)，其中86含85个已解析库和1个实际存在的宿主编译器前端。私有工具目录中与宿主库摘要相同的副本已标识；Conda、JDK和私有构建库不能因没有dpkg归属而误判无来源。精确签名恢复包及其依赖闭包仍须完成。
+宿主来源映射为[23个OS包及86个文件来源](../00-project/validation/native-n01-round3/os-runtime-package-origin-report.json)，其中86含85个已解析库和1个实际存在的宿主编译器前端。私有工具目录中与宿主库摘要相同的副本已标识；Conda、JDK和私有构建库不能因没有dpkg归属而误判无来源。对应精确恢复包与声明依赖已按下段补齐，可选动态加载范围仍需另外核对。
+
+进一步补齐：[声明依赖图](../00-project/validation/native-n01-round3/os-dependency-graph-report.json)将这23个宿主来源包与40个构建候选包展开为89个节点、232条Depends/Pre-Depends边，未解析0；限定使用所观察到的依赖表达式、已安装提供者及原APT候选计划，不冒充通用求解器。已按官方签名索引取得[全部89个精确版本恢复包](../../config/native/os-runtime-recovery-packages.lock.json)，Linux重新gpgv验签并检查Valid-Until、索引摘要、89个包摘要/大小及deb控制字段，全部一致。
+
+[实际包与载荷核验](../00-project/validation/native-n01-round3/os-recovery-package-verification-report.json)还对照了32个有OS包归属的已解析宿主库/编译器文件，全部摘要一致；89个包的copyright材料（含跨包符号链接）均已解析。初次4项失败是采集器只保存了符号链接名称、未收集实际.so版本文件，签名载荷为空引用；补收真实目标后核验通过，初始观察保留，没有修改宿主库。其余Conda/JDK/私有构建库须看各自来源证据，不能说86个文件都属于OS包。
+
+以上关闭了这组目标包的恢复输入缺口，**不等于整台宿主机镜像、所有可选插件/dlopen路径或恢复演练已完成**。包内版权材料找到也不是全部许可义务审阅通过；N01继续受软件准入阻塞。
 
 ## 徐昌胜需要操作的事项
 

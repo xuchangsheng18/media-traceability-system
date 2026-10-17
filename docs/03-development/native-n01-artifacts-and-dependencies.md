@@ -4,6 +4,8 @@
 
 [执行台账](native-linux-execution-status.json) · [制品锁](../../config/native/artifacts.lock.json) · [构建依赖候选锁](../../config/native/os-build-dependencies.lock.json) · [T004任务卡](../../tasks/platform/T004.md)
 
+2026-10-18补充状态：已完成三份源码私有构建、95份wheel/25份Conda及89份目标OS恢复包核验，并执行三项隔离修补候选验证。最新结果与仍未关闭的软件准入见[补充复核](native-n01-build-and-admission-review.md)。下表保留前一批证据范围，不应据旧40包数字推断当前只有40份恢复输入。
+
 ## 本轮实际结果
 
 | 范围 | 已完成及证据 | 严格边界 |
