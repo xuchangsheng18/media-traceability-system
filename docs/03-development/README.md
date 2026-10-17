@@ -1,6 +1,6 @@
 # 开发、契约与CI
 
-- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[实际执行状态](../00-project/validation/t013-keycloak-execution-report.json)：步骤1—6研发验证通过，步骤7隔离恢复演练通过，步骤8源码已同步到GitHub功能分支和Linux源码树，验收证据账及当前提交的托管CI仍未完成；正式准入/身份交接未完成。T013整卡未关闭。
+- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[实际执行状态](../00-project/validation/t013-keycloak-execution-report.json)、[22项状态登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)：步骤1—6研发验证通过，步骤7隔离恢复演练通过，步骤8源码及1,501项文件清单已同步；22项中13项范围内通过、9项未执行。GitHub集成创建PR返回403，托管CI、正式准入和身份交接仍未完成。T013整卡未关闭。
 - [T013令牌核验与身份映射首批实现](t013-token-validation.md)：可选远端核验、最小权限数据库查询、禁用/到期/撤销测试及未完成的正式身份接入范围。
 
 2026-10-13更新；CPU研发工程已验证，正式基线NOT_FROZEN。

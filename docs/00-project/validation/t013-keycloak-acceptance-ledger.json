@@ -1,0 +1,195 @@
+{
+  "task_id": "T013",
+  "record_kind": "implementation_progress_register_not_validator_acceptance_input",
+  "observed_at": "2026-10-17T08:08:01+00:00",
+  "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
+  "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
+  "pass_count": 13,
+  "not_executed_count": 9,
+  "formal_accepted": false,
+  "hosted_ci_triggered": false,
+  "entries": [
+    {
+      "id": "IDP-01",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "Images had zero High/Critical scanner findings and deployment preflight passed; formal software admission and license/security owner approval remain absent.",
+      "references": [
+        "docs/00-project/validation/t013-identity-image-admission-report.json"
+      ]
+    },
+    {
+      "id": "IDP-02",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Three isolated identity services and resource/volume boundaries were deployed and inspected; original seven project services remained healthy.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json",
+        "deploy/identity/compose.yaml"
+      ]
+    },
+    {
+      "id": "IDP-03",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Public TLS endpoint and SSH-only loopback management origin were exercised; human administrator/MFA handover is still open.",
+      "references": [
+        "tests/identity/test_tls_gateway.py",
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-04",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Public management API/path bypasses and internal-only service boundaries were checked in live TLS tests and preflight.",
+      "references": [
+        "tests/identity/test_tls_gateway.py",
+        "tests/platform/test_t013_identity_deploy.py"
+      ]
+    },
+    {
+      "id": "IDP-05",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Live discovery/forwarded-header and wrong-Host checks passed.",
+      "references": [
+        "tests/identity/test_tls_gateway.py"
+      ]
+    },
+    {
+      "id": "IDP-06",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Live trusted CA/SAN behavior and wrong-CA/hostname rejection passed.",
+      "references": [
+        "tests/identity/test_tls_gateway.py"
+      ]
+    },
+    {
+      "id": "IDP-07",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "OIDC/JWKS signing-key rotation behavior is not evidenced by the archived live test result.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-08",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Real browser authorization-code flow covered PKCE/state/nonce, wrong verifier, and code replay against a temporary realm.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-09",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "Password grant rejection was tested; named administrator MFA and bootstrap removal/handover were not completed.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-10",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Live tests rejected ID tokens, invalid signatures, and wrong issuer/audience.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-11",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Live expiration plus adapter invalid-token/claim tests passed; formal broad malformed/oversized-token acceptance evidence is not archived.",
+      "references": [
+        "tests/identity/test_oidc_live.py",
+        "tests/platform/test_t013_tokens.py"
+      ]
+    },
+    {
+      "id": "IDP-12",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Live revocation/session actions were measured against the ten-second new-request denial target.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-13",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Real Keycloak issuer+sub mapping, unmapped-subject denial, disabled user/organization, and mapping revoke passed against isolated business DB.",
+      "references": [
+        "tests/identity/test_mapping_live.py"
+      ]
+    },
+    {
+      "id": "IDP-14",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "No case permission was inferred from Keycloak admin status; unmapped or unauthorized business identity remained denied.",
+      "references": [
+        "tests/identity/test_mapping_live.py"
+      ]
+    },
+    {
+      "id": "IDP-15",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "A full live network/TLS/database fault-injection matrix with bounded total request time was not run.",
+      "references": [
+        "tests/identity/test_mapping_live.py"
+      ]
+    },
+    {
+      "id": "IDP-16",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Live client-secret rotation accepted the new secret and rejected the old one.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-17",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "A service restart followed by persistence and readiness revalidation was not performed in this acceptance batch.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json"
+      ]
+    },
+    {
+      "id": "IDP-18",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "Configured secret/dependency scan passed, but complete runtime-log, hosted-CI, and full-history credential review for this exact commit is not complete.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json"
+      ]
+    },
+    {
+      "id": "IDP-19",
+      "status": "PASS_ISOLATED_RESTORE_ONLY",
+      "evidence_boundary": "Encrypted backup restored into a new network-isolated database volume; counts 2 realms, 16 clients, 1 synthetic user; original DB unchanged. This is not production DR acceptance.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json",
+        "scripts/identity/backup.py",
+        "scripts/identity/restore.py"
+      ]
+    },
+    {
+      "id": "IDP-20",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "Production restore/cutover session invalidation and old-token/client-secret rejection were not exercised.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json"
+      ]
+    },
+    {
+      "id": "IDP-21",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "No production rollback/cutover was performed; the isolated restore did not modify the live identity service.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json"
+      ]
+    },
+    {
+      "id": "IDP-22",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "Local Linux engineering gates passed, but GitHub hosted CI could not be triggered because the GitHub integration returned HTTP 403 when opening a draft PR.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json"
+      ]
+    }
+  ]
+}

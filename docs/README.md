@@ -4,7 +4,7 @@
 
 T011/T012身份底座：[本批设计](03-development/t012-identity-relations-design.md)、[数据库关系与补充字典](04-database/identity-relations.md)、[实际验证与研发库](00-project/validation/t012-identity-relations-report.json)。
 
-T013身份系统：[Keycloak完整书面设计](03-development/t013-keycloak-identity-design.md)、[8步实施计划及逐步状态](03-development/t013-keycloak-implementation-plan.md)、[设计自审记录](00-project/validation/t013-keycloak-design-review.json)、[实际执行报告](00-project/validation/t013-keycloak-execution-report.json)。步骤1—6研发验证通过、步骤7隔离恢复演练通过；步骤8源码已同步到GitHub功能分支和Linux源码树，22项验收证据账、当前实现提交的托管CI、正式准入和管理员交接仍未完成。T013整卡未关闭。8步是T013内部实施顺序，不是新增项目阶段或T014—T020。
+T013身份系统：[Keycloak完整书面设计](03-development/t013-keycloak-identity-design.md)、[8步实施计划及逐步状态](03-development/t013-keycloak-implementation-plan.md)、[设计自审记录](00-project/validation/t013-keycloak-design-review.json)、[实际执行报告](00-project/validation/t013-keycloak-execution-report.json)、[22项状态登记](00-project/validation/t013-keycloak-acceptance-ledger.json)。步骤1—6研发验证通过、步骤7隔离恢复演练通过；步骤8源码及1,501项文件清单已同步到GitHub功能分支和Linux源码树，22项登记为13项范围内通过、9项未执行。托管CI、正式准入和管理员交接仍未完成。T013整卡未关闭。8步是T013内部实施顺序，不是新增项目阶段或T014—T020。
 
 任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[695条执行事项逐项清单](00-project/task-execution-steps.txt)。分步导航按170项任务列已完成数、剩余数及全局序号范围；逐项清单按0001—0695编号，列74条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
 
@@ -535,7 +535,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共673份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共674份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -745,6 +745,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
 | [00-project/validation/t012-role-model-report.json](<00-project/validation/t012-role-model-report.json>) | 真实py310/PostgreSQL的RED/GREEN、368回归、源码摘要、新建空目录库及旧库保留、源验收范围；无连接凭据。 |
 | [00-project/validation/t013-identity-image-admission-report.json](<00-project/validation/t013-identity-image-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-keycloak-acceptance-ledger.json](<00-project/validation/t013-keycloak-acceptance-ledger.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-design-review.json](<00-project/validation/t013-keycloak-design-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-execution-report.json](<00-project/validation/t013-keycloak-execution-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-token-validation-report.json](<00-project/validation/t013-token-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
