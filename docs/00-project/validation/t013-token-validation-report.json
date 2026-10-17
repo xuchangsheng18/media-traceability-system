@@ -1,18 +1,293 @@
 {
-  "status": "VALIDATION_IN_PROGRESS",
+  "status": "PASS",
   "task_id": "T013",
-  "scope": "optional_introspection_adapter_not_formal_identity_integration",
+  "revision": "t013-token-verification-batch-one-20261017",
+  "scope": "optional_RFC7662_adapter_synthetic_transport_real_isolated_PostgreSQL_mapping_not_formal_IdP",
+  "observed_at": "2026-10-17T04:51:14.135182+00:00",
+  "base_source_commit": "e7b5a0cc37d48664f359f861cb2c398ff5c66148",
+  "code_source_commit": "d140b322edad0c1d3322e599ea764ecdd589c73d",
   "source_file_sha256": {
     "backend/business_app/identity/tokens.py": "56e308644ad823f7cbb7f1284f3f724113c278c05808e6a2f4eb87c0df850319",
     "tests/platform/test_t013_tokens.py": "f66494e8be03c87bc3601ee857e3c6bec0dd45afb0154359a1e3edd445bf7dce",
     "tests/business/test_token_identity.py": "0e69f6ebddd3996ccad2c3197faeef0e09d49439099c21c23a2a20fc7f95f2a7"
   },
-  "initial_scoped_tests": 60,
-  "quality_checked_source_files": 93,
-  "full_regression": "RUNNING",
-  "hosted_ci": "NOT_YET_RUN",
-  "formal_accepted": false,
-  "production_enabled": false,
+  "dependency_evidence": {
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "docs/00-project/validation/t012-role-model-report.json": "ae2dabdd19ad13cdeb5328f2185a0302c688c7b91d7af0a824b3b54b31654ced"
+  },
+  "local_regression": {
+    "mode": "full",
+    "python": "3.10.22",
+    "observed_at": "2026-10-17T04:50:12.609670+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/business",
+          "tests/platform",
+          "tests/stage_three",
+          "tests/poc",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/tmp/t013-full.xml"
+        ],
+        "exit_code": 0,
+        "output": "=============================== warnings summary ===============================\n443 passed, 1 warning in 476.60s (0:07:56)"
+      }
+    ],
+    "shared_services_restarted": false
+  },
+  "local_regression_provenance_note": "Local full regression started before the equivalent optional-subject type narrowing; final scoped rerun and hosted CI bind final source separately.",
+  "final_scoped_tests": {
+    "mode": "tokens",
+    "python": "3.10.22",
+    "observed_at": "2026-10-17T04:51:00.107099+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/platform/test_t013_tokens.py",
+          "tests/business/test_token_identity.py",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/tmp/t013-tokens.xml"
+        ],
+        "exit_code": 0,
+        "output": "60 passed in 23.23s"
+      }
+    ],
+    "shared_services_restarted": false
+  },
+  "quality": {
+    "mode": "quality",
+    "python": "3.10.22",
+    "observed_at": "2026-10-17T04:43:53.663048+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "format-check"
+        ],
+        "exit_code": 0,
+        "output": "93 files already formatted\n{\"status\": \"PASS\", \"scope\": \"selected_development_python_and_governance_text\", \"files\": 105}\n\n> media-trace-poc-ui@0.1.0 format-check\n> prettier --check \"src/**/*.{ts,vue}\" \"e2e/**/*.ts\" \"*.{ts,mjs,json,html}\"\n\nChecking formatting...\nAll matched files use Prettier code style!"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "lint"
+        ],
+        "exit_code": 0,
+        "output": "All checks passed!\n\n> media-trace-poc-ui@0.1.0 lint\n> eslint src e2e *.ts *.mjs --max-warnings=0\n\nSuccess: no issues found in 93 source files"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_quality.py",
+          "secrets"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"files_checked\": 1458, \"exact_runtime_values_available\": true, \"scope\": \"tracked_and_unignored_files_known_private_values_and_basic_key_patterns\", \"comprehensive_DLP_or_history_scan\": false, \"secret_values_printed\": false}"
+      }
+    ],
+    "shared_services_restarted": false
+  },
+  "tests": {
+    "full_regression": 443,
+    "scoped": 60,
+    "scoped_included_in_full": true,
+    "python_type_files": 93
+  },
+  "failures_and_repairs": [
+    "Initial scoped run: 59 passed, 1 failed. Synthetic revocation fixture violated existing enabled/revoked constraint; corrected fixture to the existing revoke transition, schema unchanged.",
+    "Initial lint/type run: 3 annotation errors; explicit subject type narrowing and typed synthetic response dictionary corrected; final quality run passed.",
+    "A concurrent scoped rerun encountered the full migration suite temporary unsafe-role probe. Cluster-role tests require serial execution; no migration or assertion was relaxed; final scoped rerun was serial."
+  ],
+  "source": {
+    "standard": "https://www.rfc-editor.org/rfc/rfc7662.html",
+    "selection": "optional adapter, no formal identity protocol selected"
+  },
+  "acceptance": [
+    {
+      "requirement": "过期、伪造、禁用用户均被拒绝",
+      "status": "PARTIAL_DEVELOPMENT_VALIDATION",
+      "evidence": "Expiry/inactive/disabled real mapping covered; inactive authority is a synthetic transport, not formal cryptographic forgery verification."
+    },
+    {
+      "requirement": "生产接口可替换为统一身份认证",
+      "status": "ADAPTER_PORT_IMPLEMENTED_FORMAL_INTEGRATION_NOT_VERIFIED",
+      "evidence": "MappedTokenAuthority implements existing AuthorityProvider; not installed by default; no approved IdP or production profile."
+    }
+  ],
+  "formal_identity_provider_connected": false,
   "runtime_adapter_installed": false,
-  "shared_services_restarted": false
+  "production_enabled": false,
+  "runtime_authorization_asserted": false,
+  "formal_accepted": false,
+  "public_API_changed": false,
+  "database_schema_changed": false,
+  "runtime_package_lock_changed": false,
+  "shared_services_restarted": false,
+  "actual_owner": null,
+  "remaining": [
+    "Formal protocol/issuer/audience/endpoint and credentials management, revocation SLA",
+    "Login/issuance, formal lifecycle integration, authentication and authorization end-to-end verification",
+    "Actual owner, remaining effort, acceptance decision"
+  ],
+  "hosted_ci": {
+    "status": "PASS",
+    "head_sha": "d140b322edad0c1d3322e599ea764ecdd589c73d",
+    "run_id": 39003923355,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39003923355",
+    "artifact_id": 12090865543,
+    "artifact_sha256": "14f475f624b5f02de9232f502fb4f4d2b04e3ba1f62050fa7f61a380e531cf8f",
+    "artifact_verified": true,
+    "cloud_ci_gates": 32,
+    "business_tests": 220,
+    "python_unit_platform_tests": 223,
+    "total_python_tests": 443,
+    "python_type_checked_files": 93
+  },
+  "final_scoped_source_sha256": {
+    "backend/business_app/identity/tokens.py": "56e308644ad823f7cbb7f1284f3f724113c278c05808e6a2f4eb87c0df850319",
+    "tests/platform/test_t013_tokens.py": "f66494e8be03c87bc3601ee857e3c6bec0dd45afb0154359a1e3edd445bf7dce",
+    "tests/business/test_token_identity.py": "0e69f6ebddd3996ccad2c3197faeef0e09d49439099c21c23a2a20fc7f95f2a7"
+  },
+  "source_hashes_match_tested_commit": true,
+  "documentation_checks": {
+    "mode": "views",
+    "python": "3.10.22",
+    "observed_at": "2026-10-17T05:03:38.360603+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"steps\": 16, \"formal_frozen\": false, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 17, \"database_navigation_entries\": 20, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"mode\": \"check\", \"business_modules\": 12, \"functional_requirements\": 36, \"engineering_requirements\": 170, \"non_functional_requirements\": 10, \"trace_records\": 216, \"business_rules\": 16, \"business_case_plans\": 72, \"task_case_plans\": 340, \"model_capabilities\": 34, \"dataset_categories\": 15, \"metric_protocols\": 24, \"open_questions\": 33, \"interface_gaps\": 13, \"document\": \"docs/01-requirements/functional-requirements.md\", \"formal_frozen\": false, \"full_business_completion_asserted\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 7, \"remaining_stage_one\": 6, \"remaining_stage_two\": 12, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_access_control_model.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-17T05:02:53.782851+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"time_utc\": \"2026-10-17T05:03:19.916820+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 661, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"links_checked\": 10101, \"errors\": [], \"historical_links\": 0}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 10, \"runtime_executed\": false, \"formal_frozen\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 4, \"errors\": []}"
+      }
+    ],
+    "shared_services_restarted": false
+  }
 }
