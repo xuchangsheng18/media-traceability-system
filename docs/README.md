@@ -537,7 +537,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共686份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共689份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -695,11 +695,14 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/local-attempt-01.json](<00-project/validation/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/local-validation-report.json](<00-project/validation/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/lock-reproduction-report.json](<00-project/validation/lock-reproduction-report.json>) | 全新venv按精确锁安装后的依赖与导入结果。 |
+| [00-project/validation/main-protection-enforcement-report.json](<00-project/validation/main-protection-enforcement-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/main-protection-readback.json](<00-project/validation/main-protection-readback.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/media-query-report.json](<00-project/validation/media-query-report.json>) | 6项合成媒体和微型SQL/向量/鉴权检查；不代表中文或大规模业务。 |
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
 | [00-project/validation/native-artifact-acquisition-report.json](<00-project/validation/native-artifact-acquisition-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-license-inspection-report.json](<00-project/validation/native-license-inspection-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-runtime-report.json](<00-project/validation/native-n01-runtime-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/npm-sbom.cdx.json](<00-project/validation/npm-sbom.cdx.json>) | 锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。 |
 | [00-project/validation/open-source-publication-report.json](<00-project/validation/open-source-publication-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |

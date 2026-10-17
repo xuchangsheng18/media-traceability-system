@@ -15,12 +15,12 @@
 
 | 任务 | 已有技术证据 | 当前剩余动作 |
 | --- | --- | --- |
-| T001 | 目录、职责及README入口 | 本批目录/链接/秘密检查及实际复核留证 |
+| T001 | 目录、职责及README入口 | 本批目录/链接/秘密检查已通过，实际复核决定待登记 |
 | T002 | py310锁、配置及启动测试 | 全部原生服务启动复验；源3.11差异按用户选择保留 |
 | T003 | 前端单元、类型、开发浏览器及构建 | 原生Web/API地址联调及本任务复核；未来业务页面另行交付 |
 | T004 | 旧七服务容器及资源限制 | 原生设计/计划已认可；仍需完整制品、管理员初始化、原生限制/迁移/恢复验证 |
-| T005 | 当前Linux格式、lint、类型和负向探针 | 当前真实hook复验；本批不要求Windows原生hook |
-| T006 | 历史32门禁及功能分支触发配置 | 当前源码托管结果；main有效规则与失败PR拦截证据 |
+| T005 | 当前Linux格式、lint、类型和负向探针 | 当前实际hook复验已通过；补实际复核记录，本批不要求Windows原生hook |
+| T006 | 历史32门禁及功能分支触发配置 | 当前源码托管和main失败PR拦截已实证；完整绕过名单与Runner/Secret平台审计待落实 |
 | T007 | 研发配置校验、注入与脱敏 | 原生私密profile及接入复验；正式生产配置另行验收 |
 | T008 | 已实现API/队列/推理追踪及脱敏 | 原生跨进程链复验；未来完整DAG按对应任务实施 |
 | T009 | 异常脱敏、稳定映射和唯一错误码注册 | 实际复核；后续新增错误持续登记 |
@@ -32,9 +32,9 @@
 
 ## 变更与外部操作
 
-T004容器源要求保留，原生方案以`CR-T004-NATIVE-20261017`追溯。详见[全原生设计与数据迁移/恢复](native-linux-migration-design.md)、[管理员清单](native-linux-admin-checklist.md)。Docker配额没有提高，旧容器和卷没有删除，候选原生资源预算尚未采用。
+T004容器源要求保留，原生方案以`CR-T004-NATIVE-20261017`追溯。详见[全原生设计与数据迁移/恢复](native-linux-migration-design.md)、[管理员清单](native-linux-admin-checklist.md)。Docker配额没有提高，旧容器和卷没有删除，原生候选上限已获用户认可，尚未在服务上生效。
 
-main保护已由徐昌胜保存，规则25302203已回查为Active，覆盖main，PR、禁止删除及强推已启用。必需检查已修正为`engineering`且回查通过；继续验证失败PR不能合并。详见[main保护步骤及回查](main-protection-handoff.md)。单纯流水线失败不证明平台阻止合并。
+main保护已由徐昌胜保存，规则25302203已回查为Active，覆盖main，PR、禁止删除及强推已启用。必需检查已修正为`engineering`且回查通过；普通PR独立故障检查失败后确实被禁止合并；同PR恢复结果见[实际拦截记录](../00-project/validation/main-protection-enforcement-report.json)。详见[main保护步骤及回查](main-protection-handoff.md)。单纯流水线失败不证明平台阻止合并。
 
 ## 验收登记要求
 
@@ -42,4 +42,4 @@ main保护已由徐昌胜保存，规则25302203已回查为Active，覆盖main�
 
 原生设计和[详细计划](native-linux-implementation-plan.md)已获认可，从N01开始；[执行台账](native-linux-execution-status.json)逐项登记。当前未安装或切换，本批未自动实施T014。
 
-当前源码`341ad5b`在Linux执行502项Python测试，零失败/错误/跳过；前端单元、构建和浏览器均通过，见[本批实测](../00-project/validation/t001-t012-linux-current-report.json)。后续N01代码另按专项及新CI验证。首次托管CI因候选输入摘要漂移失败，已按实际变更重建候选，未将失败或跳过改写为通过。
+当前代码`4cb812b`在Linux执行539项Python测试（包含32项原生工具和5项存储就绪回归），零失败/错误/跳过；前端单元、构建和浏览器均通过，见[本批实测](../00-project/validation/t001-t012-linux-current-report.json)。同一代码提交的GitHub CI与32工程门禁及下载制品摘要均已验真。首次托管CI因候选输入摘要漂移失败，已按实际变更重建候选，未将失败或跳过改写为通过。

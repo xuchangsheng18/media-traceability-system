@@ -4,7 +4,7 @@
 
 ## 最新回查
 
-[实际规则回查记录](../00-project/validation/main-protection-readback.json)。规则已存在不等于T006已关闭：检查名已修正；失败PR实际拦截尚未验证。响应未给出完整bypass_actors，不能仅凭当前连接器不可绕过推断所有账号均不可绕过。旧branch protection摘要中的检查列表为空不能用于否认新ruleset；本次以具体ruleset详情为准。
+[实际规则回查记录](../00-project/validation/main-protection-readback.json)。规则已存在不等于T006已关闭：检查名已修正；普通PR#1预设故障失败后实际禁止合并，见[实际拦截记录](../00-project/validation/main-protection-enforcement-report.json)。同一PR的恢复及关闭结果以该记录为准。响应未给出完整bypass_actors，不能仅凭当前连接器不可绕过推断所有账号均不可绕过。旧branch protection摘要中的检查列表为空不能用于否认新ruleset；本次以具体ruleset详情为准。
 
 ## 保存规则
 
