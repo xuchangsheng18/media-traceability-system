@@ -47,6 +47,21 @@ Python候选适用性说明：CVE-2026-3298涉及Windows的Proactor及3.11新增
 
 Node官方将CVE-2025-55130定为High，部分扫描来源定为Critical，需同时保留来源差异，见[官方安全公告](https://nodejs.org/en/blog/vulnerability/december-2025-security-releases)。Go修复依据见[GO-2026-6612](https://pkg.go.dev/vuln/GO-2026-6612)；不能只升级应用版本号而继续携带旧工具链和旧模块。
 
+已进一步取得[11条Python及1条PG匹配对应的CVE权威记录](../00-project/validation/native-n01-round3/python-and-postgresql-cve-source-report.json)，保留来源、摘要、affected范围、争议标签和上游链接。处理队列如下，均不是他人签认的例外：
+
+| 匹配项 | 精确复核要点及当前处理 |
+| --- | --- |
+| CVE-2017-8806 | 记录针对Debian/Ubuntu的postgresql-common脚本及符号链接处理，不是上游PG源码本身；私有PG构建的CPE结果需按产品范围判断，宿主若安装该包仍需另核版本 |
+| CVE-2024-3220、CVE-2026-3298 | 记录明确Windows条件；支持当前Linux研发范围的不适用候选判断，不扩展至Windows原生验收 |
+| CVE-2026-12003 | 涉及构建VPATH、源码树识别和Windows路径条件；需结合实际Conda构建配置确认，不能仅凭修复版本大于3.10就排除 |
+| CVE-2023-36632、CVE-2026-3479 | 权威记录标有disputed；保留原始匹配和上游说明，争议不等于正式豁免 |
+| CVE-2025-12781、CVE-2026-3446 | base64字符集/填充后额外内容的处理；仍需对实际输入规范及调用路径复核，不能因JWT使用签名就自动排除全部base64风险 |
+| CVE-2025-15366、CVE-2025-15367 | IMAP/POP命令中的控制字符注入；核对运行用途及调用路径，不将未搜索到直接import当不存在传递调用的证明 |
+| CVE-2026-12345 | TemporaryDirectory清理竞态；需核对平台、rmtree能力和目录写权限，不能把一次合成夹具清理成功当漏洞修补 |
+| CVE-2026-6019 | cookies.Morsel.js_output中的脚本上下文转义；需核对是否调用或输出此API |
+
+这些记录说明Python准入仍有实质待核项。本批未变更Python3.10.22或原100包锁，也没有用Go/Node候选通过替代Python安全处置。
+
 ## 隔离修补候选
 
 用户已确认候选验证范围，[输入锁](../../config/native/security-candidate-inputs.lock.json)与原基线分开。Node22.23.3已核对官方摘要，版本、现有前端单元、构建和3条浏览器测试通过，相同数据库下漏洞匹配0。首次浏览器测试因未指定项目已有缓存目录而失败，使用项目既有PLAYWRIGHT_BROWSERS_PATH后重跑通过；未下载或放宽测试。见[前端结果](../00-project/validation/native-n01-round3/node-frontend-validation-report.json)、[候选扫描](../00-project/validation/native-n01-round3/node-candidate-vulnerability-report.json)。这只是候选验证，不表示已采用或已替换共享Web服务。
