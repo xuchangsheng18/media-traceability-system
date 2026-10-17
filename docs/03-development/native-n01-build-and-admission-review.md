@@ -55,6 +55,14 @@ age/SeaweedFS候选采用官方Go1.27.2；分别目标修补x/crypto0.56.0、x/n
 
 age修补候选已通过`go mod verify`、上游`go test ./...`、编译、版本及构建信息探测，并通过合成数据加密恢复和错误密钥拒绝；临时私钥已销毁。见[构建与测试](../00-project/validation/native-n01-round3/age-candidate-validation-report.json)、[恢复探测](../00-project/validation/native-n01-round3/age-candidate-roundtrip-report.json)。重扫剩余2条Unknown匹配均为GO-2026-5932，来源为同一模块在两个二进制中的记录；[上游说明](https://pkg.go.dev/vuln/GO-2026-5932)影响的是x/crypto/openpgp系列包。对这两个CGO关闭的静态候选列出实际编译导入包，未包含该系列，支持“本候选不受影响、待安全复核”的判断；原始匹配不删除，不作整个x/crypto模块的通用豁免。
 
+SeaweedFS候选已通过存储相关上游测试`go test ./weed/storage/...`、完整二进制编译、版本/构建信息探测，以及[S3合成夹具的6项隔离检查](../00-project/validation/native-n01-round3/seaweed-candidate-s3-report.json)：启动、不同版本、两次内容摘要、错误凭据403拒绝及重启后读取历史版本。第一次选用的端口预检发现占用后即停止，未终止占用进程；改用经检查的回环端口48111—48118完成测试，随后测试进程、凭据和夹具清理。此处“恢复”仅指候选自身合成数据重启保留，不是原项目数据迁移或正式备份恢复。
+
+[候选构建记录](../00-project/validation/native-n01-round3/seaweedfs-candidate-validation-report.json)保留首次下载失败和后续离线恢复构建结果；仅向Go模块缓存补入官方HTTPS取得的字节，未手工生成ziphash，也未关闭go.sum或校验数据库验证。[重扫](../00-project/validation/native-n01-round3/seaweed-candidate-vulnerability-report.json)剩余1条Unknown，同为GO-2026-5932，实际编译导入列表未包含OpenPGP系列包，仍作限定候选判断。
+
+[Go捆绑模块材料](../00-project/validation/native-n01-round3/go-bundled-license-materials-report.json)登记age的7个模块和SeaweedFS的253个模块，所有模块对应源码目录均存在，补充构建后模块校验通过。除flatbuffers/go子模块外均找到顶层许可/声明材料；已按其伪版本的精确提交追溯[仓库根许可](../00-project/validation/native-n01-round3/flatbuffers-license-source-report.json)。这是实际编译模块的来源/材料清单，不是全部嵌套许可义务已审阅。修补后的[go.mod/go.sum](../../config/native/security-candidate-module-locks/)独立归档，不替换已确认基线。
+
+宿主来源还进一步映射为[23个OS包及86个文件来源](../00-project/validation/native-n01-round3/os-runtime-package-origin-report.json)，其中86含85个已解析库和1个实际存在的宿主编译器前端。私有工具目录中与宿主库摘要相同的副本已标识；Conda、JDK和私有构建库不能因没有dpkg归属而误判无来源。精确签名恢复包及其依赖闭包仍须完成。
+
 ## 徐昌胜需要操作的事项
 
 1. **现在不要安装或切换**。N01仍有安全和依赖阻塞，本页不提供未经验证的apt安装、全局环境修改或停写指令。此前管理员清单的只读预检可以执行，见[管理员清单](native-linux-admin-checklist.md)。

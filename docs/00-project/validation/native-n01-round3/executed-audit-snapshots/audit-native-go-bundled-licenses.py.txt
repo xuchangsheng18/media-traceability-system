@@ -1,0 +1,26 @@
+import hashlib,json,os,subprocess
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-security-candidates-20261017';cache=root/'gomodcache';report={'scope':'compiled_Go_candidate_modules_and_local_license_materials_not_semantic_admission','candidates':[],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+def escape(s):return ''.join('!'+c.lower() if c.isupper() else c for c in s)
+for name,source,target in [('age','age-b74dce4cdbe35b5e5f66c06d9612b72f89028758','./cmd/age'),('seaweedfs','seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93','./weed')]:
+ binary=root/(name+'-candidate');raw=subprocess.check_output([str(root/'go/bin/go'),'version','-m',str(binary)],text=True);modules=[]
+ for line in raw.splitlines():
+  parts=line.split()
+  if parts and parts[0] in ['mod','dep']:
+   modules.append({'module':parts[1],'version':parts[2],'go_sum':parts[3] if len(parts)>3 else None,'main':parts[0]=='mod'})
+  elif parts and parts[0]=='=>':modules[-1]['replacement']={'module':parts[1],'version':parts[2]}
+ for m in modules:
+  actual=m.get('replacement',m);path=root/source if m['main'] else cache/(escape(actual['module'])+'@'+escape(actual['version']))
+  m['source_directory_present']=path.is_dir();m['materials']=[]
+  if path.is_dir():
+   for p in path.iterdir():
+    if p.is_file() and any(s in p.name.lower() for s in ['license','copying','notice','copyright','patents']):m['materials'].append({'path':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size_bytes':p.stat().st_size})
+ env=dict(os.environ,GOPATH=str(root/'gopath'),GOMODCACHE=str(cache),GOCACHE=str(root/'gocache'),GOTOOLCHAIN='local',GOPROXY='off',GOMAXPROCS='4')
+ imports=subprocess.check_output([str(root/'go/bin/go'),'list','-deps',target],cwd=root/source,env=env,text=True,timeout=90).splitlines()
+ verify=subprocess.run([str(root/'go/bin/go'),'mod','verify'],cwd=root/source,env=env,capture_output=True,text=True,timeout=90)
+ report.setdefault('post_build_module_verification',[]).append({'name':name,'exit_code':verify.returncode,'status':'PASS' if verify.returncode==0 else 'FAIL','output_sha256':hashlib.sha256((verify.stdout+verify.stderr).encode()).hexdigest()})
+ report['candidates'].append({'name':name,'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'module_count':len(modules),'modules':modules,'module_sources_missing':sum(not m['source_directory_present'] for m in modules),'modules_without_top_level_materials':[m['module'] for m in modules if not m['materials']],'GO-2026-5932_affected_compiled_imports':[x for x in imports if x=='golang.org/x/crypto/openpgp' or x.startswith('golang.org/x/crypto/openpgp/')],'compiled_imports_count':len(imports),'semantic_license_admitted':False})
+report['toolchain_materials']=[{'path':'go/'+n,'sha256':hashlib.sha256((root/'go'/n).read_bytes()).hexdigest()} for n in ['LICENSE','PATENTS']]
+report['status']='PASS_MATERIAL_INVENTORY_ONLY'
+(root/'go-bundled-license-materials-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps([{k:c[k] for k in ['name','module_count','module_sources_missing','modules_without_top_level_materials','GO-2026-5932_affected_compiled_imports']} for c in report['candidates']]))

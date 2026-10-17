@@ -1,0 +1,187 @@
+{
+  "observed_at": "2026-10-17T16:11:25.541436+00:00",
+  "scope": "isolated_seaweedfs_patch_candidate_not_adopted",
+  "checks": [
+    {
+      "name": "seaweedfs-patch-attempt-1",
+      "command": [
+        "go",
+        "get",
+        "golang.org/x/net@v0.60.0"
+      ],
+      "exit_code": 1,
+      "status": "FAIL",
+      "log_sha256": "78c2780879a9ea86d77995a0dfde71792d533234fa2f7ee1952b851ab5fcb1a7"
+    },
+    {
+      "name": "seaweedfs-patch-attempt-2",
+      "command": [
+        "go",
+        "get",
+        "golang.org/x/net@v0.60.0"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "4ee648e6719980b51a4fa61340ac036705683b6c0d343becdaa6a5402c9dbb1e"
+    },
+    {
+      "name": "seaweedfs-module-verify",
+      "command": [
+        "go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd"
+    },
+    {
+      "name": "seaweedfs-upstream-test",
+      "command": [
+        "go",
+        "test",
+        "./weed/storage/..."
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "9a95f7bb4fe2cbf54ba31bb40e98f1cf454e0ccc2b38848453649540c5c59006"
+    },
+    {
+      "name": "seaweedfs-patched-build",
+      "command": [
+        "go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+        "./weed"
+      ],
+      "exit_code": 124,
+      "status": "FAIL",
+      "log_sha256": "d71a7747c95ebb1b670cd1e827c7e5727671dbd309e600efccd46c2ef42b31c9"
+    },
+    {
+      "name": "seaweedfs-build-resume",
+      "command": [
+        "go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+        "./weed"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "3aa5f7a3b205439f785d71ae50c5399499a2f7aa59ee61b622da252e1b126205",
+      "observed_at": "2026-10-17T16:42:21.349564+00:00"
+    },
+    {
+      "name": "seaweedfs-version-resume",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+        "version"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "833670553eb417b99f2a2d2bb80ee065f4fc46f3c2bdf7f022157075600f3601",
+      "observed_at": "2026-10-17T16:42:21.565969+00:00"
+    },
+    {
+      "name": "seaweedfs-build-info-resume",
+      "command": [
+        "go",
+        "version",
+        "-m",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "a0a79c58e9b0a53fd1b301313b9c0f5821e3aaec52207a9bbcfaf66d0ecd0ce2",
+      "observed_at": "2026-10-17T16:42:21.632068+00:00"
+    }
+  ],
+  "executed_script_sha256": "f5f0a36f1b50b510586da5818eeb997b6839bfac91e53b7e19abe28d8b5f7c44",
+  "checksum_database_verification_enabled": true,
+  "status": "FAIL",
+  "module_locks": [
+    {
+      "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93/go.mod",
+      "sha256": "0f87660d3ee0ed812bf826effcb978805a2f078c34150613df2735e99e6f55c6"
+    },
+    {
+      "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93/go.sum",
+      "sha256": "024c79a32333739ad86f61900de25632027d3ad6e557003635b10761c044f8f7"
+    }
+  ],
+  "continuation_script_sha256": "0e6b388befd54388c5b6562c3febff4dead53074a5c02c0da2f59f44681f851b",
+  "previous_resume_attempts": [
+    [
+      {
+        "name": "seaweedfs-build-resume",
+        "command": [
+          "go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+          "./weed"
+        ],
+        "exit_code": 1,
+        "status": "FAIL",
+        "log_sha256": "b619d26818a4292a8fc8aa04b260b40dd1a2db50c399f4fe6a196c26c70ba168",
+        "observed_at": "2026-10-17T16:29:46.692241+00:00"
+      }
+    ],
+    [
+      {
+        "name": "seaweedfs-build-resume",
+        "command": [
+          "go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+          "./weed"
+        ],
+        "exit_code": 1,
+        "status": "FAIL",
+        "log_sha256": "a3085d3587b6e50662aca73d1b96aa94b9165b380361408e4a025514c95b6b40",
+        "observed_at": "2026-10-17T16:32:49.123872+00:00"
+      }
+    ],
+    [
+      {
+        "name": "seaweedfs-build-resume",
+        "command": [
+          "go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+          "./weed"
+        ],
+        "exit_code": 1,
+        "status": "FAIL",
+        "log_sha256": "38dd3ef699778627b54c49c8d4328ae04e80bc1a4ac2efbd5af06a5a942c0151",
+        "observed_at": "2026-10-17T16:34:52.133567+00:00"
+      }
+    ],
+    [
+      {
+        "name": "seaweedfs-build-resume",
+        "command": [
+          "go",
+          "build",
+          "-trimpath",
+          "-o",
+          "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+          "./weed"
+        ],
+        "exit_code": 1,
+        "status": "FAIL",
+        "log_sha256": "dbd73c33f51bec27232a0880807d33101118f6fe4dd5571a4f00cb843a6fb103",
+        "observed_at": "2026-10-17T16:36:04.308978+00:00"
+      }
+    ]
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-17T16:40:59.440323+00:00",
+  "observed_at": "2026-10-17T16:53:27.096780+00:00",
   "scope": "Linux_py310_CPU_N01_artifact_build_dependency_and_admission_evidence_not_native_service_acceptance",
   "status": "BLOCKED_ADMISSION_INCOMPLETE_CLOSURE",
   "installation_ready": false,
@@ -33,8 +33,8 @@
     "Signed recovery inputs for all reused host OS/compiler dependencies; dlopen and optional runtime paths not completely validated",
     "Resolve absent license materials and review bundled Go/JAR/OS obligations; no formal software admission approval recorded",
     "Raw vulnerability matches require applicability triage and candidate fixes; zero findings is not a blanket security guarantee",
-    "age and SeaweedFS patched candidate build/test/scan results not yet admitted",
-    "Native installation, resource enforcement and isolated recovery are subsequent unexecuted steps"
+    "Native installation, resource enforcement and isolated recovery are subsequent unexecuted steps",
+    "Candidate builds/tests are evidence only: exact-version baseline adoption and formal software admission remain unapproved"
   ],
   "formal_backup_public_key_status": "NOT_CREATED_USER_CONFIRMED_N04_PREREQUISITE",
   "services_changed": false,
@@ -63,6 +63,16 @@
       "size_bytes": 3965
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/candidate-build-report.json",
+      "sha256": "600be8212b3a073ad3aa3d17e06d4f29379d1aed7289732c1d3d361b8184065e",
+      "size_bytes": 1532
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/checksum-network-failure-report.json",
+      "sha256": "b1a2f7f82eae92b3fb0b4ef9830bc927cdd4ddac9ceee3bc9b20eb66e339c779",
+      "size_bytes": 1534
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/conda-origin-and-record-difference-report.json",
       "sha256": "5b4e6142464f076f8a07f0ea3ab42e6e36ea40e5bc4605ec6c85aedc7606bc38",
       "size_bytes": 18469
@@ -78,6 +88,11 @@
       "size_bytes": 30789
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/direct-network-failure-report.json",
+      "sha256": "55341dac231b67df67c25844ffa961b6af792de2190be2133263447058dd9c74",
+      "size_bytes": 1534
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/elf-runtime-resolution-report.json",
       "sha256": "399fc99694b96c44a4108e53b4f6724e9e57a5cdbb2173f571bb0226bb488472",
       "size_bytes": 334375
@@ -91,6 +106,16 @@
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-elf-closure.py.txt",
       "sha256": "3e8b923c12e60bc37d8f83d6815fd50164c8cfaee58757f98351d875eb1713a8",
       "size_bytes": 3716
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-go-bundled-licenses.py.txt",
+      "sha256": "fd512e1721938e2f6d49ba25120f3a3370f9ae43bc2c2c40b4cf0c385e854e07",
+      "size_bytes": 3283
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-os-origins.py.txt",
+      "sha256": "2eb0697b576d91701e51a4879142263807def26d54df6fc8c4ab82743c6184d6",
+      "size_bytes": 1952
     },
     {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/audit-python-runtime-closure.py.txt",
@@ -111,6 +136,11 @@
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/check-conda-installed-origin.py.txt",
       "sha256": "3e1dc2db66a4397bb7a88e97842b65fae9469672e3a963dd02f24ba2870cdd53",
       "size_bytes": 7059
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/fetch-native-flatbuffers-license.py.txt",
+      "sha256": "16db368d860523758231bf296c5cd0ce973712dd1dde8327b58724be39cb191c",
+      "size_bytes": 1305
     },
     {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/finish-native-seaweed-candidate.py.txt",
@@ -168,6 +198,16 @@
       "size_bytes": 3255
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-seaweed-candidate-sbom.py.txt",
+      "sha256": "b35760db44478ff03b453048409f6cb1464245a04c3ff7e4f79e8298da8a74ae",
+      "size_bytes": 2767
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-seaweed-candidate-vulnerability.py.txt",
+      "sha256": "0cdb893771ac71b704121d5c1385d22c89e2fa9a7a592b0c1470b5055c18b2f4",
+      "size_bytes": 3598
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-source-sbom.py.txt",
       "sha256": "3b547097159417fed85e95b0353e0097a027fecedb3c83b0535c4a6a55f3bb1a",
       "size_bytes": 2865
@@ -193,9 +233,24 @@
       "size_bytes": 1520
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-seaweed-candidate-s3.py.txt",
+      "sha256": "97e707d153628357fdffe056541cdf7d8fe041b870c69c9c8bc1b15e8948c1bf",
+      "size_bytes": 4964
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/executed-audit-snapshots/verify-native-wheel-license-materials.py.txt",
       "sha256": "7670d2ce7a21ed5756b0e32d5cbeb763ea958941fe1563745953aaa7cb90cdc5",
       "size_bytes": 2865
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/flatbuffers-license-source-report.json",
+      "sha256": "53466a02ebeb34b291bd2d811d7e66378d220621d4c8bad27c7c9857ca64ec39",
+      "size_bytes": 611
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/go-bundled-license-materials-report.json",
+      "sha256": "8c05052fb9f251375228a5250d19a143e197eca2318110d7d51931929479d932",
+      "size_bytes": 130693
     },
     {
       "path": "docs/00-project/validation/native-n01-round3/grype-db-status.json",
@@ -238,6 +293,21 @@
       "size_bytes": 1319
     },
     {
+      "path": "docs/00-project/validation/native-n01-round3/seaweed-candidate-s3-report.json",
+      "sha256": "4102514f2c6dc6715fe3c7a9eaa0c337817f05d831465887460271ad485b6872",
+      "size_bytes": 1183
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/seaweed-candidate-vulnerability-report.json",
+      "sha256": "a8f4028b6faeb2836af0d084b5735e0e73a520327d3bb1467c2937b48b94e530",
+      "size_bytes": 3415
+    },
+    {
+      "path": "docs/00-project/validation/native-n01-round3/seaweedfs-candidate-validation-report.json",
+      "sha256": "e3b1f798e92bd6b7da83961c2f6b2f35659bcbea9649d079de125ba7c1f0da51",
+      "size_bytes": 5859
+    },
+    {
       "path": "docs/00-project/validation/native-n01-round3/source-build-report.json",
       "sha256": "cf7138be6e47dce82dc2ee48bbda6b0a8024dcbc7b5db13838d99a7ca3335b9c",
       "size_bytes": 13014
@@ -261,6 +331,29 @@
   "age_candidate_build_test_status": "PASS_BUILD_TEST_ONLY_NOT_ADMITTED",
   "age_candidate_roundtrip_status": "PASS",
   "age_candidate_raw_matches": 2,
+  "seaweed_candidate_build_status": "FAIL",
+  "seaweed_candidate_S3_status": "PASS",
+  "seaweed_candidate_raw_matches": 1,
+  "go_bundled_license_materials_status": "PASS_MATERIAL_INVENTORY_ONLY",
+  "candidate_dependency_lock_note": "Exact patched go.mod/go.sum are audit inputs under config/native/security-candidate-module-locks; not adopted baseline.",
+  "candidate_module_locks": [
+    {
+      "path": "config/native/security-candidate-module-locks/age.go.mod",
+      "sha256": "c993cee8e71eb01fb7b2e2994cf4f0c4f1181eea1ae5008d2d968b2c7e001b43"
+    },
+    {
+      "path": "config/native/security-candidate-module-locks/age.go.sum",
+      "sha256": "04917b476d69af4e08536efedebe7c0f8449838c5ca7d8b4d8e6c822114999a7"
+    },
+    {
+      "path": "config/native/security-candidate-module-locks/seaweedfs.go.mod",
+      "sha256": "0f87660d3ee0ed812bf826effcb978805a2f078c34150613df2735e99e6f55c6"
+    },
+    {
+      "path": "config/native/security-candidate-module-locks/seaweedfs.go.sum",
+      "sha256": "024c79a32333739ad86f61900de25632027d3ad6e557003635b10761c044f8f7"
+    }
+  ],
   "GO-2026-5932_triage": {
     "upstream": "https://pkg.go.dev/vuln/GO-2026-5932",
     "affected_package_prefix": "golang.org/x/crypto/openpgp",

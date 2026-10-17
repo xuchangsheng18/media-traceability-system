@@ -537,7 +537,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共745份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共759份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -712,16 +712,22 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round3/age-candidate-validation-report.json](<00-project/validation/native-n01-round3/age-candidate-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/age-candidate-vulnerability-report.json](<00-project/validation/native-n01-round3/age-candidate-vulnerability-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/age-compiled-imports.txt](<00-project/validation/native-n01-round3/age-compiled-imports.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/candidate-build-report.json](<00-project/validation/native-n01-round3/candidate-build-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/checksum-network-failure-report.json](<00-project/validation/native-n01-round3/checksum-network-failure-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/conda-origin-and-record-difference-report.json](<00-project/validation/native-n01-round3/conda-origin-and-record-difference-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/conda-origin-initial-report.json](<00-project/validation/native-n01-round3/conda-origin-initial-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/conda-runtime-dependency-graph-report.json](<00-project/validation/native-n01-round3/conda-runtime-dependency-graph-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/direct-network-failure-report.json](<00-project/validation/native-n01-round3/direct-network-failure-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/elf-runtime-resolution-report.json](<00-project/validation/native-n01-round3/elf-runtime-resolution-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/acquire-native-missing-license-sources.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/acquire-native-missing-license-sources.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-elf-closure.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-elf-closure.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-go-bundled-licenses.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-go-bundled-licenses.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-os-origins.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/audit-native-os-origins.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/audit-python-runtime-closure.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/audit-python-runtime-closure.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/bootstrap-native-private-toolchain.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/bootstrap-native-private-toolchain.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/build-native-security-candidates.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/build-native-security-candidates.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/check-conda-installed-origin.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/check-conda-installed-origin.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/executed-audit-snapshots/fetch-native-flatbuffers-license.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/fetch-native-flatbuffers-license.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/finish-native-seaweed-candidate.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/finish-native-seaweed-candidate.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/native-go-https-cache-bridge.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/native-go-https-cache-bridge.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/probe-native-source-builds.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/probe-native-source-builds.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -733,12 +739,17 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-candidate-sbom.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-candidate-sbom.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-candidate-vulnerability.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-candidate-vulnerability.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-sbom-audit.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-sbom-audit.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-seaweed-candidate-sbom.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-seaweed-candidate-sbom.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-seaweed-candidate-vulnerability.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-seaweed-candidate-vulnerability.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-source-sbom.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-source-sbom.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-source-vulnerability.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-source-vulnerability.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-vulnerability-audit.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/run-native-vulnerability-audit.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-age-candidate-roundtrip.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-age-candidate-roundtrip.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-node-candidate.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-node-candidate.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-seaweed-candidate-s3.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/test-native-seaweed-candidate-s3.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/executed-audit-snapshots/verify-native-wheel-license-materials.py.txt](<00-project/validation/native-n01-round3/executed-audit-snapshots/verify-native-wheel-license-materials.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/flatbuffers-license-source-report.json](<00-project/validation/native-n01-round3/flatbuffers-license-source-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/go-bundled-license-materials-report.json](<00-project/validation/native-n01-round3/go-bundled-license-materials-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/grype-db-status.json](<00-project/validation/native-n01-round3/grype-db-status.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/missing-wheel-license-source-report.json](<00-project/validation/native-n01-round3/missing-wheel-license-source-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/node-candidate-vulnerability-report.json](<00-project/validation/native-n01-round3/node-candidate-vulnerability-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -747,6 +758,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round3/python-runtime-closure-report.json](<00-project/validation/native-n01-round3/python-runtime-closure-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/runtime-vulnerability-report.json](<00-project/validation/native-n01-round3/runtime-vulnerability-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/scanner-tools.lock.json](<00-project/validation/native-n01-round3/scanner-tools.lock.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/seaweed-candidate-s3-report.json](<00-project/validation/native-n01-round3/seaweed-candidate-s3-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/seaweed-candidate-vulnerability-report.json](<00-project/validation/native-n01-round3/seaweed-candidate-vulnerability-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round3/seaweedfs-candidate-validation-report.json](<00-project/validation/native-n01-round3/seaweedfs-candidate-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/source-build-report.json](<00-project/validation/native-n01-round3/source-build-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/source-vulnerability-report.json](<00-project/validation/native-n01-round3/source-vulnerability-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/vulnerability-db.lock.json](<00-project/validation/native-n01-round3/vulnerability-db.lock.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |

@@ -1,0 +1,51 @@
+import datetime,hashlib,json,os,secrets,signal,socket,subprocess,tempfile,time
+from pathlib import Path
+import boto3
+from botocore.config import Config
+from botocore.exceptions import ClientError
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-security-candidates-20261017';binary=out/'seaweedfs-candidate';checks=[];process=None
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'isolated_loopback_synthetic_S3_patch_candidate_not_live_storage_migration_or_N04_backup','checks':checks,'status':'IN_PROGRESS','binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'shared_services_changed':False}
+for port in [48111,48112,48113,48114,48115,48116,48117,48118]:
+ with socket.socket() as s:s.bind(('127.0.0.1',port))
+def record(name,passed,**extra):
+ checks.append(dict(name=name,passed=bool(passed),**extra));assert passed,name
+with tempfile.TemporaryDirectory(prefix='seaweed-s3-fixture-',dir=out) as temp:
+ d=Path(temp);assert d.resolve().is_relative_to(out.resolve())
+ (d/'filer.toml').write_text('[leveldb2]\nenabled = true\ndir = "'+str(d/'filer-meta')+'"\n')
+ access='fixture-'+secrets.token_hex(12);secret=secrets.token_hex(32)
+ config=d/'s3.json';config.write_text(json.dumps({'identities':[{'name':'synthetic-candidate-test','credentials':[{'accessKey':access,'secretKey':secret}],'actions':['Admin','Read','Write','List','Tagging']}]}))
+ command=[str(binary),'server','-ip=127.0.0.1','-ip.bind=127.0.0.1','-dir='+str(d/'data'),'-master.dir='+str(d/'master'),'-master.port=48111','-master.port.grpc=48112','-master.telemetry=false','-master.volumeSizeLimitMB=32','-volume.port=48113','-volume.port.grpc=48114','-volume.max=1','-filer','-filer.port=48115','-filer.port.grpc=48116','-s3','-s3.port=48117','-s3.port.grpc=48118','-s3.iam=false','-s3.config='+str(config)]
+ for name in ['data','master']:(d/name).mkdir()
+ env=dict(os.environ,HOME=str(d),GOMAXPROCS='4',GOMEMLIMIT='1GiB')
+ client=boto3.client('s3',endpoint_url='http://127.0.0.1:48117',aws_access_key_id=access,aws_secret_access_key=secret,region_name='us-east-1',config=Config(connect_timeout=2,read_timeout=5,retries={'max_attempts':1},s3={'addressing_style':'path'}))
+ log=(out/'seaweed-candidate-fixture.log').open('ab')
+ def start():
+  global process
+  process=subprocess.Popen(command,cwd=d,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+  for _ in range(90):
+   if process.poll() is not None:raise RuntimeError('candidate_server_early_exit')
+   try:client.list_buckets();return
+   except Exception:time.sleep(0.5)
+  raise RuntimeError('candidate_server_readiness_timeout')
+ def stop():
+  global process
+  if process and process.poll() is None:
+   os.killpg(process.pid,signal.SIGTERM)
+   try:process.wait(timeout=20)
+   except subprocess.TimeoutExpired:os.killpg(process.pid,signal.SIGKILL);process.wait(timeout=5)
+ try:
+  start();record('isolated_start',True)
+  bucket='synthetic-native-candidate';key='fixture.bin';first=b'synthetic candidate first version\n';second=b'synthetic candidate second version\n'
+  client.create_bucket(Bucket=bucket);client.put_bucket_versioning(Bucket=bucket,VersioningConfiguration={'Status':'Enabled'})
+  a=client.put_object(Bucket=bucket,Key=key,Body=first);b=client.put_object(Bucket=bucket,Key=key,Body=second)
+  versions=[a.get('VersionId'),b.get('VersionId')];record('distinct_object_versions',all(versions) and versions[0]!=versions[1],version_count=2)
+  for version,raw in zip(versions,[first,second]):record('version_content_digest',client.get_object(Bucket=bucket,Key=key,VersionId=version)['Body'].read()==raw,expected_sha256=hashlib.sha256(raw).hexdigest())
+  bad=boto3.client('s3',endpoint_url='http://127.0.0.1:48117',aws_access_key_id=access,aws_secret_access_key=secrets.token_hex(32),region_name='us-east-1',config=Config(connect_timeout=2,read_timeout=5,retries={'max_attempts':0},s3={'addressing_style':'path'}))
+  try:bad.get_object(Bucket=bucket,Key=key);record('wrong_credentials_rejected',False)
+  except ClientError as e:record('wrong_credentials_rejected',e.response['ResponseMetadata']['HTTPStatusCode']==403,http_status=e.response['ResponseMetadata']['HTTPStatusCode'])
+  stop();start();record('restart_preserves_version',client.get_object(Bucket=bucket,Key=key,VersionId=versions[0])['Body'].read()==first)
+ except Exception as e:report['failure']=str(e) if isinstance(e,(AssertionError,RuntimeError)) else type(e).__name__
+ finally:stop();log.close();report['test_process_stopped']=process is None or process.poll() is not None
+report['synthetic_credentials_and_fixture_removed']=not d.exists();report['status']='PASS' if 'failure' not in report and checks else 'FAIL'
+(out/'seaweed-candidate-s3-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))
