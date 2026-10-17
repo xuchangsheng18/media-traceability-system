@@ -43,3 +43,5 @@ main保护已由徐昌胜保存，规则25302203已回查为Active，覆盖main�
 原生设计和[详细计划](native-linux-implementation-plan.md)已获认可，从N01开始；[执行台账](native-linux-execution-status.json)逐项登记。当前未安装或切换，本批未自动实施T014。
 
 当前代码`4cb812b`在Linux执行539项Python测试（包含32项原生工具和5项存储就绪回归），零失败/错误/跳过；前端单元、构建和浏览器均通过，见[本批实测](../00-project/validation/t001-t012-linux-current-report.json)。同一代码提交的GitHub CI与32工程门禁及下载制品摘要均已验真。首次托管CI因候选输入摘要漂移失败，已按实际变更重建候选，未将失败或跳过改写为通过。
+
+最新前端配置提交`e17ddff`的[托管CI](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39039055455)通过，下载制品摘要已核对；保留提交来源、关闭可选Git差异附件，未降低浏览器或UTF-8门禁。Linux实测与托管CI分别按各自提交阅读。main的同一普通测试PR已验证失败时blocked、修复后两项engineering成功且clean；测试PR不合并，关闭回执见实际拦截记录。交付功能分支同步不等于已经合入main或完成原生运行部署。

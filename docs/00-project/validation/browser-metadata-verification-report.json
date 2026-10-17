@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "scope": "Linux_frontend_configuration_and_real_browser_report_metadata_not_shared_stack_redeployment",
+  "source_commit": "e17ddffbfdfcec8fd5ff488756103bca5ef940db",
+  "checks": [
+    {
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "type-check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "test:foundation-browser",
+        "--",
+        "--reporter=json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "browser_stats": {
+    "startTime": "2026-10-17T14:03:32.761Z",
+    "duration": 3417.5199999999995,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "git_diff_attachment_present": false,
+  "git_commit_provenance_retained": true,
+  "configs_sha256": {
+    "playwright.config.ts": "5bd3875c773eb298dbaf412f78894ea93c8aa1a22a7335271c40a699af4f3e71",
+    "stage-three-playwright.config.ts": "f9462ca6b3d6dfafa46072233938e113b579c0d313e533d4e8af1246fa85a7f3",
+    "foundation-playwright.config.ts": "664cb7e8d7d82e7bebe3261d7b2bbeb8830c8df092ac91232f63e64de70d007f"
+  },
+  "formal_accepted": false
+}

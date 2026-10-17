@@ -30,7 +30,48 @@
   ],
   "expected_fault_marker_verified": true,
   "failure_marker": "EXPECTED_GATE_PROBE_FAILURE_DO_NOT_MERGE",
-  "positive_recovery_test": "NOT_EXECUTED",
+  "positive_recovery_test": "PASS_SAME_PR_REQUIRED_CHECKS_SUCCESS_MERGEABLE_CLEAN",
   "merged": false,
-  "bypass_list_verified": false
+  "bypass_list_verified": false,
+  "positive_recovery": {
+    "observed_at": "2026-10-17T14:16:53.700063+00:00",
+    "head_sha": "7ae89dfc768ec3f7cc68c207338b0f075c7c6592",
+    "mergeable": true,
+    "mergeable_state": "clean",
+    "checks": [
+      {
+        "id": 117414669597,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "success",
+        "app_id": 15368,
+        "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39039068823/job/117414669597"
+      },
+      {
+        "id": 117414659662,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "success",
+        "app_id": 15368,
+        "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39039065424/job/117414659662"
+      }
+    ],
+    "merged": false,
+    "merge_attempted": false
+  },
+  "intermediate_recovery_failure": {
+    "head_sha": "ebb9a49f4c0b6230b53bc4947a8131caac6375b6",
+    "pr_run_id": 39037967106,
+    "status": "FAIL",
+    "reason": "Optional Playwright gitDiff metadata contained U+FFFD; browser tests themselves passed, source UTF8 gate correctly rejected report. Capture commit provenance and disable optional diff capture in all three browser configs; tests and gate retained.",
+    "failed_artifact_sha256": "59432e3905bfb1ab7617331469315ac0865851819db4b1aefbe6e671b701a9c8",
+    "fix_verification_ref": "docs/00-project/validation/browser-metadata-verification-report.json"
+  },
+  "cleanup": {
+    "status": "PENDING_USER_CLOSE",
+    "attempted_via_connector": true,
+    "error_code": 403,
+    "reason": "Resource not accessible by integration",
+    "merge_attempted": false
+  }
 }

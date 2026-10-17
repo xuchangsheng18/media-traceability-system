@@ -1,6 +1,6 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-17本批：[T001—T012逐项收口](docs/03-development/t001-t012-closeout.md)、[原生迁移设计](docs/03-development/native-linux-migration-design.md)、[N01—N08实施计划](docs/03-development/native-linux-implementation-plan.md)、[执行状态](docs/03-development/native-linux-execution-status.json)。设计/计划及候选上限已认可，从N01开始；main规则与engineering已回查正确，失败PR拦截尚待实测。现有服务未切换。
+2026-10-17本批：[T001—T012逐项收口](docs/03-development/t001-t012-closeout.md)、[原生迁移设计](docs/03-development/native-linux-migration-design.md)、[N01—N08实施计划](docs/03-development/native-linux-implementation-plan.md)、[执行状态](docs/03-development/native-linux-execution-status.json)。设计/计划及候选上限已认可，从N01开始；main规则及engineering已回查，失败检查阻止合并已实测，[正反验证及PR处置](docs/00-project/validation/main-protection-enforcement-report.json)按实际记录更新。现有服务未切换。
 
 开源许可：[Apache-2.0](LICENSE)，归属与第三方边界见[NOTICE](NOTICE)；用户确认的完整公开范围及实际切换验证见[仓库公开说明](docs/00-project/open-source-publication.md)。研发与生产验收状态按下文保留。
 
