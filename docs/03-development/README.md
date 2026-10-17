@@ -1,5 +1,7 @@
 # 开发、契约与CI
 
+- [T013令牌核验与身份映射首批实现](t013-token-validation.md)：可选远端核验、最小权限数据库查询、禁用/到期/撤销测试及未完成的正式身份接入范围。
+
 2026-10-13更新；CPU研发工程已验证，正式基线NOT_FROZEN。
 
 直接入口：[接口与数据库文件导航](../02-architecture/technical-baseline.md#接口与数据库文件导航)、[系统整体接口](../03-api/README.md)、[业务数据库](../04-database/README.md)、[第一阶段24步实际状态](../00-project/stage-one/steps-and-deliverables.md)。整体业务契约/62表与实际PoC/5表分开阅读。

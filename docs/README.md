@@ -533,7 +533,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共659份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共661份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -735,6 +735,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
 | [00-project/validation/t012-role-model-report.json](<00-project/validation/t012-role-model-report.json>) | 真实py310/PostgreSQL的RED/GREEN、368回归、源码摘要、新建空目录库及旧库保留、源验收范围；无连接凭据。 |
+| [00-project/validation/t013-token-validation-report.json](<00-project/validation/t013-token-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1048,6 +1049,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t012-identity-relations-design.md](<03-development/t012-identity-relations-design.md>) | 身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。 |
 | [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
 | [03-development/t012-role-model-implementation.md](<03-development/t012-role-model-implementation.md>) | T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。 |
+| [03-development/t013-token-validation.md](<03-development/t013-token-validation.md>) | 说明文档：T013 第一批：访问令牌核验与身份映射；结合正文的状态、来源和适用范围阅读。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
