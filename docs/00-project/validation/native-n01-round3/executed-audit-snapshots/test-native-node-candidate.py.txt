@@ -1,0 +1,12 @@
+import datetime,hashlib,json,os,subprocess
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=base/'native-security-candidates-20261017';node=out/'node-v22.23.3-linux-x64/bin'
+env=dict(os.environ,PATH=str(node)+':/usr/bin:/bin',PLAYWRIGHT_BROWSERS_PATH='/home/glwy/.cache/media-trace-browsers',CI='true')
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'isolated_Node22.23.3_existing_frontend_dependencies_no_shared_service_change','checks':[],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+for name,args in [('unit',['test']),('build',['run','build']),('browser',['run','test:foundation-browser'])]:
+ p=out/('node-frontend-'+name+'.log');cmd=[str(node/'npm'),'--prefix','frontend',*args]
+ with p.open('wb') as f:r=subprocess.run(cmd,cwd=repo,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=180)
+ report['checks'].append({'name':name,'command':cmd,'exit_code':r.returncode,'status':'PASS' if r.returncode==0 else 'FAIL','log_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'log_tail':p.read_text(errors='replace')[-4000:]})
+ print(name,r.returncode,flush=True)
+report['status']='PASS' if all(c['status']=='PASS' for c in report['checks']) else 'FAIL'
+(out/'node-frontend-validation-report.json').write_text(json.dumps(report,indent=2)+'\n')

@@ -1,0 +1,16 @@
+import hashlib,json,tarfile,urllib.request
+from pathlib import Path
+base=Path(__file__).parent;cache=base/'native-pip-closure-cache';out=base/'native-license-source-cache';out.mkdir(exist_ok=True);rows=[]
+for name in ['packageurl-python','pglast']:
+ d=json.loads((cache/(name+'-release.json')).read_text());a=next(x for x in d['urls'] if x['packagetype']=='sdist');p=out/a['filename']
+ if not p.exists():
+  with urllib.request.urlopen(a['url'],timeout=90) as r:p.write_bytes(r.read())
+ assert hashlib.sha256(p.read_bytes()).hexdigest()==a['digests']['sha256']
+ materials=[]
+ with tarfile.open(p) as t:
+  for m in t.getmembers():
+   if m.isfile() and any(n in Path(m.name).name.lower() for n in ['license','copying','copyright','notice']):
+    raw=t.extractfile(m).read();materials.append({'path':m.name,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw)})
+ rows.append({'package':name,'version':d['info']['version'],'url':a['url'],'sha256':a['digests']['sha256'],'materials':materials,'declared_license':d['info'].get('license_expression') or d['info'].get('license'),'semantic_admission_passed':False})
+report={'scope':'PyPI_digest_authenticated_exact_version_source_license_materials_not_license_approval','status':'PASS' if all(r['materials'] for r in rows) else 'INCOMPLETE','packages':rows,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+(base/'native-n01-round3-evidence/missing-wheel-license-source-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))

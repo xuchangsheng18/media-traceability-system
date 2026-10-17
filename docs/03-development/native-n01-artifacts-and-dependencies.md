@@ -8,7 +8,7 @@
 
 | 范围 | 已完成及证据 | 严格边界 |
 | --- | --- | --- |
-| 10类主要制品 | Python3.10.22对应现有Conda构建、Node22.21.1、PG16.15源包、RabbitMQ4.3.6、OTP27.3.4.18源包、SeaweedFS4.48、Keycloak26.8.1、Temurin21.0.12.1+1、Nginx1.30.6源包、age1.3.2，见[实际核验](../00-project/validation/native-primary-artifact-verification-report.json) | 下载与核验不等于安装；三个源包尚未编译。Python环境未重建，原100包锁未改 |
+| 10类主要制品 | Python3.10.22对应现有Conda构建、Node22.21.1、PG16.15源包、RabbitMQ4.3.6、OTP27.3.4.18源包、SeaweedFS4.48、Keycloak26.8.1、Temurin21.0.12.1+1、Nginx1.30.6源包、age1.3.2，见[实际核验](../00-project/validation/native-primary-artifact-verification-report.json) | 下载与核验不等于安装；三个源包已在私有目录编译及特性探测通过，见本页补充复核入口。Python环境未重建，原100包锁未改 |
 | Nginx签名 | [OpenPGP核验](../00-project/validation/native-nginx-signature-report.json)，官方签名、公钥及包摘要绑定；隔离临时钥匙环，不自动联网取钥 | 固定官方签名人指纹；错误、过期、撤销签名拒绝。无系统钥匙环修改 |
 | 构建包候选 | 官方Ubuntu三套InRelease及对应Packages摘要，经服务器gpgv和私有APT索引验证。求解新增40包、升级0、删除0，40包字节、版本、架构及控制字段全部核对，见[依赖包验证](../00-project/validation/native-build-package-verification-report.json) | 只覆盖本次新增候选包，不证明服务器所有现有运行依赖的完整闭包或全部许可/漏洞准入；模拟不能代替安装前复检 |
 | 已有运行依赖 | [25个Conda包元数据及现有Python/PG/Node动态链接](../00-project/validation/native-runtime-dependency-inventory-report.json)已盘点，未见探测对象缺失共享库 | 元数据和少量入口探针不证明全环境文件完整性；完整闭包仍待核验 |
@@ -36,8 +36,8 @@ Ubuntu验签可对私有目录内三套`repository/dists/<suite>/InRelease`分�
 
 ## 尚需关闭的工作
 
-1. 完整核对现有Conda/pip及OS运行与构建依赖，包括文件来源、实际共享库、构建配置、原生软件编译产物及版本探针。当前25份Conda元数据不是完整恢复包。
-2. 完成三份源码发行包的构建条件与配置核对；PG的TLS/ICU/readline、OTP的crypto/ssl、Nginx的TLS/代理模块不能因缺库而静默关闭。实际编译和运行验证另留证据。
+1. 完整核对现有Conda/pip及OS运行与构建依赖，包括文件来源、实际共享库、构建配置、原生软件编译产物及版本探针。本批已取得25份Conda包及95份wheel，限定依赖核验见补充复核；完整宿主依赖与恢复路径仍未关闭。
+2. 三份源码构建与配置探测已执行；后续服务运行、回归与恢复仍需验证。PG的TLS/ICU/readline、OTP的crypto/ssl、Nginx的TLS/代理模块不能因缺库而静默关闭。实际源码编译和特性探测结果见补充复核，不能据此判服务运行验收。
 3. 完成捆绑许可、漏洞及适用软件准入审查。锁中license字段主要标识上游核心许可，不替代全部捆绑组件检查。
 4. 由徐昌胜执行经核对的管理员初始化；当前缺少GCC、G++、make、pkg-config及开发头文件。**本页不是安装授权包，不应直接执行未锁版本的apt install或dpkg -i通配符。**精确管理员执行工具须先验证当前状态、全部包摘要、无额外升级/删除和恢复边界，再交接。
 5. 用户确认备份由徐昌胜保管、age公钥尚未建立。正式公钥应由保管人在受控环境建立并落实私钥备份/恢复方式，只向项目提供公钥及其服务器文件路径，不向会话提供私钥。本项阻止N04正式备份交付，不影响已完成的包字节核验；临时夹具密钥不可代用。
@@ -47,3 +47,7 @@ N02—N08仍按原实施计划逐项执行，未因这批证据自动关闭。T0
 本轮校验工具源码`259707e23df5345a6e61a361d184e88584847c31`已在Linux py310执行45项原生专项测试，失败/错误/跳过均为0，lint/类型/格式检查通过，见[专项报告](../00-project/validation/native-n01-round2-runtime-report.json)。主要制品报告绑定实际校验器源码和输入锁SHA-256；独立审计报告明确区分当时仓库上下文与临时审计脚本的SHA-256，不借用旧32项或539项回归证明新增代码。
 
 [许可材料盘点](../00-project/validation/native-license-materials-round2-report.json)已从主要归档记录257份许可/声明材料；40个构建包中15个记录到常规copyright文件，其余不能据此判无许可，还须追踪共享版权文件、Conda格式及嵌套JAR/Go依赖。该结果仅为材料清单，不是语义审查或准入通过。补充资料已在Linux执行[输入与导航检查](../00-project/validation/native-n01-round2-documentation-report.json)，11项/335夹具、第一阶段12项及10,245处链接通过。
+
+## 后续实际复核
+
+[源码构建、运行依赖和准入复核](native-n01-build-and-admission-review.md)记录三份源码构建、95份wheel/25份Conda、403个ELF解析、捆绑许可及漏洞匹配与候选修补；准入未通过，N01继续进行。此处状态更新优先于上文历史批次说明。

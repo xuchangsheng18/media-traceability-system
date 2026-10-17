@@ -33,6 +33,8 @@ test -x /workspace/glwy/runtime/media-traceability-system/business-postgres-tool
 
 ## 当前交接状态
 
+补充批次：[N01构建与准入复核](native-n01-build-and-admission-review.md)已完成三份源码的私有编译与特性探测、Python恢复输入和限定ELF解析，并记录明确漏洞/许可阻塞。私有编译复用了宿主工具，未安装系统包；下述“安装包未齐”状态继续有效，不应重复要求管理员先安装工具才承认已实际完成的隔离构建。
+
 本轮已在私有缓存取得并核验10类主要制品及40个新增构建依赖包，升级/删除模拟均为0；详见[N01制品与依赖结果](native-n01-artifacts-and-dependencies.md)。这批只是已验真的候选包和证据，完整既有依赖/许可/漏洞准入及安装工具尚未关闭，不能直接作为可执行安装包。备份保管人确认为徐昌胜，正式age公钥用户确认尚未建立。
 
 | 项目 | 状态 |

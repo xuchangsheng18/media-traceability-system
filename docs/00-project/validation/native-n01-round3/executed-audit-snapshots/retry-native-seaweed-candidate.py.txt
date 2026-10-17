@@ -1,0 +1,24 @@
+import datetime,hashlib,json,os,subprocess
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-security-candidates-20261017';cwd=out/'seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93'
+env=dict(os.environ,PATH=str(out/'go/bin')+':/usr/bin:/bin',GOTOOLCHAIN='local',GOPATH=str(out/'gopath'),GOMODCACHE=str(out/'gomodcache'),GOCACHE=str(out/'gocache'),GOMAXPROCS='4',GOFLAGS='-p=4',CGO_ENABLED='0',GOPROXY='http://127.0.0.1:18764',GOSUMDB='sum.golang.org http://127.0.0.1:18764/sumdb/sum.golang.org')
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'isolated_seaweedfs_patch_candidate_not_adopted','checks':[],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'checksum_database_verification_enabled':True}
+def run(name,cmd,timeout=300):
+ log=out/(name+'.log')
+ with log.open('wb') as f:
+  try:r=subprocess.run(cmd,cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout);code=r.returncode
+  except subprocess.TimeoutExpired:code=124
+ row={'name':name,'command':cmd,'exit_code':code,'status':'PASS' if code==0 else 'FAIL','log_sha256':hashlib.sha256(log.read_bytes()).hexdigest()};report['checks'].append(row)
+ (out/'seaweedfs-candidate-validation-report.json').write_text(json.dumps(report,indent=2)+'\n');print(name,code,flush=True);return code==0
+ok=False
+for n in range(3):
+ if run('seaweedfs-patch-attempt-'+str(n+1),['go','get','golang.org/x/net@v0.60.0'],180):ok=True;break
+if ok:
+ run('seaweedfs-module-verify',['go','mod','verify'])
+ run('seaweedfs-upstream-test',['go','test','./weed/storage/...'])
+ if run('seaweedfs-patched-build',['go','build','-trimpath','-o',str(out/'seaweedfs-candidate'),'./weed']):
+  run('seaweedfs-patched-version',[str(out/'seaweedfs-candidate'),'version'])
+  run('seaweedfs-patched-build-info',['go','version','-m',str(out/'seaweedfs-candidate')])
+report['status']='PASS_BUILD_TEST_ONLY_NOT_ADMITTED' if ok and all(x['status']=='PASS' for x in report['checks'] if not x['name'].startswith('seaweedfs-patch-attempt-')) and len(report['checks'])>=6 else 'FAIL'
+report['module_locks']=[{'path':str(cwd/f),'sha256':hashlib.sha256((cwd/f).read_bytes()).hexdigest()} for f in ['go.mod','go.sum']]
+(out/'seaweedfs-candidate-validation-report.json').write_text(json.dumps(report,indent=2)+'\n')

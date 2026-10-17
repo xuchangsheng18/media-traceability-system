@@ -1,0 +1,59 @@
+import datetime
+import hashlib
+import json
+import os
+import resource
+import subprocess
+import sys
+import tarfile
+from pathlib import Path
+os.umask(0o077)
+repo=Path('/workspace/glwy/projects/media-traceability-system');sys.path.insert(0,str(repo/'scripts'))
+from native.artifacts import validate_artifacts
+base=Path('/workspace/glwy/runtime/media-traceability-system');cache=base/'native-artifacts';tool=base/'native-n01-private-toolchain-20261017';out=base/'native-n01-source-builds-20261017';out.mkdir(mode=0o700,exist_ok=True)
+lock=json.loads((repo/'config/native/artifacts.lock.json').read_text());assert validate_artifacts(lock,cache)['status']=='PASS'
+env=os.environ.copy();env.update(PATH=str(tool/'usr/bin')+':/usr/bin:/bin',LD_LIBRARY_PATH=str(tool/'usr/lib/x86_64-linux-gnu'),GCC_EXEC_PREFIX=str(tool/'usr/lib/gcc/x86_64-linux-gnu/13')+'/',COMPILER_PATH=str(tool/'usr/libexec/gcc/x86_64-linux-gnu/13')+':/usr/libexec/gcc/x86_64-linux-gnu/13:'+str(tool/'usr/bin'),LIBRARY_PATH=str(tool/'usr/lib/gcc/x86_64-linux-gnu/13')+':/usr/lib/gcc/x86_64-linux-gnu/13:'+str(tool/'usr/lib/x86_64-linux-gnu')+':/usr/lib/x86_64-linux-gnu',C_INCLUDE_PATH=str(tool/'usr/lib/gcc/x86_64-linux-gnu/13/include')+':/usr/include/x86_64-linux-gnu:/usr/include')
+env['CPLUS_INCLUDE_PATH']=str(tool/'usr/include/c++/13')+':'+str(tool/'usr/include/x86_64-linux-gnu/c++/13')+':'+env['C_INCLUDE_PATH']
+env['C_INCLUDE_PATH']=str(tool/'usr/include/x86_64-linux-gnu')+':'+env['C_INCLUDE_PATH']
+env['CPLUS_INCLUDE_PATH']=str(tool/'usr/include/x86_64-linux-gnu')+':'+env['CPLUS_INCLUDE_PATH']
+env.update(CC=str(tool/'usr/bin/gcc'),CXX=str(tool/'usr/bin/g++'),PKG_CONFIG_PATH=str(tool/'usr/lib/x86_64-linux-gnu/pkgconfig')+':'+str(tool/'usr/share/pkgconfig'),PKG_CONFIG_SYSROOT_DIR=str(tool),CFLAGS='-O2 -I'+str(tool/'usr/include'),CPPFLAGS='-I'+str(tool/'usr/include'),LDFLAGS='-L'+str(tool/'usr/lib/x86_64-linux-gnu')+' -Wl,-rpath,'+str(tool/'usr/lib/x86_64-linux-gnu'),MAKEFLAGS='-j4')
+env['ERL_FLAGS']='+S 2:2 +A 1';env['ERL_AFLAGS']='+S 2:2 +A 1'
+os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(6*1024**3,6*1024**3));resource.setrlimit(resource.RLIMIT_CORE,(0,0))
+report={'schema_version':1,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'private_source_build_and_bounded_binary_feature_probes_not_deployable_release_or_service_migration','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'input_lock_sha256':hashlib.sha256((repo/'config/native/artifacts.lock.json').read_bytes()).hexdigest(),'checks':[],'status':'NOT_EXECUTED','blockers':[],'system_packages_changed':False,'services_changed':False,'make_jobs':4,'per_process_address_space_limit_bytes':6*1024**3,'private_prefixes_are_not_release_artifacts':True}
+selected=set(os.environ.get('NATIVE_SOURCE_COMPONENTS','nginx,postgres,erlang').split(','));assert selected and selected<={'nginx','postgres','erlang'}
+if (out/'source-build-report.json').exists():
+    previous=json.loads((out/'source-build-report.json').read_text())
+    report['previous_observation']=previous
+    report['checks']=[dict(c,executed_script_sha256=c.get('executed_script_sha256',previous['executed_script_sha256'])) for c in previous['checks'] if c['component'] not in selected]
+def save():(out/'source-build-report.json').write_text(json.dumps(report,indent=2)+'\n')
+def run(component,phase,command,cwd,timeout=1500):
+    log=out/(component+'-'+phase+'.log');started=datetime.datetime.now(datetime.timezone.utc).isoformat()
+    with log.open('wb') as stream:r=subprocess.run(command,cwd=cwd,env=env,stdout=stream,stderr=subprocess.STDOUT,timeout=timeout)
+    row={'component':component,'phase':phase,'command':command,'exit_code':r.returncode,'started_at':started,'finished_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest(),'executed_script_sha256':report['executed_script_sha256']};report['checks'].append(row);save();print(json.dumps({'component':component,'phase':phase,'exit_code':r.returncode}),flush=True)
+    if r.returncode:raise RuntimeError(component+':'+phase)
+    return log.read_text(errors='replace')
+for name,folder in [('nginx','nginx-1.30.6'),('postgres','postgresql-16.15'),('erlang','otp_src_27.3.4.18')]:
+    if name not in selected:continue
+    try:
+        item=next(x for x in lock['artifacts'] if x['component']==name);src=out/folder;marker=out/(name+'-archive.sha256')
+        if not marker.exists():
+            assert not src.exists()
+            with tarfile.open(cache/item['filename']) as archive:archive.extractall(out,filter='data')
+            marker.write_text(item['sha256']+'\n')
+        else:assert marker.read_text().strip()==item['sha256']
+        if name=='nginx':
+            run(name,'configure',['./configure','--prefix='+str(out/'private-nginx-prefix'),'--with-http_ssl_module','--with-http_v2_module','--with-http_stub_status_module','--with-http_realip_module','--with-threads','--with-cc-opt='+env['CFLAGS'],'--with-ld-opt='+env['LDFLAGS']],src)
+            run(name,'make',['make','-j4'],src)
+            text=run(name,'version-features',[str(src/'objs/nginx'),'-V'],src,30);assert 'nginx/1.30.6' in text and '--with-http_ssl_module' in text
+        elif name=='postgres':
+            run(name,'configure',['./configure','--prefix='+str(out/'private-postgres-prefix'),'--with-openssl','--with-icu','--with-readline'],src)
+            run(name,'make',['make','-j4'],src)
+            text=run(name,'version',[str(src/'src/backend/postgres'),'--version'],src,30);assert '16.15' in text
+            text=run(name,'features',[str(src/'src/bin/pg_config/pg_config'),'--configure'],src,30);assert '--with-openssl' in text and '--with-icu' in text
+        else:
+            run(name,'configure',['./configure','--prefix='+str(out/'private-erlang-prefix'),'--without-wx','--without-odbc','--without-javac','--disable-debug','--with-ssl='+str(tool/'usr'),'--with-ssl-lib-subdir=lib/x86_64-linux-gnu'],src)
+            run(name,'make',['make','-j4'],src,3000)
+            run(name,'crypto-ssl-probe',[str(src/'bin/erl'),'+S','2:2','+A','1','-noshell','-noinput','-eval','{ok,_}=application:ensure_all_started(ssl), io:format("~p~n~p~n",[erlang:system_info(system_version),crypto:info_lib()]), halt().'],src,30)
+    except Exception as exc:
+        report['blockers'].append({'component':name,'reason':str(exc) if isinstance(exc,RuntimeError) else type(exc).__name__});save();print(json.dumps({'component':name,'blocked':report['blockers'][-1]['reason']}),flush=True)
+report['status']='FAIL' if report['blockers'] else 'PASS';report['observed_at']=datetime.datetime.now(datetime.timezone.utc).isoformat();save();print(json.dumps({'status':report['status'],'blockers':report['blockers']}),flush=True)

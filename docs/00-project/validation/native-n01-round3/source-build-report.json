@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "source_commit": "735891be9e3f7499c1b138333ddcfa9bee256c9e",
+  "observed_at": "2026-10-17T15:36:49.748510+00:00",
+  "scope": "private_source_build_and_bounded_binary_feature_probes_not_deployable_release_or_service_migration",
+  "executed_script_sha256": "dc6765cbd40173364fa2a49c091c4f07f84be37f9112caf8b75ea87fb969ecfb",
+  "input_lock_sha256": "1418440ca19d41814bc29e47ea13dbc2c8efca61112d943ba1d22406125740bf",
+  "checks": [
+    {
+      "component": "nginx",
+      "phase": "configure",
+      "command": [
+        "./configure",
+        "--prefix=/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/private-nginx-prefix",
+        "--with-http_ssl_module",
+        "--with-http_v2_module",
+        "--with-http_stub_status_module",
+        "--with-http_realip_module",
+        "--with-threads",
+        "--with-cc-opt=-O2 -I/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr/include",
+        "--with-ld-opt=-L/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr/lib/x86_64-linux-gnu -Wl,-rpath,/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr/lib/x86_64-linux-gnu"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:30:12.338986+00:00",
+      "finished_at": "2026-10-17T15:30:21.613188+00:00",
+      "log_sha256": "dc4ddd416c7ccc9a40c70118b8a995c277b2004a651a6a4b6aeaaed007a2b0e5",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "nginx",
+      "phase": "make",
+      "command": [
+        "make",
+        "-j4"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:30:21.614101+00:00",
+      "finished_at": "2026-10-17T15:30:31.339834+00:00",
+      "log_sha256": "d55a5ea0e8d6ff90c84368db797ce3422557f1b1cfff78ce8216a10ba77d2b34",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "nginx",
+      "phase": "version-features",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/nginx-1.30.6/objs/nginx",
+        "-V"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:30:31.341108+00:00",
+      "finished_at": "2026-10-17T15:30:31.349659+00:00",
+      "log_sha256": "d67fd5aa110d59f8116a0e1eb031a622edcaa0cbe748650a382f1dfc188041c9",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "postgres",
+      "phase": "configure",
+      "command": [
+        "./configure",
+        "--prefix=/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/private-postgres-prefix",
+        "--with-openssl",
+        "--with-icu",
+        "--with-readline"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:30:31.350605+00:00",
+      "finished_at": "2026-10-17T15:30:50.131294+00:00",
+      "log_sha256": "3f159acc27658f7663fde818deeacc40e7f768fda4846f178670f369def6c5e2",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "postgres",
+      "phase": "make",
+      "command": [
+        "make",
+        "-j4"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:30:50.132172+00:00",
+      "finished_at": "2026-10-17T15:32:11.053779+00:00",
+      "log_sha256": "ec1a7bcfe36bb56e1b399e644c77adb54808e1fc63603cde205c072ccf7f3148",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "postgres",
+      "phase": "version",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/postgresql-16.15/src/backend/postgres",
+        "--version"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:32:11.064213+00:00",
+      "finished_at": "2026-10-17T15:32:11.072518+00:00",
+      "log_sha256": "4bbf9e40bb4cab414db862e0f93affb1d83c24ec83285eea9e7c2efbbc84d9fa",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "postgres",
+      "phase": "features",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/postgresql-16.15/src/bin/pg_config/pg_config",
+        "--configure"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:32:11.073180+00:00",
+      "finished_at": "2026-10-17T15:32:11.077326+00:00",
+      "log_sha256": "c10c1a793c7d885466174be54a2aaee887c1a5930aff5a91cd39dd6c8ac089ad",
+      "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3"
+    },
+    {
+      "component": "erlang",
+      "phase": "configure",
+      "command": [
+        "./configure",
+        "--prefix=/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/private-erlang-prefix",
+        "--without-wx",
+        "--without-odbc",
+        "--without-javac",
+        "--disable-debug",
+        "--with-ssl=/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr",
+        "--with-ssl-lib-subdir=lib/x86_64-linux-gnu"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:35:07.361593+00:00",
+      "finished_at": "2026-10-17T15:35:33.538205+00:00",
+      "log_sha256": "acfaeb037ee0acdb319c37398656ea69d048416a762a8ed35e08e78ab2475ee8",
+      "executed_script_sha256": "dc6765cbd40173364fa2a49c091c4f07f84be37f9112caf8b75ea87fb969ecfb"
+    },
+    {
+      "component": "erlang",
+      "phase": "make",
+      "command": [
+        "make",
+        "-j4"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:35:33.539775+00:00",
+      "finished_at": "2026-10-17T15:36:48.876786+00:00",
+      "log_sha256": "5ed19369175ba3c4c0e06cb85efc920166de368100249026336b6ee981c86263",
+      "executed_script_sha256": "dc6765cbd40173364fa2a49c091c4f07f84be37f9112caf8b75ea87fb969ecfb"
+    },
+    {
+      "component": "erlang",
+      "phase": "crypto-ssl-probe",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/otp_src_27.3.4.18/bin/erl",
+        "+S",
+        "2:2",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-eval",
+        "{ok,_}=application:ensure_all_started(ssl), io:format(\"~p~n~p~n\",[erlang:system_info(system_version),crypto:info_lib()]), halt()."
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-17T15:36:48.877775+00:00",
+      "finished_at": "2026-10-17T15:36:49.747440+00:00",
+      "log_sha256": "9a0b34c4ccaa70d3e4e4bf36cbae0b3fbc9fd97cc6e47261f45ce3297ce0ca7d",
+      "executed_script_sha256": "dc6765cbd40173364fa2a49c091c4f07f84be37f9112caf8b75ea87fb969ecfb"
+    }
+  ],
+  "status": "PASS",
+  "blockers": [],
+  "system_packages_changed": false,
+  "services_changed": false,
+  "make_jobs": 4,
+  "per_process_address_space_limit_bytes": 6442450944,
+  "private_prefixes_are_not_release_artifacts": true,
+  "previous_observation": {
+    "schema_version": 1,
+    "source_commit": "735891be9e3f7499c1b138333ddcfa9bee256c9e",
+    "observed_at": "2026-10-17T15:33:47.123434+00:00",
+    "scope": "private_source_build_and_bounded_binary_feature_probes_not_deployable_release_or_service_migration",
+    "executed_script_sha256": "cf549c3e13f6ab5002e59c6b434013043f0ae8084c2514921b0a9da50efebdb3",
+    "input_lock_sha256": "1418440ca19d41814bc29e47ea13dbc2c8efca61112d943ba1d22406125740bf",
+    "checks": [
+      {
+        "component": "nginx",
+        "phase": "configure",
+        "command": [
+          "./configure",
+          "--prefix=/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/private-nginx-prefix",
+          "--with-http_ssl_module",
+          "--with-http_v2_module",
+          "--with-http_stub_status_module",
+          "--with-http_realip_module",
+          "--with-threads",
+          "--with-cc-opt=-O2 -I/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr/include",
+          "--with-ld-opt=-L/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr/lib/x86_64-linux-gnu -Wl,-rpath,/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr/lib/x86_64-linux-gnu"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:30:12.338986+00:00",
+        "finished_at": "2026-10-17T15:30:21.613188+00:00",
+        "log_sha256": "dc4ddd416c7ccc9a40c70118b8a995c277b2004a651a6a4b6aeaaed007a2b0e5"
+      },
+      {
+        "component": "nginx",
+        "phase": "make",
+        "command": [
+          "make",
+          "-j4"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:30:21.614101+00:00",
+        "finished_at": "2026-10-17T15:30:31.339834+00:00",
+        "log_sha256": "d55a5ea0e8d6ff90c84368db797ce3422557f1b1cfff78ce8216a10ba77d2b34"
+      },
+      {
+        "component": "nginx",
+        "phase": "version-features",
+        "command": [
+          "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/nginx-1.30.6/objs/nginx",
+          "-V"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:30:31.341108+00:00",
+        "finished_at": "2026-10-17T15:30:31.349659+00:00",
+        "log_sha256": "d67fd5aa110d59f8116a0e1eb031a622edcaa0cbe748650a382f1dfc188041c9"
+      },
+      {
+        "component": "postgres",
+        "phase": "configure",
+        "command": [
+          "./configure",
+          "--prefix=/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/private-postgres-prefix",
+          "--with-openssl",
+          "--with-icu",
+          "--with-readline"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:30:31.350605+00:00",
+        "finished_at": "2026-10-17T15:30:50.131294+00:00",
+        "log_sha256": "3f159acc27658f7663fde818deeacc40e7f768fda4846f178670f369def6c5e2"
+      },
+      {
+        "component": "postgres",
+        "phase": "make",
+        "command": [
+          "make",
+          "-j4"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:30:50.132172+00:00",
+        "finished_at": "2026-10-17T15:32:11.053779+00:00",
+        "log_sha256": "ec1a7bcfe36bb56e1b399e644c77adb54808e1fc63603cde205c072ccf7f3148"
+      },
+      {
+        "component": "postgres",
+        "phase": "version",
+        "command": [
+          "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/postgresql-16.15/src/backend/postgres",
+          "--version"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:32:11.064213+00:00",
+        "finished_at": "2026-10-17T15:32:11.072518+00:00",
+        "log_sha256": "4bbf9e40bb4cab414db862e0f93affb1d83c24ec83285eea9e7c2efbbc84d9fa"
+      },
+      {
+        "component": "postgres",
+        "phase": "features",
+        "command": [
+          "/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/postgresql-16.15/src/bin/pg_config/pg_config",
+          "--configure"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:32:11.073180+00:00",
+        "finished_at": "2026-10-17T15:32:11.077326+00:00",
+        "log_sha256": "c10c1a793c7d885466174be54a2aaee887c1a5930aff5a91cd39dd6c8ac089ad"
+      },
+      {
+        "component": "erlang",
+        "phase": "configure",
+        "command": [
+          "./configure",
+          "--prefix=/workspace/glwy/runtime/media-traceability-system/native-n01-source-builds-20261017/private-erlang-prefix",
+          "--without-wx",
+          "--without-odbc",
+          "--without-javac",
+          "--disable-debug",
+          "--with-ssl=/workspace/glwy/runtime/media-traceability-system/native-n01-private-toolchain-20261017/usr",
+          "--with-ssl-lib-subdir=lib/x86_64-linux-gnu"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-17T15:32:11.078080+00:00",
+        "finished_at": "2026-10-17T15:32:35.095769+00:00",
+        "log_sha256": "acfaeb037ee0acdb319c37398656ea69d048416a762a8ed35e08e78ab2475ee8"
+      },
+      {
+        "component": "erlang",
+        "phase": "make",
+        "command": [
+          "make",
+          "-j4"
+        ],
+        "exit_code": 2,
+        "started_at": "2026-10-17T15:32:35.096772+00:00",
+        "finished_at": "2026-10-17T15:33:47.121599+00:00",
+        "log_sha256": "2a376aa7ba6431485531f53cb182c4f4fc74836e304816f8137d11c4339de17f"
+      }
+    ],
+    "status": "FAIL",
+    "blockers": [
+      {
+        "component": "erlang",
+        "reason": "erlang:make"
+      }
+    ],
+    "system_packages_changed": false,
+    "services_changed": false,
+    "make_jobs": 4,
+    "per_process_address_space_limit_bytes": 6442450944,
+    "private_prefixes_are_not_release_artifacts": true
+  }
+}

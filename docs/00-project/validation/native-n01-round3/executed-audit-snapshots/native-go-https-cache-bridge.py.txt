@@ -1,0 +1,23 @@
+import hashlib,json,threading,urllib.error,urllib.parse,urllib.request
+from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
+from pathlib import Path
+root=Path(__file__).parent/'native-go-module-cache';root.mkdir(exist_ok=True)
+lock=threading.Lock()
+class Handler(BaseHTTPRequestHandler):
+ def do_GET(self):
+  if '?' in self.path or '..' in urllib.parse.unquote(self.path).split('/') or not self.path.startswith('/'):
+   self.send_error(400);return
+  url=('https://sum.golang.org'+self.path[len('/sumdb/sum.golang.org'):] if self.path.startswith('/sumdb/sum.golang.org/') else 'https://proxy.golang.org'+self.path);key=hashlib.sha256(url.encode()).hexdigest();p=root/key
+  try:
+   if not p.exists():
+    req=urllib.request.Request(url,headers={'User-Agent':'Go/1.27.2 native-N01-dependency-audit'})
+    with urllib.request.urlopen(req,timeout=90) as r:raw=r.read()
+    with lock:
+     p.write_bytes(raw)
+     with (root/'retrievals.jsonl').open('a',encoding='utf8') as f:f.write(json.dumps({'url':url,'cache_key':key,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw)})+'\n')
+   raw=p.read_bytes();self.send_response(200);self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw)
+  except urllib.error.HTTPError as e:self.send_error(e.code)
+  except Exception:self.send_error(502)
+ def log_message(self,*args):pass
+print('Loopback-only official HTTPS Go module cache bridge ready',flush=True)
+ThreadingHTTPServer(('127.0.0.1',18764),Handler).serve_forever()

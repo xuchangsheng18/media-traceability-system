@@ -1,0 +1,19 @@
+import hashlib,json,os,subprocess,tempfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-security-candidates-20261017';cwd=out/'age-b74dce4cdbe35b5e5f66c06d9612b72f89028758';binaries=out/'age-candidate-binaries';binaries.mkdir(mode=0o700,exist_ok=True)
+env=dict(os.environ,PATH=str(out/'go/bin')+':/usr/bin:/bin',GOTOOLCHAIN='local',GOPATH=str(out/'gopath'),GOMODCACHE=str(out/'gomodcache'),GOCACHE=str(out/'gocache'),GOMAXPROCS='4',GOFLAGS='-p=4',CGO_ENABLED='0',GOPROXY='off',GOSUMDB='sum.golang.org')
+subprocess.run(['go','build','-trimpath','-o',str(binaries/'age-keygen'),'./cmd/age-keygen'],cwd=cwd,env=env,check=True,timeout=180)
+(binaries/'age').write_bytes((out/'age-candidate').read_bytes());(binaries/'age').chmod(0o700)
+checks=[]
+with tempfile.TemporaryDirectory(prefix='age-fixture-',dir=out) as temp:
+ d=Path(temp);plain=d/'plain';plain.write_bytes(b'Synthetic native candidate restore fixture\n'*31)
+ for name in ['right','wrong']:subprocess.run([str(binaries/'age-keygen'),'-o',str(d/name)],check=True,capture_output=True)
+ recipient=subprocess.check_output([str(binaries/'age-keygen'),'-y',str(d/'right')],text=True).strip()
+ subprocess.run([str(binaries/'age'),'-r',recipient,'-o',str(d/'encrypted'),str(plain)],check=True,capture_output=True)
+ subprocess.run([str(binaries/'age'),'-d','-i',str(d/'right'),'-o',str(d/'restored'),str(d/'encrypted')],check=True,capture_output=True)
+ checks.append({'name':'synthetic_roundtrip','passed':plain.read_bytes()==(d/'restored').read_bytes(),'fixture_sha256':hashlib.sha256(plain.read_bytes()).hexdigest()})
+ wrong=subprocess.run([str(binaries/'age'),'-d','-i',str(d/'wrong'),'-o',str(d/'rejected'),str(d/'encrypted')],capture_output=True)
+ checks.append({'name':'wrong_identity_rejected','passed':wrong.returncode!=0 and (not (d/'rejected').exists() or (d/'rejected').stat().st_size==0),'exit_code':wrong.returncode})
+report={'scope':'synthetic_age_patch_candidate_roundtrip_not_formal_backup','status':'PASS' if all(x['passed'] for x in checks) else 'FAIL','checks':checks,'fixture_private_keys_destroyed':not d.exists(),'binaries':[{ 'name':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(binaries.iterdir())],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+(out/'age-candidate-roundtrip-report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status'])

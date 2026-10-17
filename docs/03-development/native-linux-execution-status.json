@@ -1,5 +1,5 @@
 {
-  "revision": "native-n01-primary-and-build-packages-verified-20261017",
+  "revision": "native-n01-build-closure-and-admission-round3-20261018",
   "scope": "Linux_Miniforge_py310_CPU_development",
   "design_approved_by_user": true,
   "implementation_plan_approved_by_user": true,
@@ -12,7 +12,7 @@
   "tasks": [
     {
       "id": "N01",
-      "status": "IN_PROGRESS_DEPENDENCY_AND_ADMISSION",
+      "status": "IN_PROGRESS_BLOCKED_ADMISSION",
       "completed": [
         "read-only inventory tool",
         "official-checksum and package-byte verifier",
@@ -23,13 +23,18 @@
         "Ubuntu noble/noble-updates/noble-security official signed indexes verified with Ubuntu archive keyring; isolated solver selects 40 new packages, zero upgrades/removals; all40 bytes and deb control fields verified",
         "Authenticated Node/Java/age extracted only to private probe directories; three version probes and synthetic age backup roundtrip passed; temporary fixture keys destroyed",
         "Round2 committed verifier source tested on Linux py310:45 native tests, zero failures/errors/skips; lint/type and format checks passed; actual10 package verification rerun with source and input-lock hashes",
-        "License-material inventory collected257 primary-archive files and regular copyright files in15 of40 candidate build packages; semantic/bundled dependency review remains incomplete"
+        "License-material inventory collected257 primary-archive files and regular copyright files in15 of40 candidate build packages; semantic/bundled dependency review remains incomplete",
+        "100 Python distributions active graph resolved;95 wheels and25 Conda recovery archives authenticated;7 initial RECORD differences reconciled without modifying environment",
+        "403 allowlisted runtime ELF files resolve with85 libraries under explicit private JDK/Torch/PG/build paths; no whole-OS recovery assertion",
+        "95 wheel license material and486 Keycloak JAR inventories captured; raw vulnerability scans preserved; Node22.23.3 isolated frontend and scan probes passed",
+        "Three source archives privately built; feature probes passed; no service installation"
       ],
       "remaining": [
-        "Complete and admit existing Conda/pip and OS runtime/build dependency closure; source archives are not built executables",
-        "Complete bundled-license, vulnerability and applicable software admission review",
-        "Administrator build-toolchain preflight and installation; no compiler or infrastructure package installed by this session",
-        "Complete data ownership inventory before migration; formal backup public key not created (N04 prerequisite, not a byte-verification failure)"
+        "Recover/pin signed host OS and compiler dependencies; validate optional plugin/dlopen and restoration paths; private library resolution is not complete installable closure",
+        "Close bundled Go/JAR/wheel/OS license material and semantic obligations; applicable software admission not approved",
+        "Complete vulnerability applicability review and isolated age/SeaweedFS patched build/test/scan; Node candidate is not yet adopted",
+        "Prepare and verify administrator installation tooling and service/account/resource/recovery validation; no system package installation or cutover performed",
+        "Formal backup age public key not created: N04 prerequisite, custodian 徐昌胜"
       ],
       "evidence_refs": [
         "scripts/native/inventory.py",
@@ -47,7 +52,12 @@
         "config/native/os-build-dependencies.lock.json",
         "docs/00-project/validation/native-n01-round2-runtime-report.json",
         "docs/00-project/validation/native-license-materials-round2-report.json",
-        "docs/00-project/validation/native-n01-round2-documentation-report.json"
+        "docs/00-project/validation/native-n01-round2-documentation-report.json",
+        "docs/00-project/validation/native-n01-round3-admission-report.json",
+        "docs/03-development/native-n01-build-and-admission-review.md",
+        "config/native/python-runtime-wheels.lock.json",
+        "config/native/conda-runtime-packages.lock.json",
+        "config/native/security-candidate-inputs.lock.json"
       ]
     },
     {
@@ -130,5 +140,50 @@
     "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39042416657",
     "artifact_verified": true,
     "artifact_sha256": "115c0b2436d9d5c4289d0df42741b13af2db44dbbc8ffd507c9ef9302fa7b5b8"
-  }
+  },
+  "history": [
+    {
+      "revision": "native-n01-primary-and-build-packages-verified-20261017",
+      "N01": {
+        "id": "N01",
+        "status": "IN_PROGRESS_DEPENDENCY_AND_ADMISSION",
+        "completed": [
+          "read-only inventory tool",
+          "official-checksum and package-byte verifier",
+          "official RabbitMQ/SeaweedFS/Keycloak release asset metadata and SHA256 identified; source OTP27.3.4.18 and nginx1.30.6 observed",
+          "three official release archives acquired locally, transferred to Linux and SHA256 rechecked; no extraction or installation",
+          "32 N01 tests plus 5 storage-readiness regression tests passed on Linux py310; lint/type/format/actual pre-commit hook/input validation passed",
+          "All ten primary package bytes and official provenance verified on Linux; nginx detached OpenPGP signature verified in isolated keyring",
+          "Ubuntu noble/noble-updates/noble-security official signed indexes verified with Ubuntu archive keyring; isolated solver selects 40 new packages, zero upgrades/removals; all40 bytes and deb control fields verified",
+          "Authenticated Node/Java/age extracted only to private probe directories; three version probes and synthetic age backup roundtrip passed; temporary fixture keys destroyed",
+          "Round2 committed verifier source tested on Linux py310:45 native tests, zero failures/errors/skips; lint/type and format checks passed; actual10 package verification rerun with source and input-lock hashes",
+          "License-material inventory collected257 primary-archive files and regular copyright files in15 of40 candidate build packages; semantic/bundled dependency review remains incomplete"
+        ],
+        "remaining": [
+          "Complete and admit existing Conda/pip and OS runtime/build dependency closure; source archives are not built executables",
+          "Complete bundled-license, vulnerability and applicable software admission review",
+          "Administrator build-toolchain preflight and installation; no compiler or infrastructure package installed by this session",
+          "Complete data ownership inventory before migration; formal backup public key not created (N04 prerequisite, not a byte-verification failure)"
+        ],
+        "evidence_refs": [
+          "scripts/native/inventory.py",
+          "scripts/native/artifacts.py",
+          "tests/native/test_inventory.py",
+          "tests/native/test_artifacts.py",
+          "config/native/artifacts.lock.json",
+          "docs/00-project/validation/native-artifact-acquisition-report.json",
+          "docs/00-project/validation/native-n01-runtime-report.json",
+          "docs/00-project/validation/native-primary-artifact-verification-report.json",
+          "docs/00-project/validation/native-nginx-signature-report.json",
+          "docs/00-project/validation/native-build-package-verification-report.json",
+          "docs/00-project/validation/native-runtime-dependency-inventory-report.json",
+          "docs/00-project/validation/native-binary-probe-report.json",
+          "config/native/os-build-dependencies.lock.json",
+          "docs/00-project/validation/native-n01-round2-runtime-report.json",
+          "docs/00-project/validation/native-license-materials-round2-report.json",
+          "docs/00-project/validation/native-n01-round2-documentation-report.json"
+        ]
+      }
+    }
+  ]
 }
