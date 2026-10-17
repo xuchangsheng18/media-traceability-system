@@ -86,8 +86,8 @@ def validate_artifacts(lock: dict[str, Any], artifact_root: Path) -> dict[str, A
     names = [name for name in names if isinstance(name, str)]
     if len(set(names)) != len(names):
         blockers.append("DUPLICATE_COMPONENT")
-    for name in sorted(set(OFFICIAL_PREFIXES) - set(names)):
-        blockers.append(name + ":MISSING_COMPONENT")
+    for required_name in sorted(set(OFFICIAL_PREFIXES) - set(names)):
+        blockers.append(required_name + ":MISSING_COMPONENT")
     if not root.is_dir() or root.is_symlink():
         blockers.append("MISSING_OR_SYMLINK_ARTIFACT_ROOT")
     dependencies: dict[str, list[str]] = {}
