@@ -1,5 +1,5 @@
 {
-  "revision": "native-n01-started-20261017",
+  "revision": "native-n01-primary-and-build-packages-verified-20261017",
   "scope": "Linux_Miniforge_py310_CPU_development",
   "design_approved_by_user": true,
   "implementation_plan_approved_by_user": true,
@@ -12,19 +12,23 @@
   "tasks": [
     {
       "id": "N01",
-      "status": "IN_PROGRESS_ARTIFACT_ACQUISITION",
+      "status": "IN_PROGRESS_DEPENDENCY_AND_ADMISSION",
       "completed": [
         "read-only inventory tool",
         "official-checksum and package-byte verifier",
         "official RabbitMQ/SeaweedFS/Keycloak release asset metadata and SHA256 identified; source OTP27.3.4.18 and nginx1.30.6 observed",
         "three official release archives acquired locally, transferred to Linux and SHA256 rechecked; no extraction or installation",
-        "32 N01 tests plus 5 storage-readiness regression tests passed on Linux py310; lint/type/format/actual pre-commit hook/input validation passed"
+        "32 N01 tests plus 5 storage-readiness regression tests passed on Linux py310; lint/type/format/actual pre-commit hook/input validation passed",
+        "All ten primary package bytes and official provenance verified on Linux; nginx detached OpenPGP signature verified in isolated keyring",
+        "Ubuntu noble/noble-updates/noble-security official signed indexes verified with Ubuntu archive keyring; isolated solver selects 40 new packages, zero upgrades/removals; all40 bytes and deb control fields verified",
+        "Authenticated Node/Java/age extracted only to private probe directories; three version probes and synthetic age backup roundtrip passed; temporary fixture keys destroyed",
+        "Round2 committed verifier source tested on Linux py310:45 native tests, zero failures/errors/skips; lint/type and format checks passed; actual10 package verification rerun with source and input-lock hashes"
       ],
       "remaining": [
-        "complete data ownership and dependency inventory",
-        "acquire all official native packages and verification materials",
-        "lock exact runtimes and complete dependencies",
-        "full native artifact admission"
+        "Complete and admit existing Conda/pip and OS runtime/build dependency closure; source archives are not built executables",
+        "Complete bundled-license, vulnerability and applicable software admission review",
+        "Administrator build-toolchain preflight and installation; no compiler or infrastructure package installed by this session",
+        "Complete data ownership inventory before migration; formal backup public key not created (N04 prerequisite, not a byte-verification failure)"
       ],
       "evidence_refs": [
         "scripts/native/inventory.py",
@@ -33,7 +37,14 @@
         "tests/native/test_artifacts.py",
         "config/native/artifacts.lock.json",
         "docs/00-project/validation/native-artifact-acquisition-report.json",
-        "docs/00-project/validation/native-n01-runtime-report.json"
+        "docs/00-project/validation/native-n01-runtime-report.json",
+        "docs/00-project/validation/native-primary-artifact-verification-report.json",
+        "docs/00-project/validation/native-nginx-signature-report.json",
+        "docs/00-project/validation/native-build-package-verification-report.json",
+        "docs/00-project/validation/native-runtime-dependency-inventory-report.json",
+        "docs/00-project/validation/native-binary-probe-report.json",
+        "config/native/os-build-dependencies.lock.json",
+        "docs/00-project/validation/native-n01-round2-runtime-report.json"
       ]
     },
     {
@@ -100,6 +111,13 @@
       "evidence_refs": []
     }
   ],
-  "linux_verified_source_commit": "4cb812bece81ff6610df5935f8ee2f9b1efbfe14",
-  "runtime_artifact_scope": "three release archives only; complete native environment not installed"
+  "linux_verified_source_commit": "259707e23df5345a6e61a361d184e88584847c31",
+  "runtime_artifact_scope": "10 primary packages and 40 candidate build packages verified; three archives privately probed; no native stack installation",
+  "backup_custodian": "徐昌胜",
+  "backup_custodian_confirmed_by_user": true,
+  "backup_public_key_status": "NOT_CREATED_USER_CONFIRMED",
+  "backup_public_key_path": null,
+  "formal_backup_ready": false,
+  "previous_linux_verified_source_commit": "4cb812bece81ff6610df5935f8ee2f9b1efbfe14",
+  "linux_round2_report_ref": "docs/00-project/validation/native-n01-round2-runtime-report.json"
 }

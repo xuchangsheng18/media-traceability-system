@@ -1,5 +1,7 @@
 # T001—T012逐项收口与原生环境变更
 
+最新N01进展：[制品和依赖核验](native-n01-artifacts-and-dependencies.md)。10类主要制品、40个候选构建依赖包及三项私有二进制探测已验证；完整依赖闭包与准入、管理员安装和迁移仍未完成。下文较早485/539项回归及三包观察保留其原提交/范围，不以新增证据改写历史实测。
+
 2026-10-17。用户确认Linux/Miniforge py310/CPU研发、Windows远程入口，并选择项目应用及中间件全部原生；生产、离线、GPU和Windows原生分别验收。原生设计/详细计划及候选上限已获认可，N01只读工具已实现，制品获取继续进行；尚未安装或切换。
 
 [逐项源标准与结论](../00-project/validation/t001-t012-closeout-report.json) · [确认及待决输入](../00-project/pre-t013-closeout-inputs.json) · [Linux基线实测](../00-project/validation/t001-t012-linux-baseline-report.json) · [170任务导航](../../tasks/README.md)

@@ -33,6 +33,8 @@ test -x /workspace/glwy/runtime/media-traceability-system/business-postgres-tool
 
 ## 当前交接状态
 
+本轮已在私有缓存取得并核验10类主要制品及40个新增构建依赖包，升级/删除模拟均为0；详见[N01制品与依赖结果](native-n01-artifacts-and-dependencies.md)。这批只是已验真的候选包和证据，完整既有依赖/许可/漏洞准入及安装工具尚未关闭，不能直接作为可执行安装包。备份保管人确认为徐昌胜，正式age公钥用户确认尚未建立。
+
 | 项目 | 状态 |
 | --- | --- |
 | 管理员参与能力 | 用户确认可以，由徐昌胜执行 |
