@@ -1,10 +1,13 @@
 """Read-only native inventory must distinguish project and neighboring services."""
 
 import subprocess
+import sys
+from pathlib import Path
 
 import pytest
 
-from scripts.native.inventory import EXPECTED_NAMES, collect_inventory
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+from native.inventory import EXPECTED_NAMES, collect_inventory
 
 
 @pytest.fixture

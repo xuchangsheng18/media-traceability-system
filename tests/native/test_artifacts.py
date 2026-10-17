@@ -10,7 +10,8 @@ from typing import Any
 
 import pytest
 
-from scripts.native.artifacts import validate_artifacts
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+from native.artifacts import validate_artifacts
 
 VERSIONS = {
     "python": "3.10.22",
