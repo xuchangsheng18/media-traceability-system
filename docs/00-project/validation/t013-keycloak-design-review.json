@@ -1,0 +1,181 @@
+{
+  "status": "DESIGN_SELF_REVIEW_PASS_AWAITING_USER_REVIEW",
+  "date": "2026-10-17",
+  "spec_ref": "docs/03-development/t013-keycloak-identity-design.md",
+  "spec_sha256": "3f7d022fb35a0d7192cc47327a5b592ea2dafadd1d5e5360bb231e9cc346b2f6",
+  "architecture_direction_approved": true,
+  "written_spec_approved": false,
+  "implementation_plan_written": false,
+  "deployed": false,
+  "formal_identity_connected": false,
+  "product_code_changed": false,
+  "scope": "documentation_only",
+  "runtime_acceptance": {
+    "total": 22,
+    "executed": 0
+  },
+  "self_review": [
+    {
+      "check": "scope separates design from deployment and T013 acceptance",
+      "result": "PASS"
+    },
+    {
+      "check": "fixed issuer, private admin and public admin API denial are consistent",
+      "result": "PASS"
+    },
+    {
+      "check": "private CA requires explicit adapter support; no TLS bypass",
+      "result": "PASS"
+    },
+    {
+      "check": "business authorization remains separate with exact issuer and sub mapping",
+      "result": "PASS"
+    },
+    {
+      "check": "PKCE login, live introspection, revocation and restore have measurable checks",
+      "result": "PASS"
+    },
+    {
+      "check": "unknown owners, real users, image digests and formal decisions are not fabricated",
+      "result": "PASS"
+    },
+    {
+      "check": "existing locks, contracts, original seven services and source documents unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "22 runtime acceptance items explicitly not executed; no placeholder markers",
+      "result": "PASS"
+    }
+  ],
+  "task_status_changed": false,
+  "source_base_commit": "491c319ea3549d52217493239521f713067e0364",
+  "historical_code_ci_not_new_design_validation": true,
+  "documentation_checks": {
+    "mode": "views",
+    "python": "3.10.22",
+    "observed_at": "2026-10-17T05:24:41.127645+00:00",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"steps\": 16, \"formal_frozen\": false, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 17, \"database_navigation_entries\": 20, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"mode\": \"check\", \"business_modules\": 12, \"functional_requirements\": 36, \"engineering_requirements\": 170, \"non_functional_requirements\": 10, \"trace_records\": 216, \"business_rules\": 16, \"business_case_plans\": 72, \"task_case_plans\": 340, \"model_capabilities\": 34, \"dataset_categories\": 15, \"metric_protocols\": 24, \"open_questions\": 33, \"interface_gaps\": 13, \"document\": \"docs/01-requirements/functional-requirements.md\", \"formal_frozen\": false, \"full_business_completion_asserted\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 7, \"remaining_stage_one\": 6, \"remaining_stage_two\": 12, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_access_control_model.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-17T05:23:56.963128+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"time_utc\": \"2026-10-17T05:24:22.953955+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 663, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"links_checked\": 10117, \"errors\": [], \"historical_links\": 0}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 10, \"runtime_executed\": false, \"formal_frozen\": false}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0,
+        "output": "{\"status\": \"PASS\", \"checks\": 4, \"errors\": []}"
+      }
+    ],
+    "shared_services_restarted": false
+  }
+}
