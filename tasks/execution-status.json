@@ -1,5 +1,5 @@
 {
-  "revision": "t013-token-validation-batch-one-20261017",
+  "revision": "t001-t012-closeout-in-progress-20261017",
   "observed_date": "2026-10-17",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
@@ -26,7 +26,16 @@
     "validated_ci_run_id": 38995161406,
     "audit_is_not_formal_acceptance": true,
     "rulesets_observed_count": 0,
-    "governance_observed_at": "2026-10-17T01:54:43.342988+00:00"
+    "governance_observed_at": "2026-10-17T01:54:43.342988+00:00",
+    "main_ruleset_current_readback": {
+      "path": "docs/00-project/validation/main-protection-readback.json",
+      "ruleset_id": 25302203,
+      "main_protected": true,
+      "enforcement": "active",
+      "required_check_name_matches": false,
+      "failed_pr_merge_block_test": "NOT_EXECUTED",
+      "observed_at": "2026-10-17 12:29:19 UTC"
+    }
   },
   "tasks": [
     {
@@ -37,7 +46,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档；目录职责、统一开发/测试/提交入口和新增变更模板已在现有导航连接核对",
-      "summary_remaining": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "本批Linux研发范围、目录责任和维护人已明确；完成目录/README/链接及秘密检查的逐条复核，不以未来生产或全部团队成员到位作为本任务技术完成的替代条件。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档",
@@ -89,14 +98,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。"
+          "description": "本批Linux研发范围、目录责任和维护人已明确；完成目录/README/链接及秘密检查的逐条复核，不以未来生产或全部团队成员到位作为本任务技术完成的替代条件。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T002",
@@ -106,7 +131,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测；补齐启动profile校验、私密配置隐藏和安全结构日志，配置异常与并行关联回归已覆盖",
-      "summary_remaining": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "用户已明确采用Miniforge py310，源3.11偏差保留；锁和配置测试通过。按新全部原生方案补本批服务启动/配置的实际验证；正式生产解释器另行验收。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测",
@@ -174,14 +199,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。"
+          "description": "用户已明确采用Miniforge py310，源3.11偏差保留；锁和配置测试通过。按新全部原生方案补本批服务启动/配置的实际验证；正式生产解释器另行验收。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T003",
@@ -191,7 +232,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据；实现路由、内存共享状态、真实健康页、安全API基地址和同源代理；加入lint/格式/类型及真实浏览器回归",
-      "summary_remaining": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "研发前端单元、类型、构建及浏览器检查通过；本批全部原生方案切换后复验API地址与网关。未来业务页面和正式身份UI按后续任务交付。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据",
@@ -253,14 +294,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。"
+          "description": "研发前端单元、类型、构建及浏览器检查通过；本批全部原生方案切换后复验API地址与网关。未来业务页面和正式身份UI按后续任务交付。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T004",
@@ -270,7 +327,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "独立7服务Compose研发闭环及持久卷验证已执行；逐项只读核验7服务Compose、Docker实际配置及cgroup v2的CPU/内存/进程限制一致；缺失、无限或漂移失败；不代替正式配额/临时盘/耗尽隔离",
-      "summary_remaining": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收；正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "用户已选择全部原生方向，完成CR-T004-NATIVE-20261017书面方案审阅及原生服务版本、systemd、资源/临时目录限制、数据迁移与恢复验证；不能沿用容器cgroup结果冒充原生通过。；管理员执行人为徐昌胜，能力已确认；尚需落实原生预算、暂存实例、备份密钥保管和演练后切换安排，保留旧项目数据和其他项目服务。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "独立7服务Compose研发闭环及持久卷验证已执行",
@@ -312,18 +369,38 @@
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收"
+          "description": "用户已选择全部原生方向，完成CR-T004-NATIVE-20261017书面方案审阅及原生服务版本、systemd、资源/临时目录限制、数据迁移与恢复验证；不能沿用容器cgroup结果冒充原生通过。"
         },
         {
           "category": "实施/外部条件",
-          "description": "正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收"
+          "description": "管理员执行人为徐昌胜，能力已确认；尚需落实原生预算、暂存实例、备份密钥保管和演练后切换安排，保留旧项目数据和其他项目服务。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "实施/验证",
+              "description": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收"
+            },
+            {
+              "category": "实施/外部条件",
+              "description": "正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T005",
@@ -333,7 +410,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础；ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查；格式门禁改为目录覆盖，新Python模块自动进入格式和文本检查；本地/钩子实际Ruff负向与修复回归已补齐",
-      "summary_remaining": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "本批Windows仅为远程入口；复验当前Linux钩子、违规拦截及本地/CI一致性。Windows原生和未来其他工作区按各自接入验收，不阻断本批Linux范围。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础",
@@ -405,14 +482,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。"
+          "description": "本批Windows仅为远程入口；复验当前Linux钩子、违规拦截及本地/CI一致性。Windows原生和未来其他工作区按各自接入验收，不阻断本批Linux范围。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T006",
@@ -421,8 +514,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "邓昀",
       "full_task_verified": false,
-      "summary_completed": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准",
-      "summary_remaining": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置；落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_completed": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准；main规则已启用但检查名待修正",
+      "summary_remaining": "main规则25302203已保存并回查Active，PR/禁止删除/禁止强推已启用；必需检查误填engineer，待改为engineering；完整绕过清单及失败PR实际禁止合并仍待验证。；CI增加本批功能分支push触发以取得当前源码结果；保留只读workflow和隔离测试凭据。真实维护人徐昌胜已确认；Runner/Secret平台审计和实际失败合并拦截仍需留证。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "既有25道历史门禁证据保留；托管工程门禁、独立资源核验、测试/类型结果和故障探针均有实测，最新源码、数量及CI编号以github-actions-report.json为准；不代表平台已阻止失败合并",
@@ -441,23 +534,53 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "description": "回查main保护规则25302203已启用，目标main且PR/禁止删除/禁止强推已配置；检查名存在差异，未登记为全部门禁通过",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "docs/00-project/validation/main-protection-readback.json",
+              "scope": "配置回查，检查名不匹配及失败PR验证未完成，不证明T006整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置"
+          "description": "main规则25302203已保存并回查Active，PR/禁止删除/禁止强推已启用；必需检查误填engineer，待改为engineering；完整绕过清单及失败PR实际禁止合并仍待验证。"
         },
         {
           "category": "实施/验证",
-          "description": "落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置"
+          "description": "CI增加本批功能分支push触发以取得当前源码结果；保留只读workflow和隔离测试凭据。真实维护人徐昌胜已确认；Runner/Secret平台审计和实际失败合并拦截仍需留证。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "实施/外部条件",
+              "description": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置"
+            },
+            {
+              "category": "实施/验证",
+              "description": "落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T007",
@@ -467,7 +590,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "环境示例、Git外私密配置和启动时必要配置校验已实现；development/test/production显式选择及缺失/非法配置脱敏已实现；无有效生产配置时拒绝启动",
-      "summary_remaining": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "开发/测试配置、秘密注入与脱敏已有回归；根据全部原生方案生成新私密配置版本并核验。生产profile和正式生产轮换/撤销另行验收，不将其冒充本批研发交付。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "环境示例、Git外私密配置和启动时必要配置校验已实现",
@@ -521,14 +644,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。"
+          "description": "开发/测试配置、秘密注入与脱敏已有回归；根据全部原生方案生成新私密配置版本并核验。生产profile和正式生产轮换/撤销另行验收，不将其冒充本批研发交付。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T008",
@@ -538,7 +677,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "PoC JSON请求日志、request_id及trace_origin传播已有验证；API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号；新增同事件循环8请求内部日志逐条身份核对、嵌套异常后上下文恢复、真实数据库上传事件重复消费与外层上下文隔离；三种受控错误均被测试拒绝",
-      "summary_remaining": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "已实现API日志、队列与推理追踪回归通过；全部原生联调时复验跨进程关联和敏感字段过滤。未来完整业务DAG、采样平台及指标聚合按后续任务接入，避免无限扩大本任务。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "PoC JSON请求日志、request_id及trace_origin传播已有验证",
@@ -614,14 +753,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。"
+          "description": "已实现API日志、队列与推理追踪回归通过；全部原生联调时复验跨进程关联和敏感字段过滤。未来完整业务DAG、采样平台及指标聚合按后续任务接入，避免无限扩大本任务。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T009",
@@ -631,7 +786,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现；统一业务未知500/HTTPException/404/405及PoC错误脱敏；新增唯一错误码注册和安全回归",
-      "summary_remaining": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "已知/未知异常、错误码唯一和脱敏回归通过；完成本批实际复核并在原生联调中回归已实现接口。后续新错误同步注册是持续维护责任。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现",
@@ -689,14 +844,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。"
+          "description": "已知/未知异常、错误码唯一和脱敏回归通过；完成本批实际复核并在原生联调中回归已实现接口。后续新错误同步注册是持续维护责任。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T010",
@@ -706,7 +877,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "ADR文档和开发环境变更/恢复要求已归档；新增PR及需求/模型/数据库/ADR可复用模板，本批实施记录按模板核对影响、版本、验证、恢复与未验范围",
-      "summary_remaining": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "既有模板保留并用于本次原生迁移的具体变更说明；实际复核人徐昌胜尚未登记验收决定，模板本身不产生审批。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "ADR文档和开发环境变更/恢复要求已归档",
@@ -752,14 +923,30 @@
       "remaining_steps": [
         {
           "category": "接入与验收",
-          "description": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。"
+          "description": "既有模板保留并用于本次原生迁移的具体变更说明；实际复核人徐昌胜尚未登记验收决定，模板本身不产生审批。"
         },
         {
           "category": "任务记录",
           "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "接入与验收",
+              "description": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T011",
@@ -769,7 +956,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "T002/T010本批依赖已核对；六角色/单位/案件/分类槽设计、41权限码及73操作矩阵与56项合成评审测试已有证据；身份/单位/案件关系及稳定映射增量设计已与实际数据库验证对齐",
-      "summary_remaining": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定；接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权；实际负责人已指定为邓昀；仍需补充权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收",
+      "summary_remaining": "用户已选定六角色作为主要研发设计；具体ALLOW、职责冲突、单位案件/分类细则尚未提供，继续默认拒绝并逐项登记待决，不将候选职责映射当实际授权。；身份/权限完整运行集成按T013/T014衔接；本任务对六角色、范围模型和默认拒绝进行本批复核，后续业务能力不能被提前计为实现。；实际负责人已指定为邓昀；仍需补充权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收",
       "completed_steps": [
         {
           "description": "已核对T002配置追踪13例及T010五份模板，本批设计所需研发依赖满足；上游整卡仍未关闭",
@@ -861,11 +1048,11 @@
       "remaining_steps": [
         {
           "category": "正式设计输入",
-          "description": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定"
+          "description": "用户已选定六角色作为主要研发设计；具体ALLOW、职责冲突、单位案件/分类细则尚未提供，继续默认拒绝并逐项登记待决，不将候选职责映射当实际授权。"
         },
         {
           "category": "后续接入边界",
-          "description": "接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权"
+          "description": "身份/权限完整运行集成按T013/T014衔接；本任务对六角色、范围模型和默认拒绝进行本批复核，后续业务能力不能被提前计为实现。"
         },
         {
           "category": "任务复核",
@@ -873,17 +1060,37 @@
         }
       ],
       "specific_validation_report": "docs/00-project/validation/t011-access-model-report.json",
-      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "正式设计输入",
+              "description": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定"
+            },
+            {
+              "category": "后续接入边界",
+              "description": "接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权"
+            },
+            {
+              "category": "任务复核",
+              "description": "实际负责人已指定为邓昀；仍需补充权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T012",
       "name": "实现用户角色数据库模型",
       "card": "tasks/platform/T012.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
       "summary_completed": "身份/单位/案件及角色权限关联模型、0001—0005迁移和受限内部DAO已实现；唯一/外键/软禁用/升级及恢复研发验证通过，另建63表843字段空库",
-      "summary_remaining": "正式角色/权限矩阵、获授权种子及真实管理身份尚未确认；实际管理HTTP和人员生命周期审计按T013/T014/T017等相关任务交付，本轮内部DAO不等于完整用户权限系统；真实身份方接入后在T013/T014联调禁用、角色变更、撤销传播和历史兼容；目录持久化测试不能代替认证/路由整链验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "模型、约束、迁移和恢复研发证据已存在；对照本卡原验收逐项复核。实际人员管理HTTP与运行授权按T013/T014/T017交付，不用未来接口替代当前模型测试。；现有业务研发数据库已为Linux原生，按新原生整体方案核对其工具/配置/数据目录和托管恢复；角色变更/撤销整链仍按T013/T014联调。；实际负责人已指定为徐昌胜；逐项记录本任务原验收标准的实测结论、实际复核及剩余工作，不以负责人登记代替验收。",
       "completed_steps": [
         {
           "description": "用户/角色/权限/案件成员候选表已通过隔离迁移验证",
@@ -997,19 +1204,39 @@
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "正式角色/权限矩阵、获授权种子及真实管理身份尚未确认；实际管理HTTP和人员生命周期审计按T013/T014/T017等相关任务交付，本轮内部DAO不等于完整用户权限系统"
+          "description": "模型、约束、迁移和恢复研发证据已存在；对照本卡原验收逐项复核。实际人员管理HTTP与运行授权按T013/T014/T017交付，不用未来接口替代当前模型测试。"
         },
         {
           "category": "实施/外部条件",
-          "description": "真实身份方接入后在T013/T014联调禁用、角色变更、撤销传播和历史兼容；目录持久化测试不能代替认证/路由整链验证"
+          "description": "现有业务研发数据库已为Linux原生，按新原生整体方案核对其工具/配置/数据目录和托管恢复；角色变更/撤销整链仍按T013/T014联调。"
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "实际负责人已指定为徐昌胜；逐项记录本任务原验收标准的实测结论、实际复核及剩余工作，不以负责人登记代替验收。"
         }
       ],
       "development_validation_report": "docs/00-project/validation/t012-identity-relations-report.json",
-      "role_model_validation_report": "docs/00-project/validation/t012-role-model-report.json"
+      "role_model_validation_report": "docs/00-project/validation/t012-role-model-report.json",
+      "closeout_review_ref": "docs/00-project/validation/t001-t012-closeout-report.json",
+      "remaining_steps_history": [
+        {
+          "revision": "before-native-closeout-20261017",
+          "remaining_steps": [
+            {
+              "category": "实施/验证",
+              "description": "正式角色/权限矩阵、获授权种子及真实管理身份尚未确认；实际管理HTTP和人员生命周期审计按T013/T014/T017等相关任务交付，本轮内部DAO不等于完整用户权限系统"
+            },
+            {
+              "category": "实施/外部条件",
+              "description": "真实身份方接入后在T013/T014联调禁用、角色变更、撤销传播和历史兼容；目录持久化测试不能代替认证/路由整链验证"
+            },
+            {
+              "category": "任务记录",
+              "description": "实际负责人已指定为徐昌胜；逐项记录本任务原验收标准的实测结论、实际复核及剩余工作，不以负责人登记代替验收。"
+            }
+          ]
+        }
+      ]
     },
     {
       "task_id": "T013",
@@ -6372,5 +6599,6 @@
     "source": "explicit user assignment in this conversation; user clarified that 杜 was a typo",
     "formal_acceptance_asserted": false,
     "historical_implementer_attribution_changed": false
-  }
+  },
+  "closeout_overview_ref": "docs/03-development/t001-t012-closeout.md"
 }

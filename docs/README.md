@@ -1,5 +1,7 @@
 # 项目文档导航
 
+[T001—T012逐项收口](03-development/t001-t012-closeout.md) · [Linux全原生迁移设计](03-development/native-linux-migration-design.md) · [管理员清单](03-development/native-linux-admin-checklist.md) · [main保护操作](03-development/main-protection-handoff.md)。当前为已选定方向、待审阅书面设计；没有把原生迁移写成已完成。
+
 开源入口：[公开范围与Apache-2.0许可](00-project/open-source-publication.md)、[实际公开验证记录](00-project/validation/open-source-publication-report.json)。既有原件和历史记录保留，仓库公开与业务验收分别记录。
 
 T011/T012身份底座：[本批设计](03-development/t012-identity-relations-design.md)、[数据库关系与补充字典](04-database/identity-relations.md)、[实际验证与研发库](00-project/validation/t012-identity-relations-report.json)。
@@ -535,7 +537,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共674份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共682份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -564,6 +566,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/open-source-publication.md](<00-project/open-source-publication.md>) | 说明文档：仓库公开范围与开源许可；结合正文的状态、来源和适用范围阅读。 |
 | [00-project/phase-readiness-register.json](<00-project/phase-readiness-register.json>) | 19项非签字工作机器清单，关联原24/23步与已有缺口；无虚构人员/完成/批准。 |
 | [00-project/phase-readiness-register.md](<00-project/phase-readiness-register.md>) | 19项工作核查（第一阶段7/第二阶段12）：版式核验按本轮范围完成，18项仍有条件；技术补充与正式/真实交付分开。 |
+| [00-project/pre-t013-closeout-inputs.json](<00-project/pre-t013-closeout-inputs.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [00-project/project-scope.md](<00-project/project-scope.md>) | 12模块、170任务及场景的范围与外部边界；分阶段不等于删功能。 |
 | [00-project/README.md](<00-project/README.md>) | 所在专题的局部导航与阅读入口 |
 | [00-project/remaining-work-navigation.json](<00-project/remaining-work-navigation.json>) | 从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。 |
@@ -692,6 +695,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/local-attempt-01.json](<00-project/validation/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/local-validation-report.json](<00-project/validation/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/lock-reproduction-report.json](<00-project/validation/lock-reproduction-report.json>) | 全新venv按精确锁安装后的依赖与导入结果。 |
+| [00-project/validation/main-protection-readback.json](<00-project/validation/main-protection-readback.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/media-query-report.json](<00-project/validation/media-query-report.json>) | 6项合成媒体和微型SQL/向量/鉴权检查；不代表中文或大规模业务。 |
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
@@ -740,6 +744,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/stage-two-supplement-report.json](<00-project/validation/stage-two-supplement-report.json>) | 6组材料覆盖/容量分级/离线正反摘要检查；正式和全部业务仍未完成。 |
 | [00-project/validation/synthetic-training-experiment.json](<00-project/validation/synthetic-training-experiment.json>) | 64随机张量120步真实CPU训练种子/损失；不当业务准确率。 |
 | [00-project/validation/t001-t011-foundation-review-report.json](<00-project/validation/t001-t011-foundation-review-report.json>) | T001—T011当前同源快照、完成/剩余全文、证据摘要及CI来源；保留早期复核和源验收要求，不把资料复核冒充新功能测试。 |
+| [00-project/validation/t001-t012-closeout-report.json](<00-project/validation/t001-t012-closeout-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t001-t012-linux-baseline-report.json](<00-project/validation/t001-t012-linux-baseline-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
 | [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
@@ -1027,7 +1033,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
 | [03-development/development-environment-change-request.md](<03-development/development-environment-change-request.md>) | 说明文档：开发环境变更和恢复要求；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
+| [03-development/main-protection-handoff.md](<03-development/main-protection-handoff.md>) | 说明文档：main分支保护：已获授权的设置与复验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/migrations-and-events.md](<03-development/migrations-and-events.md>) | 专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。 |
+| [03-development/native-linux-admin-checklist.md](<03-development/native-linux-admin-checklist.md>) | 说明文档：原生研发环境：徐昌胜的管理员执行清单；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-linux-migration-design.md](<03-development/native-linux-migration-design.md>) | 说明文档：Linux全原生研发环境：设计、数据迁移与恢复方案；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |
@@ -1058,6 +1067,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-two-implementation-plan.md](<03-development/stage-two-implementation-plan.md>) | 资源、身份、13接口、DAG、模型媒体检索、证据灾备六批工作与实际前置/验收；170任务仍依各任务卡。 |
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
 | [03-development/t001-t011-foundation-review.md](<03-development/t001-t011-foundation-review.md>) | 截至2026-10-17的T001—T011逐项完成和剩余清单：28条已验证子步骤、25条剩余；附最新CI、治理查询及历史验收对照，整任务未关闭。 |
+| [03-development/t001-t012-closeout.md](<03-development/t001-t012-closeout.md>) | 说明文档：T001—T012逐项收口与原生环境变更；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
 | [03-development/t012-identity-relations-design.md](<03-development/t012-identity-relations-design.md>) | 身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。 |
 | [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |

@@ -15,10 +15,13 @@ def partial_task_ids(ledger):
     assert len({row["task_id"] for row in rows}) == len(rows), "duplicate task IDs"
     partial = set()
     for row in rows:
-        assert row["status"] in {"PARTIAL_VERIFIED_SCOPE", "NO_FULL_TASK_VERIFICATION_EVIDENCE"}
+        assert row["status"] in {"PARTIAL_VERIFIED_SCOPE", "NO_FULL_TASK_VERIFICATION_EVIDENCE", "FULL_TASK_VERIFIED"}
         if row["status"] == "PARTIAL_VERIFIED_SCOPE":
             assert row["completed_steps"] and all(step.get("evidence") for step in row["completed_steps"]), "partial task lacks evidence"
             partial.add(row["task_id"])
+        elif row["status"] == "FULL_TASK_VERIFIED":
+            assert row.get("full_task_verified") is True and row["completed_steps"] and not row["remaining_steps"]
+            assert all(step.get("evidence") for step in row["completed_steps"])
         else:
             assert not row["completed_steps"], "unverified task hides evidence"
     return partial
@@ -116,10 +119,14 @@ def main():
         assert plan["actual_capacity_plan"]["calendar_commitment_asserted"] is False
         assert not plan["source_task_states_changed"] and plan["original_scope_modules"] == 12
         ledger = read("tasks/execution-status.json")
+        from generate_task_progress import validate as validate_progress
+        validate_progress(ledger, read("tasks/source-task-cards.json"), read("docs/00-project/execution-planning-inputs.json"))
         assert len(ledger["tasks"]) == 170
         assert {row["task_id"] for row in ledger["tasks"]} == {row["task_id"] for row in plan["records"]}
         partial_ids = partial_task_ids(ledger)
-        assert plan["totals"]["full_tasks_verified"] == 0 and plan["totals"]["partial_scope_tasks"] == len(partial_ids)
+        full_ids = {row["task_id"] for row in ledger["tasks"] if row["full_task_verified"]}
+        assert plan["totals"]["full_tasks_verified"] == len(full_ids) and plan["totals"]["partial_scope_tasks"] == len(partial_ids)
+        assert {r["task_id"] for r in plan["records"] if r["observed_verification_status"] == "FULL_TASK_VERIFIED"} == full_ids
         assert {r["task_id"] for r in plan["records"] if r["observed_verification_status"] == "PARTIAL_VERIFIED_SCOPE"} == partial_ids
         assert all(r["capacity_plan_start_date"] is None and r["capacity_plan_finish_date"] is None for r in plan["records"])
         tasks = [{"id": "T001", "name": "synthetic A", "source_role": "test", "status": "synthetic", "source_effort": "1～2人日", "execution_dependencies_candidate": []},

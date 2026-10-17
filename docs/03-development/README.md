@@ -1,5 +1,7 @@
 # 开发、契约与CI
 
+- [T001—T012逐项收口](t001-t012-closeout.md)、[原生部署与迁移恢复设计](native-linux-migration-design.md)、[管理员清单](native-linux-admin-checklist.md)：用户选择全部原生，设计待审阅、现有服务未切换。T012/复核/维护指定徐昌胜，T001—T011仍为邓昀。
+
 - [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[实际执行状态](../00-project/validation/t013-keycloak-execution-report.json)、[22项状态登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)：步骤1—6研发验证通过，步骤7隔离恢复演练通过，步骤8源码及1,501项文件清单已同步；22项中13项范围内通过、9项未执行。GitHub集成创建PR返回403，托管CI、正式准入和身份交接仍未完成。T013整卡未关闭。
 - [T013令牌核验与身份映射首批实现](t013-token-validation.md)：可选远端核验、最小权限数据库查询、禁用/到期/撤销测试及未完成的正式身份接入范围。
 

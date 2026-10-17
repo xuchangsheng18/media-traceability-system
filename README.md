@@ -1,5 +1,7 @@
 # 短视频与图片智能识别溯源系统
 
+2026-10-17本批：[T001—T012逐项收口](docs/03-development/t001-t012-closeout.md)及[Linux全原生迁移恢复方案](docs/03-development/native-linux-migration-design.md)。用户选择应用和中间件全部原生，当前交付为待审阅设计，现有服务尚未切换；原容器说明继续描述现状。T001—T011负责人邓昀，T012负责人、复核人及环境维护人为徐昌胜。
+
 开源许可：[Apache-2.0](LICENSE)，归属与第三方边界见[NOTICE](NOTICE)；用户确认的完整公开范围及实际切换验证见[仓库公开说明](docs/00-project/open-source-publication.md)。研发与生产验收状态按下文保留。
 
 任务执行入口：[分步任务导航](tasks/README.md#分步任务导航)、[全部执行事项逐项清单](docs/00-project/task-execution-steps.txt)、[同源状态台账](tasks/execution-status.json)。分步导航逐项列出170项任务的完成子步骤数、剩余工作数、全局序号范围与任务卡入口。T012之前的状态见[T001—T011当前完成与剩余逐项清单](docs/03-development/t001-t011-foundation-review.md#当前完成情况2026-10-17)。

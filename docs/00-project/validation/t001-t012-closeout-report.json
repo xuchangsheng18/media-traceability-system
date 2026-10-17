@@ -1,0 +1,340 @@
+{
+  "revision": "pre-t013-native-closeout-20261017",
+  "observed_at": "2026-10-17T10:31:25.200830+00:00",
+  "scope": "T001-T012_review_against_original_acceptance_with_user_selected_native_environment_change",
+  "source_task_cards_sha256": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
+  "baseline_source_commit": "2e2b034440bc1569fd86e9c654af25ef6481f521",
+  "baseline_report_ref": "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+  "baseline_report_sha256": "1d990f7f064af5ae73d3f3793b430a9a7476c36624c32176df19e7fa6e881ff6",
+  "baseline_python_tests": 485,
+  "baseline_failures": 0,
+  "baseline_errors": 0,
+  "baseline_skipped": 0,
+  "all_native_middleware_validated": false,
+  "main_protection_applied": true,
+  "formal_accepted": false,
+  "tasks": [
+    {
+      "task_id": "T001",
+      "name": "建立单仓库目录与基础README",
+      "source_requirements": {
+        "责任角色": "架构/全栈",
+        "源前置依赖": "无",
+        "执行依赖候选": "无",
+        "工作范围": "按DES-001 §8.6核验并沿用既有backend、frontend、ai-services、shared-contracts、schemas、docs、tasks、prompts、config、deploy、scripts、tests目录；仅补充获准的缺项，建立职责与原目录映射，不直接迁移。",
+        "接口或数据契约": "根目录README；目录约定docs/architecture/repository-layout.md。",
+        "验收标准": "仓库结构与设计一致；README包含启动、测试、提交规范；不得包含真实密钥。",
+        "测试要求": "目录检查脚本和Markdown链接检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_CRITERIA_REVIEW_IN_PROGRESS",
+      "scope_boundary": "目录与README已实现；本批链接、原件和秘密检查及复核留证后关闭。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "README.md",
+        "CONTRIBUTING.md",
+        "docs/02-architecture/repository-layout.md"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T002",
+      "name": "配置Python后端工程",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立Python 3.11项目、依赖锁定、FastAPI入口、配置管理和日志初始化。",
+        "接口或数据契约": "GET /health；环境变量Settings模型。",
+        "验收标准": "服务可启动；缺少必要配置时给出明确错误；依赖版本锁定。",
+        "测试要求": "健康检查单测、配置加载和非法配置测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "CODE_GATES_PASS_NATIVE_INTEGRATION_PENDING",
+      "scope_boundary": "py310锁、配置及启动测试通过；用户已选择py310，源3.11偏差保留为显式选择；全部原生环境启动另行验证。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/app/settings.py",
+        "backend/app/main.py",
+        "config/locks/requirements-py310.lock"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T003",
+      "name": "配置Vue前端工程",
+      "source_requirements": {
+        "责任角色": "前端",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立Vue 3、TypeScript、Vite、路由、状态管理和API客户端。",
+        "接口或数据契约": "前端/health页面调用GET /health。",
+        "验收标准": "开发服务器可启动；严格类型检查通过；API地址环境化。",
+        "测试要求": "lint、typecheck、组件冒烟测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_DEVELOPMENT_CRITERIA_PASS_REVIEW_PENDING",
+      "scope_boundary": "前端单元、严格类型、开发浏览器及构建通过；原生网关集成属于本次环境切换复验，不要求先实现未来业务页面。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "frontend/package.json",
+        "frontend/src/api.ts",
+        "frontend/foundation-playwright.config.ts"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T004",
+      "name": "建立本地容器开发环境",
+      "source_requirements": {
+        "责任角色": "DevOps",
+        "源前置依赖": "T002,T003",
+        "执行依赖候选": "T002,T003",
+        "工作范围": "使用固定版本编排SQL、一个执行broker、对象存储、API/Web及媒体worker；缓存按需启用，全文/图/向量按能力逐项接入；不默认部署全部生产组件。",
+        "接口或数据契约": "docker compose配置；/health依赖状态。",
+        "验收标准": "一条命令启动；隔离数据卷和密钥；按获准项目配额设置CPU、内存、进程和临时盘限制，核对实际cgroup生效；不认定单机容器为生产高可用。",
+        "测试要求": "容器启动/依赖ready、配置校验、配额与cgroup生效、资源耗尽隔离；卷所在介质及对象存储间接依赖核验。",
+        "建议工作量": "2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.7、§8.11；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_REQUIREMENT_CHANGE_NATIVE_DESIGN_REVIEW_PENDING",
+      "scope_boundary": "用户选择全部原生，原容器要求作为来源保留；新版本/资源/临时盘/系统服务及迁移恢复尚待设计审阅和实施。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "deploy/docker-compose.yml",
+        "docs/03-development/native-linux-migration-design.md"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T005",
+      "name": "配置代码格式化与静态检查",
+      "source_requirements": {
+        "责任角色": "全栈",
+        "源前置依赖": "T002,T003",
+        "执行依赖候选": "T002,T003",
+        "工作范围": "配置Ruff/Black或等价工具、mypy、ESLint、Prettier和提交前检查。",
+        "接口或数据契约": "pyproject、前端lint配置、pre-commit。",
+        "验收标准": "本地和CI命令一致；示例违规代码能被拦截。",
+        "测试要求": "运行格式、lint和类型检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "LINUX_DEVELOPMENT_GATES_PASS_HOOK_RECHECK_PENDING",
+      "scope_boundary": "当前Linux质量门禁通过；Windows仅远程入口，本批不将Windows原生或未来所有人工作区作为前置；复核当前hook实际生效。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "scripts/dev.py",
+        ".pre-commit-config.yaml",
+        "scripts/stage_three_quality.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T006",
+      "name": "建立基础持续集成流水线",
+      "source_requirements": {
+        "责任角色": "DevOps",
+        "源前置依赖": "T004,T005",
+        "执行依赖候选": "T004,T005",
+        "工作范围": "建立后端、前端、迁移、单元测试和构建流水线。",
+        "接口或数据契约": "CI jobs：lint、typecheck、unit、build、migration-check。",
+        "验收标准": "任一门禁失败阻止合并；产出测试报告；缓存不影响正确性。",
+        "测试要求": "故意引入失败验证门禁。",
+        "建议工作量": "2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "MAIN_RULESET_ACTIVE_REQUIRED_CHECK_NAME_MISMATCH",
+      "scope_boundary": "main规则25302203已保存并回查Active，PR/禁止删除/禁止强推已启用；必需检查误填engineer，待改为engineering；完整绕过清单及失败PR实际禁止合并仍待验证。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        ".github/workflows/ci.yml",
+        "docs/03-development/main-protection-handoff.md",
+        "docs/00-project/validation/main-protection-readback.json"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T007",
+      "name": "建立统一配置和密钥规范",
+      "source_requirements": {
+        "责任角色": "后端/DevOps",
+        "源前置依赖": "T002,T004",
+        "执行依赖候选": "T002,T004",
+        "工作范围": "划分开发、测试、生产配置；密钥只从Secret或环境注入。",
+        "接口或数据契约": "Settings字段、.env.example、配置说明。",
+        "验收标准": "仓库无真实密钥；敏感配置不写日志；启动时校验必需项。",
+        "测试要求": "secret扫描、配置单测。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "DEVELOPMENT_CONFIG_TESTS_PASS_NATIVE_CONFIG_PENDING",
+      "scope_boundary": "现有配置缺失/非法/脱敏测试通过；需生成原生私密配置版本并复验；正式生产profile另行验收。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/app/settings.py",
+        "backend/business_app/settings.py",
+        "tests/stage_three/test_foundation_configuration.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T008",
+      "name": "建立统一日志与请求追踪",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T002",
+        "执行依赖候选": "T002",
+        "工作范围": "统一日志和request_id，跨API、队列、节点及网关传播trace_id并关联task_id/run_version/attempt；敏感字段脱敏。",
+        "接口或数据契约": "X-Request-Id请求头；日志字段规范。",
+        "验收标准": "所有API日志可关联请求；令牌、密码、原始敏感文本被过滤。",
+        "测试要求": "请求与异步追踪、采样、日志及指标标签脱敏测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.11；本书§7补充技术验证。"
+      },
+      "technical_status": "CURRENT_TRACING_TESTS_PASS_NATIVE_CHAIN_RECHECK_PENDING",
+      "scope_boundary": "已实现API日志、队列/推理传播和脱敏回归通过；原生全链重启后复验；未来DAG功能按相应任务实现，不提前要求业务功能全部交付。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/app/tracing.py",
+        "tests/stage_three/test_foundation_tracing.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T009",
+      "name": "建立统一异常与错误码框架",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T002",
+        "执行依赖候选": "T002",
+        "工作范围": "实现业务异常、HTTP映射、错误码注册和统一响应。",
+        "接口或数据契约": "错误响应{code,message,request_id,details}。",
+        "验收标准": "未知异常不泄露堆栈；已知异常映射稳定；错误码不可重复。",
+        "测试要求": "异常映射与敏感信息测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_ERROR_FRAMEWORK_TESTS_PASS_REVIEW_PENDING",
+      "scope_boundary": "稳定错误映射、异常脱敏及唯一注册回归通过；未来新增业务错误登记是持续维护，不等于当前框架始终不可完成。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/business_app/errors.py",
+        "tests/business/test_foundation_errors.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T010",
+      "name": "建立架构决策记录和变更模板",
+      "source_requirements": {
+        "责任角色": "架构",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立ADR、需求变更、模型变更和数据库变更模板。",
+        "接口或数据契约": "docs/adr与Pull Request模板。",
+        "验收标准": "重要决策有状态、背景、方案、影响和回滚；模板可直接复用。",
+        "测试要求": "文档结构和链接检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_TEMPLATES_REVIEW_IN_PROGRESS",
+      "scope_boundary": "既有ADR及需求/模型/数据库变更模板；本次原生迁移设计形成具体变更依据，实际复核仍待登记。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "docs/03-development/native-linux-migration-design.md",
+        ".github/PULL_REQUEST_TEMPLATE.md"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T011",
+      "name": "设计用户角色与数据范围模型",
+      "source_requirements": {
+        "责任角色": "后端/安全",
+        "源前置依赖": "T002,T010",
+        "执行依赖候选": "T002,T010",
+        "工作范围": "设计用户、角色、权限、单位、案件范围和数据密级模型。",
+        "接口或数据契约": "ERD；RBAC+ABAC权限矩阵。",
+        "验收标准": "覆盖管理员、数据管理员、算法管理员、审核员、核查人员和审计员；默认拒绝。",
+        "测试要求": "权限矩阵评审用例。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。"
+      },
+      "technical_status": "SIX_ROLE_DESIGN_CONFIRMED_SPECIFIC_ALLOWS_PENDING",
+      "scope_boundary": "用户确认六角色为主要设计；默认拒绝和候选矩阵有测试；具体授权/职责冲突/分类未知保持拒绝，不将设计任务扩展成完整T014运行授权。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "docs/08-security/access-control-model.json",
+        "docs/08-security/permission-matrix.md",
+        "tests/platform/test_t011.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T012",
+      "name": "实现用户角色数据库模型",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T011",
+        "执行依赖候选": "T011",
+        "工作范围": "实现用户、角色、权限和关联表及迁移。",
+        "接口或数据契约": "users、roles、permissions、user_roles。",
+        "验收标准": "唯一约束、外键和软禁用正确；迁移升级可验证；可逆回退或不可逆恢复/前向修复方案齐全。",
+        "测试要求": "模型、约束和迁移测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。"
+      },
+      "technical_status": "MODEL_MIGRATION_TESTS_PASS_REVIEW_PENDING",
+      "scope_boundary": "用户/角色/身份/单位案件模型和迁移回归通过，实际业务测试数据库已经原生；徐昌胜已指定负责人，但登记不代表签认。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/business_migrations/0004_identity_relations.sql",
+        "backend/business_migrations/0005_role_catalog.sql",
+        "tests/business/test_role_directory.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    }
+  ],
+  "main_protection_configuration_valid": false,
+  "main_protection_readback_ref": "docs/00-project/validation/main-protection-readback.json"
+}

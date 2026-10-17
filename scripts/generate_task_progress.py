@@ -2,8 +2,10 @@
 
 import argparse
 import copy
+import datetime
 import hashlib
 import json
+import math
 import re
 from pathlib import Path
 
@@ -14,11 +16,60 @@ END = "<!-- task-progress:end -->"
 LABELS = {
     "PARTIAL_VERIFIED_SCOPE": "已验证部分范围；未关闭",
     "NO_FULL_TASK_VERIFICATION_EVIDENCE": "尚无本任务已验证交付；未关闭",
+    "FULL_TASK_VERIFIED": "已通过本任务验收",
 }
 
 
 def read(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8-sig"))
+
+
+def evidence_file(path):
+    assert isinstance(path, str) and path
+    target = (ROOT / path).resolve()
+    assert target.is_relative_to(ROOT.resolve()) and target.is_file(), path
+    return target
+
+
+def validate_completion(row, source, actual, source_hash):
+    """Require reviewed, source-aligned and hash-verified evidence for every criterion."""
+    assert row["actual_owner"] and row["completed_steps"] and not row["remaining_steps"]
+    assert type(actual["remaining_effort_hours"]) in (int, float) and actual["remaining_effort_hours"] == 0
+    assert actual["actual_start"] and actual["actual_end"]
+    assert datetime.date.fromisoformat(actual["actual_start"]) <= datetime.date.fromisoformat(actual["actual_end"])
+    reviewer = actual["verified_by"]
+    assert isinstance(reviewer, str) and reviewer.strip() == reviewer and reviewer
+    references = actual["full_task_verification_refs"]
+    assert references
+    fields = source[row["task_id"]]["fields"]
+    expected = [clause.strip() for clause in re.split(r"[；;。]", fields["验收标准"]) if clause.strip()]
+    for reference in references:
+        assert reference["scope"]
+        record = json.loads(evidence_file(reference["path"]).read_text(encoding="utf-8-sig"))
+        assert record["task_id"] == row["task_id"] and record["status"] == "PASS"
+        assert record["source_task_cards_sha256"] == source_hash
+        assert record["source_acceptance"] == fields["验收标准"]
+        assert record["source_test_requirements"] == fields["测试要求"]
+        assert record["environment_scope"] and record["blockers"] == []
+        assert record["reviewed_by"] == reviewer
+        evidence_file(record["review_basis_ref"])
+        assert record["source_file_sha256"]
+        for path, expected_hash in record["source_file_sha256"].items():
+            assert hashlib.sha256(evidence_file(path).read_bytes()).hexdigest() == expected_hash
+        checks = record["checks"]
+        assert checks and len({check["id"] for check in checks}) == len(checks)
+        for check in checks:
+            assert check["status"] == "PASS" and type(check["exit_code"]) is int and check["exit_code"] == 0
+            assert type(check["skipped"]) is int and check["skipped"] == 0
+            assert check["command"] and re.fullmatch(r"[a-f0-9]{40}", check["source_commit"])
+            assert datetime.datetime.fromisoformat(check["observed_at"]).utcoffset() is not None
+            assert hashlib.sha256(evidence_file(check["artifact_path"]).read_bytes()).hexdigest() == check["artifact_sha256"]
+        check_ids = {check["id"] for check in checks}
+        assert record["test_check_ids"] and set(record["test_check_ids"]) <= check_ids
+        criteria = record["criteria"]
+        assert [criterion["requirement"] for criterion in criteria] == expected
+        assert all(criterion["status"] == "PASS" and criterion["check_ids"]
+                   and set(criterion["check_ids"]) <= check_ids for criterion in criteria)
 
 
 def validate(ledger, source, planning):
@@ -34,11 +85,15 @@ def validate(ledger, source, planning):
     assert set(actual) == expected
     resources = {person["resource_id"]: person for person in planning["resources"]}
     assert len(resources) == len(planning["resources"])
+    rows_by_id = {row["task_id"]: row for row in rows}
     for row in rows:
         task = row["task_id"]
         assert row["name"] == source[task]["name"]
-        assert row["status"] in LABELS and not row["full_task_verified"]
-        assert row["remaining_steps"]
+        assert row["status"] in LABELS
+        complete = row["status"] == "FULL_TASK_VERIFIED"
+        assert row["full_task_verified"] is complete
+        if not complete:
+            assert row["remaining_steps"]
         resource_id = actual[task]["resource_id"]
         owner = row["actual_owner"]
         if resource_id is None:
@@ -52,12 +107,20 @@ def validate(ledger, source, planning):
             basis = (ROOT / person["assignment_basis_ref"]).resolve()
             assert basis.is_relative_to(ROOT) and basis.is_file()
         assert row["status"] == actual[task]["verification_status"]
-        assert bool(row["completed_steps"]) == (row["status"] == "PARTIAL_VERIFIED_SCOPE")
+        assert bool(row["completed_steps"]) == (row["status"] != "NO_FULL_TASK_VERIFICATION_EVIDENCE")
         assert {e["path"] for s in row["completed_steps"] for e in s["evidence"]} == {
             e["path"] for e in actual[task]["partial_scope_evidence"]
         }
-        assert not actual[task]["full_task_verification_refs"]
-        assert actual[task]["remaining_effort_hours"] is None and actual[task]["actual_end"] is None
+        if complete:
+            dependencies = set(re.findall(r"T\d{3}", source[task]["fields"]["执行依赖候选"]))
+            assert task not in dependencies
+            assert all(dependency in rows_by_id and rows_by_id[dependency]["full_task_verified"]
+                       for dependency in dependencies), (task, sorted(dependencies))
+            validate_completion(row, source, actual[task], ledger["source_task_cards_sha256"])
+        else:
+            assert not actual[task]["full_task_verification_refs"] and actual[task]["actual_end"] is None
+            hours = actual[task]["remaining_effort_hours"]
+            assert hours is None or (type(hours) in (int, float) and math.isfinite(hours) and hours > 0)
         path = ROOT / row["card"]
         assert path.is_file() and path.resolve().is_relative_to((ROOT / "tasks").resolve())
         assert path.name == task + ".md"
@@ -78,10 +141,12 @@ def cell(text):
 
 def self_test(ledger, source, planning):
     """Reject false acceptance, missing evidence, omissions and inconsistent authorities."""
+    index = next((i for i, row in enumerate(ledger["tasks"]) if not row["full_task_verified"]), 0)
+    row = ledger["tasks"][index]
     mutations = [
-        lambda value: value["tasks"][0].update(full_task_verified=True),
-        lambda value: value["tasks"][0].update(status="FULL_TASK_VERIFIED"),
-        lambda value: value["tasks"][0].update(remaining_steps=[]),
+        lambda value: value["tasks"][index].update(full_task_verified=not row["full_task_verified"]),
+        lambda value: value["tasks"][index].update(status="INVALID_STATUS"),
+        lambda value: value["tasks"][index].update(remaining_steps=[] if not row["full_task_verified"] else [{"category": "test", "description": "open work"}]),
         lambda value: value["tasks"][0].update(name="changed source name"),
         lambda value: value["tasks"].pop(),
         lambda value: value["tasks"][0]["completed_steps"][0]["evidence"][0].update(path="../missing-evidence"),
@@ -105,14 +170,21 @@ def link(path, card):
     return f"[{path}](<{target}>)"
 
 
-def block(row, ledger, source):
+def block(row, ledger, source, execution=None):
     task, card = row["task_id"], row["card"]
     text = f"{START}\n## 当前完成步骤与剩余工作\n\n"
     responsibility = (
         f"实际负责人：{row['actual_owner']}；剩余工时及实际完成日期未确认"
         if row["actual_owner"] else "实际负责人、剩余工时及实际完成日期未确认"
     )
-    text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。{responsibility}；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+    if row["full_task_verified"]:
+        assert execution is not None
+        text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。实际负责人：{row['actual_owner']}；复核人：{execution['verified_by']}；验收日期：{execution['actual_end']}。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+        text += "本任务验收证据：" + "、".join(link(ref["path"], card) for ref in execution["full_task_verification_refs"]) + "。任务验收不改变项目正式环境批准状态。\n\n"
+    else:
+        text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。{responsibility}；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+    if row.get("closeout_review_ref"):
+        text += "本批逐项收口与环境变更记录：" + link(row["closeout_review_ref"], card) + "。当前角色登记、研发检查与实际验收决定分别记录。\n\n"
     earlier = ledger["tasks"][: ledger["tasks"].index(row)]
     first = 1 + sum(len(item["completed_steps"]) + len(item["remaining_steps"]) for item in earlier)
     last = first + len(row["completed_steps"]) + len(row["remaining_steps"]) - 1
@@ -194,6 +266,8 @@ def block(row, ledger, source):
             )
         text += "本次新增状态记录的检查入口：`python scripts/generate_task_progress.py --check`、`python scripts/validate_inputs.py`；只验证台账、卡片、引用与输入结构，不是补齐剩余业务功能的测试。\n"
     text += "\n### 未完成的剩余工作\n\n"
+    if not row["remaining_steps"]:
+        text += "无本任务内未关闭验收项；验收适用范围和后续集成条件见上述验收记录。\n"
     for number, step in enumerate(row["remaining_steps"], 1):
         text += f"- [ ] **{task}-R{number:02}／{step['category']}**：{step['description']}\n"
     fields = source[task]["fields"]
@@ -203,17 +277,70 @@ def block(row, ledger, source):
     return text + END
 
 
+def execution_text(ledger, source, planning):
+    rows = ledger["tasks"]
+    complete = sum(row["full_task_verified"] for row in rows)
+    partial = sum(row["status"] == "PARTIAL_VERIFIED_SCOPE" for row in rows)
+    unverified = len(rows) - complete - partial
+    done = sum(len(row["completed_steps"]) for row in rows)
+    remaining = sum(len(row["remaining_steps"]) for row in rows)
+    total = done + remaining
+    lines = [f"170项研发任务{total}条执行事项逐项清单", "",
+             f"核对日期 {ledger['observed_date']}",
+             f"来源台账 {LEDGER} 版本 {ledger['revision']}",
+             f"来源台账 SHA256 {hashlib.sha256((ROOT / LEDGER).read_bytes()).hexdigest()}", "",
+             f"当前共170项主任务。{partial}项已验证部分范围，{unverified}项尚无本任务已验证交付，整任务验收完成{complete}项。",
+             f"执行记录共{total}条，已完成子步骤{done}条，未完成工作项{remaining}条。",
+             "T编号保留原170任务；C/R记录粒度和工时不同，不据数量计算功能完成率；编号用于查阅，执行仍须满足实际依赖。",
+             "完整任务验收、研发子范围、原型证据及正式环境批准分别记录。", "", "主任务状态总表", ""]
+    for row in rows:
+        lines.append(f"{row['task_id']} {row['name']} | {LABELS[row['status']]} | 完成{len(row['completed_steps'])}条 剩余{len(row['remaining_steps'])}条")
+    lines.extend(["", "逐条执行事项", ""])
+    actual = {row["task_id"]: row for row in planning["task_execution_inputs"]}
+    number = 1
+    for row in rows:
+        task = row["task_id"]
+        fields = source[task]["fields"]
+        lines.extend(["=" * 72, f"{task} {row['name']}", "=" * 72,
+                      f"当前状态 {LABELS[row['status']]}", f"任务卡 {row['card']}",
+                      f"实际负责人 {row['actual_owner'] or '未确认'}"])
+        for key in ["源前置依赖", "执行依赖候选", "工作范围", "接口或数据契约", "验收标准", "测试要求"]:
+            lines.append(f"{key} {fields[key]}")
+        if row.get("closeout_review_ref"):
+            lines.append(f"本批逐项复核 {row['closeout_review_ref']}")
+        if row["full_task_verified"]:
+            lines.append(f"实际复核人 {actual[task]['verified_by']} 验收日期 {actual[task]['actual_end']}")
+            lines.extend(f"整任务验收记录 {ref['path']}" for ref in actual[task]["full_task_verification_refs"])
+        lines.append("")
+        if not row["completed_steps"]:
+            lines.append("本任务当前没有可登记的已完成执行步骤。")
+        for index, step in enumerate(row["completed_steps"], 1):
+            lines.append(f"{number:04}. [已完成] {task}-C{index:02} [{step['kind']}] {step['description']}")
+            for evidence in step["evidence"]:
+                lines.extend([f"      证据 {evidence['path']}", f"      边界 {evidence['scope']}"])
+            number += 1
+        for index, step in enumerate(row["remaining_steps"], 1):
+            lines.append(f"{number:04}. [未完成] {task}-R{index:02} [{step['category']}] {step['description']}")
+            number += 1
+        lines.append("")
+    assert number == total + 1
+    lines.extend(["核对结果", f"170项任务全部保留；全局编号0001至{total:04}连续且唯一。已完成{done}条，未完成{remaining}条；整任务验收完成{complete}项。",
+                  "执行事项和证据来自当前台账；源要求逐字保留自source-task-cards.json。"])
+    return "\n".join(lines) + "\n"
+
+
 def outputs():
     ledger = read(LEDGER)
     source = read("tasks/source-task-cards.json")
     planning = read("docs/00-project/execution-planning-inputs.json")
     validate(ledger, source, planning)
     self_test(ledger, source, planning)
+    execution = {row["task_id"]: row for row in planning["task_execution_inputs"]}
     result = {}
     for row in ledger["tasks"]:
         path = ROOT / row["card"]
         old = path.read_text(encoding="utf-8-sig")
-        current = block(row, ledger, source)
+        current = block(row, ledger, source, execution[row["task_id"]])
         if START in old:
             assert old.count(START) == old.count(END) == 1
             before, rest = old.split(START)
@@ -242,9 +369,11 @@ def outputs():
         result[row["card"]] = updated
     counts = {key: sum(r["status"] == key for r in ledger["tasks"]) for key in LABELS}
     text = "# 独立任务卡与执行清单\n\n170条源任务一任务一文件；角色、源工时、源依赖、工作范围和原验收要求保留。**每张卡文首均列当前完成步骤、真实证据、未完成清单和关闭条件**。计划输出路径、Mock、候选Schema和其他任务的成功不能充当本卡实现证据。\n\n"
-    text += f"核对日期：{ledger['observed_date']}。登记开发/原型子范围证据 **{counts['PARTIAL_VERIFIED_SCOPE']}项**；尚无本任务已验证交付 **{counts['NO_FULL_TASK_VERIFICATION_EVIDENCE']}项**；完整任务验收 **0/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。\n\n"
+    text += f"核对日期：{ledger['observed_date']}。登记开发/原型子范围证据 **{counts['PARTIAL_VERIFIED_SCOPE']}项**；尚无本任务已验证交付 **{counts['NO_FULL_TASK_VERIFICATION_EVIDENCE']}项**；完整任务验收 **{counts['FULL_TASK_VERIFIED']}/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。\n\n"
     text += "[当前机器台账](execution-status.json)保存本表及卡片的执行记录；[源字段](source-task-cards.json)、[源索引](backlog.yaml)保留来源状态；[候选依赖](execution-dependencies-candidate.json)不自动当已满足依赖。实际负责人确认记录、仍待提供的有效工时和日期以[实际输入](../docs/00-project/execution-planning-inputs.json)为准；[排期](../docs/00-project/execution-schedule.md)与本台账的验证状态一致。\n\n"
     text += "T012之前的11项任务可直接查看[当前完成与剩余逐项清单](../docs/03-development/t001-t011-foundation-review.md#当前完成情况2026-10-17)；它与各卡C/R步骤同源，历史复核另有日期。\n\n"
+    if ledger.get("closeout_overview_ref"):
+        text += "本批T001—T012逐项收口与原生环境变更见" + link(ledger["closeout_overview_ref"], "tasks/README.md") + "。\n\n"
     assigned = [row for row in ledger["tasks"] if row["actual_owner"]]
     if assigned:
         names = "、".join(sorted({row["actual_owner"] for row in assigned}))
@@ -265,6 +394,7 @@ def outputs():
         text += f"| [{row['task_id']}]({target}) | {cell(row['name'])} | {category} | {LABELS[row['status']]} | {completed_count} | {remaining_count} | {next_number:04}—{last_number:04} | {cell(row['summary_completed'])} | {cell(row['summary_remaining'])} |\n"
         next_number = last_number + 1
     result["tasks/README.md"] = text
+    result["docs/00-project/task-execution-steps.txt"] = execution_text(ledger, source, planning)
     return result
 
 
@@ -280,13 +410,15 @@ def main():
                 differences.append(path)
         else:
             target.write_bytes(content.encode())
+    verified = sum(row["full_task_verified"] for row in read(LEDGER)["tasks"])
     print(
         json.dumps(
             {
                 "status": "FAIL" if differences else "PASS",
                 "task_cards": 170,
                 "negative_guard_cases": 7,
-                "full_task_acceptance_asserted": False,
+                "full_task_acceptance_asserted": bool(verified),
+                "full_tasks_verified": verified,
                 "differences": differences,
             },
             ensure_ascii=False,
