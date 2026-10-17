@@ -5,6 +5,8 @@ import datetime
 import hashlib
 import json
 import re
+import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
@@ -33,12 +35,42 @@ OFFICIAL_PREFIXES = {
 }
 
 
+def verify_nginx_signature(package: Path, signature: Path, key: Path) -> bool:
+    """Verify against a pinned upstream signer in an isolated, offline keyring."""
+    fingerprint = "D6786CE303D9A9022998DC6CC8464D549AF75C0A"
+    try:
+        with tempfile.TemporaryDirectory(prefix="mt-native-gpg-") as home:
+            command = ["/usr/bin/gpg", "--no-options", "--batch", "--no-auto-key-retrieve", "--homedir", home]
+            imported = subprocess.run(command + ["--import", str(key)], capture_output=True, text=True, timeout=20)
+            if imported.returncode != 0:
+                return False
+            result = subprocess.run(
+                command + ["--status-fd", "1", "--verify", str(signature), str(package)],
+                capture_output=True,
+                text=True,
+                timeout=20,
+            )
+            bad_markers = {"EXPKEYSIG", "EXPSIG", "REVKEYSIG", "BADSIG", "ERRSIG", "NO_PUBKEY"}
+            if any(len(line.split()) > 1 and line.split()[1] in bad_markers for line in result.stdout.splitlines()):
+                return False
+            return result.returncode == 0 and any(
+                line.startswith("[GNUPG:] VALIDSIG ") and line.split()[-1] == fingerprint
+                for line in result.stdout.splitlines()
+            )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+
+
 def official_url(component: str, url: Any) -> bool:
     if not isinstance(url, str) or component not in OFFICIAL_PREFIXES:
         return False
     parsed = urlsplit(url)
     return (
-        url.startswith(OFFICIAL_PREFIXES[component])
+        url.startswith(
+            (OFFICIAL_PREFIXES[component], "https://conda.anaconda.org/conda-forge/")
+            if component == "python"
+            else OFFICIAL_PREFIXES[component]
+        )
         and parsed.scheme == "https"
         and parsed.username is None
         and parsed.password is None
@@ -123,7 +155,13 @@ def validate_artifacts(lock: dict[str, Any], artifact_root: Path) -> dict[str, A
             if not isinstance(provenance, dict):
                 raise ValueError("MISSING_OFFICIAL_PROVENANCE")
             method = provenance.get("method")
-            if method not in {"official_sha256", "official_sha512", "github_release_api"}:
+            if method not in {
+                "official_sha256",
+                "official_sha512",
+                "github_release_api",
+                "conda_release_api",
+                "official_openpgp",
+            }:
                 raise ValueError("UNSUPPORTED_PROVENANCE")
             provenance_url = provenance.get("url")
             if method == "github_release_api":
@@ -134,6 +172,12 @@ def validate_artifacts(lock: dict[str, Any], artifact_root: Path) -> dict[str, A
                 resource_pattern = re.escape(api_prefix) + r"(?:\d+|tags/v?" + re.escape(version) + r")"
                 if not isinstance(provenance_url, str) or not re.fullmatch(resource_pattern, provenance_url):
                     raise ValueError("MISSING_OFFICIAL_PROVENANCE")
+            elif method == "conda_release_api":
+                if (
+                    name != "python"
+                    or provenance_url != "https://api.anaconda.org/release/conda-forge/python/" + version
+                ):
+                    raise ValueError("MISSING_OFFICIAL_PROVENANCE")
             elif not official_url(name, provenance_url):
                 raise ValueError("MISSING_OFFICIAL_PROVENANCE")
             evidence = artifact_file(root, provenance.get("filename"))
@@ -143,7 +187,11 @@ def validate_artifacts(lock: dict[str, Any], artifact_root: Path) -> dict[str, A
                 metadata = json.loads(evidence.read_text(encoding="utf-8"))
                 if not isinstance(metadata, dict) or not isinstance(metadata.get("tag_name"), str):
                     raise ValueError("RELEASE_VERSION_MISMATCH")
-                if metadata["tag_name"].removeprefix("v") != version:
+                tag = metadata["tag_name"]
+                expected_tags = {"erlang": {"OTP-" + version}, "java": {"jdk-" + version}}.get(
+                    name, {version, "v" + version}
+                )
+                if tag not in expected_tags:
                     raise ValueError("RELEASE_VERSION_MISMATCH")
                 assets = metadata.get("assets")
                 if not isinstance(assets, list):
@@ -155,6 +203,38 @@ def validate_artifacts(lock: dict[str, Any], artifact_root: Path) -> dict[str, A
                     or matches[0].get("browser_download_url") != item["url"]
                 ):
                     raise ValueError("RELEASE_ASSET_MISMATCH")
+            elif method == "conda_release_api":
+                metadata = json.loads(evidence.read_text(encoding="utf-8"))
+                if not isinstance(metadata, dict):
+                    raise ValueError("RELEASE_VERSION_MISMATCH")
+                distributions = metadata.get("distributions")
+                if not isinstance(distributions, list):
+                    raise ValueError("RELEASE_ASSET_MISSING")
+                matches = [
+                    row
+                    for row in distributions
+                    if isinstance(row, dict) and row.get("basename") == "linux-64/" + package.name
+                ]
+                if (
+                    len(matches) != 1
+                    or matches[0].get("version") != version
+                    or matches[0].get("sha256") != expected
+                    or item["url"] != "https://conda.anaconda.org/conda-forge/linux-64/" + package.name
+                ):
+                    raise ValueError("RELEASE_ASSET_MISMATCH")
+            elif method == "official_openpgp":
+                if name != "nginx" or provenance.get("key_url") != "https://nginx.org/keys/pluknet.key":
+                    raise ValueError("MISSING_OFFICIAL_PROVENANCE")
+                package_url = "https://nginx.org/download/nginx-" + version + ".tar.gz"
+                if (
+                    item["url"] != package_url
+                    or provenance_url != package_url + ".asc"
+                    or package.name != "nginx-" + version + ".tar.gz"
+                ):
+                    raise ValueError("RELEASE_ASSET_MISMATCH")
+                key = artifact_file(root, provenance.get("key_filename"))
+                if digest(key) != provenance.get("key_sha256") or not verify_nginx_signature(package, evidence, key):
+                    raise ValueError("OFFICIAL_SIGNATURE_INVALID")
             else:
                 algorithm = "sha512" if method == "official_sha512" else "sha256"
                 upstream_digest = digest(package, algorithm)

@@ -6,12 +6,86 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from native.artifacts import validate_artifacts
+
+
+@pytest.mark.parametrize(
+    "result_code,status,expected",
+    [
+        (
+            0,
+            "[GNUPG:] VALIDSIG D6786CE303D9A9022998DC6CC8464D549AF75C0A 2026-10-02 1 0 4 0 1 8 00 D6786CE303D9A9022998DC6CC8464D549AF75C0A",
+            True,
+        ),
+        (1, "", False),
+        (0, "[GNUPG:] GOODSIG not-validsig", False),
+        (0, "[GNUPG:] VALIDSIG " + "A" * 40 + " date 1 0 4 0 1 8 00 " + "A" * 40, False),
+    ],
+)
+def test_nginx_signature_requires_success_and_pinned_signer(tmp_path, monkeypatch, result_code, status, expected):
+    from native.artifacts import verify_nginx_signature
+
+    calls = []
+
+    def run(command, **kwargs):
+        calls.append(command)
+        return SimpleNamespace(
+            returncode=0 if "--import" in command else result_code, stdout="" if "--import" in command else status
+        )
+
+    monkeypatch.setattr("native.artifacts.subprocess.run", run)
+    assert verify_nginx_signature(tmp_path / "package", tmp_path / "sig", tmp_path / "key") is expected
+    assert all("--no-options" in c and "--no-auto-key-retrieve" in c and "--homedir" in c for c in calls)
+
+
+@pytest.mark.parametrize("bad_status", ["EXPKEYSIG", "EXPSIG", "REVKEYSIG"])
+def test_nginx_expired_or_revoked_signatures_are_rejected(tmp_path, monkeypatch, bad_status):
+    from native.artifacts import verify_nginx_signature
+
+    valid = "[GNUPG:] VALIDSIG D6786CE303D9A9022998DC6CC8464D549AF75C0A 2026-10-02 1 0 4 0 1 8 00 D6786CE303D9A9022998DC6CC8464D549AF75C0A"
+    monkeypatch.setattr(
+        "native.artifacts.subprocess.run",
+        lambda *args, **kwargs: SimpleNamespace(returncode=0, stdout=valid + "\n[GNUPG:] " + bad_status + " signer"),
+    )
+    assert verify_nginx_signature(tmp_path / "package", tmp_path / "sig", tmp_path / "key") is False
+
+
+@pytest.mark.parametrize("tamper", ["old_package_url", "old_signature_url", "old_package_filename"])
+def test_nginx_signed_archive_must_match_exact_pinned_release(verified_lock, monkeypatch, tamper):
+    lock, root = verified_lock
+    item = next(x for x in lock["artifacts"] if x["component"] == "nginx")
+    raw = (root / item["filename"]).read_bytes()
+    item["filename"] = "nginx-1.30.6.tar.gz"
+    (root / item["filename"]).write_bytes(raw)
+    item["url"] = "https://nginx.org/download/nginx-1.30.6.tar.gz"
+    (root / "signature.asc").write_bytes(b"synthetic-signature")
+    (root / "key.asc").write_bytes(b"synthetic-public-key")
+    item["provenance"] = {
+        "method": "official_openpgp",
+        "url": item["url"] + ".asc",
+        "filename": "signature.asc",
+        "sha256": hashlib.sha256(b"synthetic-signature").hexdigest(),
+        "key_url": "https://nginx.org/keys/pluknet.key",
+        "key_filename": "key.asc",
+        "key_sha256": hashlib.sha256(b"synthetic-public-key").hexdigest(),
+    }
+    monkeypatch.setattr("native.artifacts.verify_nginx_signature", lambda *args: True)
+    assert validate_artifacts(lock, root)["status"] == "PASS"
+    if tamper == "old_package_url":
+        item["url"] = "https://nginx.org/download/nginx-1.30.5.tar.gz"
+    elif tamper == "old_signature_url":
+        item["provenance"]["url"] = "https://nginx.org/download/nginx-1.30.5.tar.gz.asc"
+    else:
+        item["filename"] = "nginx-1.30.5.tar.gz"
+        (root / item["filename"]).write_bytes(raw)
+    assert validate_artifacts(lock, root)["status"] == "FAIL"
+
 
 VERSIONS = {
     "python": "3.10.22",
@@ -83,6 +157,27 @@ def test_complete_verified_package_set_can_pass(verified_lock):
 def test_confirmed_exact_native_versions_cannot_be_downgraded(verified_lock, component, version):
     lock, root = verified_lock
     next(item for item in lock["artifacts"] if item["component"] == component)["version"] = version
+    assert validate_artifacts(lock, root)["status"] == "FAIL"
+
+
+def test_official_conda_python_package_binds_build_and_digest(verified_lock):
+    lock, root = verified_lock
+    item = next(x for x in lock["artifacts"] if x["component"] == "python")
+    item["url"] = "https://conda.anaconda.org/conda-forge/linux-64/" + item["filename"]
+    item["provenance"]["method"] = "conda_release_api"
+    item["provenance"]["url"] = "https://api.anaconda.org/release/conda-forge/python/3.10.22"
+    data = {
+        "distributions": [{"basename": "linux-64/" + item["filename"], "version": "3.10.22", "sha256": item["sha256"]}],
+    }
+    p = root / item["provenance"]["filename"]
+    raw = json.dumps(data).encode()
+    p.write_bytes(raw)
+    item["provenance"]["sha256"] = hashlib.sha256(raw).hexdigest()
+    assert validate_artifacts(lock, root)["status"] == "PASS"
+    data["distributions"][0]["basename"] = "osx-64/" + item["filename"]
+    raw = json.dumps(data).encode()
+    p.write_bytes(raw)
+    item["provenance"]["sha256"] = hashlib.sha256(raw).hexdigest()
     assert validate_artifacts(lock, root)["status"] == "FAIL"
 
 
@@ -201,3 +296,29 @@ def test_cli_missing_inputs_returns_nonzero_without_installing(tmp_path):
     )
     assert result.returncode != 0
     assert json.loads(result.stdout)["status"] == "FAIL"
+
+
+@pytest.mark.parametrize("component,tag", [("erlang", "OTP-27.3.4.18"), ("java", "jdk-21.0.12.1")])
+def test_component_specific_official_release_tags(verified_lock, component, tag):
+    lock, root = verified_lock
+    item = next(x for x in lock["artifacts"] if x["component"] == component)
+    metadata = {
+        "tag_name": tag,
+        "assets": [
+            {"name": item["filename"], "digest": "sha256:" + item["sha256"], "browser_download_url": item["url"]}
+        ],
+    }
+    raw = json.dumps(metadata).encode()
+    (root / "release.json").write_bytes(raw)
+    item["provenance"] = {
+        "method": "github_release_api",
+        "url": SOURCES[component].replace("https://github.com/", "https://api.github.com/repos/") + "releases/123",
+        "filename": "release.json",
+        "sha256": hashlib.sha256(raw).hexdigest(),
+    }
+    assert validate_artifacts(lock, root)["status"] == "PASS"
+    metadata["tag_name"] = "v" + item["version"]
+    raw = json.dumps(metadata).encode()
+    (root / "release.json").write_bytes(raw)
+    item["provenance"]["sha256"] = hashlib.sha256(raw).hexdigest()
+    assert validate_artifacts(lock, root)["status"] == "FAIL"
