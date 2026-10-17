@@ -1,5 +1,5 @@
 {
-  "revision": "t012-role-catalog-20261017",
+  "revision": "t001-t011-status-refresh-20261017",
   "observed_date": "2026-10-17",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
@@ -25,7 +25,8 @@
     "validated_source_commit": "eda2f62a01f92654632151f71896cb9237921cc3",
     "validated_ci_run_id": 38941567010,
     "audit_is_not_formal_acceptance": true,
-    "rulesets_observed_count": 0
+    "rulesets_observed_count": 0,
+    "governance_observed_at": "2026-10-17T01:54:43.342988+00:00"
   },
   "tasks": [
     {
@@ -420,11 +421,11 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "25道托管研发门禁及故障探针已通过归档验证",
-      "summary_remaining": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置；确认Runner权限、Secret管理和真实维护人；最近只读观测main未保护，保护和rulesets查询返回403，不修改账号设置；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_completed": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准",
+      "summary_remaining": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置；落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
-          "description": "25道托管研发门禁及故障探针已通过归档验证",
+          "description": "早期25道托管门禁证据保留；最新CI #38941567010已通过32项工程门禁及独立资源核验、207项业务测试、161项Python单元/平台测试和89文件类型检查；故障探针通过，不代表平台已阻止失败合并",
           "kind": "DEVELOPMENT",
           "evidence": [
             {
@@ -449,7 +450,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "确认Runner权限、Secret管理和真实维护人；最近只读观测main未保护，保护和rulesets查询返回403，不修改账号设置"
+          "description": "落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置"
         },
         {
           "category": "任务记录",
@@ -6279,6 +6280,24 @@
       "validated_source_commit": "c4c3382a5b19fc6436fb515d5f894072a90245fc",
       "validated_ci_run_id": 38776619729,
       "audit_is_not_formal_acceptance": true
+    },
+    {
+      "observed_at": "2026-10-16T15:45:52.824369+00:00",
+      "branch_protected": false,
+      "branch_protection_http_status": 404,
+      "rulesets_http_status": 200,
+      "platform_evidence_ref": "docs/00-project/validation/repository-governance-snapshot.json",
+      "linux_pre_commit_hook_verified": true,
+      "linux_hook_evidence_ref": "docs/00-project/validation/development-hook-report.json",
+      "windows_native_pre_commit_hook_verified": false,
+      "business_unknown_500_content_type": "application/problem+json",
+      "business_unmatched_404_uniform_error": true,
+      "business_http_evidence_ref": "tests/business/test_foundation_errors.py",
+      "business_http_scope": "isolated_source_validation_not_shared_runtime_deployment",
+      "validated_source_commit": "eda2f62a01f92654632151f71896cb9237921cc3",
+      "validated_ci_run_id": 38941567010,
+      "audit_is_not_formal_acceptance": true,
+      "rulesets_observed_count": 0
     }
   ],
   "previous_shared_verification": {
@@ -6286,5 +6305,18 @@
     "validated_implementation_source_commit": "76e1e129c7bc52234f9a13b4a6e19f9c586a803a",
     "validated_ci_run_id": 38929380010,
     "validated_ci_run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38929380010"
-  }
+  },
+  "wording_correction_history": [
+    {
+      "task_id": "T006",
+      "observed_date": "2026-10-17",
+      "previous": {
+        "summary_completed": "25道托管研发门禁及故障探针已通过归档验证",
+        "summary_remaining": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置；确认Runner权限、Secret管理和真实维护人；最近只读观测main未保护，保护和rulesets查询返回403，不修改账号设置；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_step": "25道托管研发门禁及故障探针已通过归档验证",
+        "remaining_step_2": "确认Runner权限、Secret管理和真实维护人；最近只读观测main未保护，保护和rulesets查询返回403，不修改账号设置"
+      },
+      "reason": "Correct stale gate count and contradictory current/historical governance wording; no task completion or platform settings changed"
+    }
+  ]
 }

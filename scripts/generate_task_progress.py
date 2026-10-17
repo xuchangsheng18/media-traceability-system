@@ -220,7 +220,8 @@ def outputs():
     text = "# 独立任务卡与执行清单\n\n170条源任务一任务一文件；角色、源工时、源依赖、工作范围和原验收要求保留。**每张卡文首均列当前完成步骤、真实证据、未完成清单和关闭条件**。计划输出路径、Mock、候选Schema和其他任务的成功不能充当本卡实现证据。\n\n"
     text += f"核对日期：{ledger['observed_date']}。登记开发/原型子范围证据 **{counts['PARTIAL_VERIFIED_SCOPE']}项**；尚无本任务已验证交付 **{counts['NO_FULL_TASK_VERIFICATION_EVIDENCE']}项**；完整任务验收 **0/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。\n\n"
     text += "[当前机器台账](execution-status.json)保存本表及卡片的执行记录；[源字段](source-task-cards.json)、[源索引](backlog.yaml)保留来源状态；[候选依赖](execution-dependencies-candidate.json)不自动当已满足依赖。实际人员、日期及工时在[实际输入](../docs/00-project/execution-planning-inputs.json)中仍为未确认；[排期](../docs/00-project/execution-schedule.md)与本台账的验证状态一致。\n\n"
-    text += "## 使用和更新规则\n\n按卡片的C编号查看已完成步骤，按R编号领取剩余工作；任务关闭仍须逐项满足原验收和测试要求。上传/历史读取/审批等仅登记实际实现的子范围；正式身份、规则、真实模型和生产验收仍有缺口。没有因材料齐全或122项开发测试通过就把170项源任务标为完成。\n\n"
+    text += "T012之前的11项任务可直接查看[当前完成与剩余逐项清单](../docs/03-development/t001-t011-foundation-review.md#当前完成情况2026-10-17)；它与各卡C/R步骤同源，历史复核另有日期。\n\n"
+    text += "## 使用和更新规则\n\n按卡片的C编号查看已完成步骤，按R编号领取剩余工作；任务关闭仍须逐项满足原验收和测试要求。上传/历史读取/审批等仅登记实际实现的子范围；正式身份、规则、真实模型和生产验收仍有缺口。材料齐全或开发测试通过不会自动把170项源任务标为完成。最新实际测试数量和源码见CI报告。\n\n"
     text += "第二阶段23步入口见[交付清单](../docs/03-development/stage-two-readiness.md)，全部接口和数据库见[项目文档导航](../docs/README.md)。`output_refs_planned`与卡内计划测试是后续提案；实际证据列仅引用现有文件。更新台账后运行 `python scripts/generate_task_progress.py` 和相应资料生成器；提交前运行同命令加 `--check`，输入校验也会检查本表与170张卡没有漂移。\n\n"
     completed = sum(len(row["completed_steps"]) for row in ledger["tasks"])
     remaining = sum(len(row["remaining_steps"]) for row in ledger["tasks"])

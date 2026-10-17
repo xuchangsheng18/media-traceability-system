@@ -714,5 +714,1089 @@
     "status": "NO_IMPORTANT_FINDINGS",
     "scope": "whole pre-T012 branch, read-only; no test substitution",
     "reviewed_source": "c773989c96fd0e1f3ec0ddabf48167fd14d70fca"
-  }
+  },
+  "latest_progress_snapshot": {
+    "status": "REVIEWED_EXISTING_EVIDENCE_NOT_NEW_FUNCTIONAL_TEST_EXECUTION",
+    "observed_date": "2026-10-17",
+    "base_delivery_commit": "37b106f2cf8ee6043dff39a62b0153533acd465e",
+    "ledger_revision": "t001-t011-status-refresh-20261017",
+    "ledger_sha256": "9022c8375ea8c0a9cd6d4306b3784ce44b615398421e241dcf0f7e9d5297cce5",
+    "task_range": "T001-T011",
+    "tasks_count": 11,
+    "completed_subscope_steps": 28,
+    "remaining_work_items": 25,
+    "formal_full_tasks_accepted": 0,
+    "percentage_asserted": false,
+    "runtime_or_public_API_changed_in_this_update": false,
+    "platform_settings_changed": false,
+    "ci_ref": {
+      "run_id": 38941567010,
+      "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38941567010",
+      "source_commit": "eda2f62a01f92654632151f71896cb9237921cc3",
+      "run_ci_gates": 32,
+      "business_tests": 207,
+      "python_unit_tests": 161,
+      "python_type_checked_files": 89,
+      "functional_tests_rerun_for_this_documentation_update": false
+    },
+    "governance_snapshot_ref": "docs/00-project/validation/repository-governance-snapshot.json",
+    "governance_observed_at": "2026-10-17T01:54:43.342988+00:00",
+    "tasks": [
+      {
+        "task_id": "T001",
+        "name": "建立单仓库目录与基础README",
+        "card": "tasks/platform/T001.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档；目录职责、统一开发/测试/提交入口和新增变更模板已在现有导航连接核对",
+        "summary_remaining": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "沿用既有单仓库目录，根README、职责说明和170张源任务卡已归档",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "README.md",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/02-architecture/repository-layout.md",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/repository-docs-validation.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "description": "GitHub及Linux仓库已同步，当前同步结果以回执为准",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "docs/00-project/server-sync-receipt.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "目录职责、统一开发/测试/提交入口和新增变更模板已在现有导航连接核对",
+            "evidence": [
+              {
+                "path": "README.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "CONTRIBUTING.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "按实际团队落实目录和提交责任，完成本卡正式复核；当前核对不代替全部任务验收。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T002",
+        "name": "配置Python后端工程",
+        "card": "tasks/platform/T002.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测；补齐启动profile校验、私密配置隐藏和安全结构日志，配置异常与并行关联回归已覆盖",
+        "summary_remaining": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "用户指定py310下FastAPI启动、配置校验和CPU研发闭环已有实测",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "backend/app/main.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "backend/app/settings.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "config/versions.yaml",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/ci-all-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "description": "独立业务应用、配置及迁移入口已建立，静态类型纳入检查",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "backend/business_app/main.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "backend/business_app/settings.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/stage-three-python-types-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "补齐启动profile校验、私密配置隐藏和安全结构日志，配置异常与并行关联回归已覆盖",
+            "evidence": [
+              {
+                "path": "backend/app/settings.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/app/tracing.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "tests/stage_three/test_foundation_configuration.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "真实部署启动/轮换和正式解释器支持周期仍需独立验证；原源要求3.11与用户py310偏差保留。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T003",
+        "name": "配置Vue前端工程",
+        "card": "tasks/frontend/T003.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据；实现路由、内存共享状态、真实健康页、安全API基地址和同源代理；加入lint/格式/类型及真实浏览器回归",
+        "summary_remaining": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "Vue3/TypeScript/Vite、API客户端、严格类型检查及页面冒烟已有开发证据",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "frontend/package.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "frontend/src/main.ts",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "frontend/src/App.vue",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/ci-all-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "实现路由、内存共享状态、真实健康页、安全API基地址和同源代理；加入lint/格式/类型及真实浏览器回归",
+            "evidence": [
+              {
+                "path": "frontend/src/router.ts",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "frontend/src/state.ts",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "frontend/src/views/HealthView.vue",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "frontend/src/api.ts",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "frontend/vite.config.ts",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "frontend/e2e/foundation.pw.ts",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "按真实部署反向代理、正式身份和所选业务页面进一步联调验收；当前页面仍是研发PoC。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T004",
+        "name": "建立本地容器开发环境",
+        "card": "tasks/platform/T004.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "独立7服务Compose研发闭环及持久卷验证已执行；逐项只读核验7服务Compose、Docker实际配置及cgroup v2的CPU/内存/进程限制一致；缺失、无限或漂移失败；不代替正式配额/临时盘/耗尽隔离",
+        "summary_remaining": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收；正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "独立7服务Compose研发闭环及持久卷验证已执行",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "deploy/docker-compose.yml",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/02-architecture/architecture-decisions/TB-ADR-004-object-storage.md",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/ci-all-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "逐项只读核验7服务Compose、Docker实际配置及cgroup v2的CPU/内存/进程限制一致；缺失、无限或漂移失败；不代替正式配额/临时盘/耗尽隔离",
+            "evidence": [
+              {
+                "path": "scripts/verify_development_limits.py",
+                "scope": "本轮研发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "tests/stage_three/test_development_limits.py",
+                "scope": "本轮研发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/development-container-limits-report.json",
+                "scope": "本轮研发子范围；不证明原任务全部验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "实施/验证",
+            "description": "既有7服务CPU/内存/进程限制已与真实cgroup v2核对；仍需获准项目配额、临时盘限制、资源耗尽隔离、卷介质和对象存储间接依赖核验，并落实维护人与适用环境；不把容量正常当生产验收"
+          },
+          {
+            "category": "实施/外部条件",
+            "description": "正式配额、维护责任人和适用部署环境仍需落实；不把当前容量正常视为生产容量验收"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T005",
+        "name": "配置代码格式化与静态检查",
+        "card": "tasks/platform/T005.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础；ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查；格式门禁改为目录覆盖，新Python模块自动进入格式和文本检查；本地/钩子实际Ruff负向与修复回归已补齐",
+        "summary_remaining": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "Ruff、Python静态类型、TypeScript及pre-commit配置已有基础",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "ruff.toml",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": ".pre-commit-config.yaml",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/stage-three-python-types-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "frontend/package.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "ESLint/Prettier和前端类型纳入统一入口/CI；负向探针覆盖违规和缺工具；提交前入口含格式、类型和秘密检查",
+            "evidence": [
+              {
+                "path": "scripts/dev.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "scripts/verify-frontend-quality.mjs",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "scripts/stage_three_quality.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "tests/stage_three/test_dev.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "格式门禁改为目录覆盖，新Python模块自动进入格式和文本检查；本地/钩子实际Ruff负向与修复回归已补齐",
+            "evidence": [
+              {
+                "path": "config/stage-three-profile.json",
+                "scope": "本轮研发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "scripts/stage_three_quality.py",
+                "scope": "本轮研发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "tests/stage_three/test_dev.py",
+                "scope": "本轮研发子范围；不证明原任务全部验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "选定Linux工作区钩子已实测；其他开发者工作区及Windows原生环境的钩子仍需分别安装验证。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T006",
+        "name": "建立基础持续集成流水线",
+        "card": "tasks/platform/T006.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准",
+        "summary_remaining": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置；落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "早期25道托管门禁证据保留；最新CI #38941567010已通过32项工程门禁及独立资源核验、207项业务测试、161项Python单元/平台测试和89文件类型检查；故障探针通过，不代表平台已阻止失败合并",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": ".github/workflows/ci.yml",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/github-actions-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/ci-failure-gate-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "实施/外部条件",
+            "description": "当前Public仓库main未保护，规则集查询200且为空，保护查询404；待获准设置分支保护与必需engineering检查，并实测失败阻止合并；落实Runner/Secret治理和真实维护人，未修改平台设置"
+          },
+          {
+            "category": "实施/验证",
+            "description": "落实Runner权限、Secret创建/轮换/撤销流程、真实维护人及审计；最新只读快照为Public、main未保护、rulesets查询200且为空、保护查询404；旧403仅保留为当时访问受限历史，本轮未修改平台设置"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T007",
+        "name": "建立统一配置和密钥规范",
+        "card": "tasks/platform/T007.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "环境示例、Git外私密配置和启动时必要配置校验已实现；development/test/production显式选择及缺失/非法配置脱敏已实现；无有效生产配置时拒绝启动",
+        "summary_remaining": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "环境示例、Git外私密配置和启动时必要配置校验已实现",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "backend/app/settings.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "backend/business_app/settings.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "config/README.md",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": ".env.example",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "development/test/production显式选择及缺失/非法配置脱敏已实现；无有效生产配置时拒绝启动",
+            "evidence": [
+              {
+                "path": "backend/app/settings.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/business_app/settings.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "tests/stage_three/test_foundation_configuration.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": ".env.example",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "正式环境的实际配置、秘密轮换/撤销、维护权限和生产profile必须另行实现验证；不以拒绝生产启动当生产已交付。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T008",
+        "name": "建立统一日志与请求追踪",
+        "card": "tasks/platform/T008.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "PoC JSON请求日志、request_id及trace_origin传播已有验证；API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号；新增同事件循环8请求内部日志逐条身份核对、嵌套异常后上下文恢复、真实数据库上传事件重复消费与外层上下文隔离；三种受控错误均被测试拒绝",
+        "summary_remaining": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "PoC JSON请求日志、request_id及trace_origin传播已有验证",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "backend/app/observability.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "backend/business_app/main.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "tests/poc/test_event_contract.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/ci-all-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "API结构日志、请求上下文隔离及trace_id响应头已实现，现有PoC队列/推理HTTP与上传验证消息传播关联编号",
+            "evidence": [
+              {
+                "path": "backend/app/tracing.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/app/observability.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/app/worker.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/business_app/uploads/messaging.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "tests/stage_three/test_foundation_tracing.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          },
+          {
+            "description": "新增同事件循环8请求内部日志逐条身份核对、嵌套异常后上下文恢复、真实数据库上传事件重复消费与外层上下文隔离；三种受控错误均被测试拒绝",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "tests/stage_three/test_foundation_tracing.py",
+                "scope": "选定研发追踪回归及隔离变异验证；非完整DAG、采样、跨进程聚合或真实身份验收"
+              },
+              {
+                "path": "tests/business/test_upload_validation.py",
+                "scope": "选定研发追踪回归及隔离变异验证；非完整DAG、采样、跨进程聚合或真实身份验收"
+              },
+              {
+                "path": "docs/00-project/validation/trace-regression-report.json",
+                "scope": "选定研发追踪回归及隔离变异验证；非完整DAG、采样、跨进程聚合或真实身份验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "完整业务DAG/网关、跨进程日志聚合、采样及指标标签仍需真实集成验证；现有测试不证明全链路观测平台。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T009",
+        "name": "建立统一异常与错误码框架",
+        "card": "tasks/platform/T009.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现；统一业务未知500/HTTPException/404/405及PoC错误脱敏；新增唯一错误码注册和安全回归",
+        "summary_remaining": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "PoC错误响应及业务异常、参数错误和数据库错误处理已有部分实现",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "backend/app/main.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "backend/business_app/main.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "backend/business_app/errors.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "tests/business/test_history_http.py",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/00-project/validation/business-foundation-report.json",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "统一业务未知500/HTTPException/404/405及PoC错误脱敏；新增唯一错误码注册和安全回归",
+            "evidence": [
+              {
+                "path": "backend/business_app/errors.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/business_app/main.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "backend/app/observability.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "tests/business/test_foundation_errors.py",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "新任务增加错误码时同步注册和契约；正式身份/规则适配错误仍按真实接入覆盖，不以基础回归代替全业务验收。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T010",
+        "name": "建立架构决策记录和变更模板",
+        "card": "tasks/platform/T010.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "ADR文档和开发环境变更/恢复要求已归档；新增PR及需求/模型/数据库/ADR可复用模板，本批实施记录按模板核对影响、版本、验证、恢复与未验范围",
+        "summary_remaining": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+        "completed_steps": [
+          {
+            "description": "ADR文档和开发环境变更/恢复要求已归档",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              },
+              {
+                "path": "docs/03-development/development-environment-change-request.md",
+                "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              }
+            ]
+          },
+          {
+            "kind": "DEVELOPMENT",
+            "description": "新增PR及需求/模型/数据库/ADR可复用模板，本批实施记录按模板核对影响、版本、验证、恢复与未验范围",
+            "evidence": [
+              {
+                "path": ".github/PULL_REQUEST_TEMPLATE.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/change-templates/requirement-change.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/change-templates/model-change.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/change-templates/database-change.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              },
+              {
+                "path": "docs/03-development/stage-three/foundation-closeout-implementation.md",
+                "scope": "本轮研发基础子范围；真实执行结果及未验边界见本批实施记录，不是整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "接入与验收",
+            "description": "实际团队按适用模板办理后续变更及有效复核；模板不是审批制度或自动批准。"
+          },
+          {
+            "category": "任务记录",
+            "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          }
+        ],
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      },
+      {
+        "task_id": "T011",
+        "name": "设计用户角色与数据范围模型",
+        "card": "tasks/platform/T011.md",
+        "status": "PARTIAL_VERIFIED_SCOPE",
+        "actual_owner": null,
+        "full_task_verified": false,
+        "summary_completed": "T002/T010本批依赖已核对；六角色/单位/案件/分类槽设计、41权限码及73操作矩阵与56项合成评审测试已有证据；身份/单位/案件关系及稳定映射增量设计已与实际数据库验证对齐",
+        "summary_remaining": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定；接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权；落实实际责任人及权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收",
+        "completed_steps": [
+          {
+            "description": "已核对T002配置追踪13例及T010五份模板，本批设计所需研发依赖满足；上游整卡仍未关闭",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "docs/00-project/validation/t011-dependency-report.json",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "docs/03-development/t011-access-model-implementation.md",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              }
+            ]
+          },
+          {
+            "description": "六角色与用户/单位/案件等八个既有实体关系已设计；数据分级保留真实规则槽，未新增业务表或正式等级",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "docs/08-security/access-control-model.md",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "docs/08-security/access-control-model.json",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "schemas/security/access-control-model.schema.json",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              }
+            ]
+          },
+          {
+            "description": "形成六角色对41权限码的完整评审矩阵，绑定全部73个候选外部操作；职责/限制/待定不自动授权",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "docs/08-security/permission-matrix.md",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "docs/08-security/access-control-model.json",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "scripts/validate_access_control_model.py",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              }
+            ]
+          },
+          {
+            "description": "独立合成评审器及56项专属测试已在Linux py310执行；覆盖默认拒绝和越权、到期/撤销/分类/版本；始终不是运行时授权",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "tools/access_control_review.py",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "tests/platform/test_t011.py",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              },
+              {
+                "path": "docs/00-project/validation/t011-access-model-report.json",
+                "scope": "T011候选设计及自建夹具实际评审证据；非真实身份、正式授权或整任务验收"
+              }
+            ]
+          },
+          {
+            "description": "补齐issuer/subject到内部用户映射、单位/案件同域关系、稳定键和终态撤销设计，并与0004迁移及数据库专项验证对齐",
+            "kind": "DEVELOPMENT",
+            "evidence": [
+              {
+                "path": "docs/03-development/t012-identity-relations-design.md",
+                "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+              },
+              {
+                "path": "docs/04-database/identity-relations.md",
+                "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+              },
+              {
+                "path": "docs/00-project/validation/t012-identity-relations-report.json",
+                "scope": "仅证明本批身份/单位/案件开发与隔离PostgreSQL验证；不证明真实身份平台、正式授权或整任务验收"
+              }
+            ]
+          }
+        ],
+        "remaining_steps": [
+          {
+            "category": "正式设计输入",
+            "description": "取得正式六角色授权、职责冲突/例外、单位案件范围及数据分类规则，形成有版本的有效设计决定；未知值保持待定"
+          },
+          {
+            "category": "后续接入边界",
+            "description": "接入正式身份方及实际主体/单位/案件映射，补完整角色撤销同步与生效策略版本协议；本批映射、终态撤销存储和DAO已验证，但不替代权威认证授权"
+          },
+          {
+            "category": "任务复核",
+            "description": "落实实际责任人及权限矩阵复核记录，逐项对照源验收标准；当前候选设计与测试不能替代正式输入或整任务验收"
+          }
+        ],
+        "specific_validation_report": "docs/00-project/validation/t011-access-model-report.json",
+        "acceptance_review_ref": "docs/00-project/validation/t001-t011-foundation-review-report.json"
+      }
+    ],
+    "evidence_checks_pending": false,
+    "evidence_file_sha256": {
+      ".env.example": "2a45805e25d349484b52632c63a8a4382b4af4031a2301b82fdfe87e5ee70caa",
+      ".github/PULL_REQUEST_TEMPLATE.md": "41bdfa79ba26f7dedc02f94e0e96b0d04a6a096d430825f9575b223a5ff67c86",
+      ".github/workflows/ci.yml": "06ca2c4f8e40bb293a42a45de602d601c77030ccf7485b5aee24d59931369299",
+      ".pre-commit-config.yaml": "98cb79e107b0469f219ba2350c1e7af5a3b6e455e5f8bd86cddc500db5774174",
+      "CONTRIBUTING.md": "a02410e874e03855580320f15d05c3ec93b7a05bfdf46f999a80a191ef526d09",
+      "README.md": "3ba9501da25537263c280a09497676fdb519f6fb884f31457141c662219719f1",
+      "backend/app/main.py": "657f56fdca58781d3f5ba3fab9404305f0c41a18dae6eeee51dfaf4c0020fd22",
+      "backend/app/observability.py": "5f82ad9d56ff870bb84206ddc65044aca46d43427b92eb959f5c444b72fe734d",
+      "backend/app/settings.py": "6c098da2a2496150a24c4dfbfaa2480609d92318d4401863be3d6b570bf7b8f8",
+      "backend/app/tracing.py": "581aefb284483e2c630366861331fcfccb29c84ef07f72484001388ceb58fe88",
+      "backend/app/worker.py": "71cf642578b91bb45d2f7abab3854e6bd3572fe6d85c8b1f5be2c8cdcc486e89",
+      "backend/business_app/errors.py": "27e056903171fefb7bef6e37be77ab356b46ddbdc57b6e7f75e24c324f9dba51",
+      "backend/business_app/main.py": "96e93c27d22ae5701362e74d7f8e1150f585b37526344c2b96e4e22871f8f99b",
+      "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
+      "backend/business_app/uploads/messaging.py": "9a8b70681cb00fb98526cd6441d30a9006a9c68f88961fd3132a4bf1a7c216d0",
+      "config/README.md": "ce515ca9e9ffc9cb8f07e8cdf0bf2bec899b955d317221c46e58e62804224377",
+      "config/stage-three-profile.json": "6a4c1faed44857de242eb7bbb118d1a88b38d9066a2e452d2f2538dc620a59ae",
+      "config/versions.yaml": "5d80c8c002584c9ba91e7fadbcc5f63c8b4dc5004082d188acc874d16afa8b8a",
+      "deploy/docker-compose.yml": "80eaebd95e708ffeac8ff0e42107ce3b897632b8edd38ac8019c38a42a782edf",
+      "docs/00-project/server-sync-receipt.json": "9b2792d53ba6b02628ba06511c3ab08bdbc224e29c752571a4c83d11b4b41fa4",
+      "docs/00-project/validation/business-foundation-report.json": "fdade5ce921f72a2b00ca0cb4a2bacdaeecab8bd83630ee9ed511881b5c25dc9",
+      "docs/00-project/validation/ci-all-report.json": "85d00450c3a81d0d6cade42643d3eec9cddbee2a434835b3ed1016ffd375d33d",
+      "docs/00-project/validation/ci-failure-gate-report.json": "695dae575463b5659d5eefa88c7436e2e26f24d43d0055432c40cf009e48ce9a",
+      "docs/00-project/validation/development-container-limits-report.json": "7be63ca17e6aec4d50c06401536bfdfa51cc4c5f59a0da5ff765c91c914fae62",
+      "docs/00-project/validation/github-actions-report.json": "d7f021bde629091b673ef0ef2ce9a1e8abe9814ee67b5817ba49e5ab97392a8e",
+      "docs/00-project/validation/repository-docs-validation.json": "e778a907a7331f19801aa9fbd48f2987816fd63a0b106971992cdd1e1a2a5e68",
+      "docs/00-project/validation/stage-three-python-types-report.json": "a855a4ffabff9846a5178ebd6b5f13e5ee856499b6b45b91b1a036a7a5708938",
+      "docs/00-project/validation/t011-access-model-report.json": "9af0e926d47aaacf05873cd588d766dbfe28a8bd6f65159290461e6f2be1681c",
+      "docs/00-project/validation/t011-dependency-report.json": "970eafbf154b6ff050a1c5c68acd2959dffab4d995925f85098d8047d622ff70",
+      "docs/00-project/validation/t012-identity-relations-report.json": "fd700a6d0bc9560d7552e2cac442a0b58fde76a108219da7ee424d2d9842a081",
+      "docs/00-project/validation/trace-regression-report.json": "fd9d96c86e7b019299047cad26bad19ea707eb057acff609e55b95993363a40f",
+      "docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md": "810dbfbe0cf57fb0aa4971b8a6e6b30ee3652c19e20079ea4754549d32121606",
+      "docs/02-architecture/architecture-decisions/TB-ADR-004-object-storage.md": "c0ba340994feb3704297fc2d7214970e48cd6977cbd11fc860ff11234a3fb70f",
+      "docs/02-architecture/repository-layout.md": "6d0db9b8879f9d8a36cae73a4929ad24cd4a5270774e99e34715c38fa2a44ce2",
+      "docs/03-development/change-templates/database-change.md": "6215eaec96ad21974e3d62c5621cf1e69fe50e2047800ef9d6e8e37fc5d67af4",
+      "docs/03-development/change-templates/model-change.md": "20377b9360799f680dc7d585dcf5b943c493603f2b8bf868cd155342111aaf23",
+      "docs/03-development/change-templates/requirement-change.md": "5f3475b61611247bf131bcbcd7832c55f339fad19f6172c7d2e1930c53e46671",
+      "docs/03-development/development-environment-change-request.md": "a4034bb32ff79938a18122e875ee5ed3c4b1fc182eec45e2e330883960e687b4",
+      "docs/03-development/stage-three/foundation-closeout-implementation.md": "b5705a515589866807f1954174dbc3cb4aeb73b2031bbc0f368bd38c9d9fb3c8",
+      "docs/03-development/t011-access-model-implementation.md": "0955626a10ae362e8db0519b9dabc8f8d261383ded467dbd32eade704ce237f1",
+      "docs/03-development/t012-identity-relations-design.md": "f8b1daf0602979e8805902358b209ff6c5908a9a069030afe1bba0fa90bf9722",
+      "docs/04-database/identity-relations.md": "4d2616fb5ab9136858641bd5b7ae11e072514487b61ec4cfe293e32d926cdcbc",
+      "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+      "docs/08-security/access-control-model.md": "f33996480c31402bbfbda943512280007d73368fe5df8c01849acd4b8e146d68",
+      "docs/08-security/permission-matrix.md": "f607a79f439b25ad07098c52b9c5ee09fc27ac852740c7492235dd0e875456bf",
+      "frontend/e2e/foundation.pw.ts": "9e6a12012f05fa49dd6c6d2da3faa70a25c1253648bb5ba972c4e049dd627ce1",
+      "frontend/package.json": "a772e54002f437d4137b335cdf0f40acb55a6bd3bffd1462a451a2252a7d324f",
+      "frontend/src/App.vue": "fae6fb4cf432e96c2cbb171ab056515d84880adac3afa5f020909921fc2504e2",
+      "frontend/src/api.ts": "2b2f2185aa89cae7bb36f25825b31c8ea993871c16b580294db01580a3b2092b",
+      "frontend/src/main.ts": "8bf52e91647410b06a817c1803c1826d6d990645721b659426c05b401a4b422a",
+      "frontend/src/router.ts": "3910068d119246a3570c794228fe32b76fdeb141e60defdb6a769bb644691e42",
+      "frontend/src/state.ts": "b7b7069a287b70671582798d62ae6ae879bfc4c1aca806c67a6a3999496a8c43",
+      "frontend/src/views/HealthView.vue": "01bfdb863e979bf870c08865f1d2425efd0fcd6a4d61f71680ab1c32d1c3a5f9",
+      "frontend/vite.config.ts": "5b2dd93a57d9ef3dbf8fb3b7171581dde64bbafdb407f451d7c31ac69faec573",
+      "ruff.toml": "64cb07a80a17adae1fdff06e06e88f5395a6a7c7aa0dff1312a933fa6b637049",
+      "schemas/security/access-control-model.schema.json": "b7a72eade94d4a59e8c3b22e768f902b8af93eda0feca9613ff67b3e50897712",
+      "scripts/dev.py": "66c847cf3ec31dd8d415d8f2c4df0636dea4d4383c3c34662f1af6bfe44dbb0f",
+      "scripts/stage_three_quality.py": "fb134e0944eaa14a64bc9bf09464b609b27aef41d7a0311eda463637e12c288d",
+      "scripts/validate_access_control_model.py": "44ae9ff2bb714a8815f19825a302bb6aba75a5b585c87452a940fa9cc2d90097",
+      "scripts/verify-frontend-quality.mjs": "85e1870a8ecea48c45f49cdd63cc45e040908851336112938f3d3c57fbdc31e2",
+      "scripts/verify_development_limits.py": "c26a3ba955b5ead38189e0182d5f028f6dd8d05cc564854e3a7a1645523e36fa",
+      "tests/business/test_foundation_errors.py": "63264d6fecae27a4c4f5f062b2fec28f8b418975af4df36da26f1378e04c9d1c",
+      "tests/business/test_history_http.py": "3f8dc78ded8e9a293e04fe2d5029a41753548d19b8b83c13def3ab371edaa82c",
+      "tests/business/test_upload_validation.py": "5507d3150556aee714bb1064a37aaf79b4441334942808dadc34268b5ec287ad",
+      "tests/platform/test_t011.py": "39cda3c8027ac6b163dba659525c64794ed3f5f8657f5a82eb240960b0f4bd20",
+      "tests/poc/test_event_contract.py": "984bf8bad1d6b644a06a9e31cc3a84d06d74c928b1510692077a0002d5694ad5",
+      "tests/stage_three/test_dev.py": "9a46334b49c55fed9a258aefbf5a9c4588f49d19c41fabbe7e33af6f8bf0ab1e",
+      "tests/stage_three/test_development_limits.py": "d5e7e335e3e5273e1aec16349e8008e7d84e33fb5409e620253c9bbd695261fa",
+      "tests/stage_three/test_foundation_configuration.py": "390411c35991f149912046fe2f42a5abb5a5d284f0010b129d57e2af1a73c0cd",
+      "tests/stage_three/test_foundation_tracing.py": "eafaf9af9db7846bca3813fec23a09f00cd20e412152d1363dfe50ed34caf084",
+      "tools/access_control_review.py": "b4b147e9985d6d593b01e593260c30bcbb14c00f69f14f951bc1130ff65932e0"
+    },
+    "referenced_evidence_files_checked": 71,
+    "ledger_C_R_descriptions_preserved_in_reading_view": true,
+    "documentation_validation": {
+      "status": "PASS",
+      "checks": 14,
+      "python": "3.10.22",
+      "observed_at": "2026-10-17T02:02:46.660049+00:00",
+      "command_results": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_task_progress.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"differences\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_stage_three_docs.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"steps\": 16, \"formal_frozen\": false, \"differences\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_stage_status_navigation.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 17, \"database_navigation_entries\": 20, \"differences\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_requirements_document.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"mode\": \"check\", \"business_modules\": 12, \"functional_requirements\": 36, \"engineering_requirements\": 170, \"non_functional_requirements\": 10, \"trace_records\": 216, \"business_rules\": 16, \"business_case_plans\": 72, \"task_case_plans\": 340, \"model_capabilities\": 34, \"dataset_categories\": 15, \"metric_protocols\": 24, \"open_questions\": 33, \"interface_gaps\": 13, \"document\": \"docs/01-requirements/functional-requirements.md\", \"formal_frozen\": false, \"full_business_completion_asserted\": false}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_remaining_work_navigation.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 7, \"remaining_stage_one\": 6, \"remaining_stage_two\": 12, \"differences\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/plan_project_schedule.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_access_control_model.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"task_id\": \"T011\", \"scope\": \"candidate_access_design_and_synthetic_review_not_runtime_authorization\", \"python\": \"3.10.22\", \"source_commit\": null, \"observed_at\": \"2026-10-17T02:02:03.164452+00:00\", \"roles\": 6, \"permissions\": 41, \"external_operations\": 73, \"formal_approved\": false, \"production_enabled\": false, \"runtime_authorization_asserted\": false}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_inputs.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_documentation_completion.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"time_utc\": \"2026-10-17T02:02:28.796531+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 659, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_repository_docs.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"links_checked\": 10082, \"errors\": [], \"historical_links\": 0}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_stage_one.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_stage_three.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 10, \"runtime_executed\": false, \"formal_frozen\": false}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/generate_phase_readiness.py",
+            "--check"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/validate_phase_readiness.py"
+          ],
+          "exit_code": 0,
+          "output": "{\"status\": \"PASS\", \"checks\": 4, \"errors\": []}"
+        }
+      ],
+      "scope": "documentation, evidence references and generated navigation; no full functional test rerun",
+      "initial_drift_found": "phase-readiness-register.md retained the prior governance observation timestamp",
+      "resolution": "regenerated from actual governance snapshot; no assertions changed"
+    }
+  },
+  "current_status_authority": "latest_progress_snapshot",
+  "current_progress_observed_date": "2026-10-17",
+  "historical_record_note": "Original revision, observed_at, source acceptance review and test records are retained; latest_progress_snapshot is the current status authority."
 }
