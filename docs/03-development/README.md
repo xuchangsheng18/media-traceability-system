@@ -1,6 +1,6 @@
 # 开发、契约与CI
 
-- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)：设计已认可，实施计划待审阅；覆盖部署、TLS、登录、映射、撤销、备份恢复和22项实际验收，尚未部署。
+- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[实际执行状态](../00-project/validation/t013-keycloak-execution-report.json)：设计及计划已认可；步骤1—6研发验证通过，步骤7隔离恢复演练通过，步骤8及正式准入/身份交接仍未完成。T013整卡未关闭。
 - [T013令牌核验与身份映射首批实现](t013-token-validation.md)：可选远端核验、最小权限数据库查询、禁用/到期/撤销测试及未完成的正式身份接入范围。
 
 2026-10-13更新；CPU研发工程已验证，正式基线NOT_FROZEN。

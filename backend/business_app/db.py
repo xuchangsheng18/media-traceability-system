@@ -1,5 +1,7 @@
+import math
 from collections.abc import Iterator
 from contextlib import contextmanager
+from typing import Any
 
 from psycopg.conninfo import conninfo_to_dict
 from sqlalchemy import Connection, create_engine, text
@@ -10,7 +12,24 @@ from .types import Actor, Scope
 
 
 class Database:
-    def __init__(self, dsn: str) -> None:
+    def __init__(
+        self,
+        dsn: str,
+        *,
+        connect_timeout_seconds: int = 2,
+        statement_timeout_ms: int = 2000,
+        pool_timeout_seconds: float = 2.0,
+    ) -> None:
+        if (
+            type(connect_timeout_seconds) is not int
+            or not 1 <= connect_timeout_seconds <= 30
+            or type(statement_timeout_ms) is not int
+            or not 1 <= statement_timeout_ms <= 30000
+            or type(pool_timeout_seconds) not in (float, int)
+            or not math.isfinite(pool_timeout_seconds)
+            or not 0 < pool_timeout_seconds <= 30
+        ):
+            raise ValueError("DATABASE_TIMEOUT_CONFIGURATION_INVALID")
         values = conninfo_to_dict(dsn)
         name = values.get("dbname")
         if not isinstance(name, str) or not name.startswith("mt_business_"):
@@ -23,7 +42,14 @@ class Database:
             port=int(values.get("port", 5432) or 5432),
             database=name,
         )
-        self.engine = create_engine(url, pool_size=1, max_overflow=0, pool_pre_ping=True)
+        extra: dict[str, Any] = {
+            key: value for key, value in values.items() if key not in {"dbname", "user", "password", "host", "port"}
+        }
+        extra["connect_timeout"] = connect_timeout_seconds
+        extra["options"] = str(extra.get("options", "")) + f" -c statement_timeout={statement_timeout_ms}"
+        self.engine = create_engine(
+            url, pool_size=1, max_overflow=0, pool_pre_ping=True, pool_timeout=pool_timeout_seconds, connect_args=extra
+        )
 
     @contextmanager
     def identity_transaction(self, actor: Actor) -> Iterator[Connection]:

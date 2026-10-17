@@ -1,0 +1,5 @@
+FROM docker.m.daocloud.io/library/postgres@sha256:1a66d744c1b459e13b05a8fca341da84cb63383e99ce262210efee5a319d4551
+COPY init-postgres.sh /docker-entrypoint-initdb.d/10-keycloak.sh
+# Non-root startup never uses the Go privilege helper; remove its vulnerable code.
+RUN rm /usr/local/bin/gosu /usr/local/bin/su-exec
+USER 70:70

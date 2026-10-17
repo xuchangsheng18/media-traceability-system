@@ -1,0 +1,87 @@
+name: media-trace-identity
+services:
+  identity-postgres:
+    image: media-trace-identity-postgres:16.15-alpine-1
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    environment:
+      POSTGRES_USER: identity_admin
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD_FILE: /etc/identity/admin-password
+    command: [postgres, -c, config_file=/etc/identity/postgres.conf]
+    volumes:
+      - postgres-secrets:/etc/identity:ro
+      - identity-data:/var/lib/postgresql/data
+    networks: [database]
+    cpus: 1.0
+    mem_limit: 2g
+    pids_limit: 128
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U identity_admin -d postgres]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    logging: {driver: json-file, options: {max-size: 10m, max-file: "3"}}
+  keycloak:
+    image: media-trace-identity-keycloak:26.8.1-1
+    build:
+      context: .
+      dockerfile: Dockerfile.keycloak
+    command: ["--config-file=/etc/identity/keycloak.conf", start, --optimized]
+    volumes: ["keycloak-secrets:/etc/identity:ro"]
+    networks:
+      application: {ipv4_address: 172.31.240.3}
+      database: {}
+    depends_on:
+      identity-postgres: {condition: service_healthy}
+    cpus: 1.5
+    mem_limit: 3g
+    pids_limit: 256
+    read_only: true
+    tmpfs: ["/tmp:size=128m,uid=1000,gid=0", "/opt/keycloak/data:size=64m,uid=1000,gid=0"]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, bash, -ec, "exec 3<>/dev/tcp/127.0.0.1/9000; printf 'GET /health/ready HTTP/1.0\r\nHost: localhost\r\n\r\n' >&3; cat <&3 | grep -q '\"status\": \"UP\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    logging: {driver: json-file, options: {max-size: 10m, max-file: "3"}}
+  identity-gateway:
+    image: docker.m.daocloud.io/library/nginx@sha256:959ae6b898852db82e5b29b929388e59914f42be0a8f4d44c89a4c1f53b49208
+    user: "101:101"
+    entrypoint: [nginx, -c, /etc/identity/gateway.conf, -g, "daemon off;"]
+    ports: ["172.16.58.179:18443:8443", "127.0.0.1:18444:8444"]
+    volumes: ["gateway-secrets:/etc/identity:ro"]
+    networks:
+      edge: {}
+      application: {ipv4_address: 172.31.240.2}
+    depends_on:
+      keycloak: {condition: service_healthy}
+    cpus: 0.5
+    mem_limit: 1g
+    pids_limit: 64
+    read_only: true
+    tmpfs: ["/tmp:size=64m,uid=101,gid=101", "/var/cache/nginx:size=64m,uid=101,gid=101"]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, nginx, -c, /etc/identity/gateway.conf, -t]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    logging: {driver: json-file, options: {max-size: 10m, max-file: "3"}}
+networks:
+  edge: {}
+  application:
+    internal: true
+    ipam: {config: [{subnet: 172.31.240.0/28}]}
+  database:
+    internal: true
+    ipam: {config: [{subnet: 172.31.241.0/28}]}
+volumes:
+  identity-data: {}
+  gateway-secrets: {external: true, name: media-trace-identity_gateway-secrets}
+  keycloak-secrets: {external: true, name: media-trace-identity_keycloak-secrets-v2}
+  postgres-secrets: {external: true, name: media-trace-identity_postgres-secrets-v2}

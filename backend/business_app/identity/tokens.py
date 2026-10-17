@@ -7,6 +7,7 @@ with the separately supplied authority. No token or identity cache is kept.
 import json
 import math
 import re
+import ssl
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -82,10 +83,21 @@ class IntrospectionVerifier:
         *,
         transport: httpx.BaseTransport | None = None,
         clock: Callable[[], float] = time.time,
+        ssl_context: ssl.SSLContext | None = None,
     ) -> None:
+        if ssl_context is not None and (
+            not isinstance(ssl_context, ssl.SSLContext)
+            or ssl_context.verify_mode != ssl.CERT_REQUIRED
+            or not ssl_context.check_hostname
+        ):
+            raise ValueError("IDENTITY_TLS_VERIFICATION_REQUIRED")
         self.settings, self.clock = settings, clock
         self.client = httpx.Client(
-            timeout=settings.timeout_seconds, follow_redirects=False, trust_env=False, transport=transport
+            timeout=settings.timeout_seconds,
+            follow_redirects=False,
+            trust_env=False,
+            transport=transport,
+            verify=ssl_context if ssl_context is not None else True,
         )
 
     def close(self) -> None:
