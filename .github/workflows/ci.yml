@@ -113,6 +113,8 @@ jobs:
           result=$?
           set -e
           test "$result" -eq 1
+      - name: Verify native migration read-only preparation tools
+        run: '"$PYTHON" -m pytest tests/native -q --tb=short'
       - name: Verify T011 candidate access model and review cases
         run: '"$PYTHON" scripts/validate_access_control_model.py --run-tests'
       - name: Verify isolated business migrations HTTP messaging and recovery

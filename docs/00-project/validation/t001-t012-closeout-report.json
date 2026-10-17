@@ -163,8 +163,8 @@
         "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
         "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
       },
-      "technical_status": "MAIN_RULESET_ACTIVE_REQUIRED_CHECK_NAME_MISMATCH",
-      "scope_boundary": "main规则25302203已保存并回查Active，PR/禁止删除/禁止强推已启用；必需检查误填engineer，待改为engineering；完整绕过清单及失败PR实际禁止合并仍待验证。",
+      "technical_status": "MAIN_RULESET_CONFIGURATION_PASS_FAILED_PR_ENFORCEMENT_PENDING",
+      "scope_boundary": "main规则25302203已回查Active，目标main，PR、禁止强推/删除和GitHub Actions必需engineering均已配置；失败PR实际合并拦截及完整绕过清单尚未验证。",
       "evidence_refs": [
         "docs/00-project/validation/t001-t012-linux-baseline-report.json",
         ".github/workflows/ci.yml",
@@ -335,6 +335,18 @@
       "actual_review_decision": null
     }
   ],
-  "main_protection_configuration_valid": false,
-  "main_protection_readback_ref": "docs/00-project/validation/main-protection-readback.json"
+  "main_protection_configuration_valid": true,
+  "main_protection_readback_ref": "docs/00-project/validation/main-protection-readback.json",
+  "current_linux_report_ref": "docs/00-project/validation/t001-t012-linux-current-report.json",
+  "current_linux_tested_source_commit": "341ad5b9aaa2a1edb381bbacf77526af5ce0fe5c",
+  "current_linux_python_tests": 502,
+  "current_hosted_ci": {
+    "run_id": 39032906660,
+    "source_commit": "341ad5b9aaa2a1edb381bbacf77526af5ce0fe5c",
+    "status": "FAIL",
+    "failed_step": "Validate phase materials and navigation",
+    "reason": "current_candidate_input_set_and_exact_hashes drift",
+    "corrective_action": "review current inputs and regenerate NOT_FROZEN candidate; rerun current source CI",
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39032906660"
+  }
 }

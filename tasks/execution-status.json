@@ -32,9 +32,9 @@
       "ruleset_id": 25302203,
       "main_protected": true,
       "enforcement": "active",
-      "required_check_name_matches": false,
+      "required_check_name_matches": true,
       "failed_pr_merge_block_test": "NOT_EXECUTED",
-      "observed_at": "2026-10-17 12:29:19 UTC"
+      "observed_at": "2026-10-17 12:35:59 UTC"
     }
   },
   "tasks": [
@@ -514,8 +514,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "邓昀",
       "full_task_verified": false,
-      "summary_completed": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准；main规则已启用但检查名待修正",
-      "summary_remaining": "main规则25302203已保存并回查Active，PR/禁止删除/禁止强推已启用；必需检查误填engineer，待改为engineering；完整绕过清单及失败PR实际禁止合并仍待验证。；CI增加本批功能分支push触发以取得当前源码结果；保留只读workflow和隔离测试凭据。真实维护人徐昌胜已确认；Runner/Secret平台审计和实际失败合并拦截仍需留证。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_completed": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准；main保护规则与engineering检查名均已回查配置正确",
+      "summary_remaining": "main规则25302203已回查Active，目标main，PR、禁止强推/删除和GitHub Actions必需engineering均已配置；失败PR实际合并拦截及完整绕过清单尚未验证。；CI增加本批功能分支push触发以取得当前源码结果；保留只读workflow和隔离测试凭据。真实维护人徐昌胜已确认；Runner/Secret平台审计和实际失败合并拦截仍需留证。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "既有25道历史门禁证据保留；托管工程门禁、独立资源核验、测试/类型结果和故障探针均有实测，最新源码、数量及CI编号以github-actions-report.json为准；不代表平台已阻止失败合并",
@@ -536,12 +536,12 @@
           ]
         },
         {
-          "description": "回查main保护规则25302203已启用，目标main且PR/禁止删除/禁止强推已配置；检查名存在差异，未登记为全部门禁通过",
+          "description": "main规则25302203已回查Active，目标main，PR/禁止删除/禁止强推/必需engineering均已配置；未冒称失败PR验证通过",
           "kind": "DEVELOPMENT",
           "evidence": [
             {
               "path": "docs/00-project/validation/main-protection-readback.json",
-              "scope": "配置回查，检查名不匹配及失败PR验证未完成，不证明T006整任务验收"
+              "scope": "实际规则配置回查通过；完整绕过清单及失败PR验证未完成，不证明T006整任务验收"
             }
           ]
         }
@@ -549,7 +549,7 @@
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "main规则25302203已保存并回查Active，PR/禁止删除/禁止强推已启用；必需检查误填engineer，待改为engineering；完整绕过清单及失败PR实际禁止合并仍待验证。"
+          "description": "main规则25302203已回查Active，目标main，PR、禁止强推/删除和GitHub Actions必需engineering均已配置；失败PR实际合并拦截及完整绕过清单尚未验证。"
         },
         {
           "category": "实施/验证",

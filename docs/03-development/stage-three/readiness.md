@@ -118,7 +118,7 @@
 
 | 原验收要求 | 当前状态 | 判定范围与限制 |
 | --- | --- | --- |
-| 主分支合并严格受控 | PENDING_EXTERNAL | 实际main保护快照为false；候选CODEOWNERS与治理说明未强制主分支合并。 |
+| 主分支合并严格受控 | PENDING_EXTERNAL | main规则25302203已回查Active，目标main，PR、禁止强推/删除和GitHub Actions必需engineering均已配置；失败PR实际合并拦截及完整绕过清单尚未验证。 |
 | Secret与Runner权限单列 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
 | 有权限回收机制 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
 
@@ -351,7 +351,7 @@
 | --- | --- | --- |
 | Runner按用途隔离 | PENDING_EXTERNAL | CPU临时Runner已用；正式Docker/GPU用途、管理员和权限隔离配置尚未落实。 |
 | Secret无真实值 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
-| 主分支保护明确 | DOCUMENTED | 保护操作手册已写，实际main尚未保护；方案文字不能替代生效配置及正反验证。 |
+| 主分支保护明确 | DOCUMENTED | main规则25302203已回查Active，目标main，PR、禁止强推/删除和GitHub Actions必需engineering均已配置；失败PR实际合并拦截及完整绕过清单尚未验证。 |
 | 有验证方法 | DOCUMENTED | 只记录现有候选文档或已选研发范围，实际人员、制度生效与正式审核分别待落实。 |
 
 本步证据/候选产物：[ci-administrator-guide.md](<../ci-administrator-guide.md>)、[stage-three-platform-observation.json](<../../00-project/validation/stage-three-platform-observation.json>)、[stage-three-foundation-audit-report.json](<../../00-project/validation/stage-three-foundation-audit-report.json>)。证据来源按机器清单逐条保留，候选文档本身不能证明配置生效。

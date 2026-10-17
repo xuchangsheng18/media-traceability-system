@@ -1,10 +1,10 @@
 # main分支保护：已获授权的设置与复验
 
-日期：2026-10-17。执行人：徐昌胜（GitHub `xuchangsheng18`）。用户已在页面保存规则；只读回查确认规则25302203为Active，目标为main，PR、禁止删除和强推规则已启用。必需检查误填为`engineer`，实际工作流作业名为`engineering`，已请求修正。当前连接器没有管理写入工具，不能代为改名。源码中的工作流不能代替平台合并拦截。
+日期：2026-10-17。执行人：徐昌胜（GitHub `xuchangsheng18`）。用户已在页面保存规则；只读回查确认规则25302203为Active，目标为main，PR、禁止删除和强推规则已启用。必需检查已由用户修正为`engineering`并回查确认，来源为GitHub Actions。当前连接器没有管理写入工具，不能代为改名。源码中的工作流不能代替平台合并拦截。
 
 ## 最新回查
 
-[实际规则回查记录](../00-project/validation/main-protection-readback.json)。规则已存在不等于T006已关闭：检查名仍待修正，失败PR实际拦截尚未验证。响应未给出完整bypass_actors，不能仅凭当前连接器不可绕过推断所有账号均不可绕过。旧branch protection摘要中的检查列表为空不能用于否认新ruleset；本次以具体ruleset详情为准。
+[实际规则回查记录](../00-project/validation/main-protection-readback.json)。规则已存在不等于T006已关闭：检查名已修正；失败PR实际拦截尚未验证。响应未给出完整bypass_actors，不能仅凭当前连接器不可绕过推断所有账号均不可绕过。旧branch protection摘要中的检查列表为空不能用于否认新ruleset；本次以具体ruleset详情为准。
 
 ## 保存规则
 

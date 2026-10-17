@@ -376,7 +376,7 @@
 
 阶段边界：第二阶段定义开发门禁和治理边界；组织发布/生产制品控制在实际交付前。
 
-文档/证据：[repository-governance-snapshot.json](<validation/repository-governance-snapshot.json>)、[ci-cd.md](<../03-development/ci-cd.md>)、[ci.yml](<../../.github/workflows/ci.yml>)、[validate_stage_two_completion.py](<../../scripts/validate_stage_two_completion.py>)、[stage-two-operations-and-offline-delivery.md](<../10-deployment/stage-two-operations-and-offline-delivery.md>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)。
+文档/证据：[repository-governance-snapshot.json](<validation/repository-governance-snapshot.json>)、[ci-cd.md](<../03-development/ci-cd.md>)、[ci.yml](<../../.github/workflows/ci.yml>)、[validate_stage_two_completion.py](<../../scripts/validate_stage_two_completion.py>)、[stage-two-operations-and-offline-delivery.md](<../10-deployment/stage-two-operations-and-offline-delivery.md>)、[stage-two-completion-matrix.json](<../03-development/stage-two-completion-matrix.json>)、[main-protection-readback.json](<validation/main-protection-readback.json>)。
 
 ## 13项接口缺口的入口
 

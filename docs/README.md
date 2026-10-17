@@ -537,7 +537,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共682份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共686份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -699,6 +699,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/media-query-report.json](<00-project/validation/media-query-report.json>) | 6项合成媒体和微型SQL/向量/鉴权检查；不代表中文或大规模业务。 |
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
+| [00-project/validation/native-artifact-acquisition-report.json](<00-project/validation/native-artifact-acquisition-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/npm-sbom.cdx.json](<00-project/validation/npm-sbom.cdx.json>) | 锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。 |
 | [00-project/validation/open-source-publication-report.json](<00-project/validation/open-source-publication-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |
@@ -746,6 +747,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t001-t011-foundation-review-report.json](<00-project/validation/t001-t011-foundation-review-report.json>) | T001—T011当前同源快照、完成/剩余全文、证据摘要及CI来源；保留早期复核和源验收要求，不把资料复核冒充新功能测试。 |
 | [00-project/validation/t001-t012-closeout-report.json](<00-project/validation/t001-t012-closeout-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t001-t012-linux-baseline-report.json](<00-project/validation/t001-t012-linux-baseline-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t001-t012-linux-current-report.json](<00-project/validation/t001-t012-linux-current-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t011-access-model-report.json](<00-project/validation/t011-access-model-report.json>) | 实际py310专属设计校验与合成评审测试、源码摘要及范围；不证明正式身份或运行时授权。 |
 | [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
@@ -1036,6 +1038,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/main-protection-handoff.md](<03-development/main-protection-handoff.md>) | 说明文档：main分支保护：已获授权的设置与复验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/migrations-and-events.md](<03-development/migrations-and-events.md>) | 专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。 |
 | [03-development/native-linux-admin-checklist.md](<03-development/native-linux-admin-checklist.md>) | 说明文档：原生研发环境：徐昌胜的管理员执行清单；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-linux-execution-status.json](<03-development/native-linux-execution-status.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
+| [03-development/native-linux-implementation-plan.md](<03-development/native-linux-implementation-plan.md>) | 说明文档：Linux全原生研发迁移 Implementation Plan；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-linux-migration-design.md](<03-development/native-linux-migration-design.md>) | 说明文档：Linux全原生研发环境：设计、数据迁移与恢复方案；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
