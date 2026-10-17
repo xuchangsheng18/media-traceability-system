@@ -1,5 +1,6 @@
 """Scoped failure injection against this development stack only, then restore services."""
 import base64
+import hashlib
 import io
 import json
 import time
@@ -8,8 +9,10 @@ import uuid
 import boto3
 import httpx
 import psycopg
+from botocore.config import Config
 from PIL import Image
 from poc_control import ROOT, RUNTIME, compose
+from storage_readiness import read_version_after_restart
 
 
 def main():
@@ -52,7 +55,8 @@ def main():
             check("task_and_result_survive_restart", durable["state"] == "SUCCEEDED" and durable["result"]["payload"]["dimension"] == 8)
             # Database/API readiness does not imply storage readiness after restart.
             s3 = boto3.client("s3", endpoint_url="http://127.0.0.1:14833", region_name="us-east-1",
-                              aws_access_key_id=credentials["s3_access"], aws_secret_access_key=credentials["s3_secret"])
+                              aws_access_key_id=credentials["s3_access"], aws_secret_access_key=credentials["s3_secret"],
+                              config=Config(connect_timeout=2, read_timeout=5, retries={"total_max_attempts": 1}))
             for _ in range(40):
                 try:
                     s3.list_buckets()
@@ -62,8 +66,8 @@ def main():
             else:
                 raise RuntimeError("S3_RESTART_NOT_READY")
             ref = durable["result"]["payload"]["vector_ref"]
-            stored = s3.get_object(Bucket="mt-poc-assets", Key="vectors/"+ref["object_id"], VersionId=ref["version_id"])["Body"].read()
-            check("versioned_vector_survives_storage_restart", len(stored) == 8*4)
+            stored = read_version_after_restart(s3, "mt-poc-assets", "vectors/"+ref["object_id"], ref["version_id"])
+            check("versioned_vector_survives_storage_restart", len(stored) == 8*4 and hashlib.sha256(stored).hexdigest() == ref["sha256"])
             image = io.BytesIO()
             Image.new("RGB", (32, 32), "red").save(image, "PNG")
             another = client.post(base+"/poc/assets", headers=headers, json={"filename": "synthetic-conflict.png", "image_base64": base64.b64encode(image.getvalue()).decode()}).json()
