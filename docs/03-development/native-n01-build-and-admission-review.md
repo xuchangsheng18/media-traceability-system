@@ -1,5 +1,7 @@
 # N01源码构建、运行依赖和准入复核
 
+[N01最新许可、漏洞及运行路径复核](native-n01-license-vulnerability-runtime-review.md)记录2026-10-18本轮实际结果。旧批次数值按观察时点保留；N01仍受许可、Python维护/安全和最终运行范围阻塞，未原生安装或切换。
+
 本批适用 Linux / Miniforge py310 / CPU 研发环境。源码构建和以下限定范围的依赖核验已执行，**N01整体仍未完成，不具备原生安装或切换条件**。原100包锁、现有服务及持久数据保留。
 
 [机器判定与证据摘要](../00-project/validation/native-n01-round3-admission-report.json) · [N01统一入口](native-n01-artifacts-and-dependencies.md) · [执行状态](native-linux-execution-status.json) · [候选变更范围](native-n01-security-remediation-change-request.md)

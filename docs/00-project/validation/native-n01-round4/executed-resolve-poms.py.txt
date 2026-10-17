@@ -1,0 +1,47 @@
+import concurrent.futures,hashlib,json,re,threading,urllib.request,xml.etree.ElementTree as E
+from pathlib import Path
+w=Path(__file__).parent; inventory=json.loads((w/'n01-r4-jar-metadata.json').read_text());cache=w/'n01-r4-maven-cache';cache.mkdir(exist_ok=True)
+ns={};locks={};locks_guard=threading.Lock()
+def fetch(url):
+ p=cache/hashlib.sha256(url.encode()).hexdigest()
+ with locks_guard:lock=locks.setdefault(url,threading.Lock())
+ with lock:
+  if p.exists() and p.stat().st_size:return p.read_bytes()
+  with urllib.request.urlopen(url,timeout=18) as f: raw=f.read()
+  if not raw:raise ValueError('empty HTTP response')
+  temp=p.with_suffix('.'+str(threading.get_ident())+'.tmp');temp.write_bytes(raw);temp.replace(p)
+  return raw
+def pom(g,a,v,seen=()):
+ key=(g,a,v)
+ if key in seen or len(seen)>12:return {'error':'parent_cycle_or_depth'}
+ url='https://repo.maven.apache.org/maven2/'+g.replace('.','/')+'/'+a+'/'+v+'/'+a+'-'+v+'.pom'
+ try:
+  raw=fetch(url);r=E.fromstring(raw)
+  for element in r.iter():element.tag=element.tag.split('}')[-1]
+  licenses=[{x.tag:x.text for x in n} for n in r.findall('licenses/license')]
+  result={'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'licenses':licenses,'license_source':'own_pom' if licenses else None}
+  if not licenses:
+   p=r.find('parent')
+   if p is not None:
+    parent=pom(*(p.findtext(n) for n in ['groupId','artifactId','version']),seen=seen+(key,))
+    result['parent']=parent;result['licenses']=parent.get('licenses',[]);result['license_source']='parent_pom' if result['licenses'] else None
+  return result
+ except Exception as e:return {'url':url,'error':str(e)}
+def resolve(row):
+ name=Path(row['archive']).name; coords=row['coordinates'];primary=[c for c in coords if name in (c['artifactId']+'-'+c['version']+'.jar',c['groupId']+'.'+c['artifactId']+'-'+c['version']+'.jar')]
+ row['true_text_materials']=[n for n in row['embedded_materials'] if re.match(r'^(license|notice|copying|copyright)([._-].*)?$',Path(n).name,re.I) and not n.endswith('.class')]
+ row['identity_status']='embedded_exact_filename' if len(primary)==1 else 'unresolved_or_shaded'
+ if len(primary)!=1 and not coords:
+  match=re.match(r'(.+)\.([^.]+)-(\d[^/]*)\.jar$',name)
+  if match:
+   g,a,v=match.groups();url='https://repo.maven.apache.org/maven2/'+g.replace('.','/')+'/'+a+'/'+v+'/'+a+'-'+v+'.jar'
+   try:
+    raw=fetch(url);sha=hashlib.sha256(raw).hexdigest();row['official_binary']={'url':url,'sha256':sha,'matches':sha==row['sha256']}
+    if sha==row['sha256']:primary=[dict(groupId=g,artifactId=a,version=v)];row['identity_status']='official_binary_sha256_match'
+   except Exception as e:row['official_binary']={'url':url,'error':str(e)}
+ if len(primary)==1:row['resolved_coordinate']=primary[0];row['pom_evidence']=pom(*(primary[0][k] for k in ['groupId','artifactId','version']))
+ row['has_license_declaration']=bool(row.get('pom_evidence',{}).get('licenses') or row['embedded_license_declarations'] or any(x.startswith('Bundle-License:') for x in row['manifest_fields']))
+ return row
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:rows=list(pool.map(resolve,inventory['jars']))
+out={'scope':'exact_archive_metadata_and_official_Maven_POM_inheritance_not_legal_approval','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'jars':rows,'summary':{'jars':len(rows),'without_true_text_materials':sum(not r['true_text_materials'] for r in rows),'identities_resolved':sum('resolved_coordinate' in r for r in rows),'without_license_declaration':sum(not r['has_license_declaration'] for r in rows),'official_binary_matches':sum(r.get('official_binary',{}).get('matches',False) for r in rows)},'formal_admission':False}
+(w/'n01-r4-jar-license-resolution.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps(out['summary']))

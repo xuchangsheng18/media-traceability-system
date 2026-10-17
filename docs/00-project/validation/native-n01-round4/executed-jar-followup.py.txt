@@ -1,0 +1,31 @@
+import concurrent.futures,hashlib,json
+from pathlib import Path
+w=Path(__file__).parent
+source=(w/'n01-r4-resolve-poms.py').read_text(encoding='utf8');space={'__file__':str(w/'n01-r4-resolve-poms.py')};exec(compile(source.split('with concurrent.futures.ThreadPoolExecutor')[0],str(w/'n01-r4-resolve-poms.py'),'exec'),space)
+fetch=space['fetch'];pom=space['pom'];d=json.loads((w/'n01-r4-jar-license-resolution.json').read_text());old=json.loads(json.dumps(d));(w/'n01-r4-jar-license-resolution-before-followup.json').write_text(json.dumps(old,indent=2)+'\n',encoding='utf8',newline='\n')
+known={x['sha256']:x for x in d['jars'] if x.get('resolved_coordinate')}
+def patch(row):
+ if row.get('resolved_coordinate'):return row
+ name=Path(row['archive']).name
+ if row['sha256'] in known:
+  reference=known[row['sha256']];row['resolved_coordinate']=reference['resolved_coordinate'];row['pom_evidence']=reference['pom_evidence'];row['identity_status']='byte_identical_to_resolved_JAR';row['identical_reference']=reference['archive']
+ elif len(row['coordinates'])==1:
+  row['resolved_coordinate']=row['coordinates'][0];row['identity_status']='embedded_coordinate_custom_or_classifier_filename';row['pom_evidence']=pom(*(row['coordinates'][0][k] for k in ['groupId','artifactId','version']))
+ else:
+  mapping={
+   'io.opentelemetry.instrumentation.opentelemetry-apache-httpclient-4.3-2.28.1-alpha.jar':('io.opentelemetry.instrumentation','opentelemetry-apache-httpclient-4.3','2.28.1-alpha'),
+   'io.opentelemetry.instrumentation.opentelemetry-micrometer-1.5-2.28.1-alpha.jar':('io.opentelemetry.instrumentation','opentelemetry-micrometer-1.5','2.28.1-alpha'),
+   'org.osgi.org.osgi.namespace.extender-1.0.1.jar':('org.osgi','org.osgi.namespace.extender','1.0.1'),
+   'org.osgi.org.osgi.util.function-1.0.0.jar':('org.osgi','org.osgi.util.function','1.0.0'),
+   'org.osgi.org.osgi.util.promise-1.0.0.jar':('org.osgi','org.osgi.util.promise','1.0.0')}
+  if name in mapping:
+   g,a,v=mapping[name];url='https://repo.maven.apache.org/maven2/'+g.replace('.','/')+'/'+a+'/'+v+'/'+a+'-'+v+'.jar'
+   try:
+    raw=fetch(url);sha=hashlib.sha256(raw).hexdigest();row['official_binary_followup']={'url':url,'sha256':sha,'matches':sha==row['sha256']}
+    if sha==row['sha256']:row['resolved_coordinate']=dict(groupId=g,artifactId=a,version=v);row['identity_status']='official_binary_sha256_match';row['pom_evidence']=pom(g,a,v)
+   except Exception as e:row['official_binary_followup']={'url':url,'error':str(e)}
+ row['has_license_declaration']=bool(row.get('pom_evidence',{}).get('licenses') or row['embedded_license_declarations'] or any(x.startswith('Bundle-License:') for x in row['manifest_fields']))
+ return row
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:d['jars']=list(pool.map(patch,d['jars']))
+d['summary'].update(identities_resolved=sum('resolved_coordinate' in x for x in d['jars']),without_license_declaration=sum(not x['has_license_declaration'] for x in d['jars']),official_binary_matches=sum(x.get('official_binary',{}).get('matches',False) or x.get('official_binary_followup',{}).get('matches',False) for x in d['jars']))
+d['followup_script_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest();(w/'n01-r4-jar-license-resolution.json').write_text(json.dumps(d,indent=2)+'\n',encoding='utf8',newline='\n');print(d['summary'])

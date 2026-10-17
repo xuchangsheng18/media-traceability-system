@@ -1,0 +1,20 @@
+import datetime,hashlib,json,os,subprocess,sys
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-n01-r4';env=Path('/opt/conda/glwy/envs/py310')
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+code='import numpy as np,torch,json; a=np.array([1,2]);assert (a+1).tolist()==[2,3];assert torch.equal(torch.tensor([1,2])+1,torch.tensor([2,3]));print(json.dumps(dict(numpy=np.__version__,torch=torch.__version__,cuda_available=torch.cuda.is_available(),cuda_tested=False)))'
+r=subprocess.run([sys.executable,'-c',code],capture_output=True,text=True,timeout=45)
+d=json.loads((out/'elf-expanded-runtime-report.json').read_text());previous=json.loads((base/'native-python-closure-20261017/elf-runtime-resolution-report.json').read_text());new={k:v for k,v in d['libraries'].items() if k not in previous['libraries']};metas=[json.loads(p.read_text()) for p in (env/'conda-meta').glob('*.json')];rows=[]
+for name,lib in new.items():
+ p=Path(name);row={'path':name,'sha256':lib['sha256'],'dpkg_owner':lib['dpkg_owner']}
+ if str(p).startswith(str(env)+'/'):
+  rel=p.relative_to(env).as_posix();matches=[]
+  for meta in metas:
+   for entry in meta.get('paths_data',{}).get('paths',[]):
+    if entry['_path']==rel:
+     matches.append({'name':meta['name'],'version':meta['version'],'build':meta['build'],'archive_sha256':meta.get('sha256'),'installed_metadata_sha256':entry.get('sha256'),'prefix_placeholder':entry.get('prefix_placeholder'),'raw_payload_sha_matches':entry.get('sha256')==row['sha256']})
+  row['conda_origin']=matches
+ rows.append(row)
+vpath=Path(__import__('sysconfig').get_config_var('VPATH'));result={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'followup_bounded_CPU_and_new_library_origin_metadata_not_recovery_or_software_admission','executed_script_sha256':sha(Path(__file__)),'cpu_probe':{'command':[sys.executable,'-c',code],'exit_code':r.returncode,'stdout':r.stdout,'stderr':r.stderr},'faiss':{'installed':__import__('importlib.util',fromlist=['*']).find_spec('faiss') is not None,'required_by_original_100_lock':False,'status':'NOT_INSTALLED_NOT_ADMITTED','note':'no installation or baseline change; FAISS future business use requires separate dependency design'},'new_libraries':rows,'VPATH_probe':{'configured_path':str(vpath),'exists':vpath.exists(),'landmark_exists':(vpath/'Modules/setup.local').exists(),'sys_path':sys.path,'security_model':'absence today is not a persistent filesystem permission or source patch proof'},'status':'PASS' if r.returncode==0 and all(x.get('conda_origin') or x['dpkg_owner'] for x in rows) else 'FAIL','formal_admission':False}
+(out/'runtime-followup-report.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'status':result['status'],'CPU_exit':r.returncode,'new_libraries':len(rows),'Conda':sum(bool(x.get('conda_origin')) for x in rows)}))

@@ -1,5 +1,7 @@
 # N01原生制品及依赖核验
 
+[N01最新许可、漏洞及运行路径复核](native-n01-license-vulnerability-runtime-review.md)记录2026-10-18本轮实际结果。旧批次数值按观察时点保留；N01仍受许可、Python维护/安全和最终运行范围阻塞，未原生安装或切换。
+
 2026-10-17，适用Linux / Miniforge py310 / CPU研发。**主要制品字节核验通过，N01整体仍在进行；不允许据此安装或切换服务。**
 
 [执行台账](native-linux-execution-status.json) · [制品锁](../../config/native/artifacts.lock.json) · [构建依赖候选锁](../../config/native/os-build-dependencies.lock.json) · [T004任务卡](../../tasks/platform/T004.md)

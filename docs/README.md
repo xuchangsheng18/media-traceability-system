@@ -1,5 +1,7 @@
 # 项目文档导航
 
+[N01最新许可、漏洞与运行路径](03-development/native-n01-license-vulnerability-runtime-review.md) · [受支持Python候选申请](03-development/native-n01-python-supported-candidate-request.md)
+
 [T001—T012逐项收口](03-development/t001-t012-closeout.md) · [Linux全原生迁移设计](03-development/native-linux-migration-design.md) · [管理员清单](03-development/native-linux-admin-checklist.md) · [main保护操作](03-development/main-protection-handoff.md)。当前为已选定方向、待审阅书面设计；没有把原生迁移写成已完成。
 
 开源入口：[公开范围与Apache-2.0许可](00-project/open-source-publication.md)、[实际公开验证记录](00-project/validation/open-source-publication-report.json)。既有原件和历史记录保留，仓库公开与业务验收分别记录。
@@ -537,7 +539,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共770份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共795份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -777,6 +779,29 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round3/vulnerability-db.lock.json](<00-project/validation/native-n01-round3/vulnerability-db.lock.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/wheel-and-jar-license-materials-report.json](<00-project/validation/native-n01-round3/wheel-and-jar-license-materials-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3-admission-report.json](<00-project/validation/native-n01-round3-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/conda-expanded-payload-report.json](<00-project/validation/native-n01-round4/conda-expanded-payload-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/elf-expanded-runtime-report.json](<00-project/validation/native-n01-round4/elf-expanded-runtime-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-conda-payloads.py.txt](<00-project/validation/native-n01-round4/executed-conda-payloads.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-cve-review.py.txt](<00-project/validation/native-n01-round4/executed-cve-review.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-elf-expanded.py.txt](<00-project/validation/native-n01-round4/executed-elf-expanded.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-followup.py.txt](<00-project/validation/native-n01-round4/executed-followup.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-jar-followup.py.txt](<00-project/validation/native-n01-round4/executed-jar-followup.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-jar-metadata.py.txt](<00-project/validation/native-n01-round4/executed-jar-metadata.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-os-payload.py.txt](<00-project/validation/native-n01-round4/executed-os-payload.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-resolve-poms.py.txt](<00-project/validation/native-n01-round4/executed-resolve-poms.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/executed-runtime-probes.py.txt](<00-project/validation/native-n01-round4/executed-runtime-probes.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/h2-archive-difference-report.json](<00-project/validation/native-n01-round4/h2-archive-difference-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/jar-license-resolution-before-identity-followup.json](<00-project/validation/native-n01-round4/jar-license-resolution-before-identity-followup.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/jar-license-resolution-initial-observation.json](<00-project/validation/native-n01-round4/jar-license-resolution-initial-observation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/jar-license-resolution.json](<00-project/validation/native-n01-round4/jar-license-resolution.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/jar-metadata.json](<00-project/validation/native-n01-round4/jar-metadata.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/libutil-os-payload-report.json](<00-project/validation/native-n01-round4/libutil-os-payload-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/license-obligations-review.json](<00-project/validation/native-n01-round4/license-obligations-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/maven-pom-source-materials.json](<00-project/validation/native-n01-round4/maven-pom-source-materials.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/python-pg-applicability-review.json](<00-project/validation/native-n01-round4/python-pg-applicability-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/runtime-and-cve-facts.json](<00-project/validation/native-n01-round4/runtime-and-cve-facts.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4/runtime-followup-report.json](<00-project/validation/native-n01-round4/runtime-followup-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round4-admission-report.json](<00-project/validation/native-n01-round4-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-runtime-report.json](<00-project/validation/native-n01-runtime-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-nginx-signature-report.json](<00-project/validation/native-nginx-signature-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-primary-artifact-verification-report.json](<00-project/validation/native-primary-artifact-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1124,6 +1149,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-linux-migration-design.md](<03-development/native-linux-migration-design.md>) | 说明文档：Linux全原生研发环境：设计、数据迁移与恢复方案；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-artifacts-and-dependencies.md](<03-development/native-n01-artifacts-and-dependencies.md>) | 说明文档：N01原生制品及依赖核验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-build-and-admission-review.md](<03-development/native-n01-build-and-admission-review.md>) | 说明文档：N01源码构建、运行依赖和准入复核；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-license-vulnerability-runtime-review.md](<03-development/native-n01-license-vulnerability-runtime-review.md>) | 说明文档：N01捆绑许可、漏洞适用性与可选路径复核；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-python-supported-candidate-request.md](<03-development/native-n01-python-supported-candidate-request.md>) | 说明文档：N01受支持Python独立候选验证申请；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-security-remediation-change-request.md](<03-development/native-n01-security-remediation-change-request.md>) | 说明文档：N01安全修补候选变更请求；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |

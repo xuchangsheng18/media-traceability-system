@@ -1,0 +1,22 @@
+import hashlib,json,os,zipfile,xml.etree.ElementTree as E
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-sbom-audit-20261017/keycloak';out=base/'native-n01-r4';out.mkdir(mode=0o700,exist_ok=True)
+rows=[]
+for p in sorted(root.rglob('*.jar')):
+ with zipfile.ZipFile(p) as z:
+  names=z.namelist();coordinates=[];licenses=[];manifests=[]
+  for n in names:
+   if n.endswith('pom.properties'):
+    fields=dict(line.split('=',1) for line in z.read(n).decode(errors='replace').splitlines() if '=' in line and not line.startswith('#'))
+    if all(k in fields for k in ['groupId','artifactId','version']):coordinates.append({k:fields[k] for k in ['groupId','artifactId','version']})
+   if n.endswith('pom.xml'):
+    try:
+     r=E.fromstring(z.read(n));ns={'m':'http://maven.apache.org/POM/4.0.0'}
+     for license in r.findall('m:licenses/m:license',ns):licenses.append({x.tag.split('}')[-1]:x.text for x in license})
+    except E.ParseError:pass
+   if n.upper().endswith('META-INF/MANIFEST.MF'):
+    manifests=[line for line in z.read(n).decode(errors='replace').splitlines() if line.startswith(('Bundle-License:','Implementation-Version:','Bundle-SymbolicName:'))]
+  material=[n for n in names if not n.endswith('/') and any(t in Path(n).name.lower() for t in ['license','notice','copying','copyright'])]
+ rows.append({'archive':p.relative_to(root).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'coordinates':coordinates,'embedded_license_declarations':licenses,'manifest_fields':manifests,'embedded_materials':material})
+d={'scope':'exact_JAR_embedded_metadata_inventory_no_license_approval','jars':rows,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'jar-metadata.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'jars':len(rows),'without_materials':sum(not r['embedded_materials'] for r in rows),'without_coordinates':sum(not r['coordinates'] for r in rows)}))
