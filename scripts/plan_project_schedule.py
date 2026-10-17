@@ -60,7 +60,12 @@ def build_plan(tasks, inputs):
     if not resources:
         missing.append("actual_personnel_and_effective_weekly_hours")
     for resource in resources.values():
-        assert resource["name"] and 0 < resource["effective_hours_per_workday"] <= 24
+        assert isinstance(resource["name"], str) and resource["name"].strip()
+        hours = resource["effective_hours_per_workday"]
+        if hours is None:
+            missing.append(resource["resource_id"] + ":effective_hours_per_workday")
+        else:
+            assert type(hours) in (int, float) and math.isfinite(hours) and 0 < hours <= 24
     records, timing = [], {}
     workload = {}
     for task_id in order:
@@ -99,7 +104,9 @@ def build_plan(tasks, inputs):
                         "dependency_only_finish_high_day_offset": early_high + high,
                         "observed_verification_status": execution["verification_status"],
                         "partial_scope_evidence": execution["partial_scope_evidence"],
-                        "actual_assignee_resource_id": execution["resource_id"], "remaining_effort_hours": execution["remaining_effort_hours"],
+                        "actual_assignee_resource_id": execution["resource_id"],
+                        "actual_assignee_name": resources[execution["resource_id"]]["name"] if execution["resource_id"] else None,
+                        "remaining_effort_hours": execution["remaining_effort_hours"],
                         "actual_start": execution["actual_start"], "actual_end": execution["actual_end"],
                         "capacity_plan_start_date": None, "capacity_plan_finish_date": None,
                         "external_release_date": execution["external_release_date"],
@@ -174,7 +181,7 @@ def outputs():
     text += "## 更新与重排\n\n1. 将实际人员资源ID、姓名、每工作日有效工时及日历填入输入。\n2. 每任务登记实际开始/结束、子范围证据和剩余工时；完整任务关闭有验收证据、复核人与时间，不能凭部分PoC归零。\n3. 对依赖授权数据/GPU等输入登记到位日；未到位阻断相应真实验证。\n4. 运行`python scripts/plan_project_schedule.py`重建JSON/CSV/阅读页，保留输入及源码摘要；`--check`检查漂移。\n5. 人员/资源不足时更新投入或里程碑；12模块、170任务及≥3场景范围保持，20/100性质不因排期自动降级。\n"
     stream = io.StringIO(newline="")
     fields = ["task_id", "name", "batch", "source_role", "source_effort", "observed_verification_status",
-              "actual_assignee_resource_id", "remaining_effort_hours", "capacity_plan_start_date", "capacity_plan_finish_date",
+              "actual_assignee_resource_id", "actual_assignee_name", "remaining_effort_hours", "capacity_plan_start_date", "capacity_plan_finish_date",
               "dependency_only_start_low_day_offset", "dependency_only_finish_low_day_offset", "dependency_only_start_high_day_offset", "dependency_only_finish_high_day_offset"]
     writer = csv.DictWriter(stream, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
     writer.writeheader()

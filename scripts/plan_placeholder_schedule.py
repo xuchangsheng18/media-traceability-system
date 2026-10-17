@@ -25,7 +25,8 @@ def outputs():
     resources = {r["resource_id"]: r for r in inputs["planning_inputs"]["resources"]}
     for row in plan["records"]:
         row["scenario_resource_id"] = row.pop("actual_assignee_resource_id")
-        row["scenario_resource_name"] = resources[row["scenario_resource_id"]]["name"]
+        row["scenario_resource_name"] = row.pop("actual_assignee_name")
+        assert row["scenario_resource_name"] == resources[row["scenario_resource_id"]]["name"]
         row["scenario_start_date"] = row.pop("capacity_plan_start_date")
         row["scenario_finish_date"] = row.pop("capacity_plan_finish_date")
         row["assumed_remaining_effort_hours"] = row.pop("remaining_effort_hours")
@@ -38,7 +39,7 @@ def outputs():
     plan["scenario_milestones"] = milestones
     plan["source_target_month_for_comparison_only"] = "2027-06"
     plan["exceeds_source_target_month_under_assumptions"] = capacity["finish_date"] > "2027-06-30"
-    text = "# 占位人员与假设排期\n\n用户明确要求先填写占位人员、后续替换实际信息。本方案中的姓名/投入/起点/资源日期均为**规划假设**；实际[人员容量输入](execution-planning-inputs.json)仍未确认。本方案不产生实际任务完成、真实到岗或正式交付承诺。\n\n"
+    text = "# 占位人员与假设排期\n\n用户明确要求先填写占位人员、后续替换实际信息。本方案中的姓名/投入/起点/资源日期均为**规划假设**；实际[人员容量输入](execution-planning-inputs.json)按已确认姓名与仍未知容量分别登记。本方案不产生实际任务完成、真实到岗或正式交付承诺。\n\n"
     text += f"假设起点：{inputs['planning_inputs']['actual_plan_start_date']}；计算末日：{capacity['finish_date']}。按源建议工时上限×8小时作为保守假设剩余工时，未因{plan['totals']['partial_scope_tasks']}条部分开发/原型证据自行扣减工时。工作日仅周一至周五，不宣称已包含法定节假日/请假；单主责任人资源串行，占位联合参与仍需补实际分工。\n\n"
     if plan["exceeds_source_target_month_under_assumptions"]:
         text += "**工期差异：**此占位方案超过源资料2027年6月建设末月，不能据此承诺按原周期交付。实际人员确认后应增加算法/后端投入、调整并行分工及里程碑；保留12模块/170任务，不能用删功能或改工时凑日期。GPU只模拟到位前置，未核实设备配额与占用时段，实际还需资源约束。\n\n"

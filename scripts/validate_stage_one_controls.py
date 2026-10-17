@@ -215,7 +215,18 @@ def main():
         actual = read("docs/00-project/execution-planning-inputs.json")
         assert len(scenario["records"]) == 170 and scenario["actual_people_confirmed"] is False
         assert scenario["all_calendar_dates_assumed"] and scenario["scenario_capacity_plan"]["calendar_commitment_asserted"] is False
-        assert actual["resources"] == [] and actual["actual_plan_start_date"] is None
+        assert actual["actual_plan_start_date"] is None
+        people = {person["resource_id"]: person for person in actual["resources"]}
+        assert all(person.get("assignment_confirmed_by_user") is True
+                   and person["name"] and not person["name"].startswith("占位")
+                   and (ROOT / person["assignment_basis_ref"]).is_file()
+                   for person in people.values())
+        ledger = {row["task_id"]: row for row in read("tasks/execution-status.json")["tasks"]}
+        for row in actual["task_execution_inputs"]:
+            if row["resource_id"] is not None:
+                person = people[row["resource_id"]]
+                assert row["task_id"] in person["assigned_task_ids"]
+                assert ledger[row["task_id"]]["actual_owner"] == person["name"]
         assert all(r["scenario_resource_name"].startswith("占位") and r["actual_start"] is None for r in scenario["records"])
         audit = read("docs/01-requirements/business-parameter-source-audit.json")
         assert len(audit["parameter_reviews"]) == 14 and audit["formal_parameters_approved"] is False
@@ -223,7 +234,7 @@ def main():
             lines = (ROOT / row["source"]).read_text(encoding="utf-8").splitlines()
             assert row["exact_source_lines"]
             assert all(lines[p["line"] - 1] == p["text"] for p in row["exact_source_lines"])
-        return {"scenario_tasks": 170, "placeholder_resources": 10, "actual_people_or_dates_written": False,
+        return {"scenario_tasks": 170, "placeholder_resources": 10, "placeholder_people_or_dates_written_as_actual": False, "confirmed_actual_people": len(people),
                 "source_parameter_line_reviews": 14, "source_target_month_conflict_visible": scenario["exceeds_source_target_month_under_assumptions"]}
 
     check("user_requested_placeholder_scenario_and_14_actual_source_reviews", placeholder)

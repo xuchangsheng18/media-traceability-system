@@ -31,8 +31,10 @@ RabbitMQ 显式限制 Erlang 调度器；Nginx 按容器配额调整 worker 数�
 | DevOps | 配额、备份、制品、CI Runner | 待指定 |
 | 安全/业务代表 | 软件准入、身份、案件权限、审计和正式验收 | 待指定 |
 
+2026-10-17用户已指定邓昀为T001—T011任务实际负责人，见[责任登记](../03-development/repository-access-control.md)；这不等于任命上表所有专业岗位，GitHub账号、岗位授权和有效工时仍待确认。
+
 本会话完成自动化实现与研发验证，不虚构岗位人员、正式批准人或设备采购结论。样例配置见 [hardware-inventory.example.yaml](../../config/hardware-inventory.example.yaml)。
 
 ## 2026-10-13只读容量补查
 
-此前表为2026-10-12环境时点。当前研发PostgreSQL卷所在文件系统的容量、观测时间和服务健康情况直接读取[resource-readiness-snapshot.json](../00-project/validation/resource-readiness-snapshot.json)，容量分级读取[stage-two-resource-report.json](../00-project/validation/stage-two-resource-report.json)；当前为CRITICAL/NOT_READY。不能用宿主机空闲量代替，也不表示已分配项目独占配额。CPU/内存与旧VM观察按各自时点阅读。快照采集不重启、扩容、清理其他项目或读写业务行。nvidia-smi工具不可用不证明物理GPU不存在或GPU兼容已验证。批量素材/模型/索引引入前落实真实存储位置、余量/告警、GPU与责任人。
+此前表为2026-10-12环境时点。当前研发PostgreSQL卷所在文件系统的容量、观测时间和服务健康情况直接读取[resource-readiness-snapshot.json](../00-project/validation/resource-readiness-snapshot.json)，容量分级读取[stage-two-resource-report.json](../00-project/validation/stage-two-resource-report.json)；该处CRITICAL/NOT_READY为2026-10-13历史观察。最新容量以同步回执和上述时点快照为准，不沿用历史满盘结论。不能用宿主机空闲量代替，也不表示已分配项目独占配额。CPU/内存与旧VM观察按各自时点阅读。快照采集不重启、扩容、清理其他项目或读写业务行。nvidia-smi工具不可用不证明物理GPU不存在或GPU兼容已验证。批量素材/模型/索引引入前落实真实存储位置、余量/告警、GPU与责任人。
