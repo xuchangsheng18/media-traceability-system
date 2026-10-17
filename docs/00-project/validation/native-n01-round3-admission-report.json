@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-17T16:53:27.096780+00:00",
+  "observed_at": "2026-10-17T16:54:05.870507+00:00",
   "scope": "Linux_py310_CPU_N01_artifact_build_dependency_and_admission_evidence_not_native_service_acceptance",
   "status": "BLOCKED_ADMISSION_INCOMPLETE_CLOSURE",
   "installation_ready": false,
@@ -331,7 +331,50 @@
   "age_candidate_build_test_status": "PASS_BUILD_TEST_ONLY_NOT_ADMITTED",
   "age_candidate_roundtrip_status": "PASS",
   "age_candidate_raw_matches": 2,
-  "seaweed_candidate_build_status": "FAIL",
+  "seaweed_candidate_historical_aggregate_status": "FAIL",
+  "seaweed_candidate_build_status": "PASS_RESUMED_BUILD_ONLY_HISTORY_FAILURES_RETAINED",
+  "seaweed_candidate_current_build_checks": [
+    {
+      "name": "seaweedfs-build-resume",
+      "command": [
+        "go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+        "./weed"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "3aa5f7a3b205439f785d71ae50c5399499a2f7aa59ee61b622da252e1b126205",
+      "observed_at": "2026-10-17T16:42:21.349564+00:00"
+    },
+    {
+      "name": "seaweedfs-version-resume",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+        "version"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "833670553eb417b99f2a2d2bb80ee065f4fc46f3c2bdf7f022157075600f3601",
+      "observed_at": "2026-10-17T16:42:21.565969+00:00"
+    },
+    {
+      "name": "seaweedfs-build-info-resume",
+      "command": [
+        "go",
+        "version",
+        "-m",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "a0a79c58e9b0a53fd1b301313b9c0f5821e3aaec52207a9bbcfaf66d0ecd0ce2",
+      "observed_at": "2026-10-17T16:42:21.632068+00:00"
+    }
+  ],
+  "seaweed_candidate_history_note": "Raw aggregate retains first build timeout (124); latest three resumed build/version/build-info results are assessed separately, not rewritten.",
   "seaweed_candidate_S3_status": "PASS",
   "seaweed_candidate_raw_matches": 1,
   "go_bundled_license_materials_status": "PASS_MATERIAL_INVENTORY_ONLY",
