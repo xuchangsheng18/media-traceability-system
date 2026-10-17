@@ -45,3 +45,5 @@ Ubuntu验签可对私有目录内三套`repository/dists/<suite>/InRelease`分�
 N02—N08仍按原实施计划逐项执行，未因这批证据自动关闭。T001—T012继续保持按源标准逐项核验与实际复核要求，不能由T004两项新增开发子步骤推导整任务完成。
 
 本轮校验工具源码`259707e23df5345a6e61a361d184e88584847c31`已在Linux py310执行45项原生专项测试，失败/错误/跳过均为0，lint/类型/格式检查通过，见[专项报告](../00-project/validation/native-n01-round2-runtime-report.json)。主要制品报告绑定实际校验器源码和输入锁SHA-256；独立审计报告明确区分当时仓库上下文与临时审计脚本的SHA-256，不借用旧32项或539项回归证明新增代码。
+
+[许可材料盘点](../00-project/validation/native-license-materials-round2-report.json)已从主要归档记录257份许可/声明材料；40个构建包中15个记录到常规copyright文件，其余不能据此判无许可，还须追踪共享版权文件、Conda格式及嵌套JAR/Go依赖。该结果仅为材料清单，不是语义审查或准入通过。补充资料已在Linux执行[输入与导航检查](../00-project/validation/native-n01-round2-documentation-report.json)，11项/335夹具、第一阶段12项及10,245处链接通过。

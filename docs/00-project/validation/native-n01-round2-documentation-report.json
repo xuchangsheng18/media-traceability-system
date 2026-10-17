@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-10-17T14:57:24.409087+00:00",
+  "source_commit": "e67272e5518f973b5c4d1f2d101e55c17fa7f8b8",
+  "scope": "Linux_py310_current_input_navigation_and_stage_one_material_validation_not_whole_task_acceptance",
+  "checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/validate_inputs.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "result": {
+        "status": "PASS",
+        "checks": 11,
+        "errors": [],
+        "fixtures": 335,
+        "freeze": "NOT_FROZEN"
+      },
+      "output_sha256": "48a9741aa653edb3aab011de1d90ddabd1f3dd44aab6d108d45bf2c44fc06d9f"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/validate_stage_one.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "result": {
+        "status": "PASS",
+        "checks": 12,
+        "errors": []
+      },
+      "output_sha256": "ccd6e9da7eb49a5c716786f09643c862eca2c6de7a705e1e17f365655e9cd070"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/validate_repository_docs.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "result": {
+        "status": "PASS",
+        "links_checked": 10245,
+        "errors": [],
+        "historical_links": 0
+      },
+      "output_sha256": "0f00efe4b701a5a86cd25292a212ca14f585eec06eb1207a2f9cfdccfac49b45"
+    }
+  ],
+  "services_changed": false
+}
