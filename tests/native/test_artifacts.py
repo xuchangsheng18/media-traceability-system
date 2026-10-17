@@ -18,11 +18,11 @@ VERSIONS = {
     "node": "22.21.1",
     "postgres": "16.15",
     "rabbitmq": "4.3.6",
-    "erlang": "27.3.4.13",
+    "erlang": "27.3.4.18",
     "seaweedfs": "4.48",
     "keycloak": "26.8.1",
     "java": "21.0.12.1",
-    "nginx": "1.29.2",
+    "nginx": "1.30.6",
     "age": "1.1.1",
 }
 SOURCES = {
@@ -77,6 +77,13 @@ def test_complete_verified_package_set_can_pass(verified_lock):
     report = validate_artifacts(lock, root)
     assert report["status"] == "PASS" and report["blockers"] == []
     assert report["installation_performed"] is False
+
+
+@pytest.mark.parametrize("component,version", [("erlang", "27.3.4.13"), ("nginx", "1.29.2")])
+def test_confirmed_exact_native_versions_cannot_be_downgraded(verified_lock, component, version):
+    lock, root = verified_lock
+    next(item for item in lock["artifacts"] if item["component"] == component)["version"] = version
+    assert validate_artifacts(lock, root)["status"] == "FAIL"
 
 
 @pytest.mark.parametrize(

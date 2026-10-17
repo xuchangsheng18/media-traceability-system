@@ -14,6 +14,8 @@ REQUIRED_VERSIONS = {
     "node": "22.21.1",
     "postgres": "16.15",
     "rabbitmq": "4.3.6",
+    "erlang": "27.3.4.18",
+    "nginx": "1.30.6",
     "seaweedfs": "4.48",
     "keycloak": "26.8.1",
 }
