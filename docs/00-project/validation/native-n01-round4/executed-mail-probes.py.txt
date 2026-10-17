@@ -1,0 +1,23 @@
+import datetime,hashlib,imaplib,inspect,json,os,poplib,sysconfig
+from pathlib import Path
+os.umask(0o077)
+out=Path('/workspace/glwy/runtime/media-traceability-system/native-n01-r4')
+class SocketFixture:
+ def __init__(self):self.writes=[]
+ def sendall(self,value):self.writes.append(value)
+rows=[]
+for name,cls,method,command in [('imaplib',imaplib.IMAP4,'_command',('LOGIN','N01\r\nNOOP','fixture')),('poplib',poplib.POP3,'_putcmd',('USER N01\r\nNOOP',))]:
+ instance=object.__new__(cls);sock=SocketFixture();instance.sock=sock
+ if name=='imaplib':
+  instance.state='NONAUTH';instance.untagged_responses={};instance.is_readonly=False;instance.literal=None;instance._encoding='ascii';instance.debug=0;instance._new_tag=lambda:b'N01';instance._log=lambda *args:None
+ else:instance._debugging=0;instance.encoding='utf-8'
+ try:getattr(instance,method)(*command);error=None
+ except Exception as e:error={'type':type(e).__name__,'message':str(e)}
+ rows.append({'module':name,'method':method,'synthetic_command':command,'exception':error,'fixture_socket_writes_hex':[x.hex() for x in sock.writes],'embedded_CRLF_sent_to_fixture':any(b'N01\r\nNOOP' in x for x in sock.writes),'source':inspect.getsource(getattr(cls,method)),'status':'OBSERVATION_ONLY_NOT_SECURITY_ADMISSION'})
+vpath=Path(sysconfig.get_config_var('VPATH'));parents=[]
+for p in [vpath,*vpath.parents]:
+ if p.exists():
+  s=p.stat();parents.append({'path':str(p),'uid':s.st_uid,'gid':s.st_gid,'mode':oct(s.st_mode & 0o7777),'writable_by_current_user':os.access(p,os.W_OK),'world_writable':bool(s.st_mode & 2)})
+result={'scope':'in_memory_socket_fixture_only_no_network_commands_or_runtime_changes','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'mail_probes':rows,'VPATH_existing_ancestors':parents,'ACLs_all_other_users_and_future_permission_changes_not_verified':True,'formal_admission':False};target=out/'mail-and-vpath-probes.json'
+if target.exists() and not (out/'mail-and-vpath-initial-observation.json').exists():(out/'mail-and-vpath-initial-observation.json').write_bytes(target.read_bytes())
+target.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'mail':[(x['module'],x['exception'],x['embedded_CRLF_sent_to_fixture']) for x in rows],'vpath_existing_ancestors':len(parents)}))

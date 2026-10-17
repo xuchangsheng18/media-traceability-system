@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-17T18:08:49.784007+00:00",
+  "observed_at": "2026-10-17T18:19:40.847233+00:00",
   "scope": "12_unique_CVE_technical_triage_against_actual_Linux_py310_and_private_PG_not_security_approval",
   "status": "BLOCKED_FORMAL_ADMISSION_AND_REMAINING_TECHNICAL_REVIEW",
   "source_commit": "be3898a0dca4ce58d10f19af3e0de4588540561f",
@@ -66,9 +66,9 @@
     },
     {
       "id": "CVE-2025-15366",
-      "technical_disposition": "APPLICATION_REACHABILITY_AND_PATCH_REVIEW_REQUIRED",
-      "basis": "权威记录针对imaplib命令换行；直接调用名称盘点未发现IMAP4/IMAP4_SSL，尚未证明所有传递包不可达或当前补丁状态。",
-      "required_action": "逐项核对Conda补丁和正式运行用途；不把未搜索到当不受影响。",
+      "technical_disposition": "OBSERVED_COMMAND_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "内存Socket夹具确认当前imaplib LOGIN参数中的CRLF进入命令字节；没有网络连接。直接调用名称盘点未发现IMAP4/IMAP4_SSL，尚未证明传递路径不可达。",
+      "required_action": "不能声称当前模块已修补；核对正式用途和传递调用，采用受维护补丁或有时限的范围限制；启用邮件功能前必须处置。",
       "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2025-15366",
       "source_sha256": "e3515e286be582e7884dcf4af4b8a433a37ab6639965cc7ea6990acd81f4c183",
       "facts_ref": "runtime-and-cve-facts.json",
@@ -81,9 +81,9 @@
     },
     {
       "id": "CVE-2025-15367",
-      "technical_disposition": "APPLICATION_REACHABILITY_AND_PATCH_REVIEW_REQUIRED",
-      "basis": "权威记录针对poplib命令换行；直接调用名称盘点未发现POP3/POP3_SSL，尚缺传递调用和精确源码补丁证据。",
-      "required_action": "同上；如启用邮件收取需拒绝控制字符并增加网络隔离夹具测试。",
+      "technical_disposition": "OBSERVED_COMMAND_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "内存Socket夹具确认当前poplib USER参数中的CRLF进入命令字节；没有网络连接。直接调用名称盘点未发现POP3/POP3_SSL，但不证明全部业务不可达。",
+      "required_action": "不能声称当前模块已修补；核对用途及传递调用，采用受维护补丁或范围限制；保留控制字符拒绝测试要求。",
       "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2025-15367",
       "source_sha256": "97cf2919773f0bce1eb6b67cdc552890bfe200f0b23e920b561a474948ab9808",
       "facts_ref": "runtime-and-cve-facts.json",
@@ -204,5 +204,5 @@
     "does_not_prove_scan_completeness": true
   },
   "formal_admission": false,
-  "executed_script_sha256": "db2ceccdb36f02d3e4f87fd9ec95ccee2ac1904aae55b45c2ee4aac6f03f029c"
+  "executed_script_sha256": "aa921800027c1b4e03b5a9e396dae1ff7df2deb02508f4307987b97f509dcce0"
 }
