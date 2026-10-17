@@ -1,8 +1,8 @@
 {
-  "status": "KEYCLOAK_DESIGN_APPROVED_IMPLEMENTATION_PLAN_AWAITING_REVIEW_NOT_DEPLOYED",
-  "documentation_revision": "t013-keycloak-eight-step-plan-20261017",
+  "status": "T013_KEYCLOAK_IMPLEMENTATION_PARTIALLY_VALIDATED_SOURCE_SYNCED_FORMAL_ACCEPTANCE_PENDING",
+  "documentation_revision": "t013-keycloak-eight-step-implementation-20261017",
   "date": "2026-10-17",
-  "tested_source_commit": "d140b322edad0c1d3322e599ea764ecdd589c73d",
+  "tested_source_commit": "c9dc4905b02863376b5b0c0698c082aed4ee81f9",
   "repository_visibility": "public",
   "license": "Apache-2.0",
   "files": [
@@ -248,8 +248,8 @@
     },
     {
       "path": "backend/business_app/db.py",
-      "size_bytes": 2107,
-      "sha256": "0564b3ae7cd1fd8b78054a3569499cb688aace5d5b37678e89ce34463e2160a8"
+      "size_bytes": 3183,
+      "sha256": "e896dcce89dcb0e530e5ba40efa9ce9c299d8b75796d43d1b68977e8791ff94f"
     },
     {
       "path": "backend/business_app/errors.py",
@@ -282,14 +282,29 @@
       "sha256": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87"
     },
     {
+      "path": "backend/business_app/identity/config.py",
+      "size_bytes": 2810,
+      "sha256": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7"
+    },
+    {
       "path": "backend/business_app/identity/directory.py",
       "size_bytes": 12527,
       "sha256": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e"
     },
     {
+      "path": "backend/business_app/identity/entrypoint.py",
+      "size_bytes": 1149,
+      "sha256": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c"
+    },
+    {
+      "path": "backend/business_app/identity/runtime.py",
+      "size_bytes": 1419,
+      "sha256": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18"
+    },
+    {
       "path": "backend/business_app/identity/tokens.py",
-      "size_bytes": 8191,
-      "sha256": "56e308644ad823f7cbb7f1284f3f724113c278c05808e6a2f4eb87c0df850319"
+      "size_bytes": 8640,
+      "sha256": "02bce577b81f677d0ad1541cf5932968a25ccb6209188008a29adfa4779c608d"
     },
     {
       "path": "backend/business_app/inference.py",
@@ -432,6 +447,16 @@
       "sha256": "eda89e49bbbf2e6f3d9d39c1fce5e6ac19c7b942cfaaa00db2c88aa7bae0df07"
     },
     {
+      "path": "config/identity/realm.template.json",
+      "size_bytes": 1797,
+      "sha256": "6ab8eac8e142e3b7466488b6ac4426410a615627aabd586181de7c5a1882fbb7"
+    },
+    {
+      "path": "config/identity/versions.json",
+      "size_bytes": 2565,
+      "sha256": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c"
+    },
+    {
       "path": "config/locks/conda-linux-64.explicit.txt",
       "size_bytes": 2804,
       "sha256": "ab6153d69296221d0846e559ba8be341b8a8cbcd0bfc4bbb916edebd3f351919"
@@ -483,8 +508,8 @@
     },
     {
       "path": "config/stage-three-profile.json",
-      "size_bytes": 2826,
-      "sha256": "6a4c1faed44857de242eb7bbb118d1a88b38d9066a2e452d2f2538dc620a59ae"
+      "size_bytes": 2898,
+      "sha256": "f68ec5cc6a4f8c9a27c2cc30243bc2a487a3a271d629ca0303678af338c20178"
     },
     {
       "path": "config/stage-two-operations.candidate.json",
@@ -610,6 +635,41 @@
       "path": "deploy/docker-compose.yml",
       "size_bytes": 4060,
       "sha256": "80eaebd95e708ffeac8ff0e42107ce3b897632b8edd38ac8019c38a42a782edf"
+    },
+    {
+      "path": "deploy/identity/Dockerfile.keycloak",
+      "size_bytes": 179,
+      "sha256": "6e831868057dd635bf482c3e8c8a3d33ef03af72dcb3143a4c6e51900e445638"
+    },
+    {
+      "path": "deploy/identity/Dockerfile.postgres",
+      "size_bytes": 324,
+      "sha256": "3d3ee94ec0a33d2909c0d88876dfa42802ce4ce9490addb4b875489681b86707"
+    },
+    {
+      "path": "deploy/identity/compose.yaml",
+      "size_bytes": 3093,
+      "sha256": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221"
+    },
+    {
+      "path": "deploy/identity/init-postgres.sh",
+      "size_bytes": 491,
+      "sha256": "770e460c188fb0487956b4f49024a7e64816951d28bf03bb5eaa85459636735d"
+    },
+    {
+      "path": "deploy/identity/nginx.conf",
+      "size_bytes": 1792,
+      "sha256": "962f96459e87c857aa7aabc865628a697e0e41802264bf4c3cdb70bfcf498d49"
+    },
+    {
+      "path": "deploy/identity/pg_hba.conf",
+      "size_bytes": 131,
+      "sha256": "121aa5e036895d3637550f31286df63beb0afd44e728247fe731a39ce178fa50"
+    },
+    {
+      "path": "deploy/identity/postgres.conf",
+      "size_bytes": 328,
+      "sha256": "9812471a2bf77baa2e4e6d9ba01d487311ed5fb70f89ae654f1cbd5be15cf622"
     },
     {
       "path": "deploy/nginx.conf",
@@ -1312,6 +1372,41 @@
       "sha256": "b7e42016f7f055d45ec444d018022796f7b9f9c8033ed629e2ccb51011893ec6"
     },
     {
+      "path": "docs/00-project/validation/identity-runtime-images/keycloak.cdx.json",
+      "size_bytes": 778302,
+      "sha256": "03db67e8a5cd98a3603fed25c56956e618010081a568dde50474c0b0752f4be3"
+    },
+    {
+      "path": "docs/00-project/validation/identity-runtime-images/keycloak.json",
+      "size_bytes": 1607699,
+      "sha256": "276288a67cc77ec80b8dbed66f93c2b253763871bd61a9fb3f1c46ab40731d64"
+    },
+    {
+      "path": "docs/00-project/validation/identity-runtime-images/nginx.cdx.json",
+      "size_bytes": 126688,
+      "sha256": "c67b3e767f7a771bf4933e0ae82a4e0f6f05d984d982dd48a6c87fa859e7514e"
+    },
+    {
+      "path": "docs/00-project/validation/identity-runtime-images/nginx.json",
+      "size_bytes": 188857,
+      "sha256": "da8a6ba178eda804ffdf3de3c55a6326b31678ce509dc440ddccdc1c739a9bc1"
+    },
+    {
+      "path": "docs/00-project/validation/identity-runtime-images/postgres.cdx.json",
+      "size_bytes": 82051,
+      "sha256": "d901b7a8103427432c59015a72ced9abcc31c0aa49bc6a0b897f9548f28602e7"
+    },
+    {
+      "path": "docs/00-project/validation/identity-runtime-images/postgres.json",
+      "size_bytes": 121874,
+      "sha256": "615a2ecc7f986131e46b91e79d4d100c20161c0424a7163cfc5467409492b3d2"
+    },
+    {
+      "path": "docs/00-project/validation/identity-runtime-images/summary.json",
+      "size_bytes": 1429,
+      "sha256": "992b6c5ffa0e8da842852a44619f6c49f5f5c3cbea0b6c2779e9b03ae44b9d02"
+    },
+    {
       "path": "docs/00-project/validation/image-sbom.spdx.json",
       "size_bytes": 236665,
       "sha256": "c5dadbc13d74a2bf25168fa1edc12e754766e271938948722a2a1eef596fd4a2"
@@ -1319,7 +1414,7 @@
     {
       "path": "docs/00-project/validation/interface-documentation-report.json",
       "size_bytes": 2232,
-      "sha256": "ac7c25e1226d80fa85bc6d6c801573800772283d9348aaa4e4b4fe18592babc7"
+      "sha256": "6eb09547961c686ba4733de90e91fbfb8737946c433a3b81786133f3f19956ec"
     },
     {
       "path": "docs/00-project/validation/local-attempt-01.json",
@@ -1328,8 +1423,8 @@
     },
     {
       "path": "docs/00-project/validation/local-validation-report.json",
-      "size_bytes": 77689,
-      "sha256": "a45d3eda35a0448f4b4bf5b2de7b2a7ff585f6cda35196502353e8442914d3e3"
+      "size_bytes": 77693,
+      "sha256": "2c159f168cd579f75f7099d83b7585533a8e22f2ffa01e8ffa5f5e1d2b9195fc"
     },
     {
       "path": "docs/00-project/validation/lock-reproduction-report.json",
@@ -1493,8 +1588,8 @@
     },
     {
       "path": "docs/00-project/validation/stage-three-python-types-report.json",
-      "size_bytes": 1376,
-      "sha256": "466463816b6ea6907308b8e19b03b0d3d9c9f298126304697dc63025b260a540"
+      "size_bytes": 1825,
+      "sha256": "c6334fccdaf78549f20043b4de5f44dd7ecb8b690e65f67f9a055d244d9203c8"
     },
     {
       "path": "docs/00-project/validation/stage-three-quality-dependency-report.json",
@@ -1597,9 +1692,19 @@
       "sha256": "ae2dabdd19ad13cdeb5328f2185a0302c688c7b91d7af0a824b3b54b31654ced"
     },
     {
+      "path": "docs/00-project/validation/t013-identity-image-admission-report.json",
+      "size_bytes": 3811,
+      "sha256": "f6c0f849fbdb96b0b9fa02de1c645466305a311cb1ef4fbccb89a131e7c4cc87"
+    },
+    {
       "path": "docs/00-project/validation/t013-keycloak-design-review.json",
       "size_bytes": 8574,
       "sha256": "ac03c5df645d11b617b3c765fbd16c0110a229e545eef0efc9c0a6a87e223e5e"
+    },
+    {
+      "path": "docs/00-project/validation/t013-keycloak-execution-report.json",
+      "size_bytes": 6188,
+      "sha256": "303a2a8805bf7a0bd69dea6cbcfc555ced6482bd76aa8336b9024c165ef8ab37"
     },
     {
       "path": "docs/00-project/validation/t013-token-validation-report.json",
@@ -2933,8 +3038,8 @@
     },
     {
       "path": "docs/03-development/README.md",
-      "size_bytes": 15362,
-      "sha256": "e23516a8d5a92e84c5b94f42b2619e1714b2b90a6c64802996274229e8e2db8f"
+      "size_bytes": 15551,
+      "sha256": "d90be27d9675184ccb06aa31eef28c44a6b26e10b874c6d51f3e4de2d20ae8fe"
     },
     {
       "path": "docs/03-development/change-templates/architecture-decision.md",
@@ -3173,13 +3278,13 @@
     },
     {
       "path": "docs/03-development/t013-keycloak-identity-design.md",
-      "size_bytes": 19775,
-      "sha256": "700f18ac55f0a613670f32d9f84fe0d77f7673411b4f2f78e3c660b96a4c1608"
+      "size_bytes": 20018,
+      "sha256": "60234962ccfb0ece4436ba50becaf43c1d4b51cecebc50e2578c55fc591b2acc"
     },
     {
       "path": "docs/03-development/t013-keycloak-implementation-plan.md",
-      "size_bytes": 20208,
-      "sha256": "15771a2190b2c2996397da12ea0c9eebe525467413bfe4607d91b88b10d901fd"
+      "size_bytes": 23130,
+      "sha256": "0c110cedc19b0971dd825f4332a87ce41837df5966f24d26771fe7e58c795ff0"
     },
     {
       "path": "docs/03-development/t013-token-validation.md",
@@ -3788,8 +3893,8 @@
     },
     {
       "path": "docs/README.md",
-      "size_bytes": 216059,
-      "sha256": "849ceefeb0d181ddd333b87256d231f4ef81a4792465e51e7ac7691aa5c69c7d"
+      "size_bytes": 218494,
+      "sha256": "c60f1df7fb661cb6ffbcf365f5198e8673e7d8131fb186c32c5bded59a5d151b"
     },
     {
       "path": "docs/_converted/conversion-report.md",
@@ -4675,6 +4780,56 @@
       "path": "scripts/generate_workflow_types.py",
       "size_bytes": 3331,
       "sha256": "79c37a1b4e04f159cd9f28cd12f1a204901ed45e14091261ce8cad9779efaf70"
+    },
+    {
+      "path": "scripts/identity/__init__.py",
+      "size_bytes": 54,
+      "sha256": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0"
+    },
+    {
+      "path": "scripts/identity/backup.py",
+      "size_bytes": 8089,
+      "sha256": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2"
+    },
+    {
+      "path": "scripts/identity/certificates.py",
+      "size_bytes": 4312,
+      "sha256": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd"
+    },
+    {
+      "path": "scripts/identity/common.py",
+      "size_bytes": 1602,
+      "sha256": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539"
+    },
+    {
+      "path": "scripts/identity/control.py",
+      "size_bytes": 8353,
+      "sha256": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916"
+    },
+    {
+      "path": "scripts/identity/preflight.py",
+      "size_bytes": 4336,
+      "sha256": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967"
+    },
+    {
+      "path": "scripts/identity/provision.py",
+      "size_bytes": 7261,
+      "sha256": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3"
+    },
+    {
+      "path": "scripts/identity/restore.py",
+      "size_bytes": 6887,
+      "sha256": "403e757c2cf1954464966fa0e1a883fe96a132d2ad0ad0636d71d5e3fe538181"
+    },
+    {
+      "path": "scripts/identity/verify.py",
+      "size_bytes": 2119,
+      "sha256": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3"
+    },
+    {
+      "path": "scripts/identity/volumes.py",
+      "size_bytes": 3598,
+      "sha256": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6"
     },
     {
       "path": "scripts/plan_placeholder_schedule.py",
@@ -5733,8 +5888,8 @@
     },
     {
       "path": "tasks/platform/T013.md",
-      "size_bytes": 10712,
-      "sha256": "a08f0f88b2e4944feb1e8c0d9266776f1f297c74d6d1c52fe5cb6eac85aafe38"
+      "size_bytes": 11049,
+      "sha256": "f25f67fe863ec9599714062d1fab9e965cbbe632635947aac422877d33cc6864"
     },
     {
       "path": "tasks/platform/T014.md",
@@ -7202,9 +7357,44 @@
       "sha256": "477f523f2588169450cbc0b9955e7c167235d739897c2b443a30fecd4829514a"
     },
     {
+      "path": "tests/identity/conftest.py",
+      "size_bytes": 3718,
+      "sha256": "ed2711f9de10c0d4c22e23f1c2cfcbfedff78665b00e1fffc84a10026ef2302d"
+    },
+    {
+      "path": "tests/identity/test_mapping_live.py",
+      "size_bytes": 6956,
+      "sha256": "92a901bb415ffe8fb070735af1c741fae9bebac89f1fce8d37e2eee87bf6c8c0"
+    },
+    {
+      "path": "tests/identity/test_oidc_live.py",
+      "size_bytes": 6047,
+      "sha256": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc"
+    },
+    {
+      "path": "tests/identity/test_tls_gateway.py",
+      "size_bytes": 2407,
+      "sha256": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c"
+    },
+    {
       "path": "tests/platform/test_t011.py",
       "size_bytes": 11481,
       "sha256": "39cda3c8027ac6b163dba659525c64794ed3f5f8657f5a82eb240960b0f4bd20"
+    },
+    {
+      "path": "tests/platform/test_t013_identity_config.py",
+      "size_bytes": 3236,
+      "sha256": "bbe5831640b09d7e5634d24217ca46ed61e8c054cf5d443f6509f32ffa443b28"
+    },
+    {
+      "path": "tests/platform/test_t013_identity_deploy.py",
+      "size_bytes": 7346,
+      "sha256": "991b60a91c647c6f535cfec675d00fcfa8111c47508967b4456598d8fd99436c"
+    },
+    {
+      "path": "tests/platform/test_t013_identity_operations.py",
+      "size_bytes": 9969,
+      "sha256": "950d0a20dfcab4e0364345a4b6182baaa7368b9d9661263c0b6e1e8a51c4a8e0"
     },
     {
       "path": "tests/platform/test_t013_tokens.py",
@@ -7292,6 +7482,21 @@
       "sha256": "b4b147e9985d6d593b01e593260c30bcbb14c00f69f14f951bc1130ff65932e0"
     },
     {
+      "path": "tools/identity_oidc_browser.mjs",
+      "size_bytes": 6109,
+      "sha256": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d"
+    },
+    {
+      "path": "tools/identity_oidc_browser.test.mjs",
+      "size_bytes": 2668,
+      "sha256": "1c074125d54cc5b3c34b072a2b00f2bc505fae76053ca9ddde8d442a001456d0"
+    },
+    {
+      "path": "tools/identity_oidc_probe.py",
+      "size_bytes": 9700,
+      "sha256": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    {
       "path": "tools/stage_three_demo/README.md",
       "size_bytes": 1695,
       "sha256": "9b6a57dc20a10afb2e36a27d23b935ac06fa767dfaa3afa311f2013c338c8353"
@@ -7307,7 +7512,7 @@
       "sha256": "e24d82300ff4a05c403506f1b0a21cfc23e5f98f541e99ed3956070e81818d29"
     }
   ],
-  "file_count": 1460,
+  "file_count": 1501,
   "excluded": [
     "docs/00-project/repository-file-manifest.json",
     "docs/00-project/server-sync-receipt.json"
