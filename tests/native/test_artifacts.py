@@ -155,7 +155,9 @@ def test_missing_artifact_directory_does_not_get_created(verified_lock):
     assert not target.exists()
 
 
-@pytest.mark.parametrize("tamper", [None, "wrong_tag", "wrong_tag_type", "wrong_digest", "wrong_repository"])
+@pytest.mark.parametrize(
+    "tamper", [None, "wrong_tag", "wrong_tag_type", "wrong_digest", "wrong_repository", "api_path_escape"]
+)
 def test_official_release_api_binds_version_asset_and_bytes(verified_lock, tamper):
     lock, root = verified_lock
     item = next(x for x in lock["artifacts"] if x["component"] == "rabbitmq")
@@ -174,6 +176,8 @@ def test_official_release_api_binds_version_asset_and_bytes(verified_lock, tampe
         metadata["assets"][0]["digest"] = "sha256:" + "0" * 64
     elif tamper == "wrong_repository":
         url = "https://api.github.com/repos/other-owner/rabbitmq-server/releases/tags/v4.3.6"
+    elif tamper == "api_path_escape":
+        url = "https://api.github.com/repos/rabbitmq/rabbitmq-server/releases/../../../other-owner/releases/1"
     data = json.dumps(metadata).encode()
     (root / "release.json").write_bytes(data)
     item["provenance"] = {

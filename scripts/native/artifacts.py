@@ -131,7 +131,8 @@ def validate_artifacts(lock: dict[str, Any], artifact_root: Path) -> dict[str, A
                 if not prefix.startswith("https://github.com/"):
                     raise ValueError("MISSING_OFFICIAL_PROVENANCE")
                 api_prefix = prefix.replace("https://github.com/", "https://api.github.com/repos/") + "releases/"
-                if not isinstance(provenance_url, str) or not provenance_url.startswith(api_prefix):
+                resource_pattern = re.escape(api_prefix) + r"(?:\d+|tags/v?" + re.escape(version) + r")"
+                if not isinstance(provenance_url, str) or not re.fullmatch(resource_pattern, provenance_url):
                     raise ValueError("MISSING_OFFICIAL_PROVENANCE")
             elif not official_url(name, provenance_url):
                 raise ValueError("MISSING_OFFICIAL_PROVENANCE")
