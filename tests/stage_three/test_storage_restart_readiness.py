@@ -31,7 +31,7 @@ class Storage:
 
 
 def test_transient_object_unavailability_retries_exact_version(monkeypatch):
-    pauses = []
+    pauses: list[float] = []
     monkeypatch.setattr(readiness.time, "sleep", pauses.append)
     storage = Storage(2)
     result = readiness.read_version_after_restart(storage, "bucket", "vector", "version-1", attempts=3)
