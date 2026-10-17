@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-17T18:24:18.029447+00:00",
+  "scope": "all_10_primary_components_software_admission_review_register_not_actual_approval",
+  "status": "BLOCKED_NOT_INSTALLATION_READY",
+  "input_lock_sha256": "1418440ca19d41814bc29e47ea13dbc2c8efca61112d943ba1d22406125740bf",
+  "project_reviewer_confirmed_by_user": "徐昌胜",
+  "formal_security_or_license_authority_not_assumed": true,
+  "components": [
+    {
+      "component": "python",
+      "version": "3.10.22",
+      "declared_primary_license_not_all_bundled_licenses": "Python-2.0",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/0",
+      "technical_admission_state": "BLOCKED_EOL_AND_SECURITY_REMEDIATION",
+      "basis": "3.10已停止上游支持；Base64/邮件命令/脚本输出等实际行为已观测，应用可达性和补丁处置未全部关闭。",
+      "required_action": "审阅独立受支持Python候选验证申请；原环境不改。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "node",
+      "version": "22.21.1",
+      "declared_primary_license_not_all_bundled_licenses": "MIT",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/1",
+      "technical_admission_state": "BLOCKED_ORIGINAL_SECURITY_FINDINGS",
+      "basis": "原22.21.1含严重/高危匹配；22.23.3隔离候选前端及重扫通过，但未采用。",
+      "required_action": "按精确候选摘要及捆绑许可完成采用/准入决定。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "postgres",
+      "version": "16.15",
+      "declared_primary_license_not_all_bundled_licenses": "PostgreSQL",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/2",
+      "technical_admission_state": "PENDING_BOUNDED_CVE_AND_RUNTIME_REVIEW",
+      "basis": "16.15仍在官方支持内；CVE-2017-8806产品误配候选已具事实；源码编译不是会话/恢复验收。",
+      "required_action": "复核精确制品漏洞与许可/宿主依赖；N03/N04另验真实运行恢复。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "rabbitmq",
+      "version": "4.3.6",
+      "declared_primary_license_not_all_bundled_licenses": "MPL-2.0",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/3",
+      "technical_admission_state": "PENDING_DEPENDENCIES_AND_LICENSE_REVIEW",
+      "basis": "发行包扫描无当前匹配，不证明漏洞不存在；需结合OTP及插件的精确许可/依赖。",
+      "required_action": "补适用插件与运行依赖、许可义务；N03隔离节点和N04队列恢复另验。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "erlang",
+      "version": "27.3.4.18",
+      "declared_primary_license_not_all_bundled_licenses": "Apache-2.0",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/4",
+      "technical_admission_state": "PENDING_BUNDLED_AND_FINAL_ENVIRONMENT_REVIEW",
+      "basis": "私有构建及crypto/SSL/public_key/asn1 NIF通过；并非所有OTP应用和最终服务环境。",
+      "required_action": "核对适用可选应用和捆绑条款、OS依赖；不把所有未启用模块直接判可用。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "seaweedfs",
+      "version": "4.48",
+      "declared_primary_license_not_all_bundled_licenses": "Apache-2.0",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/5",
+      "technical_admission_state": "BLOCKED_ORIGINAL_CANDIDATE_DECISION_PENDING",
+      "basis": "原发行包含匹配；Go修补候选构建/存储测试/S3夹具通过，仍保留OpenPGP Unknown限定不适用候选。",
+      "required_action": "审阅候选构建锁、模块/嵌套许可、残留匹配和采用决定。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "keycloak",
+      "version": "26.8.1",
+      "declared_primary_license_not_all_bundled_licenses": "Apache-2.0",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/6",
+      "technical_admission_state": "PENDING_BUNDLED_JAR_MATERIALS",
+      "basis": "486 JAR中482已定位主身份，279份内嵌正文归档；3生成包与H2改包来源/内含字节归属未关闭。",
+      "required_action": "补缺少的正文、NOTICE、合并/生成物追溯及分发义务；正式运行N03另验。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "java",
+      "version": "21.0.12.1+1",
+      "declared_primary_license_not_all_bundled_licenses": "GPL-2.0-only WITH Classpath-exception-2.0",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/7",
+      "technical_admission_state": "PENDING_BUNDLED_LICENSE_AND_SCOPE_REVIEW",
+      "basis": "JDK模块、TLS/密码及headless探测通过；归档扫描0不是所有JDK原生库或安全能力已审。",
+      "required_action": "按精确JDK发行版核对GPL及Classpath例外、捆绑第三方条款与实际交付方式。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "nginx",
+      "version": "1.30.6",
+      "declared_primary_license_not_all_bundled_licenses": "BSD-2-Clause",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/8",
+      "technical_admission_state": "PENDING_BUNDLED_AND_SERVICE_SCOPE_REVIEW",
+      "basis": "源码构建和已启用模块配置通过；不是实际代理/TLS证书/最终systemd验收。",
+      "required_action": "核对TLS等依赖许可及精确恢复输入；N03再验隔离配置和证书拒绝。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    },
+    {
+      "component": "age",
+      "version": "1.3.2",
+      "declared_primary_license_not_all_bundled_licenses": "BSD-3-Clause",
+      "exact_artifact_ref": "config/native/artifacts.lock.json#/artifacts/9",
+      "technical_admission_state": "BLOCKED_ORIGINAL_CANDIDATE_DECISION_PENDING",
+      "basis": "原发行包含匹配；修补候选上游测试/加解密与错误密钥拒绝通过，Unknown仍按编译导入限定审。",
+      "required_action": "完成模块/嵌套许可与采用决定；正式公钥由徐昌胜于N04前建立。",
+      "formal_decision": {
+        "reviewer": null,
+        "decision": null,
+        "at": null,
+        "expires_at": null
+      },
+      "installation_permitted": false
+    }
+  ],
+  "restoration_inputs_separate_review": [
+    "95 wheel archives",
+    "25 Conda archives",
+    "89 targeted OS recovery packages",
+    "security candidate input and Go module locks"
+  ],
+  "formal_approved": false
+}
