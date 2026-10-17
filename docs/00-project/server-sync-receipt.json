@@ -3,12 +3,12 @@
   "status": "PASS",
   "server_host": "172.16.58.179",
   "server_source_path": "/workspace/glwy/projects/media-traceability-system",
-  "verified_git_commit": "e129df427c6267b219c7d6ad2ae85c37728f6a00",
+  "verified_git_commit": "6b5bc8e10b2169f58b23ae91dfb6b264fc246c38",
   "worktree_clean": true,
-  "manifest_files_verified": 1457,
+  "manifest_files_verified": 1459,
   "hash_mismatches": [],
-  "manifest_sha256": "477aa9bf68a64170a64d1aae666d163d5e5a19b04eec0329219044d0853196e4",
-  "server_validation_time_utc": "2026-10-17T05:04:49.790472+00:00",
+  "manifest_sha256": "c115cb3481f1790d164e67d9d0e23112c448ca766990471e05ce6959be3499f0",
+  "server_validation_time_utc": "2026-10-17T05:25:11.767720+00:00",
   "server_services": [
     {
       "service": "api",
@@ -47,11 +47,11 @@
     }
   ],
   "server_capacity": {
-    "available_bytes": 691815882752,
+    "available_bytes": 691814424576,
     "used_percent": "13%"
   },
   "services_restarted_by_this_session": false,
-  "documentation_revision": "t013-token-validation-batch-one-20261017",
+  "documentation_revision": "t013-keycloak-written-design-20261017",
   "tested_source_commit": "d140b322edad0c1d3322e599ea764ecdd589c73d",
   "verified_evidence_source_commit": "e129df427c6267b219c7d6ad2ae85c37728f6a00",
   "hosted_ci_status": "PASS",
@@ -61,7 +61,7 @@
   "hosted_artifact_id": 12090865543,
   "hosted_artifact_sha256": "14f475f624b5f02de9232f502fb4f4d2b04e3ba1f62050fa7f61a380e531cf8f",
   "hosted_ci_gates": 32,
-  "current_documentation_hosted_run": "CODE_SOURCE_PASS_DOCS_VIEWS_REGENERATED_DRIFT_CHECKED",
+  "current_documentation_hosted_run": "NOT_RUN_DOCS_ONLY_LOCAL_CHECKED",
   "current_documentation_server_sync": "PASS_SOURCE_HASHES_MATCH",
   "current_server_service_verification": "PASS_7_RUNNING_HEALTHY",
   "business_tests": 220,
@@ -95,15 +95,15 @@
   "new_business_runtime_deployed": false,
   "source_sync_is_business_stack_deployment": false,
   "production_release_authorized": false,
-  "repository_source_files": 1459,
+  "repository_source_files": 1461,
   "candidate_input_files": 760,
   "previous_verified_delivery": {
-    "documentation_revision": "confirmed-task-owner-20261017",
-    "verified_git_commit": "f366af414f0c28f8054be89fdbf1c3612c0f40aa",
-    "tested_source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
-    "hosted_ci_run_id": 38995161406,
-    "hosted_ci_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/38995161406",
-    "current_change_scope": "confirmed_T001_T011_owner_registry_nullable_capacity_validation_and_navigation"
+    "documentation_revision": "t013-token-validation-batch-one-20261017",
+    "verified_git_commit": "e129df427c6267b219c7d6ad2ae85c37728f6a00",
+    "tested_source_commit": "d140b322edad0c1d3322e599ea764ecdd589c73d",
+    "hosted_ci_run_id": 39003923355,
+    "hosted_ci_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39003923355",
+    "current_change_scope": "T013_optional_introspection_identity_lookup_tests_and_task_navigation"
   },
   "evidence_note": "CI binds the tested source commit; later commits contain validation evidence, its generated reading view, manifest and this receipt only. This receipt records the actual preceding server verification commit, avoiding a self-referential commit hash.",
   "formal_remaining_ref": "docs/03-api/interface-gap-register.md",
@@ -141,8 +141,8 @@
     "source_file_hashes_match_tested_commit": true,
     "report_sha256": "fd9d96c86e7b019299047cad26bad19ea707eb057acff609e55b95993363a40f"
   },
-  "current_change_scope": "T013_optional_introspection_identity_lookup_tests_and_task_navigation",
-  "business_implementation_changed_in_current_delivery": true,
+  "current_change_scope": "T013_Keycloak_written_design_navigation_self_review_only",
+  "business_implementation_changed_in_current_delivery": false,
   "t011_access_model_review": {
     "status": "PASS",
     "tests": 56,
@@ -198,7 +198,7 @@
       "tasks/platform/T010.md": "d095fb2f698a3ea659dbb7f70ce0943aac3af1930f5b09f18387eba2acd57053",
       "tasks/platform/T011.md": "35eee32ef2b86345fcbb3de3888b0cbd967352bcb4a1c379fa8e4698dd6da59e",
       "tasks/platform/T012.md": "1276c27c4595a4a21a4cb503b37fa0ecdaac229d3b9a2804d6246ccbe33b1d63",
-      "tasks/platform/T013.md": "283f1ef462c567f552a6055b05f2e9196583e2ff932cd5ab3bf4b6570752b87f",
+      "tasks/platform/T013.md": "96779ddd68edf1d022079f863d5ab4a5fe39c233d8dfb9fb478fbca0d5f595c7",
       "tasks/platform/T014.md": "078d4993010c6b210e44d653d97e3d5e79b15a7f5760472dc36ef71b315db723",
       "tasks/platform/T015.md": "78cbf19d3b98836b0466ad147696b261471b0e09b0f09debf57e60cae0ae0496",
       "tasks/platform/T016.md": "987a1b844fa8f3edefffd6a191e4ce76ef8540452d2641b3d6d341a8cf00c8b3",
@@ -1222,5 +1222,18 @@
       }
     ],
     "shared_services_restarted": false
+  },
+  "t013_keycloak_design": {
+    "spec_ref": "docs/03-development/t013-keycloak-identity-design.md",
+    "spec_sha256": "3f7d022fb35a0d7192cc47327a5b592ea2dafadd1d5e5360bb231e9cc346b2f6",
+    "review_ref": "docs/00-project/validation/t013-keycloak-design-review.json",
+    "review_sha256": "adc0db5e46645cfdf31939bd0704718074f4eb50dda25b3913c735007ae93b8e",
+    "architecture_direction_approved": true,
+    "written_spec_approved": false,
+    "implementation_plan_written": false,
+    "deployed": false,
+    "formal_identity_connected": false,
+    "runtime_acceptance_executed": 0,
+    "documentation_checks_passed": 14
   }
 }
