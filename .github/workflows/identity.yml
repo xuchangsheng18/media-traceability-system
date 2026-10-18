@@ -1,0 +1,78 @@
+name: T013 isolated identity verification
+on:
+  workflow_call:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: identity-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  identity-integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      PYTHON: /opt/conda/glwy/envs/py310/bin/python
+      PYTHONPATH: ${{ github.workspace }}/backend
+      PYTHONDONTWRITEBYTECODE: '1'
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/identity-browsers
+      MT_BUSINESS_TEST_ADMIN_DSN: host=127.0.0.1 port=35432 dbname=postgres user=mt_test_admin password=self-owned-ephemeral-ci-only
+    services:
+      business-postgres:
+        image: postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+        env:
+          POSTGRES_USER: mt_test_admin
+          POSTGRES_PASSWORD: self-owned-ephemeral-ci-only
+          POSTGRES_DB: postgres
+        ports: ['35432:5432']
+        options: --health-cmd "pg_isready -U mt_test_admin -d postgres" --health-interval 5s --health-timeout 3s --health-retries 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.21.1
+      - name: Recreate original locked py310 runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os,urllib.request,hashlib,subprocess
+          from pathlib import Path
+          lock=json.loads(Path('config/ci-bootstrap-lock.json').read_text())['miniforge']
+          target=Path(os.environ['RUNNER_TEMP'])/'identity-miniforge.sh'
+          urllib.request.urlretrieve(lock['url'],target)
+          assert hashlib.sha256(target.read_bytes()).hexdigest()==lock['sha256']
+          subprocess.run(['bash',str(target),'-b','-p',os.environ['RUNNER_TEMP']+'/identity-miniforge'],check=True)
+          PY
+          sudo mkdir -p /opt/conda/glwy/envs
+          sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
+          "$RUNNER_TEMP/identity-miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py310 --file config/locks/conda-linux-64.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py310.lock
+      - name: Install existing locked browser tools
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libnss3-tools
+          npm --prefix frontend ci
+          npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
+      - name: Prepare disposable three-service identity target
+        run: '"$PYTHON" -m scripts.identity.ci prepare'
+      - name: Verify browser signature and diagnostic boundaries
+        run: node --test tools/identity_oidc_browser.test.mjs
+      - name: Run real identity rotation faults adapters and database mapping
+        run: '"$PYTHON" -m scripts.identity.checks run --private-root "$RUNNER_TEMP/identity-test-results" --output "$RUNNER_TEMP/t013-identity-ci-report.json"'
+      - name: Preserve safe scoped evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: t013-identity-validation-${{ github.run_id }}
+          retention-days: 14
+          if-no-files-found: error
+          path: ${{ runner.temp }}/t013-identity-ci-report.json
+      - name: Stop this disposable identity project
+        if: always()
+        shell: bash
+        run: |
+          if [ -x "$PYTHON" ]; then "$PYTHON" -m scripts.identity.ci cleanup; fi

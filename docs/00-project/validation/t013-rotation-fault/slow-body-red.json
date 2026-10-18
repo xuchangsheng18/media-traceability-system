@@ -1,0 +1,48 @@
+{
+  "mode": "slow-body-red",
+  "observed_at": "2026-10-18T17:44:42.573071+00:00",
+  "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+  "source_sha256": {
+    "backend/business_app/identity/tokens.py": "02bce577b81f677d0ad1541cf5932968a25ccb6209188008a29adfa4779c608d",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "tests/identity/test_key_rotation_live.py": "15ed13039d7a5291a2f60f388fb77bd476a6aabd88bb1ab1ddd6ed781a161455",
+    "tests/identity/test_faults_live.py": "00b1a0da7718e9e4b0a22934760ce605074e86c34538250d5232e764c3c0e053"
+  },
+  "checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/identity/test_faults_live.py",
+        "-k",
+        "slow_body",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/slow-body-red.xml"
+      ],
+      "exit_code": 1,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [
+        {
+          "name": "test_real_tls_protocol_faults_deny_without_fallback[slow_body]",
+          "class": "tests.identity.test_faults_live",
+          "failure_kind": "failure"
+        }
+      ],
+      "started_at": "2026-10-18T17:44:32.454602+00:00",
+      "elapsed_seconds": 10.118121,
+      "private_log_sha256": "dd67a91d8706a80e0100f479ef8593d6b93d85d87ad9ba7b0db1bc40b09e0f12"
+    }
+  ],
+  "Python_candidates_created": false,
+  "shared_services_restarted": false,
+  "formal_accepted": false,
+  "raw_logs_published": false
+}

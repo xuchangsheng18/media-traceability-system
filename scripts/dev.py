@@ -6,6 +6,7 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "config/stage-three-profile.json").read_text(encoding="utf-8"))
@@ -143,7 +144,10 @@ def stack_change_guard(allowed):
     # This is an operational guard, not an authorization or security boundary.
     if isolated_ci_workspace():
         return
-    from poc_control import compose
+    if TYPE_CHECKING:
+        from scripts.poc_control import compose
+    else:
+        from poc_control import compose
 
     lines = compose(
         "exec", "-T", "postgres", "df", "-P", "-B1", "/var/lib/postgresql/data", capture=True
@@ -156,7 +160,10 @@ def stack_change_guard(allowed):
 
 
 def status():
-    from poc_control import compose
+    if TYPE_CHECKING:
+        from scripts.poc_control import compose
+    else:
+        from poc_control import compose
 
     services = [json.loads(line) for line in compose("ps", "--format", "json", capture=True).stdout.splitlines()]
     summary = [

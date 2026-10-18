@@ -10,7 +10,7 @@ import signal
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
@@ -152,7 +152,10 @@ def static_checks():
     precommit = yaml.safe_load((ROOT / ".pre-commit-config.yaml").read_text())
     assert precommit["repos"][0]["hooks"][0]["entry"] == profile["python_executable"] + " scripts/dev.py pre-commit"
     checks.append({"name": "project_config_preserves_user_model_permissions_and_valid_local_hook", "status": "PASS"})
-    from dev import COMMANDS, plan
+    if TYPE_CHECKING:
+        from scripts.dev import COMMANDS, plan
+    else:
+        from dev import COMMANDS, plan
 
     assert set(
         [
@@ -218,8 +221,12 @@ def run_bounded(command, env):
 
 
 def run_profile():
-    from dev import PROFILE, environment
-    from poc_control import RUNTIME, compose
+    if TYPE_CHECKING:
+        from scripts.dev import PROFILE, environment
+        from scripts.poc_control import RUNTIME, compose
+    else:
+        from dev import PROFILE, environment
+        from poc_control import RUNTIME, compose
 
     assert sys.version_info[:2] == (3, 10)
     python = str(Path(sys.executable).resolve())

@@ -1,0 +1,125 @@
+{
+  "task_id": "T013",
+  "status": "LOCAL_VALIDATED_HOSTED_CI_PENDING",
+  "observed_at": "2026-10-18T18:32:49.378185+00:00",
+  "environment": "Linux / Miniforge py310 / CPU / existing explicitly configured identity target",
+  "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+  "tested_working_tree_dirty": true,
+  "source_binding": "Working-tree tests bind the recorded SHA256 map; base commit alone is not the tested implementation. Hosted result will separately bind the committed payload.",
+  "source_sha256": {
+    ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+    ".github/workflows/identity.yml": "60501900e5ff13c50208699c121fd359d040de5b58979b8452fb549ec3a53784",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+    "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+    "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+    "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+    "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+    "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+    "scripts/identity/checks.py": "70565d3a5087bc33560f7d3a2c6edab19d6c2e12e500d697639753fc4541ad7a",
+    "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+    "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+    "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+    "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+    "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+    "scripts/identity/restore.py": "403e757c2cf1954464966fa0e1a883fe96a132d2ad0ad0636d71d5e3fe538181",
+    "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+    "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+    "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+    "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+    "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+    "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+    "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+    "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+    "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+    "tests/platform/test_t013_identity_checks.py": "119c8d33ddc304b75e6ba211cf46c9d2b823c077e08714e78717d9ea3362d21c",
+    "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+    "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+  },
+  "tests": {
+    "dependency_baseline": {
+      "tests": 154,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "unit_regression": {
+      "tests": 342,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "identity_scoped": {
+      "tests": 225,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_regression": {
+      "tests": 246,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "counts_overlap_do_not_sum": true
+  },
+  "quality": {
+    "format_check": "PASS",
+    "lint": "PASS",
+    "static_types": "PASS"
+  },
+  "tdd": [
+    {
+      "case": "real TLS slow_body",
+      "red_ref": "docs/00-project/validation/t013-rotation-fault/slow-body-red.json",
+      "red": "one assertion failure, zero test errors: old implementation returned 401 after the configured response window; expected 503",
+      "green": "same real TLS test passed in the 48-case live group; no weakened assertion"
+    },
+    {
+      "case": "scoped report collector",
+      "red_ref": "docs/00-project/validation/t013-rotation-fault/collector-red.json",
+      "red": "one failure because the collector module did not yet exist",
+      "green": "10 report/CI-boundary unit tests passed; full three-group runner passed"
+    }
+  ],
+  "coverage": {
+    "signing_key_and_client_secret_rotation_tests": 2,
+    "identity_live_group_tests": 48,
+    "report_guard_tests": 10,
+    "real_malformed_issuer_requests": 1,
+    "locally_rejected_bad_token_boundaries": 3,
+    "fault_and_input_tests": 19,
+    "real_TLS_network_and_database_fault_tests": 15,
+    "token_input_boundary_tests": 4
+  },
+  "limits": [
+    "Response-progress checks plus per-I/O timeouts are not an OS-enforced hard real-time deadline for every transport phase.",
+    "All realm/key/client changes were confined to randomly named temporary acceptance realms; no shared realm signing key or human account was changed.",
+    "Database faults use a freshly created isolated business database, not existing project data.",
+    "Unit, identity and business test counts overlap.",
+    "This is not N01 software admission, CPython vulnerability remediation, formal identity acceptance, or production recovery."
+  ],
+  "evidence_index_ref": "docs/00-project/validation/t013-rotation-fault/evidence-index.json",
+  "hosted_ci_ref": "docs/00-project/validation/t013-identity-ci-report.json",
+  "acceptance_ledger_ref": "docs/00-project/validation/t013-keycloak-acceptance-ledger.json",
+  "Python_candidates_created": false,
+  "original_python_and_100_package_lock_changed": false,
+  "shared_services_restarted": false,
+  "formal_accepted": false,
+  "T014_started": false,
+  "remaining": [
+    "IDP-01 software admission",
+    "IDP-09 named administrator/MFA/bootstrap handover",
+    "IDP-17 service restart/persistence",
+    "IDP-18 complete runtime-log and history credential review",
+    "IDP-20 restored token/session/client-secret invalidation",
+    "IDP-21 recovery rollback",
+    "IDP-22 committed-payload hosted CI pending actual run",
+    "actual T013 owner, effort and human acceptance record remain unspecified"
+  ]
+}

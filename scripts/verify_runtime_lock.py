@@ -3,9 +3,13 @@ import hashlib
 import importlib.metadata
 import json
 import platform
+from typing import TYPE_CHECKING
 
 from packaging.utils import canonicalize_name
-from poc_control import ROOT
+if TYPE_CHECKING:
+    from scripts.poc_control import ROOT
+else:
+    from poc_control import ROOT
 
 
 def main():

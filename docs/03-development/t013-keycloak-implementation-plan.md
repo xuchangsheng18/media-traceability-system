@@ -1,5 +1,7 @@
 # T013 Keycloak Identity Implementation Plan
 
+当前续验（2026-10-19）：密钥轮换、真实故障拒绝和CI补齐见[本批说明](t013-rotation-fault-validation.md)及[22项当前登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)。下文2026-10-17的计数、提交、CI未执行状态和步骤表均为当日历史，不覆盖上述当前证据。T013仍未整卡验收，Python候选继续暂缓。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. 沿用用户已选择的当前会话逐项实施方式，不另行分派。
 
 **Goal:** 在指定Linux服务器建立独立、可真实验证和恢复的项目身份服务，显式接入T013适配器，并保持业务权限默认拒绝。

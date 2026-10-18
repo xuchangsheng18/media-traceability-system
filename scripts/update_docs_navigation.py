@@ -36,6 +36,19 @@ def main():
         "当前为规划和开发输入候选，NOT_FROZEN。资料已经归档不等于系统已经实现，结构校验也不等于所有业务语义通过。",
         "当前CPU研发最小工程已运行并通过本机CI；正式业务/生产仍NOT_FROZEN。文档、结构校验、研发闭环与正式业务验收分别判定。",
     )
+    task_rows = json.loads((ROOT / "tasks/execution-status.json").read_text(encoding="utf-8"))["tasks"]
+    completed_count = sum(len(row["completed_steps"]) for row in task_rows)
+    remaining_count = sum(len(row["remaining_steps"]) for row in task_rows)
+    total_count = completed_count + remaining_count
+    prefix = re.sub(
+        r"^任务执行入口：.*$",
+        f"任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[{len(task_rows)}张独立任务卡](../tasks/README.md)、"
+        f"[同源状态台账](../tasks/execution-status.json)、[{total_count}条执行事项逐项清单](00-project/task-execution-steps.txt)。"
+        f"当前有{completed_count}条已验证子步骤、{remaining_count}条剩余工作；全局编号0001—{total_count:04}。"
+        "任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。",
+        prefix,
+        flags=re.M,
+    )
     entries = {
         "03-development/t012-role-model-implementation.md": "T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。",
         "04-database/role-catalog-extension.md": "0005目录开关/撤销三列、旧状态与新默认、唯一/外键/终态、受限DAO和同实例恢复；当前63表843字段。",
@@ -220,6 +233,10 @@ def main():
         first_entries[path] = "第一阶段历史资料，按原始字节归档；旧计数、环境、未同步描述及候选决定不代表当前状态。"
     descriptions.update(first_entries)
     descriptions.update(entries)
+    descriptions["00-project/task-execution-steps.txt"] = (
+        f"{len(task_rows)}任务内{total_count}条执行事项逐条编号：{completed_count}条已验证子步骤、"
+        f"{remaining_count}条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。"
+    )
     for path in (ROOT / "docs/05-workflows/dags").glob("*.json"):
         descriptions[path.relative_to(ROOT / "docs").as_posix()] = (
             "该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。"

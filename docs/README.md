@@ -16,9 +16,9 @@
 
 T011/T012身份底座：[本批设计](03-development/t012-identity-relations-design.md)、[数据库关系与补充字典](04-database/identity-relations.md)、[实际验证与研发库](00-project/validation/t012-identity-relations-report.json)。
 
-T013身份系统：[Keycloak完整书面设计](03-development/t013-keycloak-identity-design.md)、[8步实施计划及逐步状态](03-development/t013-keycloak-implementation-plan.md)、[设计自审记录](00-project/validation/t013-keycloak-design-review.json)、[实际执行报告](00-project/validation/t013-keycloak-execution-report.json)、[22项状态登记](00-project/validation/t013-keycloak-acceptance-ledger.json)。步骤1—6研发验证通过、步骤7隔离恢复演练通过；步骤8源码及1,501项文件清单已同步到GitHub功能分支和Linux源码树，22项登记为13项范围内通过、9项未执行。托管CI、正式准入和管理员交接仍未完成。T013整卡未关闭。8步是T013内部实施顺序，不是新增项目阶段或T014—T020。
+T013身份系统：[本批密钥轮换、故障拒绝与CI](03-development/t013-rotation-fault-validation.md)、[当前执行证据](00-project/validation/t013-rotation-fault-report.json)、[身份CI结果](00-project/validation/t013-identity-ci-report.json)、[22项当前状态](00-project/validation/t013-keycloak-acceptance-ledger.json)、[完整设计](03-development/t013-keycloak-identity-design.md)、[内部8步计划及历史](03-development/t013-keycloak-implementation-plan.md)。当前Linux专项225、单元342、业务回归246通过（范围重叠，不相加）；托管CI按精确提交另验。T013整卡未关闭，正式准入、管理员交接和恢复验收仍有待办。内部8步不是新增项目阶段。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡的完成步骤与剩余工作](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[695条执行事项逐项清单](00-project/task-execution-steps.txt)。分步导航按170项任务列已完成数、剩余数及全局序号范围；逐项清单按0001—0695编号，列74条已完成子步骤和621条剩余工作，每条保留任务内C/R编号、具体内容和证据。每卡文首列真实证据和待办，源验收要求保留；不因材料齐全将任务自动标为完成。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[705条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有84条已验证子步骤、621条剩余工作；全局编号0001—0705。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -547,7 +547,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1116份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1129份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -638,7 +638,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内695条执行事项逐条编号：74条完成子步骤、621条剩余工作；保留具体内容、C/R编号、证据及源依赖/测试/验收要求，整任务关闭仍为0。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内705条执行事项逐条编号：84条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1171,10 +1171,22 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t011-dependency-report.json](<00-project/validation/t011-dependency-report.json>) | T002配置追踪13例及T010模板/本批影响核对，限于T011所需依赖，不关闭上游整卡。 |
 | [00-project/validation/t012-identity-relations-report.json](<00-project/validation/t012-identity-relations-report.json>) | 实际py310/PostgreSQL身份专项、完整回归、源码摘要及独立空研发库验证；不含连接凭据，不代表真实身份认证或整任务验收。 |
 | [00-project/validation/t012-role-model-report.json](<00-project/validation/t012-role-model-report.json>) | 真实py310/PostgreSQL的RED/GREEN、368回归、源码摘要、新建空目录库及旧库保留、源验收范围；无连接凭据。 |
+| [00-project/validation/t013-identity-ci-report.json](<00-project/validation/t013-identity-ci-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-identity-image-admission-report.json](<00-project/validation/t013-identity-image-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-acceptance-ledger.json](<00-project/validation/t013-keycloak-acceptance-ledger.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-design-review.json](<00-project/validation/t013-keycloak-design-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-execution-report.json](<00-project/validation/t013-keycloak-execution-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/baseline.json](<00-project/validation/t013-rotation-fault/baseline.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/collector-red.json](<00-project/validation/t013-rotation-fault/collector-red.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/evidence-index.json](<00-project/validation/t013-rotation-fault/evidence-index.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/linux-business-report.json](<00-project/validation/t013-rotation-fault/linux-business-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/linux-documentation-checks.json](<00-project/validation/t013-rotation-fault/linux-documentation-checks.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/linux-final-commands.json](<00-project/validation/t013-rotation-fault/linux-final-commands.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/linux-scoped-report.json](<00-project/validation/t013-rotation-fault/linux-scoped-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/linux-type-report.json](<00-project/validation/t013-rotation-fault/linux-type-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/review-record.json](<00-project/validation/t013-rotation-fault/review-record.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault/slow-body-red.json](<00-project/validation/t013-rotation-fault/slow-body-red.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-rotation-fault-report.json](<00-project/validation/t013-rotation-fault-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-token-validation-report.json](<00-project/validation/t013-token-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1518,6 +1530,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t012-role-model-implementation.md](<03-development/t012-role-model-implementation.md>) | T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。 |
 | [03-development/t013-keycloak-identity-design.md](<03-development/t013-keycloak-identity-design.md>) | 说明文档：T013 项目自建 Keycloak 身份系统完整设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-keycloak-implementation-plan.md](<03-development/t013-keycloak-implementation-plan.md>) | 说明文档：T013 Keycloak Identity Implementation Plan；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/t013-rotation-fault-validation.md](<03-development/t013-rotation-fault-validation.md>) | 说明文档：T013：密钥轮换、故障拒绝与CI补齐；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-token-validation.md](<03-development/t013-token-validation.md>) | 说明文档：T013 第一批：访问令牌核验与身份映射；结合正文的状态、来源和适用范围阅读。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |

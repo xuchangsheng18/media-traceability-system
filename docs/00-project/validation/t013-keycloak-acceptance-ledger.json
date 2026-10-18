@@ -1,11 +1,11 @@
 {
   "task_id": "T013",
   "record_kind": "implementation_progress_register_not_validator_acceptance_input",
-  "observed_at": "2026-10-17T08:08:01+00:00",
+  "observed_at": "2026-10-18T18:32:49.378185+00:00",
   "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
   "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
-  "pass_count": 13,
-  "not_executed_count": 9,
+  "pass_count": 15,
+  "not_executed_count": 7,
   "formal_accepted": false,
   "hosted_ci_triggered": false,
   "entries": [
@@ -62,10 +62,11 @@
     },
     {
       "id": "IDP-07",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "OIDC/JWKS signing-key rotation behavior is not evidenced by the archived live test result.",
+      "status": "PASS_SCOPED_REAL_ROTATION",
+      "evidence_boundary": "Real browser tokens, public JWKS and distinct kid were checked in a temporary realm. Old token remained valid during overlap, then failed after old provider removal; new token remained valid. No shared realm key or signing private key was changed/read.",
       "references": [
-        "tests/identity/test_oidc_live.py"
+        "tests/identity/test_key_rotation_live.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
       ]
     },
     {
@@ -95,10 +96,12 @@
     {
       "id": "IDP-11",
       "status": "PASS_ENGINEERING_SCOPE",
-      "evidence_boundary": "Live expiration plus adapter invalid-token/claim tests passed; formal broad malformed/oversized-token acceptance evidence is not archived.",
+      "evidence_boundary": "Original real expiration/signature/claim tests were rerun. Added four malformed/oversize/empty/whitespace boundaries: three were rejected locally, one malformed JWT reached the issuer. This is bounded input coverage, not exhaustive parser proof.",
       "references": [
+        "tests/identity/test_faults_live.py",
         "tests/identity/test_oidc_live.py",
-        "tests/platform/test_t013_tokens.py"
+        "tests/platform/test_t013_tokens.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
       ]
     },
     {
@@ -127,18 +130,22 @@
     },
     {
       "id": "IDP-15",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "A full live network/TLS/database fault-injection matrix with bounded total request time was not run.",
+      "status": "PASS_SCOPED_REAL_SOCKET_TLS_DATABASE_FAULTS",
+      "evidence_boundary": "Nineteen cases passed: fifteen real TLS/socket/database faults with positive real-token controls, plus four token-input boundaries (three rejected locally, one sent to the issuer). Slow-response RED/GREEN evidence is retained. Response progress budget and per-I/O timeouts are verified on these paths, not a universal hard real-time total deadline.",
       "references": [
-        "tests/identity/test_mapping_live.py"
+        "tests/identity/test_faults_live.py",
+        "backend/business_app/identity/tokens.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
       ]
     },
     {
       "id": "IDP-16",
       "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
-      "evidence_boundary": "Live client-secret rotation accepted the new secret and rejected the old one.",
+      "evidence_boundary": "Real temporary client-secret rotation: old adapter rejects with existing 503, new secret verifies the same real token. Original live secret tests retained. Not a formal secret custody handover.",
       "references": [
-        "tests/identity/test_oidc_live.py"
+        "tests/identity/test_key_rotation_live.py",
+        "tests/identity/test_oidc_live.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
       ]
     },
     {
@@ -186,10 +193,23 @@
     {
       "id": "IDP-22",
       "status": "NOT_EXECUTED",
-      "evidence_boundary": "Local Linux engineering gates passed, but GitHub hosted CI could not be triggered because the GitHub integration returned HTTP 403 when opening a draft PR.",
+      "evidence_boundary": "Current committed-payload hosted CI and artifact verification are pending; local 225 scoped, 342 unit, 246 business and quality checks passed but do not substitute hosted execution.",
       "references": [
-        "docs/00-project/validation/t013-keycloak-execution-report.json"
+        ".github/workflows/identity.yml",
+        ".github/workflows/ci.yml",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
       ]
     }
-  ]
+  ],
+  "historical_snapshots": [
+    {
+      "observed_at": "2026-10-17T08:08:01+00:00",
+      "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
+      "pass_count": 13,
+      "not_executed_count": 9,
+      "hosted_ci_triggered": false
+    }
+  ],
+  "current_batch_report_ref": "docs/00-project/validation/t013-rotation-fault-report.json",
+  "current_batch_tested_source": "Working tree at recorded base commit plus exact report source_sha256; hosted committed payload pending."
 }

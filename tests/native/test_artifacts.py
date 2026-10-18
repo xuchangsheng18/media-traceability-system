@@ -12,7 +12,7 @@ from typing import Any
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
-from native.artifacts import validate_artifacts
+from scripts.native.artifacts import validate_artifacts
 
 
 @pytest.mark.parametrize(
@@ -29,7 +29,7 @@ from native.artifacts import validate_artifacts
     ],
 )
 def test_nginx_signature_requires_success_and_pinned_signer(tmp_path, monkeypatch, result_code, status, expected):
-    from native.artifacts import verify_nginx_signature
+    from scripts.native.artifacts import verify_nginx_signature
 
     calls = []
 
@@ -39,18 +39,18 @@ def test_nginx_signature_requires_success_and_pinned_signer(tmp_path, monkeypatc
             returncode=0 if "--import" in command else result_code, stdout="" if "--import" in command else status
         )
 
-    monkeypatch.setattr("native.artifacts.subprocess.run", run)
+    monkeypatch.setattr("scripts.native.artifacts.subprocess.run", run)
     assert verify_nginx_signature(tmp_path / "package", tmp_path / "sig", tmp_path / "key") is expected
     assert all("--no-options" in c and "--no-auto-key-retrieve" in c and "--homedir" in c for c in calls)
 
 
 @pytest.mark.parametrize("bad_status", ["EXPKEYSIG", "EXPSIG", "REVKEYSIG"])
 def test_nginx_expired_or_revoked_signatures_are_rejected(tmp_path, monkeypatch, bad_status):
-    from native.artifacts import verify_nginx_signature
+    from scripts.native.artifacts import verify_nginx_signature
 
     valid = "[GNUPG:] VALIDSIG D6786CE303D9A9022998DC6CC8464D549AF75C0A 2026-10-02 1 0 4 0 1 8 00 D6786CE303D9A9022998DC6CC8464D549AF75C0A"
     monkeypatch.setattr(
-        "native.artifacts.subprocess.run",
+        "scripts.native.artifacts.subprocess.run",
         lambda *args, **kwargs: SimpleNamespace(returncode=0, stdout=valid + "\n[GNUPG:] " + bad_status + " signer"),
     )
     assert verify_nginx_signature(tmp_path / "package", tmp_path / "sig", tmp_path / "key") is False
@@ -75,7 +75,7 @@ def test_nginx_signed_archive_must_match_exact_pinned_release(verified_lock, mon
         "key_filename": "key.asc",
         "key_sha256": hashlib.sha256(b"synthetic-public-key").hexdigest(),
     }
-    monkeypatch.setattr("native.artifacts.verify_nginx_signature", lambda *args: True)
+    monkeypatch.setattr("scripts.native.artifacts.verify_nginx_signature", lambda *args: True)
     assert validate_artifacts(lock, root)["status"] == "PASS"
     if tamper == "old_package_url":
         item["url"] = "https://nginx.org/download/nginx-1.30.5.tar.gz"

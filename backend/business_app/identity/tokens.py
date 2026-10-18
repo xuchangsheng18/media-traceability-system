@@ -110,6 +110,7 @@ class IntrospectionVerifier:
             or re.fullmatch(r"[A-Za-z0-9._~+/-]+=*", token) is None
         ):
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
+        deadline = time.monotonic() + self.settings.timeout_seconds
         try:
             with self.client.stream(
                 "POST",
@@ -124,10 +125,16 @@ class IntrospectionVerifier:
                 ):
                     raise ValueError("INVALID_INTROSPECTION_RESPONSE")
                 body = bytearray()
-                for chunk in response.iter_bytes(chunk_size=min(4096, self.settings.max_response_bytes + 1)):
+                # A peer can keep every individual read below HTTPX's timeout.
+                # Inspect progress without waiting to fill a large output chunk.
+                for chunk in response.iter_bytes(chunk_size=1):
+                    if time.monotonic() >= deadline:
+                        raise ValueError("INTROSPECTION_RESPONSE_DEADLINE_EXCEEDED")
                     body.extend(chunk)
                     if len(body) > self.settings.max_response_bytes:
                         raise ValueError("INTROSPECTION_RESPONSE_TOO_LARGE")
+                if time.monotonic() >= deadline:
+                    raise ValueError("INTROSPECTION_RESPONSE_DEADLINE_EXCEEDED")
             claims = json.loads(body.decode("utf-8"), object_pairs_hook=unique_object)
             if not isinstance(claims, dict) or type(claims.get("active")) is not bool:
                 raise ValueError("INVALID_ACTIVE_FIELD")

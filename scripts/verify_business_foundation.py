@@ -9,7 +9,7 @@ import sys
 import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from psycopg.conninfo import conninfo_to_dict
 
@@ -103,7 +103,10 @@ def main() -> int:
     except (OSError, RuntimeError, ValueError, subprocess.SubprocessError):
         report.update(status="BLOCKED_OR_FAIL", exit_code=2, test_count=0)
     report["source_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    from stage_three_types import source_tree_state
+    if TYPE_CHECKING:
+        from scripts.stage_three_types import source_tree_state
+    else:
+        from stage_three_types import source_tree_state
 
     report.update(source_tree_state(ROOT))
     report["workflow_run_id"] = os.environ.get("GITHUB_RUN_ID")

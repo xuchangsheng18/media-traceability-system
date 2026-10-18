@@ -179,10 +179,10 @@ def block(row, ledger, source, execution=None):
     )
     if row["full_task_verified"]:
         assert execution is not None
-        text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。实际负责人：{row['actual_owner']}；复核人：{execution['verified_by']}；验收日期：{execution['actual_end']}。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+        text += f"核对日期：{row.get('observed_date', ledger['observed_date'])}。**{LABELS[row['status']]}**。实际负责人：{row['actual_owner']}；复核人：{execution['verified_by']}；验收日期：{execution['actual_end']}。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
         text += "本任务验收证据：" + "、".join(link(ref["path"], card) for ref in execution["full_task_verification_refs"]) + "。任务验收不改变项目正式环境批准状态。\n\n"
     else:
-        text += f"核对日期：{ledger['observed_date']}。**{LABELS[row['status']]}**。{responsibility}；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
+        text += f"核对日期：{row.get('observed_date', ledger['observed_date'])}。**{LABELS[row['status']]}**。{responsibility}；整任务验收未登记。本节是当前执行记录，文后源计划及历史补充保留追溯。\n\n"
     if row.get("closeout_review_ref"):
         text += "本批逐项收口与环境变更记录：" + link(row["closeout_review_ref"], card) + "。当前角色登记、研发检查与实际验收决定分别记录。\n\n"
     earlier = ledger["tasks"][: ledger["tasks"].index(row)]

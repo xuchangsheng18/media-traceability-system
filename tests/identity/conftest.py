@@ -9,11 +9,22 @@ from pathlib import Path
 from uuid import uuid4
 
 import httpx
+import psycopg
 import pytest
+from business_app.db import Database
+from business_app.identity.config import IdentityRuntimeConfig
+from business_app.identity.directory import IdentityDirectory
+from business_app.identity.runtime import open_identity
+from business_app.identity.tokens import IntrospectionSettings
+from psycopg import sql
+from psycopg.conninfo import make_conninfo
 
-from tests.business.conftest import business_context as business_context
-from tests.business.conftest import business_template as business_template
-from tests.business.conftest import database_dsn as database_dsn
+from tests.business import conftest as business_fixtures
+
+business_context = business_fixtures.business_context
+business_template = business_fixtures.business_template
+database_dsn = business_fixtures.database_dsn
+from tools.identity_oidc_probe import PrivateValue, authorization_code_login
 
 
 @pytest.fixture(scope="session")
@@ -98,3 +109,52 @@ def identity_realm(identity_config):
                 admin.request("DELETE", path, expected=(204, 404))
         finally:
             admin.close()
+
+
+@pytest.fixture
+def live_mapping(identity_realm, business_context, tmp_path):
+    config, ctx = identity_realm, business_context
+    bundle = authorization_code_login(config)
+    role, password = "mt_live_lookup_" + uuid4().hex, uuid4().hex + uuid4().hex
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        admin.execute(
+            sql.SQL("CREATE ROLE {} LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD {}").format(
+                sql.Identifier(role), sql.Literal(password)
+            )
+        )
+        admin.execute(sql.SQL("GRANT mt_identity_lookup TO {}").format(sql.Identifier(role)))
+    manager = Database(ctx["admin_dsn"])
+    with manager.engine.begin() as connection:
+        identity_id = IdentityDirectory(connection).bind_identity(
+            user_id=ctx["actor"].user_id,
+            org_id=ctx["actor"].org_id,
+            issuer=config["issuer"],
+            subject=bundle.subject,
+            mapping_version="self-owned-live-fixture-v1",
+            enabled=True,
+        )
+    settings = IntrospectionSettings(
+        endpoint=config["issuer"] + "/protocol/openid-connect/token/introspect",
+        issuer=config["issuer"],
+        audience="media-trace-api",
+        client_id="media-trace-api",
+        client_secret=config["api_secret"],
+        timeout_seconds=2,
+        max_response_bytes=65536,
+        max_token_bytes=16384,
+    )
+    runtime = IdentityRuntimeConfig(
+        settings,
+        Path(config["ca_file"]),
+        PrivateValue(make_conninfo(ctx["admin_dsn"], user=role, password=password)),
+        ctx["settings"],
+    )
+    resources = open_identity(runtime)
+    try:
+        yield config, ctx, bundle, resources, identity_id, runtime
+    finally:
+        resources.close()
+        manager.close()
+        with psycopg.connect(ctx["admin_dsn"]) as admin:
+            admin.execute(sql.SQL("DROP OWNED BY {}").format(sql.Identifier(role)))
+            admin.execute(sql.SQL("DROP ROLE {}").format(sql.Identifier(role)))

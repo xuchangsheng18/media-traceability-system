@@ -208,7 +208,8 @@ def run_type_check(tool_python: Path, root: Path) -> subprocess.CompletedProcess
         paths = sorted(root.rglob("*.py"))
     if not paths:
         raise RuntimeError("TYPE_CHECK_EMPTY_SCOPE")
-    env = dict(os.environ, MYPYPATH=os.pathsep.join([str(root / "backend"), str(root / "scripts")]))
+    # Keep scripts.identity/native in the same namespace as their real callers.
+    env = dict(os.environ, MYPYPATH=os.pathsep.join([str(root / "backend"), str(root)]))
     cache = RUNTIME / "stage-three-type-cache"
     return subprocess.run(
         [

@@ -7,6 +7,7 @@ import secrets
 import subprocess
 import time
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
@@ -107,7 +108,10 @@ def main():
     if args.action == "prepare":
         print("Private runtime configuration ready; credentials not printed")
     elif args.action == "pack":
-        from verify_runtime_lock import main as verify_lock
+        if TYPE_CHECKING:
+            from scripts.verify_runtime_lock import main as verify_lock
+        else:
+            from verify_runtime_lock import main as verify_lock
         lock_report = verify_lock()
         target = ROOT/"deploy/build/py310.tar.gz"
         target.parent.mkdir(exist_ok=True)

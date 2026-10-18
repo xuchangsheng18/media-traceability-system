@@ -37,7 +37,7 @@ def test_only_precommit_disables_report_writes_without_disabling_checks(monkeypa
 def test_read_only_secret_check_still_rejects_prohibited_files(monkeypatch, tmp_path, unsafe):
     script_dir = str(ROOT / "scripts")
     monkeypatch.syspath_prepend(script_dir)
-    import stage_three_quality as quality
+    from scripts import stage_three_quality as quality
 
     monkeypatch.setattr(quality, "ROOT", tmp_path)
     monkeypatch.setattr(quality, "VALIDATION", tmp_path)
@@ -54,7 +54,7 @@ def test_read_only_secret_check_still_rejects_prohibited_files(monkeypatch, tmp_
 def test_stage_capacity_text_uses_timestamped_snapshot_or_unknown(monkeypatch, known):
     script_dir = str(ROOT / "scripts")
     monkeypatch.syspath_prepend(script_dir)
-    import generate_stage_three_docs as generation
+    from scripts import generate_stage_three_docs as generation
 
     original = generation.read
     receipt = (
@@ -364,7 +364,7 @@ def test_new_python_module_is_checked_without_updating_a_file_list(monkeypatch, 
 
 def test_directory_format_scope_also_checks_new_module_text(monkeypatch, tmp_path):
     monkeypatch.syspath_prepend(str(ROOT / "scripts"))
-    import stage_three_quality as quality
+    from scripts import stage_three_quality as quality
 
     for name in [
         "CONTRIBUTING.md",

@@ -14,7 +14,11 @@ concurrency:
   group: py310-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  identity-verification:
+    uses: ./.github/workflows/identity.yml
   engineering:
+    needs: identity-verification
+    if: ${{ always() }}
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     env:
@@ -43,6 +47,9 @@ jobs:
         ports: ['14673:5672']
         options: --health-cmd "rabbitmq-diagnostics -q ping" --health-interval 5s --health-timeout 5s --health-retries 12
     steps:
+      - name: Require successful isolated identity verification
+        if: ${{ needs.identity-verification.result != 'success' }}
+        run: exit 1
       - name: Configure isolated runtime paths
         shell: bash
         run: |

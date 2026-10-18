@@ -1,0 +1,127 @@
+{
+  "mode": "final-green",
+  "observed_at": "2026-10-18T18:32:49.378185+00:00",
+  "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+  "source_sha256": {
+    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+    "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d"
+  },
+  "checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/platform",
+        "tests/stage_three",
+        "tests/poc",
+        "tests/native",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/final-green.xml"
+      ],
+      "exit_code": 0,
+      "totals": {
+        "tests": 342,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [],
+      "started_at": "2026-10-18T18:19:50.156800+00:00",
+      "elapsed_seconds": 19.707144,
+      "private_log_sha256": "21958515977a79e39b6ff305f60ccaf19e55c1ce11698b67ebc97acd42e75e30"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/dev.py",
+        "format-check"
+      ],
+      "exit_code": 0,
+      "totals": null,
+      "failed_cases": [],
+      "started_at": "2026-10-18T18:20:09.864121+00:00",
+      "elapsed_seconds": 1.164739,
+      "private_log_sha256": "2186ee0c83fae3c14963173e48cbffb98d86c6c67d8c2f8914d81c43024d06fa"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/dev.py",
+        "lint"
+      ],
+      "exit_code": 0,
+      "totals": null,
+      "failed_cases": [],
+      "started_at": "2026-10-18T18:20:11.029007+00:00",
+      "elapsed_seconds": 6.225688,
+      "private_log_sha256": "3b05774bc40dfff2b99aa88626834b3165b71cc1e97fb5ff4807bac51164f4aa"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/stage_three_types.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "totals": null,
+      "failed_cases": [],
+      "started_at": "2026-10-18T18:20:17.254845+00:00",
+      "elapsed_seconds": 0.737007,
+      "private_log_sha256": "8b5797357e93091221a6fcd852b451114a3ea8e2435b261bb73dd79f29e7412b"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "scripts.identity.checks",
+        "run",
+        "--private-root",
+        "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/final-suites-20261018T181950",
+        "--output",
+        "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/scoped-check-report.final.json"
+      ],
+      "exit_code": 0,
+      "totals": {
+        "tests": 225,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [],
+      "started_at": "2026-10-18T18:20:17.991957+00:00",
+      "elapsed_seconds": 301.377761,
+      "private_log_sha256": "af2c559165668b6b9eeef85e3ecfc26be70b206b0f0a34e2580c3e6a77f3eb0e",
+      "totals_basis_ref": "docs/00-project/validation/t013-rotation-fault/linux-scoped-report.json"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_business_foundation.py",
+        "run"
+      ],
+      "exit_code": 0,
+      "totals": {
+        "tests": 246,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [],
+      "started_at": "2026-10-18T18:25:19.369868+00:00",
+      "elapsed_seconds": 450.008166,
+      "private_log_sha256": "3e195d852780594529248f18fc4253f57fa285fea386fb11a3424cb9d7e62afb",
+      "totals_basis_ref": "docs/00-project/validation/t013-rotation-fault/linux-business-report.json"
+    }
+  ],
+  "Python_candidates_created": false,
+  "shared_services_restarted": false,
+  "formal_accepted": false,
+  "raw_logs_published": false,
+  "capture_note": "The private capture reused the preceding unit JUnit counts for later commands. Counts below are normalized against each command-specific safe report; quality-only commands do not have test totals. Original capture SHA256 retained, raw logs remain private.",
+  "original_private_capture_sha256": "92c94f510e9e34af951f6fd34dc287fa77d8543548764ba6eda5cf011cfda2cd"
+}
