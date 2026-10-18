@@ -1,0 +1,18 @@
+import concurrent.futures,datetime,hashlib,json,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;o=w/'n01-disposition-sources';o.mkdir(exist_ok=True)
+ids=['CVE-2023-36632','CVE-2025-12781','CVE-2025-15366','CVE-2025-15367','CVE-2026-12003','CVE-2026-12345','CVE-2026-3446','CVE-2026-3479','CVE-2026-6019']
+urls={i+'.json':'https://cveawg.mitre.org/api/cve/'+i for i in ids}
+urls.update({'eastasianwidth-registry.json':'https://registry.npmjs.org/eastasianwidth/0.2.0','agent-registry.json':'https://registry.npmjs.org/@npmcli%2fagent/3.0.0','node-license.txt':'https://raw.githubusercontent.com/nodejs/node/v22.23.3/LICENSE','npm-license.txt':'https://raw.githubusercontent.com/npm/cli/v10.9.4/LICENSE','eastasianwidth-source.js':'https://raw.githubusercontent.com/komagata/eastasianwidth/b89f04d44dc786885615e94cd6e2ba1ef7866fa4/eastasianwidth.js','agent-readme.md':'https://raw.githubusercontent.com/npm/agent/94f346d882458ac9481d015c55057d15f5899bf1/README.md'})
+def fetch(kv):
+ n,u=kv
+ try:
+  raw=urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'media-trace-N01-source-review'}),timeout=45).read();(o/n).write_bytes(raw)
+  x={'file':n,'url':u,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw),'status':'RETRIEVED'}
+  if n.startswith('CVE'):
+   d=json.loads(raw);c=d['containers']['cna'];x.update(state=d['cveMetadata']['state'],description=[v['value'] for v in c.get('descriptions',[]) if v.get('lang')=='en'],affected=c.get('affected'),references=c.get('references'),tags=c.get('tags'))
+  return x
+ except Exception as e:return {'file':n,'url':u,'status':'FAILED','error':str(e)}
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:rows=list(pool.map(fetch,urls.items()))
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'records':rows};(o/'acquisition.json').write_text(json.dumps(d,indent=2)+'\n',encoding='utf8')
+for x in rows:print(json.dumps({k:x[k] for k in ['file','status','description','references','error'] if k in x}))

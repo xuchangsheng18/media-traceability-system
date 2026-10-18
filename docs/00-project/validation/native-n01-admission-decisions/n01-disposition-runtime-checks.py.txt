@@ -1,0 +1,31 @@
+"""Bounded safe observations and existing regression tests, not a patch."""
+import base64,datetime,hashlib,inspect,json,os,subprocess,sys
+from pathlib import Path
+os.umask(0o077);repo=Path('/workspace/glwy/projects/media-traceability-system');o=Path('/workspace/glwy/runtime/media-traceability-system/n01-current-admission')
+site=Path('/opt/conda/glwy/envs/py310/lib/python3.10/site-packages');inv=json.loads((o/'dependency-callsite-inventory.json').read_text());contexts=[]
+for x in inv['target_calls']:
+ if x['scope']!='installed_python_sources' or x['kind']=='TemporaryDirectory':continue
+ p=site/x['path'];lines=p.read_text(encoding='utf8').splitlines();a=max(0,x['line']-12);b=min(len(lines),x['line']+8)
+ if x['path']=='PIL/ImageFont.py':continue
+ contexts.append({'path':x['path'],'source_sha256':x['source_sha256'],'call_line':x['line'],'start_line':a+1,'source_context':'\n'.join(lines[a:b]),'kind':x['kind']})
+checks=[]
+def check(name,actual,expected,security):
+ checks.append({'name':name,'actual':actual,'expected':expected,'observation_matches':actual==expected,'meaning':security})
+check('stdlib_alternate_decoder_accepts_standard_alphabet',base64.b64decode(b'+/8=',altchars=b'-_',validate=True).hex(),'fbff','Known interpreter behavior persists;not mitigation')
+check('stdlib_default_decoder_ignores_postpadding_tail',base64.b64decode(b'YQ==EXTRA').decode(),'a','Known default decoder behavior persists;not mitigation')
+try:base64.b64decode(b'YQ==EXTRA',validate=True);strict='ACCEPTED'
+except Exception as e:strict=type(e).__name__
+check('stdlib_strict_decoder_rejects_postpadding_tail',strict,'Error','Strict flag behavior only;not all callers use it')
+import email.utils,pkgutil,http.cookies
+check('parseaddr_has_strict_keyword','strict' in inspect.signature(email.utils.parseaddr).parameters,True,'Confirmed current source signature;initial assumption of missing strict keyword was wrong,not evidence of a runtime change or whole-CVE repair')
+cookie=http.cookies.SimpleCookie();cookie['sample']='</script><span>self-owned</span>'
+check('Morsel_js_output_contains_literal_closing_script','</script><span>' in cookie['sample'].js_output(),True,'Synthetic value only,not rendered;unsafe API behavior persists')
+import dateutil.zoneinfo as zi
+check('dateutil_resource_name_is_fixed',zi.ZONEFILENAME,'dateutil-zoneinfo.tar.gz','Only observed pkgutil.get_data caller uses fixed package/resource globals;not arbitrary caller confinement')
+env=dict(os.environ,PYTHONPATH=str(repo/'backend'),PYTHONDONTWRITEBYTECODE='1')
+p=subprocess.run([sys.executable,'-m','pytest','tests/business/test_cursor_canonicality.py','-q','--tb=short'],cwd=repo,env=env,capture_output=True,text=True,timeout=90);raw=(p.stdout+p.stderr).encode();(o/'current-cursor-regression.log').write_bytes(raw)
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'runtime':sys.version,'status':'BOUNDED_OBSERVATIONS_AND_D02_REGRESSION_ONLY','safe_observations':checks,'all_observations_match_recorded_expectations':all(x['observation_matches'] for x in checks),'cursor_regression':{'command':[sys.executable,'-m','pytest','tests/business/test_cursor_canonicality.py','-q','--tb=short'],'exit_code':p.returncode,'output':p.stdout+p.stderr,'log_sha256':hashlib.sha256(raw).hexdigest(),'test_kind':'self_owned_in_memory_no_HTTP_or_DB_acceptance'},'dependency_source_contexts':contexts,'interpreter_patched':False,'services_changed':False,'Python_candidate_created':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+d['parseaddr_source']={'signature':str(inspect.signature(email.utils.parseaddr)),'function':inspect.getsource(email.utils.parseaddr),'pre_validation':inspect.getsource(email.utils._pre_parse_validation),'post_validation':inspect.getsource(email.utils._post_parse_validation),'parenthesis_check':inspect.getsource(email.utils._check_parenthesis),'source_sha256':hashlib.sha256(Path(inspect.getsourcefile(email.utils)).read_bytes()).hexdigest()}
+d['initial_observation_expectation_correction']='First probe incorrectly expected absence of strict parameter;actual source inspected,initial failed observation retained separately;no runtime or dependency modified'
+(o/'disposition-runtime-checks.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'observations':len(checks),'all_match':d['all_observations_match_recorded_expectations'],'cursor_exit':p.returncode,'cursor_output':p.stdout,'dependency_contexts':len(contexts)}))
+assert p.returncode==0 and d['all_observations_match_recorded_expectations']

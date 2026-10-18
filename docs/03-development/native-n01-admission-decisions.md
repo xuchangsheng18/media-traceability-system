@@ -6,6 +6,40 @@
 
 
 
+
+## 本轮九条漏洞、发布者通知与逐软件复核
+
+[9条逐项处置](../00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json) · [精确上游记录](../00-project/validation/native-n01-admission-decisions/nine-cve-authoritative-source-refresh.json) · [依赖调用清单](../00-project/validation/native-n01-admission-decisions/dependency-callsite-inventory.json) · [实际探测与D02专项](../00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.json) · [两包发布者通知核查](../00-project/validation/native-n01-admission-decisions/two-publisher-notice-review.json) · [十类软件逐项复核](../00-project/validation/native-n01-admission-decisions/component-admission-review.json)。以下为当前状态；后续章节保留此前来源与观察。
+
+本轮静态清单覆盖124个项目Python文件、8597个已安装Python源文件，其中22/170个含目标候选文本的文件完成AST分析，无解析错误。依赖中发现41处Base64解码（37处标准字母表、4处URL-safe）、42处TemporaryDirectory及1处pkgutil.get_data调用；项目有16处TemporaryDirectory和2处解码。未观察到已解析的IMAP、POP、parseaddr及js_output直接调用。这是按文件导入别名的候选清单，不覆盖完整数据流、动态/编译代码或未来插件，不能写成全路径不可达。
+
+| CVE | 本轮完成的实际处置/核查 | 仍未关闭的内容 |
+| --- | --- | --- |
+| CVE-2023-36632 | 上游保留争议。当前parseaddr为(addr, *, strict=True)，已保留前后校验源码；124项目文件和8597已安装Python源文件候选扫描无直接parseaddr调用。不能把严格参数当递归/输入上限的全面修复。 | 未证明第三方间接邮件解析及超长输入全路径；启用邮件解析时明确长度上限、异常处理与有界测试，正式处置待复核。 |
+| CVE-2025-12781 | D02两处游标统一严格编码入口，21项专项重跑通过。解释器仍接收标准字母表别名；已安装依赖41处解码中4处URL-safe调用分别在Pydantic和两份wheel实现。 | Pydantic Base64URL类型和wheel恢复/安装输入需逐路径核对；不得把D02推广为所有第三方解码已修复。 |
+| CVE-2025-15366 | 当前项目及已安装Python源候选AST扫描无已解析imaplib调用；旧内存命令观察仍保留，不伪造模块修补。 | 启用IMAP、插件或间接调度前，须补受维护修补或经批准的命令控制字符拒绝及相应测试；现有扫描不足以关闭整解释器记录。 |
+| CVE-2025-15367 | 当前项目及已安装Python源候选AST扫描无已解析poplib调用；旧内存命令观察仍保留。 | 启用POP/插件前须补受维护修补或经批准的控制字符拒绝及测试；不修改库或把未观察到调用当全环境不可达。 |
+| CVE-2026-12003 | 上游描述为VPATH回退及父目录权限条件；现有只读VPATH/父目录/ACL观察保留，当前并非已验收的高权限服务环境。 | 不创建landmark或实施目录攻击；N02落实不可由低权限主体改写的服务代码和祖先目录，N03以实际账号验证，当前不签整环境不受影响。 |
+| CVE-2026-12345 | 16处项目与42处已安装依赖TemporaryDirectory直接调用已列出；rmtree防符号链接标记不覆盖上游所述全部文件标志风险。 | 后续获准实现私有临时根、非特权运行和写入主体限制，并按最终账号验证；本轮仅清单，不改变TMPDIR/ACL/清理逻辑，不登记已修复。 |
+| CVE-2026-3446 | D02专项21项通过；无害探测确认默认解码忽略填充后尾部、validate=True拒绝该输入。依赖41处解码中，仅2处标准字母表调用显式validate=True，37处标准/4处URL-safe分别保留上下文。 | 按各调用的真实协议/信任边界核对；尤其S3响应校验、消息序列化、会话中间件和Pydantic类型。是否需要代码变更按具体申请处理，不直接修改第三方或降低断言。 |
+| CVE-2026-3479 | 上游明确get_data按open安全模型并保留争议；唯一已解析依赖调用为dateutil.zoneinfo，包名__name__和资源常量dateutil-zoneinfo.tar.gz已记录源码。项目无直接调用。 | 该固定调用未观察到外部resource参数；不证明动态loader或变量重绑定绝无风险。未来接受外部资源路径时必须授权、约束和测试，不将争议当全软件准入。 |
+| CVE-2026-6019 | 合成cookie探测仍出现字面</script>序列，未在浏览器执行。当前项目/已安装Python源候选扫描无已解析js_output调用。 | 不能将不可信cookie拼入内联脚本；启用该API前补修补或改用安全响应头路径并验证，不把零匹配当解释器已修复。 |
+
+6项无害行为观察保留实际值；其中默认Base64接收尾部、Morsel输出脚本闭合序列是风险仍在的证据，不能称安全测试通过。D02的21项专项实际通过；它限定于两处业务游标。首次辅助探测错误预期parseaddr没有strict参数，已保留[失败观察](../00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.initial.json)，随后读取实际源码确认strict=True及前后校验，纠正的是探测预期，并未修改解释器或证明递归类问题全面修复。
+
+两包已重新获取精确npm发布归档并验证registry SHA512，与gitHead源码逐文件对照：eastasianwidth0.2.0的3文件、@npmcli/agent3.0.0的8文件全部一致。[实际制品复核](../00-project/validation/native-n01-admission-decisions/disposition-materials-verification.json)另确认：预选Node归档中的9个JS/package.json文件均匹配；2份README未随Node包提供，不将发布包11文件全部说成已嵌入Node。8721份Python源文件摘要已在Linux重核，19份本轮来源材料已私有归档、逐项重读校验。完整源码归档分别5/43个普通文件，全文检查仍只见MIT/ISC元数据声明，没有取得发布者版权/许可通知。author元数据不等于可代填版权通知；本轮发布者通知关闭数为0。Node目标实际捆绑npm10.9.9，早期辅助下载的npm10.9.4 LICENSE不作为该精确目标的依据。
+
+需要补充材料时，徐昌胜可向两个上游提供下列**尚未发送**的核验请求；本轮没有向外发消息，也不要求批准未知风险：
+
+- [eastasianwidth上游](https://github.com/komagata/eastasianwidth)：请求确认0.2.0／b89f04d44dc786885615e94cd6e2ba1ef7866fa4适用的MIT全文、实际版权通知和年份（若上游原本没有年份，不补造），并提供可保存的发布者链接或原文。
+- [@npmcli/agent上游](https://github.com/npm/agent)：请求确认3.0.0／94f346d882458ac9481d015c55057d15f5899bf1适用的ISC全文与实际版权通知。需要保留回复出处、时间、原文摘要及适用版本，不能用其他版本许可自动覆盖本版本。
+
+如果已有这些权威材料，只需提供本地文件或官方链接。没有时，保持这两项材料待补；排除npm/更换制品属于新的具体变更，当前未实施。无需管理员安装、发密码/Token或重复确认Python暂缓。
+
+十类软件均已按精确制品及已有材料展开当前使用、通知保留、第三方边界和各自剩余事项；没有把Node的MIT、JDK的Classpath例外或项目Apache-2.0覆盖所有依赖。当前仅团队内部研发，也不凭该表述认定所有成员属同一法律主体；将来运行包交付的接收者/源码路径需按实际范围核对。Python维护/9条记录与两包通知尚未关闭；其他组件的材料复核不是正式准入决定。所有formal_decision继续为空，installation_permitted=false，最终安装锁、N02/N03服务验收和N04业务数据恢复尚未执行。
+
+本轮未增加170任务整卡验收数，Python候选继续暂缓，原100包锁及现有服务不变。最新CI以[机器报告](../00-project/validation/github-actions-report.json)所绑定的源码提交、制品摘要和实际测试结果为准，随后回执提交只包含忽略路径，不倒填为重新跑过代码门禁。
+
 ## 当前恢复组合与Go缓存核验
 
 [恢复组合评审稿](../../config/native/recovery-combination.review.json)将10个组件、96份wheel、25个Conda包、89个OS恢复包、40个构建包及已认可的3项预选逐一关联，原制品锁和原100包版本锁保留。旧Node及原age/Seaweed二进制留作历史来源，不与新预选混用。该文件是恢复输入评审稿，不能作为安装许可或最终采用锁。
@@ -53,7 +87,7 @@ Node22.23.3实际二进制匹配已确认预选摘要；197处许可材料（99�
 | R1 维护依据 | Python3.10延长维护/补丁覆盖证明已确认暂无；候选继续暂缓 | 以后取得新材料时再验证；当前保留未完成，不重复索要、不自动接受风险 |
 | R2 12条CVE处置 | D02完成；3条当前目标限定不适用技术结论已获徐昌胜认可，另9条保留实际调用、补丁或条件处置事项 | 执行方逐项补证，徐昌胜复核具体结论，不能一并签为安全 |
 | R3 十类软件准入 | 精确制品、必要功能、随附许可/通知与已知扫描尚未形成逐组件实际准入决定 | 已有嵌套材料和三项预选保持有效；不重复收集已齐材料，不用空白审批替代技术处置 |
-| R4 最终恢复组合 | 已验证95wheel/25Conda/89OS输入，但最终实际组合与可选库/义务的全套对应未冻结 | 执行方按最终精确制品核对，不要求制作整个宿主镜像 |
+| R4 最终恢复组合 | 96wheel＋4Conda发行包、25Conda/89OS及Go恢复输入组合和缓存归档重放已核；最终安装采用待软件准入 | N03服务运行/N04业务数据恢复另行验收，不要求制作整个宿主镜像 |
 | R5 账号与能力边界 | 当前用户的权限观察不是未来专用账号运行验证；必要功能与可选功能须区分 | N01明确边界；N02落实账号，N03实测。FIPS/HSM/LDAP/Kerberos/GPU等未选能力启用前另验，不倒置阶段依赖 |
 | R6 安装锁 | 最终可安装锁未生成；原锁保留，三项候选仅预选 | 必需准入条件具备后由执行方生成和验证；当前不安装 |
 

@@ -1,0 +1,29 @@
+import datetime,hashlib,io,json,os,tarfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');o=base/'n01-current-admission'/'disposition-review-materials';assert o.is_dir()
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+inv=json.loads((o/'dependency-callsite-inventory.json').read_text());site=Path(inv['site_root']);count=0
+for x in inv['source_inventory']:
+ p=(repo if x['scope']=='project' else site)/x['path'];assert sha(p)==x['sha256'] and p.stat().st_size==x['size_bytes'],str(p);count+=1
+node=json.loads((repo/'docs/00-project/validation/native-n01-admission-decisions/node-preselection-bundled-materials.json').read_text());a=base/'native-security-candidate-cache'/node['archive_ref']['filename'];assert sha(a)==node['archive_ref']['sha256']
+n=json.loads((o/'two-publisher-notice-review.json').read_text());verified=[];omitted=[]
+with tarfile.open(a) as t:
+ prefix=t.getmembers()[0].name.split('/')[0]+'/lib/node_modules/npm/node_modules/'
+ for row in n['records']:
+  pkg=o/('agent-package.tgz' if row['package'].startswith('@') else 'eastasianwidth-package.tgz');assert sha(pkg)==row['package_archive_sha256']
+  for member in row['common_files']:
+   target=prefix+row['package']+'/'+member['path']
+   try:entry=t.getmember(target)
+   except KeyError:
+    assert member['path']=='README.md',target
+    omitted.append({'package':row['package'],'path':member['path'],'kind':'README_NOT_SHIPPED_IN_NODE_BUNDLE_NOT_A_CODE_MISMATCH'});continue
+   raw=t.extractfile(entry).read();assert hashlib.sha256(raw).hexdigest()==member['package_sha256'];verified.append({'package':row['package'],'path':member['path'],'sha256':member['package_sha256']})
+files=[p for p in sorted(o.iterdir()) if p.is_file() and p.name not in {'disposition-review-materials.tar.gz','disposition-materials-verification.json','retained-files.json'}]
+manifest=[{'name':p.name,'sha256':sha(p),'size_bytes':p.stat().st_size} for p in files];(o/'retained-files.json').write_text(json.dumps(manifest,indent=2)+'\n')
+archive=o/'disposition-review-materials.tar.gz'
+with tarfile.open(archive,'w:gz') as t:
+ for p in files+[o/'retained-files.json']:t.add(p,arcname=p.name)
+with tarfile.open(archive) as t:
+ for x in manifest:raw=t.extractfile(x['name']).read();assert len(raw)==x['size_bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'status':'PASS_EXACT_SOURCE_AND_RETAINED_MATERIAL_BYTES_NOT_LICENSE_OR_SOFTWARE_ADMISSION','scope':'current_python_source_hashes_and_two_packages_embedded_in_actual_preselected_Node_archive','source_commit':inv['source_commit'],'Python_source_files_rechecked':count,'actual_Node_package_files_verified':verified,'Node_omitted_published_READMEs':omitted,'initial_probe_correction':'First method assumed npm READMEs shipped in Node;missing README observed,explicit omissions recorded and every remaining JS/package.json must match;not all11published files claimed embedded','Node_archive_sha256':node['archive_ref']['sha256'],'retained_material_files':manifest,'archive':{'path':str(archive),'sha256':sha(archive),'size_bytes':archive.stat().st_size,'payload_files':len(manifest)},'private_directory_mode':oct(o.stat().st_mode&0o777),'publisher_notices_obtained':0,'Python_candidates_created':False,'runtime_or_permissions_changed':False,'installation_permitted':False,'executed_script_sha256':sha(Path(__file__))}
+(o/'disposition-materials-verification.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({k:d[k] for k in ['status','Python_source_files_rechecked','archive','private_directory_mode']}))

@@ -1,0 +1,20 @@
+import base64,concurrent.futures,datetime,hashlib,io,json,re,tarfile,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;o=w/'n01-disposition-sources'
+def get(u):return urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'media-trace-N01-review'}),timeout=60).read()
+def members(raw):
+ with tarfile.open(fileobj=io.BytesIO(raw),mode='r:gz') as t:return {m.name.split('/',1)[1]:t.extractfile(m).read() for m in t.getmembers() if m.isfile() and '/' in m.name}
+rows=[]
+for file,repo in [('eastasianwidth-registry.json','komagata/eastasianwidth'),('agent-registry.json','npm/agent')]:
+ meta=json.loads((o/file).read_text(encoding='utf8'));name=meta['name'];stem=file.split('-registry')[0];dist=meta['dist'];package=get(dist['tarball']);assert 'sha512-'+base64.b64encode(hashlib.sha512(package).digest()).decode()==dist['integrity']
+ source_url='https://codeload.github.com/'+repo+'/tar.gz/'+meta['gitHead'];source=get(source_url);(o/(stem+'-package.tgz')).write_bytes(package);(o/(stem+'-source.tgz')).write_bytes(source)
+ p=members(package);s=members(source);hits=[]
+ for collection,entries in [('published_package',p),('exact_gitHead_source',s)]:
+  for path,raw in entries.items():
+   try:text=raw.decode('utf8')
+   except UnicodeDecodeError:continue
+   for i,line in enumerate(text.splitlines()):
+    if re.search(r'copyright|permission is hereby|permission to use|ISC license|MIT license|SPDX-License|licen[cs]e',line,re.I):hits.append({'collection':collection,'path':path,'line':i+1,'text':line[:300]})
+ common=[{'path':k,'package_sha256':hashlib.sha256(p[k]).hexdigest(),'source_sha256':hashlib.sha256(s[k]).hexdigest(),'identical':p[k]==s[k]} for k in sorted(set(p)&set(s))]
+ rows.append({'package':name,'version':meta['version'],'declared_license':meta.get('license'),'registry_author_metadata_not_copyright_notice':meta.get('author'),'registry_url':'https://registry.npmjs.org/'+name+'/'+meta['version'],'registry_sha256':hashlib.sha256((o/file).read_bytes()).hexdigest(),'git_head':meta['gitHead'],'source_url':source_url,'package_archive_sha256':hashlib.sha256(package).hexdigest(),'package_integrity_verified':True,'source_archive_sha256':hashlib.sha256(source).hexdigest(),'package_files':len(p),'source_files':len(s),'whole_text_license_keyword_observations':hits,'common_files':common,'only_in_package':sorted(set(p)-set(s)),'only_in_source':sorted(set(s)-set(p)),'publisher_notice_obtained':False,'status':'DECLARATION_CONFIRMED_EXACT_TEXT_SEARCH_NO_PUBLISHER_NOTICE_FOUND','formal_admitted':False,'no_contact_sent':True})
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'both_exact_published_packages_and_complete_gitHead_source_archives_no_version_substitution','records':rows,'overall_material_gap_closed':False,'permission_terms_not_invented':True,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(o/'two-publisher-notice-review.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps(rows))

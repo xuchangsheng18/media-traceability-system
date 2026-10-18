@@ -1,0 +1,383 @@
+{
+  "observed_at": "2026-10-18T12:02:40.296574+00:00",
+  "source_commit": "541f2c1fea3b7559f03edf13b96781bfa7df8173",
+  "runtime": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+  "status": "BOUNDED_OBSERVATIONS_AND_D02_REGRESSION_ONLY",
+  "safe_observations": [
+    {
+      "name": "stdlib_alternate_decoder_accepts_standard_alphabet",
+      "actual": "fbff",
+      "expected": "fbff",
+      "observation_matches": true,
+      "meaning": "Known interpreter behavior persists;not mitigation"
+    },
+    {
+      "name": "stdlib_default_decoder_ignores_postpadding_tail",
+      "actual": "a",
+      "expected": "a",
+      "observation_matches": true,
+      "meaning": "Known default decoder behavior persists;not mitigation"
+    },
+    {
+      "name": "stdlib_strict_decoder_rejects_postpadding_tail",
+      "actual": "Error",
+      "expected": "Error",
+      "observation_matches": true,
+      "meaning": "Strict flag behavior only;not all callers use it"
+    },
+    {
+      "name": "parseaddr_has_strict_keyword",
+      "actual": true,
+      "expected": false,
+      "observation_matches": false,
+      "meaning": "Current legacy API signature;not exploit or whole-call-path proof"
+    },
+    {
+      "name": "Morsel_js_output_contains_literal_closing_script",
+      "actual": true,
+      "expected": true,
+      "observation_matches": true,
+      "meaning": "Synthetic value only,not rendered;unsafe API behavior persists"
+    },
+    {
+      "name": "dateutil_resource_name_is_fixed",
+      "actual": "dateutil-zoneinfo.tar.gz",
+      "expected": "dateutil-zoneinfo.tar.gz",
+      "observation_matches": true,
+      "meaning": "Only observed pkgutil.get_data caller uses fixed package/resource globals;not arbitrary caller confinement"
+    }
+  ],
+  "all_observations_match_recorded_expectations": false,
+  "cursor_regression": {
+    "command": [
+      "/opt/conda/glwy/envs/py310/bin/python",
+      "-m",
+      "pytest",
+      "tests/business/test_cursor_canonicality.py",
+      "-q",
+      "--tb=short"
+    ],
+    "exit_code": 0,
+    "output": ".....................                                                    [100%]\n21 passed in 0.64s\n",
+    "log_sha256": "5e8bfadc2f0e2f0526dae78969ead6fa139c23e164d4aad00414e7ce5f16e95d",
+    "test_kind": "self_owned_in_memory_no_HTTP_or_DB_acceptance"
+  },
+  "dependency_source_contexts": [
+    {
+      "path": "botocore/credentials.py",
+      "source_sha256": "38f95561c553c7e76d9da6d23d30a779dcfb0403a254cb98562e92e12cc0b0e8",
+      "call_line": 2714,
+      "start_line": 2703,
+      "source_context": "        content_lines = [\n            line\n            for line in lines\n            if not line.startswith('-----BEGIN')\n            and not line.startswith('-----END')\n        ]\n\n        # strip should handle the optional newline at the end as well\n        contents = ''.join(content_lines).strip()\n\n        try:\n            return EC.new_key_from_der_data(base64.b64decode(contents))\n        except ValueError as e:\n            raise LoginTokenLoadError(\n                error_msg='Unable to load private key from cached token.'\n            ) from e\n\n\nclass LoginProvider(CredentialProvider):\n    METHOD = 'login'",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/handlers.py",
+      "source_sha256": "504f9fd31a56a197dd63ee46796f86de471c02e550b2813a5fbcfacf3bcd6819",
+      "call_line": 278,
+      "start_line": 267,
+      "source_context": "        context['signing'].update(signing)\n    else:\n        context['signing'] = signing\n\n\ndef decode_console_output(parsed, **kwargs):\n    if 'Output' in parsed:\n        try:\n            # We're using 'replace' for errors because it is\n            # possible that console output contains non string\n            # chars we can't utf-8 decode.\n            value = base64.b64decode(\n                bytes(parsed['Output'], 'latin-1')\n            ).decode('utf-8', 'replace')\n            parsed['Output'] = value\n        except (ValueError, TypeError, AttributeError):\n            logger.debug('Error decoding base64', exc_info=True)\n\n\ndef generate_idempotent_uuid(params, model, **kwargs):",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/httpchecksum.py",
+      "source_sha256": "a5cee8b14d1bab4dbe398f27f4517be32bb35028a636d58029890abf1dd600af",
+      "call_line": 622,
+      "start_line": 611,
+      "source_context": "        response[\"headers\"][header_name],\n    )\n\n\ndef _handle_bytes_response(http_response, response, algorithm):\n    body = http_response.content\n    header_name = f\"x-amz-checksum-{algorithm}\"\n    checksum_cls = _CHECKSUM_CLS.get(algorithm)\n    checksum = checksum_cls()\n    checksum.update(body)\n    expected = response[\"headers\"][header_name]\n    if checksum.digest() != base64.b64decode(expected):\n        error_msg = (\n            f\"Expected checksum {expected} did not match calculated \"\n            f\"checksum: {checksum.b64digest()}\"\n        )\n        raise FlexibleChecksumError(error_msg=error_msg)\n    return body\n\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/httpchecksum.py",
+      "source_sha256": "a5cee8b14d1bab4dbe398f27f4517be32bb35028a636d58029890abf1dd600af",
+      "call_line": 313,
+      "start_line": 302,
+      "source_context": "            view = b\n        else:\n            view = memoryview(b)[:amount_read]\n        self._checksum.update(view)\n        if amount_read == 0 and len(b) > 0:\n            self._validate_checksum()\n        return amount_read\n\n    def _validate_checksum(self):\n        if self._expected is None:\n            return\n        if self._checksum.digest() != base64.b64decode(self._expected):\n            error_msg = (\n                f\"Expected checksum {self._expected} did not match calculated \"\n                f\"checksum: {self._checksum.b64digest()}\"\n            )\n            raise FlexibleChecksumError(error_msg=error_msg)\n\n\ndef resolve_checksum_context(request, operation_model, params):",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/paginate.py",
+      "source_sha256": "498a98d13678389224a7966fa8c50a927f272475bc552ee54bfe219b59e918e2",
+      "call_line": 142,
+      "start_line": 131,
+      "source_context": "        # be needed.\n        encoded_keys = decoded_token.pop('boto_encoded_keys', None)\n        if encoded_keys is None:\n            return decoded_token\n        else:\n            return self._decode(decoded_token, encoded_keys)\n\n    def _decode(self, token, encoded_keys):\n        \"\"\"Find each encoded value and decode it.\"\"\"\n        for key in encoded_keys:\n            encoded = self._path_get(token, key)\n            decoded = base64.b64decode(encoded.encode('utf-8'))\n            self._path_set(token, key, decoded)\n        return token\n\n    def _path_get(self, data, path):\n        \"\"\"Return the nested data at the given path.\n\n        For instance:\n            data = {'foo': ['bar', 'baz']}",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/paginate.py",
+      "source_sha256": "498a98d13678389224a7966fa8c50a927f272475bc552ee54bfe219b59e918e2",
+      "call_line": 127,
+      "start_line": 116,
+      "source_context": "        \"\"\"Decodes an opaque string to a dictionary.\n\n        :type token: str\n        :param token: A token string given by the botocore pagination\n            interface.\n\n        :rtype: dict\n        :returns: A dictionary containing pagination information,\n            particularly the service pagination token(s) but also other boto\n            metadata.\n        \"\"\"\n        json_string = base64.b64decode(token.encode('utf-8')).decode('utf-8')\n        decoded_token = json.loads(json_string)\n\n        # Remove the encoding metadata as it is read since it will no longer\n        # be needed.\n        encoded_keys = decoded_token.pop('boto_encoded_keys', None)\n        if encoded_keys is None:\n            return decoded_token\n        else:",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/parsers.py",
+      "source_sha256": "2367dc4b9f07e495185c65ea6e9d37014133968de19f860822f48b1a7e1f26ea",
+      "call_line": 236,
+      "start_line": 225,
+      "source_context": "        self._blob_parser = blob_parser\n        self._event_stream_parser = None\n        if self.EVENT_STREAM_PARSER_CLS is not None:\n            self._event_stream_parser = self.EVENT_STREAM_PARSER_CLS(\n                timestamp_parser, blob_parser\n            )\n\n    def _default_blob_parser(self, value):\n        # Blobs are always returned as bytes type (this matters on python3).\n        # We don't decode this to a str because it's entirely possible that the\n        # blob contains binary data that actually can't be decoded.\n        return base64.b64decode(value)\n\n    def parse(self, response, shape):\n        \"\"\"Parse the HTTP response given a shape.\n\n        :param response: The HTTP response dictionary.  This is a dictionary\n            that represents the HTTP request.  The dictionary must have the\n            following keys, ``body``, ``headers``, and ``status_code``.\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "botocore/parsers.py",
+      "source_sha256": "2367dc4b9f07e495185c65ea6e9d37014133968de19f860822f48b1a7e1f26ea",
+      "call_line": 1226,
+      "start_line": 1215,
+      "source_context": "\n    def _initial_body_parse(self, body_contents):\n        # This method should do the initial xml/json parsing of the\n        # body.  We still need to walk the parsed body in order\n        # to convert types, but this method will do the first round\n        # of parsing.\n        raise NotImplementedError(\"_initial_body_parse\")\n\n    def _handle_string(self, shape, value):\n        parsed = value\n        if is_json_value_header(shape):\n            decoded = base64.b64decode(value).decode(self.DEFAULT_ENCODING)\n            parsed = json.loads(decoded)\n        return parsed\n\n    def _handle_list(self, shape, node):\n        location = shape.serialization.get('location')\n        if location == 'header' and not isinstance(node, list):\n            # List in headers may be a comma separated string as per RFC7230\n            node = [e.strip() for e in node.split(',')]",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "celery/utils/serialization.py",
+      "source_sha256": "e5ed4196f9bc1ad90d9f72e80ce6d137d4c72514555609a9e0e16dd1e8750093",
+      "call_line": 197,
+      "start_line": 186,
+      "source_context": "    \"\"\"Reverse of :meth:`get_pickleable_exception`.\"\"\"\n    if isinstance(exc, UnpickleableExceptionWrapper):\n        return exc.restore()\n    return exc\n\n\ndef b64encode(s):\n    return bytes_to_str(base64encode(str_to_bytes(s)))\n\n\ndef b64decode(s):\n    return base64decode(str_to_bytes(s))\n\n\ndef strtobool(term, table=None):\n    \"\"\"Convert common terms for true/false to bool.\n\n    Examples (true/false/yes/no/on/off/1/0).\n    \"\"\"\n    if table is None:",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "dateutil/zoneinfo/__init__.py",
+      "source_sha256": "298834a6d842323729e4c5d21220499f79cc8d978d65abfbae5270e7eb73d52e",
+      "call_line": 24,
+      "start_line": 13,
+      "source_context": "ZONEFILENAME = \"dateutil-zoneinfo.tar.gz\"\nMETADATA_FN = 'METADATA'\n\n\nclass tzfile(_tzfile):\n    def __reduce__(self):\n        return (gettz, (self._filename,))\n\n\ndef getzoneinfofile_stream():\n    try:\n        return BytesIO(get_data(__name__, ZONEFILENAME))\n    except IOError as e:  # TODO  switch to FileNotFoundError?\n        warnings.warn(\"I/O error({0}): {1}\".format(e.errno, e.strerror))\n        return None\n\n\nclass ZoneInfoFile(object):\n    def __init__(self, zonefile_stream=None):\n        if zonefile_stream is not None:",
+      "kind": "pkgutil_get_data"
+    },
+    {
+      "path": "fastapi/security/http.py",
+      "source_sha256": "674c402c3ab080965101a0ece3449aebcac09e317310bf7d50498ee4f2734ca0",
+      "call_line": 213,
+      "start_line": 202,
+      "source_context": "    async def __call__(  # type: ignore\n        self, request: Request\n    ) -> HTTPBasicCredentials | None:\n        authorization = request.headers.get(\"Authorization\")\n        scheme, param = get_authorization_scheme_param(authorization)\n        if not authorization or scheme.lower() != \"basic\":\n            if self.auto_error:\n                raise self.make_not_authenticated_error()\n            else:\n                return None\n        try:\n            data = b64decode(param).decode(\"ascii\")\n        except (ValueError, UnicodeDecodeError, binascii.Error) as e:\n            raise self.make_not_authenticated_error() from e\n        username, separator, password = data.partition(\":\")\n        if not separator:\n            raise self.make_not_authenticated_error()\n        return HTTPBasicCredentials(username=username, password=password)\n\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "fsspec/implementations/data.py",
+      "source_sha256": "f6d31ccb57f25f56aebf3157d9a00d3caf427cfa1aae7c530832e15f5daeb2fb",
+      "call_line": 43,
+      "start_line": 32,
+      "source_context": "        if path.startswith(\"data://\"):\n            path = path[7:]\n        elif path.startswith(\"data:\"):\n            path = path[5:]\n        # Do NOT strip trailing slashes, as they may be meaningful base64 characters\n        # or percent-encoded data content\n        return path\n\n    def cat_file(self, path, start=None, end=None, **kwargs):\n        pref, data = path.split(\",\", 1)\n        if pref.endswith(\"base64\"):\n            return base64.b64decode(data)[start:end]\n        return unquote(data).encode()[start:end]\n\n    def info(self, path, **kwargs):\n        pref, name = path.split(\",\", 1)\n        data = self.cat_file(path)\n        mime = pref.split(\":\", 1)[1].split(\";\", 1)[0]\n        return {\"name\": name, \"size\": len(data), \"type\": \"file\", \"mimetype\": mime}\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "fsspec/implementations/dbfs.py",
+      "source_sha256": "c87b8b50636641de69502b7dbe95e57903698cea48659c15640d3c61ab905385",
+      "call_line": 401,
+      "start_line": 390,
+      "source_context": "        start: int\n            Start position of the block\n        end: int\n            End position of the block\n        \"\"\"\n        try:\n            r = self._send_to_api(\n                method=\"get\",\n                endpoint=\"read\",\n                json={\"path\": path, \"offset\": start, \"length\": end - start},\n            )\n            return base64.b64decode(r[\"data\"])\n        except DatabricksException as e:\n            if e.error_code == \"RESOURCE_DOES_NOT_EXIST\":\n                raise FileNotFoundError(e.message) from e\n            elif e.error_code in [\"INVALID_PARAMETER_VALUE\", \"MAX_READ_SIZE_EXCEEDED\"]:\n                raise ValueError(e.message) from e\n\n            raise\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "fsspec/implementations/github.py",
+      "source_sha256": "682b192fc52f5d981d91c075454b370dd2de36b8cb29c16c15879014359b045a",
+      "call_line": 243,
+      "start_line": 232,
+      "source_context": "        )\n\n        # make a request to this API, and parse the response as JSON\n        r = requests.get(url, timeout=self.timeout, **self.kw)\n        if r.status_code == 404:\n            raise FileNotFoundError(path)\n        r.raise_for_status()\n        content_json = r.json()\n\n        # if the response's content key is not empty, try to parse it as base64\n        if content_json[\"content\"]:\n            content = base64.b64decode(content_json[\"content\"])\n\n            # as long as the content does not start with the string\n            # \"version https://git-lfs.github.com/\"\n            # then it is probably not a git-lfs pointer and we can just return\n            # the content directly\n            if not content.startswith(b\"version https://git-lfs.github.com/\"):\n                return MemoryFile(None, None, content)\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "fsspec/implementations/jupyter.py",
+      "source_sha256": "ab53e543ae8002cc06172afc305296ca86da57661e90c591b6a10d04342d0f6f",
+      "call_line": 73,
+      "start_line": 62,
+      "source_context": "    def cat_file(self, path, start=None, end=None, **kwargs):\n        path = self._strip_protocol(path)\n        r = self.session.get(f\"{self.url}/{path}\")\n        if r.status_code == 404:\n            raise FileNotFoundError(path)\n        r.raise_for_status()\n        out = r.json()\n        if out[\"format\"] == \"text\":\n            # data should be binary\n            b = out[\"content\"].encode()\n        else:\n            b = base64.b64decode(out[\"content\"])\n        return b[start:end]\n\n    def pipe_file(self, path, value, **_):\n        path = self._strip_protocol(path)\n        json = {\n            \"name\": path.rsplit(\"/\", 1)[-1],\n            \"path\": path,\n            \"size\": len(value),",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "fsspec/implementations/reference.py",
+      "source_sha256": "60a2f33c117a6cba4e9c763d88cd0c47924b1918b9081eb1d5c58880c6fa0218",
+      "call_line": 803,
+      "start_line": 792,
+      "source_context": "        try:\n            part = self.references[path]\n        except KeyError as exc:\n            raise FileNotFoundError(path) from exc\n        if isinstance(part, str):\n            part = part.encode()\n        if hasattr(part, \"to_bytes\"):\n            part = part.to_bytes()\n        if isinstance(part, bytes):\n            logger.debug(f\"Reference: {path}, type bytes\")\n            if part.startswith(b\"base64:\"):\n                part = base64.b64decode(part[7:])\n            return part, None, None\n\n        if len(part) == 1:\n            logger.debug(f\"Reference: {path}, whole file => {part}\")\n            url = part[0]\n            start1, end1 = start, end\n        else:\n            url, start0, size = part",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "fsspec/implementations/reference.py",
+      "source_sha256": "60a2f33c117a6cba4e9c763d88cd0c47924b1918b9081eb1d5c58880c6fa0218",
+      "call_line": 1030,
+      "start_line": 1019,
+      "source_context": "        @lru_cache(1000)\n        def _render_jinja(u):\n            return (\n                jinja2.sandbox.SandboxedEnvironment()\n                .from_string(u)\n                .render(**self.templates)\n            )\n\n        for k, v in references.get(\"refs\", {}).items():\n            if isinstance(v, str):\n                if v.startswith(\"base64:\"):\n                    self.references[k] = base64.b64decode(v[7:])\n                self.references[k] = v\n            elif isinstance(v, dict):\n                self.references[k] = json.dumps(v)\n            elif self.templates:\n                u = v[0]\n                if \"{{\" in u:\n                    if self.simple_templates:\n                        u = (",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "kombu/transport/SQS.py",
+      "source_sha256": "8c60e1811facbaa5f063094fdeae546b1b9a2a37bd39331b35830a24a724ab75",
+      "call_line": 1014,
+      "start_line": 1003,
+      "source_context": "        \"\"\"Optionally decode a base64 encoded string.\n\n        :param raw: The raw bytes object to decode.\n        :return: Bytes of the optionally decoded raw input.\n        \"\"\"\n        candidate = raw.strip()\n\n        if self.B64_REGEX.fullmatch(candidate) is None:\n            return raw\n\n        try:\n            decoded = base64.b64decode(candidate, validate=True)\n        except (binascii.Error, ValueError):\n            return raw\n\n        reencoded = base64.b64encode(decoded).rstrip(b'=')\n        if reencoded != candidate.rstrip(b'='):\n            return raw\n\n        try:",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "kombu/transport/virtual/base.py",
+      "source_sha256": "7875d8aaee2dcf1c531471f6e9122ba09a67985d7ada35cae78434114f95c6b3",
+      "call_line": 74,
+      "start_line": 63,
+      "source_context": "    'exchange', 'routing_key', 'arguments',\n))\n\n\nclass Base64:\n    \"\"\"Base64 codec.\"\"\"\n\n    def encode(self, s):\n        return bytes_to_str(base64.b64encode(str_to_bytes(s)))\n\n    def decode(self, s):\n        return base64.b64decode(str_to_bytes(s))\n\n\nclass NotEquivalentError(Exception):\n    \"\"\"Entity declaration is not equivalent to the previous declaration.\"\"\"\n\n\nclass UndeliverableWarning(UserWarning):\n    \"\"\"The message could not be delivered to a queue.\"\"\"",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "kombu/utils/json.py",
+      "source_sha256": "b4d71c9b3e85431aa44b8f73f943dbeebb967bc3ea8a38f899c4ebe6b094bba6",
+      "call_line": 121,
+      "start_line": 110,
+      "source_context": "    is not placed in an envelope, so `decoder` is unnecessary. Decoding must\n    instead be handled outside this library.\n    \"\"\"\n    _encoders[t] = (marker, encoder)\n    if marker is not None:\n        _decoders[marker] = decoder\n\n\n_encoders: dict[type, tuple[str | None, EncoderT]] = {}\n_decoders: dict[str, DecoderT] = {\n    \"bytes\": lambda o: o.encode(\"utf-8\"),\n    \"base64\": lambda o: base64.b64decode(o.encode(\"utf-8\")),\n}\n\n\ndef _register_default_types():\n    # NOTE: datetime should be registered before date,\n    # because datetime is also instance of date.\n    register_type(datetime, \"datetime\", datetime.isoformat,\n                  datetime.fromisoformat)",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "openapi_schema_validator/_format.py",
+      "source_sha256": "9b5c2388f97dbff3c09264811efbfc98a6d05ff27b5cbc388a66c4b72b0ab193",
+      "call_line": 76,
+      "start_line": 65,
+      "source_context": "        return True\n    return True\n\n\ndef is_byte(instance: object) -> bool:\n    if not isinstance(instance, (str, bytes)):\n        return True\n    if isinstance(instance, str):\n        instance = instance.encode(\"ascii\", errors=\"strict\")\n\n    try:\n        b64decode(instance, validate=True)\n    except (binascii.Error, ValueError):\n        return False\n    return True\n\n\ndef is_password(instance: object) -> bool:\n    # A hint to UIs to obscure input\n    return True",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "openapi_schema_validator/_format.py",
+      "source_sha256": "9b5c2388f97dbff3c09264811efbfc98a6d05ff27b5cbc388a66c4b72b0ab193",
+      "call_line": 55,
+      "start_line": 44,
+      "source_context": "    # float has double precision in Python\n    # It's double in CPython and Jython\n    return isinstance(instance, float)\n\n\ndef is_binary_strict(instance: object) -> bool:\n    # Strict: only accepts base64-encoded strings, not raw bytes\n    if isinstance(instance, bytes):\n        return False\n    if isinstance(instance, str):\n        try:\n            b64decode(instance)\n            return True\n        except Exception:\n            return False\n    return True\n\n\ndef is_binary_pragmatic(instance: object) -> bool:\n    # Pragmatic: accepts bytes (common in Python) or base64-encoded strings",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "psycopg/_tpc.py",
+      "source_sha256": "34b89f229756a6121bc1a04fbcb3d2699ffe0e8b5eebbc94ebb7bd53402891e4",
+      "call_line": 59,
+      "start_line": 48,
+      "source_context": "        return 3\n\n    def __getitem__(self, index: int) -> int | str | None:\n        return (self.format_id, self.gtrid, self.bqual)[index]\n\n    @classmethod\n    def _parse_string(cls, s: str) -> Xid:\n        if not (m := _re_xid.match(s)):\n            raise ValueError(\"bad Xid format\")\n\n        format_id = int(m.group(1))\n        gtrid = b64decode(m.group(2)).decode()\n        bqual = b64decode(m.group(3)).decode()\n        return cls.from_parts(format_id, gtrid, bqual)\n\n    @classmethod\n    def from_parts(cls, format_id: int | None, gtrid: str, bqual: str | None) -> Xid:\n        if format_id is not None:\n            if bqual is None:\n                raise TypeError(\"if format_id is specified, bqual must be too\")",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "psycopg/_tpc.py",
+      "source_sha256": "34b89f229756a6121bc1a04fbcb3d2699ffe0e8b5eebbc94ebb7bd53402891e4",
+      "call_line": 60,
+      "start_line": 49,
+      "source_context": "\n    def __getitem__(self, index: int) -> int | str | None:\n        return (self.format_id, self.gtrid, self.bqual)[index]\n\n    @classmethod\n    def _parse_string(cls, s: str) -> Xid:\n        if not (m := _re_xid.match(s)):\n            raise ValueError(\"bad Xid format\")\n\n        format_id = int(m.group(1))\n        gtrid = b64decode(m.group(2)).decode()\n        bqual = b64decode(m.group(3)).decode()\n        return cls.from_parts(format_id, gtrid, bqual)\n\n    @classmethod\n    def from_parts(cls, format_id: int | None, gtrid: str, bqual: str | None) -> Xid:\n        if format_id is not None:\n            if bqual is None:\n                raise TypeError(\"if format_id is specified, bqual must be too\")\n            if not 0 <= format_id < 0x80000000:",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "pydantic/types.py",
+      "source_sha256": "e4814eeef3981f268f7f8544d9b462f5a51d1f5098f8d8000e3a580dfc085904",
+      "call_line": 2453,
+      "start_line": 2442,
+      "source_context": "    @classmethod\n    def decode(cls, data: bytes) -> bytes:\n        \"\"\"Decode the data from base64 encoded bytes to original bytes data.\n\n        Args:\n            data: The data to decode.\n\n        Returns:\n            The decoded data.\n        \"\"\"\n        try:\n            return base64.b64decode(data)\n        except ValueError as e:\n            raise PydanticCustomError('base64_decode', \"Base64 decoding error: '{error}'\", {'error': str(e)})\n\n    @classmethod\n    def encode(cls, value: bytes) -> bytes:\n        \"\"\"Encode the data from bytes to a base64 encoded bytes.\n\n        Args:",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "pydantic/types.py",
+      "source_sha256": "e4814eeef3981f268f7f8544d9b462f5a51d1f5098f8d8000e3a580dfc085904",
+      "call_line": 2502,
+      "start_line": 2491,
+      "source_context": "\n        Returns:\n            The decoded data.\n        \"\"\"\n        try:\n            if sys.version_info >= (3, 15):\n                # In Python >= 3.15, `urlsafe_b64decode()` doesn't require padded input anymore.\n                # It also raises a `FutureWarning` if '+' or '/' is found in input (and translates it\n                # to '-' and '_'). We can't have this warning raised while validating, so we do the translation\n                # ourselves.\n                data = data.translate(_urlsafe_translation)\n                return base64.urlsafe_b64decode(data, padded=True)\n            else:\n                return base64.urlsafe_b64decode(data)\n        except ValueError as e:\n            raise PydanticCustomError('base64_decode', \"Base64 decoding error: '{error}'\", {'error': str(e)})\n\n    @classmethod\n    def encode(cls, value: bytes) -> bytes:\n        \"\"\"Encode the data from bytes to a base64 encoded bytes.",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "pydantic/types.py",
+      "source_sha256": "e4814eeef3981f268f7f8544d9b462f5a51d1f5098f8d8000e3a580dfc085904",
+      "call_line": 2504,
+      "start_line": 2493,
+      "source_context": "            The decoded data.\n        \"\"\"\n        try:\n            if sys.version_info >= (3, 15):\n                # In Python >= 3.15, `urlsafe_b64decode()` doesn't require padded input anymore.\n                # It also raises a `FutureWarning` if '+' or '/' is found in input (and translates it\n                # to '-' and '_'). We can't have this warning raised while validating, so we do the translation\n                # ourselves.\n                data = data.translate(_urlsafe_translation)\n                return base64.urlsafe_b64decode(data, padded=True)\n            else:\n                return base64.urlsafe_b64decode(data)\n        except ValueError as e:\n            raise PydanticCustomError('base64_decode', \"Base64 decoding error: '{error}'\", {'error': str(e)})\n\n    @classmethod\n    def encode(cls, value: bytes) -> bytes:\n        \"\"\"Encode the data from bytes to a base64 encoded bytes.\n\n        Args:",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "setuptools/_vendor/wheel/wheelfile.py",
+      "source_sha256": "9bf83fed336c129fa3fb19ef4abe720cb1056f59e1c8e6ee7aaf50e7fd7f9410",
+      "call_line": 45,
+      "start_line": 34,
+      "source_context": "    pass\n\n\ndef urlsafe_b64encode(data: bytes) -> bytes:\n    \"\"\"urlsafe_b64encode without padding\"\"\"\n    return base64.urlsafe_b64encode(data).rstrip(b\"=\")\n\n\ndef urlsafe_b64decode(data: bytes) -> bytes:\n    \"\"\"urlsafe_b64decode without padding\"\"\"\n    pad = b\"=\" * (4 - (len(data) & 3))\n    return base64.urlsafe_b64decode(data + pad)\n\n\ndef get_zipinfo_datetime(\n    timestamp: float | None = None,\n) -> tuple[int, int, int, int, int]:\n    # Some applications need reproducible .whl files, but they can't do this without\n    # forcing the timestamp of the individual ZipInfo objects. See issue #143.\n    timestamp = int(os.environ.get(\"SOURCE_DATE_EPOCH\", timestamp or time.time()))",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "sqlalchemy/util/compat.py",
+      "source_sha256": "9b1a79df2db742ec759284c21920bd8c8219694196e7c8eefb4d7337a165b31c",
+      "call_line": 276,
+      "start_line": 265,
+      "source_context": "    if typing.TYPE_CHECKING or hasattr(ep, \"select\"):\n        return ep.select(group=group)\n    else:\n        return ep.get(group, ())\n\n\ndef b(s):\n    return s.encode(\"latin-1\")\n\n\ndef b64decode(x: str) -> bytes:\n    return base64.b64decode(x.encode(\"ascii\"))\n\n\ndef b64encode(x: bytes) -> str:\n    return base64.b64encode(x).decode(\"ascii\")\n\n\ndef decode_backslashreplace(text: bytes, encoding: str) -> str:\n    return text.decode(encoding, errors=\"backslashreplace\")",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "starlette/middleware/sessions.py",
+      "source_sha256": "f18a683533b4dbe296694bed25d35eee5284c4ac58b990fe848442dd376d05fe",
+      "call_line": 54,
+      "start_line": 43,
+      "source_context": "        if scope[\"type\"] not in (\"http\", \"websocket\"):  # pragma: no cover\n            await self.app(scope, receive, send)\n            return\n\n        connection = HTTPConnection(scope)\n        initial_session_was_empty = True\n\n        if self.session_cookie in connection.cookies:\n            data = connection.cookies[self.session_cookie].encode(\"utf-8\")\n            try:\n                data = self.signer.unsign(data, max_age=self.max_age)\n                scope[\"session\"] = Session(json.loads(b64decode(data)))\n                initial_session_was_empty = False\n            except BadSignature:\n                scope[\"session\"] = Session()\n        else:\n            scope[\"session\"] = Session()\n\n        async def send_wrapper(message: Message) -> None:\n            if message[\"type\"] == \"http.response.start\":",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/_dynamo/pgo.py",
+      "source_sha256": "25a5cd6283b2733c6250887fd8a053de0d6eeac2fb6aab24a1cdc0422f5e7a45",
+      "call_line": 863,
+      "start_line": 852,
+      "source_context": "        if cache_data is not None:\n            try:\n                if not isinstance(cache_data, dict):\n                    raise AssertionError(\n                        f\"expected cache_data to be a dict, got {type(cache_data)}\"\n                    )\n                data = cache_data[\"data\"]\n                if not isinstance(data, str):\n                    raise AssertionError(\n                        f\"expected cache_data['data'] to be a str, got {type(data)}\"\n                    )\n                payload = base64.b64decode(data)\n                if event_name is not None:\n                    CompileEventLogger.pt2_compile(\n                        event_name, cache_size_bytes=len(payload)\n                    )\n                code_state = pickle.loads(payload)\n            except Exception:\n                log.warning(\n                    \"get_code_state failed parsing remote result on %s\",",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/_inductor/codecache.py",
+      "source_sha256": "1edadc1e1229adbd7c6f84cef43a04c031add6e1793be0f12b73f22798966156",
+      "call_line": 1877,
+      "start_line": 1866,
+      "source_context": "            try:\n                if (cache_data := remote_cache.get(key)) is not None:\n                    if not isinstance(cache_data, dict):\n                        raise AssertionError(\n                            f\"Expected dict from remote cache, got {type(cache_data)}\"\n                        )\n                    data = cache_data[\"data\"]\n                    if not isinstance(data, (str, bytes)):\n                        raise AssertionError(\n                            f\"Expected str or bytes for cache data, got {type(data)}\"\n                        )\n                    content = base64.b64decode(data)\n                    yield pickle.loads(content), content, False\n            except Exception:\n                log.warning(\n                    \"%s unable to load compiled graph\", cls.__name__, exc_info=True\n                )\n\n    @classmethod\n    def find_guarded_entry(",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/_inductor/compile_worker/__main__.py",
+      "source_sha256": "d5827f21fd338af7395b74811ad8fcba773a1a0dcaf697f3cae8cc3d6942c2f9",
+      "call_line": 71,
+      "start_line": 60,
+      "source_context": "        parser.add_argument(\"--read-fd\", type=int)\n        parser.add_argument(\"--write-fd\", type=int)\n        parser.add_argument(\"--torch-key\", type=str)\n        args = parser.parse_args()\n        if os.getppid() != args.parent:\n            sys.exit(0)\n        read_fd = os.fdopen(args.read_fd, \"rb\")\n        write_fd = os.fdopen(args.write_fd, \"wb\")\n\n        pre_fork_setup()\n\n        torch_key.set(base64.b64decode(args.torch_key.encode(\"utf-8\")))  # type: ignore[attr-defined]\n\n        _async_compile_initializer(args.parent)\n\n        SubprocMain(args.pickler, args.kind, args.workers, read_fd, write_fd).main()\n    except Exception:\n        log.exception(\"Uncaught exception in compile_worker subprocess\")\n\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py",
+      "source_sha256": "3af14e632735b7fc6dafa1d4facd3bfcf1895881bce0fffe96410d77aeda8f1e",
+      "call_line": 125,
+      "start_line": 114,
+      "source_context": "            return getattr(self._store, store_op)(*args, **kwargs)\n        except (ValueError, RuntimeError, TimeoutError) as exc:\n            raise RendezvousConnectionError(\n                \"The connection to the C10d store has failed. See inner exception for details.\"\n            ) from exc\n\n    def _decode_state(self, base64_state: bytes) -> tuple[bytes, Token] | None:\n        if base64_state == self._NULL_SENTINEL.encode():\n            return None\n\n        try:\n            state = b64decode(base64_state)\n        except binascii.Error as exc:\n            raise RendezvousStateError(\n                \"The state object is corrupt. See inner exception for details.\"\n            ) from exc\n\n        return state, base64_state\n\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py",
+      "source_sha256": "5d9b94874ee5cfe0519e28e3ebfb630eeab29b992d33e3c5c07c58929091b040",
+      "call_line": 133,
+      "start_line": 122,
+      "source_context": "        if result is None:\n            return get_state()\n\n        tmp = *self._decode_state(result), True\n        return tmp\n\n    def _decode_state(self, result: etcd.EtcdResult) -> tuple[bytes, Token]:\n        # pyrefly: ignore [missing-attribute]\n        base64_state = result.value.encode()\n\n        try:\n            state = b64decode(base64_state)\n        except binascii.Error as exc:\n            raise RendezvousStateError(\n                \"The state object is corrupt. See inner exception for details.\"\n            ) from exc\n\n        # pyrefly: ignore [missing-attribute]\n        return state, result.modifiedIndex\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/etcd_store.py",
+      "source_sha256": "0a3c4c793c4a0864d767b4303621fc90b9992d4d8bcc6bf501b3d6b142698fa6",
+      "call_line": 164,
+      "start_line": 153,
+      "source_context": "            return b64encode(value).decode()\n        elif type(value) is str:\n            return b64encode(value.encode()).decode()\n        raise ValueError(\"Value must be of type str or bytes\")\n\n    #\n    # Decode a base64 string (of type `str` or `bytes`).\n    # Return type is `bytes`, which is more convenient with the Store interface.\n    #\n    def _decode(self, value) -> bytes:\n        if type(value) is bytes:\n            return b64decode(value)\n        elif type(value) is str:\n            return b64decode(value.encode())\n        raise ValueError(\"Value must be of type str or bytes\")\n\n    #\n    # Get all of the (base64-encoded) etcd keys at once, or wait until all the keys\n    # are published or timeout occurs.\n    # This is a helper method for the public interface methods.",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/etcd_store.py",
+      "source_sha256": "0a3c4c793c4a0864d767b4303621fc90b9992d4d8bcc6bf501b3d6b142698fa6",
+      "call_line": 166,
+      "start_line": 155,
+      "source_context": "            return b64encode(value.encode()).decode()\n        raise ValueError(\"Value must be of type str or bytes\")\n\n    #\n    # Decode a base64 string (of type `str` or `bytes`).\n    # Return type is `bytes`, which is more convenient with the Store interface.\n    #\n    def _decode(self, value) -> bytes:\n        if type(value) is bytes:\n            return b64decode(value)\n        elif type(value) is str:\n            return b64decode(value.encode())\n        raise ValueError(\"Value must be of type str or bytes\")\n\n    #\n    # Get all of the (base64-encoded) etcd keys at once, or wait until all the keys\n    # are published or timeout occurs.\n    # This is a helper method for the public interface methods.\n    #\n    # On success, a dictionary of {etcd key -> etcd value} is returned.",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "torch/utils/_appending_byte_serializer.py",
+      "source_sha256": "6ecf544ac68cfb679d1289b036e440444deaa6a33ac8cbdaba86f7fc40a11f8b",
+      "call_line": 77,
+      "start_line": 66,
+      "source_context": "    def is_finished(self) -> bool:\n        return len(self._data) == self._i\n\n    def read_uint64(self) -> int:\n        result = int.from_bytes(\n            self._data[self._i : self._i + 8], byteorder=\"big\", signed=False\n        )\n        self._i += 8\n        return result\n\n    def read_str(self) -> str:\n        return base64.b64decode(self.read_bytes()).decode(\"utf-8\")\n\n    def read_bytes(self) -> bytes:\n        size = self.read_uint64()\n        result = self._data[self._i : self._i + size]\n        self._i += size\n        return result\n\n",
+      "kind": "base64_decode"
+    },
+    {
+      "path": "wheel/wheelfile.py",
+      "source_sha256": "2ebfa1943eaf95a80ea178c7909b1e37b6ca0f8aac59096c3c1681e509c9ad5b",
+      "call_line": 45,
+      "start_line": 34,
+      "source_context": "    pass\n\n\ndef urlsafe_b64encode(data: bytes) -> bytes:\n    \"\"\"urlsafe_b64encode without padding\"\"\"\n    return base64.urlsafe_b64encode(data).rstrip(b\"=\")\n\n\ndef urlsafe_b64decode(data: bytes) -> bytes:\n    \"\"\"urlsafe_b64decode without padding\"\"\"\n    pad = b\"=\" * (4 - (len(data) & 3))\n    return base64.urlsafe_b64decode(data + pad)\n\n\ndef get_zipinfo_datetime(\n    timestamp: float | None = None,\n) -> tuple[int, int, int, int, int]:\n    # Some applications need reproducible .whl files, but they can't do this without\n    # forcing the timestamp of the individual ZipInfo objects. See issue #143.\n    timestamp = int(os.environ.get(\"SOURCE_DATE_EPOCH\", timestamp or time.time()))",
+      "kind": "base64_decode"
+    }
+  ],
+  "interpreter_patched": false,
+  "services_changed": false,
+  "Python_candidate_created": false,
+  "executed_script_sha256": "bfd601873c31306f6e3153f78085205df638c6c5862f16950f383dec964634b1"
+}

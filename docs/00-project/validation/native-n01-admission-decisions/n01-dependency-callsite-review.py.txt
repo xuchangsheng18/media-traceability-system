@@ -1,0 +1,45 @@
+"""Read-only installed-source inventory; no whole-program reachability claim."""
+import ast,collections,datetime,hashlib,importlib.metadata,inspect,json,os,subprocess,sys,sysconfig
+from pathlib import Path
+os.umask(0o077)
+repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path('/workspace/glwy/runtime/media-traceability-system/n01-current-admission')
+site=Path(sysconfig.get_paths()['purelib']);tracked=subprocess.check_output(['git','ls-files','-z'],cwd=repo).decode().split('\0')
+project=[repo/p for p in tracked if p.endswith('.py') and p.startswith(('backend/','ai-services/','scripts/','tools/'))]
+third=sorted(site.rglob('*.py'));rows=[];errors=[];inventory=[];counts=collections.Counter();dynamic=collections.Counter()
+needles=(b'base64',b'parseaddr',b'imaplib',b'poplib',b'get_data',b'js_output',b'TemporaryDirectory')
+def target(name):
+ if name.startswith('base64.') and name.rsplit('.',1)[-1] in {'b64decode','standard_b64decode','urlsafe_b64decode'}:return 'base64_decode'
+ if name in {'email.utils.parseaddr','parseaddr'} or name.endswith('.parseaddr'):return 'parseaddr'
+ if name.startswith(('imaplib.','poplib.')):return name.split('.')[0]
+ if name=='pkgutil.get_data':return 'pkgutil_get_data'
+ if name.endswith('.js_output') or name=='js_output':return 'cookie_js_output'
+ if name=='tempfile.TemporaryDirectory':return 'TemporaryDirectory'
+for scope,paths,root in [('project',project,repo),('installed_python_sources',third,site)]:
+ for p in paths:
+  raw=p.read_bytes();rel=p.relative_to(root).as_posix();digest=hashlib.sha256(raw).hexdigest();inventory.append({'scope':scope,'path':rel,'sha256':digest,'size_bytes':len(raw)});counts[scope+'_files']+=1
+  if not any(t in raw for t in needles):continue
+  try:t=ast.parse(raw,filename=rel)
+  except (SyntaxError,ValueError) as e:errors.append({'scope':scope,'path':rel,'error':type(e).__name__});continue
+  counts[scope+'_AST_candidates']+=1;aliases={}
+  for n in ast.walk(t):
+   if isinstance(n,ast.Import):
+    for a in n.names:aliases[a.asname or a.name.split('.')[0]]=a.name if a.asname else a.name.split('.')[0]
+   elif isinstance(n,ast.ImportFrom) and n.module:
+    for a in n.names:aliases[a.asname or a.name]=n.module+'.'+a.name
+  def dotted(n):
+   if isinstance(n,ast.Name):return aliases.get(n.id,n.id)
+   if isinstance(n,ast.Attribute):return dotted(n.value)+'.'+n.attr
+   return '<dynamic>'
+  for n in ast.walk(t):
+   if not isinstance(n,ast.Call):continue
+   name=dotted(n.func)
+   if name in {'eval','exec','__import__','importlib.import_module','getattr'}:dynamic[scope]+=1
+   kind=target(name)
+   if kind:rows.append({'scope':scope,'path':rel,'line':n.lineno,'kind':kind,'resolved_name':name,'source_sha256':digest,'expression':(ast.get_source_segment(raw.decode('utf8',errors='replace'),n) or '')[:1600]})
+stdlib={}
+for modname in ['base64','email.utils','imaplib','poplib','pkgutil','http.cookies','tempfile','shutil']:
+ mod=__import__(modname,fromlist=['*']);p=Path(inspect.getsourcefile(mod));stdlib[modname]={'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+env=importlib.metadata.packages_distributions()
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'tracked_project_and_installed_python_source_static_candidate_review_not_full_dataflow_or_dynamic_compiled_code_proof','status':'SOURCE_INVENTORY_COMPLETE_WITH_EXPLICIT_LIMITS','runtime':sys.version,'site_root':str(site),'counts':dict(counts),'AST_errors':errors,'source_inventory':inventory,'target_calls':rows,'target_counts':{scope:dict(collections.Counter(x['kind'] for x in rows if x['scope']==scope)) for scope in ['project','installed_python_sources']},'candidate_dynamic_call_count_not_all_sources':dict(dynamic),'top_level_distribution_owners':{k:env.get(k,[]) for k in sorted({x['path'].split('/')[0].split('.')[0] for x in rows if x['scope']=='installed_python_sources'})},'stdlib_files':stdlib,'limitations':['Per-file import alias resolution lacks lexical/assignment/dataflow tracking;some unresolved instance methods retained as candidates','Only candidate-containing Python sources AST parsed;all file hashes retained;parse errors explicit','Does not execute third-party modules,prove call reachability,or cover compiled extensions,dynamic plugins and future services','Includes installed development/build/test/vendor code;presence is not exposure','No patch,package change,service restart,ACL change or exploit performed'],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'interpreter_patched':False,'whole_software_admitted':False}
+(out/'dependency-callsite-inventory.json').write_text(json.dumps(d,indent=2)+'\n')
+print(json.dumps({k:d[k] for k in ['source_commit','counts','target_counts','AST_errors']}))
