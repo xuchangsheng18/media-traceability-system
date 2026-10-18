@@ -17,7 +17,7 @@ N01仍为`IN_PROGRESS_BLOCKED_ADMISSION`：R1暂无Python维护证明且候选�
 
 ## CI核验与修复前历史观察
 
-最新已核验回执提交`c41578f1d1c18677ad583a3336acbab4675fc324`的[CI39117174347](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39117174347)成功：241项业务测试、32项门禁及6份关键报告通过，337813字节制品SHA256为`eb5e489ad7b9459621e665e830ddb5724bed1eb98ee0bc5c91a1e9dd852cf099`。本轮答复登记提交按自身CI记录，不倒填结果。
+最新已核验的前轮回执提交`ac5d79006de57548220048da0c80ee3c56934374`的[CI39118272632](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39118272632)成功：241项业务测试（失败、错误、跳过均为0）、32项门禁及6份关键报告通过；330536字节制品SHA256为`9799684ee122186f4b68623f66014041d1742ea6a527298531742e56b47d0bf8`。此前`c41578f1`的CI39117174347记录作为历史保留。本轮恢复来源纠正及答复登记提交按各自CI记录，不把前轮通过倒填为本轮结果。
 
 D02修复前（源码`ba99b743`）在既有Linux py310中完成[11项解析观察](../00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json)，直接调用当时的解析函数、使用自有内存数据库协作者，未连接真实数据库或网络，未运行HTTP/RLS验收，不能把夹具返回当业务实现通过。
 
