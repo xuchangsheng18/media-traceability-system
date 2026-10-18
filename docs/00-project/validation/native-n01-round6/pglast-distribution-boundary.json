@@ -78,12 +78,14 @@
   "input_validator_import_observed": true,
   "common_py310_lock_contains_pglast": true,
   "Dockerfile_copies_full_environment_archive_and_scripts": true,
-  "conclusion": "Tool-only import does not imply tool absent from delivered runtime: full py310 archive can contain GPL pglast. Inspect exact final image/archive SBOM before distribution; no separation implemented in this round. No blanket relicensing conclusion.",
+  "conclusion": "Current API/worker/inference development containers actually contain pglast8.5 GPL-3.0-or-later in same recorded image. Tool-only import does not remove packaged GPL distribution obligations;no blanket project relicensing or formal admission inferred.",
   "required_before_binary_delivery": [
     "Bind actual image/environment archive digest and file inventory",
     "Include pglast license/notices and corresponding source including libpg_query and relevant build/install scripts via applicable GPLv3 section6 method",
     "Record recipient source-access path and complete matching source availability; a bare upstream URL is not proof of compliance",
     "Review aggregation/linking boundary against actual packaged artifact, not only imports"
   ],
-  "formal_approved": false
+  "formal_approved": false,
+  "existing_development_images_actual_pglast_observed": true,
+  "runtime_evidence_ref": "runtime-pglast-presence.json"
 }

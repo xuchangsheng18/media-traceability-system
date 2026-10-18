@@ -543,7 +543,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共909份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共917份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -902,15 +902,22 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round5/upstream-source-excerpts/VineflowerDecompiler.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/VineflowerDecompiler.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/upstream-source-excerpts/ZipFileSystemArchiveCreator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ZipFileSystemArchiveCreator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5-admission-report.json](<00-project/validation/native-n01-round5-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/audit-observations.json](<00-project/validation/native-n01-round6/audit-observations.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/distribution-obligations-register.json](<00-project/validation/native-n01-round6/distribution-obligations-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/documentation-validation-report.json](<00-project/validation/native-n01-round6/documentation-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/executed-collect.py.txt](<00-project/validation/native-n01-round6/executed-collect.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/executed-evidence-followup.py.txt](<00-project/validation/native-n01-round6/executed-evidence-followup.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/executed-finalize.py.txt](<00-project/validation/native-n01-round6/executed-finalize.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/executed-font-audit.py.txt](<00-project/validation/native-n01-round6/executed-font-audit.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/executed-pf-source.py.txt](<00-project/validation/native-n01-round6/executed-pf-source.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/executed-runtime-pglast.py.txt](<00-project/validation/native-n01-round6/executed-runtime-pglast.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/font-metadata-and-obligations-report.json](<00-project/validation/native-n01-round6/font-metadata-and-obligations-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/generation-build-source-excerpts.json](<00-project/validation/native-n01-round6/generation-build-source-excerpts.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/generation-difference-explanation.json](<00-project/validation/native-n01-round6/generation-difference-explanation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/patternfly-source-license-report.json](<00-project/validation/native-n01-round6/patternfly-source-license-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/pglast-distribution-boundary.json](<00-project/validation/native-n01-round6/pglast-distribution-boundary.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/reaugmentation-persisted-properties.json](<00-project/validation/native-n01-round6/reaugmentation-persisted-properties.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round6/runtime-pglast-presence.json](<00-project/validation/native-n01-round6/runtime-pglast-presence.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/swagger-theme-source-followup.json](<00-project/validation/native-n01-round6/swagger-theme-source-followup.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6/vendor-npm-origin-report.json](<00-project/validation/native-n01-round6/vendor-npm-origin-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round6-admission-report.json](<00-project/validation/native-n01-round6-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1039,6 +1046,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [02-architecture/technical-validation-report.md](<02-architecture/technical-validation-report.md>) | 各真实检查结果、证据路径、范围和未测事项。 |
 | [02-architecture/technology-options.md](<02-architecture/technology-options.md>) | 12个技术域的替代方案、研发执行选择、实测和扩展边界。 |
 | [02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt](<02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
+| [02-architecture/third-party-notices/native-n01-vendor-font-notices.txt](<02-architecture/third-party-notices/native-n01-vendor-font-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-vendor-upstream-notices.txt](<02-architecture/third-party-notices/native-n01-vendor-upstream-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-api/api-design.md](<03-api/api-design.md>) | 幂等、版本条件、异步、分页、媒体访问及通用数据表达规则。 |
 | [03-api/common-interface-rules.md](<03-api/common-interface-rules.md>) | 身份/权限、追踪、分页、幂等、ETag、异步、错误/Range和版本；未定配置保持待定。 |

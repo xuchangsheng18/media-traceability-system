@@ -28,6 +28,8 @@ PatternFly4.224.5的常规v标签返回404，实际查得prerelease-v4.224.5固�
 
 已将8份实际上游材料汇入[新增声明附录](../02-architecture/third-party-notices/native-n01-vendor-upstream-notices.txt)。该数量是材料份数，不是8种许可或全部资产权利通过。既有[Swagger脚本声明](../02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt)保留。
 
+进一步读取293个字体/SVG资产：181份SFNT字体的名称表成功解析，未发生解析失败；其他112份SVG/EOT没有按SFNT解析。按nameID13/14线索分组为96份OFL、32份Apache、40份包含LGPL链接、125份未从选定名称记录取得完整许可（含上述非SFNT资产）。这些是记录分组，不能据链接直接裁定许可选择；40份LGPL链接均来自Overpass系列。6份字体还与registry完整性验真的Font Awesome4.7.0包字节相同，该额外包未声称已与Keycloak传递锁绑定。[逐文件元数据](../00-project/validation/native-n01-round6/font-metadata-and-obligations-report.json)保留版权、许可和链接；[字体内嵌正文附录](../02-architecture/third-party-notices/native-n01-vendor-font-notices.txt)保留实际完整文本。分发OFL字体须按原字体版权及保留名称处理，不套用父包MIT，依据[SIL官方条款](https://openfontlicense.org/open-font-license-official-text/)。
+
 swagger-ui-themes v3.0.1标签解析到9290ea507531fb67efd44e633786d59209045ad5；其源码CSS与实际选用npm CSS字节相同。精确源码也没有完整LICENSE文件，README仅声明MIT并链接标准文本。因此来源路线已完成限定核验，**原始版权及完整许可正文缺口继续保留**，不编造年份、著作权人或许可授权。[实际后续核验](../00-project/validation/native-n01-round6/swagger-theme-source-followup.json)
 
 ## 实际分发边界与关闭条件
@@ -43,6 +45,8 @@ swagger-ui-themes v3.0.1标签解析到9290ea507531fb67efd44e633786d59209045ad5�
 | Go、wheel、Conda、OS、JDK、OTP及其他JAR | 按实际交付件绑定摘要、原声明、补丁/构建脚本及适用源码提供方式 | 已验真的恢复包不等于义务已履行；待交付物清单及逐组件审阅 |
 
 [pglast边界实查](../00-project/validation/native-n01-round6/pglast-distribution-boundary.json)记录：直接使用在输入资料校验器；原100包锁含pglast，而现有Docker构建复制完整py310环境归档及scripts。因此“只作为研发工具使用”不足以证明最终镜像没有它。本轮没有拆锁、删除包或改Docker行为。应先盘点真实交付件，再按[GPLv3第6节](https://www.gnu.org/licenses/gpl-3.0.html)选择实际符合的二进制分发/对应源码提供方式；仅放一个上游网址不能作为已履约证据。
+
+本轮另对现有API、worker及推理三个容器只读核验元数据：三者均实际含pglast8.5，License-Expression为GPL-3.0-or-later，来自同一镜像sha256:26ff92ce2c786f40089a4afda300fa56af00bd8dfe829903791e0a1f7a0a1af0，解析扩展文件摘要也一致。[实际镜像观察](../00-project/validation/native-n01-round6/runtime-pglast-presence.json)证明本批研发镜像包含该包，不再仅写“可能包含”。未核验未来交付镜像或全部镜像SBOM，没有导出业务数据或重启容器；正式分发安排仍待完成。
 
 ## CI、状态与下一项
 
