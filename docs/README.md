@@ -541,7 +541,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共891份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共895份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -821,13 +821,17 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round5/bundled-text-complement-initial-report.json](<00-project/validation/native-n01-round5/bundled-text-complement-initial-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/bundled-text-complement-report.json](<00-project/validation/native-n01-round5/bundled-text-complement-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/canonical-license-texts-and-mapping.json](<00-project/validation/native-n01-round5/canonical-license-texts-and-mapping.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/documentation-final-validation-report.json](<00-project/validation/native-n01-round5/documentation-final-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/documentation-validation-report.json](<00-project/validation/native-n01-round5/documentation-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/evidence-consistency-check.json](<00-project/validation/native-n01-round5/evidence-consistency-check.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-boot-descriptor.py.txt](<00-project/validation/native-n01-round5/executed-boot-descriptor.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-bundled-text-complement-initial.py.txt](<00-project/validation/native-n01-round5/executed-bundled-text-complement-initial.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-bundled-text-complement.py.txt](<00-project/validation/native-n01-round5/executed-bundled-text-complement.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-documentation-checks.py.txt](<00-project/validation/native-n01-round5/executed-documentation-checks.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-fetch-license-materials-initial.py.txt](<00-project/validation/native-n01-round5/executed-fetch-license-materials-initial.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-fetch-license-materials.py.txt](<00-project/validation/native-n01-round5/executed-fetch-license-materials.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-fetch-sources.py.txt](<00-project/validation/native-n01-round5/executed-fetch-sources.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-first-documentation-checks.py.txt](<00-project/validation/native-n01-round5/executed-first-documentation-checks.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-generated-inventory.py.txt](<00-project/validation/native-n01-round5/executed-generated-inventory.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-h2-license-source.py.txt](<00-project/validation/native-n01-round5/executed-h2-license-source.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round5/executed-h2-manifest.py.txt](<00-project/validation/native-n01-round5/executed-h2-manifest.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |

@@ -20,7 +20,7 @@ H2精确版本POM及源码归档也已取得，Maven主域超时后使用Maven C
 | --- | --- | --- |
 | quarkus-run.jar | 仅有1个Manifest，类文件0；18个Class-Path均定位到发行包内文件，主类唯一来自quarkus-bootstrap-runner3.40.1；私有重增强后整个JAR摘要不变 | 是启动描述文件，不能据此宣称18个依赖都已完成许可或安全审查 |
 | transformed-bytecode.jar | 175个类逐一在同一发行包找到唯一同路径原始类并绑定摘要；重增强后174个成员与原变换包相同，少了jakarta/validation/Validation.class | 原始类是变换输入，不表示变换后字节与输入相同；完整发行构建参数和全量字节复现仍未完成 |
-| generated-bytecode.jar | 1394个成员含1378个类与16个资源；1373个类有常量池引用可映射到发行包输入，322个有基础类候选；另5个ComponentsProvider辅助类对应精确版本Arc生成器规则 | 类型引用和名称关联不等于独占著作权归属，也不是每个生成类的完整可复现证明 |
+| generated-bytecode.jar | 1394个成员含1378个类与16个资源；1373个类的常量池UTF-8名称候选可关联到发行包输入，322个有基础类候选；另5个ComponentsProvider辅助类对应精确版本Arc生成器规则 | 名称候选未按Class常量逐项区分，不能直接当作完整类型引用；关联不等于独占著作权归属或每个生成类的完整可复现证明 |
 
 [成员/常量池盘点](../00-project/validation/native-n01-round5/generated-and-h2-inventory.json)、[生成输入关联](../00-project/validation/native-n01-round5/generated-input-attribution-report.json)、[启动描述核验](../00-project/validation/native-n01-round5/boot-descriptor-report.json)保留各自范围。Quarkus3.40.1的AbstractFastJarBuilder、FastJarFormat、Arc生成器等源文件已按精确源包留档；不是用当前主分支泛泛说明旧发行包。
 
