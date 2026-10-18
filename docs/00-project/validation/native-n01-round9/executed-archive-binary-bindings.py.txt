@@ -1,0 +1,8 @@
+import datetime,hashlib,json,tarfile
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');lock=json.loads((repo/'config/native/security-candidate-inputs.lock.json').read_text());rows=[]
+for prefix,member,suffix in [('node-','node-v22.23.3-linux-x64/bin/node','node-v22.23.3-linux-x64/bin/node'),('go1','go/bin/go','go/bin/go')]:
+ a=next(x for x in lock['artifacts'] if x['filename'].startswith(prefix));p=base/'native-security-candidate-cache'/a['filename'];digest=hashlib.sha256(p.read_bytes()).hexdigest();assert digest==a['sha256']
+ with tarfile.open(p) as t:raw=t.extractfile(member).read()
+ actual=base/'native-security-candidates-20261017'/suffix;assert raw==actual.read_bytes();rows.append({'archive':a['filename'],'archive_sha256':digest,'member':member,'member_sha256':hashlib.sha256(raw).hexdigest(),'actual_binary_sha256':hashlib.sha256(actual.read_bytes()).hexdigest(),'exact_member_match':True})
+out={'observed_at':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).isoformat(),'scope':'readonly_archive_member_byte_comparison_no_extract_or_install','status':'PASS','rows':rows,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'services_changed':False};(base/'native-n01-round9/archive-binary-bindings.json').write_text(json.dumps(out,indent=2)+'\n');print('Node and Go exact locked archive member bytes:PASS')
