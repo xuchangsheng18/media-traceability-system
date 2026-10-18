@@ -539,7 +539,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共807份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共808份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1162,6 +1162,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-n01-artifacts-and-dependencies.md](<03-development/native-n01-artifacts-and-dependencies.md>) | 说明文档：N01原生制品及依赖核验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-build-and-admission-review.md](<03-development/native-n01-build-and-admission-review.md>) | 说明文档：N01源码构建、运行依赖和准入复核；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-license-vulnerability-runtime-review.md](<03-development/native-n01-license-vulnerability-runtime-review.md>) | 说明文档：N01捆绑许可、漏洞适用性与可选路径复核；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-python-candidate-decision.json](<03-development/native-n01-python-candidate-decision.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/native-n01-python-supported-candidate-request.md](<03-development/native-n01-python-supported-candidate-request.md>) | 说明文档：N01受支持Python独立候选验证申请；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-security-remediation-change-request.md](<03-development/native-n01-security-remediation-change-request.md>) | 说明文档：N01安全修补候选变更请求；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
