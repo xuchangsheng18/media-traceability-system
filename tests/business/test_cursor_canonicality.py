@@ -6,6 +6,7 @@ import hmac
 from contextlib import contextmanager
 from dataclasses import replace
 from types import SimpleNamespace
+from typing import Any, cast
 from uuid import UUID
 
 import pytest
@@ -47,7 +48,9 @@ class ControlsConnection:
 
 
 def controls(cursor=None, scope=SCOPE, connection=None):
-    return page(connection or ControlsConnection(), "synthetic_fixture", "object_id", scope, SECRET, cursor, 1)
+    return page(
+        cast(Any, connection or ControlsConnection()), "synthetic_fixture", "object_id", scope, SECRET, cursor, 1
+    )
 
 
 def nonzero_pad_bits(value):
@@ -78,8 +81,11 @@ def malformed(value, kind):
 @pytest.mark.parametrize("kind", ["alphabet", "whitespace", "extra_padding", "tail", "pad_bits", "short"])
 def test_controls_reject_noncanonical_cursor(kind):
     _, cursor = controls()
+    candidate = malformed(cursor, kind)
+    if kind == "short":
+        candidate = candidate.rstrip("=")
     with pytest.raises(BusinessError) as error:
-        controls(malformed(cursor, kind))
+        controls(candidate)
     assert (error.value.code, error.value.http_status) == ("PAGE_CURSOR_INVALID", 422)
 
 
@@ -129,7 +135,10 @@ class PartsDatabase:
 
 @pytest.fixture
 def upload_parser():
-    repository = UploadRepository(PartsDatabase(), SimpleNamespace(cursor_secret=SECRET))
+    # These collaborators deliberately implement only the parser's in-memory SQL surface.
+    repository = cast(
+        Any, UploadRepository(cast(Any, PartsDatabase()), cast(Any, SimpleNamespace(cursor_secret=SECRET)))
+    )
     repository.session = lambda scope, upload, connection: {"row_version": 1}
     upload_id = UUID(int=20)
     issued = repository.parts(SCOPE, upload_id, None, 1)["next_cursor"]
@@ -156,6 +165,13 @@ def test_upload_issued_cursor_and_session_binding(upload_parser):
     with pytest.raises(BusinessError) as error:
         repository.parts(SCOPE, upload_id, issued, 1)
     assert error.value.code == "UPLOAD_CURSOR_STALE"
+
+
+def test_upload_cursor_cannot_select_another_upload(upload_parser):
+    repository, _, issued = upload_parser
+    with pytest.raises(BusinessError) as error:
+        repository.parts(SCOPE, UUID(int=99), issued, 1)
+    assert (error.value.code, error.value.http_status) == ("UPLOAD_CURSOR_STALE", 409)
 
 
 @pytest.mark.parametrize("kind", ["extra_padding", "tail", "signature"])
