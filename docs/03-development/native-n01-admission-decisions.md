@@ -7,6 +7,32 @@
 
 
 
+
+## 本轮可独立完成项：依赖边界与运行库许可来源
+
+[41处解码边界](../00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json) · [12项内存观察](../00-project/validation/native-n01-admission-decisions/dependency-boundary-probes.json) · [消息契约5项及失效对照](../00-project/validation/native-n01-admission-decisions/message-boundary-regression-proof.json) · [临时目录观察](../00-project/validation/native-n01-admission-decisions/temp-permission-observations.json) · [89OS/25Conda材料](../00-project/validation/native-n01-admission-decisions/runtime-package-notice-review.json) · [104库来源与许可材料关联](../00-project/validation/native-n01-admission-decisions/library-provider-notice-review.json)。原[9条逐项处置](../00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json)继续保留，正式关闭数仍为0；不再把已完成的来源盘点说成未采集。
+
+41处依赖解码按常量、SDK响应/分页、消息、Schema/编码类型、可选会话/HTTPBasic、构建工具、文件系统、Torch编译/分布式等实际边界逐项记录。4处URL-safe语法位置中，Pydantic的3.15分支在当前3.10不执行，因此仅3处是当前解释器的分支候选；这仍不是实际可达性或全部启用的证明。
+
+12项内存观察确认Pydantic、wheel、Kombu及SDK分页/校验头仍接受部分编码别名，未修补这些库。Botocore拒绝错误内容摘要、项目图片入口拒绝填充后尾部；dateutil实际转发固定资源。上传工作者经真实Kombu解码后，4类bytes/额外字段事件在授权与SQL之前被既有契约拒绝，普通JSON对照到达自有授权哨兵即停止；没有访问数据库、消息队列或完成业务操作。新增[5项回归测试](../../tests/business/test_upload_json_boundary.py)已通过；在独立进程故意停用Schema校验时4项按预期失败、正常实现恢复为5项通过，生产代码未修改。仅JSON序列化配置不能代替事件类型与权限校验。
+
+当前默认临时根和私有父目录中，两次新建空目录均为0700；16处项目TemporaryDirectory位于验证/工具代码，42处依赖调用也包括测试、构建与可选运行功能。没有执行符号链接竞态、改TMPDIR或改现有ACL；目录创建模式不能替代未来服务账号和不可信并发写入验证。
+
+本轮从精确归档补齐89个OS包的版权材料，包括跨包文档链接；25个Conda包中20个在info部分有正文、2个在pkg部分实际带有info/licenses，另3个libgcc/libgomp/libsqlite按已验证归档中的精确构建配方取得GCC16.2.0和SQLite3.53.4源码条款。三者仍不是“Conda随包正文已找到”，也没有声称Conda二进制与源码逐字节等价或全部对应源码/构建条件完整。GCC的例外与SQLite库正文不自动覆盖所有构建脚本和第三方。
+
+13份公共条款文本已与GPG验证的Ubuntu索引所列base-files13ubuntu10归档逐字节匹配。该包仅为许可参考来源，不安装、不采用，不替换宿主已观察的13ubuntu10.4，也不写进运行版本锁。
+
+104份既有解析库已重新核对摘要并关联：26个OS直接库、6个OS私有副本、18个Conda库、43个wheel成员、8个JDK库及3个PostgreSQL私有库。43成员来自numpy/Pillow/psycopg-binary/Torch的精确wheel，已与归档字节匹配；JDK关联既有法律材料集合，不冒充逐原生子组件兼容性批准。GNU readline历史链接用户为Python扩展与psql，不把它的条款自动赋给全部PG服务器或整个应用。新私有附录保留210条材料关联、130个不同摘要；数量是材料绑定，不是许可证数量或准入分数。
+
+### 当前需要用户确认或操作的内容
+
+- **本轮无需新增确认或管理员操作。** Python候选继续暂缓；不重复询问暂无的维护证明或两项发布者通知。
+- `eastasianwidth`0.2.0与`@npmcli/agent`3.0.0的精确通知仍未取得，D08已记录“暂无”；上游联系请求未发送，不用其他作者、年份或模板填造通知。以后取得发布者原文时再提供路径/官方链接。
+- 逐软件正式准入须在具体技术处置、许可兼容及使用范围具备证据后由徐昌胜作决定；当前不请求“全部同意”。本轮材料来源已补齐的部分不再重复采集；仍未关闭的9条记录、维护风险和两项通知继续保留。
+- N02管理员安装、N04公钥及停写切换仍是后续步骤；此次不运行安装包、不修改现有版本锁或服务，不增加170任务整卡验收数。
+
+最新CI绑定具体源码提交和上传制品摘要，见[CI机器报告](../00-project/validation/github-actions-report.json)。新增5项测试须随本轮源码实际运行，不沿用前轮241项结果冒充本轮。
+
 ## 本轮九条漏洞、发布者通知与逐软件复核
 
 [9条逐项处置](../00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json) · [精确上游记录](../00-project/validation/native-n01-admission-decisions/nine-cve-authoritative-source-refresh.json) · [依赖调用清单](../00-project/validation/native-n01-admission-decisions/dependency-callsite-inventory.json) · [实际探测与D02专项](../00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.json) · [两包发布者通知核查](../00-project/validation/native-n01-admission-decisions/two-publisher-notice-review.json) · [十类软件逐项复核](../00-project/validation/native-n01-admission-decisions/component-admission-review.json)。以下为当前状态；后续章节保留此前来源与观察。

@@ -1,0 +1,450 @@
+{
+  "observed_at": "2026-10-18T13:04:47.286749+00:00",
+  "source_commit": "0b8d6af04cf3ca19540a5f98c1174ada51f4b058",
+  "status": "FORTY_ONE_TARGETED_CALL_BOUNDARIES_REVIEWED_NOT_GLOBAL_TAINT_OR_FIX",
+  "rows": [
+    {
+      "path": "PIL/ImageFont.py",
+      "line": 967,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "24fa5feeb91b4bf63eaad0ebba08a8161e9c889d9fd056a37c928134097b9649",
+      "boundary_group": "embedded_constant",
+      "review": "内嵌字体/图像字面量；并非请求编码输入，不能由常量解码推断其他动态图片路径。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "PIL/ImageFont.py",
+      "line": 1060,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "24fa5feeb91b4bf63eaad0ebba08a8161e9c889d9fd056a37c928134097b9649",
+      "boundary_group": "embedded_constant",
+      "review": "内嵌字体/图像字面量；并非请求编码输入，不能由常量解码推断其他动态图片路径。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "PIL/ImageFont.py",
+      "line": 1105,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "24fa5feeb91b4bf63eaad0ebba08a8161e9c889d9fd056a37c928134097b9649",
+      "boundary_group": "embedded_constant",
+      "review": "内嵌字体/图像字面量；并非请求编码输入，不能由常量解码推断其他动态图片路径。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/credentials.py",
+      "line": 2714,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "38f95561c553c7e76d9da6d23d30a779dcfb0403a254cb98562e92e12cc0b0e8",
+      "boundary_group": "credential_provider_helper",
+      "review": "凭据提供器相关编码，当前不执行凭据读取；未当作业务游标接收器或自动判安全。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/handlers.py",
+      "line": 278,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "504f9fd31a56a197dd63ee46796f86de471c02e550b2813a5fbcfacf3bcd6819",
+      "boundary_group": "service_response_transform",
+      "review": "SDK响应处理；与应用签名/授权边界分开。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/httpchecksum.py",
+      "line": 622,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "a5cee8b14d1bab4dbe398f27f4517be32bb35028a636d58029890abf1dd600af",
+      "boundary_group": "response_body_digest_comparison",
+      "review": "实际内存探测中尾部别名仍被接收，但错误内容被摘要比较拒绝；不是无条件规范编码拒绝。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/httpchecksum.py",
+      "line": 313,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "a5cee8b14d1bab4dbe398f27f4517be32bb35028a636d58029890abf1dd600af",
+      "boundary_group": "response_body_digest_comparison",
+      "review": "实际内存探测中尾部别名仍被接收，但错误内容被摘要比较拒绝；不是无条件规范编码拒绝。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/paginate.py",
+      "line": 142,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "498a98d13678389224a7966fa8c50a927f272475bc552ee54bfe219b59e918e2",
+      "boundary_group": "SDK_pagination_token",
+      "review": "合成SDK分页token尾部别名被接收；项目源码未观察到get_paginator/paginate直接使用，不推广为全数据流不可达。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/paginate.py",
+      "line": 127,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "498a98d13678389224a7966fa8c50a927f272475bc552ee54bfe219b59e918e2",
+      "boundary_group": "SDK_pagination_token",
+      "review": "合成SDK分页token尾部别名被接收；项目源码未观察到get_paginator/paginate直接使用，不推广为全数据流不可达。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/parsers.py",
+      "line": 236,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "2367dc4b9f07e495185c65ea6e9d37014133968de19f860822f48b1a7e1f26ea",
+      "boundary_group": "service_binary_response",
+      "review": "SDK二进制响应字段；未给第三方库打补丁。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "botocore/parsers.py",
+      "line": 1226,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "2367dc4b9f07e495185c65ea6e9d37014133968de19f860822f48b1a7e1f26ea",
+      "boundary_group": "service_binary_response",
+      "review": "SDK二进制响应字段；未给第三方库打补丁。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "celery/utils/serialization.py",
+      "line": 197,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "e5ed4196f9bc1ad90d9f72e80ce6d137d4c72514555609a9e0e16dd1e8750093",
+      "boundary_group": "Celery_serialization_helper",
+      "review": "序列化辅助能力；当前JSON配置不等于所有可达编码规范性。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fastapi/security/http.py",
+      "line": 213,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "674c402c3ab080965101a0ece3449aebcac09e317310bf7d50498ee4f2734ca0",
+      "boundary_group": "HTTPBasic_optional_helper",
+      "review": "HTTPBasic辅助类；当前身份适配器使用外部内省和Bearer，源码未观察到HTTPBasic接线；不是该能力永久禁用。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fsspec/implementations/data.py",
+      "line": 43,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "f6d31ccb57f25f56aebf3157d9a00d3caf427cfa1aae7c530832e15f5daeb2fb",
+      "boundary_group": "optional_filesystem_provider",
+      "review": "fsspec可选数据/远程/引用存储辅助；当前服务不等于启用全部提供器，未给任意外部存储授权。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fsspec/implementations/dbfs.py",
+      "line": 401,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "c87b8b50636641de69502b7dbe95e57903698cea48659c15640d3c61ab905385",
+      "boundary_group": "optional_filesystem_provider",
+      "review": "fsspec可选数据/远程/引用存储辅助；当前服务不等于启用全部提供器，未给任意外部存储授权。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fsspec/implementations/github.py",
+      "line": 243,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "682b192fc52f5d981d91c075454b370dd2de36b8cb29c16c15879014359b045a",
+      "boundary_group": "optional_filesystem_provider",
+      "review": "fsspec可选数据/远程/引用存储辅助；当前服务不等于启用全部提供器，未给任意外部存储授权。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fsspec/implementations/jupyter.py",
+      "line": 73,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "ab53e543ae8002cc06172afc305296ca86da57661e90c591b6a10d04342d0f6f",
+      "boundary_group": "optional_filesystem_provider",
+      "review": "fsspec可选数据/远程/引用存储辅助；当前服务不等于启用全部提供器，未给任意外部存储授权。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fsspec/implementations/reference.py",
+      "line": 803,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "60a2f33c117a6cba4e9c763d88cd0c47924b1918b9081eb1d5c58880c6fa0218",
+      "boundary_group": "optional_filesystem_provider",
+      "review": "fsspec可选数据/远程/引用存储辅助；当前服务不等于启用全部提供器，未给任意外部存储授权。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "fsspec/implementations/reference.py",
+      "line": 1030,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "60a2f33c117a6cba4e9c763d88cd0c47924b1918b9081eb1d5c58880c6fa0218",
+      "boundary_group": "optional_filesystem_provider",
+      "review": "fsspec可选数据/远程/引用存储辅助；当前服务不等于启用全部提供器，未给任意外部存储授权。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "kombu/transport/SQS.py",
+      "line": 1014,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "8c60e1811facbaa5f063094fdeae546b1b9a2a37bd39331b35830a24a724ab75",
+      "boundary_group": "optional_SQS_transport",
+      "review": "SQS可选传输显式strict参数；当前RabbitMQ不是SQS使用证明。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "kombu/transport/virtual/base.py",
+      "line": 74,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "7875d8aaee2dcf1c531471f6e9122ba09a67985d7ada35cae78434114f95c6b3",
+      "boundary_group": "virtual_transport_body",
+      "review": "可选虚拟传输体；当前RabbitMQ配置不代表全部传输已验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "kombu/utils/json.py",
+      "line": 121,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "b4d71c9b3e85431aa44b8f73f943dbeebb967bc3ea8a38f899c4ebe6b094bba6",
+      "boundary_group": "JSON_typed_byte_envelope",
+      "review": "实际loads接收尾部并生成bytes；当前上传事件工作者的4种不合契约类型在授权/数据库前被拒绝，5项回归与失效对照已交付。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "openapi_schema_validator/_format.py",
+      "line": 76,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "9b5c2388f97dbff3c09264811efbfc98a6d05ff27b5cbc388a66c4b72b0ab193",
+      "boundary_group": "schema_format_validator",
+      "review": "Schema格式校验器有strict与非strict路径，不能把其中一个strict调用覆盖另一个调用。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "openapi_schema_validator/_format.py",
+      "line": 55,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "9b5c2388f97dbff3c09264811efbfc98a6d05ff27b5cbc388a66c4b72b0ab193",
+      "boundary_group": "schema_format_validator",
+      "review": "Schema格式校验器有strict与非strict路径，不能把其中一个strict调用覆盖另一个调用。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "psycopg/_tpc.py",
+      "line": 59,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "34b89f229756a6121bc1a04fbcb3d2699ffe0e8b5eebbc94ebb7bd53402891e4",
+      "boundary_group": "two_phase_transaction_identifier",
+      "review": "二阶段事务标识辅助；项目未观察到tpc_begin/tpc_prepare直接使用，不冒充所有驱动功能安全。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "psycopg/_tpc.py",
+      "line": 60,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "34b89f229756a6121bc1a04fbcb3d2699ffe0e8b5eebbc94ebb7bd53402891e4",
+      "boundary_group": "two_phase_transaction_identifier",
+      "review": "二阶段事务标识辅助；项目未观察到tpc_begin/tpc_prepare直接使用，不冒充所有驱动功能安全。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "pydantic/types.py",
+      "line": 2453,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "e4814eeef3981f268f7f8544d9b462f5a51d1f5098f8d8000e3a580dfc085904",
+      "boundary_group": "optional_encoded_type",
+      "review": "Base64/URL类型实际接收尾部/字母表别名；3.15分支在3.10不执行。项目未观察到该类型直接接线，未来新增类型必须重审。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "pydantic/types.py",
+      "line": 2502,
+      "resolved_name": "base64.urlsafe_b64decode",
+      "source_sha256": "e4814eeef3981f268f7f8544d9b462f5a51d1f5098f8d8000e3a580dfc085904",
+      "boundary_group": "optional_encoded_type",
+      "review": "Base64/URL类型实际接收尾部/字母表别名；3.15分支在3.10不执行。项目未观察到该类型直接接线，未来新增类型必须重审。",
+      "active_branch_on_current_interpreter": false,
+      "fix_asserted": false
+    },
+    {
+      "path": "pydantic/types.py",
+      "line": 2504,
+      "resolved_name": "base64.urlsafe_b64decode",
+      "source_sha256": "e4814eeef3981f268f7f8544d9b462f5a51d1f5098f8d8000e3a580dfc085904",
+      "boundary_group": "optional_encoded_type",
+      "review": "Base64/URL类型实际接收尾部/字母表别名；3.15分支在3.10不执行。项目未观察到该类型直接接线，未来新增类型必须重审。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "setuptools/_vendor/wheel/wheelfile.py",
+      "line": 45,
+      "resolved_name": "base64.urlsafe_b64decode",
+      "source_sha256": "9bf83fed336c129fa3fb19ef4abe720cb1056f59e1c8e6ee7aaf50e7fd7f9410",
+      "boundary_group": "vendored_wheel_hash_helper",
+      "review": "构建/安装工具中的hash编码辅助，不用运行接口的D02测试替代；精确归档摘要与解码规范性分别验证。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "sqlalchemy/util/compat.py",
+      "line": 276,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "9b1a79df2db742ec759284c21920bd8c8219694196e7c8eefb4d7337a165b31c",
+      "boundary_group": "driver_compatibility_helper",
+      "review": "驱动兼容辅助，不将模块存在等同于业务暴露或无风险。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "starlette/middleware/sessions.py",
+      "line": 54,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "f18a683533b4dbe296694bed25d35eee5284c4ac58b990fe848442dd376d05fe",
+      "boundary_group": "signed_session_optional_middleware",
+      "review": "源码顺序为验签后解码；当前源码未观察到SessionMiddleware接线。签名/输入规范性/应用启用状态是不同事项。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/_dynamo/pgo.py",
+      "line": 863,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "25a5cd6283b2733c6250887fd8a053de0d6eeac2fb6aab24a1cdc0422f5e7a45",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/_inductor/codecache.py",
+      "line": 1877,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "1edadc1e1229adbd7c6f84cef43a04c031add6e1793be0f12b73f22798966156",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/_inductor/compile_worker/__main__.py",
+      "line": 71,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "d5827f21fd338af7395b74811ad8fcba773a1a0dcaf697f3cae8cc3d6942c2f9",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/c10d_rendezvous_backend.py",
+      "line": 125,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "3af14e632735b7fc6dafa1d4facd3bfcf1895881bce0fffe96410d77aeda8f1e",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/etcd_rendezvous_backend.py",
+      "line": 133,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "5d9b94874ee5cfe0519e28e3ebfb630eeab29b992d33e3c5c07c58929091b040",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/etcd_store.py",
+      "line": 164,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "0a3c4c793c4a0864d767b4303621fc90b9992d4d8bcc6bf501b3d6b142698fa6",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/distributed/elastic/rendezvous/etcd_store.py",
+      "line": 166,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "0a3c4c793c4a0864d767b4303621fc90b9992d4d8bcc6bf501b3d6b142698fa6",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "torch/utils/_appending_byte_serializer.py",
+      "line": 77,
+      "resolved_name": "base64.b64decode",
+      "source_sha256": "6ecf544ac68cfb679d1289b036e440444deaa6a33ac8cbdaba86f7fc40a11f8b",
+      "boundary_group": "optional_compiler_distributed_or_serializer",
+      "review": "Torch编译/分布式/序列化辅助；当前CPU小模型验证不能替代全部可选路径验收。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    },
+    {
+      "path": "wheel/wheelfile.py",
+      "line": 45,
+      "resolved_name": "base64.urlsafe_b64decode",
+      "source_sha256": "2ebfa1943eaf95a80ea178c7909b1e37b6ca0f8aac59096c3c1681e509c9ad5b",
+      "boundary_group": "wheel_hash_helper",
+      "review": "实际helper接受字母表及尾部别名；不安装任何wheel，也不据此宣称能绕过已锁定整归档SHA。",
+      "active_branch_on_current_interpreter": "NOT_RUNTIME_REACHABILITY_PROOF",
+      "fix_asserted": false
+    }
+  ],
+  "groups": {
+    "embedded_constant": 3,
+    "credential_provider_helper": 1,
+    "service_response_transform": 1,
+    "response_body_digest_comparison": 2,
+    "SDK_pagination_token": 2,
+    "service_binary_response": 2,
+    "Celery_serialization_helper": 1,
+    "HTTPBasic_optional_helper": 1,
+    "optional_filesystem_provider": 6,
+    "optional_SQS_transport": 1,
+    "virtual_transport_body": 1,
+    "JSON_typed_byte_envelope": 1,
+    "schema_format_validator": 2,
+    "two_phase_transaction_identifier": 2,
+    "optional_encoded_type": 3,
+    "vendored_wheel_hash_helper": 1,
+    "driver_compatibility_helper": 1,
+    "signed_session_optional_middleware": 1,
+    "optional_compiler_distributed_or_serializer": 8,
+    "wheel_hash_helper": 1
+  },
+  "current_URL_safe_syntactic_calls": 4,
+  "current_URL_safe_branch_candidates": 3,
+  "inactive_branch_calls": 1,
+  "temporary_directory_calls": {
+    "project_tooling": 16,
+    "installed_sources": 42
+  },
+  "bounded_probe_ref": "docs/00-project/validation/native-n01-admission-decisions/dependency-boundary-probes.json",
+  "message_regression_ref": "docs/00-project/validation/native-n01-admission-decisions/message-boundary-regression-proof.json",
+  "global_CVE_closed": false,
+  "Python_candidate_created": false
+}

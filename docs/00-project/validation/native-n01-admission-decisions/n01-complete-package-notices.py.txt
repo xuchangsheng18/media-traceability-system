@@ -1,0 +1,60 @@
+import datetime,hashlib,io,json,os,re,subprocess,tarfile,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');out=Path(json.loads((base/'n01-package-notice-latest.json').read_text())['root']);m=out/'materials';src=out/'upstream-sources';d=json.loads((out/'runtime-package-notice-report.json').read_text());initial_sha=hashlib.sha256((out/'runtime-package-notice-report.json').read_bytes()).hexdigest();extra=[]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def keep(group,package,member,raw,kind):
+ h=hashlib.sha256(raw).hexdigest();(m/h).write_bytes(raw);x={'group':group,'package':package,'member':member,'sha256':h,'size_bytes':len(raw),'stored_as':'materials/'+h,'kind':kind};extra.append(x);return x
+# Same authenticated Conda archive: two packages put info/licenses inside pkg part.
+for name in ['_openmp_mutex','libnsl']:
+ x=next(x for x in d['Conda_packages'] if x['package']==name);p=base/'native-conda-closure-cache'/x['archive_filename'];assert sha(p)==x['archive_sha256'];found=[]
+ with zipfile.ZipFile(p) as z:
+  member=next(n for n in z.namelist() if n.startswith('pkg-'));raw=subprocess.run(['zstd','-q','-d','-c'],input=z.read(member),capture_output=True,check=True).stdout
+  with tarfile.open(fileobj=io.BytesIO(raw)) as t:
+   for e in t:
+    if e.isfile() and e.name.startswith('info/licenses/'):found.append(keep('Conda',name,e.name,t.extractfile(e).read(),'LEGAL_TEXT_IN_PACKAGE_PAYLOAD_NOT_INFO_PART'))
+ assert found;x['legal_materials']+=found;x['status']='BUNDLED_MATERIAL_RETAINED_FROM_PACKAGE_PAYLOAD'
+# The exact GCC/SQLite source digests come from previously verified recipe bytes.
+acq=json.loads((src/'source-acquisition.json').read_text());upstream=[]
+for item in acq:
+ p=src/item['filename'];assert sha(p)==item['sha256'];texts=[]
+ with tarfile.open(p,'r:gz') as t:
+  if item['filename'].startswith('gcc-'):
+   candidates=['gcc-16.2.0/COPYING3','gcc-16.2.0/COPYING.RUNTIME','gcc-16.2.0/libgcc/libgcc2.c','gcc-16.2.0/libgomp/libgomp.h']
+   for member in candidates:
+    raw=t.extractfile(member).read();kind='EXACT_UPSTREAM_SOURCE_LICENSE_BODY'
+    if member.endswith(('.c','.h')):raw=b'\n'.join(raw.splitlines()[:45])+b'\n';kind='EXACT_SOURCE_HEADER_EXCERPT_NOT_FULL_BINARY_EQUIVALENCE'
+    texts.append(keep('UPSTREAM_GCC','libgcc+libgomp',member,raw,kind))
+  else:
+   member='sqlite-autoconf-3530400/sqlite3.c';raw=t.extractfile(member).read();header=b'\n'.join(raw.splitlines()[:34])+b'\n';texts.append(keep('UPSTREAM_SQLITE','libsqlite',member,header,'EXACT_SOURCE_PUBLIC_DOMAIN_HEADER_NOT_CONDA_BINARY_EQUIVALENCE'))
+ for x in d['Conda_packages']:
+  if (item['filename'].startswith('gcc-') and x['package'] in {'libgcc','libgomp'}) or (item['filename'].startswith('sqlite-') and x['package']=='libsqlite'):
+   x['upstream_legal_materials']=texts;x['upstream_source_archive_sha256']=item['sha256'];x['status']='EXACT_RECIPE_SOURCE_TERMS_RETAINED_NOT_BUNDLED_TEXT_OR_BINARY_EQUIVALENCE'
+ upstream.append({**item,'path':str(p),'materials':texts,'not_a_new_software_candidate_or_runtime_version_change':True})
+# Use a signed-index auxiliary package solely to authenticate common term bytes.
+catalog=json.loads((out/'available-common-reference-report.json').read_text());ref=next(x for x in catalog['base_files_reference_candidates'] if x['version']=='13ubuntu10');p=src/ref['filename'];assert sha(p)==ref['sha256'] and p.stat().st_size==ref['size_bytes'];proc=subprocess.Popen(['dpkg-deb','--fsys-tarfile',str(p)],stdout=subprocess.PIPE,stderr=subprocess.PIPE);bodies={};links={}
+with tarfile.open(fileobj=proc.stdout,mode='r|') as t:
+ for e in t:
+  n=e.name.removeprefix('./')
+  if not n.startswith('usr/share/common-licenses/'):continue
+  if e.issym():links[n]=str(Path(n).parent/e.linkname)
+  if e.isfile():bodies[n]=t.extractfile(e).read()
+while proc.stdout.read(1048576):pass
+proc.stdout.close();err=proc.stderr.read();assert proc.wait()==0,err
+matched=[]
+for x in d['host_common_references']:
+ n=x['path'].lstrip('/');target=n
+ for _ in range(10):
+  if target in bodies:break
+  if target not in links:break
+  target=links[target]
+ assert target in bodies,n
+ raw=bodies[target];assert hashlib.sha256(raw).hexdigest()==x['material']['sha256'],n
+ item=keep('AUTHENTICATED_COMMON_REFERENCE','base-files13ubuntu10',n,raw,'SIGNED_INDEX_AUXILIARY_PACKAGE_LEGAL_REFERENCE_NOT_INSTALLATION');x['authenticated_reference_material']=item;x['archive_authenticated']=True;x['reference_archive_sha256']=ref['sha256'];matched.append(n)
+allrows=d['materials']+extra;archive=out/'runtime-package-notices-complete.tar.gz';manifest={'files':allrows};(out/'complete-materials-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+with tarfile.open(archive,'w:gz') as t:
+ t.add(out/'complete-materials-manifest.json',arcname='materials-manifest.json')
+ for p in sorted(m.iterdir()):t.add(p,arcname='materials/'+p.name)
+with tarfile.open(archive) as t:
+ for x in allrows:raw=t.extractfile(x['stored_as']).read();assert hashlib.sha256(raw).hexdigest()==x['sha256'] and len(raw)==x['size_bytes']
+d.update(observed_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),status='PASS_IDENTIFIED_PACKAGE_LEGAL_MATERIAL_RETENTION_ONLY',initial_report_sha256=initial_sha,initial_archive=d['archive'],upstream_recipe_bound_sources=upstream,common_reference_archive={**ref,'path':str(src/ref['filename']),'role':'LEGAL_TEXT_REFERENCE_ONLY_NOT_INSTALLED_NOT_ADOPTED','installed_base_files_version_unchanged':'13ubuntu10.4'},materials=allrows,material_bindings=len(allrows),unique_material_digests=len({x['sha256'] for x in allrows}),archive={'path':str(archive),'sha256':sha(archive),'size_bytes':archive.stat().st_size},summary={'OS':89,'OS_copyright_resolved':89,'Conda':25,'Conda_bundled_text_info_part':20,'Conda_bundled_text_pkg_part':2,'Conda_exact_recipe_source_text':3,'Conda_bundled_text_absent_but_source_terms_bound':['libgcc','libgomp','libsqlite'],'common_reference_files_authenticated':len(matched)},all_licenses_compatible=False,all_corresponding_source_and_build_prerequisites_complete=False,installation_permitted=False,executed_completion_script_sha256=sha(Path(__file__)))
+(out/'runtime-package-notice-final-report.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'summary':d['summary'],'bindings':d['material_bindings'],'unique':d['unique_material_digests'],'archive':d['archive']}))

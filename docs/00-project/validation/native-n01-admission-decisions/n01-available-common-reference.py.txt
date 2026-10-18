@@ -1,0 +1,29 @@
+import datetime,email.utils,hashlib,io,json,lzma,os,subprocess,tarfile,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path(json.loads((base/'n01-package-notice-latest.json').read_text())['root']);d=json.loads((out/'runtime-package-notice-report.json').read_text());rows=[]
+for x in d['Conda_packages']:
+ if x['legal_materials']:continue
+ archive=base/'native-conda-closure-cache'/x['archive_filename'];assert hashlib.sha256(archive.read_bytes()).hexdigest()==x['archive_sha256'];entries=[];legal=[]
+ with zipfile.ZipFile(archive) as z:
+  for part in ['info-','pkg-']:
+   name=next(n for n in z.namelist() if n.startswith(part) and n.endswith('.tar.zst'));proc=subprocess.run(['zstd','-q','-d','-c'],input=z.read(name),capture_output=True,check=True)
+   with tarfile.open(fileobj=io.BytesIO(proc.stdout)) as t:
+    for m in t:
+     if not m.isfile() or m.size>2000000:continue
+     if part=='info-' and (m.name=='info/about.json' or ('recipe/' in m.name and m.name.endswith(('.yaml','.yml','.json')))):
+      raw=t.extractfile(m).read();p=out/(x['package']+'-'+hashlib.sha256(m.name.encode()).hexdigest()[:10]+'.txt');p.write_bytes(raw);entries.append({'member':m.name,'sha256':hashlib.sha256(raw).hexdigest(),'stored_path':str(p),'text':raw.decode('utf8',errors='replace')})
+     if part=='pkg-' and any(s in Path(m.name).name.lower() for s in ['copying','license','copyright']):raw=t.extractfile(m).read();legal.append({'member':m.name,'sha256':hashlib.sha256(raw).hexdigest(),'text':raw.decode('utf8',errors='replace')[:6000]})
+ rows.append({'package':x['package'],'version':x['version'],'archive_sha256':x['archive_sha256'],'metadata_and_recipe':entries,'payload_legal_files':legal})
+signatures=json.loads((repo/'config/native/os-build-dependencies.lock.json').read_text())['index_signatures'];version=subprocess.check_output(['dpkg-query','-W','-f=${Version}','base-files'],text=True);matches=[]
+for sig in signatures:
+ root=base/'native-apt-audit/repository/dists'/sig['suite'];p=root/'InRelease';assert hashlib.sha256(p.read_bytes()).hexdigest()==sig['sha256'];v=subprocess.run(['gpgv','--keyring','/usr/share/keyrings/ubuntu-archive-keyring.gpg',str(p)],capture_output=True,text=True);assert v.returncode==0
+ text=p.read_text();until=next((line.split(':',1)[1].strip() for line in text.splitlines() if line.startswith('Valid-Until:')),None)
+ if until:assert email.utils.parsedate_to_datetime(until)>datetime.datetime.now(datetime.timezone.utc)
+ sha_section=text.split('\nSHA256:\n',1)[1].split('\nSHA512:',1)[0];bindings={a[2]:(a[0],int(a[1])) for line in sha_section.splitlines() if len(a:=line.split())==3 and len(a[0])==64};index='main/binary-amd64/Packages.xz';p=root/index;digest,size=bindings[index];assert p.stat().st_size==size and hashlib.sha256(p.read_bytes()).hexdigest()==digest
+ fields={}
+ for line in lzma.decompress(p.read_bytes()).decode().splitlines()+['']:
+  if not line.strip():
+   if fields.get('Package')=='base-files':matches.append({'version':fields['Version'],'installed_version_not_selected':version,'filename':Path(fields['Filename']).name,'url':'https://archive.ubuntu.com/ubuntu/'+fields['Filename'],'sha256':fields['SHA256'],'size_bytes':int(fields['Size']),'suite':sig['suite'],'index_sha256':digest,'InRelease_sha256':sig['sha256'],'gpgv_exit_code':0,'valid_until':until})
+   fields={}
+  elif not line[0].isspace() and ':' in line:k,val=line.split(':',1);fields[k]=val.strip()
+result={'Conda_gap_source_metadata':rows,'base_files_reference_candidates':matches};(out/'available-common-reference-report.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'root':str(out),'Conda':[(x['package'],len(x['metadata_and_recipe']),len(x['payload_legal_files'])) for x in rows],'base_files':matches}))

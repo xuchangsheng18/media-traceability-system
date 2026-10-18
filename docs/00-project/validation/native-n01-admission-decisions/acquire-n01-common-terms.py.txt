@@ -1,0 +1,6 @@
+import hashlib,json,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;o=w/'n01-package-source-cache';n='base-files_13ubuntu10_amd64.deb';u='https://archive.ubuntu.com/ubuntu/pool/main/b/base-files/'+n;p=o/n
+with urllib.request.urlopen(u,timeout=60) as s:p.write_bytes(s.read())
+assert len(p.read_bytes())==73634 and hashlib.sha256(p.read_bytes()).hexdigest()=='cd06729c776397bb74779773f4dece372a1a3f795e5992804022bffab0278ffb'
+print('PASS signed-index auxiliary license reference archive;not an installed/base lock package change')

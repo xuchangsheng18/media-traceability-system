@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-10-18T13:01:21.144048+00:00",
+  "status": "PASS_TEST_EFFECTIVENESS_AND_EXISTING_SCHEMA_BOUNDARY_NOT_CVE_REPAIR",
+  "source_commit": "0b8d6af04cf3ca19540a5f98c1174ada51f4b058",
+  "test_sha256": "e1aead9b8173b672133900e390494d9e6519fbd0565f194257180cda7614d09e",
+  "worker_sha256_before_after": "c08f710edc83344f503f41312b38e70ddfec9df50da6b73c938f6f44ff342ab2",
+  "production_source_modified": false,
+  "negative_control_process_only": true,
+  "checks": [
+    {
+      "kind": "negative_contract_bypass_control",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-c",
+        "from jsonschema import Draft202012Validator;Draft202012Validator.validate=lambda *a,**kw:None;import pytest;raise SystemExit(pytest.main(['/tmp/test_n01_upload_json_boundary.py','-q','--tb=short']))"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "output_tail": ".py:34: in consume_validation\n    scope = self.authority.authorize_case(actor, UUID(event[\"case_id\"]), \"asset.upload\")\n/tmp/test_n01_upload_json_boundary.py:24: in authorize_case\n    raise StopAtAuthority(\"owned fixture stops before database\")\nE   test_n01_upload_json_boundary.StopAtAuthority: owned fixture stops before database\n_ test_decoded_byte_envelope_rejected_before_authority_or_database[extra_unexpected] _\n/tmp/test_n01_upload_json_boundary.py:50: in test_decoded_byte_envelope_rejected_before_authority_or_database\n    worker.consume_validation(decoded)\nbackend/business_app/uploads/worker.py:34: in consume_validation\n    scope = self.authority.authorize_case(actor, UUID(event[\"case_id\"]), \"asset.upload\")\n/tmp/test_n01_upload_json_boundary.py:24: in authorize_case\n    raise StopAtAuthority(\"owned fixture stops before database\")\nE   test_n01_upload_json_boundary.StopAtAuthority: owned fixture stops before database\n=========================== short test summary info ============================\nFAILED ../../../../tmp/test_n01_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[request_id]\nFAILED ../../../../tmp/test_n01_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[actor_id]\nFAILED ../../../../tmp/test_n01_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[source_authorization_version]\nFAILED ../../../../tmp/test_n01_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[extra_unexpected]\n4 failed, 1 passed in 1.39s\n",
+      "log_sha256": "69672807e187d1804749649ca91cee7e5b87aa2e475e291e8266d4ba3906a150",
+      "meaning": "owned process schema bypass MUST make tests fail;not source/runtime policy change"
+    },
+    {
+      "kind": "normal_existing_implementation",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "/tmp/test_n01_upload_json_boundary.py",
+        "-q",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "output_tail": ".....                                                                    [100%]\n5 passed in 1.32s\n",
+      "log_sha256": "ab00e0077f3120daf18c1dd9503446975a856dd3c7c087a3f65c754021310c25",
+      "meaning": "five bounded tests pass;no broker/DB operation"
+    }
+  ],
+  "executed_script_sha256": "2936fd107bc9332ef3582d340938b86faf1a3eb0bba2e04f8ea0037d06f47a26"
+}

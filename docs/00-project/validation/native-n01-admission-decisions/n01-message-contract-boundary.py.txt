@@ -1,0 +1,22 @@
+import copy,datetime,hashlib,json,os,subprocess,sys
+from pathlib import Path
+os.umask(0o077);repo=Path('/workspace/glwy/projects/media-traceability-system');sys.path.insert(0,str(repo/'backend'))
+from business_app.uploads.worker import UploadValidationWorker
+from business_app.errors import BusinessError
+from kombu.utils.json import loads
+out=Path('/workspace/glwy/runtime/media-traceability-system/n01-current-admission');uid='00000000-0000-4000-8000-000000000001';event={k:uid for k in ['event_id','org_id','case_id','actor_id','upload_id','request_id']};event.update(schema_version='1.0.0',event_type='upload.validation.requested.v1',session_version=1,source_authorization_version='owned-fixture-1')
+class StopAtAuthority(RuntimeError):pass
+class Authority:
+ def __init__(self):self.calls=0
+ def authorize_case(self,*args):self.calls+=1;raise StopAtAuthority('owned-no-DB-sentinel')
+rows=[]
+for field in [None,'request_id','actor_id','source_authorization_version','extra_unexpected']:
+ value=copy.deepcopy(event)
+ if field:value[field]={'__type__':'base64','__value__':'YQ==EXTRA'}
+ decoded=loads(json.dumps(value));authority=Authority();worker=UploadValidationWorker(object(),authority)
+ try:worker.consume_validation(decoded);actual='RETURNED'
+ except StopAtAuthority:actual='OWNED_AUTHORITY_SENTINEL'
+ except BusinessError as e:actual=e.code
+ expected='OWNED_AUTHORITY_SENTINEL' if field is None else 'UPLOAD_EVENT_INVALID';assert actual==expected and authority.calls==(1 if field is None else 0)
+ rows.append({'field':field,'decoded_field_type':type(decoded[field]).__name__ if field else None,'expected':expected,'actual':actual,'authority_calls':authority.calls,'database_or_object_access':False,'business_operation_completed':False})
+sources=['backend/business_app/uploads/worker.py','backend/business_app/uploads/messaging.py','schemas/events/upload-validation.requested.v1.schema.json'];d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'actual_worker_contract_boundary_with_owned_authority_stop_and_no_database_or_message_broker','status':'PASS_FIVE_BOUNDED_CONTRACT_OBSERVATIONS_NOT_BROKER_SECURITY_OR_CPYTHON_FIX','cases':rows,'source_sha256':{p:hashlib.sha256((repo/p).read_bytes()).hexdigest() for p in sources},'interpreter_or_Kombu_patched':False,'global_CVE_closed':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'message-contract-boundary.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'cases':len(rows),'invalid_rejected_before_authority':4,'valid_control_stopped_before_database':True,'CVE_closed':False}))
