@@ -69,4 +69,4 @@ Font Awesome3份文件与验真5.6.3包整体SHA不同，但所有字体表除he
 
 徐昌胜在本轮对话明确回复“认可本轮限定结论，登记复核”，已写入[实际复核记录](../00-project/validation/native-n01-round8/review-decision.json)。认可范围为24类指令层复核、字体/主题材料及剩余事项；不含Python风险接受、候选最终采用、原生安装、外发或全部软件安全准入。没有把对话复核当数字签名或材料包逐字节验收。N01整体仍未验收通过。
 
-本轮软件准入和候选采用状态见[第九轮具体复核](native-n01-candidate-adoption-review.md)；Python候选继续暂缓，候选预选尚待实际决定。
+本轮软件准入和候选采用状态见[第九轮具体复核](native-n01-candidate-adoption-review.md)；Python候选继续暂缓；三项候选预选已获限定确认，整体准入与可安装锁仍未通过。

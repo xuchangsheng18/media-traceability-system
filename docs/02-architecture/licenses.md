@@ -53,4 +53,4 @@ OSV按精确版本2.14.1+cpu及基础版本2.14.1分别查询，当前均未返�
 
 补充Node类型开发物料：@types/node 22.20.5，发行包license字段MIT；完整传递依赖仍以锁及扫描为准。
 
-当前N01十类软件准入、候选精确摘要及内部字体/Flatbuffers补充见[第九轮复核](../03-development/native-n01-candidate-adoption-review.md)；无候选采用或安装批准。
+当前N01十类软件准入、候选精确摘要及内部字体/Flatbuffers补充见[第九轮复核](../03-development/native-n01-candidate-adoption-review.md)；三项候选仅获原生研发制品预选确认，无安装或整体准入批准。
