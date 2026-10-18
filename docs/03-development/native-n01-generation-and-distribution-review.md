@@ -1,5 +1,7 @@
 # N01第六轮：生成差异、嵌套许可与分发义务
 
+[第七轮最新：421个vendor来源与实际审查材料包](native-n01-generated-source-and-distribution-kit.md)已更新；本页前轮数字按当时观察阅读。4份vendor脚本已重建匹配，其他来源/许可准入仍有未决。
+
 2026-10-18；Linux / Miniforge py310 / CPU研发。**N01仍为IN_PROGRESS_BLOCKED_ADMISSION**。本轮补充来源、差异解释和可执行的分发检查，不代表软件准入、原生安装或正式交付。Python3.13/3.12候选继续DEFERRED_BY_USER，现有环境及原100包锁未改。
 
 [本轮机器报告](../00-project/validation/native-n01-round6-admission-report.json) · [执行状态](native-linux-execution-status.json) · [第五轮原始观察](native-n01-bundled-origin-review.md) · [CI回执](../00-project/validation/github-actions-report.json)

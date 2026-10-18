@@ -1,0 +1,32 @@
+import base64,concurrent.futures,hashlib,json,re,tarfile,urllib.request,yaml
+from pathlib import Path
+w=Path(__file__).parent;c=w/'n01-r7-build-inputs';c.mkdir(exist_ok=True);lock_raw=(w/'n01-r6-pnpm-lock.yaml').read_bytes();lock=yaml.safe_load(lock_raw);root=lock['importers']['themes-vendor'];roots={k:v['version'] for k,v in {**root['dependencies'],**root['devDependencies']}.items() if k not in ['patternfly','@patternfly/patternfly','@patternfly-v5/patternfly','rfc4648']};seen={};excluded=[]
+def visit(name,ver):
+ key=name+'@'+ver
+ if key in seen:return
+ snapshot=lock['snapshots'][key];primary=key.split('(')[0];assert primary in lock['packages'],primary
+ entry={'key':key,'name':name,'version':primary[len(name)+1:],'lock_integrity':lock['packages'][primary]['resolution']['integrity'],'dependencies':{}};seen[key]=entry
+ for optional in [False,True]:
+  for dep,dver in snapshot.get('optionalDependencies' if optional else 'dependencies',{}).items():
+   if optional and ((dep.startswith('@rollup/rollup-') and dep!='@rollup/rollup-linux-x64-gnu') or dep=='fsevents'):
+    excluded.append({'parent':key,'name':dep,'version':dver,'reason':'optional_non_target_linux_x64_glibc_platform'});continue
+   entry['dependencies'][dep]=dep+'@'+dver;visit(dep,dver)
+for k,v in roots.items():visit(k,v)
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def fetch(entry):
+ stem=sha(entry['key'].encode())[:20];mp=c/(stem+'.metadata.json');ap=c/(stem+'.tgz');url='https://registry.npmjs.org/'+entry['name']+'/'+entry['version']
+ if not mp.exists():mp.write_bytes(urllib.request.urlopen(url,timeout=60).read())
+ meta=json.loads(mp.read_bytes());assert meta['dist']['integrity']==entry['lock_integrity'],entry['key']
+ if not ap.exists():ap.write_bytes(urllib.request.urlopen(meta['dist']['tarball'],timeout=60).read())
+ raw=ap.read_bytes();alg,ds=entry['lock_integrity'].split('-',1);assert base64.b64encode(hashlib.new(alg,raw).digest()).decode()==ds
+ entry.update(archive_file=ap.name,archive_sha256=sha(raw),metadata_url=url,metadata_sha256=sha(mp.read_bytes()),tarball_url=meta['dist']['tarball'],registry_and_pinned_lock_SRI_verified=True,declared_license=meta.get('license'),lifecycle_scripts_executed=False)
+ return entry
+with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:rows=list(pool.map(fetch,seen.values()))
+source=w/'n01-r5-upstream/keycloak-exact-source.tar.gz'
+with tarfile.open(source) as t:
+ for m in t:
+  if not m.isfile():continue
+  rel=m.name.split('/js/themes-vendor/',1)
+  if len(rel)==2 and (rel[1] in ['package.json','rollup.config.js','scripts/rewrite-imports.js'] or rel[1].startswith('src/')):
+   p=c/'fixture'/rel[1];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(t.extractfile(m).read())
+d={'scope':'exact_locked_vendor_build_subset_not_new_runtime_baseline','source_commit':'24ed1dadf3f246a555adb6d3d4a99e9b3003fb3b','source_archive_sha256':sha(source.read_bytes()),'pnpm_lock_sha256':sha(lock_raw),'target':'linux_x64_glibc','roots':{k:k+'@'+v for k,v in roots.items()},'packages':rows,'excluded_optional':excluded,'Python_candidate_created':False};(c/'build-inputs.json').write_text(json.dumps(d,indent=2)+'\n',encoding='utf8');print(json.dumps({'verified_packages':len(rows),'optional_platform_exclusions':len(excluded),'lifecycle_scripts_executed':False}))

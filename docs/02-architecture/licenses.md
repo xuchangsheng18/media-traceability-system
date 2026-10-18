@@ -1,5 +1,7 @@
 # 许可、维护与制品边界
 
+[N01第七轮材料装配与未决义务](../03-development/native-n01-generated-source-and-distribution-kit.md)；来源/字节核验不代替正式软件准入。
+
 [N01第六轮义务登记](../03-development/native-n01-generation-and-distribution-review.md)及[实际vendor声明](third-party-notices/native-n01-vendor-upstream-notices.txt)；审查材料不代表准入批准。
 
 [N01第五轮捆绑许可与来源复核](../03-development/native-n01-bundled-origin-review.md)及[Swagger上游声明附录](third-party-notices/native-n01-swagger-ui-upstream-notices.txt)提供精确材料；它们不是全部第三方软件准入或正式发行许可决定。

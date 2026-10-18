@@ -1,5 +1,7 @@
 # N01原生制品及依赖核验
 
+[第七轮最新：421个vendor来源与实际审查材料包](native-n01-generated-source-and-distribution-kit.md)已更新；本页前轮数字按当时观察阅读。4份vendor脚本已重建匹配，其他来源/许可准入仍有未决。
+
 [第六轮最新生成差异、嵌套许可与分发义务](native-n01-generation-and-distribution-review.md)已补充；本页旧观察按当时范围保留，N01仍受软件准入阻塞，Python候选暂缓。
 
 [第五轮捆绑许可、H2与生成物来源核验](native-n01-bundled-origin-review.md)为最新技术复核入口；H2逻辑重放及启动描述已核验，生成差异和全部许可准入仍未完成。前轮数值/未决项按当时范围阅读；Python候选继续暂缓。
