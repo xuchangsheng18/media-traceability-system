@@ -15,7 +15,6 @@ jobs:
       PYTHON: /opt/conda/glwy/envs/py310/bin/python
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
-      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/identity-browsers
       MT_BUSINESS_TEST_ADMIN_DSN: host=127.0.0.1 port=35432 dbname=postgres user=mt_test_admin password=self-owned-ephemeral-ci-only
     services:
       business-postgres:
@@ -27,6 +26,9 @@ jobs:
         ports: ['35432:5432']
         options: --health-cmd "pg_isready -U mt_test_admin -d postgres" --health-interval 5s --health-timeout 3s --health-retries 12
     steps:
+      - name: Configure isolated browser cache
+        shell: bash
+        run: echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/identity-browsers" >> "$GITHUB_ENV"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
