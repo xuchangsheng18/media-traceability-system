@@ -1,5 +1,7 @@
 # 项目文档导航
 
+[N01最新：捆绑许可、H2改包和生成物来源](03-development/native-n01-bundled-origin-review.md)
+
 [N01最新许可、漏洞与运行路径](03-development/native-n01-license-vulnerability-runtime-review.md) · [受支持Python候选申请](03-development/native-n01-python-supported-candidate-request.md)
 
 [T001—T012逐项收口](03-development/t001-t012-closeout.md) · [Linux全原生迁移设计](03-development/native-linux-migration-design.md) · [管理员清单](03-development/native-linux-admin-checklist.md) · [main保护操作](03-development/main-protection-handoff.md)。当前为已选定方向、待审阅书面设计；没有把原生迁移写成已完成。
@@ -539,7 +541,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共809份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共885份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -814,6 +816,80 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round4/runtime-followup-report.json](<00-project/validation/native-n01-round4/runtime-followup-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round4/software-admission-register.json](<00-project/validation/native-n01-round4/software-admission-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round4-admission-report.json](<00-project/validation/native-n01-round4-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/arc-source-provenance.json](<00-project/validation/native-n01-round5/arc-source-provenance.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/boot-descriptor-report.json](<00-project/validation/native-n01-round5/boot-descriptor-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/bundled-text-complement-initial-report.json](<00-project/validation/native-n01-round5/bundled-text-complement-initial-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/bundled-text-complement-report.json](<00-project/validation/native-n01-round5/bundled-text-complement-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/canonical-license-texts-and-mapping.json](<00-project/validation/native-n01-round5/canonical-license-texts-and-mapping.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/evidence-consistency-check.json](<00-project/validation/native-n01-round5/evidence-consistency-check.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-boot-descriptor.py.txt](<00-project/validation/native-n01-round5/executed-boot-descriptor.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-bundled-text-complement-initial.py.txt](<00-project/validation/native-n01-round5/executed-bundled-text-complement-initial.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-bundled-text-complement.py.txt](<00-project/validation/native-n01-round5/executed-bundled-text-complement.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-fetch-license-materials-initial.py.txt](<00-project/validation/native-n01-round5/executed-fetch-license-materials-initial.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-fetch-license-materials.py.txt](<00-project/validation/native-n01-round5/executed-fetch-license-materials.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-fetch-sources.py.txt](<00-project/validation/native-n01-round5/executed-fetch-sources.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-generated-inventory.py.txt](<00-project/validation/native-n01-round5/executed-generated-inventory.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-h2-license-source.py.txt](<00-project/validation/native-n01-round5/executed-h2-license-source.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-h2-manifest.py.txt](<00-project/validation/native-n01-round5/executed-h2-manifest.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-keycloak-source.py.txt](<00-project/validation/native-n01-round5/executed-keycloak-source.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-license-canonical.py.txt](<00-project/validation/native-n01-round5/executed-license-canonical.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-map-generated-origins.py.txt](<00-project/validation/native-n01-round5/executed-map-generated-origins.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-pin-keycloak-poms.py.txt](<00-project/validation/native-n01-round5/executed-pin-keycloak-poms.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-reaugmentation.py.txt](<00-project/validation/native-n01-round5/executed-reaugmentation.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/executed-swagger-notices.py.txt](<00-project/validation/native-n01-round5/executed-swagger-notices.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/generated-and-h2-inventory.json](<00-project/validation/native-n01-round5/generated-and-h2-inventory.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/generated-input-attribution-report.json](<00-project/validation/native-n01-round5/generated-input-attribution-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/h2-license-source-report.json](<00-project/validation/native-n01-round5/h2-license-source-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/h2-logical-replay-report.json](<00-project/validation/native-n01-round5/h2-logical-replay-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/keycloak-pinned-pom-verification.json](<00-project/validation/native-n01-round5/keycloak-pinned-pom-verification.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/keycloak-source-provenance.json](<00-project/validation/native-n01-round5/keycloak-source-provenance.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/missing-jar-source-materials-initial.json](<00-project/validation/native-n01-round5/missing-jar-source-materials-initial.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/missing-jar-source-materials.json](<00-project/validation/native-n01-round5/missing-jar-source-materials.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/reaugmentation-report.json](<00-project/validation/native-n01-round5/reaugmentation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/source-acquisition.json](<00-project/validation/native-n01-round5/source-acquisition.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/source-materials-before-service-exclusion.json](<00-project/validation/native-n01-round5/source-materials-before-service-exclusion.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/swagger-ui-notice-recovery-report.json](<00-project/validation/native-n01-round5/swagger-ui-notice-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/technical-origin-and-admission-register.json](<00-project/validation/native-n01-round5/technical-origin-and-admission-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/AbstractFastJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/AbstractFastJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/AbstractJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/AbstractJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/AbstractLegacyThinJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/AbstractLegacyThinJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/AotFastJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/AotFastJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ApplicationArchiveBuildStep.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ApplicationArchiveBuildStep.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ApplyNativeImageAgentConfigStep.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ApplyNativeImageAgentConfigStep.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ArchiveCreator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ArchiveCreator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/BeanGenerator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/BeanGenerator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ClassTransformingBuildStep.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ClassTransformingBuildStep.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ClientProxyGenerator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ClientProxyGenerator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ComponentsProviderGenerator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ComponentsProviderGenerator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/CurateOutcomeBuildStep.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/CurateOutcomeBuildStep.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/DebugConfig.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/DebugConfig.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/Decompiler.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/Decompiler.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/DevModeCommandLineBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/DevModeCommandLineBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/FastJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/FastJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/FastJarFormat.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/FastJarFormat.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/h2-2.4.240.pom.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/h2-2.4.240.pom.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/H2JDBCReflections.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/H2JDBCReflections.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/JarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/JarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/JarTreeShakeProcessor.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/JarTreeShakeProcessor.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/JarTypeDefaultValueConfigInterceptor.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/JarTypeDefaultValueConfigInterceptor.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/JarUnsigner.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/JarUnsigner.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/JDBCH2Processor.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/JDBCH2Processor.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-deployment-pom.xml.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-deployment-pom.xml.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-dist-pom.xml.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-dist-pom.xml.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-root-pom.xml.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-root-pom.xml.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-server-pom.xml.source.json](<00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-server-pom.xml.source.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-source-PersistedConfigSource.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/keycloak-source-PersistedConfigSource.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/LegacyThinJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/LegacyThinJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/LegacyThinJarFormat.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/LegacyThinJarFormat.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/NativeImageReflectConfigStep.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/NativeImageReflectConfigStep.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/NativeImageSourceJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/NativeImageSourceJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ParallelCommonsCompressArchiveCreator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ParallelCommonsCompressArchiveCreator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/RemovedResourceBuildItem.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/RemovedResourceBuildItem.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/smallrye-open-api-ui-4.3.5.pom.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/smallrye-open-api-ui-4.3.5.pom.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/UberJarBuilder.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/UberJarBuilder.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/VineflowerDecompiler.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/VineflowerDecompiler.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5/upstream-source-excerpts/ZipFileSystemArchiveCreator.java.txt](<00-project/validation/native-n01-round5/upstream-source-excerpts/ZipFileSystemArchiveCreator.java.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round5-admission-report.json](<00-project/validation/native-n01-round5-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-runtime-report.json](<00-project/validation/native-n01-runtime-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-nginx-signature-report.json](<00-project/validation/native-nginx-signature-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-primary-artifact-verification-report.json](<00-project/validation/native-primary-artifact-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -938,6 +1014,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 1.1-py310-cpu研发执行基线，区别于正式生产冻结和全部业务实现。 |
 | [02-architecture/technical-validation-report.md](<02-architecture/technical-validation-report.md>) | 各真实检查结果、证据路径、范围和未测事项。 |
 | [02-architecture/technology-options.md](<02-architecture/technology-options.md>) | 12个技术域的替代方案、研发执行选择、实测和扩展边界。 |
+| [02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt](<02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-api/api-design.md](<03-api/api-design.md>) | 幂等、版本条件、异步、分页、媒体访问及通用数据表达规则。 |
 | [03-api/common-interface-rules.md](<03-api/common-interface-rules.md>) | 身份/权限、追踪、分页、幂等、ETag、异步、错误/Range和版本；未定配置保持待定。 |
 | [03-api/data-structures.md](<03-api/data-structures.md>) | 102业务组件逐字段必填/可空/约束与完整源Schema的只读派生，不形成第二编辑源。 |
@@ -1162,6 +1239,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-linux-migration-design.md](<03-development/native-linux-migration-design.md>) | 说明文档：Linux全原生研发环境：设计、数据迁移与恢复方案；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-artifacts-and-dependencies.md](<03-development/native-n01-artifacts-and-dependencies.md>) | 说明文档：N01原生制品及依赖核验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-build-and-admission-review.md](<03-development/native-n01-build-and-admission-review.md>) | 说明文档：N01源码构建、运行依赖和准入复核；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-bundled-origin-review.md](<03-development/native-n01-bundled-origin-review.md>) | 说明文档：N01第五轮：捆绑许可、H2改包与生成物来源；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-license-vulnerability-runtime-review.md](<03-development/native-n01-license-vulnerability-runtime-review.md>) | 说明文档：N01捆绑许可、漏洞适用性与可选路径复核；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-python-candidate-decision.json](<03-development/native-n01-python-candidate-decision.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/native-n01-python-supported-candidate-request.md](<03-development/native-n01-python-supported-candidate-request.md>) | 说明文档：N01受支持Python独立候选验证申请；结合正文的状态、来源和适用范围阅读。 |

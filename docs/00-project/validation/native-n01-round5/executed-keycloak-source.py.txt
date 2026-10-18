@@ -1,0 +1,13 @@
+import hashlib,json,tarfile,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';commit='24ed1dadf3f246a555adb6d3d4a99e9b3003fb3b';url='https://codeload.github.com/keycloak/keycloak/tar.gz/'+commit;p=out/'keycloak-exact-source.tar.gz'
+if not p.exists():
+ with urllib.request.urlopen(url,timeout=80) as f:p.write_bytes(f.read())
+rows=[]
+with tarfile.open(p) as t:
+ for m in t:
+  if not m.isfile() or not (m.name.endswith('.java') or m.name.endswith('pom.xml')):continue
+  raw=t.extractfile(m).read()
+  if any(x in raw for x in [b'reflect-config.json',b'RemovedResourceBuildItem',b'transformed-bytecode.jar',b'generated-bytecode.jar']):
+   name='keycloak-source-'+Path(m.name).name;(out/name).write_bytes(raw);rows.append({'source_path':m.name,'file':name,'sha256':hashlib.sha256(raw).hexdigest()})
+report={'scope':'pinned_Keycloak_release_commit_source_review_not_reproducible_build_attestation','tag':'26.8.1','commit':commit,'tag_ref_url':'https://api.github.com/repos/keycloak/keycloak/git/ref/tags/26.8.1','url':url,'archive_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'selected_files':rows,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'keycloak-source-provenance.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))

@@ -1,0 +1,29 @@
+import concurrent.futures,datetime,hashlib,json,re,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;cache=w/'n01-r5-license-cache';cache.mkdir(exist_ok=True);inventory=json.loads((w/'n01-r4-jar-license-resolution.json').read_text(encoding='utf8'))
+def fetch(url):
+ p=cache/hashlib.sha256(url.encode()).hexdigest()
+ if not p.exists():
+  with urllib.request.urlopen(url,timeout=22) as f:raw=f.read(32*1024*1024+1)
+  if not raw or len(raw)>32*1024*1024:raise ValueError('empty or source archive over32MiB')
+  temp=p.with_suffix('.tmp');temp.write_bytes(raw);temp.replace(p)
+ return p
+def get(row):
+ c=row['resolved_coordinate'];g,a,v=(c[k] for k in ['groupId','artifactId','version']);url='https://repo.maven.apache.org/maven2/'+g.replace('.','/')+'/'+a+'/'+v+'/'+a+'-'+v+'-sources.jar';result={'release_archive':row['archive'],'release_archive_sha256':row['sha256'],'coordinate':c,'source_url':url,'materials':[],'notice_or_license_headers':[]}
+ try:
+  p=fetch(url);result['source_sha256']=hashlib.sha256(p.read_bytes()).hexdigest()
+  with zipfile.ZipFile(p) as z:
+   for n in z.namelist():
+    if n.endswith('/'):continue
+    if re.match(r'^(license|notice|copying|copyright)([._-].*)?$',Path(n).name,re.I) and not n.endswith('.class'):
+     raw=z.read(n);result['materials'].append({'path':n,'sha256':hashlib.sha256(raw).hexdigest(),'utf8_text':raw.decode('utf8',errors='replace')})
+   for n in z.namelist():
+    if n.endswith('.java') and len(result['notice_or_license_headers'])<2:
+     raw=z.read(n);head='\n'.join(raw.decode('utf8',errors='replace').splitlines()[:40])
+     if any(s in head.lower() for s in ['copyright','licensed under','license, version','spdx-license-identifier']):result['notice_or_license_headers'].append({'path':n,'source_sha256':hashlib.sha256(raw).hexdigest(),'first40lines':head})
+  result['status']='PASS_RETRIEVAL_ONLY'
+ except Exception as e:result.update(status='FAIL_RETRIEVAL',error=str(e))
+ return result
+selected=[x for x in inventory['jars'] if not x['true_text_materials'] and x.get('resolved_coordinate')];unique={tuple(x['resolved_coordinate'].values()):x for x in selected}
+with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:results=list(pool.map(get,unique.values()))
+report={'scope':'exact_primary_Maven_coordinate_source_licenses_and_headers_for_JARs_missing_embedded_text_not_all_shaded_or_reproducible_license_admission','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'selected_release_jars':len(selected),'unique_source_coordinates':len(unique),'sources':results,'summary':{'retrieved':sum(x['status']=='PASS_RETRIEVAL_ONLY' for x in results),'with_license_or_notice_texts':sum(bool(x['materials']) for x in results),'with_source_headers':sum(bool(x['notice_or_license_headers']) for x in results),'retrieval_failed':sum(x['status']=='FAIL_RETRIEVAL' for x in results)},'formal_admission':False};(w/'n01-r5-missing-jar-source-materials.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps(report['summary']))

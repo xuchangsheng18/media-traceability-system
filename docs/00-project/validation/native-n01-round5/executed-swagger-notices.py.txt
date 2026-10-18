@@ -1,0 +1,20 @@
+import base64,hashlib,io,json,tarfile,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';inventory=json.loads((w/'n01-r5-generated-input-attribution-report.json').read_text());rows=[]
+for package,version in [('swagger-ui-dist','5.32.8'),('swagger-ui-themes','3.0.1')]:
+ url='https://registry.npmjs.org/'+package+'/'+version
+ with urllib.request.urlopen(url,timeout=30) as f:metadata_raw=f.read()
+ m=json.loads(metadata_raw);tar_url=m['dist']['tarball']
+ with urllib.request.urlopen(tar_url,timeout=45) as f:raw=f.read()
+ alg,wanted=m['dist']['integrity'].split('-',1);assert alg=='sha512' and base64.b64encode(hashlib.sha512(raw).digest()).decode()==wanted
+ (out/(package+'-'+version+'.tgz')).write_bytes(raw);materials=[];matches=[]
+ with tarfile.open(fileobj=io.BytesIO(raw)) as t:
+  for item in t:
+   if not item.isfile():continue
+   name=Path(item.name).name
+   if name in ['swagger-ui-bundle.js','swagger-ui-standalone-preset.js','theme-feeling-blue.css']:
+    payload=t.extractfile(item).read();digest=hashlib.sha256(payload).hexdigest();candidates=[x for x in inventory['resources'] if Path(x['path']).name==name];matches.append({'path':item.name,'sha256':digest,'generated_release_resource_matches':[{'path':x['path'],'sha256':x['sha256']} for x in candidates if x['sha256']==digest]})
+   if 'LICENSE' in name.upper() or name.upper().startswith(('COPYING','NOTICE','COPYRIGHT')):
+    payload=t.extractfile(item).read();materials.append({'path':item.name,'sha256':hashlib.sha256(payload).hexdigest(),'utf8_text':payload.decode(errors='replace')})
+ rows.append({'package':package,'version':version,'metadata_url':url,'metadata_sha256':hashlib.sha256(metadata_raw).hexdigest(),'tarball':tar_url,'integrity':m['dist']['integrity'],'integrity_verified':True,'archive_sha256':hashlib.sha256(raw).hexdigest(),'declared_license':m.get('license'),'materials':materials,'release_payload_matches':matches})
+report={'scope':'exact_NPM_versions_selected_by_SmallRye_UI_POM_registry_integrity_and_release_asset_byte_bindings_with_upstream_notices_not_whole_NPM_license_admission','packages':rows,'formal_admission':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'swagger-ui-notice-recovery-report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps([{'package':r['package'],'version':r['version'],'materials':len(r['materials']),'matched_assets':sum(bool(x['generated_release_resource_matches']) for x in r['release_payload_matches'])} for r in rows]))

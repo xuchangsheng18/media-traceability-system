@@ -1,0 +1,24 @@
+import concurrent.futures,datetime,hashlib,json,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';out.mkdir(exist_ok=True)
+urls={
+'keycloak-dist-pom.xml':'https://raw.githubusercontent.com/keycloak/keycloak/26.8.1/quarkus/dist/pom.xml',
+'keycloak-root-pom.xml':'https://raw.githubusercontent.com/keycloak/keycloak/26.8.1/pom.xml',
+'keycloak-server-pom.xml':'https://raw.githubusercontent.com/keycloak/keycloak/26.8.1/quarkus/server/pom.xml',
+'keycloak-deployment-pom.xml':'https://raw.githubusercontent.com/keycloak/keycloak/26.8.1/quarkus/deployment/pom.xml',
+'quarkus-core-deployment-sources.jar':'https://repo.maven.apache.org/maven2/io/quarkus/quarkus-core-deployment/3.40.1/quarkus-core-deployment-3.40.1-sources.jar'}
+def get(item):
+ name,url=item
+ try:
+  with urllib.request.urlopen(url,timeout=45) as f:raw=f.read()
+  assert raw; (out/name).write_bytes(raw);return {'file':name,'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw),'status':'PASS_HTTPS_SOURCE_RETRIEVAL_ONLY'}
+ except Exception as e:return {'file':name,'url':url,'status':'FAIL','error':str(e)}
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:rows=list(pool.map(get,urls.items()))
+if (out/'quarkus-core-deployment-sources.jar').exists():
+ with zipfile.ZipFile(out/'quarkus-core-deployment-sources.jar') as z:
+  for name in z.namelist():
+   if name.endswith('.java'):
+    raw=z.read(name)
+    if any(x in raw for x in [b'generated-bytecode.jar',b'transformed-bytecode.jar',b'quarkus-run.jar',b'reflect-config.json']):
+     target=out/Path(name).name;target.write_bytes(raw)
+(out/'source-acquisition.json').write_text(json.dumps({'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'sources':rows,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps(rows,indent=2))

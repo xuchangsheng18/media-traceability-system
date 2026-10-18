@@ -1,5 +1,7 @@
 # 许可、维护与制品边界
 
+[N01第五轮捆绑许可与来源复核](../03-development/native-n01-bundled-origin-review.md)及[Swagger上游声明附录](third-party-notices/native-n01-swagger-ui-upstream-notices.txt)提供精确材料；它们不是全部第三方软件准入或正式发行许可决定。
+
 2026-10-12；这是工程许可盘点与待办，未代表单位法律审查或生产准入。Python 包声明见 [python-components.json](../00-project/validation/python-components.json)，npm 物料见 [npm-sbom.cdx.json](../00-project/validation/npm-sbom.cdx.json)。安装包元数据并不能证明所有间接依赖或再分发义务已满足。
 
 | 组件 | 上游许可/需要处理的事项 | 本轮处理 |

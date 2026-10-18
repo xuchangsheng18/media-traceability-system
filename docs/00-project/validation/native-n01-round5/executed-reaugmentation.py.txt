@@ -1,0 +1,23 @@
+import datetime,hashlib,json,os,subprocess,tarfile,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-n01-r5';dest=out/'reaugmentation-fixture';archive=base/'native-artifacts/keycloak-26.8.1.tar.gz';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert sha(archive)=='4e2740b181faa2ea623a1c2ecf00855935311e546046e2f857615a47ed24cbe8';assert not dest.exists();dest.mkdir(mode=0o700)
+with tarfile.open(archive) as t:
+ for m in t.getmembers():
+  assert m.isfile() or m.isdir(),m.name
+  assert (dest/m.name).resolve().is_relative_to(dest.resolve()),m.name
+ t.extractall(dest,filter='data')
+root=dest/'keycloak-26.8.1';jdk=next((base/'native-n01-binary-probes-20261017/java').glob('jdk-*'));home=out/'fixture-home';home.mkdir(exist_ok=True);tmp=out/'fixture-tmp';tmp.mkdir(exist_ok=True)
+env={'PATH':str(jdk/'bin')+':/usr/bin:/bin','HOME':str(home),'TMPDIR':str(tmp),'JAVA_HOME':str(jdk),'JAVA_OPTS':'-Xms64m -Xmx1536m -XX:ActiveProcessorCount=4','LANG':'C.UTF-8'}
+targets=['lib/quarkus/generated-bytecode.jar','lib/quarkus/transformed-bytecode.jar','lib/quarkus-run.jar','lib/lib/main/com.h2database.h2-2.4.240.jar']
+def inventory(p):
+ with zipfile.ZipFile(p) as z:return {n:hashlib.sha256(z.read(n)).hexdigest() for n in z.namelist() if not n.endswith('/')}
+before={n:{'archive_sha256':sha(root/n),'members':inventory(root/n)} for n in targets};argv=['/usr/bin/nice','-n','10',str(root/'bin/kc.sh'),'build'];started=datetime.datetime.now(datetime.timezone.utc).isoformat()
+try:r=subprocess.run(argv,env=env,cwd=root,capture_output=True,text=True,timeout=240);exit_code=r.returncode;log=r.stdout+r.stderr
+except subprocess.TimeoutExpired as e:exit_code=124;log=str(e)
+(out/'reaugmentation.log').write_text(log)
+after={n:{'archive_sha256':sha(root/n),'members':inventory(root/n)} for n in targets}
+rows=[]
+for n in targets:
+ a=before[n]['members'];b=after[n]['members'];rows.append({'archive':n,'before_archive_sha256':before[n]['archive_sha256'],'after_archive_sha256':after[n]['archive_sha256'],'archive_equal':before[n]['archive_sha256']==after[n]['archive_sha256'],'before_members':len(a),'after_members':len(b),'same_member_hashes':sum(a.get(k)==b.get(k) for k in a.keys()&b.keys()),'removed_members':sorted(a.keys()-b.keys()),'added_members':sorted(b.keys()-a.keys()),'changed_members':[{'path':k,'before_sha256':a[k],'after_sha256':b[k]} for k in sorted(a.keys()&b.keys()) if a[k]!=b[k]]})
+report={'scope':'fresh_copy_of_authenticated_release_private_default_reaugmentation_not_full_source_rebuild_or_shared_service_migration','started_at':started,'finished_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'command':argv,'exit_code':exit_code,'log_sha256':sha(out/'reaugmentation.log'),'log_tail':log[-7000:],'runtime':{'JAVA_HOME':str(jdk),'JAVA_OPTS':env['JAVA_OPTS']},'source_archive_sha256':sha(archive),'comparisons':rows,'executed_script_sha256':sha(Path(__file__)),'shared_services_changed':False,'formal_admission':False};(out/'reaugmentation-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'exit':exit_code,'comparisons':[{k:v for k,v in x.items() if k not in ['removed_members','added_members','changed_members']} for x in rows],'log_tail':log[-1000:]}))

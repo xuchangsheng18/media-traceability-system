@@ -1,0 +1,18 @@
+import datetime,hashlib,json,os,re,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1';out=base/'native-n01-r5';rows=[]
+for p in sorted(root.rglob('*.jar')):
+ materials=[]
+ with zipfile.ZipFile(p) as z:
+  for name in z.namelist():
+   if name.endswith('/') or Path(name).suffix.lower() in ['.class','.java','.js','.ts','.go','.py','.c','.h','.png','.ico']:continue
+   if not re.match(r'^(?:.*[._-])?(license|notice|copying|copyright)([._-].*)?$',Path(name).name,re.I):continue
+   raw=z.read(name)
+   try:text=raw.decode('utf8')
+   except UnicodeDecodeError:continue
+   if '\0' in text:continue
+   materials.append({'path':name,'sha256':hashlib.sha256(raw).hexdigest(),'utf8_text':text})
+ rows.append({'archive':p.relative_to(root).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'materials':materials})
+summary={'archives':len(rows),'material_members':sum(len(x['materials']) for x in rows),'archives_without_matched_text':sum(not x['materials'] for x in rows)}
+report={'scope':'token_boundary_license_notice_names_including_prefixed_JS_notices_excluding_source_classes_and_binary_files_not_admission','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'archives':rows,'summary':summary,'formal_admission':False};(out/'bundled-text-complement-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(summary))

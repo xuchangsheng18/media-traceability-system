@@ -1,0 +1,22 @@
+import hashlib,json,urllib.request,xml.etree.ElementTree as E,zipfile
+from pathlib import Path
+out=Path(__file__).parent/'n01-r5-upstream';rows=[]
+for name in ['h2-2.4.240.pom','h2-2.4.240-sources.jar']:
+ attempts=[];raw=None
+ for domain in ['repo.maven.apache.org','repo1.maven.org']:
+  url='https://'+domain+'/maven2/com/h2database/h2/2.4.240/'+name
+  try:
+   with urllib.request.urlopen(url,timeout=20) as f:raw=f.read()
+   assert raw;(out/name).write_bytes(raw);attempts.append({'url':url,'status':'PASS','sha256':hashlib.sha256(raw).hexdigest()});break
+  except Exception as e:attempts.append({'url':url,'status':'FAIL','error':str(e)})
+ row={'file':name,'attempts':attempts,'retrieved':raw is not None}
+ if raw and name.endswith('.pom'):
+  r=E.fromstring(raw)
+  for e in r.iter():e.tag=e.tag.split('}')[-1]
+  row['licenses']=[{x.tag:x.text for x in n} for n in r.findall('licenses/license')]
+ if raw and name.endswith('.jar'):
+  with zipfile.ZipFile(out/name) as z:
+   names=[n for n in z.namelist() if any(k in Path(n).name.lower() for k in ['license','copyright','notice'])];row['materials']=[{'path':n,'sha256':hashlib.sha256(z.read(n)).hexdigest(),'text':z.read(n).decode(errors='replace')} for n in names if not n.endswith('/')]
+   n=next(n for n in z.namelist() if n.endswith('org/h2/Driver.java'));row['driver_header']={'path':n,'source_sha256':hashlib.sha256(z.read(n)).hexdigest(),'first30lines':'\n'.join(z.read(n).decode().splitlines()[:30])}
+ rows.append(row)
+(out/'h2-license-source-report.json').write_text(json.dumps({'scope':'exact_Maven_H2_source_and_POM_license_declarations_not_legal_approval','sources':rows,'formal_admission':False},indent=2)+'\n');print(json.dumps([{k:v for k,v in x.items() if k not in ['driver_header','materials']} for x in rows]))

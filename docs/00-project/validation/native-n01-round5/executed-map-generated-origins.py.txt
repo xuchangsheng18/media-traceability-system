@@ -1,0 +1,24 @@
+import ast,collections,datetime,hashlib,json,os,re,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-n01-r5';root=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1';ns={}
+tree=ast.parse(Path('/tmp/n01-r5-generated-inventory.py').read_text());fn=next(x for x in tree.body if isinstance(x,ast.FunctionDef) and x.name=='strings');ns['struct']=__import__('struct');exec(compile(ast.Module(body=[fn],type_ignores=[]),'<same-audit-constant-pool-parser>','exec'),ns);strings=ns['strings'];sha=lambda b:hashlib.sha256(b).hexdigest()
+with zipfile.ZipFile(root/'lib/quarkus/generated-bytecode.jar') as z:
+ classes=[];resources=[];wanted=set()
+ for n in z.namelist():
+  if n.endswith('/'):continue
+  raw=z.read(n)
+  if n.endswith('.class'):
+   utf=strings(raw);base_name=re.split(r'\$\$|_Bean|_ClientProxy|_Subclass|_Observer|_Synthetic',n[:-6],maxsplit=1)[0]+'.class';refs={s+'.class' for s in utf if re.fullmatch(r'[\w$/]+',s) and '/' in s and not s.startswith('java/')};wanted|=refs;wanted.add(base_name);classes.append({'path':n,'sha256':sha(raw),'base_class_candidate':base_name,'referenced_class_candidates':sorted(refs)})
+  else:
+   original=n.split('__jar/',1)[1] if '__jar/' in n else n;resources.append({'path':n,'sha256':sha(raw),'original_resource_candidate':original,'prefix_excerpt':raw[:500].decode(errors='replace') if n.endswith(('.js','.css','.html')) else None});wanted.add(original)
+index={}
+for p in sorted(root.rglob('*.jar')):
+ if p.name in ['generated-bytecode.jar','transformed-bytecode.jar','quarkus-run.jar']:continue
+ with zipfile.ZipFile(p) as z:
+  for n in wanted.intersection(z.namelist()):index.setdefault(n,[]).append({'archive':p.relative_to(root).as_posix(),'member_sha256':sha(z.read(n))})
+for row in classes:
+ row['base_class_input_candidates']=index.get(row['base_class_candidate'],[]);row['referenced_input_archives']=sorted({x['archive'] for n in row['referenced_class_candidates'] for x in index.get(n,[])})
+for row in resources:
+ row['release_resource_candidates']=index.get(row['original_resource_candidate'],[]);row['byte_identical_source_members']=[x for x in row['release_resource_candidates'] if x['member_sha256']==row['sha256']]
+report={'scope':'generated_class_base_type_and_constant_pool_references_plus_resource_hash_mapping_not_exclusive_copyright_attribution_or_full_generator_replay','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':sha(Path(__file__).read_bytes()),'generated_classes':classes,'resources':resources,'summary':{'classes':len(classes),'with_base_class_input_candidates':sum(bool(x['base_class_input_candidates']) for x in classes),'with_referenced_release_inputs':sum(bool(x['referenced_input_archives']) for x in classes),'resources':len(resources),'resources_with_byte_identical_release_member':sum(bool(x['byte_identical_source_members']) for x in resources)},'formal_admission':False};(out/'generated-input-attribution-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report['summary']))
