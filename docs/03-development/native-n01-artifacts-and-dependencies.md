@@ -1,5 +1,7 @@
 # N01原生制品及依赖核验
 
+2026-10-18恢复来源更正：历史95份wheel获取记录保留；Python tzdata2026.5并非Conda tzdata2026c提供，现已补齐同版本wheel，当前为96份wheel＋4个Conda负责的Python发行包。详见[N01当前纠正及限定核验](native-n01-admission-decisions.md)。原100包版本锁、环境和服务未变，N01整体未准入。
+
 [第八轮最新：内部研发语义、字体与主题许可](native-n01-internal-semantic-license-review.md)按用户确认的内部研发范围更新；本页前轮数字/未决项保留历史范围。
 
 [第七轮最新：421个vendor来源与实际审查材料包](native-n01-generated-source-and-distribution-kit.md)已更新；本页前轮数字按当时观察阅读。4份vendor脚本已重建匹配，其他来源/许可准入仍有未决。

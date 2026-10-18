@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-18T09:42:34.122536+00:00",
+  "observed_at": "2026-10-18T10:29:59.119348+00:00",
   "status": "N01_IN_PROGRESS_BLOCKED_ADMISSION",
   "items": [
     {
@@ -30,10 +30,11 @@
     {
       "id": "N01-R4",
       "title": "恢复输入与最终软件组合的完整对应",
-      "status": "TARGETED_INPUTS_VERIFIED_FINAL_COMBINATION_PENDING",
+      "status": "224_INPUT_RECORDS_AND_100_DISTRIBUTIONS_MAPPED_FINAL_COMBINATION_PENDING",
       "owner": "执行方",
-      "closure": "将已有95wheel/25Conda/89OS包及候选构建输入绑定到最终安装组合，核对实际所需可选库和许可；不是重做全部宿主镜像",
-      "user_action_now": null
+      "closure": "已补齐tzdata2026.5同版本恢复包，96wheel/25Conda/89OS/10主要包/4候选输入共224记录、223摘要通过限定核对；100发行包映射一致，40构建包均在89恢复包中。最终安装组合、Go缓存、全部可选库及恢复实测仍待完成。",
+      "user_action_now": null,
+      "evidence_ref": "docs/00-project/validation/native-n01-admission-decisions/recovery-input-crosswalk.json"
     },
     {
       "id": "N01-R5",
@@ -58,7 +59,8 @@
     "current Linux prefix,VPATH,temp filesystem modes and ACLs read-only observed",
     "Node preselection197 named declarations,36 structural markers and197 text-material inventory;7 exact-source fallback checks",
     "430 selected Node22.23.3 license/package metadata files individually match authenticated preselected archive;not whole-member/semantic license approval",
-    "徐昌胜明确认可3条当前目标限定不适用技术结论；Python3.10暂无维护证明已确认，继续待处置且候选暂缓"
+    "徐昌胜明确认可3条当前目标限定不适用技术结论；Python3.10暂无维护证明已确认，继续待处置且候选暂缓",
+    "恢复来源纠正：Python tzdata2026.5并非Conda tzdata2026c提供；632文件匹配同版本wheel，恢复清单96wheel+4Conda发行包；无环境或版本变更"
   ],
   "dynamic_site_manual_review": [
     {
@@ -146,5 +148,6 @@
   ],
   "bounded_project_review_decision_recorded": true,
   "whole_admission_decision_recorded": false,
-  "latest_user_decision_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json"
+  "latest_user_decision_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json",
+  "node_reference_terms_ref": "docs/00-project/validation/native-n01-admission-decisions/node-license-reference-materials.json"
 }

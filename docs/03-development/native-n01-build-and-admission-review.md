@@ -1,5 +1,7 @@
 # N01源码构建、运行依赖和准入复核
 
+2026-10-18恢复来源更正：历史95份wheel获取记录保留；Python tzdata2026.5并非Conda tzdata2026c提供，现已补齐同版本wheel，当前为96份wheel＋4个Conda负责的Python发行包。详见[N01当前纠正及限定核验](native-n01-admission-decisions.md)。原100包版本锁、环境和服务未变，N01整体未准入。
+
 [第五轮捆绑许可、H2与生成物来源核验](native-n01-bundled-origin-review.md)为最新技术复核入口；H2逻辑重放及启动描述已核验，生成差异和全部许可准入仍未完成。前轮数值/未决项按当时范围阅读；Python候选继续暂缓。
 
 [N01最新许可、漏洞及运行路径复核](native-n01-license-vulnerability-runtime-review.md)记录2026-10-18本轮实际结果。旧批次数值按观察时点保留；N01仍受许可、Python维护/安全和最终运行范围阻塞，未原生安装或切换。
@@ -17,7 +19,7 @@
 | OTP27.3.4.18 | 私有目录编译，crypto/ssl启动及密码库探测通过；调度器限制为2、异步线程1 | 未启动RabbitMQ、未做队列恢复；未覆盖所有OTP应用 |
 | 原生工具链 | 40份已验真deb仅私有解包，C编译运行通过；未向系统包数据库安装 | 仍复用宿主cc1、头文件及运行库；不能声称40包自包含完整编译环境 |
 | Python活动依赖 | 100分发包，137条活动Requires-Dist全部解析；25个Conda节点、64条依赖边解析通过 | 声明依赖满足不等于所有动态加载和业务路径都运行通过 |
-| 恢复制品 | [95份wheel](../../config/native/python-runtime-wheels.lock.json)与[25份Conda包](../../config/native/conda-runtime-packages.lock.json)已下载并核对上游摘要，Linux再次核对wheel字节 | 100个Python分发包中packaging、pip、setuptools、tzdata、wheel由Conda包覆盖，不能误写96份wheel；未重建环境或完成全量恢复演练 |
+| 恢复制品 | [95份wheel](../../config/native/python-runtime-wheels.lock.json)与[25份Conda包](../../config/native/conda-runtime-packages.lock.json)已下载并核对上游摘要，Linux再次核对wheel字节 | 历史推断已更正：只有packaging、pip、setuptools、wheel由Conda负责；tzdata2026.5补入wheel恢复清单，当前96份。旧95包材料观察保留；未重建环境或完成全量恢复演练 |
 | 安装文件来源差异 | 初查7项RECORD差异，逐项对照Conda归档、Conda26.7.2入口模板或已核验源码生成的字节码，剩余未解释项0 | 初始失败报告保留，不覆盖RECORD；本项不是整个环境逐文件校验通过 |
 | ELF动态链接 | 排除1250个可重定位中间对象，403个运行文件、85个实际库文件摘要已登记；显式私有库路径下未解析依赖0 | JDK/Torch/PG需要各自库目录；仅构建探测环境，不能把路径直接复制为全局服务配置；dlopen、插件、宿主依赖恢复包仍待补齐 |
 

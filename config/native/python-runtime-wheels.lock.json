@@ -1264,6 +1264,20 @@
       "status": "PASS"
     },
     {
+      "name": "tzdata",
+      "version": "2026.5",
+      "provider": "pypi",
+      "filename": "tzdata-2026.5-py2.py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl",
+      "sha256": "b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac",
+      "size_bytes": 347996,
+      "metadata_source": "https://pypi.org/pypi/tzdata/2026.5/json",
+      "metadata_filename": "tzdata-release.json",
+      "metadata_sha256": "27547051b51333cb7ba03f91b91fc7c92179937ccb62bb81ce46dc943c69873b",
+      "target": "actual_existing_Python_distribution_no_environment_change",
+      "status": "PASS"
+    },
+    {
       "name": "tzlocal",
       "version": "5.4.4",
       "provider": "pypi",
@@ -1338,8 +1352,18 @@
     "packaging",
     "pip",
     "setuptools",
-    "tzdata",
     "wheel"
   ],
-  "input_metadata_sha256": "789fc7ff88c72ea1c915029f7ddbddf85146751bb8bc34dab09becd647cba743"
+  "input_metadata_sha256": "789fc7ff88c72ea1c915029f7ddbddf85146751bb8bc34dab09becd647cba743",
+  "provider_classification_correction": {
+    "reason": "Python tzdata2026.5 is pip-installed and not supplied by Conda tzdata2026c archive",
+    "previous_lock_source_commit": "ac5d79006de57548220048da0c80ee3c56934374",
+    "previous_lock_sha256": "f7188095b9204f4446925ffbed9d6135533a5f671876fe85acc8760c5eee5e8e",
+    "previous_wheel_count": 95,
+    "previous_Conda_distribution_count": 5,
+    "evidence_ref": "docs/00-project/validation/native-n01-admission-decisions/tzdata-recovery-correction.json",
+    "runtime_versions_changed": false,
+    "Python_candidates_created": false
+  },
+  "input_metadata_sha256_scope": "Historical original95-wheel acquisition metadata; not the aggregate for the corrected96-wheel set. The additional tzdata metadata hash is recorded in its wheel row and correction evidence."
 }

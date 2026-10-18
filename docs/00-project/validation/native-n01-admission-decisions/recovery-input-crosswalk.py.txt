@@ -1,0 +1,50 @@
+"""Read pinned cached inputs; do not create an environment or install anything."""
+import datetime,hashlib,importlib.metadata,json,os,subprocess
+from pathlib import Path
+from packaging.utils import canonicalize_name
+r=Path('/workspace/glwy/projects/media-traceability-system');base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'n01-recovery-input-crosswalk';out.mkdir(mode=0o700,exist_ok=True);os.umask(0o077)
+def read(p):
+ if p==r/'config/native/python-runtime-wheels.lock.json' and os.environ.get('MT_N01_WHEEL_REVIEW_LOCK'):
+  p=Path(os.environ['MT_N01_WHEEL_REVIEW_LOCK'])
+ return json.loads(p.read_text())
+def sha(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for chunk in iter(lambda:f.read(1024*1024),b''):h.update(chunk)
+ return h.hexdigest()
+groups=[('primary','artifacts.lock.json','artifacts','native-artifacts'),('wheels','python-runtime-wheels.lock.json','wheels','native-pip-closure-cache'),('Conda','conda-runtime-packages.lock.json','packages','native-conda-closure-cache'),('OS_recovery','os-runtime-recovery-packages.lock.json','packages','native-os-closure-cache'),('candidate_inputs','security-candidate-inputs.lock.json','artifacts','native-security-candidate-cache')]
+rows=[];issues=[];locks={}
+for kind,name,key,cache in groups:
+ lock=r/'config/native'/name;data=read(lock);locks['config/native/'+name]=sha(lock)
+ for i,item in enumerate(data[key]):
+  p=base/cache/Path(item['filename']).name;record={'group':kind,'lock_ref':'config/native/'+name+'#/'+key+'/'+str(i),'identity':item.get('component',item.get('name',item.get('package',item['filename']))),'version':item.get('version'),'filename':p.name,'cache_relative_path':str(p.relative_to(base)),'expected_sha256':item['sha256'],'status':'MISSING'}
+  if p.is_file() and not p.is_symlink():
+   actual=sha(p);record.update(actual_sha256=actual,size_bytes=p.stat().st_size,status='PASS' if actual==item['sha256'] and ('size_bytes' not in item or p.stat().st_size==item['size_bytes']) else 'FAIL')
+  rows.append(record)
+  if record['status']!='PASS':issues.append(record['lock_ref'])
+ print(kind,sum(x['group']==kind and x['status']=='PASS' for x in rows),'/',len(data[key]),flush=True)
+installed={canonicalize_name(x.metadata['Name']):x.version for x in importlib.metadata.distributions() if x.metadata.get('Name')}
+wheel=read(r/'config/native/python-runtime-wheels.lock.json');conda=read(r/'config/native/conda-runtime-packages.lock.json');owners={canonicalize_name(x['name']):x for x in conda['packages']};dist=[]
+for item in wheel['wheels']:
+ name=canonicalize_name(item['name']);actual=installed.get(name);dist.append({'name':name,'expected_version':item['version'],'observed_version':actual,'provider':'verified_wheel_input','version_matches':actual==item['version']})
+for value in wheel['Conda_owned_distribution_names']:
+ name=canonicalize_name(value);item=owners.get(name);assert item is not None,name;actual=installed.get(name);dist.append({'name':name,'expected_version':item['version'],'observed_version':actual,'provider':'Conda_owned_distribution_not_duplicate_wheel','version_matches':actual==item['version']})
+expected={x['name'] for x in dist};assert len(expected)==100 and len(dist)==100
+unmapped=sorted(set(installed)-expected);missing=sorted(expected-set(installed))
+build=read(r/'config/native/os-build-dependencies.lock.json');os_rows=read(r/'config/native/os-runtime-recovery-packages.lock.json')['packages'];runtime_by_hash={x['sha256']:x for x in os_rows}
+overlap=[{'package':x['package'],'version':x['version'],'sha256':x['sha256'],'matching_recovery_package':runtime_by_hash[x['sha256']]['filename']} for x in build['candidate_install_packages'] if x['sha256'] in runtime_by_hash]
+build_only=[{'package':x['package'],'version':x['version'],'filename':x['filename'],'sha256':x['sha256']} for x in build['candidate_install_packages'] if x['sha256'] not in runtime_by_hash]
+proposal=read(r/'config/native/candidate-adoption.proposal.json');candidate=[]
+for item in proposal['candidates']:
+ binaries=item.get('binaries',[])
+ if item['component']=='node':binaries=[dict(path=str(base/'native-security-candidates-20261017/node-v22.23.3-linux-x64/bin/node'),sha256=item['binary']['binary_sha256'])]
+ checks=[]
+ for b in binaries:
+  p=Path(b['path']);actual=sha(p) if p.is_file() else None;checks.append({'path':str(p),'expected_sha256':b['sha256'],'actual_sha256':actual,'matches':actual==b['sha256']})
+ candidate.append({'component':item['component'],'version':item['version'],'selection_state':item['selection_state'],'installation_permitted':False,'binaries':checks})
+status='PASS_SELECTED_INPUT_BYTES_AND_DISTRIBUTION_MAPPING_ONLY' if not issues and not unmapped and not missing and all(x['version_matches'] for x in dist) and all(x['matches'] for c in candidate for x in c['binaries']) else 'INCOMPLETE_OR_DRIFT'
+report={'status':status,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=r,text=True).strip(),'source_lock_sha256':locks,'input_records':len(rows),'unique_input_digests':len({x['expected_sha256'] for x in rows}),'groups':{k:sum(x['group']==k for x in rows) for k,_,_,_ in groups},'input_verification':rows,'issues':issues,'observed_distribution_count':len(installed),'mapped_distributions':dist,'unmapped_distributions':unmapped,'missing_distributions':missing,'build_packages_also_present_in_recovery_set':overlap,'build_packages_not_in_recovery_set':build_only,'preselected_binaries':candidate,'not_final_installation_lock':True,'installation_permitted':False,'whole_N01_accepted':False,'Python_candidates_created':False,'limitations':['No fresh installation,restore or full prefix integrity check','Snapshot signed-index evidence retained separately;archive hashing does not renew repository metadata','40 build packages compared with89 recovery packages by exact digest;build-only remainder explicitly listed','Final install combination,all Go module-cache recovery,optional libraries and license admission remain distinct','Distribution metadata/version mapping is not executable file-integrity verification']}
+review=Path(os.environ['MT_N01_WHEEL_REVIEW_LOCK']) if os.environ.get('MT_N01_WHEEL_REVIEW_LOCK') else None
+if review is not None:
+ report['review_overlay_lock']={'path':'config/native/python-runtime-wheels.lock.json','sha256':sha(review),'repository_checkout_not_mutated_by_probe':True};report['source_lock_sha256']['config/native/python-runtime-wheels.lock.json']=sha(review)
+(out/'recovery-input-crosswalk.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'status':status,'records':len(rows),'unique_digests':report['unique_input_digests'],'mapped_distributions':len(dist),'build_only':len(build_only)}))

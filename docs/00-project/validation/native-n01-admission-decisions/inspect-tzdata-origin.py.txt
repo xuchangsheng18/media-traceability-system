@@ -1,0 +1,22 @@
+import hashlib,importlib.metadata,json,subprocess,tarfile,zipfile
+from pathlib import Path
+root=Path('/workspace/glwy/projects/media-traceability-system');base=Path('/workspace/glwy/runtime/media-traceability-system');prefix=Path('/opt/conda/glwy/envs/py310')
+item=next(x for x in json.loads((root/'config/native/conda-runtime-packages.lock.json').read_text())['packages'] if x['name']=='tzdata')
+p=base/'native-conda-closure-cache'/item['filename'];assert hashlib.sha256(p.read_bytes()).hexdigest()==item['sha256']
+with zipfile.ZipFile(p) as z:
+ name=next(x for x in z.namelist() if x.startswith('info-') and x.endswith('.tar.zst'));raw=z.read(name)
+ proc=subprocess.Popen(['zstd','-q','-d','-c'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+ stdout,_=proc.communicate(raw,timeout=30);assert proc.returncode==0
+ import io
+ with tarfile.open(fileobj=io.BytesIO(stdout)) as t:
+  paths=json.loads(t.extractfile('info/paths.json').read())['paths'];index=json.loads(t.extractfile('info/index.json').read())
+  owned=[x for x in paths if 'site-packages' in x['_path'] or 'tzdata' in x['_path']][:10]
+dist=importlib.metadata.distribution('tzdata');files=list(dist.files or []);metadata=[{'path':str(Path(dist.locate_file(x)).resolve()),'distribution_relative_path':str(x),'sha256':hashlib.sha256(Path(dist.locate_file(x)).read_bytes()).hexdigest()} for x in files if str(x).endswith(('METADATA','INSTALLER','RECORD'))]
+conda_owners=[]
+installed_path=next(x['path'] for x in metadata if x['path'].endswith('METADATA'))
+relative=str(Path(installed_path).relative_to(prefix))
+for meta in (prefix/'conda-meta').glob('*.json'):
+ d=json.loads(meta.read_text())
+ if relative in d.get('files',[]):conda_owners.append({'name':d['name'],'version':d['version'],'build':d['build'],'sha256':d.get('sha256')})
+report={'status':'ORIGIN_OBSERVATIONS_NOT_ASSUMED_VERSION_ALIAS','conda_archive':item,'conda_index':index,'conda_payload_path_count':len(paths),'conda_site_package_path_count':sum('site-packages' in x['_path'] for x in paths),'selected_paths':owned,'Python_distribution_version':dist.version,'distribution_INSTALLER':dist.read_text('INSTALLER'),'distribution_metadata':metadata,'metadata_conda_owners':conda_owners,'environment_modified':False}
+out=base/'n01-recovery-input-crosswalk';(out/'tzdata-origin-observation.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

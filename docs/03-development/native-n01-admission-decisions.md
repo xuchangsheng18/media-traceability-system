@@ -4,6 +4,17 @@
 
 [机器确认清单](../00-project/validation/native-n01-admission-decisions/confirmation-register.json) · [12条CVE逐项状态](../00-project/validation/native-n01-admission-decisions/python-pg-open-items.json) · [游标具体修复申请](native-n01-cursor-hardening-change-request.md) · [原生状态](native-linux-execution-status.json) · [任务导航](../../tasks/README.md)
 
+
+## 本轮恢复来源纠正与许可参考材料
+
+本轮查明：Python的`tzdata 2026.5`由pip安装，Conda的`tzdata 2026c`归档只有系统时区数据，不包含Python发行包。原100包版本锁本来就要求`tzdata==2026.5`，本次补取相同版本wheel，632个文件与现有安装一致，并留存2份随包许可材料；没有升级、重新安装或创建Python候选。恢复获取清单现为**96份wheel＋4个由Conda负责的Python发行包**。历史95份wheel获取事实保留，原“五包均由Conda覆盖”的推断被本次证据纠正，不能把2026c与2026.5当作版本别名。
+
+[纠正证据](../00-project/validation/native-n01-admission-decisions/tzdata-recovery-correction.json)、[来源观察](../00-project/validation/native-n01-admission-decisions/tzdata-origin-observation.json)与[初次不完整结果](../00-project/validation/native-n01-admission-decisions/recovery-input-crosswalk.initial.json)保留完整关系。[限定输入交叉核对](../00-project/validation/native-n01-admission-decisions/recovery-input-crosswalk.json)覆盖10主要包、96wheel、25Conda、89OS恢复包及4候选输入：共224记录、223个不同摘要；100个当前Python发行包名称/版本映射一致，40构建包的精确摘要全部包含于89恢复包集合。它不是完整prefix文件核验、最终安装锁、全部Go缓存或实际恢复通过。
+
+Node剩余两包的MIT/ISC[标准条款参考材料](../00-project/validation/native-n01-admission-decisions/node-license-reference-materials.json)已留存来源和摘要。标准文本不能冒充精确发布者通知；不填造版权年份、权利人，也不将ISC示例版权归给`@npmcli/agent`。两包通知及实际使用义务仍列为未完成。当前限定为团队内部研发，不自动授权运行包外发。
+
+N01仍为`IN_PROGRESS_BLOCKED_ADMISSION`：R1暂无Python维护证明且候选暂缓；R2原12条中3条限定结论已认可，其余9条继续处置；R3逐软件准入、R4最终组合、R5服务账号与可选路径、R6最终安装锁均保留。当前无需重复确认已作出的决定，管理员安装、迁移、正式备份和切换尚未执行。
+
 ## CI核验与修复前历史观察
 
 最新已核验回执提交`c41578f1d1c18677ad583a3336acbab4675fc324`的[CI39117174347](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39117174347)成功：241项业务测试、32项门禁及6份关键报告通过，337813字节制品SHA256为`eb5e489ad7b9459621e665e830ddb5724bed1eb98ee0bc5c91a1e9dd852cf099`。本轮答复登记提交按自身CI记录，不倒填结果。
