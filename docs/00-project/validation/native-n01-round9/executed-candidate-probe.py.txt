@@ -1,0 +1,25 @@
+import datetime,hashlib,json,os,subprocess
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');root=base/'native-security-candidates-20261017';out=base/'native-n01-round9';out.mkdir(mode=0o700,exist_ok=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+advisory=json.loads((out/'GO-2026-5932.json').read_text());assert advisory['id']=='GO-2026-5932'
+affected=sorted({i['path'] for a in advisory['affected'] for i in a['ecosystem_specific']['imports']})
+env=dict(os.environ,PATH=str(root/'go/bin')+':/usr/bin:/bin',GOTOOLCHAIN='local',GOPATH=str(root/'gopath'),GOMODCACHE=str(root/'gomodcache'),GOCACHE=str(root/'gocache'),GOMAXPROCS='2',GOFLAGS='-p=2',CGO_ENABLED='0',GOPROXY='off',GOSUMDB='off')
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'existing_isolated_candidates_exact_bytes_and_build_graph_review_no_install_or_rebuild','advisory':{'url':'https://vuln.go.dev/ID/GO-2026-5932.json','sha256':sha(out/'GO-2026-5932.json'),'affected_imports':affected},'candidates':[],'services_changed':False,'Python_candidates_created':False,'software_admission':False,'executed_script_sha256':sha(Path(__file__))}
+for name,dirname,target,scanname,binname in [('age','age-b74dce4cdbe35b5e5f66c06d9612b72f89028758','./cmd/age','age_candidate','age-candidate'),('age','age-b74dce4cdbe35b5e5f66c06d9612b72f89028758','./cmd/age-keygen','age_candidate','age-candidate-binaries/age-keygen'),('seaweedfs','seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93','./weed','seaweed_candidate','seaweedfs-candidate')]:
+ cwd=root/dirname;binary=root/binname;label=Path(binname).name;row={'name':name,'target':target,'binary_path':str(binary),'binary_sha256':sha(binary),'binary_size_bytes':binary.stat().st_size,'checks':[]}
+ def run(label,args):
+  cmd=[str(root/'go/bin/go'),*args];r=subprocess.run(['nice','-n','10',*cmd],cwd=cwd,env=env,capture_output=True,text=True,timeout=180);raw=r.stdout+r.stderr;p=out/(Path(binname).name+'-'+label+'.log');p.write_text(raw);row['checks'].append({'name':label,'command':cmd,'exit_code':r.returncode,'output_sha256':sha(p)});return r
+ locks=[]
+ for fn in ['go.mod','go.sum']:
+  expected=repo/'config/native/security-candidate-module-locks'/(name+'.'+fn);assert sha(cwd/fn)==sha(expected);locks.append({'file':fn,'sha256':sha(expected)})
+ row['module_locks']=locks
+ info=run('build-info',['version','-m',str(binary)]);deps=run('deps',['list','-deps','-f','{{.ImportPath}}',target]);nm=run('symbols',['tool','nm',str(binary)])
+ packages=sorted(set(deps.stdout.splitlines()));hits=sorted(set(packages)&set(affected));symbols=[x for x in nm.stdout.splitlines() if any(p+'.' in x or p+'/' in x for p in affected)]
+ row.update(package_count=len(packages),package_graph_sha256=hashlib.sha256(('\n'.join(packages)+'\n').encode()).hexdigest(),affected_imports_present=hits,affected_symbols_present=symbols[:30],affected_symbol_count=len(symbols),build_info=info.stdout,graph_scope='linux_amd64_CGO_ENABLED0_default_tags_main_target_no_tests_no_plugins',advisory_disposition='NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED' if all(x['exit_code']==0 for x in row['checks']) and not hits and not symbols else 'REVIEW_REQUIRED',original_scanner_findings_retained=True,formal_decision=None)
+ copied=root/('age-candidate-binaries' if name=='age' else 'seaweed-candidate-binaries');row['scanned_binary_copies']=[{'name':p.name,'sha256':sha(p),'same_bytes':sha(p)==row['binary_sha256']} for p in copied.iterdir() if p.is_file()]
+ report['candidates'].append(row);(out/'candidate-probe-report.json').write_text(json.dumps(report,indent=2)+'\n');print(name,row['advisory_disposition'],row['package_count'],flush=True)
+node=root/'node-v22.23.3-linux-x64/bin/node';r=subprocess.run([str(node),'--version'],capture_output=True,text=True,timeout=15);report['node']={'binary_sha256':sha(node),'version':r.stdout.strip(),'exit_code':r.returncode,'archive_lock_ref':'config/native/security-candidate-inputs.lock.json','version_adoption':None}
+report['status']='PASS_BOUNDED_TECHNICAL_REVIEW_NOT_ADMISSION' if all(x['advisory_disposition']=='NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED' for x in report['candidates']) and r.returncode==0 else 'REVIEW_REQUIRED'
+(out/'candidate-probe-report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status'])
