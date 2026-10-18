@@ -1,0 +1,42 @@
+import base64,hashlib,io,json,re,tarfile,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree';o=r/'docs/00-project/validation/native-n01-round6';o.mkdir(exist_ok=True);cache=w/'n01-r6-cache';cache.mkdir(exist_ok=True)
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def write(n,d):(o/n).write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+def get(url,p):
+ if not p.exists():p.write_bytes(urllib.request.urlopen(url,timeout=60).read())
+ return p.read_bytes()
+lock=(w/'n01-r6-pnpm-lock.yaml').read_text(encoding='utf8');rows=[]
+packages=[('rfc4648','1.5.4'),('patternfly','3.59.5'),('@patternfly/patternfly','4.224.5'),('@patternfly/patternfly','5.4.2'),('@noble/hashes','2.0.1'),('react','18.3.1'),('react-dom','18.3.1'),('scheduler','0.23.2')]
+with zipfile.ZipFile(w/'n01-r6-vendor.jar') as z:
+ assets={n:z.read(n) for n in z.namelist() if n.startswith('theme/keycloak/common/resources/vendor/') and not n.endswith('/')}
+ for pkg,ver in packages:
+  stem=pkg.replace('/','_').replace('@','')+'-'+ver;url='https://registry.npmjs.org/'+pkg+'/'+ver;meta_raw=get(url,cache/(stem+'.json'));meta=json.loads(meta_raw);blob=get(meta['dist']['tarball'],cache/(stem+'.tgz'));integrity=meta['dist']['integrity'];alg,digest=integrity.split('-',1);assert base64.b64encode(hashlib.new(alg,blob).digest()).decode()==digest
+  block=re.search(r"^  ['\"]?"+re.escape(pkg+'@'+ver)+r"['\"]?:\n(.*?)(?=\n  \S|\Z)",lock,re.M|re.S);locked=bool(block and integrity in block.group(1));assert locked,(pkg,ver)
+  with tarfile.open(fileobj=io.BytesIO(blob)) as t:
+   files={m.name:t.extractfile(m).read() for m in t if m.isfile()};materials=[]
+   for n,b in files.items():
+    if re.search(r'(^|[/_.-])(licen[sc]e|notice|copying|copyright|authors)([_.-]|$)',n,re.I) and len(b)<300000:
+     try:text=b.decode('utf8')
+     except UnicodeDecodeError:continue
+     materials.append({'path':n,'sha256':sha(b),'utf8_text':text})
+   byhash={}
+   for n,b in files.items():byhash.setdefault(sha(b),[]).append(n)
+   matches=[{'release_path':n,'sha256':sha(b),'npm_members':byhash[sha(b)]} for n,b in assets.items() if sha(b) in byhash]
+   rows.append({'package':pkg,'version':ver,'metadata_url':url,'metadata_sha256':sha(meta_raw),'tarball':meta['dist']['tarball'],'archive_sha256':sha(blob),'integrity':integrity,'integrity_verified':True,'pinned_Keycloak_lock_integrity_equal':locked,'license_declaration':meta.get('license'),'dependencies':json.loads(files['package/package.json']).get('dependencies',{}),'materials':materials,'exact_release_member_matches':matches})
+  print(pkg,ver,len(matches),len(materials),flush=True)
+ matched={m['release_path'] for x in rows for m in x['exact_release_member_matches']};write('vendor-npm-origin-report.json',{'status':'PARTIAL_EXACT_ASSET_BINDINGS_NOT_FULL_LICENSE_ADMISSION','vendor_jar_sha256':sha((w/'n01-r6-vendor.jar').read_bytes()),'source_lock_sha256':sha((w/'n01-r6-pnpm-lock.yaml').read_bytes()),'assets_total':len(assets),'matched_assets':len(matched),'unmatched_assets':[{'path':n,'sha256':sha(b)} for n,b in assets.items() if n not in matched],'packages':rows})
+themecommit='9290ea507531fb67efd44e633786d59209045ad5';blob=get('https://codeload.github.com/ostranme/swagger-ui-themes/tar.gz/'+themecommit,cache/'swagger-theme-source.tgz')
+with tarfile.open(fileobj=io.BytesIO(blob)) as t:fs={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+with tarfile.open(w/'n01-r5-upstream/swagger-ui-themes-3.0.1.tgz') as t:css=t.extractfile('package/themes/3.x/theme-feeling-blue.css').read()
+materials=[{'path':n,'sha256':sha(b),'utf8_text':b.decode('utf8')} for n,b in fs.items() if re.search(r'(^|/)(license|copying|notice)(\.|$)',n,re.I)]
+match=[n for n,b in fs.items() if b==css];assert match;write('swagger-theme-source-followup.json',{'tag':'v3.0.1','commit':themecommit,'source_archive_sha256':sha(blob),'actual_CSS_source_matches':match,'CSS_sha256':sha(css),'materials':materials,'license_approval':False})
+with tarfile.open(w/'n01-r5-upstream/keycloak-exact-source.tar.gz') as t:
+ wanted=[]
+ for m in t:
+  if not m.isfile() or not m.name.endswith(('.java','.properties','.xml')):continue
+  b=t.extractfile(m).read()
+  if any(s in b for s in [b'quarkus.smallrye-openapi',b'quarkus.swagger-ui',b'quarkus.health',b'keycloak-persisted.properties']):wanted.append({'path':m.name,'sha256':sha(b),'utf8_text':b.decode('utf8')})
+ write('generation-build-source-excerpts.json',{'commit':'24ed1dadf3f246a555adb6d3d4a99e9b3003fb3b','files':wanted})
+with zipfile.ZipFile(w/'n01-r6-generated-after.jar') as z:
+ b=z.read('META-INF/keycloak-persisted.properties');write('reaugmentation-persisted-properties.json',{'scope':'fresh_private_fixture_no_real_secrets_supplied','archive_sha256':sha((w/'n01-r6-generated-after.jar').read_bytes()),'member_sha256':sha(b),'utf8_text':b.decode('utf8')})

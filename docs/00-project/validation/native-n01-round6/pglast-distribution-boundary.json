@@ -1,0 +1,89 @@
+{
+  "scope": "tracked_source_reference_search_and_build_recipe_not_actual_image_inventory",
+  "hits": [
+    {
+      "path": "config/locks/pip-freeze-observed.txt",
+      "line": 54,
+      "text": "pglast==8.5",
+      "file_sha256": "687a64fb3c92bbe1af0eaa8c5ef5370cdebc509a29732c8ee92216c21664cc2d"
+    },
+    {
+      "path": "config/locks/requirements-py310.lock",
+      "line": 56,
+      "text": "pglast==8.5",
+      "file_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 1,
+      "text": "FROM python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 3,
+      "text": "COPY deploy/build/py310.tar.gz /tmp/py310.tar.gz",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 7,
+      "text": "COPY backend /app/backend",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 8,
+      "text": "COPY ai-services/inference /app/ai-services/inference",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 9,
+      "text": "COPY schemas /app/schemas",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 10,
+      "text": "COPY scripts /app/scripts",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "deploy/Dockerfile.py310",
+      "line": 11,
+      "text": "COPY ruff.toml /app/ruff.toml",
+      "file_sha256": "acb9cd43084d64fdb0b4fcab7b37df4fc941ddbdef1d27157c347b5910c8677e"
+    },
+    {
+      "path": "requirements-input-validation.txt",
+      "line": 5,
+      "text": "pglast==8.5",
+      "file_sha256": "09311f75c9a1a0b4de012c72c40bebc69d481a0fa7411b1a9585a2f4c525b9c8"
+    },
+    {
+      "path": "scripts/validate_inputs.py",
+      "line": 9,
+      "text": "from pglast import parse_sql",
+      "file_sha256": "f422c77b002d80f85c2a302216c246ba73a4621f6464748cfb639ae245cd5ee8"
+    },
+    {
+      "path": "scripts/validate_inputs.py",
+      "line": 234,
+      "text": "    result={'started_at':start,'ended_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'environment':{'python':sys.version,'platform':platform.platform(),'tools':{n:importlib.metadata.version(n) for n in ['PyYAML','jsonschema','openapi-spec-validator','pglast']}},'checks':checks,'fixture_results':examples,'errors':errors,'status':'PASS' if not errors else 'FAIL','scope':'input_artifact_validation_not_implementation','freeze_state':'NOT_FROZEN','task':args.task}",
+      "file_sha256": "f422c77b002d80f85c2a302216c246ba73a4621f6464748cfb639ae245cd5ee8"
+    }
+  ],
+  "direct_business_import_observed": false,
+  "input_validator_import_observed": true,
+  "common_py310_lock_contains_pglast": true,
+  "Dockerfile_copies_full_environment_archive_and_scripts": true,
+  "conclusion": "Tool-only import does not imply tool absent from delivered runtime: full py310 archive can contain GPL pglast. Inspect exact final image/archive SBOM before distribution; no separation implemented in this round. No blanket relicensing conclusion.",
+  "required_before_binary_delivery": [
+    "Bind actual image/environment archive digest and file inventory",
+    "Include pglast license/notices and corresponding source including libpg_query and relevant build/install scripts via applicable GPLv3 section6 method",
+    "Record recipient source-access path and complete matching source availability; a bare upstream URL is not proof of compliance",
+    "Review aggregation/linking boundary against actual packaged artifact, not only imports"
+  ],
+  "formal_approved": false
+}

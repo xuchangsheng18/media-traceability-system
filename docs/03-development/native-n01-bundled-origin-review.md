@@ -1,5 +1,7 @@
 # N01第五轮：捆绑许可、H2改包与生成物来源
 
+[第六轮最新生成差异、嵌套许可与分发义务](native-n01-generation-and-distribution-review.md)已补充；本页旧观察按当时范围保留，N01仍受软件准入阻塞，Python候选暂缓。
+
 2026-10-18；Linux / py310 / CPU研发。本轮补充可核对的技术来源证据，**N01仍为IN_PROGRESS_BLOCKED_ADMISSION**。Python3.13/3.12候选按用户决定暂缓，未创建环境、未改原100包锁；没有原生安装或共享服务切换。
 
 [本轮机器报告](../00-project/validation/native-n01-round5-admission-report.json) · [逐对象准入台账](../00-project/validation/native-n01-round5/technical-origin-and-admission-register.json) · [N01执行状态](native-linux-execution-status.json) · [前轮漏洞及许可](native-n01-license-vulnerability-runtime-review.md)
