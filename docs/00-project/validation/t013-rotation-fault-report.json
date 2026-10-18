@@ -1,6 +1,6 @@
 {
   "task_id": "T013",
-  "status": "LOCAL_VALIDATED_HOSTED_CI_PENDING",
+  "status": "PASS_SCOPED_LOCAL_AND_HOSTED_NOT_FULL_T013",
   "observed_at": "2026-10-18T18:32:49.378185+00:00",
   "environment": "Linux / Miniforge py310 / CPU / existing explicitly configured identity target",
   "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
@@ -119,7 +119,6 @@
     "IDP-18 complete runtime-log and history credential review",
     "IDP-20 restored token/session/client-secret invalidation",
     "IDP-21 recovery rollback",
-    "IDP-22 committed-payload hosted CI pending actual run",
     "actual T013 owner, effort and human acceptance record remain unspecified"
   ],
   "hosted_ci_attempts": [
@@ -332,6 +331,17 @@
       },
       "cause": "Ruff I001: scripts/verify_runtime_lock.py lacked a blank line between third-party import and TYPE_CHECKING block. This file is checked by the original CI static gate outside the dev.py lint scope.",
       "correction": "One blank line only, with full original CI static scope verified on Linux and Windows; no gate disabled, dependency changed or assertion lowered."
+    },
+    {
+      "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+      "workflow_run_id": 39157203313,
+      "run_attempt": 1,
+      "status": "FAILED_BEFORE_TESTS_PULLING_PINNED_NGINX",
+      "error": "IDENTITY_CI_STAGE_FAILED_PULL-NGINX",
+      "identity_tests_executed": false,
+      "rerun_API_result": "403 Resource not accessible by integration",
+      "retry_action": "Used already signed-in GitHub browser to select Re-run failed jobs, debug logging remained disabled; UI and API verified run attempt2, same commit and image digests. No code or gate changed for retry.",
+      "scope": "Registry-pull failure; underlying private Docker pull log was not published or available after disposable VM ended, so no HTTP/network root cause is asserted."
     }
   ],
   "source_binding_note": "Original Linux225 report preserves its actual working-tree hashes. Subsequent changes are the browser cache context, explicit existing PG16 tool path and safe CI failure identifiers. The supplementary342-unit/format/lint/type checks validate diagnostic code; final hosted report must bind its exact committed source. A subsequent single blank-line import-format correction in scripts/verify_runtime_lock.py passed the complete original CI static scope; final hosted evidence must bind the final payload.",
@@ -560,5 +570,131 @@
     "shared_services_restarted": false,
     "formal_accepted": false,
     "raw_logs_published": false
-  }
+  },
+  "hosted_ci": {
+    "run_id": 39157203313,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39157203313",
+    "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+    "status": "PASS",
+    "identity_tests": 225,
+    "engineering_gates": 32,
+    "business_tests": 246,
+    "artifact_verified": true,
+    "run_attempt": 2
+  },
+  "source_delivery_verification": {
+    "status": "PASS_SOURCE_AND_SCOPED_BOUNDARIES",
+    "observed_at": "2026-10-18T19:08:19.418131+00:00",
+    "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+    "git_worktree_clean": true,
+    "manifest_files_verified": 1988,
+    "manifest_matches_all_tracked_files_except_explicit_self_and_receipt": true,
+    "source_originals_verified": 12,
+    "original_locks_unchanged": [
+      "config/locks/conda-linux-64.explicit.txt",
+      "config/locks/requirements-py310.lock",
+      "frontend/package-lock.json",
+      "config/identity/versions.json"
+    ],
+    "python": "3.10.22",
+    "services": [
+      {
+        "id": "f99770aefdcd",
+        "name": "media-trace-identity-identity-gateway-1",
+        "healthy": true,
+        "started_at": "2026-10-17T06:49:36.751495445Z"
+      },
+      {
+        "id": "dc1cfac9d9b0",
+        "name": "media-trace-identity-keycloak-1",
+        "healthy": true,
+        "started_at": "2026-10-17T06:46:54.559220608Z"
+      },
+      {
+        "id": "c18e485f71a5",
+        "name": "media-trace-identity-identity-postgres-1",
+        "healthy": true,
+        "started_at": "2026-10-17T06:46:42.071084134Z"
+      },
+      {
+        "id": "1f4264d2ea07",
+        "name": "media-trace-py310-worker-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:16.589620508Z"
+      },
+      {
+        "id": "b1fd98fc33a8",
+        "name": "media-trace-py310-inference-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:19.136886727Z"
+      },
+      {
+        "id": "b0d8bdb5e2d7",
+        "name": "media-trace-py310-api-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:25.141427835Z"
+      },
+      {
+        "id": "8ab1441cb3cc",
+        "name": "media-trace-py310-s3-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:33.553331383Z"
+      },
+      {
+        "id": "20d6347b1394",
+        "name": "media-trace-py310-web-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:37.633811982Z"
+      },
+      {
+        "id": "869b8e2178a9",
+        "name": "media-trace-py310-postgres-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:44.101215299Z"
+      },
+      {
+        "id": "93728e609bef",
+        "name": "media-trace-py310-rabbitmq-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:48.667656358Z"
+      }
+    ],
+    "shared_service_ids_unchanged": true,
+    "shared_service_started_before_batch": true,
+    "temporary_acceptance_realms_remaining": 0,
+    "project_realm_user_count": 0,
+    "task_count": 170,
+    "completed_substeps": 84,
+    "remaining_work_items": 621,
+    "whole_tasks_accepted": 0,
+    "T013_completed_substeps": 5,
+    "T013_remaining_items": 3,
+    "post_Linux_test_change_paths": [
+      ".github/workflows/identity.yml",
+      "scripts/identity/checks.py",
+      "tests/platform/test_t013_identity_checks.py"
+    ],
+    "post_test_change_scope": "Hosted browser-cache context and explicit PG16 tool path corrected; report diagnostic publishes only source-whitelisted test names, without parameters/messages. Supplementary342-unit/format/lint/type checks and final hosted source hashes verify these changes.",
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false,
+    "T014_started": false,
+    "selected_scope_hash_map_is_not_whole_repository_diff": true,
+    "additional_checked_change": {
+      "path": "scripts/verify_runtime_lock.py",
+      "scope": "one import-block blank line; complete original CI Ruff scope passed, with original gates retained"
+    }
+  },
+  "material_checks_current_source": {
+    "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+    "checks": 8,
+    "status": "PASS",
+    "reference": "docs/00-project/validation/t013-rotation-fault/linux-documentation-checks.json"
+  },
+  "user_inputs_for_whole_T013": [
+    "Confirm actual T013 owner and remaining effort; owner does not imply identity administrator.",
+    "Specify named identity administrator and reviewer for MFA/bootstrap handover; do not send passwords or keys.",
+    "Confirm applicable formal identity scope and revocation SLA, and provide actual software-admission decisions; Python candidates remain deferred without inferred risk acceptance.",
+    "Review a concrete restart/persistence and post-restore invalidation/rollback exercise before shared-service changes. No such changes were executed in this batch."
+  ]
 }

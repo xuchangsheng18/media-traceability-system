@@ -1,10 +1,10 @@
 {
   "task_id": "T013",
   "record_kind": "implementation_progress_register_not_validator_acceptance_input",
-  "observed_at": "2026-10-18T18:32:49.378185+00:00",
+  "observed_at": "2026-10-18T19:31:40.687739+00:00",
   "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
   "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
-  "pass_count": 15,
+  "pass_count": 16,
   "not_executed_count": 6,
   "formal_accepted": false,
   "hosted_ci_triggered": true,
@@ -192,11 +192,13 @@
     },
     {
       "id": "IDP-22",
-      "status": "FAILED_CURRENT_HOSTED_ENGINEERING_RETRY_PENDING",
-      "evidence_boundary": "Hosted225 identity and246 business tests passed on b3bd201; the original engineering gate stopped at a Ruff import-format failure. The gate was preserved, minimal correction made, and full static scope passed. Final committed-payload complete hosted workflow remains pending.",
+      "status": "PASS_SCOPED_HOSTED_IDENTITY_AND_ENGINEERING",
+      "evidence_boundary": "Exact committed payload passed real225 identity tests in a disposable hosted VM and32 required engineering gates plus246 business tests. Both platform artifacts were downloaded and verified against API size/digest; source SHA256 map matches the committed payload. Not formal identity acceptance.",
       "references": [
         "docs/00-project/validation/t013-identity-ci-report.json",
-        "docs/00-project/validation/t013-rotation-fault-report.json"
+        "docs/00-project/validation/github-actions-report.json",
+        ".github/workflows/identity.yml",
+        ".github/workflows/ci.yml"
       ]
     }
   ],
@@ -211,6 +213,8 @@
   ],
   "current_batch_report_ref": "docs/00-project/validation/t013-rotation-fault-report.json",
   "current_batch_tested_source": "Working tree at recorded base commit plus exact report source_sha256; hosted committed payload pending.",
-  "failed_count": 1,
-  "pending_count": 7
+  "failed_count": 0,
+  "pending_count": 6,
+  "current_hosted_tested_source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+  "current_hosted_ci_ref": "docs/00-project/validation/t013-identity-ci-report.json"
 }
