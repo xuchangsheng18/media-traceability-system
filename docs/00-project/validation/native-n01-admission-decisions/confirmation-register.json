@@ -123,25 +123,39 @@
     {
       "id": "D09",
       "title": "两项精确版本通知的上游询问",
-      "timing": "PREPARED_DRAFTS_REQUIRE_EXPLICIT_USER_AUTHORIZATION_OR_USER_CONTACT",
-      "current_state": "DRAFTS_READY_NOT_SENT",
+      "timing": "AUTHORIZATION_AND_SENDING_COMPLETE_PUBLISHER_MATERIAL_PENDING",
+      "current_state": "TWO_AUTHORIZED_COMMENTS_SENT_VERIFIED_AWAITING_PUBLISHER_REPLY",
       "draft_refs": [
         "docs/00-project/validation/native-n01-admission-decisions/eastasianwidth-publisher-inquiry.draft.txt",
         "docs/00-project/validation/native-n01-admission-decisions/npmcli-agent-publisher-inquiry.draft.txt"
       ],
       "question": "是否由用户自行联系，或明确授权执行方在两个现有issue下各发送一条已列草稿；不新建重复issue，不含内部信息或商业承诺",
-      "decision": null,
-      "external_contact_sent": false
+      "decision": {
+        "status": "AUTHORIZED_EXACT_TWO_EXISTING_ISSUE_COMMENTS",
+        "source": "direct_user_reply",
+        "at": "2026-10-18T15:01:54.442430+00:00",
+        "contact_status_ref": "docs/00-project/validation/native-n01-admission-decisions/upstream-contact-status.json",
+        "comment_urls": [
+          "https://github.com/komagata/eastasianwidth/issues/18#issuecomment-6251444294",
+          "https://github.com/npm/agent/issues/176#issuecomment-6251454639"
+        ]
+      },
+      "external_contact_sent": true,
+      "repeat_authorization_required": false
     },
     {
       "id": "D10",
       "title": "八项逐软件限定技术复核",
-      "timing": "CONCRETE_PROPOSAL_PREPARED_NOT_INSTALLATION_ADMISSION",
-      "current_state": "AWAITING_REVIEW_OF_EIGHT_INDIVIDUAL_ROWS",
+      "timing": "COMPLETED_LIMITED_REVIEW_NOT_INSTALLATION_OR_WHOLE_ADMISSION",
+      "current_state": "EIGHT_LIMITED_INTERNAL_TECHNICAL_REVIEWS_ACCEPTED",
       "proposal_ref": "docs/00-project/validation/native-n01-admission-decisions/component-scoped-admission-proposal.json",
       "reviewer": "徐昌胜",
       "question": "逐项认可或指出需补充：PostgreSQL/RabbitMQ/OTP/SeaweedFS/Keycloak/Java/Nginx/age的精确制品与当前内部范围限定技术复核；不包括Python/Node未关闭项、不代替许可兼容/整体准入或安装",
-      "decision": null
+      "decision": {
+        "status": "ACCEPTED_LIMITED_INTERNAL_TECHNICAL_REVIEW",
+        "decision_ref": "docs/00-project/validation/native-n01-admission-decisions/eight-component-limited-review-decision.json"
+      },
+      "repeat_confirmation_required": false
     }
   ],
   "already_confirmed_refs": [
@@ -155,5 +169,6 @@
   "reply_recorded_at": "2026-10-18T16:32:24.350004+08:00",
   "latest_reply_recorded_at": "2026-10-18T18:07:55.949526+08:00",
   "same_entity_internal_use_ref": "docs/00-project/validation/native-n01-admission-decisions/same-entity-internal-use-decision.json",
-  "latest_internal_scope_reply": "仅同一单位或公司内部使用"
+  "latest_internal_scope_reply": "仅同一单位或公司内部使用",
+  "latest_direct_user_reply": "授权按已入库的两份草稿联系上游，认可八项软件在同一单位内部研发范围的限定技术复核，不包含安装或N01整体准入批准。Python候选继续暂缓，请继续完善N01，并同步GitHub、Linux服务器和分步任务导航。"
 }

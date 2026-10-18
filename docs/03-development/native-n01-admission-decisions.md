@@ -9,7 +9,29 @@
 
 
 
-## 当前更新：精确版本通知与同主体内部范围
+
+## 当前决定：八项限定复核已认可，两处上游询问已发送
+
+用户已明确授权按两份原草稿联系上游，并认可PostgreSQL、RabbitMQ、OTP、SeaweedFS、Keycloak、Java、Nginx、age在同一单位内部研发范围的限定技术复核。[实际认可记录](../00-project/validation/native-n01-admission-decisions/eight-component-limited-review-decision.json)绑定审阅提交`2801e72`、当时待决表的Git字节摘要、八项精确恢复归档及三份重建二进制；不将对话认可冒充身份独立验真或数字签名。
+
+八项状态已更新为`ACCEPTED_LIMITED_INTERNAL_TECHNICAL_REVIEW`。**这不是正式软件/全部许可兼容准入，不允许安装，也不是N01整体通过。** Python和Node不在这八项中；Python候选继续暂缓，原100包锁及现有服务不变。D10无需重复确认。
+
+### 两项上游联系已完成发送
+
+用户完成浏览器登录后，执行方已按原稿在两处现有issue各发布一条评论；未新建重复issue、未更换询问版本。GitHub接口回读确认作者`xuchangsheng18`、目标issue、正文与批准原稿第一处空行后的内容**逐字节相同**。初次连接器403及登录交接作为历史尝试保留，后续浏览器成功不抹去失败证据。
+
+| 精确版本 | 已发送并核对的评论 | 页面凭证 |
+| --- | --- | --- |
+| eastasianwidth0.2.0 | [issue18评论6251444294](https://github.com/komagata/eastasianwidth/issues/18#issuecomment-6251444294) | [截图](../00-project/validation/native-n01-admission-decisions/upstream-eastasianwidth-comment.png) |
+| @npmcli/agent3.0.0 | [issue176评论6251454639](https://github.com/npm/agent/issues/176#issuecomment-6251454639) | [截图](../00-project/validation/native-n01-admission-decisions/upstream-agent-comment.png) |
+
+[机器发送回执](../00-project/validation/native-n01-admission-decisions/upstream-contact-status.json)保存评论ID、时间、原稿与实际正文摘要、初次403、用户完成登录及后续成功结果。原草稿Target/Status头仍作为当时的历史元数据，不是当前发送状态，也没有被发送给上游。原草稿可继续用于核对，不需再发送一次。
+
+**D09的发送授权与执行、D10的八项限定认可均已落实，目前无需用户重复确认或操作。** 当前是`SENT_VERIFIED_AWAITING_PUBLISHER_REPLY`；我们自己的询问不是发布者原通知或许可答复，两个通知缺口关闭数仍为0。
+
+N01尚缺：两项精确版本通知/适用范围的发布者依据、Python维护与9条记录的正式处置、剩余必要的软件准入及最终安装锁。上游收到询问也不能直接算通知已取得；后续须核对答复者身份、精确版本与正文范围后更新。N02/N04/N07安装、公钥及切换依原前置另行执行。
+
+## 先前核验：精确版本通知与同主体内部范围
 
 用户已明确答复“仅同一单位或公司内部使用”，见[原话与边界记录](../00-project/validation/native-n01-admission-decisions/same-entity-internal-use-decision.json)。这只明确运行包当前使用范围；GitHub源码和资料仍然公开。未来向其他独立单位、外包主体复制运行包、改变组件、修改字体或启动未选插件时重新复核；不能把内部范围当成可以删除现有版权和通知的授权。
 
@@ -24,12 +46,12 @@
 
 本轮在Linux重新读取保留附录中的793条材料绑定：Node430、JDK244、RabbitMQ107、OTP10、Nginx1及PG1。各条字节/大小匹配，见[实际检查](../00-project/validation/native-n01-admission-decisions/software-primary-material-byte-check.json)。这是六组已保留材料的重验，不是重新扫描全部运行库、全部兼容性裁决或新制品采用。
 
-[十软件逐项待决表](../00-project/validation/native-n01-admission-decisions/component-scoped-admission-proposal.json)现在绑定每项精确恢复归档、重建二进制、已有材料、内部使用条件和后续阶段。Python因维护/9条记录、Node因两项通知仍阻塞；另外八项已形成可逐条审阅的限定技术复核。八项的正式决定仍为空，未擅自登记软件准入。既有服务功能、数据库/对象恢复、公钥和切换分别仍由N03/N04/N07验收，不倒置成N01资料必须伪造的运行结果。
+[十软件逐项待决表](../00-project/validation/native-n01-admission-decisions/component-scoped-admission-proposal.json)现在绑定每项精确恢复归档、重建二进制、已有材料、内部使用条件和后续阶段。Python因维护/9条记录、Node因两项通知仍阻塞；另外八项的限定技术复核现已获用户认可，见上方实际决定；软件正式准入决定仍为空。既有服务功能、数据库/对象恢复、公钥和切换分别仍由N03/N04/N07验收，不倒置成N01资料必须伪造的运行结果。
 
-### 现在可由用户处理的两项
+### 原D09/D10请求（已获授权/认可，保留请求范围）
 
-1. **D09，上游联系。** [eastasianwidth草稿](../00-project/validation/native-n01-admission-decisions/eastasianwidth-publisher-inquiry.draft.txt)和[agent草稿](../00-project/validation/native-n01-admission-decisions/npmcli-agent-publisher-inquiry.draft.txt)已准备，目标分别是现有issue18和issue176。可自行发送，或明确授权执行方按原草稿各发一条；未获明确授权前不发送，不新建重复issue、不披露本项目部署或作商业承诺。需要的是发布者对精确版本的原通知/范围答复，不是重复回答“暂无”。
-2. **D10，徐昌胜逐项复核。** 请按上述待决表对PostgreSQL16.15、RabbitMQ4.3.6、OTP27.3.4.18、SeaweedFS4.48重建、Keycloak26.8.1、Java21.0.12.1+1、Nginx1.30.6、age1.3.2重建分别写“认可限定技术复核”或指出需补材料。不是要求批准未知风险、全部许可兼容、安装或N01整体通过；Python和Node不在这八项中。
+1. **D09，上游联系。** [eastasianwidth草稿](../00-project/validation/native-n01-admission-decisions/eastasianwidth-publisher-inquiry.draft.txt)和[agent草稿](../00-project/validation/native-n01-admission-decisions/npmcli-agent-publisher-inquiry.draft.txt)已准备，目标分别是现有issue18和issue176。已获明确授权按原草稿各发一条；实际执行结果见上方状态，不新建重复issue、不披露本项目部署或作商业承诺。需要的是发布者对精确版本的原通知/范围答复，不是重复回答“暂无”。
+2. **D10，徐昌胜逐项复核。** 用户已认可上述八项限定技术复核，不再重复请求。不是要求批准未知风险、全部许可兼容、安装或N01整体通过；Python和Node不在这八项中。
 
 Python候选仍暂缓，不重复要求维护证明；本轮没有管理员命令、安装、业务迁移或服务切换。待真实通知/技术处置及必要准入决定齐备后再生成最终安装锁，N01当前仍未整体完成。
 
