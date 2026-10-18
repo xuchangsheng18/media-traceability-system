@@ -64,3 +64,7 @@ Font Awesome3份文件与验真5.6.3包整体SHA不同，但所有字体表除he
 4. 候选版本采用、管理员初始化、原生迁移及切换N02—N08未执行。当前无需管理员命令或凭据。
 
 上一轮最终回执1d9758749df755522d3d77392cff972ea807815d的[CI39096961185](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39096961185)成功；327859字节产物SHA256为c918c131b692090c5bfc462c8fa371b78afc5004fdd932e98a19d521b8ccfc17，已核对32项门禁及6份关键报告。本轮提交须看各自CI，参见[当前回执](../00-project/validation/github-actions-report.json)。
+
+## 实际资料复核记录
+
+徐昌胜在本轮对话明确回复“认可本轮限定结论，登记复核”，已写入[实际复核记录](../00-project/validation/native-n01-round8/review-decision.json)。认可范围为24类指令层复核、字体/主题材料及剩余事项；不含Python风险接受、候选最终采用、原生安装、外发或全部软件安全准入。没有把对话复核当数字签名或材料包逐字节验收。N01整体仍未验收通过。
