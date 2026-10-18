@@ -4,13 +4,13 @@
 
 [机器确认清单](../00-project/validation/native-n01-admission-decisions/confirmation-register.json) · [12条CVE逐项状态](../00-project/validation/native-n01-admission-decisions/python-pg-open-items.json) · [游标具体修复申请](native-n01-cursor-hardening-change-request.md) · [原生状态](native-linux-execution-status.json) · [任务导航](../../tasks/README.md)
 
-## 这次实际核验与新增发现
+## CI核验与修复前历史观察
 
-上一轮最终回执提交`00cd21bbaf0dce4db9f03661c8f9471fde440a41`的[CI39111313029](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39111313029)成功。335457字节制品SHA256为`ac5a5a24ed0b8ab62656aa13a1935e9dff2aaebae928aaed513ecbc2abecde18`；32项门禁及6份关键报告已核对。后续提交以各自CI为准。
+上一轮最终回执提交`ba99b74319b36d1f09c545900d0061eff9cbc08b`的[CI39112219675](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39112219675)成功。334898字节制品SHA256为`01b4ea66fd06d836b95ef674fa0109bfe7702cb3988baf9acbc40c000bfc958f`；32项门禁及6份关键报告已核对。本轮新提交以其自身CI为准。
 
-本轮在既有Linux py310中完成[11项解析观察](../00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json)，直接调用当前解析函数、使用自有内存数据库协作者，未连接真实数据库或网络，未运行HTTP/RLS验收，不能把夹具返回当业务实现通过。
+D02修复前（源码`ba99b743`）在既有Linux py310中完成[11项解析观察](../00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json)，直接调用当时的解析函数、使用自有内存数据库协作者，未连接真实数据库或网络，未运行HTTP/RLS验收，不能把夹具返回当业务实现通过。
 
-控制分页仍接受同一已签名原始游标的跨字母表编码别名；夹具中记录范围不变，载荷和调用者变更被HMAC拒绝。上传分页先校验编码文本HMAC，拒绝未重新签名的文本变更，但未强制规范编码；持有合成测试签名密钥的夹具签发方仍可生成被接收的非规范文本。没有据此认定发生无密钥伪造或越权，也没有把这些行为称为已修复。
+修复前的控制分页接受同一已签名原始游标的跨字母表编码别名；夹具中记录范围不变，载荷和调用者变更被HMAC拒绝。上传分页先校验编码文本HMAC，拒绝未重新签名的文本变更，但未强制规范编码；持有合成测试签名密钥的夹具签发方仍可生成被接收的非规范文本。没有据此认定发生无密钥伪造或越权，也该历史记录不修改或冒充修复后结果；本轮已由[D02验证回执](../00-project/validation/d02-cursor-hardening-report.json)证明这两处应用入口的拒绝行为。
 
 现有默认解码行为仍可观察到填充后内容被忽略。[Python官方版本表](https://devguide.python.org/versions/)本次仍列3.10为2026-10-01停止支持；[本次上游记录核对](../00-project/validation/native-n01-admission-decisions/upstream-review.json)说明相关兼容性补丁不等于立即严格拒绝其他字母表。应用约束与解释器维护是两个事项，不能互相替代。
 
@@ -23,9 +23,9 @@
 | 编号 | 当前状态 | 后续动作 |
 | --- | --- | --- |
 | D01：Python3.10维护依据 | 未提供延长维护或补丁支持证明；已记录继续使用意向及影响提问，未接受风险 | 有材料时核对发行者、精确版本与补丁范围；候选继续暂缓。当前不需要为了继续已验证研发而重复确认相同意向。 |
-| D02：下一批游标修复范围 | 用户明确答复“同意下一批按申请实施”；`APPROVED_NEXT_BATCH_NOT_IMPLEMENTED` | 下一批按[已批准申请](native-n01-cursor-hardening-change-request.md)完成代码、回归与说明。本轮仅登记决定；无需重复确认同一修改范围。 |
+| D02：下一批游标修复范围 | 用户明确答复“同意下一批按申请实施”；`IMPLEMENTED_VALIDATED_APPLICATION_SCOPE` | 本轮已按[批准申请](native-n01-cursor-hardening-change-request.md)完成代码、21项专项、隔离业务回归及检查，详见申请中的实际回执；无需重复确认同一范围。 |
 
-D02授权不改变合法签发格式、密钥、端点或数据库结构，也不接受Python生命周期风险。授权、实现、测试通过和整体准入是不同状态；当前业务代码未修改。
+D02授权不改变合法签发格式、密钥、端点或数据库结构，也不接受Python生命周期风险。授权、实现、测试通过和整体准入是不同状态；当前D02代码已实施并完成限定验证，运行服务未重启或切换。
 
 ## 以后才需要：当前不要一并批准
 
@@ -48,14 +48,14 @@ D02授权不改变合法签发格式、密钥、端点或数据库结构，也�
 | CVE-2017-8806 | NOT_AFFECTED_CANDIDATE_PRODUCT_NOT_PRESENT | 复核产品边界后可按本精确制品签认，保留原扫描；未来APT安装该包必须重新核版本。 |
 | CVE-2023-36632 | DISPUTED_REVIEW_REQUIRED | 确认实际邮件解析/输入限额与错误处理；争议不能直接当修复。 |
 | CVE-2024-3220 | NOT_AFFECTED_CANDIDATE_PLATFORM | 只适用当前Linux；Windows原生部署另审，不改扫描忽略列表。 |
-| CVE-2025-12781 | OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | 已增加本轮生产解析函数合成探测；修复未实施 |
+| CVE-2025-12781 | OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | D02已完成两处业务游标规范编码加固及验证；解释器未修补，其他调用和正式准入仍待复核 |
 | CVE-2025-15366 | OBSERVED_COMMAND_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | 不能声称当前模块已修补；核对正式用途和传递调用，采用受维护补丁或有时限的范围限制；启用邮件功能前必须处置。 |
 | CVE-2025-15367 | OBSERVED_COMMAND_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | 不能声称当前模块已修补；核对用途及传递调用，采用受维护补丁或范围限制；保留控制字符拒绝测试要求。 |
 | CVE-2026-12003 | CONDITIONAL_SCOPE_REVIEW_REQUIRED | 还须核对父目录所有权/写权限、Conda补丁与启动策略；当前不存在不是长期不可利用证明。 |
 | CVE-2026-12345 | CONDITIONAL_SCOPE_REVIEW_REQUIRED | 以非特权、私有0700目录和无不可信并发写入约束临时操作；核对源码修补、权限和使用者，不实施共享目录攻击。 |
 | CVE-2026-3298 | NOT_AFFECTED_CANDIDATE_PLATFORM_AND_API | 限定当前解释器与平台，保留正式安全复核。 |
-| CVE-2026-3446 | OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | 已增加本轮生产解析函数合成探测；修复未实施 |
+| CVE-2026-3446 | OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | D02已完成两处业务游标规范编码加固及验证；解释器未修补，其他调用和正式准入仍待复核 |
 | CVE-2026-3479 | DISPUTED_REVIEW_REQUIRED | 不允许未授权路径作为resource；保留争议与软件准入决定。 |
 | CVE-2026-6019 | OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED | 不将不可信cookie嵌入脚本；核对实际模板/传递调用，记录修补或有条件例外。 |
 
-本页不修改解释器、依赖锁、业务代码、服务、卷或数据库；不增加170任务中的整任务验收数。后续依据D01实际证据及已批准D02范围推进相应工作，不自动实施后续业务任务或原生安装。
+本页登记D02业务代码加固；解释器、依赖锁、服务、卷和数据库未修改；不增加170任务中的整任务验收数。后续依据D01实际证据及已批准D02范围推进相应工作，不自动实施后续业务任务或原生安装。
