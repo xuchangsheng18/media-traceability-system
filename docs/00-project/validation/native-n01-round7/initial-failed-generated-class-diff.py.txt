@@ -1,0 +1,42 @@
+import hashlib,json,os,struct,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');source=repo/'docs/00-project/validation/native-n01-round5/reaugmentation-report.json';report=json.loads(source.read_text());cmp=report['comparisons'][0];old=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1/lib/quarkus/generated-bytecode.jar';new=base/'native-n01-r5/reaugmentation-fixture/keycloak-26.8.1/lib/quarkus/generated-bytecode.jar';sha=lambda b:hashlib.sha256(b).hexdigest()
+def parse(raw):
+ assert raw[:4]==b'\xca\xfe\xba\xbe';pos=8
+ def u2():
+  nonlocal pos
+  v=struct.unpack_from('>H',raw,pos)[0];pos+=2;return v
+ count=u2();cp=[None]*count;i=1
+ while i<count:
+  tag=raw[pos];pos+=1
+  if tag==1:n=u2();cp[i]=(tag,raw[pos:pos+n].decode('utf8',errors='replace'));pos+=n
+  elif tag in [7,8,16,19,20]:cp[i]=(tag,u2())
+  elif tag in [9,10,11,12,17,18]:cp[i]=(tag,u2(),u2())
+  elif tag in [3,4]:cp[i]=(tag,raw[pos:pos+4].hex());pos+=4
+  elif tag in [5,6]:cp[i]=(tag,raw[pos:pos+8].hex());pos+=8;i+=1
+  elif tag==15:kind=raw[pos];pos+=1;cp[i]=(tag,kind,u2())
+  else:raise ValueError('unknown cp tag '+str(tag))
+  i+=1
+ def utf(i):assert cp[i][0]==1;return cp[i][1]
+ classes={utf(x[1]) for x in cp if x and x[0]==7};refs=set()
+ for x in cp:
+  if x and x[0] in [9,10,11]:owner=cp[x[1]];nt=cp[x[2]];refs.add((utf(owner[1]),utf(nt[1]),utf(nt[2]),x[0]))
+ pos+=6;pos+=2*u2()
+ def attrs():
+  nonlocal pos
+  out={}
+  for _ in range(u2()):
+   n=utf(u2());length=struct.unpack_from('>I',raw,pos)[0];pos+=4;out[n]=sha(raw[pos:pos+length]);pos+=length
+  return out
+ for _ in range(u2()):pos+=6;attrs()
+ methods={}
+ for _ in range(u2()):access=u2();name=utf(u2());descriptor=utf(u2());methods[name+descriptor]={'access_flags':access,'attributes_sha256':attrs()}
+ attrs();assert pos==len(raw),(pos,len(raw));return classes,refs,methods
+try:parse(b'bad');raise RuntimeError('invalid header accepted')
+except AssertionError:pass
+rows=[];removed_classes={n.removesuffix('.class') for n in cmp['removed_members'] if n.endswith('.class')}
+with zipfile.ZipFile(old) as a,zipfile.ZipFile(new) as b:
+ for x in cmp['changed_members']:
+  n=x['path'];before=a.read(n);after=b.read(n);assert sha(before)==x['before_sha256'] and sha(after)==x['after_sha256'];ac,ar,am=parse(before);bc,br,bm=parse(after)
+  rows.append({'path':n,'before_sha256':sha(before),'after_sha256':sha(after),'formal_Class_entries_removed':sorted(ac-bc),'formal_Class_entries_added':sorted(bc-ac),'removed_Class_entries_matching_removed_generated_classes':sorted((ac-bc)&removed_classes),'member_refs_removed':[list(v) for v in sorted(ar-br)],'member_refs_added':[list(v) for v in sorted(br-ar)],'method_names_removed':sorted(am.keys()-bm.keys()),'method_names_added':sorted(bm.keys()-am.keys()),'methods_with_changed_attribute_payloads':[n for n in sorted(am.keys()&bm.keys()) if am[n]!=bm[n]],'code_payload_hash_difference_is_not_instruction_semantics_or_maliciousness_decision':True})
+d={'scope':'all24_changed_generated_classes_typed_constant_pool_and_method_attribute_differences_not_full_semantic_or_authorship_proof','source_diff_report_sha256':sha(source.read_bytes()),'original_archive_sha256':sha(old.read_bytes()),'reaugmented_archive_sha256':sha(new.read_bytes()),'rows':rows,'invalid_class_header_rejected':True,'UTF8_string_candidates_not_counted_as_Class_entries':True,'software_admission':False,'executed_script_sha256':sha(Path(__file__).read_bytes())};(base/'native-n01-r7-generated-class-diff.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'changed_classes':len(rows),'classes_with_removed_generated_Class_refs':sum(bool(x['removed_Class_entries_matching_removed_generated_classes']) for x in rows),'methods_with_changed_attribute_payloads':sum(len(x['methods_with_changed_attribute_payloads']) for x in rows)}))
