@@ -5,10 +5,13 @@
 [机器确认清单](../00-project/validation/native-n01-admission-decisions/confirmation-register.json) · [12条CVE逐项状态](../00-project/validation/native-n01-admission-decisions/python-pg-open-items.json) · [游标具体修复申请](native-n01-cursor-hardening-change-request.md) · [原生状态](native-linux-execution-status.json) · [任务导航](../../tasks/README.md)
 
 
+## 当前核验：无新增上游答复，原计划与导航已校准
 
+截至2026-10-18 23:36:16（北京时间），两处issue均为open；eastasianwidth共1条评论，agent共2条评论，均没有晚于本项目询问的新评论。两条已发正文仍与批准原稿逐字节一致；[当前查询及先前观察](../00-project/validation/native-n01-admission-decisions/upstream-contact-status.json)保留时间、完整分页计数和评论标识，未再次发送消息。
 
+本批不依赖回复的工作已完成：[原N01五项计划对账](native-linux-implementation-plan.md#n01五项计划的实际状态)、[Linux实际重验](../00-project/validation/native-n01-admission-decisions/n01-plan-verification.json)。45项现有工具测试0失败/错误/跳过；10类原始制品校验通过；前后10个项目容器ID和31个相邻容器集合相同。修正原计划末尾早期“32项/3包”的当前状态及包校验PASS含义，精简T004当前显示说明并保留证据和原170任务字段。历史首次RED运行记录本批未验证，不编造；不因此新增准入阻塞。
 
-
+**现在无需你重复确认或操作。** 已授权询问和八项限定认可均已落实。仍缺两项发布者精确版本依据、Python维护与9条记录的正式处置、必要软件准入及最终安装锁；Python候选继续暂缓。缺少具体新材料时不请求笼统“同意全部风险”。N02账号/目录、N03服务、N04公钥/业务恢复、N07切换保留在各自阶段；当前没有可执行的管理员安装或停写命令。
 
 ## 当前决定：八项限定复核已认可，两处上游询问已发送
 

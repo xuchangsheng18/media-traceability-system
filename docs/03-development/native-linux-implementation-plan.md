@@ -17,7 +17,7 @@
 - 原生制品不得使用容器digest代替文件SHA256；版本/签名/摘要缺失即阻断安装，不能下载latest代替目标版。
 - 禁止全局停机、覆盖原数据目录、自动清队列、删除旧容器/卷，或未经对账把目标新写入丢弃后回退。
 - 管理员不向会话提供密码、Token、数据库连接串或私钥；不开放广泛免密sudo。
-- 以下新脚本、测试、配置和单元均为**拟创建**，当前不能把命令示例当成已有可执行工具。每任务先实现对应工具并测试，再交管理员执行。
+- 以下文件表保留原计划路径；`inventory.py`、`artifacts.py`及其测试已实现，其余工具、单元和配置须按对应任务状态核对，不能把拟建命令当成已有工具。管理员步骤须等待实际制品准入和对应执行授权。
 
 ## Review Focus
 
@@ -66,13 +66,27 @@ APT候选来自服务器已有缓存，未执行更新或安装；它不证明�
 
 **Files:** 创建`inventory.py`、`artifacts.py`、制品锁及`tests/native/test_artifacts.py`。
 
-**Interfaces:** `collect_inventory() -> dict`只读；`validate_artifacts(lock: dict, artifact_root: Path) -> dict`校验所有条目，`status=PASS`才允许下游安装。锁项包含精确版本、官方URL、文件名、amd64、SHA256、签名依据、依赖列表、许可和实际版本探针输出。
+**Interfaces:** `collect_inventory() -> dict`只读；`validate_artifacts(lock: dict, artifact_root: Path) -> dict`校验输入锁中所列条目。该工具的`status=PASS`只表示本次包字节及来源检查通过；还必须满足完整依赖、逐软件准入、最终安装锁和对应管理员步骤条件，才可安装。现有返回值明确保持`installation_ready=false`。锁项包含精确版本、官方URL、文件名、amd64、SHA256、签名依据、依赖列表、许可和实际版本探针输出。
 
-- [ ] 写测试`test_missing_or_wrong_digest_refuses_install`：缺SHA256、文件损坏、非目标架构、相对路径逃逸均返回FAIL；`test_cached_old_broker_is_not_selected`拒绝3.12和OTP25。
+- [x] 写测试`test_missing_or_wrong_digest_refuses_install`：缺SHA256、文件损坏、非目标架构、相对路径逃逸均返回FAIL；`test_cached_old_broker_is_not_selected`拒绝3.12和OTP25。
 - [ ] 运行`python -m pytest tests/native/test_artifacts.py -q`，确认缺失实现导致失败。
 - [ ] 实现只读清单与锁校验；盘点全部10容器、原生业务PG和其他容器集合。读取挂载源只输出脱敏标识，不输出环境/密钥。下载到私有暂存目录，按官方签名及摘要验证；包依赖也锁，不修改全机APT源。
-- [ ] 重新运行专项测试及`python scripts/native/artifacts.py verify --lock config/native/artifacts.lock.json --root /workspace/media-trace-native/artifacts`。缺少任何制品时预期非零并列出组件，不能跳过继续N02安装。
+- [x] 重新运行专项测试及制品校验。实际已核验命令为`python scripts/native/artifacts.py verify --lock config/native/artifacts.lock.json --root /workspace/glwy/runtime/media-traceability-system/native-artifacts`；原示例`/workspace/media-trace-native/artifacts`为未来管理员根目录，不冒充已存在缓存。缺少任何制品时预期非零并列出组件，不能跳过继续N02安装。
 - [ ] 提交N01代码、无秘密锁和实际记录。完整锁尚未取得时明确BLOCKED_ARTIFACT，不填虚构摘要。
+
+### N01五项计划的实际状态
+
+以下对应原五项，不新增任务编号或整卡验收数；[本次Linux证据](../00-project/validation/native-n01-admission-decisions/n01-plan-verification.json)记录实际源码、命令、输入摘要、前后清单及测试计数。
+
+| 原项 | 当前可证明的结果 | 尚未完成或证明的部分 |
+| --- | --- | --- |
+| 1．失败输入测试 | 现有`test_invalid_installation_inputs_fail_closed`覆盖缺摘要、损坏、架构、路径逃逸、旧RabbitMQ/OTP等；两测试文件共45项通过，0失败/错误/跳过。原计划测试名是用例意图，实际参数化测试名见证据。 | 不将拒绝非法输入当作完整安装准入。 |
+| 2．首次RED过程 | 本批复跑现有实现为GREEN；原历史代码和早期报告保留。 | 本批未核得首次“缺实现导致失败”的运行原文，保持未验证，不补造、不要求删除现有实现重演，也不将此信息限制新增为软件准入阻塞。 |
+| 3．只读盘点及完整锁 | 10个项目容器、原生业务PG16.15、Python3.10.22及31个相邻容器集合已只读重验；十类原始制品字节和来源校验通过。恢复组合/Go缓存沿用已有精确证据。 | 最终可安装组合仍待R1—R3必要处置/准入；当前原始锁不包含三项预选采用决定。 |
+| 4．专项与真实缓存重验 | 上述45项和实际私有缓存校验通过；前后容器ID、相邻集合相同，暂存端口未占用。 | 不替代N02账号/目录及N03服务/N04业务数据恢复验收。 |
+| 5．提交可核对成果 | 现有代码、原始锁、中间恢复证据已入库；本次同步以[源文件清单](../00-project/repository-file-manifest.json)和[同步回执](../00-project/server-sync-receipt.json)为准。 | 最终可安装锁尚未生成，N01仍`IN_PROGRESS_BLOCKED_ADMISSION`；不能勾选整项完成。 |
+
+包校验报告不是三项候选采用、漏洞风险接受或安装许可。两处许可询问均已发送且当前无新增答复；Python候选继续暂缓。[统一剩余与确认清单](native-n01-admission-decisions.md)区分已验证材料、外部等待和后续管理员步骤。
 
 ## N02：管理员目录、账户、单元及资源限制
 
@@ -166,4 +180,4 @@ APT候选来自服务器已有缓存，未执行更新或安装；它不证明�
 
 设计§1—5由N01—N03覆盖，§6由N04覆盖，§7由N02/N06覆盖，§8由N06/N07覆盖，§9—10及任务收口由N08覆盖。共享字段/命令均在上文定义；拟建工具仅在对应任务完成后可执行。
 
-**当前：书面设计、详细计划和候选资源上限均已获用户认可，已从N01开始。** N01只读清单及制品校验工具已实现，32项原生专项及5项存储就绪回归已在Linux py310通过；已取得并复核3份原生发行包；其余制品和完整依赖尚未齐全，N01未关闭，N02—N08未执行。详见[执行台账](native-linux-execution-status.json)。未确认制品、密钥保管、切换窗口及实际验收决定不会用占位值伪装完成。继续沿用当前会话直接实施，不自动进入T014。
+**当前：N01的工具、制品与恢复材料已形成限定证据，整体准入仍未完成。** 本批Linux/py310复跑45项原生工具测试，十类原始制品包校验及前后只读清单通过；八项内部限定技术复核已获认可，两条上游询问已发送、暂无新答复。Python维护/9条记录、两项精确版本通知及必要软件准入仍未关闭；最终安装锁未生成。N02—N08未执行，不将只读工具或材料通过当原生安装/迁移/恢复验收。详见[执行台账](native-linux-execution-status.json)和[统一剩余事项](native-n01-admission-decisions.md)。继续当前会话的已授权范围，不自动进入T014。

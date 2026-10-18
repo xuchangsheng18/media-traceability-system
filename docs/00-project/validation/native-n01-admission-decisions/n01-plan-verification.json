@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-18T15:37:16.945082+00:00",
+  "source_commit": "a93ff68b30fbd440fb3e17e304146ab4458a1c85",
+  "scope": "existing_N01_tools_primary_package_bytes_and_readonly_inventory_not_admission",
+  "status": "PASS_BOUNDED_EXISTING_TOOLS_ONLY",
+  "checks": [
+    {
+      "name": "native-tests",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/native/test_artifacts.py",
+        "tests/native/test_inventory.py",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/native-n01-current-plan-check/native-tests.xml"
+      ],
+      "exit_code": 0,
+      "totals": {
+        "tests": 45,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "testcase_names": [
+        "test_nginx_signature_requires_success_and_pinned_signer[0-[GNUPG:] VALIDSIG D6786CE303D9A9022998DC6CC8464D549AF75C0A 2026-10-02 1 0 4 0 1 8 00 D6786CE303D9A9022998DC6CC8464D549AF75C0A-True]",
+        "test_nginx_signature_requires_success_and_pinned_signer[1--False]",
+        "test_nginx_signature_requires_success_and_pinned_signer[0-[GNUPG:] GOODSIG not-validsig-False]",
+        "test_nginx_signature_requires_success_and_pinned_signer[0-[GNUPG:] VALIDSIG AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA date 1 0 4 0 1 8 00 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-False]",
+        "test_nginx_expired_or_revoked_signatures_are_rejected[EXPKEYSIG]",
+        "test_nginx_expired_or_revoked_signatures_are_rejected[EXPSIG]",
+        "test_nginx_expired_or_revoked_signatures_are_rejected[REVKEYSIG]",
+        "test_nginx_signed_archive_must_match_exact_pinned_release[old_package_url]",
+        "test_nginx_signed_archive_must_match_exact_pinned_release[old_signature_url]",
+        "test_nginx_signed_archive_must_match_exact_pinned_release[old_package_filename]",
+        "test_complete_verified_package_set_can_pass",
+        "test_confirmed_exact_native_versions_cannot_be_downgraded[erlang-27.3.4.13]",
+        "test_confirmed_exact_native_versions_cannot_be_downgraded[nginx-1.29.2]",
+        "test_official_conda_python_package_binds_build_and_digest",
+        "test_invalid_installation_inputs_fail_closed[missing_digest]",
+        "test_invalid_installation_inputs_fail_closed[tampered_bytes]",
+        "test_invalid_installation_inputs_fail_closed[wrong_architecture]",
+        "test_invalid_installation_inputs_fail_closed[path_escape]",
+        "test_invalid_installation_inputs_fail_closed[untrusted_source]",
+        "test_invalid_installation_inputs_fail_closed[missing_component]",
+        "test_invalid_installation_inputs_fail_closed[duplicate_component]",
+        "test_invalid_installation_inputs_fail_closed[old_broker]",
+        "test_invalid_installation_inputs_fail_closed[old_erlang]",
+        "test_invalid_installation_inputs_fail_closed[missing_provenance]",
+        "test_invalid_installation_inputs_fail_closed[self_computed_only]",
+        "test_invalid_installation_inputs_fail_closed[tampered_checksum]",
+        "test_invalid_installation_inputs_fail_closed[wrong_checksum_line]",
+        "test_invalid_installation_inputs_fail_closed[missing_dependency]",
+        "test_invalid_installation_inputs_fail_closed[cycle]",
+        "test_invalid_installation_inputs_fail_closed[missing_license]",
+        "test_missing_artifact_directory_does_not_get_created",
+        "test_official_release_api_binds_version_asset_and_bytes[None]",
+        "test_official_release_api_binds_version_asset_and_bytes[wrong_tag]",
+        "test_official_release_api_binds_version_asset_and_bytes[wrong_tag_type]",
+        "test_official_release_api_binds_version_asset_and_bytes[wrong_digest]",
+        "test_official_release_api_binds_version_asset_and_bytes[wrong_repository]",
+        "test_official_release_api_binds_version_asset_and_bytes[api_path_escape]",
+        "test_cli_missing_inputs_returns_nonzero_without_installing",
+        "test_component_specific_official_release_tags[erlang-OTP-27.3.4.18]",
+        "test_component_specific_official_release_tags[java-jdk-21.0.12.1]",
+        "test_complete_readonly_inventory_excludes_neighbor_names",
+        "test_wrong_project_label_does_not_gain_migration_scope",
+        "test_staging_port_collision_blocks_preflight",
+        "test_missing_docker_is_reported_without_mutation",
+        "test_inventory_does_not_publish_raw_failure_output"
+      ],
+      "xml_sha256": "7a71ef14642a3d80e23fc9c75fa0be474a3b235430e923d26ebc35ec34312e8d"
+    },
+    {
+      "name": "primary-packages",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/native/artifacts.py",
+        "verify",
+        "--lock",
+        "config/native/artifacts.lock.json",
+        "--root",
+        "/workspace/glwy/runtime/media-traceability-system/native-artifacts"
+      ],
+      "exit_code": 0,
+      "report": {
+        "schema_version": 1,
+        "observed_at": "2026-10-18T15:37:16.543548+00:00",
+        "scope": "offline_native_package_and_official_checksum_verification_not_installation",
+        "status": "PASS",
+        "blockers": [],
+        "verified_components": [
+          "age",
+          "erlang",
+          "java",
+          "keycloak",
+          "nginx",
+          "node",
+          "postgres",
+          "python",
+          "rabbitmq",
+          "seaweedfs"
+        ],
+        "installation_performed": false,
+        "installation_ready": false,
+        "complete_os_dependency_and_signature_admission_asserted": false
+      }
+    },
+    {
+      "name": "readonly-inventory-before-after",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/native/inventory.py"
+      ],
+      "exit_code": 0,
+      "before": {
+        "schema_version": 1,
+        "observed_at": "2026-10-18T15:37:15.285650+00:00",
+        "scope": "readonly_native_preflight_not_complete_data_ownership_or_artifact_admission",
+        "status": "PASS",
+        "blockers": [],
+        "architecture": "x86_64",
+        "project_containers": [
+          {
+            "container_id": "f99770aefdcda56eafb23ffd654b068918d87099df2a74569ed7f10d29aeca13",
+            "name": "media-trace-identity-identity-gateway-1",
+            "project": "media-trace-identity"
+          },
+          {
+            "container_id": "c18e485f71a5f206090102e794eb490d9bc9dd90b049547230d24dcde0389c73",
+            "name": "media-trace-identity-identity-postgres-1",
+            "project": "media-trace-identity"
+          },
+          {
+            "container_id": "dc1cfac9d9b0569e965043ade64a8574aebdc8f705df15f34018ac00c2cd5976",
+            "name": "media-trace-identity-keycloak-1",
+            "project": "media-trace-identity"
+          },
+          {
+            "container_id": "b0d8bdb5e2d7c9ea363deb4678fd1c035942b080356670fa48a5203d8d1ab7a9",
+            "name": "media-trace-py310-api-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "b1fd98fc33a82dccfc5ea942e3d5e74bbf37d9f3d71ec4754133968ff3850efa",
+            "name": "media-trace-py310-inference-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "869b8e2178a998e8a84dc40cc508bef8efdd9e453cab3077c5480c1d3b86a523",
+            "name": "media-trace-py310-postgres-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "93728e609bef65665e2f5dc7052dba28c1a9cfc1808bd82be49bc3df860d23ed",
+            "name": "media-trace-py310-rabbitmq-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "8ab1441cb3cc4d04943f38a7c9f49b7e1ac2aa01801079ee16b6ca656a67d22b",
+            "name": "media-trace-py310-s3-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "20d6347b1394d2308afce47faa0d48c6b9c46a7fe84159a3fe44378a51aad9a1",
+            "name": "media-trace-py310-web-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "1f4264d2ea076d21714212f202ccc2c27d1bf2c1f4c75fa78d34e2e012b3bd5d",
+            "name": "media-trace-py310-worker-1",
+            "project": "media-trace-py310"
+          }
+        ],
+        "neighbor_container_count": 31,
+        "neighbor_set_sha256": "fc345a4dc567096b81a5fb7188cd0813d3248f26f73797e9647b8c576ebfa67a",
+        "probes": {
+          "containers": {
+            "exit_code": 0,
+            "status": "PASS"
+          },
+          "native_business_postgres": {
+            "exit_code": 0,
+            "status": "PASS",
+            "version": "16.15"
+          },
+          "python": {
+            "exit_code": 0,
+            "status": "PASS",
+            "version": "3.10.22"
+          },
+          "ports": {
+            "exit_code": 0,
+            "status": "PASS",
+            "occupied_staging_ports": []
+          }
+        },
+        "services_changed": false,
+        "complete_data_inventory_asserted": false
+      },
+      "after": {
+        "schema_version": 1,
+        "observed_at": "2026-10-18T15:37:16.917286+00:00",
+        "scope": "readonly_native_preflight_not_complete_data_ownership_or_artifact_admission",
+        "status": "PASS",
+        "blockers": [],
+        "architecture": "x86_64",
+        "project_containers": [
+          {
+            "container_id": "f99770aefdcda56eafb23ffd654b068918d87099df2a74569ed7f10d29aeca13",
+            "name": "media-trace-identity-identity-gateway-1",
+            "project": "media-trace-identity"
+          },
+          {
+            "container_id": "c18e485f71a5f206090102e794eb490d9bc9dd90b049547230d24dcde0389c73",
+            "name": "media-trace-identity-identity-postgres-1",
+            "project": "media-trace-identity"
+          },
+          {
+            "container_id": "dc1cfac9d9b0569e965043ade64a8574aebdc8f705df15f34018ac00c2cd5976",
+            "name": "media-trace-identity-keycloak-1",
+            "project": "media-trace-identity"
+          },
+          {
+            "container_id": "b0d8bdb5e2d7c9ea363deb4678fd1c035942b080356670fa48a5203d8d1ab7a9",
+            "name": "media-trace-py310-api-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "b1fd98fc33a82dccfc5ea942e3d5e74bbf37d9f3d71ec4754133968ff3850efa",
+            "name": "media-trace-py310-inference-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "869b8e2178a998e8a84dc40cc508bef8efdd9e453cab3077c5480c1d3b86a523",
+            "name": "media-trace-py310-postgres-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "93728e609bef65665e2f5dc7052dba28c1a9cfc1808bd82be49bc3df860d23ed",
+            "name": "media-trace-py310-rabbitmq-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "8ab1441cb3cc4d04943f38a7c9f49b7e1ac2aa01801079ee16b6ca656a67d22b",
+            "name": "media-trace-py310-s3-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "20d6347b1394d2308afce47faa0d48c6b9c46a7fe84159a3fe44378a51aad9a1",
+            "name": "media-trace-py310-web-1",
+            "project": "media-trace-py310"
+          },
+          {
+            "container_id": "1f4264d2ea076d21714212f202ccc2c27d1bf2c1f4c75fa78d34e2e012b3bd5d",
+            "name": "media-trace-py310-worker-1",
+            "project": "media-trace-py310"
+          }
+        ],
+        "neighbor_container_count": 31,
+        "neighbor_set_sha256": "fc345a4dc567096b81a5fb7188cd0813d3248f26f73797e9647b8c576ebfa67a",
+        "probes": {
+          "containers": {
+            "exit_code": 0,
+            "status": "PASS"
+          },
+          "native_business_postgres": {
+            "exit_code": 0,
+            "status": "PASS",
+            "version": "16.15"
+          },
+          "python": {
+            "exit_code": 0,
+            "status": "PASS",
+            "version": "3.10.22"
+          },
+          "ports": {
+            "exit_code": 0,
+            "status": "PASS",
+            "occupied_staging_ports": []
+          }
+        },
+        "services_changed": false,
+        "complete_data_inventory_asserted": false
+      },
+      "project_container_ids_unchanged": true,
+      "neighbor_set_unchanged": true
+    }
+  ],
+  "source_sha256": {
+    "scripts/native/artifacts.py": "ac2b477af453ad83b77af736d2ea61aba380643230533299a4fe00483c88e5bd",
+    "scripts/native/inventory.py": "6b7cb5ba0c1745f5ec9c3c04460acd573dda47c6d8d18df77354fad10d2511ac",
+    "tests/native/test_artifacts.py": "e9b44cc3cc8d6d74ea7c689088dcb99b79f7634e0982b239f7959aae66f6e83e",
+    "tests/native/test_inventory.py": "c2f189b995a49b651e6bf3ba18bb82b498cad5b2269c77d745c85b9e96c8fc4e",
+    "config/native/artifacts.lock.json": "1418440ca19d41814bc29e47ea13dbc2c8efca61112d943ba1d22406125740bf"
+  },
+  "historical_initial_RED_execution_verified_this_batch": false,
+  "historical_initial_RED_note": "Existing code predates this batch; current green regressions do not prove its initial test-first execution. Historical records are preserved; no missing RED log is fabricated.",
+  "original_artifact_lock_unchanged": true,
+  "preselected_rebuilt_candidate_adoption_asserted_by_this_check": false,
+  "service_or_permission_changes": false,
+  "Python_candidates_created": false,
+  "installation_performed": false,
+  "installation_ready": false,
+  "whole_N01_accepted": false,
+  "private_output_directory": "/workspace/glwy/runtime/media-traceability-system/native-n01-current-plan-check"
+}
