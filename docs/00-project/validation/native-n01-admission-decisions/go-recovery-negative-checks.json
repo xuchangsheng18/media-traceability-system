@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "scope": "private synthetic fixture validates offline Go checksum refusal,not a live attack",
+  "cases": [
+    {
+      "case": "valid",
+      "exit_code": 0,
+      "expected_behavior_observed": true,
+      "output_sha256": "8e4caee7ea604945b515c9aed0fb4e985cd287bcb11efee1745f17350777332a",
+      "output_tail": "{\n\t\"Path\": \"filippo.io/edwards25519\",\n\t\"Version\": \"v1.2.0\",\n\t\"Info\": \"/workspace/glwy/runtime/media-traceability-system/n01-go-recovery-r8ep1s8l/negative-valid-cache/cache/download/filippo.io/edwards25519/@v/v1.2.0.info\",\n\t\"GoMod\": \"/workspace/glwy/runtime/media-traceability-system/n01-go-recovery-r8ep1s8l/negative-valid-cache/cache/download/filippo.io/edwards25519/@v/v1.2.0.mod\",\n\t\"Zip\": \"/workspace/glwy/runtime/media-traceability-system/n01-go-recovery-r8ep1s8l/negative-valid-cache/cache/download/filippo.io/edwards25519/@v/v1.2.0.zip\",\n\t\"Dir\": \"/workspace/glwy/runtime/media-traceability-system/n01-go-recovery-r8ep1s8l/negative-valid-cache/filippo.io/edwards25519@v1.2.0\",\n\t\"Sum\": \"h1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\",\n\t\"GoModSum\": \"h1:xzAOLCNug/yB62zG1bQ8uziwrIqIuxhctzJT18Q77mc=\",\n\t\"Origin\": {\n\t\t\"VCS\": \"git\",\n\t\t\"URL\": \"https://github.com/FiloSottile/edwards25519\",\n\t\t\"Hash\": \"b182a6575cfd9f4fbb1d1d4e487a6b00a3ec06f7\",\n\t\t\"Ref\": \"refs/tags/v1.2.0\"\n\t}\n}\n"
+    },
+    {
+      "case": "corrupt",
+      "exit_code": 1,
+      "expected_behavior_observed": true,
+      "output_sha256": "ab7921b2388e2357282909dad431eef082e576f0c66db6bff67f4db0aa20a336",
+      "output_tail": "verifying filippo.io/edwards25519@v1.2.0: checksum mismatch\n\tdownloaded: h1:rW0spTQqtjdH/zCXNFguG120T8GrDZCvF7lLXhRxh0o=\n\tgo.sum:     h1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\nSECURITY ERROR\nThis download does NOT match an earlier download recorded in go.sum.\nThe bits may have been replaced on the origin server, or an attacker may\nhave intercepted the download attempt.\n\nFor more information, see 'go help module-auth'.\n"
+    },
+    {
+      "case": "missing",
+      "exit_code": 1,
+      "expected_behavior_observed": true,
+      "output_sha256": "d4c9b86951b9c8ffb582c90fb9b7fc95dc42beb4c34e420447e0b9842e311c42",
+      "output_tail": "{\n\t\"Path\": \"filippo.io/edwards25519\",\n\t\"Version\": \"v1.2.0\",\n\t\"Error\": \"module lookup disabled by GOPROXY=off\",\n\t\"Info\": \"/workspace/glwy/runtime/media-traceability-system/n01-go-recovery-r8ep1s8l/negative-missing-cache/cache/download/filippo.io/edwards25519/@v/v1.2.0.info\",\n\t\"GoMod\": \"/workspace/glwy/runtime/media-traceability-system/n01-go-recovery-r8ep1s8l/negative-missing-cache/cache/download/filippo.io/edwards25519/@v/v1.2.0.mod\",\n\t\"GoModSum\": \"h1:xzAOLCNug/yB62zG1bQ8uziwrIqIuxhctzJT18Q77mc=\",\n\t\"Origin\": {\n\t\t\"VCS\": \"git\",\n\t\t\"URL\": \"https://github.com/FiloSottile/edwards25519\",\n\t\t\"Hash\": \"b182a6575cfd9f4fbb1d1d4e487a6b00a3ec06f7\",\n\t\t\"Ref\": \"refs/tags/v1.2.0\"\n\t}\n}\n"
+    }
+  ],
+  "source_module": "filippo.io/edwards25519",
+  "source_version": "v1.2.0",
+  "committed_go_sum_used": true,
+  "original_cache_changed": false,
+  "executed_script_sha256": "81bee226c8dd3c2ee9f5e2756950f5e9214486af228df4b90476fcf35391fcab"
+}

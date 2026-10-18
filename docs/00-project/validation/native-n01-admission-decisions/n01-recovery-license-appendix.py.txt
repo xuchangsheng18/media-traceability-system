@@ -1,0 +1,60 @@
+import bz2,datetime,gzip,hashlib,io,json,lzma,os,posixpath,re,shutil,tarfile,tempfile,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path(tempfile.mkdtemp(prefix='n01-recovery-license-',dir=base));material=out/'materials';material.mkdir();rows=[];archives=[];embedded=[]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def keep(component,member,data,kind):
+ digest=hashlib.sha256(data).hexdigest();p=material/digest
+ if not p.exists():p.write_bytes(data)
+ rows.append({'component':component,'member':member,'kind':kind,'sha256':digest,'size_bytes':len(data),'stored_as':'materials/'+digest})
+def plain_tar(p,label):
+ q=out/(label+'.input.tar');op=lzma.open if p.suffix=='.xz' else bz2.open if p.suffix=='.bz2' else gzip.open
+ with op(p,'rb') as source,q.open('wb') as target:shutil.copyfileobj(source,target)
+ return tarfile.open(q)
+def get_archive(component):
+ lock=json.loads((repo/'config/native/artifacts.lock.json').read_text());i=next(x for x in lock['artifacts'] if x['component']==component);p=base/'native-artifacts'/i['filename'];assert sha(p)==i['sha256'];archives.append({'component':component,'filename':p.name,'sha256':sha(p)});return plain_tar(p,component)
+node=json.loads((repo/'docs/00-project/validation/native-n01-admission-decisions/node-preselection-bundled-materials.json').read_text());p=base/'native-security-candidate-cache'/node['archive_ref']['filename'];assert sha(p)==node['archive_ref']['sha256'];archives.append({'component':'node-preselection','filename':p.name,'sha256':sha(p)})
+with plain_tar(p,'node') as a:
+ prefix=a.getmembers()[0].name.split('/')[0]+'/'
+ for item in node['license_materials']+node['package_declarations']:
+  member=prefix+item['path'];f=a.extractfile(member);assert f is not None;data=f.read();assert hashlib.sha256(data).hexdigest()==item['sha256'];keep('node22.23.3',item['path'],data,'LICENSE_TEXT' if item in node['license_materials'] else 'PACKAGE_METADATA_NOT_LICENSE_TEXT')
+correction=json.loads((repo/'docs/00-project/validation/native-n01-admission-decisions/tzdata-recovery-correction.json').read_text());p=base/'native-pip-closure-cache'/correction['wheel']['filename'];assert sha(p)==correction['wheel']['sha256'];archives.append({'component':'tzdata2026.5','filename':p.name,'sha256':sha(p)})
+with zipfile.ZipFile(p) as z:
+ for item in correction['license_materials']:
+  data=z.read(item['member']);assert hashlib.sha256(data).hexdigest()==item['sha256'];keep('tzdata2026.5',item['member'],data,'LICENSE_TEXT')
+pattern=re.compile(r'(^|[._-])(licen[sc]e|copying|notice|copyright|patents)([._-]|$)',re.I)
+for component in ['java','rabbitmq','erlang','nginx']:
+ with get_archive(component) as a:
+  entries={x.name:x for x in a.getmembers()}
+  for member in a.getmembers():
+   if not (member.isfile() or member.issym() or member.islnk()):continue
+   legal='/legal/' in member.name
+   if legal or pattern.search(Path(member.name).name):
+    if member.size>2000000:continue
+    f=a.extractfile(member)
+    if f is None:continue
+    data=f.read()
+    try:data.decode('utf8')
+    except UnicodeDecodeError:continue
+    keep(component,member.name,data,'JDK_LEGAL_MATERIAL' if legal else 'NOTICE_OR_LICENSE_CANDIDATE_TEXT')
+   if component=='rabbitmq' and member.isfile() and member.name.endswith('.ez'):
+    raw=a.extractfile(member).read();meta=[];notices=[]
+    with zipfile.ZipFile(io.BytesIO(raw)) as z:
+     for name in z.namelist():
+      if name.endswith('/') :continue
+      if name.endswith('.app'):
+       data=z.read(name);text=data.decode('utf8',errors='replace');v=re.search(r'\{vsn,\s*"([^\"]+)"',text);meta.append({'path':name,'sha256':hashlib.sha256(data).hexdigest(),'version_observed':v.group(1) if v else None});keep('rabbitmq',member.name+'!/'+name,data,'ERLANG_APPLICATION_METADATA_NOT_ACTIVATION')
+      elif pattern.search(Path(name).name):
+       data=z.read(name)
+       try:data.decode('utf8')
+       except UnicodeDecodeError:continue
+       keep('rabbitmq',member.name+'!/'+name,data,'EMBEDDED_NOTICE_CANDIDATE_TEXT');notices.append(name)
+    embedded.append({'archive_member':member.name,'sha256':hashlib.sha256(raw).hexdigest(),'applications':meta,'notice_paths':notices,'enabled':None})
+manifest={'files':rows};(out/'materials-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+archive=out/'current-recovery-license-appendix.tar.gz'
+with tarfile.open(archive,'w:gz') as t:
+ t.add(out/'materials-manifest.json',arcname='materials-manifest.json')
+ for p in sorted(material.iterdir()):t.add(p,arcname='materials/'+p.name)
+with tarfile.open(archive) as a:
+ for x in rows:assert hashlib.sha256(a.extractfile(x['stored_as']).read()).hexdigest()==x['sha256']
+report={'status':'PASS_EXACT_MATERIAL_BYTES_NOT_SOFTWARE_ADMISSION','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'current_preselection_Node_and_tzdata_appendix_plus_targeted_JDK_RabbitMQ_OTP_nginx_archive_materials_internal_team_only','root':str(out),'archives':archives,'file_bindings':len(rows),'unique_material_digests':len({x['sha256'] for x in rows}),'groups':{c:sum(x['component']==c for x in rows) for c in sorted({x['component'] for x in rows})},'materials':rows,'rabbitmq_embedded_archives':embedded,'appendix_archive':{'filename':archive.name,'path':str(archive),'sha256':sha(archive),'size_bytes':archive.stat().st_size,'every_manifest_binding_verified':True},'original485_file_kit_unchanged':True,'original_kit_ref':'docs/00-project/validation/native-n01-round8/materials-verification.json','source_archives_retained_separately':True,'all_shaded_code_or_nested_semantics_reviewed':False,'publisher_notice_gaps_remaining':['eastasianwidth0.2.0','@npmcli/agent3.0.0'],'JDK_legal_files_not_complete_native_library_proof':True,'plugin_inventory_not_activation_or_license_assignment':True,'installation_permitted':False,'whole_software_admission':False,'executed_script_sha256':sha(Path(__file__))}
+(out/'recovery-license-appendix-report.json').write_text(json.dumps(report,indent=2)+'\n');(base/'n01-recovery-license-latest.json').write_text(json.dumps({'root':str(out)})+'\n');print(json.dumps({k:report[k] for k in ['status','root','file_bindings','unique_material_digests','groups']}))

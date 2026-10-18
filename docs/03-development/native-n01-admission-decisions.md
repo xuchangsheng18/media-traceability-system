@@ -5,6 +5,19 @@
 [机器确认清单](../00-project/validation/native-n01-admission-decisions/confirmation-register.json) · [12条CVE逐项状态](../00-project/validation/native-n01-admission-decisions/python-pg-open-items.json) · [游标具体修复申请](native-n01-cursor-hardening-change-request.md) · [原生状态](native-linux-execution-status.json) · [任务导航](../../tasks/README.md)
 
 
+
+## 当前恢复组合与Go缓存核验
+
+[恢复组合评审稿](../../config/native/recovery-combination.review.json)将10个组件、96份wheel、25个Conda包、89个OS恢复包、40个构建包及已认可的3项预选逐一关联，原制品锁和原100包版本锁保留。旧Node及原age/Seaweed二进制留作历史来源，不与新预选混用。该文件是恢复输入评审稿，不能作为安装许可或最终采用锁。
+
+首次全量Go声明图检查发现917条缺件结果（916个不同模块/版本）；原缓存支持既定目标不代表全量声明图齐备。针对精确缺件已补取1242个文件请求，Go按既有锁及校验数据库认证；补充恢复校验值与预选锁分开。完整声明图中的外部模块/版本恢复记录为age 17个模块、seaweedfs 1159个模块。随后关闭Go模块与工具链联网，从新缓存执行7项核验；3个目标使用原预选go.mod/go.sum只读构建，产物摘要均与预选一致。不能把补充校验值写成采用了新依赖版本。
+
+[Go恢复归档核验](../00-project/validation/native-n01-admission-decisions/go-cache-archive-restore-report.json)记录5077个恢复输入文件；归档逐文件核对后解到空目录，重新完成两个完整模块图的离线下载和verify。另有1项有效输入对照及缺件、损坏2项拒绝检查。这里的离线仅指Go代理/校验服务和工具链下载已关闭，不声称采用了操作系统网络隔离；选定模块图也不表示每个模块都链接进运行二进制。[初次失败](../00-project/validation/native-n01-admission-decisions/go-recovery-report.initial.json)保留。
+
+[许可附录](../00-project/validation/native-n01-admission-decisions/recovery-license-appendix-report.json)有794条材料关联、440个不同摘要，其中479条为许可/法律声明候选材料，315条为包/应用元数据；包括预选Node的430个目标文件、tzdata的2份许可、JDK的244条法律材料关联，以及RabbitMQ/OTP/nginx的目标材料。82个RabbitMQ应用与[当前4启用、2显式插件](../00-project/validation/native-n01-admission-decisions/rabbitmq-active-scope.json)已匹配。原485文件资料包摘要未变；不同材料包存在重复，不将计数相加当独立许可总数。eastasianwidth0.2.0与@npmcli/agent3.0.0的发布者通知及整体逐软件准入仍未关闭。
+
+本轮关闭的是选定恢复输入、Go缓存及材料关联的技术缺口。N01整体仍受Python维护/其余9条漏洞及软件准入阻塞，Python候选继续暂缓。N03原生运行、N04数据库/对象/队列恢复属于后续任务，不能冒充本轮已完成，也不倒置为N01前置。当前没有新增需要用户重复确认或立即管理员安装的事项。
+
 ## 本轮恢复来源纠正与许可参考材料
 
 本轮查明：Python的`tzdata 2026.5`由pip安装，Conda的`tzdata 2026c`归档只有系统时区数据，不包含Python发行包。原100包版本锁本来就要求`tzdata==2026.5`，本次补取相同版本wheel，632个文件与现有安装一致，并留存2份随包许可材料；没有升级、重新安装或创建Python候选。恢复获取清单现为**96份wheel＋4个由Conda负责的Python发行包**。历史95份wheel获取事实保留，原“五包均由Conda覆盖”的推断被本次证据纠正，不能把2026c与2026.5当作版本别名。
@@ -17,7 +30,7 @@ N01仍为`IN_PROGRESS_BLOCKED_ADMISSION`：R1暂无Python维护证明且候选�
 
 ## CI核验与修复前历史观察
 
-最新已核验的前轮回执提交`ac5d79006de57548220048da0c80ee3c56934374`的[CI39118272632](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39118272632)成功：241项业务测试（失败、错误、跳过均为0）、32项门禁及6份关键报告通过；330536字节制品SHA256为`9799684ee122186f4b68623f66014041d1742ea6a527298531742e56b47d0bf8`。此前`c41578f1`的CI39117174347记录作为历史保留。本轮恢复来源纠正及答复登记提交按各自CI记录，不把前轮通过倒填为本轮结果。
+本轮开始时已核验的前轮源码提交`25c4dec6a1292061a956edbcc72687aed6a1d751`的[CI39119876583](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39119876583)成功：241项业务测试、32项门禁及6份关键报告通过；330510字节制品SHA256为`55061728b14a84adcc127083ef2805950fe634dceab27abffeaea6bd424e36da`。本轮Go恢复更新提交按自己的CI记录，不将此前通过倒填。
 
 D02修复前（源码`ba99b743`）在既有Linux py310中完成[11项解析观察](../00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json)，直接调用当时的解析函数、使用自有内存数据库协作者，未连接真实数据库或网络，未运行HTTP/RLS验收，不能把夹具返回当业务实现通过。
 

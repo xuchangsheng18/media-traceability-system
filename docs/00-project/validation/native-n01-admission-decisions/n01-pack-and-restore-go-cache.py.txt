@@ -1,0 +1,46 @@
+import datetime,hashlib,json,os,shutil,subprocess,tarfile,time
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path(json.loads((base/'n01-go-recovery-latest.json').read_text())['root']);d=json.loads((out/'go-recovery-report.json').read_text());assert d['status']=='PASS_OFFLINE_SELECTED_MODULE_CLOSURE_AND_EXACT_REBUILD'
+def sha(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for raw in iter(lambda:f.read(1048576),b''):h.update(raw)
+ return h.hexdigest()
+source=out/'gomodcache/cache/download';files=[];archive=out/'go-module-recovery-inputs.tar'
+with tarfile.open(archive,'w') as a:
+ for p in sorted(source.rglob('*')):
+  if p.is_file() and not p.is_symlink() and p.suffix in {'.zip','.mod','.info'}:
+   rel='cache/download/'+p.relative_to(source).as_posix();files.append({'path':rel,'sha256':sha(p),'size_bytes':p.stat().st_size,'role':'MODULE_CACHE_INPUT'});a.add(p,arcname=rel,recursive=False)
+ for name in ['age','seaweedfs']:
+  meta=[(repo/'config/native/security-candidate-module-locks'/(name+'.go.mod'),name+'.go.mod'),(repo/'config/native/security-candidate-module-locks'/(name+'.go.sum'),name+'.original-preselection.go.sum'),(out/(name+'.full-graph-recovery.go.sum'),name+'.full-graph-recovery.go.sum'),(out/(name+'.supplemental-recovery.sum'),name+'.supplemental-recovery.sum')]
+  for p,dest in meta:
+   rel='recovery-metadata/'+dest;files.append({'path':rel,'sha256':sha(p),'size_bytes':p.stat().st_size,'role':'PINNED_MODULE_OR_SUPPLEMENTAL_RECOVERY_CHECKSUM_METADATA'});a.add(p,arcname=rel,recursive=False)
+manifest={'scope':'raw cache inputs;Go-selected graph checked separately;historical/surplus metadata is not all linked or all licensed','files':files};(out/'go-cache-files.json').write_text(json.dumps(manifest,indent=2)+'\n')
+restored=out/'restored-gomodcache';restored.mkdir(parents=True)
+with tarfile.open(archive) as a:a.extractall(restored,filter='data')
+for x in files:
+ p=restored/x['path'];assert sha(p)==x['sha256'] and p.stat().st_size==x['size_bytes']
+env=dict(os.environ,PATH=str(out/'go/bin')+':/usr/bin:/bin',GOROOT=str(out/'go'),GOTOOLCHAIN='local',GOPATH=str(out/'restored-gopath'),GOMODCACHE=str(out/'restored-gomodcache'),GOCACHE=str(out/'restored-gocache'),GOMAXPROCS='2',GOFLAGS='-p=2',CGO_ENABLED='0',GOPROXY='off',GOSUMDB='off',GONOPROXY='',GONOSUMDB='',GOPRIVATE='',GOENV='off',GOWORK='off',GOOS='linux',GOARCH='amd64')
+checks=[];modules=[]
+for name in ['age','seaweedfs']:
+ cwd=out/(name+'-archive-restore-fixture');cwd.mkdir();shutil.copyfile(restored/'recovery-metadata'/(name+'.go.mod'),cwd/'go.mod');shutil.copyfile(restored/'recovery-metadata'/(name+'.full-graph-recovery.go.sum'),cwd/'go.sum');sums_before=sha(cwd/'go.sum')
+ for label,args in [('download-all',['mod','download','-json','all']),('verify',['mod','verify'])]:
+  log=out/(name+'-archive-restore-'+label+'.log');cmd=[str(out/'go/bin/go'),*args]
+  with log.open('wb') as f:code=subprocess.run(['nice','-n','10',*cmd],cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=600).returncode
+  checks.append({'component':name,'phase':label,'exit_code':code,'log_sha256':sha(log),'command':cmd});assert code==0,(name,label,log.read_text()[-2000:]);print(name,label,code,flush=True)
+ assert sha(cwd/'go.sum')==sums_before
+ raw=(out/(name+'-archive-restore-download-all.log')).read_text();decoder=json.JSONDecoder();i=0;records=[]
+ while i<len(raw):
+  while i<len(raw) and raw[i].isspace():i+=1
+  if i==len(raw):break
+  item,i=decoder.raw_decode(raw,i);assert not item.get('Error');records.append({k:item.get(k) for k in ['Path','Version','Sum','GoModSum']})
+ original=(out/(name+'-offline-download-all.log')).read_text();j=0;expected=[]
+ while j<len(original):
+  while j<len(original) and original[j].isspace():j+=1
+  if j==len(original):break
+  item,j=decoder.raw_decode(original,j);assert not item.get('Error');expected.append({k:item.get(k) for k in ['Path','Version','Sum','GoModSum']})
+ assert records==expected,(name,'restored selected module graph differs')
+ modules.append({'component':name,'selected_modules':len(records),'modules':records,'same_graph_and_hashes_as_pre_archive_offline_validation':True,'full_graph_recovery_go_sum_sha256':sums_before,'supplemental_recovery_checksums_not_adopted_candidate_lock':True})
+kit=json.loads((repo/'docs/00-project/validation/native-n01-round8/materials-verification.json').read_text());assert sha(Path(kit['archive_path']))==kit['archive_sha256']
+report={'status':'PASS_ARCHIVE_RESTORATION_OFFLINE_GO_MODULE_REPLAY_NOT_SERVICE_DATA_RESTORE','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'archive':{'path':str(archive),'sha256':sha(archive),'size_bytes':archive.stat().st_size},'input_files':len(files),'input_file_bytes':sum(x['size_bytes'] for x in files),'input_manifest_sha256':sha(out/'go-cache-files.json'),'all_archive_file_hashes_match':True,'fresh_expanded_source_and_ziphash_cache':True,'checks':checks,'module_graphs':modules,'GOPROXY':'off','GOSUMDB':'off','network_scope':'Go proxy/toolchain networking disabled;not OS-wide network namespace','original485_file_kit_sha256_unchanged':kit['archive_sha256'],'not_a_final_installation_lock':True,'installation_permitted':False,'whole_N01_accepted':False,'executed_script_sha256':sha(Path(__file__))}
+(out/'go-cache-archive-restore-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'input_files':len(files),'size_bytes':archive.stat().st_size,'graphs':[(x['component'],x['selected_modules']) for x in modules]}))

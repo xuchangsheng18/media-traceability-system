@@ -1,0 +1,42 @@
+import datetime,hashlib,json,os,shutil,subprocess,time
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path(json.loads((base/'n01-go-recovery-latest.json').read_text())['root']);report=json.loads((out/'go-recovery-report.json').read_text());initial=out/'go-recovery-report.initial.json'
+if not initial.exists():initial.write_text(json.dumps(report,indent=2)+'\n')
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+go=str(out/'go/bin/go');env=dict(os.environ,PATH=str(out/'go/bin')+':/usr/bin:/bin',GOROOT=str(out/'go'),GOTOOLCHAIN='local',GOPATH=str(out/'gopath'),GOMODCACHE=str(out/'gomodcache'),GOCACHE=str(out/'gocache'),GOMAXPROCS='2',GOFLAGS='-p=2',CGO_ENABLED='0',GOPROXY='http://127.0.0.1:18765',GOSUMDB='sum.golang.org http://127.0.0.1:18765/sumdb/sum.golang.org',GONOPROXY='',GOPRIVATE='',GONOSUMDB='',GOENV='off',GOWORK='off',GOOS='linux',GOARCH='amd64')
+phase=os.environ.get('N01_PHASE','acquire');results=[];report[phase+'_script_sha256']=sha(Path(__file__))
+def run(label,args,cwd,timeout=1200):
+ log=out/(label+'.log');start=time.monotonic()
+ with log.open('wb') as f:
+  try:code=subprocess.run(['nice','-n','10',*args],cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout).returncode
+  except subprocess.TimeoutExpired:code=124
+ row={'name':label,'command':args,'exit_code':code,'status':'PASS' if code==0 else 'FAIL','elapsed_seconds':round(time.monotonic()-start,2),'log_sha256':sha(log),'log_size_bytes':log.stat().st_size,'log_tail':log.read_text(errors='replace')[-1800:]};results.append(row);report[phase+'_checks']=results;(out/'go-recovery-report.json').write_text(json.dumps(report,indent=2)+'\n');print(label,code,flush=True);return code
+proposal=json.loads((repo/'config/native/candidate-adoption.proposal.json').read_text())
+if phase=='offline':env.update(GOPROXY='off',GOSUMDB='off')
+report[phase+'_environment']={k:env[k] for k in ['GOTOOLCHAIN','GOPROXY','GOSUMDB','GOFLAGS','CGO_ENABLED','GOENV','GOWORK']}
+for c in report['components']:
+ name=c['component'];cwd=Path(c['source'])
+ if phase=='acquire':
+  if run(name+'-authenticated-acquisition',[go,'mod','download','-json','all'],cwd):continue
+  before=(repo/'config/native/security-candidate-module-locks'/(name+'.go.sum')).read_text().splitlines();after=(cwd/'go.sum').read_text().splitlines();assert set(before)<=set(after)
+  assert sha(cwd/'go.mod')==c['module_locks_before']['go.mod']
+  added=sorted(set(after)-set(before));(out/(name+'.supplemental-recovery.sum')).write_text('\n'.join(added)+'\n')
+  c['supplemental_hashes']={'added_lines':len(added),'sha256':sha(out/(name+'.supplemental-recovery.sum')),'role':'additional checksums of already selected module graph only;not adopted candidate go.sum or new versions'}
+ else:
+  if run(name+'-offline-download-all',[go,'mod','download','-json','all'],cwd):continue
+  if run(name+'-offline-module-verify',[go,'mod','verify'],cwd):continue
+  shutil.copyfile(cwd/'go.sum',out/(name+'.full-graph-recovery.go.sum'))
+  c['full_graph_recovery_go_sum_sha256']=sha(out/(name+'.full-graph-recovery.go.sum'))
+  shutil.copyfile(repo/'config/native/security-candidate-module-locks'/(name+'.go.sum'),cwd/'go.sum')
+  candidate=next(x for x in proposal['candidates'] if x['component']==name);c['binaries']=[]
+  for b in candidate['binaries']:
+   label='age-keygen' if b['target'].endswith('age-keygen') else name;binary=out/(label+'-rebuilt')
+   code=run(label+'-offline-build',[go,'build','-mod=readonly','-trimpath','-o',str(binary),b['target']],cwd)
+   actual=sha(binary) if binary.is_file() else None;c['binaries'].append({'target':b['target'],'exit_code':code,'sha256':actual,'preselected_sha256':b['sha256'],'exact_match':actual==b['sha256']})
+  c['go_mod_unchanged']=sha(cwd/'go.mod')==c['module_locks_before']['go.mod']
+  c['original_preselection_go_sum_restored_for_readonly_build']=sha(cwd/'go.sum')==c['module_locks_before']['go.sum']
+report['status']='AUTHENTICATED_ACQUISITION_COMPLETE_OFFLINE_REPLAY_PENDING' if phase=='acquire' and all(x['status']=='PASS' for x in results) else 'PASS_OFFLINE_SELECTED_MODULE_CLOSURE_AND_EXACT_REBUILD' if phase=='offline' and len(results)==7 and all(x['status']=='PASS' for x in results) and len(report.get('acquire_checks',[]))==2 and all(x['status']=='PASS' for x in report['acquire_checks']) and all(b['exact_match'] for c in report['components'] for b in c['binaries']) else 'INCOMPLETE_RETAIN_ACTUAL_FAILURES'
+if phase=='offline':
+ report['initial_observation_checks']=report.pop('checks');report['checks']=report.get('acquire_checks',[])+results
+report['installation_permitted']=False;report['whole_N01_accepted']=False
+(out/'go-recovery-report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status'],flush=True)
