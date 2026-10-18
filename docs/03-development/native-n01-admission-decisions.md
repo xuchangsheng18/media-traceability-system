@@ -6,7 +6,7 @@
 
 ## 这次实际核验与新增发现
 
-上一轮最终回执提交`fd428efc464ab0bcfbd0299bfaaf74fe56313f97`的[CI39109417756](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39109417756)成功。336201字节制品SHA256为`20150addfaef46e281811c4845d2a4d97c7b0b7e7fda542dd40b09c5b8f952a2`；32项门禁及6份关键报告已核对。后续提交以各自CI为准。
+上一轮最终回执提交`00cd21bbaf0dce4db9f03661c8f9471fde440a41`的[CI39111313029](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39111313029)成功。335457字节制品SHA256为`ac5a5a24ed0b8ab62656aa13a1935e9dff2aaebae928aaed513ecbc2abecde18`；32项门禁及6份关键报告已核对。后续提交以各自CI为准。
 
 本轮在既有Linux py310中完成[11项解析观察](../00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json)，直接调用当前解析函数、使用自有内存数据库协作者，未连接真实数据库或网络，未运行HTTP/RLS验收，不能把夹具返回当业务实现通过。
 
