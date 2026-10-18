@@ -8,6 +8,31 @@
 
 
 
+
+## 当前更新：精确版本通知与同主体内部范围
+
+用户已明确答复“仅同一单位或公司内部使用”，见[原话与边界记录](../00-project/validation/native-n01-admission-decisions/same-entity-internal-use-decision.json)。这只明确运行包当前使用范围；GitHub源码和资料仍然公开。未来向其他独立单位、外包主体复制运行包、改变组件、修改字体或启动未选插件时重新复核；不能把内部范围当成可以删除现有版权和通知的授权。
+
+| 精确版本 | 本轮取得及核验 | 尚缺的适用范围依据 |
+| --- | --- | --- |
+| `eastasianwidth 0.2.0`，gitHead `b89f04d44dc786885615e94cd6e2ba1ef7866fa4` | 找到官方`1d41951`提交新增的MIT正文，原版权行是`Copyright komagata`、没有年份；正文通过Git blob摘要核对并[原样保留为后来版本参考](../02-architecture/third-party-notices/eastasianwidth-later-0.3.0-MIT-LICENSE.reference.txt)。 | 加入许可证时package.json为0.3.0；与0.2.0之间主JS有190行变更，不是相同字节。尚无维护者确认该正文覆盖0.2.0及README所致谢的改编代码/数据；不能填造年份或把后来版本静默替换。 |
+| `@npmcli/agent 3.0.0`，gitHead `94f346d882458ac9481d015c55057d15f5899bf1` | 保留精确包/源码ISC声明；补查官方常规许可文件历史及现有issue。 | issue176主题为4.0.0；其中询问3.0.0的是普通参与者，不是发布者确认。仍缺适用于3.0.0的完整版权/许可通知，或明确覆盖该版本的官方汇总通知。 |
+
+[逐版本证据](../00-project/validation/native-n01-admission-decisions/publisher-notice-version-scope-review.json)保留官方提交、比较、GitHub报告的签名状态和观察范围。GitHub标记verified不冒充本地独立验签；后来的真实通知已取得1份，但两个精确版本的缺口关闭数仍为0。现有他人提问不代表本项目已联系上游或已获授权。
+
+### 逐软件准入的具体进展
+
+本轮在Linux重新读取保留附录中的793条材料绑定：Node430、JDK244、RabbitMQ107、OTP10、Nginx1及PG1。各条字节/大小匹配，见[实际检查](../00-project/validation/native-n01-admission-decisions/software-primary-material-byte-check.json)。这是六组已保留材料的重验，不是重新扫描全部运行库、全部兼容性裁决或新制品采用。
+
+[十软件逐项待决表](../00-project/validation/native-n01-admission-decisions/component-scoped-admission-proposal.json)现在绑定每项精确恢复归档、重建二进制、已有材料、内部使用条件和后续阶段。Python因维护/9条记录、Node因两项通知仍阻塞；另外八项已形成可逐条审阅的限定技术复核。八项的正式决定仍为空，未擅自登记软件准入。既有服务功能、数据库/对象恢复、公钥和切换分别仍由N03/N04/N07验收，不倒置成N01资料必须伪造的运行结果。
+
+### 现在可由用户处理的两项
+
+1. **D09，上游联系。** [eastasianwidth草稿](../00-project/validation/native-n01-admission-decisions/eastasianwidth-publisher-inquiry.draft.txt)和[agent草稿](../00-project/validation/native-n01-admission-decisions/npmcli-agent-publisher-inquiry.draft.txt)已准备，目标分别是现有issue18和issue176。可自行发送，或明确授权执行方按原草稿各发一条；未获明确授权前不发送，不新建重复issue、不披露本项目部署或作商业承诺。需要的是发布者对精确版本的原通知/范围答复，不是重复回答“暂无”。
+2. **D10，徐昌胜逐项复核。** 请按上述待决表对PostgreSQL16.15、RabbitMQ4.3.6、OTP27.3.4.18、SeaweedFS4.48重建、Keycloak26.8.1、Java21.0.12.1+1、Nginx1.30.6、age1.3.2重建分别写“认可限定技术复核”或指出需补材料。不是要求批准未知风险、全部许可兼容、安装或N01整体通过；Python和Node不在这八项中。
+
+Python候选仍暂缓，不重复要求维护证明；本轮没有管理员命令、安装、业务迁移或服务切换。待真实通知/技术处置及必要准入决定齐备后再生成最终安装锁，N01当前仍未整体完成。
+
 ## 本轮可独立完成项：依赖边界与运行库许可来源
 
 [41处解码边界](../00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json) · [12项内存观察](../00-project/validation/native-n01-admission-decisions/dependency-boundary-probes.json) · [消息契约5项及失效对照](../00-project/validation/native-n01-admission-decisions/message-boundary-regression-proof.json) · [临时目录观察](../00-project/validation/native-n01-admission-decisions/temp-permission-observations.json) · [89OS/25Conda材料](../00-project/validation/native-n01-admission-decisions/runtime-package-notice-review.json) · [104库来源与许可材料关联](../00-project/validation/native-n01-admission-decisions/library-provider-notice-review.json)。原[9条逐项处置](../00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json)继续保留，正式关闭数仍为0；不再把已完成的来源盘点说成未采集。
@@ -24,9 +49,9 @@
 
 104份既有解析库已重新核对摘要并关联：26个OS直接库、6个OS私有副本、18个Conda库、43个wheel成员、8个JDK库及3个PostgreSQL私有库。43成员来自numpy/Pillow/psycopg-binary/Torch的精确wheel，已与归档字节匹配；JDK关联既有法律材料集合，不冒充逐原生子组件兼容性批准。GNU readline历史链接用户为Python扩展与psql，不把它的条款自动赋给全部PG服务器或整个应用。新私有附录保留210条材料关联、130个不同摘要；数量是材料绑定，不是许可证数量或准入分数。
 
-### 当前需要用户确认或操作的内容
+### 前一批材料检查时的确认状态（当前以D09/D10为准）
 
-- **本轮无需新增确认或管理员操作。** Python候选继续暂缓；不重复询问暂无的维护证明或两项发布者通知。
+- **此前材料批次无需新增确认或管理员操作。** Python候选继续暂缓；不重复询问暂无的维护证明或两项发布者通知。
 - `eastasianwidth`0.2.0与`@npmcli/agent`3.0.0的精确通知仍未取得，D08已记录“暂无”；上游联系请求未发送，不用其他作者、年份或模板填造通知。以后取得发布者原文时再提供路径/官方链接。
 - 逐软件正式准入须在具体技术处置、许可兼容及使用范围具备证据后由徐昌胜作决定；当前不请求“全部同意”。本轮材料来源已补齐的部分不再重复采集；仍未关闭的9条记录、维护风险和两项通知继续保留。
 - N02管理员安装、N04公钥及停写切换仍是后续步骤；此次不运行安装包、不修改现有版本锁或服务，不增加170任务整卡验收数。

@@ -547,7 +547,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1085份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1095份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -719,8 +719,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-license-materials-round2-report.json](<00-project/validation/native-license-materials-round2-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/acquire-n01-common-terms.py.txt](<00-project/validation/native-n01-admission-decisions/acquire-n01-common-terms.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/acquire-n01-package-license-sources.py.txt](<00-project/validation/native-n01-admission-decisions/acquire-n01-package-license-sources.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/build-n01-notice-scope-review.py.txt](<00-project/validation/native-n01-admission-decisions/build-n01-notice-scope-review.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/common-reference-source-review.json](<00-project/validation/native-n01-admission-decisions/common-reference-source-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/component-admission-review.json](<00-project/validation/native-n01-admission-decisions/component-admission-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/component-scoped-admission-proposal.json](<00-project/validation/native-n01-admission-decisions/component-scoped-admission-proposal.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/confirmation-register.json](<00-project/validation/native-n01-admission-decisions/confirmation-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/current-runtime-and-callsite-facts.json](<00-project/validation/native-n01-admission-decisions/current-runtime-and-callsite-facts.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/current-work-items.json](<00-project/validation/native-n01-admission-decisions/current-work-items.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -733,6 +735,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.initial.json](<00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.initial.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.json](<00-project/validation/native-n01-admission-decisions/disposition-runtime-checks.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/documentation-validation-report.json](<00-project/validation/native-n01-admission-decisions/documentation-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/eastasianwidth-publisher-inquiry.draft.txt](<00-project/validation/native-n01-admission-decisions/eastasianwidth-publisher-inquiry.draft.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/evidence-index.json](<00-project/validation/native-n01-admission-decisions/evidence-index.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/executed-cursor-parser-probe.py.txt](<00-project/validation/native-n01-admission-decisions/executed-cursor-parser-probe.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/go-acquisition-first-failure.json](<00-project/validation/native-n01-admission-decisions/go-acquisition-first-failure.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -771,6 +774,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-admission-decisions/n01-rabbit-application-catalogue.py.txt](<00-project/validation/native-n01-admission-decisions/n01-rabbit-application-catalogue.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-recovery-license-appendix.py.txt](<00-project/validation/native-n01-admission-decisions/n01-recovery-license-appendix.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-runtime-package-notices.py.txt](<00-project/validation/native-n01-admission-decisions/n01-runtime-package-notices.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/n01-software-primary-material-check.py.txt](<00-project/validation/native-n01-admission-decisions/n01-software-primary-material-check.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-temp-permission-observations.py.txt](<00-project/validation/native-n01-admission-decisions/n01-temp-permission-observations.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-two-notice-deep-review.py.txt](<00-project/validation/native-n01-admission-decisions/n01-two-notice-deep-review.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/nine-cve-authoritative-source-refresh.json](<00-project/validation/native-n01-admission-decisions/nine-cve-authoritative-source-refresh.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -778,8 +782,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-admission-decisions/node-license-reference-materials.json](<00-project/validation/native-n01-admission-decisions/node-license-reference-materials.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/node-preselection-bundled-materials.json](<00-project/validation/native-n01-admission-decisions/node-preselection-bundled-materials.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/node-preselection-license-fallback.json](<00-project/validation/native-n01-admission-decisions/node-preselection-license-fallback.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/notice-scope-consistency-review.json](<00-project/validation/native-n01-admission-decisions/notice-scope-consistency-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/npmcli-agent-publisher-inquiry.draft.txt](<00-project/validation/native-n01-admission-decisions/npmcli-agent-publisher-inquiry.draft.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/package-boundary-consistency-review.json](<00-project/validation/native-n01-admission-decisions/package-boundary-consistency-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/package-recipe-source-materials.json](<00-project/validation/native-n01-admission-decisions/package-recipe-source-materials.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/publisher-notice-version-scope-review.json](<00-project/validation/native-n01-admission-decisions/publisher-notice-version-scope-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/python-pg-open-items.json](<00-project/validation/native-n01-admission-decisions/python-pg-open-items.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/rabbitmq-active-scope.json](<00-project/validation/native-n01-admission-decisions/rabbitmq-active-scope.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/recovery-correction-review.json](<00-project/validation/native-n01-admission-decisions/recovery-correction-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -789,7 +796,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-admission-decisions/recovery-license-appendix-report.json](<00-project/validation/native-n01-admission-decisions/recovery-license-appendix-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/runtime-package-notice-review.json](<00-project/validation/native-n01-admission-decisions/runtime-package-notice-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/runtime-package-notice.initial.json](<00-project/validation/native-n01-admission-decisions/runtime-package-notice.initial.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/same-entity-internal-use-decision.json](<00-project/validation/native-n01-admission-decisions/same-entity-internal-use-decision.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/software-admission-register.json](<00-project/validation/native-n01-admission-decisions/software-admission-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/software-primary-material-byte-check.json](<00-project/validation/native-n01-admission-decisions/software-primary-material-byte-check.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/temp-permission-observations.json](<00-project/validation/native-n01-admission-decisions/temp-permission-observations.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/two-publisher-notice-review.json](<00-project/validation/native-n01-admission-decisions/two-publisher-notice-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/tzdata-origin-observation.json](<00-project/validation/native-n01-admission-decisions/tzdata-origin-observation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1208,6 +1217,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 1.1-py310-cpu研发执行基线，区别于正式生产冻结和全部业务实现。 |
 | [02-architecture/technical-validation-report.md](<02-architecture/technical-validation-report.md>) | 各真实检查结果、证据路径、范围和未测事项。 |
 | [02-architecture/technology-options.md](<02-architecture/technology-options.md>) | 12个技术域的替代方案、研发执行选择、实测和扩展边界。 |
+| [02-architecture/third-party-notices/eastasianwidth-later-0.3.0-MIT-LICENSE.reference.txt](<02-architecture/third-party-notices/eastasianwidth-later-0.3.0-MIT-LICENSE.reference.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-round10-use-scope.txt](<02-architecture/third-party-notices/native-n01-round10-use-scope.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-round8-font-theme-notices.txt](<02-architecture/third-party-notices/native-n01-round8-font-theme-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-round9-internal-supplement.txt](<02-architecture/third-party-notices/native-n01-round9-internal-supplement.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
