@@ -1,6 +1,7 @@
 """Run scoped identity checks and publish counts, never raw token-bearing logs."""
 
 import argparse
+import ast
 import datetime
 import hashlib
 import json
@@ -89,6 +90,24 @@ def source_hashes() -> dict[str, str]:
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
 
 
+def safe_failed_cases(path: Path) -> list[dict[str, str]]:
+    """Publish only test function names present in source, without parameters or errors."""
+    known = {
+        (".".join(p.relative_to(ROOT).with_suffix("").parts), node.name)
+        for p in (ROOT / "tests").rglob("test_*.py")
+        for node in ast.walk(ast.parse(p.read_text(encoding="utf-8")))
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_")
+    }
+    result = []
+    for case in ET.fromstring(path.read_bytes()).iter("testcase"):
+        kind = "failure" if case.find("failure") is not None else "error" if case.find("error") is not None else None
+        if kind:
+            module, name = case.get("classname", ""), case.get("name", "").split("[", 1)[0]
+            label = module + "." + name if (module, name) in known else "UNRECOGNIZED_TEST_CASE"
+            result.append({"case": label, "kind": kind})
+    return result
+
+
 def collect(path: Path) -> dict[str, Any]:
     groups: list[dict[str, Any]] = []
     for name in GROUPS:
@@ -102,6 +121,7 @@ def collect(path: Path) -> dict[str, Any]:
                     "status": "PASS" if passed else "FAIL",
                     "totals": counts,
                     "sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
+                    "failed_cases": safe_failed_cases(target) if not passed else [],
                 }
             )
         except (ValueError, KeyError, OSError, ET.ParseError):

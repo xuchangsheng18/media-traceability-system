@@ -56,7 +56,7 @@ def test_successful_reports_are_collected_without_private_payloads(tmp_path):
     [
         '<testsuites><testsuite tests="0" failures="0" errors="0" skipped="0"/></testsuites>',
         '<testsuites><testsuite tests="1" failures="0" errors="0" skipped="1"><testcase name="case"><skipped/></testcase></testsuite></testsuites>',
-        '<testsuites><testsuite tests="1" failures="1" errors="0" skipped="0"><testcase name="case"><failure>NEVER-PUBLISH-PRIVATE-FAILURE</failure></testcase></testsuite></testsuites>',
+        '<testsuites><testsuite tests="1" failures="1" errors="0" skipped="0"><testcase classname="tests.platform.test_t013_identity_checks" name="test_missing_group_fails_closed[NEVER-PUBLISH-PRIVATE-PARAMETER]"><failure>NEVER-PUBLISH-PRIVATE-FAILURE</failure></testcase></testsuite></testsuites>',
         '<testsuites><testsuite tests="1" failures="0" errors="1" skipped="0"><testcase name="case"><error>NEVER-PUBLISH-PRIVATE-FAILURE</error></testcase></testsuite></testsuites>',
         '<testsuites><testsuite tests="1" failures="0" errors="0" skipped="0"><testcase name="case"><failure>NEVER-PUBLISH-PRIVATE-FAILURE</failure></testcase></testsuite></testsuites>',
         '<testsuites><testsuite tests="-1" failures="0" errors="0" skipped="0"/></testsuites>',
@@ -70,6 +70,12 @@ def test_missing_or_nonpassing_evidence_cannot_be_success(tmp_path, contents):
     assert output.is_file()
     assert json.loads(output.read_text())["status"] == "FAIL"
     assert "NEVER-PUBLISH-PRIVATE-FAILURE" not in output.read_text() + result.stdout + result.stderr
+    assert "NEVER-PUBLISH-PRIVATE-PARAMETER" not in output.read_text() + result.stdout + result.stderr
+    if "NEVER-PUBLISH-PRIVATE-PARAMETER" in contents:
+        group = json.loads(output.read_text())["groups"][0]
+        assert group["failed_cases"] == [
+            {"case": "tests.platform.test_t013_identity_checks.test_missing_group_fails_closed", "kind": "failure"}
+        ]
 
 
 def test_missing_group_fails_closed(tmp_path):

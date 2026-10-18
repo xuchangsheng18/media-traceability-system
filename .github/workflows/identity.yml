@@ -16,6 +16,7 @@ jobs:
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
       MT_BUSINESS_TEST_ADMIN_DSN: host=127.0.0.1 port=35432 dbname=postgres user=mt_test_admin password=self-owned-ephemeral-ci-only
+      MT_BUSINESS_PG_BIN: /usr/lib/postgresql/16/bin
     services:
       business-postgres:
         image: postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
@@ -59,6 +60,8 @@ jobs:
           sudo apt-get install -y --no-install-recommends libnss3-tools
           npm --prefix frontend ci
           npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
+          "$MT_BUSINESS_PG_BIN/pg_dump" --version
+          "$MT_BUSINESS_PG_BIN/pg_restore" --version
       - name: Prepare disposable three-service identity target
         run: '"$PYTHON" -m scripts.identity.ci prepare'
       - name: Verify browser signature and diagnostic boundaries
