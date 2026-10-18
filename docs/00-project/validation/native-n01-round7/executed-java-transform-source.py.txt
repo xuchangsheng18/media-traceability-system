@@ -1,0 +1,17 @@
+import hashlib,json,tarfile,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;c=w/'n01-r7-followup-cache';rows=[];url='https://repo.maven.apache.org/maven2/io/quarkus/quarkus-hibernate-validator-deployment/3.40.1/quarkus-hibernate-validator-deployment-3.40.1-sources.jar';p=c/'quarkus-hibernate-validator-deployment-3.40.1-sources.jar'
+if not p.exists():p.write_bytes(urllib.request.urlopen(url,timeout=50).read())
+with zipfile.ZipFile(p) as z:
+ for n in z.namelist():
+  if n.endswith('.java'):
+   b=z.read(n)
+   if b'jakarta.validation.Validation' in b or b'Validation.class' in b or b'ValidationBytecode' in b:rows.append({'path':n,'sha256':hashlib.sha256(b).hexdigest(),'utf8_text':b.decode()})
+with tarfile.open(w/'n01-r5-upstream/keycloak-exact-source.tar.gz') as t:
+ for m in t:
+  if not m.isfile() or '/quarkus/' not in m.name or not m.name.endswith(('.java','.properties','.xml')):continue
+  b=t.extractfile(m).read()
+  if any(s in b for s in [b'hibernate-validator',b'hibernate.validator',b'Validation.class']):rows.append({'path':m.name,'sha256':hashlib.sha256(b).hexdigest(),'utf8_text':b.decode()})
+report={'scope':'exact_source_transform_rules_not_proof_of_release_profile_or_formal_admission','quarkus_source_url':url,'source_archive_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'sources':rows};(c/'java-transform-source-report.json').write_text(json.dumps(report,indent=2)+'\n');print('sources',len(rows))
+for x in rows:
+ print(x['path']);print('\n'.join(l for l in x['utf8_text'].splitlines() if any(s in l for s in ['Validation.class','ValidationBytecode','hibernate-validator','hibernate.validator','ValidationProvider','BytecodeTransformer'])))

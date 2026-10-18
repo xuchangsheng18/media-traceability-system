@@ -545,7 +545,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共937份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共942份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -930,13 +930,18 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-round7/executed-evidence-and-kit.py.txt](<00-project/validation/native-n01-round7/executed-evidence-and-kit.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/executed-font572.py.txt](<00-project/validation/native-n01-round7/executed-font572.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/executed-go-notices.py.txt](<00-project/validation/native-n01-round7/executed-go-notices.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round7/executed-java-followup-record.py.txt](<00-project/validation/native-n01-round7/executed-java-followup-record.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round7/executed-java-transform-source.py.txt](<00-project/validation/native-n01-round7/executed-java-transform-source.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/executed-nested-followup.py.txt](<00-project/validation/native-n01-round7/executed-nested-followup.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round7/executed-validation-feature-probe.py.txt](<00-project/validation/native-n01-round7/executed-validation-feature-probe.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/executed-verify-kit-linux.py.txt](<00-project/validation/native-n01-round7/executed-verify-kit-linux.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/executed-wheel-notices.py.txt](<00-project/validation/native-n01-round7/executed-wheel-notices.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/go-nested-notice-texts.json](<00-project/validation/native-n01-round7/go-nested-notice-texts.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round7/java-transform-source-report.json](<00-project/validation/native-n01-round7/java-transform-source-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/materials-verification.json](<00-project/validation/native-n01-round7/materials-verification.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/tool-and-font-candidate-followup.json](<00-project/validation/native-n01-round7/tool-and-font-candidate-followup.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/tool-and-font572-candidate-followup.json](<00-project/validation/native-n01-round7/tool-and-font572-candidate-followup.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round7/validation-feature-report.json](<00-project/validation/native-n01-round7/validation-feature-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/vendor-build-inputs.json](<00-project/validation/native-n01-round7/vendor-build-inputs.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/vendor-build-report.json](<00-project/validation/native-n01-round7/vendor-build-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round7/vendor-origin-closure.json](<00-project/validation/native-n01-round7/vendor-origin-closure.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |

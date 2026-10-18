@@ -19,6 +19,14 @@
 
 完整命令、输入和输出摘要见[实际构建](../00-project/validation/native-n01-round7/vendor-build-report.json)与[43包构建输入](../00-project/validation/native-n01-round7/vendor-build-inputs.json)。结合此前417个直接复制资源，**421/421个vendor资源已具备精确直接匹配或实际生成重建的技术来源证据**，见[闭合清单](../00-project/validation/native-n01-round7/vendor-origin-closure.json)。此结论只覆盖该vendor JAR内的421个资源，不扩大为整个Keycloak源码构建、Java生成包、字体权利或安全验收。
 
+## 补核：Validation遗漏原因及175个变换类
+
+取得Quarkus3.40.1的HibernateValidatorProcessor精确源包：构建步骤会变换Validation.buildDefaultValidatorFactory并转向ValidationSupport。固定Keycloak源码的IgnoredArtifacts则在CLIENT_ADMIN_API_V2未启用时移除Hibernate Validator相关扩展；Profile将该版本标为PREVIEW。配置拦截调用及规则原文保存在[精确源码](../00-project/validation/native-n01-round7/java-transform-source-report.json)。因此前轮默认重增强少一个Validation类有具体构建规则依据。
+
+为验证因果，从同一验真发行归档新建私有目录，只将构建特性改为`--features=client-admin-api:v2`，其余沿用私有Java21、1536MiB堆、4活动处理器和低调度优先级。构建退出0，Validation类重新出现且摘要等于原发行包，**175个变换类的成员集合及每个成员字节全部相同**，见[实际单特性对照](../00-project/validation/native-n01-round7/validation-feature-report.json)。未声称ZIP容器整体字节相同，也未把预览特性用于共享环境、启动服务或正式采用。此前默认174类的原始结果继续保留，不以新探测覆盖。
+
+因此Validation遗漏的限定因果核验及175个变换类字节来源不再笼统列为未知；生成包24个变化成员和整个Keycloak源码构建仍是独立范围，未由本结果自动证明。
+
 ## 嵌套声明及实际未决项
 
 - Go两个候选的260条实际编译模块记录递归收集到328份根目录/嵌套声明候选。唯一没有在模块目录找到文本的flatbuffers/go，补绑定此前已取得的精确提交仓库根许可。递归材料可能含未进入最终二进制的子目录，不按材料数量推算实际许可数量；候选也尚未采用。见[Go材料](../00-project/validation/native-n01-round7/go-nested-notice-texts.json)。
@@ -41,7 +49,7 @@
 
 | 剩余项 | 下一步要求 |
 | --- | --- |
-| Java生成/变换包 | 对第五轮保留的24个变化类及Validation遗漏继续补因果证据；不再把已关闭的4份vendor脚本写为未完成，也不新增“所有组件必须位级复现”的政策 |
+| Java生成包 | 对第五轮保留的24个变化成员继续补具体因果证据；4份vendor脚本及175个变换类已取得限定重建实证，不新增“所有组件必须位级复现”的政策 |
 | 字体、图标、主题及其他嵌套组件 | 精确来源、版权/NOTICE、适用条款和源码提供义务逐项审阅；Swagger主题仍缺完整版权许可正文 |
 | 交付件及对应源材料 | 在实际交付镜像/原生运行包确定后绑定完整SBOM、声明位置、对应源码/构建材料及接收者获取方式，特别是已观察到镜像含pglast8.5 |
 | Python及安全准入 | 3.10生命周期和CVE风险未关闭；候选按用户决定暂缓，不代表风险接受 |
