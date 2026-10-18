@@ -1,0 +1,40 @@
+import collections,datetime,gzip,hashlib,json,shutil,tarfile
+from pathlib import Path
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree';o=r/'docs/00-project/validation/native-n01-round8';o.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest()
+def read(p):return json.loads(p.read_text(encoding='utf8'))
+def write(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+raw=w/'n01-r8-semantic-refined-report.json';sem=read(raw);compact=[]
+def strings(instructions):
+ out=[]
+ for op,arg in instructions:
+  if arg.startswith('SYMBOL:'):
+   value,_=json.JSONDecoder().raw_decode(arg[len('SYMBOL:'):])
+   if value[0]==8:out.append(value[1][1])
+ return collections.Counter(out)
+for row in sem['rows']:
+ methods=[]
+ for m in row['changed_normalized_instruction_methods']:
+  a=m['before'];b=m['after'];astrings=strings(a['instructions']);bstrings=strings(b['instructions']);diff=[{'ordinal':i,'before':x,'after':y} for i,(x,y) in enumerate(zip(a['instructions'],b['instructions'])) if x!=y][:5]
+  methods.append({'method':m['method'],'before_normalized_sha256':sha(json.dumps(a,sort_keys=True,separators=(',',':')).encode()),'after_normalized_sha256':sha(json.dumps(b,sort_keys=True,separators=(',',':')).encode()),'instruction_counts':[len(a['instructions']),len(b['instructions'])],'opcode_sequence_equal':[x[0] for x in a['instructions']]==[x[0] for x in b['instructions']],'string_literal_multiset_equal':astrings==bstrings,'string_literals_removed':list((astrings-bstrings).items())[:30],'string_literals_added':list((bstrings-astrings).items())[:30],'exception_table_equal':a['exception_table']==b['exception_table'],'first5_instruction_changes':diff,'semantic_equivalence_approved':False})
+ compact.append({'path':row['path'],'same_instruction_methods':row['same_normalized_instruction_methods'],'changed_methods':methods,'methods_removed':row['removed_methods'],'methods_added':row['added_methods'],'declared_fields_equal':row['fields_equal'],'unresolved_operands':row['unresolved_operands'],'javap_sha256':row['javap_sha256'],'review_status':'BOUNDED_INSTRUCTION_REVIEW_COMPLETE_NOT_GENERAL_EQUIVALENCE'})
+assert sem['summary']=={'classes':24,'same_normalized_instruction_methods':525,'changed_normalized_instruction_methods':113,'unresolved_operands':0}
+write(o/'generated-semantic-review.json',{'scope':sem['scope'],'summary':sem['summary'],'controls':sem['controls'],'full_report_sha256':sha(raw.read_bytes()),'full_report_size_bytes':raw.stat().st_size,'full_report_in_private_internal_material_kit':'round8/semantic-full.json.gz','omitted_from_proof':sem['omitted_from_proof'],'rows':compact})
+for src,dest in [('n01-r8-material-cache/font-theme-review.json','font-theme-review.json'),('n01-r8-material-cache/font-table-review.json','font-table-review.json'),('n01-r8-material-cache/font-license-register.json','font-license-register.json'),('n01-r8-font-history.json','font-history.json')]:shutil.copyfile(w/src,o/dest)
+scope={'revision':'native-n01-internal-team-scope-20261018','current_use':'TEAM_INTERNAL_DEVELOPMENT_ONLY','evidence':'user response to distribution-scope question:目前仅团队内部研发','external_runtime_binary_or_image_delivery_planned_this_batch':False,'team_legal_entity_boundary_determined':False,'external_license_obligations_waived':False,'public_source_repository_authorization_unchanged':True,'Python_candidate_state':'DEFERRED_BY_USER','production_offline_Windows_native_GPU_accepted':False,'future_external_delivery_conditions':['Confirm actual recipients and deliverable SBOM','Assemble applicable corresponding sources/build materials and recipient access route','Review exact notices/font Reserved Font Names/trademarks and actual modifications'],'current_review_decision':'TECHNICAL_AUDIT_CONTINUES_SECURITY_AND_ACTUAL_ADMISSION_NOT_APPROVED'};write(o/'internal-use-and-future-delivery-scope.json',scope)
+font=read(o/'font-theme-review.json')['font'];reg=read(o/'font-license-register.json');tables=read(o/'font-table-review.json');assert tables['all3_normalized_table_sets_equal'];assert sum(reg['summary'].values())==181
+notice=r/'docs/02-architecture/third-party-notices/native-n01-round8-font-theme-notices.txt';parts=['N01内部研发审查附录。完整上游正文及来源各自保留；不编造主题版权年或把父包许可覆盖所有字体。\n']
+for m in font['materials']+reg['bootstrap']['materials']:parts.append('\n--- '+m['path']+' SHA256 '+m['sha256']+' ---\n'+m['utf8_text'])
+fallback=read(r/'docs/00-project/validation/native-n01-round3/missing-wheel-license-source-report.json');p=w/'native-license-source-cache/packageurl_python-0.17.6.tar.gz';assert sha(p.read_bytes())==next(x['sha256'] for x in fallback['packages'] if x['package']=='packageurl-python')
+with tarfile.open(p) as t:mit=t.extractfile('packageurl_python-0.17.6/mit.LICENSE').read().decode('utf8')
+terms=mit[mit.index('Permission is hereby granted'):];parts.append('\n--- Swagger theme3.0.1:上游README声明MIT，作者字段Mark Ostrander；以下只提供MIT标准权限/免责条款，未填造项目版权年或冒称上游LICENSE文件。标准条款对照https://opensource.org/license/mit；复制正文来自已验真packageurl源包的MIT条款部分，不将其版权人套给主题。 ---\n'+terms)
+notice.write_text('\n'.join(parts).rstrip()+'\n',encoding='utf8',newline='\n');notice.write_text('\n'.join(x.rstrip() for x in notice.read_text(encoding='utf8').splitlines()).rstrip()+'\n',encoding='utf8',newline='\n')
+kit=w/'native-n01-round8-internal-review-kit';assert not kit.exists(),'Fresh internal material kit required';shutil.copytree(w/'native-n01-round7-review-kit',kit);(kit/'round8').mkdir();(kit/'round8/semantic-full.json.gz').write_bytes(gzip.compress(raw.read_bytes(),mtime=0));(kit/'round8/semantic-preliminary.json.gz').write_bytes(gzip.compress((w/'n01-r8-semantic-report.json').read_bytes(),mtime=0))
+for p in o.glob('*.json'):shutil.copyfile(p,kit/'round8'/p.name)
+shutil.copyfile(notice,kit/'round8/FONT-THEME-NOTICES.txt');write(kit/'SCOPE.json',scope)
+(kit/'README.txt').write_text('当前用途：用户已确认仅团队内部研发。\n此包为内部审查材料，非已批准外发的运行发行包。源代码仓库既有公开授权不因此自动改变。\nround8包含精确常量池解析的指令复核原始报告和简表、字体表比较/原版权记录、主题声明与引用标准条款。初步报告作为历史观察保留，以refined结果为当前口径。\n未来外发的接收者、完整SBOM、对应源码提供方式和字体修改/保留名称等需要届时按实际交付件复核；本包不声称这些义务已履行或被豁免。\nPython候选继续暂缓，软件安全/实际准入未批准。\n',encoding='utf8')
+files=[{'path':p.relative_to(kit).as_posix(),'sha256':sha(p.read_bytes()),'size_bytes':p.stat().st_size} for p in sorted(kit.rglob('*')) if p.is_file() and p.name!='FILE-MANIFEST.json'];write(kit/'FILE-MANIFEST.json',{'files':files,'excluded_self':'FILE-MANIFEST.json'})
+archive=w/'native-n01-round8-internal-review-kit.tar.gz'
+with tarfile.open(archive,'w:gz') as t:t.add(kit,arcname='native-n01-review-kit')
+write(o/'internal-material-kit-report.json',{'scope':'TEAM_INTERNAL_DEVELOPMENT_REVIEW_MATERIAL_ONLY','archive_filename':archive.name,'archive_sha256':sha(archive.read_bytes()),'archive_size_bytes':archive.stat().st_size,'manifest_files':len(files),'files':files,'prior_unique_text_bodies':469,'prior_source_bindings':884,'additional_materials':'typed semantic raw+compact reports,font/theme bindings and notices,scope decision;do not add these counts as unique license approvals','source_archives_retained':2,'formal_external_delivery_authorized':False,'software_admission':False})
+for name in ['semantic-probe','semantic-refine','font-and-theme','font-tables','bootstrap-and-font-register','assemble']:shutil.copyfile(w/('n01-r8-'+name+'.py'),o/('executed-'+name+'.py.txt'))
+print(json.dumps({'semantic_summary':sem['summary'],'font_routes':reg['summary'],'internal_kit_files':len(files),'archive_bytes':archive.stat().st_size}))

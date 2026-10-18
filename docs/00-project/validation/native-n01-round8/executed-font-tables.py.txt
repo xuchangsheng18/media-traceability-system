@@ -1,0 +1,21 @@
+import base64,hashlib,io,json,tarfile,zipfile
+from pathlib import Path
+from fontTools.ttLib import TTFont
+w=Path(__file__).parent;sha=lambda b:hashlib.sha256(b).hexdigest();c=w/'n01-r8-material-cache';meta=json.loads((c/'fa563.json').read_text());blob=(c/'fa563.tgz').read_bytes();alg,ds=meta['dist']['integrity'].split('-',1);assert base64.b64encode(hashlib.new(alg,blob).digest()).decode()==ds
+with tarfile.open(fileobj=io.BytesIO(blob)) as t:fs={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+rows=[]
+with zipfile.ZipFile(w/'n01-r6-vendor.jar') as z:
+ for n in z.namelist():
+  if 'fa-solid-900' not in n or not n.endswith(('.ttf','.woff','.woff2')):continue
+  b=z.read(n);ref='package/webfonts/'+Path(n).name
+  if ref not in fs:continue
+  f=TTFont(io.BytesIO(b));g=TTFont(io.BytesIO(fs[ref]));tags=set(f.reader.keys())|set(g.reader.keys());tables=[]
+  for tag in sorted(tags):
+   a=f.getTableData(tag) if tag in f else None;v=g.getTableData(tag) if tag in g else None
+   normalized_a=a;normalized_b=v
+   if str(tag)=='head' and a is not None and v is not None:
+    normalized_a=a[:8]+b'\0'*4+a[12:20]+b'\0'*16+a[36:];normalized_b=v[:8]+b'\0'*4+v[12:20]+b'\0'*16+v[36:]
+   tables.append({'tag':str(tag),'release_sha256':sha(a) if a is not None else None,'npm_sha256':sha(v) if v is not None else None,'equal':a==v,'equal_after_head_checksum_and_created_modified_timestamp_mask':normalized_a==normalized_b,'different_byte_offsets': [i for i in range(min(len(a),len(v))) if a[i]!=v[i]][:150] if a is not None and v is not None and a!=v else [],'release_length':len(a) if a is not None else None,'npm_length':len(v) if v is not None else None})
+  rows.append({'path':n,'reference':ref,'release_file_sha256':sha(b),'npm_file_sha256':sha(fs[ref]),'file_equal':b==fs[ref],'release_glyphs':f['maxp'].numGlyphs,'npm_glyphs':g['maxp'].numGlyphs,'tables':tables});f.close();g.close()
+assert len(rows)==3 and all(all(t['equal_after_head_checksum_and_created_modified_timestamp_mask'] for t in x['tables']) for x in rows)
+d={'scope':'decoded_SFNT_table_comparison_not_whole_font_identity_or_license_approval','version':'5.6.3','npm_archive_sha256':sha(blob),'SRI_verified':True,'selection_basis':'fixed font-update commit variable5.6.3 and same915 glyph count','normalization_rule':'Only head.checkSumAdjustment bytes8:12 and created/modified timestamps20:36 masked;all other table bytes including name/copyright preserved','all3_normalized_table_sets_equal':True,'rows':rows};(c/'font-table-review.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps([{'path':x['path'],'different_tables':[(t['tag'],t['different_byte_offsets'][:12],t['release_length'],t['npm_length']) for t in x['tables'] if not t['equal']]} for x in rows]))

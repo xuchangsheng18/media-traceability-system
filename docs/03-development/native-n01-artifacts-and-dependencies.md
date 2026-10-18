@@ -1,5 +1,7 @@
 # N01原生制品及依赖核验
 
+[第八轮最新：内部研发语义、字体与主题许可](native-n01-internal-semantic-license-review.md)按用户确认的内部研发范围更新；本页前轮数字/未决项保留历史范围。
+
 [第七轮最新：421个vendor来源与实际审查材料包](native-n01-generated-source-and-distribution-kit.md)已更新；本页前轮数字按当时观察阅读。4份vendor脚本已重建匹配，其他来源/许可准入仍有未决。
 
 [第六轮最新生成差异、嵌套许可与分发义务](native-n01-generation-and-distribution-review.md)已补充；本页旧观察按当时范围保留，N01仍受软件准入阻塞，Python候选暂缓。

@@ -1,5 +1,7 @@
 # 许可、维护与制品边界
 
+[N01第八轮内部研发材料与未来分发条件](../03-development/native-n01-internal-semantic-license-review.md)及[实际声明附录](third-party-notices/native-n01-round8-font-theme-notices.txt)；当前不制作正式外发运行包，软件准入未批准。
+
 [N01第七轮材料装配与未决义务](../03-development/native-n01-generated-source-and-distribution-kit.md)；来源/字节核验不代替正式软件准入。
 
 [N01第六轮义务登记](../03-development/native-n01-generation-and-distribution-review.md)及[实际vendor声明](third-party-notices/native-n01-vendor-upstream-notices.txt)；审查材料不代表准入批准。

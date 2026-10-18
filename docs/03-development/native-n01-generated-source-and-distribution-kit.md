@@ -1,5 +1,7 @@
 # N01第七轮：生成资源来源闭合与分发审查材料包
 
+[第八轮最新：内部研发语义、字体与主题许可](native-n01-internal-semantic-license-review.md)按用户确认的内部研发范围更新；本页前轮数字/未决项保留历史范围。
+
 2026-10-18；Linux / Miniforge py310 / CPU研发。**N01仍为IN_PROGRESS_BLOCKED_ADMISSION**。Python3.13/3.12候选继续暂缓，原100包锁与既有服务未修改。本轮推进实际构建和材料装配，不把来源验证、材料齐备程度与软件准入混为一项。
 
 [本轮机器报告](../00-project/validation/native-n01-round7-admission-report.json) · [N01状态](native-linux-execution-status.json) · [上一轮差异和义务](native-n01-generation-and-distribution-review.md) · [T004任务卡](../../tasks/platform/T004.md)

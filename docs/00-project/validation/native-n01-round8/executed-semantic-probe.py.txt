@@ -1,0 +1,44 @@
+import concurrent.futures,datetime,hashlib,json,os,re,subprocess
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=base/'native-n01-r8-semantic';out.mkdir(mode=0o700,exist_ok=True);jdk=next((base/'native-n01-binary-probes-20261017/java').glob('jdk-*'));old=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1/lib/quarkus/generated-bytecode.jar';new=base/'native-n01-r5/reaugmentation-fixture/keycloak-26.8.1/lib/quarkus/generated-bytecode.jar';d=json.loads((repo/'docs/00-project/validation/native-n01-round7/generated-class-diff.json').read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
+def decode(text):
+ methods={};fields=[];decl=None;active=None
+ for line in text.splitlines():
+  s=line.strip()
+  if line.startswith('  ') and not line.startswith('    ') and s.endswith(';'):
+   decl=s;active=None
+   if '(' not in s and s!='static {};':fields.append(s)
+  if s=='Code:':active={'instructions':[],'switch_cases':[],'exception_rows':[]};methods[decl]=active;continue
+  if active is None:continue
+  m=re.match(r'\s*(\d+):\s+([a-z][a-z0-9_]*)\b(.*)',line)
+  if m:active['instructions'].append((int(m[1]),m[2],m[3].strip()));continue
+  m=re.match(r'\s*(default|-?\d+):\s+(-?\d+)\s*$',line)
+  if m:active['switch_cases'].append((len(active['instructions'])-1,m[1],int(m[2])));continue
+  m=re.match(r'\s*(\d+)\s+(\d+)\s+(\d+)\s+(Class .+|any)\s*$',line)
+  if m:active['exception_rows'].append((int(m[1]),int(m[2]),int(m[3]),m[4]))
+ normalized={};unresolved=[]
+ for name,v in methods.items():
+  pcs={row[0]:i for i,row in enumerate(v['instructions'])};maxpc=max(pcs,default=-1)
+  def target(pc):
+   if pc in pcs:return pcs[pc]
+   if pc>maxpc:return 'END'
+   unresolved.append({'method':name,'unknown_target':pc});return 'UNRESOLVED:'+str(pc)
+  instructions=[]
+  for pc,op,arg in v['instructions']:
+   if '#' in arg and '//' not in arg:unresolved.append({'method':name,'unresolved_pool_operand':arg})
+   arg=re.sub(r'#\d+','CP_INDEX',arg)
+   if op.startswith('if') or op in ['goto','goto_w','jsr','jsr_w']:
+    m=re.match(r'(-?\d+)(.*)',arg)
+    if m:arg='TARGET:'+str(target(int(m[1])))+m[2]
+   instructions.append([op,arg])
+  normalized[name]={'instructions':instructions,'switch_cases':[[i,key,target(pc)] for i,key,pc in v['switch_cases']],'exception_table':[[target(a),target(b),target(c),kind] for a,b,c,kind in v['exception_rows']]}
+ return normalized,fields,unresolved
+def one(row):
+ name=row['path'];klass=name.removesuffix('.class').replace('/','.');raws=[];commands=[]
+ for which,archive in [('release',old),('default',new)]:
+  command=[str(jdk/'bin/javap'),'-J-Xmx256m','-J-XX:ActiveProcessorCount=2','-classpath',str(archive),'-c','-p','-s','-constants',klass];p=subprocess.run(['/usr/bin/nice','-n','10',*command],capture_output=True,text=True,timeout=50);assert p.returncode==0,p.stderr;raws.append(p.stdout);commands.append(command);(out/(sha(name.encode())[:16]+'-'+which+'.javap.txt')).write_text(p.stdout)
+ a,af,au=decode(raws[0]);b,bf,bu=decode(raws[1]);shared=a.keys()&b.keys();changed=[n for n in sorted(shared) if a[n]!=b[n]];unchanged=[n for n in sorted(shared) if a[n]==b[n]]
+ return {'path':name,'commands':commands,'javap_sha256':[sha(x.encode()) for x in raws],'parsed_methods_before':len(a),'parsed_methods_after':len(b),'same_normalized_instruction_methods':unchanged,'changed_normalized_instruction_methods':[{'method':n,'before':a[n],'after':b[n]} for n in changed],'removed_methods':sorted(a.keys()-b.keys()),'added_methods':sorted(b.keys()-a.keys()),'fields_equal':af==bf,'fields_before':af if af!=bf else None,'fields_after':bf if af!=bf else None,'unresolved_operands':au+bu,'invokedynamic_present':any(i[0]=='invokedynamic' for m in list(a.values())+list(b.values()) for i in m['instructions']),'not_complete_equivalence_proof':'annotations,bootstrap semantics,verification and runtime behavior not generally proven'}
+fixture='public class X {\n  public void run();\n    Code:\n       0: ldc #3 // String hello\n       2: goto 5\n       5: return\n}\n';altered=fixture.replace('#3','#99');assert decode(fixture)[0]==decode(altered)[0];assert decode(fixture)[0]!=decode(fixture.replace('hello','changed'))[0]
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(one,d['rows']))
+report={'scope':'typed_symbol_resolved_instruction_and_exception_structure_review_not_full_program_semantic_equivalence','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rows':rows,'summary':{'classes':len(rows),'same_normalized_instruction_methods':sum(len(x['same_normalized_instruction_methods']) for x in rows),'changed_normalized_instruction_methods':sum(len(x['changed_normalized_instruction_methods']) for x in rows),'unresolved_operands':sum(len(x['unresolved_operands']) for x in rows),'classes_with_invokedynamic':sum(x['invokedynamic_present'] for x in rows)},'negative_checks':{'constant_pool_index_only_normalizes_equal':True,'changed_literal_not_suppressed':True},'software_admission':False,'executed_script_sha256':sha(Path(__file__).read_bytes())};(base/'native-n01-r8-semantic-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report['summary']),flush=True)
