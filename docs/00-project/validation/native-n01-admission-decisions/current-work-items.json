@@ -5,18 +5,19 @@
     {
       "id": "N01-R1",
       "title": "Python3.10维护与补丁依据",
-      "status": "WAITING_SUPPORT_EVIDENCE_CANDIDATES_DEFERRED",
+      "status": "SUPPORT_EVIDENCE_ABSENT_CONFIRMED_CANDIDATES_DEFERRED",
       "owner": "徐昌胜提供已有材料；执行方验证",
       "closure": "发行者、精确版本、有效维护期限和覆盖补丁有可核验依据；没有则保留未完成，不推定风险接受",
-      "user_action_now": "如已有证明请给路径；如没有可回复暂无证明，不要求创建Python候选"
+      "user_action_now": null,
+      "latest_user_information": "暂无证明，继续保留待处置状态；不重复要求同一信息"
     },
     {
       "id": "N01-R2",
       "title": "12条Python/PG漏洞逐项处置",
-      "status": "PARTIAL_D02_COMPLETE_BOUNDARY_REVIEW_REMAINING",
+      "status": "THREE_BOUNDED_FINDINGS_ACCEPTED_NINE_RECORDS_REMAIN",
       "owner": "执行方技术复核；徐昌胜复核限定结论",
-      "closure": "D02已完成；3条限定不适用结论待项目复核，其他9条仍按精确调用/依赖、平台及补丁逐项处置",
-      "user_action_now": "可复核本页3条限定不适用技术结论；不包含Python风险接受或整体准入"
+      "closure": "D02完成；3条当前目标限定不适用技术结论已获徐昌胜认可，另9条仍按精确调用/依赖、平台及补丁逐项处置",
+      "user_action_now": null
     },
     {
       "id": "N01-R3",
@@ -56,7 +57,8 @@
     "124 tracked project Python files and7 dynamic sites bounded source review",
     "current Linux prefix,VPATH,temp filesystem modes and ACLs read-only observed",
     "Node preselection197 named declarations,36 structural markers and197 text-material inventory;7 exact-source fallback checks",
-    "430 selected Node22.23.3 license/package metadata files individually match authenticated preselected archive;not whole-member/semantic license approval"
+    "430 selected Node22.23.3 license/package metadata files individually match authenticated preselected archive;not whole-member/semantic license approval",
+    "徐昌胜明确认可3条当前目标限定不适用技术结论；Python3.10暂无维护证明已确认，继续待处置且候选暂缓"
   ],
   "dynamic_site_manual_review": [
     {
@@ -107,19 +109,25 @@
       "CVE": "CVE-2017-8806",
       "technical_conclusion": "NOT_APPLICABLE_TO_CURRENT_OBSERVED_PRODUCT_SET",
       "basis": "postgresql-common dpkg-query exit1;current source-built/private PostgreSQL scope,not installation of that distribution package",
-      "recheck_on": "APT/product/target scope changes"
+      "recheck_on": "APT/product/target scope changes",
+      "project_review_status": "ACCEPTED_CURRENT_TARGET_ONLY",
+      "decision_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json"
     },
     {
       "CVE": "CVE-2024-3220",
       "technical_conclusion": "NOT_APPLICABLE_TO_OBSERVED_LINUX_PLATFORM",
       "basis": "existing authoritative record is Windows-specific;current sys.platform=linux",
-      "recheck_on": "Windows native target"
+      "recheck_on": "Windows native target",
+      "project_review_status": "ACCEPTED_CURRENT_TARGET_ONLY",
+      "decision_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json"
     },
     {
       "CVE": "CVE-2026-3298",
       "technical_conclusion": "NOT_APPLICABLE_TO_OBSERVED_PLATFORM_AND_API",
       "basis": "existing authoritative record Windows scope;Linux and BaseEventLoop.sock_recvfrom_into absent",
-      "recheck_on": "platform/interpreter/API changes"
+      "recheck_on": "platform/interpreter/API changes",
+      "project_review_status": "ACCEPTED_CURRENT_TARGET_ONLY",
+      "decision_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json"
     }
   ],
   "not_reachable_claimed": false,
@@ -135,5 +143,8 @@
     "eastasianwidth0.2.0 declared MIT but no independent text in observed archive/source tree",
     "@npmcli/agent3.0.0 declared ISC but no independent text in observed archive/source tree",
     "CC-BY/CC0/reference-only declarations require actual attribution/terms review,not inferred from keyword inventory"
-  ]
+  ],
+  "bounded_project_review_decision_recorded": true,
+  "whole_admission_decision_recorded": false,
+  "latest_user_decision_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json"
 }
