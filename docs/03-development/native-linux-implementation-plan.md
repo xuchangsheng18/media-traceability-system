@@ -76,6 +76,8 @@ APT候选来自服务器已有缓存，未执行更新或安装；它不证明�
 
 ### N01五项计划的实际状态
 
+最新补验见[9条官方CVE源及96wheel检查](../00-project/validation/native-n01-admission-decisions/cve-wheel-review.json)和[71项现有回归](../00-project/validation/native-n01-admission-decisions/cve-wheel-regression-report.json)。其中原生工具45项、游标21项、消息边界5项；下表保留原五项计划的工具核验粒度。wheel检查是当前归档的只读证据，尚未成为部署的恢复门禁，不是解释器或依赖修补。
+
 以下对应原五项，不新增任务编号或整卡验收数；[本次Linux证据](../00-project/validation/native-n01-admission-decisions/n01-plan-verification.json)记录实际源码、命令、输入摘要、前后清单及测试计数。
 
 | 原项 | 当前可证明的结果 | 尚未完成或证明的部分 |
@@ -180,4 +182,4 @@ APT候选来自服务器已有缓存，未执行更新或安装；它不证明�
 
 设计§1—5由N01—N03覆盖，§6由N04覆盖，§7由N02/N06覆盖，§8由N06/N07覆盖，§9—10及任务收口由N08覆盖。共享字段/命令均在上文定义；拟建工具仅在对应任务完成后可执行。
 
-**当前：N01的工具、制品与恢复材料已形成限定证据，整体准入仍未完成。** 本批Linux/py310复跑45项原生工具测试，十类原始制品包校验及前后只读清单通过；八项内部限定技术复核已获认可，两条上游询问已发送、暂无新答复。Python维护/9条记录、两项精确版本通知及必要软件准入仍未关闭；最终安装锁未生成。N02—N08未执行，不将只读工具或材料通过当原生安装/迁移/恢复验收。详见[执行台账](native-linux-execution-status.json)和[统一剩余事项](native-n01-admission-decisions.md)。继续当前会话的已授权范围，不自动进入T014。
+**当前：N01工具、制品与恢复材料已形成限定证据，整体准入仍未完成。** 最新Linux/py310的71项现有原生/游标/消息回归通过；固定9条官方CVE源并补核96wheel的21,826条RECORD、21,730个有摘要成员及18个非法夹具。八项已认可的内部限定技术状态完成校准，正式软件决定仍未记录；两条上游询问仍无有效许可答复。Python维护/9条正式处置、两项精确通知及必要准入未关闭，最终安装锁未生成。N02—N08未执行，Python候选继续暂缓。详见[执行台账](native-linux-execution-status.json)和[统一剩余事项](native-n01-admission-decisions.md)。继续当前会话的已授权范围，不自动进入T014。

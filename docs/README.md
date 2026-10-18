@@ -547,7 +547,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1102份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1116份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -727,6 +727,19 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-admission-decisions/current-runtime-and-callsite-facts.json](<00-project/validation/native-n01-admission-decisions/current-runtime-and-callsite-facts.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/current-work-items.json](<00-project/validation/native-n01-admission-decisions/current-work-items.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json](<00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2023-36632.json](<00-project/validation/native-n01-admission-decisions/CVE-2023-36632.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2025-12781.json](<00-project/validation/native-n01-admission-decisions/CVE-2025-12781.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2025-15366.json](<00-project/validation/native-n01-admission-decisions/CVE-2025-15366.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2025-15367.json](<00-project/validation/native-n01-admission-decisions/CVE-2025-15367.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2026-12003.json](<00-project/validation/native-n01-admission-decisions/CVE-2026-12003.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2026-12345.json](<00-project/validation/native-n01-admission-decisions/CVE-2026-12345.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2026-3446.json](<00-project/validation/native-n01-admission-decisions/CVE-2026-3446.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2026-3479.json](<00-project/validation/native-n01-admission-decisions/CVE-2026-3479.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/CVE-2026-6019.json](<00-project/validation/native-n01-admission-decisions/CVE-2026-6019.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/cve-wheel-bounded-tests.xml](<00-project/validation/native-n01-admission-decisions/cve-wheel-bounded-tests.xml>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/cve-wheel-component-review-record.json](<00-project/validation/native-n01-admission-decisions/cve-wheel-component-review-record.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/cve-wheel-regression-report.json](<00-project/validation/native-n01-admission-decisions/cve-wheel-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/cve-wheel-review.json](<00-project/validation/native-n01-admission-decisions/cve-wheel-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json](<00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/dependency-boundary-probes.json](<00-project/validation/native-n01-admission-decisions/dependency-boundary-probes.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/dependency-callsite-inventory.json](<00-project/validation/native-n01-admission-decisions/dependency-callsite-inventory.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -757,6 +770,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-n01-admission-decisions/n01-available-common-reference.py.txt](<00-project/validation/native-n01-admission-decisions/n01-available-common-reference.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-complete-library-materials.py.txt](<00-project/validation/native-n01-admission-decisions/n01-complete-library-materials.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-complete-package-notices.py.txt](<00-project/validation/native-n01-admission-decisions/n01-complete-package-notices.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/n01-cve-wheel-review.py.txt](<00-project/validation/native-n01-admission-decisions/n01-cve-wheel-review.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-dependency-boundary-probes.py.txt](<00-project/validation/native-n01-admission-decisions/n01-dependency-boundary-probes.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-dependency-callsite-review.py.txt](<00-project/validation/native-n01-admission-decisions/n01-dependency-callsite-review.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-admission-decisions/n01-disposition-retain-and-verify.py.txt](<00-project/validation/native-n01-admission-decisions/n01-disposition-retain-and-verify.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
