@@ -1,0 +1,26 @@
+import base64,datetime,hashlib,io,json,re,tarfile,urllib.parse,urllib.request
+from pathlib import Path
+out=Path('/workspace/glwy/runtime/media-traceability-system/n01-current-admission')
+d=json.loads((out/'node-bundled-materials.json').read_text());materials=d['license_materials'];paths=[x['path'] for x in materials]
+targets=[x for x in d['package_declarations'] if not x['structural_module_type_marker'] and not any(y.rsplit('/',1)[0]==x['path'].rsplit('/',1)[0] for y in paths)]
+records=[]
+for item in targets:
+ name=item['name'];version=item['version'];url='https://registry.npmjs.org/'+urllib.parse.quote(name,safe='')+'/'+version
+ raw=urllib.request.urlopen(url,timeout=30).read();meta=json.loads(raw);assert meta['name']==name and meta['version']==version
+ dist=meta['dist'];assert urllib.parse.urlparse(dist['tarball']).netloc=='registry.npmjs.org'
+ archive=urllib.request.urlopen(dist['tarball'],timeout=30).read();integrity=dist['integrity'];assert integrity.startswith('sha512-')
+ assert base64.b64encode(hashlib.sha512(archive).digest()).decode()==integrity.split('-',1)[1]
+ folder=out/'node-fallback'/hashlib.sha256((name+'@'+version).encode()).hexdigest();folder.mkdir(mode=0o700,parents=True,exist_ok=True)
+ (folder/'metadata.json').write_bytes(raw);(folder/'package.tgz').write_bytes(archive);texts=[]
+ with tarfile.open(fileobj=io.BytesIO(archive),mode='r:gz') as tar:
+  package=tar.extractfile('package/package.json').read();assert hashlib.sha256(package).hexdigest()==item['sha256'],name
+  for member in tar.getmembers():
+   if not member.isfile() or member.size>2_000_000:continue
+   if not re.search(r'(licen[sc]e|copying|notice|copyright|readme)',Path(member.name).name,re.I):continue
+   blob=tar.extractfile(member).read();digest=hashlib.sha256(blob).hexdigest();(folder/(digest+'.txt')).write_bytes(blob)
+   text=blob.decode('utf8',errors='replace');lines=text.splitlines();hits=[{'line':i+1,'text':line[:240]} for i,line in enumerate(lines) if re.search(r'licen[sc]e|copyright|creative.?commons|CC.?BY|MIT|Apache',line,re.I)]
+   texts.append({'member':member.name,'sha256':digest,'size_bytes':len(blob),'license_mentions':hits[-10:]})
+ records.append({'package':name,'version':version,'license_declaration':item['license'],'package_json_matches_extracted_candidate':True,'metadata_url':url,'metadata_sha256':hashlib.sha256(raw).hexdigest(),'tarball_url':dist['tarball'],'integrity':integrity,'archive_sha256':hashlib.sha256(archive).hexdigest(),'materials':texts,'not_standalone_license_automatic_failure':True,'formal_license_approval':False})
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'seven_exact_NPM_packages_without_root_license_file_material_retrieval_not_license_approval','records':records,'status':'EXACT_PACKAGE_PROVENANCE_AND_AVAILABLE_TEXTS_VERIFIED','Python_candidates_created':False,'installation_performed':False}
+(out/'node-license-fallback.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'packages_verified':len(records),'text_materials':sum(len(x['materials']) for x in records),'formal_license_approval':False}))

@@ -1,0 +1,138 @@
+{
+  "observed_at": "2026-10-18T09:42:34.122536+00:00",
+  "status": "N01_IN_PROGRESS_BLOCKED_ADMISSION",
+  "items": [
+    {
+      "id": "N01-R1",
+      "title": "Python3.10维护与补丁依据",
+      "status": "WAITING_SUPPORT_EVIDENCE_CANDIDATES_DEFERRED",
+      "owner": "徐昌胜提供已有材料；执行方验证",
+      "closure": "发行者、精确版本、有效维护期限和覆盖补丁有可核验依据；没有则保留未完成，不推定风险接受",
+      "user_action_now": "如已有证明请给路径；如没有可回复暂无证明，不要求创建Python候选"
+    },
+    {
+      "id": "N01-R2",
+      "title": "12条Python/PG漏洞逐项处置",
+      "status": "PARTIAL_D02_COMPLETE_BOUNDARY_REVIEW_REMAINING",
+      "owner": "执行方技术复核；徐昌胜复核限定结论",
+      "closure": "D02已完成；3条限定不适用结论待项目复核，其他9条仍按精确调用/依赖、平台及补丁逐项处置",
+      "user_action_now": "可复核本页3条限定不适用技术结论；不包含Python风险接受或整体准入"
+    },
+    {
+      "id": "N01-R3",
+      "title": "十类精确软件的许可与安全准入",
+      "status": "MATERIAL_AND_SCOPE_REVIEW_NOT_FORMAL_ADMISSION",
+      "owner": "执行方补证据；徐昌胜按具体范围复核",
+      "closure": "逐组件确认精确制品、必要功能、实际许可材料/义务与已知扫描处置；不把三项预选或有限材料认可当整包准入",
+      "user_action_now": null
+    },
+    {
+      "id": "N01-R4",
+      "title": "恢复输入与最终软件组合的完整对应",
+      "status": "TARGETED_INPUTS_VERIFIED_FINAL_COMBINATION_PENDING",
+      "owner": "执行方",
+      "closure": "将已有95wheel/25Conda/89OS包及候选构建输入绑定到最终安装组合，核对实际所需可选库和许可；不是重做全部宿主镜像",
+      "user_action_now": null
+    },
+    {
+      "id": "N01-R5",
+      "title": "原生账号、临时目录及可选能力边界",
+      "status": "CURRENT_USER_OBSERVED_FINAL_SERVICE_SCOPE_PENDING",
+      "owner": "执行方形成边界；N02管理员落实，N03实测",
+      "closure": "研发可写prefix不能直接证明更高权限服务运行目录可信；核对专用账号、目录ACL/临时目录及实际功能。FIPS/HSM/LDAP/Kerberos/GPU等未选范围启用前另验，不反向要求本轮先完成N03服务验收",
+      "user_action_now": null
+    },
+    {
+      "id": "N01-R6",
+      "title": "最终可安装锁及逐制品准入决定",
+      "status": "AFTER_REQUIRED_ADMISSION_NOT_GENERATED",
+      "owner": "执行方",
+      "closure": "N01必需证据与决定齐备后生成精确安装锁并验证；保留原锁。当前三项只作已确认预选",
+      "user_action_now": null
+    }
+  ],
+  "scoped_completed": [
+    "D02 canonical cursor implementation and final CI241 business tests/32gates",
+    "124 tracked project Python files and7 dynamic sites bounded source review",
+    "current Linux prefix,VPATH,temp filesystem modes and ACLs read-only observed",
+    "Node preselection197 named declarations,36 structural markers and197 text-material inventory;7 exact-source fallback checks"
+  ],
+  "dynamic_site_manual_review": [
+    {
+      "path": "backend/app/observability.py",
+      "line": 55,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    },
+    {
+      "path": "backend/business_app/identity/directory.py",
+      "line": 51,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    },
+    {
+      "path": "backend/business_app/inference.py",
+      "line": 174,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    },
+    {
+      "path": "backend/business_app/main.py",
+      "line": 159,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    },
+    {
+      "path": "backend/business_app/main.py",
+      "line": 149,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    },
+    {
+      "path": "scripts/storage_readiness.py",
+      "line": 17,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    },
+    {
+      "path": "tools/stage_three_demo/app.py",
+      "line": 70,
+      "call": "getattr",
+      "review": "Inspected current source: logging/error metadata or fixed inference metadata attribute names;no observed dispatch to listed mail/pkgutil/cookie APIs. Not a whole-program reachability proof."
+    }
+  ],
+  "three_bounded_non_applicability_findings": [
+    {
+      "CVE": "CVE-2017-8806",
+      "technical_conclusion": "NOT_APPLICABLE_TO_CURRENT_OBSERVED_PRODUCT_SET",
+      "basis": "postgresql-common dpkg-query exit1;current source-built/private PostgreSQL scope,not installation of that distribution package",
+      "recheck_on": "APT/product/target scope changes"
+    },
+    {
+      "CVE": "CVE-2024-3220",
+      "technical_conclusion": "NOT_APPLICABLE_TO_OBSERVED_LINUX_PLATFORM",
+      "basis": "existing authoritative record is Windows-specific;current sys.platform=linux",
+      "recheck_on": "Windows native target"
+    },
+    {
+      "CVE": "CVE-2026-3298",
+      "technical_conclusion": "NOT_APPLICABLE_TO_OBSERVED_PLATFORM_AND_API",
+      "basis": "existing authoritative record Windows scope;Linux and BaseEventLoop.sock_recvfrom_into absent",
+      "recheck_on": "platform/interpreter/API changes"
+    }
+  ],
+  "not_reachable_claimed": false,
+  "upstream_references": [
+    "https://devguide.python.org/versions/",
+    "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/12xxx/CVE-2026-12003.json",
+    "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/12xxx/CVE-2026-12345.json"
+  ],
+  "formal_decisions_recorded": false,
+  "Python_candidates_created": false,
+  "service_or_permission_changes": false,
+  "remaining_Node_material_review": [
+    "eastasianwidth0.2.0 declared MIT but no independent text in observed archive/source tree",
+    "@npmcli/agent3.0.0 declared ISC but no independent text in observed archive/source tree",
+    "CC-BY/CC0/reference-only declarations require actual attribution/terms review,not inferred from keyword inventory"
+  ]
+}
