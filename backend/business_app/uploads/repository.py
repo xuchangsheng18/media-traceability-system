@@ -8,6 +8,7 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import Connection, text
 
+from ..cursor_encoding import decode_cursor
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import StoredObject
@@ -344,7 +345,7 @@ class UploadRepository:
                     ).hexdigest()
                     if not hmac.compare_digest(signature, expected):
                         raise ValueError()
-                    binding = json.loads(base64.urlsafe_b64decode(value.encode()))
+                    binding = json.loads(decode_cursor(value, padded=True))
                     if binding["upload_id"] != str(upload_id) or binding["version"] != session["row_version"]:
                         raise BusinessError("UPLOAD_CURSOR_STALE", 409)
                     after = int(binding["after"])

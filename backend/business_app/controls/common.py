@@ -12,6 +12,7 @@ from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider, authorize_request
 from ..contracts import validate_response
+from ..cursor_encoding import decode_cursor
 from ..db import Database
 from ..errors import BusinessError
 from ..types import Actor, Scope
@@ -151,7 +152,7 @@ def page(
     after: UUID | None = None
     if cursor:
         try:
-            raw = base64.b64decode(cursor + "=" * (-len(cursor) % 4), altchars=b"-_", validate=True)
+            raw = decode_cursor(cursor, padded=False)
             if len(raw) != 80 or not hmac.compare_digest(
                 raw[48:], hmac.new(secret.encode(), binding + raw[:48], hashlib.sha256).digest()
             ):
