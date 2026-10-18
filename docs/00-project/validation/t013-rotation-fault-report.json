@@ -237,9 +237,104 @@
       "required_engineering_guard_result": "FAIL_AS_EXPECTED_WHEN_IDENTITY_FAILED",
       "diagnosis_boundary": "First safe report retained counts but no failed-test identifier. Exact failing test was not captured. Code inspection found the role-directory recovery test depends on MT_BUSINESS_PG_BIN, absent from new identity CI; it defaulted to a shared-server-only path. Declared the existing engineering PG16 path and checked both tools before tests; final actual run must verify the result.",
       "correction": "Report publishes only source-whitelisted test function names, removing parameters and error text. Added privacy assertions to the existing negative test; no test count or assertions dropped."
+    },
+    {
+      "source_commit": "b3bd2016c020c2de04a4070eb311c266144cf5f2",
+      "workflow_run_id": 39156103509,
+      "status": "IDENTITY_AND_BUSINESS_PASS_ENGINEERING_IMPORT_FORMAT_FAILURE",
+      "identity_totals": {
+        "tests": 225,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "business_totals": {
+        "tests": 246,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "safe_reports_verified": true,
+      "engineering_artifact": {
+        "id": 12146912957,
+        "bytes": 335759,
+        "sha256": "820cdb24e5190040224389db2c885488b92c50a3dcf3fadcee16f30a0ab2923a"
+      },
+      "identity_artifact": {
+        "id": 12146924003,
+        "bytes": 2317,
+        "sha256": "547507af893341f0f3592136971b5da7638f0e19e683aa185ad6a4a2df828eb3"
+      },
+      "failed_gates": {
+        "started_at": "2026-10-18T19:01:27.914786+00:00",
+        "runner": "github-hosted-ubuntu-24.04",
+        "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+        "stage": "all",
+        "checks": [
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "pip",
+              "check"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.264098
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_runtime_lock.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.114052
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "ruff",
+              "check",
+              "--config",
+              "ruff.toml",
+              "backend/app",
+              "ai-services/inference",
+              "tests/poc",
+              "scripts/poc_control.py",
+              "scripts/run_ci.py",
+              "scripts/verify_poc.py",
+              "scripts/verify_poc_resilience.py",
+              "scripts/verify_generated_contracts.py",
+              "scripts/verify_media_and_queries.py",
+              "scripts/verify_sql_baseline.py",
+              "scripts/verify_runtime_lock.py",
+              "scripts/collect_environment.py",
+              "scripts/verify_ci_failure_gate.py",
+              "scripts/check_repository_secrets.py",
+              "scripts/verify_migrations_and_fencing.py",
+              "scripts/verify_media_timestamps.py",
+              "scripts/verify_development_recovery.py"
+            ],
+            "status": "FAIL",
+            "elapsed_seconds": 0.031808
+          }
+        ],
+        "hosted_pipeline_executed": true,
+        "provider": "github_actions",
+        "source_commit": "b3bd2016c020c2de04a4070eb311c266144cf5f2",
+        "workflow_run_id": "39156103509",
+        "status": "FAIL",
+        "error": "RuntimeError",
+        "ended_at": "2026-10-18T19:01:28.324790+00:00"
+      },
+      "cause": "Ruff I001: scripts/verify_runtime_lock.py lacked a blank line between third-party import and TYPE_CHECKING block. This file is checked by the original CI static gate outside the dev.py lint scope.",
+      "correction": "One blank line only, with full original CI static scope verified on Linux and Windows; no gate disabled, dependency changed or assertion lowered."
     }
   ],
-  "source_binding_note": "Original Linux225 report preserves its actual working-tree hashes. Subsequent changes are the browser cache context, explicit existing PG16 tool path and safe CI failure identifiers. The supplementary342-unit/format/lint/type checks validate diagnostic code; final hosted report must bind its exact committed source.",
+  "source_binding_note": "Original Linux225 report preserves its actual working-tree hashes. Subsequent changes are the browser cache context, explicit existing PG16 tool path and safe CI failure identifiers. The supplementary342-unit/format/lint/type checks validate diagnostic code; final hosted report must bind its exact committed source. A subsequent single blank-line import-format correction in scripts/verify_runtime_lock.py passed the complete original CI static scope; final hosted evidence must bind the final payload.",
   "additional_diagnostic_TDD": {
     "red": {
       "mode": "ci-diagnostic-red",
@@ -415,5 +510,55 @@
     ".github/workflows/identity.yml": "945def5699c6075858626a485075ff68bc738af5caca9f1e1784cc7b3b50c756",
     "scripts/identity/checks.py": "663ed607c0f00ff5cf89ebed4cbac4823f2e13e810cf0a643ba0ec18cb778c8a",
     "tests/platform/test_t013_identity_checks.py": "92cde972d270a9f5876a47d283777c47466b44acb1abf5a24188af665c851e7e"
+  },
+  "supplementary_original_CI_lint": {
+    "mode": "legacy-lint",
+    "observed_at": "2026-10-18T19:05:04.441328+00:00",
+    "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+    "source_sha256": {
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/poc_control.py",
+          "scripts/run_ci.py",
+          "scripts/verify_poc.py",
+          "scripts/verify_poc_resilience.py",
+          "scripts/verify_generated_contracts.py",
+          "scripts/verify_media_and_queries.py",
+          "scripts/verify_sql_baseline.py",
+          "scripts/verify_runtime_lock.py",
+          "scripts/collect_environment.py",
+          "scripts/verify_ci_failure_gate.py",
+          "scripts/check_repository_secrets.py",
+          "scripts/verify_migrations_and_fencing.py",
+          "scripts/verify_media_timestamps.py",
+          "scripts/verify_development_recovery.py"
+        ],
+        "exit_code": 0,
+        "totals": null,
+        "failed_cases": [],
+        "started_at": "2026-10-18T19:05:04.275974+00:00",
+        "elapsed_seconds": 0.165239,
+        "private_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false,
+    "raw_logs_published": false
   }
 }

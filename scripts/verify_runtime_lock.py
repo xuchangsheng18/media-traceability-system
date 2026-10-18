@@ -6,6 +6,7 @@ import platform
 from typing import TYPE_CHECKING
 
 from packaging.utils import canonicalize_name
+
 if TYPE_CHECKING:
     from scripts.poc_control import ROOT
 else:

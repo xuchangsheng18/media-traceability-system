@@ -5,9 +5,9 @@
   "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
   "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
   "pass_count": 15,
-  "not_executed_count": 7,
+  "not_executed_count": 6,
   "formal_accepted": false,
-  "hosted_ci_triggered": false,
+  "hosted_ci_triggered": true,
   "entries": [
     {
       "id": "IDP-01",
@@ -192,11 +192,10 @@
     },
     {
       "id": "IDP-22",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "Current committed-payload hosted CI and artifact verification are pending; local 225 scoped, 342 unit, 246 business and quality checks passed but do not substitute hosted execution.",
+      "status": "FAILED_CURRENT_HOSTED_ENGINEERING_RETRY_PENDING",
+      "evidence_boundary": "Hosted225 identity and246 business tests passed on b3bd201; the original engineering gate stopped at a Ruff import-format failure. The gate was preserved, minimal correction made, and full static scope passed. Final committed-payload complete hosted workflow remains pending.",
       "references": [
-        ".github/workflows/identity.yml",
-        ".github/workflows/ci.yml",
+        "docs/00-project/validation/t013-identity-ci-report.json",
         "docs/00-project/validation/t013-rotation-fault-report.json"
       ]
     }
@@ -211,5 +210,7 @@
     }
   ],
   "current_batch_report_ref": "docs/00-project/validation/t013-rotation-fault-report.json",
-  "current_batch_tested_source": "Working tree at recorded base commit plus exact report source_sha256; hosted committed payload pending."
+  "current_batch_tested_source": "Working tree at recorded base commit plus exact report source_sha256; hosted committed payload pending.",
+  "failed_count": 1,
+  "pending_count": 7
 }
