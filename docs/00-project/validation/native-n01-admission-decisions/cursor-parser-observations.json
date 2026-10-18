@@ -1,0 +1,95 @@
+{
+  "observed_at": "2026-10-18T16:15:09.268205+08:00",
+  "source_commit": "fd428efc464ab0bcfbd0299bfaaf74fe56313f97",
+  "python_version": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+  "scope": "actual_production_parser_functions_with_self_owned_in_memory_collaborators_only_no_HTTP_or_actual_DB_RLS_test",
+  "status": "PROBES_COMPLETED_WITH_UNRESOLVED_CANONICALITY_AND_INTERPRETER_RISKS",
+  "checks": [
+    {
+      "id": "C01_server_issued_controls_cursor_consumed",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "C02_controls_cross_alphabet_alias_consumed_same_rows",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "noncanonical_text_currently_accepted;not_a_changed_authorized_scope_or_claim_of_security_pass"
+    },
+    {
+      "id": "C03_changed_controls_payload_HMAC_rejected",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "C04_other_actor_controls_binding_rejected",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "C05_controls_postpadding_tail_rejected",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "U01_server_issued_upload_cursor_consumed",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "U02_upload_postpadding_tail_without_resign_rejected",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "U03_upload_extra_padding_without_resign_rejected",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "U04_upload_snapshot_version_binding_rejected",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "probe_observation_not_business_acceptance"
+    },
+    {
+      "id": "U05_synthetic_issuer_signed_noncanonical_value_consumed",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "requires_fixture_issuer_secret;existing_server_issuer_emits_canonical_text;not_unauthenticated_forgery"
+    },
+    {
+      "id": "P01_existing_stdlib_default_decoder_accepts_postpadding_tail",
+      "probe_status": "PASS",
+      "observed": true,
+      "meaning": "interpreter_behavior_remains_not_patched"
+    }
+  ],
+  "probe_count": 11,
+  "source_file_sha256": {
+    "backend/business_app/controls/common.py": "4ed64a1aa5c485567d009d7cb547c082ac2b25dcf97884093d70731319b54c2f",
+    "backend/business_app/uploads/repository.py": "87809e113d41820985e6e0d6f3a8149e8fcfac649bdd4e2c4e5b18163f0493f5",
+    "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+    "backend/business_app/errors.py": "27e056903171fefb7bef6e37be77ab356b46ddbdc57b6e7f75e24c324f9dba51"
+  },
+  "mock_collaborators": true,
+  "business_result": false,
+  "actual_database_connections": 0,
+  "network_connections": 0,
+  "services_changed": false,
+  "Python_candidates_created": false,
+  "software_admission": false,
+  "executed_script_sha256": "d181778fe64c2ee63d435c13ce5a31891986aa28f85e8938b3f033af69cc71b3",
+  "conclusions": [
+    "Controls accepts cross-alphabet aliases for same valid signed raw cursor;HMAC payload/actor changes rejected in fixture",
+    "Upload rejects unsigned text alterations before default decode;synthetic trusted signer can still sign noncanonical text;canonicality is not enforced",
+    "No whole application reachability proof,no interpreter CVE fix,no RLS or HTTP acceptance,no software risk acceptance"
+  ]
+}

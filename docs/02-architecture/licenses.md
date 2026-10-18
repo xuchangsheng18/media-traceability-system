@@ -56,3 +56,5 @@ OSV按精确版本2.14.1+cpu及基础版本2.14.1分别查询，当前均未返�
 当前N01十类软件准入、候选精确摘要及内部字体/Flatbuffers补充见[第九轮复核](../03-development/native-n01-candidate-adoption-review.md)；三项候选仅获原生研发制品预选确认，无安装或整体准入批准。
 
 当前嵌套许可逐项范围与N01-A/B/C待决状态见[第十轮复核](../03-development/native-n01-nested-license-use-review.md)；三项预选已确认，Python候选仍暂缓。
+
+当前需要确认的信息、12条CVE及实际游标观察见[统一准入清单](../03-development/native-n01-admission-decisions.md)；嵌套许可的限定材料复核保留，Python候选仍暂缓。

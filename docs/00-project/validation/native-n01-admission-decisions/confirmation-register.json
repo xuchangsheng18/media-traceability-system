@@ -1,0 +1,80 @@
+{
+  "scope": "specific_confirmation_and_information_checklist_not_approval_or_installation_authority",
+  "observed_at": "2026-10-18T16:19:32.251313+08:00",
+  "actual_reviewer": "徐昌胜",
+  "items": [
+    {
+      "id": "D01",
+      "title": "现有Python3.10维护证据",
+      "timing": "NOW_INFORMATION_NEEDED",
+      "question": "是否已有延长维护/补丁支持证明；如有提供发行者、精确版本和文件路径；如无维持N01阻塞",
+      "current_state": "SUPPORT_EVIDENCE_NOT_PROVIDED_CANDIDATES_DEFERRED",
+      "not_requested": "不要求恢复3.13/3.12候选，不把现有研发继续运行当风险接受",
+      "decision": null
+    },
+    {
+      "id": "D02",
+      "title": "业务游标规范编码修复边界",
+      "timing": "NOW_SCOPE_DECISION_NEEDED_FOR_NEXT_BATCH",
+      "question": "是否允许下一批按具体申请修改控制/上传游标接收校验、测试和对应说明",
+      "current_state": "PROPOSED_NOT_IMPLEMENTED",
+      "proposal_ref": "docs/03-development/native-n01-cursor-hardening-change-request.md",
+      "why_separate": "N01原生制品与准入审查范围不自动授权改变业务接收规则",
+      "decision": null
+    },
+    {
+      "id": "D03",
+      "title": "整体软件准入",
+      "timing": "AFTER_TECHNICAL_DISPOSITION_NOT_READY_FOR_APPROVAL",
+      "current_state": "BLOCKED_NOT_READY",
+      "prerequisites": [
+        "Python维护/CVE处置有有效依据",
+        "具体应用技术问题已有处置和验证",
+        "十类精确软件及实际许可/使用边界逐项复核"
+      ],
+      "not_requested": "当前不要求一句全部同意来关闭未知风险",
+      "decision": null
+    },
+    {
+      "id": "D04",
+      "title": "最终可安装制品锁",
+      "timing": "AGENT_WORK_AFTER_REQUIRED_ADMISSION",
+      "current_state": "NOT_GENERATED",
+      "already_confirmed": "三项制品预选已确认，不再询问同一选择",
+      "decision": null
+    },
+    {
+      "id": "D05",
+      "title": "N02管理员初始化",
+      "timing": "LATER_AFTER_N01_PASS",
+      "current_state": "NOT_EXECUTED",
+      "user_action_when_ready": "审阅届时生成并实测的管理员执行包，再由徐昌胜执行；现在不提供sudo命令",
+      "decision": null
+    },
+    {
+      "id": "D06",
+      "title": "N04正式备份公钥与保管",
+      "timing": "LATER_BEFORE_BACKUP_RESTORE",
+      "current_state": "NOT_ESTABLISHED_CONFIRMED_BY_USER",
+      "already_confirmed": "徐昌胜保管；当前公钥尚未建立",
+      "user_action_when_ready": "按届时清单建立密钥保管与恢复方式，只回传公钥或路径，不发送私钥",
+      "decision": null
+    },
+    {
+      "id": "D07",
+      "title": "停写切换及后续运行发行",
+      "timing": "LATER_WHEN_ACTUAL_REHEARSAL_OR_DELIVERY_REQUEST_EXISTS",
+      "current_state": "NOT_AUTHORIZED_BY_MATERIAL_REVIEW",
+      "not_requested": "不编造切换窗口、保留期限或外部接收者；不重复询问已确定的当前内部研发范围",
+      "decision": null
+    }
+  ],
+  "already_confirmed_refs": [
+    "docs/03-development/native-n01-python-candidate-decision.json",
+    "docs/00-project/validation/native-n01-round9/candidate-preselection-decision.json",
+    "docs/00-project/validation/native-n01-round8/review-decision.json",
+    "docs/00-project/validation/native-n01-round8/internal-use-and-future-delivery-scope.json"
+  ],
+  "whole_N01_accepted": false,
+  "installation_permitted": false
+}

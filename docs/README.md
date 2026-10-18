@@ -1,6 +1,6 @@
 # 项目文档导航
 
-[N01最新：嵌套许可使用范围与软件准入复核](03-development/native-n01-nested-license-use-review.md)；当前不制作正式外发运行包，软件准入未批准。
+[N01当前：剩余准入与具体确认清单](03-development/native-n01-admission-decisions.md)；当前不制作正式外发运行包，软件准入未批准。
 
 [N01最新：生成资源来源闭合与分发审查材料包](03-development/native-n01-generated-source-and-distribution-kit.md)；来源/字节核验不代替正式软件准入。
 
@@ -547,7 +547,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1002份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1011份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -716,6 +716,13 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-build-package-verification-report.json](<00-project/validation/native-build-package-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-license-inspection-report.json](<00-project/validation/native-license-inspection-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-license-materials-round2-report.json](<00-project/validation/native-license-materials-round2-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/confirmation-register.json](<00-project/validation/native-n01-admission-decisions/confirmation-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json](<00-project/validation/native-n01-admission-decisions/cursor-parser-observations.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/evidence-index.json](<00-project/validation/native-n01-admission-decisions/evidence-index.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/executed-cursor-parser-probe.py.txt](<00-project/validation/native-n01-admission-decisions/executed-cursor-parser-probe.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/python-pg-open-items.json](<00-project/validation/native-n01-admission-decisions/python-pg-open-items.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/software-admission-register.json](<00-project/validation/native-n01-admission-decisions/software-admission-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-admission-decisions/upstream-review.json](<00-project/validation/native-n01-admission-decisions/upstream-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round10/authority-review-record.json](<00-project/validation/native-n01-round10/authority-review-record.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round10/documentation-final-validation-report.json](<00-project/validation/native-n01-round10/documentation-final-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round10/executed-n01-r10-nested-poms.py.txt](<00-project/validation/native-n01-round10/executed-n01-r10-nested-poms.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1355,10 +1362,12 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-linux-execution-status.json](<03-development/native-linux-execution-status.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/native-linux-implementation-plan.md](<03-development/native-linux-implementation-plan.md>) | 说明文档：Linux全原生研发迁移 Implementation Plan；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-linux-migration-design.md](<03-development/native-linux-migration-design.md>) | 说明文档：Linux全原生研发环境：设计、数据迁移与恢复方案；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-admission-decisions.md](<03-development/native-n01-admission-decisions.md>) | 说明文档：N01剩余准入事项与确认清单；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-artifacts-and-dependencies.md](<03-development/native-n01-artifacts-and-dependencies.md>) | 说明文档：N01原生制品及依赖核验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-build-and-admission-review.md](<03-development/native-n01-build-and-admission-review.md>) | 说明文档：N01源码构建、运行依赖和准入复核；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-bundled-origin-review.md](<03-development/native-n01-bundled-origin-review.md>) | 说明文档：N01第五轮：捆绑许可、H2改包与生成物来源；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-candidate-adoption-review.md](<03-development/native-n01-candidate-adoption-review.md>) | 说明文档：N01软件准入与候选制品采用复核；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-cursor-hardening-change-request.md](<03-development/native-n01-cursor-hardening-change-request.md>) | 说明文档：N01关联变更申请：业务游标规范编码校验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-generated-source-and-distribution-kit.md](<03-development/native-n01-generated-source-and-distribution-kit.md>) | 说明文档：N01第七轮：生成资源来源闭合与分发审查材料包；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-generation-and-distribution-review.md](<03-development/native-n01-generation-and-distribution-review.md>) | 说明文档：N01第六轮：生成差异、嵌套许可与分发义务；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-internal-semantic-license-review.md](<03-development/native-n01-internal-semantic-license-review.md>) | 说明文档：N01第八轮：内部研发语义复核、字体与主题许可；结合正文的状态、来源和适用范围阅读。 |
