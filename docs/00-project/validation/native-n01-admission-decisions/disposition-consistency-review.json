@@ -38,5 +38,13 @@
     }
   ],
   "additional_root_material_verification_ref": "docs/00-project/validation/native-n01-admission-decisions/disposition-materials-verification.json",
-  "whole_N01_accepted": false
+  "whole_N01_accepted": false,
+  "additional_native_verifier_regression": {
+    "source_commit": "afac1156ec40910f44af9dcad788dd67a75c144b",
+    "command": "PYTHONDONTWRITEBYTECODE=1 /opt/conda/glwy/envs/py310/bin/python -m pytest tests/native/test_artifacts.py -q",
+    "exit_code": 0,
+    "tests_passed": 40,
+    "observed_output": "40 passed in 0.50s",
+    "scope": "artifact verifier unit tests,not installation or software admission"
+  }
 }
