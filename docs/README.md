@@ -1,6 +1,6 @@
 # 项目文档导航
 
-[N01最新：软件准入与候选制品采用复核](03-development/native-n01-candidate-adoption-review.md)；当前不制作正式外发运行包，软件准入未批准。
+[N01最新：嵌套许可使用范围与软件准入复核](03-development/native-n01-nested-license-use-review.md)；当前不制作正式外发运行包，软件准入未批准。
 
 [N01最新：生成资源来源闭合与分发审查材料包](03-development/native-n01-generated-source-and-distribution-kit.md)；来源/字节核验不代替正式软件准入。
 
@@ -547,7 +547,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共986份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1001份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -716,6 +716,19 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-build-package-verification-report.json](<00-project/validation/native-build-package-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-license-inspection-report.json](<00-project/validation/native-license-inspection-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-license-materials-round2-report.json](<00-project/validation/native-license-materials-round2-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/authority-review-record.json](<00-project/validation/native-n01-round10/authority-review-record.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/executed-n01-r10-nested-poms.py.txt](<00-project/validation/native-n01-round10/executed-n01-r10-nested-poms.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/executed-n01-r10-review-materials.py.txt](<00-project/validation/native-n01-round10/executed-n01-r10-review-materials.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/executed-n01-r10-verify-retained-materials.py.txt](<00-project/validation/native-n01-round10/executed-n01-r10-verify-retained-materials.py.txt>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/is-reference-internal-scope-review.json](<00-project/validation/native-n01-round10/is-reference-internal-scope-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/material-retention-verification.json](<00-project/validation/native-n01-round10/material-retention-verification.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/nested-coordinate-declarations.json](<00-project/validation/native-n01-round10/nested-coordinate-declarations.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/nested-pom-source-materials.json](<00-project/validation/native-n01-round10/nested-pom-source-materials.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/notice-text-scope-triage.json](<00-project/validation/native-n01-round10/notice-text-scope-triage.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/publication-use-boundary.json](<00-project/validation/native-n01-round10/publication-use-boundary.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/software-admission-register.json](<00-project/validation/native-n01-round10/software-admission-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10/special-jar-use-scope-register.json](<00-project/validation/native-n01-round10/special-jar-use-scope-register.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/native-n01-round10-admission-report.json](<00-project/validation/native-n01-round10-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round2-documentation-report.json](<00-project/validation/native-n01-round2-documentation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round2-runtime-report.json](<00-project/validation/native-n01-round2-runtime-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-n01-round3/age-candidate-roundtrip-report.json](<00-project/validation/native-n01-round3/age-candidate-roundtrip-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1113,6 +1126,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 1.1-py310-cpu研发执行基线，区别于正式生产冻结和全部业务实现。 |
 | [02-architecture/technical-validation-report.md](<02-architecture/technical-validation-report.md>) | 各真实检查结果、证据路径、范围和未测事项。 |
 | [02-architecture/technology-options.md](<02-architecture/technology-options.md>) | 12个技术域的替代方案、研发执行选择、实测和扩展边界。 |
+| [02-architecture/third-party-notices/native-n01-round10-use-scope.txt](<02-architecture/third-party-notices/native-n01-round10-use-scope.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-round8-font-theme-notices.txt](<02-architecture/third-party-notices/native-n01-round8-font-theme-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-round9-internal-supplement.txt](<02-architecture/third-party-notices/native-n01-round9-internal-supplement.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt](<02-architecture/third-party-notices/native-n01-swagger-ui-upstream-notices.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
@@ -1348,6 +1362,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-n01-generation-and-distribution-review.md](<03-development/native-n01-generation-and-distribution-review.md>) | 说明文档：N01第六轮：生成差异、嵌套许可与分发义务；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-internal-semantic-license-review.md](<03-development/native-n01-internal-semantic-license-review.md>) | 说明文档：N01第八轮：内部研发语义复核、字体与主题许可；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-license-vulnerability-runtime-review.md](<03-development/native-n01-license-vulnerability-runtime-review.md>) | 说明文档：N01捆绑许可、漏洞适用性与可选路径复核；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/native-n01-nested-license-use-review.md](<03-development/native-n01-nested-license-use-review.md>) | 说明文档：N01嵌套许可使用范围与软件准入复核；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-python-candidate-decision.json](<03-development/native-n01-python-candidate-decision.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/native-n01-python-supported-candidate-request.md](<03-development/native-n01-python-supported-candidate-request.md>) | 说明文档：N01受支持Python独立候选验证申请；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-security-remediation-change-request.md](<03-development/native-n01-security-remediation-change-request.md>) | 说明文档：N01安全修补候选变更请求；结合正文的状态、来源和适用范围阅读。 |
