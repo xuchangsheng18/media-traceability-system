@@ -1,4 +1,4 @@
-import datetime,hashlib,json,os,re
+import datetime,hashlib,json,os,re,tarfile
 from pathlib import Path
 r=Path('/workspace/glwy/projects/media-traceability-system')
 p=r/'docs/00-project/validation/native-n01-round9/candidate-preselection-decision.json';decision=json.loads(p.read_text());candidate=next(x for x in decision['selected_candidates'] if x['component']=='node')
@@ -31,5 +31,21 @@ out=Path('/workspace/glwy/runtime/media-traceability-system/n01-current-admissio
 report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'actual_preselected_Node22.23.3_tree_not_old_Node22.21.1_inventory','source_decision_ref':str(p.relative_to(r)),'binary_sha256':actual,'archive_ref':candidate['archive'],'license_materials':texts,'package_declarations':packages,'symlink_files_not_followed':links,'material_count':len(texts),'package_count':len(packages),'missing_package_license_declarations':[x['path'] for x in packages if not x['license'] and not x['licenses']],'limits':['Filename/declaration inventory is not per-file license applicability or exhaustive attribution approval','No package execution,install,version adoption or service change','Private extracted tree binary matches preselected digest;not a fresh all-member archive byte comparison'],'formal_software_admission':False,'status':'MATERIALS_INVENTORIED_FORMAL_AND_DECLARATION_GAPS_REMAIN'}
 report.update(named_package_count=sum(not x['structural_module_type_marker'] for x in packages),structural_module_type_marker_count=sum(x['structural_module_type_marker'] for x in packages),missing_named_package_license_declarations=[x['path'] for x in packages if not x['structural_module_type_marker'] and not x['license'] and not x['licenses']],status='NAMED_DECLARATIONS_AND_STRUCTURAL_MARKERS_RESOLVED_NOT_FINAL_LICENSE_ADMISSION')
 report['raw_metadata_records_without_own_license_declaration']=report.pop('missing_package_license_declarations')
+archive=Path('/workspace/glwy/runtime/media-traceability-system/native-security-candidate-cache')/candidate['archive']['filename']
+archive_digest=hashlib.sha256(archive.read_bytes()).hexdigest();assert archive_digest==candidate['archive']['sha256']
+matched=[]
+expected={root.name+'/'+item['path']:item for item in texts+packages}
+assert len(expected)==len(texts)+len(packages)
+with tarfile.open(archive,mode='r|xz') as tar:
+ for member in tar:
+  if member.name not in expected:continue
+  item=expected[member.name];assert member.isfile()
+  raw=tar.extractfile(member).read();assert hashlib.sha256(raw).hexdigest()==item['sha256'],item['path']
+  matched.append(item['path'])
+assert len(matched)==len(expected)
+report['authenticated_archive_material_verification']={'archive_sha256':archive_digest,'matched_files':len(matched),'license_paths':len(texts),'package_json_paths':len(packages),'mismatches':[],'whole_archive_member_audit':False}
+report['unique_name_version_count']=len({(x['name'],x['version']) for x in packages if not x['structural_module_type_marker']})
+report['unique_material_sha256_count']=len({x['sha256'] for x in texts})
+report['limits'][2]='All selected430 license/declaration files match authenticated source archive;not a complete all-member or semantic license audit'
 (out/'node-bundled-materials.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({'materials':len(texts),'packages':len(packages),'named_declaration_gaps':len(report['missing_named_package_license_declarations']),'structural_markers':report['structural_module_type_marker_count'],'preselected_binary_digest_matches':True}))
