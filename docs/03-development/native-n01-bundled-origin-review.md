@@ -32,7 +32,13 @@ H2精确版本POM及源码归档也已取得，Maven主域超时后使用Maven C
 
 本轮改为识别LICENSE/NOTICE等名称边界及前后缀，排除.class、.java等代码和META-INF/services服务注册描述。实际486个JAR收集到285份匹配文本，270个JAR仍无本规则匹配的内嵌文本。前轮279及本轮初次286按各自采集口径保留；计数变化是规则修正，未改上游归档。[当前全文](../00-project/validation/native-n01-round5/bundled-text-complement-report.json)逐项绑定成员和归档SHA。
 
-针对缺正文JAR的263组主组件坐标，已取到261份精确版本Maven源码归档；192组有保留的版权/许可头，2组另找到完整匹配文本。两项404继续保留：MSSQL内嵌版本与发行文件的JRE分类器映射、Keycloak themes-vendor源码路径。没有sources.jar不等于无合法源码，但必须继续核对真实来源，不能随意换版本补齐数字。
+针对缺正文JAR的263组主组件坐标，初次及采集器修正后取到261份精确版本Maven源码归档；192组有保留的版权/许可头，2组另找到完整匹配文本。最初两项404继续作为历史观察保留，不能直接推断没有合法源码。
+
+后续已确认MSSQL内嵌13.4.0对应公开Maven版本13.4.0.jre11：该上游二进制与发行包归档SHA完全一致，相同发布版本的源码和POM均已取得，并补到4份嵌套LICENSE/NOTICE及MIT声明头。此处是修正发布坐标的精确映射，没有替换运行库或升级版本。因此另补1份已绑定的源码归档；初次261/263报告不冒充263/263通过。
+
+Keycloak themes-vendor的固定提交POM也已找到，模块明确从node_modules复制rfc4648、PatternFly等资源，原404是找不到sources.jar，不能再笼统表述为源码路线未知。所有实际引用的npm包、字体/图片来源及对应声明仍须逐项展开，找到POM不等于这些资产都已验真或许可通过。[两项后续核验](../00-project/validation/native-n01-round5/source-route-followup-report.json)区分已经匹配的MSSQL归档与仍需展开的vendor来源。
+
+pglast8.5补充核对了注释标签（annotated tag）对象所指向的固定提交及README/setup.py声明，两文件与既有PyPI摘要验真的sdist成员字节一致；另取得GNU官方GPL3全文。[实际材料](../00-project/validation/native-n01-round5/pglast-license-followup-report.json)保留标签/提交、成员摘要及正文。本轮未自行验证该Git标签签名，不将注释标签等同于可信签名；也未用libpg_query许可替代pglast或把其GPL声明套到整个仓库。实际工具/业务发行边界、组合与源材料提供义务仍待审阅。
 
 新采集器最初将License.java、Notice.java及一个服务注册描述误收为许可文本；已先执行负向断言并观察失败，再排除代码/服务路径，修正后断言及正文摘要验证通过。初次与修正前报告保留；不把这类文件当LICENSE正文。[源码材料](../00-project/validation/native-n01-round5/missing-jar-source-materials.json)还区分头部摘录与完整文本，不能将192组头部当192套完整再分发材料。
 
@@ -50,5 +56,5 @@ themes3.0.1元数据声明MIT，但归档未带许可正文，仍须继续查对
 
 1. H2改包逻辑来源、启动清单来源和175个变换输入已形成实际证据；生成物重放及全部许可准入继续逐项保留未决，不填他人的批准。
 2. Python候选继续[DEFERRED_BY_USER](native-n01-python-candidate-decision.json)，现有风险不视为接受。未新建3.13/3.12环境。
-3. 继续处理生成差异、MSSQL分类器/Keycloak themes-vendor源材料、theme许可和其他传递组件/分发义务；然后才讨论实际软件准入与候选采用。N02安装、最终服务环境及恢复切换另有前置条件。
+3. 继续处理生成差异、Keycloak themes-vendor的全部嵌套资产、theme许可、pglast分发边界和其他传递组件/分发义务；MSSQL发布坐标及精确归档已核验，不再重复列为未开始。然后才讨论实际软件准入与候选采用。N02安装、最终服务环境及恢复切换另有前置条件。
 4. 最新已核验CI及被测提交见[CI回执](../00-project/validation/github-actions-report.json)。同步仅指源码和审计文档，见[服务器回执](../00-project/server-sync-receipt.json)，不代表原生部署完成。
