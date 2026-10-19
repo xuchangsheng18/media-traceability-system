@@ -1,11 +1,11 @@
 {
   "task_id": "T013",
   "record_kind": "implementation_progress_register_not_validator_acceptance_input",
-  "observed_at": "2026-10-19T03:10:12.525782+00:00",
-  "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
+  "observed_at": "2026-10-19T04:35:17.854827+00:00",
+  "tested_source_commit": "79ab553d7fc8e70beb78b1eae53a762d6f2b88f0",
   "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
-  "pass_count": 18,
-  "not_executed_count": 4,
+  "pass_count": 20,
+  "not_executed_count": 2,
   "formal_accepted": false,
   "hosted_ci_triggered": true,
   "entries": [
@@ -160,8 +160,8 @@
     },
     {
       "id": "IDP-18",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "当前可达Git历史、12项已知私密值和10个保留日志已审查；真实故障查询串泄露已RED/GREEN修复。本次精确提交的托管CI日志尚待核验，未宣称完整DLP或已恢复删除/过期日志。",
+      "status": "PASS_BOUNDED_AVAILABLE_HISTORY_RUNTIME_AND_CURRENT_CI_LOG_REVIEW",
+      "evidence_boundary": "Current payload public references/raw reachable blobs, current source, ten retained project logs and both exact current hosted CI job logs scanned against twelve known private values and credential patterns without findings. Reachable commit metadata additionally pattern-scanned. Real fault-query leak has retained RED/GREEN fix evidence. Deleted/expired logs, unreachable history, decompressed binaries and unknown credentials remain outside this bounded audit.",
       "references": [
         "docs/00-project/validation/t013-recovery-report.json",
         "docs/00-project/validation/t013-gateway-log-privacy-report.json",
@@ -200,11 +200,13 @@
     },
     {
       "id": "IDP-22",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "本地360单元、246业务完整复测和质量门禁通过；本批代码改变了恢复/网关/执行器，旧托管CI保留为历史，本批精确提交等待实际托管运行核验。",
+      "status": "PASS_EXACT_SCOPED_HOSTED_IDENTITY_AND_REQUIRED_ENGINEERING",
+      "evidence_boundary": "Exact committed recovery payload passed 245 identity checks, 32 required engineering gates and 246 business tests; two actual artifact ZIPs verified against platform size/digest, source hash map verified against committed blobs. Linux complete two-case recovery and 360 unit/engineering checks passed separately. Not whole T013 or formal software/identity acceptance.",
       "references": [
+        "docs/00-project/validation/t013-recovery-ci-report.json",
         "docs/00-project/validation/t013-recovery-report.json",
-        "docs/00-project/validation/t013-recovery-ci-report.json"
+        ".github/workflows/identity.yml",
+        ".github/workflows/ci.yml"
       ]
     }
   ],
@@ -224,10 +226,11 @@
     }
   ],
   "current_batch_report_ref": "docs/00-project/validation/t013-recovery-report.json",
-  "current_batch_tested_source": "Separate Linux working-copy restart/restore runs plus dedicated gateway RED/GREEN; exact hosted payload pending.",
+  "current_batch_tested_source": "Current exact hosted CI plus matching Linux complete recovery source hashes.",
   "failed_count": 0,
-  "pending_count": 4,
-  "current_hosted_tested_source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+  "pending_count": 2,
+  "current_hosted_tested_source_commit": "79ab553d7fc8e70beb78b1eae53a762d6f2b88f0",
   "current_hosted_ci_ref": "docs/00-project/validation/t013-recovery-ci-report.json",
-  "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json"
+  "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json",
+  "historical_tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8"
 }
