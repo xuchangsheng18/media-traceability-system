@@ -1,6 +1,8 @@
 import importlib.util
 import json
 import os
+import signal
+import subprocess
 import sys
 import types
 from pathlib import Path
@@ -393,3 +395,86 @@ def test_directory_format_scope_also_checks_new_module_text(monkeypatch, tmp_pat
         quality.text_check()
     added.write_bytes(b"VALUE = 1\n")
     assert quality.text_check() == 0
+
+
+def runtime_validator():
+    runtime_spec = importlib.util.spec_from_file_location(
+        "bounded_runtime_validation", ROOT / "scripts/validate_stage_three.py"
+    )
+    assert runtime_spec is not None and runtime_spec.loader is not None
+    runtime = importlib.util.module_from_spec(runtime_spec)
+    runtime_spec.loader.exec_module(runtime)
+    return runtime
+
+
+def test_runtime_budget_for_compound_development_tests(monkeypatch):
+    runtime = runtime_validator()
+    waits = []
+
+    class SlowSuccessfulCommand:
+        pid = 12345
+
+        def wait(self, timeout):
+            waits.append(timeout)
+            if timeout == 5:
+                return -15
+            if timeout < 600:
+                raise subprocess.TimeoutExpired("compound-tests", timeout)
+            return 0
+
+        def terminate(self):
+            pass
+
+    monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: SlowSuccessfulCommand())
+    monkeypatch.setattr(runtime.os, "killpg", lambda *args: None, raising=False)
+    assert any("verify_business_foundation.py" in " ".join(command) for command in dev.plan("test"))
+    runtime.run_bounded([sys.executable, "scripts/dev.py", "test"], {})
+    assert 600 <= waits[0] <= 2700, "compound entry must allow the serial suites and retain a finite ceiling"
+
+
+@pytest.mark.parametrize("tail", [["lint"], ["contract-test"], ["test", "--dry-run"]])
+def test_runtime_budget_for_unrelated_commands_stays_bounded(monkeypatch, tail):
+    runtime = runtime_validator()
+    waits = []
+    process = types.SimpleNamespace(wait=lambda timeout: waits.append(timeout) or 0)
+    monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: process)
+    runtime.run_bounded([sys.executable, "scripts/dev.py", *tail], {})
+    assert waits == [300]
+
+
+@pytest.mark.parametrize("exit_code", [1, 7])
+def test_runtime_budget_does_not_hide_nonzero_exit(monkeypatch, exit_code):
+    runtime = runtime_validator()
+    process = types.SimpleNamespace(wait=lambda timeout: exit_code)
+    monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: process)
+    with pytest.raises(subprocess.CalledProcessError) as failure:
+        runtime.run_bounded([sys.executable, "scripts/dev.py", "test"], {})
+    assert failure.value.returncode == exit_code
+
+
+def test_runtime_budget_still_terminates_timed_out_process_group(monkeypatch):
+    runtime = runtime_validator()
+    waits, stopped, starts = [], [], []
+
+    class StuckCommand:
+        pid = 12345
+
+        def wait(self, timeout):
+            waits.append(timeout)
+            if len(waits) == 1:
+                raise subprocess.TimeoutExpired("stuck-tests", timeout)
+            return -15
+
+        def terminate(self):
+            stopped.append(signal.SIGTERM)
+
+    def start(*args, **kwargs):
+        starts.append(kwargs)
+        return StuckCommand()
+
+    monkeypatch.setattr(runtime.subprocess, "Popen", start)
+    monkeypatch.setattr(runtime.os, "killpg", lambda pid, sig: stopped.append(sig), raising=False)
+    with pytest.raises(subprocess.TimeoutExpired):
+        runtime.run_bounded([sys.executable, "scripts/dev.py", "test"], {})
+    assert stopped == [signal.SIGTERM] and waits[1:] == [5]
+    assert starts[0]["start_new_session"] == (os.name == "posix")

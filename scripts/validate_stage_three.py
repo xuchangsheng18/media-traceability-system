@@ -199,9 +199,12 @@ def static_checks():
 
 
 def run_bounded(command, env):
+    # dev.py test serially runs platform, business and frontend suites. Keep its
+    # aggregate budget finite while preserving the smaller bound for other entries.
+    timeout = 2400 if command[1:] == ["scripts/dev.py", "test"] else 300
     process = subprocess.Popen(command, cwd=ROOT, env=env, start_new_session=os.name == "posix")
     try:
-        result = process.wait(timeout=300)
+        result = process.wait(timeout=timeout)
     except subprocess.TimeoutExpired:
         if os.name == "posix":
             os.killpg(process.pid, signal.SIGTERM)
