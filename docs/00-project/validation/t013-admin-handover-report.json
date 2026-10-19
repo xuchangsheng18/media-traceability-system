@@ -1185,7 +1185,7 @@
     "formal_accepted": false
   },
   "key_custody_establishment": {
-    "status": "USB_GPG_PASSPHRASE_RND_DIRECTORY_READY_ACTUAL_KEYS_AWAIT_OPERATOR",
+    "status": "RECOVERY_KEYS_AND_LINUX_PUBLIC_RECIPIENT_VERIFIED_BACKUP_AND_SIGNER_AWAIT_OWNER",
     "custodian": "徐昌胜",
     "source_user_answer": "尚未建立，请提供具体建立步骤",
     "software_boundary": "No Gpg4win installation, key generation, private key import, production policy or baseline change is performed by this evidence update.",
@@ -1217,8 +1217,10 @@
       {
         "number": 2,
         "where": "User-authorized USB G:/公安厅项目密钥; private-key-passphrase internal RnD only",
-        "action": "Custodian uses the prepared empty USB home, enters and confirms a nonempty GPG private-key protection passphrase personally. Do not reuse old D-drive commands or regenerate over existing material; USB volume encryption is deferred.",
-        "PowerShell_commands": [
+        "action": "DONE BY OPERATOR; do not generate again. Verified RSA4096 certification primary and TWO valid RSA4096 encryption subkeys; both retained. Three private key entries report KEYINFO protection P. Actual decryption and backup restore are pending.",
+        "expected": "Existing complete key group preserved. No duplicate primary/subkey creation.",
+        "operator_status": "PASS_ACTUAL_EXISTENCE_PUBLIC_BINDINGS_AND_PROTECTION_METADATA_ONLY",
+        "historical_generation_commands": [
           "$ErrorActionPreference = \"Stop\"",
           "$CustodyRoot = \"G:\\公安厅项目密钥\"",
           "$CustodyGpg = Join-Path $CustodyRoot \"recovery-gnupg\"",
@@ -1237,95 +1239,73 @@
           "if ($LASTEXITCODE -ne 0) { throw \"加密子密钥添加未成功，停止后续操作，不重新生成主密钥\" }",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --with-subkey-fingerprint --list-secret-keys \"$RecoveryFpr\"",
           "if ($LASTEXITCODE -ne 0) { throw \"密钥检查失败，停止\" }"
-        ],
-        "expected": "Certification primary and encryption subkey with personally entered nonempty private-key passphrase; actual public fingerprints recorded, no full-media/offline acceptance claim.",
-        "operator_status": "NOT_EXECUTED_ACTUAL_OPERATOR_STEP"
+        ]
       },
       {
         "number": 3,
         "where": "Trusted workstation",
-        "action": "Export PUBLIC and passphrase-protected secret backup separately without overwrite. GnuPG automatically creates an original revocation certificate in openpgp-revocs.d; protect its backup with independent symmetric GPG encryption. Original certificate remains on this user-authorized unencrypted USB home, explicitly not covered by private-key passphrase protection. Do not upload private backup, original certificate or its encrypted backup.",
+        "action": "Owner exports the existing complete recovery secret-key group, including both encryption subkeys; retains passphrase protection and encrypts a revocation copy with a separately owner-managed nonempty symmetric passphrase. No private file overwrite, upload or repeated public export. Original revocation certificate remains on the user-authorized unencrypted USB; private-key passphrase does not protect it.",
         "PowerShell_commands": [
-          "$PublicMaterial = Join-Path $CustodyRoot \"public\"",
-          "$PrivateMaterial = Join-Path $CustodyRoot \"private-backups\"",
-          "foreach ($TaskFolder in @($PublicMaterial, $PrivateMaterial)) { if (-not (Test-Path -LiteralPath $TaskFolder -PathType Container)) { throw \"已准备目录不存在\" } }",
-          "$PublicRecipient = Join-Path $PublicMaterial \"recovery-recipient.asc\"",
-          "$SecretBackup = Join-Path $PrivateMaterial \"recovery-secret-backup.asc\"",
-          "$ProtectedRevocation = Join-Path $PrivateMaterial \"recovery-revocation.rev.gpg\"",
-          "foreach ($TaskExport in @($PublicRecipient, $SecretBackup, $ProtectedRevocation)) { if (Test-Path -LiteralPath $TaskExport) { throw \"导出文件已存在，停止，不覆盖\" } }",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$PublicRecipient\" --export \"$RecoveryFpr\"",
-          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $PublicRecipient).Length -eq 0) { throw \"公钥导出未成功\" }",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$SecretBackup\" --export-secret-keys \"$RecoveryFpr\"",
-          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $SecretBackup).Length -eq 0) { throw \"私钥备份导出未成功\" }",
-          "$OriginalRevocation = Join-Path (Join-Path $CustodyGpg \"openpgp-revocs.d\") ($RecoveryFpr.ToUpperInvariant() + \".rev\")",
-          "if (-not (Test-Path -LiteralPath $OriginalRevocation -PathType Leaf)) { throw \"自动生成的吊销材料未找到，停止核查\" }",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --symmetric --cipher-algo AES256 --output \"$ProtectedRevocation\" \"$OriginalRevocation\"",
-          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $ProtectedRevocation).Length -eq 0) { throw \"吊销材料加密备份未成功\" }",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --show-keys --with-fingerprint --with-subkey-fingerprint \"$PublicRecipient\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"公钥检查失败\" }"
+          "$ErrorActionPreference = \"Stop\"",
+          "$Gpg = \"D:\\GnuPG\\bin\\gpg.exe\"",
+          "$KeyHome = \"G:\\公安厅项目密钥\\recovery-gnupg\"",
+          "$RecoveryFpr = \"1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF\"",
+          "$SecretBackup = \"G:\\公安厅项目密钥\\private-backups\\recovery-secret-backup.asc\"",
+          "$ProtectedRevocation = \"G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg\"",
+          "$OriginalRevocation = Join-Path (Join-Path $KeyHome \"openpgp-revocs.d\") ($RecoveryFpr + \".rev\")",
+          "if (-not (Test-Path -LiteralPath $KeyHome -PathType Container) -or -not (Test-Path -LiteralPath $OriginalRevocation -PathType Leaf)) { throw \"原密钥或吊销材料未找到，停止核查\" }",
+          "foreach ($TaskTarget in @($SecretBackup, $ProtectedRevocation)) { if (Test-Path -LiteralPath $TaskTarget) { throw \"备份文件已存在，停止，不覆盖\" } }",
+          "& $Gpg --homedir \"$KeyHome\" --armor --output \"$SecretBackup\" --export-secret-keys \"$RecoveryFpr\"",
+          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $SecretBackup).Length -eq 0) { throw \"私钥备份导出失败，停止，不重新生成密钥\" }",
+          "& $Gpg --homedir \"$KeyHome\" --symmetric --cipher-algo AES256 --output \"$ProtectedRevocation\" \"$OriginalRevocation\"",
+          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $ProtectedRevocation).Length -eq 0) { throw \"吊销材料副本加密失败，停止核查\" }",
+          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$KeyHome\" --kill gpg-agent",
+          "if ($LASTEXITCODE -ne 0) { throw \"专用缓存清理失败，停止核查\" }",
+          "Get-Item -LiteralPath $SecretBackup, $ProtectedRevocation | Select-Object Name, Length"
         ],
         "expected": "Public export, private export protected with the private-key passphrase, and independently symmetric-encrypted revocation backup. Original automatic revocation file remains physically controlled on the USB; no false all-files-encrypted or independent-backup claim.",
-        "operator_status": "NOT_EXECUTED_ACTUAL_OPERATOR_STEP"
+        "operator_status": "NOT_EXECUTED_OWNER_ACTION_NEXT"
       },
       {
         "number": 4,
         "where": "Windows SSH client and Linux R&D host",
-        "action": "Upload only the public recipient and compare the FULL fingerprint over the established SSH channel. Do not upload the recovery GnuPG home or recovery private export.",
-        "PowerShell_commands": [
-          "$PublicMaterial = \"G:\\公安厅项目密钥\\public\"",
-          "ssh glwy@172.16.58.179 \"install -d -m 700 /workspace/glwy/runtime/media-traceability-system/identity-custody/public /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"公钥上传步骤失败，停止核查\" }",
-          "scp \"$PublicMaterial\\recovery-recipient.asc\" glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
-          "if ($LASTEXITCODE -ne 0) { throw \"公钥上传步骤失败，停止核查\" }"
-        ],
-        "Linux_commands": [
-          "chmod 600 /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
-          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --show-keys --with-fingerprint --with-subkey-fingerprint /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc"
-        ],
+        "action": "DONE FOR EXACT CURRENT CERTIFICATE: public-only upload and Linux/Windows hash plus all three complete fingerprints and bindings agree. No recovery private transfer or shared backup configuration adoption.",
         "expected": "Same full recovery primary fingerprint on both machines; only a PUBLIC recipient is on the server.",
-        "operator_status": "NOT_EXECUTED_ACTUAL_OPERATOR_STEP"
+        "operator_status": "PASS_EXACT_PUBLIC_CERTIFICATE_INSTALLED_AND_VERIFIED",
+        "historical_public_upload_commands": {
+          "PowerShell_commands": [
+            "$PublicMaterial = \"G:\\公安厅项目密钥\\public\"",
+            "ssh glwy@172.16.58.179 \"install -d -m 700 /workspace/glwy/runtime/media-traceability-system/identity-custody/public /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"公钥上传步骤失败，停止核查\" }",
+            "scp \"$PublicMaterial\\recovery-recipient.asc\" glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+            "if ($LASTEXITCODE -ne 0) { throw \"公钥上传步骤失败，停止核查\" }"
+          ],
+          "Linux_commands": [
+            "chmod 600 /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+            "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --show-keys --with-fingerprint --with-subkey-fingerprint /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc"
+          ]
+        }
       },
       {
         "number": 5,
         "where": "Linux R&D host, attended interactive SSH terminal",
-        "action": "Generate a DIFFERENT signing-only key in the dedicated server home, with a nonempty privately entered passphrase. This is an operator step; do not copy the offline recovery secret here. Stop on an existing signer instead of generating duplicates.",
-        "Linux_commands": [
+        "action": "Owner runs the attended SSH helper from Windows, personally chooses a DIFFERENT signer passphrase, and confirms any GPG export prompt. Helper refuses existing private keys/targets, unattended use and unprotected storage. It exports public signer and a protected local server private backup; latter still needs independent USB copy and recovery proof. Do not send private export/passphrase in chat.",
+        "expected": "Signer has signing/certification capability and NO encryption secret key. Replace ACTUAL_SIGNER_PRIMARY_FINGERPRINT with the observed full public fingerprint. Store an encrypted signer recovery copy by the agreed separate custody route.",
+        "operator_status": "NOT_EXECUTED_FOUR_PRECHECKS_PASS_ONLY",
+        "historical_manual_signer_commands": [
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --list-secret-keys",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --quick-generate-key \"MediaTrace RnD Backup Signer - Xu Changsheng\" rsa4096 sign 1y",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --fingerprint --list-secret-keys",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --armor --output /workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc --export ACTUAL_SIGNER_PRIMARY_FINGERPRINT"
         ],
-        "expected": "Signer has signing/certification capability and NO encryption secret key. Replace ACTUAL_SIGNER_PRIMARY_FINGERPRINT with the observed full public fingerprint. Store an encrypted signer recovery copy by the agreed separate custody route.",
-        "operator_status": "NOT_EXECUTED_ACTUAL_OPERATOR_STEP"
+        "PowerShell_commands": [
+          "ssh -t glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\""
+        ]
       },
       {
         "number": 6,
         "where": "Both machines; use a nonsensitive key-check message",
-        "action": "Import the recipient public key into the signing home and signer public key into the current user-authorized USB recovery home. Encrypt/sign only a fixed nonsensitive marker, transfer the encrypted file to the custodian, then decrypt and verify the signer full fingerprint in the USB internal-RnD home. Test the actual server/workstation GnuPG versions; this is key interoperability proof, not database recovery.",
-        "Linux_commands": [
-          "TaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody",
-          "TaskGpg=\"$TaskCustody/signer-gnupg\"",
-          "export GPG_TTY=\"$(tty)\"",
-          "read -r -p \"恢复主密钥完整指纹：\" TaskRecoveryFpr",
-          "read -r -p \"签名主密钥完整指纹：\" TaskSignerFpr",
-          "gpg --homedir \"$TaskGpg\" --import \"$TaskCustody/public/recovery-recipient.asc\"",
-          "printf \"%s\\n\" \"media-trace-rnd-key-check\" > \"$TaskCustody/key-check.txt\"",
-          "gpg --homedir \"$TaskGpg\" --local-user \"$TaskSignerFpr\" --recipient \"$TaskRecoveryFpr\" --output \"$TaskCustody/key-check.txt.gpg\" --encrypt --sign \"$TaskCustody/key-check.txt\""
-        ],
-        "PowerShell_commands": [
-          "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$PublicMaterial\\backup-signer.asc\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
-          "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/key-check.txt.gpg \"$PublicMaterial\\key-check.txt.gpg\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --import \"$PublicMaterial\\backup-signer.asc\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
-          "if (Test-Path -LiteralPath \"$CustodyRoot\\key-check-restored.txt\") { throw \"检查明文已存在，停止，不覆盖\" }",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --status-fd 2 --output \"$CustodyRoot\\key-check-restored.txt\" --decrypt \"$PublicMaterial\\key-check.txt.gpg\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
-          "Get-Content -LiteralPath \"$CustodyRoot\\key-check-restored.txt\"",
-          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$CustodyGpg\" --kill gpg-agent",
-          "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }"
-        ],
+        "action": "AFTER ACTUAL SIGNER: exercise both existing encryption subkeys by explicit full subkey fingerprint with ! and independently verify the new signer full primary fingerprint. Existing one-message sample is historical and cannot prove both decryption subkeys or actual database recovery.",
         "expected": "Successful decryption, exact fixed marker and VALIDSIG identifying the independently compared full signer fingerprint; ownertrust warnings alone are not signer identity verification. Preserve public fingerprint/result metadata, not private keys or passphrases.",
         "remaining_operator_inputs": [
           "recovery public-key server path and complete fingerprint",
@@ -1334,24 +1314,50 @@
         ],
         "backup_code_boundary": "backup.py and restore.py intentionally use --pinentry-mode error. They do not prompt for a passphrase. An attended separate benign signing/decryption check may unlock the dedicated agent before a short operation; absent/expired agent authorization must fail. Do not add password arguments, empty-passphrase keys or persistent unattended credential caches to bypass this. Unattended daily backups require a separately established controlled signing/token facility.",
         "cache_cleanup": "End only this dedicated USB GnuPG agent with the actual home, close all open project-key files, then safely eject the USB and unplug it for physical offline custody. These actions are not yet observed. Do not kill unrelated agents or force-eject an in-use drive.",
-        "operator_status": "NOT_EXECUTED_ACTUAL_OPERATOR_STEP"
+        "operator_status": "NOT_EXECUTED_WAIT_BOTH_KEY_BACKUPS_AND_SIGNER",
+        "historical_single_message_example": {
+          "PowerShell_commands": [
+            "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$PublicMaterial\\backup-signer.asc\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/key-check.txt.gpg \"$PublicMaterial\\key-check.txt.gpg\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --import \"$PublicMaterial\\backup-signer.asc\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "if (Test-Path -LiteralPath \"$CustodyRoot\\key-check-restored.txt\") { throw \"检查明文已存在，停止，不覆盖\" }",
+            "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --status-fd 2 --output \"$CustodyRoot\\key-check-restored.txt\" --decrypt \"$PublicMaterial\\key-check.txt.gpg\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "Get-Content -LiteralPath \"$CustodyRoot\\key-check-restored.txt\"",
+            "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$CustodyGpg\" --kill gpg-agent",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }"
+          ],
+          "Linux_commands": [
+            "TaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody",
+            "TaskGpg=\"$TaskCustody/signer-gnupg\"",
+            "export GPG_TTY=\"$(tty)\"",
+            "read -r -p \"恢复主密钥完整指纹：\" TaskRecoveryFpr",
+            "read -r -p \"签名主密钥完整指纹：\" TaskSignerFpr",
+            "gpg --homedir \"$TaskGpg\" --import \"$TaskCustody/public/recovery-recipient.asc\"",
+            "printf \"%s\\n\" \"media-trace-rnd-key-check\" > \"$TaskCustody/key-check.txt\"",
+            "gpg --homedir \"$TaskGpg\" --local-user \"$TaskSignerFpr\" --recipient \"$TaskRecoveryFpr\" --output \"$TaskCustody/key-check.txt.gpg\" --encrypt --sign \"$TaskCustody/key-check.txt\""
+          ]
+        }
       },
       {
         "number": 7,
         "where": "Actual recovery planning",
         "action": "Before any real restore, establish the controlled temporary/hardware decryption path for existing restore.py, independent private custody, configuration/API-secret coordination and maintenance evidence. Uploading public keys alone does not close T013-R02 or certify disaster recovery.",
-        "operator_status": "NOT_EXECUTED_ACTUAL_OPERATOR_STEP"
+        "operator_status": "NOT_EXECUTED_REAL_RECOVERY_AND_INDEPENDENT_CUSTODY_PENDING"
       }
     ],
     "official_command_reference": "https://gnupg.org/documentation/manuals/gnupg/OpenPGP-Key-Management.html",
-    "actual_private_keys_created_or_imported": false,
+    "actual_private_keys_created_or_imported": true,
     "actual_backup_or_restore_performed": false,
     "formal_accepted": false,
     "current_operator_progress": {
-      "observed_at": "2026-10-19T10:03:07.603029+00:00",
+      "observed_at": "2026-10-19T10:45:44.490824+00:00",
       "task_id": "T013",
       "related_remaining_item": "T013-R02",
-      "scope": "Explicitly user-authorized USB passphrase-protected private-key custody for same-unit internal RnD only. Disk/container encryption deferred. Empty directory preparation, no actual key generation or backup/restore by this update.",
+      "scope": "Actual operator-created USB recovery primary plus two encryption subkeys verified through public bindings and GnuPG secret-availability/protection metadata. Exact PUBLIC certificate installed and independently checked on Linux. No private key transfer, actual backup, signing-key generation, decryption or formal recovery by this update.",
       "downloaded": {
         "status": "USER_REPORTED",
         "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
@@ -1400,35 +1406,42 @@
       },
       "remaining_operator_milestones": [
         {
-          "name": "本人在G盘专用home生成恢复认证主密钥与加密子密钥并设置非空口令",
+          "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+          "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+          "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+        },
+        {
+          "name": "U盘三把私钥的GPG保护存储",
+          "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+          "scope": "No passphrase, private-file content or decryption result inspected."
+        },
+        {
+          "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+          "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+          "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+        },
+        {
+          "name": "恢复私钥备份与吊销材料加密副本",
+          "status": "NOT_EXECUTED_AWAIT_OWNER_LOCAL_PASSPHRASE"
+        },
+        {
+          "name": "Linux独立仅签名密钥及其受保护导出",
+          "status": "NOT_EXECUTED_OWNER_HELPER_PREFLIGHT_ONLY"
+        },
+        {
+          "name": "两把加密子密钥逐一跨端解密及独立签名验签",
           "status": "NOT_VERIFIED"
         },
         {
-          "name": "导出公钥及受口令保护的私钥备份，另加密吊销材料副本并保管其原件",
+          "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
           "status": "NOT_VERIFIED"
         },
         {
-          "name": "公钥上传及两端完整主指纹与子密钥指纹比对",
-          "status": "NOT_VERIFIED"
-        },
-        {
-          "name": "服务器独立仅签名密钥及其受保护备份保管",
-          "status": "NOT_VERIFIED"
-        },
-        {
-          "name": "固定无敏感文本跨端加密签名/解密验签",
-          "status": "NOT_VERIFIED"
-        },
-        {
-          "name": "清理专用缓存、安全弹出U盘并落实独立介质备份",
-          "status": "NOT_VERIFIED"
-        },
-        {
-          "name": "实际备份及受控新卷恢复验证",
+          "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
           "status": "NOT_VERIFIED"
         }
       ],
-      "next_action": "Custodian personally runs exact USB-home PowerShell commands in the supplied current guide, chooses a nonempty private-key passphrase in local GPG prompts, then provides only public fingerprints and public-key server paths. No extra software or volume encryption. Existing D material preserved; actual keys, interoperability, offline storage and restoration still need evidence.",
+      "next_action": "Owner exports the existing complete recovery key group, including both encryption subkeys, into a passphrase-protected USB secret backup and symmetrically encrypts the existing revocation certificate copy. Then runs the prepared attended Linux signer helper; it refuses existing keys, overwrites and noninteractive generation. All passphrases remain in owner GPG prompts. Actual signer backup, both-subkey interoperability and recovery follow after observed success.",
       "GPG_key_custody_established": false,
       "actual_keys_generated_by_this_update": false,
       "actual_interoperability_verified": false,
@@ -1563,67 +1576,212 @@
         "volume_or_container_encryption_deferred": true
       },
       "latest_CI_recheck": {
-        "observed_at": "2026-10-19T09:58:11.406Z",
-        "runs": [
-          {
-            "id": 39226217064,
-            "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
-            "status": "completed",
-            "conclusion": "success",
-            "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064"
-          },
-          {
-            "id": 39223059150,
-            "source_commit": "5ecead8875ef981e2b1243cedbf8ed3c7310421d",
-            "status": "completed",
-            "conclusion": "failure",
-            "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39223059150"
-          },
-          {
-            "id": 39220993572,
-            "source_commit": "4377b1395d46b061ba6b52a5a4829a7c501c8fda",
-            "status": "completed",
-            "conclusion": "failure",
-            "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39220993572"
-          },
-          {
-            "id": 39217811049,
-            "source_commit": "431f337f1f4adb652a3c67d49e40605d36db01e0",
-            "status": "completed",
-            "conclusion": "failure",
-            "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39217811049"
-          },
-          {
-            "id": 39206156386,
-            "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
-            "status": "completed",
-            "conclusion": "success",
-            "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39206156386"
-          }
-        ],
-        "jobs": [
-          {
-            "id": 117973030279,
-            "name": "identity-verification / identity-integration",
-            "status": "completed",
-            "conclusion": "success"
-          },
-          {
-            "id": 117978860869,
-            "name": "engineering",
-            "status": "completed",
-            "conclusion": "success"
-          }
-        ],
-        "scope": "Current GitHub GET only; no new CI run triggered by USB-directory preparation."
+        "observed_at": "2026-10-19T10:43:55.544Z",
+        "run_id": 39226217064,
+        "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
+        "scope": "Current GitHub GET only; USB public-key and operator helper preparation have not triggered a new hosted CI run."
       },
       "current_operator_guide": {
-        "local_path": "D:\\公安厅项目\\修订成果\\T013_U盘密钥管理操作步骤_20261019.txt",
+        "local_path": "D:\\公安厅项目\\修订成果\\T013_备份与Linux签名密钥操作步骤_20261019.txt",
         "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
         "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-        "sha256": "5257ae377606b6d9c04782cfb586f4956fe9dd30afdddf12f4d38ea5ab6d3a39",
+        "sha256": "e9d4b76c1271b8a72a145c45248575cdc9726146fe02987c56188afbc2cafb66",
         "instructions_executed": false,
-        "scope": "User-selected USB GPG-private-key-passphrase internal-RnD instructions; not actual key material or an executed operation"
+        "scope": "Current next owner steps for actual backup and Linux signing-key creation; prior recovery-generation steps are completed and must not be rerun."
+      },
+      "operator_progress_history": [
+        {
+          "observed_at": "2026-10-19T10:03:07.603029+00:00",
+          "scope": "Explicitly user-authorized USB passphrase-protected private-key custody for same-unit internal RnD only. Disk/container encryption deferred. Empty directory preparation, no actual key generation or backup/restore by this update.",
+          "next_action": "Custodian personally runs exact USB-home PowerShell commands in the supplied current guide, chooses a nonempty private-key passphrase in local GPG prompts, then provides only public fingerprints and public-key server paths. No extra software or volume encryption. Existing D material preserved; actual keys, interoperability, offline storage and restoration still need evidence.",
+          "remaining_operator_milestones": [
+            {
+              "name": "本人在G盘专用home生成恢复认证主密钥与加密子密钥并设置非空口令",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "导出公钥及受口令保护的私钥备份，另加密吊销材料副本并保管其原件",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "公钥上传及两端完整主指纹与子密钥指纹比对",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "服务器独立仅签名密钥及其受保护备份保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "固定无敏感文本跨端加密签名/解密验签",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "清理专用缓存、安全弹出U盘并落实独立介质备份",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际备份及受控新卷恢复验证",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        }
+      ],
+      "actual_operator_recovery_keys_generated": true,
+      "actual_recovery_public_export_verified": true,
+      "actual_recovery_public_uploaded_and_verified_on_Linux": true,
+      "actual_private_key_file_contents_read_by_this_update": false,
+      "recovery_public_and_secret_availability_verification": {
+        "status": "PASS_RECOVERY_PUBLIC_STRUCTURE_BINDINGS_AND_SECRET_AVAILABILITY_METADATA_ONLY",
+        "observed_at": "2026-10-19T10:42:40.915529+00:00",
+        "task_id": "T013",
+        "related_remaining_item": "T013-R02",
+        "custodian": "徐昌胜",
+        "user_reported_generated": true,
+        "public_file": "G:\\公安厅项目密钥\\public\\recovery-recipient.asc",
+        "public_file_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+        "public_file_size_bytes": 4845,
+        "keys": [
+          {
+            "type": "pub",
+            "validity": "u",
+            "bits": 4096,
+            "algorithm": 1,
+            "created_epoch": 1792405504,
+            "expires_epoch": 1823941504,
+            "capabilities": "cEC",
+            "fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+            "uid": "MediaTrace RnD Recovery - Xu Changsheng",
+            "created_at": "2026-10-19T10:25:04+00:00",
+            "expires_at": "2027-10-19T10:25:04+00:00"
+          },
+          {
+            "type": "sub",
+            "validity": "u",
+            "bits": 4096,
+            "algorithm": 1,
+            "created_epoch": 1792406087,
+            "expires_epoch": 1823942087,
+            "capabilities": "e",
+            "fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+            "created_at": "2026-10-19T10:34:47+00:00",
+            "expires_at": "2027-10-19T10:34:47+00:00"
+          },
+          {
+            "type": "sub",
+            "validity": "u",
+            "bits": 4096,
+            "algorithm": 1,
+            "created_epoch": 1792406150,
+            "expires_epoch": 1823942150,
+            "capabilities": "e",
+            "fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+            "created_at": "2026-10-19T10:35:50+00:00",
+            "expires_at": "2027-10-19T10:35:50+00:00"
+          }
+        ],
+        "export_matches_USB_public_ring": true,
+        "primary_self_signature_and_subkey_bindings_verified": 3,
+        "secret_key_availability_verified_via_metadata": true,
+        "private_file_contents_read": false,
+        "private_material_exported_by_this_verification": false,
+        "private_material_uploaded": false,
+        "actual_operator_recovery_keys_generated": true,
+        "actual_keys_generated_by_assistant": false,
+        "private_key_passphrase_protection_verified": false,
+        "private_backup_files_observed": 0,
+        "revocation_certificate_present": true,
+        "encryption_subkey_count": 2,
+        "expected_design_encryption_subkey_count": 1,
+        "extra_subkey_disposition": "Both valid existing encryption subkeys retained without deletion, revocation or new generation. Backup must include both, later interoperability must exercise both explicitly. No backup-recipient subkey adopted by this observation.",
+        "backup_or_restore_executed": false,
+        "physical_offline_custody_verified": false,
+        "disk_or_container_encryption_deferred": true,
+        "Python_candidates_created": false,
+        "formal_accepted": false,
+        "stored_private_key_protection_metadata": [
+          {
+            "fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+            "key_type": "D",
+            "protection": "P"
+          },
+          {
+            "fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+            "key_type": "D",
+            "protection": "P"
+          },
+          {
+            "fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+            "key_type": "D",
+            "protection": "P"
+          }
+        ],
+        "all_three_private_keys_report_P_protection": true,
+        "protection_check_scope": "GnuPG KEYINFO metadata reports passphrase-protected storage for certification primary and both encryption subkeys. Actual decryption/passphrase entry and recoverability are not tested by this metadata check.",
+        "keyinfo_reference": "https://lists.gnupg.org/pipermail/gnupg-commits/2011-April/009419.html"
+      },
+      "Linux_public_recipient_verification": {
+        "status": "PASS_EXACT_PUBLIC_RECIPIENT_ON_LINUX_NO_PRIVATE_TRANSFER",
+        "observed_at": "2026-10-19T10:40:20.779248+00:00",
+        "public_server_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+        "public_file_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+        "public_file_size_bytes": 4845,
+        "public_fingerprints": [
+          "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+          "74FF3C32A5738FAD98C9A90D97672271E1161785",
+          "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133"
+        ],
+        "public_signatures_verified": 3,
+        "existing_different_file_overwritten": false,
+        "recipient_mode": "0600",
+        "custody_directory_mode": "0700",
+        "Linux_GPG_version": "gpg (GnuPG) 2.4.4",
+        "server_signer_private_key_count": 0,
+        "server_signer_generated_by_this_update": false,
+        "server_recovery_private_material_imported": false,
+        "backup_or_restore_executed": false,
+        "physical_offline_custody_verified": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false
+      },
+      "Linux_signer_helper_preflight": {
+        "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+        "observed_at": "2026-10-19T10:43:24.473005+00:00",
+        "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
+        "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
+        "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+        "cases": [
+          {
+            "case": "bash_syntax",
+            "status": "PASS",
+            "expected_exit": 0,
+            "observed_exit": 0
+          },
+          {
+            "case": "owner_directory_and_empty_signer_preflight",
+            "status": "PASS",
+            "expected_exit": 0,
+            "observed_exit": 0
+          },
+          {
+            "case": "reject_unexpected_argument",
+            "status": "PASS",
+            "expected_exit": 2,
+            "observed_exit": 2
+          },
+          {
+            "case": "reject_unattended_key_generation",
+            "status": "PASS",
+            "expected_exit": 2,
+            "observed_exit": 2
+          }
+        ],
+        "actual_key_generation_executed": false,
+        "actual_private_backup_created": false,
+        "actual_signer_accepted": false,
+        "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
       }
     },
     "Windows_command_path_note": "Exact current private/public paths use G:/公安厅项目密钥; Windows GPG executables remain D:/GnuPG/bin. Original D-directory preparation is preserved. Explicit current user decision allows GPG-private-key-passphrase internal RnD only, while disk/container encryption is deferred.",
@@ -1742,6 +1900,46 @@
         "where": "Actual recovery planning",
         "action": "Before any real restore, establish the controlled temporary/hardware decryption path for existing restore.py, independent private custody, configuration/API-secret coordination and maintenance evidence. Uploading public keys alone does not close T013-R02 or certify disaster recovery."
       }
-    ]
+    ],
+    "actual_private_keys_created_or_imported_scope": "Operator recovery-key existence is observed on USB via metadata. Assistant neither generated nor read/exported private material; no recovery secret key imported on Linux.",
+    "Linux_signer_operator_script": {
+      "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+      "observed_at": "2026-10-19T10:43:24.473005+00:00",
+      "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
+      "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
+      "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+      "cases": [
+        {
+          "case": "bash_syntax",
+          "status": "PASS",
+          "expected_exit": 0,
+          "observed_exit": 0
+        },
+        {
+          "case": "owner_directory_and_empty_signer_preflight",
+          "status": "PASS",
+          "expected_exit": 0,
+          "observed_exit": 0
+        },
+        {
+          "case": "reject_unexpected_argument",
+          "status": "PASS",
+          "expected_exit": 2,
+          "observed_exit": 2
+        },
+        {
+          "case": "reject_unattended_key_generation",
+          "status": "PASS",
+          "expected_exit": 2,
+          "observed_exit": 2
+        }
+      ],
+      "actual_key_generation_executed": false,
+      "actual_private_backup_created": false,
+      "actual_signer_accepted": false,
+      "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation",
+      "script_content": "#!/usr/bin/env bash\n# Human-operated one-time signing-key creation; never accepts a passphrase argument.\nset -euo pipefail\numask 077\nTaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody\nTaskSignerHome=\"$TaskCustody/signer-gnupg\"\nTaskSignerPublic=\"$TaskCustody/public/backup-signer.asc\"\nTaskSignerBackup=\"$TaskCustody/private-backups/backup-signer-secret.asc\"\nif [[ $# -gt 1 || ( $# -eq 1 && \"$1\" != --check ) ]]; then\n    printf '%s\\n' 'Only --check or an attended run without arguments is supported.' >&2\n    exit 2\nfi\nfor TaskTool in gpg gpgconf gpg-connect-agent stat awk tty; do\n    command -v \"$TaskTool\" >/dev/null || { printf '%s\\n' \"Missing required tool: $TaskTool\" >&2; exit 2; }\ndone\nfor TaskDirectory in \"$TaskCustody\" \"$TaskSignerHome\" \"$TaskCustody/public\" \"$TaskCustody/private-backups\"; do\n    if [[ ! -d \"$TaskDirectory\" || -L \"$TaskDirectory\" || ! -O \"$TaskDirectory\" || \"$(stat -c '%a' \"$TaskDirectory\")\" != 700 ]]; then\n        printf '%s\\n' 'Dedicated custody directory ownership/mode mismatch. Stop without changing it.' >&2\n        exit 2\n    fi\ndone\nTaskExisting=$(gpg --homedir \"$TaskSignerHome\" --batch --pinentry-mode error --with-colons --list-secret-keys)\nif printf '%s\\n' \"$TaskExisting\" | awk -F: '$1==\"sec\" {n++} END {exit(n?0:1)}'; then\n    printf '%s\\n' 'An existing signing private key was found. Stop; do not generate duplicates.' >&2\n    exit 3\nfi\nfor TaskTarget in \"$TaskSignerPublic\" \"$TaskSignerBackup\"; do\n    if [[ -e \"$TaskTarget\" || -L \"$TaskTarget\" ]]; then\n        printf '%s\\n' 'An export target already exists. Stop; nothing is overwritten.' >&2\n        exit 3\n    fi\ndone\nif [[ ${1-} == --check ]]; then\n    printf '%s\\n' 'PASS_SIGNER_OWNER_PREFLIGHT_ONLY_NO_KEY_GENERATION'\n    exit 0\nfi\nif [[ ! -t 0 || ! -t 1 ]]; then\n    printf '%s\\n' 'An attended SSH terminal is required. Do not supply passphrases through files, arguments or chat.' >&2\n    exit 2\nfi\nexport GPG_TTY=\"$(tty)\"\ntrap 'gpgconf --homedir \"$TaskSignerHome\" --kill gpg-agent >/dev/null 2>&1 || true' EXIT\nprintf '%s\\n' 'Create a DIFFERENT signing-only key. Personally choose and confirm a nonempty passphrase in the GPG prompt.'\ngpg --homedir \"$TaskSignerHome\" --quick-generate-key 'MediaTrace RnD Backup Signer - Xu Changsheng' rsa4096 sign 1y\nTaskSignerRows=$(gpg --homedir \"$TaskSignerHome\" --batch --with-colons --with-keygrip --fingerprint --list-secret-keys)\nif ! printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"sec\" {n++; if($12 !~ /s/ || $12 ~ /[eE]/) bad=1} $1==\"ssb\" {bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Unexpected signer capability or key count. Keep material and stop for review.' >&2\n    exit 4\nfi\nTaskSignerFpr=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"fpr\" && !done {print $10; done=1}')\nTaskSignerGrip=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"grp\" && !done {print $10; done=1}')\nif [[ ! \"$TaskSignerFpr\" =~ ^[A-F0-9]{40}$ || ! \"$TaskSignerGrip\" =~ ^[A-F0-9]{40}$ ]]; then\n    printf '%s\\n' 'Invalid public signer identifier; stop.' >&2\n    exit 4\nfi\nTaskSignerInfo=$(gpg-connect-agent --homedir \"$TaskSignerHome\" \"KEYINFO $TaskSignerGrip\" /bye)\nif ! printf '%s\\n' \"$TaskSignerInfo\" | awk '$1==\"S\" && $2==\"KEYINFO\" {n++; if($8!=\"P\") bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Signer does not report passphrase-protected storage. Keep material and stop; no backup export.' >&2\n    exit 4\nfi\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerPublic\" --export \"$TaskSignerFpr\"\ntest -s \"$TaskSignerPublic\"\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerBackup\" --export-secret-keys \"$TaskSignerFpr\"\ntest -s \"$TaskSignerBackup\"\nchmod 600 \"$TaskSignerPublic\" \"$TaskSignerBackup\"\nprintf '\\n%s\\n%s\\n%s\\n' 'Signing key and protected local export created. This is not an independent or tested recovery backup.' \"PUBLIC fingerprint: $TaskSignerFpr\" \"PUBLIC file: $TaskSignerPublic\"\nprintf '%s\\n' 'Do not send the private export or passphrase in chat. Ask the assistant to verify the public result before transferring the protected signer backup to USB.'\n",
+      "script_content_scope": "Exact reviewable owner-only operation template; fresh syntax/preflight/refusal checks are scoped evidence, not execution of actual generation or hosted CI coverage."
+    }
   }
 }

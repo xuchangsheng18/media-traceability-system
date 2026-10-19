@@ -21,13 +21,13 @@
   "GPG_key_custody_established": false,
   "GPG_key_custody_user_answer": "尚未建立，请提供具体建立步骤",
   "GPG_key_custody_confirmation_date": "2026-10-19",
-  "GPG_actual_keys_generated": false,
+  "GPG_actual_keys_generated": true,
   "GPG_actual_recovery_validated": false,
   "GPG_setup_follow_up": {
-    "observed_at": "2026-10-19T10:03:07.603029+00:00",
+    "observed_at": "2026-10-19T10:45:44.490824+00:00",
     "task_id": "T013",
     "related_remaining_item": "T013-R02",
-    "scope": "Explicitly user-authorized USB passphrase-protected private-key custody for same-unit internal RnD only. Disk/container encryption deferred. Empty directory preparation, no actual key generation or backup/restore by this update.",
+    "scope": "Actual operator-created USB recovery primary plus two encryption subkeys verified through public bindings and GnuPG secret-availability/protection metadata. Exact PUBLIC certificate installed and independently checked on Linux. No private key transfer, actual backup, signing-key generation, decryption or formal recovery by this update.",
     "downloaded": {
       "status": "USER_REPORTED",
       "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
@@ -76,35 +76,42 @@
     },
     "remaining_operator_milestones": [
       {
-        "name": "本人在G盘专用home生成恢复认证主密钥与加密子密钥并设置非空口令",
+        "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+        "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+        "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+      },
+      {
+        "name": "U盘三把私钥的GPG保护存储",
+        "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+        "scope": "No passphrase, private-file content or decryption result inspected."
+      },
+      {
+        "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+        "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+        "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+      },
+      {
+        "name": "恢复私钥备份与吊销材料加密副本",
+        "status": "NOT_EXECUTED_AWAIT_OWNER_LOCAL_PASSPHRASE"
+      },
+      {
+        "name": "Linux独立仅签名密钥及其受保护导出",
+        "status": "NOT_EXECUTED_OWNER_HELPER_PREFLIGHT_ONLY"
+      },
+      {
+        "name": "两把加密子密钥逐一跨端解密及独立签名验签",
         "status": "NOT_VERIFIED"
       },
       {
-        "name": "导出公钥及受口令保护的私钥备份，另加密吊销材料副本并保管其原件",
+        "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
         "status": "NOT_VERIFIED"
       },
       {
-        "name": "公钥上传及两端完整主指纹与子密钥指纹比对",
-        "status": "NOT_VERIFIED"
-      },
-      {
-        "name": "服务器独立仅签名密钥及其受保护备份保管",
-        "status": "NOT_VERIFIED"
-      },
-      {
-        "name": "固定无敏感文本跨端加密签名/解密验签",
-        "status": "NOT_VERIFIED"
-      },
-      {
-        "name": "清理专用缓存、安全弹出U盘并落实独立介质备份",
-        "status": "NOT_VERIFIED"
-      },
-      {
-        "name": "实际备份及受控新卷恢复验证",
+        "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
         "status": "NOT_VERIFIED"
       }
     ],
-    "next_action": "Custodian personally runs exact USB-home PowerShell commands in the supplied current guide, chooses a nonempty private-key passphrase in local GPG prompts, then provides only public fingerprints and public-key server paths. No extra software or volume encryption. Existing D material preserved; actual keys, interoperability, offline storage and restoration still need evidence.",
+    "next_action": "Owner exports the existing complete recovery key group, including both encryption subkeys, into a passphrase-protected USB secret backup and symmetrically encrypts the existing revocation certificate copy. Then runs the prepared attended Linux signer helper; it refuses existing keys, overwrites and noninteractive generation. All passphrases remain in owner GPG prompts. Actual signer backup, both-subkey interoperability and recovery follow after observed success.",
     "GPG_key_custody_established": false,
     "actual_keys_generated_by_this_update": false,
     "actual_interoperability_verified": false,
@@ -239,67 +246,219 @@
       "volume_or_container_encryption_deferred": true
     },
     "latest_CI_recheck": {
-      "observed_at": "2026-10-19T09:58:11.406Z",
-      "runs": [
-        {
-          "id": 39226217064,
-          "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064"
-        },
-        {
-          "id": 39223059150,
-          "source_commit": "5ecead8875ef981e2b1243cedbf8ed3c7310421d",
-          "status": "completed",
-          "conclusion": "failure",
-          "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39223059150"
-        },
-        {
-          "id": 39220993572,
-          "source_commit": "4377b1395d46b061ba6b52a5a4829a7c501c8fda",
-          "status": "completed",
-          "conclusion": "failure",
-          "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39220993572"
-        },
-        {
-          "id": 39217811049,
-          "source_commit": "431f337f1f4adb652a3c67d49e40605d36db01e0",
-          "status": "completed",
-          "conclusion": "failure",
-          "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39217811049"
-        },
-        {
-          "id": 39206156386,
-          "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39206156386"
-        }
-      ],
-      "jobs": [
-        {
-          "id": 117973030279,
-          "name": "identity-verification / identity-integration",
-          "status": "completed",
-          "conclusion": "success"
-        },
-        {
-          "id": 117978860869,
-          "name": "engineering",
-          "status": "completed",
-          "conclusion": "success"
-        }
-      ],
-      "scope": "Current GitHub GET only; no new CI run triggered by USB-directory preparation."
+      "observed_at": "2026-10-19T10:43:55.544Z",
+      "run_id": 39226217064,
+      "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
+      "scope": "Current GitHub GET only; USB public-key and operator helper preparation have not triggered a new hosted CI run."
     },
     "current_operator_guide": {
-      "local_path": "D:\\公安厅项目\\修订成果\\T013_U盘密钥管理操作步骤_20261019.txt",
+      "local_path": "D:\\公安厅项目\\修订成果\\T013_备份与Linux签名密钥操作步骤_20261019.txt",
       "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
       "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-      "sha256": "5257ae377606b6d9c04782cfb586f4956fe9dd30afdddf12f4d38ea5ab6d3a39",
+      "sha256": "e9d4b76c1271b8a72a145c45248575cdc9726146fe02987c56188afbc2cafb66",
       "instructions_executed": false,
-      "scope": "User-selected USB GPG-private-key-passphrase internal-RnD instructions; not actual key material or an executed operation"
+      "scope": "Current next owner steps for actual backup and Linux signing-key creation; prior recovery-generation steps are completed and must not be rerun."
+    },
+    "operator_progress_history": [
+      {
+        "observed_at": "2026-10-19T10:03:07.603029+00:00",
+        "scope": "Explicitly user-authorized USB passphrase-protected private-key custody for same-unit internal RnD only. Disk/container encryption deferred. Empty directory preparation, no actual key generation or backup/restore by this update.",
+        "next_action": "Custodian personally runs exact USB-home PowerShell commands in the supplied current guide, chooses a nonempty private-key passphrase in local GPG prompts, then provides only public fingerprints and public-key server paths. No extra software or volume encryption. Existing D material preserved; actual keys, interoperability, offline storage and restoration still need evidence.",
+        "remaining_operator_milestones": [
+          {
+            "name": "本人在G盘专用home生成恢复认证主密钥与加密子密钥并设置非空口令",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "导出公钥及受口令保护的私钥备份，另加密吊销材料副本并保管其原件",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "公钥上传及两端完整主指纹与子密钥指纹比对",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "服务器独立仅签名密钥及其受保护备份保管",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "固定无敏感文本跨端加密签名/解密验签",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "清理专用缓存、安全弹出U盘并落实独立介质备份",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "实际备份及受控新卷恢复验证",
+            "status": "NOT_VERIFIED"
+          }
+        ]
+      }
+    ],
+    "actual_operator_recovery_keys_generated": true,
+    "actual_recovery_public_export_verified": true,
+    "actual_recovery_public_uploaded_and_verified_on_Linux": true,
+    "actual_private_key_file_contents_read_by_this_update": false,
+    "recovery_public_and_secret_availability_verification": {
+      "status": "PASS_RECOVERY_PUBLIC_STRUCTURE_BINDINGS_AND_SECRET_AVAILABILITY_METADATA_ONLY",
+      "observed_at": "2026-10-19T10:42:40.915529+00:00",
+      "task_id": "T013",
+      "related_remaining_item": "T013-R02",
+      "custodian": "徐昌胜",
+      "user_reported_generated": true,
+      "public_file": "G:\\公安厅项目密钥\\public\\recovery-recipient.asc",
+      "public_file_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+      "public_file_size_bytes": 4845,
+      "keys": [
+        {
+          "type": "pub",
+          "validity": "u",
+          "bits": 4096,
+          "algorithm": 1,
+          "created_epoch": 1792405504,
+          "expires_epoch": 1823941504,
+          "capabilities": "cEC",
+          "fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+          "uid": "MediaTrace RnD Recovery - Xu Changsheng",
+          "created_at": "2026-10-19T10:25:04+00:00",
+          "expires_at": "2027-10-19T10:25:04+00:00"
+        },
+        {
+          "type": "sub",
+          "validity": "u",
+          "bits": 4096,
+          "algorithm": 1,
+          "created_epoch": 1792406087,
+          "expires_epoch": 1823942087,
+          "capabilities": "e",
+          "fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+          "created_at": "2026-10-19T10:34:47+00:00",
+          "expires_at": "2027-10-19T10:34:47+00:00"
+        },
+        {
+          "type": "sub",
+          "validity": "u",
+          "bits": 4096,
+          "algorithm": 1,
+          "created_epoch": 1792406150,
+          "expires_epoch": 1823942150,
+          "capabilities": "e",
+          "fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+          "created_at": "2026-10-19T10:35:50+00:00",
+          "expires_at": "2027-10-19T10:35:50+00:00"
+        }
+      ],
+      "export_matches_USB_public_ring": true,
+      "primary_self_signature_and_subkey_bindings_verified": 3,
+      "secret_key_availability_verified_via_metadata": true,
+      "private_file_contents_read": false,
+      "private_material_exported_by_this_verification": false,
+      "private_material_uploaded": false,
+      "actual_operator_recovery_keys_generated": true,
+      "actual_keys_generated_by_assistant": false,
+      "private_key_passphrase_protection_verified": false,
+      "private_backup_files_observed": 0,
+      "revocation_certificate_present": true,
+      "encryption_subkey_count": 2,
+      "expected_design_encryption_subkey_count": 1,
+      "extra_subkey_disposition": "Both valid existing encryption subkeys retained without deletion, revocation or new generation. Backup must include both, later interoperability must exercise both explicitly. No backup-recipient subkey adopted by this observation.",
+      "backup_or_restore_executed": false,
+      "physical_offline_custody_verified": false,
+      "disk_or_container_encryption_deferred": true,
+      "Python_candidates_created": false,
+      "formal_accepted": false,
+      "stored_private_key_protection_metadata": [
+        {
+          "fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+          "key_type": "D",
+          "protection": "P"
+        },
+        {
+          "fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+          "key_type": "D",
+          "protection": "P"
+        },
+        {
+          "fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+          "key_type": "D",
+          "protection": "P"
+        }
+      ],
+      "all_three_private_keys_report_P_protection": true,
+      "protection_check_scope": "GnuPG KEYINFO metadata reports passphrase-protected storage for certification primary and both encryption subkeys. Actual decryption/passphrase entry and recoverability are not tested by this metadata check.",
+      "keyinfo_reference": "https://lists.gnupg.org/pipermail/gnupg-commits/2011-April/009419.html"
+    },
+    "Linux_public_recipient_verification": {
+      "status": "PASS_EXACT_PUBLIC_RECIPIENT_ON_LINUX_NO_PRIVATE_TRANSFER",
+      "observed_at": "2026-10-19T10:40:20.779248+00:00",
+      "public_server_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+      "public_file_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+      "public_file_size_bytes": 4845,
+      "public_fingerprints": [
+        "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+        "74FF3C32A5738FAD98C9A90D97672271E1161785",
+        "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133"
+      ],
+      "public_signatures_verified": 3,
+      "existing_different_file_overwritten": false,
+      "recipient_mode": "0600",
+      "custody_directory_mode": "0700",
+      "Linux_GPG_version": "gpg (GnuPG) 2.4.4",
+      "server_signer_private_key_count": 0,
+      "server_signer_generated_by_this_update": false,
+      "server_recovery_private_material_imported": false,
+      "backup_or_restore_executed": false,
+      "physical_offline_custody_verified": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false
+    },
+    "Linux_signer_helper_preflight": {
+      "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+      "observed_at": "2026-10-19T10:43:24.473005+00:00",
+      "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
+      "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
+      "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+      "cases": [
+        {
+          "case": "bash_syntax",
+          "status": "PASS",
+          "expected_exit": 0,
+          "observed_exit": 0
+        },
+        {
+          "case": "owner_directory_and_empty_signer_preflight",
+          "status": "PASS",
+          "expected_exit": 0,
+          "observed_exit": 0
+        },
+        {
+          "case": "reject_unexpected_argument",
+          "status": "PASS",
+          "expected_exit": 2,
+          "observed_exit": 2
+        },
+        {
+          "case": "reject_unattended_key_generation",
+          "status": "PASS",
+          "expected_exit": 2,
+          "observed_exit": 2
+        }
+      ],
+      "actual_key_generation_executed": false,
+      "actual_private_backup_created": false,
+      "actual_signer_accepted": false,
+      "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
     }
-  }
+  },
+  "GPG_actual_keys_generated_scope": "Actual operator-created recovery primary and two encryption subkeys observed on USB through GnuPG metadata; not Linux signer, backup, decryption or full custody acceptance.",
+  "GPG_public_recipient_server_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+  "GPG_public_recipient_primary_fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+  "GPG_public_recipient_encryption_subkey_fingerprints": [
+    "74FF3C32A5738FAD98C9A90D97672271E1161785",
+    "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133"
+  ]
 }
