@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import Request
 from sqlalchemy import text
 
-from ..auth import AuthorityProvider
+from ..auth import AuthorityProvider, authenticated_actor
 from ..contracts import validate_api
 from ..db import Database
 from ..errors import BusinessError
@@ -24,10 +24,7 @@ class UploadService:
         authority = cast(AuthorityProvider | None, request.app.state.business_authority)
         if authority is None:
             raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
-        header = request.headers.get("Authorization", "")
-        if not header.startswith("Bearer ") or not header[7:]:
-            raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-        actor = authority.authenticate(header[7:])
+        actor = authenticated_actor(request)
         source_id = None
         if upload_id is not None:
             with self.database.identity_transaction(actor) as connection:

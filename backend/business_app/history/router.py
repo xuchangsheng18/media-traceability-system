@@ -5,7 +5,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from ..auth import AuthorityProvider, authorize_request
+from ..auth import authenticated_actor, authorize_request
 from ..db import Database
 from ..errors import BusinessError
 from ..types import ResultKey, Scope
@@ -36,13 +36,7 @@ def parse_history(request: Request, resource_id: UUID, task_path: bool) -> Resul
 
 
 def current_scope(request: Request, resource_id: UUID, kind: str, action: str) -> Scope:
-    authority = cast(AuthorityProvider | None, request.app.state.business_authority)
-    if authority is None:
-        raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
-    header = request.headers.get("Authorization", "")
-    if not header.startswith("Bearer ") or not header[7:]:
-        raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-    actor = authority.authenticate(header[7:])
+    actor = authenticated_actor(request)
     database = cast(Database, request.app.state.business_database)
     statements = {
         "task": "SELECT case_id FROM mt.analysis_task WHERE task_id=:id",

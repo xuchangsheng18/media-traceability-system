@@ -9,18 +9,21 @@ from business_app.main import create_app
 from business_app.settings import BusinessSettings
 from fastapi.testclient import TestClient
 from starlette.exceptions import HTTPException
+from tests.business.http_fixtures import isolated_http_harness
 
 
 @pytest.fixture
 def boundary(tmp_path: Path):
-    app = create_app(
-        BusinessSettings(
-            database_dsn="host=127.0.0.1 port=1 dbname=mt_business_boundary user=unused",
-            object_root=tmp_path / "objects",
-            max_upload_bytes=1024,
-            part_size_bytes=512,
-            upload_ttl_seconds=60,
-            cursor_secret="self-owned-unreachable-boundary-test-key",
+    app = isolated_http_harness(
+        create_app(
+            BusinessSettings(
+                database_dsn="host=127.0.0.1 port=1 dbname=mt_business_boundary user=unused",
+                object_root=tmp_path / "objects",
+                max_upload_bytes=1024,
+                part_size_bytes=512,
+                upload_ttl_seconds=60,
+                cursor_secret="self-owned-unreachable-boundary-test-key",
+            )
         )
     )
 

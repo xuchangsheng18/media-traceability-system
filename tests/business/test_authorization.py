@@ -2,18 +2,26 @@ from uuid import UUID
 
 import psycopg
 import pytest
-from fastapi import Request
+from fastapi import Depends, Request
 from fastapi.testclient import TestClient
 from sqlalchemy import text
+from tests.business.http_fixtures import isolated_http_harness
 
 
 def client(context, configured=True):
     from business_app.auth import authorize_request
     from business_app.main import create_app
+    from business_app.permissions.guard import require_permission
 
-    app = create_app(context["settings"], context["authority"] if configured else None)
+    app = isolated_http_harness(
+        create_app(
+            context["settings"],
+            context["authority"] if configured else None,
+            permission_authority=context["permission_authority"],
+        )
+    )
 
-    @app.get("/_test/authorization/{case_id}")
+    @app.get("/_test/authorization/{case_id}", dependencies=[Depends(require_permission("asset.read"))])
     def inspect_authorization(case_id: UUID, request: Request):
         scope = authorize_request(request, case_id, "result:read")
         with app.state.business_database.transaction(scope) as connection:

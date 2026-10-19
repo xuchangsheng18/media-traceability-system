@@ -3,11 +3,12 @@ import logging
 import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
+from types import MappingProxyType
 from uuid import UUID, uuid4
 
 import yaml
 from app.tracing import safe_log, trace_context, trace_id
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
 from sqlalchemy.exc import SQLAlchemyError
@@ -36,6 +37,9 @@ from .history.router import router as history_router
 from .inference import BackendRegistration, InferenceGateway, ServiceAuthority
 from .inference import router as inference_router
 from .objects import FileObjectStore
+from .permissions.catalog import load_catalog
+from .permissions.guard import audit_protected_routes, authorize_business_route
+from .permissions.types import PermissionAuthority
 from .settings import BusinessSettings
 from .uploads.repository import UploadRepository
 from .uploads.router import router as upload_router
@@ -53,16 +57,23 @@ def create_app(
     source_synchronization: SourceSynchronization | None = None,
     service_authority: ServiceAuthority | None = None,
     inference_backends: dict[str, BackendRegistration] | None = None,
+    permission_authority: PermissionAuthority | None = None,
 ) -> FastAPI:
     logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
 
     @asynccontextmanager
-    async def lifespan(_: FastAPI) -> AsyncIterator[None]:
-        yield
-        database.close()
+    async def lifespan(current: FastAPI) -> AsyncIterator[None]:
+        try:
+            audit_protected_routes(current)
+            yield
+        finally:
+            database.close()
 
     app = FastAPI(title="Independent business development", lifespan=lifespan)
+    app.state.permission_framework_routes = frozenset(id(route) for route in app.routes)
+    app.state.permission_catalog = MappingProxyType(load_catalog(ROOT))
+    app.state.permission_authority = permission_authority
     app.state.business_database = database
     app.state.business_authority = authority
     app.state.business_settings = settings
@@ -87,10 +98,12 @@ def create_app(
     app.state.inference_gateway = InferenceGateway(
         database, app.state.upload_service.store, authority, service_authority, inference_backends
     )
-    app.include_router(upload_router)
-    app.include_router(history_router)
-    app.include_router(control_router)
+    protected = [Depends(authorize_business_route)]
+    app.include_router(upload_router, dependencies=protected)
+    app.include_router(history_router, dependencies=protected)
+    app.include_router(control_router, dependencies=protected)
     app.include_router(inference_router)
+    audit_protected_routes(app)
 
     automatic = FastAPI.openapi(app)
     mounted = {operation["operationId"] for methods in automatic["paths"].values() for operation in methods.values()}
@@ -171,7 +184,11 @@ def create_app(
                 "request_id": str(request_id),
                 "details": [],
             },
-            headers={"X-Request-Id": str(request_id), "X-Trace-Id": trace_id(str(request_id))},
+            headers={
+                "X-Request-Id": str(request_id),
+                "X-Trace-Id": trace_id(str(request_id)),
+                **({"WWW-Authenticate": "Bearer"} if exception.http_status == 401 else {}),
+            },
         )
 
     @app.exception_handler(SQLAlchemyError)

@@ -125,7 +125,7 @@ def prepared_upload(context, data=None):
         Image.new("RGB", (8, 8), "white").save(buffer, format="PNG")
         data = buffer.getvalue()
     settings = replace(context["settings"], part_size_bytes=len(data))
-    app = create_app(settings, context["authority"])
+    app = create_app(settings, context["authority"], permission_authority=context["permission_authority"])
     http = TestClient(app)
     http.__enter__()
     response = http.post(

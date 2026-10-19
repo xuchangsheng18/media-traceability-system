@@ -14,7 +14,11 @@ def upload_client(business_context):
     from business_app.main import create_app
 
     with TestClient(
-        create_app(replace(business_context["settings"], part_size_bytes=3), business_context["authority"])
+        create_app(
+            replace(business_context["settings"], part_size_bytes=3),
+            business_context["authority"],
+            permission_authority=business_context["permission_authority"],
+        )
     ) as http:
         yield http
 

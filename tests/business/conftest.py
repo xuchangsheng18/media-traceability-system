@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 from pathlib import Path
 from uuid import uuid4
 
@@ -49,8 +50,11 @@ def business_context(database_dsn, tmp_path):
         return
     from business_app.db import Database
     from business_app.errors import BusinessError
+    from business_app.permissions.catalog import load_catalog
+    from business_app.permissions.types import Principal
     from business_app.settings import BusinessSettings
     from business_app.types import Actor, Scope
+    from tests.business.http_fixtures import FixturePermissions
 
     org, other_org, case, other_case, user, other_user = [uuid4() for _ in range(6)]
     role = "mt_business_runtime_" + uuid4().hex
@@ -91,6 +95,11 @@ def business_context(database_dsn, tmp_path):
     other_actor = Actor(user_id=other_user, org_id=other_org)
 
     class TestAuthority:
+        def authenticate_principal(self, bearer):
+            return Principal(
+                self.authenticate(bearer), "https://identity.example.test", str(actor.user_id), int(time.time()) + 600
+            )
+
         def authenticate(self, bearer):
             if bearer != "test-only-valid-token":
                 raise BusinessError("AUTHENTICATION_REQUIRED", 401)
@@ -125,6 +134,9 @@ def business_context(database_dsn, tmp_path):
         yield dict(
             settings=settings,
             authority=TestAuthority(),
+            permission_authority=FixturePermissions(
+                frozenset({actor}), frozenset(item.permission for item in load_catalog(root).values())
+            ),
             database=database,
             actor=actor,
             other_actor=other_actor,

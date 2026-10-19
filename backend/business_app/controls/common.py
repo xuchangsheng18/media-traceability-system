@@ -10,7 +10,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from sqlalchemy import Connection, text
 
-from ..auth import AuthorityProvider, authorize_request
+from ..auth import authenticated_actor, authorize_request
 from ..contracts import validate_response
 from ..cursor_encoding import decode_cursor
 from ..db import Database
@@ -40,16 +40,7 @@ def reply(name: str, value: dict[str, Any], status: int = 200, version: Any = No
 
 
 def actor_for(request: Request) -> Actor:
-    authority = cast(AuthorityProvider | None, request.app.state.business_authority)
-    if authority is None:
-        raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
-    header = request.headers.get("Authorization", "")
-    if not header.startswith("Bearer ") or not header[7:]:
-        raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-    actor = authority.authenticate(header[7:])
-    if not isinstance(actor, Actor):
-        raise BusinessError("AUTHORITY_ACTOR_INVALID", 503)
-    return actor
+    return authenticated_actor(request)
 
 
 RESOURCE_TABLES = {

@@ -2,6 +2,7 @@
 
 import hashlib
 import io
+import time
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from uuid import UUID, uuid4
@@ -11,10 +12,12 @@ import pytest
 from business_app.controls.providers import ApprovalRule, ExportRule
 from business_app.errors import BusinessError
 from business_app.main import create_app
+from business_app.permissions.catalog import load_catalog
+from business_app.permissions.types import Principal
 from business_app.types import Actor, Scope
 from fastapi.testclient import TestClient
-
 from tests.business.history_fixtures import prepare_history, snapshot
+from tests.business.http_fixtures import FixturePermissions
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
@@ -57,6 +60,10 @@ def control_context(business_context):
         )
 
     class TestAuthority:
+        def authenticate_principal(self, token):
+            actor = self.authenticate(token)
+            return Principal(actor, "https://identity.example.test", str(actor.user_id), int(time.time()) + 600)
+
         def authenticate(self, token):
             if token not in tokens:
                 raise BusinessError("AUTHENTICATION_REQUIRED", 401)
@@ -108,7 +115,19 @@ def control_context(business_context):
             )
 
     settings = replace(context["settings"], control_ttl_seconds=3600, node_lease_seconds=30)
-    app = create_app(settings, TestAuthority(), rules=TestRules(), identity_directory=TestDirectory())
+    from pathlib import Path
+
+    permission_authority = FixturePermissions(
+        frozenset(tokens.values()),
+        frozenset(item.permission for item in load_catalog(Path(__file__).resolve().parents[2]).values()),
+    )
+    app = create_app(
+        settings,
+        TestAuthority(),
+        rules=TestRules(),
+        identity_directory=TestDirectory(),
+        permission_authority=permission_authority,
+    )
     http = TestClient(app)
     try:
         yield dict(
@@ -118,6 +137,7 @@ def control_context(business_context):
             reviewers=reviewers,
             evidence_id=evidence,
             control_authority=app.state.business_authority,
+            control_permission_authority=permission_authority,
             rules=TestRules(),
             directory=TestDirectory(),
             control_settings=settings,
@@ -293,7 +313,9 @@ def test_review_append_version_and_exact_evidence(control_context):
 
 def test_review_no_rules_no_write(control_context):
     c = control_context
-    app = create_app(c["control_settings"], c["control_authority"])
+    app = create_app(
+        c["control_settings"], c["control_authority"], permission_authority=c["control_permission_authority"]
+    )
     with TestClient(app) as http:
         response = http.post(
             "/api/v1/reviews",
