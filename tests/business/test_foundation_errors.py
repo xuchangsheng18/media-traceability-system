@@ -9,6 +9,7 @@ from business_app.main import create_app
 from business_app.settings import BusinessSettings
 from fastapi.testclient import TestClient
 from starlette.exceptions import HTTPException
+
 from tests.business.http_fixtures import isolated_http_harness
 
 

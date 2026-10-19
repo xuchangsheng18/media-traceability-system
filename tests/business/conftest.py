@@ -54,6 +54,7 @@ def business_context(database_dsn, tmp_path):
     from business_app.permissions.types import Principal
     from business_app.settings import BusinessSettings
     from business_app.types import Actor, Scope
+
     from tests.business.http_fixtures import FixturePermissions
 
     org, other_org, case, other_case, user, other_user = [uuid4() for _ in range(6)]

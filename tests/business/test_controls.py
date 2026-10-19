@@ -16,6 +16,7 @@ from business_app.permissions.catalog import load_catalog
 from business_app.permissions.types import Principal
 from business_app.types import Actor, Scope
 from fastapi.testclient import TestClient
+
 from tests.business.history_fixtures import prepare_history, snapshot
 from tests.business.http_fixtures import FixturePermissions
 

@@ -28,8 +28,7 @@ def isolated_http_harness(application: FastAPI) -> FastAPI:
         finally:
             application.state.business_database.close()
 
-    harness = FastAPI(
-        exception_handlers=application.exception_handlers, middleware=application.user_middleware, lifespan=lifespan
-    )
+    harness = FastAPI(middleware=application.user_middleware, lifespan=lifespan)
+    harness.exception_handlers = dict(application.exception_handlers)
     harness.state = application.state
     return harness
