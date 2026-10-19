@@ -1686,7 +1686,7 @@
     "shared_bootstrap_retired": false,
     "GPG_operator_progress_ref": "docs/00-project/validation/t013-admin-handover-report.json",
     "GPG_download_and_installation_follow_up": {
-      "observed_at": "2026-10-19T11:07:34.347738+00:00",
+      "observed_at": "2026-10-19T11:43:25.367118+00:00",
       "download_user_reported": true,
       "Windows_tool_version_and_engine_signature_verified": true,
       "real_key_custody_established": false,
@@ -1713,15 +1713,70 @@
       "two_subkey_public_encryptions_prepared": true,
       "USB_private_backup_export_observed": true,
       "USB_private_backup_export_structure_verified": true,
-      "USB_private_backup_scope": "Export exists and protected packet structure matches; actual restoration remains pending"
+      "USB_private_backup_scope": "Secret export and revocation encrypted envelope present; actual restored-home and independent-medium checks pending.",
+      "USB_revocation_encrypted_copy_observed": true,
+      "USB_revocation_envelope_verified": true,
+      "USB_revocation_decryption_verified": false,
+      "Linux_signer_generation_attempt": "FAILED_OWNER_CANCELLED_NO_PARTIAL_KEYS",
+      "latest_operator_recheck": {
+        "observed_at": "2026-10-19T11:43:25.367118+00:00",
+        "task_id": "T013",
+        "related_remaining_item": "T013-R02",
+        "revocation_encrypted_copy": {
+          "status": "PASS_AES256_SYMMETRIC_ENVELOPE_ONLY_NOT_DECRYPTION",
+          "encrypted_file": "G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg",
+          "size_bytes": 1329,
+          "modified_UTC": "2026-10-19T11:15:12+00:00",
+          "symmetric_packet_count": 1,
+          "encrypted_data_packet_count": 1,
+          "cipher": "AES256",
+          "packet_listing_exit_code": 0,
+          "original_revocation_file_present": true,
+          "private_material_imported": false,
+          "decrypted": false,
+          "plaintext_compared_with_original": false,
+          "revocation_imported": false,
+          "raw_packets_or_revocation_content_published": false
+        },
+        "Linux_signer": {
+          "observed_at": "2026-10-19T11:43:21.006453+00:00",
+          "secret_primary_count": 0,
+          "private_key_files_count": 0,
+          "export_targets_present": {
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": false,
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": false
+          },
+          "recovery_public_size_bytes": 4845,
+          "recovery_public_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+          "helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "helper_preflight": "PASS",
+          "key_generation_attempted_by_this_check": false,
+          "configuration_changed": false,
+          "shared_services_restarted": false
+        },
+        "failed_signer_attempt": {
+          "result": "FAILED_OPERATION_CANCELLED",
+          "owner_clarification": "Owner saw the passphrase dialog and cancelled or exited it.",
+          "partial_private_material_present": false,
+          "inferred_pinentry_failure": false,
+          "unattended_retry_performed": false
+        },
+        "next_owner_action": "Retry the existing attended signer helper and complete its nonempty passphrase prompts.",
+        "both_subkey_decryption_performed": false,
+        "independent_signer_created": false,
+        "actual_signature_verification_performed": false,
+        "independent_restore_performed": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false
+      }
     },
     "current_GPG_operator_guide": {
       "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步吊销材料备份与Linux签名_20261019.txt",
       "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
       "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-      "sha256": "fdcdeb254951089bc3655b2bb0885dcb19e5f520bf5b6c4715fbeb1929ac6099",
+      "sha256": "a9f411876e74412c2c3988dfd24e8a4bcf94f3d927481950a090758a6413ed6d",
       "instructions_executed": false,
-      "scope": "Next owner revocation-copy encryption and Linux independent signer; recovery secret export already structurally verified, no repeat export."
+      "scope": "Only attended Linux signer retry is executable now; existing private/revocation exports must not be recreated. Both-subkey decrypt/signature and isolated restore remain planned, not performed."
     }
   },
   "source_delivery_before_final_evidence_ref": "docs/00-project/server-sync-receipt.json"

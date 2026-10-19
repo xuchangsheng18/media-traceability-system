@@ -24,10 +24,10 @@
   "GPG_actual_keys_generated": true,
   "GPG_actual_recovery_validated": false,
   "GPG_setup_follow_up": {
-    "observed_at": "2026-10-19T11:07:34.347738+00:00",
+    "observed_at": "2026-10-19T11:43:25.367118+00:00",
     "task_id": "T013",
     "related_remaining_item": "T013-R02",
-    "scope": "Actual recovery secret export now exists on USB: locally parsed public fingerprints and protected private-packet structure match the original primary plus both encryption subkeys. This supersedes the earlier absent-export observation for this file only. Revocation encrypted copy and Linux independent signer still absent; no private decryption or backup restoration.",
+    "scope": "USB revocation encrypted copy now observed (1329 bytes), AES256 symmetric envelope verified without decryption/import. Protected recovery secret export rechecked (10361 bytes; original primary and both encryption subkeys). Linux signer creation was attempted but cancelled; owner confirms cancelling/exiting the visible passphrase dialog. Fresh check found zero signer private keys, zero partial private-key files and no signer exports. No key or agent configuration change is required by this observation.",
     "downloaded": {
       "status": "USER_REPORTED",
       "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
@@ -92,11 +92,11 @@
       },
       {
         "name": "恢复私钥备份与吊销材料加密副本",
-        "status": "PARTIAL_PROTECTED_SECRET_EXPORT_STRUCTURE_VERIFIED_REVOCATION_COPY_PENDING"
+        "status": "PASS_PROTECTED_SECRET_EXPORT_AND_AES256_REVOCATION_ENVELOPE_ONLY_RESTORE_PENDING"
       },
       {
         "name": "Linux独立仅签名密钥及其受保护导出",
-        "status": "NOT_COMPLETED_EXPECTED_SIGNER_ABSENT_TRANSCRIPT_CLARIFIED"
+        "status": "ATTEMPTED_FAILED_OWNER_CANCELLED_NO_PARTIAL_KEY_SAFE_TO_RETRY_ATTENDED"
       },
       {
         "name": "两把加密子密钥逐一跨端解密及独立签名验签",
@@ -111,7 +111,7 @@
         "status": "NOT_VERIFIED"
       }
     ],
-    "next_action": "Owner symmetrically encrypts the existing revocation certificate copy into USB private-backups, without importing it or repeating the completed secret export. Then creates the independent Linux signing-only backup key via the already-prepared attended helper. After actual outputs, verify public signer and run both explicit-subkey decryption plus isolated backup restoration.",
+    "next_action": "Owner retries the existing attended Linux signer helper, sets and confirms a different nonempty passphrase in the GPG dialog, and permits protected private export when prompted. Assistant then verifies actual public signer and protection before arranging both exact-subkey decryption, detached-signature verification and independent restored-home tests. Do not regenerate USB keys or overwrite completed exports.",
     "GPG_key_custody_established": false,
     "actual_keys_generated_by_this_update": false,
     "actual_interoperability_verified": false,
@@ -246,21 +246,22 @@
       "volume_or_container_encryption_deferred": true
     },
     "latest_CI_recheck": {
-      "observed_at": "2026-10-19T10:43:55.544Z",
-      "run_id": 39226217064,
+      "observed_at": "2026-10-19T11:43:42.863Z",
+      "id": 39226217064,
       "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
-      "scope": "Current GitHub GET only; USB public-key and operator helper preparation have not triggered a new hosted CI run."
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
+      "run_updated_at": "2026-10-19T09:20:09Z",
+      "scope": "Latest hosted run for feature branch; documentation-only descendant commits are outside this tested source."
     },
     "current_operator_guide": {
       "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步吊销材料备份与Linux签名_20261019.txt",
       "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
       "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-      "sha256": "fdcdeb254951089bc3655b2bb0885dcb19e5f520bf5b6c4715fbeb1929ac6099",
+      "sha256": "a9f411876e74412c2c3988dfd24e8a4bcf94f3d927481950a090758a6413ed6d",
       "instructions_executed": false,
-      "scope": "Next owner revocation-copy encryption and Linux independent signer; recovery secret export already structurally verified, no repeat export."
+      "scope": "Only attended Linux signer retry is executable now; existing private/revocation exports must not be recreated. Both-subkey decrypt/signature and isolated restore remain planned, not performed."
     },
     "operator_progress_history": [
       {
@@ -363,6 +364,48 @@
           {
             "name": "恢复私钥备份与吊销材料加密副本",
             "status": "NOT_COMPLETED_EXPECTED_FILES_ABSENT_TRANSCRIPT_CLARIFIED"
+          },
+          {
+            "name": "Linux独立仅签名密钥及其受保护导出",
+            "status": "NOT_COMPLETED_EXPECTED_SIGNER_ABSENT_TRANSCRIPT_CLARIFIED"
+          },
+          {
+            "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+            "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+          },
+          {
+            "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+            "status": "NOT_VERIFIED"
+          },
+          {
+            "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+            "status": "NOT_VERIFIED"
+          }
+        ]
+      },
+      {
+        "observed_at": "2026-10-19T11:07:34.347738+00:00",
+        "scope": "Actual recovery secret export now exists on USB: locally parsed public fingerprints and protected private-packet structure match the original primary plus both encryption subkeys. This supersedes the earlier absent-export observation for this file only. Revocation encrypted copy and Linux independent signer still absent; no private decryption or backup restoration.",
+        "next_action": "Owner symmetrically encrypts the existing revocation certificate copy into USB private-backups, without importing it or repeating the completed secret export. Then creates the independent Linux signing-only backup key via the already-prepared attended helper. After actual outputs, verify public signer and run both explicit-subkey decryption plus isolated backup restoration.",
+        "remaining_operator_milestones": [
+          {
+            "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+            "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+            "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+          },
+          {
+            "name": "U盘三把私钥的GPG保护存储",
+            "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+            "scope": "No passphrase, private-file content or decryption result inspected."
+          },
+          {
+            "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+            "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+            "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+          },
+          {
+            "name": "恢复私钥备份与吊销材料加密副本",
+            "status": "PARTIAL_PROTECTED_SECRET_EXPORT_STRUCTURE_VERIFIED_REVOCATION_COPY_PENDING"
           },
           {
             "name": "Linux独立仅签名密钥及其受保护导出",
@@ -552,12 +595,21 @@
       "password_or_private_content_received": false,
       "formal_accepted": false,
       "later_resolution": {
-        "recovery_secret_export": "NOW_PRESENT_AND_PROTECTED_STRUCTURE_VERIFIED",
-        "observed_at": "2026-10-19T11:05:47.136923+00:00",
-        "revocation_copy": "STILL_ABSENT",
-        "Linux_signer": "STILL_ABSENT",
+        "observed_at": "2026-10-19T11:43:25.367118+00:00",
+        "recovery_secret_export": "PRESENT_AND_PROTECTED_STRUCTURE_RECHECKED",
+        "revocation_copy": "NOW_PRESENT_AES256_ENVELOPE_VERIFIED_NOT_DECRYPTED",
+        "Linux_signer": "FAILED_OWNER_CANCELLED_NO_PARTIAL_KEYS_OR_EXPORTS",
         "historical_missing_observation_preserved": true
-      }
+      },
+      "later_resolution_history": [
+        {
+          "recovery_secret_export": "NOW_PRESENT_AND_PROTECTED_STRUCTURE_VERIFIED",
+          "observed_at": "2026-10-19T11:05:47.136923+00:00",
+          "revocation_copy": "STILL_ABSENT",
+          "Linux_signer": "STILL_ABSENT",
+          "historical_missing_observation_preserved": true
+        }
+      ]
     },
     "two_subkey_public_probe_preparation": {
       "status": "PASS_TWO_EXPLICIT_SUBKEY_PUBLIC_ENCRYPTIONS_ONLY_PREREQUISITE_MATERIAL_MISSING",
@@ -616,7 +668,7 @@
     "actual_Linux_signer_created": false,
     "recovery_secret_export_verification": {
       "status": "PASS_PROTECTED_SECRET_EXPORT_STRUCTURE_ONLY_NOT_RESTORE",
-      "observed_at": "2026-10-19T11:05:47.136923+00:00",
+      "observed_at": "2026-10-19T11:43:26.345496+00:00",
       "task_id": "T013",
       "related_remaining_item": "T013-R02",
       "file_path": "G:\\公安厅项目密钥\\private-backups\\recovery-secret-backup.asc",
@@ -643,7 +695,61 @@
       "formal_accepted": false
     },
     "actual_recovery_private_backup_export_verified": true,
-    "actual_recovery_private_backup_completion_scope": "Protected complete secret export observed and structurally checked; actual passphrase/decryption and isolated restored-home/independent-medium recoverability remain unverified."
+    "actual_recovery_private_backup_completion_scope": "Protected secret export and encrypted revocation copy exist and their structures were checked; actual passphrase/decryption, restored-home and independent-medium recoverability remain unverified.",
+    "revocation_copy_and_failed_signer_recheck": {
+      "observed_at": "2026-10-19T11:43:25.367118+00:00",
+      "task_id": "T013",
+      "related_remaining_item": "T013-R02",
+      "revocation_encrypted_copy": {
+        "status": "PASS_AES256_SYMMETRIC_ENVELOPE_ONLY_NOT_DECRYPTION",
+        "encrypted_file": "G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg",
+        "size_bytes": 1329,
+        "modified_UTC": "2026-10-19T11:15:12+00:00",
+        "symmetric_packet_count": 1,
+        "encrypted_data_packet_count": 1,
+        "cipher": "AES256",
+        "packet_listing_exit_code": 0,
+        "original_revocation_file_present": true,
+        "private_material_imported": false,
+        "decrypted": false,
+        "plaintext_compared_with_original": false,
+        "revocation_imported": false,
+        "raw_packets_or_revocation_content_published": false
+      },
+      "Linux_signer": {
+        "observed_at": "2026-10-19T11:43:21.006453+00:00",
+        "secret_primary_count": 0,
+        "private_key_files_count": 0,
+        "export_targets_present": {
+          "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": false,
+          "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": false
+        },
+        "recovery_public_size_bytes": 4845,
+        "recovery_public_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+        "helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+        "helper_preflight": "PASS",
+        "key_generation_attempted_by_this_check": false,
+        "configuration_changed": false,
+        "shared_services_restarted": false
+      },
+      "failed_signer_attempt": {
+        "result": "FAILED_OPERATION_CANCELLED",
+        "owner_clarification": "Owner saw the passphrase dialog and cancelled or exited it.",
+        "partial_private_material_present": false,
+        "inferred_pinentry_failure": false,
+        "unattended_retry_performed": false
+      },
+      "next_owner_action": "Retry the existing attended signer helper and complete its nonempty passphrase prompts.",
+      "both_subkey_decryption_performed": false,
+      "independent_signer_created": false,
+      "actual_signature_verification_performed": false,
+      "independent_restore_performed": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false
+    },
+    "actual_revocation_encrypted_copy_observed": true,
+    "actual_revocation_copy_envelope_verified": true,
+    "actual_revocation_copy_decryption_verified": false
   },
   "GPG_actual_keys_generated_scope": "Actual operator-created recovery primary and two encryption subkeys observed on USB through GnuPG metadata; not Linux signer, backup, decryption or full custody acceptance.",
   "GPG_public_recipient_server_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
