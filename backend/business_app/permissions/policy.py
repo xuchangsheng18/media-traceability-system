@@ -51,18 +51,7 @@ class DirectoryPermissionAuthority:
     ) -> None:
         self.reader, self.policy, self.clock = reader, policy, clock
 
-    def check(self, principal: Principal, permission: str) -> None:
-        validate_principal(principal, self.clock)
-        if not valid_key(permission, 1024):
-            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-        if self.policy is None:
-            raise BusinessError("FORMAL_POLICY_UNCONFIGURED", 503)
-        try:
-            version = self.policy.version
-            if not valid_key(version, 1024):
-                raise ValueError()
-        except Exception:
-            raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503) from None
+    def _read_fact(self, principal: Principal, permission: str) -> PermissionFact:
         try:
             fact = self.reader.read(principal, permission)
         except BusinessError:
@@ -79,6 +68,21 @@ class DirectoryPermissionAuthority:
             or re.fullmatch(r"[0-9a-f]{64}", fact.version_digest) is None
         ):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        return fact
+
+    def check(self, principal: Principal, permission: str) -> None:
+        validate_principal(principal, self.clock)
+        if not valid_key(permission, 1024):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        if self.policy is None:
+            raise BusinessError("FORMAL_POLICY_UNCONFIGURED", 503)
+        try:
+            version = self.policy.version
+            if not valid_key(version, 1024):
+                raise ValueError()
+        except Exception:
+            raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503) from None
+        fact = self._read_fact(principal, permission)
         if not fact.eligible:
             raise BusinessError("PERMISSION_REQUIRED", 403)
         try:
@@ -99,3 +103,14 @@ class DirectoryPermissionAuthority:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if not decision.allowed:
             raise BusinessError("PERMISSION_REQUIRED", 403)
+        # Policy evaluation may perform network work. Never return its ALLOW if
+        # the exact directory basis changed while that decision was in flight.
+        current = self._read_fact(principal, permission)
+        if not current.eligible:
+            raise BusinessError("PERMISSION_REQUIRED", 403)
+        try:
+            stable_version = self.policy.version == version
+        except Exception:
+            raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503) from None
+        if current.version_digest != fact.version_digest or not stable_version:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)

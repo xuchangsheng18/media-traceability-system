@@ -449,3 +449,32 @@ def test_ineligible_fact_cannot_be_overridden_by_policy(permission_context):
     with pytest.raises(BusinessError) as caught:
         policies.DirectoryPermissionAuthority(lookup, policy).check(ctx["principal"], "identity.read")
     assert (caught.value.code, caught.value.http_status) == ("PERMISSION_REQUIRED", 403)
+
+
+@pytest.mark.parametrize("state,expected", [("role", 403), ("identity", 401), ("version", 503)])
+def test_policy_decision_cannot_outlive_its_exact_directory_fact(permission_context, state, expected):
+    ctx = permission_context
+    types, policies = permission_module("types"), permission_module("policy")
+
+    class ChangedDuringPolicy:
+        version = "fixture-v1"
+
+        def decide(self, fact):
+            query, identifier = {
+                "role": ("UPDATE mt.user_roles SET revoked_at=now() WHERE user_role_id=%s", ctx["binding"]),
+                "identity": (
+                    "UPDATE mt.user_identities SET enabled=false,revoked_at=now() WHERE identity_id=%s",
+                    ctx["identity"],
+                ),
+                "version": ("UPDATE mt.roles SET row_version=row_version+1 WHERE role_id=%s", ctx["role"]),
+            }[state]
+            with psycopg.connect(ctx["admin_dsn"]) as admin:
+                admin.execute(query, (identifier,))
+            return types.PermissionDecision(
+                fact.principal.actor, fact.permission, True, self.version, fact.version_digest
+            )
+
+    authority = policies.DirectoryPermissionAuthority(reader(ctx), ChangedDuringPolicy())
+    with pytest.raises(BusinessError) as caught:
+        authority.check(ctx["principal"], "identity.read")
+    assert caught.value.http_status == expected
