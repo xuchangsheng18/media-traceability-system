@@ -1185,7 +1185,7 @@
     "formal_accepted": false
   },
   "key_custody_establishment": {
-    "status": "RECOVERY_KEYS_VERIFIED_BACKUP_AND_SIGNER_COMPLETION_CLAIM_NOT_CONFIRMED",
+    "status": "PROTECTED_RECOVERY_SECRET_EXPORT_STRUCTURE_VERIFIED_REVOCATION_AND_SIGNER_AWAIT_OWNER",
     "custodian": "徐昌胜",
     "source_user_answer": "尚未建立，请提供具体建立步骤",
     "software_boundary": "No Gpg4win installation, key generation, private key import, production policy or baseline change is performed by this evidence update.",
@@ -1244,8 +1244,22 @@
       {
         "number": 3,
         "where": "Trusted workstation",
-        "action": "Owner exports the existing complete recovery secret-key group, including both encryption subkeys; retains passphrase protection and encrypts a revocation copy with a separately owner-managed nonempty symmetric passphrase. No private file overwrite, upload or repeated public export. Original revocation certificate remains on the user-authorized unencrypted USB; private-key passphrase does not protect it.",
+        "action": "Recovery secret export structure verified, including both encryption subkeys and all three protected packets. Do not repeat it. Owner now encrypts only the existing revocation certificate copy, without importing it. Actual private decryption and restored-home validation are pending.",
         "PowerShell_commands": [
+          "$ErrorActionPreference = \"Stop\"",
+          "$SourceFile = \"G:\\公安厅项目密钥\\recovery-gnupg\\openpgp-revocs.d\\1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF.rev\"",
+          "$EncryptedCopy = \"G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg\"",
+          "if (-not (Test-Path -LiteralPath $SourceFile -PathType Leaf)) { throw \"原吊销材料未找到，停止核查\" }",
+          "if (Test-Path -LiteralPath $EncryptedCopy) { throw \"加密副本已存在，停止，不覆盖\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --no-symkey-cache --symmetric --cipher-algo AES256 --output \"$EncryptedCopy\" \"$SourceFile\"",
+          "if ($LASTEXITCODE -ne 0) { throw \"吊销材料副本加密失败，停止操作\" }",
+          "if ((Get-Item -LiteralPath $EncryptedCopy).Length -eq 0) { throw \"加密副本为空，停止核查\" }",
+          "Get-Item -LiteralPath $EncryptedCopy | Select-Object Name, Length",
+          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --kill gpg-agent"
+        ],
+        "expected": "Public export, private export protected with the private-key passphrase, and independently symmetric-encrypted revocation backup. Original automatic revocation file remains physically controlled on the USB; no false all-files-encrypted or independent-backup claim.",
+        "operator_status": "PARTIAL_SECRET_EXPORT_STRUCTURE_PASS_REVOCATION_COPY_NOT_EXECUTED",
+        "previous_combined_backup_commands": [
           "$ErrorActionPreference = \"Stop\"",
           "$Gpg = \"D:\\GnuPG\\bin\\gpg.exe\"",
           "$KeyHome = \"G:\\公安厅项目密钥\\recovery-gnupg\"",
@@ -1262,9 +1276,7 @@
           "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$KeyHome\" --kill gpg-agent",
           "if ($LASTEXITCODE -ne 0) { throw \"专用缓存清理失败，停止核查\" }",
           "Get-Item -LiteralPath $SecretBackup, $ProtectedRevocation | Select-Object Name, Length"
-        ],
-        "expected": "Public export, private export protected with the private-key passphrase, and independently symmetric-encrypted revocation backup. Original automatic revocation file remains physically controlled on the USB; no false all-files-encrypted or independent-backup claim.",
-        "operator_status": "NOT_EXECUTED_OWNER_ACTION_NEXT"
+        ]
       },
       {
         "number": 4,
@@ -1354,10 +1366,10 @@
     "actual_backup_or_restore_performed": false,
     "formal_accepted": false,
     "current_operator_progress": {
-      "observed_at": "2026-10-19T10:58:26.437818+00:00",
+      "observed_at": "2026-10-19T11:07:34.347738+00:00",
       "task_id": "T013",
       "related_remaining_item": "T013-R02",
-      "scope": "Recheck of owner completion claim: current USB private-backups empty and Linux independent signer/public/secret export absent. Owner transcript confirms repeated encryption-subkey generation and public export only. Existing keys preserved; two exact-subkey PUBLIC encryption probes prepared, copied and hash-verified. Actual private decryption/signature/restore not executed.",
+      "scope": "Actual recovery secret export now exists on USB: locally parsed public fingerprints and protected private-packet structure match the original primary plus both encryption subkeys. This supersedes the earlier absent-export observation for this file only. Revocation encrypted copy and Linux independent signer still absent; no private decryption or backup restoration.",
       "downloaded": {
         "status": "USER_REPORTED",
         "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
@@ -1422,7 +1434,7 @@
         },
         {
           "name": "恢复私钥备份与吊销材料加密副本",
-          "status": "NOT_COMPLETED_EXPECTED_FILES_ABSENT_TRANSCRIPT_CLARIFIED"
+          "status": "PARTIAL_PROTECTED_SECRET_EXPORT_STRUCTURE_VERIFIED_REVOCATION_COPY_PENDING"
         },
         {
           "name": "Linux独立仅签名密钥及其受保护导出",
@@ -1441,7 +1453,7 @@
           "status": "NOT_VERIFIED"
         }
       ],
-      "next_action": "Guide only the next attended owner operation: export the existing complete recovery secret-key group to the expected USB backup path using the original passphrase, guard no overwrite and verify a nonempty file. Do not rerun quick-generate-key or quick-add-key. Then encrypt the revocation copy and create the Linux independent signer; only after those actual outputs exist, proceed to both-subkey decryption, exact signer verification and isolated backup restoration.",
+      "next_action": "Owner symmetrically encrypts the existing revocation certificate copy into USB private-backups, without importing it or repeating the completed secret export. Then creates the independent Linux signing-only backup key via the already-prepared attended helper. After actual outputs, verify public signer and run both explicit-subkey decryption plus isolated backup restoration.",
       "GPG_key_custody_established": false,
       "actual_keys_generated_by_this_update": false,
       "actual_interoperability_verified": false,
@@ -1585,12 +1597,12 @@
         "scope": "Current GitHub GET only; USB public-key and operator helper preparation have not triggered a new hosted CI run."
       },
       "current_operator_guide": {
-        "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步私钥备份及验证_20261019.txt",
+        "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步吊销材料备份与Linux签名_20261019.txt",
         "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
         "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-        "sha256": "51cd834b2262436e969ff8f4574c2ab85f8ea71e8784166b0bcc77ce949677f8",
+        "sha256": "fdcdeb254951089bc3655b2bb0885dcb19e5f520bf5b6c4715fbeb1929ac6099",
         "instructions_executed": false,
-        "scope": "One next owner secret-backup export; missing expected outputs acknowledged and later two-subkey decryption/signature/isolated restore remain pending."
+        "scope": "Next owner revocation-copy encryption and Linux independent signer; recovery secret export already structurally verified, no repeat export."
       },
       "operator_progress_history": [
         {
@@ -1659,6 +1671,48 @@
             {
               "name": "两把加密子密钥逐一跨端解密及独立签名验签",
               "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T10:58:26.437818+00:00",
+          "scope": "Recheck of owner completion claim: current USB private-backups empty and Linux independent signer/public/secret export absent. Owner transcript confirms repeated encryption-subkey generation and public export only. Existing keys preserved; two exact-subkey PUBLIC encryption probes prepared, copied and hash-verified. Actual private decryption/signature/restore not executed.",
+          "next_action": "Guide only the next attended owner operation: export the existing complete recovery secret-key group to the expected USB backup path using the original passphrase, guard no overwrite and verify a nonempty file. Do not rerun quick-generate-key or quick-add-key. Then encrypt the revocation copy and create the Linux independent signer; only after those actual outputs exist, proceed to both-subkey decryption, exact signer verification and isolated backup restoration.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "NOT_COMPLETED_EXPECTED_FILES_ABSENT_TRANSCRIPT_CLARIFIED"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "NOT_COMPLETED_EXPECTED_SIGNER_ABSENT_TRANSCRIPT_CLARIFIED"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
             },
             {
               "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
@@ -1838,7 +1892,14 @@
         "root_cause_of_missing_outputs": "Expected backup/signing steps are not present in the supplied transcript; owner has completed recovery-key creation/public export, not the subsequent owner operations.",
         "extra_encryption_subkey_cause": "Owner transcript confirms quick-add-key rsa4096 encrypt 1y was executed twice; both valid subkeys retained.",
         "password_or_private_content_received": false,
-        "formal_accepted": false
+        "formal_accepted": false,
+        "later_resolution": {
+          "recovery_secret_export": "NOW_PRESENT_AND_PROTECTED_STRUCTURE_VERIFIED",
+          "observed_at": "2026-10-19T11:05:47.136923+00:00",
+          "revocation_copy": "STILL_ABSENT",
+          "Linux_signer": "STILL_ABSENT",
+          "historical_missing_observation_preserved": true
+        }
       },
       "two_subkey_public_probe_preparation": {
         "status": "PASS_TWO_EXPLICIT_SUBKEY_PUBLIC_ENCRYPTIONS_ONLY_PREREQUISITE_MATERIAL_MISSING",
@@ -1894,7 +1955,37 @@
         "completion_claim_verification": "USER_REPORTED_BACKUP_AND_SIGNER_COMPLETE_BUT_EXPECTED_BACKUPS_AND_SERVER_SIGNER_NOT_FOUND"
       },
       "actual_recovery_private_backup_completed": false,
-      "actual_Linux_signer_created": false
+      "actual_Linux_signer_created": false,
+      "recovery_secret_export_verification": {
+        "status": "PASS_PROTECTED_SECRET_EXPORT_STRUCTURE_ONLY_NOT_RESTORE",
+        "observed_at": "2026-10-19T11:05:47.136923+00:00",
+        "task_id": "T013",
+        "related_remaining_item": "T013-R02",
+        "file_path": "G:\\公安厅项目密钥\\private-backups\\recovery-secret-backup.asc",
+        "file_size_bytes": 10361,
+        "file_modified_UTC": "2026-10-19T11:03:54+00:00",
+        "public_fingerprints": [
+          "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+          "74FF3C32A5738FAD98C9A90D97672271E1161785",
+          "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133"
+        ],
+        "protected_primary_private_packets": 1,
+        "protected_encryption_private_packets": 2,
+        "private_packets_with_protection_marker": 3,
+        "expected_whole_recovery_key_group_included": true,
+        "private_material_imported": false,
+        "private_material_copied_to_D_or_Linux": false,
+        "raw_private_data_or_packet_dump_published": false,
+        "inspection_scope": "GnuPG parsed the backup locally in show-only/list-packets mode. Only public fingerprints, packet counts and protected-marker counts are retained; raw private bytes, MPI/S2K/IV fields and command dumps are not exposed.",
+        "passphrase_requested_by_this_check": false,
+        "actual_backup_decryption_or_restore": false,
+        "actual_private_subkey_decryption": false,
+        "physical_offline_custody_verified": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false
+      },
+      "actual_recovery_private_backup_export_verified": true,
+      "actual_recovery_private_backup_completion_scope": "Protected complete secret export observed and structurally checked; actual passphrase/decryption and isolated restored-home/independent-medium recoverability remain unverified."
     },
     "Windows_command_path_note": "Exact current private/public paths use G:/公安厅项目密钥; Windows GPG executables remain D:/GnuPG/bin. Original D-directory preparation is preserved. Explicit current user decision allows GPG-private-key-passphrase internal RnD only, while disk/container encryption is deferred.",
     "current_custody_mode_note": "Use G:/公安厅项目密钥 as current internal-RnD home with personally chosen nonempty GPG private-key protection. USB disk/container encryption explicitly deferred; does not satisfy an encrypted-medium or completed offline-recovery acceptance condition.",
@@ -2054,17 +2145,21 @@
       "script_content_scope": "Exact reviewable owner-only operation template; fresh syntax/preflight/refusal checks are scoped evidence, not execution of actual generation or hosted CI coverage."
     },
     "next_owner_operation": {
-      "scope": "Only next export step, no actual run by assistant",
+      "scope": "Only next revocation-copy encryption, no execution by assistant",
       "PowerShell_commands": [
         "$ErrorActionPreference = \"Stop\"",
-        "$BackupFile = \"G:\\公安厅项目密钥\\private-backups\\recovery-secret-backup.asc\"",
-        "if (Test-Path -LiteralPath $BackupFile) { throw \"备份文件已存在，停止，不覆盖\" }",
-        "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --armor --output \"$BackupFile\" --export-secret-keys \"1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF\"",
-        "if ($LASTEXITCODE -ne 0) { throw \"私钥备份导出失败，停止操作\" }",
-        "if ((Get-Item -LiteralPath $BackupFile).Length -eq 0) { throw \"备份文件为空，停止核查\" }",
-        "Get-Item -LiteralPath $BackupFile | Select-Object Name, Length",
+        "$SourceFile = \"G:\\公安厅项目密钥\\recovery-gnupg\\openpgp-revocs.d\\1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF.rev\"",
+        "$EncryptedCopy = \"G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg\"",
+        "if (-not (Test-Path -LiteralPath $SourceFile -PathType Leaf)) { throw \"原吊销材料未找到，停止核查\" }",
+        "if (Test-Path -LiteralPath $EncryptedCopy) { throw \"加密副本已存在，停止，不覆盖\" }",
+        "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --no-symkey-cache --symmetric --cipher-algo AES256 --output \"$EncryptedCopy\" \"$SourceFile\"",
+        "if ($LASTEXITCODE -ne 0) { throw \"吊销材料副本加密失败，停止操作\" }",
+        "if ((Get-Item -LiteralPath $EncryptedCopy).Length -eq 0) { throw \"加密副本为空，停止核查\" }",
+        "Get-Item -LiteralPath $EncryptedCopy | Select-Object Name, Length",
         "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --kill gpg-agent"
       ]
-    }
+    },
+    "actual_secret_backup_export_structurally_verified": true,
+    "actual_backup_or_restore_performed_scope": "A real protected secret export exists; this flag remains false for actual backup-decryption/restore validation, not export existence."
   }
 }
