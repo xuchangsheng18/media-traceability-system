@@ -250,5 +250,91 @@
     }
   ],
   "key_custody_operator_progress_ref": "docs/00-project/validation/t013-admin-handover-report.json",
-  "current_key_custody_scope": "Real independent RSA4096 signer now exists: C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D, signing/certification only as designed. Server public self-signature, protection P, 1672-byte public export and 3486-byte protected private export structure verified. Automatic signer revocation file exists. USB recovery group and revocation encrypted envelope retain earlier scoped proof. Signer USB copy, actual signing/two-subkey decrypt/detached verify/restored-home and identity recovery remain unexecuted. T013/IDP counts unchanged; Python candidates deferred."
+  "current_key_custody_scope": "Real independent RSA4096 signer now exists: C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D, signing/certification only as designed. Server public self-signature, protection P, 1672-byte public export and 3486-byte protected private export structure verified. Automatic signer revocation file exists. USB recovery group and revocation encrypted envelope retain earlier scoped proof. Signer USB copy, actual signing/two-subkey decrypt/detached verify/restored-home and identity recovery remain unexecuted. T013/IDP counts unchanged; Python candidates deferred.",
+  "current_task_navigation_update": {
+    "observed_at": "2026-10-19T12:50:15.957164+00:00",
+    "source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb",
+    "task_count": 170,
+    "partial_evidence_task_count": 51,
+    "no_task_verification_evidence_count": 119,
+    "verified_substeps": 87,
+    "remaining_work_groups": 621,
+    "execution_items": 708,
+    "whole_tasks_accepted": 0,
+    "T013_verified_substeps": 8,
+    "T013_remaining_work_groups": 3,
+    "updated_internal_milestones": [
+      {
+        "id": "T013-R02-M01",
+        "description": "真实恢复主密钥和两把加密子密钥存在，三个保护标记和完整公开指纹已核验。",
+        "status": "PASS_EXISTENCE_BINDINGS_AND_PROTECTION_METADATA_ONLY",
+        "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
+        "full_task_acceptance_asserted": false
+      },
+      {
+        "id": "T013-R02-M02",
+        "description": "10361字节恢复私钥导出包含完整受保护密钥组；1329字节恢复吊销副本AES256封装通过。",
+        "status": "PASS_EXPORT_AND_ENVELOPE_STRUCTURE_ONLY_NOT_RESTORE",
+        "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
+        "full_task_acceptance_asserted": false
+      },
+      {
+        "id": "T013-R02-M03",
+        "description": "修复SSH终端口令入口；本人已成功创建Linux独立RSA4096签名密钥，公钥1672字节及受保护私钥导出3486字节通过核验。",
+        "status": "PASS_REAL_SIGNER_AND_LOCAL_PROTECTED_EXPORT_STRUCTURE_ONLY",
+        "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
+        "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
+        "full_task_acceptance_asserted": false
+      }
+    ],
+    "counting_note": "本轮实际成果登记在尚未关闭的T013-R02内部；未新增完整C步骤，原170任务和708条C/R执行事项数量不变。",
+    "task_ledger_ref": "tasks/execution-status.json",
+    "step_navigation_ref": "docs/00-project/task-execution-steps.txt"
+  },
+  "next_development_entry_review": {
+    "observed_at": "2026-10-19T12:50:15.957164+00:00",
+    "status": "READY_FOR_T014_PREPARATION_ONLY_NOT_FULL_DEPENDENCY_CLOSEOUT",
+    "next_task_id": "T014",
+    "next_task_name": "实现接口级权限控制",
+    "source_dependencies": [
+      "T012",
+      "T013"
+    ],
+    "environment_scope": "current Linux / Miniforge py310 / CPU development; Windows is a remote/custodian entry",
+    "reviewed_source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb",
+    "source_file_sha256": {
+      "backend/business_app/auth.py": "c31784af863bb2b498983e795802965f5de869907ff2a3eae4da045f483c07f6",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "backend/business_app/controls/router.py": "c720cba1c8cfdf6c9527ad021c92d9ac4c93a418b01afefee2c911390966d399",
+      "tests/business/test_authorization.py": "b9f6ef420b75fee02d94ae207f4467a3a2ae8e9a53133d15e1aec3bf518dd13f",
+      "tests/business/test_token_identity.py": "0e69f6ebddd3996ccad2c3197faeef0e09d49439099c21c23a2a20fc7f95f2a7",
+      "tasks/platform/T014.md": "f9300a635ae73ead23faa666b00ba29bf25e1621537d15dddc32f9037412c6e8"
+    },
+    "review_method": "Read source task dependencies, actual authentication/authorization ports and existing test assertions; no new runtime business tests or policy authorization asserted by this review.",
+    "ready_for_dependency_review_and_test_design": true,
+    "ready_for_unconditional_implementation": false,
+    "full_source_dependencies_accepted": false,
+    "formal_identity_or_shared_environment_integration_ready": false,
+    "new_T014_implementation_started": false,
+    "T014_actual_owner": null,
+    "allowed_next_activities": [
+      "按T014卡核对T012模型/迁移与T013认证的适用实现和测试证据",
+      "整理受保护接口与动作权限、单位和案件范围矩阵",
+      "设计隔离合成策略下401/403、撤销及跨范围拒绝测试；正式规则缺失时保持拒绝",
+      "确认下一批具体代码范围、实际负责人和验收输入后再实施"
+    ],
+    "noted_boundaries": [
+      "现有authorize_request在未配置权威身份时返回503；已配置身份但缺少Bearer返回401",
+      "TokenIdentityAuthority缺少case/source正式策略时返回FORMAL_POLICY_UNCONFIGURED 503，不自动产生授权",
+      "当前部分跨案件拒绝测试使用404隐藏对象存在性，T014测试设计须核对既有契约，不能统一改成403而不审查",
+      "GPG备份签名密钥不是Keycloak登录身份、MFA或业务权限决定"
+    ],
+    "remaining_conditions": [
+      "T013本人改密/MFA接管、bootstrap退役与共享配置采用尚未完成",
+      "T013实际签名、两子密钥解密/验签、备份恢复仍待验证",
+      "T014实际负责人、权威权限规则及适用完整验收证据未落实"
+    ],
+    "formal_accepted": false,
+    "Python_candidates_created": false
+  }
 }
