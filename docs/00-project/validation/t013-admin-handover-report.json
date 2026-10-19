@@ -1185,7 +1185,7 @@
     "formal_accepted": false
   },
   "key_custody_establishment": {
-    "status": "RECOVERY_SECRET_AND_REVOCATION_ENVELOPE_VERIFIED_SIGNER_ATTEMPT_CANCELLED_AWAIT_OWNER_RETRY",
+    "status": "SSH_TERMINAL_INPUT_REPAIRED_AND_VERIFIED_ACTUAL_SIGNER_AWAIT_OWNER",
     "custodian": "徐昌胜",
     "source_user_answer": "尚未建立，请提供具体建立步骤",
     "software_boundary": "No Gpg4win installation, key generation, private key import, production policy or baseline change is performed by this evidence update.",
@@ -1301,9 +1301,9 @@
       {
         "number": 5,
         "where": "Linux R&D host, attended interactive SSH terminal",
-        "action": "First attended attempt failed with Operation cancelled; owner confirms cancelling/exiting the visible passphrase dialog. Recheck found no actual or partial private keys and no export targets; existing unchanged helper --check passes. Owner may retry and finish nonempty passphrase and export prompts. No inferred pinentry defect or environment modification.",
+        "action": "Timeout observed on second owner attempt; no real or partial signer remains. Only project terminal configuration and helper have been repaired and tested; operator now retries with ssh -tt and a fresh privately held passphrase inside the visible curses box. No actual key-generation success claimed.",
         "expected": "Signer has signing/certification capability and NO encryption secret key. Replace ACTUAL_SIGNER_PRIMARY_FINGERPRINT with the observed full public fingerprint. Store an encrypted signer recovery copy by the agreed separate custody route.",
-        "operator_status": "FAILED_OWNER_CANCELLED_RECHECK_NO_PARTIAL_KEYS_AWAIT_ATTENDED_RETRY",
+        "operator_status": "TERMINAL_INPUT_FIX_VERIFIED_ACTUAL_KEY_CREATION_NOT_EXECUTED",
         "historical_manual_signer_commands": [
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --list-secret-keys",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --quick-generate-key \"MediaTrace RnD Backup Signer - Xu Changsheng\" rsa4096 sign 1y",
@@ -1311,8 +1311,8 @@
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --armor --output /workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc --export ACTUAL_SIGNER_PRIMARY_FINGERPRINT"
         ],
         "PowerShell_commands": [
-          "ssh -t glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
-          "if ($LASTEXITCODE -ne 0) { throw \"签名密钥步骤未完成，停止；不要重新生成U盘密钥，保留错误文字待核验\" }"
+          "ssh -tt glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
+          "if ($LASTEXITCODE -ne 0) { throw \"签名密钥尚未建立成功，停止并保留错误文字；不要重复生成U盘恢复密钥\" }"
         ]
       },
       {
@@ -1367,10 +1367,10 @@
     "actual_backup_or_restore_performed": false,
     "formal_accepted": false,
     "current_operator_progress": {
-      "observed_at": "2026-10-19T11:43:25.367118+00:00",
+      "observed_at": "2026-10-19T12:27:25.946Z",
       "task_id": "T013",
       "related_remaining_item": "T013-R02",
-      "scope": "USB revocation encrypted copy now observed (1329 bytes), AES256 symmetric envelope verified without decryption/import. Protected recovery secret export rechecked (10361 bytes; original primary and both encryption subkeys). Linux signer creation was attempted but cancelled; owner confirms cancelling/exiting the visible passphrase dialog. Fresh check found zero signer private keys, zero partial private-key files and no signer exports. No key or agent configuration change is required by this observation.",
+      "scope": "Second attended signer attempt returned Timeout; no signer/partial keys or exports remain. Reproduced SSH terminal input failure in isolated default-pinentry/TERM=dumb test; project signer home now explicitly uses pinentry-curses, helper normalizes missing/dumb TERM and refreshes only its dedicated agent. Fixed nonsecret masked input, all three helper terminal states and actual Windows SSH confirmation passed. Actual signer generation, protected signer export, both-subkey decrypt/signature and restore still require owner action; no operational passphrase supplied by automation.",
       "downloaded": {
         "status": "USER_REPORTED",
         "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
@@ -1439,7 +1439,7 @@
         },
         {
           "name": "Linux独立仅签名密钥及其受保护导出",
-          "status": "ATTEMPTED_FAILED_OWNER_CANCELLED_NO_PARTIAL_KEY_SAFE_TO_RETRY_ATTENDED"
+          "status": "TERMINAL_TIMEOUT_PATH_REPAIRED_AND_TESTED_ACTUAL_SIGNER_AWAIT_OWNER"
         },
         {
           "name": "两把加密子密钥逐一跨端解密及独立签名验签",
@@ -1454,7 +1454,7 @@
           "status": "NOT_VERIFIED"
         }
       ],
-      "next_action": "Owner retries the existing attended Linux signer helper, sets and confirms a different nonempty passphrase in the GPG dialog, and permits protected private export when prompted. Assistant then verifies actual public signer and protection before arranging both exact-subkey decryption, detached-signature verification and independent restored-home tests. Do not regenerate USB keys or overwrite completed exports.",
+      "next_action": "Owner runs the repaired helper with ssh -tt, enters a NEW nonempty independently held passphrase only inside its terminal Passphrase field, confirms and completes protected export prompts. The prior chat/transcript value must not be used. After observed signer success, verify public fingerprint/protection and prepare both-subkey decrypt/signature plus restored-home checks.",
       "GPG_key_custody_established": false,
       "actual_keys_generated_by_this_update": false,
       "actual_interoperability_verified": false,
@@ -1589,22 +1589,21 @@
         "volume_or_container_encryption_deferred": true
       },
       "latest_CI_recheck": {
-        "observed_at": "2026-10-19T11:43:42.863Z",
+        "observed_at": "2026-10-19T12:28:08.562Z",
         "id": 39226217064,
         "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
         "status": "completed",
         "conclusion": "success",
         "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
-        "run_updated_at": "2026-10-19T09:20:09Z",
-        "scope": "Latest hosted run for feature branch; documentation-only descendant commits are outside this tested source."
+        "scope": "Hosted CI covers this application source, not the separately tested terminal operator utility or documentation-only descendants."
       },
       "current_operator_guide": {
         "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步吊销材料备份与Linux签名_20261019.txt",
         "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
         "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-        "sha256": "a9f411876e74412c2c3988dfd24e8a4bcf94f3d927481950a090758a6413ed6d",
+        "sha256": "a9a98d736c1a56f20a2676b075fdc4f0230a12c9c4426d28455066f57200021f",
         "instructions_executed": false,
-        "scope": "Only attended Linux signer retry is executable now; existing private/revocation exports must not be recreated. Both-subkey decrypt/signature and isolated restore remain planned, not performed."
+        "scope": "Repaired and verified SSH terminal password entry; owner must use a fresh privately held passphrase. Actual signer generation and downstream decrypt/signature/restoration remain pending."
       },
       "operator_progress_history": [
         {
@@ -1767,6 +1766,48 @@
               "status": "NOT_VERIFIED"
             }
           ]
+        },
+        {
+          "observed_at": "2026-10-19T11:43:25.367118+00:00",
+          "scope": "USB revocation encrypted copy now observed (1329 bytes), AES256 symmetric envelope verified without decryption/import. Protected recovery secret export rechecked (10361 bytes; original primary and both encryption subkeys). Linux signer creation was attempted but cancelled; owner confirms cancelling/exiting the visible passphrase dialog. Fresh check found zero signer private keys, zero partial private-key files and no signer exports. No key or agent configuration change is required by this observation.",
+          "next_action": "Owner retries the existing attended Linux signer helper, sets and confirms a different nonempty passphrase in the GPG dialog, and permits protected private export when prompted. Assistant then verifies actual public signer and protection before arranging both exact-subkey decryption, detached-signature verification and independent restored-home tests. Do not regenerate USB keys or overwrite completed exports.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "PASS_PROTECTED_SECRET_EXPORT_AND_AES256_REVOCATION_ENVELOPE_ONLY_RESTORE_PENDING"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "ATTEMPTED_FAILED_OWNER_CANCELLED_NO_PARTIAL_KEY_SAFE_TO_RETRY_ATTENDED"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
         }
       ],
       "actual_operator_recovery_keys_generated": true,
@@ -1887,41 +1928,224 @@
         "formal_accepted": false
       },
       "Linux_signer_helper_preflight": {
-        "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
-        "observed_at": "2026-10-19T10:43:24.473005+00:00",
-        "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
-        "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
-        "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
-        "cases": [
-          {
-            "case": "bash_syntax",
-            "status": "PASS",
-            "expected_exit": 0,
-            "observed_exit": 0
+        "status": "PASS_SYNTAX_THREE_GUARDS_THREE_REAL_PTY_STATES_AND_WINDOWS_SSH_CONFIRMATION",
+        "script_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+        "evidence": {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "status": "PASS_SCOPED_TERMINAL_INPUT_REPAIR_ONLY_ACTUAL_SIGNER_NOT_CREATED",
+          "failed_owner_attempt": "GPG agent key generation returned Timeout; suggested passphrase appeared in owner transcript. Never copy that value into repository or tooling.",
+          "root_cause_scope": "Real isolated PTY characterization reproduced no visible terminal input and bounded wait with default graphical pinentry plus TERM=dumb. Explicit curses plus xterm accepted fixed nonsecret text without echo. This locates an input-path defect, not a claim that real RSA key generation has since passed.",
+          "read_only_investigation": {
+            "observed_at": "2026-10-19T12:24:53.171140+00:00",
+            "secret_primary_count": 0,
+            "private_key_files_count": 0,
+            "signer_exports": {
+              "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": {
+                "present": false,
+                "size_bytes": null
+              },
+              "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": {
+                "present": false,
+                "size_bytes": null
+              }
+            },
+            "pinentry_programs": {
+              "pinentry": {
+                "present": true,
+                "executable": true,
+                "resolved": "/usr/bin/pinentry-gnome3",
+                "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+              },
+              "pinentry-gnome3": {
+                "present": true,
+                "executable": true,
+                "resolved": "/usr/bin/pinentry-gnome3",
+                "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+              },
+              "pinentry-curses": {
+                "present": true,
+                "executable": true,
+                "resolved": "/usr/bin/pinentry-curses",
+                "sha256": "255b09f7b0199ce75c38e5c4e4a04b0992ed43f3fac89b3f80bbd26fe9b2e9ea"
+              },
+              "pinentry-tty": {
+                "present": false,
+                "executable": false,
+                "resolved": "/usr/bin/pinentry-tty",
+                "sha256": null
+              }
+            },
+            "project_agent_config_present": false,
+            "project_agent_config_safe_options": [],
+            "ssh_probe_environment": {
+              "TERM": null,
+              "DISPLAY": null,
+              "GPG_TTY": null
+            },
+            "entropy_avail": "256",
+            "shared_configuration_changed": false,
+            "key_generation_attempted": false,
+            "client_effective_options": [
+              "forwardx11 no",
+              "forwardx11trusted no",
+              "requesttty auto"
+            ]
           },
-          {
-            "case": "owner_directory_and_empty_signer_preflight",
-            "status": "PASS",
-            "expected_exit": 0,
-            "observed_exit": 0
+          "characterization": {
+            "observed_at": "2026-10-19T12:22:30.892687+00:00",
+            "scope": "Nonsecret input-path characterization with real pinentry/gpg-agent in fresh isolated homes. No private key or operational passphrase used.",
+            "cases": [
+              {
+                "mode": "default-dumb",
+                "terminal": "dumb",
+                "pinentry_program": "system default",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-dumb-pae_te07",
+                "terminal_prompt_visible": false,
+                "test_text_sent": false,
+                "test_text_accepted": false,
+                "input_echoed_before_data": false,
+                "process_exit_code": -15,
+                "bounded_probe_timeout": true,
+                "actual_key_generated": false
+              },
+              {
+                "mode": "default-xterm",
+                "terminal": "xterm-256color",
+                "pinentry_program": "system default",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-xterm-j_rf24fg",
+                "terminal_prompt_visible": false,
+                "test_text_sent": false,
+                "test_text_accepted": false,
+                "input_echoed_before_data": false,
+                "process_exit_code": 0,
+                "bounded_probe_timeout": false,
+                "actual_key_generated": false
+              },
+              {
+                "mode": "curses-dumb",
+                "terminal": "dumb",
+                "pinentry_program": "/usr/bin/pinentry-curses",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-dumb-d4egq9id",
+                "terminal_prompt_visible": false,
+                "test_text_sent": false,
+                "test_text_accepted": false,
+                "input_echoed_before_data": false,
+                "process_exit_code": -15,
+                "bounded_probe_timeout": true,
+                "actual_key_generated": false
+              },
+              {
+                "mode": "curses-xterm",
+                "terminal": "xterm-256color",
+                "pinentry_program": "/usr/bin/pinentry-curses",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-xterm-gto6v6d0",
+                "terminal_prompt_visible": true,
+                "test_text_sent": true,
+                "test_text_accepted": true,
+                "input_echoed_before_data": false,
+                "process_exit_code": 0,
+                "bounded_probe_timeout": false,
+                "actual_key_generated": false
+              }
+            ],
+            "actual_signer_created": false
           },
-          {
-            "case": "reject_unexpected_argument",
-            "status": "PASS",
-            "expected_exit": 2,
-            "observed_exit": 2
+          "adoption": {
+            "observed_at": "2026-10-19T12:25:51.796143+00:00",
+            "status": "PASS_SCOPED_TERMINAL_CONFIGURATION_AND_NONINTERACTIVE_GUARDS",
+            "previous_helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+            "current_helper_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+            "project_agent_config": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/gpg-agent.conf",
+            "project_agent_config_sha256": "250266c8436ebf3f94595d564f042fc5691b7d7104ca4f71c4d4f4ac1f804bae",
+            "project_agent_config_mode": "0600",
+            "pinentry_program": "/usr/bin/pinentry-curses",
+            "TERM_default_when_unset_or_dumb": "xterm-256color",
+            "bash_syntax": "PASS",
+            "guard_checks": [
+              {
+                "arguments": [
+                  "--check"
+                ],
+                "expected_exit_code": 0,
+                "actual_exit_code": 0,
+                "status": "PASS"
+              },
+              {
+                "arguments": [
+                  "--unexpected"
+                ],
+                "expected_exit_code": 2,
+                "actual_exit_code": 2,
+                "status": "PASS"
+              },
+              {
+                "arguments": [],
+                "expected_exit_code": 2,
+                "actual_exit_code": 2,
+                "status": "PASS"
+              }
+            ],
+            "actual_key_generation_performed": false,
+            "actual_signer_created": false,
+            "global_user_or_system_GPG_config_changed": false,
+            "shared_business_services_restarted": false,
+            "passphrase_received_by_tool": false,
+            "interactive_terminal_check_pending_at_adoption": true,
+            "interactive_terminal_check_pending": false,
+            "subsequent_terminal_check_completed_at": "2026-10-19T12:27:25.946Z"
           },
-          {
-            "case": "reject_unattended_key_generation",
+          "repaired_helper_terminal_regression": {
+            "observed_at": "2026-10-19T12:26:36.528065+00:00",
+            "status": "PASS_REPAIRED_HELPER_REAL_TERMINAL_CONFIRMATION_IN_THREE_TERM_STATES",
+            "cases": [
+              {
+                "incoming_TERM": "UNSET",
+                "terminal_confirmation_visible": true,
+                "confirmation_only": true,
+                "process_exit_code": 0,
+                "helper_success_marker_present": true,
+                "timed_out": false,
+                "actual_key_generation_performed": false
+              },
+              {
+                "incoming_TERM": "dumb",
+                "terminal_confirmation_visible": true,
+                "confirmation_only": true,
+                "process_exit_code": 0,
+                "helper_success_marker_present": true,
+                "timed_out": false,
+                "actual_key_generation_performed": false
+              },
+              {
+                "incoming_TERM": "xterm-256color",
+                "terminal_confirmation_visible": true,
+                "confirmation_only": true,
+                "process_exit_code": 0,
+                "helper_success_marker_present": true,
+                "timed_out": false,
+                "actual_key_generation_performed": false
+              }
+            ],
+            "secret_keys_after": 0,
+            "partial_private_files_after": 0,
+            "private_passphrase_used": false,
+            "actual_signer_created": false,
+            "formal_accepted": false
+          },
+          "Windows_SSH_terminal_smoke": {
+            "observed_at": "2026-10-19T12:27:25.946Z",
             "status": "PASS",
-            "expected_exit": 2,
-            "observed_exit": 2
-          }
-        ],
-        "actual_key_generation_executed": false,
-        "actual_private_backup_created": false,
-        "actual_signer_accepted": false,
-        "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
+            "scope": "Windows SSH -tt to actual project helper --check-terminal; confirmed visible nonsecret dialog using Enter. No key generation or operational passphrase.",
+            "process_exit_code": 0
+          },
+          "baseline_helper_terminal_check_exit_code": 2,
+          "original_shared_services_unchanged": true,
+          "actual_signer_created": false,
+          "actual_private_backup_created": false,
+          "actual_private_decryption_performed": false,
+          "formal_accepted": false
+        },
+        "actual_key_generation_executed": false
       },
       "operator_completion_recheck": {
         "observed_at": "2026-10-19T10:58:26.437818+00:00",
@@ -1938,11 +2162,11 @@
         "password_or_private_content_received": false,
         "formal_accepted": false,
         "later_resolution": {
-          "observed_at": "2026-10-19T11:43:25.367118+00:00",
-          "recovery_secret_export": "PRESENT_AND_PROTECTED_STRUCTURE_RECHECKED",
-          "revocation_copy": "NOW_PRESENT_AES256_ENVELOPE_VERIFIED_NOT_DECRYPTED",
-          "Linux_signer": "FAILED_OWNER_CANCELLED_NO_PARTIAL_KEYS_OR_EXPORTS",
-          "historical_missing_observation_preserved": true
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "recovery_secret_export": "PRESENT_PROTECTED_STRUCTURE_PREVIOUSLY_VERIFIED",
+          "revocation_copy": "PRESENT_AES256_ENVELOPE_PREVIOUSLY_VERIFIED_NOT_DECRYPTED",
+          "Linux_signer": "TIMEOUT_INPUT_PATH_FIXED_TESTED_ZERO_ACTUAL_OR_PARTIAL_KEYS_AWAIT_OWNER",
+          "historical_observations_preserved": true
         },
         "later_resolution_history": [
           {
@@ -1950,6 +2174,13 @@
             "observed_at": "2026-10-19T11:05:47.136923+00:00",
             "revocation_copy": "STILL_ABSENT",
             "Linux_signer": "STILL_ABSENT",
+            "historical_missing_observation_preserved": true
+          },
+          {
+            "observed_at": "2026-10-19T11:43:25.367118+00:00",
+            "recovery_secret_export": "PRESENT_AND_PROTECTED_STRUCTURE_RECHECKED",
+            "revocation_copy": "NOW_PRESENT_AES256_ENVELOPE_VERIFIED_NOT_DECRYPTED",
+            "Linux_signer": "FAILED_OWNER_CANCELLED_NO_PARTIAL_KEYS_OR_EXPORTS",
             "historical_missing_observation_preserved": true
           }
         ]
@@ -2092,7 +2323,262 @@
       },
       "actual_revocation_encrypted_copy_observed": true,
       "actual_revocation_copy_envelope_verified": true,
-      "actual_revocation_copy_decryption_verified": false
+      "actual_revocation_copy_decryption_verified": false,
+      "Linux_signer_terminal_input_repair": {
+        "observed_at": "2026-10-19T12:27:25.946Z",
+        "status": "PASS_SCOPED_TERMINAL_INPUT_REPAIR_ONLY_ACTUAL_SIGNER_NOT_CREATED",
+        "failed_owner_attempt": "GPG agent key generation returned Timeout; suggested passphrase appeared in owner transcript. Never copy that value into repository or tooling.",
+        "root_cause_scope": "Real isolated PTY characterization reproduced no visible terminal input and bounded wait with default graphical pinentry plus TERM=dumb. Explicit curses plus xterm accepted fixed nonsecret text without echo. This locates an input-path defect, not a claim that real RSA key generation has since passed.",
+        "read_only_investigation": {
+          "observed_at": "2026-10-19T12:24:53.171140+00:00",
+          "secret_primary_count": 0,
+          "private_key_files_count": 0,
+          "signer_exports": {
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": {
+              "present": false,
+              "size_bytes": null
+            },
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": {
+              "present": false,
+              "size_bytes": null
+            }
+          },
+          "pinentry_programs": {
+            "pinentry": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-gnome3": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-curses": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-curses",
+              "sha256": "255b09f7b0199ce75c38e5c4e4a04b0992ed43f3fac89b3f80bbd26fe9b2e9ea"
+            },
+            "pinentry-tty": {
+              "present": false,
+              "executable": false,
+              "resolved": "/usr/bin/pinentry-tty",
+              "sha256": null
+            }
+          },
+          "project_agent_config_present": false,
+          "project_agent_config_safe_options": [],
+          "ssh_probe_environment": {
+            "TERM": null,
+            "DISPLAY": null,
+            "GPG_TTY": null
+          },
+          "entropy_avail": "256",
+          "shared_configuration_changed": false,
+          "key_generation_attempted": false,
+          "client_effective_options": [
+            "forwardx11 no",
+            "forwardx11trusted no",
+            "requesttty auto"
+          ]
+        },
+        "characterization": {
+          "observed_at": "2026-10-19T12:22:30.892687+00:00",
+          "scope": "Nonsecret input-path characterization with real pinentry/gpg-agent in fresh isolated homes. No private key or operational passphrase used.",
+          "cases": [
+            {
+              "mode": "default-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-dumb-pae_te07",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "default-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-xterm-j_rf24fg",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-dumb-d4egq9id",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-xterm-gto6v6d0",
+              "terminal_prompt_visible": true,
+              "test_text_sent": true,
+              "test_text_accepted": true,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            }
+          ],
+          "actual_signer_created": false
+        },
+        "adoption": {
+          "observed_at": "2026-10-19T12:25:51.796143+00:00",
+          "status": "PASS_SCOPED_TERMINAL_CONFIGURATION_AND_NONINTERACTIVE_GUARDS",
+          "previous_helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "current_helper_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+          "project_agent_config": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/gpg-agent.conf",
+          "project_agent_config_sha256": "250266c8436ebf3f94595d564f042fc5691b7d7104ca4f71c4d4f4ac1f804bae",
+          "project_agent_config_mode": "0600",
+          "pinentry_program": "/usr/bin/pinentry-curses",
+          "TERM_default_when_unset_or_dumb": "xterm-256color",
+          "bash_syntax": "PASS",
+          "guard_checks": [
+            {
+              "arguments": [
+                "--check"
+              ],
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "status": "PASS"
+            },
+            {
+              "arguments": [
+                "--unexpected"
+              ],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            },
+            {
+              "arguments": [],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            }
+          ],
+          "actual_key_generation_performed": false,
+          "actual_signer_created": false,
+          "global_user_or_system_GPG_config_changed": false,
+          "shared_business_services_restarted": false,
+          "passphrase_received_by_tool": false,
+          "interactive_terminal_check_pending_at_adoption": true,
+          "interactive_terminal_check_pending": false,
+          "subsequent_terminal_check_completed_at": "2026-10-19T12:27:25.946Z"
+        },
+        "repaired_helper_terminal_regression": {
+          "observed_at": "2026-10-19T12:26:36.528065+00:00",
+          "status": "PASS_REPAIRED_HELPER_REAL_TERMINAL_CONFIRMATION_IN_THREE_TERM_STATES",
+          "cases": [
+            {
+              "incoming_TERM": "UNSET",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "dumb",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "xterm-256color",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            }
+          ],
+          "secret_keys_after": 0,
+          "partial_private_files_after": 0,
+          "private_passphrase_used": false,
+          "actual_signer_created": false,
+          "formal_accepted": false
+        },
+        "Windows_SSH_terminal_smoke": {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "status": "PASS",
+          "scope": "Windows SSH -tt to actual project helper --check-terminal; confirmed visible nonsecret dialog using Enter. No key generation or operational passphrase.",
+          "process_exit_code": 0
+        },
+        "baseline_helper_terminal_check_exit_code": 2,
+        "original_shared_services_unchanged": true,
+        "actual_signer_created": false,
+        "actual_private_backup_created": false,
+        "actual_private_decryption_performed": false,
+        "formal_accepted": false
+      },
+      "Linux_signer_helper_preflight_history": [
+        {
+          "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+          "observed_at": "2026-10-19T10:43:24.473005+00:00",
+          "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
+          "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
+          "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "cases": [
+            {
+              "case": "bash_syntax",
+              "status": "PASS",
+              "expected_exit": 0,
+              "observed_exit": 0
+            },
+            {
+              "case": "owner_directory_and_empty_signer_preflight",
+              "status": "PASS",
+              "expected_exit": 0,
+              "observed_exit": 0
+            },
+            {
+              "case": "reject_unexpected_argument",
+              "status": "PASS",
+              "expected_exit": 2,
+              "observed_exit": 2
+            },
+            {
+              "case": "reject_unattended_key_generation",
+              "status": "PASS",
+              "expected_exit": 2,
+              "observed_exit": 2
+            }
+          ],
+          "actual_key_generation_executed": false,
+          "actual_private_backup_created": false,
+          "actual_signer_accepted": false,
+          "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
+        }
+      ],
+      "discard_previously_suggested_chat_passphrase": true
     },
     "Windows_command_path_note": "Exact current private/public paths use G:/公安厅项目密钥; Windows GPG executables remain D:/GnuPG/bin. Original D-directory preparation is preserved. Explicit current user decision allows GPG-private-key-passphrase internal RnD only, while disk/container encryption is deferred.",
     "current_custody_mode_note": "Use G:/公安厅项目密钥 as current internal-RnD home with personally chosen nonempty GPG private-key protection. USB disk/container encryption explicitly deferred; does not satisfy an encrypted-medium or completed offline-recovery acceptance condition.",
@@ -2213,49 +2699,270 @@
     ],
     "actual_private_keys_created_or_imported_scope": "Operator recovery-key existence is observed on USB via metadata. Assistant neither generated nor read/exported private material; no recovery secret key imported on Linux.",
     "Linux_signer_operator_script": {
-      "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
-      "observed_at": "2026-10-19T10:43:24.473005+00:00",
+      "status": "PASS_REPAIRED_OPERATOR_TERMINAL_INPUT_NOT_KEY_CREATION",
+      "observed_at": "2026-10-19T12:27:25.946Z",
       "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
       "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
-      "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+      "script_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
       "cases": [
         {
-          "case": "bash_syntax",
-          "status": "PASS",
-          "expected_exit": 0,
-          "observed_exit": 0
+          "arguments": [
+            "--check"
+          ],
+          "expected_exit_code": 0,
+          "actual_exit_code": 0,
+          "status": "PASS"
         },
         {
-          "case": "owner_directory_and_empty_signer_preflight",
-          "status": "PASS",
-          "expected_exit": 0,
-          "observed_exit": 0
+          "arguments": [
+            "--unexpected"
+          ],
+          "expected_exit_code": 2,
+          "actual_exit_code": 2,
+          "status": "PASS"
         },
         {
-          "case": "reject_unexpected_argument",
-          "status": "PASS",
-          "expected_exit": 2,
-          "observed_exit": 2
-        },
-        {
-          "case": "reject_unattended_key_generation",
-          "status": "PASS",
-          "expected_exit": 2,
-          "observed_exit": 2
+          "arguments": [],
+          "expected_exit_code": 2,
+          "actual_exit_code": 2,
+          "status": "PASS"
         }
       ],
       "actual_key_generation_executed": false,
       "actual_private_backup_created": false,
       "actual_signer_accepted": false,
-      "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation",
-      "script_content": "#!/usr/bin/env bash\n# Human-operated one-time signing-key creation; never accepts a passphrase argument.\nset -euo pipefail\numask 077\nTaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody\nTaskSignerHome=\"$TaskCustody/signer-gnupg\"\nTaskSignerPublic=\"$TaskCustody/public/backup-signer.asc\"\nTaskSignerBackup=\"$TaskCustody/private-backups/backup-signer-secret.asc\"\nif [[ $# -gt 1 || ( $# -eq 1 && \"$1\" != --check ) ]]; then\n    printf '%s\\n' 'Only --check or an attended run without arguments is supported.' >&2\n    exit 2\nfi\nfor TaskTool in gpg gpgconf gpg-connect-agent stat awk tty; do\n    command -v \"$TaskTool\" >/dev/null || { printf '%s\\n' \"Missing required tool: $TaskTool\" >&2; exit 2; }\ndone\nfor TaskDirectory in \"$TaskCustody\" \"$TaskSignerHome\" \"$TaskCustody/public\" \"$TaskCustody/private-backups\"; do\n    if [[ ! -d \"$TaskDirectory\" || -L \"$TaskDirectory\" || ! -O \"$TaskDirectory\" || \"$(stat -c '%a' \"$TaskDirectory\")\" != 700 ]]; then\n        printf '%s\\n' 'Dedicated custody directory ownership/mode mismatch. Stop without changing it.' >&2\n        exit 2\n    fi\ndone\nTaskExisting=$(gpg --homedir \"$TaskSignerHome\" --batch --pinentry-mode error --with-colons --list-secret-keys)\nif printf '%s\\n' \"$TaskExisting\" | awk -F: '$1==\"sec\" {n++} END {exit(n?0:1)}'; then\n    printf '%s\\n' 'An existing signing private key was found. Stop; do not generate duplicates.' >&2\n    exit 3\nfi\nfor TaskTarget in \"$TaskSignerPublic\" \"$TaskSignerBackup\"; do\n    if [[ -e \"$TaskTarget\" || -L \"$TaskTarget\" ]]; then\n        printf '%s\\n' 'An export target already exists. Stop; nothing is overwritten.' >&2\n        exit 3\n    fi\ndone\nif [[ ${1-} == --check ]]; then\n    printf '%s\\n' 'PASS_SIGNER_OWNER_PREFLIGHT_ONLY_NO_KEY_GENERATION'\n    exit 0\nfi\nif [[ ! -t 0 || ! -t 1 ]]; then\n    printf '%s\\n' 'An attended SSH terminal is required. Do not supply passphrases through files, arguments or chat.' >&2\n    exit 2\nfi\nexport GPG_TTY=\"$(tty)\"\ntrap 'gpgconf --homedir \"$TaskSignerHome\" --kill gpg-agent >/dev/null 2>&1 || true' EXIT\nprintf '%s\\n' 'Create a DIFFERENT signing-only key. Personally choose and confirm a nonempty passphrase in the GPG prompt.'\ngpg --homedir \"$TaskSignerHome\" --quick-generate-key 'MediaTrace RnD Backup Signer - Xu Changsheng' rsa4096 sign 1y\nTaskSignerRows=$(gpg --homedir \"$TaskSignerHome\" --batch --with-colons --with-keygrip --fingerprint --list-secret-keys)\nif ! printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"sec\" {n++; if($12 !~ /s/ || $12 ~ /[eE]/) bad=1} $1==\"ssb\" {bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Unexpected signer capability or key count. Keep material and stop for review.' >&2\n    exit 4\nfi\nTaskSignerFpr=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"fpr\" && !done {print $10; done=1}')\nTaskSignerGrip=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"grp\" && !done {print $10; done=1}')\nif [[ ! \"$TaskSignerFpr\" =~ ^[A-F0-9]{40}$ || ! \"$TaskSignerGrip\" =~ ^[A-F0-9]{40}$ ]]; then\n    printf '%s\\n' 'Invalid public signer identifier; stop.' >&2\n    exit 4\nfi\nTaskSignerInfo=$(gpg-connect-agent --homedir \"$TaskSignerHome\" \"KEYINFO $TaskSignerGrip\" /bye)\nif ! printf '%s\\n' \"$TaskSignerInfo\" | awk '$1==\"S\" && $2==\"KEYINFO\" {n++; if($8!=\"P\") bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Signer does not report passphrase-protected storage. Keep material and stop; no backup export.' >&2\n    exit 4\nfi\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerPublic\" --export \"$TaskSignerFpr\"\ntest -s \"$TaskSignerPublic\"\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerBackup\" --export-secret-keys \"$TaskSignerFpr\"\ntest -s \"$TaskSignerBackup\"\nchmod 600 \"$TaskSignerPublic\" \"$TaskSignerBackup\"\nprintf '\\n%s\\n%s\\n%s\\n' 'Signing key and protected local export created. This is not an independent or tested recovery backup.' \"PUBLIC fingerprint: $TaskSignerFpr\" \"PUBLIC file: $TaskSignerPublic\"\nprintf '%s\\n' 'Do not send the private export or passphrase in chat. Ask the assistant to verify the public result before transferring the protected signer backup to USB.'\n",
-      "script_content_scope": "Exact reviewable owner-only operation template; fresh syntax/preflight/refusal checks are scoped evidence, not execution of actual generation or hosted CI coverage."
+      "scope": "Actual project helper and terminal config adopted for owner key setup only. Three real PTY states, harmless hidden input and Windows SSH confirmation tested. Not hosted CI coverage or actual signer acceptance.",
+      "script_content": "#!/usr/bin/env bash\n# Human-operated one-time signing-key creation; never accepts a passphrase argument.\nset -euo pipefail\numask 077\nTaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody\nTaskSignerHome=\"$TaskCustody/signer-gnupg\"\nTaskSignerPublic=\"$TaskCustody/public/backup-signer.asc\"\nTaskSignerBackup=\"$TaskCustody/private-backups/backup-signer-secret.asc\"\nif [[ $# -gt 1 || ( $# -eq 1 && \"$1\" != --check && \"$1\" != --check-terminal ) ]]; then\n    printf '%s\\n' 'Only --check, --check-terminal or an attended run without arguments is supported.' >&2\n    exit 2\nfi\nfor TaskTool in gpg gpgconf gpg-connect-agent stat awk tty; do\n    command -v \"$TaskTool\" >/dev/null || { printf '%s\\n' \"Missing required tool: $TaskTool\" >&2; exit 2; }\ndone\nfor TaskDirectory in \"$TaskCustody\" \"$TaskSignerHome\" \"$TaskCustody/public\" \"$TaskCustody/private-backups\"; do\n    if [[ ! -d \"$TaskDirectory\" || -L \"$TaskDirectory\" || ! -O \"$TaskDirectory\" || \"$(stat -c '%a' \"$TaskDirectory\")\" != 700 ]]; then\n        printf '%s\\n' 'Dedicated custody directory ownership/mode mismatch. Stop without changing it.' >&2\n        exit 2\n    fi\ndone\nTaskExisting=$(gpg --homedir \"$TaskSignerHome\" --batch --pinentry-mode error --with-colons --list-secret-keys)\nif printf '%s\\n' \"$TaskExisting\" | awk -F: '$1==\"sec\" {n++} END {exit(n?0:1)}'; then\n    printf '%s\\n' 'An existing signing private key was found. Stop; do not generate duplicates.' >&2\n    exit 3\nfi\nfor TaskTarget in \"$TaskSignerPublic\" \"$TaskSignerBackup\"; do\n    if [[ -e \"$TaskTarget\" || -L \"$TaskTarget\" ]]; then\n        printf '%s\\n' 'An export target already exists. Stop; nothing is overwritten.' >&2\n        exit 3\n    fi\ndone\nif [[ ! -x /usr/bin/pinentry-curses || ! -f \"$TaskSignerHome/gpg-agent.conf\" || -L \"$TaskSignerHome/gpg-agent.conf\" ]]; then\n    printf '%s\\n' 'Project terminal pinentry configuration is missing. Stop for review.' >&2\n    exit 2\nfi\nif [[ ! -O \"$TaskSignerHome/gpg-agent.conf\" || \"$(stat -c '%a' \"$TaskSignerHome/gpg-agent.conf\")\" != 600 ]] || ! awk 'NF && $1 !~ /^#/ {n++; if(NF!=2 || $1!=\"pinentry-program\" || $2!=\"/usr/bin/pinentry-curses\") bad=1} END {exit(n==1 && !bad?0:1)}' \"$TaskSignerHome/gpg-agent.conf\"; then\n    printf '%s\\n' 'Project pinentry is not the verified terminal program. Stop for review.' >&2\n    exit 2\nfi\nif [[ ${1-} == --check ]]; then\n    printf '%s\\n' 'PASS_SIGNER_OWNER_PREFLIGHT_ONLY_NO_KEY_GENERATION'\n    exit 0\nfi\nif [[ ! -t 0 || ! -t 1 ]]; then\n    printf '%s\\n' 'An attended SSH terminal is required. Do not supply passphrases through files, arguments or chat.' >&2\n    exit 2\nfi\nexport GPG_TTY=\"$(tty)\"\nif [[ -z ${TERM-} || \"$TERM\" == dumb ]]; then\n    export TERM=xterm-256color\nfi\ntrap 'gpgconf --homedir \"$TaskSignerHome\" --kill gpg-agent >/dev/null 2>&1 || true' EXIT\ngpgconf --homedir \"$TaskSignerHome\" --kill gpg-agent\nif [[ ${1-} == --check-terminal ]]; then\n    printf '%s\\n' 'Nonsecret terminal check: select OK with Enter. Do not enter a password.'\n    TaskDialogResult=$(gpg-connect-agent --homedir \"$TaskSignerHome\" 'GET_CONFIRMATION T013+TERMINAL+CHECK.+Select+OK.+NO+PASSWORD.' /bye)\n    if ! printf '%s\\n' \"$TaskDialogResult\" | awk '$1==\"ERR\" {bad=1} $0==\"OK\" {ok++} END {exit(ok==1 && !bad?0:1)}'; then\n        printf '%s\\n' 'Terminal confirmation failed; do not generate a key yet.' >&2\n        exit 5\n    fi\n    printf '%s\\n' 'PASS_TERMINAL_CONFIRMATION_ONLY_NO_KEY_GENERATION'\n    exit 0\nfi\nprintf '%s\\n' 'The GPG password box opens INSIDE this SSH terminal. Type only inside its Passphrase field; use Tab and Enter to confirm. No password should appear as a plain command line.'\nprintf '%s\\n' 'Create a DIFFERENT signing-only key. Personally choose and confirm a nonempty passphrase in the GPG prompt.'\ngpg --homedir \"$TaskSignerHome\" --quick-generate-key 'MediaTrace RnD Backup Signer - Xu Changsheng' rsa4096 sign 1y\nTaskSignerRows=$(gpg --homedir \"$TaskSignerHome\" --batch --with-colons --with-keygrip --fingerprint --list-secret-keys)\nif ! printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"sec\" {n++; if($12 !~ /s/ || $12 ~ /[eE]/) bad=1} $1==\"ssb\" {bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Unexpected signer capability or key count. Keep material and stop for review.' >&2\n    exit 4\nfi\nTaskSignerFpr=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"fpr\" && !done {print $10; done=1}')\nTaskSignerGrip=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"grp\" && !done {print $10; done=1}')\nif [[ ! \"$TaskSignerFpr\" =~ ^[A-F0-9]{40}$ || ! \"$TaskSignerGrip\" =~ ^[A-F0-9]{40}$ ]]; then\n    printf '%s\\n' 'Invalid public signer identifier; stop.' >&2\n    exit 4\nfi\nTaskSignerInfo=$(gpg-connect-agent --homedir \"$TaskSignerHome\" \"KEYINFO $TaskSignerGrip\" /bye)\nif ! printf '%s\\n' \"$TaskSignerInfo\" | awk '$1==\"S\" && $2==\"KEYINFO\" {n++; if($8!=\"P\") bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Signer does not report passphrase-protected storage. Keep material and stop; no backup export.' >&2\n    exit 4\nfi\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerPublic\" --export \"$TaskSignerFpr\"\ntest -s \"$TaskSignerPublic\"\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerBackup\" --export-secret-keys \"$TaskSignerFpr\"\ntest -s \"$TaskSignerBackup\"\nchmod 600 \"$TaskSignerPublic\" \"$TaskSignerBackup\"\nprintf '\\n%s\\n%s\\n%s\\n' 'Signing key and protected local export created. This is not an independent or tested recovery backup.' \"PUBLIC fingerprint: $TaskSignerFpr\" \"PUBLIC file: $TaskSignerPublic\"\nprintf '%s\\n' 'Do not send the private export or passphrase in chat. Ask the assistant to verify the public result before transferring the protected signer backup to USB.'\n",
+      "script_content_scope": "Exact reviewable owner-only operation template; fresh syntax/preflight/refusal checks are scoped evidence, not execution of actual generation or hosted CI coverage.",
+      "previous_versions": [
+        {
+          "observed_at": "2026-10-19T10:43:24.473005+00:00",
+          "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+          "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
+        }
+      ],
+      "terminal_input_repair": {
+        "observed_at": "2026-10-19T12:27:25.946Z",
+        "status": "PASS_SCOPED_TERMINAL_INPUT_REPAIR_ONLY_ACTUAL_SIGNER_NOT_CREATED",
+        "failed_owner_attempt": "GPG agent key generation returned Timeout; suggested passphrase appeared in owner transcript. Never copy that value into repository or tooling.",
+        "root_cause_scope": "Real isolated PTY characterization reproduced no visible terminal input and bounded wait with default graphical pinentry plus TERM=dumb. Explicit curses plus xterm accepted fixed nonsecret text without echo. This locates an input-path defect, not a claim that real RSA key generation has since passed.",
+        "read_only_investigation": {
+          "observed_at": "2026-10-19T12:24:53.171140+00:00",
+          "secret_primary_count": 0,
+          "private_key_files_count": 0,
+          "signer_exports": {
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": {
+              "present": false,
+              "size_bytes": null
+            },
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": {
+              "present": false,
+              "size_bytes": null
+            }
+          },
+          "pinentry_programs": {
+            "pinentry": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-gnome3": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-curses": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-curses",
+              "sha256": "255b09f7b0199ce75c38e5c4e4a04b0992ed43f3fac89b3f80bbd26fe9b2e9ea"
+            },
+            "pinentry-tty": {
+              "present": false,
+              "executable": false,
+              "resolved": "/usr/bin/pinentry-tty",
+              "sha256": null
+            }
+          },
+          "project_agent_config_present": false,
+          "project_agent_config_safe_options": [],
+          "ssh_probe_environment": {
+            "TERM": null,
+            "DISPLAY": null,
+            "GPG_TTY": null
+          },
+          "entropy_avail": "256",
+          "shared_configuration_changed": false,
+          "key_generation_attempted": false,
+          "client_effective_options": [
+            "forwardx11 no",
+            "forwardx11trusted no",
+            "requesttty auto"
+          ]
+        },
+        "characterization": {
+          "observed_at": "2026-10-19T12:22:30.892687+00:00",
+          "scope": "Nonsecret input-path characterization with real pinentry/gpg-agent in fresh isolated homes. No private key or operational passphrase used.",
+          "cases": [
+            {
+              "mode": "default-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-dumb-pae_te07",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "default-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-xterm-j_rf24fg",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-dumb-d4egq9id",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-xterm-gto6v6d0",
+              "terminal_prompt_visible": true,
+              "test_text_sent": true,
+              "test_text_accepted": true,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            }
+          ],
+          "actual_signer_created": false
+        },
+        "adoption": {
+          "observed_at": "2026-10-19T12:25:51.796143+00:00",
+          "status": "PASS_SCOPED_TERMINAL_CONFIGURATION_AND_NONINTERACTIVE_GUARDS",
+          "previous_helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "current_helper_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+          "project_agent_config": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/gpg-agent.conf",
+          "project_agent_config_sha256": "250266c8436ebf3f94595d564f042fc5691b7d7104ca4f71c4d4f4ac1f804bae",
+          "project_agent_config_mode": "0600",
+          "pinentry_program": "/usr/bin/pinentry-curses",
+          "TERM_default_when_unset_or_dumb": "xterm-256color",
+          "bash_syntax": "PASS",
+          "guard_checks": [
+            {
+              "arguments": [
+                "--check"
+              ],
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "status": "PASS"
+            },
+            {
+              "arguments": [
+                "--unexpected"
+              ],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            },
+            {
+              "arguments": [],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            }
+          ],
+          "actual_key_generation_performed": false,
+          "actual_signer_created": false,
+          "global_user_or_system_GPG_config_changed": false,
+          "shared_business_services_restarted": false,
+          "passphrase_received_by_tool": false,
+          "interactive_terminal_check_pending_at_adoption": true,
+          "interactive_terminal_check_pending": false,
+          "subsequent_terminal_check_completed_at": "2026-10-19T12:27:25.946Z"
+        },
+        "repaired_helper_terminal_regression": {
+          "observed_at": "2026-10-19T12:26:36.528065+00:00",
+          "status": "PASS_REPAIRED_HELPER_REAL_TERMINAL_CONFIRMATION_IN_THREE_TERM_STATES",
+          "cases": [
+            {
+              "incoming_TERM": "UNSET",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "dumb",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "xterm-256color",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            }
+          ],
+          "secret_keys_after": 0,
+          "partial_private_files_after": 0,
+          "private_passphrase_used": false,
+          "actual_signer_created": false,
+          "formal_accepted": false
+        },
+        "Windows_SSH_terminal_smoke": {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "status": "PASS",
+          "scope": "Windows SSH -tt to actual project helper --check-terminal; confirmed visible nonsecret dialog using Enter. No key generation or operational passphrase.",
+          "process_exit_code": 0
+        },
+        "baseline_helper_terminal_check_exit_code": 2,
+        "original_shared_services_unchanged": true,
+        "actual_signer_created": false,
+        "actual_private_backup_created": false,
+        "actual_private_decryption_performed": false,
+        "formal_accepted": false
+      }
     },
     "next_owner_operation": {
-      "scope": "Retry only the existing attended Linux signer helper after confirmed cancellation and no partial keys; do not recreate USB exports.",
+      "scope": "Use repaired attended SSH terminal helper with a NEW privately held passphrase; completed USB exports must not be recreated.",
       "PowerShell_commands": [
-        "ssh -t glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
-        "if ($LASTEXITCODE -ne 0) { throw \"签名密钥步骤未完成，停止；不要重新生成U盘密钥，保留错误文字待核验\" }"
+        "ssh -tt glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
+        "if ($LASTEXITCODE -ne 0) { throw \"签名密钥尚未建立成功，停止并保留错误文字；不要重复生成U盘恢复密钥\" }"
       ]
     },
     "actual_secret_backup_export_structurally_verified": true,
