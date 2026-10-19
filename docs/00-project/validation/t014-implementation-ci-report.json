@@ -1,9 +1,9 @@
 {
   "task_id": "T014",
-  "status": "PENDING_CORRECTED_RUNTIME_ENTRY_PAYLOAD_CI",
-  "scope": "bounded_validation_wrapper_only_no_business_policy_or_package_change",
+  "status": "PENDING_FULLY_LOCALLY_VALIDATED_TYPE_REPAIR_PAYLOAD_CI",
+  "scope": "test helper only; no production authorization,budget value,assertion,version lock or schema change",
   "source_commit": null,
-  "previous_payload": "b993c68b1305e9216c87c7b14249de6d7c4dc913",
+  "previous_payload": "38d112439a8b034f04f8d657fa5e4c4c2fd0b2f9",
   "previous_failed_attempts": [
     {
       "run_id": 39292249613,
@@ -208,42 +208,187 @@
         }
       ],
       "raw_logs_published": false
+    },
+    {
+      "run_id": 39308626738,
+      "run_attempt": 1,
+      "status": "FAIL",
+      "source_commit": "38d112439a8b034f04f8d657fa5e4c4c2fd0b2f9",
+      "identity_totals": {
+        "tests": 332,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_step": "Python static type check",
+      "diagnostic": {
+        "path": "tests/stage_three/test_dev.py",
+        "line": 439,
+        "code": "func-returns-value",
+        "message": "list.append returns None; test helper must record then return0 explicitly"
+      },
+      "current_business_permission_and_32_gate_steps_executed": false,
+      "unexecuted_archived_PASS_files_not_counted_as_current_results": true,
+      "fix_scope": "test helper only; no production authorization,budget value,assertion,version lock or schema change",
+      "locked_full_profile_type_check_after_fix": "PASS",
+      "isolated_py310_core_totals": {
+        "tests": 607,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "documentation_and_quality_checks_after_fix": [
+        {
+          "name": "format_check",
+          "command": "python scripts/dev.py format-check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "lint",
+          "command": "python scripts/dev.py lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "type_check",
+          "command": "python scripts/stage_three_types.py check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "T011_candidate_model",
+          "command": "python scripts/validate_access_control_model.py --run-tests",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_one",
+          "command": "python scripts/validate_stage_one.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "inputs",
+          "command": "python scripts/validate_inputs.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "repository_docs",
+          "command": "python scripts/validate_repository_docs.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "documentation_completion",
+          "command": "python scripts/validate_documentation_completion.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_three",
+          "command": "python scripts/validate_stage_three.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "task_navigation_drift",
+          "command": "python scripts/generate_task_progress.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "schedule_drift",
+          "command": "python scripts/plan_project_schedule.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_three_navigation_drift",
+          "command": "python scripts/generate_stage_three_docs.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "requirement_drift",
+          "command": "python scripts/generate_requirements_document.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "remaining_work_drift",
+          "command": "python scripts/generate_remaining_work_navigation.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_status_drift",
+          "command": "python scripts/generate_stage_status_navigation.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "artifact_bytes_and_platform_digests_verified": true,
+      "artifacts": [
+        {
+          "name": "failed-py310-validation-39308626738.zip",
+          "bytes": 498402,
+          "sha256": "b59c0975aced431b568ccfb1bac6c144a3e2516830502c4cdc33e3dc272715ea"
+        },
+        {
+          "name": "failed-t013-identity-validation-39308626738.zip",
+          "bytes": 3233,
+          "sha256": "1a6f045749b659b53bf1a8a6f7c918ca2f255a5eda794d5e9892426ccc7e080f"
+        }
+      ],
+      "raw_logs_published": false
     }
   ],
-  "bounded_runtime_entry_follow_up": {
-    "scope": "bounded_validation_wrapper_only_no_business_policy_or_package_change",
-    "paths": [
-      "scripts/validate_stage_three.py",
-      "tests/stage_three/test_dev.py"
-    ],
-    "source_delta_sha256": {
-      "scripts/validate_stage_three.py": "bd3674a29517ca419d6d290dfcf83fa591fae46a097325987fa11e8d7a42931f",
-      "tests/stage_three/test_dev.py": "799259dc4cf30aa225dfa792006b55f76267491bdbae47c053ed2c4f973b7e7c"
-    },
-    "aggregate_test_entry_timeout_seconds": 2400,
-    "other_command_timeout_seconds": 300,
-    "termination_grace_seconds": 5,
-    "engineering_job_timeout_minutes": 60,
-    "RED": {
-      "tests": 7,
-      "failures": 1,
-      "errors": 0,
-      "skipped": 0
-    },
-    "GREEN": {
-      "tests": 7,
+  "typing_follow_up": {
+    "scope": "test helper only; no production authorization,budget value,assertion,version lock or schema change",
+    "path": "tests/stage_three/test_dev.py",
+    "sha256": "32647d36bf5a0a3fab474e66a6c23da660e0fa576a4e9618119553d0332260d2",
+    "full_profile_types": "PASS",
+    "full_core": {
+      "tests": 607,
       "failures": 0,
       "errors": 0,
       "skipped": 0
     },
-    "regressions": [
-      "long successful composite command can complete",
-      "unrelated and modified commands keep300s",
-      "nonzero exits1/7 propagate",
-      "timed-out process group terminated and timeout raised"
+    "documentation_checks": 15,
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
     ],
-    "locked_Ruff_lint_and_format": "PASS",
-    "complete_private_core_regression": "IN_PROGRESS_607_CASES",
     "current_exact_hosted_CI_status": "PENDING_NEW_PAYLOAD"
   },
   "formal_accepted": false,

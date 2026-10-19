@@ -436,7 +436,12 @@ def test_runtime_budget_for_compound_development_tests(monkeypatch):
 def test_runtime_budget_for_unrelated_commands_stays_bounded(monkeypatch, tail):
     runtime = runtime_validator()
     waits = []
-    process = types.SimpleNamespace(wait=lambda timeout: waits.append(timeout) or 0)
+
+    def wait(timeout):
+        waits.append(timeout)
+        return 0
+
+    process = types.SimpleNamespace(wait=wait)
     monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: process)
     runtime.run_bounded([sys.executable, "scripts/dev.py", *tail], {})
     assert waits == [300]

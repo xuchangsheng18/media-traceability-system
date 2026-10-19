@@ -2759,7 +2759,7 @@
     }
   ],
   "local_non_runtime_test_environment_note": "One Windows orchestration-interpreter parser attempt lacked psycopg (9 dependency failures,4 source-binding passes); not used as runtime validation. Locked Linux py31013 parser cases, focused257 and complete541 all pass. A later Windows input-validator attempt lacked openapi_spec_validator; exact final inputs and11 related checks passed in locked Linux py310.",
-  "hosted_ci_status": "PENDING_BOUNDED_RUNTIME_ENTRY_REPAIR",
+  "hosted_ci_status": "PENDING_FULLY_LOCALLY_VALIDATED_TYPE_REPAIR_PAYLOAD",
   "hosted_ci_ref": "docs/00-project/validation/t014-implementation-ci-report.json",
   "hosted_success_inferred_from_local": false,
   "task_count": 170,
@@ -3609,7 +3609,319 @@
       "timed-out process group terminated and timeout raised"
     ],
     "locked_Ruff_lint_and_format": "PASS",
-    "complete_private_core_regression": "IN_PROGRESS_607_CASES",
+    "complete_private_core_regression": "PASS_607_AND_FULL_PROFILE_QUALITY_PLUS15_DOC_CHECKS",
+    "current_exact_hosted_CI_status": "PENDING_NEW_PAYLOAD",
+    "complete_core_regression": {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "38d112439a8b034f04f8d657fa5e4c4c2fd0b2f9",
+      "working_delta_sha256": {
+        "tests/stage_three/test_dev.py": "32647d36bf5a0a3fab474e66a6c23da660e0fa576a4e9618119553d0332260d2"
+      },
+      "command": "python -m pytest tests/poc tests/stage_three tests/platform -q --tb=short --junitxml PRIVATE_PATH",
+      "started_at": "2026-10-19T19:32:09.386474+00:00",
+      "completed_at": "2026-10-19T19:37:29.032427+00:00",
+      "python": "3.10.22",
+      "exit_code": 0,
+      "totals": {
+        "tests": 607,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "test_groups": {
+        "tests.poc.test_event_contract": {
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.poc.test_runtime": {
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_business_verification": {
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_dev": {
+          "tests": 52,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_development_limits": {
+          "tests": 14,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_foundation_configuration": {
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_foundation_tracing": {
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_process_startup": {
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_storage_restart_readiness": {
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_types": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t011": {
+          "tests": 56,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_handover": {
+          "tests": 27,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_checks": {
+          "tests": 27,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_config": {
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_deploy": {
+          "tests": 19,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_operations": {
+          "tests": 19,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_management": {
+          "tests": 41,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_privacy_audit": {
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_recovery_guard": {
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_tokens": {
+          "tests": 47,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t014": {
+          "tests": 189,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t014_gate": {
+          "tests": 13,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_task_completion_evidence": {
+          "tests": 17,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_task_owner_assignment": {
+          "tests": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-w_cf7t19",
+      "shared_source_or_services_modified": false,
+      "raw_logs_published": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false,
+      "gate_checks": [],
+      "documentation_checks": [
+        {
+          "name": "format_check",
+          "command": "python scripts/dev.py format-check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "lint",
+          "command": "python scripts/dev.py lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "type_check",
+          "command": "python scripts/stage_three_types.py check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "T011_candidate_model",
+          "command": "python scripts/validate_access_control_model.py --run-tests",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_one",
+          "command": "python scripts/validate_stage_one.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "inputs",
+          "command": "python scripts/validate_inputs.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "repository_docs",
+          "command": "python scripts/validate_repository_docs.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "documentation_completion",
+          "command": "python scripts/validate_documentation_completion.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_three",
+          "command": "python scripts/validate_stage_three.py",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "task_navigation_drift",
+          "command": "python scripts/generate_task_progress.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "schedule_drift",
+          "command": "python scripts/plan_project_schedule.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_three_navigation_drift",
+          "command": "python scripts/generate_stage_three_docs.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "requirement_drift",
+          "command": "python scripts/generate_requirements_document.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "remaining_work_drift",
+          "command": "python scripts/generate_remaining_work_navigation.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "stage_status_drift",
+          "command": "python scripts/generate_stage_status_navigation.py --check",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  "typing_follow_up": {
+    "scope": "test helper only; no production authorization,budget value,assertion,version lock or schema change",
+    "path": "tests/stage_three/test_dev.py",
+    "sha256": "32647d36bf5a0a3fab474e66a6c23da660e0fa576a4e9618119553d0332260d2",
+    "full_profile_types": "PASS",
+    "full_core": {
+      "tests": 607,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "documentation_checks": 15,
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
     "current_exact_hosted_CI_status": "PENDING_NEW_PAYLOAD"
   }
 }
