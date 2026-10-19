@@ -40,6 +40,11 @@
       "decision": "Validate sid as a bounded opaque printable string, not a UUID.",
       "reason": "OpenID specifies opaque sid; actual locked Keycloak returns 24 characters. No business API/schema change.",
       "cost_if_wrong": "Rejecting valid admin sessions or accepting malformed metadata; signature/MFA/time/revocation remain mandatory and malformed sid tests pass."
+    },
+    {
+      "decision": "Use declared official repositories with identical locked SHA only inside the disposable hosted CI transport.",
+      "reason": "Two mirror pull failures prevented testing; source-policy/cache behavior verified in isolation, fixed hashes and shared defaults preserved.",
+      "cost_if_wrong": "CI preparation or image binding must fail, never skip tests or accept a different image; final hosted CI still required."
     }
   ],
   "declined_to_judge_resolution": [
@@ -60,5 +65,16 @@
       "resolution": "Preserved and independently compared; broader unrelated correctness not claimed."
     }
   ],
-  "formal_accepted": false
+  "formal_accepted": false,
+  "post_review_CI_transport_change": {
+    "review_kind": "executor_review_and_RED_GREEN_tests_not_a_second_independent_agent_review",
+    "files": [
+      "scripts/identity/ci.py",
+      "tests/platform/test_t013_identity_checks.py"
+    ],
+    "justification": "Two actual hosted attempts failed before tests at mirror pull; official same manifest returned200. Existing management source unchanged.",
+    "unit_tests": 435,
+    "focused_tests": 7,
+    "final_hosted_CI_pending": true
+  }
 }

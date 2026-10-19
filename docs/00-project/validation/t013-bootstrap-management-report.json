@@ -1,6 +1,6 @@
 {
   "task_id": "T013",
-  "status": "PASS_SCOPED_LINUX_CI_PENDING",
+  "status": "PASS_LINUX_CORE_AND_CI_TRANSPORT_UNITS_CURRENT_HOSTED_CI_PENDING",
   "observed_at": "2026-10-19T07:41:04.428124+00:00",
   "scope": "bootstrap_management_replacement_and_private_retirement_preparation_only",
   "base_source_commit": "35670eabcb7b53996753c0467357bfa2a1cbbf03",
@@ -23,7 +23,7 @@
     "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
     "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
     "scripts/identity/checks.py": "7f9729a8e0e7bbe99710ed7ac2c63951651ecb8673e760c3e86f7ee8c34c970f",
-    "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+    "scripts/identity/ci.py": "8ec77bc5aba63838b5a60f07113f0148e4770e616dd57344d350d558d84c4d2a",
     "scripts/identity/common.py": "db687ca87380787a960f2ef0364b7fa74168f8a36e52aac44f3b06ac9051a66b",
     "scripts/identity/control.py": "8a81979d966da74f1bc676948599a92353c0b8814da1af34d1de364b61b0f03c",
     "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
@@ -50,7 +50,7 @@
     "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
     "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
     "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
-    "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+    "tests/platform/test_t013_identity_checks.py": "c7814a7f85a24dbadaaff2d3e8edcd6c5411686bcd4005cc33700b6740eb72bf",
     "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
     "tests/platform/test_t013_management.py": "4ede24e264677121537ab70e0b0c3bac3dd21a2314a1866382acb3614ad39bed",
     "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
@@ -81,7 +81,7 @@
       "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
       "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
       "scripts/identity/checks.py": "7f9729a8e0e7bbe99710ed7ac2c63951651ecb8673e760c3e86f7ee8c34c970f",
-      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/ci.py": "8ec77bc5aba63838b5a60f07113f0148e4770e616dd57344d350d558d84c4d2a",
       "scripts/identity/common.py": "db687ca87380787a960f2ef0364b7fa74168f8a36e52aac44f3b06ac9051a66b",
       "scripts/identity/control.py": "8a81979d966da74f1bc676948599a92353c0b8814da1af34d1de364b61b0f03c",
       "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
@@ -108,7 +108,7 @@
       "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
       "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
       "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
-      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_checks.py": "c7814a7f85a24dbadaaff2d3e8edcd6c5411686bcd4005cc33700b6740eb72bf",
       "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
       "tests/platform/test_t013_management.py": "4ede24e264677121537ab70e0b0c3bac3dd21a2314a1866382acb3614ad39bed",
       "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
@@ -132,24 +132,24 @@
               "-q",
               "--tb=short",
               "--junitxml",
-              "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/unit-20261019T073403018931-0.xml"
+              "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/unit-20261019T080754844972-0.xml"
             ],
             "exit_code": 0,
-            "started_at": "2026-10-19T07:34:03.018976+00:00",
-            "elapsed_seconds": 27.885408,
+            "started_at": "2026-10-19T08:07:54.845011+00:00",
+            "elapsed_seconds": 26.880047,
             "totals": {
-              "tests": 428,
+              "tests": 435,
               "failures": 0,
               "errors": 0,
               "skipped": 0
             },
             "failed_cases": [],
-            "private_log_sha256": "cf4aee48e6fdec844a75c1611e1d89ac8c77aee470571a3cd1cb13a1cdd29bae"
+            "private_log_sha256": "5eaed5157104f1e0ba88b5a0a778ce2c6bec53cb3d827f2bf2aba2ee268f0de3"
           }
         ],
         "base_source_commit": "35670eabcb7b53996753c0467357bfa2a1cbbf03",
         "changed_source_map_paths": [],
-        "source_binding": "Current runtime map matches for unit/live/quality. Listed business predecessor changes are dedicated administrative-session or identity-test files; business implementation/contracts/tests are unchanged and exact committed hosted business CI is still required."
+        "source_binding": "Current exact runtime source map."
       },
       "live": {
         "checks": [
@@ -179,8 +179,11 @@
           }
         ],
         "base_source_commit": "35670eabcb7b53996753c0467357bfa2a1cbbf03",
-        "changed_source_map_paths": [],
-        "source_binding": "Current runtime map matches for unit/live/quality. Listed business predecessor changes are dedicated administrative-session or identity-test files; business implementation/contracts/tests are unchanged and exact committed hosted business CI is still required."
+        "changed_source_map_paths": [
+          "scripts/identity/ci.py",
+          "tests/platform/test_t013_identity_checks.py"
+        ],
+        "source_binding": "Complete real management case passed on 431f337; only hosted-CI transport and its unit collector changed afterward. No management/authentication/retirement runtime file changed. Final hosted CI must exercise current checkout."
       },
       "quality": {
         "checks": [
@@ -191,8 +194,8 @@
               "format-check"
             ],
             "exit_code": 0,
-            "started_at": "2026-10-19T07:34:26.835923+00:00",
-            "elapsed_seconds": 1.217094,
+            "started_at": "2026-10-19T08:08:39.222030+00:00",
+            "elapsed_seconds": 1.167217,
             "totals": null,
             "failed_cases": [],
             "private_log_sha256": "0ed71a8f57bfdfc8e35a3c9667b1cb2fa379800114d6ac795cdce9fc0413f98e"
@@ -204,8 +207,8 @@
               "lint"
             ],
             "exit_code": 0,
-            "started_at": "2026-10-19T07:34:28.053407+00:00",
-            "elapsed_seconds": 5.277716,
+            "started_at": "2026-10-19T08:08:40.389594+00:00",
+            "elapsed_seconds": 5.0272,
             "totals": null,
             "failed_cases": [],
             "private_log_sha256": "167e702b3543b3076c1b8e0d908add334e7e0e0576c9a8c600723b771263e902"
@@ -217,8 +220,8 @@
               "check"
             ],
             "exit_code": 0,
-            "started_at": "2026-10-19T07:34:33.331458+00:00",
-            "elapsed_seconds": 0.716608,
+            "started_at": "2026-10-19T08:08:45.417085+00:00",
+            "elapsed_seconds": 0.716581,
             "totals": null,
             "failed_cases": [],
             "private_log_sha256": "0b3ce6fe096f7667e003777f74411def5f9a5b6b5216b05bc9dbef8be12b6f1d"
@@ -230,16 +233,16 @@
               "secrets"
             ],
             "exit_code": 0,
-            "started_at": "2026-10-19T07:34:34.048264+00:00",
-            "elapsed_seconds": 0.415582,
+            "started_at": "2026-10-19T08:08:46.133850+00:00",
+            "elapsed_seconds": 0.415618,
             "totals": null,
             "failed_cases": [],
-            "private_log_sha256": "6ca90fca0b1efd7e672a65f502af6415e0ce0aecee5164edf8c5635db2caf444"
+            "private_log_sha256": "7fe9a4a1cf94e44f239e5cfe33050039c320c1174757f83d025ce43571f1e100"
           }
         ],
         "base_source_commit": "35670eabcb7b53996753c0467357bfa2a1cbbf03",
         "changed_source_map_paths": [],
-        "source_binding": "Current runtime map matches for unit/live/quality. Listed business predecessor changes are dedicated administrative-session or identity-test files; business implementation/contracts/tests are unchanged and exact committed hosted business CI is still required."
+        "source_binding": "Current exact runtime source map."
       },
       "business": {
         "checks": [
@@ -262,7 +265,9 @@
           "scripts/identity/management.py",
           "tests/identity/test_management_live.py",
           "tests/platform/test_t013_management.py",
-          "tools/identity_admin_tokens.mjs"
+          "tools/identity_admin_tokens.mjs",
+          "scripts/identity/ci.py",
+          "tests/platform/test_t013_identity_checks.py"
         ],
         "source_binding": "Current runtime map matches for unit/live/quality. Listed business predecessor changes are dedicated administrative-session or identity-test files; business implementation/contracts/tests are unchanged and exact committed hosted business CI is still required.",
         "totals": {
@@ -1365,5 +1370,63 @@
     "Xu Changsheng real account/first-password-change/MFA and dedicated management client/session adoption",
     "actual GPG custody and recoverable backup, controlled new secret-volume adoption and agreed maintenance window",
     "shared bootstrap/historical-credential retirement, restart checks and applicable software admission/acceptance"
-  ]
+  ],
+  "CI_transport_patch": {
+    "previous_source_commit": "431f337f1f4adb652a3c67d49e40605d36db01e0",
+    "previous_run_id": 39217811049,
+    "previous_attempts": [
+      1,
+      2
+    ],
+    "failed_stage": "pull-postgres",
+    "tests_not_executed": true,
+    "scope": "GitHub-hosted disposable VM only; exact same locked manifests via declared official repositories and private BuildKit source policy; no version lock or shared deployment change",
+    "changed_files": [
+      "scripts/identity/ci.py",
+      "tests/platform/test_t013_identity_checks.py"
+    ],
+    "focused_tests": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/platform/test_t013_identity_checks.py",
+          "-k",
+          "transport or official",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/ci_transport-20261019T080601680951-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T08:06:01.680989+00:00",
+        "elapsed_seconds": 0.465869,
+        "totals": {
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "6bd6d340b42703166703e907fccc7f4ca2a335de305f13766efa2e914810257c"
+      }
+    ],
+    "red": {
+      "tests": 7,
+      "failures": 7
+    },
+    "green": {
+      "tests": 7,
+      "failures": 0
+    },
+    "local_probes": {
+      "repository_alias_content_id_matched": true,
+      "locked_digest_runtime_succeeded": true,
+      "build_without_source_policy_failed": true,
+      "build_with_same_digest_source_policy_passed": true
+    },
+    "docs": "docs/03-development/t013-bootstrap-management-replacement.md",
+    "current_exact_hosted_CI_pending": true
+  }
 }
