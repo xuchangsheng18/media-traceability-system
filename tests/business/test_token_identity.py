@@ -75,6 +75,37 @@ def test_active_token_maps_exact_identity_without_granting_case_or_source(token_
         authority.authorize_source(Scope(actor, ctx["case_id"]), ctx["source_id"], "analysis")
 
 
+def test_authenticate_principal_preserves_exact_issuer_subject_mapping(token_context):
+    ctx, authority, state, _, _, _ = token_context
+    method = getattr(authority, "authenticate_principal", None)
+    assert callable(method), "T014 verified principal method is missing"
+    principal = method("synthetic-token")
+    assert principal.actor == ctx["actor"]
+    assert principal.issuer == state["iss"]
+    assert principal.subject == state["sub"]
+    assert principal.expires_at == state["exp"]
+    assert authority.authenticate("synthetic-token") == principal.actor
+
+
+def test_principal_expired_after_database_lookup_is_rejected(token_context, monkeypatch):
+    _, authority, _, _, clock, _ = token_context
+    method = getattr(authority, "authenticate_principal", None)
+    assert callable(method), "T014 verified principal method is missing"
+    from business_app.identity.directory import IdentityDirectory
+
+    original = IdentityDirectory.resolve
+
+    def resolve_then_expire(self, issuer, subject):
+        result = original(self, issuer, subject)
+        clock[0] = 200
+        return result
+
+    monkeypatch.setattr(IdentityDirectory, "resolve", resolve_then_expire)
+    with pytest.raises(BusinessError, match="AUTHENTICATION_REQUIRED") as error:
+        method("synthetic-token")
+    assert error.value.http_status == 401
+
+
 @pytest.mark.parametrize(
     "change",
     [

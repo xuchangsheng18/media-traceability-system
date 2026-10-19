@@ -22,6 +22,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from ..auth import AuthorityProvider
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.types import Principal
 from ..types import Actor, Scope
 from .directory import IdentityDirectory, valid_key
 
@@ -183,6 +184,9 @@ class MappedTokenAuthority:
         self.verifier, self.lookup, self.policy = verifier, lookup, policy
 
     def authenticate(self, bearer: str) -> Actor:
+        return self.authenticate_principal(bearer).actor
+
+    def authenticate_principal(self, bearer: str) -> Principal:
         verified = self.verifier.verify(bearer)
         try:
             with self.lookup.engine.begin() as connection:
@@ -202,7 +206,12 @@ class MappedTokenAuthority:
             raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
         if verified.expires_at <= current:
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-        return Actor(user_id=mapping.user_id, org_id=mapping.org_id)
+        return Principal(
+            actor=Actor(user_id=mapping.user_id, org_id=mapping.org_id),
+            issuer=verified.issuer,
+            subject=verified.subject,
+            expires_at=verified.expires_at,
+        )
 
     def authorize_case(self, actor: Actor, case_id: UUID, action: str) -> Scope:
         if self.policy is None:
