@@ -107,3 +107,23 @@ def test_ci_bootstrap_refuses_an_ordinary_machine(tmp_path):
     )
     assert result.returncode == 1
     assert "IDENTITY_CI_DISPOSABLE_RUNNER_REQUIRED" in result.stdout
+
+
+@pytest.mark.parametrize("phase", ["setup", "teardown"])
+def test_failure_diagnostic_is_limited_to_static_codes_and_phase(tmp_path, phase):
+    value = (
+        '<testsuites><testsuite tests="1" failures="0" errors="1" skipped="0">'
+        '<testcase classname="tests.platform.test_t013_identity_checks" '
+        'name="test_failure_diagnostic_is_limited_to_static_codes_and_phase[NEVER-PUBLISH-PRIVATE-PARAMETER]">'
+        f'<error message="failed on {phase} with RuntimeError: IDENTITY_ADMIN_OPERATION_FAILED '
+        'NEVER-PUBLISH-PRIVATE-DETAIL IDENTITY_UNTRUSTED_PRIVATE_VALUE">'
+        "NEVER-PUBLISH-PRIVATE-TRACE</error></testcase></testsuite></testsuites>"
+    )
+    result, output, _ = invoke(tmp_path, value)
+    assert result.returncode == 1
+    case = json.loads(output.read_text())["groups"][0]["failed_cases"][0]
+    assert case["phase"] == phase
+    assert case["diagnostic_codes"] == ["IDENTITY_ADMIN_OPERATION_FAILED"]
+    assert case["exception_types"] == ["RuntimeError"]
+    assert "NEVER-PUBLISH-PRIVATE" not in output.read_text() + result.stdout + result.stderr
+    assert "IDENTITY_UNTRUSTED_PRIVATE_VALUE" not in output.read_text()

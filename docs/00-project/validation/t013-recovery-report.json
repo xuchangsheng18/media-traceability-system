@@ -1,8 +1,8 @@
 {
-  "observed_at": "2026-10-19T03:48:56.116706+00:00",
-  "status": "PASS_LOCAL_SCOPED_RECOVERY_HOSTED_RETRY_REQUIRED",
+  "observed_at": "2026-10-19T04:09:35.188054+00:00",
+  "status": "PASS_LOCAL_SCOPED_RECOVERY_HOSTED_DIAGNOSTIC_RETRY_REQUIRED",
   "task_id": "T013",
-  "scope": "complete_Linux_recovery_runtime_plus_separately_rerun_unit_fixture_and_original_secret_guard",
+  "scope": "current_complete_two_case_real_isolated_recovery_suite_plus_retained_prior_diagnostics_not_shared_service_cutover",
   "source_sha256": {
     ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
     ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
@@ -21,7 +21,7 @@
     "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
     "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
     "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
-    "scripts/identity/checks.py": "06aa8f7ff8654b4f3f8ffd57aadd54f1a2f679ad40f9b985c22064fd797b9451",
+    "scripts/identity/checks.py": "f5c0512500988b366903981f719ff2fd7b3c9f2125fb50e87a20484386807c28",
     "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
     "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
     "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
@@ -41,7 +41,7 @@
     "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
     "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
     "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
-    "tests/platform/test_t013_identity_checks.py": "92cde972d270a9f5876a47d283777c47466b44acb1abf5a24188af665c851e7e",
+    "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
     "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
     "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
     "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
@@ -65,19 +65,19 @@
             "-q",
             "--tb=short",
             "--junitxml",
-            "/workspace/glwy/runtime/media-traceability-system/t013-recovery-20261019/unit-all-20261019T034702-0.xml"
+            "/workspace/glwy/runtime/media-traceability-system/t013-recovery-20261019/unit-all-20261019T040545-0.xml"
           ],
           "exit_code": 0,
-          "started_at": "2026-10-19T03:47:02.780269+00:00",
-          "elapsed_seconds": 21.31761,
+          "started_at": "2026-10-19T04:05:45.466023+00:00",
+          "elapsed_seconds": 23.319235,
           "totals": {
-            "tests": 358,
+            "tests": 360,
             "failures": 0,
             "errors": 0,
             "skipped": 0
           },
           "failed_cases": [],
-          "private_log_sha256": "06c8bd69e275467aa7a51fe521ef15fc4e6a798b3b46ef9fb0e31b4d43156305"
+          "private_log_sha256": "707e3677b06b3b935947edd7bd9b365e20b2dbcf9800d21115853cf1a9006003"
         }
       ],
       "Python_candidates_created": false,
@@ -95,8 +95,8 @@
             "format-check"
           ],
           "exit_code": 0,
-          "started_at": "2026-10-19T03:48:12.939569+00:00",
-          "elapsed_seconds": 1.217723,
+          "started_at": "2026-10-19T04:07:53.998507+00:00",
+          "elapsed_seconds": 1.367682,
           "totals": null,
           "failed_cases": [],
           "private_log_sha256": "e9d04e188ee647562ad39b3b225176d4bb0f4bbc31893e3975df3a7153538d89"
@@ -108,8 +108,8 @@
             "lint"
           ],
           "exit_code": 0,
-          "started_at": "2026-10-19T03:48:14.157633+00:00",
-          "elapsed_seconds": 6.033014,
+          "started_at": "2026-10-19T04:07:55.366567+00:00",
+          "elapsed_seconds": 9.287602,
           "totals": null,
           "failed_cases": [],
           "private_log_sha256": "f08e58b7b42641de40241b516b1826240c4120a87e4cc38001610e2643501af8"
@@ -121,8 +121,8 @@
             "check"
           ],
           "exit_code": 0,
-          "started_at": "2026-10-19T03:48:20.190895+00:00",
-          "elapsed_seconds": 0.76696,
+          "started_at": "2026-10-19T04:08:04.654524+00:00",
+          "elapsed_seconds": 0.766802,
           "totals": null,
           "failed_cases": [],
           "private_log_sha256": "e4702ba550f3d51822594fd98979a9585a5970032e6fbd5f304d99ffc69a0f00"
@@ -248,8 +248,8 @@
             "secrets"
           ],
           "exit_code": 0,
-          "started_at": "2026-10-19T03:48:09.378195+00:00",
-          "elapsed_seconds": 0.415536,
+          "started_at": "2026-10-19T04:08:08.534082+00:00",
+          "elapsed_seconds": 1.818751,
           "totals": null,
           "failed_cases": [],
           "private_log_sha256": "8dfcd5bafdf63143366d4b699bc9a0a896bdd878e2b65ddbb7a07bbc3b5d9b4e"
@@ -365,13 +365,13 @@
     }
   ],
   "privacy": {
-    "observed_at": "2026-10-19T03:27:48.577562+00:00",
+    "observed_at": "2026-10-19T03:54:51.861551+00:00",
     "base_source_commit": "a1b58b8d52df29980401e3e2d407f44911c10bc9",
     "history": {
       "status": "PASS_BOUNDED_AVAILABLE_HISTORY_SCAN",
-      "reachable_blobs": 7325,
-      "bytes_scanned": 256506234,
-      "refs_sha256": "22dd3bd4e0435a466f8a52d786cfdf5433130c2000693f533653feb027637180",
+      "reachable_blobs": 7331,
+      "bytes_scanned": 256937437,
+      "refs_sha256": "429827cc2796a7eef8b98f5b669150f393c5a0e0ced7af6a27ab5b6efac221f7",
       "findings": [],
       "known_private_value_count": 12,
       "scope": "all_reachable_raw_Git_blobs_at_recorded_refs_not_deleted_unreachable_objects_or_decompressed_binary_contents",
@@ -379,6 +379,7 @@
       "credential_values_printed": false
     },
     "working_tree": {
+      "source_commit": "4bd6fe55410a0d6a6da8690477b022cb5314bc76",
       "files_scanned": 2002,
       "findings": []
     },
@@ -386,57 +387,57 @@
       {
         "project": "media-trace-identity",
         "container_id": "f99770aefdcd",
-        "bytes_scanned": 391122,
-        "sha256": "fe1dd086cc81b7e578ff2180aa18795ff9cd686ab1e9fe2ce22a83363b458a08",
+        "bytes_scanned": 391349,
+        "sha256": "7d04e7727977c84b17aea4e3d4f481d3a27cf536d28fffb4fab8a495158b910f",
         "findings": []
       },
       {
         "project": "media-trace-identity",
         "container_id": "dc1cfac9d9b0",
-        "bytes_scanned": 151200,
-        "sha256": "ef9ae314f8b223be755a6894c165ec3a4830f06f0717c0778774a8955b967505",
+        "bytes_scanned": 151636,
+        "sha256": "dcb6b95eff0b1eda4bd17b5047e47a56c45b26cef2c664ac62eb369fa6053260",
         "findings": []
       },
       {
         "project": "media-trace-identity",
         "container_id": "c18e485f71a5",
-        "bytes_scanned": 191452,
-        "sha256": "27692421a8536f263730d7161d12032c15010fe5ae5c84db81efc3c98c0928f1",
+        "bytes_scanned": 193557,
+        "sha256": "f50dbb9acaf077023e36c5269a23b8f3fd2480224458646b9061f5bbb471a11d",
         "findings": []
       },
       {
         "project": "media-trace-py310",
         "container_id": "1f4264d2ea07",
-        "bytes_scanned": 39682921,
-        "sha256": "01b088de53d1718c4dbbf229f45e27ba503fd2dc59f265ee193052809f76ae14",
+        "bytes_scanned": 39795478,
+        "sha256": "ff029bcbe5f4adf08464941d5a54de0ab95d44b878cb23024bc49a797e92dd18",
         "findings": []
       },
       {
         "project": "media-trace-py310",
         "container_id": "b1fd98fc33a8",
-        "bytes_scanned": 20363269,
-        "sha256": "aaf9437c4d26e44a6e616a65e344254710000a51fdb2a566ecc235e63fabf6b0",
+        "bytes_scanned": 20421229,
+        "sha256": "0d4e457d46d4b7d05ef95ec81477841adfc631f132f5816269dfa7eb3230b8a4",
         "findings": []
       },
       {
         "project": "media-trace-py310",
         "container_id": "b0d8bdb5e2d7",
-        "bytes_scanned": 20367285,
-        "sha256": "9439221d792cea1ffb716ca9b0865d746f676c17fa999338b7df3341f726373f",
+        "bytes_scanned": 20425245,
+        "sha256": "8f79c7f3c76af8a8bdd80c6fe18f73b1177f2508a61fbb73c36acb3b5da41f8a",
         "findings": []
       },
       {
         "project": "media-trace-py310",
         "container_id": "8ab1441cb3cc",
-        "bytes_scanned": 10167194,
-        "sha256": "32a2eadcd664e0b68cc046a22a8a2e9b658c12c947258966e84524edba39db36",
+        "bytes_scanned": 10194146,
+        "sha256": "804484300a49dedd2346afd1cbd49b724ced065d159591f772a280cdd9cc1616",
         "findings": []
       },
       {
         "project": "media-trace-py310",
         "container_id": "20d6347b1394",
-        "bytes_scanned": 9466126,
-        "sha256": "27ad525bd5f15e8121ad09367ec8337bea04a96d17b912137afe027d1d86951e",
+        "bytes_scanned": 9492520,
+        "sha256": "f6941297125bf2318758a4fd66e4ac9cae0626d26c467a16f70403883b72ac11",
         "findings": []
       },
       {
@@ -462,27 +463,9 @@
     "full_DLP": false,
     "raw_logs_published": false,
     "Python_candidates_created": false,
-    "public_ref_fetch_succeeded": false,
-    "current_payload_head_required": "c5998b5e2e28a4f92bfa1c5d5c0ef42df1d305e5",
-    "public_refs_independently_verified": {
-      "observed_at": "2026-10-19T03:21:27.128500+00:00",
-      "source": "fresh_TLS_GitHub_ls_remote",
-      "refs": {
-        "refs/heads/codex/foundation-implementation-20261014": "e1757f274772582b387dd8c7e13e5ea8139869c7",
-        "refs/heads/codex/pre-t012-foundation-audit-20261016": "47d4d1ac0f350b56b84ed9692ec5f0508f5f4cb1",
-        "refs/heads/codex/t011-access-model-20261016": "8e37718ca6e897695b06dde5dd1c10ba4e007d0d",
-        "refs/heads/codex/t012-role-catalog-20261017": "37b106f2cf8ee6043dff39a62b0153533acd465e",
-        "refs/heads/docs/confirmed-owner-20261017": "e7b5a0cc37d48664f359f861cb2c398ff5c66148",
-        "refs/heads/docs/t001-t011-status-20261017": "0e11a13c87dd2facbaa0ac86aaac6dc73b8d359f",
-        "refs/heads/docs/t013-keycloak-design-20261017": "156fed145348cf597529df50c359801dbd4a9961",
-        "refs/heads/docs/t013-keycloak-plan-20261017": "bbc818a8523f8b8b2b8c37bbda3f7f98652702f0",
-        "refs/heads/feat/t001-t012-closeout-20261017": "c5998b5e2e28a4f92bfa1c5d5c0ef42df1d305e5",
-        "refs/heads/feat/t001-t012-closeout-main-protection-probe-20261017": "7ae89dfc768ec3f7cc68c207338b0f075c7c6592",
-        "refs/heads/feat/t013-keycloak-implementation-20261017": "2e2b034440bc1569fd86e9c654af25ef6481f521",
-        "refs/heads/feat/t013-token-validation-20261017": "491c319ea3549d52217493239521f713067e0364",
-        "refs/heads/main": "bbc818a8523f8b8b2b8c37bbda3f7f98652702f0"
-      }
-    },
+    "public_ref_fetch_succeeded": true,
+    "public_ref_fetch_timed_out": false,
+    "current_payload_head_required": "4bd6fe55410a0d6a6da8690477b022cb5314bc76",
     "status": "PASS_BOUNDED_HISTORY_WORKTREE_RETAINED_RUNTIME_LOGS"
   },
   "first_business_wrapper_timeout_seconds": 600,
@@ -532,9 +515,11 @@
   "review_ref": "docs/00-project/validation/t013-recovery-code-review.json",
   "post_complete_recovery_changes": {
     "paths": [
+      "scripts/identity/checks.py",
+      "tests/platform/test_t013_identity_checks.py",
       "tests/platform/test_t013_privacy_audit.py"
     ],
-    "scope": "Only synthetic unit-test key marker construction changed; complete recovery runtime source is byte-identical. All 358 unit/engineering checks and original secret guard rerun on the adjusted fixture.",
+    "scope": "Safe report collector and two unit-test files changed; complete recovery runtime/assertions remain byte-identical. Updated unit and collector checks ran separately.",
     "recovery_runtime_unchanged": true,
     "prior_complete_recovery_source_hashes": {
       ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
@@ -647,5 +632,118 @@
         }
       }
     ]
+  },
+  "prior_hosted_CI_failures": [
+    {
+      "run_id": 39194234076,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39194234076",
+      "source_commit": "c5998b5e2e28a4f92bfa1c5d5c0ef42df1d305e5",
+      "conclusion": "failure",
+      "identity_totals": {
+        "tests": 243,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "engineering_base_checks": 32,
+      "independent_business_totals": {
+        "tests": 246,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_gate": "original_stage_three_secret_gate",
+      "flagged_paths": [
+        "tests/platform/test_t013_privacy_audit.py"
+      ],
+      "cause": "self-owned_test_literal_key_header",
+      "runtime_credential_exact_scan": "PASS",
+      "fix_scope": "construct_synthetic_complete_key_block_at_test_runtime_preserve_all_assertions_and_original_scanner",
+      "artifacts": [
+        {
+          "id": 12162135723,
+          "name": "py310-validation-39194234076",
+          "size_in_bytes": 358965,
+          "url": "https://api.github.com/repos/xuchangsheng18/media-traceability-system/actions/artifacts/12162135723",
+          "archive_download_url": "https://api.github.com/repos/xuchangsheng18/media-traceability-system/actions/artifacts/12162135723/zip",
+          "expired": false,
+          "created_at": "2026-10-19T03:42:35Z",
+          "expires_at": "2026-11-02T03:42:34Z",
+          "updated_at": "2026-10-19T03:42:35Z",
+          "digest": "sha256:60e06c45a9387e844bd8e0422ac240162d98214c7ec5c0f8a25a614dd9df040d",
+          "workflow_run": {
+            "id": 39194234076,
+            "repository_id": 1415505825,
+            "head_repository_id": 1415505825,
+            "head_branch": "feat/t001-t012-closeout-20261017",
+            "head_sha": "c5998b5e2e28a4f92bfa1c5d5c0ef42df1d305e5"
+          }
+        },
+        {
+          "id": 12162050393,
+          "name": "t013-identity-validation-39194234076",
+          "size_in_bytes": 2802,
+          "url": "https://api.github.com/repos/xuchangsheng18/media-traceability-system/actions/artifacts/12162050393",
+          "archive_download_url": "https://api.github.com/repos/xuchangsheng18/media-traceability-system/actions/artifacts/12162050393/zip",
+          "expired": false,
+          "created_at": "2026-10-19T03:30:29Z",
+          "expires_at": "2026-11-02T03:30:29Z",
+          "updated_at": "2026-10-19T03:30:29Z",
+          "digest": "sha256:a0e030807055a0e4fe257f18498dc9d57f87412a22911b79bcc3811b15be497e",
+          "workflow_run": {
+            "id": 39194234076,
+            "repository_id": 1415505825,
+            "head_repository_id": 1415505825,
+            "head_branch": "feat/t001-t012-closeout-20261017",
+            "head_sha": "c5998b5e2e28a4f92bfa1c5d5c0ef42df1d305e5"
+          }
+        }
+      ]
+    },
+    {
+      "run_id": 39196476960,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39196476960",
+      "source_commit": "4bd6fe55410a0d6a6da8690477b022cb5314bc76",
+      "conclusion": "failure",
+      "totals": {
+        "tests": 243,
+        "failures": 0,
+        "errors": 9,
+        "skipped": 0
+      },
+      "failed_cases": [
+        "tests.identity.test_faults_live.test_real_tls_protocol_faults_deny_without_fallback"
+      ],
+      "root_cause": "UNCONFIRMED_OLD_SAFE_REPORT_HAS_NO_PHASE_OR_EXCEPTION_CLASS",
+      "engineering_guard": "DENIED_AS_REQUIRED",
+      "response": "add_allowlisted_phase_constant_diagnostic_and_exception_type_no_raw_message_no_deadline_or_retry_change",
+      "artifacts": [
+        {
+          "id": 12161399304,
+          "name": "t013-identity-validation-39196476960",
+          "size_in_bytes": 2915,
+          "url": "https://api.github.com/repos/xuchangsheng18/media-traceability-system/actions/artifacts/12161399304",
+          "archive_download_url": "https://api.github.com/repos/xuchangsheng18/media-traceability-system/actions/artifacts/12161399304/zip",
+          "expired": false,
+          "created_at": "2026-10-19T03:58:49Z",
+          "expires_at": "2026-11-02T03:58:48Z",
+          "updated_at": "2026-10-19T03:58:49Z",
+          "digest": "sha256:53d4f32057dda70b9a27464b65e227af3ce216f2c31f77a6a08db37cacb3e053",
+          "workflow_run": {
+            "id": 39196476960,
+            "repository_id": 1415505825,
+            "head_repository_id": 1415505825,
+            "head_branch": "feat/t001-t012-closeout-20261017",
+            "head_sha": "4bd6fe55410a0d6a6da8690477b022cb5314bc76"
+          }
+        }
+      ]
+    }
+  ],
+  "windows_native_collector_probe": {
+    "status": "NOT_PASS_OUTSIDE_APPROVED_LINUX_EXECUTION_SCOPE",
+    "tests": 12,
+    "failures": 11,
+    "scope": "Windows is a remote entry only; Linux private-root ownership guards were not relaxed. Authoritative RED/GREEN and 360-unit results executed in Linux py310."
   }
 }

@@ -6,6 +6,7 @@ import datetime
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -99,13 +100,33 @@ def source_hashes() -> dict[str, str]:
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
 
 
-def safe_failed_cases(path: Path) -> list[dict[str, str]]:
-    """Publish only test function names present in source, without parameters or errors."""
+def safe_failed_cases(path: Path) -> list[dict[str, Any]]:
+    """Allow static diagnostics and phases; never emit raw messages, values or traces."""
     known = {
         (".".join(p.relative_to(ROOT).with_suffix("").parts), node.name)
         for p in (ROOT / "tests").rglob("test_*.py")
         for node in ast.walk(ast.parse(p.read_text(encoding="utf-8")))
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_")
+    }
+    sources = [
+        p for folder in ["scripts/identity", "backend/business_app/identity"] for p in (ROOT / folder).glob("*.py")
+    ] + [ROOT / "tools/identity_oidc_probe.py"]
+    codes = {
+        node.value
+        for p in sources
+        for node in ast.walk(ast.parse(p.read_text(encoding="utf-8")))
+        if isinstance(node, ast.Constant)
+        and isinstance(node.value, str)
+        and re.fullmatch(r"IDENTITY_[A-Z][A-Z0-9_]*[A-Z0-9]", node.value)
+    }
+    exception_types = {
+        "RuntimeError",
+        "AssertionError",
+        "ReadTimeout",
+        "ConnectTimeout",
+        "ConnectError",
+        "SSLError",
+        "PermissionError",
     }
     result = []
     for case in ET.fromstring(path.read_bytes()).iter("testcase"):
@@ -113,7 +134,18 @@ def safe_failed_cases(path: Path) -> list[dict[str, str]]:
         if kind:
             module, name = case.get("classname", ""), case.get("name", "").split("[", 1)[0]
             label = module + "." + name if (module, name) in known else "UNRECOGNIZED_TEST_CASE"
-            result.append({"case": label, "kind": kind})
+            item: dict[str, Any] = {"case": label, "kind": kind}
+            problem = case.find(kind)
+            message = problem.get("message", "") if problem is not None else ""
+            words = set(re.findall(r"\b[A-Za-z][A-Za-z0-9_]*\b", message))
+            if codes.intersection(words):
+                item["diagnostic_codes"] = sorted(codes.intersection(words))
+            if exception_types.intersection(words):
+                item["exception_types"] = sorted(exception_types.intersection(words))
+            for phase in ("setup", "teardown", "call"):
+                if message.lower().startswith("failed on " + phase + " "):
+                    item["phase"] = phase
+            result.append(item)
     return result
 
 
