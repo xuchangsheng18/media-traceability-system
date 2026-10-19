@@ -31,9 +31,11 @@
 
 源码提交`431f337`的CI运行`39217811049`前两次尝试均在PostgreSQL镜像拉取阶段失败，测试未执行；engineering依赖门禁据此拒绝继续。锁定引用使用镜像代理，而同一PostgreSQL摘要在官方仓库返回200。本批对托管临时VM的下载路径作修复，不把这些失败登记为功能测试通过。
 
-`scripts/identity/ci.py`只允许PostgreSQL和Nginx转到锁文件已经列明的`docker.io/library`官方源，保留同一个`sha256`。先拉取固定摘要、建立本次CI私有缓存别名并核对内容ID，再通过[BuildKit固定来源策略](https://docs.docker.com/build/building/variables/#experimental_buildkit_source_policy)使构建解析到官方同摘要。策略留在临时VM的私密文件中，原Dockerfile、Compose及四份原版本锁保持不变。容器仍使用原锁定引用且禁止拉取；Keycloak仍使用原Quay固定摘要。非托管机器的CI入口仍先拒绝。
+`scripts/identity/ci.py`只允许PostgreSQL和Nginx转到锁文件已经列明的`docker.io/library`官方源，保留同一个`sha256`。拉取后核对内容ID格式及实际仓库摘要，通过[BuildKit固定来源策略](https://docs.docker.com/build/building/variables/#experimental_buildkit_source_policy)使构建解析到官方同摘要。策略及仅覆盖网关镜像引用的Compose文件留在临时VM的私密目录，原Dockerfile、Compose及四份原版本锁保持不变。Keycloak仍使用原Quay固定摘要，启动仍禁止重新拉取。
 
-独立缓存探针已验证：单独增加缓存别名不足以完成BuildKit构建；同摘要来源策略可构建，运行时缓存引用可启动且内容ID相同。7项针对性测试保留了全部失败再通过记录，覆盖未知源、未锁定摘要、别名不一致和重复策略文件拒绝。最终托管结果以本批CI报告为准，不能用本地探针替代它。
+CI进程显式选择`official-pinned-v1`时，必须同时满足托管环境标识、精确仓库和工作目录、本人所有的临时目录及本次运行的归属标记；未知配置或普通机器拒绝。运行用镜像与构建使用同一官方摘要，避免依赖不同Docker引擎的仓库别名解析行为。读取临时Compose覆盖文件时核对所有者、权限及完整预期字节，不接受任意镜像、附加服务或其他配置。默认未选择该配置时，Linux共享环境仍返回原镜像引用，不读取临时覆盖文件。
+
+独立缓存探针验证了本机的同摘要解析及来源策略构建；随后源码`4377b13`的托管运行`39220993572`在缓存引用观察阶段失败，说明不能将本机别名行为直接当作托管环境证明。本批改用上述显式运行覆盖，保留13项针对性测试的失败再通过记录，覆盖未知源、未锁定摘要、摘要不一致、重复文件、默认引用不变及配置/归属/覆盖异常拒绝。最终托管结果以本批CI报告为准，不能用本地探针替代它。
 
 ## 本人操作顺序
 

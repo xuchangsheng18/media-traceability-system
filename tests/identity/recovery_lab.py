@@ -185,6 +185,7 @@ class RecoveryLab:
         keycloak["image"] = self.candidate_image
         keycloak["networks"]["application"]["ipv4_address"] = self.subnets[0].split("/")[0][:-1] + "3"
         gateway = doc["services"]["identity-gateway"]
+        gateway["image"] = common.image("nginx")
         gateway["networks"]["application"]["ipv4_address"] = self.subnets[0].split("/")[0][:-1] + "2"
         gateway["ports"] = [f"127.0.0.1:{self.public_port}:8443", f"127.0.0.1:{self.admin_port}:8444"]
         for name, subnet in zip(["application", "database"], self.subnets):

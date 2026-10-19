@@ -20,7 +20,7 @@ def preview(action: str) -> dict[str, object]:
 
 
 def command(*args: str) -> list[str]:
-    return [
+    arguments = [
         "docker",
         "--context",
         common.CONTEXT,
@@ -29,8 +29,11 @@ def command(*args: str) -> list[str]:
         common.PROJECT,
         "-f",
         str(common.ROOT / "deploy/identity/compose.yaml"),
-        *args,
     ]
+    override = common.ci_compose_override()
+    if override is not None:
+        arguments += ["-f", str(override)]
+    return [*arguments, *args]
 
 
 def status() -> dict[str, object]:

@@ -81,14 +81,33 @@ def configure_image_transport() -> Path:
         json.dump({"rules": rules}, output)
         output.flush()
         os.fsync(output.fileno())
+    override = private / "compose-source-override.json"
+    fd = os.open(override, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, "w") as output:
+        output.write(
+            json.dumps({"services": {"identity-gateway": {"image": plan["nginx"]["source"]}}}, sort_keys=True) + "\n"
+        )
+        output.flush()
+        os.fsync(output.fileno())
     for name, route in plan.items():
         execute(["docker", "--context", common.CONTEXT, "pull", route["source"]], "pull-source-" + name)
-        # A repository alias lets runtime --pull=never resolve the unchanged locked reference.
-        alias = route["locked"].split("@", 1)[0] + ":identity-ci-" + os.environ["GITHUB_RUN_ID"]
-        execute(["docker", "--context", common.CONTEXT, "tag", route["source"], alias], "alias-source-" + name)
         original = common.docker("image", "inspect", route["source"], "--format", "{{.Id}}")
-        resolved = common.docker("image", "inspect", route["locked"], "--format", "{{.Id}}")
-        if original != resolved or re.fullmatch(r"sha256:[a-f0-9]{64}", original) is None:
+        try:
+            digests = json.loads(
+                common.docker("image", "inspect", route["source"], "--format", "{{json .RepoDigests}}")
+            )
+        except (ValueError, TypeError):
+            raise RuntimeError("IDENTITY_CI_IMAGE_TRANSPORT_MISMATCH") from None
+        accepted = {
+            route["source"],
+            route["source"].removeprefix("docker.io/"),
+            route["source"].removeprefix("docker.io/library/"),
+        }
+        if (
+            not isinstance(digests, list)
+            or not any(d in accepted for d in digests)
+            or re.fullmatch(r"sha256:[a-f0-9]{64}", original) is None
+        ):
             raise RuntimeError("IDENTITY_CI_IMAGE_TRANSPORT_MISMATCH")
     return policy
 
@@ -134,6 +153,7 @@ def prepare() -> None:
     execute(["sudo", "ip", "address", "add", "172.16.58.179/32", "dev", "lo"], "loopback-origin")
     source_policy = configure_image_transport()
     os.environ["EXPERIMENTAL_BUILDKIT_SOURCE_POLICY"] = str(source_policy)
+    os.environ["MT_IDENTITY_CI_IMAGE_TRANSPORT"] = "official-pinned-v1"
     execute(["docker", "--context", common.CONTEXT, "pull", common.image("keycloak")], "pull-keycloak")
     # This is an empty disposable runner, not the operational migration path.
     # The operational 48GiB admission guard and all shared-server settings stay unchanged.
@@ -185,6 +205,7 @@ def prepare() -> None:
     with environment.open("a") as output:
         output.write("MT_IDENTITY_TEST_CONFIG=" + str(target) + "\n")
         output.write("EXPERIMENTAL_BUILDKIT_SOURCE_POLICY=" + str(source_policy) + "\n")
+        output.write("MT_IDENTITY_CI_IMAGE_TRANSPORT=official-pinned-v1\n")
     print(
         '{"status":"PASS","disposable_identity_started":true,"same_digest_official_transport":true,"shared_server_modified":false}'
     )
