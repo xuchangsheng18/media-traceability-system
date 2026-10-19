@@ -1,6 +1,6 @@
 {
   "revision": "t014-dependency-matrix-test-preparation-20261019",
-  "observed_date": "2026-10-19",
+  "observed_date": "2026-10-20",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
   "completion_percentage_asserted": false,
@@ -1855,7 +1855,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "隔离研发重启、恢复后失效及回切已有实测；内部研发真实恢复密钥组及Linux独立签名密钥已建立，公钥、P保护标记和受保护导出结构通过，恢复吊销副本AES256封装已核验。仍待签名备份复制到U盘并核对摘要、签名吊销材料加密备份、两把加密子密钥逐一解密/验签及隔离和独立介质恢复。共享身份服务仍用原镜像/配置；真实共享备份/恢复、后端secret协调、制品采用与维护窗口及适用验收仍待落实。",
+          "description": "真实恢复主密钥、两把加密子密钥和Linux独立签名密钥已建立；受保护私钥导出、签名密钥备份复制到U盘及两类吊销材料加密副本结构/摘要已核验。当前签名口令已在对话暴露，按用户最新要求暂保留配置，更换脚本未执行，旧副本待处置。真实签名/精确验签、两把子密钥实际解密、独立密钥及身份备份恢复、共享失效/回切仍未通过；不得上传恢复私钥到Linux。",
           "verified_internal_milestones": [
             {
               "id": "T013-R02-M01",
@@ -1878,14 +1878,27 @@
               "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
               "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
               "full_task_acceptance_asserted": false
+            },
+            {
+              "id": "T013-R02-M04",
+              "description": "签名公钥及受保护私钥导出已复制到U盘，文件摘要/公开指纹/保护包结构核验通过；尚非真实签名或恢复。",
+              "status": "PASS_COPY_HASH_BINDINGS_AND_PROTECTED_STRUCTURE_ONLY",
+              "evidence_ref": "docs/00-project/validation/t013-signer-protection-progress-report.json",
+              "full_task_acceptance_asserted": false
+            },
+            {
+              "id": "T013-R02-M05",
+              "description": "签名密钥吊销材料已加密给两把恢复加密子密钥并复制到U盘；结构/摘要通过，未实际解密或激活吊销。",
+              "status": "PASS_ENCRYPTED_REVOCATION_COPY_ONLY_NOT_DECRYPTED",
+              "evidence_ref": "docs/00-project/validation/t013-signer-protection-progress-report.json",
+              "full_task_acceptance_asserted": false
             }
           ],
           "unverified_internal_milestones": [
-            "签名公钥及受保护私钥导出的U盘副本和复制摘要",
-            "签名密钥吊销材料的加密备份",
-            "两把加密子密钥分别实际解密、独立签名和精确验签",
-            "从备份在新隔离home恢复重验及独立介质恢复",
-            "真实共享身份备份/恢复、私密配置协调和受控切换"
+            "已暴露签名口令和旧受保护副本的处置，当前按用户要求暂缓更换",
+            "两把恢复加密子密钥分别实际解密、真实签名及精确验签",
+            "从备份在新隔离home恢复密钥组及独立身份恢复",
+            "真实身份数据备份/恢复、私密配置协调失效和受控回切"
           ]
         },
         {
@@ -1893,7 +1906,7 @@
           "description": "徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。"
         }
       ],
-      "observed_date": "2026-10-19",
+      "observed_date": "2026-10-20",
       "owner_assignment": {
         "observed_at": "2026-10-19T01:30:24.110888+00:00",
         "confirmation_date": "2026-10-19",
@@ -1912,7 +1925,7 @@
       "designated_reviewer": "徐昌胜",
       "current_administrator_handover_ref": "docs/00-project/validation/t013-admin-handover-report.json",
       "current_bootstrap_management_ref": "docs/00-project/validation/t013-bootstrap-management-report.json",
-      "current_key_custody_report_ref": "docs/00-project/validation/t013-role-assignment.json"
+      "current_key_custody_report_ref": "docs/00-project/validation/t013-signer-protection-progress-report.json"
     },
     {
       "task_id": "T014",
@@ -1921,28 +1934,106 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "业务路由已有身份、部分动作及案件范围检查入口；尚非统一权限或全量覆盖",
-      "summary_remaining": "已补依赖复核、73操作权限/范围矩阵和异常测试设计；仍需权威权限接入、统一拦截及真实权限参数化回归",
+      "summary_completed": "统一权限入口、73/41目录、只读事实/明确策略边界及当前42操作适用隔离回归已实现",
+      "summary_remaining": "正式六角色策略/职责冲突/用途/撤销SLA、31个未来操作回归、共享采用/T013真实交接及实际复核",
       "completed_steps": [
         {
-          "description": "业务路由已有身份、部分动作及案件范围检查入口；尚非统一权限或全量覆盖",
           "kind": "DEVELOPMENT",
+          "description": "统一认证主体和require_permission入口已保护当前42业务操作；401含Bearer提示、无权限403、缺策略/故障503，案件/对象/来源复查保留。",
           "evidence": [
             {
-              "path": "backend/business_app/auth.py",
-              "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              "path": "backend/business_app/main.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
             },
             {
-              "path": "backend/business_app/controls/router.py",
-              "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              "path": "backend/business_app/permissions/guard.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
             },
             {
-              "path": "tests/business/test_authorization.py",
-              "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              "path": "tests/platform/test_t014.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
             },
             {
-              "path": "docs/00-project/validation/business-foundation-report.json",
-              "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+              "path": "docs/00-project/validation/t014-permissions-report.json",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            }
+          ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "73操作/41权限唯一目录、6角色及单位/案件矩阵和严格启动覆盖审计已实现；31个未挂载操作单列，无隐式公开或角色通配许可。",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/catalog.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/08-security/t014-interface-scope-matrix.json",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t014-permissions-report.json",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            }
+          ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "0006新增专用最小权限事实查询、精确策略决定绑定和最终事实重验；新建/0005升级、权限拒绝、账本及同测试实例中新独立数据库恢复已测，旧五项迁移保留。",
+          "evidence": [
+            {
+              "path": "backend/business_migrations/0006_permission_lookup.sql",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "backend/business_app/permissions/directory.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "backend/business_app/permissions/policy.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "tests/business/test_t014_permissions.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t014-permissions-report.json",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            }
+          ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "42操作四类拒绝和真实资源无副作用、六角色默认拒绝、实际目录撤销、跨案件/单位及旧游标/回执回归已测；完整适用回归541项零失败/错误/跳过，门禁与受控失败探针已接入。",
+          "evidence": [
+            {
+              "path": "tests/business/t014_requests.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "tests/business/test_t014_runtime.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "scripts/verify_t014_permissions.py",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": ".github/workflows/ci.yml",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t014-full-regression-report.json",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t014-permissions-report.json",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/03-development/t014-unified-permission-implementation.md",
+              "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
             }
           ]
         }
@@ -1950,38 +2041,24 @@
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "已完成依赖代码/实测复核及73操作权限、单位/案件范围矩阵；仍需接入权威权限决定、实现统一require_permission及逐接口动作/数据范围拦截。",
-          "preparation_milestones": [
-            {
-              "id": "T014-R01-M01",
-              "status": "PREPARATION_ONLY",
-              "evidence_ref": "docs/03-development/t014-dependency-and-scope-review.md"
-            },
-            {
-              "id": "T014-R01-M02",
-              "status": "DESIGN_NOT_RUNTIME_ENFORCEMENT",
-              "evidence_ref": "docs/08-security/t014-interface-scope-matrix.md"
-            }
-          ]
+          "description": "正式六角色逐权限允许值、职责冲突、数据分类/用途、策略版本和撤销SLA仍待有效依据；正式策略保持未配置。T013本人交接/真实恢复、共享环境采用及正式联调未完成，不能用合成策略放行。"
         },
         {
           "category": "实施/验证",
-          "description": "已完成未认证、无权限、角色/成员撤销及越权测试设计；仍需实现并运行全部适用参数化测试及未挂载接口后续回归。",
-          "preparation_milestones": [
-            {
-              "id": "T014-R02-M01",
-              "status": "TEST_DESIGN_NOT_EXECUTION",
-              "evidence_ref": "docs/09-testing/t014-authorization-test-design.md"
-            }
-          ]
+          "description": "当前42业务操作的统一入口及适用反例已测；其余31个未挂载契约操作须按对应业务任务实现后回归。最后检查与动作提交之间零延时撤销、正式允许组合及共享授权联调仍未验证；不把432设计组合当执行数。"
         },
         {
           "category": "任务记录",
-          "description": "实际开发负责人已由用户确认为徐昌胜；剩余工时、T014复核人、真实实施/验收及日期仍待记录；代码和测试缺口未关闭。"
+          "description": "开发负责人及实际复核人均由用户确认为徐昌胜；实际复核/验收结果、剩余有效工时和日期仍待登记。托管CI必须对应最新实现提交；人员指定和研发子范围通过不自动关闭T014整卡。"
         }
       ],
-      "observed_date": "2026-10-19",
-      "preparation_review_ref": "docs/03-development/t014-dependency-and-scope-review.md"
+      "observed_date": "2026-10-20",
+      "preparation_review_ref": "docs/03-development/t014-dependency-and-scope-review.md",
+      "implementation_validation_report": "docs/00-project/validation/t014-permissions-report.json",
+      "current_implementation_ref": "docs/03-development/t014-unified-permission-implementation.md",
+      "designated_reviewer": "徐昌胜",
+      "reviewer_assignment_ref": "docs/00-project/validation/t014-role-assignment.json",
+      "actual_review_acceptance_recorded": false
     },
     {
       "task_id": "T015",

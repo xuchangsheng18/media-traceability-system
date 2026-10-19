@@ -61,6 +61,8 @@ ssh -N -L 18444:127.0.0.1:18444 glwy@172.16.58.179
 
 ## 备份、恢复及失败处理
 
+当前内部研发密钥组、公钥/受保护备份复制及加密吊销材料结构已核验，进度见[密钥保护跟进](../03-development/t013-signer-protection-followup.md)。真实签名、两把子密钥实际解密、独立恢复、暴露口令及旧副本处置仍待完成。恢复私钥留在已指定U盘；现有Linux本地GPG-home恢复入口不能通过上传该私钥来满足，真实离线解密/流式恢复需按保管边界另行设计和验证。
+
 身份备份采用既有GPG签名与流式加密；N01的age方案另行管理，两者的公钥和验收证据不能互相替代。由保管人提供GPG接收/签名公钥文件路径、指纹与独立私钥保管安排；禁止提交私钥或将解密私钥与在线备份同放。正式材料尚未提供，临时测试密钥不算正式保管证明。
 
 `scripts.identity.backup`与`restore`的准确参数以各自`--help`及[8步计划](../03-development/t013-keycloak-implementation-plan.md)为准。先做独立新卷恢复；旧备份可能恢复已经撤销的会话。恢复后的会话清理、not-before、签名密钥撤换和APIsecret更新必须与后端私密配置协调。现有`reconcile`只允许临时验收realm，不能直接用于共享master或正式realm。具体实测与失败记录见[恢复批说明](../03-development/t013-recovery-validation.md)。

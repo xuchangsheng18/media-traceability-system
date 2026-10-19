@@ -6,6 +6,8 @@
 
 本批[T012角色/权限目录及绑定](role-catalog-extension.md)、[逐字段扩展字典](role-catalog-extension.json)、[0005迁移](../../backend/business_migrations/0005_role_catalog.sql)和[实际实施/验收](../03-development/t012-role-model-implementation.md)补齐目录软禁用、终态撤销、受限管理及恢复。0005后实际63表843字段；独立空开发库和368项回归见[专属报告](../00-project/validation/t012-role-model-report.json)。内部模型没有自动接入认证或正式授权。
 
+本批[T014权限事实查询](../03-development/t014-unified-permission-implementation.md)及[0006迁移](../../backend/business_migrations/0006_permission_lookup.sql)新增专用只读角色和固定查询函数，不增加业务表或字段，仍为63表843字段。函数返回当前身份、角色和权限绑定事实；明确策略端口另作决定，缺正式策略拒绝。最小权限、0005升级、账本与独立恢复见[权限专项报告](../00-project/validation/t014-permissions-report.json)，共享数据库尚未应用0006。
+
 - [api-field-mapping.csv](api-field-mapping.csv)
 - [api-field-mapping.json](api-field-mapping.json)
 - [api-field-mapping.md](api-field-mapping.md)

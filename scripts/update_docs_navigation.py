@@ -50,6 +50,15 @@ def main():
         flags=re.M,
     )
     entries = {
+        "00-project/validation/t014-role-assignment.json": "用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。",
+        "03-development/t014-unified-permission-implementation.md": "T014统一权限代码、0006最小权限事实查询、42操作适用回归、源验收逐项对照及正式策略/31未挂载操作/真实交接边界。",
+        "00-project/validation/t014-permissions-report.json": "T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。",
+        "00-project/validation/t014-full-regression-report.json": "本批完整业务、T014入口及T013令牌适用回归的真实计数、失败ID和源码快照；原始日志不公开。",
+        "00-project/validation/t014-gate-execution-report.json": "T014专项门禁与受控失败探针的实际退出状态；失败必须阻止通过。",
+        "00-project/validation/t014-implementation-validation-report.json": "本批格式/类型、输入/文档/导航/排期、12份原件及旧锁/旧迁移保全的实际检查，不代替整任务验收。",
+        "00-project/validation/t014-implementation-ci-report.json": "当前T014实现提交的托管CI状态、实际检查和制品源码绑定；在途/失败保持实际结论。",
+        "03-development/t013-signer-protection-followup.md": "T013真实密钥备份复制及吊销副本结构、暴露口令和旧副本待处置；保留现有配置的最新决定，不当真实签名/恢复通过。",
+        "00-project/validation/t013-signer-protection-progress-report.json": "T013本批受保护导出/加密吊销副本结构与摘要、未改口令/未处置旧副本、未签名/解密/恢复的真实状态。",
         "03-development/t013-bootstrap-management-replacement.md": "T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。",
         "00-project/validation/t013-bootstrap-management-report.json": "本批管理工具替代、真实隔离MFA/撤销/退役/重启、私密候选及原文件不变的验证；保留失败记录和未验范围。",
         "00-project/validation/t013-bootstrap-management-ci-report.json": "本批精确源码提交的托管CI、两份实际制品摘要及源码映射核对；不能代替整任务验收。",

@@ -46,6 +46,12 @@ def build():
         + capacity
         + "，正式维护/恢复与业务条件仍待落实，不据此关闭全部13项缺口。\n\n"
     )
+    content += (
+        "后续业务任务的当前实现另见[T014统一权限实施与验证](../t014-unified-permission-implementation.md)："
+        "当前42业务操作已接统一入口并运行适用隔离回归，31个未挂载契约操作不计通过；正式策略与共享采用未完成。"
+        "[T013密钥保护进展](../t013-signer-protection-followup.md)单列备份结构核验、口令暴露待处置和真实交接/恢复未完成范围；"
+        "这些业务任务进展不改变第三阶段原16步的验收口径。\n\n"
+    )
     for source in inventory["records"]:
         content += (
             "- "

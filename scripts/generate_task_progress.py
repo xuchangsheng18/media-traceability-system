@@ -193,7 +193,18 @@ def block(row, ledger, source, execution=None):
         + link("docs/00-project/task-execution-steps.txt", card)
         + f"。本卡已完成子步骤 **{len(row['completed_steps'])}条**，剩余工作 **{len(row['remaining_steps'])}条**；在逐项清单中对应全局编号 **{first:04}—{last:04}**。\n\n"
     )
-    if row.get("specific_validation_report"):
+    if row.get("implementation_validation_report"):
+        implementation = read(row["implementation_validation_report"])
+        assert implementation["status"] == "PASS" and implementation["task_id"] == task
+        assert not implementation["formal_accepted"] and not implementation["shared_services_adopted"]
+        totals = implementation["totals"]
+        assert totals["tests"] > 0 and totals["failures"] == totals["errors"] == totals["skipped"] == 0
+        text += (
+            "同源[状态台账](../execution-status.json)、[全部170任务](../README.md)；本任务当前实现和适用回归以"
+            + link(row["implementation_validation_report"], card)
+            + "中的源码摘要、实际命令和逐操作结果为证据；历史CI不自动覆盖新增代码。正式授权、共享采用和整任务验收另行核验。\n\n"
+        )
+    elif row.get("specific_validation_report"):
         report = read(row["specific_validation_report"])
         assert report["status"] == "PASS" and report["task_id"] == task
         assert report["runtime_authorization_asserted"] is False and report["production_enabled"] is False

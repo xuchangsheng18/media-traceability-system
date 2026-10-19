@@ -1,35 +1,46 @@
 {
-  "revision": "t014-authorization-test-design-20261019",
-  "observed_at": "2026-10-19T13:17:24.040193+00:00",
-  "source_commit": "de6c086a91a2d68a7bc4d0c8daf510ac927f44dc",
-  "status": "DESIGN_ONLY_NOT_T014_TEST_ACCEPTANCE",
+  "revision": "t014-runtime-regression-20261020",
+  "observed_at": "2026-10-19T16:49:14.942968+00:00",
+  "source_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+  "status": "CURRENT_MOUNTED_SCOPE_EXECUTED_NOT_FULL_TASK_ACCEPTANCE",
   "actual_development_owner": "徐昌胜",
   "contract_ref": "docs/03-api/openapi.yaml",
   "matrix_ref": "docs/08-security/t014-interface-scope-matrix.json",
   "source_sha256": {
-    "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
-    "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
-    "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
-    "docs/08-security/permission-matrix.md": "f607a79f439b25ad07098c52b9c5ee09fc27ac852740c7492235dd0e875456bf",
-    "backend/business_app/main.py": "96e93c27d22ae5701362e74d7f8e1150f585b37526344c2b96e4e22871f8f99b",
-    "backend/business_app/auth.py": "c31784af863bb2b498983e795802965f5de869907ff2a3eae4da045f483c07f6",
-    "backend/business_app/db.py": "e896dcce89dcb0e530e5ba40efa9ce9c299d8b75796d43d1b68977e8791ff94f",
-    "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
-    "backend/business_app/uploads/service.py": "e656cc31189c30156099f0c798adda13aeba7f2e27ba47b8a5cdea573547e3f4",
-    "backend/business_app/history/router.py": "2834a4bcfb2938befdb2f7882b14e4a85401b867b083308c36da54dc07a40010",
-    "backend/business_app/history/repository.py": "1e5022001aca523a17cc543640b6c26b5d565b550b39f25039b20cff9b62d4c8",
+    "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
+    "backend/business_app/controls/common.py": "eae29e9bd8e3fc9c71471f019279ac2dc5fc971c6152018c234a5c971bb69f96",
     "backend/business_app/controls/router.py": "c720cba1c8cfdf6c9527ad021c92d9ac4c93a418b01afefee2c911390966d399",
-    "backend/business_app/controls/common.py": "3cdc5e74126c1b79ac442380672894f90db6dd7eef1e9ce194839950d34b59b8",
-    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "backend/business_app/db.py": "e896dcce89dcb0e530e5ba40efa9ce9c299d8b75796d43d1b68977e8791ff94f",
+    "backend/business_app/history/repository.py": "1e5022001aca523a17cc543640b6c26b5d565b550b39f25039b20cff9b62d4c8",
+    "backend/business_app/history/router.py": "c0c71a38cf03ba7d580e9962574ebfaa2558a5c17586edb067fa9ab6d8e7a162",
     "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
     "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
     "backend/business_app/inference.py": "acab77d967ea4182d55172f29cb197e7b953ee34a813da0dcf3c85a80e5bd766",
-    "tests/business/test_authorization.py": "b9f6ef420b75fee02d94ae207f4467a3a2ae8e9a53133d15e1aec3bf518dd13f",
+    "backend/business_app/main.py": "8a55bac9b8240aec2361f57b899904f7c6ca86449aeea99a5613a4f0502119f9",
+    "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
+    "backend/business_app/permissions/catalog.py": "ce16d1d6537ba7ec434ce87cfa40bb6ef4ff6aea854922ded70204e66a37634b",
+    "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
+    "backend/business_app/permissions/guard.py": "ec3547d9713ccc185e82e92edbe84504fc6066a52d2716221a0b51f8ced55a75",
+    "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
+    "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
+    "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
+    "backend/business_app/uploads/service.py": "5fa61a604ac1a81b636163d33b90087b485d162485aa2fb762500f613a2b861e",
+    "backend/business_migrations/0006_permission_lookup.sql": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+    "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
+    "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+    "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+    "docs/08-security/permission-matrix.md": "f607a79f439b25ad07098c52b9c5ee09fc27ac852740c7492235dd0e875456bf",
+    "tests/business/t014_requests.py": "2d1e11f4b68a8038eea9289e6fb8224906352cc21d745c540ff7e2b2e4a2af5d",
+    "tests/business/test_authorization.py": "f7af58160705a61f646587aae8f63e21747fdeaebdacd59a4cc0d1e464bff15e",
     "tests/business/test_identity_directory.py": "fe3b488246db600c843983a356187ceb746802de38b3c837ce96a75a2b41cab1",
+    "tests/business/test_migrations.py": "e0b61f62cd2ebe89310cd8a5ae8f12cd5d2a7fadca6f0bdaea407c71499dc396",
     "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
-    "tests/business/test_token_identity.py": "0e69f6ebddd3996ccad2c3197faeef0e09d49439099c21c23a2a20fc7f95f2a7",
-    "tests/business/test_migrations.py": "56e9ddb027fd8b1ae4ffd6659cf386661689ee25ac197a06d79c3d05ad04c296",
-    "tests/platform/test_t013_tokens.py": "f66494e8be03c87bc3601ee857e3c6bec0dd45afb0154359a1e3edd445bf7dce"
+    "tests/business/test_t014_permissions.py": "5c7d031a3e48dd55c5bcf197354bd3514c9109c3b981c049a9e1e8629ea1ec2b",
+    "tests/business/test_t014_runtime.py": "3fc1bd20aa41d221561881d68c9349a29fcee337e11c71d740f25830db366e9c",
+    "tests/business/test_token_identity.py": "e5de1271c9ea703410c1fa7045ac3da532ba39af5b43b49ae4cfacf878905fe3",
+    "tests/platform/test_t013_tokens.py": "f66494e8be03c87bc3601ee857e3c6bec0dd45afb0154359a1e3edd445bf7dce",
+    "tests/platform/test_t014.py": "1d651b6d2042e1fb2e954fc10bff27aa0ea616d0c3c20c1f700387df41c5d7ca"
   },
   "fixture_scope": "synthetic_isolated_users_units_cases_roles_and_explicit_test_grants_no_formal_accounts_or_policy",
   "scenarios": [
@@ -39,7 +50,55 @@
       "setup": "身份/策略适配器健康；请求字段、UUID和其他前置有效；不带Authorization",
       "expected": "401；WWW-Authenticate包含Bearer；无业务数据或成功副作用",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "CURRENT_42_OPERATION_ENTRY_SCENARIO_VERIFIED",
+      "actual_scope": "42操作缺认证401及提示头已测；31未挂载操作没有HTTP结论。",
+      "verified_test_ids": [
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[cancelTask]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[completeUpload]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[createImport]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[createPolicy]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[createReview]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[createUpload]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[decideApproval]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[downloadAuditExport]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[exportAudit]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getApproval]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getAuditExport]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getCurrentUser]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getFeedback]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getFirstSource]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getForensics]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getImport]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getModelOperation]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getPolicy]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getPolicyDefinition]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getPropagation]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getReview]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getReviewContext]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getRiskFindings]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getSource]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getTask]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getTaskEvidence]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getTaskExecution]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getTimeline]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[getUploadStatus]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listApprovals]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listAuditEvents]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listPendingReviews]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listPolicies]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listReviews]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listSources]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listTaskEvents]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listTaskNodes]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[listUploadParts]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[putUploadPart]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[requestApproval]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[revokeApproval]",
+        "tests.platform.test_t014::test_all_42_mounted_business_operations_require_authentication[syncSourceAuthorization]"
+      ],
+      "verified_matching_test_count": 42,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "AUTH-02",
@@ -47,7 +106,27 @@
       "setup": "空Bearer、错误scheme、无效令牌；每次只改变一个条件",
       "expected": "401；无令牌回显；与适配器故障503分别测试",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "统一入口的多头/空值/格式反例已测；格式组合未逐项复制到全部72个契约操作。",
+      "verified_test_ids": [
+        "tests.business.test_authorization::test_invalid_token_returns_401",
+        "tests.platform.test_t014::test_duplicate_authorization_header_is_rejected",
+        "tests.platform.test_t014::test_malformed_authorization_is_rejected_before_identity_lookup[Bearer]",
+        "tests.platform.test_t014::test_malformed_authorization_is_rejected_before_identity_lookup[REDACTED_PARAMETER_19]",
+        "tests.platform.test_t014::test_malformed_authorization_is_rejected_before_identity_lookup[REDACTED_PARAMETER_20]",
+        "tests.platform.test_t014::test_malformed_authorization_is_rejected_before_identity_lookup[REDACTED_PARAMETER_21]",
+        "tests.platform.test_t014::test_malformed_authorization_is_rejected_before_identity_lookup[REDACTED_PARAMETER_22]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[REDACTED_PARAMETER_23]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[REDACTED_PARAMETER_24]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[REDACTED_PARAMETER_25]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[REDACTED_PARAMETER_26]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[REDACTED_PARAMETER_27]",
+        "tests.platform.test_t013_tokens::test_bad_bearer_rejected_before_network[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]"
+      ],
+      "verified_matching_test_count": 14,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "AUTH-03",
@@ -55,7 +134,25 @@
       "setup": "失效/过期/撤销、issuer/client/audience不符、映射缺失或跨issuer复用subject",
       "expected": "凭据不满足时401；网络或权威故障保留503；不创建本地用户",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "T013令牌/精确映射及到期回归已测；真实管理员交接和正式身份联调未完成。",
+      "verified_test_ids": [
+        "tests.business.test_identity_directory::test_inactive_or_unmapped_identity_never_resolves[default_disabled]",
+        "tests.business.test_identity_directory::test_inactive_or_unmapped_identity_never_resolves[expired]",
+        "tests.business.test_identity_directory::test_inactive_or_unmapped_identity_never_resolves[revoked]",
+        "tests.business.test_identity_directory::test_inactive_or_unmapped_identity_never_resolves[disabled_user]",
+        "tests.business.test_identity_directory::test_inactive_or_unmapped_identity_never_resolves[disabled_org]",
+        "tests.business.test_identity_directory::test_inactive_or_unmapped_identity_never_resolves[unknown]",
+        "tests.business.test_identity_directory::test_identity_comparison_does_not_normalize_distinct_keys[REDACTED_PARAMETER_13]",
+        "tests.business.test_identity_directory::test_identity_comparison_does_not_normalize_distinct_keys[REDACTED_PARAMETER_14]",
+        "tests.business.test_identity_directory::test_identity_comparison_does_not_normalize_distinct_keys[subject-Synthetic-subject]",
+        "tests.business.test_token_identity::test_active_token_maps_exact_identity_without_granting_case_or_source",
+        "tests.business.test_token_identity::test_authenticate_principal_preserves_exact_issuer_subject_mapping",
+        "tests.business.test_token_identity::test_principal_expired_after_database_lookup_is_rejected"
+      ],
+      "verified_matching_test_count": 12,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "PERM-01",
@@ -63,7 +160,55 @@
       "setup": "有效身份及有效单位/案件；仅移除当前操作必需权限",
       "expected": "403；禁止2xx；不得因拥有案件成员或管理员角色自动放行",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "CURRENT_42_OPERATION_ENTRY_SCENARIO_VERIFIED",
+      "actual_scope": "42操作明确无许可403及真实资源canary已测；不形成正式角色ALLOW。",
+      "verified_test_ids": [
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[cancelTask]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[completeUpload]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[createImport]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[createPolicy]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[createReview]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[createUpload]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[decideApproval]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[downloadAuditExport]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[exportAudit]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getApproval]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getAuditExport]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getCurrentUser]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getFeedback]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getFirstSource]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getForensics]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getImport]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getModelOperation]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getPolicy]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getPolicyDefinition]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getPropagation]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getReview]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getReviewContext]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getRiskFindings]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getSource]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getTask]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getTaskEvidence]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getTaskExecution]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getTimeline]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[getUploadStatus]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listApprovals]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listAuditEvents]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listPendingReviews]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listPolicies]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listReviews]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listSources]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listTaskEvents]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listTaskNodes]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[listUploadParts]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[putUploadPart]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[requestApproval]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[revokeApproval]",
+        "tests.platform.test_t014::test_all_42_operations_deny_missing_permission[syncSourceAuthorization]"
+      ],
+      "verified_matching_test_count": 42,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "PERM-02",
@@ -71,7 +216,19 @@
       "setup": "六角色分别组合；无显式批准的功能/对象授权",
       "expected": "DENY；候选职责不视为允许；多角色不能覆盖来源限制",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "六角色分别核对identity.read的无隐式许可/缺正式策略；不是432组设计组合已执行。",
+      "verified_test_ids": [
+        "tests.business.test_t014_runtime::test_each_candidate_role_has_no_implicit_permission_or_formal_allow[system_admin]",
+        "tests.business.test_t014_runtime::test_each_candidate_role_has_no_implicit_permission_or_formal_allow[data_admin]",
+        "tests.business.test_t014_runtime::test_each_candidate_role_has_no_implicit_permission_or_formal_allow[algorithm_admin]",
+        "tests.business.test_t014_runtime::test_each_candidate_role_has_no_implicit_permission_or_formal_allow[business_reviewer]",
+        "tests.business.test_t014_runtime::test_each_candidate_role_has_no_implicit_permission_or_formal_allow[case_investigator]",
+        "tests.business.test_t014_runtime::test_each_candidate_role_has_no_implicit_permission_or_formal_allow[auditor]"
+      ],
+      "verified_matching_test_count": 6,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "PERM-03",
@@ -79,7 +236,18 @@
       "setup": "仅自建fixture明确授予该权限及适用数据范围，全部其他前置有效",
       "expected": "进入预定业务路径；状态按该操作契约/夹具断言，禁止把非权限503当授权成功",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "现有上传/本人读取/复核/导入等合成允许对照保留；未逐一证明42操作的正式最小允许组合。",
+      "verified_test_ids": [
+        "tests.business.test_adapters_and_execution::test_import_registered_fixed_objects_and_current_source",
+        "tests.business.test_controls::test_review_append_version_and_exact_evidence",
+        "tests.business.test_controls::test_current_user_filters_database_cases_and_policy_draft",
+        "tests.business.test_uploads::test_resume_after_client_disconnect",
+        "tests.business.test_uploads::test_same_part_hash_is_idempotent"
+      ],
+      "verified_matching_test_count": 5,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "PERM-04",
@@ -87,7 +255,24 @@
       "setup": "注册未识别权限或新受保护路由不声明权限",
       "expected": "配置/路由覆盖门禁失败或请求拒绝；不得默认公开",
       "applies_to": "CATALOG",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "未知/漏保护/重复或额外挂载/关键依赖覆盖拒绝已测；未来新操作仍须接入同门禁。",
+      "verified_test_ids": [
+        "tests.platform.test_t014::test_catalog_rejects_missing_duplicate_or_unbound_permissions[missing_permission]",
+        "tests.platform.test_t014::test_catalog_rejects_missing_duplicate_or_unbound_permissions[duplicate_operation]",
+        "tests.platform.test_t014::test_catalog_rejects_missing_duplicate_or_unbound_permissions[unknown_permission]",
+        "tests.platform.test_t014::test_catalog_rejects_missing_duplicate_or_unbound_permissions[wrong_method]",
+        "tests.platform.test_t014::test_catalog_rejects_new_public_exception",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[new]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[duplicate]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[outside_namespace]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[mount]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[guard_override]",
+        "tests.platform.test_t014::test_unknown_permission_and_truthy_authority_return_do_not_allow"
+      ],
+      "verified_matching_test_count": 11,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "REVOKE-01",
@@ -95,7 +280,31 @@
       "setup": "先完成fixture允许，再撤销user_roles/role_permissions或禁用role/permission，旧令牌再次请求",
       "expected": "有效身份但功能许可已撤销返回403；不因旧会话/旧缓存保留权限",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "真实SQL角色/权限/开关撤销及旧Bearer重用已测；正式组织规则和所有操作组合仍待。",
+      "verified_test_ids": [
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[disabled_role]",
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[disabled_permission]",
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[revoked_role]",
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[revoked_permission]",
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[expired_role]",
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[disabled_user]",
+        "tests.business.test_role_directory::test_inactive_catalog_or_binding_is_excluded_without_erasing_history[disabled_org]",
+        "tests.business.test_t014_permissions::test_revoked_or_expired_binding_is_ineligible[role_disabled]",
+        "tests.business.test_t014_permissions::test_revoked_or_expired_binding_is_ineligible[permission_disabled]",
+        "tests.business.test_t014_permissions::test_revoked_or_expired_binding_is_ineligible[role_revoked]",
+        "tests.business.test_t014_permissions::test_revoked_or_expired_binding_is_ineligible[permission_revoked]",
+        "tests.business.test_t014_permissions::test_revoked_or_expired_binding_is_ineligible[role_expired]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[role-403]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[permission-403]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[role_disabled-403]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[identity-401]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[user-401]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[unit-401]"
+      ],
+      "verified_matching_test_count": 18,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "REVOKE-02",
@@ -103,7 +312,32 @@
       "setup": "禁用用户/单位或撤销身份映射，再使用原令牌",
       "expected": "按现有凭据映射拒绝401；无原成功内容缓存泄漏",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "用户/单位/身份映射失效及旧会话边界已测；T013真实恢复后的全部会话失效不由此推定。",
+      "verified_test_ids": [
+        "tests.business.test_t014_permissions::test_permission_read_rechecks_live_identity_and_organization[identity_revoked]",
+        "tests.business.test_t014_permissions::test_permission_read_rechecks_live_identity_and_organization[identity_expired]",
+        "tests.business.test_t014_permissions::test_permission_read_rechecks_live_identity_and_organization[user_disabled]",
+        "tests.business.test_t014_permissions::test_permission_read_rechecks_live_identity_and_organization[org_disabled]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[role-403]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[permission-403]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[role_disabled-403]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[identity-401]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[user-401]",
+        "tests.business.test_t014_runtime::test_same_old_bearer_is_rechecked_after_real_directory_revocation[unit-401]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[disabled_user]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[disabled_org]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[revoked_mapping]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[expired_mapping]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[disabled_mapping]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[unmapped]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[issuer]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[forged]",
+        "tests.business.test_token_identity::test_identity_and_session_changes_are_seen_on_next_authentication[expired_token]"
+      ],
+      "verified_matching_test_count": 19,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "REVOKE-03",
@@ -111,7 +345,19 @@
       "setup": "分别在expires_at之前、相等、之后测试角色/成员/身份；控制时钟不靠sleep",
       "expected": "相等即失效；按功能/身份/资源边界分别403/401/隐藏404",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "令牌/角色/身份等到期及角色相等边界已有针对性验证；不是所有成员与操作的完整时间组合。",
+      "verified_test_ids": [
+        "tests.business.test_identity_directory::test_expiry_rechecked_in_the_same_open_transaction",
+        "tests.business.test_role_directory::test_role_binding_expiry_is_rechecked_in_a_long_transaction",
+        "tests.business.test_t014_permissions::test_role_expiry_equal_statement_timestamp_is_ineligible",
+        "tests.business.test_t014_permissions::test_expiry_during_permission_decision_is_rejected[reader]",
+        "tests.business.test_t014_permissions::test_expiry_during_permission_decision_is_rejected[policy]",
+        "tests.business.test_token_identity::test_principal_expired_after_database_lookup_is_rejected"
+      ],
+      "verified_matching_test_count": 6,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "REVOKE-04",
@@ -119,7 +365,23 @@
       "setup": "旧策略版本或检查后写入前、后台重试前撤销；依实际事务/版本方案设计屏障",
       "expected": "最终受保护动作不得使用失效授权；SLA未定时标待验证，不能写虚构毫秒数",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "策略期间真实撤销/版本竞争三反例先失败后通过；最后检查后到业务提交之间零延时撤销及正式SLA未证明。",
+      "verified_test_ids": [
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[actor]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[org]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[permission]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[version]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[digest]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[truthy]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[exception]",
+        "tests.business.test_t014_permissions::test_policy_decision_cannot_outlive_its_exact_directory_fact[role-403]",
+        "tests.business.test_t014_permissions::test_policy_decision_cannot_outlive_its_exact_directory_fact[identity-401]",
+        "tests.business.test_t014_permissions::test_policy_decision_cannot_outlive_its_exact_directory_fact[version-503]"
+      ],
+      "verified_matching_test_count": 10,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SCOPE-01",
@@ -127,7 +389,17 @@
       "setup": "用户、单位、动作权限均有效，目标案件未授权或成员撤销",
       "expected": "沿既有隐藏规则404；不返回目标存在性/原文/游标；不能用403/404任意其一断言",
       "applies_to": "CASE_ONLY",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "同单位跨案件及成员失效的针对性404/RLS回归通过；31未挂载功能及全量批量查询另按任务验证。",
+      "verified_test_ids": [
+        "tests.business.test_authorization::test_revoked_case_returns_404",
+        "tests.business.test_t014_runtime::test_function_permission_never_grants_unrelated_case_or_unit_resources[False]",
+        "tests.business.test_t014_runtime::test_function_permission_never_grants_unrelated_case_or_unit_resources[True]",
+        "tests.business.test_uploads::test_cross_case_read_denied"
+      ],
+      "verified_matching_test_count": 4,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SCOPE-02",
@@ -135,7 +407,18 @@
       "setup": "相同角色/权限但目标资源在另一单位；篡改header/body/query的org_id",
       "expected": "资源型沿RLS隐藏404；单位范围操作按精确矩阵固定拒绝；不得返回对方数据",
       "applies_to": "SCOPED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "跨单位资源/映射、事件及池上下文隔离已测；正式管理员越权制度未确认。",
+      "verified_test_ids": [
+        "tests.business.test_adapters_and_execution::test_nodes_and_events_bind_run_and_do_not_expose_other_case",
+        "tests.business.test_authorization::test_RLS_context_does_not_leak_across_pool_reuse",
+        "tests.business.test_identity_directory::test_cross_organization_mapping_and_membership_rejected",
+        "tests.business.test_t014_runtime::test_function_permission_never_grants_unrelated_case_or_unit_resources[False]",
+        "tests.business.test_t014_runtime::test_function_permission_never_grants_unrelated_case_or_unit_resources[True]"
+      ],
+      "verified_matching_test_count": 5,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SCOPE-03",
@@ -143,7 +426,19 @@
       "setup": "替换upload/task/asset/cluster/approval/review/export等ID或history版本，保持原获准案件参数",
       "expected": "对象归属从可信库解析；越界资源404；历史内容/下载/关联ID不泄漏",
       "applies_to": "CASE_ONLY",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "上传对象替换、历史来源隐藏、事件/复核关联等已有反例；未穷举全部对象/历史版本组合。",
+      "verified_test_ids": [
+        "tests.business.test_adapters_and_execution::test_nodes_and_events_bind_run_and_do_not_expose_other_case",
+        "tests.business.test_controls::test_review_checks_new_evidence_outside_snapshot[revoked_source]",
+        "tests.business.test_controls::test_review_checks_new_evidence_outside_snapshot[wrong_digest]",
+        "tests.business.test_controls::test_review_checks_new_evidence_outside_snapshot[corrupt_bytes]",
+        "tests.business.test_cursor_canonicality::test_upload_cursor_cannot_select_another_upload",
+        "tests.business.test_upload_validation::test_duplicate_source_revocation_hides_reference"
+      ],
+      "verified_matching_test_count": 6,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SCOPE-04",
@@ -151,7 +446,26 @@
       "setup": "跨用户/单位/案件重用游标及幂等key，包含合法编码和篡改编码；范围撤销后重放",
       "expected": "按现有签名/编码/范围错误精确断言；不可重放旧成功响应绕过新授权",
       "applies_to": "SCOPED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "控制/上传游标与回执在撤销后重放及规范编码回归通过；正式所有对象组合另验。",
+      "verified_test_ids": [
+        "tests.business.test_controls::test_approval_pagination_binding_and_stale_cursor",
+        "tests.business.test_cursor_canonicality::test_controls_reject_noncanonical_cursor[alphabet]",
+        "tests.business.test_cursor_canonicality::test_controls_reject_noncanonical_cursor[whitespace]",
+        "tests.business.test_cursor_canonicality::test_controls_reject_noncanonical_cursor[extra_padding]",
+        "tests.business.test_cursor_canonicality::test_controls_reject_noncanonical_cursor[tail]",
+        "tests.business.test_cursor_canonicality::test_controls_reject_noncanonical_cursor[pad_bits]",
+        "tests.business.test_cursor_canonicality::test_controls_reject_noncanonical_cursor[short]",
+        "tests.business.test_cursor_canonicality::test_controls_issued_cursor_and_snapshot_binding",
+        "tests.business.test_cursor_canonicality::test_upload_issued_cursor_and_session_binding",
+        "tests.business.test_cursor_canonicality::test_upload_cursor_cannot_select_another_upload",
+        "tests.business.test_t014_runtime::test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
+        "tests.business.test_t014_runtime::test_upload_permission_revocation_refuses_old_part_cursor_and_write_receipt",
+        "tests.business.test_uploads::test_cursor_bound_to_session_version"
+      ],
+      "verified_matching_test_count": 13,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SOURCE-01",
@@ -159,7 +473,17 @@
       "setup": "已授权案件内，来源授权撤销、到期或用途不符，含上传续传/任务重试",
       "expected": "沿现有来源规则403；不新增分片、任务、outbox、导出或成功回执",
       "applies_to": "SOURCE_SENSITIVE",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "来源同步伪造/撤销、导出重验与worker会话失效已测；真实授权用途依据仍未批准。",
+      "verified_test_ids": [
+        "tests.business.test_adapters_and_execution::test_source_authority_sync_rejects_forgery_and_invalidates_upload",
+        "tests.business.test_controls::test_export_authorization_change_rolls_back_and_records_orphan",
+        "tests.business.test_upload_validation::test_duplicate_source_revocation_hides_reference",
+        "tests.business.test_upload_validation::test_session_expiry_before_worker_does_not_create_asset"
+      ],
+      "verified_matching_test_count": 4,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "FAULT-01",
@@ -167,7 +491,105 @@
       "setup": "身份适配器缺失、目录超时、正式策略未配置或返回绑定不符",
       "expected": "503；不得降级TestAuthority/旧权限或记录业务成功",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "CURRENT_42_OPERATION_ENTRY_SCENARIO_VERIFIED",
+      "actual_scope": "42操作缺策略/权威故障503及错误决定绑定反例已测；不降级合成身份。",
+      "verified_test_ids": [
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[actor]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[org]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[permission]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[version]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[digest]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[truthy]",
+        "tests.business.test_t014_permissions::test_old_or_misbound_policy_decision_is_unavailable[exception]",
+        "tests.business.test_t014_permissions::test_directory_facts_never_allow_without_explicit_policy",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-cancelTask]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-completeUpload]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createImport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createPolicy]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createReview]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createUpload]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-decideApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-downloadAuditExport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-exportAudit]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getAuditExport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getCurrentUser]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getFeedback]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getFirstSource]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getForensics]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getImport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getModelOperation]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPolicy]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPolicyDefinition]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPropagation]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getReview]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getReviewContext]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getRiskFindings]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getSource]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTask]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTaskEvidence]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTaskExecution]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTimeline]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getUploadStatus]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listApprovals]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listAuditEvents]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listPendingReviews]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listPolicies]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listReviews]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listSources]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listTaskEvents]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listTaskNodes]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listUploadParts]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-putUploadPart]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-requestApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-revokeApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-syncSourceAuthorization]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-cancelTask]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-completeUpload]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createImport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createPolicy]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createReview]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createUpload]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-decideApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-downloadAuditExport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-exportAudit]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getAuditExport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getCurrentUser]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getFeedback]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getFirstSource]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getForensics]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getImport]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getModelOperation]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPolicy]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPolicyDefinition]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPropagation]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getReview]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getReviewContext]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getRiskFindings]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getSource]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTask]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTaskEvidence]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTaskExecution]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTimeline]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getUploadStatus]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listApprovals]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listAuditEvents]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listPendingReviews]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listPolicies]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listReviews]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listSources]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listTaskEvents]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listTaskNodes]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listUploadParts]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-putUploadPart]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-requestApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-revokeApproval]",
+        "tests.platform.test_t014::test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-syncSourceAuthorization]"
+      ],
+      "verified_matching_test_count": 92,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "FAULT-02",
@@ -175,7 +597,17 @@
       "setup": "隔离数据库故障、特权连接、两主体顺序复用同一连接池",
       "expected": "故障503或安全配置拒绝；事务user/org无残留；特权RLS绕过被拒",
       "applies_to": "SCOPED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "特权连接拒绝、池复用和写失败无成功等针对性回归通过；共享故障恢复与容量另验。",
+      "verified_test_ids": [
+        "tests.business.test_authorization::test_RLS_context_does_not_leak_across_pool_reuse",
+        "tests.business.test_authorization::test_superuser_database_connection_rejected",
+        "tests.business.test_t014_permissions::test_permission_reader_refuses_privileged_connection",
+        "tests.business.test_uploads::test_DB_failure_does_not_report_received"
+      ],
+      "verified_matching_test_count": 4,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "PRIVACY-01",
@@ -183,7 +615,19 @@
       "setup": "为以上拒绝请求设置可识别但无真实敏感信息的合成标记",
       "expected": "Problem/日志不含令牌、密钥、跨单位对象内容、SQL堆栈；失败审计与业务成功分开",
       "applies_to": "PROTECTED_ALL",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "通用Problem/请求ID/提示头已测；HTTP日志专项以本批精确CI制品为准，未知秘密与全历史DLP不在证明范围。",
+      "verified_test_ids": [
+        "tests.business.test_foundation_errors::test_all_error_paths_have_safe_uniform_problem[REDACTED_PARAMETER_7]",
+        "tests.business.test_foundation_errors::test_all_error_paths_have_safe_uniform_problem[REDACTED_PARAMETER_8]",
+        "tests.business.test_foundation_errors::test_all_error_paths_have_safe_uniform_problem[REDACTED_PARAMETER_9]",
+        "tests.business.test_foundation_errors::test_all_error_paths_have_safe_uniform_problem[REDACTED_PARAMETER_10]",
+        "tests.business.test_foundation_errors::test_invalid_request_id_is_safe_and_has_matching_header",
+        "tests.platform.test_t014::test_business_401_has_bearer_challenge"
+      ],
+      "verified_matching_test_count": 6,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SPECIAL-01",
@@ -191,7 +635,15 @@
       "setup": "devLogin明确security:[]且development-only",
       "expected": "不按缺Bearer强求401；验证开发开关、输入和正式环境关闭边界；不扩大公开例外",
       "applies_to": "PUBLIC_LOGIN",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "只验证devLogin唯一开发公开例外目录；真实登录操作未挂载，没有该操作HTTP通过。",
+      "verified_test_ids": [
+        "tests.platform.test_t014::test_catalog_matches_all_73_operations_and_41_permissions",
+        "tests.platform.test_t014::test_catalog_rejects_new_public_exception"
+      ],
+      "verified_matching_test_count": 2,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SPECIAL-02",
@@ -199,7 +651,16 @@
       "setup": "内部推理入口使用用户Bearer或错误服务身份/能力/案件绑定",
       "expected": "按内部契约拒绝；用户角色不能替代服务身份；单列内部测试不计入73外部操作",
       "applies_to": "INTERNAL_ONLY",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "内部推理继续检查专用服务身份/能力/返回绑定；不以用户角色替代服务身份，不证明34真实业务模型。",
+      "verified_test_ids": [
+        "tests.business.test_adapters_and_execution::test_gateway_checks_identity_capability_input_and_response",
+        "tests.business.test_adapters_and_execution::test_gateway_rechecks_revocation_after_backend_returns",
+        "tests.business.test_adapters_and_execution::test_gateway_rejects_wrong_response_identity"
+      ],
+      "verified_matching_test_count": 3,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     },
     {
       "id": "SPECIAL-03",
@@ -207,7 +668,19 @@
       "setup": "PoC健康检查、业务health.read、框架文档路径分别访问",
       "expected": "分别固定公开/受保护范围；不能因healthz或PoC令牌成功断言业务角色权限已验证",
       "applies_to": "HEALTH_DOCS",
-      "status": "DESIGNED_NOT_NEWLY_IMPLEMENTED_OR_EXECUTED"
+      "status": "PARTIAL_TARGETED_OR_CATALOG_BOUNDARY_VERIFIED",
+      "actual_scope": "框架入口精确覆盖和独立PoC边界保留；业务health未挂载，正式文档/健康暴露规则未验。",
+      "verified_test_ids": [
+        "tests.platform.test_t014::test_catalog_matches_all_73_operations_and_41_permissions",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[new]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[duplicate]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[outside_namespace]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[mount]",
+        "tests.platform.test_t014::test_new_or_duplicated_business_route_fails_startup_audit[guard_override]"
+      ],
+      "verified_matching_test_count": 6,
+      "all_designed_combinations_executed": false,
+      "evidence_ref": "docs/00-project/validation/t014-full-regression-report.json"
     }
   ],
   "operation_test_plan": [
@@ -233,9 +706,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -243,7 +716,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "completeUpload",
@@ -268,9 +742,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -278,7 +752,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "createImport",
@@ -303,9 +778,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -313,7 +788,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "createPolicy",
@@ -335,9 +811,9 @@
         "SCOPE-04",
         "FAULT-02"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -345,7 +821,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "createReport",
@@ -438,9 +915,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -448,7 +925,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "createSource",
@@ -542,9 +1020,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -552,7 +1030,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "decideApproval",
@@ -576,9 +1055,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -586,7 +1065,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "decidePropagationEdge",
@@ -690,9 +1170,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -700,7 +1180,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "downloadReport",
@@ -759,9 +1240,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -769,7 +1250,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "extractClaims",
@@ -827,9 +1309,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -837,7 +1319,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getAsset",
@@ -895,9 +1378,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -905,7 +1388,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getCurrentUser",
@@ -927,9 +1411,9 @@
         "SCOPE-04",
         "FAULT-02"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -937,7 +1421,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getFeedback",
@@ -961,9 +1446,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -971,7 +1456,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getFirstSource",
@@ -995,9 +1481,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1005,7 +1491,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getForensics",
@@ -1029,9 +1516,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1039,7 +1526,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getImport",
@@ -1064,9 +1552,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1074,7 +1562,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getIndex",
@@ -1160,9 +1649,9 @@
         "SCOPE-04",
         "FAULT-02"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1170,7 +1659,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getPolicy",
@@ -1192,9 +1682,9 @@
         "SCOPE-04",
         "FAULT-02"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1202,7 +1692,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getPolicyDefinition",
@@ -1224,9 +1715,9 @@
         "SCOPE-04",
         "FAULT-02"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1234,7 +1725,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getPropagation",
@@ -1258,9 +1750,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1268,7 +1760,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getReport",
@@ -1326,9 +1819,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1336,7 +1829,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getReviewContext",
@@ -1360,9 +1854,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1370,7 +1864,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getRiskFindings",
@@ -1394,9 +1889,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1404,7 +1899,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getSearchJob",
@@ -1462,9 +1958,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1472,7 +1968,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getTask",
@@ -1496,9 +1993,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1506,7 +2003,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getTaskEvidence",
@@ -1530,9 +2028,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1540,7 +2038,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getTaskExecution",
@@ -1564,9 +2063,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1574,7 +2073,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getTimeline",
@@ -1598,9 +2098,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1608,7 +2108,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "getUploadStatus",
@@ -1633,9 +2134,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1643,7 +2144,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "health",
@@ -1731,9 +2233,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1741,7 +2243,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listAssets",
@@ -1799,9 +2302,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1809,7 +2312,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listEvaluations",
@@ -1897,9 +2401,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1907,7 +2411,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listPolicies",
@@ -1929,9 +2434,9 @@
         "SCOPE-04",
         "FAULT-02"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1939,7 +2444,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listReviews",
@@ -1963,9 +2469,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -1973,7 +2479,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listSources",
@@ -1997,9 +2504,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2007,7 +2514,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listTaskEvents",
@@ -2031,9 +2539,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2041,7 +2549,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listTaskNodes",
@@ -2065,9 +2574,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2075,7 +2584,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "listTasks",
@@ -2134,9 +2644,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2144,7 +2654,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "putUploadPart",
@@ -2169,9 +2680,9 @@
         "SCOPE-03",
         "SOURCE-01"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2179,7 +2690,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "recordEvaluation",
@@ -2267,9 +2779,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2277,7 +2789,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "requestFeedback",
@@ -2371,9 +2884,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2381,7 +2894,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "rolloutModel",
@@ -2606,9 +3120,9 @@
         "SCOPE-01",
         "SCOPE-03"
       ],
-      "runtime_state": "MOUNTED_SOURCE_REVIEW_ONLY",
-      "execution_status": "PLANNED_NOT_EXECUTED",
-      "implementation_prerequisite": "挂载真实操作并注入明确的隔离测试权威；不得用空路由或404代替权限测试",
+      "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+      "execution_status": "FOUR_DENIAL_SCENARIOS_AND_REAL_RESOURCE_CANARIES_VERIFIED",
+      "implementation_prerequisite": "当前研发实现已测；正式六角色允许/冲突/用途/撤销SLA及共享采用仍需有效依据",
       "role_parameters": [
         "system_admin",
         "data_admin",
@@ -2616,7 +3130,8 @@
         "business_reviewer",
         "case_investigator",
         "auditor"
-      ]
+      ],
+      "execution_evidence_ref": "docs/00-project/validation/t014-permissions-report.json"
     },
     {
       "operation_id": "verifyClaim",
@@ -2658,12 +3173,62 @@
     "protected_operations": 72,
     "candidate_role_parameters_per_protected_operation": 6,
     "role_default_denial_parameter_combinations_planned": 432,
-    "new_business_test_cases_executed": 0,
-    "full_T014_acceptance": false
+    "new_business_test_cases_executed": 244,
+    "full_T014_acceptance": false,
+    "mounted_operations_four_denial_scenarios_verified": 42,
+    "real_resource_matrix_verified": true,
+    "unmounted_operations_HTTP_verified": 0,
+    "role_default_denial_combinations_432_executed": false,
+    "all_22_scenarios_all_operations_and_roles_executed": false
   },
   "existing_executed_evidence_ref": "docs/00-project/validation/t014-dependency-regression-report.json",
   "planned_implementation_test_path": "tests/platform/test_t014.py",
-  "planned_test_path_exists": false,
+  "planned_test_path_exists": true,
   "formal_policy_required_for_real_authorization": true,
-  "Python_candidates_created": false
+  "Python_candidates_created": false,
+  "preparation_source_snapshot": {
+    "revision": "t014-authorization-test-design-20261019",
+    "observed_at": "2026-10-19T13:17:24.040193+00:00",
+    "status": "DESIGN_ONLY_NOT_T014_TEST_ACCEPTANCE",
+    "source_commit": "de6c086a91a2d68a7bc4d0c8daf510ac927f44dc",
+    "source_sha256": {
+      "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+      "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
+      "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+      "docs/08-security/permission-matrix.md": "f607a79f439b25ad07098c52b9c5ee09fc27ac852740c7492235dd0e875456bf",
+      "backend/business_app/main.py": "96e93c27d22ae5701362e74d7f8e1150f585b37526344c2b96e4e22871f8f99b",
+      "backend/business_app/auth.py": "c31784af863bb2b498983e795802965f5de869907ff2a3eae4da045f483c07f6",
+      "backend/business_app/db.py": "e896dcce89dcb0e530e5ba40efa9ce9c299d8b75796d43d1b68977e8791ff94f",
+      "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
+      "backend/business_app/uploads/service.py": "e656cc31189c30156099f0c798adda13aeba7f2e27ba47b8a5cdea573547e3f4",
+      "backend/business_app/history/router.py": "2834a4bcfb2938befdb2f7882b14e4a85401b867b083308c36da54dc07a40010",
+      "backend/business_app/history/repository.py": "1e5022001aca523a17cc543640b6c26b5d565b550b39f25039b20cff9b62d4c8",
+      "backend/business_app/controls/router.py": "c720cba1c8cfdf6c9527ad021c92d9ac4c93a418b01afefee2c911390966d399",
+      "backend/business_app/controls/common.py": "3cdc5e74126c1b79ac442380672894f90db6dd7eef1e9ce194839950d34b59b8",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/inference.py": "acab77d967ea4182d55172f29cb197e7b953ee34a813da0dcf3c85a80e5bd766",
+      "tests/business/test_authorization.py": "b9f6ef420b75fee02d94ae207f4467a3a2ae8e9a53133d15e1aec3bf518dd13f",
+      "tests/business/test_identity_directory.py": "fe3b488246db600c843983a356187ceb746802de38b3c837ce96a75a2b41cab1",
+      "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
+      "tests/business/test_token_identity.py": "0e69f6ebddd3996ccad2c3197faeef0e09d49439099c21c23a2a20fc7f95f2a7",
+      "tests/business/test_migrations.py": "56e9ddb027fd8b1ae4ffd6659cf386661689ee25ac197a06d79c3d05ad04c296",
+      "tests/platform/test_t013_tokens.py": "f66494e8be03c87bc3601ee857e3c6bec0dd45afb0154359a1e3edd445bf7dce"
+    },
+    "coverage": {
+      "contract_operations_designed": 73,
+      "protected_operations": 72,
+      "candidate_role_parameters_per_protected_operation": 6,
+      "role_default_denial_parameter_combinations_planned": 432,
+      "new_business_test_cases_executed": 244,
+      "full_T014_acceptance": false,
+      "mounted_operations_four_denial_scenarios_verified": 42,
+      "real_resource_matrix_verified": true,
+      "unmounted_operations_HTTP_verified": 0,
+      "role_default_denial_combinations_432_executed": false
+    }
+  },
+  "full_regression_report_ref": "docs/00-project/validation/t014-full-regression-report.json",
+  "current_gate_report_ref": "docs/00-project/validation/t014-permissions-report.json"
 }

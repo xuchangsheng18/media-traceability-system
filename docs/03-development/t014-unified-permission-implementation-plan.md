@@ -1,5 +1,7 @@
 # T014 统一权限代码与回归实施计划
 
+本文件保留已批准的步骤和验收要求；执行进度以[实施报告](t014-unified-permission-implementation.md)、[T014任务卡](../../tasks/platform/T014.md)及报告中的精确CI为准。计划中的检查框不代替实际测试、共享采用或整卡验收记录。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task in the current session. Steps use checkbox (`- [ ]`) syntax for tracking. 本计划建议当前会话直接逐项执行；仅在用户明确选择委派时使用子代理。
 
 **Goal:** 实现当前42个业务操作的统一最小权限入口、真实只读权限事实查询及适用参数化回归，明确另外31个契约操作与正式授权/交接未完成范围。

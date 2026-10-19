@@ -1,0 +1,3092 @@
+{
+  "task_id": "T014",
+  "status": "PASS",
+  "observed_at": "2026-10-19T17:01:44.970123+00:00",
+  "scope": "local_isolated_current_T014_approved_scope_runtime_gate_quality_inputs_documentation_and_preservation_only",
+  "source_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+  "source_code_and_test_sha256": {
+    "backend/business_app/__init__.py": "7a6002b1296632af7b86e67eaf76fb9a9cc6f687cd02646c74030a4d7020a84a",
+    "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
+    "backend/business_app/contracts.py": "15dad14f4a3ebca192c95bd7f175939202c7f479fa1a0973165aa89824b55f4d",
+    "backend/business_app/controls/__init__.py": "06f986fe050ef876c1ed0677bf6b5088cfa889b0c5ddbcb3b88590a0de8e2205",
+    "backend/business_app/controls/approvals.py": "813094e31b3d17e8ab608fbf50b460526a02b2d1e1ed1b87d8cad80862383147",
+    "backend/business_app/controls/common.py": "eae29e9bd8e3fc9c71471f019279ac2dc5fc971c6152018c234a5c971bb69f96",
+    "backend/business_app/controls/definitions.py": "449f2780668302797eeb175c05a9bb10d05cdfe8b645e6d231e65fac5e48f03f",
+    "backend/business_app/controls/execution.py": "338b1c8d44cd09cc9bf7b3d51c3f382751a8985e247e5aeb889ae29922c6848d",
+    "backend/business_app/controls/exports.py": "598f4b266e48636fb9a15bea2452594d5909d0248c62cbaa49324ff0daf4ec99",
+    "backend/business_app/controls/imports.py": "2031fb2e2ae224e250c6bf40835593ee555f251142512637974b11771de13519",
+    "backend/business_app/controls/providers.py": "917a888315ca893d6bc4f5ff6c243dc75574c3adf8803d5725e707f691ac386d",
+    "backend/business_app/controls/receipts.py": "00ce7ad5e257f050bd27dc212473026335f86be0108e2f6df03156b3f557137f",
+    "backend/business_app/controls/reviews.py": "b548a0dedd6fc4d7a0ca7e412608c5439b09bc304654e56fabbc65274b4a4cae",
+    "backend/business_app/controls/router.py": "c720cba1c8cfdf6c9527ad021c92d9ac4c93a418b01afefee2c911390966d399",
+    "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
+    "backend/business_app/db.py": "e896dcce89dcb0e530e5ba40efa9ce9c299d8b75796d43d1b68977e8791ff94f",
+    "backend/business_app/errors.py": "32c5ddfc01d0e66a68915d58cf5076dfbda21e444157cf2494daa91a9b925edf",
+    "backend/business_app/history/__init__.py": "d799250f4999412e03715020266a93680781d158ebfe21360da074b69a9fe7c3",
+    "backend/business_app/history/projection.py": "6fcb54b7255bbb894b848bb28ad119a32493dd4f06e3e44b220dad27784a62f9",
+    "backend/business_app/history/repository.py": "1e5022001aca523a17cc543640b6c26b5d565b550b39f25039b20cff9b62d4c8",
+    "backend/business_app/history/router.py": "c0c71a38cf03ba7d580e9962574ebfaa2558a5c17586edb067fa9ab6d8e7a162",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
+    "backend/business_app/inference.py": "acab77d967ea4182d55172f29cb197e7b953ee34a813da0dcf3c85a80e5bd766",
+    "backend/business_app/main.py": "8a55bac9b8240aec2361f57b899904f7c6ca86449aeea99a5613a4f0502119f9",
+    "backend/business_app/objects.py": "ef713e8c5570b06ae3ae842d1dd8e679ff3b3dc2ccc46efddf7436ef06e3bef1",
+    "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
+    "backend/business_app/permissions/catalog.py": "ce16d1d6537ba7ec434ce87cfa40bb6ef4ff6aea854922ded70204e66a37634b",
+    "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
+    "backend/business_app/permissions/guard.py": "ec3547d9713ccc185e82e92edbe84504fc6066a52d2716221a0b51f8ced55a75",
+    "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
+    "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
+    "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
+    "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+    "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
+    "backend/business_app/uploads/messaging.py": "9a8b70681cb00fb98526cd6441d30a9006a9c68f88961fd3132a4bf1a7c216d0",
+    "backend/business_app/uploads/repository.py": "1a5eee30f8f2c5d20510e96aba8d5ffae23fb52bd60c7fbeaf0f72aea4876600",
+    "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
+    "backend/business_app/uploads/service.py": "5fa61a604ac1a81b636163d33b90087b485d162485aa2fb762500f613a2b861e",
+    "backend/business_app/uploads/validator.py": "d7fed4480d08e337aa4804e5da7dd724e31988b9a3a9e9da879c96e13f4574da",
+    "backend/business_app/uploads/worker.py": "c08f710edc83344f503f41312b38e70ddfec9df50da6b73c938f6f44ff342ab2",
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+    "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_migrations/0006_permission_lookup.sql": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+    "backend/business_migrations/__init__.py": "364ce00247004a2405578bd44bc4cc8e88efd9e7a3e7014f0a7d49dcfa28cc8e",
+    "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3",
+    "tests/business/__init__.py": "b1c27cb798a176b7d2620f0bbd41157b2d339b70e05d2c6738a78819c369690d",
+    "tests/business/conftest.py": "5a9a8480cb57c819cc5f31815cfb1ecb56164589f30581a1860c36e459f8c869",
+    "tests/business/history_fixtures.py": "bcf705d8385dfd75e252b9c1f273d2a6587f86a2c33bbdfabf85aac190da1c40",
+    "tests/business/http_fixtures.py": "6e47d115ba57ea7dc6b7e340f8f9c7e12d962e7060bec04808bb2b614879f009",
+    "tests/business/t014_requests.py": "2d1e11f4b68a8038eea9289e6fb8224906352cc21d745c540ff7e2b2e4a2af5d",
+    "tests/business/test_adapters_and_execution.py": "36c2da8eb72d790bfa2fd623734c30a3c9d1c27d6e446d88d7722fd09543216a",
+    "tests/business/test_authorization.py": "f7af58160705a61f646587aae8f63e21747fdeaebdacd59a4cc0d1e464bff15e",
+    "tests/business/test_control_contract_integrity.py": "689e91e8656a36438f4288cc7ef5136fc8dacd8686ebb8f268a8948e189f0428",
+    "tests/business/test_controls.py": "38599112cfc6095989023e802db52f601153201f996dfa9193e9487a65519b11",
+    "tests/business/test_cursor_canonicality.py": "47bd4d4db811e1a9ed99bf75fbe84c73ed337e6c529b28e7000b69e170d4e72d",
+    "tests/business/test_execution_cancel.py": "b08ea43ed1388c205fb4e2461b0d4dd404c4cd5c9fad02df7c0cfb8e767d3f78",
+    "tests/business/test_foundation_errors.py": "6620ae6bf2bf458d465ea81ce90d9f258bca8f803c0a7f16e3938f3cf14a5384",
+    "tests/business/test_history.py": "652af35204452f2735f7e3ad6b3026450446200e6ab5a7fd20f22cbfad3afd29",
+    "tests/business/test_history_http.py": "3f8dc78ded8e9a293e04fe2d5029a41753548d19b8b83c13def3ab371edaa82c",
+    "tests/business/test_identity_directory.py": "fe3b488246db600c843983a356187ceb746802de38b3c837ce96a75a2b41cab1",
+    "tests/business/test_migrations.py": "e0b61f62cd2ebe89310cd8a5ae8f12cd5d2a7fadca6f0bdaea407c71499dc396",
+    "tests/business/test_recovery.py": "7088e63b55a84b040f835af72477734beed0b85a6f83e3694e085d873d14b50f",
+    "tests/business/test_remaining_contracts.py": "ed0f07200a808c092bac586da166bbe68596ca97b78a36f66405d14aef1ff035",
+    "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
+    "tests/business/test_sql_foundation.py": "1aef6ad7575fcde30161ecd6795894fe35d1c7b7d84167833618315ee3044c43",
+    "tests/business/test_t014_permissions.py": "5c7d031a3e48dd55c5bcf197354bd3514c9109c3b981c049a9e1e8629ea1ec2b",
+    "tests/business/test_t014_runtime.py": "3fc1bd20aa41d221561881d68c9349a29fcee337e11c71d740f25830db366e9c",
+    "tests/business/test_token_identity.py": "e5de1271c9ea703410c1fa7045ac3da532ba39af5b43b49ae4cfacf878905fe3",
+    "tests/business/test_upload_json_boundary.py": "e1aead9b8173b672133900e390494d9e6519fbd0565f194257180cda7614d09e",
+    "tests/business/test_upload_validation.py": "27607cc3265d70d40489e67cec0e71e2861c9c8306d10084935a47396f45b68c",
+    "tests/business/test_uploads.py": "4f493178901b094535bdf87608babc163eb8fd24e6ff1bd902c6ca606edccc28",
+    "tests/platform/test_t014.py": "1d651b6d2042e1fb2e954fc10bff27aa0ea616d0c3c20c1f700387df41c5d7ca",
+    "tests/platform/test_t014_gate.py": "69194202b7f1e5f7534043179d473c0de84f75de73f5e9ec396cb20342406cd2",
+    "scripts/verify_t014_permissions.py": "dd12ed9d5e3494e9f0c0d6b1e532773805e096b36064216ec3736244cd11b7f2",
+    "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+    "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+    "docs/08-security/t014-interface-scope-matrix.json": "75bbce89ee9cc07c18f94d46bf7ced7ceb5720ec81ccbac8bfc0a997b30e30c8",
+    "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+  },
+  "source_hashes_verified_against_current_working_files": true,
+  "documentation_snapshot_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+  "documentation_source_delta_sha256": {
+    "docs/00-project/execution-planning-inputs.json": "fa5f66ca57fd97658058b734de76b9400c6a146237732dec7df37767a1f93102",
+    "docs/00-project/execution-schedule.json": "c9d75df08321ef589a16e171cf5e0cc64562b0956af8700066ad5185153b36e7",
+    "docs/00-project/stage-one/input-baseline-candidate.json": "fa6ec9f822b8d191b14be2db6438ad9bebceb1abf37f11b08e8c5b90e5398322",
+    "docs/00-project/task-execution-steps.txt": "07c0aa150065cd4cb3e07a06417959062fa09435e45bc171a902e828a3c52639",
+    "docs/00-project/validation/t013-role-assignment.json": "5a39147b8872e2e9e156b44d67adcacb724c69eef49bc8a24d540249060bc4b6",
+    "docs/00-project/validation/t013-signer-protection-progress-report.json": "3501ad87c1829c34210a7f7905acd7a65541bc4bb3175c3004e8b15afd6edb4f",
+    "docs/00-project/validation/t014-full-regression-report.json": "90c8f6d8ae80238cf26014ec4ec6c270c2ac0fcd2290ddad218b2ff0db8e99ff",
+    "docs/00-project/validation/t014-gate-execution-report.json": "5a77ffcc65f6b1e01993bf16589d0972052cf9d3aee968e8062b315b31defb17",
+    "docs/00-project/validation/t014-implementation-ci-report.json": "6e9408cf92487512afe94ffc12abb30e39e7e4a1691e7bb21bd193cf918d6b3b",
+    "docs/00-project/validation/t014-implementation-code-review.json": "a98f5b423bf9dbe4449c459a0269f6e0cf2d149782255e579f54dd36ac2a9113",
+    "docs/00-project/validation/t014-implementation-validation-report.json": "3de878e52745c93df43c8d96c13dc99af7ccae57c6e32278f0f3a9216e6561ed",
+    "docs/00-project/validation/t014-permissions-report.json": "ee70979b32c3da937ea34593cebf94859d0c7128666da65110cfd886378a4fd1",
+    "docs/00-project/validation/t014-role-assignment.json": "433484cabb9d0413320120763cac49c68e1b5b3b4a70009cebdd6b747eb618d3",
+    "docs/03-development/stage-three/readiness.md": "4a79dca424ef970c08f734285b0f2da48a9218ecadb46ab8c6628aea2dd60141",
+    "docs/03-development/t013-signer-protection-followup.md": "0f112a08750b6332ea48ebd7f5aa6f966e03d050989a2107b06f7d55b4a291f1",
+    "docs/03-development/t014-unified-permission-design.md": "c86a763e7dad189cdcdfdf790733c87879f9ddf25bfc07fb5fbcdc4bd6d41388",
+    "docs/03-development/t014-unified-permission-implementation.md": "a4687925f9a8b3969338f3c82be6a5b5c325915780c4de81f5a377eb59531875",
+    "docs/04-database/README.md": "a286a33c2972364a198e922453c2110bf59fff9183e04b50f704c0a00d241f53",
+    "docs/08-security/t014-interface-scope-matrix.json": "75bbce89ee9cc07c18f94d46bf7ced7ceb5720ec81ccbac8bfc0a997b30e30c8",
+    "docs/08-security/t014-interface-scope-matrix.md": "4a99cd4fa22725a1447274ee2ce8de09f84d9285ebdcd321e1bf20065f598bdd",
+    "docs/09-testing/t014-authorization-test-design.json": "a41b48ac4fc1fc5b74c2a7ca80324e08ab3ff3278c646ce9f5a577e44aa7b6ec",
+    "docs/09-testing/t014-authorization-test-design.md": "703d14706170111f76fee7601f1e45ceb23d315449f15bd261f1cdbcab77ec37",
+    "docs/README.md": "3a7b7faec5dd8b644fd7f322a6bfa3baad7935d1bcd47947bc5570a5a2ad84a5",
+    "scripts/generate_stage_three_docs.py": "e11d0dd7335cce358503b1bd5676a7e228911c05ea6b9d5ce8612109ac900315",
+    "scripts/generate_task_progress.py": "8d1771f704b6c6992ca3ca7af229101f999fe2123e3570a75780b5034b767140",
+    "scripts/update_docs_navigation.py": "9a1cdcfb88736c11b8d7643c77775c70ecf4e918463bfbb9769def241fbbe154",
+    "tasks/README.md": "9560a06b36c65429bbe21b77990d50899bab60af9f4bbd04e387eedb6fa0acb8",
+    "tasks/algorithm/T051.md": "bbfddcd9bdbfed1fcd8b14e4dd46ebe41c09824deee5782696fb89cc23019ee6",
+    "tasks/algorithm/T052.md": "cd38c9f2f75dfa6da23fb6192a0590db5f1416b4fddfce7c9deaa0c96beced5d",
+    "tasks/algorithm/T053.md": "558462d7ce55c9bed147117e2f070ff59f0b0a9368d39895b8cb806f2cd103ab",
+    "tasks/algorithm/T054.md": "5889a787baff5da00aca169afe79e7cbea6b97f154b57d17b58ccc480ff9e6e9",
+    "tasks/algorithm/T055.md": "77614cd54927d3614d0e92029e3f92768adc179c6f175516f7c277caf946b277",
+    "tasks/algorithm/T056.md": "3cedcc7426dd3ec36a5f0f501c0929f46bc7dee27d77a7cce210733e0433958e",
+    "tasks/algorithm/T057.md": "4a517505b0fffb0aa6335979bd95c0a8c931bc69f457f73d5c826747273e911f",
+    "tasks/algorithm/T058.md": "75f147b56b6b71f95ad8d7f3bd23a5484ce70c3107c1f90e256d746bd7a94f3f",
+    "tasks/algorithm/T059.md": "d35f515489e023694f84a37827b82e7c8aa7f24b4b61aa96b5f99fcfd135c485",
+    "tasks/algorithm/T061.md": "dcbe28f95fbf37eb39632a7e3b965078a08e1956bc5699246dae22aeff3d06be",
+    "tasks/algorithm/T062.md": "bfe1614ae6d131dd774dffdb14ae20f9322c0ea8cb68f6d86e107e3453e77ec0",
+    "tasks/algorithm/T063.md": "2572335492f8c585f016a69341bcc48ef6f52f1036d62cd8363c5bff09e635da",
+    "tasks/algorithm/T064.md": "d5f5825c4f060fb1482e7252062fd393bde7be600b14244829d055f329f9dfb5",
+    "tasks/algorithm/T065.md": "5d31d7d86bdd43ef761c0399a1abcd8cdac19cd3d2463f3cfd227ecd0950facc",
+    "tasks/algorithm/T066.md": "f21c995b0d0e56b3a5f76b201ad03f1840cc46fb578b72f1b1dfecdd1ce9f2ce",
+    "tasks/algorithm/T067.md": "77524e11c67d7f1ba5d427e7afec979057fad7f72f1e84e20ca8f31357afe922",
+    "tasks/algorithm/T068.md": "bd2bab0fc86722a7715b2a54ecd60ec58f943f968e23a1ec74114da9785fd033",
+    "tasks/algorithm/T069.md": "628ea36a0a35144d50c128fe6a4ca1c187546c46b983842b9013d87a60c6a729",
+    "tasks/algorithm/T071.md": "e6b28b52ab5f40c7eb753b5998206ffc3f45ffc676c6becfb569245deca5685f",
+    "tasks/algorithm/T072.md": "745e368a220fe670d66c74360988ef36cbd5be145ceef3678f2b0e993494e059",
+    "tasks/algorithm/T073.md": "61bdc891de3d34e54f0ef3bf755e71adf8a303d7f0cf2ae28b93139e54f73631",
+    "tasks/algorithm/T074.md": "05728f541c9012c5dabdff11519b916e049f5ed352915f29bd58d5b2109ae7c1",
+    "tasks/algorithm/T075.md": "18103f92166d3a0fa7f940746e8f6b045d8d5bae4468b69ce88cb9f92ba20c1d",
+    "tasks/algorithm/T076.md": "ce72b5192ec44b4c589a08253cf632261c508c7ed0addbc1d845640ce61d5942",
+    "tasks/algorithm/T077.md": "813d25621a85401c149d888f2c2c26d29b30666517af8f914bf7e09a6a3dea5f",
+    "tasks/algorithm/T079.md": "8e16244e7e2ef56fb3c4b1d9e699d0daa6c8be26ebc75f938c1fa766d80d974b",
+    "tasks/algorithm/T080.md": "bb530381ed23b0935a65d7c225a7cf61216957294df2720d706af26896a68d93",
+    "tasks/algorithm/T081.md": "06d1c188a9138c1fda64ac1cbe3f265cd79e54dce2458bad7c02abe2e581232b",
+    "tasks/algorithm/T082.md": "70d9f274c0b06c93714de49f79b02f01e696bf53431c04f6f2913df3497db427",
+    "tasks/algorithm/T083.md": "9914fdcc66fc126bf83a88549564485d1227a03ec1ee76f582c8ea871d4f7310",
+    "tasks/algorithm/T084.md": "fc55c97d46aca4b2e571af263eeff629d9ffcab6a0b15266288e66793aa02064",
+    "tasks/algorithm/T085.md": "5fca2769c08425190e23b78aa7abe1357d85bb6423a15588e33445984b972274",
+    "tasks/algorithm/T086.md": "5cf3048541c37c0539056cacbb326c2bbcc5d49baff15465b93a0792d7ede057",
+    "tasks/algorithm/T087.md": "1e035211784975156804b335fc2d72569dd09952433c758f97d45e070d3f53a8",
+    "tasks/algorithm/T088.md": "543e2609c9acd84cbdfd2142a6effcda2715e9eed3e4c76c21069ac55e9f9a04",
+    "tasks/algorithm/T089.md": "d9455223532eabe7550272fa1b65b6209015569e106ea4f8ccc7d87342cd8f8c",
+    "tasks/algorithm/T098.md": "4fe3028b3e21ea74c086bfd93cb6ee06ff7c71099b0c50cc0d1d99071f576eaa",
+    "tasks/algorithm/T099.md": "224537f65ce6eb52c86ade7a07b559d48afbae6f483e0a7dc43b004fc80bb4b8",
+    "tasks/algorithm/T125.md": "f9ee4d2fae8479c5c0b79db9ad7fce04523e94875301ef57e1215e9a7780b344",
+    "tasks/algorithm/T128.md": "640ce3651868f2b065e6d8e0e47d23ea28c0db7be779effb53a3648aff25b265",
+    "tasks/algorithm/T130.md": "31ec2c1a403d913bafe66c6fa0a6bb88f8687abb6313c0175730352519d5e22f",
+    "tasks/algorithm/T131.md": "815facdae0fb042d0629c7d786913452cfc42031ddb4dd596eaba14067a93c37",
+    "tasks/algorithm/T132.md": "2b04910c667a5aef07755e1a804003a2629048148818b91c739ed290ce9c90c9",
+    "tasks/algorithm/T133.md": "2c6480dea0efa58b1b4a15dcd1554d6f37db6e7c94bc5426c560d64c3f4fcad0",
+    "tasks/algorithm/T135.md": "74b399d87cda49c4039cc22bfd22c0d03219bc392640feaac161d9ea124d928a",
+    "tasks/algorithm/T136.md": "4c7e428b675f7f6daa6c4e15dcbdc354829d3795ba356922c4bf6ab2ada90b07",
+    "tasks/algorithm/T137.md": "309aefecc98bd4457ea2125ae19f0959ed18ae2a754847bd1f39737ea15c72e4",
+    "tasks/algorithm/T139.md": "7f766b876ce5325efe7b069993f9abcf2f494ac27b1e2a9b8dfb2f5424403d1a",
+    "tasks/algorithm/T140.md": "9d646b92dfb6e86a7c1e8b3779b28aa68fa20fb652cc0f9dbd62e37d65e5f8fd",
+    "tasks/algorithm/T141.md": "aca9fe06a3327ee90eba1e9a52df5bb4abbc5c42b463c8a5c625edad5285cdfa",
+    "tasks/algorithm/T143.md": "8c1e44216f6d0702ead5182266c2d18a7bfa930374230747ac3526c098e6c28e",
+    "tasks/algorithm/T144.md": "ecf3a16a62596b025ebbc86676af77e6e4dca8ebb9000562515faa2871857ae5",
+    "tasks/algorithm/T145.md": "a40586e9441c009d8db03fa2bff818cd7e979d9e83cb8327c2fb9ed95a62e7dc",
+    "tasks/algorithm/T146.md": "a184c8be711d0b4bf104e1f720e717cf3136df8ba6b82cb1e00b2440495c1146",
+    "tasks/algorithm/T148.md": "be41eb139226078df71880f6b4cb59ecb92787288265b4dba592085fde38397b",
+    "tasks/algorithm/T149.md": "fe1883adb71a29282f3ad10d748977c85fa55efcd91ecfdcaf686471352ed5b2",
+    "tasks/algorithm/T150.md": "63629fdaad87bcc16a2e0ed369d846e732b7351bb9a115e3b2fd6c127d30606f",
+    "tasks/algorithm/T151.md": "c1fb9574e967494b1f2975af2016f3f8e595b4233f4051664c012b42e001bc48",
+    "tasks/algorithm/T152.md": "d34c71576fb3fe1e3994bb9b5ff7ecdf2b0a996445b46421bc005c5fcfb6f4f1",
+    "tasks/algorithm/T153.md": "038bbeb68b7c585a5668db84ebd0c7fb7a44728ca534dbacabce8f13530da682",
+    "tasks/algorithm/T155.md": "000f0fa33f573dac8ebb06bd10bd2fb853be7e7ce10f8f35d6bf1c404dee207e",
+    "tasks/algorithm/T156.md": "304303c718281cd1bc6d4b6a67374da9a796cebcb3c50a10d138b264ab39cb24",
+    "tasks/algorithm/T157.md": "68d9a119d8aeeb3b30ef4d5f241568864434ccabaa0f241f1abcd55de6fb38a8",
+    "tasks/algorithm/T159.md": "ff12d87d0d199b0edb858400800b0e7b03e92c2e3ab4f2db733dc4d4ec41ff5d",
+    "tasks/algorithm/T160.md": "2d0893c129bb5783fa7561fd204007cf96bef094fac036fce889208062066719",
+    "tasks/algorithm/T161.md": "a4c8cc5ac40d4a76f36822c9b61a304603f9c5ea0af45a1a581382a5b23bd7ce",
+    "tasks/algorithm/T162.md": "5e9fcd3623fd1beecf463a5dbef5a6121e47467b01495ee986ed89b10ac82073",
+    "tasks/algorithm/T163.md": "810456d8b610f4b6f63f0c6bf54dd6b344e0375f4bdf02f05fdf9f1789a637be",
+    "tasks/algorithm/T165.md": "24b24651acc32d1b56441223ea24c3ac56ce3f9bb04980859c9c70115093ac20",
+    "tasks/algorithm/T167.md": "21bfe865b17b13565b0a0f20eb0a55d57ac4734dc78bd4b2022243948d069d28",
+    "tasks/algorithm/T168.md": "5d79b1cc452066e8f2f231eb9e6585a102d0caaefc06270f3530592f88bae41a",
+    "tasks/algorithm/T169.md": "843133d5be1f78d8eca3d45ffe667140ee65347134a0f2c0d3a5e1117dff565f",
+    "tasks/algorithm/T170.md": "f44ba4159e9adc8e7abf1dc9e5d6103848357fc36552861ec334e1480d8813f8",
+    "tasks/backend/T019.md": "cb4c68c0a966a36ab86137b317197bc700533145da560106d6b8c7114bbe17c3",
+    "tasks/backend/T020.md": "ee4bed28fb09a1918403c807b05e3ae7330b140296d079ada7b66911a681a501",
+    "tasks/backend/T021.md": "4fe4e02d82a7487c70bcf3e6e462bdbbeef43ab8299e252771e4f5cb9c841a5c",
+    "tasks/backend/T022.md": "0d75ee8225e6d78afa0169e7a4402ac89c02f7376dbdd2906fb39d2cd9bb0d8c",
+    "tasks/backend/T023.md": "012d0ffe692c2dbb4a2f6c38e3f2d2a709bfd384c4e2f6082c2856c73afb604c",
+    "tasks/backend/T024.md": "9c3be808a3eed554b655122527ad5d318f127f2cb00c7a7c446f054bdb3e6848",
+    "tasks/backend/T025.md": "c6e83cd5c3c99aee4f2cec54cdbc62c4b9be3394caafe913505c1d73f10bcb85",
+    "tasks/backend/T026.md": "cab1863f421400f9c9f933f320b476fb3ce15271fb18ca7218d3e3d903f28e1d",
+    "tasks/backend/T027.md": "5dc7e923c11651ba1f4797b70d992c9614a91bdacd8923f2c2c7388ed3eded02",
+    "tasks/backend/T028.md": "85e7ffbbccd89d11d600fafaa9414475240c3fd374df12b623b669c1d4282130",
+    "tasks/backend/T029.md": "e1a6fa422596cfc317d586b25aa0fb3b5d54d35702d78adeca2ba59ef4b1b70a",
+    "tasks/backend/T031.md": "c007c5e2b61f0ffae40dc4a41dd19f872ee69a6ad3e976c609b386e7086513e6",
+    "tasks/backend/T032.md": "360d345bca743ad59a70cb28716a36e277f491e4d524b59f7fddd3cf1f19159e",
+    "tasks/backend/T033.md": "1d816c3b62a9f0621210192d77210a547343e8ccfb4e11d462be5df7dfd441a3",
+    "tasks/backend/T034.md": "5110a1777aab70de7e41d79a5db849ff92432e3e11007724ef7b7e7b58130048",
+    "tasks/backend/T035.md": "a088ea0e7eb4a70bb5965879337d0a6a92bf46319a2ad078d0b2239b6a905bf0",
+    "tasks/backend/T036.md": "7d909b52c654e02979b503a21c23ad53166c0575f8e59aef20783e85166a1f95",
+    "tasks/backend/T037.md": "0b45431435183dc48166b8183e05f7e3db4411ea671f80fb1099e3b4798f7e17",
+    "tasks/backend/T038.md": "f8ef2a28e0248a0aeedd2b4457d5d7c860e972433b5748ddf00b9f4249e01f58",
+    "tasks/backend/T039.md": "4af73ae5b5a9d813585b77c6ebfdfe2fd5e1ece5a5f14ee56279de92e636926d",
+    "tasks/backend/T041.md": "55e284cd43311234b81973b3a463a53041d90cc7e25734ef2d57fb4d59e92e9f",
+    "tasks/backend/T042.md": "fb1084d9baa8d913c11b6609a194c7e750554ee120681c81b5da4ac6b60e50bc",
+    "tasks/backend/T043.md": "386eaf4d8d96f6872cfa8ce7acaee62c5a4cec0017c926dac459a504ebab7944",
+    "tasks/backend/T044.md": "5be9622405ced06e9a5ec9da221c42665a32425b88ce7d2873da8998c5ed2e50",
+    "tasks/backend/T045.md": "ea6521780a658167576d54615b4d34dfc5fa24540d6627994a9cf1cc2b0ab097",
+    "tasks/backend/T046.md": "beafc1ab157554511187dd69e54d2e36e91510152532d215ca213bf23832afb8",
+    "tasks/backend/T047.md": "3642a6fb2e16c0e749c894afcece80d10b5a62bc3869eed7a392c99cf7f6ad42",
+    "tasks/backend/T048.md": "dd92c206ae2a41dd6cbb6754904360904e285ad9eeeea220ffe898d1bf6900cc",
+    "tasks/backend/T049.md": "741eaf766233fffb1b1315ebfaa96752fc15be1d6eb66b41b86ea43843cc9620",
+    "tasks/backend/T050.md": "ae748b62f658d78ece9219eef93d2b52029c9904e4b6572aec86664c84383b95",
+    "tasks/backend/T090.md": "5dce3db33d76165dcc0319c45d83458de6a7766880db5871aaa8f74b68468871",
+    "tasks/backend/T091.md": "2e6b9ea11b476c40796e309b4a18b46b9f95e596abecd1f7b91d707e93f3ad7c",
+    "tasks/backend/T092.md": "8a0462ba60219d5032d13be6aee33b4825aac45f1e143ead6d5ea10d679d7064",
+    "tasks/backend/T093.md": "2f64a125056e5d5810d2f89bc390079ab3fcb6095a8664eb0bfccdba099eda0b",
+    "tasks/backend/T094.md": "28c829992a05998d8e738ec4d70c35aac2d98cd7fd846f130ad66092c93627ee",
+    "tasks/backend/T095.md": "88b6f6fc03488fbe15b664ece744960fd20c78b506dbe4b2646130039840ef57",
+    "tasks/backend/T096.md": "8045aa407ee6189eb9e892f87a21eb4dd6097175ee0c322534d01a6f6c049480",
+    "tasks/backend/T100.md": "ddfc0fdf0764d575bb47cf3d044f036cc9bea5adf1dfc0977d9ec8fcd7469276",
+    "tasks/backend/T101.md": "dc987f55df5665d33b6b0a9c5049374af7c46e2ab611759a69f4f5c91ce622ed",
+    "tasks/backend/T102.md": "f82f110fc30e253c9bead62bb3bf77e7d71c219004d63d1ce45d14dd27b24134",
+    "tasks/backend/T104.md": "2ddc97c76e27c24d409fde3b595ac824c623258fed9b5ccefefb60924b86af44",
+    "tasks/backend/T105.md": "e309bd55d0b5e0258da54f6ed2cf5d8cbb4a05047e5b80a7060f417a9e4855f5",
+    "tasks/backend/T106.md": "7c394fec193b8954010463c7b87686deee77646f37aa1568fc1e48567ced1786",
+    "tasks/backend/T107.md": "b21d6dfeadfa339e3e3d419d25ad3aa1ed35f2f4abcdbbd7692e27e8af5cf3b5",
+    "tasks/backend/T108.md": "02c417279a36ce5c50e5f14e66f3a830352edf2b64c1da979218461b94187121",
+    "tasks/backend/T113.md": "bea897c26c1da31f64554de7926d21552b1b75c981677dfd65651ed1c1ebdacd",
+    "tasks/backend/T114.md": "e36d42658782223f21c363b74b734d63716bc910cd8c90fc78334efc60c946a0",
+    "tasks/backend/T115.md": "d959ea11e4583944280d8860157071d88b65a58d9cae7fce9714f5e3812c313a",
+    "tasks/backend/T116.md": "180ad4ca5b2f96b91020beb929997660b975969a84420b80bed11e4754df314d",
+    "tasks/backend/T120.md": "3161223f6c860ae7e2a15948cb419f0c882012ee15e4421185d2019184ba2b54",
+    "tasks/data/T109.md": "ae6175d0de1b246dd2a1c41aa83b52d530816472fc1daf0c45d96d2050348396",
+    "tasks/data/T110.md": "11e56672b9789eb17251eda50c9fec58cecefd8986818ce8e8dcafb4f7c13545",
+    "tasks/data/T111.md": "95be3a0aa2537ca867ba7823cf6337a505e7a1faec71508f472000c403fb85fb",
+    "tasks/data/T112.md": "1fe31a85a3c415f49732815b66c312b1da7c86bb3add423b717f0321f2170d27",
+    "tasks/data/T126.md": "436484eb2982ec8bbb7a4804ce63f1eba901556345927ecc919b8cb4d76b365b",
+    "tasks/data/T127.md": "6b979a9b08a3325df14276476f3fa57273c6db27d525262e1f627b2a4cc13e10",
+    "tasks/data/T129.md": "22a1f8399d0a7b64ec9a0b282dbdfb0b0b074daacb757f8a8550755f32810701",
+    "tasks/data/T134.md": "34aa2963eb7c2330f7a839549c06b0222fa9301d628e4f532740cb9dea29dfa8",
+    "tasks/data/T138.md": "c71b27f716188228cf1f26424f257620e22dc3b835924568fdccccfd1db943a7",
+    "tasks/data/T142.md": "ce0052e974b41ccc43167c26c84d143f999a13d8ab1a3e7645b9e0eee705108d",
+    "tasks/data/T147.md": "5aedf3231e5ff686a63f210555bd3053c64bbce3f95dda320fb7afd97e6fb22f",
+    "tasks/data/T154.md": "dd103bd779f4c9523ee56c446976eeb97b124d48378a97dfa331e9e282e3bb11",
+    "tasks/data/T158.md": "dd8c0a4b2c2c597b33bfe93bf029c033dceb10c8ed06872413d0111c7b8ebb54",
+    "tasks/data/T164.md": "1d34a6ee2c741c8e74e2fa2d6b95b21df1ce275d36b152eb41cce00797b41d93",
+    "tasks/data/T166.md": "febb2c8b56d49f19d9520038d613f6a49fed491f6010906808b02196f2045de7",
+    "tasks/deployment/T121.md": "eb5c4846f618b4645e3f5c576c2051b6121c9c08256f43de082ff0c2b2602288",
+    "tasks/execution-status.json": "3599262db63e6baefce8a19fef157262198d210f909fba48d8896ad0b09a025c",
+    "tasks/frontend/T018.md": "2eabc1e24ee28afe5cf435d703d633df8b069e40a82c576e3c83484e7a622248",
+    "tasks/frontend/T030.md": "16a54d4ff922447530cd526a1b930e83df1a115d62c12fc46cb6d759bcbf7fbc",
+    "tasks/frontend/T040.md": "b495cdf8d3db7a99bc7ef698d324ea6ff220cf28e3790176b37c85c888b15fce",
+    "tasks/frontend/T060.md": "3f2e744a7143b0c846dacaf6dd171cc6d62e3130d052149286a06a7cd0103445",
+    "tasks/frontend/T070.md": "4cba958e6e43b099d71c8d4f65e61f45bfa406907614fef05cf02aa4bc62b679",
+    "tasks/frontend/T078.md": "2eb733967df2eb937a797b0a6e8a1b0dce58f9ed5f2a61ffc12edd114d0845b4",
+    "tasks/frontend/T097.md": "84405f2cb96aa0aabc2bab9e9ba58b90e45423365c143f7ae9a6714df9b00a39",
+    "tasks/frontend/T103.md": "3bbd360c8e5d6d413a940d180a141e77319c1e9e329231644e0d6db6281b7a6f",
+    "tasks/platform/T013.md": "a3627f5ecaf5028e811b5927bec17b77d48f88ae4bc0aa14c9cee2275c7a9d87",
+    "tasks/platform/T014.md": "809bf11f2cb23e4f9ffc8fe590e6b6942e786e958bfa5bdf6a843966bf4e7823",
+    "tasks/platform/T015.md": "a1637b51bb3a541eaa5659811f72e23961244ebd5d0c35de7597c6a294ca44ce",
+    "tasks/platform/T016.md": "c2bb2dfc6d91aec8767648e3ef3a2d6833886ae0fffb4c9b235b494ca45eb649",
+    "tasks/platform/T017.md": "0850e0329b2ddbcbed34be48665939e442769260d078c8a4dbaa5dd23d2841cd",
+    "tasks/testing/T117.md": "f223a0af1cfe230d3974760bc7678087d1d2f58bbaa6b3b132c7c8348bfe7c94",
+    "tasks/testing/T118.md": "f494e88d2e221f25f15ca424e5cb11e1884bace33d395923c915e98a7a95dfd3",
+    "tasks/testing/T119.md": "1e30ea7cfd7bd8ee022153b00b254ff7c233dec5b49ec995eca63fa9b666c74d",
+    "tasks/testing/T122.md": "c144d50726e8c15b9dca86ceab279de61191e786fca4ca88e24c9c1765a2bfe5",
+    "tasks/testing/T123.md": "575744eec5c63a68fbaa07fbf406d6d0f51a3c99269e918902b94457ad5d02e0",
+    "tasks/testing/T124.md": "910313571bcc641d94dbc2408c5bcae346b246721189faf600f05b661f5bd61e"
+  },
+  "documentation_checks": [
+    {
+      "name": "format_check",
+      "command": "python scripts/dev.py format-check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "lint",
+      "command": "python scripts/dev.py lint",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "type_check",
+      "command": "python scripts/stage_three_types.py check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "T011_candidate_model",
+      "command": "python scripts/validate_access_control_model.py --run-tests",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_one",
+      "command": "python scripts/validate_stage_one.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "inputs",
+      "command": "python scripts/validate_inputs.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "repository_docs",
+      "command": "python scripts/validate_repository_docs.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "documentation_completion",
+      "command": "python scripts/validate_documentation_completion.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_three",
+      "command": "python scripts/validate_stage_three.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "task_navigation_drift",
+      "command": "python scripts/generate_task_progress.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "schedule_drift",
+      "command": "python scripts/plan_project_schedule.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_three_navigation_drift",
+      "command": "python scripts/generate_stage_three_docs.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "requirement_drift",
+      "command": "python scripts/generate_requirements_document.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "remaining_work_drift",
+      "command": "python scripts/generate_remaining_work_navigation.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_status_drift",
+      "command": "python scripts/generate_stage_status_navigation.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "documentation_failed_attempt_preserved": {
+    "status": "FAIL",
+    "mode": "green",
+    "source_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+    "working_delta_sha256": {
+      "docs/00-project/execution-planning-inputs.json": "fa5f66ca57fd97658058b734de76b9400c6a146237732dec7df37767a1f93102",
+      "docs/00-project/execution-schedule.json": "c9d75df08321ef589a16e171cf5e0cc64562b0956af8700066ad5185153b36e7",
+      "docs/00-project/stage-one/input-baseline-candidate.json": "fa6ec9f822b8d191b14be2db6438ad9bebceb1abf37f11b08e8c5b90e5398322",
+      "docs/00-project/task-execution-steps.txt": "07c0aa150065cd4cb3e07a06417959062fa09435e45bc171a902e828a3c52639",
+      "docs/00-project/validation/t013-role-assignment.json": "5a39147b8872e2e9e156b44d67adcacb724c69eef49bc8a24d540249060bc4b6",
+      "docs/00-project/validation/t013-signer-protection-progress-report.json": "3501ad87c1829c34210a7f7905acd7a65541bc4bb3175c3004e8b15afd6edb4f",
+      "docs/00-project/validation/t014-full-regression-report.json": "90c8f6d8ae80238cf26014ec4ec6c270c2ac0fcd2290ddad218b2ff0db8e99ff",
+      "docs/00-project/validation/t014-gate-execution-report.json": "5a77ffcc65f6b1e01993bf16589d0972052cf9d3aee968e8062b315b31defb17",
+      "docs/00-project/validation/t014-implementation-ci-report.json": "6e9408cf92487512afe94ffc12abb30e39e7e4a1691e7bb21bd193cf918d6b3b",
+      "docs/00-project/validation/t014-implementation-code-review.json": "a98f5b423bf9dbe4449c459a0269f6e0cf2d149782255e579f54dd36ac2a9113",
+      "docs/00-project/validation/t014-implementation-validation-report.json": "3de878e52745c93df43c8d96c13dc99af7ccae57c6e32278f0f3a9216e6561ed",
+      "docs/00-project/validation/t014-permissions-report.json": "ee70979b32c3da937ea34593cebf94859d0c7128666da65110cfd886378a4fd1",
+      "docs/00-project/validation/t014-role-assignment.json": "433484cabb9d0413320120763cac49c68e1b5b3b4a70009cebdd6b747eb618d3",
+      "docs/03-development/stage-three/readiness.md": "4a79dca424ef970c08f734285b0f2da48a9218ecadb46ab8c6628aea2dd60141",
+      "docs/03-development/t013-signer-protection-followup.md": "0f112a08750b6332ea48ebd7f5aa6f966e03d050989a2107b06f7d55b4a291f1",
+      "docs/03-development/t014-unified-permission-design.md": "c86a763e7dad189cdcdfdf790733c87879f9ddf25bfc07fb5fbcdc4bd6d41388",
+      "docs/03-development/t014-unified-permission-implementation.md": "a4687925f9a8b3969338f3c82be6a5b5c325915780c4de81f5a377eb59531875",
+      "docs/04-database/README.md": "a286a33c2972364a198e922453c2110bf59fff9183e04b50f704c0a00d241f53",
+      "docs/08-security/t014-interface-scope-matrix.json": "75bbce89ee9cc07c18f94d46bf7ced7ceb5720ec81ccbac8bfc0a997b30e30c8",
+      "docs/08-security/t014-interface-scope-matrix.md": "4a99cd4fa22725a1447274ee2ce8de09f84d9285ebdcd321e1bf20065f598bdd",
+      "docs/09-testing/t014-authorization-test-design.json": "a41b48ac4fc1fc5b74c2a7ca80324e08ab3ff3278c646ce9f5a577e44aa7b6ec",
+      "docs/09-testing/t014-authorization-test-design.md": "703d14706170111f76fee7601f1e45ceb23d315449f15bd261f1cdbcab77ec37",
+      "docs/README.md": "3a7b7faec5dd8b644fd7f322a6bfa3baad7935d1bcd47947bc5570a5a2ad84a5",
+      "scripts/generate_stage_three_docs.py": "e11d0dd7335cce358503b1bd5676a7e228911c05ea6b9d5ce8612109ac900315",
+      "scripts/generate_task_progress.py": "8d1771f704b6c6992ca3ca7af229101f999fe2123e3570a75780b5034b767140",
+      "scripts/update_docs_navigation.py": "9a1cdcfb88736c11b8d7643c77775c70ecf4e918463bfbb9769def241fbbe154",
+      "tasks/README.md": "9560a06b36c65429bbe21b77990d50899bab60af9f4bbd04e387eedb6fa0acb8",
+      "tasks/algorithm/T051.md": "bbfddcd9bdbfed1fcd8b14e4dd46ebe41c09824deee5782696fb89cc23019ee6",
+      "tasks/algorithm/T052.md": "cd38c9f2f75dfa6da23fb6192a0590db5f1416b4fddfce7c9deaa0c96beced5d",
+      "tasks/algorithm/T053.md": "558462d7ce55c9bed147117e2f070ff59f0b0a9368d39895b8cb806f2cd103ab",
+      "tasks/algorithm/T054.md": "5889a787baff5da00aca169afe79e7cbea6b97f154b57d17b58ccc480ff9e6e9",
+      "tasks/algorithm/T055.md": "77614cd54927d3614d0e92029e3f92768adc179c6f175516f7c277caf946b277",
+      "tasks/algorithm/T056.md": "3cedcc7426dd3ec36a5f0f501c0929f46bc7dee27d77a7cce210733e0433958e",
+      "tasks/algorithm/T057.md": "4a517505b0fffb0aa6335979bd95c0a8c931bc69f457f73d5c826747273e911f",
+      "tasks/algorithm/T058.md": "75f147b56b6b71f95ad8d7f3bd23a5484ce70c3107c1f90e256d746bd7a94f3f",
+      "tasks/algorithm/T059.md": "d35f515489e023694f84a37827b82e7c8aa7f24b4b61aa96b5f99fcfd135c485",
+      "tasks/algorithm/T061.md": "dcbe28f95fbf37eb39632a7e3b965078a08e1956bc5699246dae22aeff3d06be",
+      "tasks/algorithm/T062.md": "bfe1614ae6d131dd774dffdb14ae20f9322c0ea8cb68f6d86e107e3453e77ec0",
+      "tasks/algorithm/T063.md": "2572335492f8c585f016a69341bcc48ef6f52f1036d62cd8363c5bff09e635da",
+      "tasks/algorithm/T064.md": "d5f5825c4f060fb1482e7252062fd393bde7be600b14244829d055f329f9dfb5",
+      "tasks/algorithm/T065.md": "5d31d7d86bdd43ef761c0399a1abcd8cdac19cd3d2463f3cfd227ecd0950facc",
+      "tasks/algorithm/T066.md": "f21c995b0d0e56b3a5f76b201ad03f1840cc46fb578b72f1b1dfecdd1ce9f2ce",
+      "tasks/algorithm/T067.md": "77524e11c67d7f1ba5d427e7afec979057fad7f72f1e84e20ca8f31357afe922",
+      "tasks/algorithm/T068.md": "bd2bab0fc86722a7715b2a54ecd60ec58f943f968e23a1ec74114da9785fd033",
+      "tasks/algorithm/T069.md": "628ea36a0a35144d50c128fe6a4ca1c187546c46b983842b9013d87a60c6a729",
+      "tasks/algorithm/T071.md": "e6b28b52ab5f40c7eb753b5998206ffc3f45ffc676c6becfb569245deca5685f",
+      "tasks/algorithm/T072.md": "745e368a220fe670d66c74360988ef36cbd5be145ceef3678f2b0e993494e059",
+      "tasks/algorithm/T073.md": "61bdc891de3d34e54f0ef3bf755e71adf8a303d7f0cf2ae28b93139e54f73631",
+      "tasks/algorithm/T074.md": "05728f541c9012c5dabdff11519b916e049f5ed352915f29bd58d5b2109ae7c1",
+      "tasks/algorithm/T075.md": "18103f92166d3a0fa7f940746e8f6b045d8d5bae4468b69ce88cb9f92ba20c1d",
+      "tasks/algorithm/T076.md": "ce72b5192ec44b4c589a08253cf632261c508c7ed0addbc1d845640ce61d5942",
+      "tasks/algorithm/T077.md": "813d25621a85401c149d888f2c2c26d29b30666517af8f914bf7e09a6a3dea5f",
+      "tasks/algorithm/T079.md": "8e16244e7e2ef56fb3c4b1d9e699d0daa6c8be26ebc75f938c1fa766d80d974b",
+      "tasks/algorithm/T080.md": "bb530381ed23b0935a65d7c225a7cf61216957294df2720d706af26896a68d93",
+      "tasks/algorithm/T081.md": "06d1c188a9138c1fda64ac1cbe3f265cd79e54dce2458bad7c02abe2e581232b",
+      "tasks/algorithm/T082.md": "70d9f274c0b06c93714de49f79b02f01e696bf53431c04f6f2913df3497db427",
+      "tasks/algorithm/T083.md": "9914fdcc66fc126bf83a88549564485d1227a03ec1ee76f582c8ea871d4f7310",
+      "tasks/algorithm/T084.md": "fc55c97d46aca4b2e571af263eeff629d9ffcab6a0b15266288e66793aa02064",
+      "tasks/algorithm/T085.md": "5fca2769c08425190e23b78aa7abe1357d85bb6423a15588e33445984b972274",
+      "tasks/algorithm/T086.md": "5cf3048541c37c0539056cacbb326c2bbcc5d49baff15465b93a0792d7ede057",
+      "tasks/algorithm/T087.md": "1e035211784975156804b335fc2d72569dd09952433c758f97d45e070d3f53a8",
+      "tasks/algorithm/T088.md": "543e2609c9acd84cbdfd2142a6effcda2715e9eed3e4c76c21069ac55e9f9a04",
+      "tasks/algorithm/T089.md": "d9455223532eabe7550272fa1b65b6209015569e106ea4f8ccc7d87342cd8f8c",
+      "tasks/algorithm/T098.md": "4fe3028b3e21ea74c086bfd93cb6ee06ff7c71099b0c50cc0d1d99071f576eaa",
+      "tasks/algorithm/T099.md": "224537f65ce6eb52c86ade7a07b559d48afbae6f483e0a7dc43b004fc80bb4b8",
+      "tasks/algorithm/T125.md": "f9ee4d2fae8479c5c0b79db9ad7fce04523e94875301ef57e1215e9a7780b344",
+      "tasks/algorithm/T128.md": "640ce3651868f2b065e6d8e0e47d23ea28c0db7be779effb53a3648aff25b265",
+      "tasks/algorithm/T130.md": "31ec2c1a403d913bafe66c6fa0a6bb88f8687abb6313c0175730352519d5e22f",
+      "tasks/algorithm/T131.md": "815facdae0fb042d0629c7d786913452cfc42031ddb4dd596eaba14067a93c37",
+      "tasks/algorithm/T132.md": "2b04910c667a5aef07755e1a804003a2629048148818b91c739ed290ce9c90c9",
+      "tasks/algorithm/T133.md": "2c6480dea0efa58b1b4a15dcd1554d6f37db6e7c94bc5426c560d64c3f4fcad0",
+      "tasks/algorithm/T135.md": "74b399d87cda49c4039cc22bfd22c0d03219bc392640feaac161d9ea124d928a",
+      "tasks/algorithm/T136.md": "4c7e428b675f7f6daa6c4e15dcbdc354829d3795ba356922c4bf6ab2ada90b07",
+      "tasks/algorithm/T137.md": "309aefecc98bd4457ea2125ae19f0959ed18ae2a754847bd1f39737ea15c72e4",
+      "tasks/algorithm/T139.md": "7f766b876ce5325efe7b069993f9abcf2f494ac27b1e2a9b8dfb2f5424403d1a",
+      "tasks/algorithm/T140.md": "9d646b92dfb6e86a7c1e8b3779b28aa68fa20fb652cc0f9dbd62e37d65e5f8fd",
+      "tasks/algorithm/T141.md": "aca9fe06a3327ee90eba1e9a52df5bb4abbc5c42b463c8a5c625edad5285cdfa",
+      "tasks/algorithm/T143.md": "8c1e44216f6d0702ead5182266c2d18a7bfa930374230747ac3526c098e6c28e",
+      "tasks/algorithm/T144.md": "ecf3a16a62596b025ebbc86676af77e6e4dca8ebb9000562515faa2871857ae5",
+      "tasks/algorithm/T145.md": "a40586e9441c009d8db03fa2bff818cd7e979d9e83cb8327c2fb9ed95a62e7dc",
+      "tasks/algorithm/T146.md": "a184c8be711d0b4bf104e1f720e717cf3136df8ba6b82cb1e00b2440495c1146",
+      "tasks/algorithm/T148.md": "be41eb139226078df71880f6b4cb59ecb92787288265b4dba592085fde38397b",
+      "tasks/algorithm/T149.md": "fe1883adb71a29282f3ad10d748977c85fa55efcd91ecfdcaf686471352ed5b2",
+      "tasks/algorithm/T150.md": "63629fdaad87bcc16a2e0ed369d846e732b7351bb9a115e3b2fd6c127d30606f",
+      "tasks/algorithm/T151.md": "c1fb9574e967494b1f2975af2016f3f8e595b4233f4051664c012b42e001bc48",
+      "tasks/algorithm/T152.md": "d34c71576fb3fe1e3994bb9b5ff7ecdf2b0a996445b46421bc005c5fcfb6f4f1",
+      "tasks/algorithm/T153.md": "038bbeb68b7c585a5668db84ebd0c7fb7a44728ca534dbacabce8f13530da682",
+      "tasks/algorithm/T155.md": "000f0fa33f573dac8ebb06bd10bd2fb853be7e7ce10f8f35d6bf1c404dee207e",
+      "tasks/algorithm/T156.md": "304303c718281cd1bc6d4b6a67374da9a796cebcb3c50a10d138b264ab39cb24",
+      "tasks/algorithm/T157.md": "68d9a119d8aeeb3b30ef4d5f241568864434ccabaa0f241f1abcd55de6fb38a8",
+      "tasks/algorithm/T159.md": "ff12d87d0d199b0edb858400800b0e7b03e92c2e3ab4f2db733dc4d4ec41ff5d",
+      "tasks/algorithm/T160.md": "2d0893c129bb5783fa7561fd204007cf96bef094fac036fce889208062066719",
+      "tasks/algorithm/T161.md": "a4c8cc5ac40d4a76f36822c9b61a304603f9c5ea0af45a1a581382a5b23bd7ce",
+      "tasks/algorithm/T162.md": "5e9fcd3623fd1beecf463a5dbef5a6121e47467b01495ee986ed89b10ac82073",
+      "tasks/algorithm/T163.md": "810456d8b610f4b6f63f0c6bf54dd6b344e0375f4bdf02f05fdf9f1789a637be",
+      "tasks/algorithm/T165.md": "24b24651acc32d1b56441223ea24c3ac56ce3f9bb04980859c9c70115093ac20",
+      "tasks/algorithm/T167.md": "21bfe865b17b13565b0a0f20eb0a55d57ac4734dc78bd4b2022243948d069d28",
+      "tasks/algorithm/T168.md": "5d79b1cc452066e8f2f231eb9e6585a102d0caaefc06270f3530592f88bae41a",
+      "tasks/algorithm/T169.md": "843133d5be1f78d8eca3d45ffe667140ee65347134a0f2c0d3a5e1117dff565f",
+      "tasks/algorithm/T170.md": "f44ba4159e9adc8e7abf1dc9e5d6103848357fc36552861ec334e1480d8813f8",
+      "tasks/backend/T019.md": "cb4c68c0a966a36ab86137b317197bc700533145da560106d6b8c7114bbe17c3",
+      "tasks/backend/T020.md": "ee4bed28fb09a1918403c807b05e3ae7330b140296d079ada7b66911a681a501",
+      "tasks/backend/T021.md": "4fe4e02d82a7487c70bcf3e6e462bdbbeef43ab8299e252771e4f5cb9c841a5c",
+      "tasks/backend/T022.md": "0d75ee8225e6d78afa0169e7a4402ac89c02f7376dbdd2906fb39d2cd9bb0d8c",
+      "tasks/backend/T023.md": "012d0ffe692c2dbb4a2f6c38e3f2d2a709bfd384c4e2f6082c2856c73afb604c",
+      "tasks/backend/T024.md": "9c3be808a3eed554b655122527ad5d318f127f2cb00c7a7c446f054bdb3e6848",
+      "tasks/backend/T025.md": "c6e83cd5c3c99aee4f2cec54cdbc62c4b9be3394caafe913505c1d73f10bcb85",
+      "tasks/backend/T026.md": "cab1863f421400f9c9f933f320b476fb3ce15271fb18ca7218d3e3d903f28e1d",
+      "tasks/backend/T027.md": "5dc7e923c11651ba1f4797b70d992c9614a91bdacd8923f2c2c7388ed3eded02",
+      "tasks/backend/T028.md": "85e7ffbbccd89d11d600fafaa9414475240c3fd374df12b623b669c1d4282130",
+      "tasks/backend/T029.md": "e1a6fa422596cfc317d586b25aa0fb3b5d54d35702d78adeca2ba59ef4b1b70a",
+      "tasks/backend/T031.md": "c007c5e2b61f0ffae40dc4a41dd19f872ee69a6ad3e976c609b386e7086513e6",
+      "tasks/backend/T032.md": "360d345bca743ad59a70cb28716a36e277f491e4d524b59f7fddd3cf1f19159e",
+      "tasks/backend/T033.md": "1d816c3b62a9f0621210192d77210a547343e8ccfb4e11d462be5df7dfd441a3",
+      "tasks/backend/T034.md": "5110a1777aab70de7e41d79a5db849ff92432e3e11007724ef7b7e7b58130048",
+      "tasks/backend/T035.md": "a088ea0e7eb4a70bb5965879337d0a6a92bf46319a2ad078d0b2239b6a905bf0",
+      "tasks/backend/T036.md": "7d909b52c654e02979b503a21c23ad53166c0575f8e59aef20783e85166a1f95",
+      "tasks/backend/T037.md": "0b45431435183dc48166b8183e05f7e3db4411ea671f80fb1099e3b4798f7e17",
+      "tasks/backend/T038.md": "f8ef2a28e0248a0aeedd2b4457d5d7c860e972433b5748ddf00b9f4249e01f58",
+      "tasks/backend/T039.md": "4af73ae5b5a9d813585b77c6ebfdfe2fd5e1ece5a5f14ee56279de92e636926d",
+      "tasks/backend/T041.md": "55e284cd43311234b81973b3a463a53041d90cc7e25734ef2d57fb4d59e92e9f",
+      "tasks/backend/T042.md": "fb1084d9baa8d913c11b6609a194c7e750554ee120681c81b5da4ac6b60e50bc",
+      "tasks/backend/T043.md": "386eaf4d8d96f6872cfa8ce7acaee62c5a4cec0017c926dac459a504ebab7944",
+      "tasks/backend/T044.md": "5be9622405ced06e9a5ec9da221c42665a32425b88ce7d2873da8998c5ed2e50",
+      "tasks/backend/T045.md": "ea6521780a658167576d54615b4d34dfc5fa24540d6627994a9cf1cc2b0ab097",
+      "tasks/backend/T046.md": "beafc1ab157554511187dd69e54d2e36e91510152532d215ca213bf23832afb8",
+      "tasks/backend/T047.md": "3642a6fb2e16c0e749c894afcece80d10b5a62bc3869eed7a392c99cf7f6ad42",
+      "tasks/backend/T048.md": "dd92c206ae2a41dd6cbb6754904360904e285ad9eeeea220ffe898d1bf6900cc",
+      "tasks/backend/T049.md": "741eaf766233fffb1b1315ebfaa96752fc15be1d6eb66b41b86ea43843cc9620",
+      "tasks/backend/T050.md": "ae748b62f658d78ece9219eef93d2b52029c9904e4b6572aec86664c84383b95",
+      "tasks/backend/T090.md": "5dce3db33d76165dcc0319c45d83458de6a7766880db5871aaa8f74b68468871",
+      "tasks/backend/T091.md": "2e6b9ea11b476c40796e309b4a18b46b9f95e596abecd1f7b91d707e93f3ad7c",
+      "tasks/backend/T092.md": "8a0462ba60219d5032d13be6aee33b4825aac45f1e143ead6d5ea10d679d7064",
+      "tasks/backend/T093.md": "2f64a125056e5d5810d2f89bc390079ab3fcb6095a8664eb0bfccdba099eda0b",
+      "tasks/backend/T094.md": "28c829992a05998d8e738ec4d70c35aac2d98cd7fd846f130ad66092c93627ee",
+      "tasks/backend/T095.md": "88b6f6fc03488fbe15b664ece744960fd20c78b506dbe4b2646130039840ef57",
+      "tasks/backend/T096.md": "8045aa407ee6189eb9e892f87a21eb4dd6097175ee0c322534d01a6f6c049480",
+      "tasks/backend/T100.md": "ddfc0fdf0764d575bb47cf3d044f036cc9bea5adf1dfc0977d9ec8fcd7469276",
+      "tasks/backend/T101.md": "dc987f55df5665d33b6b0a9c5049374af7c46e2ab611759a69f4f5c91ce622ed",
+      "tasks/backend/T102.md": "f82f110fc30e253c9bead62bb3bf77e7d71c219004d63d1ce45d14dd27b24134",
+      "tasks/backend/T104.md": "2ddc97c76e27c24d409fde3b595ac824c623258fed9b5ccefefb60924b86af44",
+      "tasks/backend/T105.md": "e309bd55d0b5e0258da54f6ed2cf5d8cbb4a05047e5b80a7060f417a9e4855f5",
+      "tasks/backend/T106.md": "7c394fec193b8954010463c7b87686deee77646f37aa1568fc1e48567ced1786",
+      "tasks/backend/T107.md": "b21d6dfeadfa339e3e3d419d25ad3aa1ed35f2f4abcdbbd7692e27e8af5cf3b5",
+      "tasks/backend/T108.md": "02c417279a36ce5c50e5f14e66f3a830352edf2b64c1da979218461b94187121",
+      "tasks/backend/T113.md": "bea897c26c1da31f64554de7926d21552b1b75c981677dfd65651ed1c1ebdacd",
+      "tasks/backend/T114.md": "e36d42658782223f21c363b74b734d63716bc910cd8c90fc78334efc60c946a0",
+      "tasks/backend/T115.md": "d959ea11e4583944280d8860157071d88b65a58d9cae7fce9714f5e3812c313a",
+      "tasks/backend/T116.md": "180ad4ca5b2f96b91020beb929997660b975969a84420b80bed11e4754df314d",
+      "tasks/backend/T120.md": "3161223f6c860ae7e2a15948cb419f0c882012ee15e4421185d2019184ba2b54",
+      "tasks/data/T109.md": "ae6175d0de1b246dd2a1c41aa83b52d530816472fc1daf0c45d96d2050348396",
+      "tasks/data/T110.md": "11e56672b9789eb17251eda50c9fec58cecefd8986818ce8e8dcafb4f7c13545",
+      "tasks/data/T111.md": "95be3a0aa2537ca867ba7823cf6337a505e7a1faec71508f472000c403fb85fb",
+      "tasks/data/T112.md": "1fe31a85a3c415f49732815b66c312b1da7c86bb3add423b717f0321f2170d27",
+      "tasks/data/T126.md": "436484eb2982ec8bbb7a4804ce63f1eba901556345927ecc919b8cb4d76b365b",
+      "tasks/data/T127.md": "6b979a9b08a3325df14276476f3fa57273c6db27d525262e1f627b2a4cc13e10",
+      "tasks/data/T129.md": "22a1f8399d0a7b64ec9a0b282dbdfb0b0b074daacb757f8a8550755f32810701",
+      "tasks/data/T134.md": "34aa2963eb7c2330f7a839549c06b0222fa9301d628e4f532740cb9dea29dfa8",
+      "tasks/data/T138.md": "c71b27f716188228cf1f26424f257620e22dc3b835924568fdccccfd1db943a7",
+      "tasks/data/T142.md": "ce0052e974b41ccc43167c26c84d143f999a13d8ab1a3e7645b9e0eee705108d",
+      "tasks/data/T147.md": "5aedf3231e5ff686a63f210555bd3053c64bbce3f95dda320fb7afd97e6fb22f",
+      "tasks/data/T154.md": "dd103bd779f4c9523ee56c446976eeb97b124d48378a97dfa331e9e282e3bb11",
+      "tasks/data/T158.md": "dd8c0a4b2c2c597b33bfe93bf029c033dceb10c8ed06872413d0111c7b8ebb54",
+      "tasks/data/T164.md": "1d34a6ee2c741c8e74e2fa2d6b95b21df1ce275d36b152eb41cce00797b41d93",
+      "tasks/data/T166.md": "febb2c8b56d49f19d9520038d613f6a49fed491f6010906808b02196f2045de7",
+      "tasks/deployment/T121.md": "eb5c4846f618b4645e3f5c576c2051b6121c9c08256f43de082ff0c2b2602288",
+      "tasks/execution-status.json": "3599262db63e6baefce8a19fef157262198d210f909fba48d8896ad0b09a025c",
+      "tasks/frontend/T018.md": "2eabc1e24ee28afe5cf435d703d633df8b069e40a82c576e3c83484e7a622248",
+      "tasks/frontend/T030.md": "16a54d4ff922447530cd526a1b930e83df1a115d62c12fc46cb6d759bcbf7fbc",
+      "tasks/frontend/T040.md": "b495cdf8d3db7a99bc7ef698d324ea6ff220cf28e3790176b37c85c888b15fce",
+      "tasks/frontend/T060.md": "3f2e744a7143b0c846dacaf6dd171cc6d62e3130d052149286a06a7cd0103445",
+      "tasks/frontend/T070.md": "4cba958e6e43b099d71c8d4f65e61f45bfa406907614fef05cf02aa4bc62b679",
+      "tasks/frontend/T078.md": "2eb733967df2eb937a797b0a6e8a1b0dce58f9ed5f2a61ffc12edd114d0845b4",
+      "tasks/frontend/T097.md": "84405f2cb96aa0aabc2bab9e9ba58b90e45423365c143f7ae9a6714df9b00a39",
+      "tasks/frontend/T103.md": "3bbd360c8e5d6d413a940d180a141e77319c1e9e329231644e0d6db6281b7a6f",
+      "tasks/platform/T013.md": "a3627f5ecaf5028e811b5927bec17b77d48f88ae4bc0aa14c9cee2275c7a9d87",
+      "tasks/platform/T014.md": "809bf11f2cb23e4f9ffc8fe590e6b6942e786e958bfa5bdf6a843966bf4e7823",
+      "tasks/platform/T015.md": "a1637b51bb3a541eaa5659811f72e23961244ebd5d0c35de7597c6a294ca44ce",
+      "tasks/platform/T016.md": "c2bb2dfc6d91aec8767648e3ef3a2d6833886ae0fffb4c9b235b494ca45eb649",
+      "tasks/platform/T017.md": "0850e0329b2ddbcbed34be48665939e442769260d078c8a4dbaa5dd23d2841cd",
+      "tasks/testing/T117.md": "f223a0af1cfe230d3974760bc7678087d1d2f58bbaa6b3b132c7c8348bfe7c94",
+      "tasks/testing/T118.md": "f494e88d2e221f25f15ca424e5cb11e1884bace33d395923c915e98a7a95dfd3",
+      "tasks/testing/T119.md": "1e30ea7cfd7bd8ee022153b00b254ff7c233dec5b49ec995eca63fa9b666c74d",
+      "tasks/testing/T122.md": "c144d50726e8c15b9dca86ceab279de61191e786fca4ca88e24c9c1765a2bfe5",
+      "tasks/testing/T123.md": "575744eec5c63a68fbaa07fbf406d6d0f51a3c99269e918902b94457ad5d02e0",
+      "tasks/testing/T124.md": "910313571bcc641d94dbc2408c5bcae346b246721189faf600f05b661f5bd61e"
+    },
+    "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+    "started_at": "2026-10-19T16:54:23.681249+00:00",
+    "completed_at": "2026-10-19T16:55:26.607544+00:00",
+    "python": "3.10.22",
+    "exit_code": 0,
+    "totals": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "test_groups": {
+      "tests.platform.test_t014_gate": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "failure_test_ids": [],
+    "quality_checks": [],
+    "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-top8l1v_",
+    "shared_source_or_services_modified": false,
+    "raw_logs_published": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "gate_checks": [],
+    "documentation_checks": [
+      {
+        "name": "format_check",
+        "command": "python scripts/dev.py format-check",
+        "exit_code": 127,
+        "status": "FAIL"
+      },
+      {
+        "name": "lint",
+        "command": "python scripts/dev.py lint",
+        "exit_code": 127,
+        "status": "FAIL"
+      },
+      {
+        "name": "type_check",
+        "command": "python scripts/stage_three_types.py check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "T011_candidate_model",
+        "command": "python scripts/validate_access_control_model.py --run-tests",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_one",
+        "command": "python scripts/validate_stage_one.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "inputs",
+        "command": "python scripts/validate_inputs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "repository_docs",
+        "command": "python scripts/validate_repository_docs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "documentation_completion",
+        "command": "python scripts/validate_documentation_completion.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three",
+        "command": "python scripts/validate_stage_three.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "task_navigation_drift",
+        "command": "python scripts/generate_task_progress.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "schedule_drift",
+        "command": "python scripts/plan_project_schedule.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three_navigation_drift",
+        "command": "python scripts/generate_stage_three_docs.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "requirement_drift",
+        "command": "python scripts/generate_requirements_document.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "remaining_work_drift",
+        "command": "python scripts/generate_remaining_work_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_status_drift",
+        "command": "python scripts/generate_stage_status_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ]
+  },
+  "frontend_prerequisite_recovery": {
+    "status": "PASS",
+    "observed_at": "2026-10-19T16:59:45.677028+00:00",
+    "scope": "exact_prior_documentation_snapshot_missing_frontend_tools_recovery",
+    "source_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+    "private_snapshot": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-top8l1v_",
+    "checks": [
+      {
+        "name": "format_check",
+        "command": "python scripts/dev.py format-check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "lint",
+        "command": "python scripts/dev.py lint",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "previous_failures_cause": "isolated clone lacked node_modules; npm reported prettier and eslint not found",
+    "locked_Node_version": "22.21.1",
+    "direct_frontend_dependency_versions_verified": {
+      "vue": "3.5.43",
+      "vue-router": "4.6.4",
+      "@eslint/js": "10.0.1",
+      "@playwright/test": "1.64.0",
+      "@types/node": "22.20.5",
+      "@vitejs/plugin-vue": "6.0.10",
+      "eslint": "10.12.0",
+      "eslint-config-prettier": "10.1.8",
+      "eslint-plugin-vue": "10.11.1",
+      "openapi-typescript": "7.13.0",
+      "prettier": "3.9.10",
+      "typescript": "5.9.3",
+      "typescript-eslint": "8.71.2",
+      "vite": "8.3.4",
+      "vitest": "5.0.3",
+      "vue-eslint-parser": "10.4.1",
+      "vue-tsc": "3.3.13"
+    },
+    "package_lock_exactly_matches_shared_source": true,
+    "node_modules_copied_to_independent_private_directory": true,
+    "shared_modules_or_source_written": false,
+    "source_tree_state_unchanged": true,
+    "shared_services_changed": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "raw_logs_published": false
+  },
+  "full_regression": {
+    "tests": 541,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "focused_gate": {
+    "tests": 257,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "gate_parser": {
+    "tests": 13,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "quality_checks": [
+    {
+      "name": "ruff_lint",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "ruff_format",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "mypy",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "controlled_failure_probe": {
+    "action": "failure-probe",
+    "exit_code": 1,
+    "status": "PASS",
+    "expected_assertion_failure_verified": true
+  },
+  "preservation": {
+    "status": "PASS_EXACT_ORIGINALS_LOCKS_OLD_MIGRATIONS_AND_PUBLIC_CONTRACTS_PRESERVED",
+    "reference_commit": "0d60aaaca0a81037635dfba25ec47673c5271008",
+    "source_originals_verified": 12,
+    "old_migrations_verified": 5,
+    "protected_file_sha256": {
+      "docs/source/original/面向网络违法有害信息治理的短视频与图片智能识别溯源系统详细设计实现方案V2.docx": "9492aee6ee9f056062feab540501f09ee9c6887776c8ed84dd74f9ac1348f7ad",
+      "docs/source/original/短视频与图片智能识别溯源系统开发任务分解书V2.docx": "aced55e2e08ba5c31d246d371f87dc882f57930b6110e192d9ea6631594c16f6",
+      "docs/source/original/短视频与图片智能识别溯源系统算法研发与训练数据集建设说明 (1).docx": "ec562bb8f125681c3ba8191f3c2aa4934cee8d9ce0b1cc23bd0faa53f13071fc",
+      "docs/source/original/短视频与图片智能识别溯源系统算法模型推荐清单.docx": "ac9aa484e864296763fb89fd93b95de90c41e9d1aebd7fd20d63aadff10ee92c",
+      "docs/source/original/短视频与图片智能识别溯源系统功能模块界面原型图.pptx": "c01545b49635032314ea085910fd9f28ebe4f080320c1b203e85cd88c3d999c1",
+      "docs/source/revisions/项目总体设计方案_技术修订版V1.4.docx": "2cde84e24f861465d205799f6ca96e71eb8396aebf866fd8c4b3fb863b71d999",
+      "docs/source/revisions/项目任务书_技术修订版V1.3.docx": "78a2d64eafc4a19480a10932d9c3e311998d64480abbca354f4d5a786b01d158",
+      "docs/guides/第一阶段：Codex整理开发输入材料分步提示词手册.docx": "983f6cbcadaf4d53420399869f36021c77b786c5281e3ce698c56413e77a126a",
+      "docs/guides/第二阶段系统技术基线确定与Codex协作实施指南.docx": "36b818ce0a4c4c0ce2128abd9553d57a86b6fbef7a38708fc30de72923d4c777",
+      "docs/guides/第二阶段系统技术基线分步提示词手册.docx": "cbc3310bedeccff2738aadfc3f5c15eb295c5b64c6f24e781b231b5a0d80b29e",
+      "docs/guides/第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx": "6a308104713810bfd3fee23584cddc42473ebf74e2c3b2124366f5aaf1aa7fd9",
+      "docs/guides/第三阶段建立代码仓库和Codex工作环境实施指南.docx": "2e6f44601de70ef94ff96eb1b44a2e529a080e4416d3024e86e10eb70066dadb",
+      "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+      "config/locks/requirements-stage-three-quality.lock": "f19b532a09215d88131420577c8134e7649ed9afceeb7cdd2171bd7578030f50",
+      "config/locks/requirements-stage-three-types.lock": "3fc515c309eb8201a3f3ee3b8457ed204f3d64ef3d8f2520369acf76d9d260e7",
+      "config/locks/conda-linux-64.explicit.txt": "ab6153d69296221d0846e559ba8be341b8a8cbcd0bfc4bbb916edebd3f351919",
+      "frontend/package-lock.json": "1b4c6eb93df7f3e67bfb76751915f0ebf0d2c8cefb72e5eb0cbfeaaccccbb0e5",
+      "config/versions.yaml": "5d80c8c002584c9ba91e7fadbcc5f63c8b4dc5004082d188acc874d16afa8b8a",
+      "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+      "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+      "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+      "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+      "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+      "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+      "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
+      "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+      "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
+      "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d"
+    },
+    "Python_candidates_created": false,
+    "formal_accepted": false
+  },
+  "technical_code_review_ref": "docs/00-project/validation/t014-implementation-code-review.json",
+  "verified_proof_history": [
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T16:53:21.684557+00:00",
+      "totals": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-lqkfq_zu",
+      "private_safe_record_sha256": "d5b056c0e03d2c98b44874d4e8614628dbdfc4e7560f4b56aa54b9850a72c749"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "c0b9460fc1c7fdedb4f4a5e4b879afc057226c7e",
+      "command": "python -m pytest tests/business/test_t014_permissions.py tests/business/test_migrations.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:38:03.032899+00:00",
+      "totals": {
+        "tests": 51,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-n2zhyb2h",
+      "private_safe_record_sha256": "ee9681dfb74f8922630c3f1d3684cab85af18aa267ce00060140373a92be06a6"
+    },
+    {
+      "status": "QUALITY_PASS_RUNTIME_TESTS_NOT_RUN",
+      "mode": "quality",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "Locked Ruff and mypy only; runtime tests NOT RUN",
+      "completed_at": "2026-10-19T15:58:15.590416+00:00",
+      "totals": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-dmiodfae",
+      "private_safe_record_sha256": "dd640a2cf8c0fd630ee961cf29b8856bb2f021f848588fef65698f2a8a32cfda"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "c0b9460fc1c7fdedb4f4a5e4b879afc057226c7e",
+      "command": "python -m pytest tests/platform/test_t014.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:43:00.985214+00:00",
+      "totals": {
+        "tests": 189,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-at4hvus0",
+      "private_safe_record_sha256": "1779ef031e158ecf24e2a2d66551c2191a588e6caff0d9cba6ca60f7505010d6"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "99bb00471793780b19bc6a94ff728a85e3a5044c",
+      "command": "python -m pytest tests/business/test_t014_permissions.py tests/business/test_migrations.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:16:38.074018+00:00",
+      "totals": {
+        "tests": 45,
+        "failures": 35,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_lookup_role_cannot_read_or_write_catalog",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_lookup_rejects_mismatched_identity_or_unit[issuer]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_lookup_rejects_mismatched_identity_or_unit[subject]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_lookup_rejects_mismatched_identity_or_unit[user]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_lookup_rejects_mismatched_identity_or_unit[org]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_revoked_or_expired_binding_is_ineligible[role_disabled]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_revoked_or_expired_binding_is_ineligible[permission_disabled]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_revoked_or_expired_binding_is_ineligible[role_revoked]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_revoked_or_expired_binding_is_ineligible[permission_revoked]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_revoked_or_expired_binding_is_ineligible[role_expired]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_read_rechecks_live_identity_and_organization[identity_revoked]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_read_rechecks_live_identity_and_organization[identity_expired]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_read_rechecks_live_identity_and_organization[user_disabled]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_read_rechecks_live_identity_and_organization[org_disabled]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_role_expiry_equal_statement_timestamp_is_ineligible",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_reader_refuses_privileged_connection",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[actor]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[org]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[permission]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[version]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[digest]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[truthy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_old_or_misbound_policy_decision_is_unavailable[exception]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_directory_facts_never_allow_without_explicit_policy",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_explicit_policy_is_exactly_bound_and_denial_has_generic_403[True]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_explicit_policy_is_exactly_bound_and_denial_has_generic_403[False]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_expiry_during_permission_decision_is_rejected[reader]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_expiry_during_permission_decision_is_rejected[policy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_permission_facts_and_least_privilege_survive_independent_restore",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_migrations",
+          "name": "test_empty_database_migrates_and_replay_noops",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_migrations",
+          "name": "test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members[False]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_migrations",
+          "name": "test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_migrations",
+          "name": "test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically[False]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_migrations",
+          "name": "test_permission_upgrade_preserves_catalog_and_failure_rolls_back[False]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_migrations",
+          "name": "test_permission_upgrade_preserves_catalog_and_failure_rolls_back[True]",
+          "kind": "failures"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-hrc1j0ao",
+      "private_safe_record_sha256": "f64c17683057e81d484d9a3d53461cf2f585ccc51f551f12c6dcef830b6f4f24"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "python -m pytest tests/platform/test_t014_gate.py::test_declared_report_counts_cannot_be_ignored -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:21:53.047005+00:00",
+      "totals": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_declared_report_counts_cannot_be_ignored[tests]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_declared_report_counts_cannot_be_ignored[failures]",
+          "kind": "failures"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-vgyahzho",
+      "private_safe_record_sha256": "1a3d2fcee83127d3e5272cd73cdb4a24ee261b1976e6ac8570c66bc782a4ad5e"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "108d7dac5d6ec92b27d548a9a9ccbd18f78bf9ef",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T16:31:24.888847+00:00",
+      "totals": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-gs984r2u",
+      "private_safe_record_sha256": "bfc69806c1a19d95c8db292e75371bab2a6cebc9008756015bbeb068afa1c07a"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "c0b9460fc1c7fdedb4f4a5e4b879afc057226c7e",
+      "command": "python -m pytest tests/platform/test_t014.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:36:29.804744+00:00",
+      "totals": {
+        "tests": 189,
+        "failures": 179,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[cancelTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[completeUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[createImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[createPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[createReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[createUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[decideApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[downloadAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[exportAudit]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getCurrentUser]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getFeedback]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getFirstSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getForensics]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getModelOperation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getPolicyDefinition]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getPropagation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getReviewContext]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getRiskFindings]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getTaskEvidence]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getTaskExecution]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getTimeline]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[getUploadStatus]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listApprovals]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listAuditEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listPendingReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listPolicies]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listSources]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listTaskEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listTaskNodes]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[listUploadParts]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[putUploadPart]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[requestApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[revokeApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_mounted_business_operations_require_authentication[syncSourceAuthorization]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[cancelTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[completeUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[createImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[createPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[createReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[createUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[decideApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[downloadAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[exportAudit]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getCurrentUser]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getFeedback]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getFirstSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getForensics]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getModelOperation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getPolicyDefinition]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getPropagation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getReviewContext]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getRiskFindings]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getTaskEvidence]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getTaskExecution]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getTimeline]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[getUploadStatus]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listApprovals]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listAuditEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listPendingReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listPolicies]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listSources]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listTaskEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listTaskNodes]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[listUploadParts]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[putUploadPart]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[requestApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[revokeApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_deny_missing_permission[syncSourceAuthorization]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-cancelTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-completeUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-decideApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-downloadAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-exportAudit]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getCurrentUser]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getFeedback]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getFirstSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getForensics]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getModelOperation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPolicyDefinition]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPropagation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getReviewContext]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getRiskFindings]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTaskEvidence]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTaskExecution]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTimeline]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getUploadStatus]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listApprovals]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listAuditEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listPendingReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listPolicies]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listSources]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listTaskEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listTaskNodes]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listUploadParts]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-putUploadPart]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-requestApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-revokeApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-syncSourceAuthorization]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-cancelTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-completeUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createUpload]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-decideApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-downloadAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-exportAudit]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getAuditExport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getCurrentUser]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getFeedback]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getFirstSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getForensics]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getImport]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getModelOperation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPolicy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPolicyDefinition]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPropagation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getReview]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getReviewContext]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getRiskFindings]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getSource]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTask]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTaskEvidence]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTaskExecution]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTimeline]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getUploadStatus]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listApprovals]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listAuditEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listPendingReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listPolicies]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listReviews]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listSources]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listTaskEvents]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listTaskNodes]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listUploadParts]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-putUploadPart]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-requestApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-revokeApproval]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-syncSourceAuthorization]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_new_or_duplicated_business_route_fails_startup_audit[new]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_new_or_duplicated_business_route_fails_startup_audit[duplicate]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_new_or_duplicated_business_route_fails_startup_audit[outside_namespace]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_new_or_duplicated_business_route_fails_startup_audit[mount]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_new_or_duplicated_business_route_fails_startup_audit[guard_override]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_business_401_has_bearer_challenge",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_duplicate_authorization_header_is_rejected",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_malformed_authorization_is_rejected_before_identity_lookup[Bearer invalid token]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_malformed_authorization_is_rejected_before_identity_lookup[Bearer token\\tother]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_request_reuses_exact_principal_and_rejects_changed_headers_or_expiry",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_unknown_permission_and_truthy_authority_return_do_not_allow",
+          "kind": "failures"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-oswy3q4m",
+      "private_safe_record_sha256": "94046766b104eb8d8a96a2ba12f9ca3e3f1680f0b666c6af52c87a870aa564d6"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:18:23.348973+00:00",
+      "totals": {
+        "tests": 7,
+        "failures": 7,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_complete_report_has_exact_42_operation_matrix",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_gate_rejects_incomplete_or_duplicate_runtime_evidence[missing_operation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_gate_rejects_incomplete_or_duplicate_runtime_evidence[duplicate_operation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_gate_rejects_incomplete_or_duplicate_runtime_evidence[missing_SQL_restore]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_gate_rejects_incomplete_or_duplicate_runtime_evidence[missing_real_resources]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_gate_rejects_skip_or_failure_without_revealing_details[False]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014_gate",
+          "name": "test_gate_rejects_skip_or_failure_without_revealing_details[True]",
+          "kind": "failures"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-oiklw816",
+      "private_safe_record_sha256": "caccd7da98fcfbca56ac72836a8f6e112cdc07ac6f1eb7a09f58e14d8a17e8d2"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "dd1de2940db34352744ddbcdcd2b8add2a990042",
+      "command": "python -m pytest tests/business/test_t014_runtime.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:01:38.827569+00:00",
+      "totals": {
+        "tests": 16,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-27_gjo9p",
+      "private_safe_record_sha256": "38a0d5df8c46d4ee64b3dcae03d4f6bfb9d934380bbcd367e78b7e9e294c40a3"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "3bc87e5ab0f1b2f55ad8712a9b3fddaa84a88ca9",
+      "command": "python -m pytest tests/platform/test_t014.py tests/business/test_token_identity.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T13:51:45.521839+00:00",
+      "totals": {
+        "tests": 21,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_catalog_matches_all_73_operations_and_41_permissions",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_catalog_rejects_missing_duplicate_or_unbound_permissions[missing_permission]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_catalog_rejects_missing_duplicate_or_unbound_permissions[duplicate_operation]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_catalog_rejects_missing_duplicate_or_unbound_permissions[unknown_permission]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_catalog_rejects_missing_duplicate_or_unbound_permissions[wrong_method]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t014",
+          "name": "test_catalog_rejects_new_public_exception",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_token_identity",
+          "name": "test_authenticate_principal_preserves_exact_issuer_subject_mapping",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_token_identity",
+          "name": "test_principal_expired_after_database_lookup_is_rejected",
+          "kind": "failures"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-8yjk_alq",
+      "private_safe_record_sha256": "06e33d8275c46da5ffc48041049885374dfdc8be28aa4b34068cba17d7cf0b5d"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:26:50.513736+00:00",
+      "totals": {
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-7h019_tw",
+      "private_safe_record_sha256": "495e90fbe7d4deedbf4288612d8e1da65b85f66dc29267561db1ff932fa9d8a8"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "3bc87e5ab0f1b2f55ad8712a9b3fddaa84a88ca9",
+      "command": "python -m pytest tests/platform/test_t013_tokens.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T13:50:40.391602+00:00",
+      "totals": {
+        "tests": 47,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-wiv0aht8",
+      "private_safe_record_sha256": "7c3f0b9b95df00f679f8b2ca47328394939f79fb1ce54f7fb706e2b551bf3109"
+    },
+    {
+      "status": "FAIL",
+      "mode": "green",
+      "source_base_commit": "c0b9460fc1c7fdedb4f4a5e4b879afc057226c7e",
+      "command": "python -m pytest tests/business/test_foundation_errors.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:44:20.343722+00:00",
+      "totals": {
+        "tests": 9,
+        "failures": 0,
+        "errors": 6,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.business.test_foundation_errors",
+          "name": "test_all_error_paths_have_safe_uniform_problem[/boundary/unknown-500-INTERNAL_ERROR]",
+          "kind": "errors"
+        },
+        {
+          "classname": "tests.business.test_foundation_errors",
+          "name": "test_all_error_paths_have_safe_uniform_problem[/boundary/missing-404-RESOURCE_NOT_FOUND]",
+          "kind": "errors"
+        },
+        {
+          "classname": "tests.business.test_foundation_errors",
+          "name": "test_all_error_paths_have_safe_uniform_problem[/boundary/http-403-HTTP_FORBIDDEN]",
+          "kind": "errors"
+        },
+        {
+          "classname": "tests.business.test_foundation_errors",
+          "name": "test_all_error_paths_have_safe_uniform_problem[/boundary/known-503-DATABASE_UNAVAILABLE]",
+          "kind": "errors"
+        },
+        {
+          "classname": "tests.business.test_foundation_errors",
+          "name": "test_method_not_allowed_is_uniform_and_preserves_allow",
+          "kind": "errors"
+        },
+        {
+          "classname": "tests.business.test_foundation_errors",
+          "name": "test_invalid_request_id_is_safe_and_has_matching_header",
+          "kind": "errors"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-ptyvwecw",
+      "private_safe_record_sha256": "42267d27f9d25b2653d1dd1977e9aba8613a41ac6a493cbff1943f4f802c070d"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "c0b9460fc1c7fdedb4f4a5e4b879afc057226c7e",
+      "command": "python -m pytest tests/platform/test_t014.py tests/business/test_foundation_errors.py tests/business/test_authorization.py tests/business/test_adapters_and_execution.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:50:50.982478+00:00",
+      "totals": {
+        "tests": 215,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-tzcciipn",
+      "private_safe_record_sha256": "e4e9acff077168fdd155a346a625d4dca9a8b467ac2b3179565f031fa43f2d31"
+    },
+    {
+      "status": "FAIL",
+      "mode": "quality",
+      "source_base_commit": "dd1de2940db34352744ddbcdcd2b8add2a990042",
+      "command": "Locked Ruff and mypy only; runtime tests NOT RUN",
+      "completed_at": "2026-10-19T15:02:37.989101+00:00",
+      "totals": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 1,
+          "status": "FAIL"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-ndcx09wp",
+      "private_safe_record_sha256": "0b5d464e360879b32edd64f1be92aa80dc1f533fde19f3d431deaabe828395aa"
+    },
+    {
+      "status": "FAIL",
+      "mode": "green",
+      "source_base_commit": "dd1de2940db34352744ddbcdcd2b8add2a990042",
+      "command": "python -m pytest tests/platform/test_t014.py tests/business/test_foundation_errors.py tests/business/test_authorization.py tests/business/test_adapters_and_execution.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:58:27.014231+00:00",
+      "totals": {
+        "tests": 215,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 1,
+          "status": "FAIL"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 1,
+          "status": "FAIL"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-okyg2k27",
+      "private_safe_record_sha256": "5321a5a8dc0c4c0c47d172e00d7ec8e54eeb1ea07ec5b25964aa949a5272d259"
+    },
+    {
+      "status": "FAIL",
+      "mode": "green",
+      "source_base_commit": "11a1de48bff39d011ca3f64d655467ed5b2b8f6e",
+      "command": "python -m pytest tests/business/test_t014_permissions.py tests/business/test_migrations.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:32:27.635273+00:00",
+      "totals": {
+        "tests": 51,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 1,
+          "status": "FAIL"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-nw2yjaqh",
+      "private_safe_record_sha256": "410ddc472f289522d08bfd6c582cba34750204a6ca5fa4892825a031b1fbf9c2"
+    },
+    {
+      "status": "FAIL",
+      "mode": "green",
+      "source_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T16:55:26.607544+00:00",
+      "totals": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-top8l1v_",
+      "private_safe_record_sha256": "05bf847933d106f4a51830627c046f45b99f394e5ccc698aed60ea33ac4e67cc"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "3bc87e5ab0f1b2f55ad8712a9b3fddaa84a88ca9",
+      "command": "python -m pytest tests/platform/test_t014.py tests/business/test_token_identity.py tests/platform/test_t013_tokens.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T13:55:33.577491+00:00",
+      "totals": {
+        "tests": 68,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-_whevb7_",
+      "private_safe_record_sha256": "7d288ec728e698f06737d3a4792b83bbc1bda653dcfb0ac0e1aea881f2063d28"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "41da87d30bc6e6dccf5727b96a87d42aac89ea35",
+      "command": "python -m pytest tests/business/test_t014_runtime.py::test_upload_permission_revocation_refuses_old_part_cursor_and_write_receipt -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:06:46.060778+00:00",
+      "totals": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-s9up4xyl",
+      "private_safe_record_sha256": "9e581f86393eb3ea21c47a7ab31aa8ee258a605f0ec12744528d806489337de9"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T16:24:17.602988+00:00",
+      "totals": {
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-6t7rp1nh",
+      "private_safe_record_sha256": "cbebcdfba6eb5dec7d6bb05c5bf982605c58a648073d47b3d1d0fbeee8becc3c"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "41da87d30bc6e6dccf5727b96a87d42aac89ea35",
+      "command": "python -m pytest tests/platform/test_t014.py tests/business/test_foundation_errors.py tests/business/test_authorization.py tests/business/test_adapters_and_execution.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:12:12.113554+00:00",
+      "totals": {
+        "tests": 215,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-5qh43trj",
+      "private_safe_record_sha256": "9b555636d5a177415a2cec07ef580b3406162fbafd84092724dfa180ce7d0844"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:20:11.678951+00:00",
+      "totals": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-hzu8wq1m",
+      "private_safe_record_sha256": "da5cc8a063412c1441621fc228439ec78385c8638a7bf52c509bd09e1a7a030b"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "99bb00471793780b19bc6a94ff728a85e3a5044c",
+      "command": "python -m pytest tests/business/test_t014_permissions.py tests/business/test_migrations.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:23:30.290499+00:00",
+      "totals": {
+        "tests": 51,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-74ut6u88",
+      "private_safe_record_sha256": "8714220a6c0edee732905e70f53b27203a01972a48b815e8bfdf4dcf8a357c97"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "41da87d30bc6e6dccf5727b96a87d42aac89ea35",
+      "command": "python -m pytest tests/business/test_t014_permissions.py::test_policy_decision_cannot_outlive_its_exact_directory_fact -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:11:46.206009+00:00",
+      "totals": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-si1x_ats",
+      "private_safe_record_sha256": "fb0a168a36c67234b23e7cced30d1bf43d01591d40135822aef4aa1c3ac43d89"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "dd1de2940db34352744ddbcdcd2b8add2a990042",
+      "command": "python -m pytest tests/business/test_t014_runtime.py::test_all_42_real_resource_requests_deny_before_business_side_effects tests/business/test_t014_runtime.py::test_function_permission_never_grants_unrelated_case_or_unit_resources tests/business/test_t014_runtime.py::test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:55:42.600881+00:00",
+      "totals": {
+        "tests": 4,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.business.test_t014_runtime",
+          "name": "test_all_42_real_resource_requests_deny_before_business_side_effects",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_runtime",
+          "name": "test_function_permission_never_grants_unrelated_case_or_unit_resources[False]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_runtime",
+          "name": "test_function_permission_never_grants_unrelated_case_or_unit_resources[True]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_runtime",
+          "name": "test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
+          "kind": "failures"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-tqu9zlpa",
+      "private_safe_record_sha256": "2b11b651d40bfaa5702d7e5e8504c03061ccc0fda6dd7217e332fb481308ae5f"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "41da87d30bc6e6dccf5727b96a87d42aac89ea35",
+      "command": "python -m pytest tests/business/test_t014_permissions.py::test_policy_decision_cannot_outlive_its_exact_directory_fact -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T15:09:17.436107+00:00",
+      "totals": {
+        "tests": 3,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_policy_decision_cannot_outlive_its_exact_directory_fact[role-403]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_policy_decision_cannot_outlive_its_exact_directory_fact[identity-401]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_policy_decision_cannot_outlive_its_exact_directory_fact[version-503]",
+          "kind": "failures"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-55t0kqvr",
+      "private_safe_record_sha256": "2fa48a31609c498efebe4188c18dd898f72e4c6230999b698f5b2a1ceaa68f72"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
+      "command": "python -m pytest tests/business tests/platform/test_t014.py tests/platform/test_t013_tokens.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T16:45:17.849635+00:00",
+      "totals": {
+        "tests": 541,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-3oahtj34",
+      "private_safe_record_sha256": "4b05c9f2c87db01516cd1622d472516fd8d97f3358447fad3226b93f6b8a76f9"
+    },
+    {
+      "status": "PASS",
+      "mode": "green",
+      "source_base_commit": "3bc87e5ab0f1b2f55ad8712a9b3fddaa84a88ca9",
+      "command": "python -m pytest tests/platform/test_t014.py tests/business/test_token_identity.py tests/platform/test_t013_tokens.py -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:08:39.577102+00:00",
+      "totals": {
+        "tests": 68,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-hg2op5rm",
+      "private_safe_record_sha256": "d879501e22eafdd7caef31be93086f4d51fb5cc931facdf7c9090644fadfcce8"
+    },
+    {
+      "status": "QUALITY_PASS_RUNTIME_TESTS_NOT_RUN",
+      "mode": "quality",
+      "source_base_commit": "dd1de2940db34352744ddbcdcd2b8add2a990042",
+      "command": "Locked Ruff and mypy only; runtime tests NOT RUN",
+      "completed_at": "2026-10-19T15:04:21.050203+00:00",
+      "totals": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [],
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-tefhb8zb",
+      "private_safe_record_sha256": "67fde82aa606eec04942fdd846260a93d20e3b334136eafdebb9807481b72c73"
+    },
+    {
+      "status": "EXPECTED_RED",
+      "mode": "red",
+      "source_base_commit": "99bb00471793780b19bc6a94ff728a85e3a5044c",
+      "command": "python -m pytest tests/business/test_t014_permissions.py::test_misbound_or_invalid_permission_facts_fail_closed tests/business/test_t014_permissions.py::test_ineligible_fact_cannot_be_overridden_by_policy -q --tb=short --junitxml PRIVATE_PATH",
+      "completed_at": "2026-10-19T14:17:33.866711+00:00",
+      "totals": {
+        "tests": 6,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_misbound_or_invalid_permission_facts_fail_closed[principal]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_misbound_or_invalid_permission_facts_fail_closed[permission]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_misbound_or_invalid_permission_facts_fail_closed[digest]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_misbound_or_invalid_permission_facts_fail_closed[truthy]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_misbound_or_invalid_permission_facts_fail_closed[exception]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t014_permissions",
+          "name": "test_ineligible_fact_cannot_be_overridden_by_policy",
+          "kind": "failures"
+        }
+      ],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-lwe9ke76",
+      "private_safe_record_sha256": "d3b5efeff0a561a403f1650142cec6d9f65fdfdec6f99d32e0dfcbbcef78e84e"
+    }
+  ],
+  "local_non_runtime_test_environment_note": "One Windows orchestration-interpreter parser attempt lacked psycopg (9 dependency failures,4 source-binding passes); not used as runtime validation. Locked Linux py31013 parser cases, focused257 and complete541 all pass. A later Windows input-validator attempt lacked openapi_spec_validator; exact final inputs and11 related checks passed in locked Linux py310.",
+  "hosted_ci_status": "PENDING_NEW_PAYLOAD_NOT_YET_PUSHED",
+  "hosted_ci_ref": "docs/00-project/validation/t014-implementation-ci-report.json",
+  "hosted_success_inferred_from_local": false,
+  "task_count": 170,
+  "completed_substeps": 90,
+  "remaining_work_items": 621,
+  "whole_tasks_accepted": 0,
+  "T014_completed_substeps": 4,
+  "T014_remaining_groups": 3,
+  "designated_human_reviewer": "徐昌胜",
+  "human_acceptance_recorded": false,
+  "formal_policy_configured": false,
+  "unmounted_operations_implemented": false,
+  "shared_0006_migrated": false,
+  "shared_services_adopted": false,
+  "T013_real_signature_decryption_restore_accepted": false,
+  "Python_candidates_created": false,
+  "formal_accepted": false,
+  "raw_test_logs_or_JUnit_published": false,
+  "final_documentation_refinement_checks": {
+    "status": "PASS",
+    "mode": "green",
+    "source_base_commit": "f36cec7de7b704cd6e8dc773843a0b1430dcd754",
+    "working_delta_sha256": {
+      "docs/00-project/execution-planning-inputs.json": "fa5f66ca57fd97658058b734de76b9400c6a146237732dec7df37767a1f93102",
+      "docs/00-project/execution-schedule.json": "c9d75df08321ef589a16e171cf5e0cc64562b0956af8700066ad5185153b36e7",
+      "docs/00-project/stage-one/input-baseline-candidate.json": "fa6ec9f822b8d191b14be2db6438ad9bebceb1abf37f11b08e8c5b90e5398322",
+      "docs/00-project/task-execution-steps.txt": "07c0aa150065cd4cb3e07a06417959062fa09435e45bc171a902e828a3c52639",
+      "docs/00-project/validation/documentation-completion-report.json": "57c0b41ffc79eaa75032744c9a899b88f45f835edf69b8de8669ff4d427a673e",
+      "docs/00-project/validation/local-validation-report.json": "9cfc4102c77bed0157e492f80215191cd77d3b71b7d365782c72b56dc8465283",
+      "docs/00-project/validation/repository-docs-validation.json": "34c0e5174d4dcf61736d1c0c142d66104132b6171322be74ae5854fca71c1e10",
+      "docs/00-project/validation/stage-one-validation-report.json": "edd4bd8747ffce6538f72dd06284551f895400cd290d5962b25e9f373501334e",
+      "docs/00-project/validation/stage-three-python-types-report.json": "6d39e2a17ada0ba17dbddbeee3da33e66925dfd6179e98068b9cad5af153a440",
+      "docs/00-project/validation/stage-three-validation-report.json": "d416b1358b86bf6d6a99e05ce65a5466278da51def818b7c01b1c432981ae6b7",
+      "docs/00-project/validation/t013-role-assignment.json": "5a39147b8872e2e9e156b44d67adcacb724c69eef49bc8a24d540249060bc4b6",
+      "docs/00-project/validation/t013-signer-protection-progress-report.json": "3501ad87c1829c34210a7f7905acd7a65541bc4bb3175c3004e8b15afd6edb4f",
+      "docs/00-project/validation/t014-full-regression-report.json": "90c8f6d8ae80238cf26014ec4ec6c270c2ac0fcd2290ddad218b2ff0db8e99ff",
+      "docs/00-project/validation/t014-gate-execution-report.json": "5a77ffcc65f6b1e01993bf16589d0972052cf9d3aee968e8062b315b31defb17",
+      "docs/00-project/validation/t014-implementation-ci-report.json": "6e9408cf92487512afe94ffc12abb30e39e7e4a1691e7bb21bd193cf918d6b3b",
+      "docs/00-project/validation/t014-implementation-code-review.json": "d18eb0e8ecba84cc1470b575aed834df2bdc8b99a079e7e3a32ee47e349f2eff",
+      "docs/00-project/validation/t014-implementation-validation-report.json": "3bb4a1866f7bddbf1029561411e1bc248472d506b426091f2fe5857a0412386e",
+      "docs/00-project/validation/t014-permissions-report.json": "ee70979b32c3da937ea34593cebf94859d0c7128666da65110cfd886378a4fd1",
+      "docs/00-project/validation/t014-role-assignment.json": "433484cabb9d0413320120763cac49c68e1b5b3b4a70009cebdd6b747eb618d3",
+      "docs/03-development/stage-three/readiness.md": "4a79dca424ef970c08f734285b0f2da48a9218ecadb46ab8c6628aea2dd60141",
+      "docs/03-development/t013-signer-protection-followup.md": "0f112a08750b6332ea48ebd7f5aa6f966e03d050989a2107b06f7d55b4a291f1",
+      "docs/03-development/t014-dependency-and-scope-review.md": "fa396d51fa7ac6d31e96b3a55ba5f0ef0a2cc40d51899aba0fc4518dbe97cfbb",
+      "docs/03-development/t014-unified-permission-design.md": "c86a763e7dad189cdcdfdf790733c87879f9ddf25bfc07fb5fbcdc4bd6d41388",
+      "docs/03-development/t014-unified-permission-implementation-plan.md": "ecfe2795c882af00edd680d12e3854920f6003758c33a61d245fca4dc9eafaee",
+      "docs/03-development/t014-unified-permission-implementation.md": "a4687925f9a8b3969338f3c82be6a5b5c325915780c4de81f5a377eb59531875",
+      "docs/04-database/README.md": "a286a33c2972364a198e922453c2110bf59fff9183e04b50f704c0a00d241f53",
+      "docs/08-security/t014-interface-scope-matrix.json": "75bbce89ee9cc07c18f94d46bf7ced7ceb5720ec81ccbac8bfc0a997b30e30c8",
+      "docs/08-security/t014-interface-scope-matrix.md": "4a99cd4fa22725a1447274ee2ce8de09f84d9285ebdcd321e1bf20065f598bdd",
+      "docs/09-testing/t014-authorization-test-design.json": "a41b48ac4fc1fc5b74c2a7ca80324e08ab3ff3278c646ce9f5a577e44aa7b6ec",
+      "docs/09-testing/t014-authorization-test-design.md": "703d14706170111f76fee7601f1e45ceb23d315449f15bd261f1cdbcab77ec37",
+      "docs/10-deployment/keycloak-identity-runbook.md": "0306788cddead7349d09c4b8ffdfafecbf8642c90be0535b457a7e9e8a00f82a",
+      "docs/README.md": "3a7b7faec5dd8b644fd7f322a6bfa3baad7935d1bcd47947bc5570a5a2ad84a5",
+      "scripts/generate_stage_three_docs.py": "e11d0dd7335cce358503b1bd5676a7e228911c05ea6b9d5ce8612109ac900315",
+      "scripts/generate_task_progress.py": "8d1771f704b6c6992ca3ca7af229101f999fe2123e3570a75780b5034b767140",
+      "scripts/update_docs_navigation.py": "9a1cdcfb88736c11b8d7643c77775c70ecf4e918463bfbb9769def241fbbe154",
+      "tasks/README.md": "9560a06b36c65429bbe21b77990d50899bab60af9f4bbd04e387eedb6fa0acb8",
+      "tasks/algorithm/T051.md": "bbfddcd9bdbfed1fcd8b14e4dd46ebe41c09824deee5782696fb89cc23019ee6",
+      "tasks/algorithm/T052.md": "cd38c9f2f75dfa6da23fb6192a0590db5f1416b4fddfce7c9deaa0c96beced5d",
+      "tasks/algorithm/T053.md": "558462d7ce55c9bed147117e2f070ff59f0b0a9368d39895b8cb806f2cd103ab",
+      "tasks/algorithm/T054.md": "5889a787baff5da00aca169afe79e7cbea6b97f154b57d17b58ccc480ff9e6e9",
+      "tasks/algorithm/T055.md": "77614cd54927d3614d0e92029e3f92768adc179c6f175516f7c277caf946b277",
+      "tasks/algorithm/T056.md": "3cedcc7426dd3ec36a5f0f501c0929f46bc7dee27d77a7cce210733e0433958e",
+      "tasks/algorithm/T057.md": "4a517505b0fffb0aa6335979bd95c0a8c931bc69f457f73d5c826747273e911f",
+      "tasks/algorithm/T058.md": "75f147b56b6b71f95ad8d7f3bd23a5484ce70c3107c1f90e256d746bd7a94f3f",
+      "tasks/algorithm/T059.md": "d35f515489e023694f84a37827b82e7c8aa7f24b4b61aa96b5f99fcfd135c485",
+      "tasks/algorithm/T061.md": "dcbe28f95fbf37eb39632a7e3b965078a08e1956bc5699246dae22aeff3d06be",
+      "tasks/algorithm/T062.md": "bfe1614ae6d131dd774dffdb14ae20f9322c0ea8cb68f6d86e107e3453e77ec0",
+      "tasks/algorithm/T063.md": "2572335492f8c585f016a69341bcc48ef6f52f1036d62cd8363c5bff09e635da",
+      "tasks/algorithm/T064.md": "d5f5825c4f060fb1482e7252062fd393bde7be600b14244829d055f329f9dfb5",
+      "tasks/algorithm/T065.md": "5d31d7d86bdd43ef761c0399a1abcd8cdac19cd3d2463f3cfd227ecd0950facc",
+      "tasks/algorithm/T066.md": "f21c995b0d0e56b3a5f76b201ad03f1840cc46fb578b72f1b1dfecdd1ce9f2ce",
+      "tasks/algorithm/T067.md": "77524e11c67d7f1ba5d427e7afec979057fad7f72f1e84e20ca8f31357afe922",
+      "tasks/algorithm/T068.md": "bd2bab0fc86722a7715b2a54ecd60ec58f943f968e23a1ec74114da9785fd033",
+      "tasks/algorithm/T069.md": "628ea36a0a35144d50c128fe6a4ca1c187546c46b983842b9013d87a60c6a729",
+      "tasks/algorithm/T071.md": "e6b28b52ab5f40c7eb753b5998206ffc3f45ffc676c6becfb569245deca5685f",
+      "tasks/algorithm/T072.md": "745e368a220fe670d66c74360988ef36cbd5be145ceef3678f2b0e993494e059",
+      "tasks/algorithm/T073.md": "61bdc891de3d34e54f0ef3bf755e71adf8a303d7f0cf2ae28b93139e54f73631",
+      "tasks/algorithm/T074.md": "05728f541c9012c5dabdff11519b916e049f5ed352915f29bd58d5b2109ae7c1",
+      "tasks/algorithm/T075.md": "18103f92166d3a0fa7f940746e8f6b045d8d5bae4468b69ce88cb9f92ba20c1d",
+      "tasks/algorithm/T076.md": "ce72b5192ec44b4c589a08253cf632261c508c7ed0addbc1d845640ce61d5942",
+      "tasks/algorithm/T077.md": "813d25621a85401c149d888f2c2c26d29b30666517af8f914bf7e09a6a3dea5f",
+      "tasks/algorithm/T079.md": "8e16244e7e2ef56fb3c4b1d9e699d0daa6c8be26ebc75f938c1fa766d80d974b",
+      "tasks/algorithm/T080.md": "bb530381ed23b0935a65d7c225a7cf61216957294df2720d706af26896a68d93",
+      "tasks/algorithm/T081.md": "06d1c188a9138c1fda64ac1cbe3f265cd79e54dce2458bad7c02abe2e581232b",
+      "tasks/algorithm/T082.md": "70d9f274c0b06c93714de49f79b02f01e696bf53431c04f6f2913df3497db427",
+      "tasks/algorithm/T083.md": "9914fdcc66fc126bf83a88549564485d1227a03ec1ee76f582c8ea871d4f7310",
+      "tasks/algorithm/T084.md": "fc55c97d46aca4b2e571af263eeff629d9ffcab6a0b15266288e66793aa02064",
+      "tasks/algorithm/T085.md": "5fca2769c08425190e23b78aa7abe1357d85bb6423a15588e33445984b972274",
+      "tasks/algorithm/T086.md": "5cf3048541c37c0539056cacbb326c2bbcc5d49baff15465b93a0792d7ede057",
+      "tasks/algorithm/T087.md": "1e035211784975156804b335fc2d72569dd09952433c758f97d45e070d3f53a8",
+      "tasks/algorithm/T088.md": "543e2609c9acd84cbdfd2142a6effcda2715e9eed3e4c76c21069ac55e9f9a04",
+      "tasks/algorithm/T089.md": "d9455223532eabe7550272fa1b65b6209015569e106ea4f8ccc7d87342cd8f8c",
+      "tasks/algorithm/T098.md": "4fe3028b3e21ea74c086bfd93cb6ee06ff7c71099b0c50cc0d1d99071f576eaa",
+      "tasks/algorithm/T099.md": "224537f65ce6eb52c86ade7a07b559d48afbae6f483e0a7dc43b004fc80bb4b8",
+      "tasks/algorithm/T125.md": "f9ee4d2fae8479c5c0b79db9ad7fce04523e94875301ef57e1215e9a7780b344",
+      "tasks/algorithm/T128.md": "640ce3651868f2b065e6d8e0e47d23ea28c0db7be779effb53a3648aff25b265",
+      "tasks/algorithm/T130.md": "31ec2c1a403d913bafe66c6fa0a6bb88f8687abb6313c0175730352519d5e22f",
+      "tasks/algorithm/T131.md": "815facdae0fb042d0629c7d786913452cfc42031ddb4dd596eaba14067a93c37",
+      "tasks/algorithm/T132.md": "2b04910c667a5aef07755e1a804003a2629048148818b91c739ed290ce9c90c9",
+      "tasks/algorithm/T133.md": "2c6480dea0efa58b1b4a15dcd1554d6f37db6e7c94bc5426c560d64c3f4fcad0",
+      "tasks/algorithm/T135.md": "74b399d87cda49c4039cc22bfd22c0d03219bc392640feaac161d9ea124d928a",
+      "tasks/algorithm/T136.md": "4c7e428b675f7f6daa6c4e15dcbdc354829d3795ba356922c4bf6ab2ada90b07",
+      "tasks/algorithm/T137.md": "309aefecc98bd4457ea2125ae19f0959ed18ae2a754847bd1f39737ea15c72e4",
+      "tasks/algorithm/T139.md": "7f766b876ce5325efe7b069993f9abcf2f494ac27b1e2a9b8dfb2f5424403d1a",
+      "tasks/algorithm/T140.md": "9d646b92dfb6e86a7c1e8b3779b28aa68fa20fb652cc0f9dbd62e37d65e5f8fd",
+      "tasks/algorithm/T141.md": "aca9fe06a3327ee90eba1e9a52df5bb4abbc5c42b463c8a5c625edad5285cdfa",
+      "tasks/algorithm/T143.md": "8c1e44216f6d0702ead5182266c2d18a7bfa930374230747ac3526c098e6c28e",
+      "tasks/algorithm/T144.md": "ecf3a16a62596b025ebbc86676af77e6e4dca8ebb9000562515faa2871857ae5",
+      "tasks/algorithm/T145.md": "a40586e9441c009d8db03fa2bff818cd7e979d9e83cb8327c2fb9ed95a62e7dc",
+      "tasks/algorithm/T146.md": "a184c8be711d0b4bf104e1f720e717cf3136df8ba6b82cb1e00b2440495c1146",
+      "tasks/algorithm/T148.md": "be41eb139226078df71880f6b4cb59ecb92787288265b4dba592085fde38397b",
+      "tasks/algorithm/T149.md": "fe1883adb71a29282f3ad10d748977c85fa55efcd91ecfdcaf686471352ed5b2",
+      "tasks/algorithm/T150.md": "63629fdaad87bcc16a2e0ed369d846e732b7351bb9a115e3b2fd6c127d30606f",
+      "tasks/algorithm/T151.md": "c1fb9574e967494b1f2975af2016f3f8e595b4233f4051664c012b42e001bc48",
+      "tasks/algorithm/T152.md": "d34c71576fb3fe1e3994bb9b5ff7ecdf2b0a996445b46421bc005c5fcfb6f4f1",
+      "tasks/algorithm/T153.md": "038bbeb68b7c585a5668db84ebd0c7fb7a44728ca534dbacabce8f13530da682",
+      "tasks/algorithm/T155.md": "000f0fa33f573dac8ebb06bd10bd2fb853be7e7ce10f8f35d6bf1c404dee207e",
+      "tasks/algorithm/T156.md": "304303c718281cd1bc6d4b6a67374da9a796cebcb3c50a10d138b264ab39cb24",
+      "tasks/algorithm/T157.md": "68d9a119d8aeeb3b30ef4d5f241568864434ccabaa0f241f1abcd55de6fb38a8",
+      "tasks/algorithm/T159.md": "ff12d87d0d199b0edb858400800b0e7b03e92c2e3ab4f2db733dc4d4ec41ff5d",
+      "tasks/algorithm/T160.md": "2d0893c129bb5783fa7561fd204007cf96bef094fac036fce889208062066719",
+      "tasks/algorithm/T161.md": "a4c8cc5ac40d4a76f36822c9b61a304603f9c5ea0af45a1a581382a5b23bd7ce",
+      "tasks/algorithm/T162.md": "5e9fcd3623fd1beecf463a5dbef5a6121e47467b01495ee986ed89b10ac82073",
+      "tasks/algorithm/T163.md": "810456d8b610f4b6f63f0c6bf54dd6b344e0375f4bdf02f05fdf9f1789a637be",
+      "tasks/algorithm/T165.md": "24b24651acc32d1b56441223ea24c3ac56ce3f9bb04980859c9c70115093ac20",
+      "tasks/algorithm/T167.md": "21bfe865b17b13565b0a0f20eb0a55d57ac4734dc78bd4b2022243948d069d28",
+      "tasks/algorithm/T168.md": "5d79b1cc452066e8f2f231eb9e6585a102d0caaefc06270f3530592f88bae41a",
+      "tasks/algorithm/T169.md": "843133d5be1f78d8eca3d45ffe667140ee65347134a0f2c0d3a5e1117dff565f",
+      "tasks/algorithm/T170.md": "f44ba4159e9adc8e7abf1dc9e5d6103848357fc36552861ec334e1480d8813f8",
+      "tasks/backend/T019.md": "cb4c68c0a966a36ab86137b317197bc700533145da560106d6b8c7114bbe17c3",
+      "tasks/backend/T020.md": "ee4bed28fb09a1918403c807b05e3ae7330b140296d079ada7b66911a681a501",
+      "tasks/backend/T021.md": "4fe4e02d82a7487c70bcf3e6e462bdbbeef43ab8299e252771e4f5cb9c841a5c",
+      "tasks/backend/T022.md": "0d75ee8225e6d78afa0169e7a4402ac89c02f7376dbdd2906fb39d2cd9bb0d8c",
+      "tasks/backend/T023.md": "012d0ffe692c2dbb4a2f6c38e3f2d2a709bfd384c4e2f6082c2856c73afb604c",
+      "tasks/backend/T024.md": "9c3be808a3eed554b655122527ad5d318f127f2cb00c7a7c446f054bdb3e6848",
+      "tasks/backend/T025.md": "c6e83cd5c3c99aee4f2cec54cdbc62c4b9be3394caafe913505c1d73f10bcb85",
+      "tasks/backend/T026.md": "cab1863f421400f9c9f933f320b476fb3ce15271fb18ca7218d3e3d903f28e1d",
+      "tasks/backend/T027.md": "5dc7e923c11651ba1f4797b70d992c9614a91bdacd8923f2c2c7388ed3eded02",
+      "tasks/backend/T028.md": "85e7ffbbccd89d11d600fafaa9414475240c3fd374df12b623b669c1d4282130",
+      "tasks/backend/T029.md": "e1a6fa422596cfc317d586b25aa0fb3b5d54d35702d78adeca2ba59ef4b1b70a",
+      "tasks/backend/T031.md": "c007c5e2b61f0ffae40dc4a41dd19f872ee69a6ad3e976c609b386e7086513e6",
+      "tasks/backend/T032.md": "360d345bca743ad59a70cb28716a36e277f491e4d524b59f7fddd3cf1f19159e",
+      "tasks/backend/T033.md": "1d816c3b62a9f0621210192d77210a547343e8ccfb4e11d462be5df7dfd441a3",
+      "tasks/backend/T034.md": "5110a1777aab70de7e41d79a5db849ff92432e3e11007724ef7b7e7b58130048",
+      "tasks/backend/T035.md": "a088ea0e7eb4a70bb5965879337d0a6a92bf46319a2ad078d0b2239b6a905bf0",
+      "tasks/backend/T036.md": "7d909b52c654e02979b503a21c23ad53166c0575f8e59aef20783e85166a1f95",
+      "tasks/backend/T037.md": "0b45431435183dc48166b8183e05f7e3db4411ea671f80fb1099e3b4798f7e17",
+      "tasks/backend/T038.md": "f8ef2a28e0248a0aeedd2b4457d5d7c860e972433b5748ddf00b9f4249e01f58",
+      "tasks/backend/T039.md": "4af73ae5b5a9d813585b77c6ebfdfe2fd5e1ece5a5f14ee56279de92e636926d",
+      "tasks/backend/T041.md": "55e284cd43311234b81973b3a463a53041d90cc7e25734ef2d57fb4d59e92e9f",
+      "tasks/backend/T042.md": "fb1084d9baa8d913c11b6609a194c7e750554ee120681c81b5da4ac6b60e50bc",
+      "tasks/backend/T043.md": "386eaf4d8d96f6872cfa8ce7acaee62c5a4cec0017c926dac459a504ebab7944",
+      "tasks/backend/T044.md": "5be9622405ced06e9a5ec9da221c42665a32425b88ce7d2873da8998c5ed2e50",
+      "tasks/backend/T045.md": "ea6521780a658167576d54615b4d34dfc5fa24540d6627994a9cf1cc2b0ab097",
+      "tasks/backend/T046.md": "beafc1ab157554511187dd69e54d2e36e91510152532d215ca213bf23832afb8",
+      "tasks/backend/T047.md": "3642a6fb2e16c0e749c894afcece80d10b5a62bc3869eed7a392c99cf7f6ad42",
+      "tasks/backend/T048.md": "dd92c206ae2a41dd6cbb6754904360904e285ad9eeeea220ffe898d1bf6900cc",
+      "tasks/backend/T049.md": "741eaf766233fffb1b1315ebfaa96752fc15be1d6eb66b41b86ea43843cc9620",
+      "tasks/backend/T050.md": "ae748b62f658d78ece9219eef93d2b52029c9904e4b6572aec86664c84383b95",
+      "tasks/backend/T090.md": "5dce3db33d76165dcc0319c45d83458de6a7766880db5871aaa8f74b68468871",
+      "tasks/backend/T091.md": "2e6b9ea11b476c40796e309b4a18b46b9f95e596abecd1f7b91d707e93f3ad7c",
+      "tasks/backend/T092.md": "8a0462ba60219d5032d13be6aee33b4825aac45f1e143ead6d5ea10d679d7064",
+      "tasks/backend/T093.md": "2f64a125056e5d5810d2f89bc390079ab3fcb6095a8664eb0bfccdba099eda0b",
+      "tasks/backend/T094.md": "28c829992a05998d8e738ec4d70c35aac2d98cd7fd846f130ad66092c93627ee",
+      "tasks/backend/T095.md": "88b6f6fc03488fbe15b664ece744960fd20c78b506dbe4b2646130039840ef57",
+      "tasks/backend/T096.md": "8045aa407ee6189eb9e892f87a21eb4dd6097175ee0c322534d01a6f6c049480",
+      "tasks/backend/T100.md": "ddfc0fdf0764d575bb47cf3d044f036cc9bea5adf1dfc0977d9ec8fcd7469276",
+      "tasks/backend/T101.md": "dc987f55df5665d33b6b0a9c5049374af7c46e2ab611759a69f4f5c91ce622ed",
+      "tasks/backend/T102.md": "f82f110fc30e253c9bead62bb3bf77e7d71c219004d63d1ce45d14dd27b24134",
+      "tasks/backend/T104.md": "2ddc97c76e27c24d409fde3b595ac824c623258fed9b5ccefefb60924b86af44",
+      "tasks/backend/T105.md": "e309bd55d0b5e0258da54f6ed2cf5d8cbb4a05047e5b80a7060f417a9e4855f5",
+      "tasks/backend/T106.md": "7c394fec193b8954010463c7b87686deee77646f37aa1568fc1e48567ced1786",
+      "tasks/backend/T107.md": "b21d6dfeadfa339e3e3d419d25ad3aa1ed35f2f4abcdbbd7692e27e8af5cf3b5",
+      "tasks/backend/T108.md": "02c417279a36ce5c50e5f14e66f3a830352edf2b64c1da979218461b94187121",
+      "tasks/backend/T113.md": "bea897c26c1da31f64554de7926d21552b1b75c981677dfd65651ed1c1ebdacd",
+      "tasks/backend/T114.md": "e36d42658782223f21c363b74b734d63716bc910cd8c90fc78334efc60c946a0",
+      "tasks/backend/T115.md": "d959ea11e4583944280d8860157071d88b65a58d9cae7fce9714f5e3812c313a",
+      "tasks/backend/T116.md": "180ad4ca5b2f96b91020beb929997660b975969a84420b80bed11e4754df314d",
+      "tasks/backend/T120.md": "3161223f6c860ae7e2a15948cb419f0c882012ee15e4421185d2019184ba2b54",
+      "tasks/data/T109.md": "ae6175d0de1b246dd2a1c41aa83b52d530816472fc1daf0c45d96d2050348396",
+      "tasks/data/T110.md": "11e56672b9789eb17251eda50c9fec58cecefd8986818ce8e8dcafb4f7c13545",
+      "tasks/data/T111.md": "95be3a0aa2537ca867ba7823cf6337a505e7a1faec71508f472000c403fb85fb",
+      "tasks/data/T112.md": "1fe31a85a3c415f49732815b66c312b1da7c86bb3add423b717f0321f2170d27",
+      "tasks/data/T126.md": "436484eb2982ec8bbb7a4804ce63f1eba901556345927ecc919b8cb4d76b365b",
+      "tasks/data/T127.md": "6b979a9b08a3325df14276476f3fa57273c6db27d525262e1f627b2a4cc13e10",
+      "tasks/data/T129.md": "22a1f8399d0a7b64ec9a0b282dbdfb0b0b074daacb757f8a8550755f32810701",
+      "tasks/data/T134.md": "34aa2963eb7c2330f7a839549c06b0222fa9301d628e4f532740cb9dea29dfa8",
+      "tasks/data/T138.md": "c71b27f716188228cf1f26424f257620e22dc3b835924568fdccccfd1db943a7",
+      "tasks/data/T142.md": "ce0052e974b41ccc43167c26c84d143f999a13d8ab1a3e7645b9e0eee705108d",
+      "tasks/data/T147.md": "5aedf3231e5ff686a63f210555bd3053c64bbce3f95dda320fb7afd97e6fb22f",
+      "tasks/data/T154.md": "dd103bd779f4c9523ee56c446976eeb97b124d48378a97dfa331e9e282e3bb11",
+      "tasks/data/T158.md": "dd8c0a4b2c2c597b33bfe93bf029c033dceb10c8ed06872413d0111c7b8ebb54",
+      "tasks/data/T164.md": "1d34a6ee2c741c8e74e2fa2d6b95b21df1ce275d36b152eb41cce00797b41d93",
+      "tasks/data/T166.md": "febb2c8b56d49f19d9520038d613f6a49fed491f6010906808b02196f2045de7",
+      "tasks/deployment/T121.md": "eb5c4846f618b4645e3f5c576c2051b6121c9c08256f43de082ff0c2b2602288",
+      "tasks/execution-status.json": "3599262db63e6baefce8a19fef157262198d210f909fba48d8896ad0b09a025c",
+      "tasks/frontend/T018.md": "2eabc1e24ee28afe5cf435d703d633df8b069e40a82c576e3c83484e7a622248",
+      "tasks/frontend/T030.md": "16a54d4ff922447530cd526a1b930e83df1a115d62c12fc46cb6d759bcbf7fbc",
+      "tasks/frontend/T040.md": "b495cdf8d3db7a99bc7ef698d324ea6ff220cf28e3790176b37c85c888b15fce",
+      "tasks/frontend/T060.md": "3f2e744a7143b0c846dacaf6dd171cc6d62e3130d052149286a06a7cd0103445",
+      "tasks/frontend/T070.md": "4cba958e6e43b099d71c8d4f65e61f45bfa406907614fef05cf02aa4bc62b679",
+      "tasks/frontend/T078.md": "2eb733967df2eb937a797b0a6e8a1b0dce58f9ed5f2a61ffc12edd114d0845b4",
+      "tasks/frontend/T097.md": "84405f2cb96aa0aabc2bab9e9ba58b90e45423365c143f7ae9a6714df9b00a39",
+      "tasks/frontend/T103.md": "3bbd360c8e5d6d413a940d180a141e77319c1e9e329231644e0d6db6281b7a6f",
+      "tasks/platform/T013.md": "a3627f5ecaf5028e811b5927bec17b77d48f88ae4bc0aa14c9cee2275c7a9d87",
+      "tasks/platform/T014.md": "809bf11f2cb23e4f9ffc8fe590e6b6942e786e958bfa5bdf6a843966bf4e7823",
+      "tasks/platform/T015.md": "a1637b51bb3a541eaa5659811f72e23961244ebd5d0c35de7597c6a294ca44ce",
+      "tasks/platform/T016.md": "c2bb2dfc6d91aec8767648e3ef3a2d6833886ae0fffb4c9b235b494ca45eb649",
+      "tasks/platform/T017.md": "0850e0329b2ddbcbed34be48665939e442769260d078c8a4dbaa5dd23d2841cd",
+      "tasks/testing/T117.md": "f223a0af1cfe230d3974760bc7678087d1d2f58bbaa6b3b132c7c8348bfe7c94",
+      "tasks/testing/T118.md": "f494e88d2e221f25f15ca424e5cb11e1884bace33d395923c915e98a7a95dfd3",
+      "tasks/testing/T119.md": "1e30ea7cfd7bd8ee022153b00b254ff7c233dec5b49ec995eca63fa9b666c74d",
+      "tasks/testing/T122.md": "c144d50726e8c15b9dca86ceab279de61191e786fca4ca88e24c9c1765a2bfe5",
+      "tasks/testing/T123.md": "575744eec5c63a68fbaa07fbf406d6d0f51a3c99269e918902b94457ad5d02e0",
+      "tasks/testing/T124.md": "910313571bcc641d94dbc2408c5bcae346b246721189faf600f05b661f5bd61e"
+    },
+    "command": "python -m pytest tests/platform/test_t014_gate.py -q --tb=short --junitxml PRIVATE_PATH",
+    "started_at": "2026-10-19T17:06:46.711462+00:00",
+    "completed_at": "2026-10-19T17:07:32.956292+00:00",
+    "python": "3.10.22",
+    "exit_code": 0,
+    "totals": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "test_groups": {
+      "tests.platform.test_t014_gate": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "failure_test_ids": [],
+    "quality_checks": [],
+    "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-zlk_2ipc",
+    "shared_source_or_services_modified": false,
+    "raw_logs_published": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "gate_checks": [],
+    "documentation_checks": [
+      {
+        "name": "stage_one",
+        "command": "python scripts/validate_stage_one.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "inputs",
+        "command": "python scripts/validate_inputs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "repository_docs",
+        "command": "python scripts/validate_repository_docs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "documentation_completion",
+        "command": "python scripts/validate_documentation_completion.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three",
+        "command": "python scripts/validate_stage_three.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "task_navigation_drift",
+        "command": "python scripts/generate_task_progress.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "schedule_drift",
+        "command": "python scripts/plan_project_schedule.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three_navigation_drift",
+        "command": "python scripts/generate_stage_three_docs.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "requirement_drift",
+        "command": "python scripts/generate_requirements_document.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "remaining_work_drift",
+        "command": "python scripts/generate_remaining_work_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_status_drift",
+        "command": "python scripts/generate_stage_status_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ]
+  },
+  "executor_rulings": [
+    "Ruling: Formal policies remain unconfigured. New least-privilege fact reader can be tested with explicit synthetic policies in isolated PostgreSQL, but must not infer formal ALLOW from directory rows. Cost if wrong: unauthorized action, so fail closed.",
+    "Ruling: Real T013 restore cannot upload offline recovery private keys. The existing Linux GPG-home restore entry is not used for those real keys; owner-specific signing/decryption and an offline-key-compatible restore plan remain separate.",
+    "Task 2: Ruling: generic PERMISSION_REQUIRED registration must precede policy tests, although the plan lists the registry in Task 3. Register only this 403 code in Task 2; retain existing Problem string schema. Cost if wrong: wrong denial error registration; exact status/code tests cover it.",
+    "Task 3: Ruling: pinned FastAPI 0.143.0 exposes included routers lazily; app.routes has zero direct APIRoute business entries. Use exported iter_route_contexts to audit effective paths/dependencies, and test late routes. Cost if wrong: silent route protection omissions; exact 42-route set and startup-drift regressions required.",
+    "Task 3: Ruling: old error/scope unit tests appended artificial non-contract routes to the production factory. The new default coverage audit correctly rejects them (9 checks: 6 fixture errors, 3 passes). Keep every response/scope assertion, move only artificial routes into a separate harness using the actual middleware/error handlers, and explicitly attach the real require_permission dependency in scope tests. Production never whitelists test paths or skips audits. Explicit synthetic permission fixtures move forward from Task 4 to enable this regression. Cost if wrong: unit harness misses integration behavior; the separate 42-operation and startup-drift HTTP tests cover that boundary.",
+    "Task 4: Ruling: real SQL regression reproduced a stale-fact window during policy evaluation (three RED failures: role revocation, identity revocation, changed grant version). Re-read and validate exact facts and policy version before returning ALLOW; revoked facts deny 403/401, changed basis refuses 503. This strengthens the already approved internal port without public/schema changes. Cost if wrong: extra lookup latency or conservative retry on concurrent changes; tests bind exact outcomes. It does not prove zero-delay revocation after the final check or a formal SLA.",
+    "Final: Ruling: the one fresh review covers this approved plan range 0d60aaa..108d7da plus the listed uncommitted documentation-generator edits; older foundation history on the existing feature branch is dependency context, not a claim of full historical re-review. Review runs alongside the detached final regression and documentation generation, but delivery waits for all required checks and review fixes. Cost if wrong: an older latent defect or a later documentation mismatch could be missed; exact dependency/full runtime checks, generator drift checks and final source hashes remain mandatory.",
+    "Task 5: Ruling: broadened real SQL/business coverage is not allowed to inherit a 600s business-only deadline blindly. Current complete-suite attempts remained actively CPU-bound beyond 15 minutes; strict catalog/app construction measured ~1s and detached file progress advances. Keep the full assertions/test set and raise the bounded business verifier timeout to 1800s and engineering job to 60min, retaining failure propagation. Cost if wrong: a real hang takes longer to fail; finite subprocess/job limits remain and CI must complete.",
+    "Final: Ruling: the reviewer set aside runtime, gate/CI and final generated navigation outcomes while they were pending. None is waived: actual 541 full tests,257 focused tests,13 parser tests and15 documentation/quality checks now pass; latest exact hosted CI remains a required independent result. Cost if wrong: false completion, so do not infer hosted success from local checks.",
+    "Final: Ruling: formal six-role rules,31 unmounted operations, post-final-check zero-delay revocation SLA and capacity were not accepted by review. Preserve explicit fail-closed/pending boundaries and existing scope; do not expand this batch to unspecified future functions. Cost if wrong: this development result would be mistaken for complete operational authorization or performance assurance.",
+    "Final: Ruling: shared migration/adoption and T013 real signature/two-subkey decryption/restore/account-MFA/handover plus exposed-passphrase/old-copy disposition remain unaccepted; owner retains configuration and no real signing is resumed. Structure/copy proofs are not recovery. Cost if wrong: unproven custody or unsafe operational cutover.",
+    "Final: Ruling: old N01/T013 history is dependency context, Python candidates remain deferred and T015 is not implemented automatically. Record current tests without converting them to full historical/software-admission acceptance. Cost if wrong: latent out-of-scope issues could be concealed by a broad completion claim."
+  ]
+}

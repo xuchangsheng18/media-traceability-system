@@ -6,6 +6,8 @@
 
 设计范围已获用户认可；[六项整改计划](foundation-implementation-plan.md)、[Python类型检查计划](python-type-check-implementation-plan.md)和[首批接口/数据库计划](business-interface-implementation-plan.md)已编制，详细计划已获用户认可，采用当前会话实施。独立Python类型检查已通过，CI按实际新run认定；独立业务迁移/RLS、5上传及7历史读取已实际实现并验证，证据和范围见[首批实现说明](business-foundation-implementation.md)；剩余接口技术子范围见[本批实现说明](remaining-interface-implementation.md)。容量快照：13%使用、约644GiB可用；采样2026-10-15T17:16:10.094428+00:00，正式维护/恢复与业务条件仍待落实，不据此关闭全部13项缺口。
 
+后续业务任务的当前实现另见[T014统一权限实施与验证](../t014-unified-permission-implementation.md)：当前42业务操作已接统一入口并运行适用隔离回归，31个未挂载契约操作不计通过；正式策略与共享采用未完成。[T013密钥保护进展](../t013-signer-protection-followup.md)单列备份结构核验、口令暴露待处置和真实交接/恢复未完成范围；这些业务任务进展不改变第三阶段原16步的验收口径。
+
 - [第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx](<../../guides/第三阶段建立代码仓库和Codex工作环境分步提示词手册.docx>)；[全文阅读版](<../../_converted/guide/第三阶段建立代码仓库和Codex工作环境分步提示词手册.md>)；SHA-256 `6a308104713810bfd3fee23584cddc42473ebf74e2c3b2124366f5aaf1aa7fd9`。
 - [第三阶段建立代码仓库和Codex工作环境实施指南.docx](<../../guides/第三阶段建立代码仓库和Codex工作环境实施指南.docx>)；[全文阅读版](<../../_converted/guide/第三阶段建立代码仓库和Codex工作环境实施指南.md>)；SHA-256 `2e6f44601de70ef94ff96eb1b44a2e529a080e4416d3024e86e10eb70066dadb`。
 
