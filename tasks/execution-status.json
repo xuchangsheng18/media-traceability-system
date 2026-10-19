@@ -1,5 +1,5 @@
 {
-  "revision": "t013-real-key-milestones-and-next-task-entry-20261019",
+  "revision": "t014-dependency-matrix-test-preparation-20261019",
   "observed_date": "2026-10-19",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
@@ -1919,13 +1919,13 @@
       "name": "实现接口级权限控制",
       "card": "tasks/platform/T014.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "已挂载业务操作具备动作权限及案件范围检查入口",
-      "summary_remaining": "接入权威权限决定，补所有待实现接口的动作与数据范围拦截；覆盖角色变更、撤销、跨单位/案件及未挂载接口的完整回归",
+      "summary_completed": "业务路由已有身份、部分动作及案件范围检查入口；尚非统一权限或全量覆盖",
+      "summary_remaining": "已补依赖复核、73操作权限/范围矩阵和异常测试设计；仍需权威权限接入、统一拦截及真实权限参数化回归",
       "completed_steps": [
         {
-          "description": "已挂载业务操作具备动作权限及案件范围检查入口",
+          "description": "业务路由已有身份、部分动作及案件范围检查入口；尚非统一权限或全量覆盖",
           "kind": "DEVELOPMENT",
           "evidence": [
             {
@@ -1950,18 +1950,38 @@
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "接入权威权限决定，补所有待实现接口的动作与数据范围拦截"
+          "description": "已完成依赖代码/实测复核及73操作权限、单位/案件范围矩阵；仍需接入权威权限决定、实现统一require_permission及逐接口动作/数据范围拦截。",
+          "preparation_milestones": [
+            {
+              "id": "T014-R01-M01",
+              "status": "PREPARATION_ONLY",
+              "evidence_ref": "docs/03-development/t014-dependency-and-scope-review.md"
+            },
+            {
+              "id": "T014-R01-M02",
+              "status": "DESIGN_NOT_RUNTIME_ENFORCEMENT",
+              "evidence_ref": "docs/08-security/t014-interface-scope-matrix.md"
+            }
+          ]
         },
         {
           "category": "实施/验证",
-          "description": "覆盖角色变更、撤销、跨单位/案件及未挂载接口的完整回归"
+          "description": "已完成未认证、无权限、角色/成员撤销及越权测试设计；仍需实现并运行全部适用参数化测试及未挂载接口后续回归。",
+          "preparation_milestones": [
+            {
+              "id": "T014-R02-M01",
+              "status": "TEST_DESIGN_NOT_EXECUTION",
+              "evidence_ref": "docs/09-testing/t014-authorization-test-design.md"
+            }
+          ]
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "实际开发负责人已由用户确认为徐昌胜；剩余工时、T014复核人、真实实施/验收及日期仍待记录；代码和测试缺口未关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-19",
+      "preparation_review_ref": "docs/03-development/t014-dependency-and-scope-review.md"
     },
     {
       "task_id": "T015",
@@ -7368,12 +7388,13 @@
     "report_ref": "docs/00-project/validation/github-actions-report.json"
   },
   "latest_task_continuation": {
-    "task_id": "T013",
-    "observed_at": "2026-10-19T12:50:15.957164+00:00",
-    "scope": "overall_navigation_update_for_verified_R02_internal_key_milestones_not_full_R02_or_T013_closeout",
-    "source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb",
+    "task_id": "T014",
+    "observed_at": "2026-10-19T13:17:24.040193+00:00",
+    "scope": "dependency_review_permission_scope_matrix_and_test_design_only",
+    "source_commit": "de6c086a91a2d68a7bc4d0c8daf510ac927f44dc",
     "full_task_accepted": false,
-    "T014_new_implementation_started": false
+    "T014_preparation_performed": true,
+    "T014_new_business_implementation_started": false
   },
   "progress_update_history": [
     {
@@ -7401,6 +7422,14 @@
         }
       ],
       "source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb"
+    },
+    {
+      "observed_at": "2026-10-19T13:17:24.040193+00:00",
+      "task_id": "T014",
+      "scope": "three_preparation_deliverables_and_confirmed_owner_only",
+      "reference": "docs/03-development/t014-dependency-and-scope-review.md",
+      "completed_step_count_changed": false,
+      "full_task_accepted": false
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "revision": "t013-R02-real-key-progress-20261019",
+  "revision": "t014-preparation-owner-confirmation-20261019",
   "status": "PARTIAL_ACTUAL_INPUTS_CONFIRMED",
   "actual_plan_start_date": null,
   "resources": [
@@ -33,12 +33,19 @@
       "assignment_confirmed_by_user": true,
       "assigned_task_ids": [
         "T012",
-        "T013"
+        "T013",
+        "T014"
       ],
       "assignment_basis_ref": "docs/03-development/repository-access-control.md",
       "confirmation_date": "2026-10-17",
       "github_account": "xuchangsheng18",
-      "capacity_status": "UNCONFIRMED"
+      "capacity_status": "UNCONFIRMED",
+      "latest_assignment_confirmation": {
+        "task_id": "T014",
+        "confirmation_date": "2026-10-19",
+        "confirmed_by": "user",
+        "scope": "actual_development_owner_only_no_account_or_access_grant"
+      }
     }
   ],
   "calendar": {
@@ -1027,7 +1034,7 @@
     {
       "task_id": "T014",
       "verification_status": "PARTIAL_VERIFIED_SCOPE",
-      "resource_id": null,
+      "resource_id": "PERSON-002",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -1052,7 +1059,41 @@
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
-      "material_or_resource_dependencies": []
+      "material_or_resource_dependencies": [],
+      "preparation_review_ref": "docs/03-development/t014-dependency-and-scope-review.md",
+      "current_remaining_work_snapshot": [
+        {
+          "category": "实施/外部条件",
+          "description": "已完成依赖代码/实测复核及73操作权限、单位/案件范围矩阵；仍需接入权威权限决定、实现统一require_permission及逐接口动作/数据范围拦截。",
+          "preparation_milestones": [
+            {
+              "id": "T014-R01-M01",
+              "status": "PREPARATION_ONLY",
+              "evidence_ref": "docs/03-development/t014-dependency-and-scope-review.md"
+            },
+            {
+              "id": "T014-R01-M02",
+              "status": "DESIGN_NOT_RUNTIME_ENFORCEMENT",
+              "evidence_ref": "docs/08-security/t014-interface-scope-matrix.md"
+            }
+          ]
+        },
+        {
+          "category": "实施/验证",
+          "description": "已完成未认证、无权限、角色/成员撤销及越权测试设计；仍需实现并运行全部适用参数化测试及未挂载接口后续回归。",
+          "preparation_milestones": [
+            {
+              "id": "T014-R02-M01",
+              "status": "TEST_DESIGN_NOT_EXECUTION",
+              "evidence_ref": "docs/09-testing/t014-authorization-test-design.md"
+            }
+          ]
+        },
+        {
+          "category": "任务记录",
+          "description": "实际开发负责人已由用户确认为徐昌胜；剩余工时、T014复核人、真实实施/验收及日期仍待记录；代码和测试缺口未关闭。"
+        }
+      ]
     },
     {
       "task_id": "T015",

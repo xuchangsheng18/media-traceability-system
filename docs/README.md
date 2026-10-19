@@ -1,5 +1,7 @@
 # 项目文档导航
 
+T014本批准备：[依赖代码/实测核对](03-development/t014-dependency-and-scope-review.md)、[接口权限与单位/案件矩阵](08-security/t014-interface-scope-matrix.md)、[异常权限测试设计](09-testing/t014-authorization-test-design.md)、[当前依赖回归](00-project/validation/t014-dependency-regression-report.json)。实际负责人徐昌胜；准备材料已补，不代表统一权限代码、全量测试或整卡验收完成。
+
 [N01当前：剩余准入与具体确认清单](03-development/native-n01-admission-decisions.md)；当前不制作正式外发运行包，软件准入未批准。
 
 [N01最新：生成资源来源闭合与分发审查材料包](03-development/native-n01-generated-source-and-distribution-kit.md)；来源/字节核验不代替正式软件准入。
@@ -18,7 +20,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本批管理工具替代及退役准备](03-development/t013-bootstrap-management-replacement.md)、[本批实际报告](00-project/validation/t013-bootstrap-management-report.json)、[本批精确CI](00-project/validation/t013-bootstrap-management-ci-report.json)、[实名管理员初始化](03-development/t013-admin-handover-validation.md)、[身份运维手册](10-deployment/keycloak-identity-runbook.md)、[重启与恢复验证](03-development/t013-recovery-validation.md)、[22项当前状态](00-project/validation/t013-keycloak-acceptance-ledger.json)、[完整设计](03-development/t013-keycloak-identity-design.md)、[内部8步计划及历史](03-development/t013-keycloak-implementation-plan.md)。本批已实现替代工具并准备私密候选；真实恢复密钥组及独立Linux备份签名密钥已建立，保护标记与受保护导出结构核验通过。实际签名、解密/验签及备份恢复仍待验证；真实账号/MFA、共享采用及bootstrap退役未执行，T013仍未整卡验收。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[708条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有87条已验证子步骤、621条剩余工作；全局编号0001—0708。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。 本轮密钥成果已写入T013-R02的部分进展，R02仍有恢复验证待完成，因此上述C/R计数保持不变。下一项[T014接口权限控制](../tasks/platform/T014.md)可进入依赖核查、权限矩阵和隔离测试设计；完整前置依赖、正式身份及共享联调条件未通过。具体结论见[当前状态与开发入口复核](00-project/validation/t013-keycloak-acceptance-ledger.json)。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[708条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有87条已验证子步骤、621条剩余工作；全局编号0001—0708。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。 本轮密钥成果已写入T013-R02的部分进展，R02仍有恢复验证待完成，因此上述C/R计数保持不变。下一项[T014接口权限控制](../tasks/platform/T014.md)本批已补依赖核查、权限矩阵和隔离测试设计；统一权限代码与全量权限回归待实施；完整前置依赖、正式身份及共享联调条件未通过。具体结论见[当前状态与开发入口复核](00-project/validation/t013-keycloak-acceptance-ledger.json)。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -554,7 +556,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1144份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1152份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1702,3 +1704,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [source/original/面向网络违法有害信息治理的短视频与图片智能识别溯源系统详细设计实现方案V2.docx](<source/original/面向网络违法有害信息治理的短视频与图片智能识别溯源系统详细设计实现方案V2.docx>) | 按摘要保护的业务来源原件或当前修订原件 |
 | [source/revisions/项目任务书_技术修订版V1.3.docx](<source/revisions/项目任务书_技术修订版V1.3.docx>) | 按摘要保护的业务来源原件或当前修订原件 |
 | [source/revisions/项目总体设计方案_技术修订版V1.4.docx](<source/revisions/项目总体设计方案_技术修订版V1.4.docx>) | 按摘要保护的业务来源原件或当前修订原件 |
+| [03-development/t014-dependency-and-scope-review.md](<03-development/t014-dependency-and-scope-review.md>) | T014本批依赖源码/摘要/当前回归与历史CI适用边界，三项准备完成；整任务未验收。 |
+| [08-security/t014-interface-scope-matrix.json](<08-security/t014-interface-scope-matrix.json>) | 73操作、41权限、6角色、实际路由与数据范围的来源摘要附表；候选职责不当正式ALLOW。 |
+| [08-security/t014-interface-scope-matrix.md](<08-security/t014-interface-scope-matrix.md>) | 接口权限、单位/案件矩阵和实际检查入口/缺口；已挂载不等于授权完成。 |
+| [09-testing/t014-authorization-test-design.json](<09-testing/t014-authorization-test-design.json>) | 逐73操作的异常权限测试计划、场景适用范围和432组角色默认拒绝参数；均为设计数量。 |
+| [09-testing/t014-authorization-test-design.md](<09-testing/t014-authorization-test-design.md>) | 未认证、无权限、撤销、越权、故障及副作用断言设计；新的T014业务测试尚未实施。 |
+| [00-project/validation/t014-dependency-regression-report.json](<00-project/validation/t014-dependency-regression-report.json>) | 当前源码Linux py310既有业务及令牌测试真实重跑、分组计数及精确SHA；非T014全量权限验证。 |
+| [00-project/validation/t014-preparation-validation-report.json](<00-project/validation/t014-preparation-validation-report.json>) | T014准备材料逐项操作/来源摘要/引用/人员/状态一致性检查；不是业务权限测试通过。 |
+| [00-project/validation/t014-preparation-ci-observation.json](<00-project/validation/t014-preparation-ci-observation.json>) | 上一批导航CI实际失败及候选输入摘要过期原因、修复与重验范围；不冒充本轮托管通过。 |
