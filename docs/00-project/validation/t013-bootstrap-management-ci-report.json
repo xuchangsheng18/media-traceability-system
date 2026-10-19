@@ -1,10 +1,41 @@
 {
   "task_id": "T013",
-  "status": "CURRENT_EXPLICIT_PROFILE_PAYLOAD_CI_PENDING",
-  "previous_runs": [
-    39217811049,
-    39220993572
-  ],
-  "tests_in_those_runs_not_executed": true,
+  "status": "CURRENT_SAFE_DIAGNOSTIC_PAYLOAD_CI_PENDING",
+  "previous_failed_recovery": {
+    "status": "FAIL",
+    "run_id": 39223059150,
+    "source_commit": "5ecead8875ef981e2b1243cedbf8ed3c7310421d",
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39223059150",
+    "jobs": [
+      {
+        "id": 117962684613,
+        "name": "identity-verification / identity-integration",
+        "conclusion": "failure"
+      },
+      {
+        "id": 117968124345,
+        "name": "engineering",
+        "conclusion": "failure"
+      }
+    ],
+    "identity_totals": {
+      "tests": 328,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failed_cases": [
+      "tests.identity.test_recovery_live.test_restart_and_database_dependency_readiness"
+    ],
+    "management_live_case_passed": true,
+    "engineering_correctly_refused": true,
+    "artifact": {
+      "id": 12173570812,
+      "name": "t013-identity-validation-39223059150",
+      "size_in_bytes": 3352,
+      "digest": "sha256:535b010fb4f8744ec601e346368c7af856534cb4fd995ce9a35d1235ead7b53e"
+    },
+    "cause": "RuntimeError; initial safe collector lacked source-defined recovery fixture codes; no root cause inferred and no assertions changed."
+  },
   "formal_accepted": false
 }

@@ -115,14 +115,14 @@ def safe_failed_cases(path: Path) -> list[dict[str, Any]]:
     }
     sources = [
         p for folder in ["scripts/identity", "backend/business_app/identity"] for p in (ROOT / folder).glob("*.py")
-    ] + [ROOT / "tools/identity_oidc_probe.py"]
+    ] + [ROOT / "tools/identity_oidc_probe.py", ROOT / "tests/identity/recovery_lab.py"]
     codes = {
         node.value
         for p in sources
         for node in ast.walk(ast.parse(p.read_text(encoding="utf-8")))
         if isinstance(node, ast.Constant)
         and isinstance(node.value, str)
-        and re.fullmatch(r"IDENTITY_[A-Z][A-Z0-9_]*[A-Z0-9]", node.value)
+        and re.fullmatch(r"(?:IDENTITY|RECOVERY_LAB)_[A-Z][A-Z0-9_]*[A-Z0-9]", node.value)
     }
     exception_types = {
         "RuntimeError",
