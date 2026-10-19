@@ -1,8 +1,8 @@
 {
   "task_id": "T013",
   "record_kind": "implementation_progress_register_not_validator_acceptance_input",
-  "observed_at": "2026-10-19T06:12:28.595320+00:00",
-  "tested_source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+  "observed_at": "2026-10-19T09:22:19.524564+00:00",
+  "tested_source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
   "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
   "pass_count": 20,
   "not_executed_count": 2,
@@ -80,10 +80,10 @@
     {
       "id": "IDP-09",
       "status": "NOT_EXECUTED",
-      "evidence_boundary": "徐昌胜及登录名xuchangsheng已登记；合成临时账号完成真实服务首次改密/MFA、bootstrap退出与重启演练，仍不替代本人账号、本人设备MFA、共享管理自动化替代和共享bootstrap退役。实名交接尚未执行。",
+      "evidence_boundary": "徐昌胜及xuchangsheng登录名已登记；本人MFA管理替代工具、真实隔离退役后操作与重启及共享私密候选准备已验证。真实账号/本人设备MFA、共享专用客户端采用、bootstrap及历史凭据退役仍未执行。",
       "references": [
         "docs/00-project/validation/t013-role-assignment.json",
-        "docs/00-project/validation/t013-admin-handover-report.json",
+        "docs/00-project/validation/t013-bootstrap-management-report.json",
         "docs/10-deployment/keycloak-identity-runbook.md"
       ]
     },
@@ -168,9 +168,11 @@
         "docs/00-project/validation/t013-recovery-report.json",
         "docs/00-project/validation/t013-gateway-log-privacy-report.json",
         "docs/00-project/validation/t013-recovery-ci-report.json",
-        "docs/00-project/validation/t013-admin-handover-ci-report.json"
+        "docs/00-project/validation/t013-admin-handover-ci-report.json",
+        "docs/00-project/validation/t013-bootstrap-management-ci-report.json"
       ],
-      "current_handover_CI_log_boundary": "Both exact current handover CI jobs additionally scanned against 12 known runtime values and credential patterns without findings; bounded decoded-log audit only."
+      "current_handover_CI_log_boundary": "Both exact current handover CI jobs additionally scanned against 12 known runtime values and credential patterns without findings; bounded decoded-log audit only.",
+      "current_management_CI_log_boundary": "Two exact current jobs scanned against 12 known shared values and credential patterns; bounded decoded-log audit, not universal DLP."
     },
     {
       "id": "IDP-19",
@@ -205,10 +207,10 @@
     {
       "id": "IDP-22",
       "status": "PASS_EXACT_SCOPED_HOSTED_IDENTITY_AND_REQUIRED_ENGINEERING",
-      "evidence_boundary": "Exact administrator-handover payload passed 273 identity checks, 32 required engineering gates and 246 business tests; two actual ZIPs verified against platform size/digest and 47 source hashes against committed blobs. Matching Linux 387 unit/engineering checks and one complete isolated handover case passed separately. Suites overlap; this is not whole T013, human handover, software admission or production acceptance.",
+      "evidence_boundary": "Exact bootstrap-management and owned same-digest CI profile payload passed 330 identity checks, 32 required engineering gates and 246 business tests; two actual ZIPs verified by platform size/digest and 53 committed source hashes. Linux 443 unit/engineering tests and the complete real management rerun match all current 53 identity files. Suites overlap; actual-person handover, shared adoption and software admission remain unclosed.",
       "references": [
-        "docs/00-project/validation/t013-admin-handover-ci-report.json",
-        "docs/00-project/validation/t013-admin-handover-report.json",
+        "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
+        "docs/00-project/validation/t013-bootstrap-management-report.json",
         ".github/workflows/identity.yml",
         ".github/workflows/ci.yml"
       ]
@@ -230,17 +232,21 @@
     }
   ],
   "current_batch_report_ref": "docs/00-project/validation/t013-recovery-report.json",
-  "current_batch_tested_source": "Exact committed administrator-handover hosted CI and matching Linux complete isolated handover source hashes.",
+  "current_batch_tested_source": "Exact committed MFA operator management and retirement-preparation hosted CI, matching Linux runtime source hashes.",
   "failed_count": 0,
   "pending_count": 2,
-  "current_hosted_tested_source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
-  "current_hosted_ci_ref": "docs/00-project/validation/t013-admin-handover-ci-report.json",
+  "current_hosted_tested_source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+  "current_hosted_ci_ref": "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
   "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json",
   "historical_tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
   "tested_payload_history": [
     {
       "source_commit": "79ab553d7fc8e70beb78b1eae53a762d6f2b88f0",
       "hosted_ci_ref": "docs/00-project/validation/t013-recovery-ci-report.json"
+    },
+    {
+      "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+      "hosted_ci_ref": "docs/00-project/validation/t013-admin-handover-ci-report.json"
     }
   ]
 }
