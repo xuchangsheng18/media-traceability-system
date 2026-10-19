@@ -1,11 +1,11 @@
 {
   "task_id": "T013",
   "record_kind": "implementation_progress_register_not_validator_acceptance_input",
-  "observed_at": "2026-10-18T19:31:40.687739+00:00",
+  "observed_at": "2026-10-19T03:10:12.525782+00:00",
   "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
   "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
-  "pass_count": 16,
-  "not_executed_count": 6,
+  "pass_count": 18,
+  "not_executed_count": 4,
   "formal_accepted": false,
   "hosted_ci_triggered": true,
   "entries": [
@@ -80,9 +80,9 @@
     {
       "id": "IDP-09",
       "status": "NOT_EXECUTED",
-      "evidence_boundary": "Password grant rejection was tested; named administrator MFA and bootstrap removal/handover were not completed.",
+      "evidence_boundary": "徐昌胜已被指定为身份管理员和T013复核人；实名账号、MFA及bootstrap移除/交接尚未执行。",
       "references": [
-        "tests/identity/test_oidc_live.py"
+        "docs/00-project/validation/t013-role-assignment.json"
       ]
     },
     {
@@ -150,18 +150,22 @@
     },
     {
       "id": "IDP-17",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "A service restart followed by persistence and readiness revalidation was not performed in this acceptance batch.",
+      "status": "PASS_ISOLATED_RESTART_AND_DEPENDENCY_DENIAL",
+      "evidence_boundary": "真实隔离三服务重启后realm、用户、客户端、签名标识及精确映射保留。停止数据库后就绪DOWN且认证503拒绝，恢复后正向核验成功。共享身份容器未重启。",
       "references": [
-        "docs/00-project/validation/t013-keycloak-execution-report.json"
+        "docs/00-project/validation/t013-recovery-report.json",
+        "tests/identity/test_recovery_live.py",
+        "deploy/identity/nginx.conf"
       ]
     },
     {
       "id": "IDP-18",
       "status": "NOT_EXECUTED",
-      "evidence_boundary": "Configured secret/dependency scan passed, but complete runtime-log, hosted-CI, and full-history credential review for this exact commit is not complete.",
+      "evidence_boundary": "当前可达Git历史、12项已知私密值和10个保留日志已审查；真实故障查询串泄露已RED/GREEN修复。本次精确提交的托管CI日志尚待核验，未宣称完整DLP或已恢复删除/过期日志。",
       "references": [
-        "docs/00-project/validation/t013-keycloak-execution-report.json"
+        "docs/00-project/validation/t013-recovery-report.json",
+        "docs/00-project/validation/t013-gateway-log-privacy-report.json",
+        "docs/00-project/validation/t013-recovery-ci-report.json"
       ]
     },
     {
@@ -176,29 +180,31 @@
     },
     {
       "id": "IDP-20",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "Production restore/cutover session invalidation and old-token/client-secret rejection were not exercised.",
+      "status": "PASS_ISOLATED_RESTORE_CREDENTIAL_RECONCILIATION",
+      "evidence_boundary": "真实旧备份可恢复已撤销会话；清会话/not-before、撤下旧SIG密钥和APIsecret轮换后旧access/refresh/secret失败，新身份精确映射且未授予案件权限。注入清理失败保持临时realm禁用。范围仅临时业务realm，不包含master/bootstrap/CA正式交接或共享切换。",
       "references": [
-        "docs/00-project/validation/t013-keycloak-execution-report.json"
+        "docs/00-project/validation/t013-recovery-report.json",
+        "scripts/identity/reconcile.py",
+        "scripts/identity/restore.py",
+        "tests/identity/test_recovery_live.py"
       ]
     },
     {
       "id": "IDP-21",
-      "status": "NOT_EXECUTED",
-      "evidence_boundary": "No production rollback/cutover was performed; the isolated restore did not modify the live identity service.",
+      "status": "PASS_ISOLATED_ROLLBACK_WITH_FRESH_CREDENTIAL_EPOCH",
+      "evidence_boundary": "仅隔离身份项目切回原测试卷；稳定身份字段和映射保留，再次清会话/换密钥/换APIsecret后旧恢复凭据不能复活。保留原卷，不覆盖业务库；未执行生产回切。",
       "references": [
-        "docs/00-project/validation/t013-keycloak-execution-report.json"
+        "docs/00-project/validation/t013-recovery-report.json",
+        "tests/identity/test_recovery_live.py"
       ]
     },
     {
       "id": "IDP-22",
-      "status": "PASS_SCOPED_HOSTED_IDENTITY_AND_ENGINEERING",
-      "evidence_boundary": "Exact committed payload passed real225 identity tests in a disposable hosted VM and32 required engineering gates plus246 business tests. Both platform artifacts were downloaded and verified against API size/digest; source SHA256 map matches the committed payload. Not formal identity acceptance.",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "本地358单元、246业务完整复测和质量门禁通过；本批代码改变了恢复/网关/执行器，旧托管CI保留为历史，本批精确提交等待实际托管运行核验。",
       "references": [
-        "docs/00-project/validation/t013-identity-ci-report.json",
-        "docs/00-project/validation/github-actions-report.json",
-        ".github/workflows/identity.yml",
-        ".github/workflows/ci.yml"
+        "docs/00-project/validation/t013-recovery-report.json",
+        "docs/00-project/validation/t013-recovery-ci-report.json"
       ]
     }
   ],
@@ -209,12 +215,19 @@
       "pass_count": 13,
       "not_executed_count": 9,
       "hosted_ci_triggered": false
+    },
+    {
+      "observed_at": "2026-10-18T19:31:40.687739+00:00",
+      "pass_count": 16,
+      "not_executed_count": 6,
+      "current_batch_report_ref": "docs/00-project/validation/t013-rotation-fault-report.json"
     }
   ],
-  "current_batch_report_ref": "docs/00-project/validation/t013-rotation-fault-report.json",
-  "current_batch_tested_source": "Working tree at recorded base commit plus exact report source_sha256; hosted committed payload pending.",
+  "current_batch_report_ref": "docs/00-project/validation/t013-recovery-report.json",
+  "current_batch_tested_source": "Separate Linux working-copy restart/restore runs plus dedicated gateway RED/GREEN; exact hosted payload pending.",
   "failed_count": 0,
-  "pending_count": 6,
+  "pending_count": 4,
   "current_hosted_tested_source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
-  "current_hosted_ci_ref": "docs/00-project/validation/t013-identity-ci-report.json"
+  "current_hosted_ci_ref": "docs/00-project/validation/t013-recovery-ci-report.json",
+  "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json"
 }

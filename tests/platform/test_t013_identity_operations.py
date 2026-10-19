@@ -187,9 +187,36 @@ def test_restore_refuses_original_volume():
 def test_restore_container_gets_graceful_shutdown_window(monkeypatch):
     module = importlib.import_module("scripts.identity.restore")
     calls = []
-    monkeypatch.setattr(module.common, "docker", lambda *args: calls.append(args))
+    monkeypatch.setattr(module.common, "run", lambda args, **kwargs: calls.append((args, kwargs)))
     module.stop_restore_container("media-trace-identity-restore-1234abcd-postgres")
-    assert calls == [("stop", "--time", "60", "media-trace-identity-restore-1234abcd-postgres")]
+    assert calls == [
+        (
+            [
+                "docker",
+                "--context",
+                "desktop-linux",
+                "stop",
+                "--time",
+                "60",
+                "media-trace-identity-restore-1234abcd-postgres",
+            ],
+            {"timeout": 90},
+        )
+    ]
+
+
+@pytest.mark.parametrize(
+    "code,output,expected",
+    [(0, b"keycloak|keycloak\n", True), (0, b"", False), (1, b"", False), (0, b"postgres|postgres\n", False)],
+)
+def test_restore_waits_for_initialized_role_database_and_final_server(monkeypatch, code, output, expected):
+    import subprocess
+
+    module = importlib.import_module("scripts.identity.restore")
+    monkeypatch.setattr(
+        subprocess, "run", lambda *args, **kwargs: subprocess.CompletedProcess(args[0], code, stdout=output)
+    )
+    assert module.initialized_database_ready("media-trace-identity-restore-1234abcd-postgres") is expected
 
 
 def test_corrupt_or_missing_key_fails_closed(tmp_path, recovery_key):

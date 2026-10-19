@@ -18,7 +18,29 @@ def validate_restore_target(project: str, existing: set[str]) -> None:
 
 
 def stop_restore_container(container: str) -> None:
-    common.docker("stop", "--time", "60", container)
+    common.run(["docker", "--context", common.CONTEXT, "stop", "--time", "60", container], timeout=90)
+
+
+def initialized_database_ready(container: str) -> bool:
+    try:
+        result = subprocess.run(
+            [
+                "docker",
+                "--context",
+                common.CONTEXT,
+                "exec",
+                container,
+                "sh",
+                "-ec",
+                'test "$(cat /proc/1/comm)" = postgres; '
+                "psql -U keycloak -d keycloak -Atc 'SELECT current_database(),current_user'",
+            ],
+            capture_output=True,
+            timeout=5,
+        )
+        return result.returncode == 0 and result.stdout.strip() == b"keycloak|keycloak"
+    except subprocess.TimeoutExpired:
+        return False
 
 
 def verify_encrypted(path: Path, gpg_home: Path, signer: str) -> str:
@@ -100,23 +122,10 @@ def restore_database(backup: Path, project: str, home: Path, signer: str) -> dic
     try:
         ready = False
         for _ in range(60):
-            result = subprocess.run(
-                [
-                    "docker",
-                    "--context",
-                    common.CONTEXT,
-                    "exec",
-                    container,
-                    "pg_isready",
-                    "-U",
-                    "identity_admin",
-                    "-d",
-                    "keycloak",
-                ],
-                capture_output=True,
-            )
-            if result.returncode == 0:
+            if initialized_database_ready(container):
                 ready = True
+                break
+            if time.monotonic() - start > 60:
                 break
             time.sleep(0.5)
         if not ready or digest(backup) != verified:

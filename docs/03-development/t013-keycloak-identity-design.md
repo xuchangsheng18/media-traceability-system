@@ -1,6 +1,6 @@
 # T013 项目自建 Keycloak 身份系统完整设计
 
-当前续验（2026-10-19）：密钥轮换、真实故障拒绝和CI补齐见[本批说明](t013-rotation-fault-validation.md)及[22项当前登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)。下文2026-10-17的计数、提交、CI未执行状态和步骤表均为当日历史，不覆盖上述当前证据。T013仍未整卡验收，Python候选继续暂缓。
+当前续验（2026-10-19）：密钥轮换、真实故障拒绝和CI补齐见[轮换批说明](t013-rotation-fault-validation.md)；重启持久性、历史凭据审查和恢复回切见[恢复批说明](t013-recovery-validation.md)。[22项当前登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)记录实际范围和证据。下文2026-10-17的计数、提交、CI未执行状态和步骤表均为当日历史，不覆盖上述当前证据。T013仍未整卡验收，Python候选继续暂缓。
 
 日期：2026-10-17。状态：**方案及8步实施计划已获用户认可；身份服务已在Linux隔离项目部署并完成多项研发验证**。步骤状态与边界见[实际执行报告](../00-project/validation/t013-keycloak-execution-report.json)及[8步计划](t013-keycloak-implementation-plan.md)。软件正式准入、实名管理员/用户交接、异地灾备和T013整卡验收仍未完成。
 

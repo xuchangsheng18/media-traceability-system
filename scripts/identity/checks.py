@@ -21,6 +21,8 @@ GROUPS = {
         "tests/platform/test_t013_identity_operations.py",
         "tests/platform/test_t013_identity_deploy.py",
         "tests/platform/test_t013_identity_checks.py",
+        "tests/platform/test_t013_recovery_guard.py",
+        "tests/platform/test_t013_privacy_audit.py",
     ],
     "identity-mapping.xml": [
         "tests/business/test_token_identity.py",
@@ -29,6 +31,7 @@ GROUPS = {
     ],
 }
 FIELDS = ("tests", "failures", "errors", "skipped")
+GROUP_TIMEOUTS = {"identity-live.xml": 1800, "identity-adapters.xml": 900, "identity-mapping.xml": 900}
 
 
 def private_root(path: Path) -> Path:
@@ -76,6 +79,12 @@ def source_hashes() -> dict[str, str]:
         ROOT / p
         for p in [
             "tests/platform/test_t013_identity_checks.py",
+            "tests/platform/test_t013_identity_operations.py",
+            "tests/platform/test_t013_recovery_guard.py",
+            "tests/platform/test_t013_privacy_audit.py",
+            "deploy/identity/Dockerfile.keycloak",
+            "deploy/identity/compose.yaml",
+            "deploy/identity/nginx.conf",
             "scripts/__init__.py",
             "scripts/stage_three_types.py",
             "tools/identity_oidc_probe.py",
@@ -135,7 +144,7 @@ def collect(path: Path) -> dict[str, Any]:
             )
     report = {
         "status": "PASS" if all(g["status"] == "PASS" for g in groups) else "FAIL",
-        "scope": "T013_isolated_identity_rotation_fault_and_mapping_tests_not_whole_acceptance",
+        "scope": "T013_isolated_identity_rotation_fault_mapping_restart_restore_tests_not_whole_acceptance",
         "observed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "source_sha256": source_hashes(),
@@ -163,7 +172,7 @@ def run_groups(path: Path) -> list[int]:
             os.chmod(log, 0o600)
             try:
                 result = subprocess.run(
-                    command, cwd=ROOT, env=env, stdout=output, stderr=subprocess.STDOUT, timeout=900
+                    command, cwd=ROOT, env=env, stdout=output, stderr=subprocess.STDOUT, timeout=GROUP_TIMEOUTS[name]
                 )
                 exits.append(result.returncode)
             except subprocess.TimeoutExpired:
