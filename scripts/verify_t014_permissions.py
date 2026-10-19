@@ -108,6 +108,8 @@ def validate_results(junit: Path, operation_ids: set[str]) -> dict[str, Any]:
 
 
 def source_context() -> dict[str, Any]:
+    from scripts.stage_three_types import source_tree_state
+
     paths = [
         *sorted((ROOT / "backend/business_app").rglob("*.py")),
         *sorted((ROOT / "backend/business_migrations").glob("*.sql")),
@@ -121,17 +123,13 @@ def source_context() -> dict[str, Any]:
         ROOT / "config/locks/requirements-py310.lock",
     ]
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    state = subprocess.check_output(
+    state = source_tree_state(ROOT)
+    document_changes = subprocess.check_output(
         [
             "git",
             "status",
             "--porcelain",
             "--",
-            "backend",
-            "tests",
-            "scripts",
-            "config",
-            ".github",
             "docs/03-api/openapi.yaml",
             "docs/08-security/access-control-model.json",
             "docs/08-security/t014-interface-scope-matrix.json",
@@ -139,9 +137,11 @@ def source_context() -> dict[str, Any]:
         cwd=ROOT,
         text=True,
     )
+    state["source_changes"] += [line[3:] for line in document_changes.splitlines() if line]
+    state["source_code_dirty"] = bool(state["source_changes"])
     return dict(
         source_commit=head,
-        source_code_dirty=bool(state.strip()),
+        **state,
         source_sha256={
             path.relative_to(ROOT).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest() for path in paths
         },

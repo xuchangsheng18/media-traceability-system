@@ -2,6 +2,7 @@
 
 import importlib
 import json
+import subprocess
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -102,3 +103,41 @@ def test_declared_report_counts_cannot_be_ignored(tmp_path, field):
     root.write(path, encoding="utf8")
     with pytest.raises(RuntimeError, match="T014_(REPORT_INVALID|PERMISSION_TESTS_FAILED)"):
         gate.validate_results(path, OPERATIONS)
+
+
+@pytest.mark.parametrize(
+    "changed,dirty",
+    [
+        ("config/locks/runtime-archive.json", False),
+        ("config/locks/requirements-py310.lock", True),
+        ("docs/03-api/openapi.yaml", True),
+        ("backend/business_app/permissions/guard.py", True),
+    ],
+)
+def test_source_binding_distinguishes_generated_archive_from_actual_changes(tmp_path, monkeypatch, changed, dirty):
+    gate = gate_module()
+    files = [
+        "scripts/verify_t014_permissions.py",
+        "config/locks/runtime-archive.json",
+        "config/locks/requirements-py310.lock",
+        "docs/03-api/openapi.yaml",
+        "docs/08-security/access-control-model.json",
+        "docs/08-security/t014-interface-scope-matrix.json",
+        "backend/business_app/permissions/guard.py",
+    ]
+    for name in files:
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("fixture original\n")
+    for args in [
+        ["init", "--quiet"],
+        ["add", "."],
+        ["-c", "user.name=Fixture", "-c", "user.email=fixture@example.test", "commit", "--quiet", "-m", "fixture"],
+    ]:
+        subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True)
+    (tmp_path / changed).write_text("fixture changed\n")
+    monkeypatch.setattr(gate, "ROOT", tmp_path)
+    result = gate.source_context()
+    assert result["source_code_dirty"] is dirty
+    if not dirty:
+        assert result["build_metadata_changes"] == [changed]

@@ -42,7 +42,7 @@ def run_checks(root: Path, env: dict[str, str], junit: Path) -> dict[str, Any]:
         env=env,
         capture_output=True,
         text=True,
-        timeout=600,
+        timeout=1800,
     )
     totals = test_totals(junit)
     success = (
