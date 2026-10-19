@@ -1608,8 +1608,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "既有认证适配/精确映射和轮换故障矩阵保留；本批补齐隔离重启、真实新卷恢复、旧凭据失效及回切，修复就绪拦截、故障日志泄露和恢复初始化竞态；360单元、246业务复测及质量检查通过，当前托管CI以专属报告核验",
-      "summary_remaining": "软件准入、正式身份服务范围/撤销SLA及徐昌胜实名管理员账号、MFA/bootstrap实际交接仍未完成；新镜像/网关配置仅为已测候选，不把研发配置和姓名登记当正式准入或交接。；隔离研发重启、恢复后失效及回切已有实测；共享服务仍用原镜像/配置。正式恢复与切换还需实际备份解密私钥保管、恢复secret与后端私密配置协调、制品采用/维护窗口及适用正式验收；本次测试密钥和内存配置不替代这些条件。；实际开发负责人、身份管理员及T013复核人均已按用户确认登记为徐昌胜；仍需明确剩余工时、完成MFA/bootstrap实际交接及本任务实际复核记录，并逐项对照源验收标准。职责登记不代表已执行交接、独立复核或验收通过。",
+      "summary_completed": "既有认证、轮换、故障拒绝和隔离恢复已有证据；本批继续补齐管理员受控初始化、master密码/操作审计保护、首次改密/MFA、bootstrap退出重启演练及27项工具边界；完整回归和精确CI见本批专属报告，不代替本人交接。",
+      "summary_remaining": "软件准入、正式身份范围/撤销SLA及徐昌胜真实账号/MFA/bootstrap交接仍未完成；登录名已确定，初始化工具和合成演练已补，但真实账号尚未创建。共享管理工具仍依赖旧bootstrap，需落实替代的受控管理调用后再退役；共享候选采用及私密配置退役另行实施。；隔离研发重启、恢复后失效及回切已有实测；共享服务仍用原镜像/配置。正式恢复与切换还需实际备份解密私钥保管、恢复secret与后端私密配置协调、制品采用/维护窗口及适用正式验收；本次测试密钥和内存配置不替代这些条件。；徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。",
       "completed_steps": [
         {
           "description": "权威身份适配端口及缺失身份拒绝动作已实现",
@@ -1762,12 +1762,42 @@
               "scope": "本批Linux/py310隔离研发重启、恢复回切及有界凭据审查；非共享服务切换或正式验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "补齐受控管理员初始化入口、只读交接配置检查和真实TLS/MFA/bootstrap退出重启演练；强制首次改密与MFA，拒绝旧密码/错误及重复OTP、旧bootstrap凭据；不创建真实管理员或关闭正式交接。",
+          "evidence": [
+            {
+              "path": "scripts/identity/handover.py",
+              "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+            },
+            {
+              "path": "tests/platform/test_t013_handover.py",
+              "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+            },
+            {
+              "path": "tests/identity/test_admin_handover_live.py",
+              "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+            },
+            {
+              "path": "docs/03-development/t013-admin-handover-validation.md",
+              "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+            },
+            {
+              "path": "docs/10-deployment/keycloak-identity-runbook.md",
+              "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t013-admin-handover-report.json",
+              "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "软件准入、正式身份服务范围/撤销SLA及徐昌胜实名管理员账号、MFA/bootstrap实际交接仍未完成；新镜像/网关配置仅为已测候选，不把研发配置和姓名登记当正式准入或交接。"
+          "description": "软件准入、正式身份范围/撤销SLA及徐昌胜真实账号/MFA/bootstrap交接仍未完成；登录名已确定，初始化工具和合成演练已补，但真实账号尚未创建。共享管理工具仍依赖旧bootstrap，需落实替代的受控管理调用后再退役；共享候选采用及私密配置退役另行实施。"
         },
         {
           "category": "实施/验证",
@@ -1775,7 +1805,7 @@
         },
         {
           "category": "任务记录",
-          "description": "实际开发负责人、身份管理员及T013复核人均已按用户确认登记为徐昌胜；仍需明确剩余工时、完成MFA/bootstrap实际交接及本任务实际复核记录，并逐项对照源验收标准。职责登记不代表已执行交接、独立复核或验收通过。"
+          "description": "徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。"
         }
       ],
       "observed_date": "2026-10-19",
@@ -1794,7 +1824,8 @@
       },
       "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json",
       "designated_identity_administrator": "徐昌胜",
-      "designated_reviewer": "徐昌胜"
+      "designated_reviewer": "徐昌胜",
+      "current_administrator_handover_ref": "docs/00-project/validation/t013-admin-handover-report.json"
     },
     {
       "task_id": "T014",
@@ -7091,5 +7122,10 @@
     "source_commit": "e17ddffbfdfcec8fd5ff488756103bca5ef940db",
     "status": "PASS",
     "report_ref": "docs/00-project/validation/github-actions-report.json"
+  },
+  "latest_task_continuation": {
+    "task_id": "T013",
+    "observed_at": "2026-10-19T05:41:33.670546+00:00",
+    "scope": "administrator_handover_preparation_not_full_task_acceptance"
   }
 }

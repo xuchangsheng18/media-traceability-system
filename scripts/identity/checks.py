@@ -24,6 +24,7 @@ GROUPS = {
         "tests/platform/test_t013_identity_checks.py",
         "tests/platform/test_t013_recovery_guard.py",
         "tests/platform/test_t013_privacy_audit.py",
+        "tests/platform/test_t013_handover.py",
     ],
     "identity-mapping.xml": [
         "tests/business/test_token_identity.py",
@@ -83,6 +84,7 @@ def source_hashes() -> dict[str, str]:
             "tests/platform/test_t013_identity_operations.py",
             "tests/platform/test_t013_recovery_guard.py",
             "tests/platform/test_t013_privacy_audit.py",
+            "tests/platform/test_t013_handover.py",
             "deploy/identity/Dockerfile.keycloak",
             "deploy/identity/compose.yaml",
             "deploy/identity/nginx.conf",

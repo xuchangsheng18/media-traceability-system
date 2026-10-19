@@ -1,0 +1,976 @@
+{
+  "task_id": "T013",
+  "status": "PASS_LIMITED_LINUX_DEVELOPMENT_CURRENT_COMMITTED_CI_PENDING",
+  "scope": "isolated_synthetic_administrator_preparation_mfa_bootstrap_restart_not_actual_personal_handover",
+  "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+  "formal_accepted": false,
+  "actual_personal_handover_completed": false,
+  "real_administrator_created": false,
+  "Python_candidates_created": false,
+  "shared_services_restarted": false,
+  "shared_bootstrap_removed": false,
+  "T014_started": false,
+  "historical_runs": [
+    {
+      "scope": "initial_manual_synthetic_mfa_bootstrap_restart_before_operator_preparation_added",
+      "status": "PASS",
+      "started_at": "2026-10-19T04:49:29.323906+00:00",
+      "elapsed_seconds": 244.956847,
+      "totals": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "private_log_sha256": "66a8927e2f38f8b7af5dd9d28450f79df66cb2e8a9ac4555b1b3dce4294997ae"
+    },
+    {
+      "scope": "operator_preparation_first_login_required_action_order",
+      "status": "FAIL",
+      "started_at": "2026-10-19T04:55:41.019263+00:00",
+      "elapsed_seconds": 184.148964,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "private_log_sha256": "4d0c2751111cb2554a632dfb02061dd5eda36eeff3a07f8e384ca27acffcaeda",
+      "finding": "The fixture assumed password update before OTP. Observed required-action priorities are CONFIGURE_TOTP 54 and UPDATE_PASSWORD 57. Corrected fixture requires both actions before code issuance, without prescribing their order."
+    },
+    {
+      "scope": "master_protection_enabled_negative_scenarios_entered_quick_login_lockout",
+      "status": "FAIL",
+      "started_at": "2026-10-19T05:17:31.247035+00:00",
+      "elapsed_seconds": 222.2896,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "private_log_sha256": "114e43dfc2edb814a13df648284ef173b64b25458919c8ee2386bd978cb8a87c",
+      "safe_runtime_log_sha256": "86158c19aef521109c042cfce661b6a30346c8914a4f9b9ca58763cee3b283ce",
+      "allowed_runtime_error_counts": {
+        "invalid_user_credentials": 2,
+        "user_temporarily_disabled": 1
+      },
+      "resolution": "Separate intentional negative scenarios by the unchanged configured quick-login window; no protection disabling, counter clearing, generic retry or deadline relaxation."
+    }
+  ],
+  "pending": [
+    "current_committed_hosted_CI",
+    "GitHub_and_Linux_source_synchronization",
+    "actual_personal_handover_software_admission_and_shared_adoption"
+  ],
+  "administrator_login_confirmed_by_user": true,
+  "requested_administrator_login": "xuchangsheng",
+  "operator_boundary_regressions": [
+    {
+      "case": "read_only_handover_not_personal_acceptance",
+      "red": "9 missing implementation failures",
+      "green": "9 passed before preparation added"
+    },
+    {
+      "case": "new_admin_preparation",
+      "red": "3 missing function failures, 9 existing passed",
+      "green": "12 passed"
+    },
+    {
+      "case": "noninteractive_password_entry",
+      "red": "getpass subprocess exceeded 15 seconds",
+      "green": "refuses before requesting a password"
+    },
+    {
+      "case": "existing_admin_path_guard",
+      "red": "query string rejected by existing guard",
+      "green": "atomic create with 409, no guard relaxation"
+    },
+    {
+      "case": "unconfirmed_location",
+      "red": "unrelated account would be disabled",
+      "green": "confirm new disabled subject before any grant/enable/disable"
+    }
+  ],
+  "Windows_unit_tests": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "unit and subprocess entry only; Linux remains runtime target"
+  },
+  "observed_at": "2026-10-19T05:41:07.310339+00:00",
+  "current_source_sha256": {
+    ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+    ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+    "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+    "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+    "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+    "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+    "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+    "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+    "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+    "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+    "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+    "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+    "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+    "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+    "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+    "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+    "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+    "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+    "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+    "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+    "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+    "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+    "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+    "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+    "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+    "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+    "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+    "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+    "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+    "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+    "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+    "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+    "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+    "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+    "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+    "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+    "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+    "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+    "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+    "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+  },
+  "Linux_precommit": {
+    "mode": "precommit",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/platform",
+          "tests/stage_three",
+          "tests/poc",
+          "tests/native",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/precommit-20261019T053808-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:08.977839+00:00",
+        "elapsed_seconds": 20.72909,
+        "totals": {
+          "tests": 387,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "ee2d94a6d013982f31d18f98bbe1fe3d7c571ff17e6fd108b418504de261bcb4"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "format-check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:29.707200+00:00",
+        "elapsed_seconds": 1.168444,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "a138c8bb016176e9bb4ef0809a2609734b3faf1e2a79de00da8b0ff2128edb78"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "lint"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:30.875888+00:00",
+        "elapsed_seconds": 5.128825,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "187f5a4c7b4973773a7932c426771885e442677397123ffdf40ec7624be1ce59"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:36.004962+00:00",
+        "elapsed_seconds": 0.716613,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "64c96f0977937d2df2f976678c5bbeec31b497dfe898fd22519bd9b47dcce20c"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_quality.py",
+          "secrets"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:36.721809+00:00",
+        "elapsed_seconds": 0.365442,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "405214ec5a5e5e6a9aebb75ab429917c42ab8ba448d861007efcb48c7abf18bc"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "Linux_real_handover_predecessor": {
+    "mode": "live",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/identity/test_admin_handover_live.py",
+          "-x",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/live-20261019T053309-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:33:09.958936+00:00",
+        "elapsed_seconds": 236.929206,
+        "totals": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "bdaf4107337edd5bc49c02b9a5ce2d702606c90df95ba8daf5817d6db5c76307"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "live_predecessor_changed_current_files": [],
+  "predecessor_boundary": "Current real isolated handover and Linux precommit source maps match all current 47 files. Exact committed hosted identity plus engineering CI is still pending.",
+  "hosted_ci_ref": "docs/00-project/validation/t013-admin-handover-ci-report.json",
+  "code_review_ref": "docs/00-project/validation/t013-admin-handover-code-review.json",
+  "counters_are_overlapping_suites_not_total_completed_tasks": true,
+  "historical_Linux_precommit": [
+    {
+      "mode": "precommit",
+      "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+      "source_sha256": {
+        ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+        ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+        "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+        "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+        "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+        "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+        "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+        "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+        "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+        "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+        "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+        "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+        "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+        "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+        "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+        "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+        "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+        "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+        "scripts/identity/handover.py": "965c5abab4fb8e8e192b45b15020e4c520897b1e9e0b8d1de390988d11d622b4",
+        "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+        "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+        "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+        "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+        "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+        "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+        "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+        "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+        "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+        "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+        "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+        "tests/identity/test_admin_handover_live.py": "1ab0455b99ecfe031af02efb9028f81aa370dc21b063cb7c263c333c2f126a19",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+        "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+        "tests/platform/test_t013_handover.py": "0e8ad726a5d4e0767240fbb4c7a8ba8aa4d36aeb6629bf7e72dee472ac0864fa",
+        "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+        "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+        "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+        "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+        "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+        "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform",
+            "tests/stage_three",
+            "tests/poc",
+            "tests/native",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/precommit-20261019T050732-0.xml"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:07:32.375516+00:00",
+          "elapsed_seconds": 21.871033,
+          "totals": {
+            "tests": 376,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "private_log_sha256": "8f604362d83b70d8d8463582c12a7000c8a4a126f862614a22bf063255035673"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "format-check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:07:54.246791+00:00",
+          "elapsed_seconds": 1.167373,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "a138c8bb016176e9bb4ef0809a2609734b3faf1e2a79de00da8b0ff2128edb78"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "lint"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:07:55.414426+00:00",
+          "elapsed_seconds": 5.628354,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "187f5a4c7b4973773a7932c426771885e442677397123ffdf40ec7624be1ce59"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:08:01.043036+00:00",
+          "elapsed_seconds": 0.716532,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "64c96f0977937d2df2f976678c5bbeec31b497dfe898fd22519bd9b47dcce20c"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_quality.py",
+            "secrets"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:08:01.759793+00:00",
+          "elapsed_seconds": 0.415505,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "42144e19c4f3384edd14e5ee0f296904aa283b6e0a8547e17113a659830f97d4"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    },
+    {
+      "mode": "precommit",
+      "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+      "source_sha256": {
+        ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+        ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+        "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+        "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+        "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+        "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+        "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+        "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+        "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+        "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+        "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+        "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+        "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+        "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+        "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+        "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+        "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+        "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+        "scripts/identity/handover.py": "bad78eb533e63dd0e2a23d422760adedd2c457ed68e7f76d59300748868c31d7",
+        "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+        "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+        "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+        "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+        "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+        "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+        "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+        "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+        "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+        "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+        "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+        "tests/identity/test_admin_handover_live.py": "4dbb23d2c413d6012f8b0bea345ed4ca3af7ba528eccffb102db841cfc49488f",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+        "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+        "tests/platform/test_t013_handover.py": "86c373acd18071a7c211b2d804c251daa46afc31685aac08281c74121fc0b78c",
+        "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+        "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+        "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+        "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+        "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+        "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform",
+            "tests/stage_three",
+            "tests/poc",
+            "tests/native",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/precommit-20261019T051657-0.xml"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:16:57.596151+00:00",
+          "elapsed_seconds": 21.471857,
+          "totals": {
+            "tests": 385,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "private_log_sha256": "d15ed8b6118d47ec22bc9c7a6edce513c0e2cceba8560046c2f880dadc1ab671"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "format-check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:19.068275+00:00",
+          "elapsed_seconds": 1.267559,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "a138c8bb016176e9bb4ef0809a2609734b3faf1e2a79de00da8b0ff2128edb78"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "lint"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:20.336092+00:00",
+          "elapsed_seconds": 5.176781,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "187f5a4c7b4973773a7932c426771885e442677397123ffdf40ec7624be1ce59"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:25.513162+00:00",
+          "elapsed_seconds": 0.766652,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "64c96f0977937d2df2f976678c5bbeec31b497dfe898fd22519bd9b47dcce20c"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_quality.py",
+            "secrets"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:26.280054+00:00",
+          "elapsed_seconds": 0.516902,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "405214ec5a5e5e6a9aebb75ab429917c42ab8ba448d861007efcb48c7abf18bc"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    }
+  ],
+  "historical_Linux_live": [
+    {
+      "mode": "live",
+      "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+      "source_sha256": {
+        ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+        ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+        "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+        "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+        "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+        "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+        "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+        "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+        "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+        "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+        "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+        "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+        "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+        "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+        "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+        "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+        "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+        "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+        "scripts/identity/handover.py": "51e65dc5e0864091badc0c153defbc45d4ef2040b7c8317dc37958d2d0c2b3a5",
+        "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+        "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+        "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+        "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+        "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+        "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+        "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+        "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+        "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+        "tests/identity/handover_lab.py": "cffa9d2f4d300e9ee3eafc83e05d881f2aedd29e0b6bf47bb9768f37330139d7",
+        "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+        "tests/identity/test_admin_handover_live.py": "1ab0455b99ecfe031af02efb9028f81aa370dc21b063cb7c263c333c2f126a19",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+        "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+        "tests/platform/test_t013_handover.py": "bfe11e930b727b001d02c70f2839fed857118608eedd57a3d5f841edbd768246",
+        "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+        "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+        "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+        "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+        "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+        "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/identity/test_admin_handover_live.py",
+            "-x",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/live-20261019T050050-0.xml"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:00:50.008629+00:00",
+          "elapsed_seconds": 272.568843,
+          "totals": {
+            "tests": 1,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "private_log_sha256": "e59ecec080e12a859301d2c6cc5600a90a5a3261711b574b766378a9402ab47c"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    }
+  ],
+  "code_review_fix": {
+    "important_finding": "master_password_protection",
+    "red_invalid_policy_variants": 6,
+    "red_missing_policy_setup_cases": 3,
+    "unit_green": 27,
+    "Linux_unit_engineering_green": 387,
+    "additional_admin_audit_guard_red": 2
+  },
+  "shared_read_only_observation": {
+    "observed_at": "2026-10-19T05:26:15.644957+00:00",
+    "scope": "read_only_shared_identity_and_existing_runtime",
+    "project_services_healthy": 10,
+    "baseline_running_container_count": 41,
+    "baseline_running_containers_unchanged": 41,
+    "vm_filesystem_free_bytes": 687401828352,
+    "vm_free_meets_48GiB_operational_identity_guard": true,
+    "requested_login_present_in_observed_master_user_page": false,
+    "master_user_page_size": 0,
+    "shared_master_has_password_policy": false,
+    "shared_master_brute_force_enabled": false,
+    "temporary_shared_acceptance_realms_remaining": 0,
+    "shared_policy_modified": false,
+    "real_administrator_created": false,
+    "source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "formal_accepted": false
+  },
+  "important_operations_audit_scope": "master administrative events enabled without request payload representations; actual retention and centralized access policy remain subject to environment review",
+  "Linux_real_handover": {
+    "mode": "live",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/identity/test_admin_handover_live.py",
+          "-x",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/live-20261019T053309-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:33:09.958936+00:00",
+        "elapsed_seconds": 236.929206,
+        "totals": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "bdaf4107337edd5bc49c02b9a5ce2d702606c90df95ba8daf5817d6db5c76307"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "current_live_source_hashes_match": true,
+  "documentation_checks": {
+    "mode": "docs",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:41.575007+00:00",
+        "elapsed_seconds": 0.21511,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "9a635c2e64ffce309989c1cc6c6dbe0df70a2d1e9d6deaacf432c83210b498cd"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:41.790720+00:00",
+        "elapsed_seconds": 0.81932,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "12e7f5c6474b2b435e8c1bfb04816003bb4537be83a6562dd0632a1dc3c9164b"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/build_stage_one_candidate.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:42.610278+00:00",
+        "elapsed_seconds": 0.165368,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "5341535555f6efb16318c2c517027e2d2204726c719642c302f7e89d13dce22d"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:42.775874+00:00",
+        "elapsed_seconds": 28.237628,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "48a9741aa653edb3aab011de1d90ddabd1f3dd44aab6d108d45bf2c44fc06d9f"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:39:11.013748+00:00",
+        "elapsed_seconds": 1.117463,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "10ddf64fab2ed7744273f0a02d9f67e64d623ea1b7690ccbf745047ed4954a6c"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:39:12.131532+00:00",
+        "elapsed_seconds": 0.165238,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "e03291f6ba2f95d12007357476132d08055584c92dd6704da9b575288fdf0815"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  }
+}

@@ -50,6 +50,9 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t013-admin-handover-validation.md": "T013新管理员受控初始化、首次改密/MFA和bootstrap退出的隔离验证、失败记录及本人交接边界。",
+        "10-deployment/keycloak-identity-runbook.md": "身份三服务观察、SSH回环管理、实名管理员首次改密/MFA、bootstrap退役顺序及GPG恢复保管要求；不表示已实际接管。",
+        "00-project/validation/t013-admin-handover-report.json": "本批T013管理员初始化/MFA/bootstrap/重启的实际验证及精确CI、源码同步；合成管理员不代替实名交接。",
         "03-development/t012-role-model-implementation.md": "T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。",
         "04-database/role-catalog-extension.md": "0005目录开关/撤销三列、旧状态与新默认、唯一/外键/终态、受限DAO和同实例恢复；当前63表843字段。",
         "04-database/role-catalog-extension.json": "0005三列精确类型、默认、源码行与摘要及不改公共API的机器扩展字典；保留历史62/825及0004的63/840。",
