@@ -133,6 +133,15 @@ jobs:
           result=$?
           set -e
           test "$result" -eq 1
+      - name: Verify T014 permission coverage and failure gate
+        shell: bash
+        run: |
+          "$PYTHON" scripts/verify_t014_permissions.py run
+          set +e
+          "$PYTHON" scripts/verify_t014_permissions.py failure-probe
+          result=$?
+          set -e
+          test "$result" -eq 1
       - name: Run actual engineering gates
         run: |
           "$PYTHON" scripts/dev.py ci --allow-stack-changes
