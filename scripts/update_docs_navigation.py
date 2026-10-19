@@ -50,6 +50,10 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t013-bootstrap-management-replacement.md": "T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。",
+        "00-project/validation/t013-bootstrap-management-report.json": "本批管理工具替代、真实隔离MFA/撤销/退役/重启、私密候选及原文件不变的验证；保留失败记录和未验范围。",
+        "00-project/validation/t013-bootstrap-management-ci-report.json": "本批精确源码提交的托管CI、两份实际制品摘要及源码映射核对；不能代替整任务验收。",
+        "00-project/validation/t013-bootstrap-management-code-review.json": "本批一次独立代码审查、超时清理问题先失败后通过及复核边界；不代替本人验收。",
         "03-development/t013-admin-handover-validation.md": "T013新管理员受控初始化、首次改密/MFA和bootstrap退出的隔离验证、失败记录及本人交接边界。",
         "10-deployment/keycloak-identity-runbook.md": "身份三服务观察、SSH回环管理、实名管理员首次改密/MFA、bootstrap退役顺序及GPG恢复保管要求；不表示已实际接管。",
         "00-project/validation/t013-admin-handover-report.json": "本批T013管理员初始化/MFA/bootstrap/重启的实际验证及精确CI、源码同步；合成管理员不代替实名交接。",

@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[2]
 RUNTIME = Path("/workspace/glwy/runtime/media-traceability-system/identity")
 PROJECT = "media-trace-identity"
 CONTEXT = "desktop-linux"
+PUBLIC_URL = "https://172.16.58.179:18443"
+ADMIN_URL = "https://localhost:18444"
 SERVICES = {"api", "inference", "postgres", "rabbitmq", "s3", "web", "worker"}
 MINIMUM_FREE = 48 * 1024**3  # 20GiB database + 20GiB recovery + 8GiB images/headroom.
 

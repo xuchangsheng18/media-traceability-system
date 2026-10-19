@@ -16,9 +16,9 @@
 
 T011/T012身份底座：[本批设计](03-development/t012-identity-relations-design.md)、[数据库关系与补充字典](04-database/identity-relations.md)、[实际验证与研发库](00-project/validation/t012-identity-relations-report.json)。
 
-T013身份系统：[本批管理员初始化与交接验证](03-development/t013-admin-handover-validation.md)、[身份运维手册](10-deployment/keycloak-identity-runbook.md)、[本批实际报告](00-project/validation/t013-admin-handover-report.json)、[重启与恢复验证](03-development/t013-recovery-validation.md)、[恢复批精确CI](00-project/validation/t013-recovery-ci-report.json)、[22项当前状态](00-project/validation/t013-keycloak-acceptance-ledger.json)、[完整设计](03-development/t013-keycloak-identity-design.md)、[内部8步计划及历史](03-development/t013-keycloak-implementation-plan.md)。各批测试按源码和报告区分，不重复累计；合成管理员及配置检查不代替徐昌胜实名改密/MFA/bootstrap交接。T013仍未整卡验收，内部8步不是新增项目阶段。
+T013身份系统：[本批管理工具替代及退役准备](03-development/t013-bootstrap-management-replacement.md)、[本批实际报告](00-project/validation/t013-bootstrap-management-report.json)、[本批精确CI](00-project/validation/t013-bootstrap-management-ci-report.json)、[实名管理员初始化](03-development/t013-admin-handover-validation.md)、[身份运维手册](10-deployment/keycloak-identity-runbook.md)、[重启与恢复验证](03-development/t013-recovery-validation.md)、[22项当前状态](00-project/validation/t013-keycloak-acceptance-ledger.json)、[完整设计](03-development/t013-keycloak-identity-design.md)、[内部8步计划及历史](03-development/t013-keycloak-implementation-plan.md)。本批已实现替代工具并准备私密候选；真实账号/MFA、共享采用及bootstrap退役未执行，T013仍未整卡验收。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[707条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有86条已验证子步骤、621条剩余工作；全局编号0001—0707。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[708条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有87条已验证子步骤、621条剩余工作；全局编号0001—0708。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -420,6 +420,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t013-bootstrap-management-replacement.md](<03-development/t013-bootstrap-management-replacement.md>) | T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。 |
+| [00-project/validation/t013-bootstrap-management-report.json](<00-project/validation/t013-bootstrap-management-report.json>) | 本批管理工具替代、真实隔离MFA/撤销/退役/重启、私密候选及原文件不变的验证；保留失败记录和未验范围。 |
+| [00-project/validation/t013-bootstrap-management-ci-report.json](<00-project/validation/t013-bootstrap-management-ci-report.json>) | 本批精确源码提交的托管CI、两份实际制品摘要及源码映射核对；不能代替整任务验收。 |
+| [00-project/validation/t013-bootstrap-management-code-review.json](<00-project/validation/t013-bootstrap-management-code-review.json>) | 本批一次独立代码审查、超时清理问题先失败后通过及复核边界；不代替本人验收。 |
 | [03-development/t013-admin-handover-validation.md](<03-development/t013-admin-handover-validation.md>) | T013新管理员受控初始化、首次改密/MFA和bootstrap退出的隔离验证、失败记录及本人交接边界。 |
 | [10-deployment/keycloak-identity-runbook.md](<10-deployment/keycloak-identity-runbook.md>) | 身份三服务观察、SSH回环管理、实名管理员首次改密/MFA、bootstrap退役顺序及GPG恢复保管要求；不表示已实际接管。 |
 | [00-project/validation/t013-admin-handover-report.json](<00-project/validation/t013-admin-handover-report.json>) | 本批T013管理员初始化/MFA/bootstrap/重启的实际验证及精确CI、源码同步；合成管理员不代替实名交接。 |
@@ -550,7 +554,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1140份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1144份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -641,7 +645,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内707条执行事项逐条编号：86条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内708条执行事项逐条编号：87条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1177,6 +1181,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t013-admin-handover-ci-report.json](<00-project/validation/t013-admin-handover-ci-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-admin-handover-code-review.json](<00-project/validation/t013-admin-handover-code-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-admin-handover-report.json](<00-project/validation/t013-admin-handover-report.json>) | 本批T013管理员初始化/MFA/bootstrap/重启的实际验证及精确CI、源码同步；合成管理员不代替实名交接。 |
+| [00-project/validation/t013-bootstrap-management-ci-report.json](<00-project/validation/t013-bootstrap-management-ci-report.json>) | 本批精确源码提交的托管CI、两份实际制品摘要及源码映射核对；不能代替整任务验收。 |
+| [00-project/validation/t013-bootstrap-management-code-review.json](<00-project/validation/t013-bootstrap-management-code-review.json>) | 本批一次独立代码审查、超时清理问题先失败后通过及复核边界；不代替本人验收。 |
+| [00-project/validation/t013-bootstrap-management-report.json](<00-project/validation/t013-bootstrap-management-report.json>) | 本批管理工具替代、真实隔离MFA/撤销/退役/重启、私密候选及原文件不变的验证；保留失败记录和未验范围。 |
 | [00-project/validation/t013-gateway-log-privacy-report.json](<00-project/validation/t013-gateway-log-privacy-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-identity-ci-report.json](<00-project/validation/t013-identity-ci-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-identity-image-admission-report.json](<00-project/validation/t013-identity-image-admission-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1540,6 +1547,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
 | [03-development/t012-role-model-implementation.md](<03-development/t012-role-model-implementation.md>) | T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。 |
 | [03-development/t013-admin-handover-validation.md](<03-development/t013-admin-handover-validation.md>) | T013新管理员受控初始化、首次改密/MFA和bootstrap退出的隔离验证、失败记录及本人交接边界。 |
+| [03-development/t013-bootstrap-management-replacement.md](<03-development/t013-bootstrap-management-replacement.md>) | T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。 |
 | [03-development/t013-keycloak-identity-design.md](<03-development/t013-keycloak-identity-design.md>) | 说明文档：T013 项目自建 Keycloak 身份系统完整设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-keycloak-implementation-plan.md](<03-development/t013-keycloak-implementation-plan.md>) | 说明文档：T013 Keycloak Identity Implementation Plan；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-recovery-validation.md](<03-development/t013-recovery-validation.md>) | 说明文档：T013：重启、历史凭据审查与恢复回切验证；结合正文的状态、来源和适用范围阅读。 |

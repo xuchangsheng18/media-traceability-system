@@ -1608,8 +1608,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "既有认证、轮换、故障拒绝和隔离恢复已有证据；本批继续补齐管理员受控初始化、master密码/操作审计保护、首次改密/MFA、bootstrap退出重启演练及27项工具边界；完整回归和精确CI见本批专属报告，不代替本人交接。",
-      "summary_remaining": "软件准入、正式身份范围/撤销SLA及徐昌胜真实账号/MFA/bootstrap交接仍未完成；登录名已确定，初始化工具和合成演练已补，但真实账号尚未创建。共享管理工具仍依赖旧bootstrap，需落实替代的受控管理调用后再退役；共享候选采用及私密配置退役另行实施。；隔离研发重启、恢复后失效及回切已有实测；共享服务仍用原镜像/配置。正式恢复与切换还需实际备份解密私钥保管、恢复secret与后端私密配置协调、制品采用/维护窗口及适用正式验收；本次测试密钥和内存配置不替代这些条件。；徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。",
+      "summary_completed": "既有认证、轮换、故障拒绝、隔离恢复及管理员初始化已有证据；本批补齐本人MFA管理工具替代、无bootstrap回退、真实独立服务退役后操作及重启验证和共享私密候选准备。Linux回归及精确托管CI分别见本批报告，不能代替本人交接。",
+      "summary_remaining": "软件准入、适用正式身份范围/撤销SLA及徐昌胜真实账号/MFA交接仍未完成；管理工具替代及私密候选已补，但共享专用客户端配置、本人会话验证、新私密卷采用、旧bootstrap客户端/历史凭据退役及共享重启验证仍待实施。；隔离研发重启、恢复后失效及回切已有实测；共享服务仍用原镜像/配置。正式恢复与切换还需实际备份解密私钥保管、恢复secret与后端私密配置协调、制品采用/维护窗口及适用正式验收；本次测试密钥和内存配置不替代这些条件。；徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。",
       "completed_steps": [
         {
           "description": "权威身份适配端口及缺失身份拒绝动作已实现",
@@ -1792,12 +1792,54 @@
               "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "补齐本人MFA/PKCE短期管理工具和显式会话选择，失败不回退bootstrap；真实独立服务验证撤销、弱化配置拒绝、删除bootstrap后初始化器及重启可用；生成保留数据库凭据的独立私密退役候选，原共享文件和服务未改。",
+          "evidence": [
+            {
+              "path": "scripts/identity/management.py",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "scripts/identity/management_config.py",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "scripts/identity/retirement.py",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "tools/identity_admin_tokens.mjs",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "tests/platform/test_t013_management.py",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "tests/identity/test_management_live.py",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/03-development/t013-bootstrap-management-replacement.md",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t013-bootstrap-management-report.json",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
+              "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "软件准入、正式身份范围/撤销SLA及徐昌胜真实账号/MFA/bootstrap交接仍未完成；登录名已确定，初始化工具和合成演练已补，但真实账号尚未创建。共享管理工具仍依赖旧bootstrap，需落实替代的受控管理调用后再退役；共享候选采用及私密配置退役另行实施。"
+          "description": "软件准入、适用正式身份范围/撤销SLA及徐昌胜真实账号/MFA交接仍未完成；管理工具替代及私密候选已补，但共享专用客户端配置、本人会话验证、新私密卷采用、旧bootstrap客户端/历史凭据退役及共享重启验证仍待实施。"
         },
         {
           "category": "实施/验证",
@@ -1825,7 +1867,8 @@
       "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json",
       "designated_identity_administrator": "徐昌胜",
       "designated_reviewer": "徐昌胜",
-      "current_administrator_handover_ref": "docs/00-project/validation/t013-admin-handover-report.json"
+      "current_administrator_handover_ref": "docs/00-project/validation/t013-admin-handover-report.json",
+      "current_bootstrap_management_ref": "docs/00-project/validation/t013-bootstrap-management-report.json"
     },
     {
       "task_id": "T014",
@@ -7125,7 +7168,7 @@
   },
   "latest_task_continuation": {
     "task_id": "T013",
-    "observed_at": "2026-10-19T05:41:33.670546+00:00",
-    "scope": "administrator_handover_preparation_not_full_task_acceptance"
+    "observed_at": "2026-10-19T07:41:04.612231+00:00",
+    "scope": "bootstrap_management_replacement_and_private_retirement_preparation_not_full_task_acceptance"
   }
 }

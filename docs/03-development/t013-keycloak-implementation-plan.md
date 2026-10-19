@@ -1,6 +1,6 @@
 # T013 Keycloak Identity Implementation Plan
 
-当前续验（2026-10-19）：管理员受控初始化、首次改密/MFA和bootstrap退出的补齐见[管理员交接验证](t013-admin-handover-validation.md)及[身份运维手册](../10-deployment/keycloak-identity-runbook.md)；实名登录名已由用户明确，实际接管仍待本人执行。密钥轮换、真实故障拒绝和CI补齐见[轮换批说明](t013-rotation-fault-validation.md)；重启持久性、历史凭据审查和恢复回切见[恢复批说明](t013-recovery-validation.md)。[22项当前登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)记录实际范围和证据。下文2026-10-17的计数、提交、CI未执行状态和步骤表均为当日历史，不覆盖上述当前证据。T013仍未整卡验收，Python候选继续暂缓。
+当前续验（2026-10-19）：第5、8步的[bootstrap管理工具替代和退役准备](t013-bootstrap-management-replacement.md)补齐显式本人MFA管理会话与独立私密候选；本批实测及CI以所链报告为准，共享采用和实际退役仍待实施。管理员受控初始化、首次改密/MFA见[管理员交接验证](t013-admin-handover-validation.md)及[身份运维手册](../10-deployment/keycloak-identity-runbook.md)；实名登录名已明确，实际接管仍待本人执行。密钥轮换、真实故障拒绝和CI见[轮换批说明](t013-rotation-fault-validation.md)；重启持久性、历史凭据审查和恢复回切见[恢复批说明](t013-recovery-validation.md)。[22项当前登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)记录实际范围和证据。下文2026-10-17的计数、提交、CI未执行状态和步骤表均为当日历史，不覆盖当前证据。T013仍未整卡验收，Python候选继续暂缓。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. 沿用用户已选择的当前会话逐项实施方式，不另行分派。
 

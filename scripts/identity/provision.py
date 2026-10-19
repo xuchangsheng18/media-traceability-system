@@ -6,6 +6,7 @@ import json
 import os
 import secrets
 import ssl
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -22,14 +23,24 @@ def validate_existing(actual: dict[str, Any], expected: dict[str, Any]) -> None:
 
 
 class AdminClient:
-    def __init__(self) -> None:
+    def __init__(self, *, session_file: Path | None = None) -> None:
+        self.management = None
+        selected = session_file if session_file is not None else os.environ.get("MT_IDENTITY_ADMIN_SESSION")
+        if selected is not None:
+            from .management import ManagedAdmin
+
+            self.management = ManagedAdmin(Path(selected))
+            self.client = self.management.client
+            return  # A selected session can never fall back to bootstrap.
         runtime = common.private_runtime(common.RUNTIME)
         creds = json.loads((runtime / "credentials.json").read_text())
+        if "bootstrap_admin" not in creds or (runtime / "bootstrap-retired.json").exists():
+            raise RuntimeError("IDENTITY_MANAGEMENT_SESSION_REQUIRED")
         context = ssl.create_default_context(cafile=str(runtime / "pki/ca.crt"))
         self.client = httpx.Client(verify=context, trust_env=False, follow_redirects=False, timeout=10)
         try:
             response = self.client.post(
-                "https://172.16.58.179:18443/realms/master/protocol/openid-connect/token",
+                common.PUBLIC_URL + "/realms/master/protocol/openid-connect/token",
                 data={
                     "grant_type": "client_credentials",
                     "client_id": "bootstrap-project-service",
@@ -53,7 +64,9 @@ class AdminClient:
     ) -> httpx.Response:
         if not path.startswith("/admin/") or ".." in path or "?" in path:
             raise RuntimeError("IDENTITY_ADMIN_PATH_FORBIDDEN")
-        response = self.client.request(method, "https://localhost:18444" + path, json=body)
+        if self.management is not None:
+            return self.management.request(method, path, body=body, expected=expected)
+        response = self.client.request(method, common.ADMIN_URL + path, json=body)
         if response.status_code not in expected:
             raise RuntimeError("IDENTITY_ADMIN_OPERATION_FAILED")
         return response

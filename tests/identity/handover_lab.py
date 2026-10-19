@@ -44,20 +44,23 @@ class HumanLogin:
             raise RuntimeError("IDENTITY_HANDOVER_LOGIN_NOT_STARTED")
         return self._page
 
-    def password_step(self):
+    def password_step(self, authorization_url=None):
         challenge = base64.urlsafe_b64encode(hashlib.sha256(self.verifier.encode()).digest()).decode().rstrip("=")
         self._page = self.http.get(
-            self.issuer
-            + "/protocol/openid-connect/auth?"
-            + urlencode(
-                dict(
-                    client_id=self.client_id,
-                    redirect_uri=self.lab.redirect,
-                    response_type="code",
-                    scope="openid",
-                    state=self.state,
-                    code_challenge=challenge,
-                    code_challenge_method="S256",
+            authorization_url
+            or (
+                self.issuer
+                + "/protocol/openid-connect/auth?"
+                + urlencode(
+                    dict(
+                        client_id=self.client_id,
+                        redirect_uri=self.lab.redirect,
+                        response_type="code",
+                        scope="openid",
+                        state=self.state,
+                        code_challenge=challenge,
+                        code_challenge_method="S256",
+                    )
                 )
             )
         )

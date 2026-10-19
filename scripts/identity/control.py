@@ -40,6 +40,8 @@ def status() -> dict[str, object]:
 
 def prepare_configuration() -> None:
     runtime = common.private_runtime(common.RUNTIME)
+    if (runtime / "bootstrap-retired.json").exists() and not (runtime / "credentials.json").exists():
+        raise RuntimeError("IDENTITY_RETIRED_CONFIGURATION_MISSING_NO_BOOTSTRAP_REGENERATION")
     prepare(runtime)
     secret_path = runtime / "credentials.json"
     if secret_path.exists():
@@ -75,9 +77,15 @@ def prepare_configuration() -> None:
                 "http-management-scheme=http",
                 "log-level=WARN",
                 "http-access-log-enabled=false",
-                "bootstrap-admin-client-id=bootstrap-project-service",
-                "bootstrap-admin-client-secret=" + credentials["bootstrap_admin"],
             ]
+            + (
+                [
+                    "bootstrap-admin-client-id=bootstrap-project-service",
+                    "bootstrap-admin-client-secret=" + credentials["bootstrap_admin"],
+                ]
+                if "bootstrap_admin" in credentials and not (runtime / "bootstrap-retired.json").exists()
+                else []
+            )
         )
         + "\n",
     }
