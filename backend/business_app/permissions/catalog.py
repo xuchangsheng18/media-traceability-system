@@ -6,9 +6,7 @@ from pathlib import Path
 
 import yaml
 
-METHODS = frozenset(
-    {"get", "post", "put", "patch", "delete", "head", "options", "trace"}
-)
+METHODS = frozenset({"get", "post", "put", "patch", "delete", "head", "options", "trace"})
 
 
 @dataclass(frozen=True)
@@ -22,22 +20,12 @@ class OperationPermission:
 
 def load_catalog(root: Path) -> dict[str, OperationPermission]:
     try:
-        document = yaml.safe_load(
-            (root / "docs/03-api/openapi.yaml").read_text(encoding="utf8")
-        )
-        model = json.loads(
-            (root / "docs/08-security/access-control-model.json").read_text(
-                encoding="utf8"
-            )
-        )
+        document = yaml.safe_load((root / "docs/03-api/openapi.yaml").read_text(encoding="utf8"))
+        model = json.loads((root / "docs/08-security/access-control-model.json").read_text(encoding="utf8"))
         permissions = model["permissions"]
-        if not isinstance(permissions, list) or len(permissions) != len(
-            set(permissions)
-        ):
+        if not isinstance(permissions, list) or len(permissions) != len(set(permissions)):
             raise ValueError()
-        if document["servers"][0]["url"] != "/api/v1" or document["security"] != [
-            {"bearerAuth": []}
-        ]:
+        if document["servers"][0]["url"] != "/api/v1" or document["security"] != [{"bearerAuth": []}]:
             raise ValueError()
         catalog = {}
         bindings = []
