@@ -1210,7 +1210,7 @@
           "https://www.gpg4win.org/package-integrity.html"
         ],
         "commands": [
-          "gpg --version"
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --version"
         ]
       },
       {
@@ -1223,12 +1223,12 @@
           "$CustodyGpg = Join-Path $CustodyRoot \"recovery-gnupg\"",
           "if (Test-Path -LiteralPath $CustodyGpg) { throw \"专用密钥目录已存在，请先核查，不要重复生成\" }",
           "New-Item -ItemType Directory -Path $CustodyGpg -ErrorAction Stop",
-          "gpg --homedir \"$CustodyGpg\" --quick-generate-key \"MediaTrace RnD Recovery - Xu Changsheng\" rsa4096 cert 1y",
-          "gpg --homedir \"$CustodyGpg\" --fingerprint --list-keys",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-generate-key \"MediaTrace RnD Recovery - Xu Changsheng\" rsa4096 cert 1y",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --fingerprint --list-keys",
           "$RecoveryFpr = (Read-Host \"输入刚生成的恢复主密钥完整指纹，不是口令\") -replace \"\\s\", \"\"",
           "if ($RecoveryFpr -notmatch \"^[A-Fa-f0-9]{40}(?:[A-Fa-f0-9]{24})?$\") { throw \"完整指纹格式无效\" }",
-          "gpg --homedir \"$CustodyGpg\" --quick-add-key \"$RecoveryFpr\" rsa4096 encrypt 1y",
-          "gpg --homedir \"$CustodyGpg\" --with-subkey-fingerprint --list-secret-keys \"$RecoveryFpr\""
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-add-key \"$RecoveryFpr\" rsa4096 encrypt 1y",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --with-subkey-fingerprint --list-secret-keys \"$RecoveryFpr\""
         ],
         "expected": "Exact primary fingerprint plus a distinct encryption subkey; no shared-server generation and no empty passphrase."
       },
@@ -1239,10 +1239,10 @@
         "PowerShell_commands": [
           "$PublicMaterial = \"D:\\公安厅项目\\_work\\identity-public-materials\"",
           "New-Item -ItemType Directory -Force -Path $PublicMaterial -ErrorAction Stop",
-          "gpg --homedir \"$CustodyGpg\" --armor --output \"$PublicMaterial\\recovery-recipient.asc\" --export \"$RecoveryFpr\"",
-          "gpg --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\recovery-secret-backup.asc\" --export-secret-keys \"$RecoveryFpr\"",
-          "gpg --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\recovery-revocation.asc\" --generate-revocation \"$RecoveryFpr\"",
-          "gpg --show-keys --with-fingerprint --with-subkey-fingerprint \"$PublicMaterial\\recovery-recipient.asc\""
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$PublicMaterial\\recovery-recipient.asc\" --export \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\recovery-secret-backup.asc\" --export-secret-keys \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\recovery-revocation.asc\" --generate-revocation \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --show-keys --with-fingerprint --with-subkey-fingerprint \"$PublicMaterial\\recovery-recipient.asc\""
         ],
         "expected": "Public recipient contains exactly the chosen primary and encryption subkey; private export/revocation material never enter Git, cloud-sync folders or chat."
       },
@@ -1289,10 +1289,10 @@
         "PowerShell_commands": [
           "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$PublicMaterial\\backup-signer.asc\"",
           "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/key-check.txt.gpg \"$PublicMaterial\\key-check.txt.gpg\"",
-          "gpg --homedir \"$CustodyGpg\" --import \"$PublicMaterial\\backup-signer.asc\"",
-          "gpg --homedir \"$CustodyGpg\" --status-fd 2 --output \"$CustodyRoot\\key-check-restored.txt\" --decrypt \"$PublicMaterial\\key-check.txt.gpg\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --import \"$PublicMaterial\\backup-signer.asc\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --status-fd 2 --output \"$CustodyRoot\\key-check-restored.txt\" --decrypt \"$PublicMaterial\\key-check.txt.gpg\"",
           "Get-Content -LiteralPath \"$CustodyRoot\\key-check-restored.txt\"",
-          "gpgconf --homedir \"$CustodyGpg\" --kill gpg-agent"
+          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$CustodyGpg\" --kill gpg-agent"
         ],
         "expected": "Successful decryption, exact fixed marker and VALIDSIG identifying the independently compared full signer fingerprint; ownertrust warnings alone are not signer identity verification. Preserve public fingerprint/result metadata, not private keys or passphrases.",
         "remaining_operator_inputs": [
@@ -1312,6 +1312,87 @@
     "official_command_reference": "https://gnupg.org/documentation/manuals/gnupg/OpenPGP-Key-Management.html",
     "actual_private_keys_created_or_imported": false,
     "actual_backup_or_restore_performed": false,
-    "formal_accepted": false
+    "formal_accepted": false,
+    "current_operator_progress": {
+      "observed_at": "2026-10-19T09:37:00.964251+00:00",
+      "task_id": "T013",
+      "related_remaining_item": "T013-R02",
+      "scope": "Operator key-custody preparation only; no new development-task completion, key generation or real backup/restore.",
+      "downloaded": {
+        "status": "USER_REPORTED",
+        "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
+      },
+      "installed_tools": {
+        "status": "PASS_CURRENT_WINDOWS_VERSION_AND_ENGINE_SIGNATURE_ONLY",
+        "gpg4win_version": "5.1.1",
+        "gpg4win_directory": "D:/gpg4win",
+        "gpg_executable": "D:/GnuPG/bin/gpg.exe",
+        "gpg_version": "2.5.24",
+        "gpgconf_executable": "D:/GnuPG/bin/gpgconf.exe",
+        "gpgconf_version": "2.5.24",
+        "gpg_executable_sha256": "7a334fbd16ba02af568b30cd66a89c49104b0af4c3a3556174bfd26ca2295ced",
+        "authenticode_status": "Valid",
+        "signer": "g10 Code GmbH",
+        "certificate_serial": "271DF934504F8E383B33BCE5",
+        "certificate_sha256": "cd5616b8ee4cf0eb90457e14e9892a6ebc26b5d3665903ee13cf1ece79700e2a",
+        "official_certificate_reference": "https://www.gpg4win.org/package-integrity.html",
+        "official_signer_certificate_matched": true,
+        "installer_file_located": false,
+        "installer_archive_sha256_verified": false,
+        "system_PATH_changed": false
+      },
+      "Linux_version_observed": "2.4.4",
+      "user_installation_confirmation": "已经安装完成",
+      "custody_path_request": {
+        "user_answer": "D:\\公安厅密钥 存放密钥的地址",
+        "path": "D:/公安厅密钥",
+        "directory_exists": true,
+        "observed_item_count": 0,
+        "attributes": [
+          "Directory",
+          "Compressed"
+        ],
+        "volume_type": "Fixed",
+        "volume_filesystem": "NTFS",
+        "outside_repository": true,
+        "volume_encryption_status": "NOT_VERIFIED_PERMISSION_DENIED",
+        "offline_custody_confirmed": false,
+        "accepted_as_recovery_private_key_home": false
+      },
+      "remaining_operator_milestones": [
+        {
+          "name": "实际加密离线介质及独立保管安排",
+          "status": "NOT_VERIFIED"
+        },
+        {
+          "name": "恢复认证主密钥和RSA4096加密子密钥",
+          "status": "NOT_VERIFIED"
+        },
+        {
+          "name": "公钥导出上传及两端完整指纹比对",
+          "status": "NOT_VERIFIED"
+        },
+        {
+          "name": "独立仅签名密钥及其保管",
+          "status": "NOT_VERIFIED"
+        },
+        {
+          "name": "固定无敏感文本加密签名及离线解密验签",
+          "status": "NOT_VERIFIED"
+        },
+        {
+          "name": "实际备份及受控新卷恢复验证",
+          "status": "NOT_VERIFIED"
+        }
+      ],
+      "next_action": "Custodian supplies/prepares an encrypted offline directory, then personally generates the recovery primary/encryption subkey there using the updated seven-step instructions; passwords/private keys stay off chat/Git.",
+      "GPG_key_custody_established": false,
+      "actual_keys_generated_by_this_update": false,
+      "actual_interoperability_verified": false,
+      "actual_recovery_validated": false,
+      "formal_accepted": false,
+      "Python_candidates_created": false
+    },
+    "Windows_command_path_note": "Current custodian machine executable path verified; Linux gpg commands are unchanged. Directory selection still requires actual encrypted offline custody, not a plain online folder."
   }
 }
