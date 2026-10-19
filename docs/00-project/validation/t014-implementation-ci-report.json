@@ -1,8 +1,416 @@
 {
   "task_id": "T014",
-  "status": "PENDING_NOT_ACCEPTED",
-  "scope": "exact_current_T014_commit_hosted_CI_not_yet_started",
+  "status": "PENDING_CORRECTED_PAYLOAD_CI",
+  "scope": "corrected_acceptance_fixture_and_unchanged_permission_code_latest_hosted_checks_pending",
   "source_commit": null,
+  "previous_payload": "bc704c97893c10e9fe9f3403037ce300f7c0a9cc",
+  "previous_failed_attempts": [
+    {
+      "run_id": 39292249613,
+      "run_attempt": 1,
+      "source_commit": "bc704c97893c10e9fe9f3403037ce300f7c0a9cc",
+      "status": "FAIL",
+      "identity_totals": {
+        "tests": 332,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [
+        {
+          "case": "tests.identity.test_recovery_live.test_restart_and_database_dependency_readiness",
+          "kind": "failure"
+        }
+      ],
+      "engineering_correctly_refused_after_identity_failure": true,
+      "artifact_sha256": "2fe19e23aa83eaa8a20ba8354d1499d0a3f6d33ca2d1dd568d9b252483ba0e02",
+      "artifact_size_bytes": 3322,
+      "artifact_bytes_and_platform_digest_verified": true,
+      "root_cause_not_yet_established": true,
+      "assertions_waived": false,
+      "raw_logs_published": false,
+      "independent_exact_source_restart_reproduction": {
+        "status": "PASS",
+        "source_base_commit": "bc704c97893c10e9fe9f3403037ce300f7c0a9cc",
+        "command": "python -m pytest tests/identity/test_recovery_live.py::test_restart_and_database_dependency_readiness -q --tb=short --junitxml PRIVATE_PATH",
+        "started_at": "2026-10-19T17:31:14.024095+00:00",
+        "completed_at": "2026-10-19T17:35:51.887494+00:00",
+        "python": "3.10.22",
+        "totals": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "shared_source_or_services_modified": false
+      },
+      "connector_rerun_denied_http_status": 403,
+      "fresh_full_workflow_started_with_existing_Git_credentials": true
+    },
+    {
+      "run_id": 39295626657,
+      "run_attempt": 1,
+      "source_commit": "bc704c97893c10e9fe9f3403037ce300f7c0a9cc",
+      "status": "FAIL",
+      "identity_totals": {
+        "tests": 332,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "business_totals": {
+        "tests": 305,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "T014_totals": {
+        "tests": 257,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "engineering_checks_executed": 4,
+      "engineering_unit_totals": {
+        "tests": 600,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_case": "tests.platform.test_task_completion_evidence.test_complete_reviewed_task_is_accepted_and_counted",
+      "cause": "Synthetic unexecuted-task fixture reset existing report references but retained the newly introduced implementation_validation_report reference. Navigation rendering tried reading a report absent from the temporary fixture.",
+      "local_exact_failure_reproduced": true,
+      "production_authorization_changed_by_fix": false,
+      "assertions_removed_or_weakened": false,
+      "remaining_engineering_checks_not_run": true,
+      "artifacts": [
+        {
+          "name": "failed-py310-validation-39295626657.zip",
+          "bytes": 492992,
+          "sha256": "25111a00f77a60b6d1e516f6d8cc98d5fce67cd115fbe083ba3666b0f1d10a62"
+        },
+        {
+          "name": "failed-t013-identity-validation-39295626657.zip",
+          "bytes": 3232,
+          "sha256": "df046b23ce44fc188d49ff98c58d618a707740ba9527fa96055315574e7e931f"
+        }
+      ],
+      "artifact_bytes_and_platform_digests_verified": true,
+      "raw_logs_published": false
+    }
+  ],
+  "author_fixture_follow_up": {
+    "scope": "synthetic_task_acceptance_fixture_only_no_product_authorization_or_assertions_changed",
+    "path": "tests/platform/test_task_completion_evidence.py",
+    "sha256": "0f1cdc77985e7457d4b8ace41f5ddd8bc168db91f44485cc2f23eb24f860755b",
+    "local_RED": {
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "local_GREEN": {
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "locked_Ruff_lint_and_format": "PASS",
+    "extended_private_py310_600_case_suite": "IN_PROGRESS_AFTER_RESTORING_EXISTING_NODE_PATH",
+    "initial_private_prerequisite_failure": {
+      "status": "FAIL",
+      "mode": "green",
+      "source_base_commit": "bc704c97893c10e9fe9f3403037ce300f7c0a9cc",
+      "working_delta_sha256": {
+        "tests/platform/test_task_completion_evidence.py": "0f1cdc77985e7457d4b8ace41f5ddd8bc168db91f44485cc2f23eb24f860755b"
+      },
+      "command": "python -m pytest tests/poc tests/stage_three tests/platform -q --tb=short --junitxml PRIVATE_PATH",
+      "started_at": "2026-10-19T18:07:12.216162+00:00",
+      "completed_at": "2026-10-19T18:11:20.128648+00:00",
+      "python": "3.10.22",
+      "exit_code": 1,
+      "totals": {
+        "tests": 600,
+        "failures": 17,
+        "errors": 0,
+        "skipped": 0
+      },
+      "test_groups": {
+        "tests.poc.test_event_contract": {
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.poc.test_runtime": {
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_business_verification": {
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_dev": {
+          "tests": 45,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_development_limits": {
+          "tests": 14,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_foundation_configuration": {
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_foundation_tracing": {
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_process_startup": {
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_storage_restart_readiness": {
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.stage_three.test_types": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t011": {
+          "tests": 56,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_handover": {
+          "tests": 27,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_checks": {
+          "tests": 27,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_config": {
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_deploy": {
+          "tests": 19,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_identity_operations": {
+          "tests": 19,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_management": {
+          "tests": 41,
+          "failures": 17,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_privacy_audit": {
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_recovery_guard": {
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t013_tokens": {
+          "tests": 47,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t014": {
+          "tests": 189,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_t014_gate": {
+          "tests": 13,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_task_completion_evidence": {
+          "tests": 17,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "tests.platform.test_task_owner_assignment": {
+          "tests": 15,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "failure_test_ids": [
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[valid]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[opaque_session]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[empty_session]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[oversized_session]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[control_session]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[nonstring_session]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[signature]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[id_token]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[expired]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[future]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[no_otp]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[no_password]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[issuer]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[audience]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[client]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[long_lived]",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.platform.test_t013_management",
+          "name": "test_management_verifier_requires_signature_mfa_client_and_short_expiry[ambiguous_key]",
+          "kind": "failures"
+        }
+      ],
+      "quality_checks": [],
+      "private_result_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/t014-snapshot-_el8t1ql",
+      "shared_source_or_services_modified": false,
+      "raw_logs_published": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false,
+      "gate_checks": [],
+      "documentation_checks": [],
+      "root_cause": "Private validation runner omitted the existing locked Node22.21.1 directory from PATH; all17 management cryptographic fixtures stopped at EXISTING_LOCKED_NODE_REQUIRED before invoking crypto. No production code or assertions changed.",
+      "safe_diagnostic": {
+        "failure_codes": [],
+        "indicators": {
+          "ERR_MODULE_NOT_FOUND": false,
+          "MODULE_NOT_FOUND": false,
+          "Cannot find package": false,
+          "jose": false,
+          "node: not found": false,
+          "NODE_REQUIRED": true,
+          "FileNotFoundError": false
+        },
+        "independent_frontend_modules_present": false,
+        "locked_node_present": true,
+        "failure_source_locations": [
+          "tests/platform/test_t013_management.py:274"
+        ]
+      }
+    },
+    "artifact_provenance": {
+      "status": "IDENTITY_ARTIFACT_PROVENANCE_VERIFIED_OLDER_ENGINEERING_COPY_EXCLUDED",
+      "observations": [
+        {
+          "archive": "failed-py310-validation-39295626657.zip",
+          "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+          "selected": false
+        },
+        {
+          "archive": "failed-t013-identity-validation-39295626657.zip",
+          "source_commit": "bc704c97893c10e9fe9f3403037ce300f7c0a9cc",
+          "selected": true
+        }
+      ]
+    }
+  },
   "formal_accepted": false,
   "Python_candidates_created": false
 }

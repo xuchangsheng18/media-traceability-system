@@ -42,6 +42,7 @@ def completed_fixture(tmp_path, monkeypatch):
             remaining_steps=[{"category": "fixture", "description": "unexecuted"}],
         )
         for key in [
+            "implementation_validation_report",
             "specific_validation_report",
             "development_validation_report",
             "acceptance_review_ref",
