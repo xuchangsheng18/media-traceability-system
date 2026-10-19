@@ -21,7 +21,8 @@ def test_known_credential_and_token_are_detected_without_rendering_value():
 
 def test_private_key_block_is_detected_but_key_creation_source_is_not():
     scan = scanner()
-    material = b"-----BEGIN PRIVATE KEY-----\n" + b"Q" * 128 + b"\n-----END PRIVATE KEY-----"
+    label = b"PRIVATE KEY"
+    material = b"-----BEGIN " + label + b"-----\n" + b"Q" * 128 + b"\n-----END " + label + b"-----"
     assert scan(material, ()) == [{"rule": "private_key_material", "line": 1}]
     assert scan(b'openssl("req", "-newkey", "rsa:3072", "-keyout", str(private_path))', ()) == []
 
