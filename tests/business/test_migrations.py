@@ -128,7 +128,8 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0003",
             "0004",
             "0005",
-            "0006",        ]
+            "0006",
+        ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
             admin.execute("INSERT INTO mt.organizations(org_id,name) VALUES(%s,'owner-test')", (org,))
