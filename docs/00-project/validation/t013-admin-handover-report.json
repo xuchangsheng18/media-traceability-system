@@ -1185,7 +1185,7 @@
     "formal_accepted": false
   },
   "key_custody_establishment": {
-    "status": "SSH_TERMINAL_INPUT_REPAIRED_AND_VERIFIED_ACTUAL_SIGNER_AWAIT_OWNER",
+    "status": "ACTUAL_INDEPENDENT_SIGNER_AND_PROTECTED_LOCAL_EXPORT_VERIFIED_USB_AND_RECOVERY_PENDING",
     "custodian": "徐昌胜",
     "source_user_answer": "尚未建立，请提供具体建立步骤",
     "software_boundary": "No Gpg4win installation, key generation, private key import, production policy or baseline change is performed by this evidence update.",
@@ -1301,16 +1301,16 @@
       {
         "number": 5,
         "where": "Linux R&D host, attended interactive SSH terminal",
-        "action": "Timeout observed on second owner attempt; no real or partial signer remains. Only project terminal configuration and helper have been repaired and tested; operator now retries with ssh -tt and a fresh privately held passphrase inside the visible curses box. No actual key-generation success claimed.",
+        "action": "DONE BY OWNER: actual independent RSA4096 signer created after terminal repair. Fresh read-only server verification confirms full fingerprint, signing/certification only, valid public self-signature, KEYINFO protection P and protected local export structure. Do not rerun generation or add encryption keys. USB backup and actual signature/restore proof pending.",
         "expected": "Signer has signing/certification capability and NO encryption secret key. Replace ACTUAL_SIGNER_PRIMARY_FINGERPRINT with the observed full public fingerprint. Store an encrypted signer recovery copy by the agreed separate custody route.",
-        "operator_status": "TERMINAL_INPUT_FIX_VERIFIED_ACTUAL_KEY_CREATION_NOT_EXECUTED",
+        "operator_status": "PASS_ACTUAL_SIGNER_EXISTENCE_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_ONLY",
         "historical_manual_signer_commands": [
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --list-secret-keys",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --quick-generate-key \"MediaTrace RnD Backup Signer - Xu Changsheng\" rsa4096 sign 1y",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --fingerprint --list-secret-keys",
           "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --armor --output /workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc --export ACTUAL_SIGNER_PRIMARY_FINGERPRINT"
         ],
-        "PowerShell_commands": [
+        "historical_operator_retry_commands": [
           "ssh -tt glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
           "if ($LASTEXITCODE -ne 0) { throw \"签名密钥尚未建立成功，停止并保留错误文字；不要重复生成U盘恢复密钥\" }"
         ]
@@ -1367,10 +1367,10 @@
     "actual_backup_or_restore_performed": false,
     "formal_accepted": false,
     "current_operator_progress": {
-      "observed_at": "2026-10-19T12:27:25.946Z",
+      "observed_at": "2026-10-19T12:37:24.042907+00:00",
       "task_id": "T013",
       "related_remaining_item": "T013-R02",
-      "scope": "Second attended signer attempt returned Timeout; no signer/partial keys or exports remain. Reproduced SSH terminal input failure in isolated default-pinentry/TERM=dumb test; project signer home now explicitly uses pinentry-curses, helper normalizes missing/dumb TERM and refreshes only its dedicated agent. Fixed nonsecret masked input, all three helper terminal states and actual Windows SSH confirmation passed. Actual signer generation, protected signer export, both-subkey decrypt/signature and restore still require owner action; no operational passphrase supplied by automation.",
+      "scope": "Owner successfully created the real independent RSA4096 signing/certification key after terminal repair. Read-only server verification confirms the exact public fingerprint, valid self-signature, KEYINFO protection P, 1672-byte public export, protected 3486-byte private export and 1820-byte automatic revocation certificate. No encryption capability is intentional role separation. Actual signing, USB signer backup transfer, both-subkey decrypt/signature and restored-home/independent-medium recovery remain unverified.",
       "downloaded": {
         "status": "USER_REPORTED",
         "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
@@ -1439,7 +1439,8 @@
         },
         {
           "name": "Linux独立仅签名密钥及其受保护导出",
-          "status": "TERMINAL_TIMEOUT_PATH_REPAIRED_AND_TESTED_ACTUAL_SIGNER_AWAIT_OWNER"
+          "status": "PASS_REAL_SIGNER_AND_PROTECTED_LOCAL_EXPORT_STRUCTURE_ONLY_USB_AND_RESTORE_PENDING",
+          "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D"
         },
         {
           "name": "两把加密子密钥逐一跨端解密及独立签名验签",
@@ -1454,7 +1455,7 @@
           "status": "NOT_VERIFIED"
         }
       ],
-      "next_action": "Owner runs the repaired helper with ssh -tt, enters a NEW nonempty independently held passphrase only inside its terminal Passphrase field, confirms and completes protected export prompts. The prior chat/transcript value must not be used. After observed signer success, verify public fingerprint/protection and prepare both-subkey decrypt/signature plus restored-home checks.",
+      "next_action": "Preserve the real key and do not rerun creation or add encryption subkeys. Next owner step is to copy the verified signer public certificate and existing protected signer private export from Linux to USB, with no overwrite and exact public/private copy hash comparison. Then encrypt the signer revocation copy and perform real benign signing, exact two-subkey decryption, detached-signature and isolated restored-home tests using attended private prompts.",
       "GPG_key_custody_established": false,
       "actual_keys_generated_by_this_update": false,
       "actual_interoperability_verified": false,
@@ -1601,9 +1602,9 @@
         "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步吊销材料备份与Linux签名_20261019.txt",
         "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
         "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
-        "sha256": "a9a98d736c1a56f20a2676b075fdc4f0230a12c9c4426d28455066f57200021f",
+        "sha256": "263110bbd049d7b7666c1cbf8454a2c604222511bc468ab1de4f0b64eec62ef7",
         "instructions_executed": false,
-        "scope": "Repaired and verified SSH terminal password entry; owner must use a fresh privately held passphrase. Actual signer generation and downstream decrypt/signature/restoration remain pending."
+        "scope": "Actual signer verified; owner next copies existing public certificate and protected private export to USB with exact hash checks. No regeneration; actual signing/decryption/recovery remains pending."
       },
       "operator_progress_history": [
         {
@@ -1794,6 +1795,48 @@
             {
               "name": "Linux独立仅签名密钥及其受保护导出",
               "status": "ATTEMPTED_FAILED_OWNER_CANCELLED_NO_PARTIAL_KEY_SAFE_TO_RETRY_ATTENDED"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "scope": "Second attended signer attempt returned Timeout; no signer/partial keys or exports remain. Reproduced SSH terminal input failure in isolated default-pinentry/TERM=dumb test; project signer home now explicitly uses pinentry-curses, helper normalizes missing/dumb TERM and refreshes only its dedicated agent. Fixed nonsecret masked input, all three helper terminal states and actual Windows SSH confirmation passed. Actual signer generation, protected signer export, both-subkey decrypt/signature and restore still require owner action; no operational passphrase supplied by automation.",
+          "next_action": "Owner runs the repaired helper with ssh -tt, enters a NEW nonempty independently held passphrase only inside its terminal Passphrase field, confirms and completes protected export prompts. The prior chat/transcript value must not be used. After observed signer success, verify public fingerprint/protection and prepare both-subkey decrypt/signature plus restored-home checks.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "PASS_PROTECTED_SECRET_EXPORT_AND_AES256_REVOCATION_ENVELOPE_ONLY_RESTORE_PENDING"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "TERMINAL_TIMEOUT_PATH_REPAIRED_AND_TESTED_ACTUAL_SIGNER_AWAIT_OWNER"
             },
             {
               "name": "两把加密子密钥逐一跨端解密及独立签名验签",
@@ -2162,11 +2205,11 @@
         "password_or_private_content_received": false,
         "formal_accepted": false,
         "later_resolution": {
-          "observed_at": "2026-10-19T12:27:25.946Z",
+          "observed_at": "2026-10-19T12:37:24.042907+00:00",
           "recovery_secret_export": "PRESENT_PROTECTED_STRUCTURE_PREVIOUSLY_VERIFIED",
           "revocation_copy": "PRESENT_AES256_ENVELOPE_PREVIOUSLY_VERIFIED_NOT_DECRYPTED",
-          "Linux_signer": "TIMEOUT_INPUT_PATH_FIXED_TESTED_ZERO_ACTUAL_OR_PARTIAL_KEYS_AWAIT_OWNER",
-          "historical_observations_preserved": true
+          "Linux_signer": "NOW_PRESENT_REAL_SIGNER_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_VERIFIED",
+          "historical_cancelled_timeout_and_repair_observations_preserved": true
         },
         "later_resolution_history": [
           {
@@ -2182,6 +2225,13 @@
             "revocation_copy": "NOW_PRESENT_AES256_ENVELOPE_VERIFIED_NOT_DECRYPTED",
             "Linux_signer": "FAILED_OWNER_CANCELLED_NO_PARTIAL_KEYS_OR_EXPORTS",
             "historical_missing_observation_preserved": true
+          },
+          {
+            "observed_at": "2026-10-19T12:27:25.946Z",
+            "recovery_secret_export": "PRESENT_PROTECTED_STRUCTURE_PREVIOUSLY_VERIFIED",
+            "revocation_copy": "PRESENT_AES256_ENVELOPE_PREVIOUSLY_VERIFIED_NOT_DECRYPTED",
+            "Linux_signer": "TIMEOUT_INPUT_PATH_FIXED_TESTED_ZERO_ACTUAL_OR_PARTIAL_KEYS_AWAIT_OWNER",
+            "historical_observations_preserved": true
           }
         ]
       },
@@ -2239,7 +2289,7 @@
         "completion_claim_verification": "USER_REPORTED_BACKUP_AND_SIGNER_COMPLETE_BUT_EXPECTED_BACKUPS_AND_SERVER_SIGNER_NOT_FOUND"
       },
       "actual_recovery_private_backup_completed": false,
-      "actual_Linux_signer_created": false,
+      "actual_Linux_signer_created": true,
       "recovery_secret_export_verification": {
         "status": "PASS_PROTECTED_SECRET_EXPORT_STRUCTURE_ONLY_NOT_RESTORE",
         "observed_at": "2026-10-19T11:43:26.345496+00:00",
@@ -2578,7 +2628,46 @@
           "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
         }
       ],
-      "discard_previously_suggested_chat_passphrase": true
+      "discard_previously_suggested_chat_passphrase": true,
+      "actual_Linux_signer_protected_export_structurally_verified": true,
+      "actual_Linux_signer_verification": {
+        "observed_at": "2026-10-19T12:37:24.042907+00:00",
+        "status": "PASS_ACTUAL_SIGNER_EXISTENCE_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_ONLY",
+        "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
+        "capabilities": "scSC",
+        "signing_capability": true,
+        "encryption_capability": false,
+        "secret_primary_count": 1,
+        "secret_subkey_count": 0,
+        "KEYINFO_protection": "P",
+        "public_key_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc",
+        "public_key_size_bytes": 1672,
+        "public_key_sha256": "85a662ae756310dbf64e2815246c9563406206574f24ee8f1e06e64d13d1e768",
+        "valid_public_self_signatures": 1,
+        "local_protected_secret_export_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc",
+        "local_protected_secret_export_size_bytes": 3486,
+        "protected_export_primary_packets": 1,
+        "protected_export_subkey_packets": 0,
+        "protected_export_packet_markers": 1,
+        "revocation_certificate_present": true,
+        "revocation_certificate_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/openpgp-revocs.d/C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D.rev",
+        "revocation_certificate_size_bytes": 1820,
+        "directories_mode": "0700",
+        "files_mode": "0600",
+        "recovery_public_unchanged": true,
+        "private_material_imported": false,
+        "raw_private_packet_dump_or_key_contents_published": false,
+        "private_passphrase_requested_by_this_check": false,
+        "actual_signer_created_by_owner": true,
+        "actual_signer_created_by_this_check": false,
+        "actual_signature_performed": false,
+        "actual_signer_backup_restored": false,
+        "actual_two_subkey_decryption_performed": false,
+        "signer_protected_backup_copied_to_USB": false,
+        "formal_accepted": false,
+        "Python_candidates_created": false
+      },
+      "actual_Linux_signer_protected_backup_copied_to_USB": false
     },
     "Windows_command_path_note": "Exact current private/public paths use G:/公安厅项目密钥; Windows GPG executables remain D:/GnuPG/bin. Original D-directory preparation is preserved. Explicit current user decision allows GPG-private-key-passphrase internal RnD only, while disk/container encryption is deferred.",
     "current_custody_mode_note": "Use G:/公安厅项目密钥 as current internal-RnD home with personally chosen nonempty GPG private-key protection. USB disk/container encryption explicitly deferred; does not satisfy an encrypted-medium or completed offline-recovery acceptance condition.",
@@ -2697,7 +2786,7 @@
         "action": "Before any real restore, establish the controlled temporary/hardware decryption path for existing restore.py, independent private custody, configuration/API-secret coordination and maintenance evidence. Uploading public keys alone does not close T013-R02 or certify disaster recovery."
       }
     ],
-    "actual_private_keys_created_or_imported_scope": "Operator recovery-key existence is observed on USB via metadata. Assistant neither generated nor read/exported private material; no recovery secret key imported on Linux.",
+    "actual_private_keys_created_or_imported_scope": "Owner has created the real USB recovery certification/encryption group and independent Linux signer. Assistant used public/protection and export-structure inspection only; no private key imported or passphrase supplied by automation.",
     "Linux_signer_operator_script": {
       "status": "PASS_REPAIRED_OPERATOR_TERMINAL_INPUT_NOT_KEY_CREATION",
       "observed_at": "2026-10-19T12:27:25.946Z",
@@ -2959,14 +3048,65 @@
       }
     },
     "next_owner_operation": {
-      "scope": "Use repaired attended SSH terminal helper with a NEW privately held passphrase; completed USB exports must not be recreated.",
+      "scope": "Copy the existing verified public signer and protected local signer export to USB with no overwrite and exact hash comparison; commands are instructions only, not executed by this update.",
       "PowerShell_commands": [
-        "ssh -tt glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
-        "if ($LASTEXITCODE -ne 0) { throw \"签名密钥尚未建立成功，停止并保留错误文字；不要重复生成U盘恢复密钥\" }"
+        "$ErrorActionPreference = \"Stop\"",
+        "$TaskSignerPublicCopy = \"G:\\公安厅项目密钥\\public\\backup-signer.asc\"",
+        "$TaskSignerPrivateCopy = \"G:\\公安厅项目密钥\\private-backups\\backup-signer-secret.asc\"",
+        "foreach ($TaskTarget in @($TaskSignerPublicCopy, $TaskSignerPrivateCopy)) { if (Test-Path -LiteralPath $TaskTarget) { throw \"目标文件已存在，停止核验，不覆盖\" } }",
+        "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$TaskSignerPublicCopy\"",
+        "if ($LASTEXITCODE -ne 0) { throw \"签名公钥复制失败，停止\" }",
+        "if ((Get-FileHash -Algorithm SHA256 -LiteralPath $TaskSignerPublicCopy).Hash.ToLowerInvariant() -ne \"85a662ae756310dbf64e2815246c9563406206574f24ee8f1e06e64d13d1e768\") { throw \"签名公钥摘要不一致，停止，不覆盖\" }",
+        "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc \"$TaskSignerPrivateCopy\"",
+        "if ($LASTEXITCODE -ne 0) { throw \"受保护签名私钥备份复制失败，停止\" }",
+        "$TaskRemoteHashLine = @(ssh glwy@172.16.58.179 \"sha256sum /workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc\")",
+        "if ($LASTEXITCODE -ne 0 -or $TaskRemoteHashLine.Count -ne 1) { throw \"服务器备份摘要读取失败，停止\" }",
+        "$TaskRemoteHash = ($TaskRemoteHashLine[0] -split \"\\s+\")[0]",
+        "if ($TaskRemoteHash -notmatch \"^[a-fA-F0-9]{64}$\" -or (Get-FileHash -Algorithm SHA256 -LiteralPath $TaskSignerPrivateCopy).Hash.ToLowerInvariant() -ne $TaskRemoteHash.ToLowerInvariant()) { throw \"受保护备份复制摘要不一致，保留文件停止核验\" }",
+        "if ((Get-Item -LiteralPath $TaskSignerPrivateCopy).Length -ne 3486) { throw \"备份长度与核验记录不一致，停止\" }",
+        "Write-Output \"PASS_SIGNER_PUBLIC_AND_PROTECTED_BACKUP_COPY_HASHES\"",
+        "Get-Item -LiteralPath $TaskSignerPublicCopy, $TaskSignerPrivateCopy | Select-Object Name, Length"
       ]
     },
     "actual_secret_backup_export_structurally_verified": true,
-    "actual_backup_or_restore_performed_scope": "Both backup files exist and structures are checked; actual key decryption, signer and restored-home checks remain pending.",
-    "actual_revocation_copy_envelope_verified": true
+    "actual_backup_or_restore_performed_scope": "Recovery secret export and protected signer local export exist; actual backup decryption or restored-home validation remains pending.",
+    "actual_revocation_copy_envelope_verified": true,
+    "actual_Linux_signer_verification": {
+      "observed_at": "2026-10-19T12:37:24.042907+00:00",
+      "status": "PASS_ACTUAL_SIGNER_EXISTENCE_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_ONLY",
+      "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
+      "capabilities": "scSC",
+      "signing_capability": true,
+      "encryption_capability": false,
+      "secret_primary_count": 1,
+      "secret_subkey_count": 0,
+      "KEYINFO_protection": "P",
+      "public_key_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc",
+      "public_key_size_bytes": 1672,
+      "public_key_sha256": "85a662ae756310dbf64e2815246c9563406206574f24ee8f1e06e64d13d1e768",
+      "valid_public_self_signatures": 1,
+      "local_protected_secret_export_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc",
+      "local_protected_secret_export_size_bytes": 3486,
+      "protected_export_primary_packets": 1,
+      "protected_export_subkey_packets": 0,
+      "protected_export_packet_markers": 1,
+      "revocation_certificate_present": true,
+      "revocation_certificate_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/openpgp-revocs.d/C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D.rev",
+      "revocation_certificate_size_bytes": 1820,
+      "directories_mode": "0700",
+      "files_mode": "0600",
+      "recovery_public_unchanged": true,
+      "private_material_imported": false,
+      "raw_private_packet_dump_or_key_contents_published": false,
+      "private_passphrase_requested_by_this_check": false,
+      "actual_signer_created_by_owner": true,
+      "actual_signer_created_by_this_check": false,
+      "actual_signature_performed": false,
+      "actual_signer_backup_restored": false,
+      "actual_two_subkey_decryption_performed": false,
+      "signer_protected_backup_copied_to_USB": false,
+      "formal_accepted": false,
+      "Python_candidates_created": false
+    }
   }
 }
