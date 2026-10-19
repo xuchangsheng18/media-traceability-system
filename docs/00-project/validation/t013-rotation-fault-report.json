@@ -119,7 +119,7 @@
     "IDP-18 complete runtime-log and history credential review",
     "IDP-20 restored token/session/client-secret invalidation",
     "IDP-21 recovery rollback",
-    "actual T013 owner, effort and human acceptance record remain unspecified"
+    "remaining effort and actual T013 human review/acceptance record remain unspecified; development owner confirmed as 徐昌胜"
   ],
   "hosted_ci_attempts": [
     {
@@ -692,9 +692,110 @@
     "reference": "docs/00-project/validation/t013-rotation-fault/linux-documentation-checks.json"
   },
   "user_inputs_for_whole_T013": [
-    "Confirm actual T013 owner and remaining effort; owner does not imply identity administrator.",
+    "T013 development owner confirmed as 徐昌胜; remaining effort is still unknown. This does not appoint an identity administrator or T013 reviewer.",
     "Specify named identity administrator and reviewer for MFA/bootstrap handover; do not send passwords or keys.",
     "Confirm applicable formal identity scope and revocation SLA, and provide actual software-admission decisions; Python candidates remain deferred without inferred risk acceptance.",
     "Review a concrete restart/persistence and post-restore invalidation/rollback exercise before shared-service changes. No such changes were executed in this batch."
-  ]
+  ],
+  "actual_owner": "徐昌胜",
+  "owner_assignment": {
+    "observed_at": "2026-10-19T01:30:24.110888+00:00",
+    "confirmation_date": "2026-10-19",
+    "confirmed_by": "user",
+    "actual_development_owner": "徐昌胜",
+    "resource_id": "PERSON-002",
+    "basis_ref": "docs/03-development/repository-access-control.md",
+    "confirmation": "用户对“T013的实际开发负责人由谁承担？”答复“徐昌胜”。",
+    "scope": "仅T013实际开发任务责任；不自动指定身份管理员、T013复核人或验收人，不创建账号或授予权限。",
+    "identity_administrator_confirmed": false,
+    "T013_reviewer_confirmed": false,
+    "formal_accepted": false
+  },
+  "owner_assignment_documentation_validation": {
+    "observed_at": "2026-10-19T01:31:55.468220+00:00",
+    "scope": "T013_user_confirmed_development_owner_documentation_only",
+    "base_source_commit": "6eec8003c2e1fd2a3c7ffeed2ea5b5b80677d2ea",
+    "working_tree_contains_ownership_changes": true,
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "9a635c2e64ffce309989c1cc6c6dbe0df70a2d1e9d6deaacf432c83210b498cd"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "12e7f5c6474b2b435e8c1bfb04816003bb4537be83a6562dd0632a1dc3c9164b"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/build_stage_one_candidate.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "5341535555f6efb16318c2c517027e2d2204726c719642c302f7e89d13dce22d"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "48a9741aa653edb3aab011de1d90ddabd1f3dd44aab6d108d45bf2c44fc06d9f"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "ccd6e9da7eb49a5c716786f09643c862eca2c6de7a705e1e17f365655e9cd070"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "972c93da5a5e4f36c552d315baa50adee8ffd99e1d878e6a7a1fe4e31358cc29"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "8202d0412f0a0905b6f8b1d0703e744a4beaa3f14ae8e23629021896028524df"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "e03291f6ba2f95d12007357476132d08055584c92dd6704da9b575288fdf0815"
+      }
+    ],
+    "account_changes": false,
+    "formal_accepted": false,
+    "Python_candidates_created": false,
+    "status": "PASS"
+  }
 }
