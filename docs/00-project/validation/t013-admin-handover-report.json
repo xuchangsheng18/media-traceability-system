@@ -1185,12 +1185,12 @@
     "formal_accepted": false
   },
   "key_custody_establishment": {
-    "status": "NOT_ESTABLISHED_OPERATOR_STEPS_PREPARED_NOT_EXECUTED",
+    "status": "LOCAL_D_RND_DIRECTORY_PREPARED_PRIVATE_KEYS_AWAIT_OPERATOR",
     "custodian": "徐昌胜",
     "source_user_answer": "尚未建立，请提供具体建立步骤",
     "software_boundary": "No Gpg4win installation, key generation, private key import, production policy or baseline change is performed by this evidence update.",
     "role_separation": {
-      "recovery_recipient": "Recovery primary/decryption subkey remain on a custodian-controlled offline encrypted medium; only the public certificate goes to the server.",
+      "recovery_recipient": "Current user-authorized RnD mode: recovery primary/decryption subkey remain in the restricted D:/公安厅密钥/recovery-gnupg home and protected private exports in D:/公安厅密钥/private-backups; only the PUBLIC certificate goes to Linux. This online single-volume arrangement does not establish independent offline custody or disaster recovery.",
       "backup_signer": "A different signing-only key is available to the backup operation in a dedicated server GnuPG home. Its private signing key cannot decrypt recovery backups.",
       "restore": "Existing restore.py needs local GnuPG decryption capability. Offline private custody plus a public-key upload does not implement a remote/hardware decryption bridge or constitute a successful actual restore."
     },
@@ -1204,7 +1204,7 @@
       {
         "number": 1,
         "where": "Trusted custodian Windows workstation",
-        "action": "If gpg is absent, obtain Gpg4win from its official site and verify installer integrity/signature before installing. This is a manual tool preparation step, not server software admission.",
+        "action": "Windows Gpg4win5.1.1 and GPG/gpgconf2.5.24 have been observed. The engine executable has a valid signature matching the official signing certificate. Installer archive integrity is not separately proven. Use exact Windows executable paths; no PATH/baseline change.",
         "references": [
           "https://www.gpg4win.org/get-gpg4win.html",
           "https://www.gpg4win.org/package-integrity.html"
@@ -1215,36 +1215,37 @@
       },
       {
         "number": 2,
-        "where": "Trusted workstation; encrypted removable media disconnected from repository sync",
-        "action": "Choose the actual encrypted media folder; F: below is an example and must be replaced. Use a NEW dedicated GnuPG home and a nonempty passphrase entered only in the GnuPG prompt. Do not reuse the sample path blindly or overwrite an existing keyring.",
+        "where": "Current user-authorized restricted D:/公安厅密钥, online internal RnD only",
+        "action": "Use the already-prepared empty recovery-gnupg home. The custodian personally chooses and confirms a nonempty protection passphrase in the local GPG prompt. Do not re-run generation over existing material.",
         "PowerShell_commands": [
-          "$CustodyRoot = Read-Host \"输入已解锁的加密离线介质目录，例如 F:\\MediaTraceKeyCustody\"",
-          "if (-not (Test-Path -LiteralPath $CustodyRoot -PathType Container)) { throw \"请先准备并确认加密介质目录\" }",
+          "$CustodyRoot = \"D:\\公安厅密钥\"",
           "$CustodyGpg = Join-Path $CustodyRoot \"recovery-gnupg\"",
-          "if (Test-Path -LiteralPath $CustodyGpg) { throw \"专用密钥目录已存在，请先核查，不要重复生成\" }",
-          "New-Item -ItemType Directory -Path $CustodyGpg -ErrorAction Stop",
+          "if (-not (Test-Path -LiteralPath $CustodyGpg -PathType Container)) { throw \"请先核查已准备的专用目录\" }",
+          "if (@(Get-ChildItem -LiteralPath $CustodyGpg -Force).Count -ne 0) { throw \"目录已有文件，请先核查，不要重复生成\" }",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-generate-key \"MediaTrace RnD Recovery - Xu Changsheng\" rsa4096 cert 1y",
+          "if ($LASTEXITCODE -ne 0) { throw \"主密钥生成未成功，停止后续操作\" }",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --fingerprint --list-keys",
           "$RecoveryFpr = (Read-Host \"输入刚生成的恢复主密钥完整指纹，不是口令\") -replace \"\\s\", \"\"",
           "if ($RecoveryFpr -notmatch \"^[A-Fa-f0-9]{40}(?:[A-Fa-f0-9]{24})?$\") { throw \"完整指纹格式无效\" }",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-add-key \"$RecoveryFpr\" rsa4096 encrypt 1y",
+          "if ($LASTEXITCODE -ne 0) { throw \"加密子密钥添加未成功，停止后续操作\" }",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --with-subkey-fingerprint --list-secret-keys \"$RecoveryFpr\""
         ],
-        "expected": "Exact primary fingerprint plus a distinct encryption subkey; no shared-server generation and no empty passphrase."
+        "expected": "One certification-only primary and one encryption subkey, under the current D-drive RnD home. Do not claim offline storage; record the actual public fingerprints and protection/custody evidence."
       },
       {
         "number": 3,
         "where": "Trusted workstation",
-        "action": "Export the public recipient separately. Keep encrypted private-key export and revocation certificate on custodian-controlled encrypted offline media, with a second independently stored copy; do not publish revocation material or private exports.",
+        "action": "Export PUBLIC recipient separately into the restricted public folder. Export the passphrase-protected private backup and revocation certificate only into private-backups; do not copy them to Linux/chat/Git. D-drive copies are not independent offline backups.",
         "PowerShell_commands": [
-          "$PublicMaterial = \"D:\\公安厅项目\\_work\\identity-public-materials\"",
+          "$PublicMaterial = Join-Path $CustodyRoot \"public\"",
           "New-Item -ItemType Directory -Force -Path $PublicMaterial -ErrorAction Stop",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$PublicMaterial\\recovery-recipient.asc\" --export \"$RecoveryFpr\"",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\recovery-secret-backup.asc\" --export-secret-keys \"$RecoveryFpr\"",
-          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\recovery-revocation.asc\" --generate-revocation \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\private-backups\\recovery-secret-backup.asc\" --export-secret-keys \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\private-backups\\recovery-revocation.asc\" --generate-revocation \"$RecoveryFpr\"",
           "& \"D:\\GnuPG\\bin\\gpg.exe\" --show-keys --with-fingerprint --with-subkey-fingerprint \"$PublicMaterial\\recovery-recipient.asc\""
         ],
-        "expected": "Public recipient contains exactly the chosen primary and encryption subkey; private export/revocation material never enter Git, cloud-sync folders or chat."
+        "expected": "Public recipient only in public; protected private export and revocation material only in private-backups. Actual protection and independent recovery remain to verify; no existing export is overwritten."
       },
       {
         "number": 4,
@@ -1275,7 +1276,7 @@
       {
         "number": 6,
         "where": "Both machines; use a nonsensitive key-check message",
-        "action": "Import the recipient public key into the signing home and signer public key into the offline recovery home. Encrypt/sign only a fixed nonsensitive marker, transfer the encrypted file to the custodian, then decrypt and verify the signer full fingerprint offline. Test the actual server/workstation GnuPG versions; this is key interoperability proof, not database recovery.",
+        "action": "Import the recipient public key into the signing home and signer public key into the current D-drive recovery home. Encrypt/sign only a fixed nonsensitive marker, transfer the encrypted file to the custodian, then decrypt and verify the signer full fingerprint in the D-drive RnD home. Test the actual server/workstation GnuPG versions; this is key interoperability proof, not database recovery.",
         "Linux_commands": [
           "TaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody",
           "TaskGpg=\"$TaskCustody/signer-gnupg\"",
@@ -1314,7 +1315,7 @@
     "actual_backup_or_restore_performed": false,
     "formal_accepted": false,
     "current_operator_progress": {
-      "observed_at": "2026-10-19T09:37:00.964251+00:00",
+      "observed_at": "2026-10-19T09:46:17.059495+00:00",
       "task_id": "T013",
       "related_remaining_item": "T013-R02",
       "scope": "Operator key-custody preparation only; no new development-task completion, key generation or real backup/restore.",
@@ -1347,7 +1348,6 @@
         "user_answer": "D:\\公安厅密钥 存放密钥的地址",
         "path": "D:/公安厅密钥",
         "directory_exists": true,
-        "observed_item_count": 0,
         "attributes": [
           "Directory",
           "Compressed"
@@ -1357,27 +1357,30 @@
         "outside_repository": true,
         "volume_encryption_status": "NOT_VERIFIED_PERMISSION_DENIED",
         "offline_custody_confirmed": false,
-        "accepted_as_recovery_private_key_home": false
+        "accepted_as_recovery_private_key_home": true,
+        "acceptance_scope": "Current user-authorized online D-drive internal-RnD custody only",
+        "directory_empty_before_preparation": true,
+        "observed_item_count_before_preparation": 0
       },
       "remaining_operator_milestones": [
         {
-          "name": "实际加密离线介质及独立保管安排",
+          "name": "本人生成D盘恢复认证主密钥和RSA4096加密子密钥并设置非空保护口令",
           "status": "NOT_VERIFIED"
         },
         {
-          "name": "恢复认证主密钥和RSA4096加密子密钥",
+          "name": "导出公钥及受口令保护的私钥备份/吊销材料",
           "status": "NOT_VERIFIED"
         },
         {
-          "name": "公钥导出上传及两端完整指纹比对",
+          "name": "公钥上传及两端完整指纹比对",
           "status": "NOT_VERIFIED"
         },
         {
-          "name": "独立仅签名密钥及其保管",
+          "name": "服务器独立仅签名密钥及其保管",
           "status": "NOT_VERIFIED"
         },
         {
-          "name": "固定无敏感文本加密签名及离线解密验签",
+          "name": "固定无敏感文本加密签名及D盘解密验签",
           "status": "NOT_VERIFIED"
         },
         {
@@ -1385,14 +1388,54 @@
           "status": "NOT_VERIFIED"
         }
       ],
-      "next_action": "Custodian supplies/prepares an encrypted offline directory, then personally generates the recovery primary/encryption subkey there using the updated seven-step instructions; passwords/private keys stay off chat/Git.",
+      "next_action": "Custodian runs the supplied exact D-drive PowerShell key-generation commands and enters a nonempty key-protection passphrase in their local GPG prompt; then export/upload public keys, create separate server signer and verify a fixed marker. No passphrase/private key is sent in chat.",
       "GPG_key_custody_established": false,
       "actual_keys_generated_by_this_update": false,
       "actual_interoperability_verified": false,
       "actual_recovery_validated": false,
       "formal_accepted": false,
-      "Python_candidates_created": false
+      "Python_candidates_created": false,
+      "custody_mode_decision": {
+        "user_answer": "就先使用对应的D盘路径完成对应的密钥管理",
+        "scope": "Current local internal-RnD custody at D:/公安厅密钥, explicitly selected by user in place of the earlier offline-directory prerequisite for this batch. Offline disaster-recovery acceptance remains unfulfilled.",
+        "accepted_for_current_local_RnD": true,
+        "offline_custody_claimed": false,
+        "formal_accepted": false
+      },
+      "directory_preparation": {
+        "observed_at": "2026-10-19T09:42:14.0262637Z",
+        "status": "PASS_CURRENT_D_DRIVE_DIRECTORY_PREPARATION_ONLY",
+        "authorization": "User explicitly requested D:\\公安厅密钥 for current key management; online local RnD custody, not offline acceptance",
+        "root": "D:\\公安厅密钥",
+        "directories": [
+          "recovery-gnupg",
+          "public",
+          "private-backups"
+        ],
+        "root_inheritance_disabled": true,
+        "allowed_principals": [
+          "current Windows user",
+          "SYSTEM",
+          "local Administrators"
+        ],
+        "all_four_directory_permissions_verified": true,
+        "existing_files_overwritten": false,
+        "actual_keys_generated": false,
+        "encrypted_volume_verified": false,
+        "offline_custody_established": false,
+        "formal_accepted": false
+      },
+      "deferred_formal_conditions": [
+        "Independent offline/separate-volume custody and backup proof are not established by the user-authorized D-drive RnD arrangement.",
+        "Volume encryption has not been verified; Windows directory ACL does not establish BitLocker/EFS encryption."
+      ]
     },
-    "Windows_command_path_note": "Current custodian machine executable path verified; Linux gpg commands are unchanged. Directory selection still requires actual encrypted offline custody, not a plain online folder."
+    "Windows_command_path_note": "Exact current Windows program and user-selected D-drive paths; Linux commands unchanged. Current local custody explicitly selected by user; independent offline custody remains a deferred formal condition.",
+    "current_custody_mode_note": "Current local internal-RnD custody at D:/公安厅密钥, explicitly selected by user in place of the earlier offline-directory prerequisite for this batch. Offline disaster-recovery acceptance remains unfulfilled.",
+    "original_planned_role_separation": {
+      "recovery_recipient": "Recovery primary/decryption subkey remain on a custodian-controlled offline encrypted medium; only the public certificate goes to the server.",
+      "backup_signer": "A different signing-only key is available to the backup operation in a dedicated server GnuPG home. Its private signing key cannot decrypt recovery backups.",
+      "restore": "Existing restore.py needs local GnuPG decryption capability. Offline private custody plus a public-key upload does not implement a remote/hardware decryption bridge or constitute a successful actual restore."
+    }
   }
 }
