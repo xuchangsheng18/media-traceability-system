@@ -19,6 +19,8 @@
 | T012 | identity/directory.py的issuer+subject映射、单位/用户/案件、成员及角色/权限绑定；版本迁移、启用/撤销/到期；db.py事务局部上下文和RLS | test_identity_directory、test_role_directory、test_migrations、test_authorization及test_token_identity真实隔离库回归；permission_bindings是manager-only目录接口，注释明确不是路由或正式策略ALLOW | 可复用数据模型和隔离测试基础；不据此判定有生产授权服务。 |
 | T013 | RFC7662自省校验、精确映射、Keycloak隔离重启/轮换/故障/恢复与替代管理工具 | 本轮令牌/映射回归；[最近已完整归档CI](../00-project/validation/t013-bootstrap-management-ci-report.json)源码`aff738a3e6636c1254326b55ac25197c9251e80f`、run 39226217064，330身份测试、246业务测试、32工程门禁；其53个指定身份/工具/配置/测试文件与本轮逐字相同 | 可用作身份边界设计与隔离夹具基础；共享正式策略仍缺失。 |
 
+现有完整测试会临时重写business-recovery-report与database-foundation-report两份验证输出；本轮已核对写入时间及对应测试，先保留到服务器私密工作区，再恢复各自测试前Git原字节，随后才同步源码。未覆盖其他工作流改动；应用代码和共享服务未变。清理摘要附在本轮依赖回归报告中。
+
 ## 历史报告与当前源码不能混用
 
 | 历史报告 | 绑定文件数 | 当前差异文件 | 本轮处理 |
