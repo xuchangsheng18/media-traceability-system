@@ -313,6 +313,7 @@ def test_real_broker_receives_and_worker_commits(business_context):
             Scope(business_context["actor"], business_context["case_id"]),
             url,
             work_authorization=business_context["work_authorization"],
+            upload_id=UUID(upload),
         )
         assert result == {"published": 1, "consumed": 1, "confirmed": True}
         assert http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()["session"]["state"] == "COMPLETED"
@@ -348,6 +349,7 @@ def test_broker_recovers_after_confirmation_before_outbox_commit(business_contex
                     Scope(business_context["actor"], business_context["case_id"]),
                     url,
                     work_authorization=business_context["work_authorization"],
+                    upload_id=UUID(upload),
                 )
         finally:
             sql_events.remove(engine, "before_cursor_execute", interrupt_receipt)
@@ -357,6 +359,7 @@ def test_broker_recovers_after_confirmation_before_outbox_commit(business_contex
             Scope(business_context["actor"], business_context["case_id"]),
             url,
             work_authorization=business_context["work_authorization"],
+            upload_id=UUID(upload),
         )
         assert result["published"] == 1 and result["consumed"] == 2
         with psycopg.connect(business_context["admin_dsn"]) as connection:

@@ -236,7 +236,16 @@ def test_upload_longer_than_fact_refresh_rechecks_before_commit(permission_conte
             assert caught.value.http_status == 503
             denied_code = caught.value.code
         else:
-            consumer.consume_validation(event(ctx, upload))
+            try:
+                consumer.consume_validation(event(ctx, upload))
+            except BusinessError as error:
+                origin = error.__context__
+                frames = []
+                traceback = origin.__traceback__ if origin is not None else None
+                while traceback is not None:
+                    frames.append(f"{traceback.tb_frame.f_code.co_name}:{traceback.tb_lineno}")
+                    traceback = traceback.tb_next
+                pytest.fail(f"WORK_BEFORE_COMMIT:{error.code}:{type(origin).__name__}:{','.join(frames)}")
         assert len(elapsed) == 1 and elapsed[0] >= 6, f"OBJECT_WRITE_CHECKPOINT_NOT_REACHED:{denied_code}"
         with psycopg.connect(ctx["admin_dsn"]) as admin:
             assert admin.execute("SELECT state FROM mt.upload_session WHERE upload_id=%s", (upload,)).fetchone() == (

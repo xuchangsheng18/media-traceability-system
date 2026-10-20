@@ -144,6 +144,8 @@ def test_concurrent_duplicate_preserves_orphan_recovery(upload_client, business_
 
     from business_app.types import Scope
 
+    from tests.business.http_fixtures import synthetic_upload_evidence
+
     upload = create(upload_client, business_context)
     service = upload_client.app.state.upload_service
     existing = service.repository.existing_part
@@ -156,12 +158,17 @@ def test_concurrent_duplicate_preserves_orphan_recovery(upload_client, business_
 
     monkeypatch.setattr(service.repository, "existing_part", synchronized)
     scope = Scope(business_context["actor"], business_context["case_id"])
+
+    def put_explicitly_authorized(_):
+        with synthetic_upload_evidence(scope.actor, scope.case_id, UUID(upload)):
+            return service.put_part(
+                scope, UUID(upload), 1, b"ABC", hashlib.sha256(b"ABC").hexdigest(), "concurrent-part"
+            )
+
     with ThreadPoolExecutor(max_workers=2) as pool:
         results = list(
             pool.map(
-                lambda _: service.put_part(
-                    scope, UUID(upload), 1, b"ABC", hashlib.sha256(b"ABC").hexdigest(), "concurrent-part"
-                ),
+                put_explicitly_authorized,
                 range(2),
             )
         )

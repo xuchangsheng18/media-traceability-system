@@ -125,6 +125,24 @@ def synthetic_case_evidence(actor: Actor, case_id: UUID) -> Iterator[None]:
         yield
 
 
+@contextmanager
+def synthetic_upload_evidence(actor: Actor, case_id: UUID, upload_id: UUID) -> Iterator[None]:
+    """Explicit resource-bound proof for a direct concurrent-upload test."""
+    principal = Principal(actor, "https://identity.example.test", str(actor.user_id), int(time.time()) + 600)
+    evidence = AuthorizationEvidence(
+        principal,
+        "putUploadPart",
+        RuleTarget(actor.org_id, "upload", upload_id, None, case_id, "upload", None),
+        "a" * 64,
+        "b" * 64,
+        "explicit-synthetic-fixture",
+        "synthetic-upload-test",
+        time.time() + 60,
+    )
+    with request_authorization(evidence, FixtureFence(frozenset({actor})), mutation=True):
+        yield
+
+
 class FixtureWork:
     """Explicit legacy workflow harness; no claim of real delegation/service proof."""
 
