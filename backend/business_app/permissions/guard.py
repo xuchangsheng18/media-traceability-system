@@ -10,10 +10,14 @@ from typing import cast
 from fastapi import FastAPI, Request
 from fastapi.dependencies.models import Dependant
 from fastapi.routing import APIRoute, iter_route_contexts
+from starlette.concurrency import run_in_threadpool
 
 from ..errors import BusinessError
 from .catalog import OperationPermission
+from .conditional import ConditionalPort
+from .object_facts import BODY_SCHEMAS
 from .policy import validate_principal
+from .rule_types import AuthorizationEvidence
 from .types import PermissionAuthority, Principal
 
 
@@ -80,14 +84,47 @@ def require_permission(permission_code: str) -> Callable[[Request], None]:
     return required
 
 
-def authorize_business_route(request: Request) -> None:
+async def authorize_business_route(request: Request) -> None:
     route = request.scope.get("route")
     catalog = cast(Mapping[str, OperationPermission], request.app.state.permission_catalog)
     operation = catalog.get(getattr(route, "operation_id", ""))
     if operation is None or operation.path != getattr(route, "path_format", None) or operation.method != request.method:
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
     if not operation.public:
-        require_permission(operation.permission)(request)
+        await run_in_threadpool(require_permission(operation.permission), request)
+        conditional = cast(ConditionalPort | None, getattr(request.app.state, "conditional_permissions", None))
+        if conditional is None:
+            raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
+        principal = current_principal(request)
+        body = {}
+        if operation.operation_id in BODY_SCHEMAS:
+            try:
+                body = await request.json()
+            except (ValueError, UnicodeError):
+                raise BusinessError("INPUT_INVALID", 422) from None
+            if not isinstance(body, dict):
+                raise BusinessError("INPUT_INVALID", 422)
+        try:
+            evidence = await run_in_threadpool(
+                conditional.authorize_http,
+                principal,
+                operation.operation_id,
+                dict(request.path_params),
+                dict(request.query_params),
+                body,
+            )
+        except BusinessError:
+            raise
+        except Exception:
+            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+        if (
+            not isinstance(evidence, AuthorizationEvidence)
+            or evidence.principal != principal
+            or evidence.operation_id != operation.operation_id
+        ):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        current_principal(request)
+        request.state.business_authorization_evidence = evidence
 
 
 def audit_protected_routes(app: FastAPI) -> None:

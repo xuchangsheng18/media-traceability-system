@@ -12,6 +12,8 @@ from ..auth import authorize_request
 from ..contracts import validate_api, validate_response
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.conditional import ConditionalPort
+from ..permissions.guard import current_principal
 from ..settings import BusinessSettings
 from ..types import Actor, Scope
 from ..uploads.repository import UploadRepository
@@ -546,6 +548,8 @@ def create_policy(request: Request, body: dict[str, Any], idempotency_key: Key) 
 @router.get("/policies", operation_id="listPolicies")
 def list_policies(request: Request, cursor: Cursor = None, limit: Limit = 20) -> JSONResponse:
     actor = policy_actor(request)
+    conditional = cast(ConditionalPort, request.app.state.conditional_permissions)
+    allowed_kinds = conditional.policy_kinds(current_principal(request))
     with db(request).identity_transaction(actor) as connection:
         rows, following = page(
             connection,
@@ -555,7 +559,8 @@ def list_policies(request: Request, cursor: Cursor = None, limit: Limit = 20) ->
             settings(request).cursor_secret,
             cursor,
             limit,
-            where="org_id=:org",
+            where="org_id=:org AND kind=ANY(:allowed_kinds)",
+            filters=dict(allowed_kinds=list(allowed_kinds)),
         )
     return reply("PolicyPage", dict(items=[policy_wire(v) for v in rows], next_cursor=following))
 

@@ -18,7 +18,7 @@ from business_app.types import Actor, Scope
 from fastapi.testclient import TestClient
 
 from tests.business.history_fixtures import prepare_history, snapshot
-from tests.business.http_fixtures import FixturePermissions
+from tests.business.http_fixtures import FixtureConditionals, FixturePermissions
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
@@ -128,6 +128,7 @@ def control_context(business_context):
         rules=TestRules(),
         identity_directory=TestDirectory(),
         permission_authority=permission_authority,
+        conditional_permissions=FixtureConditionals(frozenset(tokens.values())),
     )
     http = TestClient(app)
     try:
@@ -139,6 +140,8 @@ def control_context(business_context):
             evidence_id=evidence,
             control_authority=app.state.business_authority,
             control_permission_authority=permission_authority,
+            control_conditional_permissions=app.state.conditional_permissions,
+            conditional_permissions=FixtureConditionals(frozenset(tokens.values())),
             rules=TestRules(),
             directory=TestDirectory(),
             control_settings=settings,
@@ -315,7 +318,10 @@ def test_review_append_version_and_exact_evidence(control_context):
 def test_review_no_rules_no_write(control_context):
     c = control_context
     app = create_app(
-        c["control_settings"], c["control_authority"], permission_authority=c["control_permission_authority"]
+        c["control_settings"],
+        c["control_authority"],
+        permission_authority=c["control_permission_authority"],
+        conditional_permissions=c["control_conditional_permissions"],
     )
     with TestClient(app) as http:
         response = http.post(

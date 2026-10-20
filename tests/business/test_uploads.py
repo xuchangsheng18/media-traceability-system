@@ -18,6 +18,7 @@ def upload_client(business_context):
             replace(business_context["settings"], part_size_bytes=3),
             business_context["authority"],
             permission_authority=business_context["permission_authority"],
+            conditional_permissions=business_context["conditional_permissions"],
         )
     ) as http:
         yield http

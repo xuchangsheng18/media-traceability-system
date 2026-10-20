@@ -147,6 +147,7 @@ def test_same_old_bearer_is_rechecked_after_real_directory_revocation(permission
         Identity(),
         identity_directory=Directory(),
         permission_authority=DirectoryPermissionAuthority(lookup, Policy()),
+        conditional_permissions=ctx["conditional_permissions"],
     )
     with TestClient(app) as http:
         assert http.get("/api/v1/auth/me", headers=AUTH).status_code == 200
@@ -246,7 +247,10 @@ def test_upload_permission_revocation_refuses_old_part_cursor_and_write_receipt(
     )
     key = uuid4().hex
     app = create_app(
-        replace(c["settings"], part_size_bytes=3), c["authority"], permission_authority=c["permission_authority"]
+        replace(c["settings"], part_size_bytes=3),
+        c["authority"],
+        permission_authority=c["permission_authority"],
+        conditional_permissions=c["conditional_permissions"],
     )
     with TestClient(app) as http:
         created = http.post("/api/v1/uploads", json=body, headers=dict(AUTH, **{"Idempotency-Key": key}))

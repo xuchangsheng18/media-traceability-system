@@ -38,6 +38,7 @@ from .inference import BackendRegistration, InferenceGateway, ServiceAuthority
 from .inference import router as inference_router
 from .objects import FileObjectStore
 from .permissions.catalog import load_catalog
+from .permissions.conditional import ConditionalPort
 from .permissions.guard import audit_protected_routes, authorize_business_route
 from .permissions.types import PermissionAuthority
 from .settings import BusinessSettings
@@ -58,6 +59,7 @@ def create_app(
     service_authority: ServiceAuthority | None = None,
     inference_backends: dict[str, BackendRegistration] | None = None,
     permission_authority: PermissionAuthority | None = None,
+    conditional_permissions: ConditionalPort | None = None,
 ) -> FastAPI:
     logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
@@ -74,6 +76,7 @@ def create_app(
     app.state.permission_framework_routes = frozenset(id(route) for route in app.routes)
     app.state.permission_catalog = MappingProxyType(load_catalog(ROOT))
     app.state.permission_authority = permission_authority
+    app.state.conditional_permissions = conditional_permissions
     app.state.business_database = database
     app.state.business_authority = authority
     app.state.business_settings = settings
