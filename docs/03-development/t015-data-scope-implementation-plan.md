@@ -10,6 +10,9 @@
 
 **Spec:** [T015已获准书面设计](t015-data-scope-design.md)。本人原话“认可书面设计，编制实施计划”，所审阅版本SHA256为`600c07c45271d759a5e1e10ed0a7bbe748311b24dcb3cd4c09bd2165c84888a7`；批准记录见[设计审阅](../00-project/validation/t015-written-design-review.json)。原[T015](../../tasks/platform/T015.md)、[依赖实核](../00-project/validation/t015-dependency-preflight.json)和[负责人确认](../00-project/validation/t015-role-assignment.json)同时适用。**计划已获本人批准：认可P01—P07，按当前会话直接实施。P01—P07当前实际进度以逐项执行证据为准，不预填完成。**
 
+
+2026-10-21实际进度：干净交付提交`c61c8deedf83`的必需范围CLI 128项通过，S01—S09、64表目录（非64项DAO测试）、8项范围恢复和独立失败命令退出1均已核验，见[实际运行报告](../00-project/validation/t015-data-scope-report.json)。P02全业务CLI、P04/P05全保留回归、托管33门禁及整卡验收仍待；下列完整步骤不因局部通过全部勾选。
+
 ## Global Constraints
 
 - 原任务范围“按单位、案件、任务和密级过滤查询与写入”；契约“DataScope对象；repository查询约束”；验收“跨单位和跨案件访问被拒绝；管理员越权需显式授权”；测试“水平越权和批量查询测试”。源依赖仍为T014，不将其整卡未验收改成已验收。

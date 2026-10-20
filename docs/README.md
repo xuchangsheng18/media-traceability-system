@@ -443,6 +443,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/data-scope-migration.md](<04-database/data-scope-migration.md>) | 0010数据范围增量、64表分类、三种事务、15种固定元数据及7项函数/ACL；说明实际代码、验证和共享采用边界。 |
 | [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；各步骤按实际证据勾选，未执行项不预填通过。 |
 | [03-development/t016-operation-token-implementation-plan.md](<03-development/t016-operation-token-implementation-plan.md>) | T016下一批案件级一次性令牌签发与同事务消费计划；列幂等秘密、精确动作绑定、增量迁移、43/30目录及消费者契约差异；计划存在不代表代码完成或正式采用。 |
+| [00-project/validation/t015-data-scope-report.json](<00-project/validation/t015-data-scope-report.json>) | 精确源码提交的T015实际必需范围CLI：具名SQL/HTTP/对象/恢复用例、S01—S09、真实失败探针和64表目录；目录核验不当DAO覆盖，局部通过不当全业务或托管CI通过。 |
 | [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、精确获审版本及本人批准；批准与代码实施、测试、验收分别登记，原1009测试模块保留。 |
 | [00-project/validation/t014-final-document-ci-observation.json](<00-project/validation/t014-final-document-ci-observation.json>) | 3ff文档提交的镜像下载失败与同提交重跑观测；历史代码通过、当前运行和后续提交CI分别记录，不伪称最终通过。 |
 | [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划亦已获准；代码实际子范围以逐项进度为准，不当整卡验收。 |
@@ -613,7 +614,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1218份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1219份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1302,6 +1303,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t015-data-scope-p02-progress.json](<00-project/validation/t015-data-scope-p02-progress.json>) | P02三种事务、固定元数据、真实SQL/HTTP/工作链的定向及完整验证；保留461项首轮4失败、前向修复和完整重跑的实际状态。 |
 | [00-project/validation/t015-data-scope-p03-report.json](<00-project/validation/t015-data-scope-p03-report.json>) | 精确aa2070b的21项新范围与70项保留适用测试，共91项全部通过及质量结果；仅P03隔离子范围，P02完整CLI和后续字节/恢复/CI另列。 |
 | [00-project/validation/t015-data-scope-progress.json](<00-project/validation/t015-data-scope-progress.json>) | 已批准T015计划P01—P07实际逐项状态、精确候选及运行结果；失败与重跑保留，不以编码或测试准备替代完成。 |
+| [00-project/validation/t015-data-scope-report.json](<00-project/validation/t015-data-scope-report.json>) | 精确源码提交的T015实际必需范围CLI：具名SQL/HTTP/对象/恢复用例、S01—S09、真实失败探针和64表目录；目录核验不当DAO覆盖，局部通过不当全业务或托管CI通过。 |
 | [00-project/validation/t015-dependency-preflight.json](<00-project/validation/t015-dependency-preflight.json>) | T015只读前置核对：绑定T014隔离通过证据、现有Scope/RLS/对象读取边界及实际旧测试组；不把64表全路径隔离或正式身份联调标为完成。 |
 | [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、精确获审版本及本人批准；批准与代码实施、测试、验收分别登记，原1009测试模块保留。 |
 | [00-project/validation/t015-role-assignment.json](<00-project/validation/t015-role-assignment.json>) | 用户明确T015开发负责人、指定复核人均为徐昌胜；仅登记职责，工时、实际复核和验收仍待，不创建账号或授予权限。 |

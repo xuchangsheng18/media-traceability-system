@@ -2501,8 +2501,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "既有部分RLS；P01内部类型目录及P03任务/版本/资源与列表范围已隔离验证；P02业务461项通过但CLI报告入口仍待修正后核验 新增S01—S09必需运行证据解析器及第33门禁接入代码；39项Linux解析/优化模式/反伪造测试和静态检查通过；实际第33门禁与整树CI尚未验证。",
-      "summary_remaining": "P02完整CLI回执；P04字节/历史完整回归及最终CI；P05故障/恢复全部适用回归；P06第33门禁实际执行；P07三端精确交付和正式提供者联调/整卡验收。当前没有将测试草稿或解析器示例当运行准入。",
+      "summary_completed": "S01—S09必需运行证据解析器和第33门禁代码已接入；39项解析器测试及干净交付提交的真实T015 CLI 128项通过，独立failure-probe退出1已核验。整套托管33门禁和全保留回归仍待，未关闭整卡。",
+      "summary_remaining": "P02全业务CLI回执、P04/P05全保留回归、完整托管CI及正式提供者联调/整卡验收仍待；本地T015必需范围CLI和源码三端交付已实核，不能替代全部任务验收。",
       "completed_steps": [
         {
           "description": "已实现业务路径的案件/单位RLS和跨案件拒绝已有隔离数据库测试",
@@ -2584,7 +2584,7 @@
         },
         {
           "kind": "DEVELOPMENT",
-          "description": "新增S01—S09必需运行证据解析器及第33门禁接入代码；39项Linux解析/优化模式/反伪造测试和静态检查通过；实际第33门禁与整树CI尚未验证。",
+          "description": "S01—S09必需运行证据解析器和第33门禁代码已接入；39项解析器测试及干净交付提交的真实T015 CLI 128项通过，独立failure-probe退出1已核验。整套托管33门禁和全保留回归仍待，未关闭整卡。",
           "evidence": [
             {
               "path": "scripts/verify_t015_scope.py",
@@ -2601,6 +2601,10 @@
             {
               "path": "docs/00-project/validation/development-continuation-report.json",
               "scope": "仅本行已验证开发子范围；初批及当前复核的命令、源摘要和数量分别见development-continuation-report；不证明整任务验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t015-data-scope-report.json",
+              "scope": "精确交付源码的实际T015必需范围CLI，不等于全业务CLI或完整托管CI。"
             }
           ]
         }
@@ -2608,7 +2612,7 @@
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "P02完整CLI回执；P04字节/历史完整回归及最终CI；P05故障/恢复全部适用回归；P06第33门禁实际执行；P07三端精确交付和正式提供者联调/整卡验收。当前没有将测试草稿或解析器示例当运行准入。"
+          "description": "P02全业务CLI回执、P04/P05全保留回归、完整托管CI及正式提供者联调/整卡验收仍待；本地T015必需范围CLI和源码三端交付已实核，不能替代全部任务验收。"
         },
         {
           "category": "实施/外部条件",
@@ -8076,7 +8080,8 @@
     "new_development_substeps_recorded": 4,
     "full_CI_not_yet_verified": true,
     "Python_candidates_created": false,
-    "review_hardening_ref": "docs/00-project/validation/development-continuation-report.json"
+    "review_hardening_ref": "docs/00-project/validation/development-continuation-report.json",
+    "latest_source_delivery_ref": "docs/00-project/server-sync-receipt.json"
   },
   "progress_update_history": [
     {

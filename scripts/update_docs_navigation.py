@@ -69,6 +69,7 @@ def main():
         "04-database/data-scope-migration.md": "0010数据范围增量、64表分类、三种事务、15种固定元数据及7项函数/ACL；说明实际代码、验证和共享采用边界。",
         "03-development/t015-data-scope-implementation-plan.md": "T015已批准P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；各步骤按实际证据勾选，未执行项不预填通过。",
         "03-development/t016-operation-token-implementation-plan.md": "T016下一批案件级一次性令牌签发与同事务消费计划；列幂等秘密、精确动作绑定、增量迁移、43/30目录及消费者契约差异；计划存在不代表代码完成或正式采用。",
+        "00-project/validation/t015-data-scope-report.json": "精确源码提交的T015实际必需范围CLI：具名SQL/HTTP/对象/恢复用例、S01—S09、真实失败探针和64表目录；目录核验不当DAO覆盖，局部通过不当全业务或托管CI通过。",
         "00-project/validation/t015-implementation-plan-review.json": "T015计划覆盖、自查、精确获审版本及本人批准；批准与代码实施、测试、验收分别登记，原1009测试模块保留。",
         "00-project/validation/t014-final-document-ci-observation.json": "3ff文档提交的镜像下载失败与同提交重跑观测；历史代码通过、当前运行和后续提交CI分别记录，不伪称最终通过。",
         "00-project/validation/t015-written-design-review.json": "本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划亦已获准；代码实际子范围以逐项进度为准，不当整卡验收。",

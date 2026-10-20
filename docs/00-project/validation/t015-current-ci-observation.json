@@ -1,30 +1,21 @@
 {
   "task_id": "T015",
-  "observed_at": "2026-10-20T16:13:01.228878+00:00",
-  "run_id": 39440437649,
-  "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39440437649",
-  "source_commit": "95f21122103bb7d9adc1607b078196368e173f61",
-  "status": "completed",
-  "conclusion": "failure",
-  "jobs": [
-    {
-      "name": "identity-verification / identity-integration",
-      "conclusion": "success"
-    },
-    {
-      "name": "engineering",
-      "conclusion": "failure",
-      "failed_step": "Verify isolated business migrations HTTP messaging and recovery"
-    }
-  ],
+  "observed_at": "2026-10-20T17:09:28.030370+00:00",
+  "run_id": 39462260805,
+  "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39462260805",
+  "source_commit": "c61c8deedf83f77ac522650534cce3ca41ff609d",
+  "status": "pending",
+  "conclusion": null,
+  "jobs": [],
   "candidate_CI_verified": false,
-  "candidate_continuation_ref": "docs/00-project/validation/development-continuation-report.json",
+  "Python_candidates_created": false,
+  "formal_accepted": false,
   "previous_observation": {
     "task_id": "T015",
-    "observed_at": "2026-10-20T11:55:46.026894+00:00",
-    "run_id": 39408277950,
-    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39408277950",
-    "source_commit": "8487ddc4e8a783ffbb8db23141b8e174e3924819",
+    "observed_at": "2026-10-20T16:13:01.228878+00:00",
+    "run_id": 39440437649,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39440437649",
+    "source_commit": "95f21122103bb7d9adc1607b078196368e173f61",
     "status": "completed",
     "conclusion": "failure",
     "jobs": [
@@ -35,42 +26,65 @@
       {
         "name": "engineering",
         "conclusion": "failure",
-        "failed_step": "Python static type check"
+        "failed_step": "Verify isolated business migrations HTTP messaging and recovery"
       }
     ],
-    "diagnostic": "tests/platform/test_t015_data_scope.py:63 supplied a str to Actor(UUID) in a deliberate malformed-input fixture.",
-    "private_log_sha256": "397b68d4e8333bb109287fcff89543c123e461d9891c6bd874933ba41076d0ba",
-    "local_fix_commit": "c6697eb19cbd38e7697a54b2e4cbddab0cfe5439",
-    "fix": "An explicit Any cast retains the original invalid runtime value and rejection assertion; targeted type scope now includes this file.",
-    "local_targeted_evidence_ref": "docs/00-project/validation/t015-data-scope-p02-progress.json",
-    "new_candidate_CI_verified": false,
-    "formal_accepted": false,
-    "raw_logs_published": false,
-    "Python_candidates_created": false,
-    "local_documentation_checks": {
-      "status": "SEVEN_EXISTING_DOC_AND_NAV_CHECKS_PASSED",
-      "commands": [
-        "validate_repository_docs",
-        "generate_task_progress --check",
-        "plan_project_schedule --check",
-        "validate_documentation_completion",
-        "generate_stage_three_docs --check",
-        "generate_remaining_work_navigation --check",
-        "generate_stage_status_navigation --check"
+    "candidate_CI_verified": false,
+    "candidate_continuation_ref": "docs/00-project/validation/development-continuation-report.json",
+    "previous_observation": {
+      "task_id": "T015",
+      "observed_at": "2026-10-20T11:55:46.026894+00:00",
+      "run_id": 39408277950,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39408277950",
+      "source_commit": "8487ddc4e8a783ffbb8db23141b8e174e3924819",
+      "status": "completed",
+      "conclusion": "failure",
+      "jobs": [
+        {
+          "name": "identity-verification / identity-integration",
+          "conclusion": "success"
+        },
+        {
+          "name": "engineering",
+          "conclusion": "failure",
+          "failed_step": "Python static type check"
+        }
       ],
-      "input_validation": "NOT_RUN_LOCAL_MISSING_OPENAPI_SPEC_VALIDATOR",
-      "reason": "Existing external Windows documentation tool lacks openapi_spec_validator; required hosted input validation remains enabled.",
-      "project_runtime_or_original_lock_changed": false
+      "diagnostic": "tests/platform/test_t015_data_scope.py:63 supplied a str to Actor(UUID) in a deliberate malformed-input fixture.",
+      "private_log_sha256": "397b68d4e8333bb109287fcff89543c123e461d9891c6bd874933ba41076d0ba",
+      "local_fix_commit": "c6697eb19cbd38e7697a54b2e4cbddab0cfe5439",
+      "fix": "An explicit Any cast retains the original invalid runtime value and rejection assertion; targeted type scope now includes this file.",
+      "local_targeted_evidence_ref": "docs/00-project/validation/t015-data-scope-p02-progress.json",
+      "new_candidate_CI_verified": false,
+      "formal_accepted": false,
+      "raw_logs_published": false,
+      "Python_candidates_created": false,
+      "local_documentation_checks": {
+        "status": "SEVEN_EXISTING_DOC_AND_NAV_CHECKS_PASSED",
+        "commands": [
+          "validate_repository_docs",
+          "generate_task_progress --check",
+          "plan_project_schedule --check",
+          "validate_documentation_completion",
+          "generate_stage_three_docs --check",
+          "generate_remaining_work_navigation --check",
+          "generate_stage_status_navigation --check"
+        ],
+        "input_validation": "NOT_RUN_LOCAL_MISSING_OPENAPI_SPEC_VALIDATOR",
+        "reason": "Existing external Windows documentation tool lacks openapi_spec_validator; required hosted input validation remains enabled.",
+        "project_runtime_or_original_lock_changed": false
+      },
+      "checkpoint_code_commit": "aa2070b0740884e9619370355aebe3b0532afdae",
+      "approved_CI_budget": {
+        "engineering_minutes": 90,
+        "identity_minutes_unchanged": 45,
+        "existing_gate_commands_changed": false,
+        "T015_33rd_gate_implemented": false
+      },
+      "Linux_source_sync": "NOT_COMPLETED_SSH_KEX_CLOSED_BEFORE_AUTHENTICATION"
     },
-    "checkpoint_code_commit": "aa2070b0740884e9619370355aebe3b0532afdae",
-    "approved_CI_budget": {
-      "engineering_minutes": 90,
-      "identity_minutes_unchanged": 45,
-      "existing_gate_commands_changed": false,
-      "T015_33rd_gate_implemented": false
-    },
-    "Linux_source_sync": "NOT_COMPLETED_SSH_KEX_CLOSED_BEFORE_AUTHENTICATION"
+    "Python_candidates_created": false,
+    "formal_accepted": false
   },
-  "Python_candidates_created": false,
-  "formal_accepted": false
+  "observation_scope": "Actual observed run only; no success inferred for queued or future receipt commits."
 }
