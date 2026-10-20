@@ -5,13 +5,14 @@ from uuid import UUID, uuid4
 from fastapi import Request
 from sqlalchemy import Connection, text
 
-from ..data_scope import TaskBinding
+from ..data_scope import ResourceBinding, TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..history.repository import ResultRepository
 from ..permissions.duties import IndependentDuties
 from ..scope_collections import bind_task_scope, require_resource
 from ..scope_context import current_data_scope
+from ..scoped_objects import ScopedObjects
 from ..types import ObjectRef, ResultKey, Scope
 from ..uploads.repository import UploadRepository
 from .common import audit, canonical, match, row
@@ -141,8 +142,15 @@ class Reviews:
                     if fixed["sha256"] != evidence["sha256"]:
                         raise BusinessError("REVIEW_EVIDENCE_OBJECT_BINDING_INVALID", 409)
                     try:
-                        for _ in self.results.store.read(
-                            ObjectRef(fixed["object_id"], fixed["version_id"], fixed["sha256"])
+                        for _ in ScopedObjects(self.results.store, self.results.authority).read(
+                            connection,
+                            current_data_scope(),
+                            ResourceBinding(
+                                "history_input",
+                                fixed["object_id"],
+                                task=TaskBinding(result_key.task_id, result_key.run_version, result_key.result_version),
+                            ),
+                            ObjectRef(fixed["object_id"], fixed["version_id"], fixed["sha256"]),
                         ):
                             pass
                     except (OSError, ValueError, RuntimeError):

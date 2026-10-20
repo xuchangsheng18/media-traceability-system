@@ -14,10 +14,13 @@ from sqlalchemy import text
 from .auth import AuthorityProvider
 from .contracts import REGISTRY, SCHEMAS
 from .controls.common import now
+from .data_scope import ResourceBinding, TaskBinding
 from .db import Database
 from .errors import BusinessError
 from .objects import FileObjectStore
 from .permissions.context import WorkPort, protected_work
+from .scope_context import current_data_scope
+from .scoped_objects import ScopedObjects
 from .types import ObjectRef, Scope
 
 router = APIRouter(prefix="/internal/v1")
@@ -87,6 +90,7 @@ class InferenceGateway:
         if self.authority is None or self.authority.authorize_case(scope.actor, scope.case_id, "task.execute") != scope:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         references: set[tuple[str, str, str]] = set()
+        assets: dict[UUID, ObjectRef] = {}
         with self.database.transaction(scope) as connection:
             task = (
                 connection.execute(
@@ -146,15 +150,23 @@ class InferenceGateway:
                     raise BusinessError("MODEL_AUTHORIZATION_VERSION_STALE", 409)
                 self.authority.authorize_source(scope, item["source_id"], "analysis")
                 references.add((str(item["object_id"]), item["version_id"], item["object_sha"]))
-        supplied = {(ref["object_id"], ref["version_id"], ref["sha256"]) for ref in payload["object_refs"]}
-        if supplied != references or len(supplied) != len(payload["object_refs"]):
-            raise BusinessError("MODEL_OBJECT_BINDING_INVALID", 422)
-        for identifier, version, digest in references:
-            try:
-                for _ in self.store.read(ObjectRef(UUID(identifier), version, digest)):
-                    pass
-            except (OSError, ValueError, RuntimeError):
-                raise BusinessError("MODEL_INPUT_OBJECT_UNAVAILABLE", 503) from None
+                assets[item["asset_id"]] = ObjectRef(item["object_id"], item["version_id"], item["object_sha"])
+            supplied = {(ref["object_id"], ref["version_id"], ref["sha256"]) for ref in payload["object_refs"]}
+            if supplied != references or len(supplied) != len(payload["object_refs"]):
+                raise BusinessError("MODEL_OBJECT_BINDING_INVALID", 422)
+            for asset, reference in assets.items():
+                try:
+                    for _ in ScopedObjects(self.store, self.authority).read(
+                        connection,
+                        current_data_scope(),
+                        ResourceBinding(
+                            "media_input", asset, task=TaskBinding(UUID(payload["task_id"]), payload["run_version"])
+                        ),
+                        reference,
+                    ):
+                        pass
+                except (OSError, ValueError, RuntimeError):
+                    raise BusinessError("MODEL_INPUT_OBJECT_UNAVAILABLE", 503) from None
 
     def execute(self, capability: str, payload: dict[str, Any], bearer: str, request_id: str | None) -> dict[str, Any]:
         if capability not in MODELS:
@@ -251,7 +263,16 @@ class InferenceGateway:
                 if exists is None:
                     raise BusinessError("MODEL_ARTIFACT_BINDING_INVALID", 503)
                 try:
-                    for _ in self.store.read(ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"])):
+                    for _ in ScopedObjects(self.store, self.authority).read(
+                        connection,
+                        current_data_scope(),
+                        ResourceBinding(
+                            "model_artifact",
+                            UUID(ref["object_id"]),
+                            task=TaskBinding(UUID(payload["task_id"]), payload["run_version"]),
+                        ),
+                        ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"]),
+                    ):
                         pass
                 except (OSError, ValueError, RuntimeError):
                     raise BusinessError("MODEL_ARTIFACT_UNAVAILABLE", 503) from None
