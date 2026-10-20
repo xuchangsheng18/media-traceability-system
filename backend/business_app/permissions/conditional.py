@@ -10,7 +10,9 @@ from uuid import UUID
 from sqlalchemy import Connection
 
 from ..contracts import ROOT
+from ..data_scope import LookupKey
 from ..errors import BusinessError
+from ..scope_lookup import SqlScopeLookup
 from .catalog import load_catalog
 from .object_facts import ObjectFactsReader, digest
 from .policy import validate_principal
@@ -219,7 +221,11 @@ class ConditionalPermissionAuthority:
     def _work_facts(
         self, subject: ExecutionSubject, operation_id: str, target: RuleTarget, connection: Connection | None
     ) -> WorkConditionFacts:
-        value = self.objects.read_for_work(subject, operation_id, target, connection=connection)
+        value = (
+            self.objects.read_for_work(subject, operation_id, target, connection=connection, work_trust=self.work_trust)
+            if isinstance(self.objects, ObjectFactsReader)
+            else self.objects.read_for_work(subject, operation_id, target, connection=connection)
+        )
         if (
             not isinstance(value, WorkConditionFacts)
             or value.subject != subject
@@ -249,6 +255,10 @@ class ConditionalPermissionAuthority:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if self.work_trust is None:
             raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+        if connection is None and isinstance(self.objects, ObjectFactsReader):
+            port = SqlScopeLookup(self.objects.database, work_trust=self.work_trust, clock=self.clock)
+            with port.connection(subject, operation_id, LookupKey(operation[1], subject.work_id)) as current:
+                return self.authorize_work(subject, operation_id, target, connection=current)
         snapshot = self.rules.snapshot
         trusted = self.work_trust.read(subject)
         roles = self._work_roles(subject, operation[0], connection)

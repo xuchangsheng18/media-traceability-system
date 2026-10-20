@@ -1,5 +1,7 @@
 """RLS-backed object facts. Missing institutional facts remain unavailable."""
 
+from __future__ import annotations
+
 import hashlib
 import json
 import math
@@ -7,19 +9,25 @@ import re
 import time
 from collections.abc import Callable, Mapping
 from dataclasses import asdict, replace
+from datetime import datetime
 from types import MappingProxyType
-from typing import Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol, cast
 from uuid import UUID
 
 from sqlalchemy import Connection, text
 
 from ..contracts import validate_api
+from ..data_scope import LookupKey
 from ..db import Database
 from ..errors import BusinessError
+from ..scope_lookup import SqlScopeLookup
 from .policy import validate_principal
 from .rule_types import ConditionFacts, ExecutionSubject, RuleTarget, WorkConditionFacts
 from .types import Principal
 from .work_subject import WORK_OPERATIONS, validate_execution_subject
+
+if TYPE_CHECKING:
+    from .work import WorkTrust
 
 # Fixed server-controlled identifiers only; never interpolate an HTTP table name.
 RESOURCES = MappingProxyType(
@@ -294,15 +302,16 @@ class ObjectFactsReader:
                     None,
                     request_digest=binding,
                 )
-            with self.database.identity_transaction(principal.actor) as connection:
-                item = self._object(connection, raw)
-                return replace(
-                    raw,
-                    case_id=item.get("case_id"),
-                    object_version=int(item["row_version"]),
-                    purpose=raw.purpose or item.get("purpose") if isinstance(item.get("purpose"), str) else raw.purpose,
-                    policy_kind=item.get("kind") if raw.kind == "policy" else None,
-                )
+            located = SqlScopeLookup(self.database, clock=self.clock).read(
+                principal, operation_id, LookupKey(raw.kind, cast(UUID, raw.object_id))
+            )
+            return replace(
+                raw,
+                case_id=located.target.case_id,
+                object_version=located.target.object_version,
+                purpose=raw.purpose or located.target.purpose,
+                policy_kind=located.target.policy_kind,
+            )
         except (KeyError, TypeError, ValueError, AttributeError):
             raise BusinessError("INPUT_INVALID", 422) from None
 
@@ -375,13 +384,19 @@ class ObjectFactsReader:
         return value
 
     def read_for_work(
-        self, subject: ExecutionSubject, operation_id: str, target: RuleTarget, *, connection: Connection | None = None
+        self,
+        subject: ExecutionSubject,
+        operation_id: str,
+        target: RuleTarget,
+        *,
+        connection: Connection | None = None,
+        work_trust: WorkTrust | None = None,
     ) -> WorkConditionFacts:
         validate_execution_subject(subject)
         operation = WORK_OPERATIONS.get(operation_id)
         if operation is None or operation[2] != subject.work_kind or target.object_id != subject.work_id:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-        value = self._read(subject, operation_id, target, connection=connection)
+        value = self._read(subject, operation_id, target, connection=connection, work_trust=work_trust)
         if not isinstance(value, WorkConditionFacts):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         return value
@@ -393,6 +408,8 @@ class ObjectFactsReader:
         target: RuleTarget,
         *,
         connection: Connection | None = None,
+        work_trust: WorkTrust | None = None,
+        envelopes: list[dict[str, Any]] | None = None,
     ) -> ConditionFacts | WorkConditionFacts:
         self._validate_target(operation_id, target)
         work = isinstance(principal, ExecutionSubject)
@@ -405,12 +422,44 @@ class ObjectFactsReader:
             raise BusinessError("ORGANIZATION_APPROVAL_ADAPTER_UNAVAILABLE", 503)
         if target.kind == "model_operation":
             raise BusinessError("MODEL_RULE_ADAPTER_UNAVAILABLE", 503)
+        port = SqlScopeLookup(self.database, work_trust=work_trust, clock=self.clock)
+        keys = (
+            [LookupKey("source", value) for value in sorted(target.source_ids, key=str)]
+            if target.kind == "source_collection"
+            else [LookupKey("user", principal.actor.user_id)]
+            if target.kind in {"user", "policy_collection"}
+            else [LookupKey("operation", cast(UUID, target.object_id))]
+            if target.kind == "case"
+            else [LookupKey(target.kind, cast(UUID, target.object_id))]
+        )
         if connection is None:
-            with self.database.identity_transaction(principal.actor) as current:
-                return self._read(principal, operation_id, target, connection=current)
-        actor_binding = connection.execute(text("SELECT mt.actor_id(),mt.org_id()")).one()
-        if tuple(actor_binding) != (principal.actor.user_id, principal.actor.org_id):
-            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            collected = []
+            for key in keys:
+                with port.connection(principal, operation_id, key) as current:
+                    collected.append(port.load(principal, operation_id, key, connection=current))
+            with port.connection(principal, operation_id, keys[0]) as current:
+                return self._read(
+                    principal, operation_id, target, connection=current, work_trust=work_trust, envelopes=collected
+                )
+        if envelopes is None:
+            envelopes = [port.load(principal, operation_id, key, connection=connection) for key in keys]
+
+        def typed(value: Any) -> Any:
+            if isinstance(value, list):
+                return [typed(item) for item in value]
+            if not isinstance(value, dict):
+                return value
+            return {
+                key: UUID(item)
+                if item is not None and (key.endswith("_id") or key in {"created_by", "requested_by"})
+                else datetime.fromisoformat(item)
+                if item is not None and key.endswith("_at")
+                else typed(item)
+                for key, item in value.items()
+            }
+
+        metadata = [typed(value) for value in envelopes]
+        primary = metadata[0]
         checks: dict[str, bool | None] = {}
         versions: list[object] = [asdict(target)]
         current_time = self.clock()
@@ -421,36 +470,24 @@ class ObjectFactsReader:
             if isinstance(principal, Principal)
             else float(current_time) + 5
         )
-        in_org = connection.execute(text("SELECT mt.actor_in_org()")).scalar_one()
-        checks["same_org"] = bool(in_org)
+        checks["same_org"] = primary["same_org"]
         checks["self"] = target.kind == "user" and target.object_id == principal.actor.user_id
-        if target.kind == "user" and not checks["self"]:
-            raise BusinessError("RESOURCE_NOT_FOUND", 404)
-        item: dict[str, Any] = {}
-        if target.kind in RESOURCES:
-            item = self._object(connection, target, lock=True)
+        item = primary["record"] if target.kind not in {"source_collection", "policy_collection", "user"} else {}
+        if item:
             versions.append(item)
+            if target.object_version is not None and item["row_version"] != target.object_version:
+                raise BusinessError("AUTHORIZATION_OBJECT_STALE", 409)
+            if target.policy_kind is not None and item.get("kind") != target.policy_kind:
+                raise BusinessError("RESOURCE_NOT_FOUND", 404)
         case = item.get("case_id", target.case_id)
         if case is not None:
             if target.case_id is not None and case != target.case_id:
                 raise BusinessError("RESOURCE_NOT_FOUND", 404)
-            memberships = (
-                connection.execute(
-                    text(
-                        "SELECT m.membership_id,m.row_version,m.expires_at,c.row_version AS case_version,c.status FROM mt.case_membership m JOIN mt.cases c ON c.case_id=m.case_id AND c.org_id=m.org_id WHERE m.case_id=:case AND m.org_id=:org AND m.user_id=:user AND m.revoked_at IS NULL AND (m.expires_at IS NULL OR m.expires_at>statement_timestamp())"
-                    ),
-                    dict(case=case, org=target.org_id, user=principal.actor.user_id),
-                )
-                .mappings()
-                .all()
-            )
-            if (
-                not memberships
-                or not connection.execute(text("SELECT mt.can_access_case(:case)"), dict(case=case)).scalar_one()
-            ):
+            memberships = primary["memberships"]
+            if not memberships:
                 raise BusinessError("RESOURCE_NOT_FOUND", 404)
             checks["case"] = True
-            versions.extend(dict(v) for v in memberships)
+            versions.extend(memberships)
             for membership in memberships:
                 if membership["expires_at"] is not None:
                     deadline = min(deadline, membership["expires_at"].timestamp())
@@ -474,66 +511,19 @@ class ObjectFactsReader:
         checks["policy_retention"] = target.policy_kind == "retention" or operation_id == "listPolicies"
         checks["policy_algorithm"] = target.policy_kind in {"threshold", "analysis"} or operation_id == "listPolicies"
         checks["policy_business"] = target.policy_kind in {"risk_taxonomy", "review"} or operation_id == "listPolicies"
-        sources = set(target.source_ids)
-        if target.kind == "source" and target.object_id is not None:
-            sources.add(target.object_id)
-        elif item.get("source_id"):
-            sources.add(item["source_id"])
-        elif item.get("asset_id"):
-            source_id = connection.execute(
-                text("SELECT source_id FROM mt.media_asset WHERE case_id=:case AND asset_id=:asset FOR SHARE"),
-                dict(case=case, asset=item["asset_id"]),
-            ).scalar_one_or_none()
-            if source_id:
-                sources.add(source_id)
-        elif target.kind == "import":
-            entries = (
-                connection.execute(
-                    text(
-                        "SELECT item_id,ordinal,source_id,row_version FROM mt.import_item "
-                        "WHERE org_id=:org AND case_id=:case AND import_id=:id ORDER BY ordinal FOR SHARE"
-                    ),
-                    dict(org=target.org_id, case=case, id=target.object_id),
-                )
-                .mappings()
-                .all()
-            )
-            if len(entries) != item["requested_count"] or [v["ordinal"] for v in entries] != list(range(len(entries))):
+        source_rows = {row["source_id"]: row for value in metadata for row in value["sources"]}
+        sources = set(source_rows)
+        if target.kind == "source_collection" and sources != set(target.source_ids):
+            raise BusinessError("RESOURCE_NOT_FOUND", 404)
+        if any(value["record"].get("case_id") != case for value in metadata if target.kind == "source_collection"):
+            raise BusinessError("RESOURCE_NOT_FOUND", 404)
+        related = primary["related"]
+        if target.kind == "import":
+            if len(related) != item["requested_count"] or [v["ordinal"] for v in related] != list(range(len(related))):
                 raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
-            versions.extend(dict(v) for v in entries)
-            sources.update(v["source_id"] for v in entries)
-        elif target.kind == "review":
-            related = (
-                connection.execute(
-                    text(
-                        "SELECT t.task_id,t.row_version AS task_version,a.asset_id,a.row_version AS asset_version,a.source_id "
-                        "FROM mt.analysis_task t JOIN mt.media_asset a ON a.case_id=t.case_id AND a.org_id=t.org_id AND a.asset_id=t.asset_id "
-                        "WHERE t.case_id=:case AND t.org_id=:org AND t.task_id=:task FOR SHARE OF t,a"
-                    ),
-                    dict(case=case, org=target.org_id, task=item["task_id"]),
-                )
-                .mappings()
-                .one_or_none()
-            )
-            if related is None:
-                raise BusinessError("RESOURCE_NOT_FOUND", 404)
-            versions.append(dict(related))
-            sources.add(related["source_id"])
-        elif target.kind == "cluster":
-            members = (
-                connection.execute(
-                    text(
-                        "SELECT m.member_id,m.row_version AS member_version,a.asset_id,a.row_version AS asset_version,a.source_id "
-                        "FROM mt.cluster_member m JOIN mt.media_asset a ON a.case_id=m.case_id AND a.org_id=m.org_id AND a.asset_id=m.asset_id "
-                        "WHERE m.case_id=:case AND m.org_id=:org AND m.cluster_id=:id ORDER BY m.member_id FOR SHARE OF a"
-                    ),
-                    dict(case=case, org=target.org_id, id=target.object_id),
-                )
-                .mappings()
-                .all()
-            )
-            versions.extend(dict(v) for v in members)
-            sources.update(v["source_id"] for v in members)
+        if target.kind == "review" and len(related) != 1:
+            raise BusinessError("RESOURCE_NOT_FOUND", 404)
+        versions.extend(related)
         purpose = (
             "import"
             if operation_id in {"createImport", "getImport"}
@@ -559,17 +549,8 @@ class ObjectFactsReader:
         collection = target.kind == "case" and operation_id in {"listReviews", "listPendingReviews"}
         source_ok = (bool(sources) or collection) and case is not None
         for source_id in sorted(sources, key=str):
-            source = (
-                connection.execute(
-                    text(
-                        "SELECT source_id,org_id,case_id,authorization_status,authorization_version,purpose,expires_at,row_version FROM mt.source_registry WHERE source_id=:id AND case_id=:case AND org_id=:org FOR SHARE"
-                    ),
-                    dict(id=source_id, case=case, org=target.org_id),
-                )
-                .mappings()
-                .one_or_none()
-            )
-            if source is None:
+            source = source_rows[source_id]
+            if source["case_id"] != case or source["org_id"] != target.org_id:
                 raise BusinessError("RESOURCE_NOT_FOUND", 404)
             versions.append(dict(source))
             expires = source["expires_at"]
@@ -588,10 +569,10 @@ class ObjectFactsReader:
         # Classification, reads/downloads, human duty/person and audit delegation do
         # not exist in the present SQL schema. They cannot be inferred from a role.
         if self.supplemental is not None:
-            port = getattr(self.supplemental, "read_for_work" if work else "read", None)
-            if not callable(port):
+            supplemental_port = getattr(self.supplemental, "read_for_work" if work else "read", None)
+            if not callable(supplemental_port):
                 raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
-            extra = port(principal, operation_id, target, connection=connection)
+            extra = supplemental_port(principal, operation_id, target, connection=connection)
             if (
                 not isinstance(extra, WorkConditionFacts if work else ConditionFacts)
                 or (extra.subject if isinstance(extra, WorkConditionFacts) else extra.principal) != principal

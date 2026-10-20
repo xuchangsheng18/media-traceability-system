@@ -13,7 +13,7 @@ from tests.business.test_t014_permissions import permission_context as permissio
 
 
 def another_history(ctx, *, new_source=False):
-    from business_app.types import Scope
+    from tests.business.scoped_history_fixtures import append_synthetic_snapshot
 
     changed = dict(ctx)
     if new_source:
@@ -25,7 +25,7 @@ def another_history(ctx, *, new_source=False):
             )
     result = prepare_history(changed)
     try:
-        result["app"].state.result_repository.append_snapshot(Scope(ctx["actor"], ctx["case_id"]), snapshot(result, 1))
+        append_synthetic_snapshot(result, snapshot(result, 1))
     finally:
         result["http"].__exit__(None, None, None)
     return result

@@ -23,6 +23,7 @@ class Lease:
     node_id: UUID
     token: str
     epoch: int
+    task_id: UUID
 
 
 class Execution:
@@ -54,12 +55,13 @@ class Execution:
                 raise BusinessError("TASK_NOT_FOUND", 404)
             self.authority.authorize_source(scope, source, "analysis")
 
-    def claim(self, scope: Scope, node_id: UUID) -> Lease:
+    def claim(self, scope: Scope, node_id: UUID, *, task_id: UUID | None = None) -> Lease:
         if self.lease_seconds is None:
             raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
-        with self.database.transaction(scope) as connection:
-            item = row(connection, "task_node_run", "run_id", node_id)
-        task_id = item["task_id"]
+        if self.work_authorization is None:
+            raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
+        if not isinstance(task_id, UUID) or task_id.int == 0:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         with protected_work(self.work_authorization, scope, "task_execution", task_id, "startTaskNodeWork"):
             return self._claim_bound(scope, node_id, task_id)
 
@@ -84,7 +86,7 @@ class Execution:
             )
             if item["state"] != "READY" and not expired:
                 raise BusinessError("NODE_NOT_CLAIMABLE", 409)
-            lease = Lease(node_id, uuid4().hex, int(item["fencing_epoch"]) + 1)
+            lease = Lease(node_id, uuid4().hex, int(item["fencing_epoch"]) + 1, task_id)
             connection.execute(
                 text(
                     "UPDATE mt.task_node_run SET state='RUNNING',lease_token=:token,fencing_epoch=:epoch,started_at=now(),ended_at=NULL,reason=NULL,row_version=row_version+1,updated_at=now() WHERE run_id=:id AND case_id=:case"
@@ -98,9 +100,9 @@ class Execution:
             raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
         if state not in {"FAILED", "SKIPPED", "DEFERRED", "NOT_SUPPORTED", "CANCELLED"} or not reason.strip():
             raise BusinessError("VERIFIED_NODE_RESULT_PRODUCER_REQUIRED", 503)
-        with self.database.transaction(scope) as connection:
-            item = row(connection, "task_node_run", "run_id", lease.node_id)
-        task_id = item["task_id"]
+        task_id = lease.task_id
+        if not isinstance(task_id, UUID) or task_id.int == 0:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         kind, operation = (
             ("task_cancellation", "cancelTaskWork")
             if state == "CANCELLED"

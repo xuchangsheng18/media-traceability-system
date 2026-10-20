@@ -162,13 +162,21 @@ def test_runtime_role_cannot_provision_identities_or_call_lookup(business_contex
     module = identity_module()
     from sqlalchemy import text
 
+    from tests.business.http_fixtures import synthetic_case_evidence
+
     ctx = business_context
-    with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+    with (
+        synthetic_case_evidence(ctx["actor"], ctx["case_id"]),
+        ctx["database"].identity_transaction(ctx["actor"]) as connection,
+    ):
         with pytest.raises(Exception) as failure:
             module.IdentityDirectory(connection).create_organization("unauthorized")
         assert str(failure.value) == "DIRECTORY_MANAGEMENT_FORBIDDEN"
-    with ctx["database"].identity_transaction(ctx["actor"]) as connection:
-        with pytest.raises(Exception):
+    with (
+        synthetic_case_evidence(ctx["actor"], ctx["case_id"]),
+        ctx["database"].identity_transaction(ctx["actor"]) as connection,
+    ):
+        with pytest.raises(Exception), connection.begin_nested():
             connection.execute(text("SELECT * FROM mt.resolve_identity('unknown','unknown')"))
 
 
@@ -207,13 +215,18 @@ def test_database_rejects_identity_or_tenant_key_reassignment(directory, target)
 
 
 def test_organization_disable_blocks_existing_case_rls(business_context):
+    from tests.business.http_fixtures import synthetic_case_evidence
+
     identity_module()
     ctx = business_context
     with psycopg.connect(ctx["admin_dsn"]) as admin:
         admin.execute("UPDATE mt.organizations SET enabled=false WHERE org_id=%s", (ctx["actor"].org_id,))
     with pytest.raises(Exception) as failure:
-        with ctx["database"].transaction(
-            __import__("business_app.types", fromlist=["Scope"]).Scope(ctx["actor"], ctx["case_id"])
+        with (
+            synthetic_case_evidence(ctx["actor"], ctx["case_id"]),
+            ctx["database"].transaction(
+                __import__("business_app.types", fromlist=["Scope"]).Scope(ctx["actor"], ctx["case_id"])
+            ),
         ):
             pass
     assert str(failure.value) == "CASE_NOT_FOUND"

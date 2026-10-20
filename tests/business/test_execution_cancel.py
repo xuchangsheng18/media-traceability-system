@@ -55,7 +55,7 @@ def test_cancel_waits_for_running_worker_acknowledgement(control_context):
     node = prepare_node(c)
     scope = Scope(c["actor"], c["case_id"])
     execution = c["control_app"].state.execution
-    lease = execution.claim(scope, node)
+    lease = execution.claim(scope, node, task_id=c["task_id"])
     previous, response = cancel(c)
     assert execution.reconcile_cancel(scope, c["task_id"], 1, previous.json()["version"] + 1, uuid4()) is False
     assert c["control_http"].get(response.json()["status_url"], headers=AUTH).json()["state"] == "CANCEL_REQUESTED"
@@ -68,7 +68,7 @@ def test_expired_current_lease_can_acknowledge_stop_after_cancel_request(control
     node = prepare_node(c)
     scope = Scope(c["actor"], c["case_id"])
     execution = c["control_app"].state.execution
-    lease = execution.claim(scope, node)
+    lease = execution.claim(scope, node, task_id=c["task_id"])
     previous, _ = cancel(c)
     with psycopg.connect(c["admin_dsn"]) as connection:
         connection.execute(

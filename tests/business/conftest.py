@@ -135,7 +135,7 @@ def business_context(database_dsn, tmp_path):
         yield dict(
             settings=settings,
             authority=TestAuthority(),
-            conditional_permissions=FixtureConditionals(frozenset({actor})),
+            conditional_permissions=FixtureConditionals(frozenset({actor}), database),
             authorization_fence=FixtureFence(frozenset({actor})),
             work_authorization=FixtureWork(frozenset({actor})),
             permission_authority=FixturePermissions(

@@ -1,4 +1,5 @@
 import math
+import time
 from collections.abc import Iterator
 from contextlib import contextmanager
 from typing import Any
@@ -7,8 +8,10 @@ from psycopg.conninfo import conninfo_to_dict
 from sqlalchemy import Connection, create_engine, text
 from sqlalchemy.engine import URL
 
+from .data_scope import AccessMode, DataScope, from_evidence
 from .errors import BusinessError
 from .permissions.context import current_authorization, evidence_actor
+from .scope_context import BoundTransaction, bind_data_scope, bind_scope_transaction, current_scope_transaction
 from .types import Actor, Scope
 
 
@@ -54,32 +57,113 @@ class Database:
 
     @contextmanager
     def identity_transaction(self, actor: Actor) -> Iterator[Connection]:
-        with self.engine.begin() as connection:
-            if bool(
-                connection.execute(
-                    text("SELECT rolsuper OR rolbypassrls FROM pg_roles WHERE rolname=current_user")
-                ).scalar_one()
+        authorization = current_authorization()
+        if authorization is None:
+            if current_scope_transaction() is not None:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            # Preserve the explicit privileged-connection diagnosis even when
+            # the caller also omitted authentication. No business query runs.
+            with self.engine.begin() as connection:
+                self._unprivileged(connection)
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        if evidence_actor(authorization.evidence) != actor:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        active = current_scope_transaction()
+        if active is not None:
+            if (
+                active.database is not self
+                or active.authorization is None
+                or (
+                    active.authorization.evidence is not authorization.evidence
+                    or active.authorization.fence is not authorization.fence
+                    or active.scope.actor != actor
+                )
             ):
-                raise RuntimeError("PRIVILEGED_BUSINESS_CONNECTION_FORBIDDEN")
-            connection.execute(
-                text("SELECT set_config('app.actor_id',:actor,true),set_config('app.org_id',:org,true)"),
-                {"actor": str(actor.user_id), "org": str(actor.org_id)},
-            )
-            authorization = current_authorization()
-            protected = authorization is not None and (authorization.mutation or authorization.fence is not None)
-            if protected and authorization is not None:
-                if evidence_actor(authorization.evidence) != actor:
-                    raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-                if authorization.fence is None:
-                    raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
-                authorization.fence.hold(connection, authorization.evidence)
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            yield active.connection
+            return
+        if authorization.fence is None:
+            raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
+        clock = getattr(authorization.fence, "clock", time.time)
+        scope = from_evidence(authorization.evidence, clock=clock)
+        with self.scoped_transaction(scope) as connection:
             yield connection
-            if protected and authorization is not None and authorization.fence is not None:
-                authorization.fence.finish(connection, authorization.evidence)
+
+    @staticmethod
+    def _unprivileged(connection: Connection) -> None:
+        if bool(
+            connection.execute(
+                text("""SELECT r.rolsuper OR r.rolbypassrls OR r.rolcreaterole OR r.rolcreatedb OR r.rolreplication
+                OR NOT pg_has_role(current_user,'mt_runtime','MEMBER')
+                OR EXISTS(SELECT 1 FROM pg_namespace n WHERE n.nspname='mt'
+                    AND pg_has_role(current_user,n.nspowner,'MEMBER'))
+                OR EXISTS(SELECT 1 FROM pg_roles p WHERE p.rolname IN (
+                    'mt_directory_manager','mt_identity_lookup','mt_permission_lookup',
+                    'pg_read_all_data','pg_write_all_data','pg_read_server_files','pg_write_server_files',
+                    'pg_execute_server_program','pg_signal_backend','pg_checkpoint')
+                    AND pg_has_role(current_user,p.oid,'MEMBER'))
+                FROM pg_roles r WHERE r.rolname=current_user""")
+            ).scalar_one()
+        ):
+            raise RuntimeError("PRIVILEGED_BUSINESS_CONNECTION_FORBIDDEN")
+
+    @contextmanager
+    def scoped_transaction(self, scope: DataScope) -> Iterator[Connection]:
+        if not isinstance(scope, DataScope):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        authorization = current_authorization()
+        active = current_scope_transaction()
+        if active is not None:
+            if (
+                active.database is not self
+                or active.authorization is None
+                or authorization is None
+                or (
+                    active.authorization.evidence is not authorization.evidence
+                    or active.authorization.fence is not authorization.fence
+                )
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            with bind_data_scope(scope):
+                yield active.connection
+            return
+        if scope.mode is AccessMode.LOOKUP:
+            if authorization is not None:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        elif authorization is None or authorization.fence is None:
+            raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
+        else:
+            expected = from_evidence(authorization.evidence, clock=getattr(authorization.fence, "clock", time.time))
+            if scope != expected:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        with self.engine.begin() as connection:
+            if scope.mode is AccessMode.LOOKUP:
+                connection.exec_driver_sql("SET TRANSACTION READ ONLY")
+            self._unprivileged(connection)
+            values = {
+                "app.actor_id": str(scope.actor.user_id),
+                "app.org_id": str(scope.actor.org_id),
+                "app.scope_mode": scope.mode.value,
+                "app.case_id": str(scope.case_id) if scope.case_id is not None else "",
+                "app.operation_id": scope.operation_id,
+                "app.lookup_kind": scope.lookup.kind if scope.lookup else "",
+                "app.lookup_id": str(scope.lookup.identifier) if scope.lookup else "",
+            }
+            for name, value in values.items():
+                connection.execute(text("SELECT set_config(:name,:value,true)"), dict(name=name, value=value))
+            with bind_scope_transaction(BoundTransaction(self, connection, scope, authorization)):
+                if authorization is not None and authorization.fence is not None:
+                    authorization.fence.hold(connection, authorization.evidence)
+                yield connection
+                if authorization is not None and authorization.fence is not None:
+                    authorization.fence.finish(connection, authorization.evidence)
 
     @contextmanager
     def transaction(self, scope: Scope) -> Iterator[Connection]:
         with self.identity_transaction(scope.actor) as connection:
+            active = current_scope_transaction()
+            if active is None or active.scope.mode is not AccessMode.CASE or active.scope.case_id != scope.case_id:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             if not bool(
                 connection.execute(text("SELECT mt.can_access_case(:case)"), {"case": scope.case_id}).scalar_one()
             ):

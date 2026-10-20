@@ -178,15 +178,15 @@ def test_actual_node_lease_reclaim_fences_old_worker(control_context):
     node = prepare_node(c)
     execution = c["control_app"].state.execution
     scope = Scope(c["actor"], c["case_id"])
-    old = execution.claim(scope, node)
+    old = execution.claim(scope, node, task_id=c["task_id"])
     with pytest.raises(BusinessError) as error:
-        execution.claim(scope, node)
+        execution.claim(scope, node, task_id=c["task_id"])
     assert error.value.code == "NODE_NOT_CLAIMABLE"
     with psycopg.connect(c["admin_dsn"]) as connection:
         connection.execute(
             "UPDATE mt.task_node_run SET started_at=now()-interval '31 seconds' WHERE run_id=%s", (node,)
         )
-    current = execution.claim(scope, node)
+    current = execution.claim(scope, node, task_id=c["task_id"])
     assert current.epoch > old.epoch and current.token != old.token
     with pytest.raises(BusinessError) as error:
         execution.finish_without_result(scope, old, "FAILED", "old worker")
@@ -293,6 +293,7 @@ def inference_app(context, backend):
         context["control_authority"],
         service_authority=Services(),
         inference_backends={registration.capability: registration},
+        work_authorization=context["work_authorization"],
     ), payload
 
 
@@ -389,6 +390,8 @@ def required_scalar(cursor):
 
 @pytest.mark.parametrize("invalid", ["derived_asset", "wrong_mapping", None])
 def test_decoded_original_preserves_original_asset_and_mapping(control_context, invalid):
+    from tests.business.http_fixtures import FixtureWork
+
     c = control_context
     app, payload = inference_app(c, None)
     with psycopg.connect(c["admin_dsn"]) as connection:
@@ -410,8 +413,12 @@ def test_decoded_original_preserves_original_asset_and_mapping(control_context, 
     gateway = app.state.inference_gateway
     scope = Scope(c["actor"], c["case_id"])
     if invalid:
-        with pytest.raises(BusinessError) as error:
+        with (
+            pytest.raises(BusinessError) as error,
+            FixtureWork(frozenset({scope.actor})).open(scope, "task_execution", c["task_id"], "startTaskNodeWork"),
+        ):
             gateway.check_inputs(scope, payload)
         assert error.value.code == "DECODED_ORIGINAL_BINDING_INVALID"
     else:
-        gateway.check_inputs(scope, payload)
+        with FixtureWork(frozenset({scope.actor})).open(scope, "task_execution", c["task_id"], "startTaskNodeWork"):
+            gateway.check_inputs(scope, payload)

@@ -5,6 +5,7 @@ from uuid import UUID, uuid4
 
 import psycopg
 
+from tests.business.http_fixtures import isolated_rule_fence
 from tests.business.test_t014_object_rules import configure
 from tests.business.test_t014_permissions import permission_module
 
@@ -73,7 +74,5 @@ def candidate(ctx, permission_context, permissions):
     app.state.business_authority = Identity()
     app.state.permission_authority = permission_module("six_role").SixRoleEntryAuthority(roles, rules)
     app.state.conditional_permissions = authority
-    # These positive HTTP fixtures are reads. Mutations are not granted an
-    # unfenced path, and real commit/worker tests use AuthorizationFence.
-    app.state.authorization_fence = None
+    app.state.authorization_fence = isolated_rule_fence(current, authority)
     return current, objects, authority, facts

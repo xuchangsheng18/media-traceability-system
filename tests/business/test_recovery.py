@@ -42,11 +42,11 @@ def pg_tool(command, dsn, *args):
 def test_real_backup_restores_uploads_objects_and_two_snapshots(history_context, tmp_path):
     assert history_context is not None
     from business_app.db import Database
-    from business_app.history.repository import ResultRepository
     from business_app.objects import FileObjectStore
     from business_app.types import ResultKey
 
     from tests.business.history_fixtures import snapshot
+    from tests.business.scoped_history_fixtures import FixtureResultRepository
 
     context = history_context
     source = repository(context)
@@ -84,7 +84,9 @@ def test_real_backup_restores_uploads_objects_and_two_snapshots(history_context,
                     ).fetchall()
                 )
             database = Database(make_conninfo(context["settings"].database_dsn, dbname=name))
-            restored = ResultRepository(database, FileObjectStore(tmp_path / "restored-objects"), context["authority"])
+            restored = FixtureResultRepository(
+                database, FileObjectStore(tmp_path / "restored-objects"), context["authority"]
+            )
             for run, item in enumerate(expected, 1):
                 assert restored.load_exact(scope(context), ResultKey(context["task_id"], run, 1)) == item
             report = {

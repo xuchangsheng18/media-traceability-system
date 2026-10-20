@@ -10,6 +10,7 @@ from uuid import UUID, uuid4
 from business_app.errors import BusinessError
 from business_app.permissions.context import Evidence, evidence_actor, request_authorization
 from business_app.permissions.duties import DutyActors, IndependentDuties, VerifiedPerson
+from business_app.permissions.object_facts import ObjectFactsReader
 from business_app.permissions.rule_types import (
     AuthorizationEvidence,
     ExecutionSubject,
@@ -17,6 +18,7 @@ from business_app.permissions.rule_types import (
     WorkAuthorizationEvidence,
 )
 from business_app.permissions.types import Principal
+from business_app.permissions.work import WorkTrust, WorkTrustFacts
 from business_app.permissions.work_subject import WORK_OPERATIONS
 from business_app.types import Actor, Scope
 from fastapi import FastAPI
@@ -35,8 +37,8 @@ class FixturePermissions:
 class FixtureConditionals:
     """Explicit old-business harness, not a six-role rule or production adapter."""
 
-    def __init__(self, actors: frozenset[Actor]) -> None:
-        self.actors = actors
+    def __init__(self, actors: frozenset[Actor], database) -> None:
+        self.actors, self.database = actors, database
 
     def authorize_http(
         self,
@@ -48,7 +50,7 @@ class FixtureConditionals:
     ) -> AuthorizationEvidence:
         if principal.actor not in self.actors:
             raise BusinessError("PERMISSION_REQUIRED", 403)
-        target = RuleTarget(principal.actor.org_id, "explicit-synthetic-http-fixture", None, None, None, None, None)
+        target = ObjectFactsReader(self.database).resolve_http(principal, operation_id, path, query, body)
         sha = hashlib.sha256(b"explicit isolated old-business fixture, not formal policy").hexdigest()
         return AuthorizationEvidence(
             principal,
@@ -105,6 +107,24 @@ class FixtureFence:
         self.hold(connection, evidence)
 
 
+@contextmanager
+def synthetic_case_evidence(actor: Actor, case_id: UUID) -> Iterator[None]:
+    """Explicit trusted test input for direct legacy DAO/RLS checks, never a default."""
+    principal = Principal(actor, "https://identity.example.test", str(actor.user_id), int(time.time()) + 600)
+    proof = AuthorizationEvidence(
+        principal,
+        "listSources",
+        RuleTarget(actor.org_id, "case", case_id, None, case_id, None, None),
+        "a" * 64,
+        "b" * 64,
+        "explicit-synthetic-fixture",
+        "synthetic-case-test",
+        time.time() + 60,
+    )
+    with request_authorization(proof, FixtureFence(frozenset({actor})), mutation=True):
+        yield
+
+
 class FixtureWork:
     """Explicit legacy workflow harness; no claim of real delegation/service proof."""
 
@@ -130,6 +150,46 @@ class FixtureWork:
         )
         with request_authorization(evidence, FixtureFence(self.actors), mutation=True):
             yield
+
+
+class FixtureMetadataWorkTrust(WorkTrust):
+    """Trusted synthetic input for isolated directory-fact tests only, not delegation proof."""
+
+    def __init__(self):
+        pass
+
+    def read(self, subject: ExecutionSubject) -> WorkTrustFacts:
+        return WorkTrustFacts(subject, "a" * 64, time.time() + 5)
+
+
+def isolated_rule_fence(context, authority):
+    """Actual epoch/fence against a newly activated, explicitly synthetic generation."""
+    import psycopg
+    from business_app.permissions.fence import AuthorizationFence, GenerationProof
+
+    snapshot = authority.rules.snapshot
+    with psycopg.connect(context["admin_dsn"]) as admin:
+        row = admin.execute("SELECT datname,oid FROM pg_database WHERE datname=current_database()").fetchone()
+        assert row is not None
+        name, oid = row
+        row = admin.execute("SELECT epoch FROM mt.authorization_epoch").fetchone()
+        assert row is not None
+        minimum = row[0]
+        row = admin.execute(
+            "SELECT mt.activate_authorization_generation(%s,%s,%s,%s)",
+            (snapshot.version, snapshot.sha256, snapshot.recovery_generation, minimum),
+        ).fetchone()
+        assert row is not None
+        epoch = row[0]
+
+    class Generations:
+        def read(self):
+            now = time.time()
+            return GenerationProof(
+                snapshot.recovery_generation, snapshot.version, snapshot.sha256, name, oid, epoch, now - 1, now + 60
+            )
+
+    return AuthorizationFence(authority, Generations(), clock=time.time)
 
 
 class FixtureDuties(IndependentDuties):

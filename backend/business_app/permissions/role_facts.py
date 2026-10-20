@@ -1,24 +1,31 @@
 """Complete, live role facts with distinct lookup and actor-bound transaction ports."""
 
+from __future__ import annotations
+
 import hashlib
 import json
 import math
 from collections.abc import Callable
 from dataclasses import asdict
-from typing import Any, overload
+from typing import TYPE_CHECKING, Any, overload
 from uuid import UUID
 
 from sqlalchemy import Connection, text
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.exc import SQLAlchemyError
 
+from ..data_scope import LookupKey
 from ..db import Database
 from ..errors import BusinessError
 from ..identity.directory import valid_key
+from ..scope_lookup import SqlScopeLookup
 from .policy import validate_principal
 from .rule_types import ActiveRole, ExecutionSubject, RoleFacts, WorkRoleFacts
 from .types import Principal
 from .work_subject import WORK_TABLES, validate_execution_subject
+
+if TYPE_CHECKING:
+    from .work import WorkTrust
 
 
 def positive_integer(value: Any) -> bool:
@@ -27,9 +34,15 @@ def positive_integer(value: Any) -> bool:
 
 class RoleDirectory:
     def __init__(
-        self, database: Database, *, clock: Callable[[], float], work_database: Database | None = None
+        self,
+        database: Database,
+        *,
+        clock: Callable[[], float],
+        work_database: Database | None = None,
+        work_trust: WorkTrust | None = None,
     ) -> None:
         self.database, self.clock, self.work_database = database, clock, work_database
+        self.work_trust = work_trust
 
     def _query(
         self, connection: Connection, principal: Principal, permission: str, transaction: bool
@@ -189,9 +202,15 @@ class RoleDirectory:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         try:
             if connection is None:
-                if self.work_database is None:
+                if self.work_database is None or self.work_trust is None:
                     raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
-                with self.work_database.identity_transaction(subject.actor) as current:
+                from .work_subject import WORK_OPERATIONS
+
+                operation, value = next(
+                    (key, value) for key, value in WORK_OPERATIONS.items() if value[2] == subject.work_kind
+                )
+                port = SqlScopeLookup(self.work_database, work_trust=self.work_trust, clock=self.clock)
+                with port.connection(subject, operation, LookupKey(value[1], subject.work_id)) as current:
                     return self.read_for_work(subject, permission, connection=current)
             unsafe = connection.execute(
                 text("""SELECT r.rolsuper OR r.rolbypassrls OR r.rolcreaterole OR r.rolcreatedb OR r.rolreplication
@@ -204,16 +223,18 @@ class RoleDirectory:
             binding = tuple(connection.execute(text("SELECT mt.actor_id(),mt.org_id()")).one())
             if unsafe is not False or binding != (subject.actor.user_id, subject.actor.org_id):
                 raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-            table, key, owner = WORK_TABLES[subject.work_kind]
-            job = (
-                connection.execute(
-                    text(f"SELECT org_id,case_id,{owner} AS owner_id FROM mt.{table} WHERE {key}=:id"),
-                    dict(id=subject.work_id),
-                )
-                .mappings()
-                .one_or_none()
-            )
-            if job is None or (job["org_id"], job["owner_id"]) != (subject.actor.org_id, subject.actor.user_id):
+            _, _, owner = WORK_TABLES[subject.work_kind]
+            from .work_subject import WORK_OPERATIONS
+
+            kind = next(value[1] for value in WORK_OPERATIONS.values() if value[2] == subject.work_kind)
+            metadata = connection.execute(
+                text("SELECT mt.lookup_scope_metadata(:kind,:id)"), dict(kind=kind, id=subject.work_id)
+            ).scalar_one()
+            job = metadata["record"] if isinstance(metadata, dict) else None
+            if job is None or (job["org_id"], job.get(owner)) != (
+                str(subject.actor.org_id),
+                str(subject.actor.user_id),
+            ):
                 raise BusinessError("RESOURCE_NOT_FOUND", 404)
             row = (
                 connection.execute(

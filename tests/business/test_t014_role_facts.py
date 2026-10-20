@@ -83,10 +83,15 @@ def test_role_lookup_is_function_only(permission_context):
 
 
 def test_transaction_role_lookup_is_bound_to_session_actor(permission_context):
+    from tests.business.http_fixtures import synthetic_case_evidence
+
     ctx = permission_context
     reader = role_reader(ctx)
     before = reader.read_roles(ctx["principal"], "identity.read")
-    with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+    with (
+        synthetic_case_evidence(ctx["actor"], ctx["case_id"]),
+        ctx["database"].identity_transaction(ctx["actor"]) as connection,
+    ):
         current = reader.read_roles(ctx["principal"], "identity.read", connection=connection)
         assert current == before
         wrong = replace(ctx["principal"], subject="not-the-current-subject")
@@ -97,7 +102,10 @@ def test_transaction_role_lookup_is_bound_to_session_actor(permission_context):
         with pytest.raises(BusinessError) as caught:
             reader.read_roles(ctx["principal"], "identity.read", connection=connection)
         assert caught.value.http_status == 401
-    with ctx["database"].identity_transaction(ctx["other_actor"]) as connection:
+    with (
+        synthetic_case_evidence(ctx["other_actor"], ctx["other_case_id"]),
+        ctx["database"].identity_transaction(ctx["other_actor"]) as connection,
+    ):
         assert connection.execute(text("SELECT mt.actor_id()")).scalar_one() == ctx["other_actor"].user_id
         with pytest.raises(BusinessError) as caught:
             reader.read_roles(ctx["principal"], "identity.read", connection=connection)

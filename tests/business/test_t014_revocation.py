@@ -9,6 +9,7 @@ from uuid import uuid4
 import psycopg
 import pytest
 from business_app.errors import BusinessError
+from business_app.permissions.context import request_authorization
 from sqlalchemy import text
 
 from tests.business.test_t014_object_rules import configure
@@ -100,7 +101,10 @@ def counts(ctx):
 def test_same_generation_proof_renewal_allows_unchanged_transaction(permission_context):
     ctx = permission_context
     e = environment(ctx)
-    with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+    with (
+        request_authorization(e.evidence, e.fence, mutation=True),
+        ctx["database"].identity_transaction(ctx["actor"]) as connection,
+    ):
         e.fence.hold(connection, e.evidence)
         insert_policy(connection, ctx)
         e.clock[0] += 1
@@ -158,7 +162,10 @@ def test_revoke_committed_before_fence_blocks_business_commit(permission_context
             (ctx["actor"].user_id,),
         )
     with pytest.raises(BusinessError) as caught:
-        with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        with (
+            request_authorization(e.evidence, e.fence, mutation=True),
+            ctx["database"].identity_transaction(ctx["actor"]) as connection,
+        ):
             e.fence.hold(connection, e.evidence)
             insert_policy(connection, ctx)
     assert caught.value.http_status == 403
@@ -188,7 +195,10 @@ def test_business_commit_before_revoke_is_ordered_and_audited(permission_context
             finished.set()
 
     thread = threading.Thread(target=revoke, daemon=True)
-    with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+    with (
+        request_authorization(e.evidence, e.fence, mutation=True),
+        ctx["database"].identity_transaction(ctx["actor"]) as connection,
+    ):
         e.fence.hold(connection, e.evidence)
         thread.start()
         assert ready.wait(2)
@@ -213,7 +223,10 @@ def test_business_commit_before_revoke_is_ordered_and_audited(permission_context
             "SELECT count(*) FROM mt.audit_event WHERE object_id=%s AND outcome='allowed'", (identifier,)
         ).fetchone() == (1,)
     with pytest.raises(BusinessError):
-        with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        with (
+            request_authorization(e.evidence, e.fence, mutation=True),
+            ctx["database"].identity_transaction(ctx["actor"]) as connection,
+        ):
             e.fence.hold(connection, e.evidence)
             insert_policy(connection, ctx)
     assert counts(ctx) == (1, 1)
@@ -233,7 +246,10 @@ def test_role_insert_conflict_cannot_bypass_fence(permission_context):
             (uuid4(), ctx["actor"].user_id, role),
         )
     with pytest.raises(BusinessError) as caught:
-        with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        with (
+            request_authorization(e.evidence, e.fence, mutation=True),
+            ctx["database"].identity_transaction(ctx["actor"]) as connection,
+        ):
             e.fence.hold(connection, e.evidence)
             insert_policy(connection, ctx)
     assert caught.value.http_status == 403
@@ -255,7 +271,10 @@ def test_restored_or_rolled_back_policy_does_not_reactivate_revoked_grant(permis
     else:
         e.generations.proof = replace(e.generations.proof, **values[defect])
     with pytest.raises(BusinessError) as caught:
-        with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        with (
+            request_authorization(e.evidence, e.fence, mutation=True),
+            ctx["database"].identity_transaction(ctx["actor"]) as connection,
+        ):
             e.fence.hold(connection, e.evidence)
             insert_policy(connection, ctx)
     assert caught.value.http_status == 503
@@ -267,7 +286,10 @@ def test_clock_rollback_or_failed_fact_read_is_denied(permission_context, defect
     ctx = permission_context
     e = environment(ctx)
     with pytest.raises(BusinessError) as caught:
-        with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        with (
+            request_authorization(e.evidence, e.fence, mutation=True),
+            ctx["database"].identity_transaction(ctx["actor"]) as connection,
+        ):
             e.fence.hold(connection, e.evidence)
             insert_policy(connection, ctx)
             if defect == "clock_rollback":
@@ -296,7 +318,10 @@ def test_epoch_lookup_is_function_only_and_lock_timeout_rolls_back(permission_co
         ).fetchone() == (0,)
         admin.execute("UPDATE mt.authorization_epoch SET epoch=epoch+1")
         with pytest.raises(BusinessError) as caught:
-            with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+            with (
+                request_authorization(e.evidence, e.fence, mutation=True),
+                ctx["database"].identity_transaction(ctx["actor"]) as connection,
+            ):
                 connection.execute(text("SET LOCAL lock_timeout='100ms'"))
                 e.fence.hold(connection, e.evidence)
                 insert_policy(connection, ctx)
@@ -426,7 +451,10 @@ def test_source_change_waits_for_the_same_business_transaction(permission_contex
 
     thread = threading.Thread(target=change_source, daemon=True)
     try:
-        with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        with (
+            request_authorization(evidence, e.fence, mutation=True),
+            ctx["database"].identity_transaction(ctx["actor"]) as connection,
+        ):
             e.fence.hold(connection, evidence)
             thread.start()
             assert ready.wait(2)
@@ -472,7 +500,10 @@ def test_actual_restored_database_needs_fresh_independent_generation(permission_
             pg_tool("pg_restore", restored_admin, "--no-owner", "--exit-on-error", str(dump))
             restored = Database(make_conninfo(ctx["settings"].database_dsn, dbname=name))
             with pytest.raises(BusinessError) as stale_target:
-                with restored.identity_transaction(ctx["actor"]) as connection:
+                with (
+                    request_authorization(e.evidence, e.fence, mutation=True),
+                    restored.identity_transaction(ctx["actor"]) as connection,
+                ):
                     e.fence.hold(connection, e.evidence)
             assert stale_target.value.http_status == 503
             generation = "synthetic-explicit-restored-target-confirmation"
@@ -502,7 +533,10 @@ def test_actual_restored_database_needs_fresh_independent_generation(permission_
                 minimum_epoch=new_epoch[0],
             )
             with pytest.raises(BusinessError):
-                with restored.identity_transaction(ctx["actor"]) as connection:
+                with (
+                    request_authorization(e.evidence, e.fence, mutation=True),
+                    restored.identity_transaction(ctx["actor"]) as connection,
+                ):
                     e.fence.hold(connection, e.evidence)
             url = ctx["lookup"].engine.url
             lookup = Database(make_conninfo(restored_admin, user=str(url.username), password=str(url.password)))
@@ -513,7 +547,10 @@ def test_actual_restored_database_needs_fresh_independent_generation(permission_
             )
             fresh = authority.authorize(ctx["principal"], "createPolicy", e.evidence.target)
             fence = permission_module("fence").AuthorizationFence(authority, e.generations, clock=time.time)
-            with restored.identity_transaction(ctx["actor"]) as connection:
+            with (
+                request_authorization(fresh, fence, mutation=True),
+                restored.identity_transaction(ctx["actor"]) as connection,
+            ):
                 fence.hold(connection, fresh)
                 insert_policy(connection, ctx)
                 fence.finish(connection, fresh)

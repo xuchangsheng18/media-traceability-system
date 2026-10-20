@@ -6,7 +6,7 @@ from fastapi import Depends, Request
 from fastapi.testclient import TestClient
 from sqlalchemy import text
 
-from tests.business.http_fixtures import isolated_http_harness
+from tests.business.http_fixtures import isolated_http_harness, synthetic_case_evidence
 
 
 def client(context, configured=True):
@@ -27,7 +27,10 @@ def client(context, configured=True):
     @app.get("/_test/authorization/{case_id}", dependencies=[Depends(require_permission("asset.read"))])
     def inspect_authorization(case_id: UUID, request: Request):
         scope = authorize_request(request, case_id, "result:read")
-        with app.state.business_database.transaction(scope) as connection:
+        with (
+            synthetic_case_evidence(scope.actor, scope.case_id),
+            app.state.business_database.transaction(scope) as connection,
+        ):
             row = connection.execute(text("SELECT case_id FROM mt.cases WHERE case_id=:case"), {"case": case_id}).one()
         return {"case_id": str(row.case_id)}
 
@@ -76,9 +79,9 @@ def test_RLS_context_does_not_leak_across_pool_reuse(business_context):
     database = business_context["database"]
     first = Scope(actor=business_context["actor"], case_id=business_context["case_id"])
     second = Scope(actor=business_context["other_actor"], case_id=business_context["other_case_id"])
-    with database.transaction(first) as connection:
+    with synthetic_case_evidence(first.actor, first.case_id), database.transaction(first) as connection:
         assert connection.execute(text("SELECT case_id FROM mt.cases")).scalars().all() == [first.case_id]
-    with database.transaction(second) as connection:
+    with synthetic_case_evidence(second.actor, second.case_id), database.transaction(second) as connection:
         assert connection.execute(text("SELECT case_id FROM mt.cases")).scalars().all() == [second.case_id]
     with database.engine.connect() as connection:
         assert connection.execute(text("SELECT mt.actor_id()")).scalar_one() is None

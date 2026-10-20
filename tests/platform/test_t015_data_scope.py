@@ -6,6 +6,7 @@ import math
 import re
 from dataclasses import FrozenInstanceError, replace
 from pathlib import Path
+from typing import Any, cast
 from uuid import UUID
 
 import pytest
@@ -60,7 +61,9 @@ def test_case_requires_exact_nonzero_case_and_actor(bad):
     assert (caught.value.code, caught.value.http_status) == ("AUTHORITY_SCOPE_INVALID", 503)
 
 
-@pytest.mark.parametrize("actor", [None, Actor("fake-user", ACTOR.org_id), Actor(ACTOR.user_id, UUID(int=0))])
+@pytest.mark.parametrize(
+    "actor", [None, Actor(cast(Any, "fake-user"), ACTOR.org_id), Actor(ACTOR.user_id, UUID(int=0))]
+)
 def test_invalid_server_actor_is_not_coerced(actor):
     module, _ = api()
     with pytest.raises(BusinessError):

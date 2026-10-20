@@ -114,7 +114,12 @@ def create_app(
     app.state.deployment_operations = deployment_operations
     app.state.source_synchronization = source_synchronization
     app.state.inference_gateway = InferenceGateway(
-        database, app.state.upload_service.store, authority, service_authority, inference_backends
+        database,
+        app.state.upload_service.store,
+        authority,
+        service_authority,
+        inference_backends,
+        work_authorization=work_authorization,
     )
     protected = [Depends(authorize_business_route)]
     app.include_router(upload_router, dependencies=protected)

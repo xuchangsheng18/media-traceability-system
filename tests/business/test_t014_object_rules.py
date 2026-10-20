@@ -258,10 +258,15 @@ def test_wrong_target_kind_cannot_use_policy_kind_as_an_allow(permission_context
 
 
 def test_same_transaction_actor_must_match_bound_principal(permission_context):
+    from tests.business.http_fixtures import synthetic_case_evidence
+
     ctx = permission_context
     types, _, _, objects, _ = configure(ctx, "data_admin")
     target = types.RuleTarget(ctx["actor"].org_id, "policy_collection", None, None, None, None, "retention")
-    with ctx["database"].identity_transaction(ctx["other_actor"]) as connection:
+    with (
+        synthetic_case_evidence(ctx["other_actor"], ctx["other_case_id"]),
+        ctx["database"].identity_transaction(ctx["other_actor"]) as connection,
+    ):
         with pytest.raises(BusinessError) as caught:
             objects.read(ctx["principal"], "createPolicy", target, connection=connection)
     assert (caught.value.code, caught.value.http_status) == ("AUTHORITY_SCOPE_INVALID", 503)
@@ -295,6 +300,8 @@ def test_supplemental_facts_validate_provenance_and_never_override_SQL(permissio
 
 def test_policy_list_SQL_scope_and_cursor_follow_current_role_kind(permission_context):
     from business_app.main import create_app
+
+    from tests.business.http_fixtures import isolated_rule_fence
 
     ctx = permission_context
     _, roles, rules, _, authority = configure(ctx, "data_admin")
@@ -334,6 +341,7 @@ def test_policy_list_SQL_scope_and_cursor_follow_current_role_kind(permission_co
         identity_directory=Directory(),
         permission_authority=permission_module("six_role").SixRoleEntryAuthority(roles, rules),
         conditional_permissions=authority,
+        authorization_fence=isolated_rule_fence(ctx, authority),
     )
     headers = {"Authorization": "Bearer test-only-valid-token"}
     with TestClient(app) as client:

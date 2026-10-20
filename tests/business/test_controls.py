@@ -25,6 +25,7 @@ from tests.business.http_fixtures import (
     FixturePermissions,
     FixtureWork,
 )
+from tests.business.scoped_history_fixtures import append_synthetic_snapshot
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
@@ -32,9 +33,7 @@ AUTH = {"Authorization": "Bearer test-only-valid-token"}
 @pytest.fixture
 def control_context(business_context):
     context = prepare_history(business_context)
-    context["app"].state.result_repository.append_snapshot(
-        Scope(context["actor"], context["case_id"]), snapshot(context, 1)
-    )
+    append_synthetic_snapshot(context, snapshot(context, 1))
     reviewers = [Actor(uuid4(), context["actor"].org_id) for _ in range(2)]
     tokens = {
         "test-only-valid-token": context["actor"],
@@ -134,7 +133,7 @@ def control_context(business_context):
         rules=TestRules(),
         identity_directory=TestDirectory(),
         permission_authority=permission_authority,
-        conditional_permissions=FixtureConditionals(frozenset(tokens.values())),
+        conditional_permissions=FixtureConditionals(frozenset(tokens.values()), context["database"]),
         independent_duties=FixtureDuties(frozenset(tokens.values()), context["actor"]),
         authorization_fence=FixtureFence(frozenset(tokens.values())),
         work_authorization=FixtureWork(frozenset(tokens.values())),
@@ -150,7 +149,7 @@ def control_context(business_context):
             control_authority=app.state.business_authority,
             control_permission_authority=permission_authority,
             control_conditional_permissions=app.state.conditional_permissions,
-            conditional_permissions=FixtureConditionals(frozenset(tokens.values())),
+            conditional_permissions=FixtureConditionals(frozenset(tokens.values()), context["database"]),
             rules=TestRules(),
             directory=TestDirectory(),
             control_settings=settings,
@@ -237,7 +236,7 @@ def test_approval_terminal_cannot_be_reused(control_context, outcome, state):
 def test_approval_expiry_and_new_result_invalidate(control_context):
     c = control_context
     identifier = request_approval(c)
-    c["control_app"].state.result_repository.append_snapshot(Scope(c["actor"], c["case_id"]), snapshot(c, 2))
+    append_synthetic_snapshot(c, snapshot(c, 2))
     assert (
         c["control_http"].get(f"/api/v1/approvals/{identifier}", headers=AUTH).json()["approval"]["state"]
         == "INVALIDATED"

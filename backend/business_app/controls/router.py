@@ -310,10 +310,7 @@ def current_user(request: Request) -> JSONResponse:
         if not connection.execute(text("SELECT mt.actor_in_org()")).scalar_one():
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
         permitted = {
-            str(v)
-            for v in connection.execute(
-                text("SELECT case_id FROM mt.cases WHERE org_id=:org"), dict(org=actor.org_id)
-            ).scalars()
+            str(v) for v in connection.execute(text("SELECT case_id FROM mt.current_actor_case_ids()")).scalars()
         }
     value = dict(value, case_ids=sorted(set(value["case_ids"]) & permitted))
     for identifier in value["case_ids"]:

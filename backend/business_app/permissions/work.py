@@ -9,15 +9,16 @@ from collections.abc import Callable, Iterator, Mapping
 from contextlib import contextmanager
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import TYPE_CHECKING, Protocol
+from typing import TYPE_CHECKING, Any, Protocol, cast
 from uuid import UUID
 
-from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
+from ..data_scope import LookupKey
 from ..db import Database
 from ..errors import BusinessError
 from ..identity.directory import valid_key
+from ..scope_lookup import SqlScopeLookup
 from ..types import Actor, Scope
 from .context import FencePort, request_authorization
 from .object_facts import digest
@@ -151,32 +152,30 @@ class WorkAuthorizationManager:
             if operation is None or operation[2] != kind or self.authority.work_trust is not self.trust:
                 raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             subject = self.trust.resolve(scope, kind, identifier)
-            table, key, owner = WORK_TABLES[kind]
-            with self.database.transaction(scope) as connection:
-                job = (
-                    connection.execute(text(f"SELECT * FROM mt.{table} WHERE {key}=:id"), dict(id=identifier))
-                    .mappings()
-                    .one_or_none()
-                )
-                if job is None or (job["org_id"], job["case_id"], job[owner]) != (
-                    scope.actor.org_id,
-                    scope.case_id,
-                    scope.actor.user_id,
-                ):
-                    raise BusinessError("RESOURCE_NOT_FOUND", 404)
-                target = RuleTarget(
-                    scope.actor.org_id,
-                    operation[1],
-                    identifier,
-                    int(job["row_version"]),
-                    scope.case_id,
-                    "upload"
-                    if kind == "upload_validation"
-                    else "analysis"
-                    if kind == "task_execution"
-                    else job.get("purpose"),
-                    None,
-                )
+            _, _, owner = WORK_TABLES[kind]
+            located = SqlScopeLookup(self.database, work_trust=self.trust).read(
+                subject, operation_id, LookupKey(operation[1], identifier)
+            )
+            job = cast(dict[str, Any], dict(located.projection))
+            if (job["org_id"], job.get("case_id"), job.get(owner)) != (
+                str(scope.actor.org_id),
+                str(scope.case_id),
+                str(scope.actor.user_id),
+            ):
+                raise BusinessError("RESOURCE_NOT_FOUND", 404)
+            target = RuleTarget(
+                scope.actor.org_id,
+                operation[1],
+                identifier,
+                int(job["row_version"]),
+                scope.case_id,
+                "upload"
+                if kind == "upload_validation"
+                else "analysis"
+                if kind == "task_execution"
+                else job.get("purpose"),
+                None,
+            )
             evidence = self.authority.authorize_work(subject, operation_id, target)
             with request_authorization(evidence, self.fence, mutation=True):
                 yield

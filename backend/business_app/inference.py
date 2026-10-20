@@ -17,6 +17,7 @@ from .controls.common import now
 from .db import Database
 from .errors import BusinessError
 from .objects import FileObjectStore
+from .permissions.context import WorkPort, protected_work
 from .types import ObjectRef, Scope
 
 router = APIRouter(prefix="/internal/v1")
@@ -68,6 +69,8 @@ class InferenceGateway:
         authority: AuthorityProvider | None,
         service_authority: ServiceAuthority | None,
         backends: dict[str, BackendRegistration] | None = None,
+        *,
+        work_authorization: WorkPort | None = None,
     ) -> None:
         self.database, self.store, self.authority, self.service_authority = (
             database,
@@ -76,6 +79,7 @@ class InferenceGateway:
             service_authority,
         )
         self.backends = dict(backends or {})
+        self.work_authorization = work_authorization
         if any(key != registration.capability or key not in MODELS for key, registration in self.backends.items()):
             raise ValueError("CAPABILITY_REGISTRATION_INVALID")
 
@@ -175,8 +179,25 @@ class InferenceGateway:
             for name in ["capability", "model_name", "model_version", "preprocessing_version", "mapping_version"]
         ):
             raise BusinessError("MODEL_VERSION_UNAVAILABLE", 503)
-        self.check_inputs(scope, payload)
+        task_id = UUID(payload["task_id"])
+        with protected_work(self.work_authorization, scope, "task_execution", task_id, "startTaskNodeWork"):
+            self.check_inputs(scope, payload)
         value = backend.backend.execute(copy.deepcopy(payload))
+        # The backend can outlive the first fact interval. Obtain current work
+        # evidence again; do not carry an expired ALLOW or database lock over it.
+        with protected_work(self.work_authorization, scope, "task_execution", task_id, "finishTaskNodeWork"):
+            return self._finish_response(scope, identifier, payload, backend, value, deadline)
+
+    def _finish_response(
+        self,
+        scope: Scope,
+        identifier: str,
+        payload: dict[str, Any],
+        backend: BackendRegistration,
+        value: dict[str, Any],
+        deadline: datetime,
+    ) -> dict[str, Any]:
+        capability = payload["capability"]
         try:
             validate_model(identifier.replace(":request:", ":response:"), value)
         except BusinessError:

@@ -76,6 +76,7 @@ _RESOURCES = MappingProxyType(
             ("task_id", "run_version", "result_version", "version", "approval_id", "state"),
         ),
         "operation": ("cases", "case_id", ("status",)),
+        "user": ("users", "user_id", ("enabled",)),
     }
 )
 LOOKUP_KINDS = frozenset(_RESOURCES)
@@ -100,7 +101,7 @@ def lookup_spec(kind: str) -> LookupSpec:
     if not isinstance(kind, str) or kind not in _RESOURCES:
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
     table, key, extra = _RESOURCES[kind]
-    if RESOURCES.get(kind) != (table, key):
+    if kind != "user" and RESOURCES.get(kind) != (table, key):
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
     operations = {name for name, value in OPERATION_KINDS.items() if value == kind}
     operations.update(name for name, value in WORK_OPERATIONS.items() if value[1] == kind)
@@ -110,10 +111,20 @@ def lookup_spec(kind: str) -> LookupSpec:
         operations.add("createReview")
     if kind == "approval":
         operations.add("exportAudit")
+    if kind == "review":
+        operations.add("listReviews")
+    if kind == "task":
+        operations.add("listPendingReviews")
+    if kind == "operation":
+        from .permissions.object_facts import CASE_LISTS
+
+        operations.update(CASE_LISTS)
+    if kind == "user":
+        operations.update(("getCurrentUser", "createPolicy", "listPolicies"))
     if kind in {"task", "report", "evidence_package", "feedback", "operation"}:
         operations.add("requestApproval")
     columns: tuple[str, ...] = (key, "org_id", "row_version", "created_by")
-    if kind != "policy":
+    if kind not in {"policy", "user"}:
         columns += ("case_id",)
     return LookupSpec(table, key, tuple(dict.fromkeys(columns + extra)), frozenset(operations))
 

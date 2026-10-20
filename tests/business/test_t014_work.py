@@ -10,6 +10,7 @@ from business_app.errors import BusinessError
 from business_app.types import Scope
 from business_app.uploads.worker import UploadValidationWorker
 
+from tests.business.http_fixtures import FixtureMetadataWorkTrust
 from tests.business.test_adapters_and_execution import prepare_node
 from tests.business.test_controls import control_context as control_context
 from tests.business.test_controls import export_fixture
@@ -52,7 +53,7 @@ def test_existing_background_entry_cannot_bypass_missing_work_authority(control_
         service = app.state.execution
         if hasattr(service, "work_authorization"):
             service.work_authorization = None
-        action = lambda: service.claim(scope, identifier)
+        action = lambda: service.claim(scope, identifier, task_id=ctx["task_id"])
     else:
         identifier, _ = export_fixture(ctx)
         service = app.state.exports
@@ -84,7 +85,7 @@ def test_queued_job_revalidates_actor_identity_and_scope(permission_context, def
             ctx["actor"], ctx["identity"], "fixture-map-v1", "upload_validation", UUID(upload)
         )
         reader = permission_module("role_facts").RoleDirectory(
-            ctx["lookup"], clock=time.time, work_database=ctx["database"]
+            ctx["lookup"], clock=time.time, work_database=ctx["database"], work_trust=FixtureMetadataWorkTrust()
         )
         fact = reader.read_for_work(subject, "identity.read")
         assert fact.subject == subject and fact.eligible is True
@@ -198,7 +199,7 @@ def candidate_work(ctx, kind, identifier, *, role="data_admin"):
     delegations, services, supplemental = Delegations(), Services(), Supplemental()
     trust = module.WorkTrust(delegations, services, {kind: "synthetic-distinct-service"}, clock=time.time)
     e.authority.reader = permission_module("role_facts").RoleDirectory(
-        ctx["lookup"], clock=time.time, work_database=ctx["database"]
+        ctx["lookup"], clock=time.time, work_database=ctx["database"], work_trust=trust
     )
     e.authority.objects.supplemental = supplemental
     e.authority.work_trust = trust
@@ -228,13 +229,15 @@ def test_upload_longer_than_fact_refresh_rechecks_before_commit(permission_conte
 
         app.state.upload_service.store.put_part = slower_store
         consumer = UploadValidationWorker(app.state.upload_service, ctx["authority"], manager)
+        denied_code = None
         if expire_delegation:
             with pytest.raises(BusinessError) as caught:
                 consumer.consume_validation(event(ctx, upload))
             assert caught.value.http_status == 503
+            denied_code = caught.value.code
         else:
             consumer.consume_validation(event(ctx, upload))
-        assert len(elapsed) == 1 and elapsed[0] >= 6
+        assert len(elapsed) == 1 and elapsed[0] >= 6, f"OBJECT_WRITE_CHECKPOINT_NOT_REACHED:{denied_code}"
         with psycopg.connect(ctx["admin_dsn"]) as admin:
             assert admin.execute("SELECT state FROM mt.upload_session WHERE upload_id=%s", (upload,)).fetchone() == (
                 "VALIDATING" if expire_delegation else "COMPLETED",
@@ -338,7 +341,7 @@ def test_node_finish_and_export_delivery_revalidate(control_context, permission_
         _, manager, _, _, services, _ = candidate_work(ctx, "task_execution", ctx["task_id"], role="case_investigator")
         service = app.state.execution
         service.work_authorization = manager
-        lease = service.claim(scope, identifier)
+        lease = service.claim(scope, identifier, task_id=ctx["task_id"])
         services.available = False
         with pytest.raises(BusinessError) as denied:
             service.finish_without_result(scope, lease, "NOT_SUPPORTED", "No algorithm; explicit work-authority test")
@@ -419,7 +422,7 @@ def test_work_directory_rejects_excessive_runtime_privilege(permission_context, 
             ctx["actor"], ctx["identity"], "fixture-map-v1", "upload_validation", UUID(upload)
         )
         reader = permission_module("role_facts").RoleDirectory(
-            ctx["lookup"], clock=time.time, work_database=ctx["database"]
+            ctx["lookup"], clock=time.time, work_database=ctx["database"], work_trust=FixtureMetadataWorkTrust()
         )
         assert reader.read_for_work(subject, "identity.read").eligible is True
         with psycopg.connect(ctx["admin_dsn"]) as admin:
