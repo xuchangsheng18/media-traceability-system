@@ -1,0 +1,116 @@
+{
+  "task_id": "T015",
+  "plan_task": "P01",
+  "status": "PASS_ISOLATED_TYPES_AND_FIXED_CATALOG_ONLY",
+  "observed_at": "2026-10-20T10:25:41.085838+00:00",
+  "source_commit": "6cbdc0a15e1eed308e772a83e1b0e90d5172fe00",
+  "source_sha256": {
+    "backend/business_app/data_scope.py": "8c9ef9f3dc723e4835cccc9992a6451e4cc23e8ba9fc81ebd22f63d7fd98ba0d",
+    "backend/business_app/scope_catalog.py": "5f07c21c87fff39d73cc26329220046db54c044a69c077a137026598c90f117a",
+    "tests/platform/test_t015_data_scope.py": "0edd973b38ebdc474d05a82182c79f3bc785ac8434ef3d49ba24f82a2504b253"
+  },
+  "source_code_dirty": false,
+  "command": "python -m pytest tests/platform/test_t015_data_scope.py tests/platform/test_t014_six_role.py tests/platform/test_t014_work_trust.py -q --tb=short --junitxml PRIVATE_PATH",
+  "totals": {
+    "tests": 338,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test_groups": {
+    "tests.platform.test_t015_data_scope": {
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "tests.platform.test_t014_six_role": {
+      "tests": 274,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "tests.platform.test_t014_work_trust": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "quality_checks": [
+    {
+      "name": "ruff_lint",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "ruff_format",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "mypy",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "quality_snapshot_code_sha256_matches_committed_source": true,
+  "red_evidence": [
+    {
+      "scope": "missing_DataScope_capability_assertions_no_collection_errors",
+      "totals": {
+        "tests": 46,
+        "failures": 46,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "scope": "malformed_work_target_and_source_set_ordering",
+      "totals": {
+        "tests": 3,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "discarded_runs": [
+    {
+      "reason": "multiple targets incorrectly sent as one argv; no runtime assertions executed",
+      "tests": 0
+    },
+    {
+      "reason": "same argument issue plus actual mypy variable-length tuple error, corrected before final run",
+      "tests": 0
+    }
+  ],
+  "table_catalog": {
+    "tables": 64,
+    "scope": "source_definition_and_semantic_catalog_only_not_actual_RLS_or_CRUD",
+    "directory_and_mixed_tables_explicit": true,
+    "no_runtime_select_to_user_identities_or_authorization_epoch": true
+  },
+  "outcomes": [
+    "Immutable CASE/ORGANIZATION/LOOKUP bindings and exact operation/key/version checks",
+    "Existing HTTP/work evidence binding with freshness checked separately from stable identity",
+    "Fixed14-kind metadata projection directory and64-table classification",
+    "Malformed work targets refuse with existing opaque503; source-set ordering does not change identity"
+  ],
+  "remaining": [
+    "P02 actual database RLS/lookup/transaction/permission-chain integration",
+    "P03 DAO task/version and pre-pagination collection filtering",
+    "P04 actual object/export read and write bindings",
+    "P05 isolated upgrade/restore and fault checks",
+    "P06 new33rd gate",
+    "P07 full integration/CI/delivery review"
+  ],
+  "actual_SQL_or_HTTP_scope_enforcement_implemented_by_P01": false,
+  "all_product_tests_asserted": false,
+  "hosted_CI_for_this_commit_verified": false,
+  "current_runtime_adopted": false,
+  "shared_source_or_services_modified": false,
+  "raw_logs_published": false,
+  "Python_candidates_created": false,
+  "formal_accepted": false
+}

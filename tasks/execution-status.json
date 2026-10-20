@@ -2460,7 +2460,7 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "已实现业务路径的案件/单位RLS和跨案件拒绝已有隔离数据库测试",
+      "summary_completed": "既有业务路径部分RLS隔离验证；P01内部范围类型及固定目录已实现并通过隔离验证",
       "summary_remaining": "逐表核对剩余DAO与关联对象的RLS、对象存储和导出隔离；权威身份/案件映射联调后做全路径越权回归，不以数据库上下文充当身份认证",
       "completed_steps": [
         {
@@ -2486,6 +2486,28 @@
             {
               "path": "docs/00-project/validation/business-foundation-report.json",
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+            }
+          ]
+        },
+        {
+          "description": "P01不可变DataScope、精确工作/请求绑定、14种元数据定位目录和64表分类已实现并隔离验证；SQL/HTTP实际接入仍待P02",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/data_scope.py",
+              "scope": "P01内部类型/固定目录的49项新测试和289项既有纯回归；不是实际数据库/HTTP/对象范围接入或整卡验收"
+            },
+            {
+              "path": "backend/business_app/scope_catalog.py",
+              "scope": "P01内部类型/固定目录的49项新测试和289项既有纯回归；不是实际数据库/HTTP/对象范围接入或整卡验收"
+            },
+            {
+              "path": "tests/platform/test_t015_data_scope.py",
+              "scope": "P01内部类型/固定目录的49项新测试和289项既有纯回归；不是实际数据库/HTTP/对象范围接入或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t015-data-scope-p01-report.json",
+              "scope": "P01内部类型/固定目录的49项新测试和289项既有纯回归；不是实际数据库/HTTP/对象范围接入或整卡验收"
             }
           ]
         }
@@ -2514,13 +2536,16 @@
         "docs/03-development/t015-data-scope-design.md",
         "docs/00-project/validation/t015-written-design-review.json",
         "docs/03-development/t015-data-scope-implementation-plan.md",
-        "docs/00-project/validation/t015-implementation-plan-review.json"
+        "docs/00-project/validation/t015-implementation-plan-review.json",
+        "docs/00-project/validation/t015-data-scope-p01-report.json",
+        "docs/00-project/validation/t015-data-scope-progress.json"
       ],
       "preparation_review_ref": "docs/00-project/validation/t015-dependency-preflight.json",
       "next_design_ref": "docs/03-development/t015-data-scope-design.md",
-      "next_design_status": "WRITTEN_SPEC_APPROVED_IMPLEMENTATION_PLAN_PENDING_USER_REVIEW",
+      "next_design_status": "WRITTEN_SPEC_AND_ISOLATED_IMPLEMENTATION_PLAN_APPROVED",
       "next_plan_ref": "docs/03-development/t015-data-scope-implementation-plan.md",
-      "next_plan_status": "PENDING_USER_REVIEW_NOT_IMPLEMENTED"
+      "next_plan_status": "APPROVED_P01_VERIFIED_P02_P07_PENDING",
+      "current_implementation_progress_ref": "docs/00-project/validation/t015-data-scope-progress.json"
     },
     {
       "task_id": "T016",

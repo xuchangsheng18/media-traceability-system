@@ -80,11 +80,11 @@
 
 **Interfaces:** 消费原`Actor/Scope/ResultKey/RuleTarget/Evidence`；产出上文AccessMode、LookupKey、TaskBinding、DataScope、ResourceBinding、`from_evidence`。目录暴露`lookup_spec(kind: str) -> LookupSpec`和不可变`TABLE_SCOPES`；`LookupSpec`固定table/key、最小projection及适用operation_ids。
 
-- [ ] **1. RED测试。** 编写`test_case_requires_exact_nonzero_case_and_actor`、`test_org_and_lookup_cannot_carry_case_or_task`、`test_unknown_mode_kind_operation_and_boolean_versions_are_rejected`、`test_evidence_renewal_preserves_binding_but_scope_change_does_not`。逐项断言case/org/operation/target替换改变绑定，纯新鲜度刷新不改变稳定身份，过期证据仍拒绝。测试“CASE构造成功不代表业务已授权”，P02还须当前T014证据。
-- [ ] **2. 验证RED。** `python -m pytest tests/platform/test_t015_data_scope.py -q`；测试应在明确能力断言失败，不能以导入/收集错误作为RED。新模块未存在时先写对应`importlib.util.find_spec`能力断言，再导入待测类型。
-- [ ] **3. 实现类型和目录。** frozen字段、严格UUID/枚举/整数/摘要检查；CASE不得带lookup，ORG不得带case/lookup/task，LOOKUP必须有key且不能带task。目录从已核对RESOURCES的14种实际定位种类开始，`operation`仍精确定位cases；新增使用点必须在同一目录显式登记，禁止任意表/列插值。
-- [ ] **4. 分类检查。** `TABLE_SCOPES`逐项登记当前64表，分案件业务、单位业务、目录、可空案件混合表、无runtime直权内部表。`approval_request/approval_decision/operation_token/audit_event`列为混合类；`authorization_epoch`不增加runtime直读；目录和单位表不可按有无case列机械分类。登记尚无实际DAO的表，不能填“CRUD已通过”。
-- [ ] **5. GREEN及提交。** 上述命令与`python -m pytest tests/platform/test_t014_six_role.py tests/platform/test_t014_work_trust.py -q`通过，动态目录集合与源64表定义一致。只提交本项类型/目录/测试，保留未实施P02的状态。
+- [x] **1. RED测试。** 编写`test_case_requires_exact_nonzero_case_and_actor`、`test_org_and_lookup_cannot_carry_case_or_task`、`test_unknown_mode_kind_operation_and_boolean_versions_are_rejected`、`test_evidence_renewal_preserves_binding_but_scope_change_does_not`。逐项断言case/org/operation/target替换改变绑定，纯新鲜度刷新不改变稳定身份，过期证据仍拒绝。测试“CASE构造成功不代表业务已授权”，P02还须当前T014证据。
+- [x] **2. 验证RED。** `python -m pytest tests/platform/test_t015_data_scope.py -q`；测试应在明确能力断言失败，不能以导入/收集错误作为RED。新模块未存在时先写对应`importlib.util.find_spec`能力断言，再导入待测类型。
+- [x] **3. 实现类型和目录。** frozen字段、严格UUID/枚举/整数/摘要检查；CASE不得带lookup，ORG不得带case/lookup/task，LOOKUP必须有key且不能带task。目录从已核对RESOURCES的14种实际定位种类开始，`operation`仍精确定位cases；新增使用点必须在同一目录显式登记，禁止任意表/列插值。
+- [x] **4. 分类检查。** `TABLE_SCOPES`逐项登记当前64表，分案件业务、单位业务、目录、可空案件混合表、无runtime直权内部表。`approval_request/approval_decision/operation_token/audit_event`列为混合类；`authorization_epoch`不增加runtime直读；目录和单位表不可按有无case列机械分类。登记尚无实际DAO的表，不能填“CRUD已通过”。
+- [x] **5. GREEN及提交。** 上述命令与`python -m pytest tests/platform/test_t014_six_role.py tests/platform/test_t014_work_trust.py -q`通过，动态目录集合与源64表定义一致。只提交本项类型/目录/测试，保留未实施P02的状态。
 
 ### Task 2: P02 增量RLS、三种事务与真实权限链垂直接入
 

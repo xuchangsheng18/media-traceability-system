@@ -1,6 +1,6 @@
 # 项目文档导航
 
-T015职责已确认：[开发/复核人徐昌胜](00-project/validation/t015-role-assignment.json)、[只读依赖和数据范围核对](00-project/validation/t015-dependency-preflight.json)、[已获准书面设计](03-development/t015-data-scope-design.md)、[待审P01—P07实施计划](03-development/t015-data-scope-implementation-plan.md)；书面设计已获本人批准，本批代码未开始，计划批准和实现结果另列，不增加完成数量。
+T015职责已确认：[开发/复核人徐昌胜](00-project/validation/t015-role-assignment.json)、[只读依赖和数据范围核对](00-project/validation/t015-dependency-preflight.json)、[已获准书面设计](03-development/t015-data-scope-design.md)、[已批准P01—P07实施计划](03-development/t015-data-scope-implementation-plan.md)；书面设计及计划均已批准，P01内部类型/目录338项验证通过，见[实际进度](00-project/validation/t015-data-scope-progress.json)；P02—P07未实施，类型通过不当SQL/HTTP接入或整卡验收。
 
 T014本批实现：[统一权限实施与验收对照](03-development/t014-unified-permission-implementation.md)、[已批准P01—P07计划](03-development/t014-isolated-six-role-implementation-plan.md)、[当前逐项实测进度](00-project/validation/t014-isolated-rule-progress.json)、[接口/单位/案件矩阵](08-security/t014-interface-scope-matrix.md)。开发负责人和指定复核人徐昌胜。P01—P07完整角色、246格规则、对象/审批/事务/后台重验及1009项完整隔离回归、精确代码CI已验证。42已挂载/31未挂载不变，未启用共享正式策略，T014未整卡验收；旧CI报告只证明其精确历史源码。
 
@@ -22,7 +22,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[723条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有102条已验证子步骤、621条剩余工作；全局编号0001—0723。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[724条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有103条已验证子步骤、621条剩余工作；全局编号0001—0724。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -432,11 +432,13 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t014-isolated-implementation-decisions.md](<03-development/t014-isolated-implementation-decisions.md>) | P01—P07全部实施裁定按执行顺序保存，逐项列原因与判断错误代价；与正式业务制度、共享采用和整卡验收区分。 |
 | [00-project/validation/t015-role-assignment.json](<00-project/validation/t015-role-assignment.json>) | 用户明确T015开发负责人、指定复核人均为徐昌胜；仅登记职责，工时、实际复核和验收仍待，不创建账号或授予权限。 |
 | [00-project/validation/t015-dependency-preflight.json](<00-project/validation/t015-dependency-preflight.json>) | T015只读前置核对：绑定T014隔离通过证据、现有Scope/RLS/对象读取边界及实际旧测试组；不把64表全路径隔离或正式身份联调标为完成。 |
-| [03-development/t015-data-scope-design.md](<03-development/t015-data-scope-design.md>) | T015本人已批准的书面设计：三种数据范围、增量RLS、对象/导出绑定与测试；具体实施计划仍待审，未开始本批代码。 |
-| [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准书面设计对应P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；本计划仍待审，未开始代码。 |
-| [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、接口与原1009测试模块保全；本人计划批准及实施均未发生。 |
+| [03-development/t015-data-scope-design.md](<03-development/t015-data-scope-design.md>) | T015本人已批准的书面设计：三种数据范围、增量RLS、对象/导出绑定与测试；实施计划已批准，P01内部类型/目录已验证，SQL/HTTP接入及其余任务仍待。 |
+| [00-project/validation/t015-data-scope-p01-report.json](<00-project/validation/t015-data-scope-p01-report.json>) | P01精确代码及49新范围测试/289既有纯回归、质量和RED证据；仅类型/14种定位目录/64表分类，不是SQL或HTTP接入。 |
+| [00-project/validation/t015-data-scope-progress.json](<00-project/validation/t015-data-scope-progress.json>) | 已批准T015计划P01—P07实际逐项状态；P01已验证、P02—P07待实施，无共享迁移或策略采用。 |
+| [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准书面设计对应P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；本计划已获本人批准，实际P01验证与P02—P07待实施分列。 |
+| [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、精确获审版本及本人批准；P01验证和P02—P07待实施分开，原1009测试模块保留。 |
 | [00-project/validation/t014-final-document-ci-observation.json](<00-project/validation/t014-final-document-ci-observation.json>) | 3ff文档提交的镜像下载失败与同提交重跑观测；历史代码通过、当前运行和后续提交CI分别记录，不伪称最终通过。 |
-| [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划批准与代码通过尚未发生。 |
+| [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划亦已获准；代码实际子范围以逐项进度为准，不当整卡验收。 |
 | [00-project/validation/t014-p07-current-code-ci-report.json](<00-project/validation/t014-p07-current-code-ci-report.json>) | 本批修复后精确代码提交的身份、权限、业务、32工程门禁及13运行检查；独立核对两份制品平台摘要，回执文件自身的未来CI另查Actions。 |
 | [00-project/validation/t014-p07-ci-c89e75b-report.json](<00-project/validation/t014-p07-ci-c89e75b-report.json>) | 修复前c89检查点的真实成功CI及平台制品摘要；明确为历史证据，不证明后续7项修复或最终回执通过。 |
 | [00-project/validation/t014-isolated-validation-report.json](<00-project/validation/t014-isolated-validation-report.json>) | P07当前完整回归、门禁/类型/资料检查及中断历史；未完成的执行窗口和最终CI保持真实状态。 |
@@ -604,7 +606,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1201份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1204份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -695,7 +697,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内723条执行事项逐条编号：102条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内724条执行事项逐条编号：103条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1285,10 +1287,12 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t014-review-fix-scoped-report.json](<00-project/validation/t014-review-fix-scoped-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t014-role-assignment.json](<00-project/validation/t014-role-assignment.json>) | 用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。 |
 | [00-project/validation/t014-rule-proposal-document-review.json](<00-project/validation/t014-rule-proposal-document-review.json>) | 六角色提案和本人清单的实际资料/语法/来源/导航检查；不冒充规则运行测试或本人操作。 |
+| [00-project/validation/t015-data-scope-p01-report.json](<00-project/validation/t015-data-scope-p01-report.json>) | P01精确代码及49新范围测试/289既有纯回归、质量和RED证据；仅类型/14种定位目录/64表分类，不是SQL或HTTP接入。 |
+| [00-project/validation/t015-data-scope-progress.json](<00-project/validation/t015-data-scope-progress.json>) | 已批准T015计划P01—P07实际逐项状态；P01已验证、P02—P07待实施，无共享迁移或策略采用。 |
 | [00-project/validation/t015-dependency-preflight.json](<00-project/validation/t015-dependency-preflight.json>) | T015只读前置核对：绑定T014隔离通过证据、现有Scope/RLS/对象读取边界及实际旧测试组；不把64表全路径隔离或正式身份联调标为完成。 |
-| [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、接口与原1009测试模块保全；本人计划批准及实施均未发生。 |
+| [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、精确获审版本及本人批准；P01验证和P02—P07待实施分开，原1009测试模块保留。 |
 | [00-project/validation/t015-role-assignment.json](<00-project/validation/t015-role-assignment.json>) | 用户明确T015开发负责人、指定复核人均为徐昌胜；仅登记职责，工时、实际复核和验收仍待，不创建账号或授予权限。 |
-| [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划批准与代码通过尚未发生。 |
+| [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划亦已获准；代码实际子范围以逐项进度为准，不当整卡验收。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1649,8 +1653,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t014-unified-permission-design.md](<03-development/t014-unified-permission-design.md>) | 说明文档：T014 统一权限接入设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-unified-permission-implementation-plan.md](<03-development/t014-unified-permission-implementation-plan.md>) | 说明文档：T014 统一权限代码与回归实施计划；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-unified-permission-implementation.md](<03-development/t014-unified-permission-implementation.md>) | T014统一权限代码、0006最小权限事实查询、42操作适用回归、源验收逐项对照及正式策略/31未挂载操作/真实交接边界。 |
-| [03-development/t015-data-scope-design.md](<03-development/t015-data-scope-design.md>) | T015本人已批准的书面设计：三种数据范围、增量RLS、对象/导出绑定与测试；具体实施计划仍待审，未开始本批代码。 |
-| [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准书面设计对应P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；本计划仍待审，未开始代码。 |
+| [03-development/t015-data-scope-design.md](<03-development/t015-data-scope-design.md>) | T015本人已批准的书面设计：三种数据范围、增量RLS、对象/导出绑定与测试；实施计划已批准，P01内部类型/目录已验证，SQL/HTTP接入及其余任务仍待。 |
+| [03-development/t015-data-scope-implementation-decisions.md](<03-development/t015-data-scope-implementation-decisions.md>) | 说明文档：T015数据范围隔离实施裁定；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准书面设计对应P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；本计划已获本人批准，实际P01验证与P02—P07待实施分列。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |

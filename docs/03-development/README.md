@@ -1,6 +1,6 @@
 # 开发、契约与CI
 
-- [T015已获准数据范围设计](t015-data-scope-design.md)、[待审P01—P07实施计划](t015-data-scope-implementation-plan.md)、[书面批准](../00-project/validation/t015-written-design-review.json)、[计划自查](../00-project/validation/t015-implementation-plan-review.json)：开发/复核人徐昌胜；计划待本人审阅，未开始本批代码。
+- [T015已获准数据范围设计](t015-data-scope-design.md)、[已批准P01—P07实施计划](t015-data-scope-implementation-plan.md)、[书面批准](../00-project/validation/t015-written-design-review.json)、[计划自查](../00-project/validation/t015-implementation-plan-review.json)：开发/复核人徐昌胜；计划已获准；[实际进度](../00-project/validation/t015-data-scope-progress.json)为P01类型/目录338项验证通过，P02—P07继续实施，未共享采用。
 
 - [T014已批准P01—P07隔离计划](t014-isolated-six-role-implementation-plan.md)、[实际逐项进度](../00-project/validation/t014-isolated-rule-progress.json)、[T001—T123范围及顺序](t001-t123-development-sequence.md)：P01—P07已隔离实测，完整1009项、扩展权限门禁及精确代码CI通过；综合专项验证另批，实现必要测试和CI保留。
 
