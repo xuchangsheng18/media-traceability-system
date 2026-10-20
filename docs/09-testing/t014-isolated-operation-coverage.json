@@ -1,22 +1,38 @@
 {
-  "status": "SCOPED_COMPONENT_EVIDENCE_P07_FULL_CURRENT_REVISION_PENDING",
-  "source_base_commit": "e2d6e2e286e05a7151411a9d4650fdcf7ca74077",
-  "full_current_revision_verified": false,
+  "status": "ACTUAL_ISOLATED_COVERAGE_NOT_FORMAL_ACCEPTANCE",
+  "source_base_commit": "c89e75b4c7ec0b349c2935b5254205ba3213ca4f",
+  "verified_code_commit": "b8905d4f5c9a8a975a8134f4b325c45b8bafe699",
+  "runtime_and_permission_input_delta_sha256": {
+    "backend/business_app/controls/router.py": "b65910c47d4c44c41d00a42bae9d590fa41cedfa8dc03c8ca42f03da4d011db3",
+    "backend/business_app/permissions/conditional.py": "661179c5fc41f4977c04c6e6775477abea33e9e1b0961a7f9f403dc18f39f71a",
+    "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
+    "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+    "backend/business_app/permissions/object_facts.py": "8d39d0bfac1fd3075feca0d20dcc26c55f22e6260f38267b027778d348ecb73b",
+    "scripts/verify_t014_permissions.py": "d60eb56f53a0068333b68d1c3245ae54e483ac07cc00c4e257241e9c0557d0d3",
+    "tests/business/http_fixtures.py": "2eb2ee729c0b399d556cf3a9b0f73283fd9c0c9c998e242edc8cb8f8a2c0abf2",
+    "tests/business/t014_positive_fixtures.py": "ab4e180af6a2b049129a31fbef7336554aa4a380e101964b09b3c8300d1c5808",
+    "tests/business/test_t014_duties.py": "c70a25c9ef0fa9357c8a2afd465dfd296e5fff925183cda8cc1053bc253005c1",
+    "tests/business/test_t014_indirect_reads.py": "aa55e62fca16c728f23a3606ec2688e11aa5e1626e3a35606c7e4a7028e9fcc2",
+    "tests/business/test_t014_object_rules.py": "705646bd262d4e8e2fc092fd509813d9443520b03ecbab9a5ab9a8b461ca7aea",
+    "tests/business/test_t014_revocation.py": "da679abeae5ffe6f3b79d49ff34f058454574300e8fb3f5c38f4716c3bc8dd19",
+    "tests/business/test_t014_work.py": "1bf388b63c4bb90f326f1bd9e822e46358b5a92e6601852b504f39836e31a950",
+    "tests/platform/test_t014_gate.py": "801bbd57cf7072708c7aae47447cb907cef4445410a7646b58ddd57a81cce424"
+  },
+  "full_current_revision_verified": true,
   "component_run_totals": [
     {
-      "tests": 76,
-      "failures": 0,
-      "errors": 0,
-      "skipped": 0
-    },
-    {
-      "tests": 286,
+      "tests": 1009,
       "failures": 0,
       "errors": 0,
       "skipped": 0
     }
   ],
-  "full_run_totals": null,
+  "full_run_totals": {
+    "tests": 1009,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
   "mounted": 42,
   "unmounted": 31,
   "pure_role_cells": 246,
@@ -44,9 +60,16 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.cancel-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[cancelTask]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[cancelTask]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-cancelTask]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-cancelTask]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [
+        "tests.business.test_t014_object_rules.test_exact_trusted_delegation_can_authorize_nonowner[cancelTask]"
+      ],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -76,9 +99,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.upload-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[completeUpload]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[completeUpload]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-completeUpload]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-completeUpload]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -108,9 +136,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.import-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[createImport]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[createImport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createImport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createImport]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -140,9 +173,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[policy.manage-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[createPolicy]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[createPolicy]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createPolicy]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createPolicy]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -173,6 +211,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -202,6 +241,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -230,9 +270,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[review.perform-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[createReview]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[createReview]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createReview]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createReview]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -263,6 +308,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -292,6 +338,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -320,9 +367,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.upload-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[createUpload]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[createUpload]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-createUpload]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-createUpload]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -352,9 +404,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[approval.decide-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[decideApproval]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[decideApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-decideApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-decideApproval]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -385,6 +442,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -414,6 +472,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -443,6 +502,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -471,11 +531,16 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[audit.export-auditor-AUDIT_EXPORT]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[downloadAuditExport]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[downloadAuditExport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-downloadAuditExport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-downloadAuditExport]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [
         "tests.business.test_t014_work.test_node_finish_and_export_delivery_revalidate[export]"
       ],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -506,6 +571,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -534,9 +600,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[audit.export-auditor-AUDIT_EXPORT]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[exportAudit]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[exportAudit]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-exportAudit]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-exportAudit]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -567,6 +638,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -595,9 +667,16 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[approval.read-auditor-REQUEST_AUDIT_READ]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getApproval]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getApproval]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [
+        "tests.business.test_t014_object_rules.test_exact_trusted_delegation_can_authorize_nonowner[getApproval]"
+      ],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -628,6 +707,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -656,9 +736,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[audit.export-auditor-AUDIT_EXPORT]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getAuditExport]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getAuditExport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getAuditExport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getAuditExport]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -688,9 +773,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[identity.read-auditor-SELF]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getCurrentUser]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getCurrentUser]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getCurrentUser]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getCurrentUser]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -720,9 +810,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[feedback.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getFeedback]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getFeedback]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getFeedback]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getFeedback]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -752,13 +847,20 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[origin.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getFirstSource]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getFirstSource]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getFirstSource]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getFirstSource]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
-      "http_positive_evidence": [],
-      "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
+      "http_positive_evidence": [
+        "tests.business.test_t014_indirect_reads.test_indirect_read_HTTP_checks_every_source[getFirstSource]"
+      ],
+      "trusted_delegate_adapter_evidence": [],
+      "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
-        "该操作完整真实机构允许场景未登记，不以角色单格逻辑代替"
+        "允许正例使用显式合成权威输入，不是现场业务授权验收"
       ]
     },
     {
@@ -784,9 +886,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getForensics]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getForensics]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getForensics]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getForensics]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -816,13 +923,20 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.import-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getImport]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getImport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getImport]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getImport]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
-      "http_positive_evidence": [],
-      "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
+      "http_positive_evidence": [
+        "tests.business.test_t014_indirect_reads.test_indirect_read_HTTP_checks_every_source[getImport]"
+      ],
+      "trusted_delegate_adapter_evidence": [],
+      "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
-        "该操作完整真实机构允许场景未登记，不以角色单格逻辑代替"
+        "允许正例使用显式合成权威输入，不是现场业务授权验收"
       ]
     },
     {
@@ -849,6 +963,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -878,6 +993,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -906,9 +1022,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[model.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getModelOperation]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getModelOperation]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getModelOperation]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getModelOperation]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "MOUNTED_REFUSES_MISSING_ORGANIZATION_ADAPTER",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -938,9 +1059,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[policy.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getPolicy]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getPolicy]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPolicy]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPolicy]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -970,9 +1096,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[policy.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getPolicyDefinition]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getPolicyDefinition]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPolicyDefinition]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPolicyDefinition]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1002,13 +1133,20 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[propagation.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getPropagation]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getPropagation]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getPropagation]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getPropagation]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
-      "http_positive_evidence": [],
-      "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
+      "http_positive_evidence": [
+        "tests.business.test_t014_indirect_reads.test_indirect_read_HTTP_checks_every_source[getPropagation]"
+      ],
+      "trusted_delegate_adapter_evidence": [],
+      "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
-        "该操作完整真实机构允许场景未登记，不以角色单格逻辑代替"
+        "允许正例使用显式合成权威输入，不是现场业务授权验收"
       ]
     },
     {
@@ -1035,6 +1173,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1063,13 +1202,20 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[review.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getReview]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getReview]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getReview]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getReview]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
-      "http_positive_evidence": [],
-      "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
+      "http_positive_evidence": [
+        "tests.business.test_t014_indirect_reads.test_indirect_read_HTTP_checks_every_source[getReview]"
+      ],
+      "trusted_delegate_adapter_evidence": [],
+      "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
-        "该操作完整真实机构允许场景未登记，不以角色单格逻辑代替"
+        "允许正例使用显式合成权威输入，不是现场业务授权验收"
       ]
     },
     {
@@ -1095,9 +1241,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[review.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getReviewContext]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getReviewContext]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getReviewContext]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getReviewContext]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1127,9 +1278,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getRiskFindings]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getRiskFindings]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getRiskFindings]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getRiskFindings]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1160,6 +1316,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1188,11 +1345,16 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[source.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getSource]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getSource]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getSource]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getSource]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [
         "tests.business.test_t014_revocation.test_committed_revocation_rejects_new_requests_within_five_seconds[identity-401]"
       ],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1222,9 +1384,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getTask]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getTask]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTask]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTask]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1254,9 +1421,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[evidence.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getTaskEvidence]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getTaskEvidence]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTaskEvidence]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTaskEvidence]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1286,9 +1458,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getTaskExecution]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getTaskExecution]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTaskExecution]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTaskExecution]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1318,9 +1495,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getTimeline]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getTimeline]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getTimeline]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getTimeline]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1350,9 +1532,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.upload-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[getUploadStatus]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[getUploadStatus]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-getUploadStatus]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-getUploadStatus]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1383,6 +1570,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1412,6 +1600,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1440,9 +1629,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[approval.read-auditor-REQUEST_AUDIT_READ]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listApprovals]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listApprovals]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listApprovals]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listApprovals]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1473,6 +1667,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1501,9 +1696,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[audit.read-auditor-AUDIT_READ]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listAuditEvents]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listAuditEvents]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listAuditEvents]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listAuditEvents]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1534,6 +1734,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1563,6 +1764,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1591,13 +1793,20 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[review.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listPendingReviews]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listPendingReviews]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listPendingReviews]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listPendingReviews]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
-      "http_positive_evidence": [],
-      "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
+      "http_positive_evidence": [
+        "tests.business.test_t014_indirect_reads.test_review_collections_filter_before_pagination_and_allow_empty[listPendingReviews]"
+      ],
+      "trusted_delegate_adapter_evidence": [],
+      "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
-        "该操作完整真实机构允许场景未登记，不以角色单格逻辑代替"
+        "允许正例使用显式合成权威输入，不是现场业务授权验收"
       ]
     },
     {
@@ -1623,9 +1832,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[policy.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listPolicies]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listPolicies]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listPolicies]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listPolicies]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1655,13 +1869,20 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[review.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listReviews]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listReviews]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listReviews]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listReviews]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
-      "http_positive_evidence": [],
-      "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
+      "http_positive_evidence": [
+        "tests.business.test_t014_indirect_reads.test_review_collections_filter_before_pagination_and_allow_empty[listReviews]"
+      ],
+      "trusted_delegate_adapter_evidence": [],
+      "status": "ISOLATED_SYNTHETIC_AUTHORITY_HTTP_POSITIVE_AND_REVOCATION_VERIFIED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
-        "该操作完整真实机构允许场景未登记，不以角色单格逻辑代替"
+        "允许正例使用显式合成权威输入，不是现场业务授权验收"
       ]
     },
     {
@@ -1687,9 +1908,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[source.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listSources]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listSources]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listSources]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listSources]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1719,9 +1945,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listTaskEvents]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listTaskEvents]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listTaskEvents]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listTaskEvents]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1751,9 +1982,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[task.read-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listTaskNodes]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listTaskNodes]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listTaskNodes]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listTaskNodes]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1784,6 +2020,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1812,9 +2049,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.upload-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[listUploadParts]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[listUploadParts]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-listUploadParts]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-listUploadParts]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1844,9 +2086,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[asset.upload-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[putUploadPart]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[putUploadPart]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-putUploadPart]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-putUploadPart]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1877,6 +2124,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1906,6 +2154,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1934,9 +2183,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[approval.request-auditor-REQUEST_AUDIT]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[requestApproval]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[requestApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-requestApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-requestApproval]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -1967,6 +2221,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -1996,6 +2251,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2024,9 +2280,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[approval.revoke-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[revokeApproval]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[revokeApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-revokeApproval]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-revokeApproval]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -2057,6 +2318,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2086,6 +2348,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2115,6 +2378,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2144,6 +2408,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2173,6 +2438,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2202,6 +2468,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"
@@ -2230,9 +2497,14 @@
         "tests.platform.test_t014_six_role.test_all_246_cells_match_confirmed_input[source.manage-auditor-None]"
       ],
       "negative_evidence": [
+        "tests.platform.test_t014.test_all_42_mounted_business_operations_require_authentication[syncSourceAuthorization]",
+        "tests.platform.test_t014.test_all_42_operations_deny_missing_permission[syncSourceAuthorization]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-syncSourceAuthorization]",
+        "tests.platform.test_t014.test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-syncSourceAuthorization]",
         "tests.business.test_t014_runtime.test_all_42_real_resource_requests_deny_before_business_side_effects"
       ],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "ISOLATED_DENIAL_AND_RESOURCE_INTEGRITY_VERIFIED_HTTP_ALLOW_NOT_CLAIMED",
       "remaining": [
         "正式分类/用途/人员、工作委托与独立服务身份等适用权威输入、共享采用及实际验收",
@@ -2263,6 +2535,7 @@
       ],
       "negative_evidence": [],
       "http_positive_evidence": [],
+      "trusted_delegate_adapter_evidence": [],
       "status": "NOT_MOUNTED_NO_HTTP_IMPLEMENTATION",
       "remaining": [
         "后续任务实现实际HTTP操作及适用权限回归"

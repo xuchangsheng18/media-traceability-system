@@ -1,0 +1,62 @@
+{
+  "task_id": "T015",
+  "status": "READ_ONLY_DEPENDENCY_AND_SCOPE_REVIEW_NOT_T015_IMPLEMENTATION",
+  "dependency": "T014",
+  "verified_isolated_dependency_ref": "docs/00-project/validation/t014-isolated-validation-report.json",
+  "verified_code_commit": "b8905d4f5c9a8a975a8134f4b325c45b8bafe699",
+  "whole_T014_accepted": false,
+  "applicable_existing_test_groups": {
+    "tests.business.test_authorization": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "tests.business.test_identity_directory": {
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "tests.business.test_migrations": {
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "tests.business.test_uploads": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "source_sha256": {
+    "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+    "backend/business_app/db.py": "5a93af306c14dd5f154d7721a364588a4a75a5be6962b5557e8ea8702ef9890b",
+    "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
+    "backend/business_app/objects.py": "ef713e8c5570b06ae3ae842d1dd8e679ff3b3dc2ccc46efddf7436ef06e3bef1",
+    "backend/business_app/history/repository.py": "1e5022001aca523a17cc543640b6c26b5d565b550b39f25039b20cff9b62d4c8",
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "tests/business/test_authorization.py": "e026346790be809bb431ba2d38aa3e9e0fff508345ec47012bd6dbe09811f119",
+    "tests/business/test_identity_directory.py": "fe3b488246db600c843983a356187ceb746802de38b3c837ce96a75a2b41cab1",
+    "tests/business/test_migrations.py": "246cb3339c79c429e122b074a9311c92f35374df782fe7c68670a1a6db9b39cd",
+    "tests/business/test_uploads.py": "29eacb3c53ae06d65eb4b4ed31fdf85b92e27b50d30f32ac9163ed904d2370cf",
+    "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
+  },
+  "hash_scope": "Exact verified Git blobs; unchanged preexisting Windows line endings are not rewritten.",
+  "observed_boundaries": [
+    "Scope当前包含actor和case_id；Database设置事务局部actor/org，另检查该案件成员资格，不能把该对象本身当作身份认证。",
+    "RLS的can_access_case按有效成员关系过滤可访问案件；单次Scope案件检查不等于数据库已强制固定本事务唯一case_id，仍须逐DAO核对查询条件和批量结果。",
+    "FileObjectStore.read只接收ObjectRef，业务层负责先完成单位/案件/对象及来源授权；不能把对象ID或存储摘要当作授权凭据。",
+    "原有池复用、超级用户连接拒绝、跨单位目录约束和跨案件读取有本次实际测试证据，但未据此宣称64表全部CRUD/导出/存储隔离已验收。",
+    "正式密级/用途及权威映射提供者仍待；沿用T014默认拒绝，不编造正式分类或管理员绕过。"
+  ],
+  "remaining_implementation_started": false,
+  "new_completed_step_added": false,
+  "account_or_permission_granted": false,
+  "shared_migration_or_policy_adopted": false,
+  "formal_accepted": false,
+  "Python_candidates_created": false
+}

@@ -1,6 +1,6 @@
 # T014 未认证、无权限、撤销和越权测试设计
 
-当前新增P01—P06的实际SQL、独立人员、事务栅栏、后台/交付及六类隔离测量见[逐操作清单](t014-isolated-operation-coverage.md)和[工作回执](../00-project/validation/t014-isolated-work-report.json)；P07当前完整回归/CI状态见[精确CI](../00-project/validation/t014-isolated-ci-report.json)。本文件原22行及旧证据保留各自历史范围，不把旧未覆盖说明或旧PASS当作新源码结论。
+当前P01—P07的实际SQL、独立人员、事务栅栏、后台/交付及六类隔离测量见[逐操作清单](t014-isolated-operation-coverage.md)和[工作回执](../00-project/validation/t014-isolated-work-report.json)；P07当前完整回归/CI状态见[精确CI](../00-project/validation/t014-isolated-ci-report.json)。本文件原22行及旧证据保留各自历史范围，不把旧未覆盖说明或旧PASS当作新源码结论。
 
 2026-10-20；徐昌胜负责。本文件保留22类测试设计并登记当前实测边界。当前42操作四类拒绝和真实资源canary、SQL权限/撤销、范围与旧游标/回执回归已执行；[专项报告](../00-project/validation/t014-permissions-report.json)与[完整回归](../00-project/validation/t014-full-regression-report.json)保存实际数量和源码。历史[依赖回归](../00-project/validation/t014-dependency-regression-report.json)仍保留，不能代替本批结果。机器覆盖清单见[JSON](t014-authorization-test-design.json)，配套[权限与数据范围矩阵](../08-security/t014-interface-scope-matrix.md)。
 
@@ -58,3 +58,5 @@
 ## 完整验收仍待
 
 正式角色允许值/职责冲突、数据分类与用途、策略版本及撤销一致性规则待有效输入；缺项的正式动作继续拒绝。T013本人管理员/MFA、真实密钥恢复及共享采用未关闭。本批已完成当前挂载范围的统一权限代码及适用隔离回归，不登记正式联调、共享授权启用或T014整卡验收。Python候选继续暂缓，py310和原100包锁不变。
+
+本批最终复核7项修复及完整1009项回归见[实际结果](../00-project/validation/t014-isolated-validation-report.json)；原22行与旧源码摘要保持历史范围，不改写为新提交结果。

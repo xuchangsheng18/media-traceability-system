@@ -8,7 +8,7 @@
 
 **Tech Stack:** 既有 Linux、Miniforge Python3.10.22、FastAPI、SQLAlchemy/psycopg、PostgreSQL16、pytest、现有独立 Ruff/mypy 工具。原100包锁、Node锁和已存在0001—0006迁移不变；不创建Python候选、不新增策略平台。
 
-**Spec:** [已确认的规则方案](../08-security/t014-six-role-rule-proposal.md)及[机器表](../08-security/t014-six-role-rule-proposal.json)，用户原话“认可作为下一批隔离实现输入”；源[T014](../../tasks/platform/T014.md)、[依赖复核](t014-dependency-and-scope-review.md)、[现有实现](t014-unified-permission-implementation.md)。2026-10-20形成新计划，用户明确回复“认可新计划，按P01—P07直接实施”，状态 **APPROVED_ISOLATED_IMPLEMENTATION_IN_PROGRESS**。此前五项[统一入口实施计划](t014-unified-permission-implementation-plan.md)原样保留；对规则输入的确认不冒充本计划审阅或共享采用。
+**Spec:** [已确认的规则方案](../08-security/t014-six-role-rule-proposal.md)及[机器表](../08-security/t014-six-role-rule-proposal.json)，用户原话“认可作为下一批隔离实现输入”；源[T014](../../tasks/platform/T014.md)、[依赖复核](t014-dependency-and-scope-review.md)、[现有实现](t014-unified-permission-implementation.md)。2026-10-20形成新计划，用户明确回复“认可新计划，按P01—P07直接实施”，状态 **VERIFIED_P01_P07_ISOLATED_SCOPE_NOT_SHARED_ADOPTED**。此前五项[统一入口实施计划](t014-unified-permission-implementation-plan.md)原样保留；对规则输入的确认不冒充本计划审阅或共享采用。
 
 ## Global Constraints
 
@@ -129,10 +129,10 @@
 
 **Files:** 修改verify_t014_permissions.py、CI及必要类型范围；更新测试设计、实施报告、T014任务卡、execution-status、分步导航及只含安全摘要的验证报告。
 
-- [ ] 按42操作逐项列当前条件、实际测试ID、结果及“不适用/缺权威输入/未实现”；246格逻辑测试与HTTP覆盖分开。新正例必须同时满足可信事实与对象条件；去掉任一条件的反例应失败且无副作用。31未挂载项目保持未实现。
-- [ ] 执行`python -m pytest tests/business tests/platform/test_t014.py tests/platform/test_t014_six_role.py tests/platform/test_t013_tokens.py -q --tb=short --junitxml PRIVATE_PATH`；执行现有format-check、lint、type-check、T011候选模型和适用身份回归。原32门禁、失败探针及CI依赖保留；新增门禁失败必须阻断通过。
-- [ ] 执行文档/阶段/输入/导航/排期漂移检查；复核12份原件、原锁、0001—0006摘要。仅有实际代码和通过证据的子范围可登记完成，缺正式规则/本人接管不关闭整卡。T001—T123逐批记录，T092对范围外T164的依赖不删除。
-- [ ] 明确逐项验收状态后提交开发分支；核对精确提交的托管CI及制品来源。源码同步Linux采用fast-forward，保留其他工作流及预存.idea文件；记录清单摘要及实际服务观察。源码同步不执行数据库迁移/重启/策略安装。
+- [x] 按42操作逐项列当前条件、实际测试ID、结果及“不适用/缺权威输入/未实现”；246格逻辑测试与HTTP覆盖分开。新正例必须同时满足可信事实与对象条件；去掉任一条件的反例应失败且无副作用。31未挂载项目保持未实现。
+- [x] 执行`python -m pytest tests/business tests/platform/test_t014.py tests/platform/test_t014_six_role.py tests/platform/test_t013_tokens.py -q --tb=short --junitxml PRIVATE_PATH`；执行现有format-check、lint、type-check、T011候选模型和适用身份回归。原32门禁、失败探针及CI依赖保留；新增门禁失败必须阻断通过。
+- [x] 执行文档/阶段/输入/导航/排期漂移检查；复核12份原件、原锁、0001—0006摘要。仅有实际代码和通过证据的子范围可登记完成，缺正式规则/本人接管不关闭整卡。T001—T123逐批记录，T092对范围外T164的依赖不删除。
+- [x] 明确逐项验收状态后提交开发分支；核对精确提交的托管CI及制品来源。源码同步Linux采用fast-forward，保留其他工作流及预存.idea文件；记录清单摘要及实际服务观察。源码同步不执行数据库迁移/重启/策略安装。
 
 ## 关闭范围、回退和后续入口
 

@@ -1,5 +1,5 @@
 {
-  "revision": "t013-named-mfa-t014-isolated-p01-p06-20261020",
+  "revision": "t013-named-mfa-t014-isolated-p01-p07-t015-owner-20261020",
   "observed_date": "2026-10-20",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
@@ -2033,8 +2033,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "原统一权限四项子范围保留；P01—P06完整角色、246格规则、SQL对象条件、独立人员审批、事务撤销及真实后台作业/交付重验已实现并通过适用隔离测试。真实身份、人员、委托和服务提供者缺失时拒绝，不把合成输入当正式配置。",
-      "summary_remaining": "P07全量回归、扩展门禁、精确托管CI与三端交付进行中；正式分类/用途/人员/工作委托及服务身份提供者、共享采用、T013真实身份恢复/负向交接、31未挂载操作和实际验收另列。",
+      "summary_completed": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。",
+      "summary_remaining": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、31未挂载操作及正式验收另列；不以本批通过关闭整任务。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -2313,16 +2313,43 @@
               "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
             }
           ]
+        },
+        {
+          "id": "T014-P07-ISOLATED",
+          "kind": "DEVELOPMENT",
+          "description": "42挂载/31未挂载逐操作证据已列明；1009项完整隔离回归、扩展权限门禁及真实失败探针通过，既有32项工程门禁和精确托管CI/制品摘要核验通过；源码及2103文件清单已同步Linux并保留7个原有IDE文件，不执行共享迁移或策略采用。",
+          "evidence": [
+            {
+              "path": "scripts/verify_t014_permissions.py",
+              "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
+            },
+            {
+              "path": "tests/platform/test_t014_gate.py",
+              "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
+            },
+            {
+              "path": "docs/09-testing/t014-isolated-operation-coverage.json",
+              "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
+            },
+            {
+              "path": "docs/00-project/validation/t014-isolated-validation-report.json",
+              "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
+            },
+            {
+              "path": "docs/00-project/validation/t014-isolated-ci-report.json",
+              "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "P01—P06限定隔离代码/适用测试通过，P07继续。PR03/05/06及正式分类/用途/人员/工作委托/独立服务事实与共享采用仍待；T013实名MFA正向子范围已有实际回执，真实恢复、负向交接和整卡仍待。",
+          "description": "PR01/02/04的P01—P07限定隔离实现已验证；PR03/05/06、正式分类/用途/人员/委托/独立服务事实、共享采用及T013真实身份恢复和旧凭据失效/退役仍待。",
           "documented_progress": [
             {
               "id": "T014-R01-P01",
-              "status": "USER_CONFIRMED_ISOLATED_INPUT_NOT_IMPLEMENTED",
+              "status": "USER_CONFIRMED_INPUT_IMPLEMENTED_AND_TESTED_IN_ISOLATION_NOT_FORMAL_POLICY",
               "evidence_refs": [
                 "docs/08-security/t014-six-role-rule-proposal.md",
                 "docs/08-security/t014-six-role-rule-proposal.json"
@@ -2338,7 +2365,7 @@
             },
             {
               "id": "T014-R01-P03",
-              "status": "PLAN_APPROVED_IMPLEMENTATION_IN_PROGRESS_NOT_COMPLETE",
+              "status": "APPROVED_P01_P07_PLAN_VERIFIED_ISOLATED_SCOPE_NOT_WHOLE_TASK_ACCEPTANCE",
               "evidence_refs": [
                 "docs/03-development/t014-isolated-six-role-implementation-plan.md",
                 "docs/00-project/validation/t014-isolated-plan-review.json"
@@ -2348,11 +2375,11 @@
         },
         {
           "category": "实施/验证",
-          "description": "P01—P06真实SQL、对象/审批、后台节点/交付、队列确认重试及六类最大5秒隔离观测通过；P07完整回归、扩展门禁和最终托管CI继续。该测量不是生产/广域网/Keycloak远端撤销SLA；31未挂载操作按后续业务任务实现。"
+          "description": "1009项完整隔离回归、42操作边界、扩展门禁和精确CI通过；31未挂载操作、完整机构允许场景、正式提供者联调及现场/负载/远端撤销SLA按适用任务验证。"
         },
         {
           "category": "任务记录",
-          "description": "徐昌胜为已确认开发负责人和指定复核人；PR01/02/04已获限定设计输入确认，新P01—P07计划已获确认，整任务验收仍未登记。实际工时/日期仍缺；资料检查和实现CI分别记录，旧CI不证明新规则已运行。"
+          "description": "徐昌胜为已确认开发负责人和指定复核人；PR01/02/04及P01—P07获确认的隔离实现和精确代码CI已实测，整任务验收仍未登记。实际工时/日期仍缺；最终资料回执提交的CI按GitHub精确提交独立观察，不由回执文件为其自身未来提交预先证明。"
         }
       ],
       "observed_date": "2026-10-20",
@@ -2373,7 +2400,7 @@
         "docs/00-project/validation/t014-isolated-plan-review.json",
         "docs/00-project/validation/t014-isolated-rule-progress.json"
       ],
-      "rule_proposal_status": "P01_P06_VERIFIED_ISOLATED_P07_IN_PROGRESS_NOT_SHARED_ADOPTED",
+      "rule_proposal_status": "P01_P07_VERIFIED_ISOLATED_NOT_SHARED_ADOPTED",
       "formal_policy_configured": false,
       "rule_proposal_confirmation": {
         "client_date": "2026-10-20",
@@ -2393,7 +2420,7 @@
       },
       "next_isolated_implementation_plan": {
         "path": "docs/03-development/t014-isolated-six-role-implementation-plan.md",
-        "status": "APPROVED_IMPLEMENTATION_IN_PROGRESS",
+        "status": "VERIFIED_P01_P07_ISOLATED_SCOPE_NOT_SHARED_ADOPTED",
         "execution_method": "current_session_direct_implementation_previously_selected",
         "human_review_recorded": true,
         "task_steps": [
@@ -2431,7 +2458,7 @@
       "name": "实现数据范围访问控制",
       "card": "tasks/platform/T015.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
       "summary_completed": "已实现业务路径的案件/单位RLS和跨案件拒绝已有隔离数据库测试",
       "summary_remaining": "逐表核对剩余DAO与关联对象的RLS、对象存储和导出隔离；权威身份/案件映射联调后做全路径越权回归，不以数据库上下文充当身份认证",
@@ -2474,10 +2501,22 @@
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "徐昌胜已由本人明确指定为开发负责人和复核人；剩余工时、实际实施日期及复核决定仍待。对照本卡源依赖、适用外部条件和验收标准记录实际结果；姓名登记不关闭代码/测试缺口，同人兼任不当作独立双人复核。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-20",
+      "designated_reviewer": "徐昌胜",
+      "reviewer_assignment_ref": "docs/00-project/validation/t015-role-assignment.json",
+      "actual_review_acceptance_recorded": false,
+      "followup_document_refs": [
+        "docs/00-project/validation/t015-role-assignment.json",
+        "docs/00-project/validation/t015-dependency-preflight.json",
+        "docs/03-development/t015-data-scope-design.md",
+        "docs/00-project/validation/t015-written-design-review.json"
+      ],
+      "preparation_review_ref": "docs/00-project/validation/t015-dependency-preflight.json",
+      "next_design_ref": "docs/03-development/t015-data-scope-design.md",
+      "next_design_status": "DIRECTION_APPROVED_WRITTEN_SPEC_SELF_REVIEWED_PENDING_USER_REVIEW"
     },
     {
       "task_id": "T016",
@@ -7977,6 +8016,14 @@
       "completed_substeps_added": 1,
       "remaining_groups_closed": 0,
       "full_task_accepted": false
+    },
+    {
+      "date": "2026-10-20",
+      "task_id": "T015",
+      "event": "USER_CONFIRMED_DEVELOPER_AND_DESIGNATED_REVIEWER",
+      "evidence_ref": "docs/00-project/validation/t015-role-assignment.json",
+      "completion_counts_changed": false,
+      "actual_review_or_acceptance_recorded": false
     }
   ],
   "authorized_development_scope": {

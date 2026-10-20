@@ -1,10 +1,10 @@
 # T014逐操作隔离验证范围
 
-当前以已通过的P06提交及纯角色组件回执登记；P07完整当前修订验证尚未完成。
+当前完整隔离回归已通过，实际结果仍受下述范围限制。
 
 以[机器清单](t014-isolated-operation-coverage.json)的实际JUnit行和源码为依据。73契约操作中42已挂载、31未挂载；246格是纯角色资格逻辑，不是246个HTTP允许场景。拒绝反例检查全部64张mt表和对象字节，机构/服务权威输入为显式合成测试适配器；不登记正式业务授权或整任务验收。
 
-允许正例只列确实使用候选权限链的getSource和downloadAuditExport；上传后台/节点的实际SQL和制品测试见[工作回执](../00-project/validation/t014-isolated-work-report.json)。其他操作的旧业务夹具成功，不升级成候选六角色HTTP允许证明。
+允许正例仅列确实使用候选权限链的getSource、downloadAuditExport、getImport、getReview、getFirstSource、getPropagation、listReviews、listPendingReviews。取消任务/审批读取的委托适配器证据单列，不冒充HTTP执行成功；上传后台/节点的实际SQL和制品测试见[工作回执](../00-project/validation/t014-isolated-work-report.json)。其他操作的旧业务夹具成功，不升级成候选六角色HTTP允许证明。
 
 | 操作/方法 | 权限 | 已挂载 | 实际边界/剩余 |
 | --- | --- | --- | --- |
@@ -31,17 +31,17 @@
 | `getAuditExport` GET | `audit.export` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `getCurrentUser` GET | `identity.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `getFeedback` GET | `feedback.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
-| `getFirstSource` GET | `origin.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
+| `getFirstSource` GET | `origin.read` | 是 | 合成权威允许/撤销及拒绝实测；正式验收另列 |
 | `getForensics` GET | `task.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
-| `getImport` GET | `asset.import` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
+| `getImport` GET | `asset.import` | 是 | 合成权威允许/撤销及拒绝实测；正式验收另列 |
 | `getIndex` GET | `index.manage` | 否 | 未实现，无HTTP结论 |
 | `getModelHealth` GET | `model.manage` | 否 | 未实现，无HTTP结论 |
 | `getModelOperation` GET | `model.read` | 是 | 缺组织级适配，候选链503 |
 | `getPolicy` GET | `policy.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `getPolicyDefinition` GET | `policy.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
-| `getPropagation` GET | `propagation.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
+| `getPropagation` GET | `propagation.read` | 是 | 合成权威允许/撤销及拒绝实测；正式验收另列 |
 | `getReport` GET | `report.read` | 否 | 未实现，无HTTP结论 |
-| `getReview` GET | `review.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
+| `getReview` GET | `review.read` | 是 | 合成权威允许/撤销及拒绝实测；正式验收另列 |
 | `getReviewContext` GET | `review.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `getRiskFindings` GET | `task.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `getSearchJob` GET | `asset.search` | 否 | 未实现，无HTTP结论 |
@@ -58,9 +58,9 @@
 | `listAuditEvents` GET | `audit.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `listEvaluations` GET | `model.read` | 否 | 未实现，无HTTP结论 |
 | `listModels` GET | `model.read` | 否 | 未实现，无HTTP结论 |
-| `listPendingReviews` GET | `review.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
+| `listPendingReviews` GET | `review.read` | 是 | 合成权威允许/撤销及拒绝实测；正式验收另列 |
 | `listPolicies` GET | `policy.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
-| `listReviews` GET | `review.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
+| `listReviews` GET | `review.read` | 是 | 合成权威允许/撤销及拒绝实测；正式验收另列 |
 | `listSources` GET | `source.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `listTaskEvents` GET | `task.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
 | `listTaskNodes` GET | `task.read` | 是 | 拒绝/资源完整性实测；完整允许场景未登记 |
