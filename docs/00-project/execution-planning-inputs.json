@@ -987,11 +987,11 @@
       "current_remaining_work_snapshot": [
         {
           "category": "实施/外部条件",
-          "description": "软件准入、适用正式身份范围/撤销SLA及徐昌胜真实账号/MFA交接仍未完成；管理工具替代及私密候选已补，但共享专用客户端配置、本人会话验证、新私密卷采用、旧bootstrap客户端/历史凭据退役及共享重启验证仍待实施。"
+          "description": "软件准入、适用身份范围/撤销SLA仍待；A07已列实名xuchangsheng首次改密/MFA、专用管理客户端和本人会话的准确步骤，共享显式配置与本人验证尚未执行；新卷采用、旧bootstrap/历史凭据退役及重启须满足A08/A09前置。"
         },
         {
           "category": "实施/验证",
-          "description": "真实恢复主密钥、两把加密子密钥和Linux独立签名密钥已建立；受保护私钥导出、签名密钥备份复制到U盘及两类吊销材料加密副本结构/摘要已核验。当前签名口令已在对话暴露，按用户最新要求暂保留配置，更换脚本未执行，旧副本待处置。真实签名/精确验签、两把子密钥实际解密、独立密钥及身份备份恢复、共享失效/回切仍未通过；不得上传恢复私钥到Linux。",
+          "description": "A01—A06已列公开核对、两子密钥解密、从受保护备份恢复新home、签名保护/精确验签及独立介质步骤；当前仅保留原配置，真实操作仍未通过。A08明确现有Linux本地解密入口与离线私钥保管不兼容，须补受控流式恢复方案，不能上传恢复私钥；真实共享失效/回切未完成。",
           "verified_internal_milestones": [
             {
               "id": "T013-R02-M01",
@@ -1035,14 +1035,20 @@
             "两把恢复加密子密钥分别实际解密、真实签名及精确验签",
             "从备份在新隔离home恢复密钥组及独立身份恢复",
             "真实身份数据备份/恢复、私密配置协调失效和受控回切"
-          ]
+          ],
+          "operator_checklist_ref": "docs/03-development/t013-owner-action-checklist.md",
+          "owner_actions_executed_by_this_documentation_batch": false
         },
         {
           "category": "任务记录",
           "description": "徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。"
         }
       ],
-      "current_key_custody_report_ref": "docs/00-project/validation/t013-role-assignment.json"
+      "current_key_custody_report_ref": "docs/00-project/validation/t013-role-assignment.json",
+      "followup_document_refs": [
+        "docs/03-development/t013-owner-action-checklist.md",
+        "docs/00-project/validation/t014-rule-proposal-document-review.json"
+      ]
     },
     {
       "task_id": "T014",
@@ -1125,19 +1131,42 @@
       "current_remaining_work_snapshot": [
         {
           "category": "实施/外部条件",
-          "description": "正式六角色逐权限允许值、职责冲突、数据分类/用途、策略版本和撤销SLA仍待有效依据；正式策略保持未配置。T013本人交接/真实恢复、共享环境采用及正式联调未完成，不能用合成策略放行。"
+          "description": "六角色41权限246格、73操作的具体条件、职责冲突、审批人数/TTL与撤销候选已形成方案（docs/08-security/t014-six-role-rule-proposal.md），PR01—PR06尚未批准/采用。正式分类输入、规则实现及T013本人A01—A10接管/密钥/真实恢复、共享采用仍缺，不用方案或合成策略当正式ALLOW。",
+          "documented_progress": [
+            {
+              "id": "T014-R01-P01",
+              "status": "DOCUMENTED_NOT_APPROVED_OR_IMPLEMENTED",
+              "evidence_refs": [
+                "docs/08-security/t014-six-role-rule-proposal.md",
+                "docs/08-security/t014-six-role-rule-proposal.json"
+              ]
+            },
+            {
+              "id": "T014-R01-P02",
+              "status": "OWNER_ACTIONS_DOCUMENTED_NOT_EXECUTED",
+              "evidence_refs": [
+                "docs/03-development/t013-owner-action-checklist.md"
+              ]
+            }
+          ]
         },
         {
           "category": "实施/验证",
-          "description": "当前42业务操作的统一入口及适用反例已测；其余31个未挂载契约操作须按对应业务任务实现后回归。最后检查与动作提交之间零延时撤销、正式允许组合及共享授权联调仍未验证；不把432设计组合当执行数。"
+          "description": "现有42业务操作适用拒绝/目录撤销回归已测；具体规则的逐格允许/条件缺失/职责分离及正式版本、长任务提交竞态/撤销SLA仍需实现验证；31未挂载操作须按各自业务任务实现后回归，不把设计组合或资料检查当运行次数。"
         },
         {
           "category": "任务记录",
-          "description": "开发负责人及实际复核人均由用户确认为徐昌胜；实际复核/验收结果、剩余有效工时和日期仍待登记。托管CI必须对应最新实现提交；人员指定和研发子范围通过不自动关闭T014整卡。"
+          "description": "徐昌胜为已确认开发负责人和指定复核人；本轮新方案未登记实际人工审阅/验收。实际工时/日期仍缺；资料检验和实现CI分别记录，不能用旧代码CI证明新规则已运行。"
         }
       ],
       "implementation_validation_report": "docs/00-project/validation/t014-permissions-report.json",
-      "designated_reviewer": "徐昌胜"
+      "designated_reviewer": "徐昌胜",
+      "followup_document_refs": [
+        "docs/08-security/t014-six-role-rule-proposal.md",
+        "docs/08-security/t014-six-role-rule-proposal.json",
+        "docs/03-development/t013-owner-action-checklist.md",
+        "docs/00-project/validation/t014-rule-proposal-document-review.json"
+      ]
     },
     {
       "task_id": "T015",
@@ -3857,6 +3886,12 @@
     {
       "revision": "t001-t012-closeout-confirmed-inputs-20261017",
       "source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb"
+    },
+    {
+      "observed_date": "2026-10-20",
+      "scope": "T013_T014_remaining_work_documentation_only",
+      "actual_dates_or_effort_invented": false,
+      "formal_approved": false
     }
   ]
 }

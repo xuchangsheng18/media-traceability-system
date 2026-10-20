@@ -47,6 +47,7 @@ def completed_fixture(tmp_path, monkeypatch):
             "development_validation_report",
             "acceptance_review_ref",
             "role_model_validation_report",
+            "followup_document_refs",
         ]:
             row.pop(key, None)
         write(row["card"], "# " + row["task_id"] + "\n")

@@ -2,7 +2,8 @@
 
 - [T001—T012逐项收口](t001-t012-closeout.md)、[原生迁移设计](native-linux-migration-design.md)、[N01—N08实施计划](native-linux-implementation-plan.md)、[执行台账](native-linux-execution-status.json)、[管理员清单](native-linux-admin-checklist.md)：设计/计划及候选上限已获用户认可；N01只读工具已实现，制品核验继续进行，现有服务未切换。T012/复核/维护指定徐昌胜，T001—T011仍为邓昀。
 
-- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[实际执行状态](../00-project/validation/t013-keycloak-execution-report.json)、[22项状态登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)：步骤1—6研发验证通过，步骤7隔离恢复演练通过，步骤8源码及1,501项文件清单已同步；22项中13项范围内通过、9项未执行。GitHub集成创建PR返回403，托管CI、正式准入和身份交接仍未完成。T013整卡未关闭。
+- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[首批执行历史](../00-project/validation/t013-keycloak-execution-report.json)、[22项登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)：首批1,501项文件同步及当时CI状态仅作历史，不代表当前托管检查或最新源码。当前本人交接和恢复待办按下列清单及任务卡核验，T013整卡未关闭。
+- [T014六角色具体方案](../08-security/t014-six-role-rule-proposal.md)、[当前实施与精确CI](t014-unified-permission-implementation.md)、[T013本人A01—A10操作](t013-owner-action-checklist.md)：新方案尚未启用；真实密钥、MFA和共享恢复分别验证，Python候选继续暂缓。
 - [T013令牌核验与身份映射首批实现](t013-token-validation.md)：可选远端核验、最小权限数据库查询、禁用/到期/撤销测试及未完成的正式身份接入范围。
 
 2026-10-13更新；CPU研发工程已验证，正式基线NOT_FROZEN。

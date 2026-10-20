@@ -2,6 +2,13 @@
 
 适用：当前 Linux／py310／CPU 研发节点。身份系统管理员、开发负责人及指定复核人均已登记为徐昌胜；这不是账号、MFA、实际复核或验收完成记录。实际结果见[当前22项登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)、[恢复说明](../03-development/t013-recovery-validation.md)和[管理员交接验证](../03-development/t013-admin-handover-validation.md)。
 
+
+<!-- t013-owner-actions:start -->
+## 当前本人操作入口（2026-10-20）
+
+优先按[T013本人A01—A10清单](../03-development/t013-owner-action-checklist.md)执行适用步骤：A01—A03为恢复密钥核对/解密/新home恢复，A04以后分别受保护决定、真实接管和共享维护前置约束。现有restore需要Linux本地解密私钥，与U盘离线保管边界不兼容；在补齐兼容方案前不上传恢复私钥或执行真实库恢复。
+<!-- t013-owner-actions:end -->
+
 ## 入口及观察
 
 Linux 源码为 `/workspace/glwy/projects/media-traceability-system`，运行目录为 `/workspace/glwy/runtime/media-traceability-system/identity`。私密目录0700、文件0600，文件不进入Git。当前身份服务仍为独立三容器；全原生迁移按N01及后续计划执行，不能把源码同步当运行服务迁移。

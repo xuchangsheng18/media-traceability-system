@@ -2,6 +2,13 @@
 
 2026-10-20；开发负责人及指定复核人徐昌胜，[人员确认记录](../00-project/validation/t014-role-assignment.json)单列，尚未登记人工验收。当前Linux/Miniforge py310/CPU研发子范围已实现并实测；T014整卡仍未验收，正式授权策略和共享采用未完成。
 
+
+<!-- t014-rule-proposal:start -->
+## 六角色具体规则补充（2026-10-20）
+
+此前缺少的具体允许值/条件现已形成[六角色完整方案](../08-security/t014-six-role-rule-proposal.md)，包含246格、73操作、策略kind、职责分离、批准人数/TTL及撤销候选。它是T014-R01的待审资料，不代表已实现或正式配置；旧代码/CI结论保持原适用范围。[T013本人步骤](t013-owner-action-checklist.md)单列接管、真实密钥和恢复前置。
+<!-- t014-rule-proposal:end -->
+
 ## 当前实现
 
 外部路径、方法、字段和41个权限码仍以[唯一OpenAPI](../03-api/openapi.yaml)为源。`Principal`绑定已认证的内部用户/单位、issuer、subject及到期时间；原T013 `authenticate()`兼容接口保留。统一`require_permission(permission_code)`保护当前42个业务操作，保留原单位RLS、案件成员、对象归属、来源/用途和后台执行重验。

@@ -422,6 +422,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作、对象/用途条件、职责冲突及策略/撤销建议；待审方案，未变成运行ALLOW。 |
+| [08-security/t014-six-role-rule-proposal.json](<08-security/t014-six-role-rule-proposal.json>) | 六角色逐格候选值、完整条件、契约摘要及PR01—PR06待决项；不是活动策略配置。 |
+| [03-development/t013-owner-action-checklist.md](<03-development/t013-owner-action-checklist.md>) | 徐昌胜本人A01—A10：公开核对、两子密钥解密/备份恢复、签名保护、MFA及共享恢复前置；明确现在可做和暂不能做。 |
+| [00-project/validation/t014-rule-proposal-document-review.json](<00-project/validation/t014-rule-proposal-document-review.json>) | 六角色提案和本人清单的实际资料/语法/来源/导航检查；不冒充规则运行测试或本人操作。 |
+| [09-testing/t014-authorization-test-design.md](<09-testing/t014-authorization-test-design.md>) | 22类权限场景与已有适用测试的对应、部分覆盖及未挂载边界；432为设计组合数，不当运行通过数。 |
 | [00-project/validation/t014-role-assignment.json](<00-project/validation/t014-role-assignment.json>) | 用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。 |
 | [03-development/t014-unified-permission-implementation.md](<03-development/t014-unified-permission-implementation.md>) | T014统一权限代码、0006最小权限事实查询、42操作适用回归、源验收逐项对照及正式策略/31未挂载操作/真实交接边界。 |
 | [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。 |
@@ -565,7 +570,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1164份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1168份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1228,6 +1233,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t014-preparation-ci-observation.json](<00-project/validation/t014-preparation-ci-observation.json>) | 上一批导航CI实际失败及候选输入摘要过期原因、修复与重验范围；不冒充本轮托管通过。 |
 | [00-project/validation/t014-preparation-validation-report.json](<00-project/validation/t014-preparation-validation-report.json>) | T014准备材料逐项操作/来源摘要/引用/人员/状态一致性检查；不是业务权限测试通过。 |
 | [00-project/validation/t014-role-assignment.json](<00-project/validation/t014-role-assignment.json>) | 用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。 |
+| [00-project/validation/t014-rule-proposal-document-review.json](<00-project/validation/t014-rule-proposal-document-review.json>) | 六角色提案和本人清单的实际资料/语法/来源/导航检查；不冒充规则运行测试或本人操作。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1572,6 +1578,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t013-bootstrap-management-replacement.md](<03-development/t013-bootstrap-management-replacement.md>) | T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。 |
 | [03-development/t013-keycloak-identity-design.md](<03-development/t013-keycloak-identity-design.md>) | 说明文档：T013 项目自建 Keycloak 身份系统完整设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-keycloak-implementation-plan.md](<03-development/t013-keycloak-implementation-plan.md>) | 说明文档：T013 Keycloak Identity Implementation Plan；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/t013-owner-action-checklist.md](<03-development/t013-owner-action-checklist.md>) | 徐昌胜本人A01—A10：公开核对、两子密钥解密/备份恢复、签名保护、MFA及共享恢复前置；明确现在可做和暂不能做。 |
 | [03-development/t013-recovery-validation.md](<03-development/t013-recovery-validation.md>) | 说明文档：T013：重启、历史凭据审查与恢复回切验证；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-rotation-fault-validation.md](<03-development/t013-rotation-fault-validation.md>) | 说明文档：T013：密钥轮换、故障拒绝与CI补齐；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | T013真实密钥备份复制及吊销副本结构、暴露口令和旧副本待处置；保留现有配置的最新决定，不当真实签名/恢复通过。 |
@@ -1684,6 +1691,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [08-security/security-design.md](<08-security/security-design.md>) | 安全边界、输入处理、访问和敏感信息保护设计。 |
 | [08-security/t014-interface-scope-matrix.json](<08-security/t014-interface-scope-matrix.json>) | 73操作、41权限、6角色、实际路由与数据范围的来源摘要附表；候选职责不当正式ALLOW。 |
 | [08-security/t014-interface-scope-matrix.md](<08-security/t014-interface-scope-matrix.md>) | 接口权限、单位/案件矩阵和实际检查入口/缺口；已挂载不等于授权完成。 |
+| [08-security/t014-six-role-rule-proposal.json](<08-security/t014-six-role-rule-proposal.json>) | 六角色逐格候选值、完整条件、契约摘要及PR01—PR06待决项；不是活动策略配置。 |
+| [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作、对象/用途条件、职责冲突及策略/撤销建议；待审方案，未变成运行ALLOW。 |
 | [09-testing/acceptance-criteria.md](<09-testing/acceptance-criteria.md>) | 交付判定口径和不能省略的证据。 |
 | [09-testing/acceptance-execution-configuration.md](<09-testing/acceptance-execution-configuration.md>) | 24项实际样本/版本/资源/负载/目标/人员配置与NOT_EVALUABLE缺项，READY也不是验收成绩。 |
 | [09-testing/acceptance-execution-inputs.json](<09-testing/acceptance-execution-inputs.json>) | 24协议待填实际执行配置；正式目标和环境保持null，按Schema及适用指标检查。 |
@@ -1694,7 +1703,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [09-testing/security-test-scenarios.md](<09-testing/security-test-scenarios.md>) | 鉴权、越权、撤销、输入和审计等测试。 |
 | [09-testing/stage-two-representative-validation.md](<09-testing/stage-two-representative-validation.md>) | 21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。 |
 | [09-testing/t014-authorization-test-design.json](<09-testing/t014-authorization-test-design.json>) | 逐73操作的异常权限测试计划、场景适用范围和432组角色默认拒绝参数；均为设计数量。 |
-| [09-testing/t014-authorization-test-design.md](<09-testing/t014-authorization-test-design.md>) | 未认证、无权限、撤销、越权、故障及副作用断言设计；新的T014业务测试尚未实施。 |
+| [09-testing/t014-authorization-test-design.md](<09-testing/t014-authorization-test-design.md>) | 22类权限场景与已有适用测试的对应、部分覆盖及未挂载边界；432为设计组合数，不当运行通过数。 |
 | [09-testing/task-test-scenarios.yaml](<09-testing/task-test-scenarios.yaml>) | 各任务的验证场景，不等同已实现测试程序。 |
 | [09-testing/test-scenarios.yaml](<09-testing/test-scenarios.yaml>) | 业务功能正常与异常场景。 |
 | [09-testing/test-strategy.md](<09-testing/test-strategy.md>) | 测试层级、数据、环境和执行策略。 |

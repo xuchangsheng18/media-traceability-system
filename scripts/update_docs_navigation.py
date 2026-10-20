@@ -50,6 +50,11 @@ def main():
         flags=re.M,
     )
     entries = {
+        "08-security/t014-six-role-rule-proposal.md": "六角色41权限246格、73操作、对象/用途条件、职责冲突及策略/撤销建议；待审方案，未变成运行ALLOW。",
+        "08-security/t014-six-role-rule-proposal.json": "六角色逐格候选值、完整条件、契约摘要及PR01—PR06待决项；不是活动策略配置。",
+        "03-development/t013-owner-action-checklist.md": "徐昌胜本人A01—A10：公开核对、两子密钥解密/备份恢复、签名保护、MFA及共享恢复前置；明确现在可做和暂不能做。",
+        "00-project/validation/t014-rule-proposal-document-review.json": "六角色提案和本人清单的实际资料/语法/来源/导航检查；不冒充规则运行测试或本人操作。",
+        "09-testing/t014-authorization-test-design.md": "22类权限场景与已有适用测试的对应、部分覆盖及未挂载边界；432为设计组合数，不当运行通过数。",
         "00-project/validation/t014-role-assignment.json": "用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。",
         "03-development/t014-unified-permission-implementation.md": "T014统一权限代码、0006最小权限事实查询、42操作适用回归、源验收逐项对照及正式策略/31未挂载操作/真实交接边界。",
         "00-project/validation/t014-permissions-report.json": "T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。",
