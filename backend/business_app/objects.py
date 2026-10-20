@@ -38,14 +38,26 @@ class FileObjectStore:
         file = folder / (version + ".bin")
         digest = hashlib.sha256()
         count = 0
-        with file.open("xb") as output:
-            os.chmod(file, 0o600)
-            for block in iter(lambda: body.read(1024 * 1024), b""):
-                output.write(block)
-                digest.update(block)
-                count += len(block)
-            output.flush()
-            os.fsync(output.fileno())
+        try:
+            with file.open("xb") as output:
+                os.chmod(file, 0o600)
+                for block in iter(lambda: body.read(1024 * 1024), b""):
+                    written = output.write(block)
+                    digest.update(block[:written])
+                    count += written
+                    if written != len(block):
+                        raise OSError("OBJECT_WRITE_INCOMPLETE")
+                output.flush()
+                os.fsync(output.fileno())
+        except Exception:
+            if file.is_file():
+                self.record_orphan(
+                    StoredObject(ObjectRef(object_id, version, digest.hexdigest()), count),
+                    scope,
+                    upload_id,
+                    "OBJECT_WRITE_INCOMPLETE",
+                )
+            raise
         return StoredObject(ObjectRef(object_id, version, digest.hexdigest()), count)
 
     def record_orphan(

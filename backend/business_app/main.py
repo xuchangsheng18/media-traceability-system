@@ -88,7 +88,7 @@ def create_app(
     app.state.business_authority = authority
     app.state.business_settings = settings
     app.state.upload_service = UploadService(
-        database, UploadRepository(database, settings), FileObjectStore(settings.object_root)
+        database, UploadRepository(database, settings), FileObjectStore(settings.object_root), authority=authority
     )
     app.state.result_repository = ResultRepository(database, app.state.upload_service.store, authority)
     app.state.control_receipts = ControlReceipts(database, settings)
