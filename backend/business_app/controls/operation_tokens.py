@@ -164,6 +164,36 @@ class OperationTokens:
         except Exception:
             raise BusinessError("OPERATION_TOKEN_UNAVAILABLE", 503) from None
 
+    def _source_snapshot(self, connection: Connection, scope: Scope, task_id: UUID) -> dict[str, Any]:
+        # The current task schema has one asset; bind its actual SQL source chain.
+        source = (
+            connection.execute(
+                text(
+                    "SELECT a.asset_id,s.source_id,s.authorization_version,s.authorization_status,s.purpose,s.expires_at,s.row_version FROM mt.analysis_task t JOIN mt.media_asset a ON a.org_id=t.org_id AND a.case_id=t.case_id AND a.asset_id=t.asset_id JOIN mt.source_registry s ON s.org_id=a.org_id AND s.case_id=a.case_id AND s.source_id=a.source_id WHERE t.org_id=:org AND t.case_id=:case AND t.task_id=:task"
+                ),
+                dict(org=scope.actor.org_id, case=scope.case_id, task=task_id),
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if (
+            source is None
+            or source["authorization_status"] != "verified"
+            or not source["authorization_version"]
+            or "analysis" not in source["purpose"]
+            or (source["expires_at"] is not None and source["expires_at"].timestamp() <= time.time())
+        ):
+            raise BusinessError("OPERATION_TOKEN_STATE_CONFLICT", 409)
+        return dict(
+            asset_id=str(source["asset_id"]),
+            source_id=str(source["source_id"]),
+            authorization_version=source["authorization_version"],
+            authorization_status=source["authorization_status"],
+            purpose=sorted(source["purpose"]),
+            expires_at=source["expires_at"].isoformat() if source["expires_at"] else None,
+            row_version=int(source["row_version"]),
+        )
+
     def _approval(
         self, connection: Connection, scope: Scope, body: dict[str, Any]
     ) -> tuple[dict[str, Any], OperationTokenRule, str]:
@@ -179,7 +209,8 @@ class OperationTokens:
         ):
             raise BusinessError("OPERATION_TOKEN_INVALID", 403)
         rule = resolve_rule(self.rules, scope, dict(approval, **binding))
-        request_sha = hashlib.sha256(canonical([body, detail])).hexdigest()
+        sources = self._source_snapshot(connection, scope, UUID(binding["object_id"]))
+        request_sha = hashlib.sha256(canonical([body, detail, sources])).hexdigest()
         return detail, rule, request_sha
 
     @staticmethod

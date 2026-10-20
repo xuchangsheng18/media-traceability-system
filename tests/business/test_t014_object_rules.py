@@ -379,7 +379,7 @@ def test_policy_list_SQL_scope_and_cursor_follow_current_role_kind(permission_co
                     (uuid4(), role, permission),
                 )
         changed = client.get("/api/v1/policies", params={"limit": 1, "cursor": cursor}, headers=headers)
-        assert changed.status_code == 432
+        assert changed.status_code == 422
         assert changed.json()["code"] == "PAGE_CURSOR_INVALID"
         fresh = client.get("/api/v1/policies", params={"limit": 1}, headers=headers)
         assert fresh.status_code == 200

@@ -157,6 +157,22 @@ REQUIRED_TESTS: dict[str, dict[str, tuple[str, ...] | None]] = {
             "rule",
         ),
         "test_commit_time_revalidation_rolls_back_late_change": ("key", "rule", "approval"),
+        "test_revoked_case_membership_cannot_consume_an_issued_token": None,
+        "test_revoked_real_confirmation_role_cannot_consume_an_issued_token": None,
+        "test_revoked_synthetic_execution_assignment_cannot_consume_an_issued_token": None,
+        "test_revoked_analysis_purpose_cannot_consume_an_issued_token": None,
+        "test_issued_credential_cannot_move_between_authorized_principals": ("actor", "issuer", "subject"),
+        "test_commit_revalidation_rolls_back_current_people_source_or_result_change": (
+            "people",
+            "source_purpose",
+            "result",
+        ),
+        "test_different_valid_approval_with_same_key_has_exact_idempotency_conflict": None,
+        "test_source_version_change_without_revocation_invalidates_issued_credential": (
+            "before_consume",
+            "before_commit",
+        ),
+        "test_failed_business_write_allows_same_credential_retry_to_commit_once": None,
     },
     "tests.business.test_t016_operation_token_recovery": dict.fromkeys(
         (

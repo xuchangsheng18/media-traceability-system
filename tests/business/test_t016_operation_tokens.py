@@ -107,12 +107,14 @@ def action_target(ctx):
 
 
 @contextmanager
-def action_root(ctx, operation, target, *, generation="explicit-synthetic-fixture"):
+def action_root(ctx, operation, target, *, generation="explicit-synthetic-fixture", principal=None):
     from tests.business.http_fixtures import FixtureFence
 
     with synthetic_target(ctx, operation, target) as proof:
         with request_authorization(
-            replace(proof, recovery_generation=generation), FixtureFence(frozenset({ctx["actor"]})), mutation=True
+            replace(proof, recovery_generation=generation, principal=principal or proof.principal),
+            FixtureFence(frozenset({ctx["actor"]})),
+            mutation=True,
         ):
             yield proof
 
@@ -593,3 +595,338 @@ def test_commit_time_revalidation_rolls_back_late_change(token_context, change):
             )
     with psycopg.connect(ctx["admin_dsn"]) as admin:
         assert admin.execute("SELECT consumed_at,row_version FROM mt.operation_token").fetchone() == (None, 1)
+
+
+def assert_unconsumed_without_success_audit(ctx):
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert admin.execute("SELECT consumed_at,row_version FROM mt.operation_token").fetchone() == (None, 1)
+        assert admin.execute(
+            "SELECT count(*) FROM mt.audit_event WHERE action='operation_token.consume'"
+        ).fetchone() == (0,)
+
+
+def test_revoked_case_membership_cannot_consume_an_issued_token(token_context):
+    ctx = token_context
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert (
+            admin.execute(
+                "UPDATE mt.case_membership SET revoked_at=clock_timestamp(),row_version=row_version+1 WHERE case_id=%s AND user_id=%s",
+                (ctx["case_id"], ctx["actor"].user_id),
+            ).rowcount
+            == 1
+        )
+    db = ctx["control_app"].state.business_database
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+    assert (denied.value.code, denied.value.http_status) == ("CASE_NOT_FOUND", 404)
+    assert_unconsumed_without_success_audit(ctx)
+
+
+def test_revoked_real_confirmation_role_cannot_consume_an_issued_token(token_context, permission_context):
+    """Real SQL role qualification; the action root remains an explicit synthetic input."""
+    ctx = token_context
+    app = ctx["control_app"]
+    original_conditionals, original_fence = app.state.conditional_permissions, app.state.authorization_fence
+    current, _, _, _ = candidate(ctx, permission_context, ["operation.confirm"])
+    # Preserve the isolated action-policy version; do not claim that the real
+    # six-role seal/confirmation role conflict is resolved by this fixture.
+    app.state.conditional_permissions, app.state.authorization_fence = original_conditionals, original_fence
+    ctx["token_service"].confirmation_authority = app.state.permission_authority
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert (
+            admin.execute(
+                "UPDATE mt.user_roles SET revoked_at=clock_timestamp(),row_version=row_version+1 WHERE user_id=%s AND role_id=(SELECT role_id FROM mt.roles WHERE code='case_investigator') AND revoked_at IS NULL",
+                (ctx["actor"].user_id,),
+            ).rowcount
+            == 1
+        )
+    db = app.state.business_database
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx), principal=current["principal"]),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+    assert (denied.value.code, denied.value.http_status) == ("PERMISSION_REQUIRED", 403)
+    assert_unconsumed_without_success_audit(ctx)
+
+
+def test_revoked_synthetic_execution_assignment_cannot_consume_an_issued_token(token_context):
+    """DutyActors is a synthetic bound assignment, not a formal delegation adapter."""
+    ctx = token_context
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    duties = ctx["control_app"].state.approvals.duties
+    original = duties.assignments
+
+    class RevokedSyntheticExecutionAssignment:
+        def read(self, target, *, connection):
+            value = original.read(target, connection=connection)
+            return replace(
+                value,
+                executors=frozenset(),
+                version_digest=hashlib.sha256(b"self-owned revoked execution assignment").hexdigest(),
+            )
+
+    duties.assignments = RevokedSyntheticExecutionAssignment()
+    db = ctx["control_app"].state.business_database
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+    assert denied.value.code == "OPERATION_TOKEN_STATE_CONFLICT"
+    assert_unconsumed_without_success_audit(ctx)
+
+
+def test_revoked_analysis_purpose_cannot_consume_an_issued_token(token_context):
+    ctx = token_context
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert (
+            admin.execute(
+                "UPDATE mt.source_registry SET purpose=ARRAY['upload'],authorization_version='self-owned-purpose-revoked',row_version=row_version+1 WHERE source_id=%s",
+                (ctx["source_id"],),
+            ).rowcount
+            == 1
+        )
+    db = ctx["control_app"].state.business_database
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+    assert denied.value.code == "OPERATION_TOKEN_STATE_CONFLICT"
+    assert_unconsumed_without_success_audit(ctx)
+
+
+@pytest.mark.parametrize("change", ["actor", "issuer", "subject"])
+def test_issued_credential_cannot_move_between_authorized_principals(token_context, change):
+    """Synthetic independently authorized callers still cannot transfer a credential."""
+    ctx = token_context
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    caller = dict(ctx)
+    if change == "actor":
+        caller["actor"] = ctx["reviewers"][0]  # A real member of this same isolated case.
+    db = ctx["control_app"].state.business_database
+    with synthetic_target(caller, "sealEvidence", action_target(caller)) as base:
+        principal = base.principal
+    if change == "issuer":
+        principal = replace(principal, issuer="https://another-identity.example.test")
+    elif change == "subject":
+        principal = replace(principal, subject="self-owned-other-subject")
+    with (
+        action_root(caller, "sealEvidence", action_target(caller), principal=principal),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(caller["actor"], caller["case_id"])) as connection,
+    ):
+        consume(caller, response.json()["operation_token"], connection)
+    assert denied.value.code == ("OPERATION_TOKEN_INVALID" if change == "actor" else "OPERATION_TOKEN_STATE_CONFLICT")
+    assert_unconsumed_without_success_audit(ctx)
+
+
+@pytest.mark.parametrize("change", ["people", "source_purpose", "result"])
+def test_commit_revalidation_rolls_back_current_people_source_or_result_change(token_context, change):
+    ctx = token_context
+    extend_synthetic_freshness(ctx)
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    db = ctx["control_app"].state.business_database
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        original_display = admin.execute(
+            "SELECT display_code FROM mt.cases WHERE case_id=%s", (ctx["case_id"],)
+        ).fetchone()
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+        connection.execute(
+            text("UPDATE mt.cases SET display_code='self-owned-must-rollback' WHERE case_id=:id"),
+            dict(id=ctx["case_id"]),
+        )
+        if change == "people":
+            duties = ctx["control_app"].state.approvals.duties
+            original_people = duties.people
+            replacement = uuid4()
+
+            class ChangedPerson:
+                def resolve(self, actor):
+                    value = original_people.resolve(actor)
+                    return replace(value, person_id=replacement) if actor == ctx["actor"] else value
+
+            duties.people = ChangedPerson()
+        elif change == "source_purpose":
+            # The commit check must see its own transaction's source change;
+            # a separate authorizer connection alone would still see the old row.
+            assert (
+                connection.execute(
+                    text(
+                        "UPDATE mt.source_registry SET purpose=ARRAY['upload'],row_version=row_version+1 WHERE source_id=:id"
+                    ),
+                    dict(id=ctx["source_id"]),
+                ).rowcount
+                == 1
+            )
+        else:
+            import json
+
+            from business_app.history.repository import CURRENT_SCHEMA, canonical
+
+            value = snapshot(ctx, 1, 2)
+            ctx["app"].state.result_repository.validate_snapshot(value)
+            # A valid self-owned result snapshot appended in the same root must
+            # invalidate the old approved result and roll back with consumption.
+            connection.execute(
+                text(
+                    "INSERT INTO mt.task_result(result_id,org_id,case_id,task_id,run_version,result_version,sha256,policy_version,summary,created_by) VALUES(:id,:org,:case,:task,1,2,:sha,'policy-dev-1',CAST(:summary AS jsonb),:actor)"
+                ),
+                dict(
+                    id=uuid4(),
+                    org=ctx["actor"].org_id,
+                    case=ctx["case_id"],
+                    task=ctx["task_id"],
+                    sha=hashlib.sha256(canonical(value)).hexdigest(),
+                    summary=json.dumps(dict(snapshot_schema_id=CURRENT_SCHEMA, snapshot=value)),
+                    actor=ctx["actor"].user_id,
+                ),
+            )
+    assert denied.value.code == "OPERATION_TOKEN_STATE_CONFLICT"
+    assert_unconsumed_without_success_audit(ctx)
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert (
+            admin.execute("SELECT display_code FROM mt.cases WHERE case_id=%s", (ctx["case_id"],)).fetchone()
+            == original_display
+        )
+        assert admin.execute(
+            "SELECT max(result_version) FROM mt.task_result WHERE task_id=%s", (ctx["task_id"],)
+        ).fetchone() == (1,)
+
+
+def test_different_valid_approval_with_same_key_has_exact_idempotency_conflict(token_context):
+    ctx = token_context
+    other = request_approval(ctx, purpose="seal")
+    approve(ctx, other)
+    extend_synthetic_freshness(ctx)
+    first = issue(ctx)
+    assert first.status_code == 200, first.json()
+    changed = issue(ctx, body=dict(ctx["token_body"], approval_id=other))
+    assert (changed.status_code, changed.json()["code"]) == (409, "IDEMPOTENCY_CONFLICT")
+    assert issue(ctx).json() == first.json()
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert admin.execute("SELECT count(*) FROM mt.operation_token").fetchone() == (1,)
+        assert admin.execute("SELECT count(*) FROM mt.audit_event WHERE action='operation_token.issue'").fetchone() == (
+            1,
+        )
+
+
+@pytest.mark.parametrize("stage", ["before_consume", "before_commit"])
+def test_source_version_change_without_revocation_invalidates_issued_credential(token_context, stage):
+    ctx = token_context
+    extend_synthetic_freshness(ctx)
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    if stage == "before_consume":
+        with psycopg.connect(ctx["admin_dsn"]) as admin:
+            assert (
+                admin.execute(
+                    "UPDATE mt.source_registry SET authorization_version='self-owned-renewed-version',row_version=row_version+1 WHERE source_id=%s",
+                    (ctx["source_id"],),
+                ).rowcount
+                == 1
+            )
+            current_source = admin.execute(
+                "SELECT authorization_status,purpose FROM mt.source_registry WHERE source_id=%s",
+                (ctx["source_id"],),
+            ).fetchone()
+            assert current_source is not None
+            status, purposes = current_source
+            assert status == "verified" and "analysis" in purposes
+    db = ctx["control_app"].state.business_database
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+        if stage == "before_commit":
+            assert (
+                connection.execute(
+                    text(
+                        "UPDATE mt.source_registry SET authorization_version='self-owned-renewed-version',row_version=row_version+1 WHERE source_id=:id"
+                    ),
+                    dict(id=ctx["source_id"]),
+                ).rowcount
+                == 1
+            )
+            status, purposes = connection.execute(
+                text("SELECT authorization_status,purpose FROM mt.source_registry WHERE source_id=:id"),
+                dict(id=ctx["source_id"]),
+            ).one()
+            assert status == "verified" and "analysis" in purposes
+    assert denied.value.code == "OPERATION_TOKEN_STATE_CONFLICT"
+    assert_unconsumed_without_success_audit(ctx)
+    if stage == "before_commit":
+        with psycopg.connect(ctx["admin_dsn"]) as admin:
+            assert admin.execute(
+                "SELECT authorization_version FROM mt.source_registry WHERE source_id=%s", (ctx["source_id"],)
+            ).fetchone() == ("test-version-1",)
+
+
+def test_failed_business_write_allows_same_credential_retry_to_commit_once(token_context):
+    ctx = token_context
+    extend_synthetic_freshness(ctx)
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    db = ctx["control_app"].state.business_database
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        original_display = admin.execute(
+            "SELECT display_code FROM mt.cases WHERE case_id=%s", (ctx["case_id"],)
+        ).fetchone()
+    scope = Scope(ctx["actor"], ctx["case_id"])
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(RuntimeError, match="self-owned write failure"),
+        db.transaction(scope) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+        connection.execute(
+            text("UPDATE mt.cases SET display_code='self-owned-failed-write' WHERE case_id=:id"), dict(id=scope.case_id)
+        )
+        raise RuntimeError("self-owned write failure")
+    assert_unconsumed_without_success_audit(ctx)
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert (
+            admin.execute("SELECT display_code FROM mt.cases WHERE case_id=%s", (scope.case_id,)).fetchone()
+            == original_display
+        )
+    with action_root(ctx, "sealEvidence", action_target(ctx)), db.transaction(scope) as connection:
+        consume(ctx, response.json()["operation_token"], connection)
+        connection.execute(
+            text("UPDATE mt.cases SET display_code='self-owned-retry-committed' WHERE case_id=:id"),
+            dict(id=scope.case_id),
+        )
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert admin.execute("SELECT consumed_at IS NOT NULL,row_version FROM mt.operation_token").fetchone() == (
+            True,
+            2,
+        )
+        assert admin.execute(
+            "SELECT count(*) FROM mt.audit_event WHERE action='operation_token.consume'"
+        ).fetchone() == (1,)
+        assert admin.execute("SELECT display_code FROM mt.cases WHERE case_id=%s", (scope.case_id,)).fetchone() == (
+            "self-owned-retry-committed",
+        )
