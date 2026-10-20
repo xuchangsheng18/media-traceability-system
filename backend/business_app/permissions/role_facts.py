@@ -3,11 +3,12 @@
 import hashlib
 import json
 import math
-from collections.abc import Callable, Mapping
+from collections.abc import Callable
 from typing import Any
 from uuid import UUID
 
 from sqlalchemy import Connection, text
+from sqlalchemy.engine import RowMapping
 from sqlalchemy.exc import SQLAlchemyError
 
 from ..db import Database
@@ -28,7 +29,7 @@ class RoleDirectory:
 
     def _query(
         self, connection: Connection, principal: Principal, permission: str, transaction: bool
-    ) -> Mapping[str, Any] | None:
+    ) -> RowMapping | None:
         group = "mt_runtime" if transaction else "mt_permission_lookup"
         forbidden = "mt_permission_lookup" if transaction else "mt_runtime"
         unsafe = connection.execute(
@@ -63,7 +64,7 @@ class RoleDirectory:
             .one_or_none()
         )
 
-    def _parse(self, row: Mapping[str, Any] | None, principal: Principal, permission: str) -> RoleFacts:
+    def _parse(self, row: RowMapping | None, principal: Principal, permission: str) -> RoleFacts:
         if row is None:
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
         if (
