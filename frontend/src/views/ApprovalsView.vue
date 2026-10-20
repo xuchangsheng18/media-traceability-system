@@ -175,9 +175,33 @@ async function decide() {
       <dd>{{ selected.approval.state }} / {{ selected.approval.version }}</dd>
       <dt>用途</dt>
       <dd>{{ selected.approval.purpose }}</dd>
+      <dt>案件</dt>
+      <dd>{{ selected.binding.case_id }}</dd>
+      <dt>实际审批对象／版本</dt>
+      <dd>
+        {{ selected.binding.object_type }} · {{ selected.binding.object_id }} /
+        {{ selected.approval.object_version }}
+      </dd>
+      <dt>申请人</dt>
+      <dd>{{ selected.binding.requested_by }}</dd>
+      <dt>规则版本</dt>
+      <dd>{{ selected.approval.policy_version }}</dd>
+      <dt>运行／结果版本</dt>
+      <dd>
+        {{ selected.approval.run_version ?? '不适用' }} /
+        {{ selected.approval.result_version ?? '不适用' }}
+      </dd>
       <dt>有效期</dt>
       <dd>{{ selected.approval.expires_at || '未签发' }}</dd>
     </dl>
+    <ul v-if="selected">
+      <li
+        v-for="record in selected.decisions"
+        :key="record.decision_id"
+      >
+        {{ record.created_at }} · {{ record.actor_id }} · {{ record.decision }}：{{ record.reason }}
+      </li>
+    </ul>
   </section>
   <section>
     <h3>登记申请</h3>

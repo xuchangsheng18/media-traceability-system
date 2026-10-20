@@ -12,6 +12,9 @@
 
 2026-10-21后续核对：本计划P01—P07的原隔离完成记录保留；后续T015及前后端开发、当前CI与启动边界见[本批验证](../00-project/validation/development-continuation-report.json)。不把后续代码的CI状态倒写为原计划结论。
 
+
+2026-10-21续批复核：已确认的PR01/PR02/PR04继续沿本计划P01—P07实施成果；当前默认拒绝前后端、会话代际、连接目标和历史派生输入修复见本批验证。下一项T016方案见[operation_token实施计划](t016-operation-token-implementation-plan.md)；该方案及T001—T123范围登记不代表后续任务已开发完成。
+
 ## Global Constraints
 
 - PR01：六角色×41权限共246格，72格为带条件的候选功能来源、174格无角色授权来源；无角色授权的格不能生成ALLOW。兼任时按可信完整角色集合与职责冲突计算，不能由HTTP头任选角色。

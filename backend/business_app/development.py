@@ -2,17 +2,38 @@
 
 import json
 import os
+from dataclasses import replace
 from pathlib import Path
 
 import psycopg
 from fastapi import FastAPI
-from psycopg.conninfo import conninfo_to_dict
+from psycopg.conninfo import conninfo_to_dict, make_conninfo
 
 from .contracts import ROOT
 from .identity.config import private_file
 from .identity.tokens import unique_object
 from .main import create_app
 from .settings import BusinessSettings, load_business_settings
+
+
+def isolated_loopback_dsn(value: str) -> str:
+    target = conninfo_to_dict(value)
+    host, port = target.get("host"), target.get("port", "")
+    address = target.get("hostaddr")
+    if (
+        host not in {"127.0.0.1", "localhost", "::1"}
+        or not isinstance(port, str)
+        or not port.isascii()
+        or not port.isdigit()
+        or not 1 <= int(port) <= 65535
+        or "service" in target
+        or (address is not None and address not in {"127.0.0.1", "::1"})
+        or (address is not None and host != "localhost" and address != host)
+    ):
+        raise ValueError("EXPLICIT_ISOLATED_LOOPBACK_TEST_INSTANCE_REQUIRED")
+    # libpq PGHOSTADDR overrides DNS even when host is explicitly set. Pin the
+    # actual numeric address, rather than trusting the displayed host alone.
+    return make_conninfo(value, hostaddr=address or ("::1" if host == "::1" else "127.0.0.1"))
 
 
 def load_development_settings(path: Path) -> BusinessSettings:
@@ -24,18 +45,17 @@ def load_development_settings(path: Path) -> BusinessSettings:
         if not isinstance(values, dict) or set(values) != {"business_environment"}:
             raise ValueError()
         settings = load_business_settings(values["business_environment"])
-        target = conninfo_to_dict(settings.database_dsn)
+        dsn = isolated_loopback_dsn(settings.database_dsn)
+        target = conninfo_to_dict(dsn)
         database = target.get("dbname")
         if (
             settings.runtime_profile != "development"
             or not settings.object_root.resolve().is_relative_to(root.resolve())
             or not isinstance(database, str)
             or not database.startswith("mt_business_preview_")
-            or target.get("host") not in {"127.0.0.1", "localhost", "::1"}
-            or not target.get("port")
         ):
             raise ValueError()
-        return settings
+        return replace(settings, database_dsn=dsn)
     except Exception:
         raise RuntimeError("EXPLICIT_PRIVATE_ISOLATED_DEVELOPMENT_CONFIGURATION_REQUIRED") from None
 

@@ -219,7 +219,9 @@ class ScopedObjects:
         if len(rows) != 1:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         item = rows[0]
-        require_resource(connection, scope, "asset", item["asset_id"])
+        # Exact history binds the requested asset through the result projection.
+        if binding.kind != "history_input" or task is None or task.result_version is None:
+            require_resource(connection, scope, "asset", item["asset_id"])
         if (item["object_id"], item["sha256"]) != (reference.object_id, reference.sha256):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if item["size_bytes"] != self._registered(connection, scope, reference):

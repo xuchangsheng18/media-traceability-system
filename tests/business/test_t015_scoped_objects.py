@@ -18,6 +18,8 @@ from business_app.scope_context import current_data_scope
 from business_app.types import ObjectRef, Scope
 from psycopg.types.json import Jsonb
 
+from tests.business.history_fixtures import snapshot
+from tests.business.scoped_history_fixtures import append_synthetic_snapshot
 from tests.business.t014_positive_fixtures import candidate
 from tests.business.test_controls import AUTH, export_fixture
 from tests.business.test_controls import control_context as control_context
@@ -107,6 +109,124 @@ def test_same_case_task_input_cannot_swap_asset_or_immutable_version(control_con
         binding = ResourceBinding("media_input", UUID(str(other["asset_id"])), task=TaskBinding(ctx["task_id"], 1, 1))
         with pytest.raises(BusinessError):
             b"".join(port.read(connection, current_data_scope(), binding, reference))
+    assert spy.reads == 0
+
+
+def timeline_with_derived_input(ctx, *, new_source=False):
+    derived = another_history(ctx, new_source=new_source)
+    stored = ctx["app"].state.upload_service.store.put_part(
+        Scope(ctx["actor"], ctx["case_id"]), uuid4(), 1, io.BytesIO(b"self-owned derived timeline input")
+    )
+    asset = uuid4()
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        admin.execute(
+            "INSERT INTO mt.object_version(object_id,org_id,case_id,bucket_alias,object_key,version_id,sha256,size_bytes,created_by) VALUES(%s,%s,%s,'private-development-files',%s,%s,%s,%s,%s)",
+            (
+                stored.ref.object_id,
+                ctx["actor"].org_id,
+                ctx["case_id"],
+                str(stored.ref.object_id) + "/" + stored.ref.version_id,
+                stored.ref.version_id,
+                stored.ref.sha256,
+                stored.size_bytes,
+                ctx["actor"].user_id,
+            ),
+        )
+        admin.execute(
+            "INSERT INTO mt.media_asset(asset_id,org_id,case_id,content_id,source_id,object_id,sha256,mime,size_bytes,kind,parent_asset_id,mapping_version,state,created_by) SELECT %s,org_id,case_id,content_id,%s,%s,%s,'application/octet-stream',%s,'derived',asset_id,'synthetic-derived/1','VALID',created_by FROM mt.media_asset WHERE asset_id=%s",
+            (
+                asset,
+                derived["source_id"],
+                stored.ref.object_id,
+                stored.ref.sha256,
+                stored.size_bytes,
+                UUID(str(ctx["asset_id"])),
+            ),
+        )
+    derived = dict(
+        derived,
+        asset_id=str(asset),
+        input_ref=dict(object_id=str(stored.ref.object_id), version_id=stored.ref.version_id, sha256=stored.ref.sha256),
+    )
+    current = snapshot(ctx, 2)
+    current["input_refs"].append(derived["input_ref"])
+    append_synthetic_snapshot(ctx, current)
+    return derived
+
+
+def test_timeline_reads_primary_and_derived_snapshot_inputs(control_context):
+    ctx = control_context
+    timeline_with_derived_input(ctx)
+    selections = [
+        {},
+        {"history[task_id]": str(ctx["task_id"]), "history[run_version]": "2", "history[result_version]": "1"},
+    ]
+    for selection in selections:
+        response = ctx["control_http"].get(f"/api/v1/assets/{ctx['asset_id']}/timeline", params=selection, headers=AUTH)
+        assert response.status_code == 200, response.text
+        assert response.json() == {
+            "asset_id": str(ctx["asset_id"]),
+            "mapping_version": "test-persistence-only/1",
+            "items": [],
+        }
+        assert response.headers["X-Task-Id"] == str(ctx["task_id"])
+        assert response.headers["X-Run-Version"] == "2"
+        assert response.headers["X-Result-Version"] == "1"
+
+
+@pytest.mark.parametrize(
+    ("defect", "expected_status"),
+    [
+        ("input", 503),
+        ("projection", 404),
+        ("task", 404),
+        ("result", 404),
+        ("source", 403),
+        ("task_only", 503),
+        ("run_only", 503),
+    ],
+)
+def test_timeline_derived_input_keeps_exact_history_and_source_boundaries(control_context, defect, expected_status):
+    ctx = control_context
+    derived = timeline_with_derived_input(ctx, new_source=defect == "source")
+    task, run, result = ctx["task_id"], 2, 1
+    target_asset = UUID(str(ctx["asset_id"]))
+    if defect == "input":
+        run = 1  # This exact result contains only the primary input.
+    elif defect == "projection":
+        target_asset = UUID(str(derived["asset_id"]))
+    elif defect == "task":
+        task, run = derived["task_id"], 1
+    elif defect == "result":
+        result = 2
+    elif defect == "source":
+        with psycopg.connect(ctx["admin_dsn"]) as admin:
+            admin.execute(
+                "UPDATE mt.source_registry SET purpose=ARRAY['upload'] WHERE source_id=%s",
+                (derived["source_id"],),
+            )
+    task_binding = TaskBinding(task, run, result)
+    if defect == "task_only":
+        task_binding = TaskBinding(task)
+    elif defect == "run_only":
+        task_binding = TaskBinding(task, run)
+    spy = SpyStore(ctx["app"].state.upload_service.store)
+    port = scoped_objects()(spy, ctx["authority"])
+    target = RuleTarget(ctx["actor"].org_id, "asset", target_asset, None, ctx["case_id"], None, None)
+    with (
+        synthetic_target(ctx, "getTimeline", target),
+        ctx["database"].transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        with pytest.raises(BusinessError) as denied:
+            b"".join(
+                port.read(
+                    connection,
+                    current_data_scope(),
+                    ResourceBinding("history_input", UUID(derived["input_ref"]["object_id"]), task=task_binding),
+                    ref(derived["input_ref"]),
+                )
+            )
+        assert denied.value.http_status == expected_status
     assert spy.reads == 0
 
 

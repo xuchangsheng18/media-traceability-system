@@ -442,6 +442,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [09-testing/t015-data-scope-coverage.json](<09-testing/t015-data-scope-coverage.json>) | 可机器核验的64表分类、12类调用/具体测试、精确源码摘要及31未挂载清单；目录、DAO/HTTP和对象字节验证不混算。 |
 | [04-database/data-scope-migration.md](<04-database/data-scope-migration.md>) | 0010数据范围增量、64表分类、三种事务、15种固定元数据及7项函数/ACL；说明实际代码、验证和共享采用边界。 |
 | [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；各步骤按实际证据勾选，未执行项不预填通过。 |
+| [03-development/t016-operation-token-implementation-plan.md](<03-development/t016-operation-token-implementation-plan.md>) | T016下一批案件级一次性令牌签发与同事务消费计划；列幂等秘密、精确动作绑定、增量迁移、43/30目录及消费者契约差异；计划存在不代表代码完成或正式采用。 |
 | [00-project/validation/t015-implementation-plan-review.json](<00-project/validation/t015-implementation-plan-review.json>) | T015计划覆盖、自查、精确获审版本及本人批准；批准与代码实施、测试、验收分别登记，原1009测试模块保留。 |
 | [00-project/validation/t014-final-document-ci-observation.json](<00-project/validation/t014-final-document-ci-observation.json>) | 3ff文档提交的镜像下载失败与同提交重跑观测；历史代码通过、当前运行和后续提交CI分别记录，不伪称最终通过。 |
 | [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划亦已获准；代码实际子范围以逐项进度为准，不当整卡验收。 |
@@ -612,7 +613,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1217份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1218份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1669,6 +1670,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t015-data-scope-design.md](<03-development/t015-data-scope-design.md>) | T015本人已批准的三种数据范围、增量RLS、对象/导出绑定及测试设计；实际代码、验证和未完成项以逐项进度为准。 |
 | [03-development/t015-data-scope-implementation-decisions.md](<03-development/t015-data-scope-implementation-decisions.md>) | 说明文档：T015数据范围隔离实施裁定；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；各步骤按实际证据勾选，未执行项不预填通过。 |
+| [03-development/t016-operation-token-implementation-plan.md](<03-development/t016-operation-token-implementation-plan.md>) | T016下一批案件级一次性令牌签发与同事务消费计划；列幂等秘密、精确动作绑定、增量迁移、43/30目录及消费者契约差异；计划存在不代表代码完成或正式采用。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |

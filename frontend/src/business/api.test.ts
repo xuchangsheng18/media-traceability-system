@@ -114,6 +114,93 @@ test('a changed identity cannot retain the previous user or privileges on connec
   expect(session.state.busy).toBe(false)
 })
 
+test.each(['cancelled', 'late'])(
+  'an old 401 body cannot disconnect a new identity when body reading is %s',
+  async (bodyReading) => {
+    const session = createBusinessSession()
+    const newUserId = '10000000-0000-4000-8000-000000000002'
+    let finishOldBody!: () => void
+    let markBodyStarted!: () => void
+    const bodyStarted = new Promise<void>((resolve) => {
+      markBodyStarted = resolve
+    })
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (url: string, options: RequestInit) => {
+        if (url.endsWith('/auth/me')) {
+          const newIdentity =
+            new Headers(options.headers).get('Authorization') === 'Bearer self-owned-new-token'
+          return Response.json({
+            user_id: newIdentity ? newUserId : '10000000-0000-4000-8000-000000000001',
+            org_id: '20000000-0000-4000-8000-000000000001',
+            permissions: ['audit.read'],
+            roles: ['auditor'],
+            case_ids: [],
+          })
+        }
+        if (!url.endsWith('/audit/events')) throw new Error('Unexpected test request')
+        const stream = new ReadableStream<Uint8Array>({
+          start(controller) {
+            finishOldBody = () => {
+              controller.enqueue(new TextEncoder().encode('{"code":"AUTHENTICATION_REQUIRED"}'))
+              controller.close()
+            }
+            if (bodyReading === 'cancelled')
+              options.signal?.addEventListener(
+                'abort',
+                () => controller.error(new DOMException('Aborted', 'AbortError')),
+                { once: true },
+              )
+          },
+        })
+        const response = new Response(stream, { status: 401 })
+        const readJson = response.json.bind(response)
+        response.json = () => {
+          markBodyStarted()
+          return readJson()
+        }
+        return response
+      }),
+    )
+    await session.connect('self-owned-old-token')
+    const oldOutcome = session.call('/audit/events').catch((error: unknown) => error)
+    await bodyStarted
+
+    await session.connect('self-owned-new-token')
+    if (bodyReading === 'late') finishOldBody()
+
+    expect(await oldOutcome).toBeInstanceOf(Error)
+    expect(session.state.user?.user_id).toBe(newUserId)
+    expect(session.has('audit.read')).toBe(true)
+    expect(session.state.busy).toBe(false)
+  },
+)
+
+test('a current identity 401 still clears its user and privileges', async () => {
+  const session = createBusinessSession()
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (url: string) =>
+      url.endsWith('/auth/me')
+        ? Response.json({
+            user_id: '10000000-0000-4000-8000-000000000001',
+            org_id: '20000000-0000-4000-8000-000000000001',
+            permissions: ['audit.read'],
+            roles: ['auditor'],
+            case_ids: [],
+          })
+        : Response.json({ code: 'AUTHENTICATION_REQUIRED' }, { status: 401 }),
+    ),
+  )
+  await session.connect('self-owned-current-token')
+  expect(session.has('audit.read')).toBe(true)
+
+  await expect(session.call('/audit/events')).rejects.toMatchObject({ status: 401 })
+
+  expect(session.state.user).toBeNull()
+  expect(session.has('audit.read')).toBe(false)
+})
+
 test('case and cursor are encoded as query fields rather than path fragments', () => {
   const id = '10000000-0000-4000-8000-000000000001'
   expect(pageQuery(id, 20, 'a+b/c=')).toBe(`case_id=${id}&limit=20&cursor=a%2Bb%2Fc%3D`)

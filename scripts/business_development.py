@@ -11,7 +11,7 @@ from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
-from business_app.development import load_development_settings  # noqa: E402
+from business_app.development import isolated_loopback_dsn, load_development_settings  # noqa: E402
 from business_app.identity.config import private_file  # noqa: E402
 from business_migrations.runner import apply_migrations  # noqa: E402
 
@@ -29,13 +29,9 @@ def prepare(directory: Path, admin_config: Path) -> dict[str, object]:
         or admin_config.name != "business-test-postgres-private.json"
     ):
         raise RuntimeError("NEW_PRIVATE_ISOLATED_DIRECTORY_AND_TEST_ADMIN_CONFIG_REQUIRED")
-    admin_dsn = json.loads(private_file(admin_config, admin_config.parent))["admin_dsn"]
+    admin_dsn = isolated_loopback_dsn(json.loads(private_file(admin_config, admin_config.parent))["admin_dsn"])
     target = conninfo_to_dict(admin_dsn)
-    if (
-        target.get("host") not in {"127.0.0.1", "localhost", "::1"}
-        or not target.get("port")
-        or target.get("dbname") == "media_trace_poc"
-    ):
+    if target.get("dbname") == "media_trace_poc":
         raise RuntimeError("EXPLICIT_ISOLATED_LOOPBACK_TEST_INSTANCE_REQUIRED")
     identifier = uuid4().hex
     database = "mt_business_preview_" + identifier

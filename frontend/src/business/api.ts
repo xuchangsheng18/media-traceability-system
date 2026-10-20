@@ -63,6 +63,7 @@ export class BusinessClient {
       if (version !== this.generation) throw new Error('身份已切换，请重新查询')
       if (!response.ok) {
         const problem = await response.json().catch(() => ({}))
+        if (version !== this.generation) throw new Error('身份已切换，请重新查询')
         const code =
           typeof problem.code === 'string' && /^[A-Z][A-Z0-9_]{0,95}$/.test(problem.code)
             ? problem.code

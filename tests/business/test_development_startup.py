@@ -15,7 +15,10 @@ def test_development_factory_requires_an_explicit_private_config(monkeypatch):
         create_development_app()
 
 
-@pytest.mark.parametrize("defect", ["remote", "poc", "production", "public_file", "public_directory", "extra_key"])
+@pytest.mark.parametrize(
+    "defect",
+    ["remote", "remote_hostaddr", "service", "poc", "production", "public_file", "public_directory", "extra_key"],
+)
 def test_development_configuration_never_falls_back_to_a_shared_target(tmp_path, defect):
     folder = tmp_path / "private"
     folder.mkdir(mode=0o700)
@@ -30,6 +33,10 @@ def test_development_configuration_never_falls_back_to_a_shared_target(tmp_path,
     }
     if defect == "remote":
         values["MT_BUSINESS_DATABASE_DSN"] = values["MT_BUSINESS_DATABASE_DSN"].replace("127.0.0.1", "192.0.2.1")
+    elif defect == "remote_hostaddr":
+        values["MT_BUSINESS_DATABASE_DSN"] += " hostaddr=192.0.2.1"
+    elif defect == "service":
+        values["MT_BUSINESS_DATABASE_DSN"] += " service=implicit-target"
     elif defect == "poc":
         values["MT_BUSINESS_DATABASE_DSN"] = values["MT_BUSINESS_DATABASE_DSN"].replace(
             "mt_business_preview_test", "media_trace_poc"
@@ -46,6 +53,46 @@ def test_development_configuration_never_falls_back_to_a_shared_target(tmp_path,
         folder.chmod(0o755)
     with pytest.raises(RuntimeError, match="EXPLICIT_PRIVATE_ISOLATED_DEVELOPMENT_CONFIGURATION_REQUIRED"):
         load_development_settings(path)
+
+
+def test_development_configuration_pins_loopback_against_libpq_environment(tmp_path, monkeypatch):
+    from psycopg.conninfo import conninfo_to_dict
+
+    folder = tmp_path / "private"
+    folder.mkdir(mode=0o700)
+    values = {
+        "MT_BUSINESS_DATABASE_DSN": "host=127.0.0.1 port=35432 dbname=mt_business_preview_test user=not_connected",
+        "MT_BUSINESS_OBJECT_ROOT": str(folder / "objects"),
+        "MT_BUSINESS_MAX_UPLOAD_BYTES": "1048576",
+        "MT_BUSINESS_PART_SIZE_BYTES": "256000",
+        "MT_BUSINESS_UPLOAD_TTL_SECONDS": "3600",
+        "MT_BUSINESS_CURSOR_SECRET": "self-owned-private-config-test-0000000000000000",
+    }
+    path = folder / "config.json"
+    path.write_text(json.dumps({"business_environment": values}))
+    path.chmod(0o600)
+    monkeypatch.setenv("PGHOSTADDR", "192.0.2.1")
+    target = conninfo_to_dict(load_development_settings(path).database_dsn)
+    assert target["hostaddr"] == "127.0.0.1"
+
+
+@pytest.mark.parametrize("override", ["hostaddr=192.0.2.1", "service=implicit-target"])
+def test_prepare_rejects_an_overridden_target_before_any_connection(tmp_path, monkeypatch, override):
+    import psycopg
+
+    from scripts.business_development import prepare
+
+    folder = tmp_path / "private"
+    folder.mkdir(mode=0o700)
+    config = folder / "business-test-postgres-private.json"
+    config.write_text(json.dumps({"admin_dsn": "host=127.0.0.1 port=35432 dbname=postgres " + override}))
+    config.chmod(0o600)
+    calls = []
+    monkeypatch.setattr(psycopg, "connect", lambda *args, **kwargs: calls.append(True))
+    with pytest.raises(ValueError, match="EXPLICIT_ISOLATED_LOOPBACK_TEST_INSTANCE_REQUIRED"):
+        prepare(folder / "new-instance", config)
+    assert calls == []
+    assert not (folder / "new-instance").exists()
 
 
 def test_development_factory_uses_real_least_privilege_DB_and_never_installs_mock_authority(

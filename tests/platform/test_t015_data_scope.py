@@ -129,6 +129,7 @@ def test_unknown_mode_kind_operation_and_boolean_versions_are_rejected(change):
 @pytest.mark.parametrize(
     "kind,identifier",
     [("analysis_task;DROP TABLE mt.users", TASK), ("unknown", TASK), ("task", UUID(int=0)), ("task", str(TASK))],
+    ids=["sql-injection-kind", "unknown-kind", "zero-id", "string-id"],
 )
 def test_lookup_key_cannot_name_a_table_or_coerce_an_id(kind, identifier):
     module, _ = api()
