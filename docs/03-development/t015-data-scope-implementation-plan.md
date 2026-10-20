@@ -8,7 +8,7 @@
 
 **Tech Stack:** 当前Linux、Miniforge Python3.10.22、FastAPI、SQLAlchemy/psycopg、PostgreSQL16、pytest和既有独立Ruff/mypy工具；保持原100包锁与当前Node锁。Python3.13／3.12候选继续暂缓。
 
-**Spec:** [T015已获准书面设计](t015-data-scope-design.md)。本人原话“认可书面设计，编制实施计划”，所审阅版本SHA256为`600c07c45271d759a5e1e10ed0a7bbe748311b24dcb3cd4c09bd2165c84888a7`；批准记录见[设计审阅](../00-project/validation/t015-written-design-review.json)。原[T015](../../tasks/platform/T015.md)、[依赖实核](../00-project/validation/t015-dependency-preflight.json)和[负责人确认](../00-project/validation/t015-role-assignment.json)同时适用。**计划状态：PENDING_USER_REVIEW；P01—P07均未实施。**
+**Spec:** [T015已获准书面设计](t015-data-scope-design.md)。本人原话“认可书面设计，编制实施计划”，所审阅版本SHA256为`600c07c45271d759a5e1e10ed0a7bbe748311b24dcb3cd4c09bd2165c84888a7`；批准记录见[设计审阅](../00-project/validation/t015-written-design-review.json)。原[T015](../../tasks/platform/T015.md)、[依赖实核](../00-project/validation/t015-dependency-preflight.json)和[负责人确认](../00-project/validation/t015-role-assignment.json)同时适用。**计划已获本人批准：认可P01—P07，按当前会话直接实施。P01—P07当前实际进度以逐项执行证据为准，不预填完成。**
 
 ## Global Constraints
 
@@ -177,4 +177,4 @@
 
 自查要求：接口名/参数以上文定义为准；P03/P04不直接构造客户端范围；授权前LOOKUP与授权后持锁事实投影语义一致；原件/公开契约/锁/旧迁移不变；所有步骤一个可核对动作。不存在以“适当检查”替代精确失败条件，也没有预填测试通过。计划只增加资料，不增加完成子步骤、账号或权限。
 
-需要本人审阅的是本计划P01—P07及限定隔离执行范围。执行方式沿用当前会话直接实施；收到本计划审阅确认后才进入代码。正式分类/用途和权威映射未提供时保持拒绝；本计划不要求现在提供秘密或重复A01—A07，T013实际备份恢复/退役另行准备。
+本人已明确回复“认可P01—P07，按当前会话直接实施”；仅按本计划的限定隔离范围实施，逐项保留TDD和实际验证证据。正式分类/用途和权威映射未提供时保持拒绝；本计划不要求现在提供秘密或重复A01—A07，T013实际备份恢复/退役另行准备。
