@@ -1,6 +1,12 @@
 # T014逐操作隔离验证范围
 
-2026-10-21增量：当前代码挂载43个契约操作、30个未挂载；T016签发已有完整六角色链的隔离HTTP正例。最新完整门禁结论从[阶段进度](../00-project/validation/t016-development-progress.json)及其指向的actual报告读取，本页不独立宣告通过，也不将其描述为永久“未执行”。原完整隔离回归结果继续作为下述旧源码快照的证据保留。
+<!-- T016_NATIVE_FINAL_EVIDENCE -->
+
+已核验的原生隔离源码为`b1b79bfb32b7959e63f302bbef22d32e22dc0b8f`：[T014实际报告](../00-project/validation/t014-permissions-report.json)713项、[T015实际报告](../00-project/validation/t015-data-scope-report.json)131项、[T016实际报告](../00-project/validation/t016-operation-token-report.json)187项，均无失败、错误或跳过；三个独立故障探针均按预期识别断言失败，Ruff、格式和mypy检查通过。三套用例有重叠，数量不相加为唯一测试数或170项任务完成数。此结论限Linux／py310／CPU隔离研发，不是正式验收。
+
+托管CI另计：最后观察为run`39478665682`、提交`1b76a46ad52d9f67f549ee59da685ab79e6b9265`，身份检查332项通过，engineering仍在运行；不宣称最终源码的托管CI通过。后续状态与精确报告摘要以[阶段进度](../00-project/validation/t016-development-progress.json)及其最新actual记录为准，源码同步、数据库采用和正式授权分别登记。
+
+2026-10-21增量：当前代码挂载43个契约操作、30个未挂载；T016签发已有完整六角色链的隔离HTTP正例。上方原生通过结论绑定明确源码，后续完整门禁及CI状态从[阶段进度](../00-project/validation/t016-development-progress.json)及其actual报告读取，不扩展成正式授权或整任务验收。原完整隔离回归结果继续作为下述旧源码快照的证据保留。
 
 以[机器清单](t014-isolated-operation-coverage.json)的实际JUnit行和源码为依据：原快照为73契约操作中42已挂载、31未挂载，原1009项回归与旧nodeid不改写。JSON的`t016_increment`单列当前43／30及最新结论的权威入口；原`full_current_revision_verified`只描述其`verified_code_commit`，不表示当前HEAD已全量通过。246格是纯角色资格逻辑，不是246个HTTP允许场景。原拒绝反例检查全部64张mt表和对象字节，机构/服务权威输入为显式合成测试适配器；不登记正式业务授权或整任务验收。
 

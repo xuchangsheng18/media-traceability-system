@@ -1,6 +1,12 @@
 # T014 接口权限、单位与案件范围矩阵
 
-2026-10-21；开发负责人、指定复核人：徐昌胜。统一`require_permission(permission_code)`继续保留，T016已增加案件操作令牌签发，当前实际挂载43个业务操作。先前42项回归的证据仍绑定其原提交；最终门禁结论须从[T016阶段进度](../00-project/validation/t016-development-progress.json)及其指向的最新actual报告核对精确源码，本目录不单独宣告全量通过。正式策略未配置时不产生正式ALLOW。
+<!-- T016_NATIVE_FINAL_EVIDENCE -->
+
+已核验的原生隔离源码为`b1b79bfb32b7959e63f302bbef22d32e22dc0b8f`：[T014实际报告](../00-project/validation/t014-permissions-report.json)713项、[T015实际报告](../00-project/validation/t015-data-scope-report.json)131项、[T016实际报告](../00-project/validation/t016-operation-token-report.json)187项，均无失败、错误或跳过；三个独立故障探针均按预期识别断言失败，Ruff、格式和mypy检查通过。三套用例有重叠，数量不相加为唯一测试数或170项任务完成数。此结论限Linux／py310／CPU隔离研发，不是正式验收。
+
+托管CI另计：最后观察为run`39478665682`、提交`1b76a46ad52d9f67f549ee59da685ab79e6b9265`，身份检查332项通过，engineering仍在运行；不宣称最终源码的托管CI通过。后续状态与精确报告摘要以[阶段进度](../00-project/validation/t016-development-progress.json)及其最新actual记录为准，源码同步、数据库采用和正式授权分别登记。
+
+2026-10-21；开发负责人、指定复核人：徐昌胜。统一`require_permission(permission_code)`继续保留，T016已增加案件操作令牌签发，当前实际挂载43个业务操作。先前42项回归的证据仍绑定其原提交；本次原生结果仅适用于上方明确源码，后续门禁及CI结论须从[T016阶段进度](../00-project/validation/t016-development-progress.json)及其最新actual报告核对。正式策略未配置时不产生正式ALLOW。
 
 外部操作及权限码唯一来源：[OpenAPI](../03-api/openapi.yaml)；角色职责来源：[T011候选模型](access-control-model.json)。[机器附表](t014-interface-scope-matrix.json)保留来源SHA-256、逐操作路由位置、检查表达式和响应码；[依赖核对](../03-development/t014-dependency-and-scope-review.md)、[测试设计](../09-testing/t014-authorization-test-design.md)配套阅读。
 

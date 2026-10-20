@@ -22,7 +22,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[729条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有108条已验证子步骤、621条剩余工作；全局编号0001—0729。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[732条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有110条已验证子步骤、622条剩余工作；全局编号0001—0732。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -478,7 +478,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [09-testing/t014-authorization-test-design.md](<09-testing/t014-authorization-test-design.md>) | 22类权限场景与已有适用测试的对应、部分覆盖及未挂载边界；432为设计组合数，不当运行通过数。 |
 | [00-project/validation/t014-role-assignment.json](<00-project/validation/t014-role-assignment.json>) | 用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。 |
 | [03-development/t014-unified-permission-implementation.md](<03-development/t014-unified-permission-implementation.md>) | T014统一权限代码、0006最小权限事实查询、43操作适用回归、源验收逐项对照及正式策略/30未挂载操作/真实交接边界。 |
-| [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。 |
+| [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014实际严格门禁回执：按报告绑定提交核对挂载操作四类拒绝、SQL/撤销/真实资源回归及未挂载清单；历史计数不当当前结果，不证明正式ALLOW。 |
 | [00-project/validation/t014-full-regression-report.json](<00-project/validation/t014-full-regression-report.json>) | 本批完整业务、T014入口及T013令牌适用回归的真实计数、失败ID和源码快照；原始日志不公开。 |
 | [00-project/validation/t014-gate-execution-report.json](<00-project/validation/t014-gate-execution-report.json>) | T014专项门禁与受控失败探针的实际退出状态；失败必须阻止通过。 |
 | [00-project/validation/t014-implementation-validation-report.json](<00-project/validation/t014-implementation-validation-report.json>) | 本批格式/类型、输入/文档/导航/排期、12份原件及旧锁/旧迁移保全的实际检查，不代替整任务验收。 |
@@ -710,7 +710,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内729条执行事项逐条编号：108条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内732条执行事项逐条编号：110条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1297,7 +1297,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t014-isolated-work-report.json](<00-project/validation/t014-isolated-work-report.json>) | P06提交后76项、39项针对性与质量结果、真实队列/节点/交付及六类三次稳定拒绝测量；非正式服务身份或生产SLA。 |
 | [00-project/validation/t014-p07-ci-c89e75b-report.json](<00-project/validation/t014-p07-ci-c89e75b-report.json>) | 修复前c89检查点的真实成功CI及平台制品摘要；明确为历史证据，不证明后续7项修复或最终回执通过。 |
 | [00-project/validation/t014-p07-current-code-ci-report.json](<00-project/validation/t014-p07-current-code-ci-report.json>) | 本批修复后精确代码提交的身份、权限、业务、32工程门禁及13运行检查；独立核对两份制品平台摘要，回执文件自身的未来CI另查Actions。 |
-| [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。 |
+| [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014实际严格门禁回执：按报告绑定提交核对挂载操作四类拒绝、SQL/撤销/真实资源回归及未挂载清单；历史计数不当当前结果，不证明正式ALLOW。 |
 | [00-project/validation/t014-preparation-ci-observation.json](<00-project/validation/t014-preparation-ci-observation.json>) | 上一批导航CI实际失败及候选输入摘要过期原因、修复与重验范围；不冒充本轮托管通过。 |
 | [00-project/validation/t014-preparation-validation-report.json](<00-project/validation/t014-preparation-validation-report.json>) | T014准备材料逐项操作/来源摘要/引用/人员/状态一致性检查；不是业务权限测试通过。 |
 | [00-project/validation/t014-review-fix-scoped-report.json](<00-project/validation/t014-review-fix-scoped-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |

@@ -1,6 +1,12 @@
 # T015 数据范围调用与验证矩阵
 
-2026-10-21：T016增加案件签发和内部同事务消费，当前实际43个操作已挂载、30个未挂载。最终结论以[阶段进度](../00-project/validation/t016-development-progress.json)及其指向的最新actual报告、受测提交与源码摘要为准；本页不单独宣告全量通过，也不把任何首批快照永久称为当前版本。原S01—S09全部保留。JSON的`t016_increment`记录该增量及结论入口；原P03及P02字段继续指其历史提交。
+<!-- T016_NATIVE_FINAL_EVIDENCE -->
+
+已核验的原生隔离源码为`b1b79bfb32b7959e63f302bbef22d32e22dc0b8f`：[T014实际报告](../00-project/validation/t014-permissions-report.json)713项、[T015实际报告](../00-project/validation/t015-data-scope-report.json)131项、[T016实际报告](../00-project/validation/t016-operation-token-report.json)187项，均无失败、错误或跳过；三个独立故障探针均按预期识别断言失败，Ruff、格式和mypy检查通过。三套用例有重叠，数量不相加为唯一测试数或170项任务完成数。此结论限Linux／py310／CPU隔离研发，不是正式验收。
+
+托管CI另计：最后观察为run`39478665682`、提交`1b76a46ad52d9f67f549ee59da685ab79e6b9265`，身份检查332项通过，engineering仍在运行；不宣称最终源码的托管CI通过。后续状态与精确报告摘要以[阶段进度](../00-project/validation/t016-development-progress.json)及其最新actual记录为准，源码同步、数据库采用和正式授权分别登记。
+
+2026-10-21：T016增加案件签发和内部同事务消费，当前实际43个操作已挂载、30个未挂载。上方原生结果绑定明确源码；后续结论以[阶段进度](../00-project/validation/t016-development-progress.json)及其最新actual报告、受测提交与摘要为准，不把任何首批快照永久称为当前版本。原S01—S09全部保留。JSON的`t016_increment`记录该增量及结论入口；原P03及P02字段继续指其历史提交。
 
 原P03代码候选`aa2070b0740884e9619370355aebe3b0532afdae`的适用回归91项0失败／错误／跳过，格式、静态及类型检查通过，见[P03实际报告](../00-project/validation/t015-data-scope-p03-report.json)。原P02的461项业务测试0失败/错误/跳过及当时CLI报告生成问题保留为历史事实，不能将旧结果当成本批当前源码的完整入口结果。
 

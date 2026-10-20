@@ -1,5 +1,7 @@
 # T014 统一接口权限实施与验证
 
+2026-10-21范围更新：本页后文保留T014初批42项挂载／31项未挂载的实施快照。T016新增 `issueOperationToken` 后，当前目录为43／30；[当前接口矩阵](../08-security/t014-interface-scope-matrix.md)、[令牌进度与实际门禁](../00-project/validation/t016-development-progress.json)记录新增事实。初批证据不自动代表新增操作通过，正式权限与共享采用仍分别核验。
+
 本批规则实现记录：[P01—P07具体隔离实施计划](t014-isolated-six-role-implementation-plan.md)、[实际逐项进度](../00-project/validation/t014-isolated-rule-progress.json)、[已授权T001—T123顺序](t001-t123-development-sequence.md)。计划已批准并执行；P01—P07隔离实现、1009项完整回归、精确托管CI及源码交付已通过，整卡验收仍未登记。旧报告不证明新增撤销时限、后台工作与正式共享采用已通过。
 
 2026-10-20；开发负责人及指定复核人徐昌胜，[人员确认记录](../00-project/validation/t014-role-assignment.json)单列，尚未登记人工验收。当前Linux/Miniforge py310/CPU研发子范围已实现并实测；T014整卡仍未验收，正式授权策略和共享采用未完成。

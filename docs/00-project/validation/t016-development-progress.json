@@ -1,7 +1,7 @@
 {
   "task_id": "T016",
-  "status": "IMPLEMENTED_FRESH_CLEAN_STRICT_GATES_RUNNING",
-  "observed_at": "2026-10-20T18:51:07.636745+00:00",
+  "status": "ISOLATED_KERNEL_VERIFIED_HOSTED_CI_SEPARATE",
+  "observed_at": "2026-10-20T19:26:29.035922+00:00",
   "implementation_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
   "environment": "Linux / Miniforge Python3.10.22 / CPU / isolated PostgreSQL16",
   "actual_development_owner": "徐昌胜",
@@ -156,36 +156,52 @@
     }
   ],
   "remaining": [
-    "final clean T014/T015/T016 gates and latest hosted CI observation",
+    "Latest hosted CI, final task/navigation receipt and source synchronization must be recorded independently of native gates",
     "formal token TTL and independent HMAC key custody/adoption",
     "real consumer action authority/delegation and role-separation decision",
     "real seal/report/delete/unseal/model consumers and frontend integration; AuditExport public contract separately reviewed",
     "shared migration/backup/recovery/adoption and complete source-task acceptance",
-    "actual remaining effort and human review of final results"
+    "actual remaining effort and human review of final results",
+    "runtime full-token logging scan with real consumer integration; current tests cover DB/receipt/audit storage only"
   ],
   "role_assignment_ref": "docs/00-project/validation/t016-role-assignment.json",
   "runtime_report_ref": "docs/00-project/validation/t016-operation-token-report.json",
   "plan_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
   "source_commit_note": "Full implementation commit and exact final source hashes are populated from actual clean gate report; no self-referential commit is invented.",
   "latest_hosted_ci_observation": {
-    "source_commit": "00725b051dbd735fdb60cdde33bbb7179cc2cdc9",
-    "run_id": 39463909701,
-    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39463909701",
-    "status": "completed",
-    "conclusion": "failure",
-    "identity": "success",
-    "business_foundation": "success",
-    "T014": {
-      "status": "PASS",
-      "tests": 709
-    },
-    "T015": {
-      "status": "PASS",
-      "tests": 128
-    },
-    "failed_command": "python scripts/poc_control.py build",
-    "cause": "frontend Docker build omits shared-contracts/generated/business-api type declarations",
-    "new_T016_code_result_asserted": false
+    "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+    "run_id": 39478665682,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39478665682",
+    "status": "in_progress",
+    "conclusion": null,
+    "observed_at": "2026-10-20T19:03:50.492701+00:00",
+    "latest_polled_phase": "engineering environment preparation",
+    "new_T016_code_result_asserted": false,
+    "identity_report_evidence": [
+      {
+        "name": "t013-identity-ci-report.json",
+        "sha256": "33f5bb72424afbf43f81902b6b4d1ecbea0dda83b642ce6a43b7b5fbebc97246",
+        "status": "PASS",
+        "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+        "exact_run_source": true,
+        "totals": {
+          "tests": 332,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "checks": 0,
+        "failed_checks": []
+      }
+    ],
+    "artifact_digests": [
+      {
+        "id": 12291188284,
+        "name": "t013-identity-validation-39478665682",
+        "zip_sha256": "114f6dd9c891fe442352461e351e48c39ff4e54266586a4fe2ce00dbb8d802e3",
+        "platform_digest_matches": true
+      }
+    ]
   },
   "active_final_gate_job": {
     "job": "f4985f97b8f4419dbb61d83640425899",
@@ -195,7 +211,697 @@
       "T015",
       "T016"
     ],
-    "status": "RUNNING_NOT_ASSERTED_PASS"
+    "status": "PASS_ALL_THREE_STRICT_GATES_AND_FAILURE_PROBES",
+    "reports": {
+      "T014": {
+        "path": "docs/00-project/validation/t014-permissions-report.json",
+        "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+        "sha256": "fe912d07d7569b66225e22526c3f94e5e89a6e911d2332b5d8a3d8c7222ee049",
+        "status": "PASS",
+        "totals": {
+          "tests": 713,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "T015": {
+        "path": "docs/00-project/validation/t015-data-scope-report.json",
+        "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+        "sha256": "748cbd7f7787f8deb8cf18aae69c8067f6deab56aae3c5e10c6be6514c080d6c",
+        "status": "PASS",
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "T016": {
+        "path": "docs/00-project/validation/t016-operation-token-report.json",
+        "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+        "sha256": "bf3993e1040b76a8e66afe4c066bb4cba851953be3f65b81163716c6d817f4c1",
+        "status": "PASS",
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    }
   },
-  "source_model_boundary": "analysis_task.asset_id -> media_asset.source_id -> source_registry; no params column or multi-input source contract invented"
+  "source_model_boundary": "analysis_task.asset_id -> media_asset.source_id -> source_registry; no params column or multi-input source contract invented",
+  "source_sync_observations": [
+    {
+      "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+      "observed_at": "2026-10-20T18:53:19.660379+00:00",
+      "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+      "previous_server_commit": "00725b051dbd735fdb60cdde33bbb7179cc2cdc9",
+      "changed_files": 79,
+      "manifest_files_verified": 2174,
+      "manifest_sha256": "23aab5f4cdeb1fe6335407b5ea9fe3b6e508a92d170c6f3ef2611d9db60be507",
+      "tracked_source_clean": true,
+      "git_worktree_clean": false,
+      "preexisting_IDE_directory_preserved": true,
+      "IDE_file_count": 7,
+      "IDE_content_unchanged_during_sync": true,
+      "IDE_files_written_or_removed_by_this_sync": false,
+      "shared_services_restarted": false,
+      "shared_database_migrated": false,
+      "shared_identity_or_permission_policy_adopted": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false
+    }
+  ],
+  "historical_hosted_ci_observations": [
+    {
+      "source_commit": "00725b051dbd735fdb60cdde33bbb7179cc2cdc9",
+      "run_id": 39463909701,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39463909701",
+      "status": "completed",
+      "conclusion": "failure",
+      "identity": "success",
+      "business_foundation": "success",
+      "T014": {
+        "status": "PASS",
+        "tests": 709
+      },
+      "T015": {
+        "status": "PASS",
+        "tests": 128
+      },
+      "failed_command": "python scripts/poc_control.py build",
+      "cause": "frontend Docker build omits shared-contracts/generated/business-api type declarations",
+      "new_T016_code_result_asserted": false
+    }
+  ],
+  "unchanged_stable_inputs": {
+    "status": "PASS",
+    "base_commit": "00725b051dbd735fdb60cdde33bbb7179cc2cdc9",
+    "unchanged_files": [
+      {
+        "path": "backend/business_migrations/0001_business_baseline.sql",
+        "sha256": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0002_upload_result.sql",
+        "sha256": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0003_control_integrity.sql",
+        "sha256": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0004_identity_relations.sql",
+        "sha256": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0005_role_catalog.sql",
+        "sha256": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0006_permission_lookup.sql",
+        "sha256": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0007_role_facts.sql",
+        "sha256": "e7191483aa27ddb03357c0ab9dde810cd048b9f844ee756ff46dd1dd29a6f872",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0008_authorization_fence.sql",
+        "sha256": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0009_work_role_facts.sql",
+        "sha256": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588",
+        "byte_unchanged": true
+      },
+      {
+        "path": "backend/business_migrations/0010_data_scope.sql",
+        "sha256": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+        "byte_unchanged": true
+      },
+      {
+        "path": "docs/03-api/openapi.yaml",
+        "sha256": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+        "byte_unchanged": true
+      },
+      {
+        "path": "shared-contracts/generated/business-api.d.ts",
+        "sha256": "d80a0dd893d9532f5557163c8c7e180f580f5e632fb4eadcbf5ea1f16b344caa",
+        "byte_unchanged": true
+      },
+      {
+        "path": "config/locks/requirements-py310.lock",
+        "sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+        "byte_unchanged": true
+      },
+      {
+        "path": "config/locks/conda-linux-64.explicit.txt",
+        "sha256": "ab6153d69296221d0846e559ba8be341b8a8cbcd0bfc4bbb916edebd3f351919",
+        "byte_unchanged": true
+      }
+    ],
+    "original_migration_count": 10,
+    "Python_candidates_created": false
+  },
+  "native_current_T014_observation": {
+    "status": "PASS",
+    "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+    "totals": {
+      "tests": 713,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "mounted_operations": 43,
+    "unmounted_operations": 30,
+    "complete_three_gate_result_asserted": false
+  },
+  "native_current_T015_observation": {
+    "status": "PASS",
+    "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+    "totals": {
+      "tests": 131,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "complete_three_gate_result_asserted": false
+  },
+  "read_only_preview_observation": {
+    "status": "READ_ONLY_PREVIEW_OBSERVATION",
+    "runtime_source_commit": "c61c8deedf83f77ac522650534cce3ca41ff609d",
+    "preview_source_separate_from_synced_project": true,
+    "issueOperationToken_mounted": false,
+    "source_or_services_modified": false,
+    "meaning": "Source sync is verified separately; existing preview still uses the prior immutable source snapshot and was not adopted to0011 or restarted by this batch."
+  },
+  "native_full_gate_totals": {
+    "T014": {
+      "tests": 713,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "T015": {
+      "tests": 131,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "T016": {
+      "tests": 187,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "source_sha256": {
+    "backend/business_app/__init__.py": "7a6002b1296632af7b86e67eaf76fb9a9cc6f687cd02646c74030a4d7020a84a",
+    "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
+    "backend/business_app/contracts.py": "15dad14f4a3ebca192c95bd7f175939202c7f479fa1a0973165aa89824b55f4d",
+    "backend/business_app/controls/__init__.py": "06f986fe050ef876c1ed0677bf6b5088cfa889b0c5ddbcb3b88590a0de8e2205",
+    "backend/business_app/controls/approvals.py": "d2de6345e79c49a1c13f9e19e1f9003f499d523ef3cf5ae5adcfe51d55839c2c",
+    "backend/business_app/controls/common.py": "a6ef8b1f978848777c1be07d22a864ea7c2017f11d8b7682076dd6b569e16cc5",
+    "backend/business_app/controls/definitions.py": "449f2780668302797eeb175c05a9bb10d05cdfe8b645e6d231e65fac5e48f03f",
+    "backend/business_app/controls/execution.py": "be55c6a24d7dec6994e17a4a651a6621ceac3dc9baaf598d5a4f9cda6f5fc291",
+    "backend/business_app/controls/exports.py": "4ebef7e17b1022b0122a80b43967d6bcfc94e3e4e27141057936aeaeeb879cdd",
+    "backend/business_app/controls/imports.py": "6213efba2a5d807c5a2f3a8b9d2f199a64a93645c478d7faa5e19f9de5622789",
+    "backend/business_app/controls/operation_tokens.py": "36210cabf35a641ba3dc5ab61a7488d00b160deae328a4189ff79e6aa1362b5d",
+    "backend/business_app/controls/providers.py": "648f9c1fd0a442dcfb3583eab642435190a98134b5726905d3e2404910edc280",
+    "backend/business_app/controls/receipts.py": "00ce7ad5e257f050bd27dc212473026335f86be0108e2f6df03156b3f557137f",
+    "backend/business_app/controls/reviews.py": "499abde4edf583bfbaa8838ce6bd007a96c75f4a5f57d6fd900ed17cda974381",
+    "backend/business_app/controls/router.py": "aeaba6bc3947d287a693479e4e1833023f0447328a79332c008a2207eb6352de",
+    "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
+    "backend/business_app/data_scope.py": "8c9ef9f3dc723e4835cccc9992a6451e4cc23e8ba9fc81ebd22f63d7fd98ba0d",
+    "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
+    "backend/business_app/development.py": "3fabb34ae818f385fed5e7210fb6b8dfb6a47eaa5d657f1657cba8f3d096388b",
+    "backend/business_app/errors.py": "a6d52577546933e5b73317470f0059d073963b94af73602259804da9eecf784e",
+    "backend/business_app/history/__init__.py": "d799250f4999412e03715020266a93680781d158ebfe21360da074b69a9fe7c3",
+    "backend/business_app/history/projection.py": "6fcb54b7255bbb894b848bb28ad119a32493dd4f06e3e44b220dad27784a62f9",
+    "backend/business_app/history/repository.py": "35edca3a3346acc947c1d91258b5ff49737d280f417a10d6030b88eb79c3a0b2",
+    "backend/business_app/history/router.py": "c0c71a38cf03ba7d580e9962574ebfaa2558a5c17586edb067fa9ab6d8e7a162",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
+    "backend/business_app/inference.py": "612d6d4006c03110125db8e56f09b8586c0da59b335f0addc5472a1d5c330f2e",
+    "backend/business_app/main.py": "5e48fa4dcdc75ea21037b7e5b03e0442b02d6e363961eb8ceb89e54ac1da5a54",
+    "backend/business_app/objects.py": "7e346db512a59b7b7b2444fe1bc3a7a169e321a57669ca15054e0916d3ef33a3",
+    "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
+    "backend/business_app/permissions/catalog.py": "ce16d1d6537ba7ec434ce87cfa40bb6ef4ff6aea854922ded70204e66a37634b",
+    "backend/business_app/permissions/conditional.py": "caeec59573ac4bfff77cda7d72be7321863936ff13eeeabb975b2d29da043f5c",
+    "backend/business_app/permissions/context.py": "a5443dece34062c1ba1e768be1a86cc58042c04da4570691065ad12412080e5b",
+    "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
+    "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
+    "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+    "backend/business_app/permissions/guard.py": "f0b2f5e8cc15dd700ade3bcd76a2b71abb59b73141fc1e4b2d3ef06c96dc3f5b",
+    "backend/business_app/permissions/object_facts.py": "17a9fa3caf6fdd8ca42644eba28f03e857be55a8d141b4338233f6465ba9d51e",
+    "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
+    "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
+    "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
+    "backend/business_app/permissions/six_role.py": "c7ab275688ab72be4aff8d0f3597bd6def1529e4e07ea9b195fc0dda34435d96",
+    "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
+    "backend/business_app/permissions/work.py": "cd481f6fab1266669a827589e3080b0f2126514683fccedc495b691b8e368e59",
+    "backend/business_app/permissions/work_subject.py": "dd00ff09568ab0baaa0213d3c158928e79a9eb267dd38f76268282bb3fe5b85b",
+    "backend/business_app/scope_catalog.py": "9d47731a0f6a0521ae6f1fedfdfdc5f287b6c6616f1258d69dad2a839d17c131",
+    "backend/business_app/scope_collections.py": "acaff431d54c58f2c185d174b6ce5943da17732eae25aa785bfd41644140cbad",
+    "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
+    "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
+    "backend/business_app/scoped_objects.py": "5e30fafdb32c4596c0b8f66bb393b13f9518d913304e6c54945309a930a75c05",
+    "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
+    "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+    "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
+    "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
+    "backend/business_app/uploads/repository.py": "021ce78c519af548eaa19b0a12ef270148b00bd32703ff231ac3573433a20c9d",
+    "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
+    "backend/business_app/uploads/service.py": "8d3adfc488ced313b9be547ae29fa713c18408bab5b481bec24616bcf3a5508e",
+    "backend/business_app/uploads/validator.py": "d7fed4480d08e337aa4804e5da7dd724e31988b9a3a9e9da879c96e13f4574da",
+    "backend/business_app/uploads/worker.py": "909b1eebe1cf42be934631879aff429837507ee9537ee1ea577607a103b3aff8",
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+    "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_migrations/0006_permission_lookup.sql": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+    "backend/business_migrations/0007_role_facts.sql": "e7191483aa27ddb03357c0ab9dde810cd048b9f844ee756ff46dd1dd29a6f872",
+    "backend/business_migrations/0008_authorization_fence.sql": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+    "backend/business_migrations/0009_work_role_facts.sql": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588",
+    "backend/business_migrations/0010_data_scope.sql": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+    "backend/business_migrations/0011_operation_token.sql": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd",
+    "backend/business_migrations/__init__.py": "364ce00247004a2405578bd44bc4cc8e88efd9e7a3e7014f0a7d49dcfa28cc8e",
+    "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3",
+    "tests/business/__init__.py": "b1c27cb798a176b7d2620f0bbd41157b2d339b70e05d2c6738a78819c369690d",
+    "tests/business/conftest.py": "e46b12523aa64e8ab9d0009d7e7a85eda0519d2636c7f5d2c02164283561e424",
+    "tests/business/history_fixtures.py": "229e47fe23c042f950ea37a24dc8e21f7c5b60936b001e597ffc2e7b2c8e2574",
+    "tests/business/http_fixtures.py": "0aaa548c6e36c22332d7294a06fc35d3e21ed5f60564e71f0d6d0b75db9b0a2e",
+    "tests/business/scoped_history_fixtures.py": "3e0c4f9cf45f078d9f36d1953758345430c85ef7a62852d18cbd362388454be4",
+    "tests/business/t014_positive_fixtures.py": "4fa4ce5d75faf2cc70db501e0bee01e8f834364456d9346d6427b0e57b2acaa9",
+    "tests/business/t014_requests.py": "2402acd1ef6baa685b17a2f74711f2505aeed3fb4993450e337de1344de30ba8",
+    "tests/business/test_adapters_and_execution.py": "b1ef5484a2c70967833def33627a289c1b92dd41e9df57bc8cbc5caef84995a5",
+    "tests/business/test_authorization.py": "af601da95d8c7928c0b87a60965b07d9ad2a69190427ebf5c2baf295f88d74f2",
+    "tests/business/test_control_contract_integrity.py": "689e91e8656a36438f4288cc7ef5136fc8dacd8686ebb8f268a8948e189f0428",
+    "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e",
+    "tests/business/test_cursor_canonicality.py": "47bd4d4db811e1a9ed99bf75fbe84c73ed337e6c529b28e7000b69e170d4e72d",
+    "tests/business/test_development_startup.py": "eb6ee136f7be98c8fb7bc049728885444fabd07a87a9ddf8eb03b8983fea115e",
+    "tests/business/test_execution_cancel.py": "48dc5b0e008824903622c701aa971fa65642adf0c4725255c4e042246d958421",
+    "tests/business/test_foundation_errors.py": "6620ae6bf2bf458d465ea81ce90d9f258bca8f803c0a7f16e3938f3cf14a5384",
+    "tests/business/test_history.py": "df4574a3a5c49ac716a8e0f4fe9ed201fdb1c9427ef8822370c80816b3b37ae8",
+    "tests/business/test_history_http.py": "3f8dc78ded8e9a293e04fe2d5029a41753548d19b8b83c13def3ab371edaa82c",
+    "tests/business/test_identity_directory.py": "54cabbee2d42a225b244275e78512336c8b3245f26843c1d2a56b9b1ff6d0aa2",
+    "tests/business/test_migrations.py": "2241c534cfde9ff0906c316b15fc7efa8bd9f81e656cbafb2051fcb3b7b9fc9f",
+    "tests/business/test_recovery.py": "ce7e51beac7c789c1daf5cfe1e92e14975b4540d626d4c6e3ae4d2b5ce7c9017",
+    "tests/business/test_remaining_contracts.py": "8768a1ee8c9012063a83ed20d0eb2d7df7425db054deba023a8978917f6d1595",
+    "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
+    "tests/business/test_sql_foundation.py": "1aef6ad7575fcde30161ecd6795894fe35d1c7b7d84167833618315ee3044c43",
+    "tests/business/test_t014_duties.py": "c70a25c9ef0fa9357c8a2afd465dfd296e5fff925183cda8cc1053bc253005c1",
+    "tests/business/test_t014_indirect_reads.py": "8e891da821935e0713093f81fa7602d87a700b36cf688f6ae262767359c9a44e",
+    "tests/business/test_t014_object_rules.py": "8520a6b3e9ff59288095a1a50e2e7429f5dd1129c3017551880e848c96794e67",
+    "tests/business/test_t014_permissions.py": "5c7d031a3e48dd55c5bcf197354bd3514c9109c3b981c049a9e1e8629ea1ec2b",
+    "tests/business/test_t014_revocation.py": "48ca36b44401d650b3c94b7a6a964ffe56f6b85e6de05534007f3769d1ae950f",
+    "tests/business/test_t014_role_facts.py": "a0ab89ec237d1f42c267bf5c2db7f942e0bbce05d30056faa77089ad5739e598",
+    "tests/business/test_t014_runtime.py": "7b858adb36c79da090f7a9ed528c43d051b16b374947bfc5de31daa87e030d34",
+    "tests/business/test_t014_work.py": "4cfea870ed32a629ca6a1566a8539a10cbb2adc6749578ff0cd8673c8f8bf9fa",
+    "tests/business/test_t015_collections.py": "49261d40126c570e2f80a008dc8d34fe6864196adae4ca3f0a3582ae1227cc36",
+    "tests/business/test_t015_metadata_timestamps.py": "2052aa2a6926cd0b9175e5ca79b694aa8f9596b007c53ba2fdd79a7e154b0033",
+    "tests/business/test_t015_scope_http.py": "87597e62f7a92f9548ef8c26c1ecd56cc5f7ad1c308ed988fdd48278bf4acbe3",
+    "tests/business/test_t015_scope_owner.py": "91e0f9e7cf8aaf1ee9c2ed8d870bb3e5266aefd04a35447ac91717a3295d0e51",
+    "tests/business/test_t015_scope_recovery.py": "9ade355706eb2bad2b58a32c5a3c3ac70e154ffc47461d61cf4580fd60cc7667",
+    "tests/business/test_t015_scope_sql.py": "730c716d86400b4ab9b9934801fb3d58c39bc5ec959897145ac54eafbcce9e9d",
+    "tests/business/test_t015_scoped_objects.py": "4d69b3a69bb37eaa346a9fbe52981aeec0b901c025510b647b31692b86027908",
+    "tests/business/test_t016_operation_token_recovery.py": "5915c01f59349cdcae240d968e2c8267967edb5b2179c1a4af204c4a9a5f6ac0",
+    "tests/business/test_t016_operation_tokens.py": "482347132072e46e8fb6af805b0afc039f0c85325a69b93bb6cadbdec332682b",
+    "tests/business/test_t016_permission_facts.py": "b38052173f0c61dda7dc926d9d1e2196052769303497b4d2398accac6be223a3",
+    "tests/business/test_token_identity.py": "e5de1271c9ea703410c1fa7045ac3da532ba39af5b43b49ae4cfacf878905fe3",
+    "tests/business/test_upload_json_boundary.py": "e1aead9b8173b672133900e390494d9e6519fbd0565f194257180cda7614d09e",
+    "tests/business/test_upload_validation.py": "d3d63061a605ed776e7ebe8a1f34270d2d235f73d3206029bbbbd77d521d6321",
+    "tests/business/test_uploads.py": "38e42d9f7288156c13ba8d71758dc2badafa146a53d1a34385d1ba752a34f47a",
+    "tests/platform/test_t014.py": "1c78bace1bc2b92972e2be459ee0f5540f5f54554d5d8eddbeef5b0704848728",
+    "tests/platform/test_t014_gate.py": "f4661f30afe86f7c26b9bd4db8667a6d33f844d8320d9edb965ea2b0b4e1c68a",
+    "tests/platform/test_t014_six_role.py": "d6b65e20f5a7b998d78b057bffe769c94ca112475fa138b00c573626b3b29fc1",
+    "tests/platform/test_t014_work_trust.py": "625f30dc15644956fa48e4377ed447ce13139200abd549d677f3d9fed199055b",
+    "scripts/verify_t014_permissions.py": "057636d18069449ac1d8ef6e6bc16758ec52395eac0c8a180c5148f6ac5577c9",
+    "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+    "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+    "docs/08-security/t014-interface-scope-matrix.json": "159c3cf0c3ff97e002996aa71976a409943d9474d0256388ec3c36714f4c5826",
+    "docs/08-security/t014-six-role-rule-proposal.json": "446440965c9fb4fced9bdcd4693c6a6c1bb36959cdef4a57c0ffc8a3c675e0a1",
+    "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+    "tests/platform/test_t016_permission_catalog.py": "7fa2451730f650437d9ff56efed32a8f5e70eb2f3ce40399084cb9c03d1e0ff5",
+    "docs/04-database/api-field-mapping.csv": "750f8b77e24ad817352199399f1c6f980eed345ec070392d7c2ad9f5c4d54b2a",
+    ".github/workflows/ci.yml": "f3d8226092152649554fcf9a65c2e203e10bd6fe7ce195d2555a6b5d3534dfd0",
+    "scripts/run_ci.py": "1a182f4811ca533142aed5ac843e6be5a38a99c90505c864f874158cb913aafa",
+    "scripts/verify_t016_tokens.py": "86d12dcdcf391275234b3c69a19a3e3184387b81db1360d5b713a8ca01236bbb",
+    "config/stage-three-profile.json": "7e2dbf1af24124e98056b8040558d16ee30cc62848837e2fec84088056b6d963",
+    "tests/platform/test_t016.py": "cba8512008c9c8aaf445b6fe96df429f398f86b332d5d9eece6fb7cf74e7d38d",
+    "scripts/verify_t015_scope.py": "d3608867807a318a5d28b06941429f9d154246a0d606eaf7b847c126518a3316",
+    "tests/platform/test_t016_gate.py": "3e57dde9bb0f7046da18c4b8ce6f7b7943dc54c4a3b7e02fd690d3cebe1048a1"
+  },
+  "whole_task_verified": false,
+  "source_acceptance_comparison": {
+    "scope": "Current Linux/py310 isolated task/seal kernel only; synthetic authorities are not formal business adoption",
+    "tested_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+    "evidence_refs": [
+      "docs/00-project/validation/t016-operation-token-report.json",
+      "docs/08-security/t016-operation-token-boundaries.md"
+    ],
+    "criteria": [
+      {
+        "requirement": "Confirmation does not replace approval; verify the current approved chain",
+        "isolated_result": "PASS",
+        "formal_consumer_result": "NOT_VERIFIED"
+      },
+      {
+        "requirement": "One-use token; actual short expiry without retry extension",
+        "isolated_result": "PASS",
+        "formal_consumer_result": "TTL_AND_CURRENT_AUTHORIZATION_WINDOW_ADOPTION_PENDING"
+      },
+      {
+        "requirement": "Exact actor/purpose/action/object/version/approval and current single-asset source binding",
+        "isolated_result": "PASS",
+        "formal_consumer_result": "REAL_CONSUMER_AND_CONFIRM_EXECUTOR_RULE_PENDING"
+      },
+      {
+        "requirement": "Missing policy/key/provider refuses controlled actions",
+        "isolated_result": "PASS",
+        "formal_consumer_result": "NO_DEFAULT_SUCCESS_PROVIDER_INSTALLED"
+      },
+      {
+        "requirement": "Audit success in the same transaction; all writes and consume roll back together",
+        "isolated_result": "PASS",
+        "formal_consumer_result": "REAL_CONSUMER_ATOMIC_WRITES_PENDING"
+      },
+      {
+        "requirement": "Replay/expiry/cross-object/revoked approval/unconfigured policy and concurrency/recovery regressions",
+        "isolated_result": "PASS",
+        "formal_consumer_result": "FORMAL_DELEGATION_AND_REAL_ENVIRONMENT_RECOVERY_PENDING"
+      }
+    ],
+    "whole_source_task_accepted": false,
+    "actual_human_review_recorded": false
+  },
+  "final_review": {
+    "status": "NO_NEW_P1_P2_AFTER_CORE_FIX",
+    "review_type": "independent_agent_review_not_actual_human_acceptance",
+    "documentation_correction": "Storage/receipt/audit scans are actual tests; runtime full-token log scanning is not evidenced and remains explicitly pending.",
+    "formal_consumer_or_cross_person_delegation_accepted": false
+  },
+  "isolated_documentation_validation": {
+    "status": "PASS",
+    "source_base_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+    "started_at": "2026-10-20T19:32:34.999537+00:00",
+    "completed_at": "2026-10-20T19:33:44.057687+00:00",
+    "command": "python -m pytest tests/platform/test_t016.py -q --tb=short --junitxml PRIVATE_PATH",
+    "python": "3.10.22",
+    "totals": {
+      "tests": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "documentation_checks": [
+      {
+        "name": "stage_one",
+        "command": "python scripts/validate_stage_one.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "inputs",
+        "command": "python scripts/validate_inputs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "repository_docs",
+        "command": "python scripts/validate_repository_docs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "documentation_completion",
+        "command": "python scripts/validate_documentation_completion.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three",
+        "command": "python scripts/validate_stage_three.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "task_navigation_drift",
+        "command": "python scripts/generate_task_progress.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "schedule_drift",
+        "command": "python scripts/plan_project_schedule.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three_navigation_drift",
+        "command": "python scripts/generate_stage_three_docs.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "requirement_drift",
+        "command": "python scripts/generate_requirements_document.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "remaining_work_drift",
+        "command": "python scripts/generate_remaining_work_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_status_drift",
+        "command": "python scripts/generate_stage_status_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "database_contracts",
+        "command": "python scripts/validate_database_contracts.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "generated_contracts",
+        "command": "python scripts/verify_generated_contracts.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "interface_docs",
+        "command": "python scripts/validate_interface_docs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "shared_source_or_services_modified": false,
+    "formal_accepted": false,
+    "safe_observation_sha256": "21cd20742541d7a33f3c619366ea72caff09fa594a0c41f55d7c1974cc0f3428",
+    "working_delta_sha256": {
+      "docs/00-project/execution-planning-inputs.json": "89f2de2e285e299eef2a724216ef3a38c8b44bb46ee69470e7c093517ebd1507",
+      "docs/00-project/execution-schedule.json": "50e41033ed40b893ba5ad5cde0becf6c9b15225e92cc99765bcc45274485cc45",
+      "docs/00-project/server-sync-receipt.json": "a3f1aecbccc78113be4837232eee679b2e14e0b1e69df3a80d4829ff0de8c73d",
+      "docs/00-project/stage-one/input-baseline-candidate.json": "9018ccfc6a080c949f791306b8b377e5a8cc42473f92d889d4188a8ec9573b62",
+      "docs/00-project/task-execution-steps.txt": "b81a0a77732e6d4f35ae77014d9318e8c3ec95b306875768080878e223a1d6b7",
+      "docs/00-project/validation/documentation-completion-report.json": "cdd82ab893e899126df2e633afb3268365b06579b7a2b13e2b5b414e4775b940",
+      "docs/00-project/validation/repository-docs-validation.json": "c805ea7b0a87ef56b4d465092f50acb7059ff835e534fa91cbd14f4c45b2ae8d",
+      "docs/00-project/validation/t014-permissions-report.json": "fe912d07d7569b66225e22526c3f94e5e89a6e911d2332b5d8a3d8c7222ee049",
+      "docs/00-project/validation/t015-data-scope-report.json": "748cbd7f7787f8deb8cf18aae69c8067f6deab56aae3c5e10c6be6514c080d6c",
+      "docs/00-project/validation/t016-development-progress.json": "6d30288c18becc8d427e55f4d9e434eaa65e46b3d5d4a26d95cc75f00735d1cc",
+      "docs/00-project/validation/t016-operation-token-report.json": "bf3993e1040b76a8e66afe4c066bb4cba851953be3f65b81163716c6d817f4c1",
+      "docs/03-development/stage-three/remaining-interface-implementation.md": "236bf7baee6e80a0bc1559d560175c129939f20d3f76941df6f4d1fc6e0c15d4",
+      "docs/03-development/t001-t123-development-sequence.json": "43fbab9bdfe46ed1d20d624de46e953871691f74801c042f645b2f8a2178b32a",
+      "docs/03-development/t001-t123-development-sequence.md": "95938763934381a40341e4a5357f2151d5a8b3cbe0e3d0f5a4dbec47c1c57ed0",
+      "docs/03-development/t014-unified-permission-implementation.md": "e5696a792f1939519dfe5c8ee9ed5980fc331a962a4a0817ecd3c83429fed062",
+      "docs/03-development/t016-operation-token-implementation-plan.md": "81eccf0508cb5d32ae319b1432d6117f13aabbce4012c89f8ec18e803448083a",
+      "docs/04-database/data-dictionary.md": "08ff2c592ec01016f2b14b32835b2a30916f25f57cab1db56dc8abf65b576763",
+      "docs/08-security/t014-interface-scope-matrix.md": "e2357547d01379f1e3e6675aca5dbd5be8689f41e9f94358f8afaa82332e49af",
+      "docs/09-testing/t014-isolated-operation-coverage.json": "247b6973d7799a59bfa1f06c32acd83b75986ecf1ef65936bedec5238c24bc6a",
+      "docs/09-testing/t014-isolated-operation-coverage.md": "3485c9cea97c0bc92cd1e4fe66a3b3d9ef3a2dc4861172b319ba1fa8e0a4bde1",
+      "docs/09-testing/t015-data-scope-coverage.json": "c4bc87e36a48a6e61a2be99dfc3fec9503d94ae5698b4577d86196f3a89f3f4c",
+      "docs/09-testing/t015-data-scope-coverage.md": "1747bcb997db57266a17bd7a929b36250153474cf20283643b16a89d823dbb8b",
+      "docs/README.md": "062e960d017bfd353839c604f9f57424860c336d1d484ac80381a491a5b07cba",
+      "scripts/update_docs_navigation.py": "53be5e31179a0166f13b9f2802f17d54fada590911998b6e9dcf80c7a68598d0",
+      "tasks/README.md": "cf1fa45b848b96820b57151fc50cba921122e712c4ba70560be9959162da18e1",
+      "tasks/algorithm/T051.md": "195d24fe87c1a681c01df4ca8db17094a44cabdb85ca85b492986d76080a7cde",
+      "tasks/algorithm/T052.md": "da930b6f16aa32918b9ca1e2466437e58cce861f7c935effcb1d4378fb5613de",
+      "tasks/algorithm/T053.md": "09c30c0f0ecb7b86253a430d9da759aa1369067a62a85fbb6548757afc0402a7",
+      "tasks/algorithm/T054.md": "612aade0dc9a8514c29d1e5cabed142d465718c3d135f5ed79038d261338e977",
+      "tasks/algorithm/T055.md": "5246c82e9974dcc28c423fed5e54e50f41e60dd4ce836fb8cfd9cf8d4a496540",
+      "tasks/algorithm/T056.md": "28373e0704353cc3a2bdca7827c6c4345954f7ac82bf56d7a063e682c79251a8",
+      "tasks/algorithm/T057.md": "84bd1a30df46979d63b17e918250a936086632a61034cb0f92b9b1982c1d0a0a",
+      "tasks/algorithm/T058.md": "b24ac7575b93b9092fd9f5ed77b150ced7cc2bafec4b533445ebbaaf9f8269bb",
+      "tasks/algorithm/T059.md": "8cd6c6cc643651498ff5c8a82bbf383a881f94f8b3e65b7788db5395e3e402cd",
+      "tasks/algorithm/T061.md": "e14f69ae014ee77065a2839e1ff268fd5733bcc6ec6974fd9ae13f495b1be06a",
+      "tasks/algorithm/T062.md": "099e99c5141021acf77fa3970ef81d9a7f90c3b39fdb245d4ab8c718654081c2",
+      "tasks/algorithm/T063.md": "6ee8880293c42bc30fa09ead0ed3f557f177b430daf2b63403b9de351180e1ff",
+      "tasks/algorithm/T064.md": "13ffe213d2ef1c6971a85ef9294601a14124194349c50cbf13cd735d1853fd6c",
+      "tasks/algorithm/T065.md": "280a560f0db363771800e471b2e4aba28a318c4fe49dd96fad63add815d77831",
+      "tasks/algorithm/T066.md": "3f17b55591174e87449ae68b49c0d15d4e609148ba936372a7ecaf46e656b1e8",
+      "tasks/algorithm/T067.md": "19e17894283940ff4d380b9b44584f617651bc423ad864cd22b3cbcf35814bef",
+      "tasks/algorithm/T068.md": "fea27e74f830ca2db6aef997a42ca5d7909034b7aabeabdcadee2e805c75773f",
+      "tasks/algorithm/T069.md": "102257f507e5c076f32da8586d6481e69c685349b149f0645fd4ebdfe55173c4",
+      "tasks/algorithm/T071.md": "a78de5918f05eafe75e14617f0fc10358ca3fd531355eea94e287ecc8de3b72a",
+      "tasks/algorithm/T072.md": "2ba852226198ed30644a18d55ff058734279411709ba6b9e0943f0a529614ca7",
+      "tasks/algorithm/T073.md": "5478d6e6c8aeb81af0c04d55a256edaf35a28239a92e16a55d27993e51a1d9fc",
+      "tasks/algorithm/T074.md": "5ce299a8704c916e12783e02cf0784ffede757e981ba54620d951ec654ad332e",
+      "tasks/algorithm/T075.md": "21277188b581e4474008b027614db5e272c988d6bcdc3787fd695bf6c7936712",
+      "tasks/algorithm/T076.md": "9eae59dc810ba572b9a3c65f7572d41fea692270718e80326d0a847c3e0dddef",
+      "tasks/algorithm/T077.md": "d9000a5b45bc5c645dbb98de882dd39c180e9b01016bd3100381ecab69bc85f6",
+      "tasks/algorithm/T079.md": "3217c53149b860a6109f8a17120e5fedbf13c229b83897128119a6b3ddb52835",
+      "tasks/algorithm/T080.md": "d6e662cb1bebb35ffbcaa479744bfa06b3ab79cb4319f2c36afa6dec4c0550ad",
+      "tasks/algorithm/T081.md": "b183e3fa67a09e4e46534903fe0272e94f3a05aa9318ba64025a3e6d86b5788e",
+      "tasks/algorithm/T082.md": "85eb256622fd28acd915ecf616e2fc4b8fc07d32ab9c238dc6f642446d57d333",
+      "tasks/algorithm/T083.md": "c3c59bf788d0f28acc24a788f5dc6447145ff047aa68a42a1eea151c92b3d940",
+      "tasks/algorithm/T084.md": "d37a8e19f5e14f9fc6466e16444a86740c8dae4e73d17c28ef412dc8d32af9e2",
+      "tasks/algorithm/T085.md": "77ae4692c141df24f7dcd200cc2fbaee5a2423fbf726d4f3e629c487be8574fb",
+      "tasks/algorithm/T086.md": "874a49cea57e3a68048cce2df0fa3a0a595419e4964125ac42db5a100f446fa6",
+      "tasks/algorithm/T087.md": "5fb07798025afdf58a9f1be899db4d984e3488dc2cce67e7d5b6d92109de2242",
+      "tasks/algorithm/T088.md": "dd10faf7c79eecdea21a44fe66c8d484e906eac12957c5baa3c4ae0d5e1c47c5",
+      "tasks/algorithm/T089.md": "24e0b016c6a4d3116f30f62bc6aec036421d670dc3446af3fe7450432632b48c",
+      "tasks/algorithm/T098.md": "93d14b25dad56034d3212da434b60387b4737ca8bcf0f6d8d946f254d94d14f4",
+      "tasks/algorithm/T099.md": "1cd3a97464badd96e259235a14db0e948a0125e16a2b91a8a15f4904373b80dc",
+      "tasks/algorithm/T125.md": "e747d2911b43e51184a91b4b20449ff398296620487e58c9e3c7e4dc77616c1d",
+      "tasks/algorithm/T128.md": "cdf609f11dd5f2656a7f4ac8d87caf815b01783649ada9d4f31de9f9817ca833",
+      "tasks/algorithm/T130.md": "10046b80672803cedb3a1112f854cd4596a722654a261bafaa77a85dfc9109bb",
+      "tasks/algorithm/T131.md": "c2bebad5aeccb36e731df118915efe153c55c504cc76268cfa69ab14ebf49f17",
+      "tasks/algorithm/T132.md": "1f586f5b9d216705d31aba8329ce14dc683fc24ee3056d817058a3a382bb01a7",
+      "tasks/algorithm/T133.md": "239551e442542697a39e23500ddd3ccd0f6d0f1b294b746326a1732a8787b748",
+      "tasks/algorithm/T135.md": "6df6af05fdaa72a85f531a5f2f10098c4641080934378d658382d721ab3bc357",
+      "tasks/algorithm/T136.md": "47ac168fa4173246df3eacbb91f506ce023170d804789de90e3a94adec00fe6b",
+      "tasks/algorithm/T137.md": "93b6322d3d7b46ee3c86100cb2ac32cefea5a6b35a8186e72e3565b05a8f2b43",
+      "tasks/algorithm/T139.md": "f06a2d05be76b0178189f51a02f4e0c0cb51785e9967dc78202937e52a555823",
+      "tasks/algorithm/T140.md": "3399e823afdcdddc0ba141bc63c5764ffc970c1d2fe3d348f186ce20d14c3361",
+      "tasks/algorithm/T141.md": "0593d2d91d7729d246c0a7e617ebaac58a744ce2004e30b52390a36a16b23413",
+      "tasks/algorithm/T143.md": "2559a53c8791067d0027c2ea699e8bb54bbf2c77a3aac7f9a6a5d468f897a93e",
+      "tasks/algorithm/T144.md": "a840852f95aa6942c07693e2c5bffc9adac155ac74185657773ee58c9a3dd181",
+      "tasks/algorithm/T145.md": "f9738bb1a8d29f4775dda90b51ed1a4b403a53a8ee658aca2e769478b52b9ec8",
+      "tasks/algorithm/T146.md": "9f13c7a628bb127418b687eea64fcceb3a08e39a3557115fc702d694f88453b8",
+      "tasks/algorithm/T148.md": "44720ad52f7ac94fc33737d938a493bdba1e2bf11a2f6b1e2beed3e594c7a56e",
+      "tasks/algorithm/T149.md": "06f4c72c9eec60acea6e4bad29ebde5d070c131a417374512934c41aed5f71f1",
+      "tasks/algorithm/T150.md": "8b9c5c79d03c82a80ea6593d79e1b3dde92473d53e51efd6c6326b581b293d03",
+      "tasks/algorithm/T151.md": "a5363c6c424782faf109e68a73461b4ae2cc7107fe881ac10cb4947a8067d95a",
+      "tasks/algorithm/T152.md": "87c21fbfa953aee6d8aa5d5052438181a750548389ae043bd4ea5a78ea567eb0",
+      "tasks/algorithm/T153.md": "8cf0229b41db3429c9cad1b177d0c4b5086661dcd2a1aff9743e373e67d9e139",
+      "tasks/algorithm/T155.md": "a7748147d6f54a9fdb7766a6abf9d6f2a45c5a3dd42cf0eb22b67018848decf7",
+      "tasks/algorithm/T156.md": "67da36c4880b1eaa8561d94b86eb697941f4ab8fba3c302d7a8529f7d0536510",
+      "tasks/algorithm/T157.md": "1abc5d4d6035f4091260296341e95731b56acd978fbf5ba72491756b680540f2",
+      "tasks/algorithm/T159.md": "f19561153093683e0c02968e31032588782cd2e66dc180b4658b6c9acf983008",
+      "tasks/algorithm/T160.md": "5f97562d4987696486b0078861db543a51155001c30f50598cb64c557fb3444f",
+      "tasks/algorithm/T161.md": "7856e2d5e411bd7461d1065110db356d2d18ebdaa04afa439fe83116059701a3",
+      "tasks/algorithm/T162.md": "1653c5bfe7e741382923e0056707da16cb25f1dab4f3b530742ca67eb9029bb6",
+      "tasks/algorithm/T163.md": "4c6c7f4c5f5336e1813f0c44076288c3ed4b86d434e450c1eea3e14788c60770",
+      "tasks/algorithm/T165.md": "da506086fe307fdc52170a481be8e38e44735fd0033721c548d4d52f7d369263",
+      "tasks/algorithm/T167.md": "137215867df2804a0b0fb5de4ca56ba7d80ae9a052bfc1acf46402fd8626aa21",
+      "tasks/algorithm/T168.md": "e101a34a81adf9db6112042032c4f3e0e0551e83b9a3ddf70245b2f419ff381c",
+      "tasks/algorithm/T169.md": "0689c9e624a1f25210ffca3a22b446029cd8c77f43861fe8023c2e633c7e3fe3",
+      "tasks/algorithm/T170.md": "f15ebbbb78dd89da8e62f7be981474d3fc2569c9468c538fd0d6cfa71836461a",
+      "tasks/backend/T019.md": "7f2f6b686d91420fe5a30bc8358241148d1b0c52f1e2d455a94d2de157174211",
+      "tasks/backend/T020.md": "5d28910fbc70dd12c7e60dad4f79a9fa3dc57c366848a4ef0d9fa5b4780a3839",
+      "tasks/backend/T021.md": "310473921c4683ad238f2d4ed9de0dfc17826e3237850d3b7c6315a9a45295ae",
+      "tasks/backend/T022.md": "efc13689c7e4e831ad0fcd85dae4dbc21d718b38f8d72a962977effcf4d9630a",
+      "tasks/backend/T023.md": "88032a4a61394aa68355289cfb9e4daef2c3a8e7df5be1f65e38366569bda2f2",
+      "tasks/backend/T024.md": "1b7427ccf8344e7afbe9234e7e156aaa87d61700736523fc9375a8d91bccbbd0",
+      "tasks/backend/T025.md": "31997918b0997d3e7a52ef9521c8bacd4b4f179f471e66a8dff3cd84bf2e6c25",
+      "tasks/backend/T026.md": "8950aac4057c2ac606a56cc3ae05dd073014007a84162f0dbd4f20c888242e9c",
+      "tasks/backend/T027.md": "93aae57def505b0d88d545c5b218e1e255f6a4fb37bc848dcc9ca75ddeb62f97",
+      "tasks/backend/T028.md": "c1532c87cf63f65f448c388a66853749e54356099b3c7d30ed28fa81ca2d3a73",
+      "tasks/backend/T029.md": "752698fec38aec718fe2c05abdecd1ab22bb762eb703f5d96ea0f4efdd06f6ab",
+      "tasks/backend/T031.md": "134f7649bbb2bafcec479f8539c53928fc76e81348c38e2833f0c59c34a4739f",
+      "tasks/backend/T032.md": "88961dd7d42c7272b1dbebfd56e6f9724aa9f444287dc96cb15eaeeaef28eabf",
+      "tasks/backend/T033.md": "d14a7b86903d6a375e3e2906bb1680fbfa12cb5a8664c602e9ca36c3b1b02be9",
+      "tasks/backend/T034.md": "bf82c5207446878fa4440d77aacf7d65132355eeac505c73ecd8aa5b0fb204ef",
+      "tasks/backend/T035.md": "7f88fda8dc165ebf08c9d29177828099ff042b05a1663597ba7aed6446abef5b",
+      "tasks/backend/T036.md": "5840a13107a7cac26c7ed4934dc3f00303c124f2c9b22fa2e8a6f0263e006b74",
+      "tasks/backend/T037.md": "b4292340dbceaff65900b78976ecbbcb78ce830baeb2d2b7d6896a9913f5df2b",
+      "tasks/backend/T038.md": "5a978f2e32f7f50f04375be6ae00cb054683168f37aefa595ef26cd4397452d1",
+      "tasks/backend/T039.md": "926acda8c93b2dc891e8f03a189ad039767f901024622e77ca9fbb2ebcd9ac17",
+      "tasks/backend/T041.md": "13203a8e637be666d2bebf10e5a9486654382177139f5f1ea6813807db200e64",
+      "tasks/backend/T042.md": "945c2ecc208010e728eb6d59c4780da713facbb72f5ccc49bcffdb0713756760",
+      "tasks/backend/T043.md": "39b6dc1361bdc17f5736105aa780d424ecfa952a7eb1edd68f21dd3ced4d8a22",
+      "tasks/backend/T044.md": "07e0d27422da974049c92d41d9a5069825fda3df9d204e852b69bdb4d8682554",
+      "tasks/backend/T045.md": "49de01891bf0c3510829ec0ae26d3fecc637913b59a265d6b9044bce5a5e849d",
+      "tasks/backend/T046.md": "640b393e7e2cfe789f7458d38ae148e8ff85db90d1f47e8de5af5aaf94828811",
+      "tasks/backend/T047.md": "f96646bf744a63157bfd8f99874f8681d7c7016f639399a51cb1efe148ca38ea",
+      "tasks/backend/T048.md": "3cbc44590eb229d94bdcee032403ebb3c2b061d34485a23f181e0bc8edb6e94f",
+      "tasks/backend/T049.md": "94521bb56b4b8befbcfcb1db7d7f0addee370d79cb41f92e8b1fc5a4ed33f460",
+      "tasks/backend/T050.md": "98455e6fb55e46f19c11a7cbba227769e1b5d460f70880c189be06356be1200a",
+      "tasks/backend/T090.md": "029db05bc95f05572f92e1ac19be7eff8fe8f8c16d49c9c9255ca1f8088f9104",
+      "tasks/backend/T091.md": "a9c5e20fa8703485589f77786fd052863a97ece8af8d04239933bd3ca3a15749",
+      "tasks/backend/T092.md": "ec7734b6d0bdc0d72d1b88e7872406b6b4f132b27bec7acceb220618961de469",
+      "tasks/backend/T093.md": "ff9293a2676fbcf3c1f78b321968fbabf8409ed23e6f2d1da90fdfce7567a0e2",
+      "tasks/backend/T094.md": "f4d3cdad52d9f0212174f020f2dd3285277482eb0eb487da14c8fcd46ae4e08a",
+      "tasks/backend/T095.md": "588a2b956a2e55186ecdb2379547100d4a3ce37353af6c5302ee91553c8587f2",
+      "tasks/backend/T096.md": "8fbd390747f02da094c06dbc1a2c8e03765554c1c66fcafaf888547a2e6ab5bd",
+      "tasks/backend/T100.md": "0972263fe484aafb6dbf2492f7506f6af6af55c7ef01b9a48be8866bdcd46217",
+      "tasks/backend/T101.md": "d3191e8bfb094f02ee1ecaa7e7313723a9ec30ea56baff3c02e18b09628fe3a6",
+      "tasks/backend/T102.md": "b96d265f15219e4aafdc9cff74f2ee67a995dea46495b7256d67654bbc41a6b2",
+      "tasks/backend/T104.md": "5b31f7eb1e84bfd361ae1323d2c1312b166a97b2e7f2670482e60fd0d9f53966",
+      "tasks/backend/T105.md": "af111387a24e25ec55b706bcf55a38bbf5fb9896807873d8e251341820857565",
+      "tasks/backend/T106.md": "a931ca6dc1dc5f2643a2e8e1abcefe9197b6b604b52541418d6da82ecb6a3576",
+      "tasks/backend/T107.md": "6d096f7e94d669d8a2cf1a654aa3d11edd81858f2eb3e182381f53661c333d25",
+      "tasks/backend/T108.md": "8aa5ee670bf1bfef84fac01808c0a225112fcb8790d85ab3078cf75c2573fc05",
+      "tasks/backend/T113.md": "8e421f1321f40456237a14e33b93df851073d7b3cbb4ca0367200224167aa423",
+      "tasks/backend/T114.md": "0269d0712847fbd5fe05396efa43dfc9993d586a4da95f8effb7d2d6d3b7864e",
+      "tasks/backend/T115.md": "6a6f86a3de77cb22805bb103933c4d1b6bfe9b10ee1d6439f5d92670e9b3ce08",
+      "tasks/backend/T116.md": "715d54409a29e5982747e6dddb032fe107c3f9c9817122400e8faf60a40f97e2",
+      "tasks/backend/T120.md": "a17330cd49025e242af82982f66b591651d849c3ecce13e1dafba404125ff803",
+      "tasks/data/T109.md": "d085aa37db365aab425c75c93dc8f8bed1b2345ccfee5bdbcdc25069f49b3afc",
+      "tasks/data/T110.md": "482efb6b6624a32921c97cdf9428c9d5903a99913b7a8553bdc65faebf8835c2",
+      "tasks/data/T111.md": "0efc41311291fb5a98011127c9a68475e197059c0dcbb9417284cd08b70ecf34",
+      "tasks/data/T112.md": "7450675378ced2ea1307ae14d11fe8c742b02d7809b25bc3a4270f7a4fa3902e",
+      "tasks/data/T126.md": "deb2c8e6e953888276383ed30d5361a6e86332408dceacd12a4d23b29203a762",
+      "tasks/data/T127.md": "d2512c684f2734effea6c3ef1af15535f87bb93c6c0fc06a46bb3a29a1838bbc",
+      "tasks/data/T129.md": "ff036fe8fe392e8f28eeb55f01a361744e6aad1c0ae7715a5161f498eb8f469b",
+      "tasks/data/T134.md": "31acb23b30e1dc80b88f91c105633243d61e2eae16459c3678ecdf5e69911aac",
+      "tasks/data/T138.md": "5a943da1520906f9f7298aa906e1423550e89b8400b21c6b213055b9810ed53f",
+      "tasks/data/T142.md": "faf30dcb1795a2dda1d81794f93529e37509238dee07f5c959a99c8734911f46",
+      "tasks/data/T147.md": "34dd914e5e40ae58b81d9abdf564c7b2c3eb20becb8841c25df649c29563214d",
+      "tasks/data/T154.md": "2bd34f8ecfb2dd055e2e0565afce82ab770dae459eb9132eed88db8e88353a61",
+      "tasks/data/T158.md": "a8949fe8e33061a989821b9a8986ede618168718eaa9030288f467006d00a705",
+      "tasks/data/T164.md": "1068b848571aa0c9409d2ea07b6a48bb3181261930893be191ac2f6b114ff8e7",
+      "tasks/data/T166.md": "bf1765acd54491359cbad1da35c9817db5ac6bdee7adf96e87e2da152a04827e",
+      "tasks/deployment/T121.md": "18bb9f441e885c0c74cf5aae6206ac38044f55d4e83c075ed7263821c832d074",
+      "tasks/execution-status.json": "13ad712a544309317cdc525a1b5d95bf98b21c591f8484f2a21db4e7057322fe",
+      "tasks/frontend/T018.md": "32647b78dee9dcd9974b5b77160717d81c150acd270782336d5c1ae4e27f56bc",
+      "tasks/frontend/T030.md": "aed70c04717ed71353a93239e9ce9990d929e43ed3e44c6ea43f8a0e7dc62761",
+      "tasks/frontend/T040.md": "4021d0384fb7a4b1867af64a1f5a52fbed65625b1510598dacddc021e340ab06",
+      "tasks/frontend/T060.md": "30c05ff72f628bd0cf4031b03e9068db4cc07b005a1f5da9be97d7c2b30463ae",
+      "tasks/frontend/T070.md": "c2c0a6da04e2109b3ede0ab4b5c8b70c5843e8e361594287ad8daecede7f1f84",
+      "tasks/frontend/T078.md": "6f70e7a677db7cce81aa42fb4a089b49ef463b148fd2a09953f62ea41298c0f6",
+      "tasks/frontend/T097.md": "5efe6b0ad89c8a837a26fcdc78ca515498424d33069044a65dd09bb2f8916bfd",
+      "tasks/frontend/T103.md": "0be4afb0497210c395a55a1dd09deea24cf9944139be88eb281b70adeccf8648",
+      "tasks/platform/T016.md": "78f47c6c8e0bbf0988c3b4ddc0cb0393afe0de6ba0c2ed1e9099e1eb191d2618",
+      "tasks/platform/T017.md": "7c47d0598aec0571e34eb800f3acbe55079c4cc8c60066e5c6d94f94bb97bd28",
+      "tasks/testing/T117.md": "b219e9fe0efbebe6f82a1fcb37c2efd25f2a8eb58d485da9bc349484a94e5df2",
+      "tasks/testing/T118.md": "b3d4f6ddec82422cfcca2ec5d216a79e7ce9fa0e3d75b9e1985e4dcfaa8a71fb",
+      "tasks/testing/T119.md": "146481cf1b6ecce5a580f8da104083c686538701fe00c2f46dca19b43a0fd582",
+      "tasks/testing/T122.md": "64550c85099920e8969d770f2ce48b137fee4c6668e76ba86fbeca98bde171a5",
+      "tasks/testing/T123.md": "f23ccfe4cfe7bf9d13f3ad751422fa71829bb6440ea9b564ca552edfe49836c7",
+      "tasks/testing/T124.md": "1a03cffcfea9f05cd0af9a91a29cc1c4b55934982d18a124b475d550eda9beb4"
+    },
+    "scope": "Actual isolated snapshot at the recorded time; later metadata wording and CI receipts receive fresh drift checks, not implied by this earlier run"
+  }
 }

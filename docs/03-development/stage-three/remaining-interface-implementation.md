@@ -1,5 +1,11 @@
 # 剩余11类接口的工程实现与正式边界
 
+<!-- T016_NATIVE_FINAL_EVIDENCE -->
+
+已核验的原生隔离源码为`b1b79bfb32b7959e63f302bbef22d32e22dc0b8f`：[T014实际报告](../../00-project/validation/t014-permissions-report.json)713项、[T015实际报告](../../00-project/validation/t015-data-scope-report.json)131项、[T016实际报告](../../00-project/validation/t016-operation-token-report.json)187项，均无失败、错误或跳过；三个独立故障探针均按预期识别断言失败，Ruff、格式和mypy检查通过。三套用例有重叠，数量不相加为唯一测试数或170项任务完成数。此结论限Linux／py310／CPU隔离研发，不是正式验收。
+
+托管CI另计：最后观察为run`39478665682`、提交`1b76a46ad52d9f67f549ee59da685ab79e6b9265`，身份检查332项通过，engineering仍在运行；不宣称最终源码的托管CI通过。后续状态与精确报告摘要以[阶段进度](../../00-project/validation/t016-development-progress.json)及其最新actual记录为准，源码同步、数据库采用和正式授权分别登记。
+
 本批承接用户2026-10-14/15的继续实施授权。已增加代码、真实数据库访问、版本约束、适配边界和专项测试；本批完整验证及同步结果以[业务验证报告](../../00-project/validation/business-foundation-report.json)和[同步回执](../../00-project/server-sync-receipt.json)绑定的实际源码为准。当前文件不提供正式生产冻结或完整业务验收决定。
 
 唯一业务结构源为[OpenAPI](../../03-api/openapi.yaml)：累计73个候选外部操作、102个组件。2026-10-21的T016增量加入issueOperationToken后，独立业务工程实际挂载43个外部操作和1个内部推理入口，30个契约操作仍未挂载；既有PoC另有与候选契约匹配的health。实际挂载的操作可能仍需要权威提供方，默认503不表示已经接入。34类能力结构不能当34个真实模型已实现。运行时/openapi.json从唯一源选取实际挂载操作，避免发布尚未实现的路径或仅展示通用dict字段。

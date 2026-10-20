@@ -104,7 +104,7 @@ def main():
         "09-testing/t014-authorization-test-design.md": "22类权限场景与已有适用测试的对应、部分覆盖及未挂载边界；432为设计组合数，不当运行通过数。",
         "00-project/validation/t014-role-assignment.json": "用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。",
         "03-development/t014-unified-permission-implementation.md": "T014统一权限代码、0006最小权限事实查询、43操作适用回归、源验收逐项对照及正式策略/30未挂载操作/真实交接边界。",
-        "00-project/validation/t014-permissions-report.json": "T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。",
+        "00-project/validation/t014-permissions-report.json": "T014实际严格门禁回执：按报告绑定提交核对挂载操作四类拒绝、SQL/撤销/真实资源回归及未挂载清单；历史计数不当当前结果，不证明正式ALLOW。",
         "00-project/validation/t014-full-regression-report.json": "本批完整业务、T014入口及T013令牌适用回归的真实计数、失败ID和源码快照；原始日志不公开。",
         "00-project/validation/t014-gate-execution-report.json": "T014专项门禁与受控失败探针的实际退出状态；失败必须阻止通过。",
         "00-project/validation/t014-implementation-validation-report.json": "本批格式/类型、输入/文档/导航/排期、12份原件及旧锁/旧迁移保全的实际检查，不代替整任务验收。",

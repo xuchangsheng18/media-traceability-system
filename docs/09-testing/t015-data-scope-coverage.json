@@ -715,7 +715,7 @@
     "skipped": 0
   },
   "t016_increment": {
-    "status": "IMPLEMENTED_SCOPE_FINAL_VERDICT_BY_LATEST_ACTUAL_REPORT",
+    "status": "NATIVE_ISOLATED_GATES_VERIFIED_HOSTED_CI_SEPARATE",
     "document_date": "2026-10-21",
     "implementation_core_commit": "4a6e7656a8caebfa7284f35b321d7656ef53c48a",
     "commit_scope": "implementation_core_commit identifies the first core snapshot only. Later code, test, gate and build revisions have their own evidence. Resolve final tested source and outcome from the progress report and matching latest actual reports.",
@@ -802,11 +802,11 @@
     ],
     "new_mounted_operation_id": "issueOperationToken",
     "public_request_response_schema_changed": false,
-    "current_full_T014_gate_pass_recorded": false,
-    "current_full_T015_gate_pass_recorded": false,
-    "current_full_T016_gate_pass_recorded": false,
+    "current_full_T014_gate_pass_recorded": true,
+    "current_full_T015_gate_pass_recorded": true,
+    "current_full_T016_gate_pass_recorded": true,
     "latest_hosted_CI_pass_recorded_for_final_source": false,
-    "current_strict_gate_status": "This directory does not assert the final result. Consult the progress report and its latest actual gate reports; a previous PASS, a report file existing, or a repair without rerun is insufficient for current source.",
+    "current_strict_gate_status": "The recorded clean native source passed the three retained gates and their independent failure probes. Hosted CI has a separate commit/run and is not asserted complete; follow the progress report for later actual observations.",
     "progress_report_ref": "docs/00-project/validation/t016-development-progress.json",
     "confirmed_feature_evidence": {
       "private_job": "1097e86e88614272866f2ac169de545a",
@@ -834,7 +834,20 @@
       "tests.business.test_t016_permission_facts::test_real_sql_case_confirmation_rechecks_linked_task_and_source_in_same_root",
       "tests.business.test_t016_permission_facts::test_real_sql_two_case_member_cannot_replace_approval_case"
     ],
-    "new_operation_four_class_denial_gate": "The 43-operation401/403/missing-policy503/dependency-failure503 and pre-side-effect assertions remain required. Their current outcome is read from the latest actual T014 report matching final tested source.",
+    "new_operation_four_class_denial_gate": {
+      "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+      "report_ref": "docs/00-project/validation/t014-permissions-report.json",
+      "report_sha256": "fe912d07d7569b66225e22526c3f94e5e89a6e911d2332b5d8a3d8c7222ee049",
+      "mounted_operation_count": 43,
+      "all_mounted_operations_four_class_checks_passed": true,
+      "issueOperationToken": {
+        "unauthenticated": "PASS",
+        "permission_denied": "PASS",
+        "policy_missing": "PASS",
+        "authority_unavailable": "PASS"
+      },
+      "scope": "401/403/missing-policy503/authority-failure503 plus retained real-resource side-effect tests; not formal ALLOW."
+    },
     "T015_original_sentinels_retained": [
       "S01",
       "S02",
@@ -872,13 +885,13 @@
     "Python_candidates_created": false,
     "Python_candidates_deferred": true,
     "remaining": [
-      "Resolve final clean T014/T015/T016 reports, applicable revocation cases, hosted CI and source synchronization from exact-source actual receipts; historical successes and repaired failures stay separately recorded.",
+      "Latest hosted engineering CI, task/navigation receipt and source synchronization remain separately recorded; the clean native gates are verified only for the source and report hashes in final_native_evidence.",
       "Real confirmation/execution actor and role-separation policy; independently authorized consumer integration.",
       "Formal token TTL, independent HMAC key custody/adoption and operational effect of the current <=5-second fact deadline.",
       "Real seal/report/delete/unseal/model consumers; AuditExport public contract separately reviewed.",
       "Shared migration, backup/recovery/adoption and whole-source-task acceptance."
     ],
-    "pass_record_flags_scope": "False means no final PASS is asserted in this directory; it does not override a later actual report. Final gate and hosted CI outcomes must be checked against exact tested source and hashes.",
+    "pass_record_flags_scope": "The three true native flags apply only to final_tested_source_commit and its actual reports. The hosted-CI false flag makes no final success claim; later source or CI results must be checked against their own exact commit and hashes.",
     "final_conclusion_authority": {
       "progress_report_ref": "docs/00-project/validation/t016-development-progress.json",
       "selection_rule": "Follow actual report references published by the progress record, verify report status, exact tested commit and source hashes, and keep historical snapshots distinct. Do not interpret a planned or missing report reference as completed evidence.",
@@ -895,7 +908,7 @@
         "tests.business.test_t016_operation_tokens::test_current_approval_source_people_or_result_revocation_blocks_consumption[result]"
       ]
     },
-    "current_revocation_results": "Approval/source/person/result and synthetic duty revocation combinations: resolve their actual applicable nodeids and results from the latest matching report. Test presence and historical watchlists are not current PASS or permanent pending decisions.",
+    "current_revocation_results": "The four previously watched cases and the fourteen additional applicable cases are recorded passed in final_native_evidence for the exact clean native source. Their synthetic institution/action boundary remains explicit; future changes require current actual evidence.",
     "source_authorization_snapshot_scope": {
       "binding": "task.asset_id -> media_asset.source_id within the same authorized org/case",
       "digest_fields": [
@@ -911,6 +924,200 @@
       "public_request_response_or_database_columns_changed": false,
       "runtime_verdict": "See latest matching actual report; implementation scope is not a standalone PASS."
     },
-    "synthetic_duty_revocation_scope": "Synthetic institutional duty/revocation combinations only; formal cross-person delegation and real consumer actor authority are not adopted."
+    "synthetic_duty_revocation_scope": "Synthetic institutional duty/revocation combinations only; formal cross-person delegation and real consumer actor authority are not adopted.",
+    "final_tested_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+    "final_native_evidence": {
+      "status": "PASS_ALL_THREE_STRICT_NATIVE_GATES",
+      "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+      "source_code_dirty": false,
+      "private_job": "f4985f97b8f4419dbb61d83640425899",
+      "reports": {
+        "T014": {
+          "path": "docs/00-project/validation/t014-permissions-report.json",
+          "sha256": "fe912d07d7569b66225e22526c3f94e5e89a6e911d2332b5d8a3d8c7222ee049",
+          "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+          "status": "PASS",
+          "totals": {
+            "tests": 713,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "command": "python -m pytest tests/platform/test_t014.py tests/platform/test_t014_gate.py tests/business/test_t014_permissions.py tests/business/test_t014_runtime.py tests/platform/test_t014_six_role.py tests/platform/test_t014_work_trust.py tests/business/test_t014_role_facts.py tests/business/test_t014_object_rules.py tests/business/test_t014_indirect_reads.py tests/business/test_t014_duties.py tests/business/test_t014_revocation.py tests/business/test_t014_work.py tests/business/test_migrations.py::test_empty_database_migrates_and_replay_noops tests/business/test_migrations.py::test_work_role_facts_upgrade_is_atomic_and_function_only -q --tb=short --junitxml PRIVATE_PATH",
+          "observed_at": "2026-10-20T18:49:35.199416+00:00"
+        },
+        "T015": {
+          "path": "docs/00-project/validation/t015-data-scope-report.json",
+          "sha256": "748cbd7f7787f8deb8cf18aae69c8067f6deab56aae3c5e10c6be6514c080d6c",
+          "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+          "status": "PASS",
+          "totals": {
+            "tests": 131,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "command": "python -m pytest tests/business/test_t015_scope_sql.py tests/business/test_t015_scope_http.py tests/business/test_t015_collections.py tests/business/test_t015_scoped_objects.py tests/business/test_t015_scope_recovery.py tests/platform/test_t015_data_scope.py tests/platform/test_t015_object_callers.py tests/platform/test_t015_object_storage_failures.py tests/business/test_t016_permission_facts.py::test_real_sql_case_confirmation_rechecks_linked_task_and_source_in_same_root tests/business/test_t016_permission_facts.py::test_real_sql_two_case_member_cannot_replace_approval_case tests/business/test_t016_operation_tokens.py::test_wrong_database_service_is_denied_before_writes_even_when_caught -q --tb=short --junitxml PRIVATE_PATH",
+          "observed_at": "2026-10-20T19:05:52.618992+00:00"
+        },
+        "T016": {
+          "path": "docs/00-project/validation/t016-operation-token-report.json",
+          "sha256": "bf3993e1040b76a8e66afe4c066bb4cba851953be3f65b81163716c6d817f4c1",
+          "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+          "status": "PASS",
+          "totals": {
+            "tests": 187,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "command": "python -m pytest tests/platform/test_t016.py tests/platform/test_t016_gate.py tests/platform/test_t016_permission_catalog.py tests/business/test_t016_operation_tokens.py tests/business/test_t016_operation_token_recovery.py tests/business/test_t016_permission_facts.py -q --tb=short --junitxml PRIVATE_PATH",
+          "observed_at": "2026-10-20T19:14:14.443721+00:00"
+        }
+      },
+      "selected_source_sha256": {
+        "backend/business_app/controls/operation_tokens.py": "36210cabf35a641ba3dc5ab61a7488d00b160deae328a4189ff79e6aa1362b5d",
+        "backend/business_app/permissions/object_facts.py": "17a9fa3caf6fdd8ca42644eba28f03e857be55a8d141b4338233f6465ba9d51e",
+        "backend/business_app/controls/router.py": "aeaba6bc3947d287a693479e4e1833023f0447328a79332c008a2207eb6352de",
+        "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
+        "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
+        "backend/business_migrations/0011_operation_token.sql": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd",
+        "tests/business/test_t016_operation_tokens.py": "482347132072e46e8fb6af805b0afc039f0c85325a69b93bb6cadbdec332682b",
+        "tests/business/test_t016_permission_facts.py": "b38052173f0c61dda7dc926d9d1e2196052769303497b4d2398accac6be223a3"
+      },
+      "complete_source_hashes_location": "Each actual report.source_sha256; selected fields here are not a replacement for the complete map.",
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "independent_failure_probes": [
+        {
+          "script": "scripts/verify_t014_permissions.py",
+          "action": "failure-probe",
+          "exit_code": 1,
+          "status": "PASS",
+          "expected_assertion_failure_verified": true
+        },
+        {
+          "script": "scripts/verify_t015_scope.py",
+          "action": "failure-probe",
+          "exit_code": 1,
+          "status": "PASS",
+          "expected_assertion_failure_verified": true
+        },
+        {
+          "script": "scripts/verify_t016_tokens.py",
+          "action": "failure-probe",
+          "exit_code": 1,
+          "status": "PASS",
+          "expected_assertion_failure_verified": true
+        }
+      ],
+      "totals_overlap_note": "The three suites overlap. Their counts are not summed as unique tests or completed source tasks.",
+      "original_four_revocation_cases": [
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_current_approval_source_people_or_result_revocation_blocks_consumption[approval]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_current_approval_source_people_or_result_revocation_blocks_consumption[source]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_current_approval_source_people_or_result_revocation_blocks_consumption[people]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_current_approval_source_people_or_result_revocation_blocks_consumption[result]",
+          "status": "passed"
+        }
+      ],
+      "additional_fourteen_cases": [
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_revoked_case_membership_cannot_consume_an_issued_token",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_revoked_real_confirmation_role_cannot_consume_an_issued_token",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_revoked_synthetic_execution_assignment_cannot_consume_an_issued_token",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_revoked_analysis_purpose_cannot_consume_an_issued_token",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_issued_credential_cannot_move_between_authorized_principals[actor]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_issued_credential_cannot_move_between_authorized_principals[issuer]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_issued_credential_cannot_move_between_authorized_principals[subject]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_commit_revalidation_rolls_back_current_people_source_or_result_change[people]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_commit_revalidation_rolls_back_current_people_source_or_result_change[source_purpose]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_commit_revalidation_rolls_back_current_people_source_or_result_change[result]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_different_valid_approval_with_same_key_has_exact_idempotency_conflict",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_source_version_change_without_revocation_invalidates_issued_credential[before_consume]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_source_version_change_without_revocation_invalidates_issued_credential[before_commit]",
+          "status": "passed"
+        },
+        {
+          "nodeid": "tests.business.test_t016_operation_tokens::test_failed_business_write_allows_same_credential_retry_to_commit_once",
+          "status": "passed"
+        }
+      ],
+      "additional_fourteen_scope": "Real isolated membership/confirmation-role revocation, explicit synthetic execution duty, analysis-purpose revocation, principal non-transfer, before-commit person/source/result revalidation, exact idempotency conflict, source-version changes and rollback/retry. Synthetic action roots/duties do not authorize formal cross-person delegation or real sealing.",
+      "formal_accepted": false,
+      "shared_database_or_services_adopted": false
+    },
+    "latest_hosted_CI_observation": {
+      "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+      "run_id": 39478665682,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39478665682",
+      "status": "in_progress",
+      "conclusion": null,
+      "observed_at": "2026-10-20T19:03:50.492701+00:00",
+      "identity_report_status": "PASS",
+      "identity_tests": 332,
+      "identity_success_is_overall_engineering_success": false,
+      "latest_status_ref": "docs/00-project/validation/t016-development-progress.json"
+    }
   }
 }

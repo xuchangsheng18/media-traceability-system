@@ -2660,8 +2660,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "审批申请/读取/决定/撤销子范围与版本、双人及来源约束已有测试 审批前端列表、详情、申请、决定/撤销、ETag和幂等重试已编码；构建、客户端测试及页面未登录导航实测通过；正式批准和完整业务E2E未验证。",
-      "summary_remaining": "一次性operation_token签发/消费及受控动作接入仍需实现；已有审批前端待真实身份和规则联调；完整重放/失效/越权/双人回归及整卡验收待完成。",
+      "summary_completed": "审批后端/前端原子范围保留；新增案件令牌签发与同根消费内核，完整严格隔离结果见本批报告。",
+      "summary_remaining": "落实正式双人适用制度、token TTL及当前授权截止窗口、独立HMAC密钥保管/轮换/恢复，以及确认人与执行人角色关系；不把合成职责适配器当正式跨人委托。；逐项接入真实封存/报告/删除/解封/组织模型等消费者及前端；AuditExport现契约没有token字段，其公共兼容变更需另批审查。；准备真实提供方、备份恢复和0011升级窗口后另行采用；本批未迁移共享/预览库、未重启服务，真实业务E2E尚未验收。；开发负责人和指定复核人均已确认徐昌胜；仍需实际剩余工时、本人对最终成果的复核及逐条源验收，不能仅凭CI通过关闭整卡。",
       "completed_steps": [
         {
           "description": "审批申请/读取/决定/撤销子范围与版本、双人及来源约束已有测试",
@@ -2702,20 +2702,94 @@
               "scope": "仅本行已验证开发子范围；初批及当前复核的命令、源摘要和数量分别见development-continuation-report；不证明整任务验收。"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "development_batch": "t016-case-token-kernel-20261021",
+          "description": "单资产案件task/seal操作令牌签发、当前批准/来源版本绑定、HMAC秘密重建与0011升级约束已实现；严格专项报告记录完整正常/拒绝/升级/恢复回归，未接入真实高风险消费者。",
+          "evidence": [
+            {
+              "path": "backend/business_app/controls/operation_tokens.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "backend/business_app/controls/providers.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "backend/business_migrations/0011_operation_token.sql",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "tests/business/test_t016_operation_token_recovery.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "docs/00-project/validation/t016-operation-token-report.json",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "docs/00-project/validation/t016-development-progress.json",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            }
+          ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "development_batch": "t016-case-token-kernel-20261021",
+          "description": "调用方同Connection消费、一次性/实际到期、并发锁顺序、业务失败完整回滚和原凭据重试、撤销/提交前来源与人员/版本重验已实现并经真实隔离SQL/HTTP验证；动作根和令牌互不替代授权。",
+          "evidence": [
+            {
+              "path": "backend/business_app/controls/operation_tokens.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "backend/business_app/db.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "backend/business_app/scope_context.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "tests/business/test_t016_operation_tokens.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "tests/business/test_t016_permission_facts.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "scripts/verify_t016_tokens.py",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "docs/00-project/validation/t016-operation-token-report.json",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            },
+            {
+              "path": "docs/08-security/t016-operation-token-boundaries.md",
+              "scope": "本批Linux/py310单资产案件签发与内部消费的实际隔离证据；共享采用、正式策略及T016整卡验收均未完成。"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
-          "category": "实施/外部条件",
-          "description": "落实实际双人审批适用范围、策略及撤销规则"
+          "category": "正式规则",
+          "description": "落实正式双人适用制度、token TTL及当前授权截止窗口、独立HMAC密钥保管/轮换/恢复，以及确认人与执行人角色关系；不把合成职责适配器当正式跨人委托。"
         },
         {
-          "category": "实施/外部条件",
-          "description": "补全部受控业务动作/前端和正式规则联调；测试身份不替代真实审批"
+          "category": "业务实现",
+          "description": "逐项接入真实封存/报告/删除/解封/组织模型等消费者及前端；AuditExport现契约没有token字段，其公共兼容变更需另批审查。"
+        },
+        {
+          "category": "共享采用与联调",
+          "description": "准备真实提供方、备份恢复和0011升级窗口后另行采用；本批未迁移共享/预览库、未重启服务，真实业务E2E尚未验收。"
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "开发负责人和指定复核人均已确认徐昌胜；仍需实际剩余工时、本人对最终成果的复核及逐条源验收，不能仅凭CI通过关闭整卡。"
         }
       ],
       "observed_date": "2026-10-21",
@@ -2723,10 +2797,17 @@
         "docs/00-project/validation/development-continuation-report.json",
         "docs/03-development/business-console-implementation-plan.md",
         "docs/10-deployment/business-development-runbook.md",
-        "docs/03-development/t016-operation-token-implementation-plan.md"
+        "docs/03-development/t016-operation-token-implementation-plan.md",
+        "docs/00-project/validation/t016-development-progress.json",
+        "docs/00-project/validation/t016-operation-token-report.json",
+        "docs/04-database/operation-token-extension.md",
+        "docs/08-security/t016-operation-token-boundaries.md"
       ],
       "designated_reviewer": "徐昌胜",
-      "owner_confirmation_ref": "docs/00-project/validation/t016-role-assignment.json"
+      "owner_confirmation_ref": "docs/00-project/validation/t016-role-assignment.json",
+      "closeout_review_ref": "docs/00-project/validation/t016-development-progress.json",
+      "implementation_scope_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+      "implementation_scope_validation_ref": "docs/00-project/validation/t016-operation-token-report.json"
     },
     {
       "task_id": "T017",
@@ -8345,5 +8426,15 @@
     "Python_candidates_deferred": true,
     "formal_policy_or_shared_installation_approved": false,
     "scope_extension_to_T164_approved": false
+  },
+  "latest_operation_token_continuation": {
+    "task_id": "T016",
+    "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+    "native_gate_status": "PASS",
+    "evidence_ref": "docs/00-project/validation/t016-operation-token-report.json",
+    "formal_accepted": false,
+    "shared_services_adopted": false,
+    "whole_task_verified": false,
+    "Python_candidates_created": false
   }
 }

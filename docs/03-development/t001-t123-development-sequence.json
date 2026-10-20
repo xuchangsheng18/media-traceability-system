@@ -188,10 +188,10 @@
     "scope_extension_to_T164_approved": false
   },
   "source_backlog_sha256": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-  "ledger_sha256": "3b81253049176b7e1df785cc15de0cf0c118d25a13319be766336030f6cebce6",
+  "ledger_sha256": "13ad712a544309317cdc525a1b5d95bf98b21c591f8484f2a21db4e7057322fe",
   "task_count": 123,
-  "completed_substeps": 108,
-  "remaining_work_items": 433,
+  "completed_substeps": 110,
+  "remaining_work_items": 434,
   "whole_tasks_accepted": 0,
   "deferred_integrated_test_task_ids": [
     "T118",
@@ -202,8 +202,8 @@
   "original_170_task_scope_preserved": true,
   "all_170_task_totals": {
     "task_count": 170,
-    "completed_substeps": 108,
-    "remaining_work_items": 621,
+    "completed_substeps": 110,
+    "remaining_work_items": 622,
     "whole_tasks_accepted": 0
   },
   "actual_schedule_dates_inferred": false,
@@ -524,19 +524,21 @@
       ],
       "outside_authorized_scope_dependencies": [],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
-      "completed_substeps": 2,
-      "remaining_work_items": 3,
+      "completed_substeps": 4,
+      "remaining_work_items": 4,
       "whole_task_accepted": false,
       "actual_owner": "徐昌胜",
       "designated_reviewer": "徐昌胜",
       "owner_confirmation_ref": "docs/00-project/validation/t016-role-assignment.json",
       "implementation_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
-      "current_full_gate_status": "RUNNING_NO_PASS_ASSERTION",
+      "current_full_gate_status": "PASS_ALL_THREE_STRICT_GATES_AND_FAILURE_PROBES",
       "development_progress_ref": "docs/00-project/validation/t016-development-progress.json",
-      "work_arrangement": "徐昌胜负责开发与复核；案件绑定的一次性operation_token签发及同事务消费内核已在b1b79bf编码，最新完整门禁执行中，本批未新增已验证子步骤或PASS。真实受控业务消费者和前端、真实身份与审批规则联调、正式采用及整卡验收仍待完成。",
+      "work_arrangement": "落实正式双人适用制度、token TTL及当前授权截止窗口、独立HMAC密钥保管/轮换/恢复，以及确认人与执行人角色关系；不把合成职责适配器当正式跨人委托。；逐项接入真实封存/报告/删除/解封/组织模型等消费者及前端；AuditExport现契约没有token字段，其公共兼容变更需另批审查。；准备真实提供方、备份恢复和0011升级窗口后另行采用；本批未迁移共享/预览库、未重启服务，真实业务E2E尚未验收。；开发负责人和指定复核人均已确认徐昌胜；仍需实际剩余工时、本人对最终成果的复核及逐条源验收，不能仅凭CI通过关闭整卡。",
       "actual_dependency_readiness_verified_by_this_document": false,
       "code_or_test_execution_performed_by_this_document": false,
-      "remaining_work_groups": 3
+      "remaining_work_groups": 4,
+      "actual_gate_status_ref": "docs/00-project/validation/t016-development-progress.json#/active_final_gate_job",
+      "runtime_report_ref": "docs/00-project/validation/t016-operation-token-report.json"
     },
     {
       "task_id": "T017",
@@ -2840,9 +2842,9 @@
   ],
   "previous_completed_plan_ref": "docs/03-development/t014-isolated-six-role-implementation-plan.md",
   "immediate_next_task_id": "T016",
-  "immediate_next_scope": "T016 case-bound one-use token issuance and same-transaction consumption kernel implemented at b1b79bf under existing public structure; latest complete gates are running, with no new verified substep or PASS recorded. Real controlled consumers, frontend and actual-identity integration, formal adoption, complete hosted CI, whole-task acceptance and T013 owner recovery remain separate.",
+  "immediate_next_scope": "T016 implementation source: b1b79bfb32b7959e63f302bbef22d32e22dc0b8f; actual full-gate status: PASS_ALL_THREE_STRICT_GATES_AND_FAILURE_PROBES (see docs/00-project/validation/t016-development-progress.json#/active_final_gate_job). Verified substeps and remaining work follow the exact current ledger; formal adoption and whole-task acceptance are separate.",
   "immediate_next_preflight_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
   "immediate_next_design_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
   "immediate_next_design_status": "WRITTEN_TECHNICAL_CHOICES_NOT_ADOPTED",
-  "immediate_next_plan_status": "IMPLEMENTED_FULL_GATES_RUNNING_NOT_ACCEPTED"
+  "immediate_next_plan_status": "ISOLATED_KERNEL_VERIFIED_HOSTED_CI_SEPARATE"
 }
