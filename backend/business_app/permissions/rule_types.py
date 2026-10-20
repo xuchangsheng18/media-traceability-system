@@ -29,6 +29,14 @@ class RoleFacts:
     version_digest: str
 
 
+@dataclass(frozen=True)
+class RuleSnapshot:
+    version: str
+    sha256: str
+    recovery_generation: str
+    valid_until: int
+
+
 class RoleFactsReader(Protocol):
     def read_roles(
         self, principal: Principal, permission: str, *, connection: Connection | None = None
