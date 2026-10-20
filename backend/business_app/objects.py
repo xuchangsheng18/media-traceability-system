@@ -38,14 +38,34 @@ class FileObjectStore:
         file = folder / (version + ".bin")
         digest = hashlib.sha256()
         count = 0
-        with file.open("xb") as output:
-            os.chmod(file, 0o600)
-            for block in iter(lambda: body.read(1024 * 1024), b""):
-                output.write(block)
-                digest.update(block)
-                count += len(block)
-            output.flush()
-            os.fsync(output.fileno())
+        try:
+            with file.open("xb") as output:
+                os.chmod(file, 0o600)
+                for block in iter(lambda: body.read(1024 * 1024), b""):
+                    written = output.write(block)
+                    digest.update(block[:written])
+                    count += written
+                    if written != len(block):
+                        raise OSError("OBJECT_WRITE_INCOMPLETE")
+                output.flush()
+                os.fsync(output.fileno())
+        except Exception:
+            if file.is_file():
+                # write() can persist a prefix and then raise before returning
+                # its byte count. Describe the surviving file, not an assumed
+                # amount of accepted input or an empty running digest.
+                actual_digest, actual_size = hashlib.sha256(), 0
+                with file.open("rb") as partial:
+                    for saved in iter(lambda: partial.read(1024 * 1024), b""):
+                        actual_digest.update(saved)
+                        actual_size += len(saved)
+                self.record_orphan(
+                    StoredObject(ObjectRef(object_id, version, actual_digest.hexdigest()), actual_size),
+                    scope,
+                    upload_id,
+                    "OBJECT_WRITE_INCOMPLETE",
+                )
+            raise
         return StoredObject(ObjectRef(object_id, version, digest.hexdigest()), count)
 
     def record_orphan(

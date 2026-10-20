@@ -138,6 +138,7 @@ def page(
         bind_task_scope(connection, current_data_scope(), TaskBinding(filters["task"], filters["run"]))
     candidates: tuple[ResourceBinding, ...] = ()
     visibility: tuple[UUID, ...] = ()
+    cursor_filters = dict(filters or {})
     fingerprint = None
     kind = next((name for name, pair in COLLECTION_TABLES.items() if pair == (table, key)), None)
     if kind is not None:
@@ -171,6 +172,8 @@ def page(
         ),
         params,
     ).scalar_one()
+    if collection is not None:
+        signature = hashlib.sha256(canonical([signature, fingerprint])).hexdigest()
     binding = canonical(
         [
             table,
@@ -179,7 +182,7 @@ def page(
             str(scope.case_id),
             where,
             version_expression,
-            {k: str(v) for k, v in (filters or {}).items()},
+            {k: str(v) for k, v in cursor_filters.items()},
             limit,
         ]
     )
@@ -213,6 +216,8 @@ def page(
         ),
         params,
     ).scalar_one()
+    if collection is not None:
+        checked = hashlib.sha256(canonical([checked, fingerprint])).hexdigest()
     if checked != signature:
         raise BusinessError("PAGE_CURSOR_STALE", 409)
     if collection is not None and kind is not None:

@@ -469,6 +469,15 @@ class ObjectFactsReader:
         if envelopes is None:
             envelopes = [port.load(principal, operation_id, key, connection=connection) for key in keys]
 
+        def database_timestamp(value: str) -> datetime:
+            try:
+                return datetime.fromisoformat(value)
+            except ValueError:
+                # PostgreSQL JSON trims trailing fractional zeroes. Python3.10
+                # fromisoformat accepts only 3/6 fractional digits; strptime's
+                # %f accepts the actual 1..6-digit database precision.
+                return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f%z")
+
         def typed(value: Any) -> Any:
             if isinstance(value, list):
                 return [typed(item) for item in value]
@@ -477,7 +486,7 @@ class ObjectFactsReader:
             return {
                 key: UUID(item)
                 if item is not None and (key.endswith("_id") or key in {"created_by", "requested_by"})
-                else datetime.fromisoformat(item)
+                else database_timestamp(item)
                 if item is not None and key.endswith("_at")
                 else typed(item)
                 for key, item in value.items()

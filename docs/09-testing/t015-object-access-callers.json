@@ -1,0 +1,132 @@
+{
+  "task_id": "T015",
+  "status": "STATIC_CALL_PATH_INVENTORY_NOT_RUNTIME_OR_TASK_ACCEPTANCE",
+  "source_base_commit": "95f21122103bb7d9adc1607b078196368e173f61",
+  "callers": [
+    {
+      "file": "backend/business_app/controls/exports.py",
+      "function": "_process_bound",
+      "line": 171,
+      "method": "put",
+      "static_binding_expressions": [
+        "ResourceBinding('export_artifact', identifier)"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/controls/exports.py",
+      "function": "content",
+      "line": 247,
+      "method": "read",
+      "static_binding_expressions": [
+        "ResourceBinding('export_artifact', identifier)"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/controls/imports.py",
+      "function": "create",
+      "line": 87,
+      "method": "read",
+      "static_binding_expressions": [
+        "ResourceBinding('media_input', asset['asset_id'])"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/controls/reviews.py",
+      "function": "create",
+      "line": 145,
+      "method": "read",
+      "static_binding_expressions": [
+        "ResourceBinding('history_input', fixed['object_id'], task=TaskBinding(result_key.task_id, result_key.run_version, result_key.result_version))"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/history/repository.py",
+      "function": "verify_current_inputs",
+      "line": 81,
+      "method": "read",
+      "static_binding_expressions": [],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/inference.py",
+      "function": "check_inputs",
+      "line": 159,
+      "method": "read",
+      "static_binding_expressions": [
+        "ResourceBinding('media_input', asset, task=TaskBinding(UUID(payload['task_id']), payload['run_version']))"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/inference.py",
+      "function": "_finish_response",
+      "line": 266,
+      "method": "read",
+      "static_binding_expressions": [
+        "ResourceBinding('model_artifact', UUID(ref['object_id']), task=TaskBinding(UUID(payload['task_id']), payload['run_version']))"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/uploads/service.py",
+      "function": "put_part",
+      "line": 73,
+      "method": "put",
+      "static_binding_expressions": [
+        "ResourceBinding('upload_part', upload_id, part_no=number)"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/uploads/worker.py",
+      "function": "_consume_bound",
+      "line": 138,
+      "method": "put",
+      "static_binding_expressions": [
+        "ResourceBinding('upload', upload)"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    },
+    {
+      "file": "backend/business_app/uploads/worker.py",
+      "function": "_consume_bound",
+      "line": 102,
+      "method": "read",
+      "static_binding_expressions": [
+        "ResourceBinding('upload_part', upload, part_no=int(part['part_no']))"
+      ],
+      "proof_kind": "STATIC_CALL_PATH_NOT_A_RUNTIME_RESULT"
+    }
+  ],
+  "caller_count": 10,
+  "direct_store_calls": [
+    {
+      "file": "backend/business_app/scoped_objects.py",
+      "function": "read",
+      "line": 283
+    },
+    {
+      "file": "backend/business_app/scoped_objects.py",
+      "function": "put",
+      "line": 336
+    }
+  ],
+  "raw_business_bypass_count": 0,
+  "source_sha256": {
+    "backend/business_app/controls/exports.py": "4ebef7e17b1022b0122a80b43967d6bcfc94e3e4e27141057936aeaeeb879cdd",
+    "backend/business_app/controls/imports.py": "6213efba2a5d807c5a2f3a8b9d2f199a64a93645c478d7faa5e19f9de5622789",
+    "backend/business_app/controls/reviews.py": "499abde4edf583bfbaa8838ce6bd007a96c75f4a5f57d6fd900ed17cda974381",
+    "backend/business_app/history/repository.py": "35edca3a3346acc947c1d91258b5ff49737d280f417a10d6030b88eb79c3a0b2",
+    "backend/business_app/inference.py": "612d6d4006c03110125db8e56f09b8586c0da59b335f0addc5472a1d5c330f2e",
+    "backend/business_app/uploads/service.py": "8d3adfc488ced313b9be547ae29fa713c18408bab5b481bec24616bcf3a5508e",
+    "backend/business_app/uploads/worker.py": "909b1eebe1cf42be934631879aff429837507ee9537ee1ea577607a103b3aff8"
+  },
+  "real_model_artifact_producer_available": false,
+  "model_artifacts_without_actual_provenance": "DENY_503",
+  "shared_services_or_migrations_modified": false,
+  "formal_accepted": false
+}

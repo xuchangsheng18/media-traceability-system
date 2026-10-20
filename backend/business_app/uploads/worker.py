@@ -10,9 +10,12 @@ from sqlalchemy import text
 
 from ..auth import AuthorityProvider
 from ..contracts import ROOT
+from ..data_scope import ResourceBinding
 from ..errors import BusinessError
 from ..objects import StoredObject
 from ..permissions.context import WorkPort, protected_work
+from ..scope_context import current_data_scope
+from ..scoped_objects import ScopedObjects
 from ..types import Actor, ObjectRef, Scope
 from .service import UploadService
 from .validator import inspect_uploaded_media
@@ -96,7 +99,12 @@ class UploadValidationWorker:
                 try:
                     for part in parts:
                         ref = ObjectRef(part["object_id"], part["version_id"], part["sha256"])
-                        for block in self.service.store.read(ref):
+                        for block in ScopedObjects(self.service.store, self.authority).read(
+                            connection,
+                            current_data_scope(),
+                            ResourceBinding("upload_part", upload, part_no=int(part["part_no"])),
+                            ref,
+                        ):
                             if len(data) + len(block) > int(row["size_bytes"]):
                                 bytes_valid = False
                                 break
@@ -127,7 +135,9 @@ class UploadValidationWorker:
                         {"case": scope.case_id, "id": upload},
                     )
                     return
-                stored = self.service.store.put_part(scope, upload, 1, io.BytesIO(data))
+                stored = ScopedObjects(self.service.store, self.authority).put(
+                    repository.database, scope, ResourceBinding("upload", upload), io.BytesIO(data)
+                )
                 asset, content = uuid4(), uuid4()
                 duplicate = (
                     connection.execute(

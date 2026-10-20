@@ -8,12 +8,13 @@ from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
 from ..contracts import REGISTRY, ROOT
-from ..data_scope import TaskBinding
+from ..data_scope import ResourceBinding, TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import ObjectStore
 from ..scope_collections import bind_task_scope, require_resource
 from ..scope_context import bind_data_scope, current_data_scope
+from ..scoped_objects import ScopedObjects
 from ..types import ObjectRef, ResultKey, Scope
 from .projection import nested_dicts, project
 
@@ -46,7 +47,9 @@ class ResultRepository:
         if snapshot["capability_outputs"] or snapshot["ordinary_media_outputs"]:
             raise BusinessError("RESULT_PRODUCER_NOT_IN_SELECTED_BATCH", 503)
 
-    def verify_current_inputs(self, connection: Connection, scope: Scope, snapshot: dict[str, Any]) -> None:
+    def verify_current_inputs(
+        self, connection: Connection, scope: Scope, snapshot: dict[str, Any], *, writing: bool = False
+    ) -> None:
         if self.authority is None:
             raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
         for ref in nested_dicts(snapshot):
@@ -54,7 +57,7 @@ class ResultRepository:
                 continue
             row = (
                 connection.execute(
-                    text("""SELECT o.version_id,o.sha256,a.source_id FROM mt.object_version o
+                    text("""SELECT o.version_id,o.sha256,a.source_id,a.asset_id FROM mt.object_version o
                 JOIN mt.media_asset a ON a.case_id=o.case_id AND a.object_id=o.object_id
                 WHERE o.case_id=:case AND o.object_id=:id"""),
                     {"case": scope.case_id, "id": UUID(ref["object_id"])},
@@ -67,7 +70,20 @@ class ResultRepository:
             self.authority.authorize_source(scope, row["source_id"], "analysis")
             # Exhausting the immutable stream verifies actual bytes, not just the DB digest.
             try:
-                for _ in self.store.read(ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"])):
+                task = snapshot["binding"]
+                binding = ResourceBinding(
+                    "media_input" if writing else "history_input",
+                    row["asset_id"] if writing else UUID(ref["object_id"]),
+                    task=TaskBinding(UUID(task["task_id"]))
+                    if writing
+                    else TaskBinding(UUID(task["task_id"]), task["run_version"], task["result_version"]),
+                )
+                for _ in ScopedObjects(self.store, self.authority).read(
+                    connection,
+                    current_data_scope(),
+                    binding,
+                    ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"]),
+                ):
                     pass
             except (RuntimeError, FileNotFoundError, ValueError):
                 raise BusinessError("SNAPSHOT_INTEGRITY_FAILED", 503) from None
@@ -138,7 +154,7 @@ class ResultRepository:
             if str(task["object_id"]) not in {ref["object_id"] for ref in snapshot["input_refs"]}:
                 raise BusinessError("SNAPSHOT_TASK_INPUT_INVALID", 409)
             input_sha = hashlib.sha256(canonical({"input_refs": snapshot["input_refs"]})).hexdigest()
-            self.verify_current_inputs(connection, scope, snapshot)
+            self.verify_current_inputs(connection, scope, snapshot, writing=True)
             for entry in snapshot.get("api_projections", []):
                 if str(UUID(entry["resource_id"])) != entry["resource_id"]:
                     raise BusinessError("SNAPSHOT_RESOURCE_ID_NOT_CANONICAL", 422)
