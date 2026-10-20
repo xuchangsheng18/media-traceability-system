@@ -81,7 +81,7 @@ _RESOURCES = MappingProxyType(
 )
 LOOKUP_KINDS = frozenset(_RESOURCES)
 RESOURCE_BINDING_KINDS = LOOKUP_KINDS | frozenset(
-    {"case", "upload_part", "media_input", "history_input", "export_artifact", "model_artifact"}
+    {"case", "audit_event", "upload_part", "media_input", "history_input", "export_artifact", "model_artifact"}
 )
 
 

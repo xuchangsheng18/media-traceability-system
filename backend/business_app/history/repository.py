@@ -8,9 +8,12 @@ from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
 from ..contracts import REGISTRY, ROOT
+from ..data_scope import TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import ObjectStore
+from ..scope_collections import bind_task_scope, require_resource
+from ..scope_context import bind_data_scope, current_data_scope
 from ..types import ObjectRef, ResultKey, Scope
 from .projection import nested_dicts, project
 
@@ -119,6 +122,7 @@ class ResultRepository:
         encoded = canonical(snapshot)
         sha = hashlib.sha256(encoded).hexdigest()
         with self.database.transaction(scope) as connection:
+            bind_task_scope(connection, current_data_scope(), TaskBinding(key.task_id))
             task = (
                 connection.execute(
                     text(
@@ -294,41 +298,58 @@ class ResultRepository:
 
     def load_exact(self, scope: Scope, key: ResultKey) -> dict[str, Any]:
         with self.database.transaction(scope) as connection:
-            row = (
-                connection.execute(
-                    text(
-                        "SELECT sha256,summary FROM mt.task_result WHERE case_id=:case AND task_id=:task AND run_version=:run AND result_version=:result"
-                    ),
-                    {"case": scope.case_id, "task": key.task_id, "run": key.run_version, "result": key.result_version},
-                )
-                .mappings()
-                .one_or_none()
+            limited = bind_task_scope(
+                connection, current_data_scope(), TaskBinding(key.task_id, key.run_version, key.result_version)
             )
-            if row is None:
-                raise BusinessError("RESULT_NOT_FOUND", 404)
-            envelope = row["summary"]
-            if not isinstance(envelope, dict) or set(envelope) != {"snapshot_schema_id", "snapshot"}:
-                raise BusinessError("LEGACY_SNAPSHOT_MAPPING_UNAVAILABLE", 503)
-            snapshot = dict(envelope["snapshot"])
-            self.validate_snapshot(snapshot, envelope["snapshot_schema_id"])
-            if hashlib.sha256(canonical(snapshot)).hexdigest() != row["sha256"]:
-                raise BusinessError("SNAPSHOT_INTEGRITY_FAILED", 503)
-            binding = snapshot["binding"]
-            if (UUID(binding["task_id"]), binding["run_version"], binding["result_version"]) != (
-                key.task_id,
-                key.run_version,
-                key.result_version,
-            ):
-                raise BusinessError("SNAPSHOT_BINDING_INVALID", 409)
-            if UUID(binding["org_id"]) != scope.actor.org_id or UUID(binding["case_id"]) != scope.case_id:
-                raise BusinessError("SNAPSHOT_BINDING_INVALID", 409)
-            self.verify_current_inputs(connection, scope, snapshot)
-            return snapshot
+            with bind_data_scope(limited):
+                return self._load_exact_bound(connection, scope, key)
+
+    def _load_exact_bound(self, connection: Connection, scope: Scope, key: ResultKey) -> dict[str, Any]:
+        row = (
+            connection.execute(
+                text(
+                    "SELECT sha256,summary FROM mt.task_result WHERE case_id=:case AND task_id=:task AND run_version=:run AND result_version=:result"
+                ),
+                {"case": scope.case_id, "task": key.task_id, "run": key.run_version, "result": key.result_version},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            raise BusinessError("RESULT_NOT_FOUND", 404)
+        envelope = row["summary"]
+        if not isinstance(envelope, dict) or set(envelope) != {"snapshot_schema_id", "snapshot"}:
+            raise BusinessError("LEGACY_SNAPSHOT_MAPPING_UNAVAILABLE", 503)
+        snapshot = dict(envelope["snapshot"])
+        self.validate_snapshot(snapshot, envelope["snapshot_schema_id"])
+        if hashlib.sha256(canonical(snapshot)).hexdigest() != row["sha256"]:
+            raise BusinessError("SNAPSHOT_INTEGRITY_FAILED", 503)
+        binding = snapshot["binding"]
+        if (UUID(binding["task_id"]), binding["run_version"], binding["result_version"]) != (
+            key.task_id,
+            key.run_version,
+            key.result_version,
+        ):
+            raise BusinessError("SNAPSHOT_BINDING_INVALID", 409)
+        if UUID(binding["org_id"]) != scope.actor.org_id or UUID(binding["case_id"]) != scope.case_id:
+            raise BusinessError("SNAPSHOT_BINDING_INVALID", 409)
+        self.verify_current_inputs(connection, scope, snapshot)
+        return snapshot
 
     def load_latest(
         self, scope: Scope, operation_id: str, resource_id: UUID, ranking_id: UUID | None = None
     ) -> tuple[ResultKey, dict[str, Any]]:
         with self.database.transaction(scope) as connection:
+            kind = (
+                "task"
+                if operation_id in {"getTask", "getRiskFindings", "getForensics", "getTaskEvidence"}
+                else "asset"
+                if operation_id == "getTimeline"
+                else "cluster"
+            )
+            require_resource(connection, current_data_scope(), kind, resource_id)
+            if kind == "task":
+                bind_task_scope(connection, current_data_scope(), TaskBinding(resource_id))
             entry: dict[str, Any] = {"operation_id": operation_id, "resource_id": str(resource_id)}
             if ranking_id is not None:
                 entry["response"] = {"ranking_id": str(ranking_id)}
@@ -350,4 +371,7 @@ class ResultRepository:
             if row is None:
                 raise BusinessError("RESULT_NOT_FOUND", 404)
             key = ResultKey(row.task_id, int(row.run_version), int(row.result_version))
+            bind_task_scope(
+                connection, current_data_scope(), TaskBinding(key.task_id, key.run_version, key.result_version)
+            )
         return key, self.load_exact(scope, key)

@@ -13,8 +13,11 @@ from sqlalchemy import Connection, text
 from ..auth import authenticated_actor, authorize_request
 from ..contracts import validate_response
 from ..cursor_encoding import decode_cursor
+from ..data_scope import ResourceBinding, TaskBinding
 from ..db import Database
 from ..errors import BusinessError
+from ..scope_collections import COLLECTION_TABLES, CollectionScope, bind_task_scope, require_resource, require_root
+from ..scope_context import current_data_scope
 from ..types import Actor, Scope
 
 
@@ -71,6 +74,12 @@ def resource_scope(request: Request, kind: str, resource_id: UUID, action: str) 
 
 
 def row(connection: Connection, table: str, key: str, identifier: UUID, lock: bool = False) -> dict[str, Any]:
+    root_scope = current_data_scope()
+    kind = next((kind for kind, pair in RESOURCE_TABLES.items() if pair == (table, key)), None)
+    if kind is not None:
+        require_resource(connection, root_scope, kind, identifier)
+    else:
+        require_root(connection, root_scope)
     result = (
         connection.execute(
             text(f"SELECT * FROM mt.{table} WHERE {key}=:id" + (" FOR UPDATE" if lock else "")), {"id": identifier}
@@ -119,9 +128,43 @@ def page(
     where: str = "case_id=:case",
     filters: dict[str, Any] | None = None,
     version_expression: str = "row_version::text",
+    collection: CollectionScope | None = None,
 ) -> tuple[list[dict[str, Any]], str | None]:
     # Identifiers and predicates are exclusively internal constants, never client SQL.
     params: dict[str, Any] = dict(case=scope.case_id, org=scope.actor.org_id, **(filters or {}))
+    if table == "task_event":
+        if filters is None or not isinstance(filters.get("task"), UUID) or type(filters.get("run")) is not int:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        bind_task_scope(connection, current_data_scope(), TaskBinding(filters["task"], filters["run"]))
+    candidates: tuple[ResourceBinding, ...] = ()
+    visibility: tuple[UUID, ...] = ()
+    fingerprint = None
+    kind = next((name for name, pair in COLLECTION_TABLES.items() if pair == (table, key)), None)
+    if kind is not None:
+        if collection is None:
+            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+        columns = key + ",row_version" + (",task_id,run_version,result_version" if kind == "review" else "")
+        candidate_rows = (
+            connection.execute(text(f"SELECT {columns} FROM mt.{table} WHERE {where} ORDER BY {key}"), params)
+            .mappings()
+            .all()
+        )
+        candidates = tuple(
+            ResourceBinding(
+                kind,
+                item[key],
+                int(item["row_version"]),
+                TaskBinding(item["task_id"], int(item["run_version"]), int(item["result_version"]))
+                if kind == "review"
+                else None,
+            )
+            for item in candidate_rows
+        )
+        visibility = collection.allowed_ids(connection, current_data_scope(), candidates)
+        fingerprint = collection.fingerprint
+        filters = dict(filters or {}, scope_allowed=list(visibility), scope_visibility=fingerprint)
+        params.update(filters)
+        where = f"({where}) AND {key}=ANY(CAST(:scope_allowed AS uuid[]))"
     signature = connection.execute(
         text(
             f"SELECT encode(sha256(convert_to(coalesce(string_agg({key}::text||':'||({version_expression}),',' ORDER BY {key}),''),'UTF8')),'hex') FROM mt.{table} WHERE {where}"
@@ -172,6 +215,10 @@ def page(
     ).scalar_one()
     if checked != signature:
         raise BusinessError("PAGE_CURSOR_STALE", 409)
+    if collection is not None and kind is not None:
+        refreshed = collection.allowed_ids(connection, current_data_scope(), candidates)
+        if refreshed != visibility or collection.fingerprint != fingerprint:
+            raise BusinessError("AUTHORIZATION_CHANGED", 503)
     items = [dict(item) for item in rows[:limit]]
     following = None
     if len(rows) > limit:

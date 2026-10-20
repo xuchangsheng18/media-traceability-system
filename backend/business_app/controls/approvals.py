@@ -8,9 +8,12 @@ from fastapi import Request
 from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
+from ..data_scope import TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..permissions.duties import IndependentDuties
+from ..scope_collections import bind_task_scope, require_resource
+from ..scope_context import current_data_scope
 from ..types import Scope
 from ..uploads.repository import UploadRepository
 from .common import audit, canonical, match, row
@@ -44,6 +47,12 @@ class Approvals:
         }
         if item["object_type"] not in targets:
             raise BusinessError("APPROVAL_OBJECT_ADAPTER_UNAVAILABLE", 503)
+        if item["object_type"] == "task":
+            bind_task_scope(
+                connection,
+                current_data_scope(),
+                TaskBinding(UUID(str(item["object_id"])), item["run_version"], item["result_version"]),
+            )
         if item["object_type"] == "operation" and (
             UUID(str(item["object_id"])) != scope.case_id or item["purpose"] != "report_export"
         ):
@@ -93,6 +102,7 @@ class Approvals:
                 raise BusinessError("APPROVAL_RESULT_STALE", 409)
 
     def detail(self, connection: Connection, scope: Scope, identifier: UUID, *, lock: bool = False) -> dict[str, Any]:
+        require_resource(connection, current_data_scope(), "approval", identifier)
         item = row(connection, "approval_request", "approval_id", identifier, lock)
         if item["case_id"] != scope.case_id:
             raise BusinessError("RESOURCE_NOT_FOUND", 404)

@@ -10,13 +10,13 @@ from tests.business.test_t014_object_rules import configure
 from tests.business.test_t014_permissions import permission_module
 
 
-def candidate(ctx, permission_context, permissions):
+def candidate(ctx, permission_context, permissions, *, role_code="case_investigator"):
     current = dict(ctx)
     for key in ["lookup", "principal", "identity", "binding", "role", "permission", "relation", "login"]:
         current[key] = permission_context[key]
-    types, roles, rules, objects, authority = configure(current, "case_investigator")
+    types, roles, rules, objects, authority = configure(current, role_code)
     with psycopg.connect(current["admin_dsn"]) as admin:
-        found_role = admin.execute("SELECT role_id FROM mt.roles WHERE code='case_investigator'").fetchone()
+        found_role = admin.execute("SELECT role_id FROM mt.roles WHERE code=%s", (role_code,)).fetchone()
         assert found_role is not None
         role = found_role[0]
         for code in permissions:

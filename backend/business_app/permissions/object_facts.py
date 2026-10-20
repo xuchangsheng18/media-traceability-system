@@ -150,7 +150,10 @@ class ObjectFactsReader:
                 "createReview": {"task"},
                 "exportAudit": {"approval"},
                 "createPolicy": {"policy_collection"},
-                "listPolicies": {"policy_collection"},
+                "listPolicies": {"policy_collection", "policy"},
+                "listApprovals": {"case", "approval"},
+                "listSources": {"case", "source"},
+                "listAuditEvents": {"case", "audit_event"},
                 "getCurrentUser": {"user"},
                 "getModelOperation": {"model_operation"},
                 "listReviews": {"case", "review"},
@@ -422,9 +425,21 @@ class ObjectFactsReader:
             raise BusinessError("ORGANIZATION_APPROVAL_ADAPTER_UNAVAILABLE", 503)
         if target.kind == "model_operation":
             raise BusinessError("MODEL_RULE_ADAPTER_UNAVAILABLE", 503)
+        collection_leaf = (operation_id in CASE_LISTS and target.kind != "case") or (
+            operation_id == "listPolicies" and target.kind == "policy"
+        )
+        if collection_leaf:
+            from ..scope_collections import collection_metadata
+            from ..scope_context import current_data_scope
+
+            if connection is None or not isinstance(principal, Principal):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            envelopes = [collection_metadata(connection, current_data_scope(), principal, operation_id, target)]
         port = SqlScopeLookup(self.database, work_trust=work_trust, clock=self.clock)
         keys = (
-            [LookupKey("source", value) for value in sorted(target.source_ids, key=str)]
+            []
+            if collection_leaf
+            else [LookupKey("source", value) for value in sorted(target.source_ids, key=str)]
             if target.kind == "source_collection"
             else [LookupKey("user", principal.actor.user_id)]
             if target.kind in {"user", "policy_collection"}
@@ -433,6 +448,16 @@ class ObjectFactsReader:
             else [LookupKey(target.kind, cast(UUID, target.object_id))]
         )
         if connection is None:
+            if len(keys) == 1:
+                with port.connection(principal, operation_id, keys[0]) as current:
+                    return self._read(
+                        principal,
+                        operation_id,
+                        target,
+                        connection=current,
+                        work_trust=work_trust,
+                        envelopes=[port.load(principal, operation_id, keys[0], connection=current)],
+                    )
             collected = []
             for key in keys:
                 with port.connection(principal, operation_id, key) as current:
@@ -508,9 +533,10 @@ class ObjectFactsReader:
         }
         checks["training_request"] = target.purpose == "training_feedback"
         checks["audit_request"] = target.purpose == "report_export" and target.kind == "operation"
-        checks["policy_retention"] = target.policy_kind == "retention" or operation_id == "listPolicies"
-        checks["policy_algorithm"] = target.policy_kind in {"threshold", "analysis"} or operation_id == "listPolicies"
-        checks["policy_business"] = target.policy_kind in {"risk_taxonomy", "review"} or operation_id == "listPolicies"
+        policy_header = operation_id == "listPolicies" and target.kind == "policy_collection"
+        checks["policy_retention"] = target.policy_kind == "retention" or policy_header
+        checks["policy_algorithm"] = target.policy_kind in {"threshold", "analysis"} or policy_header
+        checks["policy_business"] = target.policy_kind in {"risk_taxonomy", "review"} or policy_header
         source_rows = {row["source_id"]: row for value in metadata for row in value["sources"]}
         sources = set(source_rows)
         if target.kind == "source_collection" and sources != set(target.source_ids):

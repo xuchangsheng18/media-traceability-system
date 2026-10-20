@@ -4,11 +4,12 @@ import hashlib
 import time
 from collections.abc import AsyncIterator, Iterator, Mapping
 from contextlib import asynccontextmanager, contextmanager
+from dataclasses import replace
 from typing import Any
 from uuid import UUID, uuid4
 
 from business_app.errors import BusinessError
-from business_app.permissions.context import Evidence, evidence_actor, request_authorization
+from business_app.permissions.context import Evidence, current_authorization, evidence_actor, request_authorization
 from business_app.permissions.duties import DutyActors, IndependentDuties, VerifiedPerson
 from business_app.permissions.object_facts import ObjectFactsReader
 from business_app.permissions.rule_types import (
@@ -67,6 +68,22 @@ class FixtureConditionals:
         if principal.actor not in self.actors:
             raise BusinessError("PERMISSION_REQUIRED", 403)
         return ("analysis", "retention", "review", "risk_taxonomy", "threshold")
+
+    def authorize_collection_item(
+        self, principal: Principal, operation_id: str, target: RuleTarget, *, connection: Connection
+    ) -> AuthorizationEvidence:
+        current = current_authorization()
+        if (
+            current is None
+            or not isinstance(current.evidence, AuthorizationEvidence)
+            or current.evidence.principal != principal
+            or principal.actor not in self.actors
+            or current.evidence.operation_id != operation_id
+        ):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        # Explicit synthetic legacy input only; real six-role tests use the
+        # production authority and do not instantiate this adapter.
+        return replace(current.evidence, target=target, valid_until=time.time() + 5)
 
     def review_ids(
         self, principal: Principal, operation_id: str, case_id: UUID, *, connection: Connection

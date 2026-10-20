@@ -99,6 +99,9 @@ class ConditionalPort(Protocol):
         body: Mapping[str, Any],
     ) -> AuthorizationEvidence: ...
     def policy_kinds(self, principal: Principal) -> tuple[str, ...]: ...
+    def authorize_collection_item(
+        self, principal: Principal, operation_id: str, target: RuleTarget, *, connection: Connection
+    ) -> AuthorizationEvidence: ...
     def review_ids(
         self, principal: Principal, operation_id: str, case_id: UUID, *, connection: Connection
     ) -> tuple[UUID, ...]: ...
@@ -207,6 +210,15 @@ class ConditionalPermissionAuthority:
     ) -> AuthorizationEvidence:
         target = self.objects.resolve_http(principal, operation_id, path, query, body)
         return self.authorize(principal, operation_id, target)
+
+    def authorize_collection_item(
+        self, principal: Principal, operation_id: str, target: RuleTarget, *, connection: Connection
+    ) -> AuthorizationEvidence:
+        from ..scope_collections import COLLECTION_KINDS
+
+        if COLLECTION_KINDS.get(operation_id) != target.kind:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        return self.authorize(principal, operation_id, target, connection=connection)
 
     def _work_roles(self, subject: ExecutionSubject, permission: str, connection: Connection | None) -> WorkRoleFacts:
         port = getattr(self.reader, "read_for_work", None)

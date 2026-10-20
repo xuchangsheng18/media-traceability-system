@@ -11,9 +11,12 @@ from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
 from ..contracts import REGISTRY, SCHEMAS
+from ..data_scope import TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..permissions.context import WorkPort, protected_work
+from ..scope_collections import bind_task_scope
+from ..scope_context import current_data_scope
 from ..types import Scope
 from .common import now, row
 
@@ -150,6 +153,7 @@ class Execution:
             )
 
     def status(self, connection: Connection, scope: Scope, task_id: UUID, *, lock: bool = False) -> dict[str, Any]:
+        bind_task_scope(connection, current_data_scope(), TaskBinding(task_id))
         item = row(connection, "analysis_task", "task_id", task_id, lock)
         available = (
             connection.execute(
@@ -313,6 +317,7 @@ class Execution:
 
     def nodes(self, scope: Scope, task_id: UUID, run_version: int) -> dict[str, Any]:
         with self.database.transaction(scope) as connection:
+            bind_task_scope(connection, current_data_scope(), TaskBinding(task_id, run_version))
             if (
                 connection.execute(
                     text("SELECT 1 FROM mt.task_run WHERE case_id=:case AND task_id=:task AND run_version=:run"),

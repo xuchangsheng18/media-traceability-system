@@ -5,10 +5,13 @@ from uuid import UUID, uuid4
 from fastapi import Request
 from sqlalchemy import Connection, text
 
+from ..data_scope import TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..history.repository import ResultRepository
 from ..permissions.duties import IndependentDuties
+from ..scope_collections import bind_task_scope, require_resource
+from ..scope_context import current_data_scope
 from ..types import ObjectRef, ResultKey, Scope
 from ..uploads.repository import UploadRepository
 from .common import audit, canonical, match, row
@@ -28,6 +31,7 @@ class Reviews:
         self.duties = duties
 
     def context(self, connection: Connection, scope: Scope, task_id: UUID, *, lock: bool = False) -> dict[str, Any]:
+        bind_task_scope(connection, current_data_scope(), TaskBinding(task_id))
         task = row(connection, "analysis_task", "task_id", task_id, lock)
         latest = (
             connection.execute(
@@ -41,6 +45,11 @@ class Reviews:
         )
         if latest is None:
             raise BusinessError("RESULT_NOT_FOUND", 404)
+        bind_task_scope(
+            connection,
+            current_data_scope(),
+            TaskBinding(task_id, int(latest["run_version"]), int(latest["result_version"])),
+        )
         version = connection.execute(
             text("SELECT coalesce(max(review_version),0) FROM mt.review_record WHERE case_id=:case AND task_id=:task"),
             dict(case=scope.case_id, task=task_id),
@@ -56,7 +65,13 @@ class Reviews:
         )
 
     def wire(self, connection: Connection, identifier: UUID) -> dict[str, Any]:
+        require_resource(connection, current_data_scope(), "review", identifier)
         item = row(connection, "review_record", "review_id", identifier)
+        bind_task_scope(
+            connection,
+            current_data_scope(),
+            TaskBinding(item["task_id"], int(item["run_version"]), int(item["result_version"])),
+        )
         ids = (
             connection.execute(
                 text(

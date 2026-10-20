@@ -14,6 +14,7 @@ from ..db import Database
 from ..errors import BusinessError
 from ..permissions.conditional import ConditionalPort
 from ..permissions.guard import current_principal
+from ..scope_collections import CollectionScope
 from ..settings import BusinessSettings
 from ..types import Actor, Scope
 from ..uploads.repository import UploadRepository
@@ -37,6 +38,10 @@ def db(request: Request) -> Database:
 
 def settings(request: Request) -> BusinessSettings:
     return cast(BusinessSettings, request.app.state.business_settings)
+
+
+def collection_scope(request: Request) -> CollectionScope:
+    return CollectionScope(cast(ConditionalPort, request.app.state.conditional_permissions))
 
 
 def approvals(request: Request) -> Approvals:
@@ -75,7 +80,14 @@ def list_approvals(request: Request, case_id: UUID, cursor: Cursor = None, limit
     scope = authorize_request(request, case_id, "approval.read")
     with db(request).transaction(scope) as connection:
         rows, following = page(
-            connection, "approval_request", "approval_id", scope, settings(request).cursor_secret, cursor, limit
+            connection,
+            "approval_request",
+            "approval_id",
+            scope,
+            settings(request).cursor_secret,
+            cursor,
+            limit,
+            collection=collection_scope(request),
         )
         items = [approvals(request).detail(connection, scope, item["approval_id"]) for item in rows]
     return reply("ApprovalPage", dict(items=items, next_cursor=following))
@@ -122,10 +134,7 @@ def list_reviews(
 ) -> JSONResponse:
     scope = authorize_request(request, case_id, "review.read")
     with db(request).transaction(scope) as connection:
-        visible = review_scope(request, scope, connection, "listReviews")
-        predicate = "case_id=:case AND org_id=:org AND review_id=ANY(CAST(:visible AS uuid[]))" + (
-            " AND task_id=:task" if task_id is not None else ""
-        )
+        predicate = "case_id=:case AND org_id=:org" + (" AND task_id=:task" if task_id is not None else "")
         rows, following = page(
             connection,
             "review_record",
@@ -135,11 +144,10 @@ def list_reviews(
             cursor,
             limit,
             where=predicate,
-            filters=dict(visible=list(visible), **(dict(task=task_id) if task_id else {})),
+            filters=dict(task=task_id) if task_id else None,
+            collection=collection_scope(request),
         )
         items = [reviews(request).wire(connection, item["review_id"]) for item in rows]
-        if review_scope(request, scope, connection, "listReviews") != visible:
-            raise BusinessError("AUTHORIZATION_CHANGED", 503)
     return reply("ReviewPage", dict(items=items, next_cursor=following))
 
 
@@ -148,7 +156,6 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
     scope = authorize_request(request, case_id, "review.read")
     revision = """row_version::text||':'||coalesce((SELECT r.sha256 FROM mt.task_result r WHERE r.case_id=analysis_task.case_id AND r.task_id=analysis_task.task_id ORDER BY r.run_version DESC,r.result_version DESC LIMIT 1),'')||':'||coalesce((SELECT max(v.review_version)::text FROM mt.review_record v WHERE v.case_id=analysis_task.case_id AND v.task_id=analysis_task.task_id),'0')"""
     with db(request).transaction(scope) as connection:
-        visible = review_scope(request, scope, connection, "listPendingReviews")
         rows, following = page(
             connection,
             "analysis_task",
@@ -157,9 +164,9 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
             settings(request).cursor_secret,
             cursor,
             limit,
-            where="case_id=:case AND org_id=:org AND task_id=ANY(CAST(:visible AS uuid[])) AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
-            filters=dict(visible=list(visible)),
+            where="case_id=:case AND org_id=:org AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
             version_expression=revision,
+            collection=collection_scope(request),
         )
         items = []
         for item in rows:
@@ -187,8 +194,6 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
             ).scalar_one_or_none()
             for item in rows
         }
-        if review_scope(request, scope, connection, "listPendingReviews") != visible:
-            raise BusinessError("AUTHORIZATION_CHANGED", 503)
     for item in items:
         source = source_ids[item["task_id"]]
         if item["context"] is not None:
@@ -231,7 +236,14 @@ def list_audit(request: Request, case_id: UUID, cursor: Cursor = None, limit: Li
     scope = authorize_request(request, case_id, "audit.read")
     with db(request).transaction(scope) as connection:
         rows, following = page(
-            connection, "audit_event", "event_id", scope, settings(request).cursor_secret, cursor, limit
+            connection,
+            "audit_event",
+            "event_id",
+            scope,
+            settings(request).cursor_secret,
+            cursor,
+            limit,
+            collection=collection_scope(request),
         )
     return reply("AuditEventPage", dict(items=[audit_wire(item) for item in rows], next_cursor=following))
 
@@ -340,7 +352,14 @@ def list_sources(request: Request, case_id: UUID, cursor: Cursor = None, limit: 
     scope = authorize_request(request, case_id, "source.read")
     with db(request).transaction(scope) as connection:
         rows, following = page(
-            connection, "source_registry", "source_id", scope, settings(request).cursor_secret, cursor, limit
+            connection,
+            "source_registry",
+            "source_id",
+            scope,
+            settings(request).cursor_secret,
+            cursor,
+            limit,
+            collection=collection_scope(request),
         )
     return reply("SourcePage", dict(items=[source_wire(item) for item in rows], next_cursor=following))
 
@@ -586,6 +605,7 @@ def list_policies(request: Request, cursor: Cursor = None, limit: Limit = 20) ->
             limit,
             where="org_id=:org AND kind=ANY(:allowed_kinds)",
             filters=dict(allowed_kinds=list(allowed_kinds)),
+            collection=collection_scope(request),
         )
     return reply("PolicyPage", dict(items=[policy_wire(v) for v in rows], next_cursor=following))
 
