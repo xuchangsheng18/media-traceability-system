@@ -22,7 +22,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[725条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有104条已验证子步骤、621条剩余工作；全局编号0001—0725。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[729条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有108条已验证子步骤、621条剩余工作；全局编号0001—0729。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -612,7 +612,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1210份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1217份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -703,7 +703,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内725条执行事项逐条编号：104条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内729条执行事项逐条编号：108条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -720,7 +720,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/database-foundation-20261012-history.json](<00-project/validation/database-foundation-20261012-history.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/database-foundation-report.json](<00-project/validation/database-foundation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/development-container-limits-report.json](<00-project/validation/development-container-limits-report.json>) | Compose、Docker设置与实际cgroup v2 CPU/内存/pids只读比对；缺失/无限/漂移拒绝，不代表临时盘或压力隔离已验证。 |
+| [00-project/validation/development-continuation-report.json](<00-project/validation/development-continuation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/development-document-check-report.json](<00-project/validation/development-document-check-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/development-hook-report.json](<00-project/validation/development-hook-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/development-publication-privacy.json](<00-project/validation/development-publication-privacy.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/development-recovery-report.json](<00-project/validation/development-recovery-report.json>) | 8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。 |
 | [00-project/validation/documentation-completion-report.json](<00-project/validation/documentation-completion-report.json>) | 当前全量导航、字段来源及原件摘要的覆盖检查 |
 | [00-project/validation/environment-inventory.json](<00-project/validation/environment-inventory.json>) | 实际宿主/引擎/服务版本、上限和时点快照；不是峰值或独占配额。 |
@@ -1574,6 +1577,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/README.md](<03-api/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-api/service-and-event-contracts.md](<03-api/service-and-event-contracts.md>) | 服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。 |
 | [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、73操作/102结构/34能力、详细阅读标准及13项开放缺口。 |
+| [03-development/business-console-implementation-plan.md](<03-development/business-console-implementation-plan.md>) | 说明文档：前后端开发优先：业务控制台实施计划；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/architecture-decision.md](<03-development/change-templates/architecture-decision.md>) | 说明文档：架构决策记录模板；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/database-change.md](<03-development/change-templates/database-change.md>) | 说明文档：数据库变更记录模板；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/model-change.md](<03-development/change-templates/model-change.md>) | 说明文档：模型变更记录模板；结合正文的状态、来源和适用范围阅读。 |
@@ -1671,6 +1675,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/authorization-fence-extension.md](<04-database/authorization-fence-extension.md>) | 0007完整角色、0008授权代际表6字段及0009精确工作身份查询；64表849字段适用版本、函数/锁/恢复/真实委托及未共享采用边界。 |
 | [04-database/authorization-isolation-prototype.md](<04-database/authorization-isolation-prototype.md>) | 隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。 |
 | [04-database/data-dictionary.md](<04-database/data-dictionary.md>) | 数据字典：逐表逐字段的类型、约束、含义与精确来源。 |
+| [04-database/data-scope-extension.md](<04-database/data-scope-extension.md>) | 说明文档：T015范围隔离的升级、恢复和目录判据；结合正文的状态、来源和适用范围阅读。 |
 | [04-database/data-scope-migration.md](<04-database/data-scope-migration.md>) | 0010数据范围增量、64表分类、三种事务、15种固定元数据及7项函数/ACL；说明实际代码、验证和共享采用边界。 |
 | [04-database/database-design-references.md](<04-database/database-design-references.md>) | 本轮查阅的PostgreSQL/OpenAPI/JSON Schema官方机制及采用方式。 |
 | [04-database/database-design.md](<04-database/database-design.md>) | 数据库职责、关系、事务与版本设计的总说明。 |
@@ -1788,9 +1793,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [09-testing/t014-isolated-operation-coverage.md](<09-testing/t014-isolated-operation-coverage.md>) | 73操作逐项区分42挂载/31未挂载、实际组件证据及HTTP允许边界；完整当前修订验证状态另列，246格不当HTTP通过数。 |
 | [09-testing/t015-data-scope-coverage.json](<09-testing/t015-data-scope-coverage.json>) | 可机器核验的64表分类、12类调用/具体测试、精确源码摘要及31未挂载清单；目录、DAO/HTTP和对象字节验证不混算。 |
 | [09-testing/t015-data-scope-coverage.md](<09-testing/t015-data-scope-coverage.md>) | 数据范围调用导航：64表目录与12类真实调用分别列约束、测试及P04字节边界；31未挂载、正式提供者及最终验收保持待完成。 |
+| [09-testing/t015-object-access-callers.json](<09-testing/t015-object-access-callers.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [09-testing/task-test-scenarios.yaml](<09-testing/task-test-scenarios.yaml>) | 各任务的验证场景，不等同已实现测试程序。 |
 | [09-testing/test-scenarios.yaml](<09-testing/test-scenarios.yaml>) | 业务功能正常与异常场景。 |
 | [09-testing/test-strategy.md](<09-testing/test-strategy.md>) | 测试层级、数据、环境和执行策略。 |
+| [10-deployment/business-development-runbook.md](<10-deployment/business-development-runbook.md>) | 说明文档：业务前后端开发启动与当前边界；结合正文的状态、来源和适用范围阅读。 |
 | [10-deployment/deployment-plan.md](<10-deployment/deployment-plan.md>) | 服务、运行数据、配置和后续部署交付要求。 |
 | [10-deployment/development-backup-restore.md](<10-deployment/development-backup-restore.md>) | 维护时段开发冷备、原VersionId/DB/模型隔离恢复；凭据与生产RPO/RTO边界。 |
 | [10-deployment/development-runbook.md](<10-deployment/development-runbook.md>) | 真实启动、复建、SSH页面访问、令牌、端口、卷、停止与排查。 |

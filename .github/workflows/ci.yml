@@ -148,6 +148,14 @@ jobs:
           "$PYTHON" scripts/verify_ci_failure_gate.py
           "$PYTHON" scripts/check_repository_secrets.py
           "$PYTHON" scripts/validate_stage_three.py --runtime
+      - name: Verify T015 data scope failure gate
+        shell: bash
+        run: |
+          set +e
+          "$PYTHON" scripts/verify_t015_scope.py failure-probe
+          result=$?
+          set -e
+          test "$result" -eq 1
       - name: Verify configured development cgroup limits
         run: '"$PYTHON" scripts/verify_development_limits.py'
       - name: Preserve non-secret validation evidence

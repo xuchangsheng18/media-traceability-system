@@ -24,8 +24,12 @@ function safePath(path: string) {
 }
 
 export function apiUrl(path: string): string {
-  safePath(path)
   const base = import.meta.env.VITE_API_BASE_URL ?? ''
+  return resolveApiUrl(path, base)
+}
+
+export function resolveApiUrl(path: string, base: string): string {
+  safePath(path)
   if (!base) return path
   try {
     if (base !== base.trim() || /[?#\\]/.test(base) || hasControlOrSpace(base)) throw new Error()

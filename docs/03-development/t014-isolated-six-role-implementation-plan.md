@@ -10,6 +10,8 @@
 
 **Spec:** [已确认的规则方案](../08-security/t014-six-role-rule-proposal.md)及[机器表](../08-security/t014-six-role-rule-proposal.json)，用户原话“认可作为下一批隔离实现输入”；源[T014](../../tasks/platform/T014.md)、[依赖复核](t014-dependency-and-scope-review.md)、[现有实现](t014-unified-permission-implementation.md)。2026-10-20形成新计划，用户明确回复“认可新计划，按P01—P07直接实施”，状态 **VERIFIED_P01_P07_ISOLATED_SCOPE_NOT_SHARED_ADOPTED**。此前五项[统一入口实施计划](t014-unified-permission-implementation-plan.md)原样保留；对规则输入的确认不冒充本计划审阅或共享采用。
 
+2026-10-21后续核对：本计划P01—P07的原隔离完成记录保留；后续T015及前后端开发、当前CI与启动边界见[本批验证](../00-project/validation/development-continuation-report.json)。不把后续代码的CI状态倒写为原计划结论。
+
 ## Global Constraints
 
 - PR01：六角色×41权限共246格，72格为带条件的候选功能来源、174格无角色授权来源；无角色授权的格不能生成ALLOW。兼任时按可信完整角色集合与职责冲突计算，不能由HTTP头任选角色。

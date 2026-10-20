@@ -36,7 +36,8 @@ def main():
                      ["npm", "--prefix", "frontend", "test"],
                      ["node", "scripts/verify-frontend-quality.mjs"],
                      ["npm", "--prefix", "frontend", "run", "test:foundation-browser"],
-                     ["npm", "--prefix", "frontend", "audit", "--audit-level=high"]],
+                     ["npm", "--prefix", "frontend", "audit", "--audit-level=high"],
+                     [PYTHON, "scripts/verify_t015_scope.py", "run"]],
         "build": [[PYTHON, "-m", "build", "--no-isolation", "backend"], [PYTHON, "scripts/poc_control.py", "pack"], [PYTHON, "scripts/poc_control.py", "build"]],
         "integration": [[PYTHON, "scripts/poc_control.py", "up"], [PYTHON, "scripts/verify_sql_baseline.py"],
                         [PYTHON, "scripts/verify_migrations_and_fencing.py"],
@@ -56,7 +57,8 @@ def main():
                 continue
             for command in commands:
                 started = datetime.datetime.now(datetime.timezone.utc)
-                p = subprocess.run(command, cwd=ROOT, env=env, timeout=600)
+                timeout = 1800 if command == [PYTHON, "scripts/verify_t015_scope.py", "run"] else 600
+                p = subprocess.run(command, cwd=ROOT, env=env, timeout=timeout)
                 report["checks"].append({"stage": stage, "command": command, "status": "PASS" if p.returncode == 0 else "FAIL"})
                 report["checks"][-1]["elapsed_seconds"] = (datetime.datetime.now(datetime.timezone.utc)-started).total_seconds()
                 if p.returncode:

@@ -145,6 +145,7 @@ def list_reviews(
             limit,
             where=predicate,
             filters=dict(task=task_id) if task_id else None,
+            bind_visibility=True,
             collection=collection_scope(request),
         )
         items = [reviews(request).wire(connection, item["review_id"]) for item in rows]
@@ -166,6 +167,7 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
             limit,
             where="case_id=:case AND org_id=:org AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
             version_expression=revision,
+            bind_visibility=True,
             collection=collection_scope(request),
         )
         items = []

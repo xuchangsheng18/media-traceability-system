@@ -129,6 +129,7 @@ def page(
     filters: dict[str, Any] | None = None,
     version_expression: str = "row_version::text",
     collection: CollectionScope | None = None,
+    bind_visibility: bool = False,
 ) -> tuple[list[dict[str, Any]], str | None]:
     # Identifiers and predicates are exclusively internal constants, never client SQL.
     params: dict[str, Any] = dict(case=scope.case_id, org=scope.actor.org_id, **(filters or {}))
@@ -184,6 +185,7 @@ def page(
             version_expression,
             {k: str(v) for k, v in cursor_filters.items()},
             limit,
+            *([fingerprint] if bind_visibility else []),
         ]
     )
     after: UUID | None = None
