@@ -8,6 +8,7 @@ from sqlalchemy import Connection, text
 from ..db import Database
 from ..errors import BusinessError
 from ..history.repository import ResultRepository
+from ..permissions.duties import IndependentDuties
 from ..types import ObjectRef, ResultKey, Scope
 from ..uploads.repository import UploadRepository
 from .common import audit, canonical, match, row
@@ -16,9 +17,15 @@ from .providers import RuleProvider
 
 class Reviews:
     def __init__(
-        self, database: Database, receipts: UploadRepository, results: ResultRepository, rules: RuleProvider | None
+        self,
+        database: Database,
+        receipts: UploadRepository,
+        results: ResultRepository,
+        rules: RuleProvider | None,
+        duties: IndependentDuties | None = None,
     ) -> None:
         self.database, self.receipts, self.results, self.rules = database, receipts, results, rules
+        self.duties = duties
 
     def context(self, connection: Connection, scope: Scope, task_id: UUID, *, lock: bool = False) -> dict[str, Any]:
         task = row(connection, "analysis_task", "task_id", task_id, lock)
@@ -84,6 +91,10 @@ class Reviews:
         digest = hashlib.sha256(canonical(body)).hexdigest()
         with self.database.transaction(scope) as connection:
             context = self.context(connection, scope, result_key.task_id, lock=True)
+            if self.duties is None:
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+            task = row(connection, "analysis_task", "task_id", result_key.task_id)
+            self.duties.review(scope, task, context, connection=connection)
             replay = self.receipts.replay(connection, scope, "createReview", key, digest)
             if replay is not None:
                 return replay
@@ -122,6 +133,7 @@ class Reviews:
                     except (OSError, ValueError, RuntimeError):
                         raise BusinessError("REVIEW_EVIDENCE_INTEGRITY_FAILED", 503) from None
             identifier, version = uuid4(), context["review_version"] + 1
+            self.duties.review(scope, task, context, connection=connection)
             connection.execute(
                 text("""INSERT INTO mt.review_record(review_id,org_id,case_id,task_id,run_version,result_version,reviewer_id,decision,comments,review_version,policy_version,created_by)
                 VALUES(:id,:org,:case,:task_id,:run_version,:result_version,:actor,:decision,:reason,:version,:policy_version,:actor)"""),

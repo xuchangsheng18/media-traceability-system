@@ -18,7 +18,7 @@ from business_app.types import Actor, Scope
 from fastapi.testclient import TestClient
 
 from tests.business.history_fixtures import prepare_history, snapshot
-from tests.business.http_fixtures import FixtureConditionals, FixturePermissions
+from tests.business.http_fixtures import FixtureConditionals, FixtureDuties, FixturePermissions
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
@@ -80,9 +80,9 @@ def control_context(business_context):
 
     class TestRules:
         def approval(self, scope, purpose, version):
-            if version != "policy-dev-1" or purpose not in {"review", "report_export"}:
+            if version != "policy-dev-1" or purpose not in {"review", "report_export", "training_feedback"}:
                 raise BusinessError("APPROVAL_RULE_UNAVAILABLE", 503)
-            return ApprovalRule(version, 3600, 2)
+            return ApprovalRule(version, 1800, 2)
 
         def review(self, scope, version, decision):
             if version != "policy-dev-1":
@@ -129,6 +129,7 @@ def control_context(business_context):
         identity_directory=TestDirectory(),
         permission_authority=permission_authority,
         conditional_permissions=FixtureConditionals(frozenset(tokens.values())),
+        independent_duties=FixtureDuties(frozenset(tokens.values()), context["actor"]),
     )
     http = TestClient(app)
     try:
@@ -291,7 +292,11 @@ def test_review_append_version_and_exact_evidence(control_context):
     context = http.get(f"/api/v1/analysis/tasks/{c['task_id']}/review-context", headers=AUTH)
     assert context.status_code == 200
     key = uuid4().hex
-    headers = dict(AUTH, **{"If-Match": context.headers["ETag"], "Idempotency-Key": key})
+    headers = {
+        "Authorization": "Bearer test-only-reviewer-1",
+        "If-Match": context.headers["ETag"],
+        "Idempotency-Key": key,
+    }
     created = http.post("/api/v1/reviews", json=body, headers=headers)
     assert created.status_code == 201, created.json()
     replay = http.post("/api/v1/reviews", json=body, headers=headers)
@@ -382,7 +387,11 @@ def test_review_checks_new_evidence_outside_snapshot(control_context, invalid):
     response = c["control_http"].post(
         "/api/v1/reviews",
         json=dict(review_body(c), evidence_ids=[str(evidence)]),
-        headers=dict(AUTH, **{"If-Match": current.headers["ETag"], "Idempotency-Key": uuid4().hex}),
+        headers={
+            "Authorization": "Bearer test-only-reviewer-1",
+            "If-Match": current.headers["ETag"],
+            "Idempotency-Key": uuid4().hex,
+        },
     )
     assert response.status_code == {"revoked_source": 403, "wrong_digest": 409, "corrupt_bytes": 503}[invalid], (
         response.json()

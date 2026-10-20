@@ -113,7 +113,11 @@ def _populate(c, resources):
     created_review = http.post(
         "/api/v1/reviews",
         json=review_body(c),
-        headers=dict(AUTH, **{"If-Match": review_context.headers["ETag"], "Idempotency-Key": uuid4().hex}),
+        headers={
+            "Authorization": "Bearer test-only-reviewer-1",
+            "If-Match": review_context.headers["ETag"],
+            "Idempotency-Key": uuid4().hex,
+        },
     )
     assert created_review.status_code == 201, created_review.json()
     review_id = created_review.json()["review_id"]
@@ -154,7 +158,7 @@ def _populate(c, resources):
             (finding, c["actor"].org_id, c["case_id"], c["task_id"]),
         )
         admin.execute(
-            "INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version) VALUES(%s,%s,%s,'task',%s,1,'training_feedback','policy-dev-1',%s,'REQUESTED',now()+interval '1 hour','self-owned fixture',1,1)",
+            "INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version) VALUES(%s,%s,%s,'task',%s,1,'training_feedback','policy-dev-1',%s,'REQUESTED',now()+interval '30 minutes','self-owned fixture',1,1)",
             (feedback_approval, c["actor"].org_id, c["case_id"], c["task_id"], c["actor"].user_id),
         )
         admin.execute(

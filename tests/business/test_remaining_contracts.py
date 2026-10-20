@@ -22,7 +22,7 @@ def test_feedback_reads_real_request_and_refuses_unproven_applied_state(control_
             (finding, c["actor"].org_id, c["case_id"], c["task_id"]),
         )
         connection.execute(
-            "INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version) VALUES(%s,%s,%s,'task',%s,1,'training_feedback','policy-dev-1',%s,'REQUESTED',now()+interval '1 hour','self-owned fixture',1,1)",
+            "INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version) VALUES(%s,%s,%s,'task',%s,1,'training_feedback','policy-dev-1',%s,'REQUESTED',now()+interval '30 minutes','self-owned fixture',1,1)",
             (approval, c["actor"].org_id, c["case_id"], c["task_id"], c["actor"].user_id),
         )
         connection.execute(

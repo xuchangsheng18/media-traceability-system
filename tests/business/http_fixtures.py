@@ -5,12 +5,15 @@ import time
 from collections.abc import AsyncIterator, Mapping
 from contextlib import asynccontextmanager
 from typing import Any
+from uuid import uuid4
 
 from business_app.errors import BusinessError
+from business_app.permissions.duties import DutyActors, IndependentDuties, VerifiedPerson
 from business_app.permissions.rule_types import AuthorizationEvidence, RuleTarget
 from business_app.permissions.types import Principal
 from business_app.types import Actor
 from fastapi import FastAPI
+from sqlalchemy import Connection
 
 
 class FixturePermissions:
@@ -55,6 +58,31 @@ class FixtureConditionals:
         if principal.actor not in self.actors:
             raise BusinessError("PERMISSION_REQUIRED", 403)
         return ("analysis", "retention", "review", "risk_taxonomy", "threshold")
+
+
+class FixtureDuties(IndependentDuties):
+    """Explicit fake people/duties as inputs; uses the real independent-person checks."""
+
+    def __init__(self, actors: frozenset[Actor], requester: Actor) -> None:
+        deadline = int(time.time()) + 3600
+        mappings = {a: VerifiedPerson(a, uuid4(), "explicit-synthetic-person-v1", deadline) for a in actors}
+
+        class People:
+            def resolve(self, actor: Actor) -> VerifiedPerson:
+                return mappings[actor]
+
+        class Assignments:
+            def read(self, target: RuleTarget, *, connection: Connection | None) -> DutyActors:
+                return DutyActors(
+                    target,
+                    frozenset({requester}),
+                    frozenset({requester}),
+                    frozenset(),
+                    hashlib.sha256(b"explicit synthetic duty assignment; not an institutional authority").hexdigest(),
+                    deadline,
+                )
+
+        super().__init__(People(), Assignments())
 
 
 def isolated_http_harness(application: FastAPI) -> FastAPI:
