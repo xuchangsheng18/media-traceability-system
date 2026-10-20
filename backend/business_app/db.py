@@ -8,7 +8,7 @@ from sqlalchemy import Connection, create_engine, text
 from sqlalchemy.engine import URL
 
 from .errors import BusinessError
-from .permissions.context import current_authorization
+from .permissions.context import current_authorization, evidence_actor
 from .types import Actor, Scope
 
 
@@ -68,7 +68,7 @@ class Database:
             authorization = current_authorization()
             protected = authorization is not None and (authorization.mutation or authorization.fence is not None)
             if protected and authorization is not None:
-                if authorization.evidence.principal.actor != actor:
+                if evidence_actor(authorization.evidence) != actor:
                     raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
                 if authorization.fence is None:
                     raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)

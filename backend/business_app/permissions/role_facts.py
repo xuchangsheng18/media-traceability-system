@@ -4,7 +4,8 @@ import hashlib
 import json
 import math
 from collections.abc import Callable
-from typing import Any
+from dataclasses import asdict
+from typing import Any, overload
 from uuid import UUID
 
 from sqlalchemy import Connection, text
@@ -15,8 +16,9 @@ from ..db import Database
 from ..errors import BusinessError
 from ..identity.directory import valid_key
 from .policy import validate_principal
-from .rule_types import ActiveRole, RoleFacts
+from .rule_types import ActiveRole, ExecutionSubject, RoleFacts, WorkRoleFacts
 from .types import Principal
+from .work_subject import WORK_TABLES, validate_execution_subject
 
 
 def positive_integer(value: Any) -> bool:
@@ -24,8 +26,10 @@ def positive_integer(value: Any) -> bool:
 
 
 class RoleDirectory:
-    def __init__(self, database: Database, *, clock: Callable[[], float]) -> None:
-        self.database, self.clock = database, clock
+    def __init__(
+        self, database: Database, *, clock: Callable[[], float], work_database: Database | None = None
+    ) -> None:
+        self.database, self.clock, self.work_database = database, clock, work_database
 
     def _query(
         self, connection: Connection, principal: Principal, permission: str, transaction: bool
@@ -64,7 +68,15 @@ class RoleDirectory:
             .one_or_none()
         )
 
-    def _parse(self, row: RowMapping | None, principal: Principal, permission: str) -> RoleFacts:
+    @overload
+    def _parse(self, row: RowMapping | None, principal: Principal, permission: str) -> RoleFacts: ...
+
+    @overload
+    def _parse(self, row: RowMapping | None, principal: ExecutionSubject, permission: str) -> WorkRoleFacts: ...
+
+    def _parse(
+        self, row: RowMapping | None, principal: Principal | ExecutionSubject, permission: str
+    ) -> RoleFacts | WorkRoleFacts:
         if row is None:
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
         if (
@@ -125,14 +137,28 @@ class RoleDirectory:
             not math.isfinite(float(identity_expiry)) or float(identity_expiry) <= self.clock()
         ):
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-        raw = dict(
-            row,
-            verified_issuer=principal.issuer,
-            verified_subject=principal.subject,
-            token_expires_at=principal.expires_at,
+        raw = (
+            dict(
+                row,
+                verified_issuer=principal.issuer,
+                verified_subject=principal.subject,
+                token_expires_at=principal.expires_at,
+            )
+            if isinstance(principal, Principal)
+            else dict(row, work_subject=asdict(principal))
         )
         canonical = json.dumps(raw, sort_keys=True, separators=(",", ":"), ensure_ascii=False, default=str)
         digest = hashlib.sha256(canonical.encode("utf8")).hexdigest()
+        if isinstance(principal, ExecutionSubject):
+            if row["identity_id"] != principal.identity_id or row["mapping_version"] != principal.mapping_version:
+                raise BusinessError("AUTHENTICATION_REQUIRED", 401)
+            current = self.clock()
+            if type(current) not in (int, float) or not math.isfinite(current):
+                raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
+            deadline = min(
+                float(current) + 5, float(identity_expiry) if identity_expiry is not None else float(current) + 5
+            )
+            return WorkRoleFacts(principal, permission, row["eligible"], tuple(roles), ids, digest, deadline)
         return RoleFacts(principal, permission, row["eligible"], tuple(roles), ids, digest)
 
     def read_roles(self, principal: Principal, permission: str, *, connection: Connection | None = None) -> RoleFacts:
@@ -153,4 +179,52 @@ class RoleDirectory:
         except BusinessError:
             raise
         except (SQLAlchemyError, ValueError, TypeError, KeyError, OverflowError):
+            raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503) from None
+
+    def read_for_work(
+        self, subject: ExecutionSubject, permission: str, *, connection: Connection | None = None
+    ) -> WorkRoleFacts:
+        validate_execution_subject(subject)
+        if not valid_key(permission, 1024):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        try:
+            if connection is None:
+                if self.work_database is None:
+                    raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+                with self.work_database.identity_transaction(subject.actor) as current:
+                    return self.read_for_work(subject, permission, connection=current)
+            unsafe = connection.execute(
+                text("""SELECT r.rolsuper OR r.rolbypassrls OR r.rolcreaterole OR r.rolcreatedb OR r.rolreplication
+                OR NOT pg_has_role(current_user,'mt_runtime','MEMBER') OR EXISTS(SELECT 1 FROM pg_roles d
+                WHERE d.rolname IN ('mt_permission_lookup','mt_identity_lookup','mt_directory_manager',
+                 'pg_read_all_data','pg_write_all_data','pg_read_server_files','pg_write_server_files','pg_execute_server_program',
+                 'pg_signal_backend','pg_checkpoint')
+                AND pg_has_role(current_user,d.oid,'MEMBER')) FROM pg_roles r WHERE r.rolname=current_user""")
+            ).scalar_one()
+            binding = tuple(connection.execute(text("SELECT mt.actor_id(),mt.org_id()")).one())
+            if unsafe is not False or binding != (subject.actor.user_id, subject.actor.org_id):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            table, key, owner = WORK_TABLES[subject.work_kind]
+            job = (
+                connection.execute(
+                    text(f"SELECT org_id,case_id,{owner} AS owner_id FROM mt.{table} WHERE {key}=:id"),
+                    dict(id=subject.work_id),
+                )
+                .mappings()
+                .one_or_none()
+            )
+            if job is None or (job["org_id"], job["owner_id"]) != (subject.actor.org_id, subject.actor.user_id):
+                raise BusinessError("RESOURCE_NOT_FOUND", 404)
+            row = (
+                connection.execute(
+                    text("SELECT * FROM mt.lookup_actor_work_role_facts(:identity,:mapping,:permission)"),
+                    dict(identity=subject.identity_id, mapping=subject.mapping_version, permission=permission),
+                )
+                .mappings()
+                .one_or_none()
+            )
+            return self._parse(row, subject, permission)
+        except BusinessError:
+            raise
+        except (SQLAlchemyError, RuntimeError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
             raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503) from None

@@ -25,7 +25,7 @@ def scalar(connection, query):
 
 
 def test_empty_database_migrates_and_replay_noops(database_dsn):
-    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008"]
+    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008", "0009"]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
         assert (
@@ -96,7 +96,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             assert scalar(connection, "SELECT to_regclass('mt.user_identities')") is None
             assert scalar(connection, "SELECT count(*) FROM mt.case_membership") == 1
     else:
-        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007", "0008"]
+        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007", "0008", "0009"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -131,6 +131,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0006",
             "0007",
             "0008",
+            "0009",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -226,7 +227,7 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
                 " bad legacy",
             )
     else:
-        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008"]
+        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008", "0009"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -394,3 +395,38 @@ def test_authorization_fence_upgrade_preserves_catalog_and_rolls_back_atomically
             assert admin.execute(
                 "SELECT policy_version,policy_sha256,recovery_generation FROM mt.authorization_epoch"
             ).fetchone() == (None, None, None)
+
+
+@pytest.mark.parametrize("fail_after_function", [False, True])
+def test_work_role_facts_upgrade_is_atomic_and_function_only(database_dsn, tmp_path, fail_after_function):
+    import hashlib
+
+    previous = sorted(MIGRATIONS.glob("*.sql"))[:8]
+    for p in previous:
+        (tmp_path / p.name).write_bytes(p.read_bytes())
+    assert migrate(database_dsn, tmp_path) == [f"{n:04}" for n in range(1, 9)]
+    new = MIGRATIONS / "0009_work_role_facts.sql"
+    (tmp_path / new.name).write_bytes(
+        new.read_bytes() + (b"\nSELECT missing_work_migration_marker();" if fail_after_function else b"")
+    )
+    if fail_after_function:
+        with pytest.raises(psycopg.Error):
+            migrate(database_dsn, tmp_path)
+    else:
+        assert migrate(database_dsn, tmp_path) == ["0009"]
+        assert migrate(database_dsn, tmp_path) == []
+    with psycopg.connect(database_dsn) as admin:
+        assert admin.execute(
+            "SELECT version,sha256 FROM mt_meta.schema_migrations WHERE version<='0008' ORDER BY version"
+        ).fetchall() == [(p.name[:4], hashlib.sha256(p.read_bytes()).hexdigest()) for p in previous]
+        assert admin.execute(
+            "SELECT to_regprocedure('mt.lookup_actor_work_role_facts(uuid,text,text)') IS NOT NULL"
+        ).fetchone() == (not fail_after_function,)
+        if not fail_after_function:
+            assert admin.execute(
+                "SELECT has_function_privilege('mt_runtime','mt.lookup_actor_work_role_facts(uuid,text,text)','EXECUTE'),has_function_privilege('mt_permission_lookup','mt.lookup_actor_work_role_facts(uuid,text,text)','EXECUTE')"
+            ).fetchone() == (True, False)
+            assert admin.execute(
+                "SELECT count(*) FROM pg_proc p CROSS JOIN LATERAL aclexplode(p.proacl) a WHERE p.oid='mt.lookup_actor_work_role_facts(uuid,text,text)'::regprocedure AND a.grantee=0"
+            ).fetchone() == (0,)
+            assert scalar(admin, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 849

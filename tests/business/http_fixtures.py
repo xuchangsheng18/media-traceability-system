@@ -2,16 +2,23 @@
 
 import hashlib
 import time
-from collections.abc import AsyncIterator, Mapping
-from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator, Iterator, Mapping
+from contextlib import asynccontextmanager, contextmanager
 from typing import Any
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from business_app.errors import BusinessError
+from business_app.permissions.context import Evidence, evidence_actor, request_authorization
 from business_app.permissions.duties import DutyActors, IndependentDuties, VerifiedPerson
-from business_app.permissions.rule_types import AuthorizationEvidence, RuleTarget
+from business_app.permissions.rule_types import (
+    AuthorizationEvidence,
+    ExecutionSubject,
+    RuleTarget,
+    WorkAuthorizationEvidence,
+)
 from business_app.permissions.types import Principal
-from business_app.types import Actor
+from business_app.permissions.work_subject import WORK_OPERATIONS
+from business_app.types import Actor, Scope
 from fastapi import FastAPI
 from sqlalchemy import Connection, text
 
@@ -66,15 +73,43 @@ class FixtureFence:
     def __init__(self, actors: frozenset[Actor]) -> None:
         self.actors = actors
 
-    def hold(self, connection: Connection, evidence: AuthorizationEvidence) -> None:
-        if evidence.principal.actor not in self.actors or evidence.policy_version != "explicit-synthetic-fixture":
+    def hold(self, connection: Connection, evidence: Evidence) -> None:
+        if evidence_actor(evidence) not in self.actors or evidence.policy_version != "explicit-synthetic-fixture":
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         binding = connection.execute(text("SELECT mt.actor_id(),mt.org_id()")).one()
-        if tuple(binding) != (evidence.principal.actor.user_id, evidence.principal.actor.org_id):
+        actor = evidence_actor(evidence)
+        if tuple(binding) != (actor.user_id, actor.org_id):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
 
-    def finish(self, connection: Connection, evidence: AuthorizationEvidence) -> None:
+    def finish(self, connection: Connection, evidence: Evidence) -> None:
         self.hold(connection, evidence)
+
+
+class FixtureWork:
+    """Explicit legacy workflow harness; no claim of real delegation/service proof."""
+
+    def __init__(self, actors: frozenset[Actor]) -> None:
+        self.actors = actors
+
+    @contextmanager
+    def open(self, scope: Scope, kind: str, identifier: UUID, operation_id: str) -> Iterator[None]:
+        if scope.actor not in self.actors:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        subject = ExecutionSubject(scope.actor, uuid4(), "synthetic-harness-only", kind, identifier)
+        evidence = WorkAuthorizationEvidence(
+            subject,
+            operation_id,
+            RuleTarget(
+                scope.actor.org_id, WORK_OPERATIONS[operation_id][1], identifier, None, scope.case_id, None, None
+            ),
+            "a" * 64,
+            "b" * 64,
+            "explicit-synthetic-fixture",
+            "synthetic-fixture",
+            time.time() + 60,
+        )
+        with request_authorization(evidence, FixtureFence(self.actors), mutation=True):
+            yield
 
 
 class FixtureDuties(IndependentDuties):

@@ -11,8 +11,9 @@ from ..controls.providers import ApprovalRule
 from ..errors import BusinessError
 from ..identity.directory import valid_key
 from .policy import validate_principal
-from .rule_types import ActiveRole, RoleFacts, RoleFactsReader, RuleSnapshot
+from .rule_types import ActiveRole, RoleFacts, RoleFactsReader, RuleSnapshot, WorkRoleFacts
 from .types import Principal
+from .work_subject import validate_execution_subject
 
 INPUT_VERSION = "t014-six-role-proposal-20261020-v1"
 INPUT_SHA256 = "bac79b7512c004f657188b4fbfc2832c750b1064c1a42d16d419c789ffb2567d"
@@ -465,11 +466,20 @@ class SixRoleRules:
         self.validate_snapshot()
         return self.snapshot.version
 
-    def entry(self, facts: RoleFacts) -> tuple[str, ...]:
+    def entry(self, facts: RoleFacts | WorkRoleFacts) -> tuple[str, ...]:
         self.validate_snapshot()
-        if not isinstance(facts, RoleFacts):
+        if not isinstance(facts, (RoleFacts, WorkRoleFacts)):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-        validate_principal(facts.principal, self.clock)
+        if isinstance(facts, RoleFacts):
+            validate_principal(facts.principal, self.clock)
+        else:
+            validate_execution_subject(facts.subject)
+            if (
+                type(facts.valid_until) not in (float, int)
+                or not math.isfinite(facts.valid_until)
+                or facts.valid_until <= self.current_time()
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if (
             not isinstance(facts.permission, str)
             or facts.permission not in CELL_CONDITIONS

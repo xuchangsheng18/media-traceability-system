@@ -7,6 +7,7 @@ from uuid import UUID
 
 from sqlalchemy import Connection
 
+from ..types import Actor
 from .types import Principal
 
 
@@ -76,3 +77,50 @@ class RoleFactsReader(Protocol):
     def read_roles(
         self, principal: Principal, permission: str, *, connection: Connection | None = None
     ) -> RoleFacts: ...
+
+
+@dataclass(frozen=True)
+class ExecutionSubject:
+    actor: Actor
+    identity_id: UUID
+    mapping_version: str
+    work_kind: str
+    work_id: UUID
+
+
+@dataclass(frozen=True)
+class WorkRoleFacts:
+    subject: ExecutionSubject
+    permission: str
+    eligible: bool
+    active_roles: tuple[ActiveRole, ...]
+    permission_role_ids: tuple[UUID, ...]
+    version_digest: str
+    valid_until: float
+
+
+@dataclass(frozen=True)
+class WorkConditionFacts:
+    subject: ExecutionSubject
+    target: RuleTarget
+    checks: Mapping[str, bool | None]
+    version_digest: str
+    valid_until: float
+
+
+@dataclass(frozen=True)
+class WorkAuthorizationEvidence:
+    subject: ExecutionSubject
+    operation_id: str
+    target: RuleTarget
+    role_digest: str
+    condition_digest: str
+    policy_version: str
+    recovery_generation: str
+    valid_until: float
+
+
+class WorkRoleFactsReader(Protocol):
+    def read_for_work(
+        self, subject: ExecutionSubject, permission: str, *, connection: Connection | None = None
+    ) -> WorkRoleFacts: ...

@@ -17,8 +17,9 @@ from ..contracts import validate_api
 from ..db import Database
 from ..errors import BusinessError
 from .policy import validate_principal
-from .rule_types import ConditionFacts, RuleTarget
+from .rule_types import ConditionFacts, ExecutionSubject, RuleTarget, WorkConditionFacts
 from .types import Principal
+from .work_subject import WORK_OPERATIONS, validate_execution_subject
 
 # Fixed server-controlled identifiers only; never interpolate an HTTP table name.
 RESOURCES = MappingProxyType(
@@ -130,7 +131,9 @@ class ObjectFactsReader:
     @staticmethod
     def _validate_target(operation_id: str, target: RuleTarget) -> None:
         expected = (
-            {OPERATION_KINDS[operation_id]}
+            {WORK_OPERATIONS[operation_id][1]}
+            if operation_id in WORK_OPERATIONS
+            else {OPERATION_KINDS[operation_id]}
             if operation_id in OPERATION_KINDS
             else {
                 "createUpload": {"source"},
@@ -332,8 +335,37 @@ class ObjectFactsReader:
         self, principal: Principal, operation_id: str, target: RuleTarget, *, connection: Connection | None = None
     ) -> ConditionFacts:
         validate_principal(principal, self.clock)
+        value = self._read(principal, operation_id, target, connection=connection)
+        if not isinstance(value, ConditionFacts):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        return value
+
+    def read_for_work(
+        self, subject: ExecutionSubject, operation_id: str, target: RuleTarget, *, connection: Connection | None = None
+    ) -> WorkConditionFacts:
+        validate_execution_subject(subject)
+        operation = WORK_OPERATIONS.get(operation_id)
+        if operation is None or operation[2] != subject.work_kind or target.object_id != subject.work_id:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        value = self._read(subject, operation_id, target, connection=connection)
+        if not isinstance(value, WorkConditionFacts):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        return value
+
+    def _read(
+        self,
+        principal: Principal | ExecutionSubject,
+        operation_id: str,
+        target: RuleTarget,
+        *,
+        connection: Connection | None = None,
+    ) -> ConditionFacts | WorkConditionFacts:
         self._validate_target(operation_id, target)
-        if operation_id not in SUPPORTED_OPERATIONS or target.org_id != principal.actor.org_id:
+        work = isinstance(principal, ExecutionSubject)
+        if (
+            operation_id not in (WORK_OPERATIONS if work else SUPPORTED_OPERATIONS)
+            or target.org_id != principal.actor.org_id
+        ):
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
         if target.kind == "model_release":
             raise BusinessError("ORGANIZATION_APPROVAL_ADAPTER_UNAVAILABLE", 503)
@@ -341,7 +373,7 @@ class ObjectFactsReader:
             raise BusinessError("MODEL_RULE_ADAPTER_UNAVAILABLE", 503)
         if connection is None:
             with self.database.identity_transaction(principal.actor) as current:
-                return self.read(principal, operation_id, target, connection=current)
+                return self._read(principal, operation_id, target, connection=current)
         actor_binding = connection.execute(text("SELECT mt.actor_id(),mt.org_id()")).one()
         if tuple(actor_binding) != (principal.actor.user_id, principal.actor.org_id):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
@@ -350,7 +382,11 @@ class ObjectFactsReader:
         current_time = self.clock()
         if type(current_time) not in (float, int) or not math.isfinite(current_time):
             raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
-        deadline = min(float(principal.expires_at), float(current_time) + 5)
+        deadline = (
+            min(float(principal.expires_at), float(current_time) + 5)
+            if isinstance(principal, Principal)
+            else float(current_time) + 5
+        )
         in_org = connection.execute(text("SELECT mt.actor_in_org()")).scalar_one()
         checks["same_org"] = bool(in_org)
         checks["self"] = target.kind == "user" and target.object_id == principal.actor.user_id
@@ -416,7 +452,17 @@ class ObjectFactsReader:
             "import"
             if operation_id == "createImport"
             else "upload"
-            if operation_id in {"createUpload", "completeUpload", "getUploadStatus", "listUploadParts", "putUploadPart"}
+            if operation_id
+            in {
+                "createUpload",
+                "completeUpload",
+                "getUploadStatus",
+                "listUploadParts",
+                "putUploadPart",
+                "validateUploadWork",
+            }
+            else "analysis"
+            if isinstance(principal, ExecutionSubject) and principal.work_kind == "task_execution"
             else "training"
             if target.purpose == "training_feedback"
             else None
@@ -448,13 +494,17 @@ class ObjectFactsReader:
                 source_ok = source_ok and purpose in source["purpose"]
         checks["source"] = source_ok
         checks["source_purpose"] = source_ok if purpose is not None else None
+        checks["analysis_purpose"] = source_ok if purpose == "analysis" else None
         # Classification, reads/downloads, human duty/person and audit delegation do
         # not exist in the present SQL schema. They cannot be inferred from a role.
         if self.supplemental is not None:
-            extra = self.supplemental.read(principal, operation_id, target, connection=connection)
+            port = getattr(self.supplemental, "read_for_work" if work else "read", None)
+            if not callable(port):
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+            extra = port(principal, operation_id, target, connection=connection)
             if (
-                not isinstance(extra, ConditionFacts)
-                or extra.principal != principal
+                not isinstance(extra, WorkConditionFacts if work else ConditionFacts)
+                or (extra.subject if isinstance(extra, WorkConditionFacts) else extra.principal) != principal
                 or extra.target != target
                 or type(extra.valid_until) not in (int, float)
                 or not math.isfinite(extra.valid_until)
@@ -470,4 +520,6 @@ class ObjectFactsReader:
                 checks[name] = value
             versions.append(extra.version_digest)
             deadline = min(deadline, extra.valid_until)
+        if isinstance(principal, ExecutionSubject):
+            return WorkConditionFacts(principal, target, MappingProxyType(checks), digest(versions), deadline)
         return ConditionFacts(principal, target, MappingProxyType(checks), digest(versions), deadline)

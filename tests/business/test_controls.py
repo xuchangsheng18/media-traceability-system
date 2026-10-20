@@ -18,7 +18,13 @@ from business_app.types import Actor, Scope
 from fastapi.testclient import TestClient
 
 from tests.business.history_fixtures import prepare_history, snapshot
-from tests.business.http_fixtures import FixtureConditionals, FixtureDuties, FixtureFence, FixturePermissions
+from tests.business.http_fixtures import (
+    FixtureConditionals,
+    FixtureDuties,
+    FixtureFence,
+    FixturePermissions,
+    FixtureWork,
+)
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
@@ -131,6 +137,7 @@ def control_context(business_context):
         conditional_permissions=FixtureConditionals(frozenset(tokens.values())),
         independent_duties=FixtureDuties(frozenset(tokens.values()), context["actor"]),
         authorization_fence=FixtureFence(frozenset(tokens.values())),
+        work_authorization=FixtureWork(frozenset(tokens.values())),
     )
     http = TestClient(app)
     try:

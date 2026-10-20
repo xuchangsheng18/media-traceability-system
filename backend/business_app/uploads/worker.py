@@ -12,14 +12,17 @@ from ..auth import AuthorityProvider
 from ..contracts import ROOT
 from ..errors import BusinessError
 from ..objects import StoredObject
-from ..types import Actor, ObjectRef
+from ..permissions.context import WorkPort, protected_work
+from ..types import Actor, ObjectRef, Scope
 from .service import UploadService
 from .validator import inspect_uploaded_media
 
 
 class UploadValidationWorker:
-    def __init__(self, service: UploadService, authority: AuthorityProvider | None) -> None:
-        self.service, self.authority = service, authority
+    def __init__(
+        self, service: UploadService, authority: AuthorityProvider | None, work_authorization: WorkPort | None = None
+    ) -> None:
+        self.service, self.authority, self.work_authorization = service, authority, work_authorization
 
     def consume_validation(self, event: dict[str, Any]) -> None:
         if self.authority is None:
@@ -35,6 +38,13 @@ class UploadValidationWorker:
         if scope.actor != actor or scope.case_id != UUID(event["case_id"]):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         upload = UUID(event["upload_id"])
+        with protected_work(self.work_authorization, scope, "upload_validation", upload, "validateUploadWork"):
+            self._consume_bound(event, scope, upload)
+
+    def _consume_bound(self, event: dict[str, Any], scope: Scope, upload: UUID) -> None:
+        if self.authority is None:
+            raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
+        actor = scope.actor
         repository = self.service.repository
         stored: StoredObject | None = None
         try:

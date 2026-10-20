@@ -11,11 +11,23 @@ from sqlalchemy import Connection
 from ..contracts import ROOT
 from ..errors import BusinessError
 from .catalog import load_catalog
-from .object_facts import ObjectFactsReader
+from .object_facts import ObjectFactsReader, digest
 from .policy import validate_principal
-from .rule_types import AuthorizationEvidence, ConditionFacts, RoleFacts, RoleFactsReader, RuleTarget
+from .rule_types import (
+    AuthorizationEvidence,
+    ConditionFacts,
+    ExecutionSubject,
+    RoleFacts,
+    RoleFactsReader,
+    RuleTarget,
+    WorkAuthorizationEvidence,
+    WorkConditionFacts,
+    WorkRoleFacts,
+)
 from .six_role import SixRoleRules
 from .types import Principal
+from .work import WorkTrust
+from .work_subject import WORK_OPERATIONS, validate_execution_subject
 
 # Each branch is an AND. A complete branch may allow; half of two branches may not.
 REQUIREMENTS: Mapping[str, tuple[str, ...]] = {
@@ -25,6 +37,15 @@ REQUIREMENTS: Mapping[str, tuple[str, ...]] = {
     "INGEST": ("same_org", "case", "source", "source_purpose", "classification", "purpose_basis"),
     "CASE_READ": ("same_org", "case", "source", "read_purpose", "classification"),
     "CASE_ANALYSIS": ("same_org", "case", "source", "analysis_purpose", "capability", "classification"),
+    "TASK_CREATE": (
+        "same_org",
+        "case",
+        "source",
+        "analysis_purpose",
+        "model_task_version",
+        "capability",
+        "classification",
+    ),
     "TASK_CONTROL": ("same_org", "case", "control_authorized"),
     "REVIEW": ("same_org", "case", "review_assignment", "independent_person", "classification"),
     "REQUEST_CASE": ("same_org", "case", "case_request_purpose", "case_responsibility", "object_binding"),
@@ -85,8 +106,10 @@ class ConditionalPermissionAuthority:
         objects: ObjectFactsReader,
         *,
         clock: Callable[[], float] = time.time,
+        work_trust: WorkTrust | None = None,
     ) -> None:
         self.reader, self.rules, self.objects, self.clock = reader, rules, objects, clock
+        self.work_trust = work_trust
         self.catalog = load_catalog(ROOT)
 
     def _roles(self, principal: Principal, permission: str, connection: Connection | None) -> RoleFacts:
@@ -178,6 +201,101 @@ class ConditionalPermissionAuthority:
     ) -> AuthorizationEvidence:
         target = self.objects.resolve_http(principal, operation_id, path, query, body)
         return self.authorize(principal, operation_id, target)
+
+    def _work_roles(self, subject: ExecutionSubject, permission: str, connection: Connection | None) -> WorkRoleFacts:
+        port = getattr(self.reader, "read_for_work", None)
+        if not callable(port):
+            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+        value = port(subject, permission, connection=connection)
+        if not isinstance(value, WorkRoleFacts) or value.subject != subject or value.permission != permission:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        self.rules.entry(value)
+        return value
+
+    def _work_facts(
+        self, subject: ExecutionSubject, operation_id: str, target: RuleTarget, connection: Connection | None
+    ) -> WorkConditionFacts:
+        value = self.objects.read_for_work(subject, operation_id, target, connection=connection)
+        if (
+            not isinstance(value, WorkConditionFacts)
+            or value.subject != subject
+            or value.target != target
+            or not isinstance(value.version_digest, str)
+            or re.fullmatch(r"[a-f0-9]{64}", value.version_digest) is None
+            or type(value.valid_until) not in (int, float)
+            or not math.isfinite(value.valid_until)
+            or value.valid_until <= self.clock()
+            or not isinstance(value.checks, Mapping)
+            or any(not isinstance(k, str) or (v is not None and type(v) is not bool) for k, v in value.checks.items())
+        ):
+            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+        return value
+
+    def authorize_work(
+        self, subject: ExecutionSubject, operation_id: str, target: RuleTarget, *, connection: Connection | None = None
+    ) -> WorkAuthorizationEvidence:
+        validate_execution_subject(subject)
+        operation = WORK_OPERATIONS.get(operation_id)
+        if (
+            operation is None
+            or operation[2] != subject.work_kind
+            or target.kind != operation[1]
+            or target.object_id != subject.work_id
+        ):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        if self.work_trust is None:
+            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+        snapshot = self.rules.snapshot
+        trusted = self.work_trust.read(subject)
+        roles = self._work_roles(subject, operation[0], connection)
+        branches = self.rules.entry(roles)
+        conditions = self._work_facts(subject, operation_id, target, connection)
+        complete = False
+        missing = False
+        for branch in branches:
+            names = REQUIREMENTS.get(branch)
+            if names is None:
+                missing = True
+                continue
+            values = tuple(conditions.checks.get(name) for name in names)
+            if all(v is True for v in values):
+                complete = True
+            elif False not in values:
+                missing = True
+        if not complete:
+            raise BusinessError(
+                "CONDITIONAL_FACTS_UNAVAILABLE" if missing else "PERMISSION_REQUIRED", 503 if missing else 403
+            )
+        current_roles = self._work_roles(subject, operation[0], connection)
+        current_conditions = self._work_facts(subject, operation_id, target, connection)
+        current_trusted = self.work_trust.read(subject)
+        self.rules.validate_snapshot()
+        if (
+            current_roles.version_digest != roles.version_digest
+            or current_conditions.version_digest != conditions.version_digest
+            or current_conditions.checks != conditions.checks
+            or trusted.version_digest != current_trusted.version_digest
+            or self.rules.snapshot != snapshot
+        ):
+            raise BusinessError("AUTHORIZATION_CHANGED", 503)
+        return WorkAuthorizationEvidence(
+            subject,
+            operation_id,
+            target,
+            roles.version_digest,
+            digest([conditions.version_digest, trusted.version_digest]),
+            snapshot.version,
+            snapshot.recovery_generation,
+            min(
+                roles.valid_until,
+                current_roles.valid_until,
+                conditions.valid_until,
+                current_conditions.valid_until,
+                trusted.valid_until,
+                current_trusted.valid_until,
+                float(snapshot.valid_until),
+            ),
+        )
 
     def policy_kinds(self, principal: Principal) -> tuple[str, ...]:
         fact = self._roles(principal, "policy.read", None)

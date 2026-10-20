@@ -12,7 +12,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from ..errors import BusinessError
 from ..identity.directory import valid_key
 from .conditional import ConditionalPermissionAuthority
-from .rule_types import AuthorizationEvidence
+from .context import Evidence
+from .rule_types import AuthorizationEvidence, RoleFacts, WorkAuthorizationEvidence, WorkRoleFacts
+from .work_subject import WORK_OPERATIONS
 
 
 @dataclass(frozen=True)
@@ -34,7 +36,7 @@ class GenerationReader(Protocol):
 @dataclass(frozen=True)
 class HeldAuthorization:
     transaction: object
-    evidence: AuthorizationEvidence
+    evidence: Evidence
     epoch: int
     generation: GenerationProof
     valid_until: float
@@ -99,9 +101,9 @@ class AuthorizationFence:
         row = connection.execute(text("SELECT * FROM mt.hold_authorization_epoch()")).mappings().one()
         return dict(row)
 
-    def hold(self, connection: Connection, evidence: AuthorizationEvidence) -> None:
+    def hold(self, connection: Connection, evidence: Evidence) -> None:
         try:
-            if not isinstance(evidence, AuthorizationEvidence):
+            if not isinstance(evidence, (AuthorizationEvidence, WorkAuthorizationEvidence)):
                 raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             current = self._time()
             if (
@@ -112,13 +114,19 @@ class AuthorizationFence:
                 raise BusinessError("AUTHORIZATION_CHANGED", 503)
             stamp = self._stamp(connection)
             generation = self._generation(stamp, current)
-            fresh = self.authority.authorize(
-                evidence.principal, evidence.operation_id, evidence.target, connection=connection
+            fresh = (
+                self.authority.authorize(
+                    evidence.principal, evidence.operation_id, evidence.target, connection=connection
+                )
+                if isinstance(evidence, AuthorizationEvidence)
+                else self.authority.authorize_work(
+                    evidence.subject, evidence.operation_id, evidence.target, connection=connection
+                )
             )
             if any(
                 getattr(fresh, k) != getattr(evidence, k)
                 for k in [
-                    "principal",
+                    "principal" if isinstance(evidence, AuthorizationEvidence) else "subject",
                     "operation_id",
                     "target",
                     "role_digest",
@@ -140,7 +148,7 @@ class AuthorizationFence:
         except (SQLAlchemyError, RuntimeError, ValueError, TypeError, KeyError, AttributeError, OverflowError):
             raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
 
-    def finish(self, connection: Connection, evidence: AuthorizationEvidence) -> None:
+    def finish(self, connection: Connection, evidence: Evidence) -> None:
         try:
             held = connection.info.get(self.key)
             current = self._time()
@@ -155,18 +163,27 @@ class AuthorizationFence:
             generation = self._generation(stamp, current)
             if stamp["epoch"] != held.epoch or generation != held.generation:
                 raise BusinessError("AUTHORIZATION_CHANGED", 503)
-            operation = self.authority.catalog[evidence.operation_id]
-            roles = self.authority._roles(evidence.principal, operation.permission, connection)
+            roles: RoleFacts | WorkRoleFacts
+            if isinstance(evidence, AuthorizationEvidence):
+                roles = self.authority._roles(
+                    evidence.principal, self.authority.catalog[evidence.operation_id].permission, connection
+                )
+            else:
+                roles = self.authority._work_roles(
+                    evidence.subject, WORK_OPERATIONS[evidence.operation_id][0], connection
+                )
             if roles.version_digest != evidence.role_digest:
                 raise BusinessError("AUTHORIZATION_CHANGED", 503)
             # Initial exact-version verification and retained row locks exclude other
             # writers. Our own state/version update is legitimate; current conditions,
             # purpose, source set and immutable request binding still have to hold.
-            fresh = self.authority.authorize(
-                evidence.principal,
-                evidence.operation_id,
-                replace(evidence.target, object_version=None),
-                connection=connection,
+            target = replace(evidence.target, object_version=None)
+            fresh = (
+                self.authority.authorize(evidence.principal, evidence.operation_id, target, connection=connection)
+                if isinstance(evidence, AuthorizationEvidence)
+                else self.authority.authorize_work(
+                    evidence.subject, evidence.operation_id, target, connection=connection
+                )
             )
             if (
                 fresh.role_digest != evidence.role_digest

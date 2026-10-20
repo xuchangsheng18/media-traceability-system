@@ -39,7 +39,7 @@ from .inference import router as inference_router
 from .objects import FileObjectStore
 from .permissions.catalog import load_catalog
 from .permissions.conditional import ConditionalPort
-from .permissions.context import FencePort
+from .permissions.context import FencePort, WorkPort
 from .permissions.duties import IndependentDuties
 from .permissions.guard import audit_protected_routes, authorize_business_route
 from .permissions.types import PermissionAuthority
@@ -64,6 +64,7 @@ def create_app(
     conditional_permissions: ConditionalPort | None = None,
     independent_duties: IndependentDuties | None = None,
     authorization_fence: FencePort | None = None,
+    work_authorization: WorkPort | None = None,
 ) -> FastAPI:
     logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
@@ -82,6 +83,7 @@ def create_app(
     app.state.permission_authority = permission_authority
     app.state.conditional_permissions = conditional_permissions
     app.state.authorization_fence = authorization_fence
+    app.state.work_authorization = work_authorization
     app.state.business_database = database
     app.state.business_authority = authority
     app.state.business_settings = settings
@@ -95,12 +97,18 @@ def create_app(
         database, app.state.control_receipts, app.state.result_repository, rules, independent_duties
     )
     app.state.exports = Exports(
-        database, app.state.control_receipts, app.state.approvals, app.state.upload_service.store, rules, authority
+        database,
+        app.state.control_receipts,
+        app.state.approvals,
+        app.state.upload_service.store,
+        rules,
+        authority,
+        work_authorization,
     )
     app.state.imports = Imports(
         database, app.state.control_receipts, app.state.upload_service.store, authority, settings
     )
-    app.state.execution = Execution(database, authority, settings.node_lease_seconds)
+    app.state.execution = Execution(database, authority, settings.node_lease_seconds, work_authorization)
     app.state.identity_directory = identity_directory
     app.state.definition_provider = definition_provider
     app.state.deployment_operations = deployment_operations

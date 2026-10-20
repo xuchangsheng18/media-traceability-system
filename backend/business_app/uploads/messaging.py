@@ -5,14 +5,23 @@ from kombu import Connection, Consumer, Exchange, Producer, Queue
 from sqlalchemy import text
 
 from ..auth import AuthorityProvider
+from ..errors import BusinessError
+from ..permissions.context import WorkPort
 from ..types import Scope
 from .service import UploadService
 from .worker import UploadValidationWorker
 
 
 def pump_outbox_once(
-    service: UploadService, authority: AuthorityProvider, scope: Scope, broker_url: str
+    service: UploadService,
+    authority: AuthorityProvider,
+    scope: Scope,
+    broker_url: str,
+    *,
+    work_authorization: WorkPort | None = None,
 ) -> dict[str, int | bool]:
+    if work_authorization is None:
+        raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
     with service.database.transaction(scope) as sql_connection:
         pending = (
             sql_connection.execute(
@@ -27,7 +36,7 @@ def pump_outbox_once(
     exchange = Exchange("mt_business_validation", type="direct", durable=True)
     name = "mt_business_validation_" + scope.case_id.hex
     queue = Queue(name, exchange=exchange, routing_key=name, durable=True)
-    worker = UploadValidationWorker(service, authority)
+    worker = UploadValidationWorker(service, authority, work_authorization)
     with Connection(broker_url, transport_options={"confirm_publish": True}) as connection:
         bound = queue(connection)
         bound.declare()

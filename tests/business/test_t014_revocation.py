@@ -475,3 +475,103 @@ def test_actual_restored_database_needs_fresh_independent_generation(permission_
                 restored.close()
             assert name.startswith("mt_business_fence_restore_") and len(name) == 58
             admin.execute(sql.SQL("DROP DATABASE {} WITH (FORCE)").format(sql.Identifier(name)))
+
+
+@pytest.mark.parametrize(
+    "change,expected",
+    [("identity", 401), ("role", 403), ("membership", 404), ("permission", 403), ("policy", 503), ("database", 503)],
+)
+def test_committed_revocation_rejects_new_requests_within_five_seconds(
+    permission_context, record_property, change, expected
+):
+    from datetime import datetime, timezone
+
+    from business_app.main import create_app
+    from business_app.permissions.six_role import SixRoleEntryAuthority
+    from fastapi.testclient import TestClient
+    from psycopg import sql
+
+    ctx = permission_context
+    e = environment(ctx)
+    e.fence.clock = time.time
+
+    class Identity:
+        def authenticate_principal(self, token):
+            if token != "synthetic-same-old-token":
+                raise BusinessError("AUTHENTICATION_REQUIRED", 401)
+            return ctx["principal"]
+
+        def authenticate(self, token):
+            return self.authenticate_principal(token).actor
+
+        def authorize_case(self, actor, case, action):
+            return ctx["authority"].authorize_case(actor, case, action)
+
+        def authorize_source(self, scope, source, purpose):
+            return ctx["authority"].authorize_source(scope, source, purpose)
+
+    app = create_app(
+        ctx["settings"],
+        Identity(),
+        permission_authority=SixRoleEntryAuthority(e.roles, e.rules),
+        conditional_permissions=e.authority,
+        authorization_fence=e.fence,
+    )
+    url = f"/api/v1/sources/{ctx['source_id']}"
+    headers = {"Authorization": "Bearer synthetic-same-old-token"}
+    connect_revoked = False
+    try:
+        with TestClient(app) as client:
+            assert client.get(url, headers=headers).status_code == 200
+            with psycopg.connect(ctx["admin_dsn"]) as admin:
+                if change == "identity":
+                    admin.execute(
+                        "UPDATE mt.user_identities SET enabled=false,revoked_at=now(),row_version=row_version+1 WHERE identity_id=%s",
+                        (ctx["identity"],),
+                    )
+                elif change == "role":
+                    admin.execute(
+                        "UPDATE mt.user_roles SET revoked_at=now() WHERE user_id=%s AND revoked_at IS NULL",
+                        (ctx["actor"].user_id,),
+                    )
+                elif change == "membership":
+                    admin.execute(
+                        "UPDATE mt.case_membership SET revoked_at=now() WHERE user_id=%s AND case_id=%s",
+                        (ctx["actor"].user_id, ctx["case_id"]),
+                    )
+                elif change == "permission":
+                    admin.execute("UPDATE mt.permissions SET enabled=false WHERE code='source.read'")
+                elif change == "policy":
+                    stamp = admin.execute("SELECT epoch FROM mt.authorization_epoch").fetchone()
+                    assert stamp is not None
+                    admin.execute(
+                        "SELECT mt.activate_authorization_generation(%s,%s,%s,%s)",
+                        (e.rules.snapshot.version, e.rules.snapshot.sha256, "synthetic-policy-change", stamp[0]),
+                    )
+                else:
+                    name = admin.info.dbname
+                    admin.execute(sql.SQL("REVOKE CONNECT ON DATABASE {} FROM PUBLIC").format(sql.Identifier(name)))
+                    admin.execute(
+                        "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND usename=%s",
+                        (ctx["login"],),
+                    )
+                    connect_revoked = True
+            committed = time.monotonic()
+            record_property("commit_observed_utc", datetime.now(timezone.utc).isoformat())
+            delays = []
+            for _ in range(3):
+                response = client.get(url, headers=headers)
+                delays.append(time.monotonic() - committed)
+                assert response.status_code == expected, response.json()
+                assert delays[-1] <= 5.0
+            record_property("revocation_change", change)
+            record_property("commit_observed_monotonic", committed)
+            record_property("first_stable_denial_monotonic", committed + delays[0])
+            record_property("maximum_observed_delay_seconds", max(delays))
+            record_property("stable_denial_observations", 3)
+    finally:
+        if connect_revoked:
+            with psycopg.connect(ctx["admin_dsn"]) as admin:
+                admin.execute(
+                    sql.SQL("GRANT CONNECT ON DATABASE {} TO PUBLIC").format(sql.Identifier(admin.info.dbname))
+                )

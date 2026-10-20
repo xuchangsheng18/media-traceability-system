@@ -181,7 +181,7 @@ def event(context, upload):
 def worker(app, context):
     from business_app.uploads.worker import UploadValidationWorker
 
-    return UploadValidationWorker(app.state.upload_service, context["authority"])
+    return UploadValidationWorker(app.state.upload_service, context["authority"], context["work_authorization"])
 
 
 def test_complete_enqueues_once(business_context):
@@ -312,6 +312,7 @@ def test_real_broker_receives_and_worker_commits(business_context):
             business_context["authority"],
             Scope(business_context["actor"], business_context["case_id"]),
             url,
+            work_authorization=business_context["work_authorization"],
         )
         assert result == {"published": 1, "consumed": 1, "confirmed": True}
         assert http.get(f"/api/v1/uploads/{upload}", headers=AUTH).json()["session"]["state"] == "COMPLETED"
@@ -346,6 +347,7 @@ def test_broker_recovers_after_confirmation_before_outbox_commit(business_contex
                     business_context["authority"],
                     Scope(business_context["actor"], business_context["case_id"]),
                     url,
+                    work_authorization=business_context["work_authorization"],
                 )
         finally:
             sql_events.remove(engine, "before_cursor_execute", interrupt_receipt)
@@ -354,6 +356,7 @@ def test_broker_recovers_after_confirmation_before_outbox_commit(business_contex
             business_context["authority"],
             Scope(business_context["actor"], business_context["case_id"]),
             url,
+            work_authorization=business_context["work_authorization"],
         )
         assert result["published"] == 1 and result["consumed"] == 2
         with psycopg.connect(business_context["admin_dsn"]) as connection:

@@ -14,6 +14,7 @@ from ..auth import AuthorityProvider
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import FileObjectStore, StoredObject
+from ..permissions.context import WorkPort, protected_work
 from ..types import ObjectRef, Scope
 from ..uploads.repository import UploadRepository
 from .approvals import Approvals
@@ -42,6 +43,7 @@ class Exports:
         store: FileObjectStore,
         rules: RuleProvider | None,
         authority: AuthorityProvider | None,
+        work_authorization: WorkPort | None = None,
     ) -> None:
         self.database, self.receipts, self.approvals, self.store, self.rules, self.authority = (
             database,
@@ -51,6 +53,7 @@ class Exports:
             rules,
             authority,
         )
+        self.work_authorization = work_authorization
 
     def check(self, connection: Connection, scope: Scope, item: dict[str, Any]) -> ExportRule:
         if self.rules is None:
@@ -111,6 +114,10 @@ class Exports:
         authorized = self.authority.authorize_case(scope.actor, scope.case_id, "audit.export")
         if authorized != scope:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        with protected_work(self.work_authorization, scope, "audit_export", identifier, "processAuditExportWork"):
+            self._process_bound(scope, identifier)
+
+    def _process_bound(self, scope: Scope, identifier: UUID) -> None:
         stored: StoredObject | None = None
         try:
             with self.database.transaction(scope) as connection:

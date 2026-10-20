@@ -13,6 +13,7 @@ from ..auth import AuthorityProvider
 from ..contracts import REGISTRY, SCHEMAS
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.context import WorkPort, protected_work
 from ..types import Scope
 from .common import now, row
 
@@ -25,10 +26,17 @@ class Lease:
 
 
 class Execution:
-    def __init__(self, database: Database, authority: AuthorityProvider | None, lease_seconds: int | None) -> None:
+    def __init__(
+        self,
+        database: Database,
+        authority: AuthorityProvider | None,
+        lease_seconds: int | None,
+        work_authorization: WorkPort | None = None,
+    ) -> None:
         if lease_seconds is not None and lease_seconds <= 0:
             raise ValueError("EXPLICIT_NODE_LEASE_REQUIRED")
         self.database, self.authority, self.lease_seconds = database, authority, lease_seconds
+        self.work_authorization = work_authorization
 
     def authorize(self, scope: Scope, task_id: UUID) -> None:
         if self.authority is None:
@@ -51,10 +59,19 @@ class Execution:
             raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
         with self.database.transaction(scope) as connection:
             item = row(connection, "task_node_run", "run_id", node_id)
-        self.authorize(scope, item["task_id"])
+        task_id = item["task_id"]
+        with protected_work(self.work_authorization, scope, "task_execution", task_id, "startTaskNodeWork"):
+            return self._claim_bound(scope, node_id, task_id)
+
+    def _claim_bound(self, scope: Scope, node_id: UUID, task_id: UUID) -> Lease:
+        if self.lease_seconds is None:
+            raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
+        self.authorize(scope, task_id)
         with self.database.transaction(scope) as connection:
-            task = row(connection, "analysis_task", "task_id", item["task_id"], lock=True)
+            task = row(connection, "analysis_task", "task_id", task_id, lock=True)
             item = row(connection, "task_node_run", "run_id", node_id, lock=True)
+            if item["task_id"] != task_id:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             if (
                 task["state"] in {"CANCEL_REQUESTED", "CANCELLED", "ARCHIVED", "FAILED", "SUCCEEDED"}
                 or task["run_version"] != item["run_version"]
@@ -83,6 +100,18 @@ class Execution:
             raise BusinessError("VERIFIED_NODE_RESULT_PRODUCER_REQUIRED", 503)
         with self.database.transaction(scope) as connection:
             item = row(connection, "task_node_run", "run_id", lease.node_id)
+        task_id = item["task_id"]
+        kind, operation = (
+            ("task_cancellation", "cancelTaskWork")
+            if state == "CANCELLED"
+            else ("task_execution", "finishTaskNodeWork")
+        )
+        with protected_work(self.work_authorization, scope, kind, task_id, operation):
+            self._finish_bound(scope, lease, state, reason, task_id)
+
+    def _finish_bound(self, scope: Scope, lease: Lease, state: str, reason: str, task_id: UUID) -> None:
+        if self.lease_seconds is None:
+            raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
         if state == "CANCELLED":
             if (
                 self.authority is None
@@ -90,10 +119,12 @@ class Execution:
             ):
                 raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         else:
-            self.authorize(scope, item["task_id"])
+            self.authorize(scope, task_id)
         with self.database.transaction(scope) as connection:
-            task = row(connection, "analysis_task", "task_id", item["task_id"], lock=True)
+            task = row(connection, "analysis_task", "task_id", task_id, lock=True)
             item = row(connection, "task_node_run", "run_id", lease.node_id, lock=True)
+            if item["task_id"] != task_id:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             if (
                 item["state"] != "RUNNING"
                 or item["lease_token"] != lease.token
@@ -222,6 +253,12 @@ class Execution:
         )
 
     def reconcile_cancel(
+        self, scope: Scope, task_id: UUID, run_version: int, expected_version: int, request_id: UUID
+    ) -> bool:
+        with protected_work(self.work_authorization, scope, "task_cancellation", task_id, "cancelTaskWork"):
+            return self._reconcile_bound(scope, task_id, run_version, expected_version, request_id)
+
+    def _reconcile_bound(
         self, scope: Scope, task_id: UUID, run_version: int, expected_version: int, request_id: UUID
     ) -> bool:
         if self.authority is None or self.authority.authorize_case(scope.actor, scope.case_id, "task.cancel") != scope:
