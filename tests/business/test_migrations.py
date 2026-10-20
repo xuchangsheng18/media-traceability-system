@@ -25,7 +25,19 @@ def scalar(connection, query):
 
 
 def test_empty_database_migrates_and_replay_noops(database_dsn):
-    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008", "0009", "0010"]
+    assert migrate(database_dsn) == [
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007",
+        "0008",
+        "0009",
+        "0010",
+        "0011",
+    ]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
         assert (
@@ -35,7 +47,7 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
             )
             == 64
         )
-        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 849
+        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 861
         assert scalar(connection, "SELECT rolbypassrls OR rolsuper FROM pg_roles WHERE rolname='mt_runtime'") is False
 
 
@@ -96,7 +108,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             assert scalar(connection, "SELECT to_regclass('mt.user_identities')") is None
             assert scalar(connection, "SELECT count(*) FROM mt.case_membership") == 1
     else:
-        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007", "0008", "0009", "0010"]
+        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007", "0008", "0009", "0010", "0011"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -133,6 +145,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0008",
             "0009",
             "0010",
+            "0011",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -228,7 +241,7 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
                 " bad legacy",
             )
     else:
-        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008", "0009", "0010"]
+        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008", "0009", "0010", "0011"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(

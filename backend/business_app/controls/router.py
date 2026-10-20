@@ -23,6 +23,7 @@ from .common import actor_for, audit, canonical, match, now, page, reply, resour
 from .execution import Execution
 from .exports import Exports, audit_wire
 from .imports import Imports
+from .operation_tokens import OperationTokens
 from .providers import DefinitionProvider, DeploymentOperations, IdentityDirectory, SourceSynchronization
 from .reviews import Reviews
 
@@ -46,6 +47,14 @@ def collection_scope(request: Request) -> CollectionScope:
 
 def approvals(request: Request) -> Approvals:
     return cast(Approvals, request.app.state.approvals)
+
+
+@router.post("/operation-tokens", operation_id="issueOperationToken")
+def issue_operation_token(request: Request, body: dict[str, Any], idempotency_key: Key) -> JSONResponse:
+    validate_api("OperationTokenRequest", body)
+    scope = resource_scope(request, "approval", UUID(body["approval_id"]), "operation.confirm")
+    service = cast(OperationTokens, request.app.state.operation_tokens)
+    return reply("OperationToken", service.issue(scope, body, request, idempotency_key))
 
 
 def reviews(request: Request) -> Reviews:

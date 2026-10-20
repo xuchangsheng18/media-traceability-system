@@ -25,10 +25,10 @@ def synthetic_report(tmp_path, gate, *, missing=None, duplicate=None, skipped=Fa
     names = set(gate.REQUIRED_CASES)
     for operation in OPERATIONS:
         for name in [
-            f"test_all_42_mounted_business_operations_require_authentication[{operation}]",
-            f"test_all_42_operations_deny_missing_permission[{operation}]",
-            f"test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
-            f"test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
+            f"test_all_43_mounted_business_operations_require_authentication[{operation}]",
+            f"test_all_43_operations_deny_missing_permission[{operation}]",
+            f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
+            f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
         ]:
             names.add(("tests.platform.test_t014", name))
     if missing:
@@ -51,10 +51,10 @@ def synthetic_report(tmp_path, gate, *, missing=None, duplicate=None, skipped=Fa
     return path
 
 
-def test_complete_report_has_exact_42_operation_matrix(tmp_path):
+def test_complete_report_has_exact_43_operation_matrix(tmp_path):
     gate = gate_module()
     result = gate.validate_results(synthetic_report(tmp_path, gate), OPERATIONS)
-    assert result["mounted_operation_count"] == 42
+    assert result["mounted_operation_count"] == 43
     assert set(result["operation_checks"]) == OPERATIONS
 
 
@@ -142,7 +142,7 @@ def test_gate_requires_review_regressions(tmp_path, classname, name):
 def test_gate_rejects_incomplete_or_duplicate_runtime_evidence(tmp_path, kind):
     gate = gate_module()
     operation = sorted(OPERATIONS)[0]
-    target = ("tests.platform.test_t014", f"test_all_42_operations_deny_missing_permission[{operation}]")
+    target = ("tests.platform.test_t014", f"test_all_43_operations_deny_missing_permission[{operation}]")
     missing = {
         "missing_operation": target,
         "missing_SQL_restore": (
@@ -151,7 +151,7 @@ def test_gate_rejects_incomplete_or_duplicate_runtime_evidence(tmp_path, kind):
         ),
         "missing_real_resources": (
             "tests.business.test_t014_runtime",
-            "test_all_42_real_resource_requests_deny_before_business_side_effects",
+            "test_all_43_real_resource_requests_deny_before_business_side_effects",
         ),
     }
     path = synthetic_report(

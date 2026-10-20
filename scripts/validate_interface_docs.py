@@ -128,7 +128,7 @@ def main():
         business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/history/router.py")}
         business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/controls/router.py")}
         business_matching = {oid for oid, (method, path, _) in operations.items() if (method, path) in business_routes}
-        assert business_matching == {'completeUpload', 'getUploadStatus', 'getTask', 'putUploadPart', 'listUploadParts', 'getFirstSource', 'getTaskEvidence', 'createUpload', 'getForensics', 'getRiskFindings', 'getPropagation', 'getTimeline', 'requestApproval', 'decideApproval', 'listApprovals', 'getApproval', 'revokeApproval', 'createReview', 'listReviews', 'listPendingReviews', 'getReview', 'getReviewContext', 'exportAudit', 'listAuditEvents', 'getAuditExport', 'downloadAuditExport', 'getFeedback', 'getModelOperation', 'getCurrentUser', 'listSources', 'getSource', 'syncSourceAuthorization', 'createImport', 'getImport', 'listTaskNodes', 'listTaskEvents', 'getTaskExecution', 'cancelTask', 'createPolicy', 'listPolicies', 'getPolicy', 'getPolicyDefinition'}
+        assert business_matching == {'completeUpload', 'getUploadStatus', 'getTask', 'putUploadPart', 'listUploadParts', 'getFirstSource', 'getTaskEvidence', 'createUpload', 'getForensics', 'getRiskFindings', 'getPropagation', 'getTimeline', 'requestApproval', 'decideApproval', 'listApprovals', 'getApproval', 'revokeApproval', 'createReview', 'listReviews', 'listPendingReviews', 'getReview', 'getReviewContext', 'exportAudit', 'listAuditEvents', 'getAuditExport', 'downloadAuditExport', 'getFeedback', 'getModelOperation', 'getCurrentUser', 'listSources', 'getSource', 'syncSourceAuthorization', 'createImport', 'getImport', 'listTaskNodes', 'listTaskEvents', 'getTaskExecution', 'cancelTask', 'createPolicy', 'listPolicies', 'getPolicy', 'getPolicyDefinition', 'issueOperationToken'}
         matching |= business_matching
         annotations = read(BASE + "interface-annotations.json")["operations"]
         assert {oid for oid, a in annotations.items() if a["implementation_status"] == "DEV_PARTIAL"} == matching
@@ -137,7 +137,7 @@ def main():
         event = read("schemas/events/poc.analysis.requested.v1.schema.json")
         assert event["properties"]["event_type"]["const"] == "poc.analysis.requested.v1"
         assert ("POST", "/inference/{capability}") in routes("backend/business_app/inference.py")
-        return {"business_matching_development_partial_routes": 43, "all_business_API_implementation_asserted": False,
+        return {"business_matching_development_partial_routes": 44, "all_business_API_implementation_asserted": False,
                 "new_runtime_tests_executed": False, "one_PoC_event_not_cross_module_bus": True}
 
     check("source_code_PoC_boundary_not_business_acceptance", implemented_boundary)

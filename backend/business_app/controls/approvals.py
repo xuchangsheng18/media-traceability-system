@@ -37,7 +37,7 @@ class Approvals:
             raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
         return self.duties
 
-    def bind(self, connection: Connection, scope: Scope, item: dict[str, Any]) -> None:
+    def bind(self, connection: Connection, scope: Scope, item: dict[str, Any], *, shared: bool = False) -> None:
         targets = {
             "task": ("analysis_task", "task_id"),
             "report": ("report", "report_id"),
@@ -59,7 +59,12 @@ class Approvals:
             raise BusinessError("APPROVAL_OBJECT_BINDING_INVALID", 422)
         table, key = targets[item["object_type"]]
         target = row(
-            connection, table, key, UUID(str(item["object_id"])), lock=table in {"analysis_task", "cases", "report"}
+            connection,
+            table,
+            key,
+            UUID(str(item["object_id"])),
+            lock=table in {"analysis_task", "cases", "report"},
+            shared=shared and table in {"analysis_task", "cases", "report"},
         )
         if target["case_id"] != scope.case_id or int(target["row_version"]) != item["object_version"]:
             raise BusinessError("APPROVAL_OBJECT_STALE", 409)
@@ -101,9 +106,17 @@ class Approvals:
             if exists is None or latest is None or tuple(latest) != (item["run_version"], item["result_version"]):
                 raise BusinessError("APPROVAL_RESULT_STALE", 409)
 
-    def detail(self, connection: Connection, scope: Scope, identifier: UUID, *, lock: bool = False) -> dict[str, Any]:
+    def detail(
+        self,
+        connection: Connection,
+        scope: Scope,
+        identifier: UUID,
+        *,
+        lock: bool = False,
+        shared_binding: bool = False,
+    ) -> dict[str, Any]:
         require_resource(connection, current_data_scope(), "approval", identifier)
-        item = row(connection, "approval_request", "approval_id", identifier, lock)
+        item = row(connection, "approval_request", "approval_id", identifier, lock, shared=shared_binding)
         if item["case_id"] != scope.case_id:
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
         decisions = [
@@ -161,7 +174,7 @@ class Approvals:
                 state = "EXPIRED"
             else:
                 try:
-                    self.bind(connection, scope, item)
+                    self.bind(connection, scope, item, shared=shared_binding)
                 except BusinessError as error:
                     if error.http_status not in {404, 409}:
                         raise

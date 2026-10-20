@@ -20,10 +20,13 @@ from .controls.approvals import Approvals
 from .controls.execution import Execution
 from .controls.exports import Exports
 from .controls.imports import Imports
+from .controls.operation_tokens import OperationTokens
 from .controls.providers import (
     DefinitionProvider,
     DeploymentOperations,
     IdentityDirectory,
+    OperationTokenKeys,
+    OperationTokenRules,
     RuleProvider,
     SourceSynchronization,
 )
@@ -65,6 +68,8 @@ def create_app(
     independent_duties: IndependentDuties | None = None,
     authorization_fence: FencePort | None = None,
     work_authorization: WorkPort | None = None,
+    operation_token_rules: OperationTokenRules | None = None,
+    operation_token_keys: OperationTokenKeys | None = None,
 ) -> FastAPI:
     logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
@@ -93,6 +98,9 @@ def create_app(
     app.state.result_repository = ResultRepository(database, app.state.upload_service.store, authority)
     app.state.control_receipts = ControlReceipts(database, settings)
     app.state.approvals = Approvals(database, app.state.control_receipts, rules, authority, independent_duties)
+    app.state.operation_tokens = OperationTokens(
+        database, app.state.approvals, operation_token_rules, operation_token_keys, permission_authority
+    )
     app.state.reviews = Reviews(
         database, app.state.control_receipts, app.state.result_repository, rules, independent_duties
     )

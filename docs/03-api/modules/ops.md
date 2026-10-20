@@ -20,7 +20,7 @@
 | [rerunTask](../operations/rerunTask.md) | POST /api/v1/analysis/tasks/{id}/rerun | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [requestApproval](../operations/requestApproval.md) | POST /api/v1/approvals | DEV_PARTIAL |
 | [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | DEV_PARTIAL |
-| [issueOperationToken](../operations/issueOperationToken.md) | POST /api/v1/operation-tokens | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [issueOperationToken](../operations/issueOperationToken.md) | POST /api/v1/operation-tokens | DEV_PARTIAL |
 | [registerModel](../operations/registerModel.md) | POST /api/v1/models | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [listModels](../operations/listModels.md) | GET /api/v1/models | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [getModelHealth](../operations/getModelHealth.md) | GET /api/v1/models/{id}/health | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |

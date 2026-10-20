@@ -46,7 +46,7 @@ REQUIRED_CASES = frozenset(
             "test_permission_facts_and_least_privilege_survive_independent_restore",
         ),
         ("tests.business.test_t014_permissions", "test_directory_facts_never_allow_without_explicit_policy"),
-        ("tests.business.test_t014_runtime", "test_all_42_real_resource_requests_deny_before_business_side_effects"),
+        ("tests.business.test_t014_runtime", "test_all_43_real_resource_requests_deny_before_business_side_effects"),
         (
             "tests.business.test_t014_runtime",
             "test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
@@ -195,10 +195,10 @@ def validate_results(junit: Path, operation_ids: set[str]) -> dict[str, Any]:
     checks: dict[str, dict[str, str]] = {}
     for operation in sorted(operation_ids):
         names = {
-            "unauthenticated": f"test_all_42_mounted_business_operations_require_authentication[{operation}]",
-            "permission_denied": f"test_all_42_operations_deny_missing_permission[{operation}]",
-            "policy_missing": f"test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
-            "authority_unavailable": f"test_all_42_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
+            "unauthenticated": f"test_all_43_mounted_business_operations_require_authentication[{operation}]",
+            "permission_denied": f"test_all_43_operations_deny_missing_permission[{operation}]",
+            "policy_missing": f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
+            "authority_unavailable": f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
         }
         if any(rows[("tests.platform.test_t014", name)] != 1 for name in names.values()):
             raise RuntimeError("T014_OPERATION_MATRIX_INCOMPLETE")
@@ -280,7 +280,7 @@ def mounted_catalog() -> tuple[set[str], list[str]]:
                         raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
                     operations.add(identifier)
             catalog = load_catalog(ROOT)
-            if len(operations) != 42 or len(catalog) != 73 or len(ROLES) != 6:
+            if len(operations) != 43 or len(catalog) != 73 or len(ROLES) != 6:
                 raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
             return operations, sorted(set(catalog) - operations)
         finally:

@@ -20,6 +20,9 @@ def validate_error_definitions(definitions: Iterable[tuple[str, int]]) -> dict[s
 
 
 ERROR_DEFINITIONS = [
+    ("OPERATION_TOKEN_INVALID", 403),
+    ("OPERATION_TOKEN_STATE_CONFLICT", 409),
+    ("OPERATION_TOKEN_UNAVAILABLE", 503),
     ("AUTH_REQUIRED", 401),
     ("ASSET_NOT_FOUND", 404),
     ("JOB_NOT_FOUND", 404),

@@ -1,6 +1,7 @@
 """Trusted integration ports. No development success provider is installed by the app."""
 
-from dataclasses import dataclass
+import re
+from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Protocol
 from uuid import UUID
@@ -17,6 +18,48 @@ class ApprovalRule:
     def __post_init__(self) -> None:
         if not self.version or self.ttl_seconds <= 0 or self.independent_approvers not in (1, 2):
             raise ValueError("EXPLICIT_APPROVAL_RULE_REQUIRED")
+
+
+@dataclass(frozen=True)
+class OperationTokenRule:
+    action: str
+    version: str
+    ttl_seconds: int
+
+    def __post_init__(self) -> None:
+        if (
+            self.action != "sealEvidence"
+            or not isinstance(self.version, str)
+            or re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}", self.version) is None
+            or type(self.ttl_seconds) is not int
+            or self.ttl_seconds <= 0
+        ):
+            raise ValueError("EXPLICIT_OPERATION_TOKEN_RULE_REQUIRED")
+
+
+@dataclass(frozen=True)
+class OperationTokenKey:
+    key_id: str
+    material: bytes = field(repr=False)
+
+    def __post_init__(self) -> None:
+        if (
+            not isinstance(self.key_id, str)
+            or re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}", self.key_id) is None
+            or type(self.material) is not bytes
+            or not 32 <= len(self.material) <= 128
+        ):
+            raise ValueError("EXPLICIT_INDEPENDENT_OPERATION_TOKEN_KEY_REQUIRED")
+
+
+class OperationTokenRules(Protocol):
+    def resolve(self, scope: Scope, approval: dict[str, Any]) -> OperationTokenRule: ...
+
+
+class OperationTokenKeys(Protocol):
+    def current(self) -> OperationTokenKey: ...
+
+    def get(self, key_id: str) -> OperationTokenKey: ...
 
 
 @dataclass(frozen=True)

@@ -232,7 +232,7 @@ def test_no_new_unmounted_operation_is_claimed(permission_context):
         if o["runtime_state"] == "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED"
     }
     unmounted = {o["operation_id"] for p in SOURCE["permissions"] for o in p["operations"]} - expected
-    assert len(expected) == 42 and len(unmounted) == 31
+    assert len(expected) == 43 and len(unmounted) == 30
     assert objects.supported_operation_ids == frozenset(expected)
     assert not objects.supported_operation_ids & unmounted
 
@@ -379,7 +379,7 @@ def test_policy_list_SQL_scope_and_cursor_follow_current_role_kind(permission_co
                     (uuid4(), role, permission),
                 )
         changed = client.get("/api/v1/policies", params={"limit": 1, "cursor": cursor}, headers=headers)
-        assert changed.status_code == 422
+        assert changed.status_code == 432
         assert changed.json()["code"] == "PAGE_CURSOR_INVALID"
         fresh = client.get("/api/v1/policies", params={"limit": 1}, headers=headers)
         assert fresh.status_code == 200

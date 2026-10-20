@@ -22,6 +22,8 @@ STATUSES = {
     "NOT_FROZEN": "正式输入基线未冻结",
 }
 INTERFACES = [
+    ("案件令牌及数据库", "docs/04-database/operation-token-extension.md", "T016令牌0011扩展", "案件签发、非秘密绑定及同根消费；完整0011为64表861列，当前共享/预览库未采用。"),
+    ("令牌权限及消费者", "docs/08-security/t016-operation-token-boundaries.md", "T016权限和消费者边界", "列出实际内核与真实封存/导出/模型消费者的差异、角色关系和采用前决定，不以令牌代替业务权限。"),
     ("剩余接口实际实现", "docs/03-development/stage-three/remaining-interface-implementation.md", "11类缺口实际子范围", "审批/复核/审计/配置及适配、任务控制和内部协议的真实代码、验证与正式接入边界。"),
     ("整体接口范围", "docs/03-api/system-interface-specification.md", "系统整体接口说明", "七类接口面、73业务操作/102组件/34能力、服务边界和完整性要求。"),
     ("逐操作/模块目录", "docs/03-api/detailed-interface-index.md", "73操作与12模块导航", "跳转每个操作的参数、请求/响应、权限、版本、异步终态、样例和任务引用。"),

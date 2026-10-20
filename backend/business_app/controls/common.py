@@ -73,7 +73,9 @@ def resource_scope(request: Request, kind: str, resource_id: UUID, action: str) 
     return scope
 
 
-def row(connection: Connection, table: str, key: str, identifier: UUID, lock: bool = False) -> dict[str, Any]:
+def row(
+    connection: Connection, table: str, key: str, identifier: UUID, lock: bool = False, *, shared: bool = False
+) -> dict[str, Any]:
     root_scope = current_data_scope()
     kind = next((kind for kind, pair in RESOURCE_TABLES.items() if pair == (table, key)), None)
     if kind is not None:
@@ -82,7 +84,11 @@ def row(connection: Connection, table: str, key: str, identifier: UUID, lock: bo
         require_root(connection, root_scope)
     result = (
         connection.execute(
-            text(f"SELECT * FROM mt.{table} WHERE {key}=:id" + (" FOR UPDATE" if lock else "")), {"id": identifier}
+            text(
+                f"SELECT * FROM mt.{table} WHERE {key}=:id"
+                + (" FOR SHARE" if shared else " FOR UPDATE" if lock else "")
+            ),
+            {"id": identifier},
         )
         .mappings()
         .one_or_none()

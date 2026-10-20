@@ -1,4 +1,4 @@
-"""Valid contract requests and actual self-owned resources for the 42-operation denial matrix."""
+"""Valid contract requests and actual self-owned resources for the 43-operation denial matrix."""
 
 import hashlib
 import io
@@ -247,6 +247,7 @@ def _populate(c, resources):
         revokeApproval=dict(
             expected_version=revoke_detail.json()["approval"]["version"], reason="self-owned permission fixture"
         ),
+        issueOperationToken=dict(approval_id=approval, object_id=str(c["task_id"]), object_version=1, purpose="review"),
         createReview=new_review_body,
         exportAudit=dict(
             case_id=str(c["case_id"]),
@@ -351,4 +352,4 @@ def _populate(c, resources):
             assert isinstance(request["json"], dict)
             validate_api(body["schema"]["$ref"].rsplit("/", 1)[-1], request["json"])
         resources.requests[identifier] = request
-    assert len(resources.requests) == 42
+    assert len(resources.requests) == 43

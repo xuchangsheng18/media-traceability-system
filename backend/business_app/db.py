@@ -1,6 +1,6 @@
 import math
 import time
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from typing import Any
 
@@ -151,12 +151,25 @@ class Database:
             }
             for name, value in values.items():
                 connection.execute(text("SELECT set_config(:name,:value,true)"), dict(name=name, value=value))
-            with bind_scope_transaction(BoundTransaction(self, connection, scope, authorization)):
+            root = BoundTransaction(self, connection, scope, authorization)
+            with bind_scope_transaction(root):
                 if authorization is not None and authorization.fence is not None:
                     authorization.fence.hold(connection, authorization.evidence)
                 yield connection
+                for check in tuple(root.commit_checks):
+                    check()
                 if authorization is not None and authorization.fence is not None:
                     authorization.fence.finish(connection, authorization.evidence)
+
+    def before_commit(self, connection: Connection, check: Callable[[], None]) -> None:
+        from .scope_collections import require_root
+        from .scope_context import current_data_scope
+
+        require_root(connection, current_data_scope())
+        root = current_scope_transaction()
+        if root is None or root.database is not self or not callable(check):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        root.commit_checks.append(check)
 
     @contextmanager
     def transaction(self, scope: Scope) -> Iterator[Connection]:

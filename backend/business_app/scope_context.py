@@ -1,9 +1,9 @@
 """Request-local scope and root connection, with exact nested scope preservation."""
 
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from contextvars import ContextVar
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from sqlalchemy import Connection
 
@@ -20,6 +20,7 @@ class BoundTransaction:
     connection: Connection
     scope: DataScope
     authorization: RequestAuthorization | None
+    commit_checks: list[Callable[[], None]] = field(default_factory=list, repr=False, compare=False)
 
 
 _TRANSACTION: ContextVar[BoundTransaction | None] = ContextVar("media_trace_scope_transaction", default=None)

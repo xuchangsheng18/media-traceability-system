@@ -50,7 +50,7 @@ RESOURCES = MappingProxyType(
 )
 OPERATION_KINDS = MappingProxyType(
     {
-        **dict.fromkeys(("decideApproval", "getApproval", "revokeApproval"), "approval"),
+        **dict.fromkeys(("decideApproval", "getApproval", "revokeApproval", "issueOperationToken"), "approval"),
         "getImport": "import",
         "getTimeline": "asset",
         **dict.fromkeys(("completeUpload", "getUploadStatus", "listUploadParts", "putUploadPart"), "upload"),
@@ -91,6 +91,7 @@ BODY_SCHEMAS = MappingProxyType(
         "revokeApproval": "ApprovalRevoke",
         "cancelTask": "TaskAction",
         "completeUpload": "UploadComplete",
+        "issueOperationToken": "OperationTokenRequest",
     }
 )
 SUPPORTED_OPERATIONS = (
@@ -148,6 +149,7 @@ class ObjectFactsReader:
                 "createImport": {"source_collection"},
                 "requestApproval": {"task", "report", "evidence_package", "feedback", "model_release", "operation"},
                 "createReview": {"task"},
+                "sealEvidence": {"task"},
                 "exportAudit": {"approval"},
                 "createPolicy": {"policy_collection"},
                 "listPolicies": {"policy_collection", "policy"},
@@ -281,6 +283,17 @@ class ObjectFactsReader:
                 raw = RuleTarget(
                     org, "task", UUID(str(body["task_id"])), None, None, "review", None, request_digest=binding
                 )
+            elif operation_id == "issueOperationToken":
+                raw = RuleTarget(
+                    org,
+                    "approval",
+                    UUID(str(body["approval_id"])),
+                    None,
+                    None,
+                    None,
+                    None,
+                    request_digest=binding,
+                )
             elif operation_id == "exportAudit":
                 if body["case_id"] is None:
                     raise BusinessError("ORGANIZATION_AUDIT_EXPORT_UNAVAILABLE", 503)
@@ -308,6 +321,16 @@ class ObjectFactsReader:
             located = SqlScopeLookup(self.database, clock=self.clock).read(
                 principal, operation_id, LookupKey(raw.kind, cast(UUID, raw.object_id))
             )
+            if operation_id == "issueOperationToken":
+                item = located.projection
+                if item.get("object_type") != "task" or located.target.case_id is None:
+                    raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+                if (
+                    UUID(str(item.get("object_id"))) != UUID(str(body["object_id"]))
+                    or item.get("object_version") != body["object_version"]
+                    or item.get("purpose") != body["purpose"]
+                ):
+                    raise BusinessError("AUTHORIZATION_OBJECT_STALE", 409)
             return replace(
                 raw,
                 case_id=located.target.case_id,
@@ -447,6 +470,26 @@ class ObjectFactsReader:
             if target.kind == "case"
             else [LookupKey(target.kind, cast(UUID, target.object_id))]
         )
+        if connection is None and operation_id == "issueOperationToken":
+            # LOOKUP is exact-key/read-only: collecting the related task requires
+            # its own fixed lookup. The subsequent CASE-root fence re-reads both
+            # on the business connection and holds their source locks to commit.
+            with port.connection(principal, operation_id, keys[0]) as current:
+                approved = port.load(principal, operation_id, keys[0], connection=current)
+            item = approved["record"]
+            if item.get("object_type") != "task" or not item.get("case_id"):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            try:
+                task_key = LookupKey("task", UUID(str(item["object_id"])))
+            except (KeyError, TypeError, ValueError):
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+            with port.connection(principal, operation_id, task_key) as current:
+                linked = port.load(principal, operation_id, task_key, connection=current)
+            with port.connection(principal, operation_id, keys[0]) as current:
+                fresh = port.load(principal, operation_id, keys[0], connection=current)
+                if digest(fresh) != digest(approved):
+                    raise BusinessError("AUTHORIZATION_CHANGED", 503)
+                return self._read(principal, operation_id, target, connection=current, envelopes=[fresh, linked])
         if connection is None:
             if len(keys) == 1:
                 with port.connection(principal, operation_id, keys[0]) as current:
@@ -468,6 +511,15 @@ class ObjectFactsReader:
                 )
         if envelopes is None:
             envelopes = [port.load(principal, operation_id, key, connection=connection) for key in keys]
+            if operation_id == "issueOperationToken":
+                item = envelopes[0]["record"]
+                if item.get("object_type") != "task" or not item.get("case_id"):
+                    raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+                try:
+                    task_key = LookupKey("task", UUID(str(item["object_id"])))
+                except (KeyError, TypeError, ValueError):
+                    raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+                envelopes.append(port.load(principal, operation_id, task_key, connection=connection))
 
         def database_timestamp(value: str) -> datetime:
             try:
@@ -540,13 +592,41 @@ class ObjectFactsReader:
             "training_feedback",
             "confirmation",
         }
+        if operation_id == "issueOperationToken":
+            if len(metadata) != 2:
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+            linked = metadata[1]["record"]
+            if linked.get("org_id") != target.org_id or linked.get("case_id") != case:
+                raise BusinessError("RESOURCE_NOT_FOUND", 404)
+            versions.append(metadata[1])
+            checks["confirmation_subject"] = item.get("requested_by") == principal.actor.user_id
+            checks["case_request_purpose"] = item.get("purpose") == target.purpose == "seal"
+            expiry = item.get("expires_at")
+            if isinstance(expiry, datetime):
+                deadline = min(deadline, expiry.timestamp())
+            checks["object_binding"] = (
+                checks["case_request_purpose"]
+                and item.get("state") == "APPROVED"
+                and isinstance(expiry, datetime)
+                and expiry.timestamp() > current_time
+                and linked.get("task_id") == item.get("object_id")
+                and linked.get("row_version") == item.get("object_version")
+                and type(item.get("run_version")) is int
+                and type(item.get("result_version")) is int
+                and item["run_version"] > 0
+                and item["result_version"] > 0
+                and linked.get("run_version") == item["run_version"]
+                and linked.get("result_version") == item["result_version"]
+                and linked.get("policy_version") == item.get("policy_version")
+            )
         checks["training_request"] = target.purpose == "training_feedback"
         checks["audit_request"] = target.purpose == "report_export" and target.kind == "operation"
         policy_header = operation_id == "listPolicies" and target.kind == "policy_collection"
         checks["policy_retention"] = target.policy_kind == "retention" or policy_header
         checks["policy_algorithm"] = target.policy_kind in {"threshold", "analysis"} or policy_header
         checks["policy_business"] = target.policy_kind in {"risk_taxonomy", "review"} or policy_header
-        source_rows = {row["source_id"]: row for value in metadata for row in value["sources"]}
+        source_metadata = metadata[1:] if operation_id == "issueOperationToken" else metadata
+        source_rows = {row["source_id"]: row for value in source_metadata for row in value["sources"]}
         sources = set(source_rows)
         if target.kind == "source_collection" and sources != set(target.source_ids):
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
@@ -573,7 +653,8 @@ class ObjectFactsReader:
                 "validateUploadWork",
             }
             else "analysis"
-            if isinstance(principal, ExecutionSubject) and principal.work_kind == "task_execution"
+            if operation_id == "issueOperationToken"
+            or (isinstance(principal, ExecutionSubject) and principal.work_kind == "task_execution")
             else "training"
             if target.purpose == "training_feedback"
             else None

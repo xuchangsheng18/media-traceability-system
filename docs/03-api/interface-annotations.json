@@ -277,10 +277,10 @@
     "issueOperationToken": {
       "title": "签发受限操作确认凭据",
       "purpose": "签发受限操作确认凭据；按已授权流程及以下源契约提交或读取。",
-      "authorization_scope": "按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
-      "completion_and_followup": "操作确认只防误操作，不替代身份、权限或审批；执行仍核验撤销、版本、到期与单次使用规则。"
+      "authorization_scope": "批准ID服务端定位案件；当前申请人、operation.confirm、任务快照及非空授权来源；实际消费另需动作权限",
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "案件级task/seal签发和内部同事务消费已编码；缺正式规则或独立密钥拒绝；当前共享和预览库未采用0011",
+      "completion_and_followup": "仅在当前获准规则及批准链下签发HMAC凭据；幂等重建同一秘密而不落明文。真实seal/其他消费者、组织级发布、正式TTL/密钥保管及角色执行关系待各自实施和确认，见operation-token-extension.md与t016-operation-token-boundaries.md。"
     },
     "sealEvidence": {
       "title": "固化批准版本证据包",

@@ -83,6 +83,9 @@ LOOKUP_KINDS = frozenset(_RESOURCES)
 RESOURCE_BINDING_KINDS = LOOKUP_KINDS | frozenset(
     {"case", "audit_event", "upload_part", "media_input", "history_input", "export_artifact", "model_artifact"}
 )
+# Fixed action root for a separately authorized consumer. This is not an HTTP
+# implementation or a role grant; no consumer route is mounted by this catalog.
+INTERNAL_CONSUMER_OPERATIONS = frozenset({"sealEvidence"})
 
 
 def registered_operation(identifier: str) -> bool:
@@ -91,7 +94,9 @@ def registered_operation(identifier: str) -> bool:
     from .permissions.object_facts import SUPPORTED_OPERATIONS
     from .permissions.work_subject import WORK_OPERATIONS
 
-    return isinstance(identifier, str) and identifier in (SUPPORTED_OPERATIONS | WORK_OPERATIONS.keys())
+    return isinstance(identifier, str) and identifier in (
+        SUPPORTED_OPERATIONS | WORK_OPERATIONS.keys() | INTERNAL_CONSUMER_OPERATIONS
+    )
 
 
 def lookup_spec(kind: str) -> LookupSpec:
@@ -109,6 +114,7 @@ def lookup_spec(kind: str) -> LookupSpec:
         operations.update(("createUpload", "createImport"))
     if kind == "task":
         operations.add("createReview")
+        operations.update(("issueOperationToken", "sealEvidence"))
     if kind == "approval":
         operations.add("exportAudit")
     if kind == "review":
