@@ -97,6 +97,58 @@ def counts(ctx):
         return tuple(row)
 
 
+def test_same_generation_proof_renewal_allows_unchanged_transaction(permission_context):
+    ctx = permission_context
+    e = environment(ctx)
+    with ctx["database"].identity_transaction(ctx["actor"]) as connection:
+        e.fence.hold(connection, e.evidence)
+        insert_policy(connection, ctx)
+        e.clock[0] += 1
+        e.generations.proof = replace(e.generations.proof, confirmed_at=e.clock[0], valid_until=e.clock[0] + 1200)
+        e.fence.finish(connection, e.evidence)
+    assert counts(ctx) == (1, 1)
+
+
+def test_concurrent_clock_samples_do_not_create_false_rollback(monkeypatch):
+    module = permission_module("fence")
+    old_sampled, newer_done = threading.Event(), threading.Event()
+    finite = module.math.isfinite
+    errors, values = [], []
+
+    def clock():
+        return 100.0 if threading.current_thread().name == "t014-earlier" else 101.0
+
+    def delayed_finite(value):
+        if threading.current_thread().name == "t014-earlier":
+            old_sampled.set()
+            newer_done.wait(0.3)
+        return finite(value)
+
+    fence = module.AuthorizationFence(None, None, clock=clock)
+    monkeypatch.setattr(module.math, "isfinite", delayed_finite)
+
+    def read_time():
+        try:
+            values.append(fence._time())
+        except BusinessError as exc:
+            errors.append(exc.code)
+        finally:
+            if threading.current_thread().name == "t014-later":
+                newer_done.set()
+
+    earlier = threading.Thread(target=read_time, name="t014-earlier")
+    later = threading.Thread(target=read_time, name="t014-later")
+    earlier.start()
+    assert old_sampled.wait(2)
+    later.start()
+    earlier.join(2)
+    later.join(2)
+    assert not earlier.is_alive() and not later.is_alive()
+    assert errors == []
+    assert sorted(values) == [100.0, 101.0]
+    assert fence.last_time == 101.0
+
+
 def test_revoke_committed_before_fence_blocks_business_commit(permission_context):
     ctx = permission_context
     e = environment(ctx)

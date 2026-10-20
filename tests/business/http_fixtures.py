@@ -66,6 +66,26 @@ class FixtureConditionals:
             raise BusinessError("PERMISSION_REQUIRED", 403)
         return ("analysis", "retention", "review", "risk_taxonomy", "threshold")
 
+    def review_ids(
+        self, principal: Principal, operation_id: str, case_id: UUID, *, connection: Connection
+    ) -> tuple[UUID, ...]:
+        if principal.actor not in self.actors:
+            raise BusinessError("PERMISSION_REQUIRED", 403)
+        if operation_id not in {"listReviews", "listPendingReviews"}:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        # Preserve the explicit legacy business harness. Real six-role tests use
+        # ConditionalPermissionAuthority and source/per-object SQL filtering.
+        table, key = ("review_record", "review_id") if operation_id == "listReviews" else ("analysis_task", "task_id")
+        values = (
+            connection.execute(
+                text(f"SELECT {key} FROM mt.{table} WHERE case_id=:case AND org_id=:org ORDER BY {key}"),
+                dict(case=case_id, org=principal.actor.org_id),
+            )
+            .scalars()
+            .all()
+        )
+        return tuple(values)
+
 
 class FixtureFence:
     """Explicit old-HTTP harness only, not six-role/epoch/recovery proof."""

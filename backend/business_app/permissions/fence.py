@@ -4,6 +4,7 @@ import math
 import time
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, replace
+from threading import Lock
 from typing import Any, Protocol
 
 from sqlalchemy import Connection, text
@@ -39,7 +40,6 @@ class HeldAuthorization:
     evidence: Evidence
     epoch: int
     generation: GenerationProof
-    valid_until: float
 
 
 class AuthorizationFence:
@@ -52,17 +52,21 @@ class AuthorizationFence:
     ) -> None:
         self.authority, self.generations, self.clock = authority, generations, clock
         self.last_time: float | None = None
+        self.time_lock = Lock()
         self.key = ("media-trace-authorization-fence", id(self))
 
     def _time(self) -> float:
-        value = self.clock()
-        if type(value) not in (int, float) or not math.isfinite(value):
-            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
-        current = float(value)
-        if self.last_time is not None and current < self.last_time:
-            raise BusinessError("AUTHORIZATION_CHANGED", 503)
-        self.last_time = current
-        return current
+        # Sampling is inside the lock: an earlier sample may otherwise resume
+        # after a later request and masquerade as an actual clock rollback.
+        with self.time_lock:
+            value = self.clock()
+            if type(value) not in (int, float) or not math.isfinite(value):
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+            current = float(value)
+            if self.last_time is not None and current < self.last_time:
+                raise BusinessError("AUTHORIZATION_CHANGED", 503)
+            self.last_time = current
+            return current
 
     def _generation(self, stamp: Mapping[str, Any], current: float) -> GenerationProof:
         if self.generations is None:
@@ -141,7 +145,6 @@ class AuthorizationFence:
                 evidence,
                 stamp["epoch"],
                 generation,
-                min(evidence.valid_until, fresh.valid_until, generation.valid_until),
             )
         except BusinessError:
             raise
@@ -156,12 +159,27 @@ class AuthorizationFence:
                 not isinstance(held, HeldAuthorization)
                 or held.transaction is not connection.get_transaction()
                 or held.evidence != evidence
-                or current >= held.valid_until
             ):
                 raise BusinessError("AUTHORIZATION_CHANGED", 503)
+            # The original five-second fact interval is not a job timeout. The
+            # retained transaction/epoch and immutable subject/target stay bound;
+            # all current identity, delegation, source, policy and actual expiry
+            # checks below are mandatory even when the first interval has ended.
             stamp = self._stamp(connection)
             generation = self._generation(stamp, current)
-            if stamp["epoch"] != held.epoch or generation != held.generation:
+            # Freshness renewal does not rotate a generation. Its immutable
+            # database/policy identity and monotone epoch floor must still match.
+            if (
+                stamp["epoch"] != held.epoch
+                or replace(
+                    generation,
+                    confirmed_at=held.generation.confirmed_at,
+                    valid_until=held.generation.valid_until,
+                    minimum_epoch=held.generation.minimum_epoch,
+                )
+                != held.generation
+                or generation.minimum_epoch < held.generation.minimum_epoch
+            ):
                 raise BusinessError("AUTHORIZATION_CHANGED", 503)
             roles: RoleFacts | WorkRoleFacts
             if isinstance(evidence, AuthorizationEvidence):

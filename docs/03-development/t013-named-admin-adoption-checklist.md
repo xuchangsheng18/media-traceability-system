@@ -36,3 +36,5 @@ Windows当前用户尚未信任项目公有CA。已通过受信SSH复制公有`c
 当前状态：本人已明确回复“同意四项范围，按清单实施”。单次交互入口已上传，未由助手执行；Windows当前用户CA信任已在本人系统确认后按精确公有证书再次核验成功。账号/master保护/专用MFA客户端、本人首次改密及OTP已实核；专用PKCE/签名MFA管理会话真实回执与临时会话文件清理已核验。此前隧道未保持使回调未完成，修复后真实通过；不能仅凭早期手工反馈的成功文字登记通过。bootstrap、真实备份恢复和整卡验收继续保留。见[实际采用进度](../00-project/validation/t013-named-admin-adoption-progress.json)。
 
 本次实际本人证据：[专用管理回执与边界](../00-project/validation/t013-owner-mfa-management-validation.json)。
+
+本轮本人负向实测：徐昌胜反馈“仅密码不能进入控制台、单次错误OTP被拒绝”，见[本人负向反馈记录](../00-project/validation/t013-owner-mfa-negative-attestation.json)。这属于本人实测反馈，未独立关联服务器负向事件；正向专用MFA会话另有自动回执。已完成的登录不重复，实际身份备份恢复与bootstrap退役仍待。

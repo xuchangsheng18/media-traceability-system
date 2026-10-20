@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t014-isolated-review-disposition.md": "最终独立复核的7项重要问题、一次TDD修复批次、人员/代际续期与实际来源/列表范围；实际结果和未验收边界分列。",
+        "00-project/validation/t013-owner-mfa-negative-attestation.json": "徐昌胜本人反馈仅密码不能进入控制台、单次错误OTP被拒绝；与自动正向回执分开，未独立关联负向事件，不含秘密。",
         "09-testing/t014-isolated-operation-coverage.md": "73操作逐项区分42挂载/31未挂载、实际组件证据及HTTP允许边界；完整当前修订验证状态另列，246格不当HTTP通过数。",
         "09-testing/t014-isolated-operation-coverage.json": "每操作的方法/路径/41权限/六角色条件、实际测试ID、正例/拒绝及未实现条件；保留证据源码范围。",
         "00-project/validation/t014-isolated-work-report.json": "P06提交后76项、39项针对性与质量结果、真实队列/节点/交付及六类三次稳定拒绝测量；非正式服务身份或生产SLA。",

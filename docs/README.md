@@ -422,6 +422,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t014-isolated-review-disposition.md](<03-development/t014-isolated-review-disposition.md>) | 最终独立复核的7项重要问题、一次TDD修复批次、人员/代际续期与实际来源/列表范围；实际结果和未验收边界分列。 |
+| [00-project/validation/t013-owner-mfa-negative-attestation.json](<00-project/validation/t013-owner-mfa-negative-attestation.json>) | 徐昌胜本人反馈仅密码不能进入控制台、单次错误OTP被拒绝；与自动正向回执分开，未独立关联负向事件，不含秘密。 |
 | [09-testing/t014-isolated-operation-coverage.md](<09-testing/t014-isolated-operation-coverage.md>) | 73操作逐项区分42挂载/31未挂载、实际组件证据及HTTP允许边界；完整当前修订验证状态另列，246格不当HTTP通过数。 |
 | [09-testing/t014-isolated-operation-coverage.json](<09-testing/t014-isolated-operation-coverage.json>) | 每操作的方法/路径/41权限/六角色条件、实际测试ID、正例/拒绝及未实现条件；保留证据源码范围。 |
 | [00-project/validation/t014-isolated-work-report.json](<00-project/validation/t014-isolated-work-report.json>) | P06提交后76项、39项针对性与质量结果、真实队列/节点/交付及六类三次稳定拒绝测量；非正式服务身份或生产SLA。 |
@@ -590,7 +592,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1188份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1192份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1230,6 +1232,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t013-named-admin-adoption-preflight.json](<00-project/validation/t013-named-admin-adoption-preflight.json>) | 明确采用前的只读身份配置/本机CA预检历史快照；当前采用结果另见adoption-progress和本人管理回执。 |
 | [00-project/validation/t013-named-admin-adoption-progress.json](<00-project/validation/t013-named-admin-adoption-progress.json>) | 批准四项身份配置采用后的实际观察及本人首次改密/OTP状态；签名管理会话由单独实际回执证明。 |
 | [00-project/validation/t013-owner-mfa-management-validation.json](<00-project/validation/t013-owner-mfa-management-validation.json>) | 本人真实密码/OTP与PKCE/nonce/签名管理校验、配置检查及临时令牌文件清理；不含网址/令牌，未关闭真实恢复与bootstrap退役。 |
+| [00-project/validation/t013-owner-mfa-negative-attestation.json](<00-project/validation/t013-owner-mfa-negative-attestation.json>) | 徐昌胜本人反馈仅密码不能进入控制台、单次错误OTP被拒绝；与自动正向回执分开，未独立关联负向事件，不含秘密。 |
 | [00-project/validation/t013-recovery-ci-report.json](<00-project/validation/t013-recovery-ci-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-recovery-code-review.json](<00-project/validation/t013-recovery-code-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-recovery-report.json](<00-project/validation/t013-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1261,9 +1264,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t014-isolated-rule-progress.json](<00-project/validation/t014-isolated-rule-progress.json>) | P01—P07实际完成项、精确源码提交、隔离测试数量、失败历史和质量检查；未执行项和共享采用单列。 |
 | [00-project/validation/t014-isolated-validation-report.json](<00-project/validation/t014-isolated-validation-report.json>) | P07当前完整回归、门禁/类型/资料检查及中断历史；未完成的执行窗口和最终CI保持真实状态。 |
 | [00-project/validation/t014-isolated-work-report.json](<00-project/validation/t014-isolated-work-report.json>) | P06提交后76项、39项针对性与质量结果、真实队列/节点/交付及六类三次稳定拒绝测量；非正式服务身份或生产SLA。 |
+| [00-project/validation/t014-p07-ci-c89e75b-report.json](<00-project/validation/t014-p07-ci-c89e75b-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。 |
 | [00-project/validation/t014-preparation-ci-observation.json](<00-project/validation/t014-preparation-ci-observation.json>) | 上一批导航CI实际失败及候选输入摘要过期原因、修复与重验范围；不冒充本轮托管通过。 |
 | [00-project/validation/t014-preparation-validation-report.json](<00-project/validation/t014-preparation-validation-report.json>) | T014准备材料逐项操作/来源摘要/引用/人员/状态一致性检查；不是业务权限测试通过。 |
+| [00-project/validation/t014-review-fix-scoped-report.json](<00-project/validation/t014-review-fix-scoped-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t014-role-assignment.json](<00-project/validation/t014-role-assignment.json>) | 用户确认T014开发负责人和指定复核人均为徐昌胜；不冒充已实际复核、验收、权限授予或职责冲突制度批准。 |
 | [00-project/validation/t014-rule-proposal-document-review.json](<00-project/validation/t014-rule-proposal-document-review.json>) | 六角色提案和本人清单的实际资料/语法/来源/导航检查；不冒充规则运行测试或本人操作。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1620,6 +1625,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | 早期密钥保护问题与后续处理入口；当前第二轮保护、实际签名/恢复及旧导出处置以新增精确实际回执为准。 |
 | [03-development/t013-token-validation.md](<03-development/t013-token-validation.md>) | 说明文档：T013 第一批：访问令牌核验与身份映射；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-dependency-and-scope-review.md](<03-development/t014-dependency-and-scope-review.md>) | T014本批依赖源码/摘要/当前回归与历史CI适用边界，三项准备完成；整任务未验收。 |
+| [03-development/t014-isolated-review-disposition.md](<03-development/t014-isolated-review-disposition.md>) | 最终独立复核的7项重要问题、一次TDD修复批次、人员/代际续期与实际来源/列表范围；实际结果和未验收边界分列。 |
 | [03-development/t014-isolated-six-role-implementation-plan.md](<03-development/t014-isolated-six-role-implementation-plan.md>) | PR01/02/04下一批P01—P07：可信完整角色、对象条件、独立人员、审批TTL及撤销栅栏；具体计划已确认，实际实施/测试结果单列，未共享采用。 |
 | [03-development/t014-unified-permission-design.md](<03-development/t014-unified-permission-design.md>) | 说明文档：T014 统一权限接入设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-unified-permission-implementation-plan.md](<03-development/t014-unified-permission-implementation-plan.md>) | 说明文档：T014 统一权限代码与回归实施计划；结合正文的状态、来源和适用范围阅读。 |

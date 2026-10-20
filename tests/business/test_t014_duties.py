@@ -182,6 +182,43 @@ def test_current_mapping_version_and_object_are_bound_to_each_vote():
         e.duties.check(principal, wrong, facts, ApprovalRule("synthetic-policy-v1", 1800, 2))
 
 
+def test_person_proof_renewal_preserves_live_vote_and_approval_expiry():
+    e = environment()
+    voters = e.actors[1:3]
+    facts = collect(e, voters)
+    records = [
+        dict(
+            decision="approve",
+            decision_actor_id=a.user_id,
+            evidence_refs={"independence": e.duties.decision_proof(a, facts)},
+        )
+        for a in voters
+    ]
+    for actor, person in e.persons.items():
+        e.persons[actor] = replace(person, valid_until=person.valid_until + 1)
+    renewed = collect(e, voters)
+    e.duties.validate_records(renewed, records)
+    e.duties.validate_approval(renewed, ApprovalRule("synthetic-policy-v1", 1800, 2))
+    assert renewed.context_digest == facts.context_digest
+    created = datetime.fromtimestamp(NOW, timezone.utc)
+    expires = datetime.fromtimestamp(NOW + 1800, timezone.utc)
+    e.clock[0] = NOW + 1800
+    assert e.duties.approval_live(created, expires, ApprovalRule("synthetic-policy-v1", 1800, 2)) is False
+
+
+def test_person_proof_freshness_can_renew_between_bound_reads():
+    e = environment()
+
+    class RenewingPeople:
+        def resolve(self, actor):
+            e.persons[actor] = replace(e.persons[actor], valid_until=e.persons[actor].valid_until + 1)
+            return e.persons[actor]
+
+    e.duties.people = RenewingPeople()
+    facts = collect(e, [], extra=[e.actors[1]])
+    assert e.duties.candidate(e.actors[1], facts) == e.persons[e.actors[1]].person_id
+
+
 def test_plain_unbound_duty_facts_cannot_authorize():
     e = environment()
     facts = e.module.DutyFacts(uuid4(), frozenset(), frozenset(), frozenset(), frozenset({uuid4(), uuid4()}), "a" * 64)

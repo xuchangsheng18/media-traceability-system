@@ -1620,8 +1620,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "认证/轮换/故障拒绝和隔离MFA管理已有研发证据；本人两E解密/同U盘恢复、第二轮签名保护/真实签名/新备份恢复，以及四份已知旧导出的加密归档和限定逻辑退役实核通过。 本人实名管理员、首次改密/OTP、专用PKCE/签名MFA管理会话及临时令牌文件清理已实核。",
-      "summary_remaining": "第二独立介质暂无、本人错误OTP/拒绝路径适用实测、离线私钥兼容真实身份恢复、恢复后旧凭据失效、共享bootstrap退役/受控回切，以及软件准入和实际整卡验收仍待。",
+      "summary_completed": "认证/轮换/故障拒绝和隔离MFA管理已有研发证据；本人两E解密/同U盘恢复、第二轮签名保护/真实签名/新备份恢复，以及四份已知旧导出的加密归档和限定逻辑退役实核通过。 本人实名管理员、首次改密/OTP、专用PKCE/签名MFA管理会话及临时令牌文件清理已实核。 本人另已确认仅密码不能进入控制台、单次错误OTP被拒绝，登记为本人实测反馈。",
+      "summary_remaining": "第二独立介质暂无、离线私钥兼容真实身份恢复、恢复后旧凭据失效、共享bootstrap退役/受控回切，以及软件准入和实际整卡验收仍待。",
       "completed_steps": [
         {
           "description": "权威身份适配端口及缺失身份拒绝动作已实现",
@@ -1890,7 +1890,7 @@
         {
           "id": "T013-NAMED-OWNER-MFA-SUBSCOPE",
           "kind": "DEVELOPMENT",
-          "description": "按本人批准的四项精确范围，仅本机当前用户CA信任、共享master保护、xuchangsheng实名管理员及专用MFA客户端已采用；本人首次改密/OTP、PKCE/nonce/签名短期管理会话及只读管理检查通过，临时令牌文件清理已独立核验。bootstrap仍保留，错误OTP实测、真实身份恢复及整卡验收另列。",
+          "description": "按本人批准的四项精确范围，仅本机当前用户CA信任、共享master保护、xuchangsheng实名管理员及专用MFA客户端已采用；本人首次改密/OTP、PKCE/nonce/签名短期管理会话及只读管理检查通过，临时令牌文件清理已独立核验。bootstrap仍保留，真实身份恢复及整卡验收另列。 本人已反馈仅密码/单次错误OTP拒绝通过；未独立关联服务器负向事件。",
           "evidence": [
             {
               "path": "scripts/identity/handover.py",
@@ -1911,6 +1911,10 @@
             {
               "path": "docs/00-project/validation/t013-owner-mfa-management-validation.json",
               "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
+            },
+            {
+              "path": "docs/00-project/validation/t013-owner-mfa-negative-attestation.json",
+              "scope": "仅本人浏览器负向实测反馈；与自动正向回执分列，不证明真实恢复或整卡验收。"
             }
           ]
         }
@@ -1932,7 +1936,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "A02—A06真实密钥限定验证、四份旧副本逻辑退役及A07实名本人专用MFA正向管理已完成；第二独立介质暂无，错误OTP适用拒绝实测、离线私钥兼容真实身份数据恢复、历史凭据失效和受控回切仍需完成。同U盘恢复/普通删除分别不代表第二介质/安全擦除。",
+          "description": "A02—A06真实密钥限定验证、四份旧副本逻辑退役及A07实名本人专用MFA正向管理已完成；第二独立介质暂无，离线私钥兼容真实身份数据恢复、历史凭据失效和受控回切仍需完成。同U盘恢复/普通删除分别不代表第二介质/安全擦除。",
           "verified_internal_milestones": [
             {
               "id": "T013-R02-M01",
@@ -1973,7 +1977,7 @@
           ],
           "unverified_internal_milestones": [
             "第二独立介质暂无，同U盘新目录不计第二介质",
-            "本人错误OTP/仅密码无法取令牌的适用拒绝实测、离线私钥兼容真实身份数据恢复、历史凭据失效及受控回切",
+            "离线私钥兼容真实身份数据恢复、历史凭据失效及受控回切",
             "未知副本及底层介质残留未核验，不作全盘安全擦除声明"
           ],
           "operator_checklist_ref": "docs/03-development/t013-owner-action-checklist.md",
@@ -2019,7 +2023,8 @@
         "docs/00-project/validation/t013-owner-mfa-management-validation.json"
       ],
       "owner_recovery_subkey_validation_ref": "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
-      "owner_signer_reprotection_validation_ref": "docs/00-project/validation/t013-reprotected-signer-owner-validation.json"
+      "owner_signer_reprotection_validation_ref": "docs/00-project/validation/t013-reprotected-signer-owner-validation.json",
+      "owner_negative_MFA_attestation_ref": "docs/00-project/validation/t013-owner-mfa-negative-attestation.json"
     },
     {
       "task_id": "T014",

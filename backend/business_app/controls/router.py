@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Header, Query, Request
 from fastapi.responses import JSONResponse, Response
-from sqlalchemy import text
+from sqlalchemy import Connection, text
 
 from ..auth import authorize_request
 from ..contracts import validate_api, validate_response
@@ -49,6 +49,25 @@ def reviews(request: Request) -> Reviews:
 
 def exports(request: Request) -> Exports:
     return cast(Exports, request.app.state.exports)
+
+
+def review_scope(request: Request, scope: Scope, connection: Connection, operation_id: str) -> tuple[UUID, ...]:
+    conditional = cast(ConditionalPort, request.app.state.conditional_permissions)
+    try:
+        identifiers = conditional.review_ids(
+            current_principal(request), operation_id, scope.case_id, connection=connection
+        )
+    except BusinessError:
+        raise
+    except Exception:
+        raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+    if (
+        type(identifiers) is not tuple
+        or any(not isinstance(v, UUID) for v in identifiers)
+        or len(set(identifiers)) != len(identifiers)
+    ):
+        raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+    return identifiers
 
 
 @router.get("/approvals", operation_id="listApprovals")
@@ -103,7 +122,10 @@ def list_reviews(
 ) -> JSONResponse:
     scope = authorize_request(request, case_id, "review.read")
     with db(request).transaction(scope) as connection:
-        predicate = "case_id=:case" + (" AND task_id=:task" if task_id is not None else "")
+        visible = review_scope(request, scope, connection, "listReviews")
+        predicate = "case_id=:case AND org_id=:org AND review_id=ANY(CAST(:visible AS uuid[]))" + (
+            " AND task_id=:task" if task_id is not None else ""
+        )
         rows, following = page(
             connection,
             "review_record",
@@ -113,9 +135,11 @@ def list_reviews(
             cursor,
             limit,
             where=predicate,
-            filters=dict(task=task_id) if task_id else None,
+            filters=dict(visible=list(visible), **(dict(task=task_id) if task_id else {})),
         )
         items = [reviews(request).wire(connection, item["review_id"]) for item in rows]
+        if review_scope(request, scope, connection, "listReviews") != visible:
+            raise BusinessError("AUTHORIZATION_CHANGED", 503)
     return reply("ReviewPage", dict(items=items, next_cursor=following))
 
 
@@ -124,6 +148,7 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
     scope = authorize_request(request, case_id, "review.read")
     revision = """row_version::text||':'||coalesce((SELECT r.sha256 FROM mt.task_result r WHERE r.case_id=analysis_task.case_id AND r.task_id=analysis_task.task_id ORDER BY r.run_version DESC,r.result_version DESC LIMIT 1),'')||':'||coalesce((SELECT max(v.review_version)::text FROM mt.review_record v WHERE v.case_id=analysis_task.case_id AND v.task_id=analysis_task.task_id),'0')"""
     with db(request).transaction(scope) as connection:
+        visible = review_scope(request, scope, connection, "listPendingReviews")
         rows, following = page(
             connection,
             "analysis_task",
@@ -132,7 +157,8 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
             settings(request).cursor_secret,
             cursor,
             limit,
-            where="case_id=:case AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
+            where="case_id=:case AND org_id=:org AND task_id=ANY(CAST(:visible AS uuid[])) AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
+            filters=dict(visible=list(visible)),
             version_expression=revision,
         )
         items = []
@@ -161,6 +187,8 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
             ).scalar_one_or_none()
             for item in rows
         }
+        if review_scope(request, scope, connection, "listPendingReviews") != visible:
+            raise BusinessError("AUTHORIZATION_CHANGED", 503)
     for item in items:
         source = source_ids[item["task_id"]]
         if item["context"] is not None:

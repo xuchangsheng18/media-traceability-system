@@ -207,6 +207,43 @@ def candidate_work(ctx, kind, identifier, *, role="data_admin"):
     return e, manager, subject, delegations, services, supplemental
 
 
+@pytest.mark.parametrize("expire_delegation", [False, True])
+def test_upload_longer_than_fact_refresh_rechecks_before_commit(permission_context, expire_delegation):
+    ctx = permission_context
+    app, http, upload, descriptor = prepared_upload(ctx)
+    try:
+        assert complete(http, upload, descriptor).status_code == 202
+        _, manager, _, delegations, _, _ = candidate_work(ctx, "upload_validation", upload)
+        original = app.state.upload_service.store.put_part
+        elapsed = []
+
+        def slower_store(*args, **kwargs):
+            start = time.monotonic()
+            result = original(*args, **kwargs)
+            time.sleep(6)
+            elapsed.append(time.monotonic() - start)
+            if expire_delegation:
+                delegations.value = replace(delegations.value, valid_until=time.time() - 1)
+            return result
+
+        app.state.upload_service.store.put_part = slower_store
+        consumer = UploadValidationWorker(app.state.upload_service, ctx["authority"], manager)
+        if expire_delegation:
+            with pytest.raises(BusinessError) as caught:
+                consumer.consume_validation(event(ctx, upload))
+            assert caught.value.http_status == 503
+        else:
+            consumer.consume_validation(event(ctx, upload))
+        assert len(elapsed) == 1 and elapsed[0] >= 6
+        with psycopg.connect(ctx["admin_dsn"]) as admin:
+            assert admin.execute("SELECT state FROM mt.upload_session WHERE upload_id=%s", (upload,)).fetchone() == (
+                "VALIDATING" if expire_delegation else "COMPLETED",
+            )
+            assert admin.execute("SELECT count(*) FROM mt.media_asset").fetchone() == (0 if expire_delegation else 1,)
+    finally:
+        http.__exit__(None, None, None)
+
+
 @pytest.mark.parametrize(
     "defect",
     [

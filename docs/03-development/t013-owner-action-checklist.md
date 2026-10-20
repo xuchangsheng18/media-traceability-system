@@ -1,10 +1,10 @@
 # T013 徐昌胜本人接管、密钥验证与恢复操作清单
 
-最新本人实核（2026-10-20）：A01—A06适用操作已完成，A07已完成批准配置和本人正向管理验证，错误OTP负向仍待，见两E恢复、第二轮新保护签名/新备份恢复、四份已知旧导出退役及[本人PKCE/MFA管理回执](../00-project/validation/t013-owner-mfa-management-validation.json)。不要重复已完成命令；下面保留步骤用于追溯。仍待第二独立介质、错误OTP适用负向验证、A08真实身份备份/隔离恢复、A09恢复后旧凭据失效与受控退役/回切、A10实际验收。复制命令时不要复制代码块首尾的三个反引号。
+最新本人实核（2026-10-20）：A01—A06适用操作已完成，A07已完成批准配置和本人正向管理验证，控制台仅密码/错误OTP负向已由本人反馈通过，见两E恢复、第二轮新保护签名/新备份恢复、四份已知旧导出退役及[本人PKCE/MFA管理回执](../00-project/validation/t013-owner-mfa-management-validation.json)。不要重复已完成命令；下面保留步骤用于追溯。仍待第二独立介质、A08真实身份备份/隔离恢复、A09恢复后旧凭据失效与受控退役/回切、A10实际验收。复制命令时不要复制代码块首尾的三个反引号。
 
 2026-10-20。适用同一单位内部Linux／py310／CPU研发。徐昌胜为开发负责人、身份管理员、密钥保管人及指定复核人。本人已操作并由实际公开状态和安全回执核实的项目按对应证据登记；人员指定不代替验收。四项共享身份采用有单独明确授权，bootstrap仍保留；Python3.13/3.12候选继续暂缓。
 
-顺序及当前状态：**A01公开核对 → A02两E解密 → A03恢复私钥备份新home → A04签名保护 → A05真实签名 → A06签名备份恢复 → A07本人改密/MFA和管理工具**已完成其中明确记录的正向子范围；A07错误OTP负向另列，四份已知旧导出已按明确授权退役。接下来是**A08真实身份备份/隔离恢复 → A09旧凭据失效与受控退役/回切 → A10实际复核登记**；第二独立介质暂无，后续共享恢复/退役仍需形成可审阅方案和实际批准。
+顺序及当前状态：**A01公开核对 → A02两E解密 → A03恢复私钥备份新home → A04签名保护 → A05真实签名 → A06签名备份恢复 → A07本人改密/MFA和管理工具**已完成其中明确记录的正向子范围；A07控制台仅密码/错误OTP负向已收到本人实测反馈，未独立关联服务器事件，四份已知旧导出已按明确授权退役。接下来是**A08真实身份备份/隔离恢复 → A09旧凭据失效与受控退役/回切 → A10实际复核登记**；第二独立介质暂无，后续共享恢复/退役仍需形成可审阅方案和实际批准。
 
 ## A01：只读核对位置和公开指纹（现在可操作）
 
@@ -145,9 +145,9 @@ ssh -tt glwy@172.16.58.179 "bash /workspace/glwy/runtime/media-traceability-syst
 
 同U盘新home仅证明隔离目录恢复，仍不是第二独立介质/异地恢复；吊销材料可用性和真实身份数据恢复分别验证。旧导出在新备份实测及明确处置前保留，不普通覆盖或提前删除。不上传恢复home、恢复私钥或原始吊销证书到Linux/GitHub。
 
-## A07：实名管理员首次改密、MFA和工具接管（正向子范围通过，负向仍待）
+## A07：实名管理员首次改密、MFA和工具接管（正向回执通过，控制台负向由本人反馈通过）
 
-管理账号`xuchangsheng`已创建，本人首次改密/OTP和专用PKCE/MFA签名管理验证已由服务器回执核实；临时令牌文件已清理。不要再次创建账号或运行初始化。以下为操作时的步骤记录；错误OTP负向测试尚未登记，bootstrap未删除，Keycloak master管理员与六个业务角色无自动继承。
+管理账号`xuchangsheng`已创建，本人首次改密/OTP和专用PKCE/MFA签名管理验证已由服务器回执核实；临时令牌文件已清理。不要再次创建账号或运行初始化。以下为操作时的步骤记录；控制台仅密码/单次错误OTP负向已收到本人反馈，单列为本人实测证据，bootstrap未删除，Keycloak master管理员与六个业务角色无自动继承。
 
 1. **可信入口**。管理端口仅服务器回环，Windows保持下列隧道；本轮只读观察服务器公有CA SHA256为`2798c95c64f424d5ae6ac4e050e557794ad4bad04fe12f90ee05c79b4bf989db`，先按可信SSH来源重新核对再信任本人浏览器。只下载`identity/pki/ca.crt`，不下载`ca.key`；不关闭TLS校验。
 
@@ -170,7 +170,7 @@ ssh -tt glwy@172.16.58.179 "bash /workspace/glwy/runtime/media-traceability-syst
 3. **明确采用后**。先`handover master-protection --apply`，再`handover prepare --username xuchangsheng --apply`。工具本人交互隐藏输入临时密码并确认，14—128字符；不把密码放入参数/环境变量/聊天。master弱/歧义策略或已有账号时停止人工核查，不能重试覆盖。成功返回`account_prepared=true`只说明初始化，不是本人接管。
 4. **本人浏览器**。访问`https://localhost:18444/admin/master/console/`，首次登录修改临时密码，绑定本人设备的OTP。新私密会话验证密码单独不能取得授权、错误OTP拒绝、正确OTP成功；不要共享二维码种子、一次性验证码、恢复码、cookie或管理令牌，不连续快速负测导致锁定后再误判正向失败。
 5. **管理工具**。执行`python -m scripts.identity.management setup --apply`（使用上面锁定Python），再执行`python -m scripts.identity.management login --apply --username xuchangsheng`。在本人可信浏览器打开终端给出的授权URL完成MFA；URL含一次性会话参数，勿贴聊天。工具返回Git外`session_file`路径后，执行`python -m scripts.identity.management inspect --session-file 实际私密路径`。这里的“实际私密路径”须替换成工具刚返回的路径，不是令牌内容；过期重登，失败不回退bootstrap。
-6. 本人首次动作和`signed_mfa_management_session=true`实际回执可以登记对应正向子范围；错误OTP和仅密码拒绝仍需单列负向证据，不能登记A07全部验收。bootstrap仍存在时如实登记，不标整卡完成。当前300秒管理会话不因权限方案审批TTL建议改变。
+6. 本人首次动作和`signed_mfa_management_session=true`实际回执可以登记对应正向子范围；控制台错误OTP和仅密码拒绝已有单列本人反馈，未独立关联服务器事件或扩大到全部管理客户端拒绝路径；不登记整项接管验收。bootstrap仍存在时如实登记，不标整卡完成。当前300秒管理会话不因权限方案审批TTL建议改变。
 
 准确CLI参数见[管理工具替代](t013-bootstrap-management-replacement.md)和[身份运维手册](../10-deployment/keycloak-identity-runbook.md)。当前阶段不要先删除bootstrap。
 
@@ -208,4 +208,6 @@ ssh -tt glwy@172.16.58.179 "bash /workspace/glwy/runtime/media-traceability-syst
 
 最新旧副本状态：本人明确授权的四份已知旧导出已限定逻辑退役，详见[精确清单与边界](t013-known-signer-copy-disposition.md)。第二独立介质本人回复暂无；A01—A07适用操作已完成，不要求重复；继续准备A08/A09。
 
-A07当前实际：四项精确范围已获本人批准并采用；首次改密/OTP及专用签名管理会话已验证，详见[实际采用进度](../00-project/validation/t013-named-admin-adoption-progress.json)和[本人回执](../00-project/validation/t013-owner-mfa-management-validation.json)。A01—A07已完成的动作不重复执行；A08/A09及错误OTP适用拒绝验证分别安排。
+A07当前实际：四项精确范围已获本人批准并采用；首次改密/OTP及专用签名管理会话已验证，详见[实际采用进度](../00-project/validation/t013-named-admin-adoption-progress.json)和[本人回执](../00-project/validation/t013-owner-mfa-management-validation.json)。A01—A07已完成的动作不重复执行；A08/A09继续准备；控制台仅密码/单次错误OTP拒绝已由本人反馈通过。
+
+本轮本人负向实测：徐昌胜反馈“仅密码不能进入控制台、单次错误OTP被拒绝”，见[本人负向反馈记录](../00-project/validation/t013-owner-mfa-negative-attestation.json)。这属于本人实测反馈，未独立关联服务器负向事件；正向专用MFA会话另有自动回执。已完成的登录不重复，实际身份备份恢复与bootstrap退役仍待。

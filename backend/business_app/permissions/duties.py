@@ -66,6 +66,13 @@ class DutyAssignmentReader(Protocol):
     def read(self, target: RuleTarget, *, connection: Connection | None) -> DutyActors: ...
 
 
+def person_binding(person: VerifiedPerson) -> dict[str, Any]:
+    """Stable identity facts; a freshness lease is checked, never identity."""
+    value = asdict(person)
+    value.pop("valid_until")
+    return value
+
+
 def approval_target(scope: Scope, item: Mapping[str, Any]) -> RuleTarget:
     return RuleTarget(
         scope.actor.org_id,
@@ -170,12 +177,14 @@ class IndependentDuties:
                 submitters=sorted(str(values[a.user_id].person_id) for a in duty.submitters),
                 executors=sorted(str(values[a.user_id].person_id) for a in duty.executors),
                 evaluators=sorted(str(values[a.user_id].person_id) for a in duty.evaluators),
-                people=[asdict(values[a.user_id]) for a in sorted(context_actors, key=lambda a: str(a.user_id))],
+                people=[
+                    person_binding(values[a.user_id]) for a in sorted(context_actors, key=lambda a: str(a.user_id))
+                ],
             )
         )
         approved = frozenset(values[a.user_id].person_id for a in voters)
         for a in actors:
-            if self.person(a) != values[a.user_id]:
+            if person_binding(self.person(a)) != person_binding(values[a.user_id]):
                 raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
         try:
             reread = self.assignments.read(target, connection=connection)
@@ -194,7 +203,7 @@ class IndependentDuties:
             digest(
                 dict(
                     context=context,
-                    bindings=[asdict(v) for v in values.values()],
+                    bindings=[person_binding(v) for v in values.values()],
                     approved=sorted(str(p) for p in approved),
                 )
             ),
@@ -270,7 +279,7 @@ class IndependentDuties:
     def candidate(self, actor: Actor, facts: DutyFacts) -> UUID:
         value = self._bound(facts)
         person = value.bindings.get(actor.user_id)
-        if person is None or person.actor != actor or self.person(actor) != person:
+        if person is None or person.actor != actor or person_binding(self.person(actor)) != person_binding(person):
             raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
         blocked = {value.applicant} | value.submitters | value.executors | value.evaluators | value.approved_people
         if person.person_id in blocked:
@@ -283,7 +292,7 @@ class IndependentDuties:
         if person is None or person.actor != actor:
             raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
         return dict(
-            version=1,
+            version=2,
             context_digest=value.context_digest,
             person_id=str(person.person_id),
             mapping_version=person.mapping_version,
@@ -296,7 +305,17 @@ class IndependentDuties:
             if record["decision"] != "approve":
                 continue
             actor = Actor(UUID(str(record["decision_actor_id"])), value.target.org_id)
-            if record["evidence_refs"].get("independence") != self.decision_proof(actor, value):
+            proof = record["evidence_refs"].get("independence")
+            expected = self.decision_proof(actor, value)
+            # Keep the original lease timestamp for audit. Current identity and
+            # assignment facts and the approval's own fixed TTL are checked anew.
+            if (
+                not isinstance(proof, dict)
+                or set(proof) != set(expected)
+                or type(proof.get("person_valid_until")) is not int
+                or proof["person_valid_until"] <= 0
+                or any(proof[k] != v for k, v in expected.items() if k != "person_valid_until")
+            ):
                 raise BusinessError("INDEPENDENT_APPROVER_REQUIRED", 403)
 
     @staticmethod

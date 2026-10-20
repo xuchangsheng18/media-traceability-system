@@ -988,6 +988,10 @@
         {
           "path": "docs/00-project/validation/t013-owner-mfa-management-validation.json",
           "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
+        },
+        {
+          "path": "docs/00-project/validation/t013-owner-mfa-negative-attestation.json",
+          "scope": "仅本人浏览器负向实测反馈；与自动正向回执分列，不证明真实恢复或整卡验收。"
         }
       ],
       "full_task_verification_refs": [],
@@ -1025,7 +1029,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "A02—A06真实密钥限定验证、四份旧副本逻辑退役及A07实名本人专用MFA正向管理已完成；第二独立介质暂无，错误OTP适用拒绝实测、离线私钥兼容真实身份数据恢复、历史凭据失效和受控回切仍需完成。同U盘恢复/普通删除分别不代表第二介质/安全擦除。",
+          "description": "A02—A06真实密钥限定验证、四份旧副本逻辑退役及A07实名本人专用MFA正向管理已完成；第二独立介质暂无，离线私钥兼容真实身份数据恢复、历史凭据失效和受控回切仍需完成。同U盘恢复/普通删除分别不代表第二介质/安全擦除。",
           "verified_internal_milestones": [
             {
               "id": "T013-R02-M01",
@@ -1066,7 +1070,7 @@
           ],
           "unverified_internal_milestones": [
             "第二独立介质暂无，同U盘新目录不计第二介质",
-            "本人错误OTP/仅密码无法取令牌的适用拒绝实测、离线私钥兼容真实身份数据恢复、历史凭据失效及受控回切",
+            "离线私钥兼容真实身份数据恢复、历史凭据失效及受控回切",
             "未知副本及底层介质残留未核验，不作全盘安全擦除声明"
           ],
           "operator_checklist_ref": "docs/03-development/t013-owner-action-checklist.md",
@@ -1093,7 +1097,8 @@
         "docs/00-project/validation/t013-owner-mfa-management-validation.json"
       ],
       "owner_recovery_subkey_validation_ref": "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
-      "latest_owner_key_progress": "A02—A06和四份已知旧导出归档/逻辑退役限定实核通过；第二介质暂无，MFA/真实身份恢复仍待"
+      "latest_owner_key_progress": "A02—A06及四份旧导出限定退役已实核；实名首次改密/OTP与专用签名管理有回执，仅密码/错误OTP控制台拒绝由本人反馈通过；第二介质暂无，实际身份恢复及受控退役仍待。",
+      "owner_negative_MFA_attestation_ref": "docs/00-project/validation/t013-owner-mfa-negative-attestation.json"
     },
     {
       "task_id": "T014",
@@ -4135,6 +4140,15 @@
       "completed_substeps_added": 1,
       "remaining_groups_closed": 0,
       "full_task_accepted": false
+    },
+    {
+      "date": "2026-10-20",
+      "scope": "T013_owner_negative_console_MFA_attestation",
+      "evidence_ref": "docs/00-project/validation/t013-owner-mfa-negative-attestation.json",
+      "completed_substeps_added": 0,
+      "remaining_groups_closed": 0,
+      "full_task_accepted": false,
+      "note": "Extend existing named-owner MFA subscope; browser negative results are operator-attested, not independently correlated server events."
     }
   ],
   "authorized_development_scope": {

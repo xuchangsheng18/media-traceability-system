@@ -5,6 +5,7 @@ import re
 import time
 from collections.abc import Callable, Mapping
 from typing import Any, Protocol
+from uuid import UUID
 
 from sqlalchemy import Connection
 
@@ -96,6 +97,9 @@ class ConditionalPort(Protocol):
         body: Mapping[str, Any],
     ) -> AuthorizationEvidence: ...
     def policy_kinds(self, principal: Principal) -> tuple[str, ...]: ...
+    def review_ids(
+        self, principal: Principal, operation_id: str, case_id: UUID, *, connection: Connection
+    ) -> tuple[UUID, ...]: ...
 
 
 class ConditionalPermissionAuthority:
@@ -314,3 +318,35 @@ class ConditionalPermissionAuthority:
         if not allowed:
             raise BusinessError("PERMISSION_REQUIRED", 403)
         return tuple(sorted(allowed))
+
+    def review_ids(
+        self, principal: Principal, operation_id: str, case_id: UUID, *, connection: Connection
+    ) -> tuple[UUID, ...]:
+        if operation_id not in {"listReviews", "listPendingReviews"}:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        binding = digest(["review_page", operation_id, str(case_id)])
+        collection = RuleTarget(
+            principal.actor.org_id, "case", case_id, None, case_id, None, None, request_digest=binding
+        )
+        self.authorize(principal, operation_id, collection, connection=connection)
+        kind = "review" if operation_id == "listReviews" else "task"
+        allowed: list[UUID] = []
+        for item in self.objects.review_candidates(connection, operation_id, principal.actor.org_id, case_id):
+            target = RuleTarget(
+                principal.actor.org_id,
+                kind,
+                item["id"],
+                item["row_version"],
+                case_id,
+                None,
+                None,
+                request_digest=binding,
+            )
+            try:
+                self.authorize(principal, operation_id, target, connection=connection)
+            except BusinessError as error:
+                if error.http_status not in {403, 404}:
+                    raise
+            else:
+                allowed.append(item["id"])
+        return tuple(sorted(allowed, key=str))

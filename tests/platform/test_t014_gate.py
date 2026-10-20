@@ -104,6 +104,39 @@ def test_gate_rejects_report_missing_new_rule_or_work_evidence(tmp_path, classna
 
 
 @pytest.mark.parametrize(
+    "classname,name",
+    [
+        ("tests.business.test_t014_object_rules", "test_propagation_resolver_uses_canonical_cluster_path"),
+        ("tests.business.test_t014_object_rules", "test_exact_trusted_delegation_can_authorize_nonowner[cancelTask]"),
+        ("tests.business.test_t014_object_rules", "test_exact_trusted_delegation_can_authorize_nonowner[getApproval]"),
+        ("tests.business.test_t014_duties", "test_person_proof_renewal_preserves_live_vote_and_approval_expiry"),
+        ("tests.business.test_t014_duties", "test_person_proof_freshness_can_renew_between_bound_reads"),
+        ("tests.business.test_t014_revocation", "test_same_generation_proof_renewal_allows_unchanged_transaction"),
+        ("tests.business.test_t014_revocation", "test_concurrent_clock_samples_do_not_create_false_rollback"),
+        ("tests.business.test_t014_work", "test_upload_longer_than_fact_refresh_rechecks_before_commit[False]"),
+        ("tests.business.test_t014_work", "test_upload_longer_than_fact_refresh_rechecks_before_commit[True]"),
+        ("tests.business.test_t014_indirect_reads", "test_indirect_read_HTTP_checks_every_source[getImport]"),
+        ("tests.business.test_t014_indirect_reads", "test_indirect_read_HTTP_checks_every_source[getReview]"),
+        ("tests.business.test_t014_indirect_reads", "test_indirect_read_HTTP_checks_every_source[getFirstSource]"),
+        ("tests.business.test_t014_indirect_reads", "test_indirect_read_HTTP_checks_every_source[getPropagation]"),
+        (
+            "tests.business.test_t014_indirect_reads",
+            "test_review_collections_filter_before_pagination_and_allow_empty[listReviews]",
+        ),
+        (
+            "tests.business.test_t014_indirect_reads",
+            "test_review_collections_filter_before_pagination_and_allow_empty[listPendingReviews]",
+        ),
+    ],
+)
+def test_gate_requires_review_regressions(tmp_path, classname, name):
+    gate = gate_module()
+    path = synthetic_report(tmp_path, gate, missing=(classname, name))
+    with pytest.raises(RuntimeError, match="T014_REQUIRED_REGRESSION_MISSING"):
+        gate.validate_results(path, OPERATIONS)
+
+
+@pytest.mark.parametrize(
     "kind", ["missing_operation", "duplicate_operation", "missing_SQL_restore", "missing_real_resources"]
 )
 def test_gate_rejects_incomplete_or_duplicate_runtime_evidence(tmp_path, kind):

@@ -145,6 +145,8 @@ class ObjectFactsReader:
                 "listPolicies": {"policy_collection"},
                 "getCurrentUser": {"user"},
                 "getModelOperation": {"model_operation"},
+                "listReviews": {"case", "review"},
+                "listPendingReviews": {"case", "task"},
             }.get(operation_id, {"case"} if operation_id in CASE_LISTS else set())
         )
         if (
@@ -285,7 +287,7 @@ class ObjectFactsReader:
                 raw = RuleTarget(
                     org,
                     OPERATION_KINDS[operation_id],
-                    UUID(str(path["id"])),
+                    UUID(str(path["cluster_id" if operation_id == "getPropagation" else "id"])),
                     None,
                     None,
                     None,
@@ -330,6 +332,38 @@ class ObjectFactsReader:
         if target.policy_kind is not None and item.get("kind") != target.policy_kind:
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
         return dict(item)
+
+    @staticmethod
+    def review_candidates(
+        connection: Connection, operation_id: str, org_id: UUID, case_id: UUID
+    ) -> list[dict[str, Any]]:
+        # Source status and RLS scope are applied before any page/count/cursor.
+        # Trusted per-object read-purpose/classification is checked by the caller.
+        if operation_id == "listReviews":
+            projection = "r.review_id AS id,r.row_version"
+            relation = "mt.review_record r JOIN mt.analysis_task t ON t.case_id=r.case_id AND t.org_id=r.org_id AND t.task_id=r.task_id"
+            state = ""
+        elif operation_id == "listPendingReviews":
+            projection = "t.task_id AS id,t.row_version"
+            relation = "mt.analysis_task t"
+            state = " AND t.state IN ('WAIT_REVIEW','REVIEWING','RETURNED')"
+        else:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        rows = (
+            connection.execute(
+                text(
+                    f"SELECT {projection} FROM {relation} "
+                    "JOIN mt.media_asset a ON a.case_id=t.case_id AND a.org_id=t.org_id AND a.asset_id=t.asset_id "
+                    "JOIN mt.source_registry s ON s.case_id=a.case_id AND s.org_id=a.org_id AND s.source_id=a.source_id "
+                    "WHERE t.case_id=:case AND t.org_id=:org AND s.authorization_status='verified' "
+                    "AND (s.expires_at IS NULL OR s.expires_at>statement_timestamp())" + state + " FOR SHARE OF t,a,s"
+                ),
+                dict(case=case_id, org=org_id),
+            )
+            .mappings()
+            .all()
+        )
+        return [dict(row) for row in rows]
 
     def read(
         self, principal: Principal, operation_id: str, target: RuleTarget, *, connection: Connection | None = None
@@ -422,8 +456,12 @@ class ObjectFactsReader:
                     deadline = min(deadline, membership["expires_at"].timestamp())
         checks["case"] = checks.get("case", False)
         checks["owner"] = item.get("requested_by", item.get("created_by")) == principal.actor.user_id
-        checks["control_authorized"] = True if checks["owner"] else None
-        checks["own_or_delegated_request"] = True if checks["owner"] else None
+        if checks["owner"]:
+            checks["control_authorized"] = True
+            checks["own_or_delegated_request"] = True
+        # Nonownership is definitive SQL evidence, but it does not disprove a
+        # separate exact-object delegation. Only the trusted bound adapter may
+        # supply these unresolved predicates; missing facts still mean unknown.
         checks["case_request_purpose"] = target.purpose in {
             "review",
             "seal",
@@ -448,9 +486,57 @@ class ObjectFactsReader:
             ).scalar_one_or_none()
             if source_id:
                 sources.add(source_id)
+        elif target.kind == "import":
+            entries = (
+                connection.execute(
+                    text(
+                        "SELECT item_id,ordinal,source_id,row_version FROM mt.import_item "
+                        "WHERE org_id=:org AND case_id=:case AND import_id=:id ORDER BY ordinal FOR SHARE"
+                    ),
+                    dict(org=target.org_id, case=case, id=target.object_id),
+                )
+                .mappings()
+                .all()
+            )
+            if len(entries) != item["requested_count"] or [v["ordinal"] for v in entries] != list(range(len(entries))):
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+            versions.extend(dict(v) for v in entries)
+            sources.update(v["source_id"] for v in entries)
+        elif target.kind == "review":
+            related = (
+                connection.execute(
+                    text(
+                        "SELECT t.task_id,t.row_version AS task_version,a.asset_id,a.row_version AS asset_version,a.source_id "
+                        "FROM mt.analysis_task t JOIN mt.media_asset a ON a.case_id=t.case_id AND a.org_id=t.org_id AND a.asset_id=t.asset_id "
+                        "WHERE t.case_id=:case AND t.org_id=:org AND t.task_id=:task FOR SHARE OF t,a"
+                    ),
+                    dict(case=case, org=target.org_id, task=item["task_id"]),
+                )
+                .mappings()
+                .one_or_none()
+            )
+            if related is None:
+                raise BusinessError("RESOURCE_NOT_FOUND", 404)
+            versions.append(dict(related))
+            sources.add(related["source_id"])
+        elif target.kind == "cluster":
+            members = (
+                connection.execute(
+                    text(
+                        "SELECT m.member_id,m.row_version AS member_version,a.asset_id,a.row_version AS asset_version,a.source_id "
+                        "FROM mt.cluster_member m JOIN mt.media_asset a ON a.case_id=m.case_id AND a.org_id=m.org_id AND a.asset_id=m.asset_id "
+                        "WHERE m.case_id=:case AND m.org_id=:org AND m.cluster_id=:id ORDER BY m.member_id FOR SHARE OF a"
+                    ),
+                    dict(case=case, org=target.org_id, id=target.object_id),
+                )
+                .mappings()
+                .all()
+            )
+            versions.extend(dict(v) for v in members)
+            sources.update(v["source_id"] for v in members)
         purpose = (
             "import"
-            if operation_id == "createImport"
+            if operation_id in {"createImport", "getImport"}
             else "upload"
             if operation_id
             in {
@@ -467,7 +553,11 @@ class ObjectFactsReader:
             if target.purpose == "training_feedback"
             else None
         )
-        source_ok = bool(sources) and case is not None
+        # The collection entry checks case-level institutional scope only. Its
+        # mandatory review_ids port separately evaluates every candidate before
+        # the route constructs SQL pagination, including a valid empty result.
+        collection = target.kind == "case" and operation_id in {"listReviews", "listPendingReviews"}
+        source_ok = (bool(sources) or collection) and case is not None
         for source_id in sorted(sources, key=str):
             source = (
                 connection.execute(

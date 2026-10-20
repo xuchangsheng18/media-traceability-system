@@ -9,6 +9,7 @@ import pytest
 from business_app.errors import BusinessError
 from fastapi.testclient import TestClient
 
+from tests.business.test_controls import control_context as control_context
 from tests.business.test_t014_permissions import permission_context as permission_context
 from tests.business.test_t014_permissions import permission_module
 from tests.platform.test_t014_six_role import SOURCE, rule_input_digest
@@ -102,6 +103,63 @@ def test_object_case_cannot_be_replaced_by_request_case(permission_context):
     with pytest.raises(BusinessError) as caught:
         authority.authorize(ctx["principal"], "getSource", target)
     assert caught.value.http_status == 404
+
+
+def test_propagation_resolver_uses_canonical_cluster_path(permission_context):
+    ctx = permission_context
+    _, _, _, objects, _ = configure(ctx, "case_investigator")
+    cluster = uuid4()
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        admin.execute(
+            "INSERT INTO mt.content_cluster(cluster_id,org_id,case_id,scope,policy_version,status,created_by) VALUES(%s,%s,%s,'synthetic-only','synthetic-policy','candidate',%s)",
+            (cluster, ctx["actor"].org_id, ctx["case_id"], ctx["actor"].user_id),
+        )
+    target = objects.resolve_http(ctx["principal"], "getPropagation", {"cluster_id": str(cluster)}, {}, {})
+    assert (target.kind, target.object_id, target.case_id, target.object_version) == (
+        "cluster",
+        cluster,
+        ctx["case_id"],
+        1,
+    )
+
+
+@pytest.mark.parametrize("operation", ["cancelTask", "getApproval"])
+def test_exact_trusted_delegation_can_authorize_nonowner(control_context, permission_context, operation):
+    from tests.business.t014_positive_fixtures import candidate
+    from tests.business.test_controls import request_approval
+
+    ctx = control_context
+    approval = request_approval(ctx)
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        admin.execute(
+            "UPDATE mt.analysis_task SET created_by=%s WHERE task_id=%s", (ctx["reviewers"][0].user_id, ctx["task_id"])
+        )
+        admin.execute(
+            "UPDATE mt.approval_request SET requested_by=%s WHERE approval_id=%s",
+            (ctx["reviewers"][0].user_id, approval),
+        )
+    current, objects, authority, facts = candidate(ctx, permission_context, ["task.cancel", "approval.read"])
+    identifier = ctx["task_id"] if operation == "cancelTask" else approval
+    target = objects.resolve_http(
+        current["principal"],
+        operation,
+        {"id": str(identifier)},
+        {},
+        {"reason": "synthetic delegation", "expected_run_version": 1, "expected_version": 1, "approval_id": None}
+        if operation == "cancelTask"
+        else {},
+    )
+    facts.delegation = True
+    evidence = authority.authorize(current["principal"], operation, target)
+    assert evidence.operation_id == operation and evidence.target == target
+    facts.delegation = False
+    with pytest.raises(BusinessError) as denied:
+        authority.authorize(current["principal"], operation, target)
+    assert (denied.value.http_status, denied.value.code) == (403, "PERMISSION_REQUIRED")
+    facts.delegation = None
+    with pytest.raises(BusinessError) as missing:
+        authority.authorize(current["principal"], operation, target)
+    assert (missing.value.http_status, missing.value.code) == (503, "CONDITIONAL_FACTS_UNAVAILABLE")
 
 
 def test_missing_classification_or_authoritative_purpose_is_unavailable(permission_context):
