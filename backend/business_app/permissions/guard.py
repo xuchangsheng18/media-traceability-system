@@ -4,7 +4,7 @@ import hashlib
 import hmac
 import re
 import time
-from collections.abc import Callable, Mapping
+from collections.abc import AsyncIterator, Callable, Mapping
 from typing import cast
 
 from fastapi import FastAPI, Request
@@ -15,6 +15,7 @@ from starlette.concurrency import run_in_threadpool
 from ..errors import BusinessError
 from .catalog import OperationPermission
 from .conditional import ConditionalPort
+from .context import FencePort, request_authorization
 from .object_facts import BODY_SCHEMAS
 from .policy import validate_principal
 from .rule_types import AuthorizationEvidence
@@ -84,7 +85,7 @@ def require_permission(permission_code: str) -> Callable[[Request], None]:
     return required
 
 
-async def authorize_business_route(request: Request) -> None:
+async def authorize_business_route(request: Request) -> AsyncIterator[None]:
     route = request.scope.get("route")
     catalog = cast(Mapping[str, OperationPermission], request.app.state.permission_catalog)
     operation = catalog.get(getattr(route, "operation_id", ""))
@@ -125,6 +126,11 @@ async def authorize_business_route(request: Request) -> None:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         current_principal(request)
         request.state.business_authorization_evidence = evidence
+        fence = cast(FencePort | None, getattr(request.app.state, "authorization_fence", None))
+        with request_authorization(evidence, fence, mutation=request.method != "GET"):
+            yield
+    else:
+        yield
 
 
 def audit_protected_routes(app: FastAPI) -> None:

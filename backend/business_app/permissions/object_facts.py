@@ -302,14 +302,17 @@ class ObjectFactsReader:
             raise BusinessError("INPUT_INVALID", 422) from None
 
     @staticmethod
-    def _object(connection: Connection, target: RuleTarget) -> dict[str, Any]:
+    def _object(connection: Connection, target: RuleTarget, *, lock: bool = False) -> dict[str, Any]:
         pair = RESOURCES.get(target.kind)
         if pair is None or target.object_id is None:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         table, key = pair
+        # Append-only tables have database UPDATE/DELETE/TRUNCATE rejection and no
+        # runtime UPDATE privilege. Other rows retain a share lock through the fence.
+        locking = lock and table not in {"review_record", "evidence_package"}
         item = (
             connection.execute(
-                text(f"SELECT * FROM mt.{table} WHERE {key}=:id AND org_id=:org"),
+                text(f"SELECT * FROM mt.{table} WHERE {key}=:id AND org_id=:org" + (" FOR SHARE" if locking else "")),
                 dict(id=target.object_id, org=target.org_id),
             )
             .mappings()
@@ -355,7 +358,7 @@ class ObjectFactsReader:
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
         item: dict[str, Any] = {}
         if target.kind in RESOURCES:
-            item = self._object(connection, target)
+            item = self._object(connection, target, lock=True)
             versions.append(item)
         case = item.get("case_id", target.case_id)
         if case is not None:
@@ -404,7 +407,7 @@ class ObjectFactsReader:
             sources.add(item["source_id"])
         elif item.get("asset_id"):
             source_id = connection.execute(
-                text("SELECT source_id FROM mt.media_asset WHERE case_id=:case AND asset_id=:asset"),
+                text("SELECT source_id FROM mt.media_asset WHERE case_id=:case AND asset_id=:asset FOR SHARE"),
                 dict(case=case, asset=item["asset_id"]),
             ).scalar_one_or_none()
             if source_id:
@@ -423,7 +426,7 @@ class ObjectFactsReader:
             source = (
                 connection.execute(
                     text(
-                        "SELECT source_id,org_id,case_id,authorization_status,authorization_version,purpose,expires_at,row_version FROM mt.source_registry WHERE source_id=:id AND case_id=:case AND org_id=:org"
+                        "SELECT source_id,org_id,case_id,authorization_status,authorization_version,purpose,expires_at,row_version FROM mt.source_registry WHERE source_id=:id AND case_id=:case AND org_id=:org FOR SHARE"
                     ),
                     dict(id=source_id, case=case, org=target.org_id),
                 )

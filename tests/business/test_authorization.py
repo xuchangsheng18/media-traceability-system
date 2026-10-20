@@ -20,6 +20,7 @@ def client(context, configured=True):
             context["authority"] if configured else None,
             permission_authority=context["permission_authority"],
             conditional_permissions=context["conditional_permissions"],
+            authorization_fence=context["authorization_fence"],
         )
     )
 

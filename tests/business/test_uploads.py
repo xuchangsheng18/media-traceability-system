@@ -19,6 +19,7 @@ def upload_client(business_context):
             business_context["authority"],
             permission_authority=business_context["permission_authority"],
             conditional_permissions=business_context["conditional_permissions"],
+            authorization_fence=business_context["authorization_fence"],
         )
     ) as http:
         yield http

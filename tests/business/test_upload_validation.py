@@ -130,6 +130,7 @@ def prepared_upload(context, data=None):
         context["authority"],
         permission_authority=context["permission_authority"],
         conditional_permissions=context["conditional_permissions"],
+        authorization_fence=context["authorization_fence"],
     )
     http = TestClient(app)
     http.__enter__()

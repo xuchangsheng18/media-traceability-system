@@ -13,7 +13,7 @@ from business_app.permissions.rule_types import AuthorizationEvidence, RuleTarge
 from business_app.permissions.types import Principal
 from business_app.types import Actor
 from fastapi import FastAPI
-from sqlalchemy import Connection
+from sqlalchemy import Connection, text
 
 
 class FixturePermissions:
@@ -58,6 +58,23 @@ class FixtureConditionals:
         if principal.actor not in self.actors:
             raise BusinessError("PERMISSION_REQUIRED", 403)
         return ("analysis", "retention", "review", "risk_taxonomy", "threshold")
+
+
+class FixtureFence:
+    """Explicit old-HTTP harness only, not six-role/epoch/recovery proof."""
+
+    def __init__(self, actors: frozenset[Actor]) -> None:
+        self.actors = actors
+
+    def hold(self, connection: Connection, evidence: AuthorizationEvidence) -> None:
+        if evidence.principal.actor not in self.actors or evidence.policy_version != "explicit-synthetic-fixture":
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        binding = connection.execute(text("SELECT mt.actor_id(),mt.org_id()")).one()
+        if tuple(binding) != (evidence.principal.actor.user_id, evidence.principal.actor.org_id):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+
+    def finish(self, connection: Connection, evidence: AuthorizationEvidence) -> None:
+        self.hold(connection, evidence)
 
 
 class FixtureDuties(IndependentDuties):

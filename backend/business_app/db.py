@@ -8,6 +8,7 @@ from sqlalchemy import Connection, create_engine, text
 from sqlalchemy.engine import URL
 
 from .errors import BusinessError
+from .permissions.context import current_authorization
 from .types import Actor, Scope
 
 
@@ -64,7 +65,17 @@ class Database:
                 text("SELECT set_config('app.actor_id',:actor,true),set_config('app.org_id',:org,true)"),
                 {"actor": str(actor.user_id), "org": str(actor.org_id)},
             )
+            authorization = current_authorization()
+            protected = authorization is not None and (authorization.mutation or authorization.fence is not None)
+            if protected and authorization is not None:
+                if authorization.evidence.principal.actor != actor:
+                    raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+                if authorization.fence is None:
+                    raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
+                authorization.fence.hold(connection, authorization.evidence)
             yield connection
+            if protected and authorization is not None and authorization.fence is not None:
+                authorization.fence.finish(connection, authorization.evidence)
 
     @contextmanager
     def transaction(self, scope: Scope) -> Iterator[Connection]:

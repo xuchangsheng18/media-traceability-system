@@ -55,7 +55,7 @@ def business_context(database_dsn, tmp_path):
     from business_app.settings import BusinessSettings
     from business_app.types import Actor, Scope
 
-    from tests.business.http_fixtures import FixtureConditionals, FixturePermissions
+    from tests.business.http_fixtures import FixtureConditionals, FixtureFence, FixturePermissions
 
     org, other_org, case, other_case, user, other_user = [uuid4() for _ in range(6)]
     role = "mt_business_runtime_" + uuid4().hex
@@ -136,6 +136,7 @@ def business_context(database_dsn, tmp_path):
             settings=settings,
             authority=TestAuthority(),
             conditional_permissions=FixtureConditionals(frozenset({actor})),
+            authorization_fence=FixtureFence(frozenset({actor})),
             permission_authority=FixturePermissions(
                 frozenset({actor}), frozenset(item.permission for item in load_catalog(root).values())
             ),
