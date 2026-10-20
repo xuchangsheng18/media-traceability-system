@@ -1,6 +1,6 @@
-# T014 六角色权限规则具体方案（待审阅）
+# T014 六角色权限规则具体方案（隔离实现输入已确认）
 
-2026-10-20，候选版本 `t014-six-role-proposal-20261020-v1`。开发负责人、指定复核人徐昌胜；未登记本人实际审阅或正式采用。适用当前 Linux／Miniforge py310／CPU、同一单位内部研发。Python 候选继续暂缓。本页补齐 T014-R01 的规则输入，不能关闭 T014 或替代 T013 本人交接。
+2026-10-20，候选版本 `t014-six-role-proposal-20261020-v1`。开发负责人、指定复核人徐昌胜；用户已确认PR01、PR02、PR04作为下一批隔离实现与测试输入，未登记正式权限采用或整任务验收。适用当前 Linux／Miniforge py310／CPU、同一单位内部研发。Python 候选继续暂缓。本页补齐 T014-R01 的规则输入，不能关闭 T014 或替代 T013 本人交接。
 
 本页及[机器表](t014-six-role-rule-proposal.json)共覆盖六角色、41 个权限码、246 格和73个契约操作。现有42操作统一权限代码保留，其余31操作不因出现在表中就变为可调用。旧[T011来源矩阵](permission-matrix.md)的“职责/待定/限制”原样保留；本方案把工程建议单独列出，尚未改写来源模型、数据库种子或活动授权。
 
@@ -158,14 +158,14 @@
 
 ## 9. 需要审阅的六项决定
 
-- **PR01 六角色全部246格、具体对象/用途和策略kind范围**：按本文逐条件采用为后续隔离实现输入；不是直接启用。当前：`PENDING_USER_REVIEW`。
-- **PR02 职责分离与两名独立批准人**：seal/report_export/training_feedback/model_release需2名独立批准人；review/confirmation需1名，均不含申请/执行人；人员不足拒绝。当前：`PENDING_USER_REVIEW`。
+- **PR01 六角色全部246格、具体对象/用途和策略kind范围**：按本文逐条件采用为后续隔离实现输入；不是直接启用。当前：`CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY`。
+- **PR02 职责分离与两名独立批准人**：seal/report_export/training_feedback/model_release需2名独立批准人；review/confirmation需1名，均不含申请/执行人；人员不足拒绝。当前：`CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY`。
 - **PR03 数据分类与用途映射**：不编造正式级别；仅经确认的标签集合精确匹配，未知拒绝；合成夹具可独立开发。当前：`PENDING_AUTHORITY_INPUT`。
-- **PR04 审批TTL与撤销时效**：候选审批TTL1800秒；无正向跨请求缓存；撤销提交至新请求拒绝上限5秒候选，节点及提交前重验；现有300秒管理会话保持。当前：`PENDING_USER_REVIEW_AND_MEASUREMENT`。
+- **PR04 审批TTL与撤销时效**：候选审批TTL1800秒；无正向跨请求缓存；撤销提交至新请求拒绝上限5秒候选，节点及提交前重验；现有300秒管理会话保持。当前：`CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY`。
 - **PR05 共享配置、0006和策略采用及维护窗口**：隔离实现/恢复通过后另提精确安装、备份和回切清单；不随源码同步执行。当前：`NOT_AUTHORIZED_BY_DOCUMENT_SYNC`。
 - **PR06 T013保护、本人接管、独立介质及离线恢复**：见t013-owner-action-checklist；当前保留旧配置决定不等于真实交接通过。当前：`PENDING_OWNER_ACTIONS`。
 
-PR01/PR02/PR04可以先确认为下一批隔离实现输入；PR03未有正式制度仍保持未知，PR05不随规则评审批准，PR06按本人步骤分别记录。指定徐昌胜为开发/复核人不等于已审阅该新方案。正式批准还应记录适用范围、逐条取舍、实际人员和时间，不把一句“继续”追溯为旧文档已批准。
+2026-10-20用户已明确回复“认可作为下一批隔离实现输入”，仅覆盖PR01/PR02/PR04；机器表保存原回答和范围。PR03正式分类仍未知，PR05共享采用未批准，PR06按本人步骤分别验证。下一批先细化实际端口/对象条件和实施计划；此确认不批准未形成的实施计划、不启用ALLOW，不代表T013接管或整任务验收。
 
 ## 10. 操作到权限与本轮验证
 

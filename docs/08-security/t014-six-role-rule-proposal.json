@@ -1,14 +1,14 @@
 {
   "revision": "t014-six-role-proposal-20261020-v1",
   "observed_date": "2026-10-20",
-  "status": "PROPOSED_RULES_NOT_APPROVED_OR_RUNTIME_POLICY",
+  "status": "CONFIRMED_ISOLATED_IMPLEMENTATION_INPUT_NOT_RUNTIME_POLICY",
   "applicable_environment": "Linux/Miniforge py310/CPU internal R&D",
   "formal_approved": false,
   "runtime_enabled": false,
   "shared_adopted": false,
   "actual_development_owner": "徐昌胜",
   "designated_reviewer": "徐昌胜",
-  "actual_human_review_recorded": false,
+  "actual_human_review_recorded": true,
   "default_effect": "DENY",
   "missing_required_condition": "DENY",
   "source_sha256": {
@@ -2130,13 +2130,13 @@
     {
       "id": "PR01",
       "topic": "六角色全部246格、具体对象/用途和策略kind范围",
-      "status": "PENDING_USER_REVIEW",
+      "status": "CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY",
       "recommendation": "按本文逐条件采用为后续隔离实现输入；不是直接启用"
     },
     {
       "id": "PR02",
       "topic": "职责分离与两名独立批准人",
-      "status": "PENDING_USER_REVIEW",
+      "status": "CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY",
       "recommendation": "seal/report_export/training_feedback/model_release需2名独立批准人；review/confirmation需1名，均不含申请/执行人；人员不足拒绝"
     },
     {
@@ -2148,7 +2148,7 @@
     {
       "id": "PR04",
       "topic": "审批TTL与撤销时效",
-      "status": "PENDING_USER_REVIEW_AND_MEASUREMENT",
+      "status": "CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY",
       "recommendation": "候选审批TTL1800秒；无正向跨请求缓存；撤销提交至新请求拒绝上限5秒候选，节点及提交前重验；现有300秒管理会话保持"
     },
     {
@@ -2173,5 +2173,23 @@
     "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
     "https://www.keycloak.org/server/bootstrap-admin-recovery",
     "https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html"
-  ]
+  ],
+  "design_input_confirmation": {
+    "client_date": "2026-10-20",
+    "source": "direct_user_reply_in_current_conversation",
+    "user_reply": "认可作为下一批隔离实现输入",
+    "decision_ids": [
+      "PR01",
+      "PR02",
+      "PR04"
+    ],
+    "scope": "246 role-permission cells and object conditions; separation of duties; two independent approvers for proposed high-risk actions; proposed approval TTL1800s and revocation maximum5s; isolated implementation and tests only",
+    "formal_policy_adopted": false,
+    "formal_classification_confirmed": false,
+    "shared_deployment_approved": false,
+    "T013_owner_handover_accepted": false,
+    "next_implementation_plan_approved": false
+  },
+  "actual_human_review_scope": "User confirmation of PR01/PR02/PR04 as isolated design input only",
+  "whole_task_human_acceptance_recorded": false
 }

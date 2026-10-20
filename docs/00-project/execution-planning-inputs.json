@@ -1131,11 +1131,11 @@
       "current_remaining_work_snapshot": [
         {
           "category": "实施/外部条件",
-          "description": "六角色41权限246格、73操作的具体条件、职责冲突、审批人数/TTL与撤销候选已形成方案（docs/08-security/t014-six-role-rule-proposal.md），PR01—PR06尚未批准/采用。正式分类输入、规则实现及T013本人A01—A10接管/密钥/真实恢复、共享采用仍缺，不用方案或合成策略当正式ALLOW。",
+          "description": "六角色246格及条件、职责分离、2名独立批准人、候选TTL1800秒/撤销上限5秒已由用户确认为下一批隔离实现输入（PR01/02/04），未批准尚未形成的具体实施计划或启用规则。PR03正式分类、PR05共享采用、PR06本人A01—A10/真实恢复仍待；不能用文档或合成测试当正式ALLOW。",
           "documented_progress": [
             {
               "id": "T014-R01-P01",
-              "status": "DOCUMENTED_NOT_APPROVED_OR_IMPLEMENTED",
+              "status": "USER_CONFIRMED_ISOLATED_INPUT_NOT_IMPLEMENTED",
               "evidence_refs": [
                 "docs/08-security/t014-six-role-rule-proposal.md",
                 "docs/08-security/t014-six-role-rule-proposal.json"
@@ -1166,7 +1166,23 @@
         "docs/08-security/t014-six-role-rule-proposal.json",
         "docs/03-development/t013-owner-action-checklist.md",
         "docs/00-project/validation/t014-rule-proposal-document-review.json"
-      ]
+      ],
+      "rule_proposal_confirmation": {
+        "client_date": "2026-10-20",
+        "source": "direct_user_reply_in_current_conversation",
+        "user_reply": "认可作为下一批隔离实现输入",
+        "decision_ids": [
+          "PR01",
+          "PR02",
+          "PR04"
+        ],
+        "scope": "246 role-permission cells and object conditions; separation of duties; two independent approvers for proposed high-risk actions; proposed approval TTL1800s and revocation maximum5s; isolated implementation and tests only",
+        "formal_policy_adopted": false,
+        "formal_classification_confirmed": false,
+        "shared_deployment_approved": false,
+        "T013_owner_handover_accepted": false,
+        "next_implementation_plan_approved": false
+      }
     },
     {
       "task_id": "T015",

@@ -80,7 +80,8 @@ function Test-RecoverySubkeys {
         if ((Get-FileHash -LiteralPath $Plain -Algorithm SHA256).Hash.ToLowerInvariant() -ne $ExpectedHashes['key-check.txt']) { throw '解密文字摘要不一致，停止' }
         $StatusText = Get-Content -LiteralPath $Status -Raw
         $KeyPattern = '(?m)^\[GNUPG:\] DECRYPTION_KEY ' + $SubFpr + ' ' + $RecoveryFpr + ' '
-        if (($StatusText -notmatch $KeyPattern) -or ($StatusText -notmatch '(?m)^\[GNUPG:\] DECRYPTION_OKAY(?:\s|$)') -or ($StatusText -notmatch '(?m)^\[GNUPG:\] GOODMDC(?:\s|$)')) { throw '未证明精确子密钥解密及完整性，停止' }
+        $AeadPattern = '(?m)^\[GNUPG:\] DECRYPTION_INFO 0 9 2(?: 0)?(?:\r?$)'
+        if (($StatusText -notmatch $KeyPattern) -or ($StatusText -notmatch '(?m)^\[GNUPG:\] DECRYPTION_OKAY(?:\s|$)') -or ($StatusText -notmatch $AeadPattern)) { throw '未证明精确子密钥解密及AES256/OCB完整性，停止' }
         Write-Output ('PASS_DECRYPT_EXACT_SUBKEY_' + $SubFpr)
     }
     & $GpgConf --homedir $HomePath --kill gpg-agent
@@ -89,7 +90,9 @@ function Test-RecoverySubkeys {
 Test-RecoverySubkeys -HomePath $KeyHome -Prefix 'original'
 ```
 
-GPG弹出口令框时由本人输入**恢复密钥口令**，不是Linux签名口令、SSH密码或指纹。如果取消、超时、`No secret key`或摘要/状态不符，停止，只回报错误文字。每个密文只对应一把子密钥，必须有两条不同的`PASS_DECRYPT_EXACT_SUBKEY_...`，只解开包含两收件人的同一个密文不能证明两把都可用。状态条件按本项目现有固定密文与GnuPG版本编制，未来算法/封装变化应重新核验，不能随意去掉完整性断言。
+GPG弹出口令框时由本人输入**恢复密钥口令**，不是Linux签名口令、SSH密码或指纹。如果取消、超时、`No secret key`或摘要/状态不符，停止，只回报错误文字。每个密文只对应一把子密钥，必须有两条不同的`PASS_DECRYPT_EXACT_SUBKEY_...`，只解开包含两收件人的同一个密文不能证明两把都可用。
+
+2026-10-20修正：既有两个固定密文的公开包头是tag20/version1、AES256/OCB AEAD，不是tag18/MDC。GnuPG 2.5.24已将`GOODMDC`列为废弃状态，当前版本仍可能为兼容而输出；本清单不依赖这一兼容标志，要求GPG退出0、精确`DECRYPTION_KEY`、`DECRYPTION_OKAY`、该固定AEAD参数及明文摘要同时成立。这保留完整性核验；未来算法/封装变化应重新核验，不得直接去掉断言。
 
 ## A03：从恢复私钥备份建立新的隔离home并重验（现在可操作）
 
