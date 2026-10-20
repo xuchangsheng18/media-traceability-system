@@ -28,6 +28,9 @@ TARGETS = [
     "tests/platform/test_t015_data_scope.py",
     "tests/platform/test_t015_object_callers.py",
     "tests/platform/test_t015_object_storage_failures.py",
+    "tests/business/test_t016_permission_facts.py::test_real_sql_case_confirmation_rechecks_linked_task_and_source_in_same_root",
+    "tests/business/test_t016_permission_facts.py::test_real_sql_two_case_member_cannot_replace_approval_case",
+    "tests/business/test_t016_operation_tokens.py::test_wrong_database_service_is_denied_before_writes_even_when_caught",
 ]
 CATEGORIES = {
     "S01": "tests.business.test_t015_scope_sql::test_case_query_without_case_filter_does_not_return_another_valid_membership",
@@ -39,6 +42,9 @@ CATEGORIES = {
     "S07": "tests.business.test_t015_collections::test_admin_without_explicit_case_membership_is_denied",
     "S08": "tests.business.test_t015_collections::test_item_filter_precedes_limit_count_and_cursor",
     "S09": "tests.business.test_t015_scope_http::test_default_application_still_refuses_unconfigured_real_policy",
+    "S10": "tests.business.test_t016_permission_facts::test_real_sql_case_confirmation_rechecks_linked_task_and_source_in_same_root",
+    "S11": "tests.business.test_t016_permission_facts::test_real_sql_two_case_member_cannot_replace_approval_case",
+    "S12": "tests.business.test_t016_operation_tokens::test_wrong_database_service_is_denied_before_writes_even_when_caught",
 }
 REQUIRED_CASES = frozenset(CATEGORIES.values())
 MATRIX = json.loads((ROOT / "docs/08-security/t014-interface-scope-matrix.json").read_text(encoding="utf8"))

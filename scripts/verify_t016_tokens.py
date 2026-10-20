@@ -116,6 +116,7 @@ REQUIRED_TESTS: dict[str, dict[str, tuple[str, ...] | None]] = {
         "test_credential_is_reconstructable_but_hash_and_identifier_are_not_credentials": None,
         "test_client_cannot_add_scope_action_or_approval_claims": ("case_id", "actor_id", "action", "approved"),
         "test_case_issuance_and_same_transaction_consumption_capability": None,
+        "test_credential_response_formatter_forbids_http_caching": None,
     },
     "tests.business.test_t016_operation_tokens": {
         "test_issue_replay_is_same_credential_and_never_persists_plaintext": None,
@@ -134,6 +135,12 @@ REQUIRED_TESTS: dict[str, dict[str, tuple[str, ...] | None]] = {
         "test_real_fence_concurrent_issuance_does_not_upgrade_shared_task_locks": None,
         "test_idempotent_retry_and_consumer_use_consistent_database_lock_order": None,
         "test_actual_expiry_cannot_be_extended_by_new_request": None,
+        "test_current_approval_source_people_or_result_revocation_blocks_consumption": (
+            "approval",
+            "source",
+            "people",
+            "result",
+        ),
         "test_restored_database_does_not_revive_old_generation_token": None,
         "test_issue_rejects_request_binding_swap": ("object", "version", "purpose"),
         "test_consume_and_synthetic_business_write_commit_once": None,

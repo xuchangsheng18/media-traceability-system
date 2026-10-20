@@ -129,3 +129,34 @@ def test_case_issuance_and_same_transaction_consumption_capability():
 
     module = importlib.import_module("business_app.controls.operation_tokens")
     assert hasattr(module, "OperationTokens"), "T016_CASE_ISSUANCE_AND_CONSUMPTION_REQUIRED"
+
+
+def test_credential_response_formatter_forbids_http_caching(monkeypatch):
+    """Formatter-only harness; production authorization is covered separately."""
+    from fastapi import FastAPI
+    from fastapi.testclient import TestClient
+
+    router_module = importlib.import_module("business_app.controls.router")
+    scope = Scope(Actor(UUID(int=1), UUID(int=2)), UUID(int=3))
+
+    class SyntheticFormatterOnlyService:
+        def issue(self, current, body, request, key):
+            assert current == scope and key == "self-owned-formatter-only"
+            return dict(
+                operation_token="synthetic-response-formatter-only",
+                expires_at="2099-01-01T00:00:00+00:00",
+                object_version=1,
+            )
+
+    monkeypatch.setattr(router_module, "resource_scope", lambda *args: scope)
+    app = FastAPI()
+    app.state.operation_tokens = SyntheticFormatterOnlyService()
+    app.include_router(router_module.router)
+    with TestClient(app) as client:
+        response = client.post(
+            "/api/v1/operation-tokens",
+            headers={"Idempotency-Key": "self-owned-formatter-only"},
+            json=dict(approval_id=str(UUID(int=4)), object_id=str(UUID(int=5)), object_version=1, purpose="seal"),
+        )
+    assert response.status_code == 200
+    assert response.headers.get("Cache-Control") == "no-store"

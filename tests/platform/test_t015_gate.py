@@ -28,6 +28,32 @@ SENTINELS = {
     "S09": "tests.business.test_t015_scope_http::test_default_application_still_refuses_unconfigured_real_policy",
 }
 
+TOKEN_SENTINELS = {
+    "S10": "tests.business.test_t016_permission_facts::test_real_sql_case_confirmation_rechecks_linked_task_and_source_in_same_root",
+    "S11": "tests.business.test_t016_permission_facts::test_real_sql_two_case_member_cannot_replace_approval_case",
+    "S12": "tests.business.test_t016_operation_tokens::test_wrong_database_service_is_denied_before_writes_even_when_caught",
+}
+
+
+@pytest.mark.parametrize("nodeid", TOKEN_SENTINELS.values(), ids=TOKEN_SENTINELS)
+def test_token_scope_extensions_are_selected_without_dropping_original_sentinels(nodeid):
+    gate = gate_module()
+    assert set(SENTINELS.values()) <= gate.REQUIRED_CASES
+    assert nodeid in gate.REQUIRED_CASES
+    module, name = nodeid.split("::")
+    assert module.replace(".", "/") + ".py::" + name in gate.TARGETS
+
+
+@pytest.mark.parametrize("missing", TOKEN_SENTINELS.values(), ids=TOKEN_SENTINELS)
+def test_dropping_any_token_scope_extension_makes_the_scope_gate_fail(missing):
+    gate = gate_module()
+    report = parser_fixture(gate)
+    names = (set(gate.REQUIRED_CASES) | set(SENTINELS.values()) | set(TOKEN_SENTINELS.values())) - {missing}
+    report["test_cases"] = [dict(nodeid=name, status="passed") for name in sorted(names)]
+    report["totals"]["tests"] = len(names)
+    with pytest.raises(RuntimeError):
+        validate(gate, report)
+
 
 def gate_module():
     assert (ROOT / "scripts/verify_t015_scope.py").is_file(), "T015_REQUIRED_RUNTIME_GATE_NOT_IMPLEMENTED"

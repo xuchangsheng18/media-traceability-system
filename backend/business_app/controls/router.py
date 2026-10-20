@@ -54,7 +54,9 @@ def issue_operation_token(request: Request, body: dict[str, Any], idempotency_ke
     validate_api("OperationTokenRequest", body)
     scope = resource_scope(request, "approval", UUID(body["approval_id"]), "operation.confirm")
     service = cast(OperationTokens, request.app.state.operation_tokens)
-    return reply("OperationToken", service.issue(scope, body, request, idempotency_key))
+    response = reply("OperationToken", service.issue(scope, body, request, idempotency_key))
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 def reviews(request: Request) -> Reviews:

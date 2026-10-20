@@ -26,6 +26,8 @@ from fastapi.testclient import TestClient
 from psycopg.conninfo import conninfo_to_dict, make_conninfo
 from sqlalchemy import event, text
 
+from tests.business.history_fixtures import snapshot
+from tests.business.scoped_history_fixtures import append_synthetic_snapshot
 from tests.business.t014_positive_fixtures import candidate
 from tests.business.test_controls import AUTH, approve, request_approval
 from tests.business.test_controls import control_context as control_context
@@ -119,8 +121,16 @@ def test_issue_replay_is_same_credential_and_never_persists_plaintext(token_cont
     ctx = token_context
     first = issue(ctx)
     assert first.status_code == 200, first.json()
+    original = ctx["token_service"]
+    service_type = importlib.import_module("business_app.controls.operation_tokens").OperationTokens
+    # Rebuild the service using only the database and explicit providers: no
+    # response/credential is copied into the fresh service instance.
+    ctx["control_app"].state.operation_tokens = service_type(
+        original.database, original.approvals, original.rules, original.keys, original.confirmation_authority
+    )
     second = issue(ctx)
     assert second.status_code == 200 and second.json() == first.json()
+    assert first.headers.get("Cache-Control") == second.headers.get("Cache-Control") == "no-store"
     credential = first.json()["operation_token"]
     assert first.json()["object_version"] == 1
     assert datetime.fromisoformat(first.json()["expires_at"]).timestamp() > time.time()
@@ -369,6 +379,51 @@ def test_actual_expiry_cannot_be_extended_by_new_request(token_context):
         db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
     ):
         consume(ctx, response.json()["operation_token"], connection)
+
+
+@pytest.mark.parametrize("change", ["approval", "source", "people", "result"])
+def test_current_approval_source_people_or_result_revocation_blocks_consumption(token_context, change):
+    ctx = token_context
+    response = issue(ctx)
+    assert response.status_code == 200, response.json()
+    if change in {"approval", "source"}:
+        with psycopg.connect(ctx["admin_dsn"]) as admin:
+            if change == "approval":
+                admin.execute(
+                    "UPDATE mt.approval_request SET state='REVOKED',row_version=row_version+1 WHERE approval_id=%s",
+                    (ctx["token_body"]["approval_id"],),
+                )
+            else:
+                admin.execute(
+                    "UPDATE mt.source_registry SET authorization_status='revoked',authorization_version='self-owned-revoked' WHERE source_id=%s",
+                    (ctx["source_id"],),
+                )
+    elif change == "people":
+        duties = ctx["control_app"].state.approvals.duties
+        original = duties.people
+        replacement = uuid4()
+
+        class ChangedPerson:
+            def resolve(self, actor):
+                value = original.resolve(actor)
+                return replace(value, person_id=replacement) if actor == ctx["actor"] else value
+
+        duties.people = ChangedPerson()
+    else:
+        append_synthetic_snapshot(ctx, snapshot(ctx, 2))
+    db = ctx["control_app"].state.business_database
+    with (
+        action_root(ctx, "sealEvidence", action_target(ctx)),
+        pytest.raises(BusinessError) as denied,
+        db.transaction(Scope(ctx["actor"], ctx["case_id"])) as connection,
+    ):
+        consume(ctx, response.json()["operation_token"], connection)
+    assert denied.value.code == "OPERATION_TOKEN_STATE_CONFLICT"
+    with psycopg.connect(ctx["admin_dsn"]) as admin:
+        assert admin.execute("SELECT consumed_at,row_version FROM mt.operation_token").fetchone() == (None, 1)
+        assert admin.execute(
+            "SELECT count(*) FROM mt.audit_event WHERE action='operation_token.consume'"
+        ).fetchone() == (0,)
 
 
 def test_restored_database_does_not_revive_old_generation_token(token_context, tmp_path):
