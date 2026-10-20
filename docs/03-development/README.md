@@ -1,5 +1,7 @@
 # 开发、契约与CI
 
+- [T014已批准P01—P07隔离计划](t014-isolated-six-role-implementation-plan.md)、[实际逐项进度](../00-project/validation/t014-isolated-rule-progress.json)、[T001—T123范围及顺序](t001-t123-development-sequence.md)：P01—P06已实测，P07全量/门禁/交付进行中；综合专项验证另批，实现必要测试和CI保留。
+
 - [T001—T012逐项收口](t001-t012-closeout.md)、[原生迁移设计](native-linux-migration-design.md)、[N01—N08实施计划](native-linux-implementation-plan.md)、[执行台账](native-linux-execution-status.json)、[管理员清单](native-linux-admin-checklist.md)：设计/计划及候选上限已获用户认可；N01只读工具已实现，制品核验继续进行，现有服务未切换。T012/复核/维护指定徐昌胜，T001—T011仍为邓昀。
 
 - [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[首批执行历史](../00-project/validation/t013-keycloak-execution-report.json)、[22项登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)：首批1,501项文件同步及当时CI状态仅作历史，不代表当前托管检查或最新源码。当前本人交接和恢复待办按下列清单及任务卡核验，T013整卡未关闭。

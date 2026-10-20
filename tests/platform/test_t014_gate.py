@@ -1,5 +1,6 @@
 """The CI parser must reject missing, duplicate, skipped and failed proof rows."""
 
+import hashlib
 import importlib
 import json
 import subprocess
@@ -57,6 +58,51 @@ def test_complete_report_has_exact_42_operation_matrix(tmp_path):
     assert set(result["operation_checks"]) == OPERATIONS
 
 
+def test_gate_source_context_binds_confirmed_six_role_input():
+    path = "docs/08-security/t014-six-role-rule-proposal.json"
+    actual = gate_module().source_context()
+    expected = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+    assert actual["source_sha256"].get(path) == expected
+
+
+@pytest.mark.parametrize(
+    "classname,name",
+    [
+        (
+            "tests.platform.test_t014_six_role",
+            "test_all_246_cells_match_confirmed_input[asset.upload-data_admin-INGEST]",
+        ),
+        ("tests.platform.test_t014_six_role", "test_nonmatching_role_still_triggers_conflict"),
+        ("tests.platform.test_t014_work_trust", "test_noop_work_port_cannot_open_an_unfenced_business_path"),
+        ("tests.business.test_t014_role_facts", "test_all_active_roles_include_nonmatching_permission_role"),
+        (
+            "tests.business.test_t014_object_rules",
+            "test_missing_classification_or_authoritative_purpose_is_unavailable",
+        ),
+        ("tests.business.test_t014_duties", "test_two_subjects_or_two_users_for_same_person_count_once"),
+        ("tests.business.test_t014_duties", "test_approval_expiry_at_1800_seconds_is_invalid"),
+        ("tests.business.test_t014_revocation", "test_revoke_committed_before_fence_blocks_business_commit"),
+        ("tests.business.test_t014_revocation", "test_actual_restored_database_needs_fresh_independent_generation"),
+        (
+            "tests.business.test_t014_revocation",
+            "test_committed_revocation_rejects_new_requests_within_five_seconds[identity-401]",
+        ),
+        ("tests.business.test_t014_work", "test_missing_work_port_rejects_before_broker_or_published_receipt"),
+        (
+            "tests.business.test_t014_work",
+            "test_upload_work_rechecks_live_facts_and_rolls_back_uncommitted_result[terminal_replay]",
+        ),
+        ("tests.business.test_t014_work", "test_node_finish_and_export_delivery_revalidate[export]"),
+        ("tests.business.test_migrations", "test_work_role_facts_upgrade_is_atomic_and_function_only[True]"),
+    ],
+)
+def test_gate_rejects_report_missing_new_rule_or_work_evidence(tmp_path, classname, name):
+    gate = gate_module()
+    path = synthetic_report(tmp_path, gate, missing=(classname, name))
+    with pytest.raises(RuntimeError, match="T014_REQUIRED_REGRESSION_MISSING"):
+        gate.validate_results(path, OPERATIONS)
+
+
 @pytest.mark.parametrize(
     "kind", ["missing_operation", "duplicate_operation", "missing_SQL_restore", "missing_real_resources"]
 )
@@ -111,6 +157,7 @@ def test_declared_report_counts_cannot_be_ignored(tmp_path, field):
         ("config/locks/runtime-archive.json", False),
         ("config/locks/requirements-py310.lock", True),
         ("docs/03-api/openapi.yaml", True),
+        ("docs/08-security/t014-six-role-rule-proposal.json", True),
         ("backend/business_app/permissions/guard.py", True),
     ],
 )
@@ -123,6 +170,7 @@ def test_source_binding_distinguishes_generated_archive_from_actual_changes(tmp_
         "docs/03-api/openapi.yaml",
         "docs/08-security/access-control-model.json",
         "docs/08-security/t014-interface-scope-matrix.json",
+        "docs/08-security/t014-six-role-rule-proposal.json",
         "backend/business_app/permissions/guard.py",
     ]
     for name in files:

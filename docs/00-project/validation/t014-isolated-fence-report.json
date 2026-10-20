@@ -1,0 +1,111 @@
+{
+  "status": "PASS_ISOLATED_FENCE_SCOPE_NOT_SHARED_ADOPTED",
+  "verified_code_commit": "8e79f6583f7cb5441e50997d95f0cc28bc71b0fe",
+  "scope": "Same-root-transaction authorization ordering, current source locks, precommit rejection and independent restored-target generation proof.",
+  "latest_run": {
+    "status": "PASS",
+    "source_base_commit": "6154b1f0f9382951d7c7296942970d807b39e0a3",
+    "started_at": "2026-10-20T05:04:07.098560+00:00",
+    "completed_at": "2026-10-20T05:13:57.937105+00:00",
+    "python": "3.10.22",
+    "totals": {
+      "tests": 99,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "failure_test_ids": [],
+    "shared_source_or_services_modified": false
+  },
+  "preserved_prior_failed_run": {
+    "status": "FAIL",
+    "source_base_commit": "6154b1f0f9382951d7c7296942970d807b39e0a3",
+    "started_at": "2026-10-20T04:52:21.659319+00:00",
+    "completed_at": "2026-10-20T05:01:28.789537+00:00",
+    "python": "3.10.22",
+    "totals": {
+      "tests": 96,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "failure_test_ids": [
+      {
+        "classname": "tests.business.test_migrations",
+        "name": "test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically[False]",
+        "kind": "failures"
+      }
+    ],
+    "shared_source_or_services_modified": false
+  },
+  "exact_verified_source_sha256": {
+    "backend/business_app/db.py": "20d3f6be60560d65a00355a79d28002c9d4dc2ea91cf07ddcd7342b139be42f7",
+    "backend/business_app/main.py": "f46d4bea67725335888bc391edaa3ab9edce54824085795fc6debed82b8baf9a",
+    "backend/business_app/permissions/context.py": "72bf9dbeef998df4f274a78d78e0b3e69a95cb69df184d0ee3a21d72c968de60",
+    "backend/business_app/permissions/fence.py": "389cf8ba06e59ae9f98915aa88e19f6a461398bd02feb0119aa313a997d81c74",
+    "backend/business_app/permissions/guard.py": "f0b2f5e8cc15dd700ade3bcd76a2b71abb59b73141fc1e4b2d3ef06c96dc3f5b",
+    "backend/business_app/permissions/object_facts.py": "a9726aeae5b4f221d3e1aaa78262f0ec68932c7d5545f2f30ab5c14831966daa",
+    "backend/business_migrations/0008_authorization_fence.sql": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+    "tests/business/conftest.py": "ddc73e3fbc30ca5c2fe8092aeb569be049facaa11219e91924b6028453519f21",
+    "tests/business/http_fixtures.py": "cf34c3ff257092410cbdebe1ffc25e8ba2b6bb33bec0dbef874805995a34c287",
+    "tests/business/test_authorization.py": "e026346790be809bb431ba2d38aa3e9e0fff508345ec47012bd6dbe09811f119",
+    "tests/business/test_controls.py": "b199a7d4bb822fb86d6826768d6e1c7de8f4cf6a270db4e2ba11f57f7dc3feaf",
+    "tests/business/test_migrations.py": "2c477e095f8f9ba4400b88fd7a3322204d9632eff10054f1d28b75b96d55fb93",
+    "tests/business/test_t014_revocation.py": "d6c0c6beba0d3c6d89b39428c375766788ccd352bdae5aab722be583b9361769",
+    "tests/business/test_t014_runtime.py": "05ddc013873c0c2f8b7553f183dae12da3695ce5c3e9ba6f8b809c2c0b7907f9",
+    "tests/business/test_upload_validation.py": "e72fcaebdb9ff91bc09105f44f6ac627a86d102fc019eff9f300dd8b536f93d4",
+    "tests/business/test_uploads.py": "29eacb3c53ae06d65eb4b4ed31fdf85b92e27b50d30f32ac9163ed904d2370cf"
+  },
+  "migration_versions": [
+    "0001",
+    "0002",
+    "0003",
+    "0004",
+    "0005",
+    "0006",
+    "0007",
+    "0008"
+  ],
+  "business_tables": 64,
+  "business_columns": 849,
+  "actual_pg_dump_and_pg_restore_to_new_isolated_database_passed": true,
+  "shared_migrations_or_policy_installed": false,
+  "Python_candidates_created": false,
+  "background_work_and_five_second_measurement_covered": false,
+  "hosted_CI_for_new_code_verified": false,
+  "whole_T014_accepted": false
+}

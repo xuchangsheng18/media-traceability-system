@@ -112,7 +112,10 @@ def test_queued_job_revalidates_actor_identity_and_scope(permission_context, def
         else:
             with pytest.raises(BusinessError) as denied:
                 reader.read_for_work(subject, "identity.read")
-            assert denied.value.http_status in {401, 403, 404, 503}
+            expected = (
+                (404, "RESOURCE_NOT_FOUND") if defect in {"work_id", "actor"} else (401, "AUTHENTICATION_REQUIRED")
+            )
+            assert (denied.value.http_status, denied.value.code) == expected
     finally:
         http.__exit__(None, None, None)
 
@@ -267,7 +270,14 @@ def test_upload_work_rechecks_live_facts_and_rolls_back_uncommitted_result(permi
         else:
             with pytest.raises(BusinessError) as denied:
                 consumer.consume_validation(message)
-            assert denied.value.http_status in {401, 403, 503}
+            expected = (
+                (401, "AUTHENTICATION_REQUIRED")
+                if defect in {"identity", "mapping"}
+                else (403, "PERMISSION_REQUIRED")
+                if defect == "classification"
+                else (503, "CONDITIONAL_FACTS_UNAVAILABLE")
+            )
+            assert (denied.value.http_status, denied.value.code) == expected
             with psycopg.connect(ctx["admin_dsn"]) as admin:
                 assert admin.execute(
                     "SELECT state,asset_id FROM mt.upload_session WHERE upload_id=%s", (upload,)

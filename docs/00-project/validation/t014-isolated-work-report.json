@@ -1,0 +1,193 @@
+{
+  "status": "PASS_COMMITTED_ISOLATED_WORK_SCOPE_NOT_FORMAL_ADOPTION",
+  "verified_code_commit": "e2d6e2e286e05a7151411a9d4650fdcf7ca74077",
+  "scoped_final_run": {
+    "status": "PASS",
+    "source_base_commit": "8e79f6583f7cb5441e50997d95f0cc28bc71b0fe",
+    "python": "3.10.22",
+    "totals": {
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "shared_source_or_services_modified": false
+  },
+  "committed_completion_run": {
+    "status": "PASS",
+    "source_base_commit": "e2d6e2e286e05a7151411a9d4650fdcf7ca74077",
+    "python": "3.10.22",
+    "totals": {
+      "tests": 76,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [],
+    "shared_source_or_services_modified": false
+  },
+  "prior_failed_run": {
+    "status": "FAIL",
+    "source_base_commit": "8e79f6583f7cb5441e50997d95f0cc28bc71b0fe",
+    "python": "3.10.22",
+    "totals": {
+      "tests": 110,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 1,
+        "status": "FAIL"
+      }
+    ],
+    "shared_source_or_services_modified": false,
+    "failure_test_ids": [
+      {
+        "classname": "tests.business.test_t014_work",
+        "name": "test_node_finish_and_export_delivery_revalidate[node]",
+        "kind": "failures"
+      },
+      {
+        "classname": "tests.business.test_upload_validation",
+        "name": "test_real_broker_receives_and_worker_commits",
+        "kind": "failures"
+      },
+      {
+        "classname": "tests.business.test_upload_validation",
+        "name": "test_broker_recovers_after_confirmation_before_outbox_commit",
+        "kind": "failures"
+      }
+    ]
+  },
+  "exact_verified_commit_sha256": {
+    "backend/business_app/controls/execution.py": "51f33d8746e5c8666f9b5151cd1aa9e616e069c26f20c7d7065dc70dbfc2912d",
+    "backend/business_app/controls/exports.py": "8182cf83aa6c173568ed7826907265d09175cf8d6841dfd6e38a7a3501e13c4d",
+    "backend/business_app/db.py": "5a93af306c14dd5f154d7721a364588a4a75a5be6962b5557e8ea8702ef9890b",
+    "backend/business_app/main.py": "a1e6991ae86203d23a3023e3ec547bb1559cd2b3236c5976c6e5ffc44838b5bb",
+    "backend/business_app/permissions/conditional.py": "e88475c061df9c45b5625949f154fc4745901150915c0b6a49ea9cbb6736adc3",
+    "backend/business_app/permissions/context.py": "a5443dece34062c1ba1e768be1a86cc58042c04da4570691065ad12412080e5b",
+    "backend/business_app/permissions/fence.py": "58979f17f8353cf3d2ff28643b1b5cb2c78f91971cd3e4eb8d7ebe92a8a0a0a7",
+    "backend/business_app/permissions/object_facts.py": "f95423f5595b0541ef3e63b3036fb2d891c26b77c2dec2b3eba9eab460636d5b",
+    "backend/business_app/permissions/role_facts.py": "18495223aa83c611537c7043b86463eb3de01b83f29be9d265e0147b3bec7cd1",
+    "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
+    "backend/business_app/permissions/six_role.py": "c7ab275688ab72be4aff8d0f3597bd6def1529e4e07ea9b195fc0dda34435d96",
+    "backend/business_app/permissions/work.py": "5fe098944e2921e8cfc32a235528a90b02be516fdc0b462f80c803fd847c85d1",
+    "backend/business_app/permissions/work_subject.py": "fd856c2d996bb5c753d8ec55acec02d9cbe343194088640fe9d08711f21788ff",
+    "backend/business_app/uploads/messaging.py": "5818fcf68bdee4bb19892e7058c8146e0f408810ed1496a0d9aa6cddfcb31d5a",
+    "backend/business_app/uploads/worker.py": "2b776d8131d85d36431618a8386e6774c7d53d3b9442fc16de373f36743c09e6",
+    "backend/business_migrations/0009_work_role_facts.sql": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588",
+    "tests/business/conftest.py": "f9700cf64f198cca95f058b47d98825e80dc9d31377bfc40cc5874fcc7ed6c78",
+    "tests/business/http_fixtures.py": "8b38480795b6d59e7f4972d609388673e858a4e15acfe5c553b33f5ad1523dab",
+    "tests/business/test_controls.py": "e5d319446cd278ee5a74d5725963e5a71161f3da105d21f30a365a92ad64171c",
+    "tests/business/test_migrations.py": "246cb3339c79c429e122b074a9311c92f35374df782fe7c68670a1a6db9b39cd",
+    "tests/business/test_t014_revocation.py": "1749d38dced12a785ba9d453b4f7a776340f5aca3ffe43ae07c64a2f4250eabb",
+    "tests/business/test_t014_work.py": "d71d1c9fc6a33f9681d3ab937044d1c8c0f1efd3312f0521406cf2ddf378544a",
+    "tests/business/test_upload_validation.py": "c9d4fff7314f0b9ad2310c5cf91bc8c2174bdc862b4fcf08fc2ba651296a4649",
+    "tests/platform/test_t014_work_trust.py": "5383fa5a8421c78db20c8b1266c0e423f0f42ad3bd13f7b62d019a3e14e1f3f7"
+  },
+  "measurements": [
+    {
+      "change": "identity",
+      "commit_observed_utc": "2026-10-20T05:59:02.230411+00:00",
+      "commit_observed_monotonic": 961346.349075381,
+      "first_stable_denial_monotonic": 961346.358542393,
+      "maximum_observed_delay_seconds": 0.027683924068696797,
+      "stable_denial_observations": 3
+    },
+    {
+      "change": "role",
+      "commit_observed_utc": "2026-10-20T05:59:06.738479+00:00",
+      "commit_observed_monotonic": 961350.857140343,
+      "first_stable_denial_monotonic": 961350.868273296,
+      "maximum_observed_delay_seconds": 0.029283133917488158,
+      "stable_denial_observations": 3
+    },
+    {
+      "change": "membership",
+      "commit_observed_utc": "2026-10-20T05:59:11.342521+00:00",
+      "commit_observed_monotonic": 961355.461185183,
+      "first_stable_denial_monotonic": 961355.4813586,
+      "maximum_observed_delay_seconds": 0.05628925492055714,
+      "stable_denial_observations": 3
+    },
+    {
+      "change": "permission",
+      "commit_observed_utc": "2026-10-20T05:59:15.917137+00:00",
+      "commit_observed_monotonic": 961360.035802345,
+      "first_stable_denial_monotonic": 961360.04544232,
+      "maximum_observed_delay_seconds": 0.02627042797394097,
+      "stable_denial_observations": 3
+    },
+    {
+      "change": "policy",
+      "commit_observed_utc": "2026-10-20T05:59:20.010582+00:00",
+      "commit_observed_monotonic": 961364.129247459,
+      "first_stable_denial_monotonic": 961364.182405057,
+      "maximum_observed_delay_seconds": 0.1475755280116573,
+      "stable_denial_observations": 3
+    },
+    {
+      "change": "database",
+      "commit_observed_utc": "2026-10-20T05:59:24.829590+00:00",
+      "commit_observed_monotonic": 961368.948255189,
+      "first_stable_denial_monotonic": 961368.971031974,
+      "maximum_observed_delay_seconds": 0.06258269003592432,
+      "stable_denial_observations": 3
+    }
+  ],
+  "maximum_observed_delay_seconds": 0.1475755280116573,
+  "measurement_scope": "In-process ASGI TestClient and actual isolated PostgreSQL, three continuing denials per change; no TLS/WAN, peak-load or production SLA assertion.",
+  "change_definitions": {
+    "identity": "mt.user_identities mapping disable/revoke, not live Keycloak remote revocation",
+    "role": "active mt.user_roles revoke",
+    "membership": "case membership revoke",
+    "permission": "source.read disabled",
+    "policy": "explicit SQL policy/recovery generation activation",
+    "database": "actual lookup login CONNECT denial/connection termination on this isolated database"
+  },
+  "coverage": [
+    "real RLS job/creator ownership and exact identity mapping",
+    "live complete roles, delegated lifetime and distinct service identity",
+    "queued and terminal upload replay rejection",
+    "node start/finish revalidation without invented algorithm success",
+    "existing export artifact delivery rejection after role revocation",
+    "real broker confirmation/retry with explicitly injected test work authority",
+    "0009 empty/upgrade/rollback/function ACL preservation"
+  ],
+  "formal_delegation_or_service_providers_installed": false,
+  "authority_inputs_in_tests": "Explicit synthetic institutional/service facts, combined with actual RLS SQL and object bytes.",
+  "shared_migrations_or_policy_installed": false,
+  "Python_candidates_created": false,
+  "whole_T013_or_T014_accepted": false,
+  "final_P07_hosted_CI_verified": false
+}

@@ -907,7 +907,7 @@
         },
         {
           "path": "scripts/identity/handover.py",
-          "scope": "T013隔离合成管理员初始化/MFA/bootstrap/重启及工具边界验证；不是徐昌胜实际账号、本人因素保管或整任务验收。"
+          "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
         },
         {
           "path": "tests/platform/test_t013_handover.py",
@@ -931,7 +931,7 @@
         },
         {
           "path": "scripts/identity/management.py",
-          "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+          "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
         },
         {
           "path": "scripts/identity/management_config.py",
@@ -964,6 +964,30 @@
         {
           "path": "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
           "scope": "T013显式MFA管理会话及真实独立服务退役演练；共享私密候选仅准备，非本人接管、共享采用或整任务验收。"
+        },
+        {
+          "path": "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
+          "scope": "真实本人GPG操作后的公有测试成果和状态文件核对；同一U盘新home，不证明第二介质、Linux签名/MFA或身份数据恢复。"
+        },
+        {
+          "path": "docs/00-project/validation/t013-reprotected-signer-owner-validation.json",
+          "scope": "本人第二轮签名保护、固定公开文字签名/精确验签/篡改拒绝及同一U盘新home备份恢复；不证明第二独立介质、旧副本处置、MFA或真实身份数据库恢复。"
+        },
+        {
+          "path": "docs/00-project/validation/t013-known-signer-copies-review.json",
+          "scope": "四个精确已知位置的有界逻辑退役；不证明全盘无副本、底层安全擦除、第二介质、本人MFA或真实身份恢复。"
+        },
+        {
+          "path": "docs/03-development/t013-named-admin-adoption-checklist.md",
+          "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
+        },
+        {
+          "path": "docs/00-project/validation/t013-named-admin-adoption-progress.json",
+          "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
+        },
+        {
+          "path": "docs/00-project/validation/t013-owner-mfa-management-validation.json",
+          "scope": "实际本人实名管理员和专用MFA管理子范围；不代替真实数据恢复、旧凭据失效或整卡验收。"
         }
       ],
       "full_task_verification_refs": [],
@@ -987,11 +1011,21 @@
       "current_remaining_work_snapshot": [
         {
           "category": "实施/外部条件",
-          "description": "软件准入、适用身份范围/撤销SLA仍待；A07已列实名xuchangsheng首次改密/MFA、专用管理客户端和本人会话的准确步骤，共享显式配置与本人验证尚未执行；新卷采用、旧bootstrap/历史凭据退役及重启须满足A08/A09前置。"
+          "description": "软件准入、适用身份范围/撤销SLA仍待；四项精确共享采用及本人实名首次改密/OTP、专用签名MFA管理会话已实核，bootstrap保留。新卷采用、旧bootstrap/历史凭据退役及重启须满足A08/A09前置，不能因已接管账号而提前删除。",
+          "documented_progress": [
+            {
+              "id": "T013-A07-EXACT-SHARED-SCOPE-APPROVED",
+              "status": "VERIFIED_NAMED_ADMIN_AND_OWNER_MFA_SUBSCOPE_NOT_WHOLE_HANDOVER",
+              "evidence_refs": [
+                "docs/03-development/t013-named-admin-adoption-checklist.md",
+                "docs/00-project/validation/t013-named-admin-adoption-progress.json"
+              ]
+            }
+          ]
         },
         {
           "category": "实施/验证",
-          "description": "A01—A06已列公开核对、两子密钥解密、从受保护备份恢复新home、签名保护/精确验签及独立介质步骤；当前仅保留原配置，真实操作仍未通过。A08明确现有Linux本地解密入口与离线私钥保管不兼容，须补受控流式恢复方案，不能上传恢复私钥；真实共享失效/回切未完成。",
+          "description": "A02—A06真实密钥限定验证、四份旧副本逻辑退役及A07实名本人专用MFA正向管理已完成；第二独立介质暂无，错误OTP适用拒绝实测、离线私钥兼容真实身份数据恢复、历史凭据失效和受控回切仍需完成。同U盘恢复/普通删除分别不代表第二介质/安全擦除。",
           "verified_internal_milestones": [
             {
               "id": "T013-R02-M01",
@@ -1031,24 +1065,35 @@
             }
           ],
           "unverified_internal_milestones": [
-            "已暴露签名口令和旧受保护副本的处置，当前按用户要求暂缓更换",
-            "两把恢复加密子密钥分别实际解密、真实签名及精确验签",
-            "从备份在新隔离home恢复密钥组及独立身份恢复",
-            "真实身份数据备份/恢复、私密配置协调失效和受控回切"
+            "第二独立介质暂无，同U盘新目录不计第二介质",
+            "本人错误OTP/仅密码无法取令牌的适用拒绝实测、离线私钥兼容真实身份数据恢复、历史凭据失效及受控回切",
+            "未知副本及底层介质残留未核验，不作全盘安全擦除声明"
           ],
           "operator_checklist_ref": "docs/03-development/t013-owner-action-checklist.md",
-          "owner_actions_executed_by_this_documentation_batch": false
+          "owner_actions_executed_by_this_documentation_batch": false,
+          "verified_owner_recovery_ref": "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
+          "verified_owner_signer_ref": "docs/00-project/validation/t013-reprotected-signer-owner-validation.json"
         },
         {
           "category": "任务记录",
-          "description": "徐昌胜已确认为开发负责人、身份管理员及指定复核人，管理员登录名已确认；仍需本人改密/MFA接管、实际复核和适用验收、剩余工时及逐项源标准对照。模拟账号测试、姓名或登录名登记不当作真实交接或验收。"
+          "description": "徐昌胜为已确认开发负责人、身份管理员和指定复核人；本人实名改密/OTP及专用管理会话已有实际证据，仍需实际复核、适用验收、剩余工时和逐项源标准对照，不把子范围通过当整卡通过。"
         }
       ],
       "current_key_custody_report_ref": "docs/00-project/validation/t013-role-assignment.json",
       "followup_document_refs": [
         "docs/03-development/t013-owner-action-checklist.md",
-        "docs/00-project/validation/t014-rule-proposal-document-review.json"
-      ]
+        "docs/00-project/validation/t014-rule-proposal-document-review.json",
+        "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
+        "docs/00-project/validation/t013-reprotected-signer-owner-validation.json",
+        "docs/00-project/validation/t013-known-signer-copies-review.json",
+        "docs/03-development/t013-known-signer-copy-disposition.md",
+        "docs/03-development/t013-named-admin-adoption-checklist.md",
+        "docs/00-project/validation/t013-named-admin-adoption-preflight.json",
+        "docs/00-project/validation/t013-named-admin-adoption-progress.json",
+        "docs/00-project/validation/t013-owner-mfa-management-validation.json"
+      ],
+      "owner_recovery_subkey_validation_ref": "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
+      "latest_owner_key_progress": "A02—A06和四份已知旧导出归档/逻辑退役限定实核通过；第二介质暂无，MFA/真实身份恢复仍待"
     },
     {
       "task_id": "T014",
@@ -1122,6 +1167,122 @@
         {
           "path": "docs/03-development/t014-unified-permission-implementation.md",
           "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+        },
+        {
+          "path": "backend/business_app/permissions/role_facts.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_migrations/0007_role_facts.sql",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/business/test_t014_role_facts.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "docs/00-project/validation/t014-isolated-rule-progress.json",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/six_role.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/platform/test_t014_six_role.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/object_facts.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/conditional.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/business/test_t014_object_rules.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/duties.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/controls/approvals.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/controls/reviews.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/business/test_t014_duties.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/fence.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/context.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/db.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_migrations/0008_authorization_fence.sql",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/business/test_t014_revocation.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "docs/00-project/validation/t014-isolated-fence-report.json",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/work.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/permissions/work_subject.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/uploads/worker.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/uploads/messaging.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/controls/execution.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_app/controls/exports.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "backend/business_migrations/0009_work_role_facts.sql",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/business/test_t014_work.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "tests/platform/test_t014_work_trust.py",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
+        },
+        {
+          "path": "docs/00-project/validation/t014-isolated-work-report.json",
+          "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
         }
       ],
       "full_task_verification_refs": [],
@@ -1131,7 +1292,7 @@
       "current_remaining_work_snapshot": [
         {
           "category": "实施/外部条件",
-          "description": "六角色246格及条件、职责分离、2名独立批准人、候选TTL1800秒/撤销上限5秒已由用户确认为下一批隔离实现输入（PR01/02/04），未批准尚未形成的具体实施计划或启用规则。PR03正式分类、PR05共享采用、PR06本人A01—A10/真实恢复仍待；不能用文档或合成测试当正式ALLOW。",
+          "description": "P01—P06限定隔离代码/适用测试通过，P07继续。PR03/05/06及正式分类/用途/人员/工作委托/独立服务事实与共享采用仍待；T013实名MFA正向子范围已有实际回执，真实恢复、负向交接和整卡仍待。",
           "documented_progress": [
             {
               "id": "T014-R01-P01",
@@ -1143,20 +1304,29 @@
             },
             {
               "id": "T014-R01-P02",
-              "status": "OWNER_ACTIONS_DOCUMENTED_NOT_EXECUTED",
+              "status": "OWNER_KEY_AND_NAMED_MFA_SUBSCOPE_VERIFIED_REAL_IDENTITY_RESTORE_PENDING",
               "evidence_refs": [
-                "docs/03-development/t013-owner-action-checklist.md"
+                "docs/03-development/t013-owner-action-checklist.md",
+                "docs/00-project/validation/t013-owner-mfa-management-validation.json"
+              ]
+            },
+            {
+              "id": "T014-R01-P03",
+              "status": "PLAN_APPROVED_IMPLEMENTATION_IN_PROGRESS_NOT_COMPLETE",
+              "evidence_refs": [
+                "docs/03-development/t014-isolated-six-role-implementation-plan.md",
+                "docs/00-project/validation/t014-isolated-plan-review.json"
               ]
             }
           ]
         },
         {
           "category": "实施/验证",
-          "description": "现有42业务操作适用拒绝/目录撤销回归已测；具体规则的逐格允许/条件缺失/职责分离及正式版本、长任务提交竞态/撤销SLA仍需实现验证；31未挂载操作须按各自业务任务实现后回归，不把设计组合或资料检查当运行次数。"
+          "description": "P01—P06真实SQL、对象/审批、后台节点/交付、队列确认重试及六类最大5秒隔离观测通过；P07完整回归、扩展门禁和最终托管CI继续。该测量不是生产/广域网/Keycloak远端撤销SLA；31未挂载操作按后续业务任务实现。"
         },
         {
           "category": "任务记录",
-          "description": "徐昌胜为已确认开发负责人和指定复核人；本轮新方案未登记实际人工审阅/验收。实际工时/日期仍缺；资料检验和实现CI分别记录，不能用旧代码CI证明新规则已运行。"
+          "description": "徐昌胜为已确认开发负责人和指定复核人；PR01/02/04已获限定设计输入确认，新P01—P07计划已获确认，整任务验收仍未登记。实际工时/日期仍缺；资料检查和实现CI分别记录，旧CI不证明新规则已运行。"
         }
       ],
       "implementation_validation_report": "docs/00-project/validation/t014-permissions-report.json",
@@ -1165,7 +1335,12 @@
         "docs/08-security/t014-six-role-rule-proposal.md",
         "docs/08-security/t014-six-role-rule-proposal.json",
         "docs/03-development/t013-owner-action-checklist.md",
-        "docs/00-project/validation/t014-rule-proposal-document-review.json"
+        "docs/00-project/validation/t014-rule-proposal-document-review.json",
+        "docs/03-development/t014-isolated-six-role-implementation-plan.md",
+        "docs/03-development/t001-t123-development-sequence.md",
+        "docs/03-development/t001-t123-development-sequence.json",
+        "docs/00-project/validation/t014-isolated-plan-review.json",
+        "docs/00-project/validation/t014-isolated-rule-progress.json"
       ],
       "rule_proposal_confirmation": {
         "client_date": "2026-10-20",
@@ -1182,6 +1357,40 @@
         "shared_deployment_approved": false,
         "T013_owner_handover_accepted": false,
         "next_implementation_plan_approved": false
+      },
+      "next_isolated_implementation_plan": {
+        "path": "docs/03-development/t014-isolated-six-role-implementation-plan.md",
+        "status": "APPROVED_IMPLEMENTATION_IN_PROGRESS",
+        "execution_method": "current_session_direct_implementation_previously_selected",
+        "human_review_recorded": true,
+        "task_steps": [
+          "P01",
+          "P02",
+          "P03",
+          "P04",
+          "P05",
+          "P06",
+          "P07"
+        ],
+        "runtime_policy_adopted": false,
+        "approval": {
+          "date": "2026-10-20",
+          "source": "direct_user_reply_in_current_conversation",
+          "user_reply": "认可新计划，按P01—P07直接实施",
+          "decision": "APPROVED_ISOLATED_IMPLEMENTATION_PLAN",
+          "steps": [
+            "P01",
+            "P02",
+            "P03",
+            "P04",
+            "P05",
+            "P06",
+            "P07"
+          ],
+          "shared_installation_approved": false,
+          "T013_owner_handover_accepted": false,
+          "Python_candidates_deferred": true
+        }
       }
     },
     {
@@ -3908,6 +4117,209 @@
       "scope": "T013_T014_remaining_work_documentation_only",
       "actual_dates_or_effort_invented": false,
       "formal_approved": false
+    },
+    {
+      "date": "2026-10-20",
+      "scope": "T014_next_isolated_plan_and_authorized_T001_T123_sequence",
+      "user_scope_reply": "T124之前：T001—T123",
+      "implementation_plan_ref": "docs/03-development/t014-isolated-six-role-implementation-plan.md",
+      "completed_substeps_added": 0,
+      "remaining_work_closed": 0,
+      "actual_owner_operations_executed": false,
+      "Python_candidates_created": false
+    },
+    {
+      "date": "2026-10-20",
+      "scope": "T013_real_two_subkeys_and_same_USB_home_restore",
+      "evidence_ref": "docs/00-project/validation/t013-recovery-subkeys-owner-validation.json",
+      "completed_substeps_added": 1,
+      "remaining_groups_closed": 0,
+      "full_task_accepted": false
     }
-  ]
+  ],
+  "authorized_development_scope": {
+    "confirmed_date": "2026-10-20",
+    "source": "direct_user_reply_in_current_conversation",
+    "user_reply": "T124之前：T001—T123",
+    "task_ids": [
+      "T001",
+      "T002",
+      "T003",
+      "T004",
+      "T005",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T018",
+      "T019",
+      "T020",
+      "T021",
+      "T022",
+      "T023",
+      "T024",
+      "T025",
+      "T026",
+      "T027",
+      "T028",
+      "T029",
+      "T030",
+      "T031",
+      "T032",
+      "T033",
+      "T034",
+      "T035",
+      "T036",
+      "T037",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T043",
+      "T044",
+      "T045",
+      "T046",
+      "T047",
+      "T048",
+      "T049",
+      "T050",
+      "T051",
+      "T052",
+      "T053",
+      "T054",
+      "T055",
+      "T056",
+      "T057",
+      "T058",
+      "T059",
+      "T060",
+      "T061",
+      "T062",
+      "T063",
+      "T064",
+      "T065",
+      "T066",
+      "T067",
+      "T068",
+      "T069",
+      "T070",
+      "T071",
+      "T072",
+      "T073",
+      "T074",
+      "T075",
+      "T076",
+      "T077",
+      "T078",
+      "T079",
+      "T080",
+      "T081",
+      "T082",
+      "T083",
+      "T084",
+      "T085",
+      "T086",
+      "T087",
+      "T088",
+      "T089",
+      "T090",
+      "T091",
+      "T092",
+      "T093",
+      "T094",
+      "T095",
+      "T096",
+      "T097",
+      "T098",
+      "T099",
+      "T100",
+      "T101",
+      "T102",
+      "T103",
+      "T104",
+      "T105",
+      "T106",
+      "T107",
+      "T108",
+      "T109",
+      "T110",
+      "T111",
+      "T112",
+      "T113",
+      "T114",
+      "T115",
+      "T116",
+      "T117",
+      "T118",
+      "T119",
+      "T120",
+      "T121",
+      "T122",
+      "T123"
+    ],
+    "excluded_task_ids": [
+      "T124",
+      "T125",
+      "T126",
+      "T127",
+      "T128",
+      "T129",
+      "T130",
+      "T131",
+      "T132",
+      "T133",
+      "T134",
+      "T135",
+      "T136",
+      "T137",
+      "T138",
+      "T139",
+      "T140",
+      "T141",
+      "T142",
+      "T143",
+      "T144",
+      "T145",
+      "T146",
+      "T147",
+      "T148",
+      "T149",
+      "T150",
+      "T151",
+      "T152",
+      "T153",
+      "T154",
+      "T155",
+      "T156",
+      "T157",
+      "T158",
+      "T159",
+      "T160",
+      "T161",
+      "T162",
+      "T163",
+      "T164",
+      "T165",
+      "T166",
+      "T167",
+      "T168",
+      "T169",
+      "T170"
+    ],
+    "scope": "Development within T001-T123, actual dependencies and approved contracts; no completion assertion",
+    "implementation_critical_tests_and_CI_required": true,
+    "integrated_specialist_acceptance_may_be_separate": true,
+    "Python_candidates_deferred": true,
+    "formal_policy_or_shared_installation_approved": false,
+    "scope_extension_to_T164_approved": false
+  }
 }

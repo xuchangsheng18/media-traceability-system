@@ -1,8 +1,10 @@
 # T013 徐昌胜本人接管、密钥验证与恢复操作清单
 
-2026-10-20。适用同一单位内部 Linux／py310／CPU 研发。徐昌胜为开发负责人、身份管理员、密钥保管人及指定复核人。人员指定不代替实际登录、密码/MFA、签名、恢复或验收。本清单按当前实际文件和工具参数整理；**本轮没有替你执行私钥操作、创建实名账号、停服务或删除bootstrap。** Python 3.13/3.12候选继续暂缓。
+最新本人实核（2026-10-20）：A01—A06适用操作已完成，A07已完成批准配置和本人正向管理验证，错误OTP负向仍待，见两E恢复、第二轮新保护签名/新备份恢复、四份已知旧导出退役及[本人PKCE/MFA管理回执](../00-project/validation/t013-owner-mfa-management-validation.json)。不要重复已完成命令；下面保留步骤用于追溯。仍待第二独立介质、错误OTP适用负向验证、A08真实身份备份/隔离恢复、A09恢复后旧凭据失效与受控退役/回切、A10实际验收。复制命令时不要复制代码块首尾的三个反引号。
 
-先看顺序：**A01只读核对 → A02两把恢复子密钥解密 → A03从恢复私钥备份建立新home → A04签名密钥保护决定 → A05真实签名及精确验签 → A06签名备份恢复 → A07本人改密/MFA与管理工具 → A08真实身份备份/隔离恢复 → A09受控退役/回切 → A10实际复核登记。** A01—A03可先做；A04未改变原决定时，A05/A06的正式保护闭环保持未完成；A07涉及共享配置的显式写入须单独核对前置及确认范围，A08/A09目前不能直接执行。
+2026-10-20。适用同一单位内部Linux／py310／CPU研发。徐昌胜为开发负责人、身份管理员、密钥保管人及指定复核人。本人已操作并由实际公开状态和安全回执核实的项目按对应证据登记；人员指定不代替验收。四项共享身份采用有单独明确授权，bootstrap仍保留；Python3.13/3.12候选继续暂缓。
+
+顺序及当前状态：**A01公开核对 → A02两E解密 → A03恢复私钥备份新home → A04签名保护 → A05真实签名 → A06签名备份恢复 → A07本人改密/MFA和管理工具**已完成其中明确记录的正向子范围；A07错误OTP负向另列，四份已知旧导出已按明确授权退役。接下来是**A08真实身份备份/隔离恢复 → A09旧凭据失效与受控退役/回切 → A10实际复核登记**；第二独立介质暂无，后续共享恢复/退役仍需形成可审阅方案和实际批准。
 
 ## A01：只读核对位置和公开指纹（现在可操作）
 
@@ -23,7 +25,7 @@ foreach ($Required in @($Gpg, $GpgConf, $KeyHome,
     (Join-Path $KeyRoot 'public\recovery-recipient.asc'),
     (Join-Path $KeyRoot 'public\backup-signer.asc'),
     (Join-Path $KeyRoot 'private-backups\recovery-secret-backup.asc'),
-    (Join-Path $KeyRoot 'private-backups\backup-signer-secret.asc'))) {
+    (Join-Path $KeyRoot 'private-backups\backup-signer-secret-reprotected-cycle2-20261020.asc'))) {
     if (-not (Test-Path -LiteralPath $Required)) { throw "缺少文件或目录：$Required；停止" }
 }
 & $Gpg --version
@@ -111,61 +113,41 @@ Test-RecoverySubkeys -HomePath $RestoreHome -Prefix 'restored'
 
 必须在原home和恢复home分别看到两把子密钥的精确解密标记。此时仅证明**现有备份可导入新home并使用两把E子密钥**；第二个目录仍在同一物理U盘，不是独立介质/异地恢复，也不是Linux身份数据库恢复。独立介质尚未明确：后续需提供另一个实际受保护介质/设备路径，不能把G盘复制到G盘当异地完成。不得上传该新home、恢复私钥或原始吊销证书到Linux/GitHub。
 
-## A04：Linux签名密钥保护和旧副本（需要本人决定，当前暂缓）
+## A04：再次保护已完成结构实核，旧副本待处置
 
-实际签名口令曾出现在对话中，随后你选择保留原配置继续内部研发；本轮沿用这一决定，没有代输、改口令、吊销、删除或恢复已暂停的真实签名入口。当前脚本实际返回`SIGNING_SUSPENDED_OWNER_PROTECTION_CHANGE_AND_OLD_BACKUP_REVIEW_REQUIRED`并退出1，不能反复运行它期待成功。
+第一轮曾因实际新口令误输入终端确认位置而重新进入保护处理；A05在签名前停止。第二轮首次被取消后已只读核验活动密钥未变、无新导出。随后本人使用专用重试入口得到更换成功标记；助手已核验第二轮新导出、公钥完整指纹及保护结构，并以精确摘要复制到U盘新文件：`private-backups/backup-signer-secret-reprotected-cycle2-20261020.asc`。见[实际观察与历史边界](../00-project/validation/t013-reprotected-signer-owner-validation.json)。
 
-若选择完成正式保护闭环，可沿用已准备的交互更换脚本，由本人在SSH内部GPG口令框输入旧口令并设定**全新、非空、未出现在对话中的口令**；下面这条是条件步骤，当前暂缓决定未改变时不要执行：
+**A04不要再运行。** 原单次入口返回重复保护是正常行为；不删除标记、不覆盖旧输出、不重新生成密钥。此次仅证明活动保护已改变及新导出存在，仍由本人确认设置的是全新、非空、未发送过的口令。所有口令只在GPG框内输入，不在终端文字行/聊天中输入。
+
+已知副本包括Linux旧导出、U盘旧导出以及第一轮新保护导出；第二轮恢复实测前均保留隔离，后续明确处置。没有删除/覆盖这些副本，不宣称FAT32普通删除等于安全擦除。第二独立介质及整盘/容器加密继续保持原待落实边界。
+
+## A05：固定公开文字签名和精确验签（本人已完成，实核通过）
+
+2026-10-20本人已执行下列入口；助手在全新仅公钥home重验，正常退出0、篡改拒绝退出1，完整指纹匹配。以下命令保留作记录，不重复运行。
 
 ```powershell
-ssh -tt glwy@172.16.58.179 "bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/signer-protection-20261019T140715Z-2464a8/change-existing-signer-passphrase-once.sh"
+ssh -tt glwy@172.16.58.179 "bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/signer-protection-cycle2-20261020T033608Z-e63bec/test-reprotected-fixed-message.sh"
 ```
 
-成功时应出现`PASS_SIGNER_PASSPHRASE_CHANGE_AND_NEW_PROTECTED_EXPORT_STRUCTURE_ONLY`及`OLD_EXPORTS_STILL_REQUIRE_DISPOSITION_AND_NEW_BACKUP_RESTORE_TEST`。**仅该标记不代表真实签名、旧备份处置或独立恢复完成。** 新导出路径须由后续只读核验取得再传输并核对，不自行猜文件名。
+新入口只签固定无敏感测试文字，精确核验完整指纹、GPG退出状态及篡改拒绝；一般签名/旧入口仍暂停。成功应显示`PASS_REAL_REPROTECTED_SIGNER_FIXED_MESSAGE_EXACT_SIGNATURE_AND_TAMPER_REJECTION`。请只回报该标记和“已本人设置全新口令”；不发送口令、私钥或原始秘密日志。
 
-旧副本至少包括Linux的`identity-custody/private-backups/backup-signer-secret.asc`和U盘同名文件。更换活动口令不会改变它们；新备份实测前保留隔离，登记全部已知副本。后续明确重新加密/隔离/退役方式后才执行，不能无恢复保障地删除，也不能宣称FAT32普通删除等于安全擦除。备份导出在本地目录的保护方式和独立介质仍须落实。
+该结果不证明真实身份数据库恢复、旧副本退役、MFA接管或整体验收；助手还会核对实际签名与安全回执。
 
-## A05：真实签名和精确验签（A04之后，由本人操作）
+## A06：第二轮新保护备份恢复（本人已完成，限定实核通过）
 
-完成保护、新导出和公开指纹复核后，在自己的交互SSH终端操作。签名只针对A02的固定无敏感测试文字，不签真实业务结论；使用新独立验证目录，**不绕过之前暂停的签名脚本，不代输口令**。以下是后续技术步骤，当前A04未完成时不执行。
+已准备本机脚本：`D:\公安厅项目\修订成果\T013_第二轮新保护签名备份恢复验证_20261020.ps1`，已由本人实际执行并通过，助手已核验新home公开元数据、实际签名及独立仅公钥复验。它固定核对第二轮新备份和公钥摘要，在U盘新home导入、清空该home代理缓存，用公开测试文字签名，再用仅有公钥的另一home精确验签及测试篡改拒绝。口令仅由本人在GPG框内输入。以下命令保留作记录，不重复运行：
 
-```sh
-cd /workspace/glwy/projects/media-traceability-system
-umask 077
-SignerHome=/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg
-SignerFpr=C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D
-Probe=/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/gpg-public-probes-20261019T105539Z-9b130a/key-check.txt
-SignDir=$(mktemp -d /workspace/glwy/runtime/media-traceability-system/identity-custody/sign-test-XXXXXXXX) || exit 1
-export GPG_TTY=$(tty)
-case "${TERM:-dumb}" in ''|dumb) export TERM=xterm ;; esac
-gpgconf --homedir "$SignerHome" --kill gpg-agent || exit 1
-gpg --homedir "$SignerHome" --no-options --local-user "${SignerFpr}!" --armor --output "$SignDir/key-check.txt.asc" --detach-sign "$Probe" || exit 1
-mkdir -m 700 "$SignDir/public-verify" || exit 1
-gpg --homedir "$SignDir/public-verify" --no-options --import /workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc || exit 1
-gpg --homedir "$SignDir/public-verify" --no-options --status-fd 1 --verify "$SignDir/key-check.txt.asc" "$Probe" > "$SignDir/verify.status" || exit 1
-if ! grep -Eq "^\[GNUPG:\] VALIDSIG ${SignerFpr} " "$SignDir/verify.status"; then
-  echo SIGNER_FINGERPRINT_NOT_CONFIRMED
-  exit 1
-fi
-gpgconf --homedir "$SignerHome" --kill gpg-agent || exit 1
-echo PASS_REAL_SIGNER_DETACHED_SIGNATURE_AND_EXACT_VERIFICATION
-printf 'PUBLIC_TEST_DIRECTORY=%s\n' "$SignDir"
+```powershell
+& 'D:\公安厅项目\修订成果\T013_第二轮新保护签名备份恢复验证_20261020.ps1'
 ```
 
-必须同时满足GPG退出0和`VALIDSIG`完整指纹匹配，不能只看“Good signature”或名字。另做篡改测试时只复制该无敏感测试文字到新文件，修改后验签必须非0；不得修改原测试文字、私钥或业务文件。此成功标记仅证明测试签名，不证明旧备份已退役或身份数据恢复。
+成功标记为`PASS_NEW_PROTECTED_SIGNER_BACKUP_RESTORE_EXACT_SIGNATURE_AND_TAMPER_REJECTION`。若本机拒绝执行脚本，只回报错误文字，不修改全局执行策略。第一轮旧恢复脚本已暂停，不能误用来证明第二轮保护。
 
-## A06：签名私钥备份恢复与独立介质（需A04/A05成果）
+同U盘新home仅证明隔离目录恢复，仍不是第二独立介质/异地恢复；吊销材料可用性和真实身份数据恢复分别验证。旧导出在新备份实测及明确处置前保留，不普通覆盖或提前删除。不上传恢复home、恢复私钥或原始吊销证书到Linux/GitHub。
 
-1. 先只读核验A04新受保护导出的实际路径、公钥不变、保护结构、传输摘要；复制到U盘**新文件**，不覆盖旧备份。只复制受保护导出和公钥，不传口令。
-2. 在受保护离线介质上新建空GPG home，导入核验后的新备份；杀掉该新home自己的代理缓存后，用同一无敏感测试文字做签名，再在只有公钥的另一新home精确验证指纹及篡改拒绝。口令只由本人在本机GPG提示框输入；不把恢复home或明文私钥上传Linux。
-3. G盘内新目录只是隔离home验证；要登记独立介质恢复，还需另一实际介质/设备，以及核对副本摘要、重新导入/签名/验签证据。当前未确定第二介质，不预填路径或PASS。
-4. 恢复吊销材料只验证受保护副本的可读性与指纹，不把吊销证书导入活动home，也不为测试撤销仍在使用的密钥。若需要解封吊销材料，另提供不落明文/不激活的受控步骤，不能在FAT32留下原始吊销证书。
+## A07：实名管理员首次改密、MFA和工具接管（正向子范围通过，负向仍待）
 
-A06先等A04实际新导出路径再填精确命令，避免误用仍受旧口令保护的副本。不要自行执行历史`--export-secret-keys`覆写已有文件。
-
-## A07：实名管理员首次改密、MFA和工具接管（条件满足后由本人操作）
-
-管理账号登录名已确认 `xuchangsheng`；尚未证明已创建。Keycloak master管理员与六个业务角色无自动继承。先由助手只读检查共享现状、准入/配置前置和维护范围，再确认下列共享显式写入范围；这些`--apply`命令不是本次文档同步已经执行的动作。
+管理账号`xuchangsheng`已创建，本人首次改密/OTP和专用PKCE/MFA签名管理验证已由服务器回执核实；临时令牌文件已清理。不要再次创建账号或运行初始化。以下为操作时的步骤记录；错误OTP负向测试尚未登记，bootstrap未删除，Keycloak master管理员与六个业务角色无自动继承。
 
 1. **可信入口**。管理端口仅服务器回环，Windows保持下列隧道；本轮只读观察服务器公有CA SHA256为`2798c95c64f424d5ae6ac4e050e557794ad4bad04fe12f90ee05c79b4bf989db`，先按可信SSH来源重新核对再信任本人浏览器。只下载`identity/pki/ca.crt`，不下载`ca.key`；不关闭TLS校验。
 
@@ -188,7 +170,7 @@ A06先等A04实际新导出路径再填精确命令，避免误用仍受旧口�
 3. **明确采用后**。先`handover master-protection --apply`，再`handover prepare --username xuchangsheng --apply`。工具本人交互隐藏输入临时密码并确认，14—128字符；不把密码放入参数/环境变量/聊天。master弱/歧义策略或已有账号时停止人工核查，不能重试覆盖。成功返回`account_prepared=true`只说明初始化，不是本人接管。
 4. **本人浏览器**。访问`https://localhost:18444/admin/master/console/`，首次登录修改临时密码，绑定本人设备的OTP。新私密会话验证密码单独不能取得授权、错误OTP拒绝、正确OTP成功；不要共享二维码种子、一次性验证码、恢复码、cookie或管理令牌，不连续快速负测导致锁定后再误判正向失败。
 5. **管理工具**。执行`python -m scripts.identity.management setup --apply`（使用上面锁定Python），再执行`python -m scripts.identity.management login --apply --username xuchangsheng`。在本人可信浏览器打开终端给出的授权URL完成MFA；URL含一次性会话参数，勿贴聊天。工具返回Git外`session_file`路径后，执行`python -m scripts.identity.management inspect --session-file 实际私密路径`。这里的“实际私密路径”须替换成工具刚返回的路径，不是令牌内容；过期重登，失败不回退bootstrap。
-6. 只有`signed_mfa_management_session=true`、本人首次动作完成及负向验证证据齐全，才能分别登记“本人管理会话已验证”。bootstrap仍存在时如实登记，不标整卡完成。当前300秒管理会话不因权限方案审批TTL建议改变。
+6. 本人首次动作和`signed_mfa_management_session=true`实际回执可以登记对应正向子范围；错误OTP和仅密码拒绝仍需单列负向证据，不能登记A07全部验收。bootstrap仍存在时如实登记，不标整卡完成。当前300秒管理会话不因权限方案审批TTL建议改变。
 
 准确CLI参数见[管理工具替代](t013-bootstrap-management-replacement.md)和[身份运维手册](../10-deployment/keycloak-identity-runbook.md)。当前阶段不要先删除bootstrap。
 
@@ -220,6 +202,10 @@ A06先等A04实际新导出路径再填精确命令，避免误用仍受旧口�
 
 不发送口令、验证码、MFA种子、私钥、原始吊销证书、会话文件内容或敏感截图。成功标记只是本人反馈；仍需实际文件/公开状态核验，不能直接当所有步骤完成。完成A02/A03后可安全弹出U盘，不自动删除检查目录或备份；新home也含私钥材料，需要本人一并保管登记。
 
-当前T013保持8条已验证子步骤、3条剩余工作；本清单只是R01/R02内的具体操作准备，不增加真实密钥验证完成数。T014规则方案见[六角色具体方案](../08-security/t014-six-role-rule-proposal.md)，当前分步导航与机器台账同源。
+当前T013为13条已验证子步骤、3条剩余工作；C09为两E解密及同U盘恢复，C10为第二轮保护和真实签名，C11为新签名备份同U盘恢复。C12为旧导出双E归档实际解密及四份已知副本限定逻辑退役；C13为实名管理员/本人首次改密及OTP、专用PKCE/签名MFA管理与临时令牌文件清理。第二独立介质暂无；真实身份数据恢复、旧凭据失效及共享退役/回切仍待，整卡未验收。T014规则方案见[六角色具体方案](../08-security/t014-six-role-rule-proposal.md)，当前分步导航与机器台账同源。
 
 命令依据：[GnuPG精确指纹和`!`选择](https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html)、[GnuPG 2.5.24状态协议DETAILS](https://github.com/gpg/gnupg/blob/gnupg-2.5.24/doc/DETAILS)、[Keycloak临时管理员退出](https://www.keycloak.org/server/bootstrap-admin-recovery)。这些技术说明不批准本项目的共享采用或正式业务规则。
+
+最新旧副本状态：本人明确授权的四份已知旧导出已限定逻辑退役，详见[精确清单与边界](t013-known-signer-copy-disposition.md)。第二独立介质本人回复暂无；A01—A07适用操作已完成，不要求重复；继续准备A08/A09。
+
+A07当前实际：四项精确范围已获本人批准并采用；首次改密/OTP及专用签名管理会话已验证，详见[实际采用进度](../00-project/validation/t013-named-admin-adoption-progress.json)和[本人回执](../00-project/validation/t013-owner-mfa-management-validation.json)。A01—A07已完成的动作不重复执行；A08/A09及错误OTP适用拒绝验证分别安排。

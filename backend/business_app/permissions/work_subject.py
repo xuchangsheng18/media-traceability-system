@@ -36,6 +36,7 @@ def validate_execution_subject(subject: ExecutionSubject) -> None:
         or not isinstance(subject.identity_id, UUID)
         or not isinstance(subject.work_id, UUID)
         or not valid_key(subject.mapping_version, 1024)
+        or not isinstance(subject.work_kind, str)
         or subject.work_kind not in WORK_TABLES
     ):
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)

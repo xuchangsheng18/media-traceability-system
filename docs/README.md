@@ -1,6 +1,6 @@
 # 项目文档导航
 
-T014本批实现：[统一权限实施与验收对照](03-development/t014-unified-permission-implementation.md)、[接口/单位/案件矩阵](08-security/t014-interface-scope-matrix.md)、[测试设计实际状态](09-testing/t014-authorization-test-design.md)、[42操作专项](00-project/validation/t014-permissions-report.json)、[完整回归](00-project/validation/t014-full-regression-report.json)、[最新CI](00-project/validation/t014-implementation-ci-report.json)。开发负责人和指定复核人徐昌胜。统一入口、受限事实查询、明确策略边界及当前42操作适用回归已实测；31未挂载操作、正式策略/T013真实交接和共享采用仍待，T014未整卡验收。
+T014本批实现：[统一权限实施与验收对照](03-development/t014-unified-permission-implementation.md)、[已批准P01—P07计划](03-development/t014-isolated-six-role-implementation-plan.md)、[当前逐项实测进度](00-project/validation/t014-isolated-rule-progress.json)、[接口/单位/案件矩阵](08-security/t014-interface-scope-matrix.md)。开发负责人和指定复核人徐昌胜。完整角色、246格规则、对象条件与独立人员审批P01—P04已隔离实测；P01—P06隔离规则/事务/后台重验已实测，P07全量/门禁/交付进行中。42已挂载/31未挂载不变，未启用共享正式策略，T014未整卡验收；旧CI报告只证明其精确历史源码。
 
 [N01当前：剩余准入与具体确认清单](03-development/native-n01-admission-decisions.md)；当前不制作正式外发运行包，软件准入未批准。
 
@@ -18,9 +18,9 @@ T014本批实现：[统一权限实施与验收对照](03-development/t014-unifi
 
 T011/T012身份底座：[本批设计](03-development/t012-identity-relations-design.md)、[数据库关系与补充字典](04-database/identity-relations.md)、[实际验证与研发库](00-project/validation/t012-identity-relations-report.json)。
 
-T013身份系统：[本批密钥保护进展](03-development/t013-signer-protection-followup.md)、[结构核验与待办](00-project/validation/t013-signer-protection-progress-report.json)、[管理工具替代及退役准备](03-development/t013-bootstrap-management-replacement.md)、[身份运维手册](10-deployment/keycloak-identity-runbook.md)、[重启与恢复验证](03-development/t013-recovery-validation.md)、[22项状态](00-project/validation/t013-keycloak-acceptance-ledger.json)。签名公钥/受保护私钥备份已复制到U盘、加密吊销副本结构和摘要通过；已暴露口令按最新要求暂保留配置，保护/旧副本处置、真实签名/两子密钥解密/独立恢复、本人MFA和共享采用未完成。
+T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[711条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有90条已验证子步骤、621条剩余工作；全局编号0001—0711。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[722条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有101条已验证子步骤、621条剩余工作；全局编号0001—0722。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -422,7 +422,27 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
-| [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作、对象/用途条件、职责冲突及策略/撤销建议；待审方案，未变成运行ALLOW。 |
+| [09-testing/t014-isolated-operation-coverage.md](<09-testing/t014-isolated-operation-coverage.md>) | 73操作逐项区分42挂载/31未挂载、实际组件证据及HTTP允许边界；完整当前修订验证状态另列，246格不当HTTP通过数。 |
+| [09-testing/t014-isolated-operation-coverage.json](<09-testing/t014-isolated-operation-coverage.json>) | 每操作的方法/路径/41权限/六角色条件、实际测试ID、正例/拒绝及未实现条件；保留证据源码范围。 |
+| [00-project/validation/t014-isolated-work-report.json](<00-project/validation/t014-isolated-work-report.json>) | P06提交后76项、39项针对性与质量结果、真实队列/节点/交付及六类三次稳定拒绝测量；非正式服务身份或生产SLA。 |
+| [00-project/validation/t014-isolated-validation-report.json](<00-project/validation/t014-isolated-validation-report.json>) | P07当前完整回归、门禁/类型/资料检查及中断历史；未完成的执行窗口和最终CI保持真实状态。 |
+| [00-project/validation/t014-isolated-ci-report.json](<00-project/validation/t014-isolated-ci-report.json>) | 按精确提交记录托管身份/engineering、清单摘要失败和修复后结果；最终回执CI未核时不写通过。 |
+| [04-database/authorization-fence-extension.md](<04-database/authorization-fence-extension.md>) | 0007完整角色、0008授权代际表6字段及0009精确工作身份查询；64表849字段适用版本、函数/锁/恢复/真实委托及未共享采用边界。 |
+| [00-project/validation/t014-isolated-fence-report.json](<00-project/validation/t014-isolated-fence-report.json>) | P05精确代码提交的99项隔离测试、原失败历史及SQL升级/实际备份恢复；不包含P06后台工作或正式撤销SLA。 |
+| [03-development/t014-isolated-six-role-implementation-plan.md](<03-development/t014-isolated-six-role-implementation-plan.md>) | PR01/02/04下一批P01—P07：可信完整角色、对象条件、独立人员、审批TTL及撤销栅栏；具体计划已确认，实际实施/测试结果单列，未共享采用。 |
+| [03-development/t001-t123-development-sequence.md](<03-development/t001-t123-development-sequence.md>) | 用户确认T001—T123开发范围、逐项依赖及分批顺序；综合专项测试后置、实现必要测试保留，T092依赖T164不删除。 |
+| [03-development/t001-t123-development-sequence.json](<03-development/t001-t123-development-sequence.json>) | 全部123项授权范围、源/候选依赖、台账子范围与未完成计数；不是实际可执行性或完成证明。 |
+| [00-project/validation/t014-isolated-plan-review.json](<00-project/validation/t014-isolated-plan-review.json>) | 计划编制时的覆盖/接口/引用历史核查及随后批准记录；当前逐项执行结果另见isolated-rule-progress，不将历史CI当作新代码验证。 |
+| [00-project/validation/t014-isolated-rule-progress.json](<00-project/validation/t014-isolated-rule-progress.json>) | P01—P07实际完成项、精确源码提交、隔离测试数量、失败历史和质量检查；未执行项和共享采用单列。 |
+| [03-development/t013-named-admin-adoption-checklist.md](<03-development/t013-named-admin-adoption-checklist.md>) | 本人明确批准的四项精确采用范围、采用前历史预检、当前CA/账号/专用MFA配置和实际管理回执；bootstrap仍保留。 |
+| [03-development/t013-known-signer-copy-disposition.md](<03-development/t013-known-signer-copy-disposition.md>) | 两种旧导出的双E归档实际解密及本人授权四份精确文件逻辑退役；保留现用密钥/新备份，不证明安全擦除或第二介质。 |
+| [00-project/validation/t013-known-signer-copies-review.json](<00-project/validation/t013-known-signer-copies-review.json>) | 旧导出加密归档摘要、实际解密及四份精确旧副本限定退役观察；不收录私钥或口令。 |
+| [00-project/validation/t013-recovery-subkeys-owner-validation.json](<00-project/validation/t013-recovery-subkeys-owner-validation.json>) | 本人原home及同U盘恢复home的两把精确E子密钥实际解密、状态与明文摘要核查；不是第二独立介质。 |
+| [00-project/validation/t013-reprotected-signer-owner-validation.json](<00-project/validation/t013-reprotected-signer-owner-validation.json>) | 第二轮口令保护、真实固定消息签名/篡改拒绝、新保护备份同U盘恢复及失败历史；不含秘密。 |
+| [00-project/validation/t013-named-admin-adoption-preflight.json](<00-project/validation/t013-named-admin-adoption-preflight.json>) | 明确采用前的只读身份配置/本机CA预检历史快照；当前采用结果另见adoption-progress和本人管理回执。 |
+| [00-project/validation/t013-named-admin-adoption-progress.json](<00-project/validation/t013-named-admin-adoption-progress.json>) | 批准四项身份配置采用后的实际观察及本人首次改密/OTP状态；签名管理会话由单独实际回执证明。 |
+| [00-project/validation/t013-owner-mfa-management-validation.json](<00-project/validation/t013-owner-mfa-management-validation.json>) | 本人真实密码/OTP与PKCE/nonce/签名管理校验、配置检查及临时令牌文件清理；不含网址/令牌，未关闭真实恢复与bootstrap退役。 |
+| [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作及对象/用途条件；PR01/02/04已确认隔离实现输入，PR03/05/06仍待，未变成运行ALLOW。 |
 | [08-security/t014-six-role-rule-proposal.json](<08-security/t014-six-role-rule-proposal.json>) | 六角色逐格候选值、完整条件、契约摘要及PR01—PR06待决项；不是活动策略配置。 |
 | [03-development/t013-owner-action-checklist.md](<03-development/t013-owner-action-checklist.md>) | 徐昌胜本人A01—A10：公开核对、两子密钥解密/备份恢复、签名保护、MFA及共享恢复前置；明确现在可做和暂不能做。 |
 | [00-project/validation/t014-rule-proposal-document-review.json](<00-project/validation/t014-rule-proposal-document-review.json>) | 六角色提案和本人清单的实际资料/语法/来源/导航检查；不冒充规则运行测试或本人操作。 |
@@ -434,8 +454,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t014-gate-execution-report.json](<00-project/validation/t014-gate-execution-report.json>) | T014专项门禁与受控失败探针的实际退出状态；失败必须阻止通过。 |
 | [00-project/validation/t014-implementation-validation-report.json](<00-project/validation/t014-implementation-validation-report.json>) | 本批格式/类型、输入/文档/导航/排期、12份原件及旧锁/旧迁移保全的实际检查，不代替整任务验收。 |
 | [00-project/validation/t014-implementation-ci-report.json](<00-project/validation/t014-implementation-ci-report.json>) | 当前T014实现提交的托管CI状态、实际检查和制品源码绑定；在途/失败保持实际结论。 |
-| [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | T013真实密钥备份复制及吊销副本结构、暴露口令和旧副本待处置；保留现有配置的最新决定，不当真实签名/恢复通过。 |
-| [00-project/validation/t013-signer-protection-progress-report.json](<00-project/validation/t013-signer-protection-progress-report.json>) | T013本批受保护导出/加密吊销副本结构与摘要、未改口令/未处置旧副本、未签名/解密/恢复的真实状态。 |
+| [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | 早期密钥保护问题与后续处理入口；当前第二轮保护、实际签名/恢复及旧导出处置以新增精确实际回执为准。 |
+| [00-project/validation/t013-signer-protection-progress-report.json](<00-project/validation/t013-signer-protection-progress-report.json>) | 早期备份/吊销副本结构与摘要历史快照；当前保护、签名、解密/恢复及旧副本退役另见新实际回执。 |
 | [03-development/t013-bootstrap-management-replacement.md](<03-development/t013-bootstrap-management-replacement.md>) | T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。 |
 | [00-project/validation/t013-bootstrap-management-report.json](<00-project/validation/t013-bootstrap-management-report.json>) | 本批管理工具替代、真实隔离MFA/撤销/退役/重启、私密候选及原文件不变的验证；保留失败记录和未验范围。 |
 | [00-project/validation/t013-bootstrap-management-ci-report.json](<00-project/validation/t013-bootstrap-management-ci-report.json>) | 本批精确源码提交的托管CI、两份实际制品摘要及源码映射核对；不能代替整任务验收。 |
@@ -570,7 +590,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1168份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1188份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -661,7 +681,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内711条执行事项逐条编号：90条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内722条执行事项逐条编号：101条已验证子步骤、621条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1206,9 +1226,15 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t013-keycloak-acceptance-ledger.json](<00-project/validation/t013-keycloak-acceptance-ledger.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-design-review.json](<00-project/validation/t013-keycloak-design-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-keycloak-execution-report.json](<00-project/validation/t013-keycloak-execution-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-known-signer-copies-review.json](<00-project/validation/t013-known-signer-copies-review.json>) | 旧导出加密归档摘要、实际解密及四份精确旧副本限定退役观察；不收录私钥或口令。 |
+| [00-project/validation/t013-named-admin-adoption-preflight.json](<00-project/validation/t013-named-admin-adoption-preflight.json>) | 明确采用前的只读身份配置/本机CA预检历史快照；当前采用结果另见adoption-progress和本人管理回执。 |
+| [00-project/validation/t013-named-admin-adoption-progress.json](<00-project/validation/t013-named-admin-adoption-progress.json>) | 批准四项身份配置采用后的实际观察及本人首次改密/OTP状态；签名管理会话由单独实际回执证明。 |
+| [00-project/validation/t013-owner-mfa-management-validation.json](<00-project/validation/t013-owner-mfa-management-validation.json>) | 本人真实密码/OTP与PKCE/nonce/签名管理校验、配置检查及临时令牌文件清理；不含网址/令牌，未关闭真实恢复与bootstrap退役。 |
 | [00-project/validation/t013-recovery-ci-report.json](<00-project/validation/t013-recovery-ci-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-recovery-code-review.json](<00-project/validation/t013-recovery-code-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-recovery-report.json](<00-project/validation/t013-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/t013-recovery-subkeys-owner-validation.json](<00-project/validation/t013-recovery-subkeys-owner-validation.json>) | 本人原home及同U盘恢复home的两把精确E子密钥实际解密、状态与明文摘要核查；不是第二独立介质。 |
+| [00-project/validation/t013-reprotected-signer-owner-validation.json](<00-project/validation/t013-reprotected-signer-owner-validation.json>) | 第二轮口令保护、真实固定消息签名/篡改拒绝、新保护备份同U盘恢复及失败历史；不含秘密。 |
 | [00-project/validation/t013-role-assignment.json](<00-project/validation/t013-role-assignment.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-rotation-fault/baseline.json](<00-project/validation/t013-rotation-fault/baseline.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-rotation-fault/collector-red.json](<00-project/validation/t013-rotation-fault/collector-red.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1221,7 +1247,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t013-rotation-fault/review-record.json](<00-project/validation/t013-rotation-fault/review-record.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-rotation-fault/slow-body-red.json](<00-project/validation/t013-rotation-fault/slow-body-red.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-rotation-fault-report.json](<00-project/validation/t013-rotation-fault-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
-| [00-project/validation/t013-signer-protection-progress-report.json](<00-project/validation/t013-signer-protection-progress-report.json>) | T013本批受保护导出/加密吊销副本结构与摘要、未改口令/未处置旧副本、未签名/解密/恢复的真实状态。 |
+| [00-project/validation/t013-signer-protection-progress-report.json](<00-project/validation/t013-signer-protection-progress-report.json>) | 早期备份/吊销副本结构与摘要历史快照；当前保护、签名、解密/恢复及旧副本退役另见新实际回执。 |
 | [00-project/validation/t013-token-validation-report.json](<00-project/validation/t013-token-validation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t014-dependency-regression-report.json](<00-project/validation/t014-dependency-regression-report.json>) | 当前源码Linux py310既有业务及令牌测试真实重跑、分组计数及精确SHA；非T014全量权限验证。 |
 | [00-project/validation/t014-full-regression-report.json](<00-project/validation/t014-full-regression-report.json>) | 本批完整业务、T014入口及T013令牌适用回归的真实计数、失败ID和源码快照；原始日志不公开。 |
@@ -1229,6 +1255,12 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t014-implementation-ci-report.json](<00-project/validation/t014-implementation-ci-report.json>) | 当前T014实现提交的托管CI状态、实际检查和制品源码绑定；在途/失败保持实际结论。 |
 | [00-project/validation/t014-implementation-code-review.json](<00-project/validation/t014-implementation-code-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t014-implementation-validation-report.json](<00-project/validation/t014-implementation-validation-report.json>) | 本批格式/类型、输入/文档/导航/排期、12份原件及旧锁/旧迁移保全的实际检查，不代替整任务验收。 |
+| [00-project/validation/t014-isolated-ci-report.json](<00-project/validation/t014-isolated-ci-report.json>) | 按精确提交记录托管身份/engineering、清单摘要失败和修复后结果；最终回执CI未核时不写通过。 |
+| [00-project/validation/t014-isolated-fence-report.json](<00-project/validation/t014-isolated-fence-report.json>) | P05精确代码提交的99项隔离测试、原失败历史及SQL升级/实际备份恢复；不包含P06后台工作或正式撤销SLA。 |
+| [00-project/validation/t014-isolated-plan-review.json](<00-project/validation/t014-isolated-plan-review.json>) | 计划编制时的覆盖/接口/引用历史核查及随后批准记录；当前逐项执行结果另见isolated-rule-progress，不将历史CI当作新代码验证。 |
+| [00-project/validation/t014-isolated-rule-progress.json](<00-project/validation/t014-isolated-rule-progress.json>) | P01—P07实际完成项、精确源码提交、隔离测试数量、失败历史和质量检查；未执行项和共享采用单列。 |
+| [00-project/validation/t014-isolated-validation-report.json](<00-project/validation/t014-isolated-validation-report.json>) | P07当前完整回归、门禁/类型/资料检查及中断历史；未完成的执行窗口和最终CI保持真实状态。 |
+| [00-project/validation/t014-isolated-work-report.json](<00-project/validation/t014-isolated-work-report.json>) | P06提交后76项、39项针对性与质量结果、真实队列/节点/交付及六类三次稳定拒绝测量；非正式服务身份或生产SLA。 |
 | [00-project/validation/t014-permissions-report.json](<00-project/validation/t014-permissions-report.json>) | T014精确源码摘要、42操作四类拒绝、必需SQL/撤销/真实资源回归及31未挂载清单；不证明正式ALLOW。 |
 | [00-project/validation/t014-preparation-ci-observation.json](<00-project/validation/t014-preparation-ci-observation.json>) | 上一批导航CI实际失败及候选输入摘要过期原因、修复与重验范围；不冒充本轮托管通过。 |
 | [00-project/validation/t014-preparation-validation-report.json](<00-project/validation/t014-preparation-validation-report.json>) | T014准备材料逐项操作/来源摘要/引用/人员/状态一致性检查；不是业务权限测试通过。 |
@@ -1570,6 +1602,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-two-readiness.md](<03-development/stage-two-readiness.md>) | 23步实际开发状态和未完成的正式条件。 |
 | [03-development/t001-t011-foundation-review.md](<03-development/t001-t011-foundation-review.md>) | 截至2026-10-17的T001—T011逐项完成和剩余清单：28条已验证子步骤、25条剩余；附最新CI、治理查询及历史验收对照，整任务未关闭。 |
 | [03-development/t001-t012-closeout.md](<03-development/t001-t012-closeout.md>) | 说明文档：T001—T012逐项收口与原生环境变更；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/t001-t123-development-sequence.json](<03-development/t001-t123-development-sequence.json>) | 全部123项授权范围、源/候选依赖、台账子范围与未完成计数；不是实际可执行性或完成证明。 |
+| [03-development/t001-t123-development-sequence.md](<03-development/t001-t123-development-sequence.md>) | 用户确认T001—T123开发范围、逐项依赖及分批顺序；综合专项测试后置、实现必要测试保留，T092依赖T164不删除。 |
 | [03-development/t011-access-model-implementation.md](<03-development/t011-access-model-implementation.md>) | T002/T010本批依赖、T011四项实施、测试证据与剩余条件；不关闭整任务或正式冻结。 |
 | [03-development/t012-identity-relations-design.md](<03-development/t012-identity-relations-design.md>) | 身份提供方与内部用户映射、同单位案件关系、稳定键、软禁用、撤销、管理/查询分权及正式接入边界。 |
 | [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
@@ -1578,18 +1612,22 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t013-bootstrap-management-replacement.md](<03-development/t013-bootstrap-management-replacement.md>) | T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。 |
 | [03-development/t013-keycloak-identity-design.md](<03-development/t013-keycloak-identity-design.md>) | 说明文档：T013 项目自建 Keycloak 身份系统完整设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-keycloak-implementation-plan.md](<03-development/t013-keycloak-implementation-plan.md>) | 说明文档：T013 Keycloak Identity Implementation Plan；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/t013-known-signer-copy-disposition.md](<03-development/t013-known-signer-copy-disposition.md>) | 两种旧导出的双E归档实际解密及本人授权四份精确文件逻辑退役；保留现用密钥/新备份，不证明安全擦除或第二介质。 |
+| [03-development/t013-named-admin-adoption-checklist.md](<03-development/t013-named-admin-adoption-checklist.md>) | 本人明确批准的四项精确采用范围、采用前历史预检、当前CA/账号/专用MFA配置和实际管理回执；bootstrap仍保留。 |
 | [03-development/t013-owner-action-checklist.md](<03-development/t013-owner-action-checklist.md>) | 徐昌胜本人A01—A10：公开核对、两子密钥解密/备份恢复、签名保护、MFA及共享恢复前置；明确现在可做和暂不能做。 |
 | [03-development/t013-recovery-validation.md](<03-development/t013-recovery-validation.md>) | 说明文档：T013：重启、历史凭据审查与恢复回切验证；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-rotation-fault-validation.md](<03-development/t013-rotation-fault-validation.md>) | 说明文档：T013：密钥轮换、故障拒绝与CI补齐；结合正文的状态、来源和适用范围阅读。 |
-| [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | T013真实密钥备份复制及吊销副本结构、暴露口令和旧副本待处置；保留现有配置的最新决定，不当真实签名/恢复通过。 |
+| [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | 早期密钥保护问题与后续处理入口；当前第二轮保护、实际签名/恢复及旧导出处置以新增精确实际回执为准。 |
 | [03-development/t013-token-validation.md](<03-development/t013-token-validation.md>) | 说明文档：T013 第一批：访问令牌核验与身份映射；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-dependency-and-scope-review.md](<03-development/t014-dependency-and-scope-review.md>) | T014本批依赖源码/摘要/当前回归与历史CI适用边界，三项准备完成；整任务未验收。 |
+| [03-development/t014-isolated-six-role-implementation-plan.md](<03-development/t014-isolated-six-role-implementation-plan.md>) | PR01/02/04下一批P01—P07：可信完整角色、对象条件、独立人员、审批TTL及撤销栅栏；具体计划已确认，实际实施/测试结果单列，未共享采用。 |
 | [03-development/t014-unified-permission-design.md](<03-development/t014-unified-permission-design.md>) | 说明文档：T014 统一权限接入设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-unified-permission-implementation-plan.md](<03-development/t014-unified-permission-implementation-plan.md>) | 说明文档：T014 统一权限代码与回归实施计划；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t014-unified-permission-implementation.md](<03-development/t014-unified-permission-implementation.md>) | T014统一权限代码、0006最小权限事实查询、42操作适用回归、源验收逐项对照及正式策略/31未挂载操作/真实交接边界。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
+| [04-database/authorization-fence-extension.md](<04-database/authorization-fence-extension.md>) | 0007完整角色、0008授权代际表6字段及0009精确工作身份查询；64表849字段适用版本、函数/锁/恢复/真实委托及未共享采用边界。 |
 | [04-database/authorization-isolation-prototype.md](<04-database/authorization-isolation-prototype.md>) | 隔离RLS/案件单位/撤销/结果追加真实原型与可信中间件、共享角色和特权绕过边界；非62表部署。 |
 | [04-database/data-dictionary.md](<04-database/data-dictionary.md>) | 数据字典：逐表逐字段的类型、约束、含义与精确来源。 |
 | [04-database/database-design-references.md](<04-database/database-design-references.md>) | 本轮查阅的PostgreSQL/OpenAPI/JSON Schema官方机制及采用方式。 |
@@ -1692,7 +1730,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [08-security/t014-interface-scope-matrix.json](<08-security/t014-interface-scope-matrix.json>) | 73操作、41权限、6角色、实际路由与数据范围的来源摘要附表；候选职责不当正式ALLOW。 |
 | [08-security/t014-interface-scope-matrix.md](<08-security/t014-interface-scope-matrix.md>) | 接口权限、单位/案件矩阵和实际检查入口/缺口；已挂载不等于授权完成。 |
 | [08-security/t014-six-role-rule-proposal.json](<08-security/t014-six-role-rule-proposal.json>) | 六角色逐格候选值、完整条件、契约摘要及PR01—PR06待决项；不是活动策略配置。 |
-| [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作、对象/用途条件、职责冲突及策略/撤销建议；待审方案，未变成运行ALLOW。 |
+| [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作及对象/用途条件；PR01/02/04已确认隔离实现输入，PR03/05/06仍待，未变成运行ALLOW。 |
 | [09-testing/acceptance-criteria.md](<09-testing/acceptance-criteria.md>) | 交付判定口径和不能省略的证据。 |
 | [09-testing/acceptance-execution-configuration.md](<09-testing/acceptance-execution-configuration.md>) | 24项实际样本/版本/资源/负载/目标/人员配置与NOT_EVALUABLE缺项，READY也不是验收成绩。 |
 | [09-testing/acceptance-execution-inputs.json](<09-testing/acceptance-execution-inputs.json>) | 24协议待填实际执行配置；正式目标和环境保持null，按Schema及适用指标检查。 |
@@ -1704,6 +1742,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [09-testing/stage-two-representative-validation.md](<09-testing/stage-two-representative-validation.md>) | 21项隔离中文、11项VFR媒体、6组运维交付检查与物料采集的实际命令/断言和未测范围。 |
 | [09-testing/t014-authorization-test-design.json](<09-testing/t014-authorization-test-design.json>) | 逐73操作的异常权限测试计划、场景适用范围和432组角色默认拒绝参数；均为设计数量。 |
 | [09-testing/t014-authorization-test-design.md](<09-testing/t014-authorization-test-design.md>) | 22类权限场景与已有适用测试的对应、部分覆盖及未挂载边界；432为设计组合数，不当运行通过数。 |
+| [09-testing/t014-isolated-operation-coverage.json](<09-testing/t014-isolated-operation-coverage.json>) | 每操作的方法/路径/41权限/六角色条件、实际测试ID、正例/拒绝及未实现条件；保留证据源码范围。 |
+| [09-testing/t014-isolated-operation-coverage.md](<09-testing/t014-isolated-operation-coverage.md>) | 73操作逐项区分42挂载/31未挂载、实际组件证据及HTTP允许边界；完整当前修订验证状态另列，246格不当HTTP通过数。 |
 | [09-testing/task-test-scenarios.yaml](<09-testing/task-test-scenarios.yaml>) | 各任务的验证场景，不等同已实现测试程序。 |
 | [09-testing/test-scenarios.yaml](<09-testing/test-scenarios.yaml>) | 业务功能正常与异常场景。 |
 | [09-testing/test-strategy.md](<09-testing/test-strategy.md>) | 测试层级、数据、环境和执行策略。 |

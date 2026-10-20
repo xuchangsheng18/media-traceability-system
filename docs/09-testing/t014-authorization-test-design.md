@@ -1,5 +1,7 @@
 # T014 未认证、无权限、撤销和越权测试设计
 
+当前新增P01—P06的实际SQL、独立人员、事务栅栏、后台/交付及六类隔离测量见[逐操作清单](t014-isolated-operation-coverage.md)和[工作回执](../00-project/validation/t014-isolated-work-report.json)；P07当前完整回归/CI状态见[精确CI](../00-project/validation/t014-isolated-ci-report.json)。本文件原22行及旧证据保留各自历史范围，不把旧未覆盖说明或旧PASS当作新源码结论。
+
 2026-10-20；徐昌胜负责。本文件保留22类测试设计并登记当前实测边界。当前42操作四类拒绝和真实资源canary、SQL权限/撤销、范围与旧游标/回执回归已执行；[专项报告](../00-project/validation/t014-permissions-report.json)与[完整回归](../00-project/validation/t014-full-regression-report.json)保存实际数量和源码。历史[依赖回归](../00-project/validation/t014-dependency-regression-report.json)仍保留，不能代替本批结果。机器覆盖清单见[JSON](t014-authorization-test-design.json)，配套[权限与数据范围矩阵](../08-security/t014-interface-scope-matrix.md)。
 
 ## 测试夹具与断言口径

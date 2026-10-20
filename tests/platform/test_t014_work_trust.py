@@ -113,3 +113,11 @@ def test_noop_work_port_cannot_open_an_unfenced_business_path():
             side_effects.append("business write would run")
     assert denied.value.http_status == 503
     assert side_effects == []
+
+
+@pytest.mark.parametrize("kind", [[], {}, set()])
+def test_malformed_work_kind_is_a_registered_denial(kind):
+    _, subject, _, _, _, trust = trust_fixture()
+    with pytest.raises(BusinessError) as denied:
+        trust.read(replace(subject, work_kind=kind))
+    assert (denied.value.code, denied.value.http_status) == ("AUTHORITY_SCOPE_INVALID", 503)

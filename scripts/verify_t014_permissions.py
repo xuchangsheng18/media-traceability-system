@@ -21,6 +21,15 @@ TARGETS = [
     "tests/platform/test_t014_gate.py",
     "tests/business/test_t014_permissions.py",
     "tests/business/test_t014_runtime.py",
+    "tests/platform/test_t014_six_role.py",
+    "tests/platform/test_t014_work_trust.py",
+    "tests/business/test_t014_role_facts.py",
+    "tests/business/test_t014_object_rules.py",
+    "tests/business/test_t014_duties.py",
+    "tests/business/test_t014_revocation.py",
+    "tests/business/test_t014_work.py",
+    "tests/business/test_migrations.py::test_empty_database_migrates_and_replay_noops",
+    "tests/business/test_migrations.py::test_work_role_facts_upgrade_is_atomic_and_function_only",
 ]
 ROLES = json.loads((ROOT / "docs/08-security/access-control-model.json").read_text(encoding="utf8"))["roles"]
 REQUIRED_CASES = frozenset(
@@ -73,6 +82,74 @@ REQUIRED_CASES = frozenset(
     ]
 )
 
+# Independent confirmed-input names: a shortened pytest selection must not retain
+# a green gate after dropping any of the 246 cells or the new work/fence proofs.
+RULE_INPUT = json.loads((ROOT / "docs/08-security/t014-six-role-rule-proposal.json").read_text(encoding="utf8"))
+ISOLATED_REQUIRED_CASES = frozenset(
+    [
+        (
+            "tests.platform.test_t014_six_role",
+            f"test_all_246_cells_match_confirmed_input[{row['permission']}-{role}-{cell['condition_ref']}]",
+        )
+        for row in RULE_INPUT["permissions"]
+        for role, cell in row["cells"].items()
+    ]
+    + [
+        ("tests.platform.test_t014_six_role", "test_nonmatching_role_still_triggers_conflict"),
+        ("tests.platform.test_t014_work_trust", "test_noop_work_port_cannot_open_an_unfenced_business_path"),
+        ("tests.business.test_t014_role_facts", "test_all_active_roles_include_nonmatching_permission_role"),
+        (
+            "tests.business.test_t014_object_rules",
+            "test_missing_classification_or_authoritative_purpose_is_unavailable",
+        ),
+        ("tests.business.test_t014_object_rules", "test_policy_list_SQL_scope_and_cursor_follow_current_role_kind"),
+        ("tests.business.test_t014_duties", "test_two_subjects_or_two_users_for_same_person_count_once"),
+        ("tests.business.test_t014_duties", "test_approval_expiry_at_1800_seconds_is_invalid"),
+        ("tests.business.test_t014_duties", "test_real_current_executor_change_invalidates_without_deleting_votes"),
+        ("tests.business.test_t014_revocation", "test_revoke_committed_before_fence_blocks_business_commit"),
+        ("tests.business.test_t014_revocation", "test_business_commit_before_revoke_is_ordered_and_audited"),
+        ("tests.business.test_t014_revocation", "test_actual_restored_database_needs_fresh_independent_generation"),
+        ("tests.business.test_t014_work", "test_missing_work_port_rejects_before_broker_or_published_receipt"),
+        (
+            "tests.business.test_t014_work",
+            "test_upload_work_rechecks_live_facts_and_rolls_back_uncommitted_result[terminal_replay]",
+        ),
+        (
+            "tests.business.test_t014_work",
+            "test_upload_work_rechecks_live_facts_and_rolls_back_uncommitted_result[service_after_store]",
+        ),
+        ("tests.business.test_t014_work", "test_node_finish_and_export_delivery_revalidate[node]"),
+        ("tests.business.test_t014_work", "test_node_finish_and_export_delivery_revalidate[export]"),
+    ]
+    + [
+        ("tests.business.test_migrations", f"test_work_role_facts_upgrade_is_atomic_and_function_only[{case}]")
+        for case in ["False", "True"]
+    ]
+    + [
+        ("tests.business.test_t014_work", f"test_work_directory_rejects_excessive_runtime_privilege[{role}]")
+        for role in ["pg_signal_backend", "pg_checkpoint"]
+    ]
+    + [
+        (
+            "tests.business.test_t014_revocation",
+            f"test_committed_revocation_rejects_new_requests_within_five_seconds[{kind}-{code}]",
+        )
+        for kind, code in [
+            ("identity", 401),
+            ("role", 403),
+            ("membership", 404),
+            ("permission", 403),
+            ("policy", 503),
+            ("database", 503),
+        ]
+    ]
+)
+REQUIRED_CASES = REQUIRED_CASES | ISOLATED_REQUIRED_CASES
+REQUIRED_CASES = REQUIRED_CASES | frozenset(
+    ("tests.platform.test_t014_work_trust", f"test_malformed_work_kind_is_a_registered_denial[kind{index}]")
+    for index in range(3)
+)
+
 
 def validate_results(junit: Path, operation_ids: set[str]) -> dict[str, Any]:
     from scripts.verify_business_foundation import test_totals
@@ -120,6 +197,7 @@ def source_context() -> dict[str, Any]:
         ROOT / "docs/03-api/openapi.yaml",
         ROOT / "docs/08-security/access-control-model.json",
         ROOT / "docs/08-security/t014-interface-scope-matrix.json",
+        ROOT / "docs/08-security/t014-six-role-rule-proposal.json",
         ROOT / "config/locks/requirements-py310.lock",
     ]
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -133,6 +211,7 @@ def source_context() -> dict[str, Any]:
             "docs/03-api/openapi.yaml",
             "docs/08-security/access-control-model.json",
             "docs/08-security/t014-interface-scope-matrix.json",
+            "docs/08-security/t014-six-role-rule-proposal.json",
         ],
         cwd=ROOT,
         text=True,
