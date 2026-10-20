@@ -194,3 +194,26 @@ python scripts/validate_stage_three.py
 - [x] 源任务只增加本批有证据的开发子范围；T016-R01正式规则及密钥保管、R02所有真实消费者／前端、R03共享采用与联调、R04实际工时／本人复核和整任务验收继续逐项登记，不因内核通过一并关闭。
 
 D03的AuditExport公共差异、删除／解封、组织模型发布及各自业务生产器不在该最小子批内自动完成。正式共享采用、真实身份和真实数据仍待各自条件；它们与当前隔离实现／测试可以并行推进，不能笼统写成“正式环境缺条件，所以T016全部代码无法继续”。
+
+## CI执行容量修复补充（2026-10-21）
+
+实际运行 [39486654709](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39486654709) 的源码为 `be81352ad23bcc714e15f23fefbde26b8e0d55a7`。已下载并核对平台制品摘要：business611、T014713、T015131、T016187、identity332均零失败／错误／跳过，`ci-all`34项实际检查全部通过。但单个engineering作业在继续执行原有 `validate_stage_three.py --runtime`（包含再次执行完整 `dev.py test`）时达到90分钟；GitHub明确返回“maximum execution time of 1h30m0s”。整体结论为取消，不能登记整体CI通过，T015独立故障探针及资源配额检查尚未执行。
+
+这项修复属于本页P05的CI执行接入范围，只调整验证作业边界；全部原命令、断言、独立故障探针、原100包锁及单个执行作业90分钟上限保持。原 `run_ci.py`34命令及第三阶段运行验证13项保持原文件内容，不通过删除重复验证或延长时限取得通过。
+
+| 作业 | 实际执行范围与依赖 |
+| --- | --- |
+| `identity-verification` | 继续调用原身份工作流，原45分钟上限不变。 |
+| `foundation-verification` | 身份作业成功后，在独立托管机器准备原锁定环境及自建PG／Rabbit；原材料、类型、原生准备、T011、完整business和T014／故障探针逐项执行。上限90分钟。 |
+| `engineering-execution` | 身份作业成功后，另一个独立托管机器准备相同原锁定环境及自建PG／Rabbit；原34命令、CI故障探针、秘密检查、完整第三阶段runtime、T015独立故障探针及cgroup检查逐项执行。runtime与其构建的PoC栈仍在同一机器。上限90分钟。 |
+| `engineering` | 保留必需检查名称；`if: always()`且依赖上述三个作业。仅三个实际结果全部为success时通过，任意failure／cancelled／skipped均失败。不得continue-on-error。 |
+
+两个执行作业只使用GitHub托管隔离机器、各自RUNNER_TEMP与默认Docker上下文，不能指向Linux共享目录或共享Docker。不同机器之间不共享数据库、令牌、临时运行栈或测试权威适配器。此调整不改变main保护配置。
+
+制品按作业／run／attempt区分：foundation是business及T014权威来源；execution是ci-all、T015、T016及第三阶段runtime权威来源；identity继续使用原独立制品。始终上传部分结果供排错，但必须以当前源码、实际成功步骤和制品摘要确认新结果。execution重复执行后产生的business报告不能覆盖foundation权威报告；checkout带入的旧报告不能计入本轮。
+
+- [x] CI01：新增布局与真实Shell结果组合测试，先在原布局实际RED，覆盖任意失败／取消／跳过不能通过必需检查。原67项RED后转GREEN；进一步80项制品测试实际发现漏传与未来时间戳3项失败。
+- [x] CI02：只调整 `.github/workflows/ci.yml` 作业边界与制品归属，保留全部原验证命令；修复后的80项新检查及52项原开发入口测试共132项GREEN，零失败／错误／跳过。原运行脚本及锁文件字节核验见进度回执。
+- [ ] CI03：更新本页、已有任务进度与导航，核对制品归属和源码摘要后同步；执行新CI，按实际结果登记，不能复用本次取消运行作为未来整体通过。
+
+该补充不新增业务完成子项；T016仍为4项已验证、4组剩余，正式规则、真实消费者、共享采用及实际复核分别待落实。Python候选继续暂缓。

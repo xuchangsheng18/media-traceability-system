@@ -57,3 +57,11 @@ python -m pytest tests/business/test_remaining_contracts.py::test_runtime_openap
 修订后的定向 GREEN job `8889f55ee91a4d938c7fcc67fe748384` 已于 2026-10-20 19:45:32.717019—19:46:22.856690 UTC 实际执行完成，退出码 0：上述 2 项均通过，0 个失败、0 个错误、0 个跳过；Ruff lint、Ruff format 和 mypy 三项也均通过。安全结果保存在 `_work/t014-rule-test-8889f55ee91a4d938c7fcc67fe748384.json`，源码基线仍为 `672b321f47d686765d3024d4a984244685061f6a`，并绑定本批修订的工作树摘要。
 
 这 2 项定向 GREEN 不表示完整 611 项通过。修订后的完整 business 回归及新提交对应的托管 CI 尚待验证；实际后续状态统一见[本批开发进度](../00-project/validation/t016-development-progress.json)。本节记录回归基线修订，不扩展上节 `container_build_executed=false` 的局部验证范围。
+
+## 后续实际构建与作业超时（2026-10-21）
+
+后续源码 `be81352ad23bcc714e15f23fefbde26b8e0d55a7` 的 [CI 39486654709](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39486654709) 已实际完成34项主工程检查，包含真实Linux容器构建、PoC联调和恢复检查；business611、T014713、T015131、T016187及身份332的本次制品均为零失败／错误／跳过。平台ZIP摘要、精确源码及报告内容已核对，安全报告完整保存在[进度回执](../00-project/validation/t016-development-progress.json)的 `prior_hosted_core_report_evidence`。上文“未执行容器构建”仅描述此前Windows布局实验，不能据此忽略后续真实构建证据。
+
+该运行的整个workflow最终为 `cancelled`：34项主工程检查完成后，原有第三阶段runtime重新执行完整 `dev.py test`；单个作业达到原90分钟上限，GitHub提供明确超时注记。因此T015独立故障探针、资源配额检查及整体workflow通过仍未取得，不能用主工程检查通过替代整体CI通过。
+
+CI修复只拆分原作业边界；全部命令、第三阶段runtime13项及每个执行作业90分钟时限保持。新增真实Shell结果组合、制品归属和旧／未来报告拒绝测试，先实际RED，再在Linux隔离环境132项GREEN（包括52项原开发入口测试）；Ruff lint／format通过。必需的 `engineering` 名称保留，只有身份、foundation和execution三个作业全部成功才能通过。新布局及后续托管运行仍按[实施计划CI补充](t016-operation-token-implementation-plan.md#ci执行容量修复补充2026-10-21)及进度记录核验，当前不预填未来结果。
