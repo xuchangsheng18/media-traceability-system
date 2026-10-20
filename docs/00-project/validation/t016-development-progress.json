@@ -1,7 +1,7 @@
 {
   "task_id": "T016",
   "status": "ISOLATED_KERNEL_VERIFIED_HOSTED_CI_SEPARATE",
-  "observed_at": "2026-10-20T19:39:44.395146+00:00",
+  "observed_at": "2026-10-20T19:51:47.407794+00:00",
   "implementation_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
   "environment": "Linux / Miniforge Python3.10.22 / CPU / isolated PostgreSQL16",
   "actual_development_owner": "徐昌胜",
@@ -169,17 +169,30 @@
   "plan_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
   "source_commit_note": "Full implementation commit and exact final source hashes are populated from actual clean gate report; no self-referential commit is invented.",
   "latest_hosted_ci_observation": {
-    "source_commit": "672b321f47d686765d3024d4a984244685061f6a",
-    "run_id": 39484982992,
-    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39484982992",
-    "status": "pending",
+    "source_commit": "be81352ad23bcc714e15f23fefbde26b8e0d55a7",
+    "run_id": 39486654709,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39486654709",
+    "status": "in_progress",
     "conclusion": null,
-    "observed_at": "2026-10-20T19:39:44.395146+00:00",
-    "latest_polled_phase": "queued/pending; no job result for this source yet",
+    "observed_at": "2026-10-20T19:51:47.407794+00:00",
+    "jobs": [
+      {
+        "name": "identity-verification / identity-integration",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Recreate original locked py310 runtime",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      }
+    ],
     "new_T016_code_result_asserted": false,
-    "previous_checkpoint_identity_PASS_not_reused_as_this_source_PASS": true,
+    "actual_full_reports_required_before_HOSTED_PASS": true,
     "receipt_followup_changes_only_validation_manifest_and_source_receipt": true,
-    "workflow_paths_ignore_means_receipt_followup_does_not_claim_its_own_CI": true
+    "receipt_followup_paths_ignored_by_workflow_not_self_CI_accepted": true
   },
   "active_final_gate_job": {
     "job": "f4985f97b8f4419dbb61d83640425899",
@@ -259,6 +272,26 @@
       "changed_files": 183,
       "manifest_files_verified": 2174,
       "manifest_sha256": "62936e4a50749a1e9ed82963572856ab8ed0a0747c24d73e7d03549e6e1511c2",
+      "tracked_source_clean": true,
+      "git_worktree_clean": false,
+      "preexisting_IDE_directory_preserved": true,
+      "IDE_file_count": 7,
+      "IDE_content_unchanged_during_sync": true,
+      "IDE_files_written_or_removed_by_this_sync": false,
+      "shared_services_restarted": false,
+      "shared_database_migrated": false,
+      "shared_identity_or_permission_policy_adopted": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false
+    },
+    {
+      "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+      "observed_at": "2026-10-20T19:48:59.515452+00:00",
+      "source_commit": "be81352ad23bcc714e15f23fefbde26b8e0d55a7",
+      "previous_server_commit": "672b321f47d686765d3024d4a984244685061f6a",
+      "changed_files": 9,
+      "manifest_files_verified": 2174,
+      "manifest_sha256": "aeb3e39f0a9489382fdd5ec2263d263db9f77dcd0bcaedb463f7853dbdb5b9df",
       "tracked_source_clean": true,
       "git_worktree_clean": false,
       "preexisting_IDE_directory_preserved": true,
@@ -367,6 +400,19 @@
       ],
       "stale_other_uploaded_PASS_reports_not_reused": true,
       "interpretation": "Workflow cancellation does not erase the actual 611-test business result with 2 assertion failures."
+    },
+    {
+      "source_commit": "672b321f47d686765d3024d4a984244685061f6a",
+      "run_id": 39484982992,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39484982992",
+      "status": "pending",
+      "conclusion": null,
+      "observed_at": "2026-10-20T19:39:44.395146+00:00",
+      "latest_polled_phase": "queued/pending; no job result for this source yet",
+      "new_T016_code_result_asserted": false,
+      "previous_checkpoint_identity_PASS_not_reused_as_this_source_PASS": true,
+      "receipt_followup_changes_only_validation_manifest_and_source_receipt": true,
+      "workflow_paths_ignore_means_receipt_followup_does_not_claim_its_own_CI": true
     }
   ],
   "unchanged_stable_inputs": {
@@ -978,13 +1024,27 @@
     "scope": "Actual isolated snapshot at the recorded time; later metadata wording and CI receipts receive fresh drift checks, not implied by this earlier run"
   },
   "final_source_delivery": {
-    "source_commit": "672b321f47d686765d3024d4a984244685061f6a",
     "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
-    "task_and_navigation_changes_delivered": true,
+    "observed_at": "2026-10-20T19:48:59.515452+00:00",
+    "source_commit": "be81352ad23bcc714e15f23fefbde26b8e0d55a7",
+    "previous_server_commit": "672b321f47d686765d3024d4a984244685061f6a",
+    "changed_files": 9,
     "manifest_files_verified": 2174,
-    "shared_database_migrated": false,
+    "manifest_sha256": "aeb3e39f0a9489382fdd5ec2263d263db9f77dcd0bcaedb463f7853dbdb5b9df",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
     "shared_services_restarted": false,
-    "preview_still_separate_immutable_source": true
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "task_and_navigation_changes_delivered": true,
+    "preview_still_separate_immutable_source": true,
+    "source_only_not_shared_adoption": true
   },
   "future_user_decisions_before_formal_adoption": [
     {
@@ -1116,5 +1176,12 @@
       "status": "INTERRUPTED_NOT_A_FULL_RESULT",
       "reason": "SIGINT exact private pytest child, fixture cleanup completed; replaced with focused RED and then unchanged complete suite."
     }
+  },
+  "current_full_business_native_job": {
+    "job": "7a2ff60710c749df979b5c1264efe4d6",
+    "source_commit": "be81352ad23bcc714e15f23fefbde26b8e0d55a7",
+    "command": "python -m pytest tests/business -q --tb=short --junitxml PRIVATE_PATH",
+    "status": "RUNNING_NOT_ASSERTED_PASS",
+    "shared_source_or_services_modified": false
   }
 }
