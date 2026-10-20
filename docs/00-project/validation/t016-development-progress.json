@@ -1,7 +1,7 @@
 {
   "task_id": "T016",
   "status": "ISOLATED_KERNEL_VERIFIED_HOSTED_CI_SEPARATE",
-  "observed_at": "2026-10-20T19:26:29.035922+00:00",
+  "observed_at": "2026-10-20T19:39:44.395146+00:00",
   "implementation_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
   "environment": "Linux / Miniforge Python3.10.22 / CPU / isolated PostgreSQL16",
   "actual_development_owner": "徐昌胜",
@@ -156,7 +156,7 @@
     }
   ],
   "remaining": [
-    "Latest hosted CI, final task/navigation receipt and source synchronization must be recorded independently of native gates",
+    "After two legacy baseline assertion fixes, run unchanged full business suite and latest exact-source hosted CI; never reuse older PASS artifacts.",
     "formal token TTL and independent HMAC key custody/adoption",
     "real consumer action authority/delegation and role-separation decision",
     "real seal/report/delete/unseal/model consumers and frontend integration; AuditExport public contract separately reviewed",
@@ -169,39 +169,17 @@
   "plan_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
   "source_commit_note": "Full implementation commit and exact final source hashes are populated from actual clean gate report; no self-referential commit is invented.",
   "latest_hosted_ci_observation": {
-    "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
-    "run_id": 39478665682,
-    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39478665682",
-    "status": "in_progress",
+    "source_commit": "672b321f47d686765d3024d4a984244685061f6a",
+    "run_id": 39484982992,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39484982992",
+    "status": "pending",
     "conclusion": null,
-    "observed_at": "2026-10-20T19:03:50.492701+00:00",
-    "latest_polled_phase": "engineering environment preparation",
+    "observed_at": "2026-10-20T19:39:44.395146+00:00",
+    "latest_polled_phase": "queued/pending; no job result for this source yet",
     "new_T016_code_result_asserted": false,
-    "identity_report_evidence": [
-      {
-        "name": "t013-identity-ci-report.json",
-        "sha256": "33f5bb72424afbf43f81902b6b4d1ecbea0dda83b642ce6a43b7b5fbebc97246",
-        "status": "PASS",
-        "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
-        "exact_run_source": true,
-        "totals": {
-          "tests": 332,
-          "failures": 0,
-          "errors": 0,
-          "skipped": 0
-        },
-        "checks": 0,
-        "failed_checks": []
-      }
-    ],
-    "artifact_digests": [
-      {
-        "id": 12291188284,
-        "name": "t013-identity-validation-39478665682",
-        "zip_sha256": "114f6dd9c891fe442352461e351e48c39ff4e54266586a4fe2ce00dbb8d802e3",
-        "platform_digest_matches": true
-      }
-    ]
+    "previous_checkpoint_identity_PASS_not_reused_as_this_source_PASS": true,
+    "receipt_followup_changes_only_validation_manifest_and_source_receipt": true,
+    "workflow_paths_ignore_means_receipt_followup_does_not_claim_its_own_CI": true
   },
   "active_final_gate_job": {
     "job": "f4985f97b8f4419dbb61d83640425899",
@@ -272,6 +250,26 @@
       "shared_identity_or_permission_policy_adopted": false,
       "Python_candidates_created": false,
       "formal_accepted": false
+    },
+    {
+      "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+      "observed_at": "2026-10-20T19:37:07.514714+00:00",
+      "source_commit": "672b321f47d686765d3024d4a984244685061f6a",
+      "previous_server_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+      "changed_files": 183,
+      "manifest_files_verified": 2174,
+      "manifest_sha256": "62936e4a50749a1e9ed82963572856ab8ed0a0747c24d73e7d03549e6e1511c2",
+      "tracked_source_clean": true,
+      "git_worktree_clean": false,
+      "preexisting_IDE_directory_preserved": true,
+      "IDE_file_count": 7,
+      "IDE_content_unchanged_during_sync": true,
+      "IDE_files_written_or_removed_by_this_sync": false,
+      "shared_services_restarted": false,
+      "shared_database_migrated": false,
+      "shared_identity_or_permission_policy_adopted": false,
+      "Python_candidates_created": false,
+      "formal_accepted": false
     }
   ],
   "historical_hosted_ci_observations": [
@@ -294,6 +292,81 @@
       "failed_command": "python scripts/poc_control.py build",
       "cause": "frontend Docker build omits shared-contracts/generated/business-api type declarations",
       "new_T016_code_result_asserted": false
+    },
+    {
+      "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+      "run_id": 39478665682,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39478665682",
+      "status": "in_progress",
+      "conclusion": null,
+      "observed_at": "2026-10-20T19:39:44.395146+00:00",
+      "latest_polled_phase": "engineering full isolated business verifier still in progress at final source delivery",
+      "new_T016_code_result_asserted": false,
+      "identity_report_evidence": [
+        {
+          "name": "t013-identity-ci-report.json",
+          "sha256": "33f5bb72424afbf43f81902b6b4d1ecbea0dda83b642ce6a43b7b5fbebc97246",
+          "status": "PASS",
+          "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+          "exact_run_source": true,
+          "totals": {
+            "tests": 332,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "checks": 0,
+          "failed_checks": []
+        }
+      ],
+      "artifact_digests": [
+        {
+          "id": 12291188284,
+          "name": "t013-identity-validation-39478665682",
+          "zip_sha256": "114f6dd9c891fe442352461e351e48c39ff4e54266586a4fe2ce00dbb8d802e3",
+          "platform_digest_matches": true
+        }
+      ]
+    },
+    {
+      "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+      "run_id": 39478665682,
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39478665682",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "observed_at": "2026-10-20T19:47:21.313462+00:00",
+      "engineering_business_step": "FAIL",
+      "business_evidence": {
+        "name": "business-foundation-report.json",
+        "sha256": "ed5480d829d8e71be3fd5500f90211466e6978e89240a4a8665c1925a4b5455d",
+        "status": "FAIL",
+        "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+        "exact_run_source": true,
+        "totals": {
+          "tests": 611,
+          "failures": 2,
+          "errors": 0,
+          "skipped": 0
+        },
+        "checks": 0,
+        "failed_checks": []
+      },
+      "artifact_digests": [
+        {
+          "id": 12292648359,
+          "name": "py310-validation-39478665682",
+          "zip_sha256": "ba1091ba8760e0e0014be0def4c0818475150a538fd0a3a5192c5d115239a258",
+          "platform_digest_matches": true
+        },
+        {
+          "id": 12291188284,
+          "name": "t013-identity-validation-39478665682",
+          "zip_sha256": "114f6dd9c891fe442352461e351e48c39ff4e54266586a4fe2ce00dbb8d802e3",
+          "platform_digest_matches": true
+        }
+      ],
+      "stale_other_uploaded_PASS_reports_not_reused": true,
+      "interpretation": "Workflow cancellation does not erase the actual 611-test business result with 2 assertion failures."
     }
   ],
   "unchanged_stable_inputs": {
@@ -903,5 +976,145 @@
       "tasks/testing/T124.md": "1a03cffcfea9f05cd0af9a91a29cc1c4b55934982d18a124b475d550eda9beb4"
     },
     "scope": "Actual isolated snapshot at the recorded time; later metadata wording and CI receipts receive fresh drift checks, not implied by this earlier run"
+  },
+  "final_source_delivery": {
+    "source_commit": "672b321f47d686765d3024d4a984244685061f6a",
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "task_and_navigation_changes_delivered": true,
+    "manifest_files_verified": 2174,
+    "shared_database_migrated": false,
+    "shared_services_restarted": false,
+    "preview_still_separate_immutable_source": true
+  },
+  "future_user_decisions_before_formal_adoption": [
+    {
+      "id": "R01_TTL_AND_ROLES",
+      "required_before": "real consumer integration/adoption",
+      "details": "Confirm token TTL/current authorization window, requester/confirmer/executor separation, any scoped delegation and revocation; synthetic action facts do not authorize a real person."
+    },
+    {
+      "id": "R01_HMAC_CUSTODY",
+      "required_before": "shared deployment",
+      "details": "Choose independent HMAC custody, key_id and recovery generation/rotation process; supply only private configuration path, never secret material in chat or Git."
+    },
+    {
+      "id": "R03_SHARED_MIGRATION",
+      "required_before": "0011 shared/preview adoption",
+      "details": "Confirm backup/recovery evidence and migration/rollback maintenance window; source delivery is not service adoption."
+    },
+    {
+      "id": "R04_ACTUAL_REVIEW",
+      "required_before": "whole task closure",
+      "details": "Actual review by Xu Changsheng and remaining effort/source-task acceptance; role assignment is not review."
+    }
+  ],
+  "broad_regression_baseline_fix": {
+    "status": "TWO_EXPECTATION_FAILURES_REPRODUCED_AND_FIXED_FULL_REGRESSION_PENDING",
+    "original_hosted_business_evidence": {
+      "name": "business-foundation-report.json",
+      "sha256": "ed5480d829d8e71be3fd5500f90211466e6978e89240a4a8665c1925a4b5455d",
+      "status": "FAIL",
+      "source_commit": "1b76a46ad52d9f67f549ee59da685ab79e6b9265",
+      "exact_run_source": true,
+      "totals": {
+        "tests": 611,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "checks": 0,
+      "failed_checks": []
+    },
+    "red": {
+      "status": "EXPECTED_RED",
+      "source_base_commit": "672b321f47d686765d3024d4a984244685061f6a",
+      "working_delta_sha256": {
+        "docs/00-project/repository-file-manifest.json": "abc8ad9ffb708e0f5f39f488175d84b9bf33fa2620d43b5392fb4af3d92eabdf",
+        "docs/00-project/server-sync-receipt.json": "8736d90a00e144ade0fa7a3a151ca5137be915db3c819fd7a3210cd9d31d6b41",
+        "docs/00-project/validation/t016-development-progress.json": "f9ec4c8543576b2bc20403fa41ec46acc7954efa6f71b807cac74c8f32a58076"
+      },
+      "command": "python -m pytest tests/business/test_remaining_contracts.py::test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations tests/business/test_t015_scope_owner.py::test_non_super_owner_metadata_port_and_runtime_acl -q --tb=short --junitxml PRIVATE_PATH",
+      "started_at": "2026-10-20T19:43:54.266897+00:00",
+      "completed_at": "2026-10-20T19:44:35.200835+00:00",
+      "python": "3.10.22",
+      "totals": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "quality_checks": [],
+      "failure_test_ids": [
+        {
+          "classname": "tests.business.test_remaining_contracts",
+          "name": "test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations",
+          "kind": "failures"
+        },
+        {
+          "classname": "tests.business.test_t015_scope_owner",
+          "name": "test_non_super_owner_metadata_port_and_runtime_acl",
+          "kind": "failures"
+        }
+      ],
+      "safe_observation_sha256": "2f39a9fd32ebd14edffc2ae8f2457d9fed976759bb927698a4cc4a141efa49ae"
+    },
+    "green": {
+      "status": "PASS",
+      "source_base_commit": "672b321f47d686765d3024d4a984244685061f6a",
+      "working_delta_sha256": {
+        "docs/00-project/repository-file-manifest.json": "abc8ad9ffb708e0f5f39f488175d84b9bf33fa2620d43b5392fb4af3d92eabdf",
+        "docs/00-project/server-sync-receipt.json": "8736d90a00e144ade0fa7a3a151ca5137be915db3c819fd7a3210cd9d31d6b41",
+        "docs/00-project/validation/t016-development-progress.json": "8b85c4de3785de70039dd713ff27efe4d94605c2fa84874e193319be03bdbf07",
+        "tests/business/test_remaining_contracts.py": "4c800eb9737fa2eadaa860536c7feee3c3259972e4847cf9e15015ac5415fa1b",
+        "tests/business/test_t015_scope_owner.py": "110dfb4d411665ff872972cb9842a1e895ad7f65e78776a4005d9d5bad8fb5fd"
+      },
+      "command": "python -m pytest tests/business/test_remaining_contracts.py::test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations tests/business/test_t015_scope_owner.py::test_non_super_owner_metadata_port_and_runtime_acl -q --tb=short --junitxml PRIVATE_PATH",
+      "started_at": "2026-10-20T19:45:32.717019+00:00",
+      "completed_at": "2026-10-20T19:46:22.856690+00:00",
+      "python": "3.10.22",
+      "totals": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "quality_checks": [
+        {
+          "name": "ruff_lint",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "ruff_format",
+          "exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "name": "mypy",
+          "exit_code": 0,
+          "status": "PASS"
+        }
+      ],
+      "failure_test_ids": [],
+      "safe_observation_sha256": "7aed590e22ec1b7f781a2bdb179207d8b02505caa227579d4c73000fa406e746"
+    },
+    "files": [
+      "tests/business/test_remaining_contracts.py",
+      "tests/business/test_t015_scope_owner.py"
+    ],
+    "changes": [
+      "Assert 43 external operations including issueOperationToken, exactly one internalInference and total44; preserve all schema/request/security assertions.",
+      "Expect exactly migrations0001 through0011 for the real non-superuser owner; preserve role/ACL/runtime-denial assertions."
+    ],
+    "test_or_gate_deleted_or_skipped": false,
+    "CI_timeouts_or_scope_reduced": false,
+    "kernel_or_public_contract_changed_by_this_fix": false,
+    "full_business_suite_after_fix": "PENDING",
+    "diagnostic_full_run_interrupted": {
+      "job": "bc807c40a9d94c3ab383ce85a9f4f667",
+      "completed_tests": 21,
+      "status": "INTERRUPTED_NOT_A_FULL_RESULT",
+      "reason": "SIGINT exact private pytest child, fixture cleanup completed; replaced with focused RED and then unchanged complete suite."
+    }
   }
 }

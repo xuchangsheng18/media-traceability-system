@@ -82,7 +82,22 @@ def test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations(
     c = control_context
     spec = c["control_http"].get("/openapi.json").json()
     operations = {op["operationId"] for methods in spec["paths"].values() for op in methods.values()}
-    assert len(operations) == 43 and "getApproval" in operations and "internalInference" in operations
+    external_operations = {
+        op["operationId"]
+        for path, methods in spec["paths"].items()
+        if path.startswith("/api/v1/")
+        for op in methods.values()
+    }
+    internal_operations = {
+        op["operationId"]
+        for path, methods in spec["paths"].items()
+        if path.startswith("/internal/")
+        for op in methods.values()
+    }
+    assert len(external_operations) == 43
+    assert {"getApproval", "issueOperationToken"} <= external_operations
+    assert internal_operations == {"internalInference"}
+    assert operations == external_operations | internal_operations and len(operations) == 44
     assert "devLogin" not in operations and "rolloutModel" not in operations and "requestFeedback" not in operations
     assert len(spec["components"]["schemas"]) == 102
     assert (
