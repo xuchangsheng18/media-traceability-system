@@ -25,7 +25,7 @@ def scalar(connection, query):
 
 
 def test_empty_database_migrates_and_replay_noops(database_dsn):
-    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004", "0005", "0006"]
+    assert migrate(database_dsn) == ["0001", "0002", "0003", "0004", "0005", "0006", "0007"]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
         assert (
@@ -96,7 +96,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             assert scalar(connection, "SELECT to_regclass('mt.user_identities')") is None
             assert scalar(connection, "SELECT count(*) FROM mt.case_membership") == 1
     else:
-        assert migrate(database_dsn) == ["0004", "0005", "0006"]
+        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -129,6 +129,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0004",
             "0005",
             "0006",
+            "0007",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -224,7 +225,7 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
                 " bad legacy",
             )
     else:
-        assert migrate(database_dsn) == ["0005", "0006"]
+        assert migrate(database_dsn) == ["0005", "0006", "0007"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -308,4 +309,45 @@ def test_permission_upgrade_preserves_catalog_and_failure_rolls_back(database_ds
         )
         assert admin.execute(
             "SELECT to_regprocedure('mt.lookup_permission(text,text,uuid,uuid,text)') IS NOT NULL"
+        ).fetchone() == (not fail_after_function,)
+
+
+@pytest.mark.parametrize("fail_after_function", [False, True])
+def test_role_facts_upgrade_is_atomic_and_preserves_previous_rows(database_dsn, tmp_path, fail_after_function):
+    import hashlib
+    from uuid import uuid4
+
+    from business_migrations.runner import apply_migrations
+
+    migrations = Path(__file__).resolve().parents[2] / "backend/business_migrations"
+    for old in sorted(migrations.glob("*.sql"))[:6]:
+        (tmp_path / old.name).write_bytes(old.read_bytes())
+    assert apply_migrations(database_dsn, tmp_path) == [f"{i:04}" for i in range(1, 7)]
+    role_id = uuid4()
+    with psycopg.connect(database_dsn) as admin:
+        admin.execute(
+            "INSERT INTO mt.roles(role_id,code,description,enabled) VALUES(%s,'preserved.role','synthetic',false)",
+            (role_id,),
+        )
+        before = admin.execute("SELECT * FROM mt.roles WHERE role_id=%s", (role_id,)).fetchone()
+    new = migrations / "0007_role_facts.sql"
+    assert new.is_file(), "additive role-facts migration is missing"
+    (tmp_path / new.name).write_bytes(
+        new.read_bytes() + (b"\nSELECT missing_role_fact_marker();" if fail_after_function else b"")
+    )
+    if fail_after_function:
+        with pytest.raises(psycopg.Error):
+            apply_migrations(database_dsn, tmp_path)
+    else:
+        assert apply_migrations(database_dsn, tmp_path) == ["0007"]
+        assert apply_migrations(database_dsn, tmp_path) == []
+    with psycopg.connect(database_dsn) as admin:
+        assert admin.execute("SELECT * FROM mt.roles WHERE role_id=%s", (role_id,)).fetchone() == before
+        assert admin.execute(
+            "SELECT version,sha256 FROM mt_meta.schema_migrations WHERE version<='0006' ORDER BY version"
+        ).fetchall() == [
+            (p.name[:4], hashlib.sha256(p.read_bytes()).hexdigest()) for p in sorted(migrations.glob("*.sql"))[:6]
+        ]
+        assert admin.execute(
+            "SELECT to_regprocedure('mt.lookup_role_facts(text,text,uuid,uuid,text)') IS NOT NULL"
         ).fetchone() == (not fail_after_function,)
