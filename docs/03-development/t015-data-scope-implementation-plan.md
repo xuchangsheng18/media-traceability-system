@@ -32,7 +32,7 @@
 
 ## 文件、接口及测试执行约定
 
-以下新文件均为计划位置，尚未创建产品代码。
+以下为本计划的文件职责。P01已创建并验证，P02业务461项回归通过，但隔离启动路径导致CLI报告生成失败，已修正并保留待复核；P03适用91项回归通过；P04测试已准备，后续步骤按实际证据登记。
 
 | 文件 | 单一职责／本计划任务 |
 | --- | --- |
@@ -92,12 +92,12 @@
 
 **Interfaces:** 消费P01；产出`current_data_scope`、`bind_data_scope`、`Database.scoped_transaction`、`SqlScopeLookup.read`及固定ScopeMetadata。SQL增加`mt.scope_mode()`、`mt.scope_case_id()`、`mt.scope_allows_case(uuid)`、`mt.current_actor_case_ids()`和固定`mt.lookup_scope_metadata(text,uuid)`；最后一项只返回目录列出的元数据，禁止通用查询/任意投影。
 
-- [ ] **1. RED反例。** 在同一单位给同一用户A/B两案件资格，A范围执行`SELECT ... FROM mt.analysis_task`不带WHERE仍只能得A；跨案件INSERT/UPDATE/关联返回0或明确拒绝。另测`test_lookup_is_readonly_exact_target_and_has_no_payload`、`test_pre_authorization_metadata_needs_no_prior_evidence_or_share_lock`、`test_organization_mode_cannot_read_case_payload`、`test_forged_scope_without_evidence_cannot_open_business_transaction`。保留合法上传/历史/审批/单位策略和当前用户目录正例。
-- [ ] **2. 验证RED。** `python -m pytest tests/business/test_t015_scope_sql.py tests/business/test_t015_scope_http.py -q`。记录当前漏过滤会返回B或缺DataScope入口的具名失败；不得把数据库未配置、fixture失败或收集错误当安全反例。
-- [ ] **3. 实现SQL与最小函数。** 事务局部键固定为`app.actor_id/app.org_id/app.scope_mode/app.case_id/app.operation_id/app.lookup_kind/app.lookup_id`。CASE按同org、精确case、原有效成员关系AND约束；ORG拒绝案件表并限定混合表case_id为空；LOOKUP限固定资源种类/ID。用`AS RESTRICTIVE`与既有策略AND，保留原FORCE/ACL/不可变约束；不增加宽ALLOW或runtime管理继承。缺/错模式、无效UUID和未知kind均不能返回业务行。单位表和目录仍保留最小原ACL，不开放一般案件查询。
-- [ ] **4. 实现授权前元数据桥。** `SqlScopeLookup`核验现有Principal或当前WorkTrust，使用只读LOOKUP；HTTP功能资格仍先由原入口核验。固定函数限定当前actor/org、有效关系、kind和精确ID，owner、search_path、PUBLIC撤权及EXECUTE ACL实测；不新增任意SECURITY DEFINER能力。最小投影为目标org/case/id/row_version、owner/purpose/kind、适用task/asset/source关联、有效成员/来源版本及期限；不包含content、details、snapshot、claim_text、artifact字节或凭据。imports/reviews/clusters的关联事实仅取精确目标的必要ID/版本；不提供集合枚举。抽出原ObjectFactsReader的同一规范事实构造器：授权前只读与授权后CASE持锁版本产生一致的ConditionFacts语义，不复制两套判定。现有补充权威端口仍必需。
-- [ ] **5. 实现同连接绑定。** `identity_transaction(actor)`在已有证据时派生CASE/ORG；`transaction(scope)`再核对actor/case。授权前定位改走专用lookup入口，普通无证据identity_transaction拒绝业务访问。LOOKUP没有栅栏FOR SHARE或写操作；成功定位之后，真实授权事务重新核对对象/来源/版本并hold/finish原栅栏。嵌套只复用相同根连接，可缩小同一CASE任务，禁止切actor/org/case/operation、CASE→ORG或授权后降级LOOKUP；异常/回滚/池复用清空全部ContextVar和局部设置。测试合成证据仅在tests显式绑定，生产不增加测试开关。
-- [ ] **6. 接通合法单位和工作路径。** `getCurrentUser`通过`mt.current_actor_case_ids()`仅取本人有效案件ID，再逐项原case.read核验；不在ORG直接SELECT案件内容。单位策略/audit的case_id=null合法；单位游标零UUID仅保留原编码绑定，不生成CASE或成员关系。未适配的组织模型批准/发布仍503。uploads/history/common/object_facts的精确定位、后台WorkTrust及内部推理复用既有身份链，不用客户端Scope或伪造JWT代替。
+- [x] **1. RED反例。** 在同一单位给同一用户A/B两案件资格，A范围执行`SELECT ... FROM mt.analysis_task`不带WHERE仍只能得A；跨案件INSERT/UPDATE/关联返回0或明确拒绝。另测`test_lookup_is_readonly_exact_target_and_has_no_payload`、`test_pre_authorization_metadata_needs_no_prior_evidence_or_share_lock`、`test_organization_mode_cannot_read_case_payload`、`test_forged_scope_without_evidence_cannot_open_business_transaction`。保留合法上传/历史/审批/单位策略和当前用户目录正例。
+- [x] **2. 验证RED。** `python -m pytest tests/business/test_t015_scope_sql.py tests/business/test_t015_scope_http.py -q`。记录当前漏过滤会返回B或缺DataScope入口的具名失败；不得把数据库未配置、fixture失败或收集错误当安全反例。
+- [x] **3. 实现SQL与最小函数。** 事务局部键固定为`app.actor_id/app.org_id/app.scope_mode/app.case_id/app.operation_id/app.lookup_kind/app.lookup_id`。CASE按同org、精确case、原有效成员关系AND约束；ORG拒绝案件表并限定混合表case_id为空；LOOKUP限固定资源种类/ID。用`AS RESTRICTIVE`与既有策略AND，保留原FORCE/ACL/不可变约束；不增加宽ALLOW或runtime管理继承。缺/错模式、无效UUID和未知kind均不能返回业务行。单位表和目录仍保留最小原ACL，不开放一般案件查询。
+- [x] **4. 实现授权前元数据桥。** `SqlScopeLookup`核验现有Principal或当前WorkTrust，使用只读LOOKUP；HTTP功能资格仍先由原入口核验。固定函数限定当前actor/org、有效关系、kind和精确ID，owner、search_path、PUBLIC撤权及EXECUTE ACL实测；不新增任意SECURITY DEFINER能力。最小投影为目标org/case/id/row_version、owner/purpose/kind、适用task/asset/source关联、有效成员/来源版本及期限；不包含content、details、snapshot、claim_text、artifact字节或凭据。imports/reviews/clusters的关联事实仅取精确目标的必要ID/版本；不提供集合枚举。抽出原ObjectFactsReader的同一规范事实构造器：授权前只读与授权后CASE持锁版本产生一致的ConditionFacts语义，不复制两套判定。现有补充权威端口仍必需。
+- [x] **5. 实现同连接绑定。** `identity_transaction(actor)`在已有证据时派生CASE/ORG；`transaction(scope)`再核对actor/case。授权前定位改走专用lookup入口，普通无证据identity_transaction拒绝业务访问。LOOKUP没有栅栏FOR SHARE或写操作；成功定位之后，真实授权事务重新核对对象/来源/版本并hold/finish原栅栏。嵌套只复用相同根连接，可缩小同一CASE任务，禁止切actor/org/case/operation、CASE→ORG或授权后降级LOOKUP；异常/回滚/池复用清空全部ContextVar和局部设置。测试合成证据仅在tests显式绑定，生产不增加测试开关。
+- [x] **6. 接通合法单位和工作路径。** `getCurrentUser`通过`mt.current_actor_case_ids()`仅取本人有效案件ID，再逐项原case.read核验；不在ORG直接SELECT案件内容。单位策略/audit的case_id=null合法；单位游标零UUID仅保留原编码绑定，不生成CASE或成员关系。未适配的组织模型批准/发布仍503。uploads/history/common/object_facts的精确定位、后台WorkTrust及内部推理复用既有身份链，不用客户端Scope或伪造JWT代替。
 - [ ] **7. GREEN及提交。** 运行上述两文件、`tests/business/test_authorization.py tests/business/test_identity_directory.py tests/business/test_role_directory.py tests/business/test_t014_permissions.py tests/business/test_t014_object_rules.py tests/business/test_t014_work.py`，再运行`python scripts/verify_business_foundation.py run`。所有实际用例0失败/错误/跳过，原断言保留；双案件和原42操作拒绝回归成功后提交本项。完整业务执行新结构，不向共享库迁移。
 
 ### Task 3: P03 DAO任务/版本与集合分页范围
@@ -106,11 +106,11 @@
 
 **Interfaces:** 消费P01/P02和既有ConditionalPermissionAuthority；产出`bind_task_scope`和`CollectionScope.allowed_ids`。每个ResourceBinding包含服务器核对的kind/ID/版本/适用任务；集合端口沿用原operation的功能权限，不借另一个operation授权。
 
-- [ ] **1. RED测试。** 编写`test_same_case_task_and_history_version_swap_is_denied`、`test_related_join_requires_org_case_task_and_result_version`、`test_item_filter_precedes_limit_count_and_cursor`、`test_explicitly_denied_items_are_excluded_unknown_facts_fail_request`、`test_empty_allowed_collection_is_valid`。示例：同case三个候选中第1项明确拒绝、后2项允许，limit=1时返回第1个允许项，total只含2个允许项，不能先LIMIT后得空页。未知权威事实断言503和无结果/游标，不悄悄当空允许。
-- [ ] **2. 验证RED。** `python -m pytest tests/business/test_t015_collections.py -q`，得到任务/批量查询的实际失败；没有业务生产者的路径列未实现，不造成功快照。
-- [ ] **3. 实现任务与关联约束。** `bind_task_scope`用同连接校验analysis_task/task_run/task_result及实际resource关系，固定case和适用run/result；只有task_id不代表已授权某个历史版本。逐DAO保留org/case及task/run/result/version关联，审批对象、复核输入、来源和导出不能替换为同case任意ID。数据库只承诺单位/案件范围，任务隔离由本绑定及具名DAO反例共同证明。
-- [ ] **4. 实现逐对象集合过滤。** 同连接取范围内最小候选，调用原权威/分类/用途/来源检查，明确403/404排除、未知/故障503失败。允许ID固定后才在SQL中分页/计数/生成游标；返回/交付前复查选中对象和允许集合版本。case级允许不代表所有对象允许；旧游标不续权，合法格式和D02严格编码、secret不变。
-- [ ] **5. GREEN及提交。** 上述测试与`tests/business/test_history.py tests/business/test_t014_indirect_reads.py tests/business/test_t014_duties.py`通过；新增`test_cursor_after_source_revocation_does_not_leak_count`、`test_org_policy_cursor_placeholder_never_sets_case_context`及管理员无显式案件资格反例。完整矩阵逐行记录真实SQL、HTTP与未挂载边界后提交。
+- [x] **1. RED测试。** 编写`test_same_case_task_and_history_version_swap_is_denied`、`test_related_join_requires_org_case_task_and_result_version`、`test_item_filter_precedes_limit_count_and_cursor`、`test_explicitly_denied_items_are_excluded_unknown_facts_fail_request`、`test_empty_allowed_collection_is_valid`。示例：同case三个候选中第1项明确拒绝、后2项允许，limit=1时返回第1个允许项，total只含2个允许项，不能先LIMIT后得空页。未知权威事实断言503和无结果/游标，不悄悄当空允许。
+- [x] **2. 验证RED。** `python -m pytest tests/business/test_t015_collections.py -q`，得到任务/批量查询的实际失败；没有业务生产者的路径列未实现，不造成功快照。
+- [x] **3. 实现任务与关联约束。** `bind_task_scope`用同连接校验analysis_task/task_run/task_result及实际resource关系，固定case和适用run/result；只有task_id不代表已授权某个历史版本。逐DAO保留org/case及task/run/result/version关联，审批对象、复核输入、来源和导出不能替换为同case任意ID。数据库只承诺单位/案件范围，任务隔离由本绑定及具名DAO反例共同证明。
+- [x] **4. 实现逐对象集合过滤。** 同连接取范围内最小候选，调用原权威/分类/用途/来源检查，明确403/404排除、未知/故障503失败。允许ID固定后才在SQL中分页/计数/生成游标；返回/交付前复查选中对象和允许集合版本。case级允许不代表所有对象允许；旧游标不续权，合法格式和D02严格编码、secret不变。
+- [x] **5. GREEN及提交。** 上述测试与`tests/business/test_history.py tests/business/test_t014_indirect_reads.py tests/business/test_t014_duties.py`通过；新增`test_cursor_after_source_revocation_does_not_leak_count`、`test_org_policy_cursor_placeholder_never_sets_case_context`及管理员无显式案件资格反例。完整矩阵逐行记录真实SQL、HTTP与未挂载边界后提交。
 
 ### Task 4: P04 对象、上传分片与导出字节统一约束
 

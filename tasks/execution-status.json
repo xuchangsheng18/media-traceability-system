@@ -2460,8 +2460,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "既有业务路径部分RLS隔离验证；P01内部范围类型及固定目录已实现并通过隔离验证",
-      "summary_remaining": "逐表核对剩余DAO与关联对象的RLS、对象存储和导出隔离；权威身份/案件映射联调后做全路径越权回归，不以数据库上下文充当身份认证",
+      "summary_completed": "既有部分RLS；P01内部类型目录及P03任务/版本/资源与列表范围已隔离验证；P02业务461项通过但CLI报告入口仍待修正后核验",
+      "summary_remaining": "P02修正启动方式后的完整CLI回执；P04统一对象/上传/导出字节与孤儿记录；P05故障/升级/恢复；P06第33门禁；P07全量CI及GitHub/Linux最终交付；权威身份/案件映射和正式分类/用途提供者联调后全路径验收",
       "completed_steps": [
         {
           "description": "已实现业务路径的案件/单位RLS和跨案件拒绝已有隔离数据库测试",
@@ -2510,12 +2510,42 @@
               "scope": "P01内部类型/固定目录的49项新测试和289项既有纯回归；不是实际数据库/HTTP/对象范围接入或整卡验收"
             }
           ]
+        },
+        {
+          "description": "P03任务/运行/结果绑定、同案件资源互换拒绝和六类列表逐项授权先于分页/计数/游标已实现；当前源码91项适用回归通过",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/scope_collections.py",
+              "scope": "精确代码aa2070b的21项范围及70项保留适用回归共91项，0失败/错误/跳过且格式/类型通过；P03隔离范围，不含P04字节层、共享采用、正式提供者或整卡验收"
+            },
+            {
+              "path": "backend/business_app/controls/common.py",
+              "scope": "精确代码aa2070b的21项范围及70项保留适用回归共91项，0失败/错误/跳过且格式/类型通过；P03隔离范围，不含P04字节层、共享采用、正式提供者或整卡验收"
+            },
+            {
+              "path": "backend/business_app/history/repository.py",
+              "scope": "精确代码aa2070b的21项范围及70项保留适用回归共91项，0失败/错误/跳过且格式/类型通过；P03隔离范围，不含P04字节层、共享采用、正式提供者或整卡验收"
+            },
+            {
+              "path": "tests/business/test_t015_collections.py",
+              "scope": "精确代码aa2070b的21项范围及70项保留适用回归共91项，0失败/错误/跳过且格式/类型通过；P03隔离范围，不含P04字节层、共享采用、正式提供者或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t015-data-scope-p03-report.json",
+              "scope": "精确代码aa2070b的21项范围及70项保留适用回归共91项，0失败/错误/跳过且格式/类型通过；P03隔离范围，不含P04字节层、共享采用、正式提供者或整卡验收"
+            },
+            {
+              "path": "docs/09-testing/t015-data-scope-coverage.json",
+              "scope": "精确代码aa2070b的21项范围及70项保留适用回归共91项，0失败/错误/跳过且格式/类型通过；P03隔离范围，不含P04字节层、共享采用、正式提供者或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "逐表核对剩余DAO与关联对象的RLS、对象存储和导出隔离"
+          "description": "P02修正启动方式后的完整CLI回执；P04统一对象/上传/导出字节与孤儿记录；P05故障/升级/恢复；P06第33门禁；P07全量CI及GitHub/Linux最终交付"
         },
         {
           "category": "实施/外部条件",
@@ -2538,13 +2568,19 @@
         "docs/03-development/t015-data-scope-implementation-plan.md",
         "docs/00-project/validation/t015-implementation-plan-review.json",
         "docs/00-project/validation/t015-data-scope-p01-report.json",
-        "docs/00-project/validation/t015-data-scope-progress.json"
+        "docs/00-project/validation/t015-data-scope-progress.json",
+        "docs/00-project/validation/t015-data-scope-p02-progress.json",
+        "docs/00-project/validation/t015-data-scope-p03-report.json",
+        "docs/00-project/validation/t015-current-ci-observation.json",
+        "docs/04-database/data-scope-migration.md",
+        "docs/09-testing/t015-data-scope-coverage.md",
+        "docs/09-testing/t015-data-scope-coverage.json"
       ],
       "preparation_review_ref": "docs/00-project/validation/t015-dependency-preflight.json",
       "next_design_ref": "docs/03-development/t015-data-scope-design.md",
       "next_design_status": "WRITTEN_SPEC_AND_ISOLATED_IMPLEMENTATION_PLAN_APPROVED",
       "next_plan_ref": "docs/03-development/t015-data-scope-implementation-plan.md",
-      "next_plan_status": "APPROVED_P01_VERIFIED_P02_P07_PENDING",
+      "next_plan_status": "P01_P03_VERIFIED_P02_CLI_PENDING_P04_TEST_DRAFT_P05_P07_PENDING",
       "current_implementation_progress_ref": "docs/00-project/validation/t015-data-scope-progress.json"
     },
     {

@@ -8,7 +8,7 @@
 
 2026-10-20剩余工作入口：[T014已批准P01—P07隔离计划](docs/03-development/t014-isolated-six-role-implementation-plan.md)、[P01—P07实测与当前进度](docs/00-project/validation/t014-isolated-rule-progress.json)、[T001—T123逐项顺序](docs/03-development/t001-t123-development-sequence.md)、[T013本人MFA管理实际回执](docs/00-project/validation/t013-owner-mfa-management-validation.json)、[后续恢复及退役步骤](docs/03-development/t013-owner-action-checklist.md)。T014的P01—P07隔离实现、1009项完整回归、门禁和精确代码CI已验证，未启用共享正式ALLOW。Python候选继续暂缓；子步骤计数以实际台账为准。
 
-后续T015开发负责人、指定复核人均为徐昌胜，见[本人确认](docs/00-project/validation/t015-role-assignment.json)、[只读依赖核对](docs/00-project/validation/t015-dependency-preflight.json)和[已获准书面设计](docs/03-development/t015-data-scope-design.md)、[已批准P01—P07实施计划](docs/03-development/t015-data-scope-implementation-plan.md)；设计/计划已由本人批准，P01内部类型和固定目录338项隔离验证通过，见[当前进度](docs/00-project/validation/t015-data-scope-progress.json)；P02—P07实际数据库/接口/对象接入及CI仍待，不当作整卡完成。
+T015开发负责人、指定复核人均为徐昌胜，见[本人确认](docs/00-project/validation/t015-role-assignment.json)、[依赖核对](docs/00-project/validation/t015-dependency-preflight.json)、[已获准设计](docs/03-development/t015-data-scope-design.md)及[已批准P01—P07计划](docs/03-development/t015-data-scope-implementation-plan.md)。[当前进度](docs/00-project/validation/t015-data-scope-progress.json)：P01已验证；P02三种事务、增量RLS和真实入口已编码，当前461项业务回归及质量检查通过；隔离启动路径造成的报告生成失败已定位，修正后完整入口仍待核验；[增量数据库与函数](docs/04-database/data-scope-migration.md)、[定向验证](docs/00-project/validation/t015-data-scope-p02-progress.json)、[实际CI观察](docs/00-project/validation/t015-current-ci-observation.json)分别登记。P03隔离91项验证通过，P04测试已准备，P05—P07仍待，尚未共享采用或整卡验收。
 
 2026-10-17已按用户指定登记邓昀为T001—T011实际负责人；有效工时、平台账号及验收结果仍待确认，见[任务责任登记](docs/03-development/repository-access-control.md)。
 
