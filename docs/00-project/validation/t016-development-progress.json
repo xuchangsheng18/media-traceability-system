@@ -1,0 +1,201 @@
+{
+  "task_id": "T016",
+  "status": "IMPLEMENTED_FRESH_CLEAN_STRICT_GATES_RUNNING",
+  "observed_at": "2026-10-20T18:51:07.636745+00:00",
+  "implementation_source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+  "environment": "Linux / Miniforge Python3.10.22 / CPU / isolated PostgreSQL16",
+  "actual_development_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "actual_human_acceptance_recorded": false,
+  "formal_accepted": false,
+  "shared_database_migrated": false,
+  "preview_database_migrated": false,
+  "shared_services_restarted": false,
+  "Python_candidates_created": false,
+  "Python_candidates_deferred": true,
+  "public_request_response_schema_changed": false,
+  "mounted_external_operations": 43,
+  "unmounted_contract_operations": 30,
+  "implemented_scope": [
+    "case task/seal credential issuance",
+    "explicit key/rule ports with no successful default",
+    "HMAC reconstruction and hash-only persistence",
+    "current approval/source/person/result/policy/version binding",
+    "authorized same-root consume and before-commit revalidation",
+    "0011 legacy preservation and fixed lookup scope",
+    "retained T014/T015 and new strict T016 CI gate",
+    "Actual single-asset task source authorization-version snapshot bound and rechecked on the same connection",
+    "Noncacheable credential responses; no-store"
+  ],
+  "evidence": [
+    {
+      "job": "1097e86e88614272866f2ac169de545a",
+      "scope": "57 isolated business tests before lock-order correction",
+      "tests": 57,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "overall_quality_pass": false
+    },
+    {
+      "job": "97085e8394874928870eeebb314f4b15",
+      "scope": "meaningful concurrent lock-order RED",
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "job": "8b49dd0111be42b9af30aa3ad70fe96f",
+      "scope": "lock-order GREEN plus all109 platform cases at that snapshot",
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "overall_quality_pass": false
+    },
+    {
+      "job": "a2139431631a402fb6660c2536bb1a77",
+      "scope": "locked Ruff lint/format/mypy only; no runtime execution",
+      "quality_pass": true,
+      "runtime_tests_executed": false
+    },
+    {
+      "job": "831f98e5bfd84acab2a0e7e0120ea25a",
+      "scope": "T015 new mandatory token scope categories RED; original9 kept",
+      "tests": 6,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "job": "ed8939b24a4a4acebb100b58fafc00b2",
+      "scope": "T015 parser45 and locked quality GREEN",
+      "tests": 45,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "overall_quality_pass": true
+    },
+    {
+      "job": "deaa56a6b2fd42b882a4fc80fb9a1721",
+      "scope": "HTTP credential formatter cache RED",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "job": "e55d0a1372824fee971da793615c52c7",
+      "scope": "132 pure platform and locked quality GREEN",
+      "tests": 132,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "overall_quality_pass": true
+    },
+    {
+      "scope": "Snapshot A retained T014 strict gate; failures preserved",
+      "source_commit": "4a6e7656a8caebfa7284f35b321d7656ef53c48a",
+      "tests": 713,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "status": "FAIL",
+      "causes": [
+        "matrix source hash stale",
+        "existing cursor HTTP422 assertion accidentally changed to432 during route count edit"
+      ],
+      "repair": "restore original422 semantic assertion and bind actual current matrix hash; final rerun pending"
+    },
+    {
+      "scope": "Snapshot A retained T015 full strict gate; preceding3 added mandatory cases",
+      "source_commit": "4a6e7656a8caebfa7284f35b321d7656ef53c48a",
+      "tests": 128,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "status": "PASS",
+      "current_final_source_asserted": false
+    },
+    {
+      "scope": "Snapshot A full strict T016 gate before4+1+14 new cases",
+      "source_commit": "4a6e7656a8caebfa7284f35b321d7656ef53c48a",
+      "tests": 168,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "status": "PASS",
+      "current_final_source_asserted": false
+    },
+    {
+      "job": "d67ae93c8a844c75bc933becf968af4c",
+      "scope": "Source version and same-transaction purpose rejection RED",
+      "tests": 3,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "all_failures_are_missing_rejection": true
+    },
+    {
+      "job": "9402531052f642f9b3f992c9cff122dd",
+      "scope": "14 new T016 combinations,2 repaired T014 assertions and58 parser cases",
+      "tests": 74,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "runtime_status": "PASS",
+      "overall_quality_pass": false,
+      "quality_failure": "one test unpacked nullable fetchone; explicit non-null assertion added, not weakened"
+    },
+    {
+      "job": "fa9e7a5405c84cb19cbe4772e37c09a5",
+      "scope": "Latest code/test locked Ruff lint/format/mypy only",
+      "quality_pass": true,
+      "runtime_tests_executed": false
+    }
+  ],
+  "remaining": [
+    "final clean T014/T015/T016 gates and latest hosted CI observation",
+    "formal token TTL and independent HMAC key custody/adoption",
+    "real consumer action authority/delegation and role-separation decision",
+    "real seal/report/delete/unseal/model consumers and frontend integration; AuditExport public contract separately reviewed",
+    "shared migration/backup/recovery/adoption and complete source-task acceptance",
+    "actual remaining effort and human review of final results"
+  ],
+  "role_assignment_ref": "docs/00-project/validation/t016-role-assignment.json",
+  "runtime_report_ref": "docs/00-project/validation/t016-operation-token-report.json",
+  "plan_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
+  "source_commit_note": "Full implementation commit and exact final source hashes are populated from actual clean gate report; no self-referential commit is invented.",
+  "latest_hosted_ci_observation": {
+    "source_commit": "00725b051dbd735fdb60cdde33bbb7179cc2cdc9",
+    "run_id": 39463909701,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39463909701",
+    "status": "completed",
+    "conclusion": "failure",
+    "identity": "success",
+    "business_foundation": "success",
+    "T014": {
+      "status": "PASS",
+      "tests": 709
+    },
+    "T015": {
+      "status": "PASS",
+      "tests": 128
+    },
+    "failed_command": "python scripts/poc_control.py build",
+    "cause": "frontend Docker build omits shared-contracts/generated/business-api type declarations",
+    "new_T016_code_result_asserted": false
+  },
+  "active_final_gate_job": {
+    "job": "f4985f97b8f4419dbb61d83640425899",
+    "source_commit": "b1b79bfb32b7959e63f302bbef22d32e22dc0b8f",
+    "gates": [
+      "T014",
+      "T015",
+      "T016"
+    ],
+    "status": "RUNNING_NOT_ASSERTED_PASS"
+  },
+  "source_model_boundary": "analysis_task.asset_id -> media_asset.source_id -> source_registry; no params column or multi-input source contract invented"
+}

@@ -2,6 +2,8 @@
 
 本轮0.4-review候选。先读设计与字典，再核对SQL、接口映射和排序契约。
 
+T016新增[案件操作令牌0011扩展](operation-token-extension.md)和[安全及真实消费者边界](../08-security/t016-operation-token-boundaries.md)：原15列增加12列，完整0011为64表861列；服务端案件签发、摘要存储及同根消费分别记录。0001—0010保留，当前共享/预览库未采用0011，正式动作及角色执行关系另验。
+
 T015新增[数据范围迁移与事务说明](data-scope-migration.md)及[0010迁移](../../backend/business_migrations/0010_data_scope.sql)：三种模式、64表分类、7个固定函数、受限元数据和原ACL边界。当前P02代码已形成，完整业务验证运行中，见[实际进度](../00-project/validation/t015-data-scope-progress.json)；0009后的64表849字段保持不变，不代表共享库已安装或所有表CRUD已验收。
 
 新增[T011/T012身份、单位与案件关系](identity-relations.md)、[机器扩展字典](identity-relations-catalog.json)及[0004迁移](../../backend/business_migrations/0004_identity_relations.sql)。原初始化基线62表825字段保留；应用0001—0004后的实际库为63表840字段，适用版本须区分。

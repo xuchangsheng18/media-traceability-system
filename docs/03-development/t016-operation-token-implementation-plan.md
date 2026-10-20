@@ -1,6 +1,6 @@
 # T016 operation_token 隔离后端实施计划
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task in the current session. Steps use checkbox (`- [ ]`) syntax for tracking. 本页为下一批具体实施计划；本次仅生成计划，所有代码、迁移和测试步骤均未据此执行。
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task in the current session. Steps use checkbox (`- [ ]`) syntax for tracking. 本页为已授权执行的隔离实施计划；实际执行状态见本页与专项证据，计划文字不替代运行结果。
 
 **Goal:** 在现有公共契约下实现案件级操作令牌签发，以及由真实业务调用方传入同一数据库事务的原子消费内核，逐项验证一次性、短时、当前批准和精确绑定。
 
@@ -14,7 +14,13 @@
 
 编制日期：2026-10-21。用户已授权 T001—T123 逐批开发；主会话正在实际实施现有前端／启动边界硬化及对应验证、三端同步，见[前后端实施计划](business-console-implementation-plan.md)、[开发证据](../00-project/validation/development-continuation-report.json)和[同步回执](../00-project/server-sync-receipt.json)。本页不替代该批实际执行，不把本计划生成计为 T016 新代码完成，也不预填后续 CI 或同步成功。
 
-本次只新增本页；不修改其他文件、不运行 SQL、不安装迁移、不提交或推送。下文文件表、命令及检查项均为后续实施要求。
+编制时本页仅为计划；用户随后授权当前会话实施，实际负责人和复核人均为徐昌胜。当前已完成案件签发、同根消费及0011隔离代码，正在形成最终严格门禁和三端源码同步证据；见[开发进度](../00-project/validation/t016-development-progress.json)、[令牌扩展](../04-database/operation-token-extension.md)。共享/预览库未升级0011，真实消费者及正式采用仍保留各自前置。
+
+## P01实际技术裁定
+
+用户授权执行后采用D01的单值 `case task + seal → sealEvidence` 与D02的独立HMAC-SHA256秘密重建；公共字段不变。密钥只接受当前key_id及当前材料，轮换即拒绝旧凭据，不启用下文讨论的旧key宽限窗口。60秒仅为具名隔离测试输入，正式token TTL与密钥保管尚待采用决定。
+
+当前task真实结构为单asset；来源快照仅按 `analysis_task.asset_id → media_asset.source_id → source_registry` 同根读取，绑定资产／来源ID、授权版本、状态、用途、截止与行版本，纳入已有request_sha256。未发明params列或多输入来源契约。三项有意义RED复现纯版本及本事务来源用途失效后，新增14项组合测试连同适用回归共74项通过；独立质量回执全部通过，完整门禁仍按进度报告核验。正式跨人委托、确认人与执行人角色关系及真实消费者单列。
 
 ## Global Constraints
 
@@ -22,7 +28,7 @@
 - PR01／PR02／PR04 已批准的隔离输入继续有效：完整六角色集合；高风险用途两名独立批准人且不含申请／执行人；审批TTL1800秒、无跨请求正向授权缓存及适用撤销／提交前重验。审批TTL不是 operation_token TTL。
 - 正式分类、共享采用、真实身份／委托／来源事实、生产发布及整卡验收仍按各自条件处理。缺这些正式条件不阻止内核编码和明确合成适配器下的隔离验证；普通启动缺可信提供方时继续401／503，不安装测试成功提供方。
 - 外部请求／响应结构保持不变：签发请求仍为 `approval_id/object_id/object_version/purpose`，响应仍为 `operation_token/expires_at/object_version`，必填 `Idempotency-Key`；不增加客户端 `actor_id/org_id/case_id/approved/action` 或额外必填 `If-Match`。
-- 当前业务应用42个外部操作已挂载、31个未挂载；挂载 `issueOperationToken` 后预期43／30，总目录仍为73。PoC的health与内部推理1个入口分别记录，不混入这组计数。执行前以实际提交重新枚举，禁止只修改数字使门禁通过。
+- 实施前为42个外部操作、31个未挂载；本批实际挂载 `issueOperationToken` 后为43／30，总目录仍为73。PoC的health与内部推理1个入口分别记录，不混入这组计数。执行前以实际提交重新枚举，禁止只修改数字使门禁通过。
 - 仅新增 `backend/business_migrations/0011_operation_token.sql`，执行前核对编号未占用；0001—0010的文件字节及账本摘要不改。无正式审批／身份／策略种子，无全单位业务读取或管理员隐式绕过。
 - 令牌明文不进入数据库、幂等回执、日志、异常、审计详情、URL、Git或浏览器持久存储。批准链、对象事实、运行结果和审计历史不覆盖；失败／恢复状态可观察。
 
@@ -34,9 +40,9 @@
 4. 两个消费者竞争、业务写入失败或事务开始后令牌才过期：最多一笔成功；失败回滚令牌消费与业务写入；以实际消费时刻核验期限。
 5. purpose相同但业务动作、对象类型或版本不同：令牌不能跨动作使用；歧义映射和未知规则必须拒绝，确认按钮不替代独立批准。
 
-## 已核实缺口及公共契约裁定点
+## 实施前核实的缺口及公共契约裁定点
 
-`controls/router.py` 没有签发路由。`permissions/object_facts.py` 的 `BODY_SCHEMAS/SUPPORTED_OPERATIONS/resolve_http/_validate_target` 没有该操作；`conditional.py` 没有 `six_role.py` 已引用的 `CONFIRM_CASE/CONFIRM_MODEL` 条件分支。Python `scope_catalog.lookup_spec` 与0010中的 `mt.scope_lookup_kind_allowed` 也没有登记该操作。因此仅挂载路由会在完整权限／范围链中拒绝，不能用简化夹具绕过这些缺口后声称接入完成。
+以下保留编制时缺口；当前已按P01—P04补对应隔离代码，最终状态以实际报告为准。编制时 `controls/router.py` 没有签发路由。`permissions/object_facts.py` 的 `BODY_SCHEMAS/SUPPORTED_OPERATIONS/resolve_http/_validate_target` 没有该操作；`conditional.py` 没有 `six_role.py` 已引用的 `CONFIRM_CASE/CONFIRM_MODEL` 条件分支。Python `scope_catalog.lookup_spec` 与0010中的 `mt.scope_lookup_kind_allowed` 也没有登记该操作。因此仅挂载路由会在完整权限／范围链中拒绝，不能用简化夹具绕过这些缺口后声称接入完成。
 
 ### D01：现有请求能否确定精确动作
 
@@ -88,7 +94,7 @@
 | `backend/business_app/settings.py`、`development.py` | 仅在D02裁定需要时增加显式内部配置／注入；保持当前启动硬化、拒绝特权连接和测试提供方缺省为空，不重做原前端批次 |
 | `backend/business_app/controls/receipts.py`（仅必要时） | token签发专用非秘密回执入口；不改变其他控制操作的既有完整回执语义 |
 | `backend/business_migrations/0011_operation_token.sql`（新） | action／批准快照／key／规则与代际的必要内部绑定字段、约束、固定lookup登记和消费防护；不修改0001—0010 |
-| `tests/business/test_t016_operation_tokens.py`、`test_t016_operation_token_sql.py`、`test_t016_operation_token_recovery.py`（新） | HTTP＋当前完整权限链、真实SQL竞争／回滚／升级／恢复／秘密边界；只用合成身份与规则 |
+| `tests/business/test_t016_operation_tokens.py`、`test_t016_operation_token_recovery.py`（实际SQL升级／约束用例位于后者） | HTTP＋当前完整权限链、真实SQL竞争／回滚／升级／恢复／秘密边界；只用合成身份与规则 |
 | `tests/business/http_fixtures.py`、`test_controls.py`、`t014_requests.py` | 明确新签发请求及批准资源，新增端口只在测试工厂注入；不扩大原测试身份的正式含义 |
 | `tests/platform/test_t016.py`（新） | 单值动作规则、严格内部类型和密钥／TTL拒绝矩阵；落实源卡原计划测试位置 |
 | `tests/business/test_migrations.py`、`test_t015_scope_sql.py`、`test_t014_object_rules.py`、`test_t014_runtime.py` | 0010→0011、SQL/Python目录一致、43操作真实资源拒绝和无副作用；保留原断言含义 |
@@ -155,13 +161,13 @@
 
 ## 后续执行命令与证据要求
 
-下列命令本次均未执行。`python`须为 `/opt/conda/glwy/envs/py310/bin/python`，测试在私有源码快照运行；`PYTHONPATH`按既有harness绑定快照根和backend，凭据从既有私密测试配置读取，不复制到计划或命令行。先执行统一入口help/status核对环境和目标。
+下列是可复用实施入口，并非每条命令均单独执行；本批实际命令、源码和结果见[进度记录](../00-project/validation/t016-development-progress.json)及其专项回执。`python`须为 `/opt/conda/glwy/envs/py310/bin/python`，测试在私有源码快照运行；`PYTHONPATH`按既有harness绑定快照根和backend，凭据从既有私密测试配置读取，不复制到计划或命令行。先执行统一入口help/status核对环境和目标。
 
 ```text
 python scripts/dev.py help
 python scripts/dev.py status
 python -m pytest tests/platform/test_t016.py -q
-python -m pytest tests/business/test_t016_operation_tokens.py tests/business/test_t016_operation_token_sql.py tests/business/test_t016_operation_token_recovery.py tests/business/test_migrations.py -q
+python -m pytest tests/business/test_t016_operation_tokens.py tests/business/test_t016_operation_token_recovery.py tests/business/test_migrations.py -q
 python -m pytest tests/platform/test_t014.py tests/platform/test_t014_gate.py tests/platform/test_t015_gate.py -q
 python scripts/dev.py lint
 python scripts/dev.py format-check
@@ -170,6 +176,8 @@ python scripts/verify_generated_contracts.py
 python scripts/verify_business_foundation.py run
 python scripts/verify_t014_permissions.py run
 python scripts/verify_t015_scope.py run
+python scripts/verify_t016_tokens.py run
+python scripts/verify_t016_tokens.py failure-probe
 python scripts/validate_inputs.py --task T016
 python scripts/validate_stage_three.py
 ```
