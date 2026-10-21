@@ -1,6 +1,6 @@
 {
-  "status": "PASS_LIMITED_CATALOG_READ_SCOPE_NOT_ALL_REQUIRED_GATES_OR_123_TASK_ACCEPTANCE",
-  "observed_at": "2026-10-21T06:54:12.982083+00:00",
+  "status": "PASS_LIMITED_CATALOG_SCOPE_SOURCE_SYNC_VERIFIED_FULL_CI_IN_PROGRESS_NOT_FORMAL_ACCEPTANCE",
+  "observed_at": "2026-10-21T07:03:04.617714+00:00",
   "base_commit": "85327689fb68d782bde9c5f3a132b31c908dab74",
   "scope": {
     "authorized_tasks": "T001-T123",
@@ -908,13 +908,32 @@
     "engineering_frontend_gate_and_foundation_type_check": "failure_then_locally_repaired",
     "actual_type_entry_source_files_passed": 215,
     "gateway_and_frontend_regression_cases_passed": 98,
-    "new_hosted_CI_status": "NOT_YET_OBSERVED_FOR_PUBLICATION_COMMIT"
+    "new_hosted_CI_status": "in_progress"
   },
   "synchronization": {
-    "status": "PENDING_PUBLICATION",
+    "status": "PASS_GITHUB_FEATURE_BRANCH_AND_LINUX_SOURCE_PAYLOAD",
+    "observed_at": "2026-10-21T06:57:50.539765+00:00",
+    "source_commit": "023b40b9aff9e72696f89e25acee33a9bb07aa12",
+    "previous_server_commit": "85327689fb68d782bde9c5f3a132b31c908dab74",
+    "changed_files": 283,
+    "manifest_files_verified": 2208,
+    "manifest_sha256": "52bc7ea2b5479b6a580defb4ee962a0830ba7ed3ce03787493a09e0ea1dc9efd",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "github_branch_head_verified": true,
+    "main_merged": false,
     "source_only": true,
-    "existing_preview_or_shared_database_migrated": false,
-    "existing_preview_services_restarted": false
+    "server_source_path": "/workspace/glwy/projects/media-traceability-system",
+    "receipt_records_payload_not_its_own_commit": true
   },
   "existing_live_frontend_read_only": {
     "check": "existing_PPT_preview_HTML_and_delivered_script",
@@ -1119,7 +1138,26 @@
         "exit_code": 0
       }
     ],
-    "subsequent_changes": "only EOF blank-line cleanup in 0012, its generated static inventory hash and validation metadata; final 0012 migration test passed and final inventory check recorded separately"
+    "subsequent_changes": "only EOF blank-line cleanup in 0012, its generated static inventory hash and validation metadata; final 0012 migration test passed and final inventory check recorded separately",
+    "final_affected_checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "summary": "{\"status\": \"PASS\", \"check_only\": true, \"summary\": {\"all_source_tasks\": 170, \"authorized_task_count\": 123, \"all_completed_substeps\": 113, \"all_remaining_work_items\": 622, \"all_whole_tasks_verified\": 0, \"authorized_completed_substeps\": 113, \"authorized_remaining_work_items\": 434, \"authorized_whole_tasks_verified\": 0, \"authorized_status_counts\": {\"PARTIAL_VERIFIED_SCOPE\": 53, \"NO_FULL_TASK_VERIFICATION_EVIDENCE\": 70}, \"distinct_declared_tables\": 55, \"distinct_declared_operations\": 53, \"canonical_business_operation_count\": 73, \"canonical_internal_operation_count\": 1, \"registered_business_operation_count\": 46, \"registered_internal_operation_count\": 1, \"unregistered_canonical_business_operation_count\": 27, \"declared_operations_registered_in_business_source\": 26, \"declared_operations_without_explicit_business_registration\": 27, \"versioned_create_table_count\": 64, \"versioned_sql_function_name_count\": 30, \"backend_python_definition_count\": 415, \"backend_python_definitions_with_direct_literal_sql_tables\": 60, \"declared_tables_without_catalog_or_migration_source\": []}}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "summary": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}\n"
+      }
+    ]
   },
   "timeout_investigation": {
     "method": "three application/catalog measurements and one cProfile under blocked database/socket connect; no test or cache changed",
@@ -1137,5 +1175,32 @@
     "profile_overhead_not_compared_to_raw_wall_time": true,
     "single_cause_of_full_gate_timeout_proven": false,
     "full_permission_gate_or_timeout_weakened": false
+  },
+  "implementation_source_commit": "023b40b9aff9e72696f89e25acee33a9bb07aa12",
+  "latest_hosted_CI": {
+    "observed_at": "2026-10-21T07:03:04.617714+00:00",
+    "source_commit": "023b40b9aff9e72696f89e25acee33a9bb07aa12",
+    "run_id": 39558713535,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39558713535",
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "name": "identity-verification / identity-integration",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "all_CI_pass_asserted": false
+  },
+  "publication_privacy_check": {
+    "status": "PASS",
+    "staged_tree": "f1423ad6d4644fbd9461f462e70aa9c24c5be7a9",
+    "archive_sha256": "66db8c2e366343cb61bd59a7b2fcde1310c17adcc7df7be0bb3e899e572f51c5",
+    "manifest_files_verified": 2208,
+    "files_checked": 2210,
+    "scope": "known_runtime_and_preview_private_values_plus_known_secret_filenames_only_not_complete_DLP",
+    "errors": [],
+    "private_values_printed": false
   }
 }
