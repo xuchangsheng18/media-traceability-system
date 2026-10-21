@@ -1,0 +1,115 @@
+{
+  "status": "PASS_READONLY_UI_ONLY_NOT_COMPLETE_T060",
+  "observed_at": "2026-10-21T11:18:51.868326+00:00",
+  "scope": "real_browser_with_self_owned_transport_fixtures_not_real_backend",
+  "checks": [
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--write",
+        "src/router.ts",
+        "src/App.vue",
+        "e2e/foundation.pw.ts"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.474305,
+      "summary": "src/router.ts 41ms (unchanged)\nsrc/App.vue 74ms (unchanged)\ne2e/foundation.pw.ts 143ms (unchanged)\n"
+    },
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.807622,
+      "summary": " Test Files  7 passed (7)\n      Tests  129 passed (129)\n   Start at  19:18:11\n   Duration  1.07s (import 65%, tests 19%, transform 12%, worker 4%)\n\n"
+    },
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/vue-tsc/bin/vue-tsc.js",
+        "--noEmit"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.577939,
+      "summary": ""
+    },
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        "src",
+        "e2e",
+        "*.ts",
+        "*.mjs",
+        "--max-warnings=0"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.795007,
+      "summary": ""
+    },
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "src/**/*.{ts,vue,css}",
+        "e2e/**/*.ts",
+        "*.{ts,mjs,json,html}"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.211286,
+      "summary": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    },
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.748303,
+      "summary": "dist/index.html                   0.50 kB │ gzip:  0.35 kB\ndist/assets/index-DQyvo0Pc.css    9.72 kB │ gzip:  2.91 kB\ndist/assets/index-QZskSEFc.js   168.00 kB │ gzip: 57.31 kB\n\n✓ built in 205ms\n"
+    },
+    {
+      "command": [
+        "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=foundation-playwright.config.ts"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 31.113874,
+      "summary": "[WebServer] (node:406032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:405400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n(node:407996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
+    }
+  ],
+  "source_sha256": {
+    "frontend/src/router.ts": "39c5aa05f72a722db3f361162d615d4de8c7cd57b8449fae1bf3c188c6ada9cf",
+    "frontend/src/App.vue": "5a8523dd36168b5f811da21425abf6215256ab87cbf7996086724856dca40141",
+    "frontend/src/business/models.ts": "14678b6b5dadebd1344638310ab0a6d69d3eadcf2ac4f5ae664d27662bcc2f29",
+    "frontend/src/business/models.test.ts": "5770f5c5086b2d9f08e45a9658612fdc947f1cd3f97bcaf948dd032bcea1e859",
+    "frontend/src/views/ModelsView.vue": "9966487bdc669bbe5fe9842186a1f65ac738e44b2cbc0e6f426c065ef641242a",
+    "frontend/e2e/foundation.pw.ts": "6457141815929e3cad3d20b09b9cff6c9e398b238c84828312535963c3762cda"
+  },
+  "complete": true,
+  "success": true,
+  "unit_tests": 129,
+  "browser_tests": 36,
+  "models_unit_tests": 28,
+  "browser_scope": "Self-owned intercepted transport; not actual backend/identity integration",
+  "failure_history": [
+    {
+      "result": "35 browser passed,1 timeout",
+      "cause": "The test waited for a response after disconnect correctly aborted the request. Replaced that impossible wait with exact net::ERR_ABORTED verification plus delayed fixture completion and no old-row/cursor assertions. Original20-second timeout retained."
+    }
+  ],
+  "formal_accepted": false,
+  "shared_service_restarted": false,
+  "Python_candidates_created": false,
+  "remaining": [
+    "Model health, approved rollout/drift/rollback flows, genuine evaluation production and real backend/identity combination E2E remain.",
+    "Actual T060 owner and task-wide review/acceptance remain unknown."
+  ]
+}

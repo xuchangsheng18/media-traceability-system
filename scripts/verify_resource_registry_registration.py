@@ -4,6 +4,7 @@ import ast
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 MATRIX = "docs/08-security/t014-interface-scope-matrix.json"
 PRIOR = "docs/08-security/history/resource-registry-predecessor-scope-matrix.json"
@@ -21,7 +22,7 @@ def same(left: object, right: object) -> bool:
     return json.dumps(left, sort_keys=True) == json.dumps(right, sort_keys=True)
 
 
-def registered_row(root: Path, operation: str, old: dict) -> dict:
+def registered_row(root: Path, operation: str, old: dict[str, Any]) -> dict[str, Any]:
     file, name, method, path = OPERATIONS[operation]
     source = "backend/business_app/" + file
     tree = ast.parse((root / source).read_text("utf8"))
@@ -53,7 +54,7 @@ def registered_row(root: Path, operation: str, old: dict) -> dict:
     )
 
 
-def increment() -> dict:
+def increment() -> dict[str, Any]:
     return dict(
         status="SOURCE_ROUTE_REGISTRATION_ONLY_NOT_RUNTIME_ACCEPTANCE",
         previous_mounted_operations=47,
@@ -67,7 +68,7 @@ def increment() -> dict:
     )
 
 
-def registration(current_raw: bytes) -> dict:
+def registration(current_raw: bytes) -> dict[str, Any]:
     return dict(
         status="SOURCE_ROUTE_REGISTRATION_ONLY_NOT_POLICY_ADOPTION",
         scope=list(OPERATIONS),

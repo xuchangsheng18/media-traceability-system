@@ -32,7 +32,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[745条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有123条已验证子步骤、622条剩余工作；全局编号0001—0745。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[746条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有124条已验证子步骤、622条剩余工作；全局编号0001—0746。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -434,6 +434,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 两张官方CC0样本的逐图许可、固定摘要、仓库外实物、Linux解码和使用命令；无业务标签、模型精度或正式数据准入推定。 |
+| [00-project/validation/public-development-data-report.json](<00-project/validation/public-development-data-report.json>) | Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。 |
+| [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [03-development/t001-t123-resource-registry-continuation-plan.md](<03-development/t001-t123-resource-registry-continuation-plan.md>) | 本轮四接口及资产下载页面的具体实现与验证边界，沿用契约、原锁、门禁和Python候选暂缓。 |
 | [03-development/t001-t123-development-completion-audit.md](<03-development/t001-t123-development-completion-audit.md>) | 123项原工作范围及验收逐条复核：真实源码、有限验证、尚缺代码和外部输入分列，不以表或路由代替任务完成。 |
 | [03-development/t001-t123-development-completion-audit.json](<03-development/t001-t123-development-completion-audit.json>) | 同源123项验收条款、代码摘要、接口现状、剩余代码和后续批次的机器审计；无虚构整卡完成。 |
@@ -650,7 +653,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1255份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1258份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -741,7 +744,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内745条执行事项逐条编号：123条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内746条执行事项逐条编号：124条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1233,6 +1236,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/poc-resilience-report.json](<00-project/validation/poc-resilience-report.json>) | 5项队列/过期租约/服务及版本对象重启/幂等冲突检查，服务恢复记录。 |
 | [00-project/validation/poc-ui.png](<00-project/validation/poc-ui.png>) | 真实浏览器运行截图，保存前已清空研发令牌。 |
 | [00-project/validation/ppt-interface-alignment.json](<00-project/validation/ppt-interface-alignment.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/public-development-data-report.json](<00-project/validation/public-development-data-report.json>) | Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。 |
 | [00-project/validation/python-audit-report.json](<00-project/validation/python-audit-report.json>) | pip-audit发现与跳过原因；CPU torch被跳过，不能声称全部无漏洞。 |
 | [00-project/validation/python-candidate-deferral-validation.json](<00-project/validation/python-candidate-deferral-validation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python-components.json](<00-project/validation/python-components.json>) | 安装包版本与声明许可元信息；不是完整OS SBOM或正式许可审查。 |
@@ -1354,6 +1358,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t016-pillow-py310-isolated-execution.json](<00-project/validation/t016-pillow-py310-isolated-execution.json>) | 源码/patch/13个文件hash、Linux静态检查、输入拒绝及239个安装文件未变；安全回归和构建尚未执行。 |
 | [00-project/validation/t016-pillow-py310-plan-review.json](<00-project/validation/t016-pillow-py310-plan-review.json>) | 官方来源、精确提交及测试族、基线hash和逐项未修复状态；未知版本skip不算通过。 |
 | [00-project/validation/t016-role-assignment.json](<00-project/validation/t016-role-assignment.json>) | 用户确认徐昌胜为T016开发负责人和复核人；仅职责登记，不授予权限，不表示本人已经验收。 |
+| [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1834,6 +1839,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [07-datasets/data-compliance.md](<07-datasets/data-compliance.md>) | 来源许可、用途、访问、保留与回流约束。 |
 | [07-datasets/dataset-catalog.md](<07-datasets/dataset-catalog.md>) | 数据集类别、用途及对应模型方向。 |
 | [07-datasets/dataset-split-policy.md](<07-datasets/dataset-split-policy.md>) | 按来源组等条件划分，隔离验证、校准与封存测试用途。 |
+| [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 两张官方CC0样本的逐图许可、固定摘要、仓库外实物、Linux解码和使用命令；无业务标签、模型精度或正式数据准入推定。 |
 | [07-datasets/README.md](<07-datasets/README.md>) | 所在专题的局部导航与阅读入口 |
 | [08-security/access-control-model.json](<08-security/access-control-model.json>) | T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。 |
 | [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、九个实体及身份/单位/案件关系；候选权限评审与后续0004持久化分别列证据，尚无正式身份授权。 |

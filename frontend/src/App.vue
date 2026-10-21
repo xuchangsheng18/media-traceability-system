@@ -32,6 +32,7 @@ const modules = [
 ]
 const workbench = [
   { label: '任务与结果', to: '/tasks' },
+  { label: '模型目录', to: '/models' },
   { label: '业务身份', to: '/business' },
   { label: '审批管理', to: '/approvals' },
   { label: '审计查询', to: '/audit' },
@@ -64,6 +65,10 @@ const pages: Record<string, { title: string; description: string }> = {
   assets: {
     title: '媒体资源与资产管理',
     description: '按案件查询可见媒体资产，核对来源编号、只读元数据与固定对象版本。',
+  },
+  models: {
+    title: '模型与评测目录',
+    description: '查看当前单位有权访问的模型版本、受控引用与已登记评测元数据。',
   },
   'pending-reviews': {
     title: '审核与证据管理',

@@ -50,6 +50,9 @@ def main():
         flags=re.M,
     )
     entries = {
+        "07-datasets/public-development-data.md": "两张官方CC0样本的逐图许可、固定摘要、仓库外实物、Linux解码和使用命令；无业务标签、模型精度或正式数据准入推定。",
+        "00-project/validation/public-development-data-report.json": "Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。",
+        "00-project/validation/t060-readonly-ui-report.json": "T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。",
         "03-development/t001-t123-resource-registry-continuation-plan.md": "本轮四接口及资产下载页面的具体实现与验证边界，沿用契约、原锁、门禁和Python候选暂缓。",
         "03-development/t001-t123-development-completion-audit.md": "123项原工作范围及验收逐条复核：真实源码、有限验证、尚缺代码和外部输入分列，不以表或路由代替任务完成。",
         "03-development/t001-t123-development-completion-audit.json": "同源123项验收条款、代码摘要、接口现状、剩余代码和后续批次的机器审计；无虚构整卡完成。",

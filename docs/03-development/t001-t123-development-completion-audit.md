@@ -6,13 +6,15 @@
 
 当前静态业务路由51/73，缺22。本轮补登记、受控下载及模型/评测列表，旧27项台账保留起点记录并增加当前状态。实际命令和失败修复见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)。
 
-本次未运行业务测试、数据库、Git或服务命令。以下测试/报告只是已有有限证据引用，未升级为本次新通过。原100包锁和Python候选保持原边界。
+原始只读审计未运行业务测试、数据库、Git或服务命令；其证据引用保持原适用范围。后续实际实现及运行结果单列在本轮回执，不回填成原审计已执行。原100包锁和Python候选保持原边界。
 
 本轮后继复核：T021登记、T025/T030下载及页面、T052/T058只读列表已补代码和限定验证，仍有各卡源功能缺口。下面原批次项中对应功能仅代表完整范围；已实现部分以本段及当前机器审计为准。
 
-## 下一批可直接实施
+新增两张官方CC0小样本已实际保存并解码；[公开研发数据说明](../07-datasets/public-development-data.md)记录许可、摘要、路径及Linux联网限制。T060读取页面见[实际回执](../00-project/validation/t060-readonly-ui-report.json)，全任务仍未关闭。
 
-### B01_READINESS_SOURCE_DOWNLOAD_REGISTRY（优先级1）
+## 后续批次与尚缺范围
+
+### B01_READINESS_SOURCE_DOWNLOAD_REGISTRY（优先级1；登记/下载/只读目录已完成限定子范围）
 
 - health dependency readiness provider + permission guarded route (503 on missing infrastructure, no model health invention)
 - downloadAsset immutable version/SHA/authorization/revocation/audit stream + asset UI
@@ -62,7 +64,7 @@
 | T030 | 列表/详情与校验后受控下载 | 来源授权明细、血缘、真实后端组合E2E |
 | T040 | TaskCatalogPanel/TasksView current nodes/events/history reads | createTask/cancel/rerun buttons, real refresh/progress/DAG/checkpoint |
 | T018 | AuditView query/export transport | Contract-backed server full filters and real export/revocation audit E2E |
-| T060 | No model operations page in router snapshot | listModels/getModelHealth/evaluation/rollout approved actions |
+| T060 | /models模型/评测只读分页及129单元/36浏览器传输测试 | 真实健康、灰度/漂移、获批发布/回滚及真实后端组合E2E |
 | T070,T078,T097,T101 | Backend persisted result projections; task UI textual reads | Result-specific risk/forensics/propagation/evidence original-media interaction |
 | T103 | PendingReviews/Approvals/Tasks read interfaces | Draft/annotation/original-media localization/current-version review submission workflow |
 | T107,T108 | getReport read and partial review controls | Report render/download/approval UI and authorized feedback pipeline |
@@ -1031,11 +1033,11 @@
 
 源验收：模型上线/回滚页面有二次确认，并显示获准发布策略、包版本和批准记录；二次确认不代替审批，后端校验发布授权和权限分离，失效或未批准包不得正式上线。
 
-已观察源码/结构：`frontend/src/router.ts`
+已观察源码/结构：`frontend/src/router.ts`；`frontend/src/business/models.ts`；`frontend/src/views/ModelsView.vue`；`frontend/src/business/models.ts`；`frontend/src/views/ModelsView.vue`
 
-有限测试/历史报告：未定位任务专用实际执行报告；契约夹具不是运行验收。
+有限测试/历史报告：[T060只读页面实际回执](../00-project/validation/t060-readonly-ui-report.json)：129项单元及36项浏览器传输测试通过，不代表真实后端组合或完整任务验收。
 
-剩余代码/核验：实现模型运维路由/页面，模型卡/评测/健康/灰度/漂移及批准/二次确认/回滚交互。
+剩余代码/核验：当前模型与已登记评测只读页面已实现；补真实健康、灰度/漂移、获批发布/二次确认/回滚交互及真实后端/身份组合E2E。
 
 实际输入：Declared unresolved source questions: Q-33; distinguish policy confirmation from code that can be implemented now. Effective authority/purpose/classification/approval/retention policy and provider bindings; absent policy must fail closed. Actual reviewer/source acceptance decision and original acceptance testing; no fabricated historical date or effort.
 

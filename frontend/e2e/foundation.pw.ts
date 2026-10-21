@@ -2,6 +2,179 @@ import { expect, test, type Page } from '@playwright/test'
 import { createHash } from 'node:crypto'
 import type { Schemas } from '../src/business/api'
 
+// Model rows are self-owned transport fixtures, never a trained-model claim.
+const catalogModel: Schemas['Model'] = {
+  model_id: '30000000-0000-4000-8000-000000000001',
+  name: 'browser-owned model metadata',
+  version: 'fixture/1',
+  capability: 'media.ocr',
+  digest: 'a'.repeat(64),
+  dataset_version: 'fixture-data/1',
+  model_card_ref: 'javascript:alert(1)',
+  license_record_ref: 'controlled-license/1',
+  backend: 'onnxruntime',
+  environment_ref: 'controlled-environment/1',
+  status: 'REGISTERED',
+  row_version: 1,
+}
+const catalogEvaluation: Schemas['Evaluation'] = {
+  evaluation_id: '40000000-0000-4000-8000-000000000001',
+  model_id: catalogModel.model_id,
+  dataset_id: 'fixture-data',
+  dataset_version: 'fixture-data/1',
+  protocol_id: 'fixture-protocol/1',
+  split: 'validation',
+  sample_count: 3,
+  failure_count: 1,
+  metrics: {
+    macro_f1: null,
+    recall: 0,
+    iou: null,
+    recall_at_k: null,
+    ece: null,
+    boundary_mae_ms: null,
+  },
+  artifact_ref: {
+    object_id: catalogModel.model_id,
+    version_id: 'immutable/1',
+    sha256: 'b'.repeat(64),
+  },
+  created_at: '2026-10-21T00:00:00Z',
+}
+
+test('model page requires identity and model.read without sending directory requests', async ({
+  page,
+}) => {
+  let requests = 0
+  await page.route('**/business/api/v1/models?**', (route) => {
+    requests++
+    return route.fulfill({ json: { items: [], next_cursor: null } })
+  })
+  await page.goto('/#/models')
+  await expect(page.getByRole('button', { name: '查询模型／回到首页' })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '查询评测／回到首页' })).toBeDisabled()
+  await connectBusiness(page, [])
+  await page.getByRole('link', { name: '模型目录', exact: true }).click()
+  await expect(page.getByRole('status')).toContainText('没有模型目录读取权限')
+  await expect(page.getByRole('button', { name: '查询模型／回到首页' })).toBeDisabled()
+  expect(requests).toBe(0)
+})
+
+test('model page displays exact metadata and unknown metrics with independent pagination', async ({
+  page,
+}) => {
+  const requests: string[] = []
+  await page.route('**/business/api/v1/models?**', (route) => {
+    const url = new URL(route.request().url())
+    requests.push(url.pathname + url.search)
+    return route.fulfill({
+      json: {
+        items: url.searchParams.has('cursor') ? [] : [catalogModel],
+        next_cursor: url.searchParams.has('cursor') ? null : 'a+b/c=',
+      },
+    })
+  })
+  await page.route('**/business/api/v1/model-evaluations?**', (route) =>
+    route.fulfill({ json: { items: [catalogEvaluation], next_cursor: null } }),
+  )
+  await connectBusiness(page, ['model.read'])
+  await page.getByRole('link', { name: '模型目录', exact: true }).click()
+  await page.getByRole('button', { name: '查询模型／回到首页' }).click()
+  await expect(page.getByRole('row').filter({ hasText: catalogModel.model_id })).toContainText(
+    'REGISTERED',
+  )
+  await page.getByText('查看模型资料', { exact: true }).click()
+  await expect(page.getByText('javascript:alert(1)', { exact: true })).toBeVisible()
+  await expect(page.locator('a[href^="javascript:"]')).toHaveCount(0)
+  await page.getByRole('button', { name: '查询评测／回到首页' }).click()
+  await page.getByText('查看评测指标', { exact: true }).click()
+  await expect(
+    page.getByRole('row').filter({ hasText: catalogEvaluation.evaluation_id }),
+  ).toContainText('未提供')
+  await expect(
+    page
+      .getByRole('row')
+      .filter({ hasText: catalogEvaluation.evaluation_id })
+      .locator('dd')
+      .filter({ hasText: /^0$/ }),
+  ).toHaveCount(1)
+  await page.getByRole('button', { name: '下一页模型' }).click()
+  await expect(page.getByRole('row').filter({ hasText: catalogModel.name })).toHaveCount(0)
+  await expect(
+    page.getByRole('row').filter({ hasText: catalogEvaluation.evaluation_id }),
+  ).toBeVisible()
+  expect(requests).toEqual([
+    '/business/api/v1/models?limit=20',
+    '/business/api/v1/models?limit=20&cursor=a%2Bb%2Fc%3D',
+  ])
+})
+
+for (const status of [403, 503]) {
+  test(`model page keeps ${status} refusal visible and clears the preceding page`, async ({
+    page,
+  }) => {
+    await page.route('**/business/api/v1/models?**', (route) => {
+      const cursor = new URL(route.request().url()).searchParams.has('cursor')
+      return cursor
+        ? route.fulfill({
+            status,
+            json: {
+              code: status === 403 ? 'PERMISSION_REQUIRED' : 'CONDITIONAL_FACTS_UNAVAILABLE',
+            },
+          })
+        : route.fulfill({ json: { items: [catalogModel], next_cursor: 'next-page' } })
+    })
+    await connectBusiness(page, ['model.read'])
+    await page.getByRole('link', { name: '模型目录', exact: true }).click()
+    await page.getByRole('button', { name: '查询模型／回到首页' }).click()
+    await expect(page.getByRole('row').filter({ hasText: catalogModel.name })).toBeVisible()
+    await page.getByRole('button', { name: '下一页模型' }).click()
+    await expect(page.getByRole('status')).toContainText(
+      status === 403 ? 'PERMISSION_REQUIRED' : 'CONDITIONAL_FACTS_UNAVAILABLE',
+    )
+    await expect(page.getByRole('row').filter({ hasText: catalogModel.name })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: '下一页模型' })).toBeDisabled()
+  })
+}
+
+test('leaving model page and clearing identity discards a delayed directory response', async ({
+  page,
+}) => {
+  let release!: () => void
+  let started!: () => void
+  let finished!: () => void
+  const fulfilled = new Promise<void>((resolve) => {
+    finished = resolve
+  })
+  const waiting = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  const requested = new Promise<void>((resolve) => {
+    started = resolve
+  })
+  await page.route('**/business/api/v1/models?**', async (route) => {
+    started()
+    await waiting
+    await route.fulfill({ json: { items: [catalogModel], next_cursor: 'old-cursor' } })
+    finished()
+  })
+  await connectBusiness(page, ['model.read'])
+  await page.getByRole('link', { name: '模型目录', exact: true }).click()
+  await page.getByRole('button', { name: '查询模型／回到首页' }).click()
+  await requested
+  await page.getByRole('link', { name: '业务身份', exact: true }).click()
+  const aborted = page.waitForEvent('requestfailed', {
+    predicate: (request) => request.url().includes('/models?'),
+  })
+  await page.getByRole('button', { name: '清除身份与结果' }).click()
+  expect((await aborted).failure()?.errorText).toBe('net::ERR_ABORTED')
+  release()
+  await fulfilled
+  await page.getByRole('link', { name: '模型目录', exact: true }).click()
+  await expect(page.getByRole('row').filter({ hasText: catalogModel.name })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '下一页模型' })).toBeDisabled()
+})
+
 test('health navigation shares the in-memory token and reload clears it', async ({ page }) => {
   await page.route('**/api/v1/health', (route) => route.fulfill({ json: { status: 'ok' } }))
   await page.goto('/#/')

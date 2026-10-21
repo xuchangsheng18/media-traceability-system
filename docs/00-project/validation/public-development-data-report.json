@@ -1,0 +1,289 @@
+{
+  "status": "PASS_PINNED_FILES_DECODER_AND_OFFLINE_TOOL_TESTS_LINUX_DOWNLOAD_LIMITATION",
+  "observed_at": "2026-10-21T11:21:56.130107+00:00",
+  "server_data_root": "/workspace/glwy/runtime/media-traceability-system/public-development-data/scikit-image-v0.25.2",
+  "source_commit": "c2856bf0d0047380c18098d8401db6d54a82e06b",
+  "python_version": "3.10.22",
+  "files": [
+    {
+      "filename": "chelsea.png",
+      "size_bytes": 240512,
+      "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+      "metadata": {
+        "mime": "image/png",
+        "width": 451,
+        "height": 300
+      },
+      "exact_digest_negative_refused": true,
+      "mime_mismatch_refused": true
+    },
+    {
+      "filename": "horse.png",
+      "size_bytes": 16633,
+      "sha256": "c7fb60789fe394c485f842291ea3b21e50d140f39d6dcb5fb9917cc178225455",
+      "metadata": {
+        "mime": "image/png",
+        "width": 400,
+        "height": 328
+      },
+      "exact_digest_negative_refused": true,
+      "mime_mismatch_refused": true
+    }
+  ],
+  "bytes_total": 257145,
+  "case_or_database_written": false,
+  "model_weights_downloaded": false,
+  "model_accuracy_verified": false,
+  "local_data_root": "D:\\公安厅项目\\_work\\public-development-data\\scikit-image-v0.25.2",
+  "local_same_bytes_verified": true,
+  "authorization_basis": "Direct user reply: public online development data allowed; no private/case data or general training/acceptance approval.",
+  "license_and_source_ref": "datasets/public-development/manifest.json",
+  "usage_ref": "docs/07-datasets/public-development-data.md",
+  "visual_review": "Both decoded images inspected: cat photograph and horse silhouette, no people selected.",
+  "offline_linux_tool_tests": {
+    "command": [
+      "/opt/conda/glwy/envs/py310/bin/python",
+      "-m",
+      "pytest",
+      "tests/platform/test_public_development_data.py",
+      "-q",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "snapshot": "/workspace/glwy/runtime/media-traceability-system/t123-verification-9ade096f294a"
+  },
+  "actual_tool_verification": {
+    "windows_fresh_fetch": {
+      "status": "PASS",
+      "files": 2,
+      "reused": false,
+      "total_bytes": 257145,
+      "destination": "D:\\公安厅项目\\_work\\public-development-data\\scikit-image-v0.25.2-tool-fetch",
+      "command": [
+        "E:/Anconda/python.exe",
+        "scripts/fetch_public_development_data.py",
+        "--destination",
+        "D:\\公安厅项目\\_work\\public-development-data\\scikit-image-v0.25.2-tool-fetch"
+      ]
+    },
+    "linux_existing_verified": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/fetch_public_development_data.py",
+          "--destination",
+          "/workspace/glwy/runtime/media-traceability-system/public-development-data/scikit-image-v0.25.2"
+        ],
+        "exit_code": 0,
+        "result": {
+          "status": "PINNED_BYTES_VERIFIED_NOT_DECODED",
+          "formal_case_import": false,
+          "files": [
+            {
+              "id": "chelsea",
+              "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+              "size_bytes": 240512,
+              "reused": true
+            },
+            {
+              "id": "horse",
+              "sha256": "c7fb60789fe394c485f842291ea3b21e50d140f39d6dcb5fb9917cc178225455",
+              "size_bytes": 16633,
+              "reused": true
+            }
+          ]
+        }
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/fetch_public_development_data.py",
+          "--destination",
+          "/workspace/glwy/runtime/media-traceability-system/public-development-data/scikit-image-v0.25.2"
+        ],
+        "exit_code": 0,
+        "result": {
+          "status": "PINNED_BYTES_VERIFIED_NOT_DECODED",
+          "formal_case_import": false,
+          "files": [
+            {
+              "id": "chelsea",
+              "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+              "size_bytes": 240512,
+              "reused": true
+            },
+            {
+              "id": "horse",
+              "sha256": "c7fb60789fe394c485f842291ea3b21e50d140f39d6dcb5fb9917cc178225455",
+              "size_bytes": 16633,
+              "reused": true
+            }
+          ]
+        }
+      }
+    ],
+    "linux_direct_fetch": {
+      "status": "FAILED_CONNECTION_RESET",
+      "exit_code": 1,
+      "snapshot": "/workspace/glwy/runtime/media-traceability-system/t123-verification-9ade096f294a",
+      "check": {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/fetch_public_development_data.py",
+          "--destination",
+          "/workspace/glwy/runtime/media-traceability-system/t123-verification-9ade096f294a-public-data"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 32.308306,
+        "safe_summary": [],
+        "expected_result_verified": false
+      },
+      "network_probe": {
+        "status": "UNAVAILABLE_FROM_LINUX_HOST",
+        "error_type": "URLError",
+        "reason_type": "ConnectionResetError",
+        "errno": 104,
+        "ssl_verify_code": null
+      },
+      "workaround": "Windows official HTTPS download followed by source-independent SSH transfer and Linux SHA/decoder validation; no TLS bypass or environment change."
+    }
+  },
+  "quality_checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py",
+        "scripts/verify_business_route_registration.py",
+        "scripts/fetch_public_development_data.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "wall_time_seconds": 0.132123,
+      "safe_summary": [
+        "All checks passed!"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py",
+        "scripts/verify_business_route_registration.py",
+        "scripts/fetch_public_development_data.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "wall_time_seconds": 0.138426,
+      "safe_summary": [],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/stage_three_types.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "wall_time_seconds": 47.652794,
+      "safe_summary": [
+        "Success: no issues found in 240 source files"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/platform/test_public_development_data.py",
+        "tests/platform/test_business_route_registration.py",
+        "tests/platform/test_t014_gate.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "wall_time_seconds": 1.462726,
+      "safe_summary": [
+        "104 passed in 1.15s"
+      ],
+      "expected_result_verified": true
+    }
+  ],
+  "quality_snapshot": "/workspace/glwy/runtime/media-traceability-system/t123-verification-9ade096f294a",
+  "business_dataset_cards_changed": false,
+  "formal_case_import": false,
+  "training_authorized_by_this_manifest": false,
+  "Python_candidates_created": false
+}

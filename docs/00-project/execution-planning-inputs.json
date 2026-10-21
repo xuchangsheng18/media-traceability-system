@@ -2489,6 +2489,10 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "docs/00-project/validation/public-development-data-report.json",
+          "scope": "两张CC0图片的来源/摘要/实际解码及负例；非业务数据、完整元数据服务或模型指标验收"
         }
       ],
       "full_task_verification_refs": [],
@@ -2845,13 +2849,38 @@
     },
     {
       "task_id": "T060",
-      "verification_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "verification_status": "PARTIAL_VERIFIED_SCOPE",
       "resource_id": null,
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
       "verified_by": null,
-      "partial_scope_evidence": [],
+      "partial_scope_evidence": [
+        {
+          "path": "frontend/src/views/ModelsView.vue",
+          "scope": "T060读取子范围与实际测试，不代表上线/灰度/漂移/回滚或整任务验收"
+        },
+        {
+          "path": "frontend/src/business/models.ts",
+          "scope": "T060读取子范围与实际测试，不代表上线/灰度/漂移/回滚或整任务验收"
+        },
+        {
+          "path": "frontend/src/business/models.test.ts",
+          "scope": "T060读取子范围与实际测试，不代表上线/灰度/漂移/回滚或整任务验收"
+        },
+        {
+          "path": "frontend/src/router.ts",
+          "scope": "T060读取子范围与实际测试，不代表上线/灰度/漂移/回滚或整任务验收"
+        },
+        {
+          "path": "frontend/e2e/foundation.pw.ts",
+          "scope": "T060读取子范围与实际测试，不代表上线/灰度/漂移/回滚或整任务验收"
+        },
+        {
+          "path": "docs/00-project/validation/t060-readonly-ui-report.json",
+          "scope": "T060读取子范围与实际测试，不代表上线/灰度/漂移/回滚或整任务验收"
+        }
+      ],
       "full_task_verification_refs": [],
       "external_release_date": null,
       "material_or_resource_dependencies": []
@@ -4733,6 +4762,27 @@
       "full_task_acceptance_asserted": false,
       "Python_candidates_created": false,
       "existing_preview_or_shared_database_migrated": false
+    },
+    {
+      "id": "public-data-and-t060-readonly-20261021",
+      "observed_date": "2026-10-21",
+      "task_ids": [
+        "T041",
+        "T060"
+      ],
+      "supporting_tasks": [
+        "T052",
+        "T058"
+      ],
+      "refs": [
+        "docs/07-datasets/public-development-data.md",
+        "docs/00-project/validation/public-development-data-report.json",
+        "docs/00-project/validation/t060-readonly-ui-report.json"
+      ],
+      "new_completed_substeps": 1,
+      "owners_inferred": false,
+      "whole_tasks_closed": 0,
+      "Python_candidates_created": false
     }
   ],
   "authorized_development_scope": {

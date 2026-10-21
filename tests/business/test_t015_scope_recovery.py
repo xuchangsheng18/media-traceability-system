@@ -82,8 +82,8 @@ def test_upgrade_from_0009_and_partial_failure_are_atomic(fresh_scope_database, 
 @pytest.mark.parametrize("version", ["0001", "0009", "0010"])
 def test_reapply_checks_exact_old_and_new_migration_digests(fresh_scope_database, tmp_path, version):
     dsn = fresh_scope_database
-    assert len(apply_migrations(dsn, MIGRATIONS)) == 13
-    changed = copied_migrations(tmp_path / "changed", 13)
+    assert apply_migrations(dsn, MIGRATIONS) == [f"{value:04d}" for value in range(1, 15)]
+    changed = copied_migrations(tmp_path / "changed", 14)
     file = next(changed.glob(version + "_*.sql"))
     file.write_bytes(file.read_bytes() + b"\n-- intentional digest mismatch\n")
     with pytest.raises(RuntimeError, match="DIGEST"):
