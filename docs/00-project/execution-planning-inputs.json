@@ -2090,6 +2090,26 @@
         {
           "path": "tests/business/test_client_lifecycle.py",
           "scope": "仅复现并修复测试夹具的正常上下文退出泄漏；不证明旧全量失败原因或正式部署完成"
+        },
+        {
+          "path": "backend/business_app/objects.py",
+          "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+        },
+        {
+          "path": "tests/platform/test_object_directory_durability.py",
+          "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+        },
+        {
+          "path": "tests/business/test_upload_object_durability.py",
+          "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+        },
+        {
+          "path": "docs/03-development/t024-object-durability.md",
+          "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+        },
+        {
+          "path": "docs/00-project/validation/t024-object-durability-report.json",
+          "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
         }
       ],
       "full_task_verification_refs": [],
@@ -2097,7 +2117,8 @@
       "material_or_resource_dependencies": [],
       "followup_document_refs": [
         "docs/03-development/business-upload-first-batch.md",
-        "docs/03-development/t024-worker-isolated-integration.md"
+        "docs/03-development/t024-worker-isolated-integration.md",
+        "docs/03-development/t024-object-durability.md"
       ]
     },
     {
@@ -5000,6 +5021,15 @@
       ],
       "event": "ISOLATED_WORKER_PROCESS_DELIVERY_BINDING_AND_RECOVERY_SUBSCOPE",
       "evidence_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T024"
+      ],
+      "event": "LINUX_FILE_OBJECT_DURABILITY_BARRIERS",
+      "evidence_ref": "docs/00-project/validation/t024-object-durability-report.json",
       "whole_task_acceptance_recorded": false
     }
   ],

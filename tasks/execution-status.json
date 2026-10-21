@@ -3402,8 +3402,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。",
-      "summary_remaining": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；本批已验证缺对象、重复消息及提交后未ACK重投；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收和完整恢复组合，按源验收逐项验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。；Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。",
+      "summary_remaining": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
@@ -3490,6 +3490,32 @@
               "scope": "仅复现并修复测试夹具的正常上下文退出泄漏；不证明旧全量失败原因或正式部署完成"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/objects.py",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "tests/platform/test_object_directory_durability.py",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "tests/business/test_upload_object_durability.py",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "docs/03-development/t024-object-durability.md",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "docs/00-project/validation/t024-object-durability-report.json",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -3499,7 +3525,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "本批已验证缺对象、重复消息及提交后未ACK重投；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收和完整恢复组合，按源验收逐项验证。"
+          "description": "已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。"
         },
         {
           "category": "任务记录",
@@ -3509,7 +3535,8 @@
       "observed_date": "2026-10-22",
       "followup_document_refs": [
         "docs/03-development/business-upload-first-batch.md",
-        "docs/03-development/t024-worker-isolated-integration.md"
+        "docs/03-development/t024-worker-isolated-integration.md",
+        "docs/03-development/t024-object-durability.md"
       ]
     },
     {
@@ -9322,7 +9349,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json"
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t024-object-durability-report.json"
   },
   "latest_business_upload_frontend": {
     "observed_at": "2026-10-21T16:33:04.726261+00:00",
@@ -9337,6 +9364,17 @@
     "observed_at": "2026-10-21T17:12:31.753075+00:00",
     "report_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
     "plan_ref": "docs/03-development/t024-worker-isolated-integration.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_t024_object_durability": {
+    "observed_at": "2026-10-21T18:52:03.483137+00:00",
+    "report_ref": "docs/00-project/validation/t024-object-durability-report.json",
+    "plan_ref": "docs/03-development/t024-object-durability.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

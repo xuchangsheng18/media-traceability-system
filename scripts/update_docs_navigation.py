@@ -52,6 +52,8 @@ def main():
     entries = {
         "03-development/t024-worker-isolated-integration.md": "T024目标绑定修复、独立worker进程与真实队列故障联调；区分启动撤销、回调拒绝、提交后未ACK重投，以及常驻部署、正式授权、队列进展和清理恢复的剩余条件。",
         "00-project/validation/t024-worker-isolated-integration-report.json": "T024限定子范围的实际命令、源码和日志摘要、失败修复、完整业务回归及精确CI/源码同步；不把测试权威或进程重启当正式组合验收。",
+        "03-development/t024-object-durability.md": "T024 Linux文件、对象目录及根目录落盘屏障、初始化重试与故障拒绝；区别目录同步实测与断电、孤立对象清理和完整恢复。",
+        "00-project/validation/t024-object-durability-report.json": "T024目录持久性限定子范围的精确源码、RED/GREEN、相邻回归、质量检查、CI和源码同步；不登记共享采用或整任务验收。",
         "03-development/backend-frontend-data-test-priority-plan.md": "T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。",
         "00-project/validation/backend-frontend-data-test-report.json": "来源授权同步事务/原请求头、前端回执、离线标注质检及原权限门禁的实测证据，精确CI与源码同步分开记录。",
         "07-datasets/annotation-validation.md": "D01—D15显式文件离线质检：本地Schema、时间区域边界、UUID重复冲突、预算与脱敏；真实授权、双人仲裁和抽样仍未验证。",

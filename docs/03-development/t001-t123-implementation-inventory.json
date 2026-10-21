@@ -43,7 +43,7 @@
     "backend/business_app/main.py": "1a4d65617b78471be69ff9d359621fcf561c5c11db33fe0f8c382999af35967e",
     "backend/business_app/model_catalog.py": "052f36ed373d3f37c5c590a027f3964d79f254aa4d010ad13476ffeb9007e9ec",
     "backend/business_app/model_catalog_router.py": "4685662dbe6d80f9910ea0f56071f89bafbb6c717de6ff2c99facea5458e8641",
-    "backend/business_app/objects.py": "7e346db512a59b7b7b2444fe1bc3a7a169e321a57669ca15054e0916d3ef33a3",
+    "backend/business_app/objects.py": "74ef95359da4bfff3b0614dfbf8b427592e25ca44dee2df39ede176ba824680b",
     "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
     "backend/business_app/permissions/catalog.py": "9829b9136f5871dc97f75c179b26c7becc16d8a7fbc28af0d4da3a301e34119c",
     "backend/business_app/permissions/conditional.py": "d98259060f24cbad64e2452444ddcec87685873704a48f3664b6d36c0736aef8",
@@ -97,7 +97,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "ccc90630de9164412b5ab607553342b384bb413905d2b64e4c995dca8b968635",
+    "tasks/execution-status.json": "c69b919d125957a94ee35f16116249d78ab404acbbb526a5e70250eb994c0f63",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -115,10 +115,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 133,
+    "all_completed_substeps": 134,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 133,
+    "authorized_completed_substeps": 134,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -136,7 +136,7 @@
     "declared_operations_without_explicit_business_registration": 22,
     "versioned_create_table_count": 64,
     "versioned_sql_function_name_count": 31,
-    "backend_python_definition_count": 452,
+    "backend_python_definition_count": 453,
     "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -6690,10 +6690,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 3,
+      "completed_substeps_count": 4,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。",
-      "actual_remaining_summary": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；本批已验证缺对象、重复消息及提交后未ACK重投；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收和完整恢复组合，按源验收逐项验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "actual_completed_summary": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。；Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。",
+      "actual_remaining_summary": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
@@ -6780,6 +6780,32 @@
               "scope": "仅复现并修复测试夹具的正常上下文退出泄漏；不证明旧全量失败原因或正式部署完成"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/objects.py",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "tests/platform/test_object_directory_durability.py",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "tests/business/test_upload_object_durability.py",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "docs/03-development/t024-object-durability.md",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            },
+            {
+              "path": "docs/00-project/validation/t024-object-durability-report.json",
+              "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -6789,7 +6815,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "本批已验证缺对象、重复消息及提交后未ACK重投；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收和完整恢复组合，按源验收逐项验证。"
+          "description": "已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。"
         },
         {
           "category": "任务记录",
@@ -35452,10 +35478,28 @@
       "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
     },
     {
+      "qualified_name": "business_app.objects.FileObjectStore._sync_directory",
+      "python_name": "_sync_directory",
+      "source_path": "backend/business_app/objects.py",
+      "line": 47,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "directory"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
       "qualified_name": "business_app.objects.FileObjectStore.put_part",
       "python_name": "put_part",
       "source_path": "backend/business_app/objects.py",
-      "line": 34,
+      "line": 58,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35477,7 +35521,7 @@
       "qualified_name": "business_app.objects.FileObjectStore.record_orphan",
       "python_name": "record_orphan",
       "source_path": "backend/business_app/objects.py",
-      "line": 71,
+      "line": 99,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35499,7 +35543,7 @@
       "qualified_name": "business_app.objects.FileObjectStore.read",
       "python_name": "read",
       "source_path": "backend/business_app/objects.py",
-      "line": 95,
+      "line": 123,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [

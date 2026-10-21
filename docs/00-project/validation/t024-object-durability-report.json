@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_LINUX_OBJECT_DURABILITY",
+  "observed_at": "2026-10-21T18:52:03.483137+00:00",
+  "base_source_commit": "2976f638cde96f4ba49217d972f74d690415a5e2",
+  "source_sha256_lf": {
+    "backend/business_app/objects.py": "74ef95359da4bfff3b0614dfbf8b427592e25ca44dee2df39ede176ba824680b",
+    "tests/platform/test_object_directory_durability.py": "2fa6690027bfffd2e27ee1b8d223f73ceddf4497adb81247f15e1364b1706507",
+    "tests/business/test_upload_object_durability.py": "1ad1acda148bb5c0673ce4b0320299c2a18776f260f182796e41298db3541028"
+  },
+  "verification_snapshots": {
+    "durability-red": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-durability-82445a03fa6c",
+      "validation_snapshot_commit": "c9ff6e7b4d3bf568420321a9118b1d863fed796e",
+      "publication_commit": false,
+      "mode": "durability-red",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/platform/test_object_directory_durability.py",
+            "tests/business/test_upload_object_durability.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:45:41.425761+00:00",
+          "ended_at": "2026-10-21T18:46:00.601784+00:00",
+          "safe_summary": [
+            "FAILED tests/platform/test_object_directory_durability.py::test_nested_root_creation_syncs_each_directory_before_creating_its_child",
+            "FAILED tests/platform/test_object_directory_durability.py::test_failed_root_initialization_is_refused_and_retry_resyncs_anchor[new_directory]",
+            "FAILED tests/platform/test_object_directory_durability.py::test_failed_root_initialization_is_refused_and_retry_resyncs_anchor[parent_entry]",
+            "FAILED tests/platform/test_object_directory_durability.py::test_directory_barriers_are_not_silently_skipped_on_unsupported_runtime",
+            "FAILED tests/business/test_upload_object_durability.py::test_failed_part_durability_has_no_receipt_and_same_request_can_retry",
+            "FAILED tests/business/test_upload_object_durability.py::test_failed_merged_object_durability_keeps_validation_pending_then_retries"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "durability": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-durability-5cbde602dde7",
+      "validation_snapshot_commit": "7f8d390abf5ab2c9e4fb9452523607ae200f6d16",
+      "publication_commit": false,
+      "mode": "durability",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/platform/test_object_directory_durability.py",
+            "tests/business/test_upload_object_durability.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:46:59.693795+00:00",
+          "ended_at": "2026-10-21T18:47:21.986881+00:00",
+          "safe_summary": [
+            "9 passed, 1 warning in 21.58s"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "durability-affected": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-durability-fd0e8ded9c22",
+      "validation_snapshot_commit": "0dc814d42486890513e6432cd3e22523443f4f5b",
+      "publication_commit": false,
+      "mode": "durability-affected",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/platform/test_object_directory_durability.py",
+            "tests/platform/test_t015_object_storage_failures.py",
+            "tests/business/test_upload_object_durability.py",
+            "tests/business/test_uploads.py",
+            "tests/business/test_upload_validation.py",
+            "tests/business/test_upload_worker_process.py",
+            "tests/business/test_t014_work.py",
+            "tests/business/test_t015_scoped_objects.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:47:47.616100+00:00",
+          "ended_at": "2026-10-21T18:51:31.686097+00:00",
+          "safe_summary": [
+            "93 passed, 1 warning in 223.46s (0:03:43)"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "failure-probe"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:51:31.686193+00:00",
+          "ended_at": "2026-10-21T18:51:32.143790+00:00",
+          "safe_summary": {
+            "expected_assertion_failure_verified": true
+          }
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "quality": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-durability-ff5c7aec6441",
+      "validation_snapshot_commit": "bcf0839684d319ce5de19da75a083c45f23a15db",
+      "publication_commit": false,
+      "mode": "quality",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "check",
+            "--config",
+            "ruff.toml",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:49:06.817500+00:00",
+          "ended_at": "2026-10-21T18:49:06.962177+00:00",
+          "safe_summary": [
+            "All checks passed!"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "format",
+            "--check",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:49:06.962277+00:00",
+          "ended_at": "2026-10-21T18:49:07.178154+00:00",
+          "safe_summary": []
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:49:07.178259+00:00",
+          "ended_at": "2026-10-21T18:49:24.424033+00:00",
+          "safe_summary": [
+            "Success: no issues found in 251 source files"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    }
+  },
+  "current_runtime": "Linux / existing Miniforge Python3.10.22 / CPU, private test directories and random PostgreSQL16 databases",
+  "scope": "File, object-directory and root-directory barriers before returning StoredObject; root initialization ancestry/retry; failed directory sync cannot publish part or asset receipts",
+  "source_reference": {
+    "title": "Linux man-pages fsync(2)",
+    "url": "https://man7.org/linux/man-pages/man2/fsync.2.html",
+    "verified_at": "2026-10-21T18:52:03.483137+00:00",
+    "claim": "File fsync does not itself persist the containing directory entry; explicit directory descriptor fsync is required"
+  },
+  "red_green": {
+    "new_cases": 9,
+    "observed_red_exit": 1,
+    "observed_green_exit": 0,
+    "unchanged_behavior_assertions": true,
+    "test_clarification": "Initial trace assertion now checks only the first new-directory sync; later parent-entry sync correctly sees an existing child. Fixture import explicitly reexported for lint. No product implementation existed during initial RED"
+  },
+  "independent_review": {
+    "scope": "Three source files and existing caller transaction/authority order",
+    "P1_P2_findings": 0,
+    "deferred_minor": [
+      "Explicit second-attempt initialization trace assertion; current retry behavior tested as refusal then success",
+      "Dedicated concurrent-init interleaving, missing O_NOFOLLOW and os.open failure branch cases"
+    ],
+    "real_power_loss_tested": false
+  },
+  "prior_worker_full_suite_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
+  "full_suite_rerun_in_this_batch": false,
+  "prior_full_local_1800_seconds_incomplete_retained": true,
+  "previous_source_CI": {
+    "id": 39654192908,
+    "head_sha": "fde42ffdf8807339bc370a2b6af39e7b36cf88c6",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39654192908",
+    "updated_at": "2026-10-21T18:50:14Z",
+    "observation_scope": "Earlier worker payload only, not this uncommitted durability source; no whole CI pass inferred",
+    "all_CI_pass_asserted": false
+  },
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "public_contract_changed": false,
+  "database_migration_created": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "physical_power_loss_or_complete_recovery_verified": false,
+  "orphan_sidecar_durability_asserted": false,
+  "automatic_deletion_performed": false,
+  "unsupported_directory_runtime_skipped": false,
+  "Windows_native_accepted": false,
+  "actual_owner": null,
+  "actual_reviewer": null,
+  "formal_accepted": false,
+  "whole_task_verified": false,
+  "remaining": [
+    "Resident worker and real work/identity/source/storage providers",
+    "Case queue progress, multiconsumer scheduling, retry/poison handling",
+    "Temporary-part cleanup, orphan reconciliation and complete recovery",
+    "Device/filesystem real crash validation and exact-source hosted CI",
+    "Actual T024 owner/reviewer and applicable full-task acceptance"
+  ],
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  }
+}

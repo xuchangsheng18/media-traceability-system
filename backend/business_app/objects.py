@@ -29,7 +29,31 @@ class FileObjectStore:
         if any(path.is_symlink() for path in [root, *root.parents]):
             raise RuntimeError("PRIVATE_OBJECT_DIRECTORY_SYMLINK_REJECTED")
         self.root = root.resolve()
-        self.root.mkdir(parents=True, exist_ok=True, mode=0o700)
+        pending: list[Path] = []
+        anchor = self.root
+        while not anchor.exists():
+            pending.append(anchor)
+            anchor = anchor.parent
+        # A retry can find the directory created by a failed initialization.
+        # Persist its own parent entry before building any descendants.
+        self._sync_directory(anchor)
+        self._sync_directory(anchor.parent)
+        for directory in reversed(pending):
+            directory.mkdir(exist_ok=True, mode=0o700)
+            self._sync_directory(directory)
+            self._sync_directory(directory.parent)
+
+    @staticmethod
+    def _sync_directory(directory: Path) -> None:
+        directory_flag = getattr(os, "O_DIRECTORY", None)
+        nofollow_flag = getattr(os, "O_NOFOLLOW", None)
+        if directory_flag is None or nofollow_flag is None:
+            raise RuntimeError("PRIVATE_OBJECT_DURABILITY_UNSUPPORTED")
+        descriptor = os.open(directory, os.O_RDONLY | directory_flag | nofollow_flag)
+        try:
+            os.fsync(descriptor)
+        finally:
+            os.close(descriptor)
 
     def put_part(self, scope: Scope, upload_id: UUID, part_no: int, body: BinaryIO) -> StoredObject:
         object_id, version = uuid4(), "fs-v1-" + uuid4().hex
@@ -49,6 +73,10 @@ class FileObjectStore:
                         raise OSError("OBJECT_WRITE_INCOMPLETE")
                 output.flush()
                 os.fsync(output.fileno())
+            # File data fsync alone does not persist either new directory entry.
+            # Do not publish a DB reference until both namespace barriers pass.
+            self._sync_directory(folder)
+            self._sync_directory(self.root)
         except Exception:
             if file.is_file():
                 # write() can persist a prefix and then raise before returning
