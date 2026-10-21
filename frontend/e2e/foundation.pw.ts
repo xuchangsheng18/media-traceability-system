@@ -375,9 +375,9 @@ test('source console clears registration drafts when manage permission changes w
   // A self-owned reactive-session mutation, not a server-side ACL or real revocation test.
   await page.evaluate(() => {
     const root = document.getElementById('app') as HTMLElement & {
-      __vue_app__?: { _instance: { provides: Record<symbol, unknown> } }
+      _vnode?: { component?: { provides: Record<symbol, unknown> } }
     }
-    const provides = root?.__vue_app__?._instance.provides
+    const provides = root?._vnode?.component?.provides
     const key =
       provides &&
       Object.getOwnPropertySymbols(provides).find((item) => item.description === 'business-session')
@@ -389,6 +389,144 @@ test('source console clears registration drafts when manage permission changes w
   await expect(page.getByLabel('授权依据', { exact: true })).toHaveValue('')
   await expect(page.getByLabel('用途（每行一项）', { exact: true })).toHaveValue('')
   await expect(page.getByRole('button', { name: '登记来源', exact: true })).toBeDisabled()
+})
+
+test('source synchronization binds the service ETag and keeps revoked receipt separate from fresh detail', async ({
+  page,
+}) => {
+  const requests: {
+    method: string
+    body: Schemas['SourceSyncRequest']
+    key: string | undefined
+    etag: string | undefined
+  }[] = []
+  let detailReads = 0
+  await page.route('**/business/api/v1/sources?**', (route) =>
+    route.fulfill({ json: { items: [registeredSource()], next_cursor: null } }),
+  )
+  await page.route(`**/business/api/v1/sources/${sourceId}`, (route) => {
+    detailReads++
+    return route.fulfill({
+      headers: {
+        ETag: detailReads === 1 ? '"source-browser-original"' : '"source-browser-current"',
+      },
+      json:
+        detailReads === 1
+          ? registeredSource()
+          : { ...registeredSource(), version: 3, authorization_status: 'verified' },
+    })
+  })
+  await page.route(`**/business/api/v1/sources/${sourceId}/authorization/sync`, (route) => {
+    const request = route.request()
+    requests.push({
+      method: request.method(),
+      body: request.postDataJSON(),
+      key: request.headers()['idempotency-key'],
+      etag: request.headers()['if-match'],
+    })
+    return route.fulfill({
+      headers: { ETag: '"source-browser-sync-receipt"' },
+      json: { ...registeredSource(), version: 2, authorization_status: 'revoked' },
+    })
+  })
+  await connectBusiness(page, ['source.read', 'source.manage'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await page.getByLabel('来源案件编号').fill(caseId)
+  await page.getByRole('button', { name: '查询来源／回到首页' }).click()
+  await page.getByRole('button', { name: '查看来源详情' }).click()
+  await page.getByRole('button', { name: '同步来源授权', exact: true }).click()
+  const receipt = page.locator('dl.source-detail').filter({ hasText: '同步回执来源编号' })
+  await expect(receipt).toContainText('revoked／2')
+  await expect(
+    page.getByText('当前详情已清空，请点击“重新读取来源详情”查看当前状态。', { exact: true }),
+  ).toBeVisible()
+  await expect(page.getByRole('button', { name: '同步来源授权', exact: true })).toBeDisabled()
+  expect(detailReads).toBe(1)
+  expect(requests).toHaveLength(1)
+  expect(requests[0]).toMatchObject({
+    method: 'POST',
+    body: { expected_version: 1 },
+    etag: '"source-browser-original"',
+  })
+  expect(requests[0]!.body).toEqual({ expected_version: 1 })
+  expect(requests[0]!.key).toMatch(/^[0-9a-f-]{36}$/)
+  await page.getByRole('button', { name: '重新读取来源详情', exact: true }).click()
+  const current = page.locator('dl.source-detail').filter({ hasText: '记录版本' })
+  await expect(current).toContainText('verified')
+  await expect(current).not.toContainText('revoked')
+  await expect(current.locator('dd').last()).toHaveText('3')
+  await expect(receipt).toContainText('revoked／2')
+  expect(detailReads).toBe(2)
+  expect(requests).toHaveLength(1)
+})
+
+test('source synchronization unknown result keeps original request after new detail and repeated conflicts', async ({
+  page,
+}) => {
+  const requests: {
+    body: Schemas['SourceSyncRequest']
+    key: string | undefined
+    etag: string | undefined
+  }[] = []
+  let detailReads = 0
+  await page.route('**/business/api/v1/sources?**', (route) =>
+    route.fulfill({ json: { items: [registeredSource()], next_cursor: null } }),
+  )
+  await page.route(`**/business/api/v1/sources/${sourceId}`, (route) => {
+    detailReads++
+    return route.fulfill({
+      headers: { ETag: detailReads === 1 ? '"source-browser-original"' : '"source-browser-newer"' },
+      json: { ...registeredSource(), version: detailReads === 1 ? 1 : 7 },
+    })
+  })
+  await page.route(`**/business/api/v1/sources/${sourceId}/authorization/sync`, (route) => {
+    const request = route.request()
+    requests.push({
+      body: request.postDataJSON(),
+      key: request.headers()['idempotency-key'],
+      etag: request.headers()['if-match'],
+    })
+    return route.fulfill({
+      status: requests.length === 1 ? 503 : 409,
+      json: {
+        code: requests.length === 1 ? 'SOURCE_SYNCHRONIZATION_UNAVAILABLE' : 'VERSION_CONFLICT',
+      },
+    })
+  })
+  await connectBusiness(page, ['source.read', 'source.manage'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await page.getByLabel('来源案件编号').fill(caseId)
+  await page.getByRole('button', { name: '查询来源／回到首页' }).click()
+  await page.getByRole('button', { name: '查看来源详情' }).click()
+  await page.getByRole('button', { name: '同步来源授权', exact: true }).click()
+  await expect(page.getByText(/SOURCE_SYNCHRONIZATION_UNAVAILABLE/)).toBeVisible()
+  await expect(page.getByRole('button', { name: '重试原授权同步请求', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '重新读取来源详情', exact: true }).click()
+  await expect(
+    page.locator('dl.source-detail').filter({ hasText: '记录版本' }).locator('dd').last(),
+  ).toHaveText('7')
+  await expect(page.getByRole('button', { name: '同步来源授权', exact: true })).toBeDisabled()
+  expect(requests).toHaveLength(1)
+  const retry = page.getByRole('button', { name: '重试原授权同步请求', exact: true })
+  await retry.click()
+  await expect(page.getByText(/VERSION_CONFLICT/)).toBeVisible()
+  await expect(retry).toBeEnabled()
+  expect(requests).toHaveLength(2)
+  expect(requests[0]!.key).toMatch(/^[0-9a-f-]{36}$/)
+  expect(requests[0]).toMatchObject({
+    body: { expected_version: 1 },
+    etag: '"source-browser-original"',
+  })
+  expect(requests[0]!.body).toEqual({ expected_version: 1 })
+  expect(requests[1]).toEqual(requests[0])
+  await retry.click()
+  await expect.poll(() => requests.length).toBe(3)
+  await expect(retry).toBeEnabled()
+  expect(requests[2]).toEqual(requests[0])
+  await expect(
+    page.locator('dl.source-detail').filter({ hasText: '同步回执来源编号' }),
+  ).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '同步来源授权', exact: true })).toBeDisabled()
 })
 
 test('business reading pages require a connected identity', async ({ page }) => {

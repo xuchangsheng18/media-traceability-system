@@ -1,6 +1,8 @@
 # 项目文档导航
 
-2026-10-21来源管理续批：[页面与后端修复](03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。当前123任务为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
+2026-10-21优先续批：[后端→前端→数据→测试](03-development/backend-frontend-data-test-priority-plan.md)、[实测回执](00-project/validation/backend-frontend-data-test-report.json)。新增来源授权同步事务/页面和离线标注质检工具；T001—T123为129条已验证子步骤、434组剩余工作，整任务验收0项；源码同步与共享服务采用分别记录。
+
+2026-10-21来源管理续批：[页面与后端修复](03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。该次记录为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
 
 2026-10-21当前状态：[T001—T123逐项开发审计](03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
 
@@ -34,7 +36,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[748条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有126条已验证子步骤、622条剩余工作；全局编号0001—0748。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[751条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有129条已验证子步骤、622条剩余工作；全局编号0001—0751。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -436,6 +438,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/backend-frontend-data-test-priority-plan.md](<03-development/backend-frontend-data-test-priority-plan.md>) | T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。 |
+| [00-project/validation/backend-frontend-data-test-report.json](<00-project/validation/backend-frontend-data-test-report.json>) | 来源授权同步事务/原请求头、前端回执、离线标注质检及原权限门禁的实测证据，精确CI与源码同步分开记录。 |
+| [07-datasets/annotation-validation.md](<07-datasets/annotation-validation.md>) | D01—D15显式文件离线质检：本地Schema、时间区域边界、UUID重复冲突、预算与脱敏；真实授权、双人仲裁和抽样仍未验证。 |
 | [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 2张官方CC0原图与5个可追溯派生文件，7文件/6唯一摘要、来源和坐标核对；视频未生成，无业务标签、模型精度或正式数据准入推定。 |
 | [00-project/validation/public-development-data-report.json](<00-project/validation/public-development-data-report.json>) | Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
@@ -655,7 +660,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1260份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1263份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -746,11 +751,12 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内748条执行事项逐条编号：126条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内751条执行事项逐条编号：129条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
 | [00-project/validation/application-source-binding-report.json](<00-project/validation/application-source-binding-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/backend-frontend-data-test-report.json](<00-project/validation/backend-frontend-data-test-report.json>) | 来源授权同步事务/原请求头、前端回执、离线标注质检及原权限门禁的实测证据，精确CI与源码同步分开记录。 |
 | [00-project/validation/browser-metadata-verification-report.json](<00-project/validation/browser-metadata-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/business-foundation-report.json](<00-project/validation/business-foundation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/business-recovery-report.json](<00-project/validation/business-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1635,6 +1641,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/README.md](<03-api/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-api/service-and-event-contracts.md](<03-api/service-and-event-contracts.md>) | 服务/私有存储/DB调用及PoC事件字段和故障边界，全业务消息未完成。 |
 | [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、73操作/102结构/34能力、详细阅读标准及13项开放缺口。 |
+| [03-development/backend-frontend-data-test-priority-plan.md](<03-development/backend-frontend-data-test-priority-plan.md>) | T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。 |
 | [03-development/business-console-implementation-plan.md](<03-development/business-console-implementation-plan.md>) | 说明文档：前后端开发优先：业务控制台实施计划；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/architecture-decision.md](<03-development/change-templates/architecture-decision.md>) | 说明文档：架构决策记录模板；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/database-change.md](<03-development/change-templates/database-change.md>) | 说明文档：数据库变更记录模板；结合正文的状态、来源和适用范围阅读。 |
@@ -1824,6 +1831,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [07-datasets/actual-input-inventory.json](<07-datasets/actual-input-inventory.json>) | 15规划数据卡/目录摘要、未知业务计数及真实合成证明；无真实数据扫描、导入或训练。 |
 | [07-datasets/actual-input-inventory.md](<07-datasets/actual-input-inventory.md>) | D01—D15实际元信息与计数口径，真实授权数量未知；64合成训练样本单列，不计正式数据。 |
 | [07-datasets/annotation-specification.md](<07-datasets/annotation-specification.md>) | 标注结构、质量检查和复核要求。 |
+| [07-datasets/annotation-validation.md](<07-datasets/annotation-validation.md>) | D01—D15显式文件离线质检：本地Schema、时间区域边界、UUID重复冲突、预算与脱敏；真实授权、双人仲裁和抽样仍未验证。 |
 | [07-datasets/data-card-template.md](<07-datasets/data-card-template.md>) | 新增或发布数据版本需填写的数据卡模板。 |
 | [07-datasets/data-cards/D01.json](<07-datasets/data-cards/D01.json>) | 该数据集实际来源/授权/计数/标签/质检/切分/负责人/到位日填写入口；未知null，不自动发布或冻结。 |
 | [07-datasets/data-cards/D02.json](<07-datasets/data-cards/D02.json>) | 该数据集实际来源/授权/计数/标签/质检/切分/负责人/到位日填写入口；未知null，不自动发布或冻结。 |

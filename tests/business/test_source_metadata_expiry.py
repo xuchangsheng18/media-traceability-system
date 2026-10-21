@@ -200,7 +200,7 @@ def test_expired_source_still_blocks_media_read_for_analysis(source_metadata_con
 def test_expired_source_write_keeps_its_existing_deadline(request):
     ctx = request.getfixturevalue("control_context")
     permissions = request.getfixturevalue("permission_context")
-    _, objects, _, facts = candidate(ctx, permissions, ["source.manage"], role_code="data_admin")
+    _, objects, _, facts = candidate(ctx, permissions, ["source.manage", "source.read"], role_code="data_admin")
 
     class SyntheticSourceWriteScope:
         def read(self, principal, operation_id, target, *, connection):
@@ -211,7 +211,9 @@ def test_expired_source_write_keeps_its_existing_deadline(request):
     objects.supplemental = SyntheticSourceWriteScope()
     path = f"/api/v1/sources/{ctx['source_id']}/authorization/sync"
     body = {"expected_version": 1}
-    headers = dict(AUTH, **{"Idempotency-Key": uuid4().hex})
+    detail = ctx["control_http"].get(f"/api/v1/sources/{ctx['source_id']}", headers=AUTH)
+    assert detail.status_code == 200
+    headers = dict(AUTH, **{"Idempotency-Key": uuid4().hex, "If-Match": detail.headers["ETag"]})
     # An active source passes SOURCE_WRITE and reaches the deliberately absent adapter.
     before = ctx["control_http"].post(path, json=body, headers=headers)
     assert before.status_code == 503 and before.json()["code"] == "SOURCE_SYNCHRONIZATION_UNAVAILABLE"

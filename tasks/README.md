@@ -2,7 +2,7 @@
 
 170条源任务一任务一文件；角色、源工时、源依赖、工作范围和原验收要求保留。**每张卡文首均列当前完成步骤、真实证据、未完成清单和关闭条件**。计划输出路径、Mock、候选Schema和其他任务的成功不能充当本卡实现证据。
 
-核对日期：2026-10-21。登记开发/原型子范围证据 **57项**；尚无本任务已验证交付 **113项**；完整任务验收 **0/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。
+核对日期：2026-10-21。登记开发/原型子范围证据 **58项**；尚无本任务已验证交付 **112项**；完整任务验收 **0/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。
 
 [当前机器台账](execution-status.json)保存本表及卡片的执行记录；[源字段](source-task-cards.json)、[源索引](backlog.yaml)保留来源状态；[候选依赖](execution-dependencies-candidate.json)不自动当已满足依赖。实际负责人确认记录、仍待提供的有效工时和日期以[实际输入](../docs/00-project/execution-planning-inputs.json)为准；[排期](../docs/00-project/execution-schedule.md)与本台账的验证状态一致。
 
@@ -16,7 +16,7 @@ T012之前的11项任务可直接查看[当前完成与剩余逐项清单](../do
 
 实际负责人已登记：徐昌胜、邓昀，覆盖16项任务；逐项对应见任务卡。姓名登记不授予平台权限，不填补未知工时或验收结果。
 
-当前剩余工作方案与本人步骤：[docs/00-project/validation/development-continuation-report.json](<../docs/00-project/validation/development-continuation-report.json>)、[docs/03-development/business-console-implementation-plan.md](<../docs/03-development/business-console-implementation-plan.md>)、[docs/10-deployment/business-development-runbook.md](<../docs/10-deployment/business-development-runbook.md>)、[docs/03-development/t013-owner-action-checklist.md](<../docs/03-development/t013-owner-action-checklist.md>)、[docs/00-project/validation/t014-rule-proposal-document-review.json](<../docs/00-project/validation/t014-rule-proposal-document-review.json>)、[docs/00-project/validation/t013-recovery-subkeys-owner-validation.json](<../docs/00-project/validation/t013-recovery-subkeys-owner-validation.json>)、[docs/00-project/validation/t013-reprotected-signer-owner-validation.json](<../docs/00-project/validation/t013-reprotected-signer-owner-validation.json>)、[docs/00-project/validation/t013-known-signer-copies-review.json](<../docs/00-project/validation/t013-known-signer-copies-review.json>)、[docs/03-development/t013-known-signer-copy-disposition.md](<../docs/03-development/t013-known-signer-copy-disposition.md>)、[docs/03-development/t013-named-admin-adoption-checklist.md](<../docs/03-development/t013-named-admin-adoption-checklist.md>)、[docs/00-project/validation/t013-named-admin-adoption-preflight.json](<../docs/00-project/validation/t013-named-admin-adoption-preflight.json>)、[docs/00-project/validation/t013-named-admin-adoption-progress.json](<../docs/00-project/validation/t013-named-admin-adoption-progress.json>)、[docs/00-project/validation/t013-owner-mfa-management-validation.json](<../docs/00-project/validation/t013-owner-mfa-management-validation.json>)、[docs/08-security/t014-six-role-rule-proposal.md](<../docs/08-security/t014-six-role-rule-proposal.md>)、[docs/08-security/t014-six-role-rule-proposal.json](<../docs/08-security/t014-six-role-rule-proposal.json>)、[docs/03-development/t014-isolated-six-role-implementation-plan.md](<../docs/03-development/t014-isolated-six-role-implementation-plan.md>)、[docs/03-development/t001-t123-development-sequence.md](<../docs/03-development/t001-t123-development-sequence.md>)、[docs/03-development/t001-t123-development-sequence.json](<../docs/03-development/t001-t123-development-sequence.json>)、[docs/00-project/validation/t014-isolated-plan-review.json](<../docs/00-project/validation/t014-isolated-plan-review.json>)、[docs/00-project/validation/t014-isolated-rule-progress.json](<../docs/00-project/validation/t014-isolated-rule-progress.json>)、[docs/00-project/validation/t015-role-assignment.json](<../docs/00-project/validation/t015-role-assignment.json>)、[docs/00-project/validation/t015-dependency-preflight.json](<../docs/00-project/validation/t015-dependency-preflight.json>)、[docs/03-development/t015-data-scope-design.md](<../docs/03-development/t015-data-scope-design.md>)、[docs/00-project/validation/t015-written-design-review.json](<../docs/00-project/validation/t015-written-design-review.json>)、[docs/03-development/t015-data-scope-implementation-plan.md](<../docs/03-development/t015-data-scope-implementation-plan.md>)、[docs/00-project/validation/t015-implementation-plan-review.json](<../docs/00-project/validation/t015-implementation-plan-review.json>)、[docs/00-project/validation/t015-data-scope-p01-report.json](<../docs/00-project/validation/t015-data-scope-p01-report.json>)、[docs/00-project/validation/t015-data-scope-progress.json](<../docs/00-project/validation/t015-data-scope-progress.json>)、[docs/00-project/validation/t015-data-scope-p02-progress.json](<../docs/00-project/validation/t015-data-scope-p02-progress.json>)、[docs/00-project/validation/t015-data-scope-p03-report.json](<../docs/00-project/validation/t015-data-scope-p03-report.json>)、[docs/00-project/validation/t015-current-ci-observation.json](<../docs/00-project/validation/t015-current-ci-observation.json>)、[docs/04-database/data-scope-migration.md](<../docs/04-database/data-scope-migration.md>)、[docs/09-testing/t015-data-scope-coverage.md](<../docs/09-testing/t015-data-scope-coverage.md>)、[docs/09-testing/t015-data-scope-coverage.json](<../docs/09-testing/t015-data-scope-coverage.json>)、[docs/03-development/t016-operation-token-implementation-plan.md](<../docs/03-development/t016-operation-token-implementation-plan.md>)、[docs/00-project/validation/t016-development-progress.json](<../docs/00-project/validation/t016-development-progress.json>)、[docs/00-project/validation/t016-operation-token-report.json](<../docs/00-project/validation/t016-operation-token-report.json>)、[docs/04-database/operation-token-extension.md](<../docs/04-database/operation-token-extension.md>)、[docs/08-security/t016-operation-token-boundaries.md](<../docs/08-security/t016-operation-token-boundaries.md>)、[docs/03-development/pillow-py310-remediation-plan.md](<../docs/03-development/pillow-py310-remediation-plan.md>)、[docs/00-project/validation/t016-pillow-py310-plan-review.json](<../docs/00-project/validation/t016-pillow-py310-plan-review.json>)、[docs/03-development/pillow-py310-isolated-execution.md](<../docs/03-development/pillow-py310-isolated-execution.md>)、[docs/00-project/validation/t016-pillow-py310-isolated-execution.json](<../docs/00-project/validation/t016-pillow-py310-isolated-execution.json>)、[docs/03-development/t021-source-console-continuation.md](<../docs/03-development/t021-source-console-continuation.md>)。方案形成不等于规则启用或本人操作完成，C/R计数保持实际证据口径。
+当前剩余工作方案与本人步骤：[docs/00-project/validation/development-continuation-report.json](<../docs/00-project/validation/development-continuation-report.json>)、[docs/03-development/business-console-implementation-plan.md](<../docs/03-development/business-console-implementation-plan.md>)、[docs/10-deployment/business-development-runbook.md](<../docs/10-deployment/business-development-runbook.md>)、[docs/03-development/t013-owner-action-checklist.md](<../docs/03-development/t013-owner-action-checklist.md>)、[docs/00-project/validation/t014-rule-proposal-document-review.json](<../docs/00-project/validation/t014-rule-proposal-document-review.json>)、[docs/00-project/validation/t013-recovery-subkeys-owner-validation.json](<../docs/00-project/validation/t013-recovery-subkeys-owner-validation.json>)、[docs/00-project/validation/t013-reprotected-signer-owner-validation.json](<../docs/00-project/validation/t013-reprotected-signer-owner-validation.json>)、[docs/00-project/validation/t013-known-signer-copies-review.json](<../docs/00-project/validation/t013-known-signer-copies-review.json>)、[docs/03-development/t013-known-signer-copy-disposition.md](<../docs/03-development/t013-known-signer-copy-disposition.md>)、[docs/03-development/t013-named-admin-adoption-checklist.md](<../docs/03-development/t013-named-admin-adoption-checklist.md>)、[docs/00-project/validation/t013-named-admin-adoption-preflight.json](<../docs/00-project/validation/t013-named-admin-adoption-preflight.json>)、[docs/00-project/validation/t013-named-admin-adoption-progress.json](<../docs/00-project/validation/t013-named-admin-adoption-progress.json>)、[docs/00-project/validation/t013-owner-mfa-management-validation.json](<../docs/00-project/validation/t013-owner-mfa-management-validation.json>)、[docs/08-security/t014-six-role-rule-proposal.md](<../docs/08-security/t014-six-role-rule-proposal.md>)、[docs/08-security/t014-six-role-rule-proposal.json](<../docs/08-security/t014-six-role-rule-proposal.json>)、[docs/03-development/t014-isolated-six-role-implementation-plan.md](<../docs/03-development/t014-isolated-six-role-implementation-plan.md>)、[docs/03-development/t001-t123-development-sequence.md](<../docs/03-development/t001-t123-development-sequence.md>)、[docs/03-development/t001-t123-development-sequence.json](<../docs/03-development/t001-t123-development-sequence.json>)、[docs/00-project/validation/t014-isolated-plan-review.json](<../docs/00-project/validation/t014-isolated-plan-review.json>)、[docs/00-project/validation/t014-isolated-rule-progress.json](<../docs/00-project/validation/t014-isolated-rule-progress.json>)、[docs/00-project/validation/t015-role-assignment.json](<../docs/00-project/validation/t015-role-assignment.json>)、[docs/00-project/validation/t015-dependency-preflight.json](<../docs/00-project/validation/t015-dependency-preflight.json>)、[docs/03-development/t015-data-scope-design.md](<../docs/03-development/t015-data-scope-design.md>)、[docs/00-project/validation/t015-written-design-review.json](<../docs/00-project/validation/t015-written-design-review.json>)、[docs/03-development/t015-data-scope-implementation-plan.md](<../docs/03-development/t015-data-scope-implementation-plan.md>)、[docs/00-project/validation/t015-implementation-plan-review.json](<../docs/00-project/validation/t015-implementation-plan-review.json>)、[docs/00-project/validation/t015-data-scope-p01-report.json](<../docs/00-project/validation/t015-data-scope-p01-report.json>)、[docs/00-project/validation/t015-data-scope-progress.json](<../docs/00-project/validation/t015-data-scope-progress.json>)、[docs/00-project/validation/t015-data-scope-p02-progress.json](<../docs/00-project/validation/t015-data-scope-p02-progress.json>)、[docs/00-project/validation/t015-data-scope-p03-report.json](<../docs/00-project/validation/t015-data-scope-p03-report.json>)、[docs/00-project/validation/t015-current-ci-observation.json](<../docs/00-project/validation/t015-current-ci-observation.json>)、[docs/04-database/data-scope-migration.md](<../docs/04-database/data-scope-migration.md>)、[docs/09-testing/t015-data-scope-coverage.md](<../docs/09-testing/t015-data-scope-coverage.md>)、[docs/09-testing/t015-data-scope-coverage.json](<../docs/09-testing/t015-data-scope-coverage.json>)、[docs/03-development/t016-operation-token-implementation-plan.md](<../docs/03-development/t016-operation-token-implementation-plan.md>)、[docs/00-project/validation/t016-development-progress.json](<../docs/00-project/validation/t016-development-progress.json>)、[docs/00-project/validation/t016-operation-token-report.json](<../docs/00-project/validation/t016-operation-token-report.json>)、[docs/04-database/operation-token-extension.md](<../docs/04-database/operation-token-extension.md>)、[docs/08-security/t016-operation-token-boundaries.md](<../docs/08-security/t016-operation-token-boundaries.md>)、[docs/03-development/pillow-py310-remediation-plan.md](<../docs/03-development/pillow-py310-remediation-plan.md>)、[docs/00-project/validation/t016-pillow-py310-plan-review.json](<../docs/00-project/validation/t016-pillow-py310-plan-review.json>)、[docs/03-development/pillow-py310-isolated-execution.md](<../docs/03-development/pillow-py310-isolated-execution.md>)、[docs/00-project/validation/t016-pillow-py310-isolated-execution.json](<../docs/00-project/validation/t016-pillow-py310-isolated-execution.json>)、[docs/03-development/t021-source-console-continuation.md](<../docs/03-development/t021-source-console-continuation.md>)、[docs/03-development/backend-frontend-data-test-priority-plan.md](<../docs/03-development/backend-frontend-data-test-priority-plan.md>)。方案形成不等于规则启用或本人操作完成，C/R计数保持实际证据口径。
 
 ## 使用和更新规则
 
@@ -26,9 +26,9 @@ T012之前的11项任务可直接查看[当前完成与剩余逐项清单](../do
 
 ## 分步任务导航
 
-当前台账共 **748条执行事项**：已完成子步骤 **126条**，剩余工作 **622条**。全局编号按台账中的任务顺序排列，任务卡内C编号表示已完成子步骤，R编号表示剩余工作；编号用于查阅，实际执行仍按源依赖与适用条件。
+当前台账共 **751条执行事项**：已完成子步骤 **129条**，剩余工作 **622条**。全局编号按台账中的任务顺序排列，任务卡内C编号表示已完成子步骤，R编号表示剩余工作；编号用于查阅，实际执行仍按源依赖与适用条件。
 
-逐项入口：[0001—0748完整清单](../docs/00-project/task-execution-steps.txt)；[同源台账](execution-status.json)；[项目文档导航](../docs/README.md)。下表逐项给出已完成数、剩余数和全局编号范围，点击任务编号查看具体C/R步骤及证据。记录粒度不同，不按这些数量换算统一功能完成率；整任务验收仍按各卡关闭条件。
+逐项入口：[0001—0751完整清单](../docs/00-project/task-execution-steps.txt)；[同源台账](execution-status.json)；[项目文档导航](../docs/README.md)。下表逐项给出已完成数、剩余数和全局编号范围，点击任务编号查看具体C/R步骤及证据。记录粒度不同，不按这些数量换算统一功能完成率；整任务验收仍按各卡关闭条件。
 
 ## 170任务当前状态与剩余工作
 
@@ -54,153 +54,153 @@ T012之前的11项任务可直接查看[当前完成与剩余逐项清单](../do
 | [T018](frontend/T018.md) | 开发审计查询页面与接口 | frontend | 已验证部分范围；未关闭 | 2 | 3 | 0122—0126 | 后端审计查询、导出状态及授权下载子范围已实现 新增审计查询/详情、当前页筛选、批准绑定导出申请/状态/受控下载前端；构建及未登录页面检查通过；不是全库过滤或已批准导出成功。 | 全库时间/用户/对象筛选尚需公共契约补充，当前仅筛已返回页；前端正向业务/分页/脱敏/导出E2E、大小/失效/撤销与下载审计仍待验证。 |
 | [T019](backend/T019.md) | 设计内容与媒体资产模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0127—0130 | 尚无本任务已验证交付 | 完成设计内容与媒体资产模型的交付、异常/权限测试和源验收 |
 | [T020](backend/T020.md) | 实现内容与媒体资产表 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0131—0134 | 媒体基础表迁移及上传完成后的资产登记已实现 | 补完整媒体模型访问、查询、生命周期及约束回归；逐字段对照数据字典及API映射，不以空库建表代替业务访问实现 |
-| [T021](backend/T021.md) | 实现数据来源授权登记 | backend | 已验证部分范围；未关闭 | 4 | 3 | 0135—0141 | 来源登记SQL/幂等/审计与权威绑定已有验证；本批新增案件来源管理页面、列表/详情/登记和未知结果原键重试；自然到期来源可读取expired元数据而用途仍拒绝。194项单元、41项浏览器夹具及12项到期/范围隔离回归通过；真实权威联调和整卡验收仍待。 | 登记、列表和详情页面已具限定验证；继续接真实来源权威及授权同步/修改维护页面，不把pending或登记成功当有效用途授权。；补到期后台告警和完整修改审计/授权同步页面；现有到期状态可读不等于告警服务，客户端不得自行声明已核验。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。 |
-| [T022](backend/T022.md) | 实现分片上传初始化 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0142—0145 | 分片上传初始化、权限和幂等约束已实现 | 完成全部源参数、配额/并发及前端上传联调；补实际认证来源适配后的正反向验收 |
-| [T023](backend/T023.md) | 实现分片接收与校验 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0146—0149 | 分片摘要/偏移、重放及续传子范围已有真实HTTP/数据库测试 | 补全部适用媒体、并发/大文件/断网跨会话联调；完成实际配额与清理策略、失败恢复及源验收对照 |
-| [T024](backend/T024.md) | 实现分片合并与完整哈希 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0150—0153 | 异步合并、完整性、原子状态及回执/outbox子范围已有验证 | 补实际部署worker和全媒体安全校验链路；扩大并发、宕机/重放恢复及缺失对象测试并完成任务验收 |
-| [T025](backend/T025.md) | 实现MinIO对象存储适配器 | backend | 已验证部分范围；未关闭 | 2 | 3 | 0154—0158 | PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证；新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。 | 按适用正式存储实现版本/权限/保留及完整对象API；落实WORM/备份与生产准入；开发FileStore不等于正式证据存储 |
-| [T026](backend/T026.md) | 实现媒体格式探测与安全校验 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0159—0162 | PNG/JPEG文件头、完整解码及尺寸限制已有异常用例 | 实现查毒、异常压缩/时长预算、视频容器探测及安全解析隔离；验证查毒不可用拒绝、恶意媒体/超时/协议及网络边界；当前不能认定全媒体安全通过 |
-| [T027](backend/T027.md) | 实现SHA-256完全重复检测 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0163—0166 | 案件内精确SHA重复检测及duplicate_of引用已有测试 | 补全部批量/并发去重与权限策略；验证不同来源/案件不可复用及对象生命周期，不将精确哈希当感知去重 |
-| [T028](backend/T028.md) | 实现批量清单导入 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0167—0170 | 已登记同案件/有效来源固定对象的导入事务已有验证 | 补授权CSV/JSON文件清单解析、逐条错误反馈和对象文件批量接入；补批量任务队列、错误补偿与全流程验收；已登记ObjectRef导入不等于清单文件解析完成，第三方采集另属T029 |
-| [T029](backend/T029.md) | 实现第三方接入适配器协议 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0171—0174 | 尚无本任务已验证交付 | 完成第三方接入适配器协议的交付、异常/权限测试和源验收 |
-| [T030](frontend/T030.md) | 开发媒体资产管理页面 | frontend | 已验证部分范围；未关闭 | 3 | 4 | 0175—0181 | 资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。 | 完整血缘、来源授权明细、真实后端/身份/来源组合E2E、实际负责人和源标准完整验收仍待。 |
-| [T031](backend/T031.md) | 设计分析任务与节点执行模型 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0182—0185 | 任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证 | 补全部任务模型访问、版本约束与业务关联；对接真实调度和结果生产后完成任务级验收 |
-| [T032](backend/T032.md) | 实现任务及节点数据库模型 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0186—0189 | 业务版本迁移与当前历史/上传所需任务表访问已有测试 | 补完整任务访问层和全部版本升级/前向修复；完成生产升级、关联隔离及失败回退验证 |
-| [T033](backend/T033.md) | 实现任务状态机 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0190—0193 | 上传及取消状态原子写、审计/outbox与部分状态约束已有验证 | 实现全业务分析任务状态机及节点聚合；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序 |
-| [T034](backend/T034.md) | 实现任务创建接口 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0194—0197 | 尚无本任务已验证交付 | 完成任务创建接口的交付、异常/权限测试和源验收 |
-| [T035](backend/T035.md) | 实现任务查询和进度接口 | backend | 已验证部分范围；未关闭 | 2 | 3 | 0198—0202 | 固定历史运行、结果及当前执行节点/事件读取子范围已有验证；已实现案件级当前任务列表分页：逐项权限与来源核验、无历史结果任务、当前运行最新节点尝试投影及事务提交前复核；不代表真实DAG进度或任务生产者完成 | 补真实DAG进度计算与前端接入；验证同run进度单调、重算新版本分列及全部适用权限和错误场景；任务创建/生产者另按T034等依赖实施 |
-| [T036](backend/T036.md) | 实现异步队列与优先级 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0203—0206 | 上传验证真实RabbitMQ消息、确认/恢复和取消outbox基础已有测试 | 补完整DAG队列消费者、优先级/背压/并发配额；实施真实多worker投递故障/重放/崩溃恢复，不把数据库竞争者当Celery worker |
-| [T037](backend/T037.md) | 实现DAG任务编排器 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0207—0210 | 尚无本任务已验证交付 | 完成DAG任务编排器的交付、异常/权限测试和源验收 |
-| [T038](backend/T038.md) | 实现节点级重试与检查点 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0211—0214 | 节点租约/fencing及取消确认的过期边界已有数据库竞争测试 | 实现完整节点重试退避、checkpoint续跑及资源/OOM策略；真实多worker故障回归并证明旧持有者不能发布结果；确认取消不等于已停外部进程 |
-| [T039](backend/T039.md) | 实现任务取消和退回重算 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0215—0218 | 取消请求202、条件写及当前租约/epoch确认子范围已有测试 | 实现重跑新run编排和真实worker取消投递/停止；覆盖重复取消、旧租约、执行中结果发布竞态及恢复联调 |
-| [T040](frontend/T040.md) | 开发任务监控页面 | frontend | 已验证部分范围；未关闭 | 2 | 4 | 0219—0224 | 按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列；按12页PPT优化现有界面，57项单元与10项浏览器夹具通过；任务页新增案件内当前任务分页与筛选，选择任务衔接现有执行/节点/事件及历史结果读取；无结果和DEFERRED状态保留，不推算DAG百分比；74项前端单元和26项传输夹具浏览器回归通过。 | 任务创建/取消/重算的适用前端动作、真实DAG进度与检查点展示、真实后端身份组合联调及源验收仍待；当前案件任务列表和历史读取已有前端回归 |
-| [T041](backend/T041.md) | 实现图片元数据解析 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0225—0228 | 上传验证可完整解码PNG/JPEG并检查尺寸；本批两张官方CC0原图已下载、同摘要同步Linux并用现有解码器实测，错误摘要/MIME拒绝；未实现完整ImageMetadataResult服务。 | 建立正式ImageMetadataResult生产服务，提取色彩/EXIF/质量/重采样信息；补多格式、坏EXIF及敏感定位脱敏测试；旧媒体PTS证据不属于图片元数据验收 |
-| [T042](backend/T042.md) | 实现视频ffprobe解析 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0229—0232 | 自建视频的FFmpeg解码、时基和源PTS验证原型已执行 | 实现正式ffprobe视频元数据解析服务，补授权多编码/VFR/损坏媒体及预算测试；当前FFmpeg夹具不证明ffprobe接口已实现；自建夹具结果不能替代授权真实媒体的任务验收 |
-| [T043](backend/T043.md) | 实现标准化媒体副本生成 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0233—0236 | 自建媒体解码/旋转夹具验证原件摘要不变及像素映射 | 实现正式分析副本生成、转码/色彩/旋转策略与映射版本，不覆盖原件；自建夹具结果不能替代授权真实媒体的任务验收 |
-| [T044](backend/T044.md) | 实现镜头边界检测 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0237—0240 | 尚无本任务已验证交付 | 完成镜头边界检测的交付、异常/权限测试和源验收 |
-| [T045](backend/T045.md) | 实现固定间隔抽帧 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0241—0244 | 自建VFR片段的原PTS与帧映射验证已执行 | 实现正式关键帧抽取服务，补真实视频、长视频及完整时间映射；自建夹具结果不能替代授权真实媒体的任务验收 |
-| [T046](backend/T046.md) | 实现镜头代表帧选择 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0245—0248 | 尚无本任务已验证交付 | 完成镜头代表帧选择的交付、异常/权限测试和源验收 |
-| [T047](backend/T047.md) | 实现音轨与字幕提取 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0249—0252 | 自建音频/字幕抽取夹具已有验证 | 实现正式音轨/字幕提取与缺模态/编码/时基对齐及权限测试；自建夹具结果不能替代授权真实媒体的任务验收 |
-| [T048](backend/T048.md) | 接入OCR并建立时间片段 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0253—0256 | 尚无本任务已验证交付 | 完成接入OCR并建立时间片段的交付、异常/权限测试和源验收 |
-| [T049](backend/T049.md) | 接入ASR并建立时间片段 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0257—0260 | 尚无本任务已验证交付 | 完成接入ASR并建立时间片段的交付、异常/权限测试和源验收 |
-| [T050](backend/T050.md) | 实现媒体统一时间轴服务 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0261—0264 | 尚无本任务已验证交付 | 完成媒体统一时间轴服务的交付、异常/权限测试和源验收 |
-| [T051](algorithm/T051.md) | 定义统一模型输入输出契约 | algorithm | 已验证部分范围；未关闭 | 1 | 3 | 0265—0268 | M01—M34输入输出Schema及网关结构/错误校验已有开发验证 | 逐能力确认输入字节/像素路径、前处理版本与部分能力语义；补真实适配器兼容/序列化及边界测试；34套Schema不等于34模型可用 |
-| [T052](algorithm/T052.md) | 实现模型注册表 | algorithm | 已验证部分范围；未关闭 | 1 | 4 | 0269—0273 | 尚无本任务已验证交付；listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。 | 模型登记写入、唯一版本/模型卡约束的服务验证、修改审计、正式制品与上下线管理、完整管理写操作页面及整任务验收仍待。；已登记模型/评测的只读前端见T060。 |
-| [T053](algorithm/T053.md) | 实现统一推理网关 | algorithm | 已验证部分范围；未关闭 | 1 | 3 | 0274—0277 | 网关权限、固定对象、deadline/结果边界及独立M15合成CPU链路有验证 | 实现逐能力真实模型后端和统一推理服务的完整管理/故障路径；补授权权重/数据及实际CPU-GPU资源、性能、并发和隔离验收 |
-| [T054](algorithm/T054.md) | 实现HTTP与本地Mock适配器 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0278—0281 | 尚无本任务已验证交付 | 完成HTTP与本地Mock适配器的交付、异常/权限测试和源验收 |
-| [T055](algorithm/T055.md) | 实现推理批处理与GPU队列 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0282—0285 | 尚无本任务已验证交付 | 完成推理批处理与GPU队列的交付、异常/权限测试和源验收 |
-| [T056](algorithm/T056.md) | 实现模型健康检查与熔断 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0286—0289 | 尚无本任务已验证交付 | 完成模型健康检查与熔断的交付、异常/权限测试和源验收 |
-| [T057](algorithm/T057.md) | 实现模型灰度发布 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0290—0293 | 尚无本任务已验证交付 | 完成模型灰度发布的交付、异常/权限测试和源验收 |
-| [T058](algorithm/T058.md) | 实现模型评测记录管理 | algorithm | 已验证部分范围；未关闭 | 1 | 4 | 0294—0298 | 尚无本任务已验证交付；listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。 | 真实评测记录写入、总体/分组指标生产者、报告生成/保存及合格评测对发布审批的约束、完整评测发起/写入页面和源验收仍待。；已登记模型/评测的只读前端见T060。 |
-| [T059](algorithm/T059.md) | 实现输入输出漂移监测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0299—0302 | 尚无本任务已验证交付 | 完成输入输出漂移监测的交付、异常/权限测试和源验收 |
-| [T060](frontend/T060.md) | 开发模型运维页面 | frontend | 已验证部分范围；未关闭 | 1 | 4 | 0303—0307 | 新增/models只读页面：当前单位模型与已登记评测独立分页，model.read/身份或权限变化即时清空并废弃晚响应，元数据引用仅文本、null指标保持未提供；129项前端单元和36项自建传输浏览器回归通过，不代表真实后端E2E、健康或发布/回滚实现。 | 当前模型/评测只读页面已实现；仍需真实健康、灰度/漂移、获批发布/二次确认/回滚交互、真实后端身份组合联调及完整源验收。 |
-| [T061](algorithm/T061.md) | 定义风险标签和版本管理 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0308—0311 | 尚无本任务已验证交付 | 完成定义风险标签和版本管理的交付、异常/权限测试和源验收 |
-| [T062](algorithm/T062.md) | 接入图片多标签分类模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0312—0315 | 尚无本任务已验证交付 | 完成接入图片多标签分类模型的交付、异常/权限测试和源验收 |
-| [T063](algorithm/T063.md) | 接入敏感目标检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0316—0319 | 尚无本任务已验证交付 | 完成接入敏感目标检测模型的交付、异常/权限测试和源验收 |
-| [T064](algorithm/T064.md) | 接入视频行为识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0320—0323 | 尚无本任务已验证交付 | 完成接入视频行为识别模型的交付、异常/权限测试和源验收 |
-| [T065](algorithm/T065.md) | 接入音频事件识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0324—0327 | 尚无本任务已验证交付 | 完成接入音频事件识别模型的交付、异常/权限测试和源验收 |
-| [T066](algorithm/T066.md) | 实现多模态时间对齐 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0328—0331 | 尚无本任务已验证交付 | 完成多模态时间对齐的交付、异常/权限测试和源验收 |
-| [T067](algorithm/T067.md) | 实现跨模态矛盾检测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0332—0335 | 尚无本任务已验证交付 | 完成跨模态矛盾检测的交付、异常/权限测试和源验收 |
-| [T068](algorithm/T068.md) | 实现综合风险融合与校准 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0336—0339 | 尚无本任务已验证交付 | 完成综合风险融合与校准的交付、异常/权限测试和源验收 |
-| [T069](algorithm/T069.md) | 实现风险转人工规则 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0340—0343 | 尚无本任务已验证交付 | 完成风险转人工规则的交付、异常/权限测试和源验收 |
-| [T070](frontend/T070.md) | 开发风险识别研判界面 | frontend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0344—0347 | 尚无本任务已验证交付 | 完成开发风险识别研判界面的交付、异常/权限测试和源验收 |
-| [T071](algorithm/T071.md) | 实现图片取证基础特征 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0348—0351 | 尚无本任务已验证交付 | 完成图片取证基础特征的交付、异常/权限测试和源验收 |
-| [T072](algorithm/T072.md) | 接入图片篡改区域模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0352—0355 | 尚无本任务已验证交付 | 完成接入图片篡改区域模型的交付、异常/权限测试和源验收 |
-| [T073](algorithm/T073.md) | 实现复制粘贴与局部生成分类 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0356—0359 | 尚无本任务已验证交付 | 完成复制粘贴与局部生成分类的交付、异常/权限测试和源验收 |
-| [T074](algorithm/T074.md) | 实现视频时间结构异常检测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0360—0363 | 尚无本任务已验证交付 | 完成视频时间结构异常检测的交付、异常/权限测试和源验收 |
-| [T075](algorithm/T075.md) | 实现视频空间篡改跟踪 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0364—0367 | 尚无本任务已验证交付 | 完成视频空间篡改跟踪的交付、异常/权限测试和源验收 |
-| [T076](algorithm/T076.md) | 接入深度伪造与音画同步检测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0368—0371 | 尚无本任务已验证交付 | 完成接入深度伪造与音画同步检测的交付、异常/权限测试和源验收 |
-| [T077](algorithm/T077.md) | 实现篡改多证据融合 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0372—0375 | 尚无本任务已验证交付 | 完成篡改多证据融合的交付、异常/权限测试和源验收 |
-| [T078](frontend/T078.md) | 开发篡改取证界面 | frontend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0376—0379 | 尚无本任务已验证交付 | 完成开发篡改取证界面的交付、异常/权限测试和源验收 |
-| [T079](algorithm/T079.md) | 实现图片感知哈希特征 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0380—0383 | 尚无本任务已验证交付 | 完成图片感知哈希特征的交付、异常/权限测试和源验收 |
-| [T080](algorithm/T080.md) | 实现视觉与复制检测向量生成 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0384—0387 | 尚无本任务已验证交付 | 完成视觉与复制检测向量生成的交付、异常/权限测试和源验收 |
-| [T081](algorithm/T081.md) | 建立Milvus索引与版本管理 | algorithm | 已验证部分范围；未关闭 | 1 | 3 | 0388—0391 | 少量SQL向量检索夹具已验证 | 实施正式向量索引及写入/过滤/重建接口和规模测试；补真实业务向量、授权过滤及Milvus等正式选型实测，不把3条SQL向量当生产索引 |
-| [T082](algorithm/T082.md) | 实现图片多路候选召回 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0392—0395 | 尚无本任务已验证交付 | 完成图片多路候选召回的交付、异常/权限测试和源验收 |
-| [T083](algorithm/T083.md) | 实现局部特征提取与匹配 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0396—0399 | 尚无本任务已验证交付 | 完成局部特征提取与匹配的交付、异常/权限测试和源验收 |
-| [T084](algorithm/T084.md) | 实现RANSAC几何验证 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0400—0403 | 尚无本任务已验证交付 | 完成RANSAC几何验证的交付、异常/权限测试和源验收 |
-| [T085](algorithm/T085.md) | 实现图片局部区域检索 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0404—0407 | 尚无本任务已验证交付 | 完成图片局部区域检索的交付、异常/权限测试和源验收 |
-| [T086](algorithm/T086.md) | 实现视频帧检索候选聚合 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0408—0411 | 尚无本任务已验证交付 | 完成视频帧检索候选聚合的交付、异常/权限测试和源验收 |
-| [T087](algorithm/T087.md) | 实现视频相似度矩阵构建 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0412—0415 | 尚无本任务已验证交付 | 完成视频相似度矩阵构建的交付、异常/权限测试和源验收 |
-| [T088](algorithm/T088.md) | 实现局部DTW与倒放对齐 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0416—0419 | 尚无本任务已验证交付 | 完成局部DTW与倒放对齐的交付、异常/权限测试和源验收 |
-| [T089](algorithm/T089.md) | 实现多源拼接来源映射 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0420—0423 | 尚无本任务已验证交付 | 完成多源拼接来源映射的交付、异常/权限测试和源验收 |
-| [T090](backend/T090.md) | 实现高可信同源内容聚类 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0424—0427 | 尚无本任务已验证交付 | 完成高可信同源内容聚类的交付、异常/权限测试和源验收 |
-| [T091](backend/T091.md) | 实现首发排序特征工程 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0428—0431 | 尚无本任务已验证交付 | 完成首发排序特征工程的交付、异常/权限测试和源验收 |
-| [T092](backend/T092.md) | 训练和注册首发排序模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0432—0435 | 尚无本任务已验证交付 | 完成训练和注册首发排序模型的交付、异常/权限测试和源验收 |
-| [T093](backend/T093.md) | 实现首发候选查询服务 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0436—0439 | 首发历史固定运行与既有候选排名读取已有验证 | 实现真实观察范围内首发排序生产与不确定性处理；补时区、缺失时间、并列及授权边界；读取已有排名不等于排序算法已运行 |
-| [T094](backend/T094.md) | 设计传播图谱数据模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0440—0443 | 尚无本任务已验证交付 | 完成设计传播图谱数据模型的交付、异常/权限测试和源验收 |
-| [T095](backend/T095.md) | 实现传播图谱写入与查询 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0444—0447 | 尚无本任务已验证交付 | 完成传播图谱写入与查询的交付、异常/权限测试和源验收 |
-| [T096](backend/T096.md) | 实现隐式传播关系推断 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0448—0451 | 尚无本任务已验证交付 | 完成隐式传播关系推断的交付、异常/权限测试和源验收 |
-| [T097](frontend/T097.md) | 开发传播时间线和图谱界面 | frontend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0452—0455 | 尚无本任务已验证交付 | 完成开发传播时间线和图谱界面的交付、异常/权限测试和源验收 |
-| [T098](algorithm/T098.md) | 实现结构化主张抽取服务 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0456—0459 | 尚无本任务已验证交付 | 完成结构化主张抽取服务的交付、异常/权限测试和源验收 |
-| [T099](algorithm/T099.md) | 实现权威证据检索与关系判断 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0460—0463 | 尚无本任务已验证交付 | 完成权威证据检索与关系判断的交付、异常/权限测试和源验收 |
-| [T100](backend/T100.md) | 实现统一证据对象模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0464—0467 | 尚无本任务已验证交付 | 完成统一证据对象模型的交付、异常/权限测试和源验收 |
-| [T101](backend/T101.md) | 实现风险与取证证据卡片接口 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0468—0471 | 风险/取证/证据等固定历史结果读取子范围已有验证 | 实现真实结果生产、聚合及前端详情/证据展示；核对全部模型结果、版本/原件映射和部分能力边界，不用测试历史行冒充真实模型输出 |
-| [T102](backend/T102.md) | 实现人工复核工作流 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0472—0475 | 复核追加写、ETag、固定证据及来源/策略版本子范围已有验证 | 落实正式复核状态、RETURNED后继、阈值与审批适用规则；补全状态流/前端与真实结果联调、异常/撤销/版本更正回归 |
-| [T103](frontend/T103.md) | 开发人工复核工作台 | frontend | 已验证部分范围；未关闭 | 1 | 3 | 0476—0479 | 待复核列表、上下文及历史记录后端子范围已有验证 | 实现复核工作台页面、标注/交互、筛选/分页；联调真实业务规则、结果和权限，并执行完整工作流测试 |
-| [T104](backend/T104.md) | 实现证据固化与完整性校验 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0480—0483 | 尚无本任务已验证交付 | 完成证据固化与完整性校验的交付、异常/权限测试和源验收 |
-| [T105](backend/T105.md) | 实现可信时间与签名适配层 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0484—0487 | 尚无本任务已验证交付 | 完成可信时间与签名适配层的交付、异常/权限测试和源验收 |
-| [T106](backend/T106.md) | 实现证据约束核查摘要 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0488—0491 | 尚无本任务已验证交付 | 完成证据约束核查摘要的交付、异常/权限测试和源验收 |
-| [T107](backend/T107.md) | 实现核查报告生成 | backend | 已验证部分范围；未关闭 | 1 | 4 | 0492—0496 | 新增getReport真实数据库元数据读取：报告/证据/案件/任务及运行结果版本严格绑定、固定对象引用、全部证据来源和事务尾授权复核；32项投影/SQL/HTTP/0013升级回滚测试通过。不包含报告生成、渲染或下载。 | 报告生成生产者、版本化模板/渲染、审批及受控下载、完整证据约束报告验收仍待；getReport读取不替代这些工作 |
-| [T108](backend/T108.md) | 实现样本纠错与回流审批 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0497—0500 | 纠错申请/审批快照读取及未落实数据血缘时拒绝APPLIED已有验证 | 实现实际样本纠错、用途授权及获准数据集写入worker；补脱敏/去重/质检/冻结集隔离与撤销流程；拒绝动作不是回流成功 |
-| [T109](data/T109.md) | 建立标注规范与标签质检工具 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0501—0504 | 尚无本任务已验证交付 | 完成标注规范与标签质检工具的交付、异常/权限测试和源验收 |
-| [T110](data/T110.md) | 实现原始素材分组划分 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0505—0508 | 尚无本任务已验证交付 | 完成原始素材分组划分的交付、异常/权限测试和源验收 |
-| [T111](data/T111.md) | 实现可控编辑数据增强流水线 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0509—0512 | 尚无本任务已验证交付 | 完成可控编辑数据增强流水线的交付、异常/权限测试和源验收 |
-| [T112](data/T112.md) | 建立难负样本挖掘流程 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0513—0516 | 尚无本任务已验证交付 | 完成难负样本挖掘流程的交付、异常/权限测试和源验收 |
-| [T113](backend/T113.md) | 实现风险模型训练与评测流水线 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0517—0520 | 尚无本任务已验证交付 | 完成风险模型训练与评测流水线的交付、异常/权限测试和源验收 |
-| [T114](backend/T114.md) | 实现篡改模型评测流水线 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0521—0524 | 尚无本任务已验证交付 | 完成篡改模型评测流水线的交付、异常/权限测试和源验收 |
-| [T115](backend/T115.md) | 实现同源与片段检索评测流水线 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0525—0528 | 尚无本任务已验证交付 | 完成同源与片段检索评测流水线的交付、异常/权限测试和源验收 |
-| [T116](backend/T116.md) | 实现首发和大模型核查评测 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0529—0532 | 尚无本任务已验证交付 | 完成首发和大模型核查评测的交付、异常/权限测试和源验收 |
-| [T117](testing/T117.md) | 建立应用安全自动化扫描 | testing | 已验证部分范围；未关闭 | 1 | 3 | 0533—0536 | 密钥检查、Python/npm依赖及独立类型工具扫描已有研发证据 | 补适用SAST、镜像/系统二进制、Torch覆盖与未托管组件核查；落实软件/模型许可准入和正式修复决定，不以工具无报错认定全系统安全 |
-| [T118](testing/T118.md) | 实施上传与接口安全测试 | testing | 已验证部分范围；未关闭 | 1 | 3 | 0537—0540 | 自建夹具的越权、重放、坏分片、伪媒体及跨案件测试已有验证 | 补全业务完成后的审批/导出/反馈最终安全复测；补恶意文件、SSRF、限流/大文件资源与正式身份联调及整改闭环 |
-| [T119](testing/T119.md) | 实施大模型安全测试 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0541—0544 | 尚无本任务已验证交付 | 完成实施大模型安全测试的交付、异常/权限测试和源验收 |
-| [T120](backend/T120.md) | 实现监控指标与告警 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0545—0548 | 研发健康与数据卷容量观测已有记录，最近13%且可用约644GiB | 实现正式指标采集、仪表盘、告警及分级响应；落实配额/维护人/告警投递并做故障演练；健康查询不等于监控平台 |
-| [T121](deployment/T121.md) | 实现备份恢复与灾备演练 | deployment | 已验证部分范围；未关闭 | 1 | 3 | 0549—0552 | 开发数据库/对象冷备恢复及业务双历史对账已有实测 | 落实正式异地目标、RPO/RTO、密钥及恢复授权；实施生产适用全业务异机恢复/PITR演练，开发冷备不能代替生产灾备 |
-| [T122](testing/T122.md) | 执行20并发验收性能测试 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0553—0556 | 尚无本任务已验证交付 | 完成执行20并发验收性能测试的交付、异常/权限测试和源验收 |
-| [T123](testing/T123.md) | 执行100并发容量与长稳测试 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0557—0560 | 尚无本任务已验证交付 | 完成执行100并发容量与长稳测试的交付、异常/权限测试和源验收 |
-| [T124](testing/T124.md) | 完成三类业务场景验收 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0561—0564 | 尚无本任务已验证交付 | 完成完成三类业务场景验收的交付、异常/权限测试和源验收 |
-| [T125](algorithm/T125.md) | 建立算法实验公共框架 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0565—0568 | 尚无本任务已验证交付 | 完成算法实验公共框架的交付、异常/权限测试和源验收 |
-| [T126](data/T126.md) | 建立训练数据版本与数据卡 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0569—0572 | 尚无本任务已验证交付 | 完成训练数据版本与数据卡的交付、异常/权限测试和源验收 |
-| [T127](data/T127.md) | 冻结公安业务独立测试集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0573—0576 | 尚无本任务已验证交付 | 完成冻结公安业务独立测试集的交付、异常/权限测试和源验收 |
-| [T128](algorithm/T128.md) | 建立算法基线结果台账 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0577—0580 | 尚无本任务已验证交付 | 完成算法基线结果台账的交付、异常/权限测试和源验收 |
-| [T129](data/T129.md) | 开展图片多标签风险数据分析 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0581—0584 | 尚无本任务已验证交付 | 完成开展图片多标签风险数据分析的交付、异常/权限测试和源验收 |
-| [T130](algorithm/T130.md) | 训练图片多标签风险基线模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0585—0588 | 尚无本任务已验证交付 | 完成训练图片多标签风险基线模型的交付、异常/权限测试和源验收 |
-| [T131](algorithm/T131.md) | 优化风险类别不平衡与长尾召回 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0589—0592 | 尚无本任务已验证交付 | 完成优化风险类别不平衡与长尾召回的交付、异常/权限测试和源验收 |
-| [T132](algorithm/T132.md) | 训练敏感目标检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0593—0596 | 尚无本任务已验证交付 | 完成训练敏感目标检测模型的交付、异常/权限测试和源验收 |
-| [T133](algorithm/T133.md) | 开展小目标低清目标专项优化 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0597—0600 | 尚无本任务已验证交付 | 完成开展小目标低清目标专项优化的交付、异常/权限测试和源验收 |
-| [T134](data/T134.md) | 构建视频行为训练片段与时间边界 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0601—0604 | 尚无本任务已验证交付 | 完成构建视频行为训练片段与时间边界的交付、异常/权限测试和源验收 |
-| [T135](algorithm/T135.md) | 微调视频行为识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0605—0608 | 尚无本任务已验证交付 | 完成微调视频行为识别模型的交付、异常/权限测试和源验收 |
-| [T136](algorithm/T136.md) | 训练视频事件时间定位模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0609—0612 | 尚无本任务已验证交付 | 完成训练视频事件时间定位模型的交付、异常/权限测试和源验收 |
-| [T137](algorithm/T137.md) | 微调音频事件识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0613—0616 | 尚无本任务已验证交付 | 完成微调音频事件识别模型的交付、异常/权限测试和源验收 |
-| [T138](data/T138.md) | 构建跨模态一致与矛盾训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0617—0620 | 尚无本任务已验证交付 | 完成构建跨模态一致与矛盾训练集的交付、异常/权限测试和源验收 |
-| [T139](algorithm/T139.md) | 训练跨模态矛盾检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0621—0624 | 尚无本任务已验证交付 | 完成训练跨模态矛盾检测模型的交付、异常/权限测试和源验收 |
-| [T140](algorithm/T140.md) | 训练多模态风险融合模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0625—0628 | 尚无本任务已验证交付 | 完成训练多模态风险融合模型的交付、异常/权限测试和源验收 |
-| [T141](algorithm/T141.md) | 实施风险概率校准和业务阈值优化 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0629—0632 | 尚无本任务已验证交付 | 完成实施风险概率校准和业务阈值优化的交付、异常/权限测试和源验收 |
-| [T142](data/T142.md) | 构建图片篡改成组训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0633—0636 | 尚无本任务已验证交付 | 完成构建图片篡改成组训练集的交付、异常/权限测试和源验收 |
-| [T143](algorithm/T143.md) | 训练图片噪声残差分支 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0637—0640 | 尚无本任务已验证交付 | 完成训练图片噪声残差分支的交付、异常/权限测试和源验收 |
-| [T144](algorithm/T144.md) | 训练RGB语义与边界分支 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0641—0644 | 尚无本任务已验证交付 | 完成训练RGB语义与边界分支的交付、异常/权限测试和源验收 |
-| [T145](algorithm/T145.md) | 训练图片多分支融合篡改模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0645—0648 | 尚无本任务已验证交付 | 完成训练图片多分支融合篡改模型的交付、异常/权限测试和源验收 |
-| [T146](algorithm/T146.md) | 训练图片篡改类型分类模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0649—0652 | 尚无本任务已验证交付 | 完成训练图片篡改类型分类模型的交付、异常/权限测试和源验收 |
-| [T147](data/T147.md) | 构建视频篡改与深伪训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0653—0656 | 尚无本任务已验证交付 | 完成构建视频篡改与深伪训练集的交付、异常/权限测试和源验收 |
-| [T148](algorithm/T148.md) | 训练视频时间篡改检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0657—0660 | 尚无本任务已验证交付 | 完成训练视频时间篡改检测模型的交付、异常/权限测试和源验收 |
-| [T149](algorithm/T149.md) | 训练视频空间篡改检测与跟踪模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0661—0664 | 尚无本任务已验证交付 | 完成训练视频空间篡改检测与跟踪模型的交付、异常/权限测试和源验收 |
-| [T150](algorithm/T150.md) | 微调人脸深度伪造检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0665—0668 | 尚无本任务已验证交付 | 完成微调人脸深度伪造检测模型的交付、异常/权限测试和源验收 |
-| [T151](algorithm/T151.md) | 训练口型语音同步检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0669—0672 | 尚无本任务已验证交付 | 完成训练口型语音同步检测模型的交付、异常/权限测试和源验收 |
-| [T152](algorithm/T152.md) | 实施跨压缩跨生成器泛化训练 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0673—0676 | 尚无本任务已验证交付 | 完成实施跨压缩跨生成器泛化训练的交付、异常/权限测试和源验收 |
-| [T153](algorithm/T153.md) | 实施篡改模型校准与不确定性估计 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0677—0680 | 尚无本任务已验证交付 | 完成实施篡改模型校准与不确定性估计的交付、异常/权限测试和源验收 |
-| [T154](data/T154.md) | 构建图片复制检测对比学习样本 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0681—0684 | 尚无本任务已验证交付 | 完成构建图片复制检测对比学习样本的交付、异常/权限测试和源验收 |
-| [T155](algorithm/T155.md) | 训练图片复制检测向量模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0685—0688 | 尚无本任务已验证交付 | 完成训练图片复制检测向量模型的交付、异常/权限测试和源验收 |
-| [T156](algorithm/T156.md) | 实施难负样本迭代训练 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0689—0692 | 尚无本任务已验证交付 | 完成实施难负样本迭代训练的交付、异常/权限测试和源验收 |
-| [T157](algorithm/T157.md) | 优化复制向量与索引联合参数 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0693—0696 | 尚无本任务已验证交付 | 完成优化复制向量与索引联合参数的交付、异常/权限测试和源验收 |
-| [T158](data/T158.md) | 构建视频帧复制检测训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0697—0700 | 尚无本任务已验证交付 | 完成构建视频帧复制检测训练集的交付、异常/权限测试和源验收 |
-| [T159](algorithm/T159.md) | 训练视频关键帧复制检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0701—0704 | 尚无本任务已验证交付 | 完成训练视频关键帧复制检测模型的交付、异常/权限测试和源验收 |
-| [T160](algorithm/T160.md) | 优化视频帧相似度模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0705—0708 | 尚无本任务已验证交付 | 完成优化视频帧相似度模型的交付、异常/权限测试和源验收 |
-| [T161](algorithm/T161.md) | 训练学习型视频片段定位模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0709—0712 | 尚无本任务已验证交付 | 完成训练学习型视频片段定位模型的交付、异常/权限测试和源验收 |
-| [T162](algorithm/T162.md) | 训练多源拼接边界检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0713—0716 | 尚无本任务已验证交付 | 完成训练多源拼接边界检测模型的交付、异常/权限测试和源验收 |
-| [T163](algorithm/T163.md) | 实施视频检索分数校准 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0717—0720 | 尚无本任务已验证交付 | 完成实施视频检索分数校准的交付、异常/权限测试和源验收 |
-| [T164](data/T164.md) | 构建首发排序训练内容簇 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0721—0724 | 尚无本任务已验证交付 | 完成构建首发排序训练内容簇的交付、异常/权限测试和源验收 |
-| [T165](algorithm/T165.md) | 开展首发排序模型消融与校准 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0725—0728 | 尚无本任务已验证交付 | 完成开展首发排序模型消融与校准的交付、异常/权限测试和源验收 |
-| [T166](data/T166.md) | 构建主张抽取监督微调数据 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0729—0732 | 尚无本任务已验证交付 | 完成构建主张抽取监督微调数据的交付、异常/权限测试和源验收 |
-| [T167](algorithm/T167.md) | 微调主张抽取模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0733—0736 | 尚无本任务已验证交付 | 完成微调主张抽取模型的交付、异常/权限测试和源验收 |
-| [T168](algorithm/T168.md) | 构建并训练证据关系判断模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0737—0740 | 尚无本任务已验证交付 | 完成构建并训练证据关系判断模型的交付、异常/权限测试和源验收 |
-| [T169](algorithm/T169.md) | 研发无证据生成检测与句级引用校验 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0741—0744 | 尚无本任务已验证交付 | 完成研发无证据生成检测与句级引用校验的交付、异常/权限测试和源验收 |
-| [T170](algorithm/T170.md) | 实施模型压缩导出与发布候选冻结 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0745—0748 | 尚无本任务已验证交付 | 完成实施模型压缩导出与发布候选冻结的交付、异常/权限测试和源验收 |
+| [T021](backend/T021.md) | 实现数据来源授权登记 | backend | 已验证部分范围；未关闭 | 6 | 3 | 0135—0143 | 来源登记、元数据读取与管理页面已有限定证据；本批补齐授权同步的真实SQL事务、原If-Match及幂等安全和前端操作。166项来源回归、243前端单元、43浏览器通过，完整权限门禁状态另见回执，真实权威与整卡验收仍待。 | 登记、列表/详情与授权同步代码和页面已有隔离验证；继续接真实来源权威，落实来源责任人与合法用途及真实身份/权威/数据库组合联调，不把回执当当前用途授权。；补到期后台告警及与真实权威相关的完整变更追踪和运维处置；现有同步审计/状态可读不等于后台告警或已到期授权续期。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。 |
+| [T022](backend/T022.md) | 实现分片上传初始化 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0144—0147 | 分片上传初始化、权限和幂等约束已实现 | 完成全部源参数、配额/并发及前端上传联调；补实际认证来源适配后的正反向验收 |
+| [T023](backend/T023.md) | 实现分片接收与校验 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0148—0151 | 分片摘要/偏移、重放及续传子范围已有真实HTTP/数据库测试 | 补全部适用媒体、并发/大文件/断网跨会话联调；完成实际配额与清理策略、失败恢复及源验收对照 |
+| [T024](backend/T024.md) | 实现分片合并与完整哈希 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0152—0155 | 异步合并、完整性、原子状态及回执/outbox子范围已有验证 | 补实际部署worker和全媒体安全校验链路；扩大并发、宕机/重放恢复及缺失对象测试并完成任务验收 |
+| [T025](backend/T025.md) | 实现MinIO对象存储适配器 | backend | 已验证部分范围；未关闭 | 2 | 3 | 0156—0160 | PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证；新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。 | 按适用正式存储实现版本/权限/保留及完整对象API；落实WORM/备份与生产准入；开发FileStore不等于正式证据存储 |
+| [T026](backend/T026.md) | 实现媒体格式探测与安全校验 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0161—0164 | PNG/JPEG文件头、完整解码及尺寸限制已有异常用例 | 实现查毒、异常压缩/时长预算、视频容器探测及安全解析隔离；验证查毒不可用拒绝、恶意媒体/超时/协议及网络边界；当前不能认定全媒体安全通过 |
+| [T027](backend/T027.md) | 实现SHA-256完全重复检测 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0165—0168 | 案件内精确SHA重复检测及duplicate_of引用已有测试 | 补全部批量/并发去重与权限策略；验证不同来源/案件不可复用及对象生命周期，不将精确哈希当感知去重 |
+| [T028](backend/T028.md) | 实现批量清单导入 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0169—0172 | 已登记同案件/有效来源固定对象的导入事务已有验证 | 补授权CSV/JSON文件清单解析、逐条错误反馈和对象文件批量接入；补批量任务队列、错误补偿与全流程验收；已登记ObjectRef导入不等于清单文件解析完成，第三方采集另属T029 |
+| [T029](backend/T029.md) | 实现第三方接入适配器协议 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0173—0176 | 尚无本任务已验证交付 | 完成第三方接入适配器协议的交付、异常/权限测试和源验收 |
+| [T030](frontend/T030.md) | 开发媒体资产管理页面 | frontend | 已验证部分范围；未关闭 | 3 | 4 | 0177—0183 | 资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。 | 完整血缘、来源授权明细、真实后端/身份/来源组合E2E、实际负责人和源标准完整验收仍待。 |
+| [T031](backend/T031.md) | 设计分析任务与节点执行模型 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0184—0187 | 任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证 | 补全部任务模型访问、版本约束与业务关联；对接真实调度和结果生产后完成任务级验收 |
+| [T032](backend/T032.md) | 实现任务及节点数据库模型 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0188—0191 | 业务版本迁移与当前历史/上传所需任务表访问已有测试 | 补完整任务访问层和全部版本升级/前向修复；完成生产升级、关联隔离及失败回退验证 |
+| [T033](backend/T033.md) | 实现任务状态机 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0192—0195 | 上传及取消状态原子写、审计/outbox与部分状态约束已有验证 | 实现全业务分析任务状态机及节点聚合；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序 |
+| [T034](backend/T034.md) | 实现任务创建接口 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0196—0199 | 尚无本任务已验证交付 | 完成任务创建接口的交付、异常/权限测试和源验收 |
+| [T035](backend/T035.md) | 实现任务查询和进度接口 | backend | 已验证部分范围；未关闭 | 2 | 3 | 0200—0204 | 固定历史运行、结果及当前执行节点/事件读取子范围已有验证；已实现案件级当前任务列表分页：逐项权限与来源核验、无历史结果任务、当前运行最新节点尝试投影及事务提交前复核；不代表真实DAG进度或任务生产者完成 | 补真实DAG进度计算与前端接入；验证同run进度单调、重算新版本分列及全部适用权限和错误场景；任务创建/生产者另按T034等依赖实施 |
+| [T036](backend/T036.md) | 实现异步队列与优先级 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0205—0208 | 上传验证真实RabbitMQ消息、确认/恢复和取消outbox基础已有测试 | 补完整DAG队列消费者、优先级/背压/并发配额；实施真实多worker投递故障/重放/崩溃恢复，不把数据库竞争者当Celery worker |
+| [T037](backend/T037.md) | 实现DAG任务编排器 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0209—0212 | 尚无本任务已验证交付 | 完成DAG任务编排器的交付、异常/权限测试和源验收 |
+| [T038](backend/T038.md) | 实现节点级重试与检查点 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0213—0216 | 节点租约/fencing及取消确认的过期边界已有数据库竞争测试 | 实现完整节点重试退避、checkpoint续跑及资源/OOM策略；真实多worker故障回归并证明旧持有者不能发布结果；确认取消不等于已停外部进程 |
+| [T039](backend/T039.md) | 实现任务取消和退回重算 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0217—0220 | 取消请求202、条件写及当前租约/epoch确认子范围已有测试 | 实现重跑新run编排和真实worker取消投递/停止；覆盖重复取消、旧租约、执行中结果发布竞态及恢复联调 |
+| [T040](frontend/T040.md) | 开发任务监控页面 | frontend | 已验证部分范围；未关闭 | 2 | 4 | 0221—0226 | 按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列；按12页PPT优化现有界面，57项单元与10项浏览器夹具通过；任务页新增案件内当前任务分页与筛选，选择任务衔接现有执行/节点/事件及历史结果读取；无结果和DEFERRED状态保留，不推算DAG百分比；74项前端单元和26项传输夹具浏览器回归通过。 | 任务创建/取消/重算的适用前端动作、真实DAG进度与检查点展示、真实后端身份组合联调及源验收仍待；当前案件任务列表和历史读取已有前端回归 |
+| [T041](backend/T041.md) | 实现图片元数据解析 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0227—0230 | 上传验证可完整解码PNG/JPEG并检查尺寸；本批两张官方CC0原图已下载、同摘要同步Linux并用现有解码器实测，错误摘要/MIME拒绝；未实现完整ImageMetadataResult服务。 | 建立正式ImageMetadataResult生产服务，提取色彩/EXIF/质量/重采样信息；补多格式、坏EXIF及敏感定位脱敏测试；旧媒体PTS证据不属于图片元数据验收 |
+| [T042](backend/T042.md) | 实现视频ffprobe解析 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0231—0234 | 自建视频的FFmpeg解码、时基和源PTS验证原型已执行 | 实现正式ffprobe视频元数据解析服务，补授权多编码/VFR/损坏媒体及预算测试；当前FFmpeg夹具不证明ffprobe接口已实现；自建夹具结果不能替代授权真实媒体的任务验收 |
+| [T043](backend/T043.md) | 实现标准化媒体副本生成 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0235—0238 | 自建媒体解码/旋转夹具验证原件摘要不变及像素映射 | 实现正式分析副本生成、转码/色彩/旋转策略与映射版本，不覆盖原件；自建夹具结果不能替代授权真实媒体的任务验收 |
+| [T044](backend/T044.md) | 实现镜头边界检测 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0239—0242 | 尚无本任务已验证交付 | 完成镜头边界检测的交付、异常/权限测试和源验收 |
+| [T045](backend/T045.md) | 实现固定间隔抽帧 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0243—0246 | 自建VFR片段的原PTS与帧映射验证已执行 | 实现正式关键帧抽取服务，补真实视频、长视频及完整时间映射；自建夹具结果不能替代授权真实媒体的任务验收 |
+| [T046](backend/T046.md) | 实现镜头代表帧选择 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0247—0250 | 尚无本任务已验证交付 | 完成镜头代表帧选择的交付、异常/权限测试和源验收 |
+| [T047](backend/T047.md) | 实现音轨与字幕提取 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0251—0254 | 自建音频/字幕抽取夹具已有验证 | 实现正式音轨/字幕提取与缺模态/编码/时基对齐及权限测试；自建夹具结果不能替代授权真实媒体的任务验收 |
+| [T048](backend/T048.md) | 接入OCR并建立时间片段 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0255—0258 | 尚无本任务已验证交付 | 完成接入OCR并建立时间片段的交付、异常/权限测试和源验收 |
+| [T049](backend/T049.md) | 接入ASR并建立时间片段 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0259—0262 | 尚无本任务已验证交付 | 完成接入ASR并建立时间片段的交付、异常/权限测试和源验收 |
+| [T050](backend/T050.md) | 实现媒体统一时间轴服务 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0263—0266 | 尚无本任务已验证交付 | 完成媒体统一时间轴服务的交付、异常/权限测试和源验收 |
+| [T051](algorithm/T051.md) | 定义统一模型输入输出契约 | algorithm | 已验证部分范围；未关闭 | 1 | 3 | 0267—0270 | M01—M34输入输出Schema及网关结构/错误校验已有开发验证 | 逐能力确认输入字节/像素路径、前处理版本与部分能力语义；补真实适配器兼容/序列化及边界测试；34套Schema不等于34模型可用 |
+| [T052](algorithm/T052.md) | 实现模型注册表 | algorithm | 已验证部分范围；未关闭 | 1 | 4 | 0271—0275 | 尚无本任务已验证交付；listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。 | 模型登记写入、唯一版本/模型卡约束的服务验证、修改审计、正式制品与上下线管理、完整管理写操作页面及整任务验收仍待。；已登记模型/评测的只读前端见T060。 |
+| [T053](algorithm/T053.md) | 实现统一推理网关 | algorithm | 已验证部分范围；未关闭 | 1 | 3 | 0276—0279 | 网关权限、固定对象、deadline/结果边界及独立M15合成CPU链路有验证 | 实现逐能力真实模型后端和统一推理服务的完整管理/故障路径；补授权权重/数据及实际CPU-GPU资源、性能、并发和隔离验收 |
+| [T054](algorithm/T054.md) | 实现HTTP与本地Mock适配器 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0280—0283 | 尚无本任务已验证交付 | 完成HTTP与本地Mock适配器的交付、异常/权限测试和源验收 |
+| [T055](algorithm/T055.md) | 实现推理批处理与GPU队列 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0284—0287 | 尚无本任务已验证交付 | 完成推理批处理与GPU队列的交付、异常/权限测试和源验收 |
+| [T056](algorithm/T056.md) | 实现模型健康检查与熔断 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0288—0291 | 尚无本任务已验证交付 | 完成模型健康检查与熔断的交付、异常/权限测试和源验收 |
+| [T057](algorithm/T057.md) | 实现模型灰度发布 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0292—0295 | 尚无本任务已验证交付 | 完成模型灰度发布的交付、异常/权限测试和源验收 |
+| [T058](algorithm/T058.md) | 实现模型评测记录管理 | algorithm | 已验证部分范围；未关闭 | 1 | 4 | 0296—0300 | 尚无本任务已验证交付；listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。 | 真实评测记录写入、总体/分组指标生产者、报告生成/保存及合格评测对发布审批的约束、完整评测发起/写入页面和源验收仍待。；已登记模型/评测的只读前端见T060。 |
+| [T059](algorithm/T059.md) | 实现输入输出漂移监测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0301—0304 | 尚无本任务已验证交付 | 完成输入输出漂移监测的交付、异常/权限测试和源验收 |
+| [T060](frontend/T060.md) | 开发模型运维页面 | frontend | 已验证部分范围；未关闭 | 1 | 4 | 0305—0309 | 新增/models只读页面：当前单位模型与已登记评测独立分页，model.read/身份或权限变化即时清空并废弃晚响应，元数据引用仅文本、null指标保持未提供；129项前端单元和36项自建传输浏览器回归通过，不代表真实后端E2E、健康或发布/回滚实现。 | 当前模型/评测只读页面已实现；仍需真实健康、灰度/漂移、获批发布/二次确认/回滚交互、真实后端身份组合联调及完整源验收。 |
+| [T061](algorithm/T061.md) | 定义风险标签和版本管理 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0310—0313 | 尚无本任务已验证交付 | 完成定义风险标签和版本管理的交付、异常/权限测试和源验收 |
+| [T062](algorithm/T062.md) | 接入图片多标签分类模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0314—0317 | 尚无本任务已验证交付 | 完成接入图片多标签分类模型的交付、异常/权限测试和源验收 |
+| [T063](algorithm/T063.md) | 接入敏感目标检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0318—0321 | 尚无本任务已验证交付 | 完成接入敏感目标检测模型的交付、异常/权限测试和源验收 |
+| [T064](algorithm/T064.md) | 接入视频行为识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0322—0325 | 尚无本任务已验证交付 | 完成接入视频行为识别模型的交付、异常/权限测试和源验收 |
+| [T065](algorithm/T065.md) | 接入音频事件识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0326—0329 | 尚无本任务已验证交付 | 完成接入音频事件识别模型的交付、异常/权限测试和源验收 |
+| [T066](algorithm/T066.md) | 实现多模态时间对齐 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0330—0333 | 尚无本任务已验证交付 | 完成多模态时间对齐的交付、异常/权限测试和源验收 |
+| [T067](algorithm/T067.md) | 实现跨模态矛盾检测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0334—0337 | 尚无本任务已验证交付 | 完成跨模态矛盾检测的交付、异常/权限测试和源验收 |
+| [T068](algorithm/T068.md) | 实现综合风险融合与校准 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0338—0341 | 尚无本任务已验证交付 | 完成综合风险融合与校准的交付、异常/权限测试和源验收 |
+| [T069](algorithm/T069.md) | 实现风险转人工规则 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0342—0345 | 尚无本任务已验证交付 | 完成风险转人工规则的交付、异常/权限测试和源验收 |
+| [T070](frontend/T070.md) | 开发风险识别研判界面 | frontend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0346—0349 | 尚无本任务已验证交付 | 完成开发风险识别研判界面的交付、异常/权限测试和源验收 |
+| [T071](algorithm/T071.md) | 实现图片取证基础特征 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0350—0353 | 尚无本任务已验证交付 | 完成图片取证基础特征的交付、异常/权限测试和源验收 |
+| [T072](algorithm/T072.md) | 接入图片篡改区域模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0354—0357 | 尚无本任务已验证交付 | 完成接入图片篡改区域模型的交付、异常/权限测试和源验收 |
+| [T073](algorithm/T073.md) | 实现复制粘贴与局部生成分类 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0358—0361 | 尚无本任务已验证交付 | 完成复制粘贴与局部生成分类的交付、异常/权限测试和源验收 |
+| [T074](algorithm/T074.md) | 实现视频时间结构异常检测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0362—0365 | 尚无本任务已验证交付 | 完成视频时间结构异常检测的交付、异常/权限测试和源验收 |
+| [T075](algorithm/T075.md) | 实现视频空间篡改跟踪 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0366—0369 | 尚无本任务已验证交付 | 完成视频空间篡改跟踪的交付、异常/权限测试和源验收 |
+| [T076](algorithm/T076.md) | 接入深度伪造与音画同步检测 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0370—0373 | 尚无本任务已验证交付 | 完成接入深度伪造与音画同步检测的交付、异常/权限测试和源验收 |
+| [T077](algorithm/T077.md) | 实现篡改多证据融合 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0374—0377 | 尚无本任务已验证交付 | 完成篡改多证据融合的交付、异常/权限测试和源验收 |
+| [T078](frontend/T078.md) | 开发篡改取证界面 | frontend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0378—0381 | 尚无本任务已验证交付 | 完成开发篡改取证界面的交付、异常/权限测试和源验收 |
+| [T079](algorithm/T079.md) | 实现图片感知哈希特征 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0382—0385 | 尚无本任务已验证交付 | 完成图片感知哈希特征的交付、异常/权限测试和源验收 |
+| [T080](algorithm/T080.md) | 实现视觉与复制检测向量生成 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0386—0389 | 尚无本任务已验证交付 | 完成视觉与复制检测向量生成的交付、异常/权限测试和源验收 |
+| [T081](algorithm/T081.md) | 建立Milvus索引与版本管理 | algorithm | 已验证部分范围；未关闭 | 1 | 3 | 0390—0393 | 少量SQL向量检索夹具已验证 | 实施正式向量索引及写入/过滤/重建接口和规模测试；补真实业务向量、授权过滤及Milvus等正式选型实测，不把3条SQL向量当生产索引 |
+| [T082](algorithm/T082.md) | 实现图片多路候选召回 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0394—0397 | 尚无本任务已验证交付 | 完成图片多路候选召回的交付、异常/权限测试和源验收 |
+| [T083](algorithm/T083.md) | 实现局部特征提取与匹配 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0398—0401 | 尚无本任务已验证交付 | 完成局部特征提取与匹配的交付、异常/权限测试和源验收 |
+| [T084](algorithm/T084.md) | 实现RANSAC几何验证 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0402—0405 | 尚无本任务已验证交付 | 完成RANSAC几何验证的交付、异常/权限测试和源验收 |
+| [T085](algorithm/T085.md) | 实现图片局部区域检索 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0406—0409 | 尚无本任务已验证交付 | 完成图片局部区域检索的交付、异常/权限测试和源验收 |
+| [T086](algorithm/T086.md) | 实现视频帧检索候选聚合 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0410—0413 | 尚无本任务已验证交付 | 完成视频帧检索候选聚合的交付、异常/权限测试和源验收 |
+| [T087](algorithm/T087.md) | 实现视频相似度矩阵构建 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0414—0417 | 尚无本任务已验证交付 | 完成视频相似度矩阵构建的交付、异常/权限测试和源验收 |
+| [T088](algorithm/T088.md) | 实现局部DTW与倒放对齐 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0418—0421 | 尚无本任务已验证交付 | 完成局部DTW与倒放对齐的交付、异常/权限测试和源验收 |
+| [T089](algorithm/T089.md) | 实现多源拼接来源映射 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0422—0425 | 尚无本任务已验证交付 | 完成多源拼接来源映射的交付、异常/权限测试和源验收 |
+| [T090](backend/T090.md) | 实现高可信同源内容聚类 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0426—0429 | 尚无本任务已验证交付 | 完成高可信同源内容聚类的交付、异常/权限测试和源验收 |
+| [T091](backend/T091.md) | 实现首发排序特征工程 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0430—0433 | 尚无本任务已验证交付 | 完成首发排序特征工程的交付、异常/权限测试和源验收 |
+| [T092](backend/T092.md) | 训练和注册首发排序模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0434—0437 | 尚无本任务已验证交付 | 完成训练和注册首发排序模型的交付、异常/权限测试和源验收 |
+| [T093](backend/T093.md) | 实现首发候选查询服务 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0438—0441 | 首发历史固定运行与既有候选排名读取已有验证 | 实现真实观察范围内首发排序生产与不确定性处理；补时区、缺失时间、并列及授权边界；读取已有排名不等于排序算法已运行 |
+| [T094](backend/T094.md) | 设计传播图谱数据模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0442—0445 | 尚无本任务已验证交付 | 完成设计传播图谱数据模型的交付、异常/权限测试和源验收 |
+| [T095](backend/T095.md) | 实现传播图谱写入与查询 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0446—0449 | 尚无本任务已验证交付 | 完成传播图谱写入与查询的交付、异常/权限测试和源验收 |
+| [T096](backend/T096.md) | 实现隐式传播关系推断 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0450—0453 | 尚无本任务已验证交付 | 完成隐式传播关系推断的交付、异常/权限测试和源验收 |
+| [T097](frontend/T097.md) | 开发传播时间线和图谱界面 | frontend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0454—0457 | 尚无本任务已验证交付 | 完成开发传播时间线和图谱界面的交付、异常/权限测试和源验收 |
+| [T098](algorithm/T098.md) | 实现结构化主张抽取服务 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0458—0461 | 尚无本任务已验证交付 | 完成结构化主张抽取服务的交付、异常/权限测试和源验收 |
+| [T099](algorithm/T099.md) | 实现权威证据检索与关系判断 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0462—0465 | 尚无本任务已验证交付 | 完成权威证据检索与关系判断的交付、异常/权限测试和源验收 |
+| [T100](backend/T100.md) | 实现统一证据对象模型 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0466—0469 | 尚无本任务已验证交付 | 完成统一证据对象模型的交付、异常/权限测试和源验收 |
+| [T101](backend/T101.md) | 实现风险与取证证据卡片接口 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0470—0473 | 风险/取证/证据等固定历史结果读取子范围已有验证 | 实现真实结果生产、聚合及前端详情/证据展示；核对全部模型结果、版本/原件映射和部分能力边界，不用测试历史行冒充真实模型输出 |
+| [T102](backend/T102.md) | 实现人工复核工作流 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0474—0477 | 复核追加写、ETag、固定证据及来源/策略版本子范围已有验证 | 落实正式复核状态、RETURNED后继、阈值与审批适用规则；补全状态流/前端与真实结果联调、异常/撤销/版本更正回归 |
+| [T103](frontend/T103.md) | 开发人工复核工作台 | frontend | 已验证部分范围；未关闭 | 1 | 3 | 0478—0481 | 待复核列表、上下文及历史记录后端子范围已有验证 | 实现复核工作台页面、标注/交互、筛选/分页；联调真实业务规则、结果和权限，并执行完整工作流测试 |
+| [T104](backend/T104.md) | 实现证据固化与完整性校验 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0482—0485 | 尚无本任务已验证交付 | 完成证据固化与完整性校验的交付、异常/权限测试和源验收 |
+| [T105](backend/T105.md) | 实现可信时间与签名适配层 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0486—0489 | 尚无本任务已验证交付 | 完成可信时间与签名适配层的交付、异常/权限测试和源验收 |
+| [T106](backend/T106.md) | 实现证据约束核查摘要 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0490—0493 | 尚无本任务已验证交付 | 完成证据约束核查摘要的交付、异常/权限测试和源验收 |
+| [T107](backend/T107.md) | 实现核查报告生成 | backend | 已验证部分范围；未关闭 | 1 | 4 | 0494—0498 | 新增getReport真实数据库元数据读取：报告/证据/案件/任务及运行结果版本严格绑定、固定对象引用、全部证据来源和事务尾授权复核；32项投影/SQL/HTTP/0013升级回滚测试通过。不包含报告生成、渲染或下载。 | 报告生成生产者、版本化模板/渲染、审批及受控下载、完整证据约束报告验收仍待；getReport读取不替代这些工作 |
+| [T108](backend/T108.md) | 实现样本纠错与回流审批 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0499—0502 | 纠错申请/审批快照读取及未落实数据血缘时拒绝APPLIED已有验证 | 实现实际样本纠错、用途授权及获准数据集写入worker；补脱敏/去重/质检/冻结集隔离与撤销流程；拒绝动作不是回流成功 |
+| [T109](data/T109.md) | 建立标注规范与标签质检工具 | data | 已验证部分范围；未关闭 | 1 | 4 | 0503—0507 | 已实现D01—D15离线标注结构/格式/时间区域质检、批内UUID规范化重复/冲突、机械确定性抽样及脱敏CLI；101项工具测试及53项开发入口测试在Linux原py310通过。未证明正式标签、真实授权、双人和仲裁。 | 已有离线结构、边界和机械抽样质检；继续落实正式标签词典/来源用途、真实时间与掩码映射证据、内容簇补查及人工流程，不将Schema通过当业务标签正确。；Schema/边界/批内重复冲突、机械确定性抽样及CLI回归已执行；仍需实际人工抽检、一致性/仲裁及适用真实标注流程的测试。；部分必填/边界、unknown/insufficient已验证；双人独立标注、真实reviewer身份、仲裁及正式口径仍无完整实现/证据，整卡验收未完成。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。 |
+| [T110](data/T110.md) | 实现原始素材分组划分 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0508—0511 | 尚无本任务已验证交付 | 完成原始素材分组划分的交付、异常/权限测试和源验收 |
+| [T111](data/T111.md) | 实现可控编辑数据增强流水线 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0512—0515 | 尚无本任务已验证交付 | 完成可控编辑数据增强流水线的交付、异常/权限测试和源验收 |
+| [T112](data/T112.md) | 建立难负样本挖掘流程 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0516—0519 | 尚无本任务已验证交付 | 完成难负样本挖掘流程的交付、异常/权限测试和源验收 |
+| [T113](backend/T113.md) | 实现风险模型训练与评测流水线 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0520—0523 | 尚无本任务已验证交付 | 完成风险模型训练与评测流水线的交付、异常/权限测试和源验收 |
+| [T114](backend/T114.md) | 实现篡改模型评测流水线 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0524—0527 | 尚无本任务已验证交付 | 完成篡改模型评测流水线的交付、异常/权限测试和源验收 |
+| [T115](backend/T115.md) | 实现同源与片段检索评测流水线 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0528—0531 | 尚无本任务已验证交付 | 完成同源与片段检索评测流水线的交付、异常/权限测试和源验收 |
+| [T116](backend/T116.md) | 实现首发和大模型核查评测 | backend | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0532—0535 | 尚无本任务已验证交付 | 完成首发和大模型核查评测的交付、异常/权限测试和源验收 |
+| [T117](testing/T117.md) | 建立应用安全自动化扫描 | testing | 已验证部分范围；未关闭 | 1 | 3 | 0536—0539 | 密钥检查、Python/npm依赖及独立类型工具扫描已有研发证据 | 补适用SAST、镜像/系统二进制、Torch覆盖与未托管组件核查；落实软件/模型许可准入和正式修复决定，不以工具无报错认定全系统安全 |
+| [T118](testing/T118.md) | 实施上传与接口安全测试 | testing | 已验证部分范围；未关闭 | 1 | 3 | 0540—0543 | 自建夹具的越权、重放、坏分片、伪媒体及跨案件测试已有验证 | 补全业务完成后的审批/导出/反馈最终安全复测；补恶意文件、SSRF、限流/大文件资源与正式身份联调及整改闭环 |
+| [T119](testing/T119.md) | 实施大模型安全测试 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0544—0547 | 尚无本任务已验证交付 | 完成实施大模型安全测试的交付、异常/权限测试和源验收 |
+| [T120](backend/T120.md) | 实现监控指标与告警 | backend | 已验证部分范围；未关闭 | 1 | 3 | 0548—0551 | 研发健康与数据卷容量观测已有记录，最近13%且可用约644GiB | 实现正式指标采集、仪表盘、告警及分级响应；落实配额/维护人/告警投递并做故障演练；健康查询不等于监控平台 |
+| [T121](deployment/T121.md) | 实现备份恢复与灾备演练 | deployment | 已验证部分范围；未关闭 | 1 | 3 | 0552—0555 | 开发数据库/对象冷备恢复及业务双历史对账已有实测 | 落实正式异地目标、RPO/RTO、密钥及恢复授权；实施生产适用全业务异机恢复/PITR演练，开发冷备不能代替生产灾备 |
+| [T122](testing/T122.md) | 执行20并发验收性能测试 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0556—0559 | 尚无本任务已验证交付 | 完成执行20并发验收性能测试的交付、异常/权限测试和源验收 |
+| [T123](testing/T123.md) | 执行100并发容量与长稳测试 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0560—0563 | 尚无本任务已验证交付 | 完成执行100并发容量与长稳测试的交付、异常/权限测试和源验收 |
+| [T124](testing/T124.md) | 完成三类业务场景验收 | testing | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0564—0567 | 尚无本任务已验证交付 | 完成完成三类业务场景验收的交付、异常/权限测试和源验收 |
+| [T125](algorithm/T125.md) | 建立算法实验公共框架 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0568—0571 | 尚无本任务已验证交付 | 完成算法实验公共框架的交付、异常/权限测试和源验收 |
+| [T126](data/T126.md) | 建立训练数据版本与数据卡 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0572—0575 | 尚无本任务已验证交付 | 完成训练数据版本与数据卡的交付、异常/权限测试和源验收 |
+| [T127](data/T127.md) | 冻结公安业务独立测试集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0576—0579 | 尚无本任务已验证交付 | 完成冻结公安业务独立测试集的交付、异常/权限测试和源验收 |
+| [T128](algorithm/T128.md) | 建立算法基线结果台账 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0580—0583 | 尚无本任务已验证交付 | 完成算法基线结果台账的交付、异常/权限测试和源验收 |
+| [T129](data/T129.md) | 开展图片多标签风险数据分析 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0584—0587 | 尚无本任务已验证交付 | 完成开展图片多标签风险数据分析的交付、异常/权限测试和源验收 |
+| [T130](algorithm/T130.md) | 训练图片多标签风险基线模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0588—0591 | 尚无本任务已验证交付 | 完成训练图片多标签风险基线模型的交付、异常/权限测试和源验收 |
+| [T131](algorithm/T131.md) | 优化风险类别不平衡与长尾召回 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0592—0595 | 尚无本任务已验证交付 | 完成优化风险类别不平衡与长尾召回的交付、异常/权限测试和源验收 |
+| [T132](algorithm/T132.md) | 训练敏感目标检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0596—0599 | 尚无本任务已验证交付 | 完成训练敏感目标检测模型的交付、异常/权限测试和源验收 |
+| [T133](algorithm/T133.md) | 开展小目标低清目标专项优化 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0600—0603 | 尚无本任务已验证交付 | 完成开展小目标低清目标专项优化的交付、异常/权限测试和源验收 |
+| [T134](data/T134.md) | 构建视频行为训练片段与时间边界 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0604—0607 | 尚无本任务已验证交付 | 完成构建视频行为训练片段与时间边界的交付、异常/权限测试和源验收 |
+| [T135](algorithm/T135.md) | 微调视频行为识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0608—0611 | 尚无本任务已验证交付 | 完成微调视频行为识别模型的交付、异常/权限测试和源验收 |
+| [T136](algorithm/T136.md) | 训练视频事件时间定位模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0612—0615 | 尚无本任务已验证交付 | 完成训练视频事件时间定位模型的交付、异常/权限测试和源验收 |
+| [T137](algorithm/T137.md) | 微调音频事件识别模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0616—0619 | 尚无本任务已验证交付 | 完成微调音频事件识别模型的交付、异常/权限测试和源验收 |
+| [T138](data/T138.md) | 构建跨模态一致与矛盾训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0620—0623 | 尚无本任务已验证交付 | 完成构建跨模态一致与矛盾训练集的交付、异常/权限测试和源验收 |
+| [T139](algorithm/T139.md) | 训练跨模态矛盾检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0624—0627 | 尚无本任务已验证交付 | 完成训练跨模态矛盾检测模型的交付、异常/权限测试和源验收 |
+| [T140](algorithm/T140.md) | 训练多模态风险融合模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0628—0631 | 尚无本任务已验证交付 | 完成训练多模态风险融合模型的交付、异常/权限测试和源验收 |
+| [T141](algorithm/T141.md) | 实施风险概率校准和业务阈值优化 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0632—0635 | 尚无本任务已验证交付 | 完成实施风险概率校准和业务阈值优化的交付、异常/权限测试和源验收 |
+| [T142](data/T142.md) | 构建图片篡改成组训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0636—0639 | 尚无本任务已验证交付 | 完成构建图片篡改成组训练集的交付、异常/权限测试和源验收 |
+| [T143](algorithm/T143.md) | 训练图片噪声残差分支 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0640—0643 | 尚无本任务已验证交付 | 完成训练图片噪声残差分支的交付、异常/权限测试和源验收 |
+| [T144](algorithm/T144.md) | 训练RGB语义与边界分支 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0644—0647 | 尚无本任务已验证交付 | 完成训练RGB语义与边界分支的交付、异常/权限测试和源验收 |
+| [T145](algorithm/T145.md) | 训练图片多分支融合篡改模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0648—0651 | 尚无本任务已验证交付 | 完成训练图片多分支融合篡改模型的交付、异常/权限测试和源验收 |
+| [T146](algorithm/T146.md) | 训练图片篡改类型分类模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0652—0655 | 尚无本任务已验证交付 | 完成训练图片篡改类型分类模型的交付、异常/权限测试和源验收 |
+| [T147](data/T147.md) | 构建视频篡改与深伪训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0656—0659 | 尚无本任务已验证交付 | 完成构建视频篡改与深伪训练集的交付、异常/权限测试和源验收 |
+| [T148](algorithm/T148.md) | 训练视频时间篡改检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0660—0663 | 尚无本任务已验证交付 | 完成训练视频时间篡改检测模型的交付、异常/权限测试和源验收 |
+| [T149](algorithm/T149.md) | 训练视频空间篡改检测与跟踪模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0664—0667 | 尚无本任务已验证交付 | 完成训练视频空间篡改检测与跟踪模型的交付、异常/权限测试和源验收 |
+| [T150](algorithm/T150.md) | 微调人脸深度伪造检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0668—0671 | 尚无本任务已验证交付 | 完成微调人脸深度伪造检测模型的交付、异常/权限测试和源验收 |
+| [T151](algorithm/T151.md) | 训练口型语音同步检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0672—0675 | 尚无本任务已验证交付 | 完成训练口型语音同步检测模型的交付、异常/权限测试和源验收 |
+| [T152](algorithm/T152.md) | 实施跨压缩跨生成器泛化训练 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0676—0679 | 尚无本任务已验证交付 | 完成实施跨压缩跨生成器泛化训练的交付、异常/权限测试和源验收 |
+| [T153](algorithm/T153.md) | 实施篡改模型校准与不确定性估计 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0680—0683 | 尚无本任务已验证交付 | 完成实施篡改模型校准与不确定性估计的交付、异常/权限测试和源验收 |
+| [T154](data/T154.md) | 构建图片复制检测对比学习样本 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0684—0687 | 尚无本任务已验证交付 | 完成构建图片复制检测对比学习样本的交付、异常/权限测试和源验收 |
+| [T155](algorithm/T155.md) | 训练图片复制检测向量模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0688—0691 | 尚无本任务已验证交付 | 完成训练图片复制检测向量模型的交付、异常/权限测试和源验收 |
+| [T156](algorithm/T156.md) | 实施难负样本迭代训练 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0692—0695 | 尚无本任务已验证交付 | 完成实施难负样本迭代训练的交付、异常/权限测试和源验收 |
+| [T157](algorithm/T157.md) | 优化复制向量与索引联合参数 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0696—0699 | 尚无本任务已验证交付 | 完成优化复制向量与索引联合参数的交付、异常/权限测试和源验收 |
+| [T158](data/T158.md) | 构建视频帧复制检测训练集 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0700—0703 | 尚无本任务已验证交付 | 完成构建视频帧复制检测训练集的交付、异常/权限测试和源验收 |
+| [T159](algorithm/T159.md) | 训练视频关键帧复制检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0704—0707 | 尚无本任务已验证交付 | 完成训练视频关键帧复制检测模型的交付、异常/权限测试和源验收 |
+| [T160](algorithm/T160.md) | 优化视频帧相似度模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0708—0711 | 尚无本任务已验证交付 | 完成优化视频帧相似度模型的交付、异常/权限测试和源验收 |
+| [T161](algorithm/T161.md) | 训练学习型视频片段定位模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0712—0715 | 尚无本任务已验证交付 | 完成训练学习型视频片段定位模型的交付、异常/权限测试和源验收 |
+| [T162](algorithm/T162.md) | 训练多源拼接边界检测模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0716—0719 | 尚无本任务已验证交付 | 完成训练多源拼接边界检测模型的交付、异常/权限测试和源验收 |
+| [T163](algorithm/T163.md) | 实施视频检索分数校准 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0720—0723 | 尚无本任务已验证交付 | 完成实施视频检索分数校准的交付、异常/权限测试和源验收 |
+| [T164](data/T164.md) | 构建首发排序训练内容簇 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0724—0727 | 尚无本任务已验证交付 | 完成构建首发排序训练内容簇的交付、异常/权限测试和源验收 |
+| [T165](algorithm/T165.md) | 开展首发排序模型消融与校准 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0728—0731 | 尚无本任务已验证交付 | 完成开展首发排序模型消融与校准的交付、异常/权限测试和源验收 |
+| [T166](data/T166.md) | 构建主张抽取监督微调数据 | data | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0732—0735 | 尚无本任务已验证交付 | 完成构建主张抽取监督微调数据的交付、异常/权限测试和源验收 |
+| [T167](algorithm/T167.md) | 微调主张抽取模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0736—0739 | 尚无本任务已验证交付 | 完成微调主张抽取模型的交付、异常/权限测试和源验收 |
+| [T168](algorithm/T168.md) | 构建并训练证据关系判断模型 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0740—0743 | 尚无本任务已验证交付 | 完成构建并训练证据关系判断模型的交付、异常/权限测试和源验收 |
+| [T169](algorithm/T169.md) | 研发无证据生成检测与句级引用校验 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0744—0747 | 尚无本任务已验证交付 | 完成研发无证据生成检测与句级引用校验的交付、异常/权限测试和源验收 |
+| [T170](algorithm/T170.md) | 实施模型压缩导出与发布候选冻结 | algorithm | 尚无本任务已验证交付；未关闭 | 0 | 4 | 0748—0751 | 尚无本任务已验证交付 | 完成实施模型压缩导出与发布候选冻结的交付、异常/权限测试和源验收 |

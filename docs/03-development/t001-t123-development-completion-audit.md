@@ -403,7 +403,7 @@
 
 有限测试/历史报告：`docs/00-project/validation/business-foundation-report.json`；`tests/business/test_adapters_and_execution.py`
 
-剩余代码/核验：来源登记已完成本轮限定实现；继续真实权威接入、授权同步/修改维护页面及到期后台告警；登记不是正式用途授权。
+剩余代码/核验：登记、列表/详情与授权同步代码和页面已有隔离验证；继续接真实来源权威，落实来源责任人与合法用途及真实身份/权威/数据库组合联调，不把回执当当前用途授权。；补到期后台告警及与真实权威相关的完整变更追踪和运维处置；现有同步审计/状态可读不等于后台告警或已到期授权续期。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
 
 实际输入：Declared unresolved source questions: Q-33; distinguish policy confirmation from code that can be implemented now. Effective authority/purpose/classification/approval/retention policy and provider bindings; absent policy must fail closed. Actual reviewer/source acceptance decision and original acceptance testing; no fabricated historical date or effort.
 
@@ -413,6 +413,12 @@
 
 
 当前新增限定成果：[来源页面及到期元数据回执](../00-project/validation/t021-source-console-report.json)，包括194项单元、41项浏览器夹具和12项SQL/HTTP回归；真实权威联调与整卡验收仍待。
+
+
+本批补充：[后端、前端、数据与测试实测](../00-project/validation/backend-frontend-data-test-report.json)；原回执保留历史范围，当前仍未关闭整卡。
+
+
+本批补充：[后端、前端、数据与测试实测](../00-project/validation/backend-frontend-data-test-report.json)；原回执保留历史范围，当前仍未关闭整卡。
 
 ### T022 实现分片上传初始化
 
@@ -1820,15 +1826,21 @@
 
 源验收：强制必填和边界合法；支持未知/证据不足；双人标注和仲裁。
 
-已观察源码/结构：`schemas/dataset/catalog.schema.json`；`scripts/validate_inputs.py`
+已观察源码/结构：`scripts/validate_annotations.py`；`tests/data/test_annotation_validation.py`；`scripts/validate_annotations.py`；`tests/data/test_annotation_validation.py`；`scripts/validate_annotations.py`；`tests/data/test_annotation_validation.py`；`scripts/validate_annotations.py`；`tests/data/test_annotation_validation.py`；`schemas/dataset/catalog.schema.json`；`scripts/validate_inputs.py`
 
-有限测试/历史报告：未定位任务专用实际执行报告；契约夹具不是运行验收。
+有限测试/历史报告：本批Linux标注与开发入口实测见[限定回执](../00-project/validation/backend-frontend-data-test-report.json)，结构、冲突和机械抽样不代替真实标注/仲裁验收。
 
-剩余代码/核验：标注Schema/夹具已有；实现标注CLI/UI及必填边界校验、未知状态、双人/仲裁与质检记录。
+剩余代码/核验：已有离线结构、边界和机械抽样质检；继续落实正式标签词典/来源用途、真实时间与掩码映射证据、内容簇补查及人工流程，不将Schema通过当业务标签正确。；Schema/边界/批内重复冲突、机械确定性抽样及CLI回归已执行；仍需实际人工抽检、一致性/仲裁及适用真实标注流程的测试。；部分必填/边界、unknown/insufficient已验证；双人独立标注、真实reviewer身份、仲裁及正式口径仍无完整实现/证据，整卡验收未完成。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
 
 实际输入：Authorized model weights/runtime, exact version/license and purpose-authorized data; schemas/synthetic encoder do not supply these. Purpose-authorized dataset inventory/labels/group truth and frozen evaluation split; no actual dataset supplied by this audit. Declared unresolved source questions: Q-33; distinguish policy confirmation from code that can be implemented now. Actual reviewer/source acceptance decision and original acceptance testing; no fabricated historical date or effort.
 
 下一批：`B05_DATA_TRAINING_EVALUATION`。
+
+
+本批补充：[后端、前端、数据与测试实测](../00-project/validation/backend-frontend-data-test-report.json)；原回执保留历史范围，当前仍未关闭整卡。
+
+
+本批补充：[后端、前端、数据与测试实测](../00-project/validation/backend-frontend-data-test-report.json)；原回执保留历史范围，当前仍未关闭整卡。
 
 ### T110 实现原始素材分组划分
 

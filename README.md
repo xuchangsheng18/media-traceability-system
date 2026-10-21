@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-21来源管理续批：[页面与后端修复](docs/03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](docs/00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。当前123任务为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
+2026-10-21优先续批：[后端→前端→数据→测试](docs/03-development/backend-frontend-data-test-priority-plan.md)、[实测回执](docs/00-project/validation/backend-frontend-data-test-report.json)。新增来源授权同步事务/页面和离线标注质检工具；T001—T123为129条已验证子步骤、434组剩余工作，整任务验收0项；源码同步与共享服务采用分别记录。
+
+2026-10-21来源管理续批：[页面与后端修复](docs/03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](docs/00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。该次记录为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
 
 2026-10-21当前状态：[T001—T123逐项开发审计](docs/03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](docs/00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表及[模型目录页面验证](docs/00-project/validation/t060-readonly-ui-report.json)。[2张CC0原图与5个可追溯派生文件](docs/07-datasets/public-development-data.md)已保存至仓库外并在Linux解码。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
 

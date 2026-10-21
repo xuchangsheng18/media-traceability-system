@@ -23,7 +23,7 @@
     "backend/business_app/controls/providers.py": "648f9c1fd0a442dcfb3583eab642435190a98134b5726905d3e2404910edc280",
     "backend/business_app/controls/receipts.py": "00ce7ad5e257f050bd27dc212473026335f86be0108e2f6df03156b3f557137f",
     "backend/business_app/controls/reviews.py": "499abde4edf583bfbaa8838ce6bd007a96c75f4a5f57d6fd900ed17cda974381",
-    "backend/business_app/controls/router.py": "aeaba6bc3947d287a693479e4e1833023f0447328a79332c008a2207eb6352de",
+    "backend/business_app/controls/router.py": "647327b5b22ad62f066fd0705fe4d56e8f1cf96bf1b5834d59e1454b3761a966",
     "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
     "backend/business_app/data_scope.py": "a8ffe486e2bdec252609790ee1e2ee0bf0296b31a411fa560c803a171a427ab2",
     "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
@@ -70,6 +70,7 @@
     "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
     "backend/business_app/source_registration.py": "f9a0f2722703867e9fe23bf756b6fd2be6ee15b294fc67b04160b8b71777429e",
     "backend/business_app/source_registration_router.py": "86c3d1a139f4be199d531717a81fc72167a09db34202549573e241974bc91978",
+    "backend/business_app/source_synchronization.py": "56b1a174f7f1a2be9fae40f0deb038365f56cc480a1ce52726fea7b5e6a7b0bb",
     "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
     "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
     "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
@@ -96,7 +97,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "2b92880df97edb5891f99b311f4a94c5df0a75c1e5fcbd5b5a0a5d17c866dcd0",
+    "tasks/execution-status.json": "d3b31b48ca9c67cfe4733023897496c878d2ad6be9e9ad7ca594defab2f6b084",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -114,15 +115,15 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 126,
+    "all_completed_substeps": 129,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 126,
+    "authorized_completed_substeps": 129,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
-      "PARTIAL_VERIFIED_SCOPE": 57,
-      "NO_FULL_TASK_VERIFICATION_EVIDENCE": 66
+      "PARTIAL_VERIFIED_SCOPE": 58,
+      "NO_FULL_TASK_VERIFICATION_EVIDENCE": 65
     },
     "distinct_declared_tables": 55,
     "distinct_declared_operations": 53,
@@ -135,7 +136,7 @@
     "declared_operations_without_explicit_business_registration": 22,
     "versioned_create_table_count": 64,
     "versioned_sql_function_name_count": 31,
-    "backend_python_definition_count": 447,
+    "backend_python_definition_count": 451,
     "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -2589,7 +2590,7 @@
             "path": "/api/v1/auth/me",
             "python_function": "current_user",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 325,
+            "line": 327,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -3172,7 +3173,7 @@
             "path": "/api/v1/auth/me",
             "python_function": "current_user",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 325,
+            "line": 327,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -3479,7 +3480,7 @@
             "path": "/api/v1/auth/me",
             "python_function": "current_user",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 325,
+            "line": 327,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -3900,7 +3901,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -3965,7 +3966,7 @@
             "path": "/api/v1/approvals",
             "python_function": "request_approval",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 116,
+            "line": 118,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -4041,7 +4042,7 @@
             "path": "/api/v1/approvals/{id}/decisions",
             "python_function": "decide_approval",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 127,
+            "line": 129,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -4096,7 +4097,7 @@
             "path": "/api/v1/operation-tokens",
             "python_function": "issue_operation_token",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 53,
+            "line": 55,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -4254,7 +4255,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -4482,7 +4483,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -4588,7 +4589,7 @@
             "path": "/api/v1/audit/events",
             "python_function": "list_audit",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 248,
+            "line": 250,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -4643,7 +4644,7 @@
             "path": "/api/v1/audit/exports",
             "python_function": "export_audit",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 265,
+            "line": 267,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -4995,7 +4996,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -5016,7 +5017,7 @@
         {
           "qualified_name": "business_app.controls.router.sync_source",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 389,
+          "line": 391,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -5037,7 +5038,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -5254,10 +5255,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 4,
+      "completed_substeps_count": 6,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "来源登记SQL/幂等/审计与权威绑定已有验证；本批新增案件来源管理页面、列表/详情/登记和未知结果原键重试；自然到期来源可读取expired元数据而用途仍拒绝。194项单元、41项浏览器夹具及12项到期/范围隔离回归通过；真实权威联调和整卡验收仍待。",
-      "actual_remaining_summary": "登记、列表和详情页面已具限定验证；继续接真实来源权威及授权同步/修改维护页面，不把pending或登记成功当有效用途授权。；补到期后台告警和完整修改审计/授权同步页面；现有到期状态可读不等于告警服务，客户端不得自行声明已核验。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "actual_completed_summary": "来源登记、元数据读取与管理页面已有限定证据；本批补齐授权同步的真实SQL事务、原If-Match及幂等安全和前端操作。166项来源回归、243前端单元、43浏览器通过，完整权限门禁状态另见回执，真实权威与整卡验收仍待。",
+      "actual_remaining_summary": "登记、列表/详情与授权同步代码和页面已有隔离验证；继续接真实来源权威，落实来源责任人与合法用途及真实身份/权威/数据库组合联调，不把回执当当前用途授权。；补到期后台告警及与真实权威相关的完整变更追踪和运维处置；现有同步审计/状态可读不等于后台告警或已到期授权续期。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试",
@@ -5350,16 +5351,64 @@
               "scope": "元数据读取修复及12项实际隔离回归；原用途期限和范围不放宽，全权限门禁另见回执"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "来源授权同步以持锁事务读权威快照、提交前重读及同事务审计/回执；陈旧回执与权威变化拒绝，原If-Match绑定、提供者异常503、RFC3339精度保留。53项严格SQL/HTTP加113项既有回归通过，完整权限门禁及失败探针状态另见本批回执。",
+          "evidence": [
+            {
+              "path": "backend/business_app/controls/router.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "backend/business_app/source_synchronization.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "tests/business/test_source_authorization_sync.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "docs/00-project/validation/backend-frontend-data-test-report.json",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            }
+          ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "来源详情保留真实强ETag并接授权同步；未知结果保留原body/key/ETag，回执与当前详情分开，身份/案件/权限变化清除旧展示。243单元与43浏览器夹具通过；无真实提供者联调或业务批准。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/sources.ts",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "frontend/src/business/sources.test.ts",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "frontend/src/views/SourcesView.vue",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "docs/00-project/validation/backend-frontend-data-test-report.json",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "登记、列表和详情页面已具限定验证；继续接真实来源权威及授权同步/修改维护页面，不把pending或登记成功当有效用途授权。"
+          "description": "登记、列表/详情与授权同步代码和页面已有隔离验证；继续接真实来源权威，落实来源责任人与合法用途及真实身份/权威/数据库组合联调，不把回执当当前用途授权。"
         },
         {
           "category": "实施/验证",
-          "description": "补到期后台告警和完整修改审计/授权同步页面；现有到期状态可读不等于告警服务，客户端不得自行声明已核验。"
+          "description": "补到期后台告警及与真实权威相关的完整变更追踪和运维处置；现有同步审计/状态可读不等于后台告警或已到期授权续期。"
         },
         {
           "category": "任务记录",
@@ -5407,7 +5456,7 @@
         {
           "qualified_name": "business_app.controls.router.sync_source",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 389,
+          "line": 391,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -5634,7 +5683,7 @@
             "path": "/api/v1/sources",
             "python_function": "list_sources",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 364,
+            "line": 366,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -5788,7 +5837,7 @@
         {
           "qualified_name": "business_app.controls.router.sync_source",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 389,
+          "line": 391,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -6806,7 +6855,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -6827,7 +6876,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -7624,7 +7673,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -7645,7 +7694,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -7664,7 +7713,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8215,7 +8264,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8236,7 +8285,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8934,7 +8983,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8955,7 +9004,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -9535,7 +9584,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -9599,7 +9648,7 @@
             "path": "/api/v1/imports",
             "python_function": "create_import",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 480,
+            "line": 513,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -9653,7 +9702,7 @@
             "path": "/api/v1/imports/{id}",
             "python_function": "get_import",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 437,
+            "line": 470,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -10144,7 +10193,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -10165,7 +10214,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -10184,7 +10233,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -10994,7 +11043,7 @@
         {
           "qualified_name": "business_app.controls.router.cancel_task",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 688,
+          "line": 721,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11390,7 +11439,7 @@
         {
           "qualified_name": "business_app.controls.router.cancel_task",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 688,
+          "line": 721,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11954,7 +12003,7 @@
         {
           "qualified_name": "business_app.controls.router.cancel_task",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 688,
+          "line": 721,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -12764,7 +12813,7 @@
         {
           "qualified_name": "business_app.controls.router.cancel_task",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 688,
+          "line": 721,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -12785,7 +12834,7 @@
         {
           "qualified_name": "business_app.controls.router.list_events",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 740,
+          "line": 773,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -13026,7 +13075,7 @@
             "path": "/api/v1/analysis/tasks/{id}/cancel",
             "python_function": "cancel_task",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 688,
+            "line": 721,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -13492,7 +13541,7 @@
         {
           "qualified_name": "business_app.controls.router.cancel_task",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 688,
+          "line": 721,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -13513,7 +13562,7 @@
         {
           "qualified_name": "business_app.controls.router.list_events",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 740,
+          "line": 773,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -13906,7 +13955,7 @@
             "path": "/api/v1/analysis/tasks/{id}/cancel",
             "python_function": "cancel_task",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 688,
+            "line": 721,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -14962,7 +15011,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -14983,7 +15032,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -15390,7 +15439,7 @@
         {
           "qualified_name": "business_app.controls.router.model_operation",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 488,
+          "line": 521,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -15867,7 +15916,7 @@
         {
           "qualified_name": "business_app.controls.router.model_operation",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 488,
+          "line": 521,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -16139,7 +16188,7 @@
         {
           "qualified_name": "business_app.controls.router.model_operation",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 488,
+          "line": 521,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -16752,7 +16801,7 @@
         {
           "qualified_name": "business_app.controls.router.model_operation",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 488,
+          "line": 521,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -17080,7 +17129,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -17145,7 +17194,7 @@
             "path": "/api/v1/policies",
             "python_function": "create_policy",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 524,
+            "line": 557,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -17211,7 +17260,7 @@
             "path": "/api/v1/policies",
             "python_function": "list_policies",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 606,
+            "line": 639,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -17785,7 +17834,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -17850,7 +17899,7 @@
             "path": "/api/v1/policies",
             "python_function": "create_policy",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 524,
+            "line": 557,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -17916,7 +17965,7 @@
             "path": "/api/v1/policies",
             "python_function": "list_policies",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 606,
+            "line": 639,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -18016,7 +18065,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -18081,7 +18130,7 @@
             "path": "/api/v1/policies",
             "python_function": "create_policy",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 524,
+            "line": 557,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -18147,7 +18196,7 @@
             "path": "/api/v1/policies",
             "python_function": "list_policies",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 606,
+            "line": 639,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -19345,7 +19394,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -19735,7 +19784,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -19756,7 +19805,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -20292,7 +20341,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -20313,7 +20362,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -20742,7 +20791,7 @@
         {
           "qualified_name": "business_app.controls.router.pending_reviews",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 167,
+          "line": 169,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -20763,7 +20812,7 @@
         {
           "qualified_name": "business_app.controls.router.get_import",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 437,
+          "line": 470,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -23965,7 +24014,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -24107,7 +24156,7 @@
             "path": "/api/v1/reviews",
             "python_function": "create_review",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 241,
+            "line": 243,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -24162,7 +24211,7 @@
             "path": "/api/v1/approvals",
             "python_function": "request_approval",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 116,
+            "line": 118,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -24238,7 +24287,7 @@
             "path": "/api/v1/approvals/{id}/decisions",
             "python_function": "decide_approval",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 127,
+            "line": 129,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -24293,7 +24342,7 @@
             "path": "/api/v1/policies",
             "python_function": "create_policy",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 524,
+            "line": 557,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -24580,7 +24629,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -24842,7 +24891,7 @@
             "path": "/api/v1/reviews",
             "python_function": "create_review",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 241,
+            "line": 243,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -25116,7 +25165,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -25602,7 +25651,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -26282,7 +26331,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -26770,7 +26819,7 @@
         {
           "qualified_name": "business_app.controls.router.create_policy",
           "source_path": "backend/business_app/controls/router.py",
-          "line": 524,
+          "line": 557,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -26835,7 +26884,7 @@
             "path": "/api/v1/approvals",
             "python_function": "request_approval",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 116,
+            "line": 118,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -26911,7 +26960,7 @@
             "path": "/api/v1/approvals/{id}/decisions",
             "python_function": "decide_approval",
             "source_path": "backend/business_app/controls/router.py",
-            "line": 127,
+            "line": 129,
             "included_at": {
               "source_path": "backend/business_app/main.py",
               "line": 161
@@ -27057,25 +27106,60 @@
       "declared_blocking_questions": [
         "Q-33"
       ],
-      "ledger_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 0,
+      "completed_substeps_count": 1,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "尚无本任务已验证交付",
-      "actual_remaining_summary": "完成标注规范与标签质检工具的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "actual_completed_summary": "已实现D01—D15离线标注结构/格式/时间区域质检、批内UUID规范化重复/冲突、机械确定性抽样及脱敏CLI；101项工具测试及53项开发入口测试在Linux原py310通过。未证明正式标签、真实授权、双人和仲裁。",
+      "actual_remaining_summary": "已有离线结构、边界和机械抽样质检；继续落实正式标签词典/来源用途、真实时间与掩码映射证据、内容簇补查及人工流程，不将Schema通过当业务标签正确。；Schema/边界/批内重复冲突、机械确定性抽样及CLI回归已执行；仍需实际人工抽检、一致性/仲裁及适用真实标注流程的测试。；部分必填/边界、unknown/insufficient已验证；双人独立标注、真实reviewer身份、仲裁及正式口径仍无完整实现/证据，整卡验收未完成。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "completed_steps": [
+        {
+          "kind": "DEVELOPMENT",
+          "description": "新增显式文件、固定本地Schema、预算和路径保护的离线质检工具及机械抽样；全部文件先校验，失败不抽样，保留unknown/insufficient，UUID大小写不能绕过批内冲突，报告不回显原文。101项工具测试通过，统一测试入口和原质量范围纳入且不改锁。",
+          "evidence": [
+            {
+              "path": "scripts/validate_annotations.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "tests/data/test_annotation_validation.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "docs/07-datasets/annotation-validation.md",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "scripts/dev.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "tests/stage_three/test_dev.py",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "config/stage-three-profile.json",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            },
+            {
+              "path": "docs/00-project/validation/backend-frontend-data-test-report.json",
+              "scope": "本批隔离开发及实际检查；非整任务验收、正式授权或共享部署"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "前期按风险标签与证据Schema建立内容/时间/区域/关系标注规范及质量校验；不等待T090完整视频聚类。后期接入内容簇补查，未知关系人工确认。"
+          "description": "已有离线结构、边界和机械抽样质检；继续落实正式标签词典/来源用途、真实时间与掩码映射证据、内容簇补查及人工流程，不将Schema通过当业务标签正确。"
         },
         {
           "category": "测试",
-          "description": "按源测试要求创建并真实执行：Schema、冲突和抽样质检测试。"
+          "description": "Schema/边界/批内重复冲突、机械确定性抽样及CLI回归已执行；仍需实际人工抽检、一致性/仲裁及适用真实标注流程的测试。"
         },
         {
           "category": "验收",
-          "description": "逐项核对源验收标准并补实际证据：强制必填和边界合法；支持未知/证据不足；双人标注和仲裁。"
+          "description": "部分必填/边界、unknown/insufficient已验证；双人独立标注、真实reviewer身份、仲裁及正式口径仍无完整实现/证据，整卡验收未完成。"
         },
         {
           "category": "任务记录",
@@ -28317,7 +28401,7 @@
       "path": "/api/v1/analysis/tasks/{id}/cancel",
       "python_function": "cancel_task",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 688,
+      "line": 721,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28343,7 +28427,7 @@
       "path": "/api/v1/imports",
       "python_function": "create_import",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 480,
+      "line": 513,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28356,7 +28440,7 @@
       "path": "/api/v1/policies",
       "python_function": "create_policy",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 524,
+      "line": 557,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28369,7 +28453,7 @@
       "path": "/api/v1/reviews",
       "python_function": "create_review",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 241,
+      "line": 243,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28408,7 +28492,7 @@
       "path": "/api/v1/approvals/{id}/decisions",
       "python_function": "decide_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 127,
+      "line": 129,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28434,7 +28518,7 @@
       "path": "/api/v1/audit/exports/{id}/content",
       "python_function": "download_export",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 281,
+      "line": 283,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28447,7 +28531,7 @@
       "path": "/api/v1/audit/exports",
       "python_function": "export_audit",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 265,
+      "line": 267,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28460,7 +28544,7 @@
       "path": "/api/v1/approvals/{id}",
       "python_function": "get_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 108,
+      "line": 110,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28486,7 +28570,7 @@
       "path": "/api/v1/audit/exports/{id}",
       "python_function": "get_export",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 275,
+      "line": 277,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28499,7 +28583,7 @@
       "path": "/api/v1/auth/me",
       "python_function": "current_user",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 325,
+      "line": 327,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28512,7 +28596,7 @@
       "path": "/api/v1/feedback/samples/{id}",
       "python_function": "get_feedback",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 287,
+      "line": 289,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28551,7 +28635,7 @@
       "path": "/api/v1/imports/{id}",
       "python_function": "get_import",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 437,
+      "line": 470,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28564,7 +28648,7 @@
       "path": "/api/v1/model-operations/{id}",
       "python_function": "model_operation",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 488,
+      "line": 521,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28577,7 +28661,7 @@
       "path": "/api/v1/policies/{id}",
       "python_function": "get_policy",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 644,
+      "line": 677,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28590,7 +28674,7 @@
       "path": "/api/v1/policies/{id}/definition",
       "python_function": "get_policy_definition",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 652,
+      "line": 685,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28629,7 +28713,7 @@
       "path": "/api/v1/reviews/{id}",
       "python_function": "get_review",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 225,
+      "line": 227,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28642,7 +28726,7 @@
       "path": "/api/v1/analysis/tasks/{id}/review-context",
       "python_function": "get_review_context",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 233,
+      "line": 235,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28668,7 +28752,7 @@
       "path": "/api/v1/sources/{id}",
       "python_function": "get_source",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 381,
+      "line": 383,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28707,7 +28791,7 @@
       "path": "/api/v1/analysis/tasks/{id}/execution",
       "python_function": "task_execution",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 679,
+      "line": 712,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28759,7 +28843,7 @@
       "path": "/api/v1/operation-tokens",
       "python_function": "issue_operation_token",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 53,
+      "line": 55,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28772,7 +28856,7 @@
       "path": "/api/v1/approvals",
       "python_function": "list_approvals",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 90,
+      "line": 92,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28798,7 +28882,7 @@
       "path": "/api/v1/audit/events",
       "python_function": "list_audit",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 248,
+      "line": 250,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28837,7 +28921,7 @@
       "path": "/api/v1/reviews/pending",
       "python_function": "pending_reviews",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 167,
+      "line": 169,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28850,7 +28934,7 @@
       "path": "/api/v1/policies",
       "python_function": "list_policies",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 606,
+      "line": 639,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28863,7 +28947,7 @@
       "path": "/api/v1/reviews",
       "python_function": "list_reviews",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 143,
+      "line": 145,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28876,7 +28960,7 @@
       "path": "/api/v1/sources",
       "python_function": "list_sources",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 364,
+      "line": 366,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28889,7 +28973,7 @@
       "path": "/api/v1/analysis/tasks/{id}/events",
       "python_function": "list_events",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 740,
+      "line": 773,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28902,7 +28986,7 @@
       "path": "/api/v1/analysis/tasks/{id}/nodes",
       "python_function": "list_nodes",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 672,
+      "line": 705,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28954,7 +29038,7 @@
       "path": "/api/v1/approvals",
       "python_function": "request_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 116,
+      "line": 118,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28967,7 +29051,7 @@
       "path": "/api/v1/approvals/{id}/revoke",
       "python_function": "revoke_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 135,
+      "line": 137,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -28980,7 +29064,7 @@
       "path": "/api/v1/sources/{id}/authorization/sync",
       "python_function": "sync_source",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 389,
+      "line": 391,
       "included_at": {
         "source_path": "backend/business_app/main.py",
         "line": 161
@@ -31994,7 +32078,7 @@
       "qualified_name": "business_app.controls.router.db",
       "python_name": "db",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 36,
+      "line": 38,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32012,7 +32096,7 @@
       "qualified_name": "business_app.controls.router.settings",
       "python_name": "settings",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 40,
+      "line": 42,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32030,7 +32114,7 @@
       "qualified_name": "business_app.controls.router.collection_scope",
       "python_name": "collection_scope",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 44,
+      "line": 46,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32048,7 +32132,7 @@
       "qualified_name": "business_app.controls.router.approvals",
       "python_name": "approvals",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 48,
+      "line": 50,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32066,7 +32150,7 @@
       "qualified_name": "business_app.controls.router.issue_operation_token",
       "python_name": "issue_operation_token",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 53,
+      "line": 55,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32086,7 +32170,7 @@
       "qualified_name": "business_app.controls.router.reviews",
       "python_name": "reviews",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 62,
+      "line": 64,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32104,7 +32188,7 @@
       "qualified_name": "business_app.controls.router.exports",
       "python_name": "exports",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 66,
+      "line": 68,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32122,7 +32206,7 @@
       "qualified_name": "business_app.controls.router.review_scope",
       "python_name": "review_scope",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 70,
+      "line": 72,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32143,7 +32227,7 @@
       "qualified_name": "business_app.controls.router.list_approvals",
       "python_name": "list_approvals",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 90,
+      "line": 92,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32164,7 +32248,7 @@
       "qualified_name": "business_app.controls.router.get_approval",
       "python_name": "get_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 108,
+      "line": 110,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32183,7 +32267,7 @@
       "qualified_name": "business_app.controls.router.request_approval",
       "python_name": "request_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 116,
+      "line": 118,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32203,7 +32287,7 @@
       "qualified_name": "business_app.controls.router.decide_approval",
       "python_name": "decide_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 127,
+      "line": 129,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32224,7 +32308,7 @@
       "qualified_name": "business_app.controls.router.revoke_approval",
       "python_name": "revoke_approval",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 135,
+      "line": 137,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32245,7 +32329,7 @@
       "qualified_name": "business_app.controls.router.list_reviews",
       "python_name": "list_reviews",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 143,
+      "line": 145,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32267,7 +32351,7 @@
       "qualified_name": "business_app.controls.router.pending_reviews",
       "python_name": "pending_reviews",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 167,
+      "line": 169,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32290,7 +32374,7 @@
       "qualified_name": "business_app.controls.router.get_review",
       "python_name": "get_review",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 225,
+      "line": 227,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32309,7 +32393,7 @@
       "qualified_name": "business_app.controls.router.get_review_context",
       "python_name": "get_review_context",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 233,
+      "line": 235,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32328,7 +32412,7 @@
       "qualified_name": "business_app.controls.router.create_review",
       "python_name": "create_review",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 241,
+      "line": 243,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32348,7 +32432,7 @@
       "qualified_name": "business_app.controls.router.list_audit",
       "python_name": "list_audit",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 248,
+      "line": 250,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32369,7 +32453,7 @@
       "qualified_name": "business_app.controls.router.export_audit",
       "python_name": "export_audit",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 265,
+      "line": 267,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32389,7 +32473,7 @@
       "qualified_name": "business_app.controls.router.get_export",
       "python_name": "get_export",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 275,
+      "line": 277,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32408,7 +32492,7 @@
       "qualified_name": "business_app.controls.router.download_export",
       "python_name": "download_export",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 281,
+      "line": 283,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32427,7 +32511,7 @@
       "qualified_name": "business_app.controls.router.get_feedback",
       "python_name": "get_feedback",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 287,
+      "line": 289,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32446,7 +32530,7 @@
       "qualified_name": "business_app.controls.router.current_user",
       "python_name": "current_user",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 325,
+      "line": 327,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32464,7 +32548,7 @@
       "qualified_name": "business_app.controls.router.source_wire",
       "python_name": "source_wire",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 346,
+      "line": 348,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32482,7 +32566,7 @@
       "qualified_name": "business_app.controls.router.list_sources",
       "python_name": "list_sources",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 364,
+      "line": 366,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32503,7 +32587,7 @@
       "qualified_name": "business_app.controls.router.get_source",
       "python_name": "get_source",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 381,
+      "line": 383,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32522,7 +32606,7 @@
       "qualified_name": "business_app.controls.router.sync_source",
       "python_name": "sync_source",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 389,
+      "line": 391,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32542,10 +32626,26 @@
       "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
     },
     {
+      "qualified_name": "business_app.controls.router.sync_source.recheck",
+      "python_name": "recheck",
+      "source_path": "backend/business_app/controls/router.py",
+      "line": 404,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
       "qualified_name": "business_app.controls.router.get_import",
       "python_name": "get_import",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 437,
+      "line": 470,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32567,7 +32667,7 @@
       "qualified_name": "business_app.controls.router.create_import",
       "python_name": "create_import",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 480,
+      "line": 513,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32587,7 +32687,7 @@
       "qualified_name": "business_app.controls.router.model_operation",
       "python_name": "model_operation",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 488,
+      "line": 521,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32609,7 +32709,7 @@
       "qualified_name": "business_app.controls.router.policy_wire",
       "python_name": "policy_wire",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 517,
+      "line": 550,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32627,7 +32727,7 @@
       "qualified_name": "business_app.controls.router.create_policy",
       "python_name": "create_policy",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 524,
+      "line": 557,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32650,7 +32750,7 @@
       "qualified_name": "business_app.controls.router.list_policies",
       "python_name": "list_policies",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 606,
+      "line": 639,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32670,7 +32770,7 @@
       "qualified_name": "business_app.controls.router.policy_actor",
       "python_name": "policy_actor",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 626,
+      "line": 659,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32689,7 +32789,7 @@
       "qualified_name": "business_app.controls.router.get_policy",
       "python_name": "get_policy",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 644,
+      "line": 677,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32708,7 +32808,7 @@
       "qualified_name": "business_app.controls.router.get_policy_definition",
       "python_name": "get_policy_definition",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 652,
+      "line": 685,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32727,7 +32827,7 @@
       "qualified_name": "business_app.controls.router.list_nodes",
       "python_name": "list_nodes",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 672,
+      "line": 705,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32747,7 +32847,7 @@
       "qualified_name": "business_app.controls.router.task_execution",
       "python_name": "task_execution",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 679,
+      "line": 712,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32766,7 +32866,7 @@
       "qualified_name": "business_app.controls.router.cancel_task",
       "python_name": "cancel_task",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 688,
+      "line": 721,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -32789,7 +32889,7 @@
       "qualified_name": "business_app.controls.router.list_events",
       "python_name": "list_events",
       "source_path": "backend/business_app/controls/router.py",
-      "line": 740,
+      "line": 773,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -38407,6 +38507,65 @@
         ],
         "var_positional": null,
         "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_synchronization._expiry",
+      "python_name": "_expiry",
+      "source_path": "backend/business_app/source_synchronization.py",
+      "line": 20,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_synchronization.SourceAuthoritySnapshot.matches",
+      "python_name": "matches",
+      "source_path": "backend/business_app/source_synchronization.py",
+      "line": 51,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "item"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_synchronization.read_source_authority",
+      "python_name": "read_source_authority",
+      "source_path": "backend/business_app/source_synchronization.py",
+      "line": 63,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "provider",
+          "scope",
+          "source_id"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "connection"
+        ],
         "var_keyword": null
       },
       "direct_literal_sql_tables": [],

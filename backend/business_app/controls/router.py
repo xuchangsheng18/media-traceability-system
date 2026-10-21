@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 from datetime import datetime
 from typing import Annotated, Any, cast
 from uuid import UUID, uuid4
@@ -16,6 +17,7 @@ from ..permissions.conditional import ConditionalPort
 from ..permissions.guard import current_principal
 from ..scope_collections import CollectionScope
 from ..settings import BusinessSettings
+from ..source_synchronization import read_source_authority
 from ..types import Actor, Scope
 from ..uploads.repository import UploadRepository
 from .approvals import Approvals
@@ -388,37 +390,57 @@ def get_source(request: Request, id: UUID) -> JSONResponse:
 @router.post("/sources/{id}/authorization/sync", operation_id="syncSourceAuthorization")
 def sync_source(request: Request, id: UUID, body: dict[str, Any], idempotency_key: Key) -> JSONResponse:
     validate_api("SourceSyncRequest", body)
+    original_if_match = request.headers.get("If-Match")
+    if not original_if_match:
+        raise BusinessError("PRECONDITION_REQUIRED", 428)
     scope = resource_scope(request, "source", id, "source.manage")
     provider = cast(SourceSynchronization | None, request.app.state.source_synchronization)
-    if provider is None:
-        raise BusinessError("SOURCE_SYNCHRONIZATION_UNAVAILABLE", 503)
-    authoritative = provider.current(scope, id)
-    validate_response("SourceAuthorizationUpdate", authoritative)
-    if authoritative["source_id"] != str(id) or authoritative["case_id"] != str(scope.case_id):
-        raise BusinessError("SOURCE_AUTHORITY_BINDING_INVALID", 503)
     receipts = cast(UploadRepository, request.app.state.control_receipts)
     digest = hashlib.sha256(canonical([str(id), body])).hexdigest()
     with db(request).transaction(scope) as connection:
         item = row(connection, "source_registry", "source_id", id, lock=True)
+        authoritative = read_source_authority(provider, scope, id, connection=connection)
+
+        def recheck() -> None:
+            current = read_source_authority(provider, scope, id, connection=connection)
+            if current != authoritative:
+                raise BusinessError("AUTHORIZATION_CHANGED", 503)
+
+        db(request).before_commit(connection, recheck)
         old = receipts.replay(connection, scope, "syncSourceAuthorization", idempotency_key, digest)
         if old is not None:
-            return reply("Source", old)
+            # Source's public schema omits authorization_version. Preserve it
+            # privately so a changed internal version cannot replay old success,
+            # even when every field of the public Source happens to be equal.
+            if (
+                set(old) != {"response", "authorization_version", "original_if_match"}
+                or not isinstance(old["original_if_match"], str)
+                or re.fullmatch(r'"[0-9a-f]{64}"', old["original_if_match"]) is None
+                or old["authorization_version"] != authoritative.authorization_version
+                or old["response"] != source_wire(item)
+                or not authoritative.matches(item)
+            ):
+                raise BusinessError("SOURCE_VERSION_CONFLICT", 409)
+            # The first successful request changed the current Source ETag.
+            # A replay must retain its original precondition, not adopt that
+            # updated ETag or omit the required precondition entirely.
+            if original_if_match != old["original_if_match"]:
+                raise BusinessError("PRECONDITION_FAILED", 412)
+            return reply("Source", old["response"])
         match(request, source_wire(item))
         if body["expected_version"] != item["row_version"]:
             raise BusinessError("SOURCE_VERSION_CONFLICT", 409)
         params = dict(
-            authoritative,
+            authorization_ref=authoritative.authorization_ref,
+            authorization_version=authoritative.authorization_version,
+            authorization_status=authoritative.authorization_status,
+            purpose=list(authoritative.purpose),
             id=id,
             case=scope.case_id,
-            expires=datetime.fromisoformat(authoritative["expires_at"].replace("Z", "+00:00"))
-            if authoritative["expires_at"]
-            else None,
+            expires=authoritative.expires_at,
         )
-        if item["authorization_version"] == authoritative["authorization_version"]:
-            if (
-                any(item[k] != params[k] for k in ["authorization_status", "authorization_ref", "purpose"])
-                or item["expires_at"] != params["expires"]
-            ):
+        if item["authorization_version"] == authoritative.authorization_version:
+            if not authoritative.matches(item):
                 raise BusinessError("SOURCE_AUTHORITY_VERSION_CONFLICT", 503)
         else:
             connection.execute(
@@ -428,7 +450,18 @@ def sync_source(request: Request, id: UUID, body: dict[str, Any], idempotency_ke
                 params,
             )
         value = source_wire(row(connection, "source_registry", "source_id", id))
-        receipts.remember(connection, scope, "syncSourceAuthorization", idempotency_key, digest, value)
+        receipts.remember(
+            connection,
+            scope,
+            "syncSourceAuthorization",
+            idempotency_key,
+            digest,
+            dict(
+                response=value,
+                authorization_version=authoritative.authorization_version,
+                original_if_match=original_if_match,
+            ),
+        )
         audit(connection, scope, "source.authorization.sync", "source", id, value["version"], request)
     return reply("Source", value)
 

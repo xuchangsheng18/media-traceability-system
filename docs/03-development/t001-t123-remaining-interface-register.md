@@ -42,11 +42,11 @@
 
 **复用与限制：** 已有 `mt.source_registry`、`backend/business_app/controls/router.py` 的来源读取/授权同步、`controls/providers.py` 的 `SourceSynchronization` 协议；可复用 `contracts.py` 校验、案件授权、`db.py` 的事务与RLS、`controls/receipts.py` 的幂等回执及 `controls/common.py` 的审计。客户端只提交 `SourceCreate` 既有字段，不提交可信verified事实。
 
-**本轮代码及后续：** 本轮实际位置为`backend/business_app/source_registration.py`和`source_registration_router.py`；继续接真实权威、来源修改/到期告警和管理页面。
+**本轮代码及后续：** 本轮实际位置为`backend/business_app/source_registration.py`和`source_registration_router.py`；登记、读取和授权同步页面已有隔离验证；后续接真实权威、落实来源责任人，补来源修改维护和后台到期告警。
 
 **必须补齐/保留的回归：** 补跨单位/案件、来源用途和期限不合法、伪授权引用、幂等重放/换体、回滚无半行记录、授权同步撤销及提交前事实变化回归。
 
-**实际资料与代码缺口：** 缺口包含创建服务、创建目标解析和来源依据核验适配；登记与默认拒绝可先编码。真实授权通过仍需来源依据的实际受控版本、适用用途/期限与可核验提供方，不能从授权引用字符串推导已获授权。
+**实际资料与代码缺口：** 原起点缺口包含创建服务、创建目标解析和来源依据核验适配；登记与默认拒绝可先编码。真实授权通过仍需来源依据的实际受控版本、适用用途/期限与可核验提供方，不能从授权引用字符串推导已获授权。
 
 ## 04. downloadAsset
 
@@ -383,3 +383,7 @@
 **必须补齐/保留的回归：** 补旧ETag、跨单位目标、未READY/模型维度或归一化不兼容、批准撤销、并发切换、服务失败/回退、数据库与服务状态分歧、审计回滚和查询中版本固定回归。
 
 **实际资料与代码缺口：** 可先实现兼容校验、请求事务、提供方边界和失败测试；真实切换需实际构建索引、服务适配器、批准用途及回退能力。T157为范围外依赖；批准语义和恢复表示未明确前保持拒绝，不用空成功挂载。
+
+本批来源登记/授权同步内核及页面已有[限定实测](../00-project/validation/backend-frontend-data-test-report.json)；syncSourceAuthorization原已挂载，不增加接口数。当前源码仍为51项已挂载、22项未挂载；原27项捕获字段及旧回执保留作历史依据，JSON的current字段为当前观察。
+
+本批来源登记/授权同步内核及页面已有[限定实测](../00-project/validation/backend-frontend-data-test-report.json)；syncSourceAuthorization原已挂载，不增加接口数。当前源码仍为51项已挂载、22项未挂载；原27项捕获字段及旧回执保留作历史依据，JSON的current字段为当前观察。

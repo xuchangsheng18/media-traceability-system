@@ -50,6 +50,9 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/backend-frontend-data-test-priority-plan.md": "T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。",
+        "00-project/validation/backend-frontend-data-test-report.json": "来源授权同步事务/原请求头、前端回执、离线标注质检及原权限门禁的实测证据，精确CI与源码同步分开记录。",
+        "07-datasets/annotation-validation.md": "D01—D15显式文件离线质检：本地Schema、时间区域边界、UUID重复冲突、预算与脱敏；真实授权、双人仲裁和抽样仍未验证。",
         "07-datasets/public-development-data.md": "2张官方CC0原图与5个可追溯派生文件，7文件/6唯一摘要、来源和坐标核对；视频未生成，无业务标签、模型精度或正式数据准入推定。",
         "00-project/validation/public-development-data-report.json": "Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。",
         "00-project/validation/t060-readonly-ui-report.json": "T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。",

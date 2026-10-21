@@ -503,3 +503,377 @@ test('invalid pagination size cannot issue a source request', async () => {
   expect(fetcher).not.toHaveBeenCalled()
   expect(ctx.controller.list.state.error).not.toBe('')
 })
+
+const sourceEtag = '"self-owned-source-detail-etag-1"'
+const anotherSourceId = '30000000-0000-4000-8000-000000000002'
+const synchronized: Schemas['Source'] = {
+  ...source,
+  authorization_ref: 'self-owned-sync-authority/2',
+  authorization_status: 'revoked',
+  purpose: ['download'],
+  expires_at: null,
+  version: 2,
+}
+
+async function setupSync(permissions = ['source.read', 'source.manage']) {
+  const ctx = await setup(permissions)
+  expect(
+    ctx.controller.authorizationSync,
+    'the source synchronization controller is missing',
+  ).toBeDefined()
+  return ctx
+}
+
+async function readSyncDetail(
+  ctx: Awaited<ReturnType<typeof setup>>,
+  item = source,
+  etag = sourceEtag,
+) {
+  vi.stubGlobal('fetch', async () => Response.json(item, { headers: { ETag: etag } }))
+  await ctx.controller.detail.load(item.source_id)
+}
+
+test('detail retains only the actual strong service ETag and clears it with its binding', async () => {
+  const ctx = await setup()
+  await readSyncDetail(ctx)
+  expect(ctx.controller.detail.state.etag).toBe(sourceEtag)
+  expect(ctx.controller.detail.state.sourceId).toBe(sourceId)
+  ctx.controller.detail.clear()
+  expect(ctx.controller.detail.state.etag).toBeNull()
+  expect(ctx.controller.detail.state.sourceId).toBe('')
+})
+
+test.each(['pending', 'verified', 'expired', 'revoked'] as const)(
+  'sync sends only the read version and real ETag; authoritative %s is an acknowledgement, not approval',
+  async (status) => {
+    const ctx = await setupSync()
+    await readSyncDetail(ctx)
+    const requests: { url: string; init: RequestInit }[] = []
+    const response = { ...synchronized, authorization_status: status }
+    vi.stubGlobal('fetch', async (url: string, init: RequestInit) => {
+      requests.push({ url, init })
+      return Response.json(response, { headers: { ETag: '"sync-response-etag"' } })
+    })
+    await ctx.controller.authorizationSync.submit()
+    expect(requests).toHaveLength(1)
+    expect(requests[0]?.url).toBe(`/business/api/v1/sources/${sourceId}/authorization/sync`)
+    expect(JSON.parse(String(requests[0]?.init.body))).toEqual({ expected_version: 1 })
+    expect(requests[0]?.init.headers).toMatchObject({ 'If-Match': sourceEtag })
+    const headers = requests[0]?.init.headers as Record<string, string>
+    expect(headers['Idempotency-Key']).toMatch(/^[a-f0-9-]{36}$/)
+    expect(ctx.controller.authorizationSync.state.data).toEqual(response)
+    expect(ctx.controller.authorizationSync.state.message).toContain('不构成业务批准')
+    expect(ctx.controller.detail.state.data).toBeNull()
+    expect(ctx.controller.detail.state.etag).toBeNull()
+    expect(ctx.controller.detail.state.sourceId).toBe(sourceId)
+    await ctx.controller.authorizationSync.submit()
+    expect(requests).toHaveLength(1)
+  },
+)
+
+test('same authoritative version may produce a successful synchronization without incrementing the record', async () => {
+  const ctx = await setupSync()
+  await readSyncDetail(ctx)
+  vi.stubGlobal('fetch', async () => Response.json(source))
+  await ctx.controller.authorizationSync.submit()
+  expect(ctx.controller.authorizationSync.state.data).toEqual(source)
+})
+
+test.each(['missing', 'weak', 'unquoted', 'oversized'])(
+  'a %s ETag cannot authorize synchronization and is never replaced with a derived tag',
+  async (kind) => {
+    const ctx = await setupSync()
+    const tags = {
+      missing: null,
+      weak: 'W/"weak"',
+      unquoted: 'unquoted',
+      oversized: `"${'x'.repeat(128)}"`,
+    }
+    const tag = tags[kind as keyof typeof tags]
+    vi.stubGlobal('fetch', async () => Response.json(source, { headers: tag ? { ETag: tag } : {} }))
+    await ctx.controller.detail.load(sourceId)
+    expect(ctx.controller.detail.state.data).toEqual(source)
+    expect(ctx.controller.detail.state.etag).toBeNull()
+    const fetcher = vi.fn()
+    vi.stubGlobal('fetch', fetcher)
+    await ctx.controller.authorizationSync.submit()
+    expect(fetcher).not.toHaveBeenCalled()
+    expect(ctx.controller.authorizationSync.state.error).not.toBe('')
+  },
+)
+
+test('source.manage cannot synchronize a source without a separately loaded detail', async () => {
+  const ctx = await setupSync()
+  vi.stubGlobal('fetch', async () => Response.json({ items: [source], next_cursor: null }))
+  await ctx.controller.list.load()
+  const fetcher = vi.fn()
+  vi.stubGlobal('fetch', fetcher)
+  await ctx.controller.authorizationSync.submit()
+  expect(fetcher).not.toHaveBeenCalled()
+  expect(ctx.controller.authorizationSync.state.error).not.toBe('')
+})
+
+test('source.read alone permits detail reading but cannot synchronize authorization', async () => {
+  const ctx = await setupSync(['source.read'])
+  await readSyncDetail(ctx)
+  const fetcher = vi.fn()
+  vi.stubGlobal('fetch', fetcher)
+  await ctx.controller.authorizationSync.submit()
+  expect(fetcher).not.toHaveBeenCalled()
+  expect(ctx.controller.authorizationSync.state.error).toContain('PERMISSION_REQUIRED')
+})
+
+test.each([
+  'source_id',
+  'case_id',
+  'name',
+  'source_type',
+  'version',
+  'authorization_status',
+  'purpose',
+  'expires_at',
+])(
+  'sync rejects an invalid or unrelated response %s without losing its unknown intent',
+  async (field) => {
+    const ctx = await setupSync()
+    await readSyncDetail(ctx)
+    const invalid: Record<string, unknown> = {
+      source_id: anotherSourceId,
+      case_id: otherCase,
+      name: 'unrelated source',
+      source_type: 'public_licensed',
+      version: 0,
+      authorization_status: 'approved',
+      purpose: [],
+      expires_at: 'not-a-time',
+    }
+    vi.stubGlobal('fetch', async () => Response.json({ ...synchronized, [field]: invalid[field] }))
+    await ctx.controller.authorizationSync.submit()
+    expect(ctx.controller.authorizationSync.state.data).toBeNull()
+    expect(ctx.controller.authorizationSync.state.error).not.toBe('')
+    expect(ctx.controller.authorizationSync.state.message).toBe('')
+    expect(ctx.controller.authorizationSync.state.uncertain).toBe(true)
+  },
+)
+
+test.each([401, 403, 404, 409, 412, 422, 428, 503])(
+  'first sync HTTP %i is explicit; another submission requires reloading its detail',
+  async (status) => {
+    const ctx = await setupSync()
+    await readSyncDetail(ctx)
+    const fetcher = vi.fn(async () => Response.json({ code: 'SOURCE_SYNC_REFUSED' }, { status }))
+    vi.stubGlobal('fetch', fetcher)
+    await ctx.controller.authorizationSync.submit()
+    expect(ctx.controller.authorizationSync.state.data).toBeNull()
+    expect(ctx.controller.authorizationSync.state.error).toContain('SOURCE_SYNC_REFUSED')
+    expect(ctx.controller.authorizationSync.state.uncertain).toBe(status === 503)
+    expect(ctx.controller.detail.state.etag).toBeNull()
+    await ctx.controller.authorizationSync.submit()
+    expect(fetcher).toHaveBeenCalledOnce()
+  },
+)
+
+test.each(
+  ['network', '503'].flatMap((first) => [409, 412, 403, 422].map((status) => ({ first, status }))),
+)(
+  'unknown sync $first then HTTP $status retains its original body/key/etag across new detail GETs',
+  async ({ first, status }) => {
+    const ctx = await setupSync()
+    await readSyncDetail(ctx)
+    const requests: RequestInit[] = []
+    const fetcher = async (_url: string, init: RequestInit) => {
+      requests.push(init)
+      if (requests.length === 1) {
+        if (first === 'network') throw new TypeError('self-owned unknown sync result')
+        return Response.json({ code: 'SOURCE_SYNCHRONIZATION_UNAVAILABLE' }, { status: 503 })
+      }
+      if (requests.length === 2)
+        return Response.json({ code: 'SOURCE_VERSION_CONFLICT' }, { status })
+      return Response.json(synchronized)
+    }
+    vi.stubGlobal('fetch', fetcher)
+    await ctx.controller.authorizationSync.submit()
+    await ctx.controller.authorizationSync.retry()
+    expect(ctx.controller.authorizationSync.state.uncertain).toBe(true)
+    await readSyncDetail(ctx, { ...source, version: 7 }, '"new-current-detail-etag"')
+    expect(ctx.controller.detail.state.etag).toBe('"new-current-detail-etag"')
+    expect(ctx.controller.authorizationSync.state.uncertain).toBe(true)
+    vi.stubGlobal('fetch', fetcher)
+    await ctx.controller.authorizationSync.submit()
+    expect(requests).toHaveLength(2)
+    await ctx.controller.authorizationSync.retry()
+    expect(requests).toHaveLength(3)
+    for (const request of requests) {
+      expect(request.body).toBe(requests[0]?.body)
+      expect(request.headers).toEqual(requests[0]?.headers)
+    }
+    expect(JSON.parse(String(requests[2]?.body))).toEqual({ expected_version: 1 })
+    expect(ctx.controller.authorizationSync.state.data).toEqual(synchronized)
+    expect(ctx.controller.authorizationSync.state.uncertain).toBe(false)
+    expect(ctx.controller.detail.state.data).toBeNull()
+  },
+)
+
+test('first version conflict needs an explicit fresh read before a new intent can use its new version and ETag', async () => {
+  const ctx = await setupSync()
+  await readSyncDetail(ctx)
+  const requests: RequestInit[] = []
+  const fetcher = async (_url: string, init: RequestInit) => {
+    requests.push(init)
+    return requests.length === 1
+      ? Response.json({ code: 'SOURCE_VERSION_CONFLICT' }, { status: 409 })
+      : Response.json({ ...synchronized, version: 3 })
+  }
+  vi.stubGlobal('fetch', fetcher)
+  await ctx.controller.authorizationSync.submit()
+  await ctx.controller.authorizationSync.retry()
+  await ctx.controller.authorizationSync.submit()
+  expect(requests).toHaveLength(1)
+  await readSyncDetail(ctx, { ...source, version: 2 }, '"fresh-version-2"')
+  vi.stubGlobal('fetch', fetcher)
+  await ctx.controller.authorizationSync.submit()
+  expect(requests).toHaveLength(2)
+  expect(JSON.parse(String(requests[1]?.body))).toEqual({ expected_version: 2 })
+  expect(requests[1]?.headers).toMatchObject({ 'If-Match': '"fresh-version-2"' })
+  expect(requests[1]?.headers).not.toEqual(requests[0]?.headers)
+})
+
+test.each(['case', 'identity', 'manage', 'read', 'source', 'dispose'])(
+  'sync clears old sensitive results and discards late success after %s changes',
+  async (change) => {
+    const ctx = await setupSync()
+    await readSyncDetail(ctx)
+    let release!: (response: Response) => void
+    const requests: string[] = []
+    vi.stubGlobal('fetch', (url: string, init: RequestInit) => {
+      requests.push(url)
+      if (init.method === 'GET')
+        return Promise.resolve(
+          Response.json(
+            { ...source, source_id: anotherSourceId },
+            { headers: { ETag: '"another-source"' } },
+          ),
+        )
+      return new Promise<Response>((resolve) => (release = resolve))
+    })
+    const pending = ctx.controller.authorizationSync.submit()
+    await ctx.controller.authorizationSync.submit()
+    expect(requests).toHaveLength(1)
+    if (change === 'case') ctx.selection.caseId = otherCase
+    if (change === 'identity') ctx.session.state.generation++
+    if (change === 'manage') ctx.session.state.user!.permissions = ['source.read']
+    if (change === 'read') ctx.session.state.user!.permissions = ['source.manage']
+    if (change === 'source') await ctx.controller.detail.load(anotherSourceId)
+    if (change === 'dispose') ctx.controller.dispose()
+    release(Response.json(synchronized))
+    await pending
+    expect(ctx.controller.authorizationSync.state.data).toBeNull()
+    expect(ctx.controller.authorizationSync.state.error).toBe('')
+    expect(ctx.controller.authorizationSync.state.message).toBe('')
+    expect(ctx.controller.authorizationSync.state.busy).toBe(false)
+    await ctx.controller.authorizationSync.retry()
+    expect(requests.filter((url) => url.endsWith('/authorization/sync'))).toHaveLength(1)
+  },
+)
+
+test('registration and synchronization retain separate unknown intents and idempotency keys', async () => {
+  const ctx = await setupSync()
+  const requests: { url: string; init: RequestInit }[] = []
+  const failures = new Set<string>()
+  const fetcher = async (url: string, init: RequestInit) => {
+    if (init.method === 'GET') return Response.json(source, { headers: { ETag: sourceEtag } })
+    requests.push({ url, init })
+    if (!failures.has(url)) {
+      failures.add(url)
+      throw new TypeError('self-owned unknown mutation result')
+    }
+    return Response.json(url.endsWith('/authorization/sync') ? synchronized : source)
+  }
+  vi.stubGlobal('fetch', fetcher)
+  await ctx.controller.registration.submit()
+  await ctx.controller.detail.load(sourceId)
+  await ctx.controller.authorizationSync.submit()
+  ctx.draft.name = 'edited registration only'
+  expect(ctx.controller.authorizationSync.state.uncertain).toBe(true)
+  ctx.draft.name = payload.name
+  await ctx.controller.registration.retry()
+  expect(ctx.controller.registration.state.data).toEqual(source)
+  expect(ctx.controller.authorizationSync.state.uncertain).toBe(true)
+  await ctx.controller.authorizationSync.retry()
+  expect(ctx.controller.authorizationSync.state.data).toEqual(synchronized)
+  expect(ctx.controller.registration.state.data).toEqual(source)
+  const registrations = requests.filter((request) => request.url.endsWith('/sources'))
+  const synchronizations = requests.filter((request) => request.url.endsWith('/authorization/sync'))
+  expect(registrations).toHaveLength(2)
+  expect(synchronizations).toHaveLength(2)
+  expect(registrations[0]?.init.headers).toEqual(registrations[1]?.init.headers)
+  expect(synchronizations[0]?.init.headers).toEqual(synchronizations[1]?.init.headers)
+  expect(registrations[0]?.init.headers).not.toEqual(synchronizations[0]?.init.headers)
+})
+
+test.each(['source.read', 'source.manage'])(
+  'revoking %s synchronously removes an already confirmed synchronization receipt',
+  async (permission) => {
+    const ctx = await setupSync()
+    await readSyncDetail(ctx)
+    vi.stubGlobal('fetch', async () => Response.json(synchronized))
+    await ctx.controller.authorizationSync.submit()
+    expect(ctx.controller.authorizationSync.state.data).toEqual(synchronized)
+    ctx.session.state.user!.permissions = ctx.session.state.user!.permissions.filter(
+      (value) => value !== permission,
+    )
+    expect(ctx.controller.authorizationSync.state.data).toBeNull()
+    expect(ctx.controller.authorizationSync.state.message).toBe('')
+  },
+)
+
+test('a positive but regressed sync version is rejected against its original detail', async () => {
+  const ctx = await setupSync()
+  await readSyncDetail(ctx, { ...source, version: 3 })
+  vi.stubGlobal('fetch', async () => Response.json(synchronized))
+  await ctx.controller.authorizationSync.submit()
+  expect(ctx.controller.authorizationSync.state.data).toBeNull()
+  expect(ctx.controller.authorizationSync.state.error).not.toBe('')
+  expect(ctx.controller.authorizationSync.state.uncertain).toBe(true)
+})
+
+test('late synchronization failure cannot restore an old intent after switching the selected source', async () => {
+  const ctx = await setupSync()
+  await readSyncDetail(ctx)
+  let reject!: (reason: Error) => void
+  vi.stubGlobal('fetch', () => new Promise<Response>((_resolve, fail) => (reject = fail)))
+  const pending = ctx.controller.authorizationSync.submit()
+  await readSyncDetail(ctx, { ...source, source_id: anotherSourceId }, '"another-source-etag"')
+  reject(new TypeError('self-owned late sync interruption'))
+  await pending
+  expect(ctx.controller.authorizationSync.state.error).toBe('')
+  expect(ctx.controller.authorizationSync.state.uncertain).toBe(false)
+  expect(ctx.controller.detail.state.etag).toBe('"another-source-etag"')
+  const fetcher = vi.fn()
+  vi.stubGlobal('fetch', fetcher)
+  await ctx.controller.authorizationSync.retry()
+  expect(fetcher).not.toHaveBeenCalled()
+})
+
+test('a late detail response cannot attach its old ETag to a different selected source', async () => {
+  const ctx = await setupSync()
+  let release!: (response: Response) => void
+  vi.stubGlobal('fetch', () => new Promise<Response>((resolve) => (release = resolve)))
+  const pending = ctx.controller.detail.load(sourceId)
+  const selected = { ...source, source_id: anotherSourceId }
+  await readSyncDetail(ctx, selected, '"selected-source-etag"')
+  release(Response.json(source, { headers: { ETag: sourceEtag } }))
+  await pending
+  expect(ctx.controller.detail.state.data).toEqual(selected)
+  expect(ctx.controller.detail.state.etag).toBe('"selected-source-etag"')
+  const requests: { url: string; init: RequestInit }[] = []
+  vi.stubGlobal('fetch', async (url: string, init: RequestInit) => {
+    requests.push({ url, init })
+    return Response.json(selected)
+  })
+  await ctx.controller.authorizationSync.submit()
+  expect(requests).toHaveLength(1)
+  expect(requests[0]?.url).toBe(`/business/api/v1/sources/${anotherSourceId}/authorization/sync`)
+  expect(requests[0]?.init.headers).toMatchObject({ 'If-Match': '"selected-source-etag"' })
+  expect(ctx.controller.authorizationSync.state.data).toEqual(selected)
+})

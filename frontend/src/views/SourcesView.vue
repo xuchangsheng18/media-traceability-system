@@ -28,7 +28,9 @@ const sources = createSources(
   () => draft.value,
 )
 const registration = sources.registration.state
+const authorizationSync = sources.authorizationSync.state
 const locked = computed(() => registration.busy || registration.uncertain)
+const syncLocked = computed(() => authorizationSync.busy || authorizationSync.uncertain)
 const types = [
   { value: 'authorized_business', label: '已获授权的业务来源' },
   { value: 'public_licensed', label: '公开且已获许可的来源' },
@@ -66,6 +68,7 @@ watch(
 )
 onBeforeUnmount(sources.dispose)
 async function list(next = false) {
+  if (syncLocked.value) return
   sources.detail.clear()
   if (next) await sources.list.next()
   else await sources.list.load(limit.value)
@@ -101,6 +104,7 @@ async function list(next = false) {
           <select
             v-model="limit"
             aria-label="来源每页条数"
+            :disabled="syncLocked"
           >
             <option :value="10">10</option>
             <option :value="20">20</option>
@@ -108,7 +112,7 @@ async function list(next = false) {
           </select>
         </label>
         <button
-          :disabled="sources.list.state.busy || !session.has('source.read')"
+          :disabled="sources.list.state.busy || syncLocked || !session.has('source.read')"
           @click="list()"
         >
           查询来源／回到首页
@@ -117,6 +121,7 @@ async function list(next = false) {
           class="secondary"
           :disabled="
             sources.list.state.busy ||
+            syncLocked ||
             !sources.list.state.data?.next_cursor ||
             !session.has('source.read')
           "
@@ -159,7 +164,7 @@ async function list(next = false) {
               <td>
                 <button
                   class="secondary"
-                  :disabled="sources.detail.state.busy || !session.has('source.read')"
+                  :disabled="sources.detail.state.busy || syncLocked || !session.has('source.read')"
                   @click="sources.detail.load(item.source_id)"
                 >
                   查看来源详情
@@ -182,6 +187,93 @@ async function list(next = false) {
 
     <section class="panel span-12">
       <h2 class="panel-heading">来源详情</h2>
+      <p class="panel-copy">
+        授权同步只向服务端请求读取来源权威记录，不构成人工业务批准。授权状态、依据、用途和有效期均由真实权威决定；依赖缺失时服务端拒绝。
+      </p>
+      <div class="toolbar">
+        <button
+          :disabled="
+            !sources.detail.state.data ||
+            !sources.detail.state.etag ||
+            sources.detail.state.busy ||
+            syncLocked ||
+            !session.has('source.read') ||
+            !session.has('source.manage')
+          "
+          @click="sources.authorizationSync.submit()"
+        >
+          同步来源授权
+        </button>
+        <button
+          class="secondary"
+          :disabled="
+            !sources.detail.state.sourceId ||
+            sources.detail.state.busy ||
+            authorizationSync.busy ||
+            !session.has('source.read')
+          "
+          @click="sources.detail.load(sources.detail.state.sourceId)"
+        >
+          重新读取来源详情
+        </button>
+      </div>
+      <p
+        v-if="sources.detail.state.data && !sources.detail.state.etag"
+        class="notice"
+        role="status"
+      >
+        当前详情缺少服务端强 ETag，授权同步不可用；请重新读取详情。
+      </p>
+      <p
+        v-if="authorizationSync.busy"
+        class="notice"
+        role="status"
+      >
+        正在请求来源授权同步…
+      </p>
+      <p
+        v-if="authorizationSync.error"
+        class="notice"
+        role="status"
+      >
+        {{ authorizationSync.error }}
+      </p>
+      <p
+        v-if="authorizationSync.uncertain"
+        class="notice"
+        role="status"
+      >
+        原授权同步结果尚未确认，请使用原请求重试。重新读取详情不会改变原版本、幂等键或
+        ETag。原请求仅保存在本页内存；切换身份、案件或离开本页会清除它。
+      </p>
+      <button
+        v-if="authorizationSync.uncertain"
+        class="secondary"
+        :disabled="
+          authorizationSync.busy || !session.has('source.manage') || !session.has('source.read')
+        "
+        @click="sources.authorizationSync.retry()"
+      >
+        重试原授权同步请求
+      </button>
+      <p
+        v-if="authorizationSync.message"
+        class="notice"
+        role="status"
+      >
+        {{ authorizationSync.message }}
+      </p>
+      <dl
+        v-if="authorizationSync.data"
+        class="source-detail"
+      >
+        <dt>同步回执来源编号</dt>
+        <dd>{{ authorizationSync.data.source_id }}</dd>
+        <dt>同步回执状态／版本</dt>
+        <dd>
+          {{ authorizationSync.data.authorization_status }}／{{ authorizationSync.data.version }}
+        </dd>
+      </dl>
       <p
         v-if="sources.detail.state.busy"
         class="notice"
@@ -223,14 +315,18 @@ async function list(next = false) {
         v-else
         class="empty-state"
       >
-        查询来源后，点击“查看来源详情”重新读取所选来源。
+        {{
+          sources.detail.state.sourceId
+            ? '当前详情已清空，请点击“重新读取来源详情”查看当前状态。'
+            : '查询来源后，点击“查看来源详情”读取所选来源。'
+        }}
       </p>
     </section>
 
     <section class="panel span-12">
       <h2 class="panel-heading">登记来源</h2>
       <p class="panel-copy">
-        按当前案件填写真实登记依据；真实权威或权限条件缺失时服务端将拒绝登记。此页面不办理授权同步、修改或到期告警。
+        按当前案件填写真实登记依据；真实权威或权限条件缺失时服务端将拒绝登记。登记后可在来源详情请求权威同步；来源修改与到期后台告警另待实现。
       </p>
       <p
         v-if="!session.has('source.manage')"

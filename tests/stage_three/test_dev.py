@@ -130,6 +130,15 @@ def test_precommit_contains_format_types_and_frontend_checks():
     assert ["npm", "--prefix", "frontend", "run", "format-check"] in commands
 
 
+def test_test_entry_includes_annotation_checks_without_replacing_existing_suites():
+    commands = dev.plan("test")
+    pytest_commands = [command for command in commands if command[1:3] == ["-m", "pytest"]]
+    assert len(pytest_commands) == 1
+    assert {"tests/poc", "tests/stage_three", "tests/platform", "tests/data"} <= set(pytest_commands[0])
+    assert any("scripts/verify_business_foundation.py" in command for command in commands)
+    assert ["npm", "--prefix", "frontend", "test"] in commands
+
+
 @pytest.mark.parametrize("name,frontend", [("lint", "lint"), ("format-check", "format-check")])
 def test_frontend_quality_is_part_of_same_local_ci_entry(name, frontend):
     assert ["npm", "--prefix", "frontend", "run", frontend] in dev.plan(name)
