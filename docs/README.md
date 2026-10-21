@@ -1,5 +1,7 @@
 # 项目文档导航
 
+**10月28日提交目标：** [非算法工程版快速计划](03-development/non-algorithm-fast-delivery-plan-20261028.md)、[范围与边界](03-development/non-algorithm-delivery-scope.md)。用户要求算法暂缓；70项工程、20项混合拆分、30项算法延期、3项外部验收准备逐项列出；实际完成仍为129条子步骤，计划不增加完成数。
+
 2026-10-21优先续批：[后端→前端→数据→测试](03-development/backend-frontend-data-test-priority-plan.md)、[实测回执](00-project/validation/backend-frontend-data-test-report.json)。新增来源授权同步事务/页面和离线标注质检工具；T001—T123为129条已验证子步骤、434组剩余工作，整任务验收0项；源码同步与共享服务采用分别记录。
 
 2026-10-21来源管理续批：[页面与后端修复](03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。该次记录为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
@@ -660,7 +662,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1263份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1267份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1236,6 +1238,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/native-nginx-signature-report.json](<00-project/validation/native-nginx-signature-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-primary-artifact-verification-report.json](<00-project/validation/native-primary-artifact-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-runtime-dependency-inventory-report.json](<00-project/validation/native-runtime-dependency-inventory-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/non-algorithm-fast-plan-review.json](<00-project/validation/non-algorithm-fast-plan-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/npm-sbom.cdx.json](<00-project/validation/npm-sbom.cdx.json>) | 锁定前端依赖的CycloneDX物料清单；不涵盖OS镜像。 |
 | [00-project/validation/open-source-publication-report.json](<00-project/validation/open-source-publication-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/phase-readiness-report.json](<00-project/validation/phase-readiness-report.json>) | 4项19缺口分类/36需求来源/派生漂移/快照语义检查，非业务或生产验收。 |
@@ -1678,6 +1681,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-n01-python-candidate-decision.json](<03-development/native-n01-python-candidate-decision.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/native-n01-python-supported-candidate-request.md](<03-development/native-n01-python-supported-candidate-request.md>) | 说明文档：N01受支持Python独立候选验证申请；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-security-remediation-change-request.md](<03-development/native-n01-security-remediation-change-request.md>) | 说明文档：N01安全修补候选变更请求；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/non-algorithm-delivery-scope.md](<03-development/non-algorithm-delivery-scope.md>) | 说明文档：10月28日非算法工程版交付范围；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/non-algorithm-fast-delivery-plan-20261028.json](<03-development/non-algorithm-fast-delivery-plan-20261028.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
+| [03-development/non-algorithm-fast-delivery-plan-20261028.md](<03-development/non-algorithm-fast-delivery-plan-20261028.md>) | 说明文档：T001—T123非算法工程版快速完成计划；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/pillow-py310-isolated-execution.md](<03-development/pillow-py310-isolated-execution.md>) | PL01源码与静态核验、PL02真实缺项及namespace失败、PL03—PL05停止条件和管理员只读诊断；不宣称漏洞修复或采用。 |
 | [03-development/pillow-py310-remediation-plan.md](<03-development/pillow-py310-remediation-plan.md>) | 八条漏洞与11项提交、隔离回归、构建许可和现有扫描准入限制；方案未执行，不代替采用批准。 |
 | [03-development/ppt-interface-alignment.md](<03-development/ppt-interface-alignment.md>) | 说明文档：本地PPT原型与研发前端页面对照；结合正文的状态、来源和适用范围阅读。 |

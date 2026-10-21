@@ -1,5 +1,7 @@
 # 短视频与图片智能识别溯源系统
 
+**10月28日提交目标：** [非算法工程版快速计划](docs/03-development/non-algorithm-fast-delivery-plan-20261028.md)、[范围与边界](docs/03-development/non-algorithm-delivery-scope.md)。用户要求算法暂缓；70项工程、20项混合拆分、30项算法延期、3项外部验收准备逐项列出；实际完成仍为129条子步骤，计划不增加完成数。
+
 2026-10-21优先续批：[后端→前端→数据→测试](docs/03-development/backend-frontend-data-test-priority-plan.md)、[实测回执](docs/00-project/validation/backend-frontend-data-test-report.json)。新增来源授权同步事务/页面和离线标注质检工具；T001—T123为129条已验证子步骤、434组剩余工作，整任务验收0项；源码同步与共享服务采用分别记录。
 
 2026-10-21来源管理续批：[页面与后端修复](docs/03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](docs/00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。该次记录为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
