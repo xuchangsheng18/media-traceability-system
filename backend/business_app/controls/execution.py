@@ -174,28 +174,109 @@ class Execution:
             result_available=available,
         )
 
-    def transition(
+    def cancel_transition(
         self,
         connection: Connection,
         scope: Scope,
         task_id: UUID,
-        version: int,
+        run_version: int,
+        expected_version: int,
         before: str,
         after: str,
         request_id: UUID,
         reason: str,
     ) -> None:
-        task = row(connection, "analysis_task", "task_id", task_id)
-        run = (
-            connection.execute(
-                text("SELECT * FROM mt.task_run WHERE case_id=:case AND task_id=:task AND run_version=:run"),
-                dict(case=scope.case_id, task=task_id, run=task["run_version"]),
+        """Existing cancellation paths only; never commit the caller's authorized transaction."""
+        bound = current_data_scope()
+        if (
+            bound is None
+            or bound.actor != scope.actor
+            or bound.case_id != scope.case_id
+            or bound.operation_id not in {"cancelTask", "cancelTaskWork"}
+            or (after == "CANCELLED" and bound.operation_id != "cancelTaskWork")
+        ):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        requestable = {"CREATED", "QUEUED", "RUNNING", "WAIT_REVIEW", "REVIEWING", "RETURNED"}
+        completing = before == "CANCEL_REQUESTED" and after == "CANCELLED"
+        if not (completing or (before in requestable and after == "CANCEL_REQUESTED")):
+            raise BusinessError("TASK_CONTROL_STATE_CONFLICT", 409)
+        conflict = "CANCEL_REQUEST_STALE" if completing else "TASK_CONTROL_VERSION_CONFLICT"
+        if type(run_version) is not int or run_version < 1 or type(expected_version) is not int or expected_version < 1:
+            raise BusinessError(conflict, 409)
+        # A caller may catch a Python-side event/outbox failure and continue its
+        # transaction. Keep this complete write unit atomic even in that case.
+        with connection.begin_nested():
+            bind_task_scope(connection, bound, TaskBinding(task_id))
+            task = row(connection, "analysis_task", "task_id", task_id, lock=True)
+            if (task["run_version"], task["row_version"]) != (run_version, expected_version):
+                raise BusinessError(conflict, 409)
+            if (
+                bound.task_binding is not None
+                and bound.task_binding.run_version is not None
+                and bound.task_binding.run_version != run_version
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            if task["state"] != before:
+                raise BusinessError("CANCEL_REQUEST_STALE" if completing else "TASK_CONTROL_STATE_CONFLICT", 409)
+            run = (
+                connection.execute(
+                    text(
+                        "SELECT * FROM mt.task_run WHERE org_id=:org AND case_id=:case AND task_id=:task AND run_version=:run"
+                    ),
+                    dict(org=scope.actor.org_id, case=scope.case_id, task=task_id, run=run_version),
+                )
+                .mappings()
+                .one_or_none()
             )
-            .mappings()
-            .one_or_none()
-        )
-        if run is None:
-            raise BusinessError("TASK_RUN_NOT_FOUND", 404)
+            if run is None:
+                raise BusinessError("TASK_RUN_NOT_FOUND", 404)
+            if (
+                completing
+                and connection.execute(
+                    text(
+                        "SELECT run_id FROM mt.task_node_run WHERE org_id=:org AND case_id=:case AND task_id=:task "
+                        "AND run_version=:run AND state IN ('PENDING','READY','RUNNING','DEFERRED') FOR UPDATE"
+                    ),
+                    dict(org=scope.actor.org_id, case=scope.case_id, task=task_id, run=run_version),
+                ).first()
+                is not None
+            ):
+                raise BusinessError("CANCEL_REQUEST_STALE", 409)
+            version = connection.execute(
+                text(
+                    "UPDATE mt.analysis_task SET state=:after,row_version=row_version+1,updated_at=now() "
+                    "WHERE org_id=:org AND case_id=:case AND task_id=:task AND run_version=:run "
+                    "AND row_version=:expected AND state=:before RETURNING row_version"
+                ),
+                dict(
+                    after=after,
+                    org=scope.actor.org_id,
+                    case=scope.case_id,
+                    task=task_id,
+                    run=run_version,
+                    expected=expected_version,
+                    before=before,
+                ),
+            ).scalar_one_or_none()
+            if version != expected_version + 1:
+                raise BusinessError(conflict, 409)
+            self._append_cancel_event(
+                connection, scope, task_id, run_version, version, before, after, request_id, reason, dict(run)
+            )
+
+    def _append_cancel_event(
+        self,
+        connection: Connection,
+        scope: Scope,
+        task_id: UUID,
+        run_version: int,
+        version: int,
+        before: str,
+        after: str,
+        request_id: UUID,
+        reason: str,
+        run: dict[str, Any],
+    ) -> None:
         identifier = uuid4()
         event = dict(
             schema_version="1.0.0",
@@ -210,7 +291,7 @@ class Execution:
                 org_id=str(scope.actor.org_id),
                 case_id=str(scope.case_id),
                 task_id=str(task_id),
-                run_version=int(task["run_version"]),
+                run_version=run_version,
                 result_version=None,
                 policy_version=run["policy_version"],
                 dag_version=run["dag_version"],
@@ -234,7 +315,7 @@ class Execution:
                 org=scope.actor.org_id,
                 case=scope.case_id,
                 task=task_id,
-                run=task["run_version"],
+                run=run_version,
                 before=before,
                 after=after,
                 reason=reason,
@@ -297,17 +378,12 @@ class Execution:
                     )
             if any(node["state"] == "RUNNING" for node in nodes):
                 return False
-            connection.execute(
-                text(
-                    "UPDATE mt.analysis_task SET state='CANCELLED',row_version=row_version+1,updated_at=now() WHERE task_id=:id AND case_id=:case"
-                ),
-                dict(id=task_id, case=scope.case_id),
-            )
-            self.transition(
+            self.cancel_transition(
                 connection,
                 scope,
                 task_id,
-                expected_version + 1,
+                run_version,
+                expected_version,
                 "CANCEL_REQUESTED",
                 "CANCELLED",
                 request_id,

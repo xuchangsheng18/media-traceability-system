@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_CANCELLATION_ATOMIC_WRITER_NOT_FULL_TASK",
+  "observed_at": "2026-10-21T23:02:24.553407+00:00",
+  "base_source_commit": "a8e82dbb024728db4ad5d55329822d3b0d79a8b6",
+  "source_sha256_lf": {
+    "backend/business_app/controls/execution.py": "0d547fa9b565224b7dc094c9f30285f2192cae9c42f590b24f065c658dffefa1",
+    "backend/business_app/controls/router.py": "eddca15e23237b3fc06665c23c95672cef82d27292c59a67a7ed366507f32828",
+    "tests/business/test_cancel_state_writer.py": "7d8a268ae37b723d58f470595dad7f8b53db8be421ccede612124f4d9ea95493"
+  },
+  "verification_snapshots": {
+    "cancel-red": {
+      "validation_snapshot_commit": "1522fe9f0d914b9f3f4fcd8ad9f5488cb2baf465",
+      "complete": true,
+      "success": true,
+      "checks": [
+        {
+          "command": [
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_cancel_state_writer.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:43:10.060176+00:00",
+          "ended_at": "2026-10-21T22:44:29.792417+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_cancel_state_writer.py::test_writer_savepoint_rolls_back_even_when_caller_catches_injected_failure[outbox_event]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_http_cancel_rolls_back_projection_events_receipt_and_audit[task_event]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_http_cancel_rolls_back_projection_events_receipt_and_audit[outbox_event]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_http_cancel_rolls_back_projection_events_receipt_and_audit[idempotency_record]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_http_cancel_rolls_back_projection_events_receipt_and_audit[audit_event]",
+            "27 failed, 3 passed, 1 warning in 78.89s (0:01:18)"
+          ]
+        }
+      ]
+    },
+    "cancel-guards-red": {
+      "validation_snapshot_commit": "0f1488e772876f76dd7fa638b8266413fe0ea931",
+      "complete": true,
+      "success": true,
+      "checks": [
+        {
+          "command": [
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_cancel_state_writer.py",
+            "-k",
+            "requires_cancellation or not_yet_stopped",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:45:17.904857+00:00",
+          "ended_at": "2026-10-21T22:45:51.677439+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_cancel_state_writer.py::test_writer_requires_cancellation_operation_authority[False]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_writer_requires_cancellation_operation_authority[True]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_final_writer_rejects_nodes_not_yet_stopped[PENDING]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_final_writer_rejects_nodes_not_yet_stopped[READY]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_final_writer_rejects_nodes_not_yet_stopped[RUNNING]",
+            "FAILED tests/business/test_cancel_state_writer.py::test_final_writer_rejects_nodes_not_yet_stopped[DEFERRED]"
+          ]
+        }
+      ]
+    },
+    "cancel-review-red": {
+      "validation_snapshot_commit": "73a644ecb2cd742d4d74bfa0ab5e95dda4fe7194",
+      "complete": true,
+      "success": true,
+      "checks": [
+        {
+          "command": [
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_cancel_state_writer.py",
+            "-k",
+            "preexisting_run_scope",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:55:39.978888+00:00",
+          "ended_at": "2026-10-21T22:56:02.581047+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_cancel_state_writer.py::test_writer_respects_preexisting_run_scope_when_newer_projection_exists[1]",
+            "1 failed, 1 passed, 36 deselected, 1 warning in 21.98s"
+          ]
+        }
+      ]
+    },
+    "cancel-affected": {
+      "validation_snapshot_commit": "fe7597d4b4a2b9ec0e784de8f5eec13b9c9f41c6",
+      "complete": true,
+      "success": true,
+      "checks": [
+        {
+          "command": [
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_cancel_state_writer.py",
+            "tests/business/test_execution_cancel.py",
+            "tests/business/test_adapters_and_execution.py",
+            "tests/business/test_t014_work.py",
+            "tests/business/test_task_event_constraints.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:57:37.004679+00:00",
+          "ended_at": "2026-10-21T23:01:29.956237+00:00",
+          "safe_summary": [
+            "100 passed, 1 warning in 232.09s (0:03:52)"
+          ]
+        },
+        {
+          "command": [
+            "scripts/verify_business_foundation.py",
+            "failure-probe"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T23:01:29.956345+00:00",
+          "ended_at": "2026-10-21T23:01:30.440096+00:00",
+          "safe_summary": {
+            "expected_assertion_failure_verified": true
+          }
+        }
+      ]
+    },
+    "quality": {
+      "validation_snapshot_commit": "fe7597d4b4a2b9ec0e784de8f5eec13b9c9f41c6",
+      "complete": true,
+      "success": true,
+      "checks": [
+        {
+          "command": [
+            "-m",
+            "ruff",
+            "check",
+            "--config",
+            "ruff.toml",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:57:36.530073+00:00",
+          "ended_at": "2026-10-21T22:57:36.658321+00:00",
+          "safe_summary": [
+            "All checks passed!"
+          ]
+        },
+        {
+          "command": [
+            "-m",
+            "ruff",
+            "format",
+            "--check",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:57:36.658458+00:00",
+          "ended_at": "2026-10-21T22:57:36.795748+00:00",
+          "safe_summary": []
+        },
+        {
+          "command": [
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T22:57:36.795831+00:00",
+          "ended_at": "2026-10-21T22:57:39.074421+00:00",
+          "safe_summary": [
+            "Success: no issues found in 256 source files"
+          ]
+        }
+      ]
+    }
+  },
+  "new_feature_cases": 38,
+  "final_affected_tests": 100,
+  "static_type_source_files": 256,
+  "initial_RED": {
+    "failures": 27,
+    "passed": 3,
+    "missing_writer_failures": 23,
+    "test_harness_fault_expectation_corrections": 4,
+    "additional_authority_and_unstopped_node_RED": 6
+  },
+  "review_fix_RED": {
+    "failing_historical_scope_case": 1,
+    "current_scope_positive_control_passed": 1
+  },
+  "scope": "Only existing cancellation request/completion internal writer: scope/run/row/state guards, projection CAS, fixed-run event/outbox savepoint. No public/schema/state/rule changes.",
+  "prior_exact_source_CI_ref": "docs/00-project/validation/ci973-final-ci-report.json",
+  "prior_exact_source_business_PASS": true,
+  "prior_exact_source_all_CI_PASS": false,
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "original_failure_probe_preserved": true,
+  "original_pytest_timeout_seconds": 1800,
+  "review": {
+    "initial_P2_findings": 1,
+    "remaining_P1_P2_findings": 0,
+    "fix": "Historical run scope cannot write newer current run; concrete PostgreSQL regression RED then GREEN, final affected suite required.",
+    "deferred_minor": [
+      "Concurrent HTTP requests use the existing size-one application pool. They prove serialized HTTP idempotency/CAS behavior, not overlapping independent database connections or lock-contention performance."
+    ],
+    "declined_to_judge": [
+      "Full T033 state machine/scheduling/aggregation/recompute/review/archive remains unimplemented",
+      "Formal policy/provider adoption and actual worker process termination/identity deployment not proven by synthetic fixtures",
+      "Shared deployment/production migration/load/recovery not attempted",
+      "Exact final tests/CI/source sync/privacy/navigation are independently verified by root, not by reviewer"
+    ]
+  },
+  "actual_owner": null,
+  "actual_reviewer": null,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "frontend_changed": false,
+  "public_contract_changed": false,
+  "database_migration_created": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "remaining": [
+    "T033 full state machine and node aggregation; new task creation and trusted scene/module/policy/plan/provider mapping",
+    "RETURNED/recompute/review/archive rules and full legal/illegal state/error alignment",
+    "CI software findings, Torch audit gap and admission remain; no dependency adoption or bypass",
+    "Actual task owner/reviewer/work estimates and formal runtime acceptance pending"
+  ]
+}

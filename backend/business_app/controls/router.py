@@ -747,17 +747,12 @@ def cancel_task(request: Request, id: UUID, body: dict[str, Any], idempotency_ke
                 or approval["binding"]["object_type"] != "task"
             ):
                 raise BusinessError("CANCELLATION_CONFIRMATION_INVALID", 403)
-        connection.execute(
-            text(
-                "UPDATE mt.analysis_task SET state='CANCEL_REQUESTED',row_version=row_version+1,updated_at=now() WHERE case_id=:case AND task_id=:id"
-            ),
-            dict(case=scope.case_id, id=id),
-        )
-        execution.transition(
+        execution.cancel_transition(
             connection,
             scope,
             id,
-            value["version"] + 1,
+            value["run_version"],
+            value["version"],
             value["state"],
             "CANCEL_REQUESTED",
             request.state.request_id,

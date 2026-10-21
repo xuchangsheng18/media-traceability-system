@@ -4,11 +4,11 @@
 
 任务台账日期：2026-10-22。本清单只读取代码、契约、迁移及现存台账，不连接数据库、不执行迁移、不导入业务代码。
 
-全部170任务：137条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：137条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
+全部170任务：138条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：138条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
 
 T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、31个不同SQL函数名称。
 
-后端Python静态索引包含458个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
+后端Python静态索引包含459个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
 
 已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。
 
@@ -52,7 +52,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T030 开发媒体资产管理页面](#t030) | 部分已验证 | 3/4 | asset_lineage、audit_event、media_asset、object_version | 3/3 |
 | [T031 设计分析任务与节点执行模型](#t031) | 部分已验证 | 2/3 | 未声明直接落库 | 0/0 |
 | [T032 实现任务及节点数据库模型](#t032) | 部分已验证 | 2/3 | analysis_task、task_node_run、task_event | 0/0 |
-| [T033 实现任务状态机](#t033) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
+| [T033 实现任务状态机](#t033) | 部分已验证 | 2/3 | 未声明直接落库 | 0/0 |
 | [T034 实现任务创建接口](#t034) | 尚无充分已验证交付 | 0/4 | analysis_task、idempotency_record、outbox_event | 0/1 |
 | [T035 实现任务查询和进度接口](#t035) | 部分已验证 | 2/3 | analysis_task、task_node_run | 2/2 |
 | [T036 实现异步队列与优先级](#t036) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
@@ -263,7 +263,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 当前已验证范围：托管流水线、归档门禁和故障探针已有实测；历史32门禁及制品核对保留在具名回执；main规则engineering与普通PR失败禁止合并已有实证。当前源码CI需按资源接口/来源页面回执的精确提交重新核验，不沿用历史成功。；业务CI安全失败定位子范围：报告及标准输出保留最多20条已核对源码AST的测试函数/类选择器，剥离参数并省略异常消息、type及正文；6项新增用例含真实失败/跳过/通过子进程及37项相邻检查通过。原失败探针、1800秒上限和门禁不变；尚未定位或修复原1057项中的1项业务失败。；非超级用户0015清单断言已按真实RED/GREEN修复，原权限检查保留。
 
-未完成事项：main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；安全失败定位已有实测，原提交c3370a2的完整业务回归1057项含1失败仍待定位、复现和修复，不能继承通过。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
+未完成事项：main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；main门禁与历史源码同步证据保留；精确973a7d7业务1057、T014权限1092等通过，整体CI仍因新鲜安全扫描失败：Python25条、质量工具1条、Torch未覆盖。依赖锁不变，不将新增漏洞披露当代码新引入；继续逐项修复/采用及Runner、Secret权限轮换、离职回收和管理审计核验，维护人徐昌胜已确认。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
 
 未声明直接落库表，不能为填满清单自行增加数据实体。
 
@@ -1119,7 +1119,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 当前已验证范围：业务版本迁移与当前历史/上传所需任务表访问已有测试；固定运行事件存储子范围：0015增量增加同案件/任务/运行复合外键及现有11种前后状态枚举约束；合法历史保留、异常历史与末尾失败的原子回滚、追加写保护及受影响回归有实测。不实现通用状态迁移或任务创建，不修改旧迁移或共享库，不证明整卡验收。
 
-未完成事项：0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；当前前置源码的完整业务CI为1057项含1失败，失败身份尚未取得；先核对安全定位回执，不将局部通过当完整业务基线通过。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
+未完成事项：0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；后续精确973a7d7业务回归1057项和T014权限1092项通过，但整体CI仍安全扫描失败；原c3370a2失败身份未保存，不推断唯一原因。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
 
 表与创建源码：
 
@@ -1133,11 +1133,11 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：analysis_task。
 - `business_app.controls.execution.Execution._claim_bound(self, scope, node_id, task_id)`；[backend/business_app/controls/execution.py:71](<../../backend/business_app/controls/execution.py#L71>)；表：task_node_run。
 - `business_app.controls.execution.Execution._finish_bound(self, scope, lease, state, reason, task_id)`；[backend/business_app/controls/execution.py:117](<../../backend/business_app/controls/execution.py#L117>)；表：task_node_run。
-- `business_app.controls.execution.Execution.transition(self, connection, scope, task_id, version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：task_event。
-- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：analysis_task、task_node_run。
-- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:318](<../../backend/business_app/controls/execution.py#L318>)；表：task_node_run。
+- `business_app.controls.execution.Execution.cancel_transition(self, connection, scope, task_id, run_version, expected_version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：analysis_task、task_node_run。
+- `business_app.controls.execution.Execution._append_cancel_event(self, connection, scope, task_id, run_version, version, before, after, request_id, reason, run)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：task_event。
+- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:348](<../../backend/business_app/controls/execution.py#L348>)；表：task_node_run。
+- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:394](<../../backend/business_app/controls/execution.py#L394>)；表：task_node_run。
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：analysis_task。
-- `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:721](<../../backend/business_app/controls/router.py#L721>)；表：analysis_task。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task。
 - `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task。
@@ -1157,9 +1157,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T032,T017；执行依赖候选：T032、T017；依赖是否具备仍需实际核验。
 
-当前已验证范围：上传及取消状态原子写、审计/outbox与部分状态约束已有验证
+当前已验证范围：上传及取消状态原子写、审计/outbox与部分状态约束已有验证；取消专用统一原子写入：收拢既有请求取消和停止后确认取消；校验单位/案件/任务、授权操作、运行/行版本及历史运行范围，条件更新投影并同事务写固定运行事件与outbox；savepoint覆盖被捕获故障，保留HTTP批准/ETag/幂等/审计及事务末撤销。38项新增用例和100项相邻数据库回归通过；不是全业务状态机或共享采用。
 
-未完成事项：实现全业务分析任务状态机及节点聚合；当前前置源码的完整业务CI为1057项含1失败，失败身份尚未取得；先核对安全定位回执，不将局部通过当完整业务基线通过。；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
+未完成事项：取消专用统一写入子范围已有实测；仍需全业务分析任务状态机、可信计划/策略/提供者映射及节点聚合；不能用取消通过代替任务创建、RETURNED、重算、复核或归档完成。；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。
 
 未声明直接落库表，不能为填满清单自行增加数据实体。
 
@@ -1190,10 +1190,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：analysis_task。
-- `business_app.controls.execution.Execution.transition(self, connection, scope, task_id, version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：outbox_event。
-- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：analysis_task。
+- `business_app.controls.execution.Execution.cancel_transition(self, connection, scope, task_id, run_version, expected_version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：analysis_task。
+- `business_app.controls.execution.Execution._append_cancel_event(self, connection, scope, task_id, run_version, version, before, after, request_id, reason, run)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：outbox_event。
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：analysis_task。
-- `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:721](<../../backend/business_app/controls/router.py#L721>)；表：analysis_task。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task。
 - `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task。
@@ -1235,10 +1234,10 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：analysis_task。
 - `business_app.controls.execution.Execution._claim_bound(self, scope, node_id, task_id)`；[backend/business_app/controls/execution.py:71](<../../backend/business_app/controls/execution.py#L71>)；表：task_node_run。
 - `business_app.controls.execution.Execution._finish_bound(self, scope, lease, state, reason, task_id)`；[backend/business_app/controls/execution.py:117](<../../backend/business_app/controls/execution.py#L117>)；表：task_node_run。
-- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：analysis_task、task_node_run。
-- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:318](<../../backend/business_app/controls/execution.py#L318>)；表：task_node_run。
+- `business_app.controls.execution.Execution.cancel_transition(self, connection, scope, task_id, run_version, expected_version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：analysis_task、task_node_run。
+- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:348](<../../backend/business_app/controls/execution.py#L348>)；表：task_node_run。
+- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:394](<../../backend/business_app/controls/execution.py#L394>)；表：task_node_run。
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：analysis_task。
-- `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:721](<../../backend/business_app/controls/router.py#L721>)；表：analysis_task。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task。
 - `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task。
@@ -1342,12 +1341,11 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：analysis_task。
-- `business_app.controls.execution.Execution.transition(self, connection, scope, task_id, version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：outbox_event、task_event、task_run。
-- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：analysis_task。
-- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:318](<../../backend/business_app/controls/execution.py#L318>)；表：task_run。
+- `business_app.controls.execution.Execution.cancel_transition(self, connection, scope, task_id, run_version, expected_version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：analysis_task、task_run。
+- `business_app.controls.execution.Execution._append_cancel_event(self, connection, scope, task_id, run_version, version, before, after, request_id, reason, run)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：outbox_event、task_event。
+- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:394](<../../backend/business_app/controls/execution.py#L394>)；表：task_run。
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：analysis_task。
-- `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:721](<../../backend/business_app/controls/router.py#L721>)；表：analysis_task。
-- `business_app.controls.router.list_events(request, id, run_version, cursor, limit)`；[backend/business_app/controls/router.py:773](<../../backend/business_app/controls/router.py#L773>)；表：task_run。
+- `business_app.controls.router.list_events(request, id, run_version, cursor, limit)`；[backend/business_app/controls/router.py:768](<../../backend/business_app/controls/router.py#L768>)；表：task_run。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task、task_run。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task、task_run。
 - `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task、task_run。
@@ -1391,12 +1389,12 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：analysis_task。
 - `business_app.controls.execution.Execution._claim_bound(self, scope, node_id, task_id)`；[backend/business_app/controls/execution.py:71](<../../backend/business_app/controls/execution.py#L71>)；表：task_node_run。
 - `business_app.controls.execution.Execution._finish_bound(self, scope, lease, state, reason, task_id)`；[backend/business_app/controls/execution.py:117](<../../backend/business_app/controls/execution.py#L117>)；表：task_node_run。
-- `business_app.controls.execution.Execution.transition(self, connection, scope, task_id, version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：outbox_event、task_event、task_run。
-- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：analysis_task、task_node_run。
-- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:318](<../../backend/business_app/controls/execution.py#L318>)；表：task_node_run、task_run。
+- `business_app.controls.execution.Execution.cancel_transition(self, connection, scope, task_id, run_version, expected_version, before, after, request_id, reason)`；[backend/business_app/controls/execution.py:177](<../../backend/business_app/controls/execution.py#L177>)；表：analysis_task、task_node_run、task_run。
+- `business_app.controls.execution.Execution._append_cancel_event(self, connection, scope, task_id, run_version, version, before, after, request_id, reason, run)`；[backend/business_app/controls/execution.py:267](<../../backend/business_app/controls/execution.py#L267>)；表：outbox_event、task_event。
+- `business_app.controls.execution.Execution._reconcile_bound(self, scope, task_id, run_version, expected_version, request_id)`；[backend/business_app/controls/execution.py:348](<../../backend/business_app/controls/execution.py#L348>)；表：task_node_run。
+- `business_app.controls.execution.Execution.nodes(self, scope, task_id, run_version)`；[backend/business_app/controls/execution.py:394](<../../backend/business_app/controls/execution.py#L394>)；表：task_node_run、task_run。
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：analysis_task。
-- `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:721](<../../backend/business_app/controls/router.py#L721>)；表：analysis_task。
-- `business_app.controls.router.list_events(request, id, run_version, cursor, limit)`；[backend/business_app/controls/router.py:773](<../../backend/business_app/controls/router.py#L773>)；表：task_run。
+- `business_app.controls.router.list_events(request, id, run_version, cursor, limit)`；[backend/business_app/controls/router.py:768](<../../backend/business_app/controls/router.py#L768>)；表：task_run。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task、task_run。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task、task_run。
 - `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task、task_run。

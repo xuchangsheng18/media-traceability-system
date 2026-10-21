@@ -520,7 +520,9 @@
       "external_release_date": null,
       "material_or_resource_dependencies": [],
       "followup_document_refs": [
-        "docs/03-development/ci-safe-failure-diagnostics.md"
+        "docs/03-development/ci-safe-failure-diagnostics.md",
+        "docs/00-project/validation/ci973-final-ci-report.json",
+        "docs/03-development/t033-cancellation-atomic-writer.md"
       ]
     },
     {
@@ -2455,7 +2457,9 @@
       "material_or_resource_dependencies": [],
       "followup_document_refs": [
         "docs/04-database/task-event-run-integrity.md",
-        "docs/03-development/ci-safe-failure-diagnostics.md"
+        "docs/03-development/ci-safe-failure-diagnostics.md",
+        "docs/00-project/validation/ci973-final-ci-report.json",
+        "docs/03-development/t033-cancellation-atomic-writer.md"
       ]
     },
     {
@@ -2469,7 +2473,7 @@
       "partial_scope_evidence": [
         {
           "path": "backend/business_app/controls/execution.py",
-          "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+          "scope": "仅现有取消流程工程子范围；不证明全业务状态机、真实身份/规则、共享部署或整卡验收"
         },
         {
           "path": "backend/business_app/uploads/repository.py",
@@ -2482,13 +2486,31 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "backend/business_app/controls/router.py",
+          "scope": "仅现有取消流程工程子范围；不证明全业务状态机、真实身份/规则、共享部署或整卡验收"
+        },
+        {
+          "path": "tests/business/test_cancel_state_writer.py",
+          "scope": "仅现有取消流程工程子范围；不证明全业务状态机、真实身份/规则、共享部署或整卡验收"
+        },
+        {
+          "path": "docs/03-development/t033-cancellation-atomic-writer.md",
+          "scope": "仅现有取消流程工程子范围；不证明全业务状态机、真实身份/规则、共享部署或整卡验收"
+        },
+        {
+          "path": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json",
+          "scope": "仅现有取消流程工程子范围；不证明全业务状态机、真实身份/规则、共享部署或整卡验收"
         }
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
       "material_or_resource_dependencies": [],
       "followup_document_refs": [
-        "docs/03-development/ci-safe-failure-diagnostics.md"
+        "docs/03-development/ci-safe-failure-diagnostics.md",
+        "docs/00-project/validation/ci973-final-ci-report.json",
+        "docs/03-development/t033-cancellation-atomic-writer.md"
       ]
     },
     {
@@ -5130,6 +5152,15 @@
       ],
       "event": "SAFE_BUSINESS_FAILURE_DIAGNOSTICS",
       "evidence_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T033"
+      ],
+      "event": "CANCELLATION_ONLY_ATOMIC_STATE_WRITER",
+      "evidence_ref": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json",
       "whole_task_acceptance_recorded": false
     }
   ],

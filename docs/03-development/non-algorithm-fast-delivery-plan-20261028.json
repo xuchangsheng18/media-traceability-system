@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "IN_PROGRESS_SAFE_CI_DIAGNOSTICS_VERIFIED_BUSINESS_FAILURE_UNRESOLVED",
+  "status": "IN_PROGRESS_CANCELLATION_WRITER_VERIFIED_CI_SECURITY_UNRESOLVED",
   "observed_date": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "user_request": "加快T001—T123剩余开发，算法先不做；10月29号之前完成",
@@ -258,7 +258,7 @@
       "name": "建立基础持续集成流水线",
       "scope_class": "ENGINEERING",
       "execution_lane": "REUSE",
-      "engineering_now": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；安全失败定位已有实测，原提交c3370a2的完整业务回归1057项含1失败仍待定位、复现和修复，不能继承通过。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "engineering_now": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；main门禁与历史源码同步证据保留；精确973a7d7业务1057、T014权限1092等通过，整体CI仍因新鲜安全扫描失败：Python25条、质量工具1条、Torch未覆盖。依赖锁不变，不将新增漏洞披露当代码新引入；继续逐项修复/采用及Runner、Secret权限轮换、离职回收和管理审计核验，维护人徐昌胜已确认。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "Runner、Secret、分支保护和绕过权限治理待平台侧确认。",
       "blockers": [
         "外部：CI Runner与Secret",
@@ -1051,7 +1051,7 @@
       "name": "实现任务及节点数据库模型",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "engineering_now": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；后续精确973a7d7业务回归1057项和T014权限1092项通过，但整体CI仍安全扫描失败；原c3370a2失败身份未保存，不推断唯一原因。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "生产迁移、真实数据恢复与容量验证保留。",
       "blockers": [
         "顺序：T031技术计划与既有任务字段对齐"
@@ -1081,7 +1081,7 @@
       "name": "实现任务状态机",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "补完整合法迁移和节点聚合，状态与审计原子提交，固定版本终态及历史不覆盖。",
+      "engineering_now": "取消专用统一写入子范围已有实测；仍需全业务分析任务状态机、可信计划/策略/提供者映射及节点聚合；不能用取消通过代替任务创建、RETURNED、重算、复核或归档完成。；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "真实执行器接入后的故障演练与业务采用验证保留。",
       "blockers": [
         "顺序：T032任务/run访问与T017审计事件"
@@ -1099,12 +1099,13 @@
       "original_test_requirements": "所有合法/非法转换和回滚测试。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
-      "completed_substeps": 1,
+      "completed_substeps": 2,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
-      "new_code_or_tests_implemented_by_this_plan": false,
-      "planned_implementation_not_existing_file_claim": true
+      "new_code_or_tests_implemented_by_this_plan": true,
+      "planned_implementation_not_existing_file_claim": true,
+      "latest_implemented_subscope_ref": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json"
     },
     {
       "task_id": "T034",
@@ -4020,14 +4021,14 @@
       "planned_implementation_not_existing_file_claim": true
     }
   ],
-  "progress_observed_at": "2026-10-21T21:55:04.542042+00:00",
-  "progress_ledger_sha256_lf": "b1e3b2acbbf559a1f2237cd551efb5813767763fc25ff705844fda34f5cec79d",
+  "progress_observed_at": "2026-10-21T23:02:24.553407+00:00",
+  "progress_ledger_sha256_lf": "85245c2a8b1916666def59a5f8196d5b36b0f727c34138ce3fbbfd415e7e69c7",
   "current_totals": {
-    "verified_substeps": 137,
+    "verified_substeps": 138,
     "remaining_work_groups_T001_T123": 434,
     "whole_tasks_accepted": 0
   },
-  "latest_implemented_batch_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
+  "latest_implemented_batch_ref": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json",
   "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals",
   "latest_t024_worker_isolated_integration": {
     "observed_at": "2026-10-21T17:12:31.753075+00:00",
@@ -4077,6 +4078,17 @@
     "observed_at": "2026-10-21T21:55:04.542042+00:00",
     "report_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
     "plan_ref": "docs/03-development/ci-safe-failure-diagnostics.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_t033_cancellation_atomic_writer": {
+    "observed_at": "2026-10-21T23:02:24.553407+00:00",
+    "report_ref": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json",
+    "plan_ref": "docs/03-development/t033-cancellation-atomic-writer.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,
