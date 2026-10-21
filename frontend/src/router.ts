@@ -5,6 +5,8 @@ import NotFoundView from './views/NotFoundView.vue'
 import BusinessView from './views/BusinessView.vue'
 import ApprovalsView from './views/ApprovalsView.vue'
 import AuditView from './views/AuditView.vue'
+import TasksView from './views/TasksView.vue'
+import PendingReviewsView from './views/PendingReviewsView.vue'
 
 export function createAppRouter(history: RouterHistory = createWebHashHistory()) {
   return createRouter({
@@ -15,6 +17,8 @@ export function createAppRouter(history: RouterHistory = createWebHashHistory())
       { path: '/business', name: 'business', component: BusinessView },
       { path: '/approvals', name: 'approvals', component: ApprovalsView },
       { path: '/audit', name: 'audit', component: AuditView },
+      { path: '/tasks', name: 'tasks', component: TasksView },
+      { path: '/reviews/pending', name: 'pending-reviews', component: PendingReviewsView },
       { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundView },
     ],
   })

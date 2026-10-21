@@ -206,3 +206,30 @@ test('case and cursor are encoded as query fields rather than path fragments', (
   expect(pageQuery(id, 20, 'a+b/c=')).toBe(`case_id=${id}&limit=20&cursor=a%2Bb%2Fc%3D`)
   expect(() => pageQuery('../other', 20)).toThrow()
 })
+
+test('history metadata preserves all three raw binding headers for exact snapshot validation', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async () =>
+      Response.json(
+        {},
+        {
+          headers: {
+            'X-Task-Id': '10000000-0000-4000-8000-000000000001',
+            'X-Run-Version': '2',
+            'X-Result-Version': '7',
+          },
+        },
+      ),
+    ),
+  )
+  const client = new BusinessClient()
+  client.replaceToken('self-owned-token')
+  expect(await client.call('/analysis/tasks/10000000-0000-4000-8000-000000000001')).toMatchObject({
+    history: {
+      taskId: '10000000-0000-4000-8000-000000000001',
+      runVersion: '2',
+      resultVersion: '7',
+    },
+  })
+})

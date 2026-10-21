@@ -1,0 +1,88 @@
+{
+  "status": "DEVELOPMENT_SUBSCOPE_VERIFIED_RUNTIME_PENDING",
+  "observed_at": "2026-10-21T04:22:57.811708+00:00",
+  "scope": "Linux_py310_CPU_internal_development_demo_only",
+  "source_base_commit": "018adfbd0a6c2c3c7e92e04b184449903f3109ee",
+  "task_ids": [
+    "T035",
+    "T040"
+  ],
+  "source_sha256": {
+    "backend/business_app/main.py": "6fbb5373ceda0f29d56379e1aefd954c6bb5ef9937f96c9fb2985df4ceea60d3",
+    "frontend/e2e/foundation.pw.ts": "44c974e8ad3c9efed3ddd7cf6a7135c71164156e56359f4051236ea3dd0c464c",
+    "frontend/src/App.vue": "e0dd4fb075788e2ca242079b9b4e4b2e5686f7e92a799cd41811c3320cde1a9f",
+    "frontend/src/business/api.test.ts": "c8ecf32e878b30c6d3706c2c97a363b1cabea46c69caa5546452358f1f466c14",
+    "frontend/src/business/api.ts": "cbfb8dcb747044cfd0ed9e5ed61972a60b1817dd417b183ad30eddc4bee674a6",
+    "frontend/src/business/task-read.test.ts": "8e547f287e6b64a782b096409e12c84c02e26399f9850f09c0e05df451d81330",
+    "frontend/src/business/task-read.ts": "c7f4d968e9f59b455e615ffd54d90340261cce81b5135f00364c61574df8eb81",
+    "frontend/src/router.ts": "56291346eb63a36ede7a12c9f7954d94f4272db221be1581f2ee535a6ffb1f00",
+    "frontend/src/views/PendingReviewsView.vue": "5b71815a40a1984fc502647976e88ff0a18ae73173ebce865e195ec406cf7b04",
+    "frontend/src/views/TasksView.vue": "eb6e143e31bd13c5161e703f6446347ca2552c0a70bc78bed4686ab9f4361801",
+    "scripts/business_demo_gateway.py": "1f375fc6c9080a98d04339c8e6adee7a2503e2051597c3e8c2d0700db574ca7e",
+    "tests/business/test_history_http.py": "a2b7e0b080ca7cd1e5751d3c662b4ee7a6aa65ae31be31962b4c384375bcc246",
+    "tests/business/test_response_privacy.py": "a8dbe29ac73c1efaedaf6ad14ba3b4f3cce050116184273e091b4504f1cd44b7",
+    "tests/platform/test_business_demo_gateway.py": "5d5d497f7ebe284e766a7b021376c18690598604eb01b443a5ea2ba50332ca0f"
+  },
+  "frontend": {
+    "status": "PASS",
+    "unit_tests": 57,
+    "browser_tests": 7,
+    "commands": [
+      "npm --prefix frontend test",
+      "npm --prefix frontend run type-check",
+      "npm --prefix frontend run lint",
+      "npm --prefix frontend run format-check",
+      "npm --prefix frontend run build",
+      "npm --prefix frontend run test:foundation-browser"
+    ],
+    "browser_scope": "Self-owned HTTP fixtures; real Vue UI, transport and state transitions; not real identity/provider acceptance",
+    "browser_executable": "Installed Microsoft Edge; no browser installed or dependency changed"
+  },
+  "backend": {
+    "status": "PASS",
+    "targeted_tests": 52,
+    "command": "PYTHONPATH=backend:. /opt/conda/glwy/envs/py310/bin/python -m pytest -q tests/business/test_response_privacy.py tests/business/test_history_http.py tests/business/test_development_startup.py",
+    "earlier_RED_tests": 8,
+    "earlier_GREEN_tests": 38,
+    "warning": "Existing Starlette httpx deprecation; no dependency changed"
+  },
+  "gateway": {
+    "status": "PASS",
+    "tests": 91,
+    "command": "PYTHONPATH=backend:. /opt/conda/glwy/envs/py310/bin/python -m pytest -q tests/platform/test_business_demo_gateway.py",
+    "actual_startup_verified": false
+  },
+  "existing_PoC_runtime": {
+    "status": "PASS",
+    "checks": 21,
+    "command": "PYTHONPATH=backend:. /opt/conda/glwy/envs/py310/bin/python scripts/verify_poc.py",
+    "job_id": "d60f3811-be64-4486-9578-caa6cd37ba16",
+    "actual_self_created_media_upload_queue_CPU_inference": true,
+    "business_model_validated": false,
+    "source_scope": "Existing running seven-service CPU PoC; not new business authority or model producer"
+  },
+  "controls": {
+    "original_100_package_lock_changed": false,
+    "CI_gates_changed": false,
+    "Python_candidates_created": false,
+    "business_contract_changed": false,
+    "shared_database_migrated": false,
+    "existing_services_stopped_or_restarted": false,
+    "business_identity_or_permission_grants_created": false
+  },
+  "formal_accepted": false,
+  "whole_tasks_accepted": false,
+  "raw_logs_published": false,
+  "limitations": [
+    "Real business identity/policy adapters are not installed by the development factory; actual requests remain 401/503 until explicit providers are configured.",
+    "No unmounted task/asset list/create endpoint or synthetic business result is exposed.",
+    "Graph DAG, task retry/cancel actions, automatic refresh, full task producer and formal review remain separate work.",
+    "Current dependency security findings (certifi and Pillow) remain subject to existing CI gates; isolated research is not adopted.",
+    "N01 whole admission, T013 real handover/recovery and production/offline/GPU acceptance are not established."
+  ],
+  "independent_code_review": {
+    "status": "THREE_FINDINGS_FIXED",
+    "ref": "docs/03-development/development-delivery-review.md",
+    "formal_human_review_asserted": false
+  }
+}

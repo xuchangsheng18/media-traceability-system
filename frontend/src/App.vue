@@ -16,6 +16,8 @@ provide(businessSessionKey, business)
       <RouterLink to="/business">业务身份</RouterLink
       ><RouterLink to="/approvals">审批管理</RouterLink
       ><RouterLink to="/audit">审计查询</RouterLink>
+      <RouterLink to="/tasks">任务与结果</RouterLink>
+      <RouterLink to="/reviews/pending">待复核队列</RouterLink>
     </nav>
     <RouterView :key="business.state.generation" />
   </main>

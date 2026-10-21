@@ -1,6 +1,6 @@
 # 开发、契约与CI
 
-- 当前开发续批：[前后端计划](business-console-implementation-plan.md)、[启动与范围](../10-deployment/business-development-runbook.md)、[实际验证](../00-project/validation/development-continuation-report.json)。独立Linux/py310业务API默认拒绝、前端身份/审批/审计页面已启动；整树CI、正式业务提供者及完整验收另列。
+- 当前研发演示交付：[本批计划](development-delivery-implementation-plan.md)、[启动与范围](../10-deployment/business-development-runbook.md)、[实际验证](../00-project/validation/development-delivery-validation.json)。新增任务与结果、案件待复核队列、Linux回环演示网关及后端禁止缓存；真实业务提供者、整树CI和完整验收另列。
 - [前后端开发批次](business-console-implementation-plan.md)与[实际启动说明](../10-deployment/business-development-runbook.md)：新增业务身份、审批、审计页面及独立Linux/py310 API入口；综合联调与验收后置，默认拒绝不等于正式业务通过。
 
 - [T015已获准设计](t015-data-scope-design.md)、[已批准P01—P07计划](t015-data-scope-implementation-plan.md)、[设计批准](../00-project/validation/t015-written-design-review.json)及[计划自查](../00-project/validation/t015-implementation-plan-review.json)：开发/复核人徐昌胜；[实际进度](../00-project/validation/t015-data-scope-progress.json)区分P01已验证、P02已编码/完整验证运行中和P03隔离91项验证通过，P04字节实现和后续恢复测试已补，P06本地必需范围CLI128项、解析器及独立失败探针通过；P02全业务CLI、P04/P05全保留回归和完整托管33门禁仍待核验；新增[数据库与事务说明](../04-database/data-scope-migration.md)、[定向证据](../00-project/validation/t015-data-scope-p02-progress.json)、[CI实际状态](../00-project/validation/t015-current-ci-observation.json)，未共享采用。

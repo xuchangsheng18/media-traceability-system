@@ -52,6 +52,14 @@ from .uploads.router import router as upload_router
 from .uploads.service import UploadService
 
 
+def private_response(response: Response) -> Response:
+    """Apply to successes and refusals, including middleware early returns."""
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
+
+
 def create_app(
     settings: BusinessSettings,
     authority: AuthorityProvider | None = None,
@@ -175,7 +183,7 @@ def create_app(
             identifier = UUID(identifiers[0]) if identifiers else uuid4()
         except ValueError:
             safe_log("request.rejected", request_id=str(request.state.request_id), status=422, route="unmatched")
-            return await business_error(request, BusinessError("REQUEST_ID_INVALID", 422))
+            return private_response(await business_error(request, BusinessError("REQUEST_ID_INVALID", 422)))
         request.state.request_id = identifier
         request.state.client_request_id_provided = bool(identifiers)
         request.scope["headers"] = [
@@ -195,7 +203,7 @@ def create_app(
             )
         response.headers["X-Request-Id"] = str(request.state.request_id)
         response.headers["X-Trace-Id"] = trace_id(str(request.state.request_id))
-        return response
+        return private_response(response)
 
     @app.exception_handler(BusinessError)
     async def business_error(request: Request, exception: BusinessError) -> JSONResponse:

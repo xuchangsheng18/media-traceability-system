@@ -3844,31 +3844,63 @@
       "task_id": "T040",
       "name": "开发任务监控页面",
       "card": "tasks/frontend/T040.md",
-      "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "尚无本任务已验证交付",
-      "summary_remaining": "完成开发任务监控页面的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "summary_completed": "按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列页面；57项单元及7项浏览器夹具通过",
+      "summary_remaining": "补任务列表、图形DAG、自动刷新、取消/重试；真实身份授权和任务生产者接入后完成源验收",
+      "completed_steps": [
+        {
+          "kind": "DEVELOPMENT",
+          "description": "已挂载接口的任务观察、精确历史结果与只读待复核队列前端研发子范围",
+          "evidence": [
+            {
+              "path": "frontend/src/views/TasksView.vue",
+              "scope": "任务编号观察、精确历史结果和只读队列的研发子范围；自建浏览器夹具不代表正式身份业务验收"
+            },
+            {
+              "path": "frontend/src/views/PendingReviewsView.vue",
+              "scope": "任务编号观察、精确历史结果和只读队列的研发子范围；自建浏览器夹具不代表正式身份业务验收"
+            },
+            {
+              "path": "frontend/src/business/task-read.ts",
+              "scope": "任务编号观察、精确历史结果和只读队列的研发子范围；自建浏览器夹具不代表正式身份业务验收"
+            },
+            {
+              "path": "frontend/src/business/task-read.test.ts",
+              "scope": "任务编号观察、精确历史结果和只读队列的研发子范围；自建浏览器夹具不代表正式身份业务验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "任务编号观察、精确历史结果和只读队列的研发子范围；自建浏览器夹具不代表正式身份业务验收"
+            },
+            {
+              "path": "docs/00-project/validation/development-delivery-validation.json",
+              "scope": "任务编号观察、精确历史结果和只读队列的研发子范围；自建浏览器夹具不代表正式身份业务验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "展示任务列表、节点DAG、进度、错误、重试和取消。"
+          "description": "补任务列表、图形DAG、自动刷新、取消/重试；已有按编号状态/节点/事件和历史结果读取不替代这些功能。"
         },
         {
           "category": "测试",
-          "description": "按源测试要求创建并真实执行：组件和端到端测试。"
+          "description": "已有57项前端单元和7项自建HTTP夹具浏览器验证；仍需真实身份、案件/来源授权、任务生产与全功能端到端验证。"
         },
         {
           "category": "验收",
-          "description": "逐项核对源验收标准并补实际证据：状态实时刷新；操作受权限控制；节点错误可定位。"
+          "description": "逐项核验状态实时刷新、操作权限、节点错误定位；本批不含正式策略采用和真实业务验收。"
         },
         {
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21",
+      "delivery_validation_report": "docs/00-project/validation/development-delivery-validation.json"
     },
     {
       "task_id": "T041",

@@ -26,7 +26,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[732条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有110条已验证子步骤、622条剩余工作；全局编号0001—0732。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[733条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有111条已验证子步骤、622条剩余工作；全局编号0001—0733。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -623,7 +623,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1229份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1232份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -714,7 +714,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内732条执行事项逐条编号：110条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内733条执行事项逐条编号：111条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -732,6 +732,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/database-foundation-report.json](<00-project/validation/database-foundation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/development-container-limits-report.json](<00-project/validation/development-container-limits-report.json>) | Compose、Docker设置与实际cgroup v2 CPU/内存/pids只读比对；缺失/无限/漂移拒绝，不代表临时盘或压力隔离已验证。 |
 | [00-project/validation/development-continuation-report.json](<00-project/validation/development-continuation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/development-delivery-validation.json](<00-project/validation/development-delivery-validation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/development-document-check-report.json](<00-project/validation/development-document-check-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/development-hook-report.json](<00-project/validation/development-hook-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/development-publication-privacy.json](<00-project/validation/development-publication-privacy.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1604,6 +1605,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/codex-permission-boundary.md](<03-development/codex-permission-boundary.md>) | 说明文档：Codex操作边界与授权记录；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/coding-standards.md](<03-development/coding-standards.md>) | 编码、命名、变更和检查规范；校验依赖不等于业务依赖。 |
 | [03-development/contract-generation.md](<03-development/contract-generation.md>) | 两份OpenAPI及事件/工作流Schema生成4份TS类型；唯一来源包装、版本信封与旧消息兼容桥接。 |
+| [03-development/development-delivery-implementation-plan.md](<03-development/development-delivery-implementation-plan.md>) | 说明文档：Linux研发演示版前后端补齐实施计划；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/development-delivery-review.md](<03-development/development-delivery-review.md>) | 说明文档：研发演示交付代码复核与修复；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/development-environment-acceptance-record.md](<03-development/development-environment-acceptance-record.md>) | 说明文档：开发环境验收记录候选；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
 | [03-development/development-environment-change-request.md](<03-development/development-environment-change-request.md>) | 说明文档：开发环境变更和恢复要求；结合正文的状态、来源和适用范围阅读。 |

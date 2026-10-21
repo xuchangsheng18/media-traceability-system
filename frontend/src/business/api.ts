@@ -2,7 +2,15 @@ import { ApiError, resolveApiUrl } from '../api'
 import type { components } from '../../../shared-contracts/generated/business-api'
 
 export type Schemas = components['schemas']
-export type Reply<T> = { data: T; etag: string | null }
+export type Reply<T> = {
+  data: T
+  etag: string | null
+  history?: {
+    taskId: string | null
+    runVersion: string | null
+    resultVersion: string | null
+  }
+}
 export class FormError extends Error {}
 
 export class BusinessClient {
@@ -76,7 +84,15 @@ export class BusinessClient {
       }
       const data = binary ? await response.blob() : await response.json()
       if (version !== this.generation) throw new Error('身份已切换，请重新查询')
-      return { data: data as T, etag: response.headers.get('ETag') }
+      return {
+        data: data as T,
+        etag: response.headers.get('ETag'),
+        history: {
+          taskId: response.headers.get('X-Task-Id'),
+          runVersion: response.headers.get('X-Run-Version'),
+          resultVersion: response.headers.get('X-Result-Version'),
+        },
+      }
     } finally {
       clearTimeout(timeout)
       this.pending.delete(controller)
