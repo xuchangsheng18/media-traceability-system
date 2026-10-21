@@ -430,6 +430,21 @@ def outputs():
     text += f"核对日期：{ledger['observed_date']}。登记开发/原型子范围证据 **{counts['PARTIAL_VERIFIED_SCOPE']}项**；尚无本任务已验证交付 **{counts['NO_FULL_TASK_VERIFICATION_EVIDENCE']}项**；完整任务验收 **{counts['FULL_TASK_VERIFIED']}/170**。这些数是证据分类，不是功能完成率或剩余工作量。T001—T010是源工程底座10任务，与资料整理24步、技术基线23步及Codex环境16步分别编号。\n\n"
     text += "[当前机器台账](execution-status.json)保存本表及卡片的执行记录；[源字段](source-task-cards.json)、[源索引](backlog.yaml)保留来源状态；[候选依赖](execution-dependencies-candidate.json)不自动当已满足依赖。实际负责人确认记录、仍待提供的有效工时和日期以[实际输入](../docs/00-project/execution-planning-inputs.json)为准；[排期](../docs/00-project/execution-schedule.md)与本台账的验证状态一致。\n\n"
     text += "T012之前的11项任务可直接查看[当前完成与剩余逐项清单](../docs/03-development/t001-t011-foundation-review.md#当前完成情况2026-10-17)；它与各卡C/R步骤同源，历史复核另有日期。\n\n"
+    if ledger.get("latest_resource_registry_continuation"):
+        text += (
+            "最新前后端开发入口：[123项逐条审计](../docs/03-development/t001-t123-development-completion-audit.md)、"
+            "[表/接口/方法清单](../docs/03-development/t001-t123-implementation-inventory.md)、"
+            "[资源接口实测与精确CI](../docs/00-project/validation/t001-t123-resource-registry-report.json)、"
+            "[公开研发数据与派生样本](../docs/07-datasets/public-development-data.md)、"
+            "[模型目录页面](../docs/00-project/validation/t060-readonly-ui-report.json)。"
+            "实际挂载数、源码、CI和共享服务版本分别核验，不把旧回执当当前通过。\n\n"
+        )
+    if ledger.get("latest_source_console_continuation"):
+        text += (
+            "来源管理续批：[前后端边界与执行记录](../docs/03-development/t021-source-console-continuation.md)、"
+            "[实际验证/CI/源码同步](../docs/00-project/validation/t021-source-console-report.json)。"
+            "C/R步骤依据实际测试更新；来源登记与元数据可读不代表用途授权或整任务验收。\n\n"
+        )
     if ledger.get("closeout_overview_ref"):
         text += (
             "本批T001—T012逐项收口与原生环境变更见"

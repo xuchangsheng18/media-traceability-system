@@ -399,17 +399,20 @@
 
 源验收：无有效来源不得批量导入；到期来源触发告警；修改有审计。
 
-已观察源码/结构：`backend/business_app/controls/imports.py`；`backend/business_app/controls/router.py`
+已观察源码/结构：`frontend/src/business/sources.ts`；`frontend/src/views/SourcesView.vue`；`backend/business_app/permissions/object_facts.py`；`backend/business_app/controls/imports.py`；`backend/business_app/controls/router.py`
 
 有限测试/历史报告：`docs/00-project/validation/business-foundation-report.json`；`tests/business/test_adapters_and_execution.py`
 
-剩余代码/核验：来源登记已完成本轮限定实现；继续真实权威接入、来源维护/到期告警与管理页面；登记不是正式用途授权。
+剩余代码/核验：来源登记已完成本轮限定实现；继续真实权威接入、授权同步/修改维护页面及到期后台告警；登记不是正式用途授权。
 
 实际输入：Declared unresolved source questions: Q-33; distinguish policy confirmation from code that can be implemented now. Effective authority/purpose/classification/approval/retention policy and provider bindings; absent policy must fail closed. Actual reviewer/source acceptance decision and original acceptance testing; no fabricated historical date or effort.
 
 下一批：`B01_READINESS_SOURCE_DOWNLOAD_REGISTRY`。
 
 本轮限定实现与验证见[实际回执](../00-project/validation/t001-t123-resource-registry-report.json)，未据此关闭整卡。
+
+
+当前新增限定成果：[来源页面及到期元数据回执](../00-project/validation/t021-source-console-report.json)，包括194项单元、41项浏览器夹具和12项SQL/HTTP回归；真实权威联调与整卡验收仍待。
 
 ### T022 实现分片上传初始化
 

@@ -52,7 +52,7 @@
     "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
     "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
     "backend/business_app/permissions/guard.py": "054414c25681b0e5cd6bc5c90be980c963164d5ed6d9d59c1b1136825c161d0a",
-    "backend/business_app/permissions/object_facts.py": "d7ba2583596058b810c9ee2ed93250d23ac4e497f061e9f8ff16e6e17b489737",
+    "backend/business_app/permissions/object_facts.py": "88af45d414352f9fd467ed2dbd867544c0a14824923432d09e12760328e576e5",
     "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
     "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
     "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
@@ -96,7 +96,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "0198c34abcf7447eedeb8607339bb5ab6b6940c11e7fefc16347cbd526634f54",
+    "tasks/execution-status.json": "2b92880df97edb5891f99b311f4a94c5df0a75c1e5fcbd5b5a0a5d17c866dcd0",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -114,10 +114,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 124,
+    "all_completed_substeps": 126,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 124,
+    "authorized_completed_substeps": 126,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -1071,8 +1071,8 @@
       "whole_task_verified": false,
       "completed_substeps_count": 3,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "托管流水线、报告归档及故障探针已有实测；最新CI通过32项工程门禁和独立资源检查，代码验证版本以平台报告为准；main保护规则与engineering检查名均已回查配置正确；当前代码托管CI及制品摘要通过；普通PR故障检查失败已被实际禁止合并",
-      "actual_remaining_summary": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；当前源码GitHub托管CI、32道工程门禁及制品摘要已核对；仍需Runner/Secret创建、轮换、撤销和管理审计的实际平台记录。维护人徐昌胜已确认。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "actual_completed_summary": "托管流水线、归档门禁和故障探针已有实测；历史32门禁及制品核对保留在具名回执；main规则engineering与普通PR失败禁止合并已有实证。当前源码CI需按资源接口/来源页面回执的精确提交重新核验，不沿用历史成功。",
+      "actual_remaining_summary": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "既有25道历史门禁证据保留；托管工程门禁、独立资源核验、测试/类型结果和故障探针均有实测，最新源码、数量及CI编号以github-actions-report.json为准；不代表平台已阻止失败合并",
@@ -1120,7 +1120,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "当前源码GitHub托管CI、32道工程门禁及制品摘要已核对；仍需Runner/Secret创建、轮换、撤销和管理审计的实际平台记录。维护人徐昌胜已确认。"
+          "description": "历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。"
         },
         {
           "category": "任务记录",
@@ -3231,8 +3231,8 @@
       "whole_task_verified": false,
       "completed_substeps_count": 4,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "S01—S09必需运行证据解析器和第33门禁代码已接入；39项解析器测试及干净交付提交的真实T015 CLI 128项通过，独立failure-probe退出1已核验。整套托管33门禁和全保留回归仍待，未关闭整卡。",
-      "actual_remaining_summary": "P02全业务CLI回执、P04/P05全保留回归、完整托管CI及正式提供者联调/整卡验收仍待；本地T015必需范围CLI和源码三端交付已实核，不能替代全部任务验收。",
+      "actual_completed_summary": "S01—S09和第33门禁解析器已有验证；此前128项CLI保留为历史，本批隔离完整T015入口131项通过，预期失败探针退出1已核验；T0141092/T016187和29项迁移/owner/契约检查在各自回执单列，不混算独立测试总数。",
+      "actual_remaining_summary": "现有T015严格入口131项及对应故障探针已通过；继续逐项核对P02/P04/P05源计划覆盖和真实提供者/全部DAO路径，补共享采用、真实身份联调及整卡验收。当前托管CI按精确提交独立核验。；权威身份/案件映射联调后做全路径越权回归，不以数据库上下文充当身份认证；徐昌胜已由本人明确指定为开发负责人和复核人；剩余工时、实际实施日期及复核决定仍待。对照本卡源依赖、适用外部条件和验收标准记录实际结果；姓名登记不关闭代码/测试缺口，同人兼任不当作独立双人复核。",
       "completed_steps": [
         {
           "description": "已实现业务路径的案件/单位RLS和跨案件拒绝已有隔离数据库测试",
@@ -3314,7 +3314,7 @@
         },
         {
           "kind": "DEVELOPMENT",
-          "description": "S01—S09必需运行证据解析器和第33门禁代码已接入；39项解析器测试及干净交付提交的真实T015 CLI 128项通过，独立failure-probe退出1已核验。整套托管33门禁和全保留回归仍待，未关闭整卡。",
+          "description": "S01—S09和第33门禁解析器已有验证；此前128项CLI保留为历史，本批隔离完整T015入口131项通过，预期失败探针退出1已核验；T0141092/T016187和29项迁移/owner/契约检查在各自回执单列，不混算独立测试总数。",
           "evidence": [
             {
               "path": "scripts/verify_t015_scope.py",
@@ -3335,6 +3335,10 @@
             {
               "path": "docs/00-project/validation/t015-data-scope-report.json",
               "scope": "精确交付源码的实际T015必需范围CLI，不等于全业务CLI或完整托管CI。"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "新隔离快照的131项T015完整入口和预期失败探针；不代表整任务、共享采用或当前托管CI全部通过"
             }
           ]
         }
@@ -3342,7 +3346,7 @@
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "P02全业务CLI回执、P04/P05全保留回归、完整托管CI及正式提供者联调/整卡验收仍待；本地T015必需范围CLI和源码三端交付已实核，不能替代全部任务验收。"
+          "description": "现有T015严格入口131项及对应故障探针已通过；继续逐项核对P02/P04/P05源计划覆盖和真实提供者/全部DAO路径，补共享采用、真实身份联调及整卡验收。当前托管CI按精确提交独立核验。"
         },
         {
           "category": "实施/外部条件",
@@ -5250,10 +5254,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 2,
+      "completed_substeps_count": 4,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试；createSource已实现真实SQL登记、pending/verified权威证明精确绑定、同事务幂等与审计及提交前权威重读；客户端不得声明verified，未配置提供者拒绝；不包含到期告警、来源维护页面或正式授权。",
-      "actual_remaining_summary": "接入真实来源授权依据和权威适配器，补登记/维护及来源管理页面；补到期告警/修改审计；客户端不能自行声明已核验授权",
+      "actual_completed_summary": "来源登记SQL/幂等/审计与权威绑定已有验证；本批新增案件来源管理页面、列表/详情/登记和未知结果原键重试；自然到期来源可读取expired元数据而用途仍拒绝。194项单元、41项浏览器夹具及12项到期/范围隔离回归通过；真实权威联调和整卡验收仍待。",
+      "actual_remaining_summary": "登记、列表和详情页面已具限定验证；继续接真实来源权威及授权同步/修改维护页面，不把pending或登记成功当有效用途授权。；补到期后台告警和完整修改审计/授权同步页面；现有到期状态可读不等于告警服务，客户端不得自行声明已核验。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试",
@@ -5298,16 +5302,64 @@
               "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
             }
           ]
+        },
+        {
+          "description": "新增来源管理页面：按案件分页/详情及六字段登记，读取/登记权限分开，精度保留、严格响应绑定；未知结果保留原请求/幂等键，权限或身份/案件变化清理结果及草稿。194项前端单元与41项浏览器夹具通过，真实权威联调未验收。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "frontend/src/business/sources.ts",
+              "scope": "来源页面限定开发及实际检查；非真实权威/后端组合E2E或整任务验收"
+            },
+            {
+              "path": "frontend/src/business/sources.test.ts",
+              "scope": "来源页面限定开发及实际检查；非真实权威/后端组合E2E或整任务验收"
+            },
+            {
+              "path": "frontend/src/views/SourcesView.vue",
+              "scope": "来源页面限定开发及实际检查；非真实权威/后端组合E2E或整任务验收"
+            },
+            {
+              "path": "frontend/src/router.ts",
+              "scope": "来源页面限定开发及实际检查；非真实权威/后端组合E2E或整任务验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "来源页面限定开发及实际检查；非真实权威/后端组合E2E或整任务验收"
+            },
+            {
+              "path": "docs/00-project/validation/t021-source-console-report.json",
+              "scope": "来源页面限定开发及实际检查；非真实权威/后端组合E2E或整任务验收"
+            }
+          ]
+        },
+        {
+          "description": "修复自然到期来源元数据详情/列表错误503：两项实际失败后修复，12项SQL/HTTP回归通过；只允许查看到期状态，同单位/案件、原件用途拒绝及写期限保持，未实现后台到期告警。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/object_facts.py",
+              "scope": "元数据读取修复及12项实际隔离回归；原用途期限和范围不放宽，全权限门禁另见回执"
+            },
+            {
+              "path": "tests/business/test_source_metadata_expiry.py",
+              "scope": "元数据读取修复及12项实际隔离回归；原用途期限和范围不放宽，全权限门禁另见回执"
+            },
+            {
+              "path": "docs/00-project/validation/t021-source-console-report.json",
+              "scope": "元数据读取修复及12项实际隔离回归；原用途期限和范围不放宽，全权限门禁另见回执"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "登记接口已完成限定研发验证；继续接真实来源权威、来源维护及管理页面，不把pending登记当有效用途授权。"
+          "description": "登记、列表和详情页面已具限定验证；继续接真实来源权威及授权同步/修改维护页面，不把pending或登记成功当有效用途授权。"
         },
         {
           "category": "实施/验证",
-          "description": "补到期告警/修改审计；客户端不能自行声明已核验授权"
+          "description": "补到期后台告警和完整修改审计/授权同步页面；现有到期状态可读不等于告警服务，客户端不得自行声明已核验。"
         },
         {
           "category": "任务记录",

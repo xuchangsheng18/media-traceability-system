@@ -5036,23 +5036,390 @@
     "source_payload_not_shared_runtime_adoption": true,
     "server_source_path": "/workspace/glwy/projects/media-traceability-system",
     "CI_observation": {
-      "status": "in_progress",
-      "conclusion": null,
+      "status": "completed",
+      "conclusion": "failure",
       "run_id": 39599434279,
       "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
       "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39599434279",
       "all_CI_pass_asserted": false,
       "stale_checked_in_reports_not_promoted": true,
-      "observed_at": "2026-10-21T12:26:30.123779+00:00",
+      "observed_at": "2026-10-21T12:59:16.403106+00:00",
       "jobs": [
         {
           "id": 119219863281,
           "name": "identity-verification / identity-integration",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119226398872,
+          "name": "foundation-verification",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119226399048,
+          "name": "engineering-execution",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 119234968429,
+          "name": "engineering",
+          "status": "completed",
+          "conclusion": "failure"
         }
       ],
-      "artifact_binding_audit": []
+      "artifact_binding_audit": [
+        {
+          "artifact_id": 12347276980,
+          "artifact_name": "py310-validation-39599434279-1",
+          "zip_sha256": "877018949354392f93e5a79cd8c33eff4280195229a1808e035179f377e5a3c6",
+          "platform_digest": "sha256:877018949354392f93e5a79cd8c33eff4280195229a1808e035179f377e5a3c6",
+          "platform_digest_verified": true,
+          "reports": [
+            {
+              "name": "business-foundation-report.json",
+              "sha256": "6d0bbd46d8c89e151b07ac7a0c08e3ecdc38d848cd6a98fdffb8e6b3e457c7e4",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": {
+                "tests": 864,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "name": "ci-all-report.json",
+              "sha256": "b935686d5ab59b6267ae963d8ffd64a261f790fb77db3000767714c728404d9c",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": null,
+              "failed_checks": []
+            },
+            {
+              "name": "ci-job-evidence.json",
+              "sha256": "5c42c978cbfcdccfab30937f0d84310dce44cd495fe1ec490b241d415c3f4416",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": null,
+              "source_matches": true,
+              "fresh_source_PASS": false,
+              "totals": null,
+              "job_evidence": {
+                "job": "engineering-execution",
+                "run_id": "39599434279",
+                "run_attempt": "1",
+                "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                "generation_window_start": "2026-10-21T12:40:08Z",
+                "reports": [
+                  {
+                    "name": "ci-all-report.json",
+                    "present": true,
+                    "fresh_exact_source_PASS": true,
+                    "sha256": "b935686d5ab59b6267ae963d8ffd64a261f790fb77db3000767714c728404d9c",
+                    "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                    "status": "PASS",
+                    "report_observed_at": "2026-10-21T12:41:42.441490+00:00"
+                  },
+                  {
+                    "name": "t015-data-scope-report.json",
+                    "present": true,
+                    "fresh_exact_source_PASS": true,
+                    "sha256": "649ef6b9189b7cfce9746d682575fe573780c029c44e41d22c02fcac7eb45366",
+                    "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                    "status": "PASS",
+                    "report_observed_at": "2026-10-21T12:43:43.065504+00:00"
+                  },
+                  {
+                    "name": "t016-operation-token-report.json",
+                    "present": true,
+                    "fresh_exact_source_PASS": true,
+                    "sha256": "08378e45065d41fec634ec71a7f13c7bc05427942ea4c75cdeb32e8d20c4de74",
+                    "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                    "status": "PASS",
+                    "report_observed_at": "2026-10-21T12:44:31.340812+00:00"
+                  },
+                  {
+                    "name": "stage-three-runtime-report.json",
+                    "present": true,
+                    "fresh_exact_source_PASS": false,
+                    "sha256": "9cbd2d9a87dc89483abbe09887488f30fecff944c92115e78f2632083c12b256",
+                    "source_commit": null,
+                    "status": "FAIL",
+                    "report_observed_at": "2026-10-21T12:57:41.025633+00:00"
+                  }
+                ],
+                "overall_job_success_not_inferred": true
+              }
+            },
+            {
+              "name": "stage-three-dependency-scan-report.json",
+              "sha256": "01e9ba38ab0a5125fa76b21524eef414ffde64182712b1c7765eab7fc878b18f",
+              "source_commit": null,
+              "status": "FAIL_OR_SCAN_ERROR",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": null,
+              "scan_summary": {
+                "started_at": "2026-10-21T12:57:38.185283+00:00",
+                "ended_at": "2026-10-21T12:57:40.969191+00:00",
+                "python_findings": 9,
+                "python_skips": [
+                  {
+                    "name": "torch",
+                    "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+                  }
+                ],
+                "quality_tool_findings": 0,
+                "quality_tool_skips": [],
+                "npm_findings_by_severity": {
+                  "info": 0,
+                  "low": 0,
+                  "moderate": 0,
+                  "high": 0,
+                  "critical": 0,
+                  "total": 0
+                },
+                "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+              }
+            },
+            {
+              "name": "stage-three-python-types-report.json",
+              "sha256": "19a765ee98c4b949d5fcce508d33a06fe715a3c8e5df7b6f4e0e9a42cdcbe7b8",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": null
+            },
+            {
+              "name": "stage-three-runtime-report.json",
+              "sha256": "9cbd2d9a87dc89483abbe09887488f30fecff944c92115e78f2632083c12b256",
+              "source_commit": null,
+              "status": "FAIL",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": null
+            },
+            {
+              "name": "t014-permissions-report.json",
+              "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+              "source_commit": "d0d1d530617028c83718c5c84b9935ba664c96ae",
+              "status": "PASS",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": {
+                "tests": 843,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "name": "t015-data-scope-report.json",
+              "sha256": "649ef6b9189b7cfce9746d682575fe573780c029c44e41d22c02fcac7eb45366",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": {
+                "tests": 131,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "name": "t016-operation-token-report.json",
+              "sha256": "08378e45065d41fec634ec71a7f13c7bc05427942ea4c75cdeb32e8d20c4de74",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": {
+                "tests": 187,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            }
+          ]
+        },
+        {
+          "artifact_id": 12346821842,
+          "artifact_name": "py310-foundation-validation-39599434279-1",
+          "zip_sha256": "c01112af95e8cd641d2c54e00c4e7424cf9f06c368b792f85f08f0d36067d3f1",
+          "platform_digest": "sha256:c01112af95e8cd641d2c54e00c4e7424cf9f06c368b792f85f08f0d36067d3f1",
+          "platform_digest_verified": true,
+          "reports": [
+            {
+              "name": "business-foundation-report.json",
+              "sha256": "6510e28734fccef291b817d305fdd8d396bf2cd5e7a6f2a1cd8564e58dc7ab79",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": {
+                "tests": 864,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "name": "ci-all-report.json",
+              "sha256": "be1f9dce3bdaf138f66443551d0476a1b5647284aa2b3b9dc1e15f5341dc2615",
+              "source_commit": "3b99b729b5bac9e80edc2804f9a83342b3850422",
+              "status": "PASS",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": null,
+              "failed_checks": []
+            },
+            {
+              "name": "ci-job-evidence.json",
+              "sha256": "0fa20702fedb008da8433b279ce3869e5a772a47b06a113942b55bcb9b464191",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": null,
+              "source_matches": true,
+              "fresh_source_PASS": false,
+              "totals": null,
+              "job_evidence": {
+                "job": "foundation-verification",
+                "run_id": "39599434279",
+                "run_attempt": "1",
+                "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                "generation_window_start": "2026-10-21T12:40:07Z",
+                "reports": [
+                  {
+                    "name": "business-foundation-report.json",
+                    "present": true,
+                    "fresh_exact_source_PASS": true,
+                    "sha256": "6510e28734fccef291b817d305fdd8d396bf2cd5e7a6f2a1cd8564e58dc7ab79",
+                    "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                    "status": "PASS",
+                    "report_observed_at": "2026-10-21T12:42:30.376585+00:00"
+                  },
+                  {
+                    "name": "t014-permissions-report.json",
+                    "present": true,
+                    "fresh_exact_source_PASS": true,
+                    "sha256": "21d88eb1be8ac6610cf79d2e3c1cfe00d4cd4853f08fde4375fa714db85bd078",
+                    "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+                    "status": "PASS",
+                    "report_observed_at": "2026-10-21T12:49:46.597761+00:00"
+                  }
+                ],
+                "overall_job_success_not_inferred": true
+              }
+            },
+            {
+              "name": "stage-three-dependency-scan-report.json",
+              "sha256": "9f7da335c62c2b72ae6083fc0e10c22a1d38d349df102dd2f36bb130935225a3",
+              "source_commit": null,
+              "status": "NO_REPORTED_BLOCKING_FINDINGS_WITH_COVERAGE_LIMITS",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": null,
+              "scan_summary": {
+                "started_at": "2026-10-17T02:41:33.555015+00:00",
+                "ended_at": "2026-10-17T02:41:36.508780+00:00",
+                "python_findings": 0,
+                "python_skips": [
+                  {
+                    "name": "torch",
+                    "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+                  }
+                ],
+                "quality_tool_findings": 0,
+                "quality_tool_skips": [],
+                "npm_findings_by_severity": {
+                  "info": 0,
+                  "low": 0,
+                  "moderate": 0,
+                  "high": 0,
+                  "critical": 0,
+                  "total": 0
+                },
+                "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+              }
+            },
+            {
+              "name": "stage-three-python-types-report.json",
+              "sha256": "26fb8c7109d3e171f89e2554f4fa68c297ead95de6353a6176362bdcf64dcbb1",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": null
+            },
+            {
+              "name": "stage-three-runtime-report.json",
+              "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+              "source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+              "status": "PASS",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": null
+            },
+            {
+              "name": "t014-permissions-report.json",
+              "sha256": "21d88eb1be8ac6610cf79d2e3c1cfe00d4cd4853f08fde4375fa714db85bd078",
+              "source_commit": "7a73ac7c90a3e6275a8e5982ca3ea36cc245b113",
+              "status": "PASS",
+              "source_matches": true,
+              "fresh_source_PASS": true,
+              "totals": {
+                "tests": 1092,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "name": "t015-data-scope-report.json",
+              "sha256": "80786411d2a53eb072f8126eb84344b716a49a08bbe6b49edeb9efb956b31949",
+              "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+              "status": "PASS",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": {
+                "tests": 131,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            },
+            {
+              "name": "t016-operation-token-report.json",
+              "sha256": "7a46cecf911624cee93f9a7c47e8111ae5b4f3abf411d7bac9efa286606a941d",
+              "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+              "status": "PASS",
+              "source_matches": false,
+              "fresh_source_PASS": false,
+              "totals": {
+                "tests": 187,
+                "failures": 0,
+                "errors": 0,
+                "skipped": 0
+              }
+            }
+          ]
+        },
+        {
+          "artifact_id": 12346073331,
+          "artifact_name": "t013-identity-validation-39599434279",
+          "zip_sha256": "24c17b3db5379a4362260d5804967224080d2b605aa254cc2d3658d4b1e0cf35",
+          "platform_digest": "sha256:24c17b3db5379a4362260d5804967224080d2b605aa254cc2d3658d4b1e0cf35",
+          "platform_digest_verified": true,
+          "reports": []
+        }
+      ]
     },
     "report_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json",
     "scope": "Exact verified source payload, not this receipt own future commit, shared migration, runtime service upgrade or formal acceptance",

@@ -32,6 +32,7 @@ const modules = [
 ]
 const workbench = [
   { label: '任务与结果', to: '/tasks' },
+  { label: '来源管理', to: '/sources' },
   { label: '模型目录', to: '/models' },
   { label: '业务身份', to: '/business' },
   { label: '审批管理', to: '/approvals' },
@@ -69,6 +70,10 @@ const pages: Record<string, { title: string; description: string }> = {
   models: {
     title: '模型与评测目录',
     description: '查看当前单位有权访问的模型版本、受控引用与已登记评测元数据。',
+  },
+  sources: {
+    title: '数据来源与授权登记',
+    description: '按案件查看来源状态并登记用途依据，正式授权由服务端权威记录核验。',
   },
   'pending-reviews': {
     title: '审核与证据管理',

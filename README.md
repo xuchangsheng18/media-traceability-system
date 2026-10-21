@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-21当前状态：[T001—T123逐项开发审计](docs/03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](docs/00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表及[模型目录页面验证](docs/00-project/validation/t060-readonly-ui-report.json)。[两张官方CC0研发样本](docs/07-datasets/public-development-data.md)已保存至仓库外并在Linux解码。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
+2026-10-21来源管理续批：[页面与后端修复](docs/03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](docs/00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。当前123任务为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
+
+2026-10-21当前状态：[T001—T123逐项开发审计](docs/03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](docs/00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表及[模型目录页面验证](docs/00-project/validation/t060-readonly-ui-report.json)。[2张CC0原图与5个可追溯派生文件](docs/07-datasets/public-development-data.md)已保存至仓库外并在Linux解码。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
 
 此前一轮前后端与权限续批（历史47/26）：[27项起点接口逐项台账](docs/03-development/t001-t123-remaining-interface-register.md)、[本批计划](docs/03-development/t001-t123-api-continuation-plan.md)、[实际测试、CI与同步状态](docs/00-project/validation/t001-t123-api-continuation-report.json)。业务源码47项挂载、26项未挂载；新增真实报告元数据读取、资产只读列表/详情和案件任务列表。任务卡和分步导航已同步限定子范围，原CI门禁及Python候选暂缓不变；源码同步不代表0012/0013已应用或既有演示服务已重启。
 
@@ -17,7 +19,7 @@ T001—T123开发落实：[全部任务的表／接口／方法和状态](docs/0
 
 2026-10-20剩余工作入口：[T014已批准P01—P07隔离计划](docs/03-development/t014-isolated-six-role-implementation-plan.md)、[P01—P07实测与当前进度](docs/00-project/validation/t014-isolated-rule-progress.json)、[T001—T123逐项顺序](docs/03-development/t001-t123-development-sequence.md)、[T013本人MFA管理实际回执](docs/00-project/validation/t013-owner-mfa-management-validation.json)、[后续恢复及退役步骤](docs/03-development/t013-owner-action-checklist.md)。T014的P01—P07隔离实现、1009项完整回归、门禁和精确代码CI已验证，未启用共享正式ALLOW。Python候选继续暂缓；子步骤计数以实际台账为准。
 
-T015开发负责人、指定复核人均为徐昌胜，见[本人确认](docs/00-project/validation/t015-role-assignment.json)、[依赖核对](docs/00-project/validation/t015-dependency-preflight.json)、[已获准设计](docs/03-development/t015-data-scope-design.md)及[已批准P01—P07计划](docs/03-development/t015-data-scope-implementation-plan.md)。[当前进度](docs/00-project/validation/t015-data-scope-progress.json)：P01已验证；P02三种事务、增量RLS和真实入口已编码，当前461项业务回归及质量检查通过；隔离启动路径造成的报告生成失败已定位，修正后完整入口仍待核验；[增量数据库与函数](docs/04-database/data-scope-migration.md)、[定向验证](docs/00-project/validation/t015-data-scope-p02-progress.json)、[实际CI观察](docs/00-project/validation/t015-current-ci-observation.json)分别登记。P03隔离91项验证通过，P04测试已准备，P05—P07仍待，尚未共享采用或整卡验收。
+T015当前限定验证：此前461项业务快照和128项CLI记录保留历史；[本批精确证据](docs/00-project/validation/t001-t123-resource-registry-report.json)已记录T015完整入口131项及失败探针、T0141092项、T016187项和29项迁移/owner/契约检查，各范围分别核验。P01—P07源计划覆盖、真实提供者、共享采用与整卡验收继续逐项保留，最新托管CI不继承历史通过。
 
 2026-10-17已按用户指定登记邓昀为T001—T011实际负责人；有效工时、平台账号及验收结果仍待确认，见[任务责任登记](docs/03-development/repository-access-control.md)。
 

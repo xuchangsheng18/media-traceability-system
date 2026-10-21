@@ -50,7 +50,7 @@ def main():
         flags=re.M,
     )
     entries = {
-        "07-datasets/public-development-data.md": "两张官方CC0样本的逐图许可、固定摘要、仓库外实物、Linux解码和使用命令；无业务标签、模型精度或正式数据准入推定。",
+        "07-datasets/public-development-data.md": "2张官方CC0原图与5个可追溯派生文件，7文件/6唯一摘要、来源和坐标核对；视频未生成，无业务标签、模型精度或正式数据准入推定。",
         "00-project/validation/public-development-data-report.json": "Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。",
         "00-project/validation/t060-readonly-ui-report.json": "T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。",
         "03-development/t001-t123-resource-registry-continuation-plan.md": "本轮四接口及资产下载页面的具体实现与验证边界，沿用契约、原锁、门禁和Python候选暂缓。",
@@ -65,7 +65,7 @@ def main():
         "03-development/t001-t123-remaining-interface-register.json": "27项接口的完整结构、源任务/依赖、SQL定义、实际实现范围和后续执行入口；静态审查与运行证据分列。",
         "00-project/validation/t001-t123-api-continuation-report.json": "本批缓存、报告读取/0013及前端的实际命令、时长、错误修复、完整权限回归、CI与三端同步证据。",
         "08-security/report-read-route-registration.json": "只登记getReport挂载增量，严格绑定46→47的矩阵字节；原246格、正式拒绝与旧采用记录不改。",
-        "08-security/history/report-read-predecessor-scope-matrix.json": "新增报告读取之前46项挂载矩阵的原字节历史；由严格增量校验器验证当前47项矩阵未改角色与授权规则。",
+        "08-security/history/report-read-predecessor-scope-matrix.json": "新增报告读取之前46项挂载矩阵的原字节历史；对应47项阶段的后继校验，当前总体挂载数见页首及资源接口回执。",
         "03-development/t001-t123-implementation-inventory.md": "T001—T123逐项开发清单：原工作范围、表与版本迁移、HTTP操作、实际Python方法、证据和剩余工作；静态实现、运行验证和整任务验收分别记录。",
         "03-development/t001-t123-implementation-inventory.json": "123任务及后端方法、SQL函数、表和路由的机器索引，绑定源摘要；包含完整验收/测试原要求，不从已有表或方法自动推导完成。",
         "03-development/t001-t123-catalog-read-implementation-plan.md": "已授权资产详情、案件级资产与任务列表的落实计划；复用现有表，0012仅隔离验证，两个必填case_id已由用户确认。",

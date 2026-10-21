@@ -234,6 +234,163 @@ async function connectBusiness(
   await expect(page.getByLabel('业务访问令牌')).toHaveValue('')
 }
 
+const sourceId = '70000000-0000-4000-8000-000000000001'
+function registeredSource(selectedCase = caseId): Schemas['Source'] {
+  return {
+    source_id: sourceId,
+    case_id: selectedCase,
+    name: 'browser-owned source',
+    source_type: 'public_licensed',
+    authorization_ref: 'javascript:alert(1)',
+    purpose: ['analysis', 'download'],
+    expires_at: null,
+    authorization_status: 'pending',
+    version: 1,
+  }
+}
+
+test('source console requires identity and separates source read from manage', async ({ page }) => {
+  let requests = 0
+  await page.route('**/business/api/v1/sources**', (route) => {
+    requests++
+    return route.fulfill({ json: { items: [], next_cursor: null } })
+  })
+  await page.goto('/#/sources')
+  await expect(page.getByRole('button', { name: '查询来源／回到首页' })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '登记来源', exact: true })).toBeDisabled()
+  await connectBusiness(page, ['source.read'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await expect(page.getByRole('button', { name: '查询来源／回到首页' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '登记来源', exact: true })).toBeDisabled()
+  expect(requests).toBe(0)
+})
+
+test('source console reads case-scoped metadata and preserves opaque pagination', async ({
+  page,
+}) => {
+  const requests: string[] = []
+  await page.route('**/business/api/v1/sources?**', (route) => {
+    const url = new URL(route.request().url())
+    requests.push(url.pathname + url.search)
+    return route.fulfill({
+      json: {
+        items: url.searchParams.has('cursor') ? [] : [registeredSource()],
+        next_cursor: url.searchParams.has('cursor') ? null : 'a+b/c=',
+      },
+    })
+  })
+  await page.route(`**/business/api/v1/sources/${sourceId}`, (route) =>
+    route.fulfill({ json: registeredSource() }),
+  )
+  await connectBusiness(page, ['source.read'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await page.getByLabel('来源案件编号').fill(caseId)
+  await page.getByRole('button', { name: '查询来源／回到首页' }).click()
+  await expect(page.getByRole('row').filter({ hasText: sourceId })).toContainText('pending')
+  await page.getByRole('button', { name: '查看来源详情' }).click()
+  await expect(page.getByText('javascript:alert(1)', { exact: true }).first()).toBeVisible()
+  await expect(page.locator('a[href^="javascript:"]')).toHaveCount(0)
+  await page.getByRole('button', { name: '下一页来源' }).click()
+  expect(requests).toEqual([
+    `/business/api/v1/sources?case_id=${caseId}&limit=20`,
+    `/business/api/v1/sources?case_id=${caseId}&limit=20&cursor=a%2Bb%2Fc%3D`,
+  ])
+  await expect(page.getByRole('row').filter({ hasText: sourceId })).toHaveCount(0)
+})
+
+test('source registration keeps a refused original request for exact idempotent retry', async ({
+  page,
+}) => {
+  const writes: { key: string | undefined; body: Schemas['SourceCreate'] }[] = []
+  await page.route('**/business/api/v1/sources', (route) => {
+    const request = route.request()
+    writes.push({ key: request.headers()['idempotency-key'], body: request.postDataJSON() })
+    if (writes.length === 1)
+      return route.fulfill({ status: 503, json: { code: 'SOURCE_SYNCHRONIZATION_UNAVAILABLE' } })
+    return route.fulfill({ status: 201, json: { ...registeredSource(), ...writes[0]!.body } })
+  })
+  await connectBusiness(page, ['source.manage'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await page.getByLabel('来源案件编号').fill(caseId)
+  await page.getByLabel('来源名称', { exact: true }).fill('browser-owned source')
+  await page.getByLabel('来源类型', { exact: true }).selectOption('public_licensed')
+  await page.getByLabel('授权依据', { exact: true }).fill('license-record/1')
+  await page.getByLabel('用途（每行一项）', { exact: true }).fill('analysis\ndownload')
+  await page.getByRole('button', { name: '登记来源', exact: true }).click()
+  await expect(
+    page.getByRole('status').filter({ hasText: 'SOURCE_SYNCHRONIZATION_UNAVAILABLE' }),
+  ).toBeVisible()
+  await expect(page.getByText(sourceId, { exact: true })).toHaveCount(0)
+  await page.getByRole('button', { name: '重试原登记请求', exact: true }).click()
+  await expect(page.getByText(sourceId, { exact: true }).first()).toBeVisible()
+  await expect(page.getByText(/^pending\s*／\s*1$/)).toBeVisible()
+  await expect(page.getByText('verified', { exact: true })).toHaveCount(0)
+  expect(writes).toHaveLength(2)
+  expect(writes[0]!.key).toBeTruthy()
+  expect(writes[0]!.key!.length).toBeLessThanOrEqual(128)
+  expect(writes[1]).toEqual(writes[0])
+  expect(Object.keys(writes[0]!.body).sort()).toEqual([
+    'authorization_ref',
+    'case_id',
+    'expires_at',
+    'name',
+    'purpose',
+    'source_type',
+  ])
+  expect(writes[0]!.body).toEqual({
+    case_id: caseId,
+    name: 'browser-owned source',
+    source_type: 'public_licensed',
+    authorization_ref: 'license-record/1',
+    purpose: ['analysis', 'download'],
+    expires_at: null,
+  })
+})
+
+test('source console clears preceding case records immediately on case selection change', async ({
+  page,
+}) => {
+  await page.route('**/business/api/v1/sources?**', (route) =>
+    route.fulfill({ json: { items: [registeredSource()], next_cursor: 'old-case-cursor' } }),
+  )
+  await connectBusiness(page, ['source.read'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await page.getByLabel('来源案件编号').fill(caseId)
+  await page.getByRole('button', { name: '查询来源／回到首页' }).click()
+  await expect(page.getByRole('row').filter({ hasText: sourceId })).toBeVisible()
+  await page.getByLabel('来源案件编号').fill(otherCaseId)
+  await expect(page.getByRole('row').filter({ hasText: sourceId })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '下一页来源' })).toBeDisabled()
+})
+
+test('source console clears registration drafts when manage permission changes without reconnect', async ({
+  page,
+}) => {
+  await connectBusiness(page, ['source.read', 'source.manage'])
+  await page.getByRole('link', { name: '来源管理', exact: true }).click()
+  await page.getByLabel('来源案件编号').fill(caseId)
+  await page.getByLabel('来源名称', { exact: true }).fill('private draft in self-owned fixture')
+  await page.getByLabel('授权依据', { exact: true }).fill('self-owned-unsubmitted-authorization')
+  await page.getByLabel('用途（每行一项）', { exact: true }).fill('analysis')
+  // A self-owned reactive-session mutation, not a server-side ACL or real revocation test.
+  await page.evaluate(() => {
+    const root = document.getElementById('app') as HTMLElement & {
+      __vue_app__?: { _instance: { provides: Record<symbol, unknown> } }
+    }
+    const provides = root?.__vue_app__?._instance.provides
+    const key =
+      provides &&
+      Object.getOwnPropertySymbols(provides).find((item) => item.description === 'business-session')
+    if (!provides || !key) throw new Error('SELF_OWNED_SESSION_FIXTURE_MISSING')
+    const session = provides[key] as { state: { user: { permissions: string[] } } }
+    session.state.user.permissions = ['source.read']
+  })
+  await expect(page.getByLabel('来源名称', { exact: true })).toHaveValue('')
+  await expect(page.getByLabel('授权依据', { exact: true })).toHaveValue('')
+  await expect(page.getByLabel('用途（每行一项）', { exact: true })).toHaveValue('')
+  await expect(page.getByRole('button', { name: '登记来源', exact: true })).toBeDisabled()
+})
+
 test('business reading pages require a connected identity', async ({ page }) => {
   await page.goto('/#/tasks')
   await expect(page.getByRole('heading', { name: '任务与结果', exact: true })).toBeVisible()

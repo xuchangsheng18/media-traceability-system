@@ -722,7 +722,12 @@ class ObjectFactsReader:
                 and source["authorization_status"] == "verified"
                 and (expires is None or expires.timestamp() > current_time)
             )
-            if expires is not None:
+            # SOURCE permits inspecting the authorization record itself, including
+            # its expired/revoked state. It does not authorize using the media.
+            # Keep active-source deadlines for every other operation and preserve
+            # the normal fact TTL, source version digest and transaction fence.
+            source_metadata_read = target.kind == "source" and operation_id in {"getSource", "listSources"}
+            if expires is not None and not source_metadata_read:
                 deadline = min(deadline, expires.timestamp())
             if purpose is not None:
                 source_ok = source_ok and purpose in source["purpose"]

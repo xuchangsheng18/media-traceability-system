@@ -35,7 +35,7 @@
       "path": "tasks/execution-status.json",
       "exists": true,
       "kind": "DOCUMENT_OR_REPORT",
-      "sha256_lf": "0198c34abcf7447eedeb8607339bb5ab6b6940c11e7fefc16347cbd526634f54",
+      "sha256_lf": "2b92880df97edb5891f99b311f4a94c5df0a75c1e5fcbd5b5a0a5d17c866dcd0",
       "symbols": [],
       "attribution": "audit input",
       "coverage": "observed source only; not task acceptance or current test success"
@@ -44,7 +44,7 @@
       "path": "docs/03-development/t001-t123-implementation-inventory.json",
       "exists": true,
       "kind": "DOCUMENT_OR_REPORT",
-      "sha256_lf": "b92d0bbdf2d426e7e3b7a37228b307d83cb46c1cd34a532f9cab03ad2a2b6b54",
+      "sha256_lf": "0abf582755824c00f50767834713d8027b717487ba3bec547fd1b718c65a9788",
       "symbols": [],
       "attribution": "audit input",
       "coverage": "observed source only; not task acceptance or current test success"
@@ -366,7 +366,7 @@
           "path": "README.md",
           "exists": true,
           "kind": "DOCUMENT_OR_REPORT",
-          "sha256_lf": "11ee236226f902297c34f4b1c03f597042245dc48c9e384f59292997a0555f55",
+          "sha256_lf": "cdeeb47090cd621c2e336ba080f72e3aa0834ab7ad10f4c7e63956a64d0452ec",
           "symbols": [],
           "attribution": "audit additional related source; bounded structure/projection only",
           "coverage": "observed source only; not task acceptance or current test success"
@@ -375,7 +375,7 @@
           "path": "docs/00-project/server-sync-receipt.json",
           "exists": true,
           "kind": "DOCUMENT_OR_REPORT",
-          "sha256_lf": "a6d60b9d71cdda7152b9dae875b5121182f2ad63c7df25cc9c07d03d018819c9",
+          "sha256_lf": "3fada9e998e40870a968cb020049ddacc55b6ffeed3ab70e72909173da65793c",
           "symbols": [],
           "attribution": "ledger completed-step reference; independently exists/hashed",
           "coverage": "observed source only; not task acceptance or current test success"
@@ -884,7 +884,7 @@
           "path": "frontend/src/App.vue",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "5a8523dd36168b5f811da21425abf6215256ab87cbf7996086724856dca40141",
+          "sha256_lf": "faa7a790d8800d6d8760e4d087b763ea52780100ba54b0c99383dfc28ea20c6c",
           "symbols": [],
           "attribution": "ledger completed-step reference; independently exists/hashed",
           "coverage": "observed source only; not task acceptance or current test success"
@@ -936,7 +936,7 @@
           "path": "frontend/src/router.ts",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "39c5aa05f72a722db3f361162d615d4de8c7cd57b8449fae1bf3c188c6ada9cf",
+          "sha256_lf": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
           "symbols": [
             {
               "name": "createAppRouter",
@@ -5840,7 +5840,7 @@
           "path": "backend/business_app/permissions/object_facts.py",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "d7ba2583596058b810c9ee2ed93250d23ac4e497f061e9f8ff16e6e17b489737",
+          "sha256_lf": "88af45d414352f9fd467ed2dbd867544c0a14824923432d09e12760328e576e5",
           "symbols": [
             {
               "name": "digest",
@@ -10185,6 +10185,33 @@
           "symbols": [],
           "attribution": "current batch source",
           "coverage": "Bounded actual results in docs/00-project/validation/t001-t123-resource-registry-report.json; not whole-task acceptance"
+        },
+        {
+          "path": "frontend/src/business/sources.ts",
+          "exists": true,
+          "kind": "IMPLEMENTATION_SOURCE",
+          "sha256_lf": "3a90c9721fed7c9b2f59d0104f511624acb27152f318fe7a260b29347ac5186f",
+          "symbols": [],
+          "attribution": "T021 bounded source console/metadata continuation",
+          "coverage": "Task subset only; no formal authority or task acceptance"
+        },
+        {
+          "path": "frontend/src/views/SourcesView.vue",
+          "exists": true,
+          "kind": "IMPLEMENTATION_SOURCE",
+          "sha256_lf": "1b56d0a595cf6655f2bece831905f2575ca77a7c8b521988a13f95f6162f09a5",
+          "symbols": [],
+          "attribution": "T021 bounded source console/metadata continuation",
+          "coverage": "Task subset only; no formal authority or task acceptance"
+        },
+        {
+          "path": "backend/business_app/permissions/object_facts.py",
+          "exists": true,
+          "kind": "IMPLEMENTATION_SOURCE",
+          "sha256_lf": "88af45d414352f9fd467ed2dbd867544c0a14824923432d09e12760328e576e5",
+          "symbols": [],
+          "attribution": "T021 bounded source console/metadata continuation",
+          "coverage": "Task subset only; no formal authority or task acceptance"
         }
       ],
       "tested_bounded_evidence_refs": [
@@ -10278,9 +10305,17 @@
           ],
           "attribution": "ledger completed-step reference; independently exists/hashed",
           "coverage": "observed source only; not task acceptance or current test success"
+        },
+        {
+          "path": "docs/00-project/validation/t021-source-console-report.json",
+          "exists": true,
+          "kind": "BOUNDED_ACTUAL_SOURCE_CONSOLE_REPORT",
+          "hash_scope": "Audit checkpoint before later receipt-only permission/CI/source-delivery updates; not a live digest assertion for this evolving report.",
+          "sha256_lf": "0037e0efb4c109dad711e82591871aad8438d308e6ffb01e1c0895a83972da45",
+          "coverage": "Actual frontend and targeted backend checks; not whole-task or production acceptance"
         }
       ],
-      "tested_evidence_scope": "Existing test source/reports are references to bounded historical tests. This audit ran no business tests, database or deployment; no report is promoted to fresh full task evidence.",
+      "tested_evidence_scope": "Root实测：100 existing registration checks;12source expiry/scope SQL+HTTP regressions after2RED cases;194frontend unit/41browser self-owned transport tests. Full permission gate/hosted CI separately bound in report; no full source task acceptance.",
       "acceptance_clause_trace": [
         {
           "clause": "无有效来源不得批量导入",
@@ -10289,7 +10324,7 @@
             "backend/business_app/controls/imports.py",
             "backend/business_app/controls/router.py"
           ],
-          "gap_or_next_check": "来源登记已完成本轮限定实现；继续真实权威接入、来源维护/到期告警与管理页面；登记不是正式用途授权。"
+          "gap_or_next_check": "已有来源登记SQL及来源列表/详情/登记页面，补真实来源权威、授权同步/修改维护页面、到期后台告警与完整修改审计；真实身份/权威/数据库组合E2E、实际责任人及完整源验收仍待。"
         },
         {
           "clause": "到期来源触发告警",
@@ -10298,7 +10333,7 @@
             "backend/business_app/controls/imports.py",
             "backend/business_app/controls/router.py"
           ],
-          "gap_or_next_check": "来源登记已完成本轮限定实现；继续真实权威接入、来源维护/到期告警与管理页面；登记不是正式用途授权。"
+          "gap_or_next_check": "已有来源登记SQL及来源列表/详情/登记页面，补真实来源权威、授权同步/修改维护页面、到期后台告警与完整修改审计；真实身份/权威/数据库组合E2E、实际责任人及完整源验收仍待。"
         },
         {
           "clause": "修改有审计",
@@ -10307,10 +10342,10 @@
             "backend/business_app/controls/imports.py",
             "backend/business_app/controls/router.py"
           ],
-          "gap_or_next_check": "来源登记已完成本轮限定实现；继续真实权威接入、来源维护/到期告警与管理页面；登记不是正式用途授权。"
+          "gap_or_next_check": "已有来源登记SQL及来源列表/详情/登记页面，补真实来源权威、授权同步/修改维护页面、到期后台告警与完整修改审计；真实身份/权威/数据库组合E2E、实际责任人及完整源验收仍待。"
         }
       ],
-      "concrete_remaining_code": "来源登记已完成本轮限定实现；继续真实权威接入、来源维护/到期告警与管理页面；登记不是正式用途授权。",
+      "concrete_remaining_code": "已有来源登记SQL及来源列表/详情/登记页面，补真实来源权威、授权同步/修改维护页面、到期后台告警与完整修改审计；真实身份/权威/数据库组合E2E、实际责任人及完整源验收仍待。",
       "external_actual_inputs": [
         "Declared unresolved source questions: Q-33; distinguish policy confirmation from code that can be implemented now.",
         "Effective authority/purpose/classification/approval/retention policy and provider bindings; absent policy must fail closed.",
@@ -10355,7 +10390,7 @@
           "interface_register_entry_stale": false
         }
       ],
-      "latest_bounded_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json"
+      "latest_bounded_validation_ref": "docs/00-project/validation/t021-source-console-report.json"
     },
     {
       "task_id": "T022",
@@ -16816,7 +16851,7 @@
           "path": "frontend/src/router.ts",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "39c5aa05f72a722db3f361162d615d4de8c7cd57b8449fae1bf3c188c6ada9cf",
+          "sha256_lf": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
           "symbols": [],
           "attribution": "current readonly T060 continuation",
           "coverage": "Bounded read UI; no health/rollout/rollback implementation claim"
@@ -18057,7 +18092,7 @@
           "path": "frontend/src/router.ts",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "39c5aa05f72a722db3f361162d615d4de8c7cd57b8449fae1bf3c188c6ada9cf",
+          "sha256_lf": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
           "symbols": [
             {
               "name": "createAppRouter",
@@ -18659,7 +18694,7 @@
           "path": "frontend/src/router.ts",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "39c5aa05f72a722db3f361162d615d4de8c7cd57b8449fae1bf3c188c6ada9cf",
+          "sha256_lf": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
           "symbols": [
             {
               "name": "createAppRouter",
@@ -20469,7 +20504,7 @@
           "path": "frontend/src/router.ts",
           "exists": true,
           "kind": "IMPLEMENTATION_SOURCE",
-          "sha256_lf": "39c5aa05f72a722db3f361162d615d4de8c7cd57b8449fae1bf3c188c6ada9cf",
+          "sha256_lf": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
           "symbols": [
             {
               "name": "createAppRouter",
@@ -24203,7 +24238,7 @@
           "path": "docs/00-project/server-sync-receipt.json",
           "exists": true,
           "kind": "DOCUMENT_OR_REPORT",
-          "sha256_lf": "a6d60b9d71cdda7152b9dae875b5121182f2ad63c7df25cc9c07d03d018819c9",
+          "sha256_lf": "3fada9e998e40870a968cb020049ddacc55b6ffeed3ab70e72909173da65793c",
           "symbols": [],
           "attribution": "ledger completed-step reference; independently exists/hashed",
           "coverage": "observed source only; not task acceptance or current test success"
@@ -24639,5 +24674,23 @@
     "owners_inferred": false,
     "whole_tasks_closed": 0,
     "Python_candidates_created": false
+  },
+  "latest_source_console_continuation": {
+    "id": "t021-source-console-and-expired-metadata-20261021",
+    "observed_date": "2026-10-21",
+    "task_ids": [
+      "T021"
+    ],
+    "supporting_tasks": [
+      "T006",
+      "T014",
+      "T015"
+    ],
+    "report_ref": "docs/00-project/validation/t021-source-console-report.json",
+    "plan_ref": "docs/03-development/t021-source-console-continuation.md",
+    "new_completed_substeps": 2,
+    "whole_tasks_closed": 0,
+    "Python_candidates_created": false,
+    "owners_inferred": false
   }
 }

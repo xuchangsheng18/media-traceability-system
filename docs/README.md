@@ -1,5 +1,7 @@
 # 项目文档导航
 
+2026-10-21来源管理续批：[页面与后端修复](03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。当前123任务为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
+
 2026-10-21当前状态：[T001—T123逐项开发审计](03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
 
 T001—T123逐项落实：[数据表、接口和Python方法清单](03-development/t001-t123-implementation-inventory.md)、[读取接口计划](03-development/t001-t123-catalog-read-implementation-plan.md)、[实际回执](00-project/validation/t001-t123-catalog-read-report.json)。
@@ -10,7 +12,7 @@ T016隔离回移：[实际回执与管理员只读诊断](03-development/pillow-
 
 T016依赖修复规划：[Pillow／py310八条漏洞处理与回归方案](03-development/pillow-py310-remediation-plan.md)、[逐项来源与门禁限制](00-project/validation/t016-pillow-py310-plan-review.json)。形成方案时仅做只读核对；D05-E现已获准执行，源码静态回移和PL02缺项见页首回执，仍未构建／安全回归／采用。私有候选不等于现有扫描准入。原100包锁、共享环境、CI门禁保持，Python候选继续暂缓；T016仍4项已验证子步骤、4组剩余，未整卡关闭。
 
-T015职责已确认：[开发/复核人徐昌胜](00-project/validation/t015-role-assignment.json)、[依赖和数据范围核对](00-project/validation/t015-dependency-preflight.json)、[已获准设计](03-development/t015-data-scope-design.md)、[已批准P01—P07计划](03-development/t015-data-scope-implementation-plan.md)；[实际进度](00-project/validation/t015-data-scope-progress.json)为P01已验证、P02已编码且当前461项业务回归及质量检查通过；隔离启动路径造成的报告生成失败已定位，修正后完整入口仍待核验、P03隔离91项验证通过，P04测试已准备，P05—P07待实施。[数据库/函数说明](04-database/data-scope-migration.md)、[定向验证](00-project/validation/t015-data-scope-p02-progress.json)、[CI观察](00-project/validation/t015-current-ci-observation.json)各有独立入口，未登记共享采用或整卡验收。
+T015当前限定验证：此前461项业务快照和128项CLI记录保留历史；[本批精确证据](00-project/validation/t001-t123-resource-registry-report.json)已记录T015完整入口131项及失败探针、T0141092项、T016187项和29项迁移/owner/契约检查，各范围分别核验。P01—P07源计划覆盖、真实提供者、共享采用与整卡验收继续逐项保留，最新托管CI不继承历史通过。
 
 T014本批实现：[统一权限实施与验收对照](03-development/t014-unified-permission-implementation.md)、[已批准P01—P07计划](03-development/t014-isolated-six-role-implementation-plan.md)、[当前逐项实测进度](00-project/validation/t014-isolated-rule-progress.json)、[接口/单位/案件矩阵](08-security/t014-interface-scope-matrix.md)。开发负责人和指定复核人徐昌胜。P01—P07完整角色、246格规则、对象/审批/事务/后台重验及1009项完整隔离回归、精确代码CI已验证。该轮历史42已挂载/31未挂载（当前数见页首），未启用共享正式策略，T014未整卡验收；旧CI报告只证明其精确历史源码。
 
@@ -32,7 +34,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[746条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有124条已验证子步骤、622条剩余工作；全局编号0001—0746。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[748条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有126条已验证子步骤、622条剩余工作；全局编号0001—0748。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -434,7 +436,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
-| [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 两张官方CC0样本的逐图许可、固定摘要、仓库外实物、Linux解码和使用命令；无业务标签、模型精度或正式数据准入推定。 |
+| [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 2张官方CC0原图与5个可追溯派生文件，7文件/6唯一摘要、来源和坐标核对；视频未生成，无业务标签、模型精度或正式数据准入推定。 |
 | [00-project/validation/public-development-data-report.json](<00-project/validation/public-development-data-report.json>) | Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [03-development/t001-t123-resource-registry-continuation-plan.md](<03-development/t001-t123-resource-registry-continuation-plan.md>) | 本轮四接口及资产下载页面的具体实现与验证边界，沿用契约、原锁、门禁和Python候选暂缓。 |
@@ -449,7 +451,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t001-t123-remaining-interface-register.json](<03-development/t001-t123-remaining-interface-register.json>) | 27项接口的完整结构、源任务/依赖、SQL定义、实际实现范围和后续执行入口；静态审查与运行证据分列。 |
 | [00-project/validation/t001-t123-api-continuation-report.json](<00-project/validation/t001-t123-api-continuation-report.json>) | 本批缓存、报告读取/0013及前端的实际命令、时长、错误修复、完整权限回归、CI与三端同步证据。 |
 | [08-security/report-read-route-registration.json](<08-security/report-read-route-registration.json>) | 只登记getReport挂载增量，严格绑定46→47的矩阵字节；原246格、正式拒绝与旧采用记录不改。 |
-| [08-security/history/report-read-predecessor-scope-matrix.json](<08-security/history/report-read-predecessor-scope-matrix.json>) | 新增报告读取之前46项挂载矩阵的原字节历史；由严格增量校验器验证当前47项矩阵未改角色与授权规则。 |
+| [08-security/history/report-read-predecessor-scope-matrix.json](<08-security/history/report-read-predecessor-scope-matrix.json>) | 新增报告读取之前46项挂载矩阵的原字节历史；对应47项阶段的后继校验，当前总体挂载数见页首及资源接口回执。 |
 | [03-development/t001-t123-implementation-inventory.md](<03-development/t001-t123-implementation-inventory.md>) | T001—T123逐项开发清单：原工作范围、表与版本迁移、HTTP操作、实际Python方法、证据和剩余工作；静态实现、运行验证和整任务验收分别记录。 |
 | [03-development/t001-t123-implementation-inventory.json](<03-development/t001-t123-implementation-inventory.json>) | 123任务及后端方法、SQL函数、表和路由的机器索引，绑定源摘要；包含完整验收/测试原要求，不从已有表或方法自动推导完成。 |
 | [03-development/t001-t123-catalog-read-implementation-plan.md](<03-development/t001-t123-catalog-read-implementation-plan.md>) | 已授权资产详情、案件级资产与任务列表的落实计划；复用现有表，0012仅隔离验证，两个必填case_id已由用户确认。 |
@@ -653,7 +655,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1258份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1260份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -744,7 +746,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内746条执行事项逐条编号：124条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内748条执行事项逐条编号：126条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1358,6 +1360,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t016-pillow-py310-isolated-execution.json](<00-project/validation/t016-pillow-py310-isolated-execution.json>) | 源码/patch/13个文件hash、Linux静态检查、输入拒绝及239个安装文件未变；安全回归和构建尚未执行。 |
 | [00-project/validation/t016-pillow-py310-plan-review.json](<00-project/validation/t016-pillow-py310-plan-review.json>) | 官方来源、精确提交及测试族、基线hash和逐项未修复状态；未知版本skip不算通过。 |
 | [00-project/validation/t016-role-assignment.json](<00-project/validation/t016-role-assignment.json>) | 用户确认徐昌胜为T016开发负责人和复核人；仅职责登记，不授予权限，不表示本人已经验收。 |
+| [00-project/validation/t021-source-console-report.json](<00-project/validation/t021-source-console-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1740,6 +1743,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t015-data-scope-implementation-plan.md](<03-development/t015-data-scope-implementation-plan.md>) | T015已批准P01—P07：类型、三模式/增量RLS、DAO/集合、对象、恢复、33门禁及交付；各步骤按实际证据勾选，未执行项不预填通过。 |
 | [03-development/t016-ci-build-disposition.md](<03-development/t016-ci-build-disposition.md>) | 说明文档：T016 前端容器构建输入修复；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t016-operation-token-implementation-plan.md](<03-development/t016-operation-token-implementation-plan.md>) | T016已授权隔离实施计划与执行状态；固定案件签发、同根消费、迁移、43/30目录及消费者差异，实际运行结果另见专项报告，不代表正式采用。 |
+| [03-development/t021-source-console-continuation.md](<03-development/t021-source-console-continuation.md>) | 说明文档：T021来源管理前后端续批；结合正文的状态、来源和适用范围阅读。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
@@ -1839,14 +1843,14 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [07-datasets/data-compliance.md](<07-datasets/data-compliance.md>) | 来源许可、用途、访问、保留与回流约束。 |
 | [07-datasets/dataset-catalog.md](<07-datasets/dataset-catalog.md>) | 数据集类别、用途及对应模型方向。 |
 | [07-datasets/dataset-split-policy.md](<07-datasets/dataset-split-policy.md>) | 按来源组等条件划分，隔离验证、校准与封存测试用途。 |
-| [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 两张官方CC0样本的逐图许可、固定摘要、仓库外实物、Linux解码和使用命令；无业务标签、模型精度或正式数据准入推定。 |
+| [07-datasets/public-development-data.md](<07-datasets/public-development-data.md>) | 2张官方CC0原图与5个可追溯派生文件，7文件/6唯一摘要、来源和坐标核对；视频未生成，无业务标签、模型精度或正式数据准入推定。 |
 | [07-datasets/README.md](<07-datasets/README.md>) | 所在专题的局部导航与阅读入口 |
 | [08-security/access-control-model.json](<08-security/access-control-model.json>) | T011候选机器模型：六角色、41权限码、73操作逐项绑定；职责/限制/待定均非正式ALLOW，分类政策为空。 |
 | [08-security/access-control-model.md](<08-security/access-control-model.md>) | T011六角色、九个实体及身份/单位/案件关系；候选权限评审与后续0004持久化分别列证据，尚无正式身份授权。 |
 | [08-security/audit-requirements.md](<08-security/audit-requirements.md>) | 应记录的主体、对象、版本、动作、结果与追踪信息。 |
 | [08-security/catalog-read-contract-adoption.json](<08-security/catalog-read-contract-adoption.json>) | 固定六角色规则的旧源摘要与本批三个读取操作的新契约绑定；只记录已确认参数和挂载增量，不改变角色格或启用正式权限。 |
 | [08-security/data-classification.md](<08-security/data-classification.md>) | 数据类别、敏感性和处理要求。 |
-| [08-security/history/report-read-predecessor-scope-matrix.json](<08-security/history/report-read-predecessor-scope-matrix.json>) | 新增报告读取之前46项挂载矩阵的原字节历史；由严格增量校验器验证当前47项矩阵未改角色与授权规则。 |
+| [08-security/history/report-read-predecessor-scope-matrix.json](<08-security/history/report-read-predecessor-scope-matrix.json>) | 新增报告读取之前46项挂载矩阵的原字节历史；对应47项阶段的后继校验，当前总体挂载数见页首及资源接口回执。 |
 | [08-security/history/resource-registry-predecessor-scope-matrix.json](<08-security/history/resource-registry-predecessor-scope-matrix.json>) | 本轮之前47项挂载矩阵的原字节，和报告读取历史形成可核验后继链。 |
 | [08-security/history/t001-t123-catalog-predecessor-openapi.yaml](<08-security/history/t001-t123-catalog-predecessor-openapi.yaml>) | 本批之前85327689提交的OpenAPI原字节快照，用于核对已确认六角色规则的历史来源，不作为当前调用契约。 |
 | [08-security/history/t001-t123-catalog-predecessor-scope-matrix.json](<08-security/history/t001-t123-catalog-predecessor-scope-matrix.json>) | 本批之前85327689提交的权限范围矩阵原字节快照；保留历史绑定，当前46项源码挂载与真实验证另列。 |
