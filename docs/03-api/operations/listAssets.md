@@ -1,10 +1,10 @@
 # 查询媒体资产：listAssets
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f`。契约未冻结，文档存在不代表接口已实现。
 
 `GET /api/v1/assets`；operationId=`listAssets`；源指针=`/paths/~1assets/get`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
+实现范围：**DEV_PARTIAL**；2026-10-21源码已在独立业务工程挂载，0012仅用于新建隔离测试库；现有研发预览服务及其0011数据库未切换。DEV_PARTIAL不代表现有服务已上线、正式策略准入或整任务验收；实际命令、未通过项和同步范围见[本批记录](../../00-project/validation/t001-t123-catalog-read-report.json)。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
 
 ## 调用目的与权限
 
@@ -22,6 +22,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.read`
 
 | 参数 | 位置 | 必填 | 结构限制 |
 | --- | --- | --- | --- |
+| case_id | query | True | string; format="uuid" |
 | X-Request-Id | header | False | string; format="uuid" |
 | limit | query | False | integer; minimum=1; maximum=100; default=20 |
 | cursor | query | False | string; minLength=1; maxLength=128 |
@@ -81,7 +82,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.read`
 }
 ```
 
-按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。
+必须提供已授权case_id；先逐项核验来源、分类和读取用途再分页，游标绑定身份、单位、案件、操作和limit，投影完成后在同事务内复核授权。有效空页只表示当前有权结果为空，不表示案件内没有其他资产；完整门禁及任务验收另列。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

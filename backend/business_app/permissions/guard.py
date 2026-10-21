@@ -93,6 +93,13 @@ async def authorize_business_route(request: Request) -> AsyncIterator[None]:
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
     if not operation.public:
         await run_in_threadpool(require_permission(operation.permission), request)
+        if operation.operation_id in {"getAsset", "listAssets", "listTasks"}:
+            # Never flatten ambiguous catalog scope into a different case before
+            # authorization. Function/identity denials still precede parsing.
+            allowed = set() if operation.operation_id == "getAsset" else {"case_id", "limit", "cursor"}
+            values = request.query_params
+            if set(values) - allowed or any(len(values.getlist(key)) != 1 for key in values):
+                raise BusinessError("READ_PARAMETER_UNSUPPORTED", 422)
         conditional = cast(ConditionalPort | None, getattr(request.app.state, "conditional_permissions", None))
         if conditional is None:
             raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)

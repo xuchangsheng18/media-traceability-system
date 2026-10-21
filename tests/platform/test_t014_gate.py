@@ -25,10 +25,10 @@ def synthetic_report(tmp_path, gate, *, missing=None, duplicate=None, skipped=Fa
     names = set(gate.REQUIRED_CASES)
     for operation in OPERATIONS:
         for name in [
-            f"test_all_43_mounted_business_operations_require_authentication[{operation}]",
-            f"test_all_43_operations_deny_missing_permission[{operation}]",
-            f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
-            f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
+            f"test_all_46_mounted_business_operations_require_authentication[{operation}]",
+            f"test_all_46_operations_deny_missing_permission[{operation}]",
+            f"test_all_46_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
+            f"test_all_46_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
         ]:
             names.add(("tests.platform.test_t014", name))
     if missing:
@@ -51,11 +51,26 @@ def synthetic_report(tmp_path, gate, *, missing=None, duplicate=None, skipped=Fa
     return path
 
 
-def test_complete_report_has_exact_43_operation_matrix(tmp_path):
+def test_complete_report_has_exact_46_operation_matrix(tmp_path):
     gate = gate_module()
     result = gate.validate_results(synthetic_report(tmp_path, gate), OPERATIONS)
-    assert result["mounted_operation_count"] == 43
+    assert result["mounted_operation_count"] == 46
     assert set(result["operation_checks"]) == OPERATIONS
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "test_asset_detail_is_actual_metadata_and_fixed_object_version",
+        "test_asset_list_reads_current_authorized_database_rows",
+        "test_task_list_includes_current_task_without_result",
+    ],
+)
+def test_gate_requires_catalog_read_positive_evidence(tmp_path, name):
+    gate = gate_module()
+    path = synthetic_report(tmp_path, gate, missing=("tests.business.test_catalog_reads", name))
+    with pytest.raises(RuntimeError, match="T014_REQUIRED_REGRESSION_MISSING"):
+        gate.validate_results(path, OPERATIONS)
 
 
 def test_gate_source_context_binds_confirmed_six_role_input():
@@ -63,6 +78,31 @@ def test_gate_source_context_binds_confirmed_six_role_input():
     actual = gate_module().source_context()
     expected = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
     assert actual["source_sha256"].get(path) == expected
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "docs/08-security/catalog-read-contract-adoption.json",
+        "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml",
+        "docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json",
+    ],
+)
+def test_source_context_detects_uncommitted_catalog_adoption_evidence(monkeypatch, path):
+    gate = gate_module()
+    types = importlib.import_module("scripts.stage_three_types")
+    monkeypatch.setattr(types, "source_tree_state", lambda root: {"source_code_dirty": False, "source_changes": []})
+
+    def output(command, **kwargs):
+        if command[:3] == ["git", "rev-parse", "HEAD"]:
+            return "1" * 40
+        assert command[:3] == ["git", "status", "--porcelain"]
+        return " M " + path + "\n" if path in command else ""
+
+    monkeypatch.setattr(gate.subprocess, "check_output", output)
+    result = gate.source_context()
+    assert result["source_code_dirty"] is True
+    assert result["source_changes"] == [path]
 
 
 @pytest.mark.parametrize(
@@ -142,7 +182,7 @@ def test_gate_requires_review_regressions(tmp_path, classname, name):
 def test_gate_rejects_incomplete_or_duplicate_runtime_evidence(tmp_path, kind):
     gate = gate_module()
     operation = sorted(OPERATIONS)[0]
-    target = ("tests.platform.test_t014", f"test_all_43_operations_deny_missing_permission[{operation}]")
+    target = ("tests.platform.test_t014", f"test_all_46_operations_deny_missing_permission[{operation}]")
     missing = {
         "missing_operation": target,
         "missing_SQL_restore": (
@@ -151,7 +191,7 @@ def test_gate_rejects_incomplete_or_duplicate_runtime_evidence(tmp_path, kind):
         ),
         "missing_real_resources": (
             "tests.business.test_t014_runtime",
-            "test_all_43_real_resource_requests_deny_before_business_side_effects",
+            "test_all_46_real_resource_requests_deny_before_business_side_effects",
         ),
     }
     path = synthetic_report(
@@ -191,6 +231,9 @@ def test_declared_report_counts_cannot_be_ignored(tmp_path, field):
         ("config/locks/requirements-py310.lock", True),
         ("docs/03-api/openapi.yaml", True),
         ("docs/08-security/t014-six-role-rule-proposal.json", True),
+        ("docs/08-security/catalog-read-contract-adoption.json", True),
+        ("docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml", True),
+        ("docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json", True),
         ("backend/business_app/permissions/guard.py", True),
     ],
 )
@@ -204,6 +247,9 @@ def test_source_binding_distinguishes_generated_archive_from_actual_changes(tmp_
         "docs/08-security/access-control-model.json",
         "docs/08-security/t014-interface-scope-matrix.json",
         "docs/08-security/t014-six-role-rule-proposal.json",
+        "docs/08-security/catalog-read-contract-adoption.json",
+        "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml",
+        "docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json",
         "backend/business_app/permissions/guard.py",
     ]
     for name in files:

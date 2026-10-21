@@ -2043,13 +2043,38 @@
     },
     {
       "task_id": "T030",
-      "verification_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "verification_status": "PARTIAL_VERIFIED_SCOPE",
       "resource_id": null,
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
       "verified_by": null,
-      "partial_scope_evidence": [],
+      "partial_scope_evidence": [
+        {
+          "path": "backend/business_app/catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_app/catalog_router.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_migrations/0012_catalog_reads.sql",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "tests/business/test_catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/03-api/openapi.yaml",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        }
+      ],
       "full_task_verification_refs": [],
       "external_release_date": null,
       "material_or_resource_dependencies": []
@@ -2177,6 +2202,30 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "backend/business_app/catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_app/catalog_router.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_migrations/0012_catalog_reads.sql",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "tests/business/test_catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/03-api/openapi.yaml",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
         }
       ],
       "full_task_verification_refs": [],
@@ -4475,6 +4524,20 @@
       "event": "ISOLATED_API_AND_CONSOLE_PARTIAL_DEVELOPMENT_EVIDENCE",
       "evidence_ref": "docs/00-project/validation/development-continuation-report.json",
       "whole_task_acceptance_recorded": false
+    },
+    {
+      "id": "catalog-read-partial-scope-20261021",
+      "observed_date": "2026-10-21",
+      "task_ids": [
+        "T030",
+        "T035"
+      ],
+      "scope": "verified_isolated_backend_read_substeps_only",
+      "evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+      "owners_inferred": false,
+      "full_task_acceptance_asserted": false,
+      "Python_candidates_created": false,
+      "existing_preview_or_shared_database_migrated": false
     }
   ],
   "authorized_development_scope": {

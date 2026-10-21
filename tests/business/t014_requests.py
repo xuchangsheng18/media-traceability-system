@@ -1,4 +1,4 @@
-"""Valid contract requests and actual self-owned resources for the 43-operation denial matrix."""
+"""Valid contract requests and actual self-owned resources for the expanded 46-operation denial matrix."""
 
 import hashlib
 import io
@@ -318,7 +318,15 @@ def _populate(c, resources):
         path = path.replace("{cluster_id}", str(c["cluster_id"])).replace("{part_no}", "1")
         assert "{" not in path
         params = {}
-        if identifier in {"listApprovals", "listReviews", "listPendingReviews", "listAuditEvents", "listSources"}:
+        if identifier in {
+            "listApprovals",
+            "listReviews",
+            "listPendingReviews",
+            "listAuditEvents",
+            "listSources",
+            "listAssets",
+            "listTasks",
+        }:
             params["case_id"] = str(c["case_id"])
         if identifier in {"listTaskNodes", "listTaskEvents"}:
             params["run_version"] = "1"
@@ -352,4 +360,4 @@ def _populate(c, resources):
             assert isinstance(request["json"], dict)
             validate_api(body["schema"]["$ref"].rsplit("/", 1)[-1], request["json"])
         resources.requests[identifier] = request
-    assert len(resources.requests) == 43
+    assert len(resources.requests) == 46

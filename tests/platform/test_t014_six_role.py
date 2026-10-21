@@ -9,6 +9,7 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
+import yaml
 from business_app.errors import BusinessError
 from business_app.permissions.types import Principal
 from business_app.types import Actor
@@ -73,8 +74,48 @@ def test_cell_totals_and_legacy_role_model_are_not_rewritten():
     assert sum(c is not None for _, _, c in CELLS) == 72
     assert sum(c is None for _, _, c in CELLS) == 174
     assert all(c["runtime_allow"] is False for p in SOURCE["permissions"] for c in p["cells"].values())
+    adoption = json.loads((ROOT / "docs/08-security/catalog-read-contract-adoption.json").read_text("utf8"))
     for name, digest in SOURCE["source_sha256"].items():
-        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
+        binding = adoption["source_bindings"].get(name)
+        if binding is None:
+            assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
+        else:
+            assert binding["prior_sha256"] == digest
+            assert hashlib.sha256((ROOT / binding["prior_copy"]).read_bytes()).hexdigest() == digest
+            current = (ROOT / name).read_bytes().replace(b"\r\n", b"\n")
+            assert hashlib.sha256(current).hexdigest() == binding["current_sha256"]
+
+
+def test_catalog_read_adoption_preserves_roles_and_only_approved_query_scope():
+    adoption = json.loads((ROOT / "docs/08-security/catalog-read-contract-adoption.json").read_text("utf8"))
+    assert adoption["role_cells_changed"] is False and adoption["formal_allow"] is False
+    assert adoption["shared_adopted"] is False
+    assert set(adoption["scope"]) == {"getAsset", "listAssets", "listTasks"}
+    binding = adoption["source_bindings"]["docs/03-api/openapi.yaml"]
+    prior = yaml.safe_load((ROOT / binding["prior_copy"]).read_text("utf8"))
+    current = yaml.safe_load((ROOT / "docs/03-api/openapi.yaml").read_text("utf8"))
+    for path in ["/assets", "/analysis/tasks"]:
+        parameters = current["paths"][path]["get"]["parameters"]
+        case = [item for item in parameters if item.get("name") == "case_id"]
+        assert len(case) == 1 and case[0]["required"] is True and case[0]["in"] == "query"
+        assert case[0]["schema"] == {"type": "string", "format": "uuid"}
+        current["paths"][path]["get"]["parameters"] = [item for item in parameters if item.get("name") != "case_id"]
+    assert current == prior
+    binding = adoption["source_bindings"]["docs/08-security/t014-interface-scope-matrix.json"]
+    prior_matrix = json.loads((ROOT / binding["prior_copy"]).read_text("utf8"))
+    current_matrix = json.loads((ROOT / "docs/08-security/t014-interface-scope-matrix.json").read_text("utf8"))
+    for field in ["roles", "default_effect", "formal_approved", "production_enabled", "source_sha256"]:
+        assert current_matrix[field] == prior_matrix[field]
+    old_rows = {item["operation_id"]: item for item in prior_matrix["operations"]}
+    assert len(old_rows) == len(current_matrix["operations"]) == 73
+    for item in current_matrix["operations"]:
+        old = old_rows[item["operation_id"]]
+        if item["operation_id"] not in adoption["scope"]:
+            assert item == old
+        else:
+            assert old["runtime_route"] is None and item["runtime_route"] is not None
+            for field in ["permission", "authentication", "case_rule", "unit_rule", "formal_allow"]:
+                assert item[field] == old[field]
 
 
 @pytest.mark.parametrize(

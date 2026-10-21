@@ -1022,10 +1022,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "案件成员有效且未撤销/未到期；功能许可与案件许可必须同时满足",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "服务端查找资产案件",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/catalog_router.py",
+        "function": "get_asset",
+        "line": 27,
+        "method": "GET",
+        "path": "/assets/{id}",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "统一认证/功能/对象条件→同根数据范围→来源/读取用途/分类→事务尾重验",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -1038,7 +1048,9 @@
         "422",
         "429",
         "503"
-      ]
+      ],
+      "development_permission_boundary_verified": false,
+      "runtime_evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json"
     },
     {
       "operation_id": "getAuditExport",
@@ -2033,10 +2045,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "案件成员有效且未撤销/未到期；功能许可与案件许可必须同时满足",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "必填query case_id及逐对象可信事实，拒绝跨范围游标",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/catalog_router.py",
+        "function": "list_assets",
+        "line": 37,
+        "method": "GET",
+        "path": "/assets",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "统一认证/功能/对象条件→同根数据范围→来源/读取用途/分类→事务尾重验",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -2049,7 +2071,9 @@
         "422",
         "429",
         "503"
-      ]
+      ],
+      "development_permission_boundary_verified": false,
+      "runtime_evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json"
     },
     {
       "operation_id": "listAuditEvents",
@@ -2400,10 +2424,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "案件成员有效且未撤销/未到期；功能许可与案件许可必须同时满足",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "必填query case_id及逐对象可信事实，拒绝跨范围游标",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/catalog_router.py",
+        "function": "list_tasks",
+        "line": 54,
+        "method": "GET",
+        "path": "/analysis/tasks",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "统一认证/功能/对象条件→同根数据范围→来源/读取用途/分类→事务尾重验",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -2416,7 +2450,9 @@
         "422",
         "429",
         "503"
-      ]
+      ],
+      "development_permission_boundary_verified": false,
+      "runtime_evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json"
     },
     {
       "operation_id": "listUploadParts",
@@ -3018,5 +3054,22 @@
   "shared_services_adopted": false,
   "prior_verified_source_commit": "e4e74e91df0187233122d610638c9f5be11486ca",
   "source_base_commit": "00725b051dbd735fdb60cdde33bbb7179cc2cdc9",
-  "source_binding_note": "Current code bytes are hashed below; actual clean execution commit and results are in linked runtime report, not a fabricated self-referential commit."
+  "source_binding_note": "source_sha256 and earlier runtime reports retain their historical verification snapshot. Current catalog-read source/method mapping and actual tests are separately bound by catalog_read_increment and the referenced batch report; no shared deployment or formal allow is inferred.",
+  "catalog_read_increment": {
+    "observed_at": "2026-10-21T05:36:49.463186+00:00",
+    "status": "SOURCE_PRESENT_NEW_TESTS_PENDING",
+    "previous_source_commit": "85327689fb68d782bde9c5f3a132b31c908dab74",
+    "previous_mounted_operations": 43,
+    "previous_unmounted_operations": 30,
+    "added_operations": [
+      "getAsset",
+      "listAssets",
+      "listTasks"
+    ],
+    "mounted_operations": 46,
+    "unmounted_operations": 27,
+    "report_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+    "existing_preview_14212_adopted": false,
+    "formal_approved": false
+  }
 }

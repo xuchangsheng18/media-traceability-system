@@ -70,17 +70,17 @@
       "title": "查询媒体资产",
       "purpose": "查询媒体资产；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
-      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "2026-10-21源码已在独立业务工程挂载，0012仅用于新建隔离测试库；现有研发预览服务及其0011数据库未切换。DEV_PARTIAL不代表现有服务已上线、正式策略准入或整任务验收；实际命令、未通过项和同步范围见[本批记录](../../00-project/validation/t001-t123-catalog-read-report.json)",
+      "completion_and_followup": "必须提供已授权case_id；先逐项核验来源、分类和读取用途再分页，游标绑定身份、单位、案件、操作和limit，投影完成后在同事务内复核授权。有效空页只表示当前有权结果为空，不表示案件内没有其他资产；完整门禁及任务验收另列。"
     },
     "getAsset": {
       "title": "读取媒体资产详情",
       "purpose": "读取媒体资产详情；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
-      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "2026-10-21源码已在独立业务工程挂载，0012仅用于新建隔离测试库；现有研发预览服务及其0011数据库未切换。DEV_PARTIAL不代表现有服务已上线、正式策略准入或整任务验收；实际命令、未通过项和同步范围见[本批记录](../../00-project/validation/t001-t123-catalog-read-report.json)",
+      "completion_and_followup": "按当前单位、案件、对象及读取用途授权，读取实际资产元数据，并核对注册对象版本的SHA-256与大小；仅返回固定ObjectRef，不提供原件下载或存储路径。缺可信分类、用途、身份或来源条件时拒绝。完整门禁及适用验收以本批记录的实际结果为准。"
     },
     "downloadAsset": {
       "title": "受控读取固定版本原件",
@@ -126,9 +126,9 @@
       "title": "查询分析任务",
       "purpose": "查询分析任务；按已授权流程及以下源契约提交或读取。",
       "authorization_scope": "核验功能权限及单位/案件/对象/用途；UUID、客户端case_id或已有URL不替代当前服务端授权。",
-      "implementation_status": "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API",
-      "scope_note": "当前无此正式业务端点完成证据",
-      "completion_and_followup": "按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。"
+      "implementation_status": "DEV_PARTIAL",
+      "scope_note": "2026-10-21源码已在独立业务工程挂载，0012仅用于新建隔离测试库；现有研发预览服务及其0011数据库未切换。DEV_PARTIAL不代表现有服务已上线、正式策略准入或整任务验收；实际命令、未通过项和同步范围见[本批记录](../../00-project/validation/t001-t123-catalog-read-report.json)",
+      "completion_and_followup": "必须提供已授权case_id；先逐项授权再分页并在同事务结束前复核。读取当前analysis_task和当前运行的最新节点尝试，不要求task_result已存在；排队或运行中状态不表示分析成功，不替代任务创建、完整DAG或重算生产者。完整门禁及任务验收另列。"
     },
     "getTask": {
       "title": "读取任务与运行状态",

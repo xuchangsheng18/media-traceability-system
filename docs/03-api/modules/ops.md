@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | [devLogin](../operations/devLogin.md) | POST /api/v1/auth/login | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [getCurrentUser](../operations/getCurrentUser.md) | GET /api/v1/auth/me | DEV_PARTIAL |
-| [listTasks](../operations/listTasks.md) | GET /api/v1/analysis/tasks | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listTasks](../operations/listTasks.md) | GET /api/v1/analysis/tasks | DEV_PARTIAL |
 | [getTask](../operations/getTask.md) | GET /api/v1/analysis/tasks/{id} | DEV_PARTIAL |
 | [cancelTask](../operations/cancelTask.md) | POST /api/v1/analysis/tasks/{id}/cancel | DEV_PARTIAL |
 | [rerunTask](../operations/rerunTask.md) | POST /api/v1/analysis/tasks/{id}/rerun | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |

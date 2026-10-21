@@ -47,3 +47,11 @@
 | OPERATION_TOKEN_INVALID | 403 | 凭据格式、摘要、主体或精确动作绑定不成立；不返回凭据或他案事实 |
 | OPERATION_TOKEN_STATE_CONFLICT | 409 | 凭据已消费、过期、批准/对象版本或恢复代际已变化，不重新签发或延长 |
 | OPERATION_TOKEN_UNAVAILABLE | 503 | 缺独立密钥、明确短期规则或受支持的案件动作适配，保持拒绝 |
+
+## 资产与任务目录读取
+
+| 代码 | HTTP | 含义 |
+| --- | --- | --- |
+| ASSET_OBJECT_BINDING_INVALID | 503 | 资产元数据与同单位、同案件的固定对象版本摘要或大小不一致，拒绝返回对象引用；不泄露存储路径或具体差异 |
+
+`READ_PARAMETER_UNSUPPORTED`继续用于重复或未知查询参数（422）；案件、身份、来源和游标错误复用既有对应错误码。接口范围及参数依据见[目录读取契约](catalog-read-contract-change.md)。

@@ -16,8 +16,8 @@
 | [createSource](../operations/createSource.md) | POST /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [listSources](../operations/listSources.md) | GET /api/v1/sources | DEV_PARTIAL |
 | [completeUpload](../operations/completeUpload.md) | POST /api/v1/uploads/{id}/complete | DEV_PARTIAL |
-| [listAssets](../operations/listAssets.md) | GET /api/v1/assets | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [getAsset](../operations/getAsset.md) | GET /api/v1/assets/{id} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listAssets](../operations/listAssets.md) | GET /api/v1/assets | DEV_PARTIAL |
+| [getAsset](../operations/getAsset.md) | GET /api/v1/assets/{id} | DEV_PARTIAL |
 | [downloadAsset](../operations/downloadAsset.md) | GET /api/v1/assets/{id}/content | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [searchImage](../operations/searchImage.md) | POST /api/v1/search/image | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [getSearchJob](../operations/getSearchJob.md) | GET /api/v1/search/jobs/{id} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |

@@ -253,11 +253,11 @@ def create_app(
             if request.method != "GET":
                 return _error(405, "METHOD_NOT_ALLOWED")
             try:
-                content = _read_build_file(root, relative)
+                static_content = _read_build_file(root, relative)
             except OSError:
                 return _error(404, "NOT_FOUND")
             media_type = mimetypes.guess_type(relative.name)[0] or "application/octet-stream"
-            return Response(content, media_type=media_type)
+            return Response(static_content, media_type=media_type)
         if request.method not in {"GET", "POST", "PUT"}:
             return _error(405, "METHOD_NOT_ALLOWED")
         content = await _body(request, max_body_bytes)

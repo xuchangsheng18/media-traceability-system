@@ -121,6 +121,9 @@ def lookup_spec(kind: str) -> LookupSpec:
         operations.add("listReviews")
     if kind == "task":
         operations.add("listPendingReviews")
+        operations.add("listTasks")
+    if kind == "asset":
+        operations.add("listAssets")
     if kind == "operation":
         from .permissions.object_facts import CASE_LISTS
 

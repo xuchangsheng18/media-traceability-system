@@ -33,6 +33,8 @@ COLLECTION_KINDS = MappingProxyType(
         "listAuditEvents": "audit_event",
         "listSources": "source",
         "listPolicies": "policy",
+        "listAssets": "asset",
+        "listTasks": "task",
     }
 )
 COLLECTION_TABLES = MappingProxyType(
@@ -43,6 +45,7 @@ COLLECTION_TABLES = MappingProxyType(
         "audit_event": ("audit_event", "event_id"),
         "source": ("source_registry", "source_id"),
         "policy": ("policy_registry", "policy_id"),
+        "asset": ("media_asset", "asset_id"),
     }
 )
 
@@ -195,7 +198,7 @@ def collection_metadata(
     assert root is not None
     database = cast(Any, root.database)
     port = SqlScopeLookup(database)
-    if target.kind in {"review", "task"}:
+    if target.kind in {"review", "task", "asset"}:
         return port.load(principal, operation, LookupKey(target.kind, target.object_id), connection=connection)
     base = port.load(
         principal,

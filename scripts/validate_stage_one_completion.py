@@ -1,13 +1,60 @@
 """Verify this four-item supplement and contract fix without inventing actual approvals."""
 import copy
+import hashlib
 import json
 import re
+from pathlib import Path
 
+import yaml
 from evaluate_acceptance_metrics import latency, self_test
 from generate_interface_docs import ROOT, digest, read
 from jsonschema import Draft202012Validator, FormatChecker
 from plan_project_schedule import build_plan
 from plan_project_schedule import outputs as schedule_outputs
+
+
+def verify_semantic_source_binding(path, expected, *, root=None):
+    """Keep the historical hash; allow only the separately confirmed query delta."""
+    root = Path(ROOT if root is None else root)
+    current_raw = (root / path).read_bytes()
+    if hashlib.sha256(current_raw).hexdigest() == expected:
+        return "UNCHANGED_SOURCE"
+    assert path == "docs/03-api/openapi.yaml", path
+    try:
+        adoption = json.loads((root / "docs/08-security/catalog-read-contract-adoption.json").read_text("utf8"))
+        assert adoption["status"] == "EXPLICIT_CONTRACT_CHANGE_AND_SOURCE_REGISTRATION_ONLY_NOT_POLICY_ADOPTION"
+        assert adoption["user_confirmation"] == "required_case_id_for_listAssets_and_listTasks_explicitly_confirmed_in_current_conversation"
+        assert isinstance(adoption["scope"], list) and len(adoption["scope"]) == 3
+        assert set(adoption["scope"]) == {"getAsset", "listAssets", "listTasks"}
+        assert all(adoption[field] is False for field in ["role_cells_changed", "formal_allow", "shared_adopted"])
+        assert adoption["current_bytes_hash_convention"] == "UTF8_text_normalized_to_LF_equal_to_staged_Git_blob_bytes"
+        binding = adoption["source_bindings"][path]
+        assert binding["prior_sha256"] == expected
+        assert binding["prior_copy"] == "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml"
+        previous = root / binding["prior_copy"]
+        assert previous.resolve().is_relative_to(root.resolve())
+        previous_raw = previous.read_bytes()
+        assert hashlib.sha256(previous_raw).hexdigest() == expected
+        current_raw = current_raw.replace(b"\r\n", b"\n")
+        assert hashlib.sha256(current_raw).hexdigest() == binding["current_sha256"]
+        prior = yaml.safe_load(previous_raw.decode("utf8"))
+        current = yaml.safe_load(current_raw.decode("utf8"))
+        required = {"name": "case_id", "in": "query", "required": True, "schema": {"type": "string", "format": "uuid"}}
+        for route in ["/assets", "/analysis/tasks"]:
+            prior_parameters = prior["paths"][route]["get"]["parameters"]
+            assert not any(item.get("name") == "case_id" for item in prior_parameters)
+            parameters = current["paths"][route]["get"]["parameters"]
+            added = [item for item in parameters if item.get("name") == "case_id"]
+            assert len(added) == 1 and added[0]["required"] is True
+            parameter = dict(added[0])
+            if "description" in parameter:
+                assert isinstance(parameter.pop("description"), str)
+            assert parameter == required
+            current["paths"][route]["get"]["parameters"] = [item for item in parameters if item.get("name") != "case_id"]
+        assert current == prior, "SEMANTIC_SOURCE_ADOPTION_EXCEEDS_CONFIRMED_CASE_PARAMETERS"
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, yaml.YAMLError):
+        raise AssertionError("SEMANTIC_SOURCE_ADOPTION_EVIDENCE_INVALID") from None
+    return "CONFIRMED_CASE_QUERY_ADDITION"
 
 
 def partial_task_ids(ledger):
@@ -76,7 +123,7 @@ def main():
         assert proposals["overrides"]["FR-ORIGIN-001"]["result_operations"] == []
         assert not {"cancelTask", "rerunTask"} & set(proposals["overrides"]["FR-OPS-002"]["entry_operations"])
         for path, expected in review["source_hashes"].items():
-            assert digest(path) == expected, path
+            verify_semantic_source_binding(path, expected)
         return {"reviewed_requirements": 36, "specific_flow_corrections_checked": 5, "formal_business_approval": False}
 
     check("36_semantic_reviews_and_specific_wrong_route_corrections", semantic)

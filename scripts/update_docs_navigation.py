@@ -50,6 +50,14 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t001-t123-implementation-inventory.md": "T001—T123逐项开发清单：原工作范围、表与版本迁移、HTTP操作、实际Python方法、证据和剩余工作；静态实现、运行验证和整任务验收分别记录。",
+        "03-development/t001-t123-implementation-inventory.json": "123任务及后端方法、SQL函数、表和路由的机器索引，绑定源摘要；包含完整验收/测试原要求，不从已有表或方法自动推导完成。",
+        "03-development/t001-t123-catalog-read-implementation-plan.md": "已授权资产详情、案件级资产与任务列表的落实计划；复用现有表，0012仅隔离验证，两个必填case_id已由用户确认。",
+        "03-api/catalog-read-contract-change.md": "两个列表必填case_id的确认和兼容影响；三个实际读取接口、授权与游标边界、迁移和现有运行库状态分列。",
+        "00-project/validation/t001-t123-catalog-read-report.json": "本批三项读取、0012及质量检查的实际结果；完整权限门禁、托管CI、源码同步与现有0011演示库状态分别记录。",
+        "08-security/catalog-read-contract-adoption.json": "固定六角色规则的旧源摘要与本批三个读取操作的新契约绑定；只记录已确认参数和挂载增量，不改变角色格或启用正式权限。",
+        "08-security/history/t001-t123-catalog-predecessor-openapi.yaml": "本批之前85327689提交的OpenAPI原字节快照，用于核对已确认六角色规则的历史来源，不作为当前调用契约。",
+        "08-security/history/t001-t123-catalog-predecessor-scope-matrix.json": "本批之前85327689提交的权限范围矩阵原字节快照；保留历史绑定，当前46项源码挂载与真实验证另列。",
         "03-development/t014-isolated-review-disposition.md": "最终独立复核的7项重要问题、一次TDD修复批次、人员/代际续期与实际来源/列表范围；实际结果和未验收边界分列。",
         "00-project/validation/t013-owner-mfa-negative-attestation.json": "徐昌胜本人反馈仅密码不能进入控制台、单次错误OTP被拒绝；与自动正向回执分开，未独立关联负向事件，不含秘密。",
         "09-testing/t014-isolated-operation-coverage.md": "73操作逐项区分43挂载/30未挂载、实际组件证据及HTTP允许边界；完整当前修订验证状态另列，246格不当HTTP通过数。",

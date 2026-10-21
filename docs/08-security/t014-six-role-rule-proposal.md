@@ -1,5 +1,7 @@
 # T014 六角色权限规则具体方案（隔离实现输入已确认）
 
+2026-10-21目录读取续批：getAsset、listAssets、listTasks按[已确认范围的计划](../03-development/t001-t123-catalog-read-implementation-plan.md)补充；两个列表必填case_id已获用户确认。本文原43/30及更早42/31均为各自历史源码快照，不能据此覆盖新路由计数；当前源码、逐项方法及实际验证分别见[123项清单](../03-development/t001-t123-implementation-inventory.md)和[本批回执](../00-project/validation/t001-t123-catalog-read-report.json)。0012只作源码及隔离测试，不表示共享权限或现有演示实例已采用。
+
 2026-10-20后续决定：用户另行回复“认可新计划，按P01—P07直接实施”，详见[下一批隔离实施计划](../03-development/t014-isolated-six-role-implementation-plan.md)。原PR01/02/04输入确认的范围不回写扩大；本次计划批准仍不启用共享权限或验收T013。
 
 2026-10-20，候选版本 `t014-six-role-proposal-20261020-v1`。开发负责人、指定复核人徐昌胜；用户已确认PR01、PR02、PR04作为下一批隔离实现与测试输入，未登记正式权限采用或整任务验收。适用当前 Linux／Miniforge py310／CPU、同一单位内部研发。Python 候选继续暂缓。本页补齐 T014-R01 的规则输入，不能关闭 T014 或替代 T013 本人交接。

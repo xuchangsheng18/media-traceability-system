@@ -11,6 +11,10 @@
 
 外部OpenAPI组件是API结构源；schemas/model是模型能力结构源；数据集结构在schemas/dataset。共享生成物应注明上游摘要与生成器，不得双向手改。跨来源重复结构变更要同步并校验引用。
 
+## 案件内资产和任务读取补充
+
+用户已确认两个列表增加必填case_id，具体参数、对象条件及实际状态见[契约变更](catalog-read-contract-change.md)。全部T001—T123的表、迁移、接口和Python方法见[逐项清单](../03-development/t001-t123-implementation-inventory.md)，不以方法定义或表结构代替实际验收。
+
 ## 本轮可运行入口
 
 [PoC接口及边界](poc-api.md)列出现有上传/任务/健康与内部CPU推理。候选73操作设计仍保持唯一来源，本轮没有声称全部实现；[生成流程](../03-development/contract-generation.md)说明两份API的TS类型与消息约定。

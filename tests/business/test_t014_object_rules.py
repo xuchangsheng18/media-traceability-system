@@ -233,8 +233,11 @@ def test_no_new_unmounted_operation_is_claimed(permission_context):
     }
     unmounted = {o["operation_id"] for p in SOURCE["permissions"] for o in p["operations"]} - expected
     assert len(expected) == 43 and len(unmounted) == 30
-    assert objects.supported_operation_ids == frozenset(expected)
-    assert not objects.supported_operation_ids & unmounted
+    added = {"getAsset", "listAssets", "listTasks"}
+    assert added <= unmounted
+    assert objects.supported_operation_ids == frozenset(expected | added)
+    assert len(unmounted - added) == 27
+    assert not objects.supported_operation_ids & (unmounted - added)
 
 
 def test_conditional_dependency_is_required_when_function_gate_allows(business_context):

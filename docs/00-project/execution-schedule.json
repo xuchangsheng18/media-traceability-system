@@ -15,7 +15,7 @@
     "unconstrained_dependency_critical_path_low_workdays": 76,
     "unconstrained_dependency_critical_path_high_workdays": 94,
     "full_tasks_verified": 0,
-    "partial_scope_tasks": 52
+    "partial_scope_tasks": 53
   },
   "workload_by_unsplit_source_role": {
     "架构/全栈": {
@@ -2963,6 +2963,30 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "backend/business_app/catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_app/catalog_router.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_migrations/0012_catalog_reads.sql",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "tests/business/test_catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/03-api/openapi.yaml",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
         }
       ],
       "actual_assignee_resource_id": null,
@@ -3081,8 +3105,33 @@
       "dependency_only_finish_low_day_offset": 11,
       "dependency_only_start_high_day_offset": 20,
       "dependency_only_finish_high_day_offset": 22,
-      "observed_verification_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
-      "partial_scope_evidence": [],
+      "observed_verification_status": "PARTIAL_VERIFIED_SCOPE",
+      "partial_scope_evidence": [
+        {
+          "path": "backend/business_app/catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_app/catalog_router.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "backend/business_migrations/0012_catalog_reads.sql",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "tests/business/test_catalog_reads.py",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/03-api/openapi.yaml",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+          "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        }
+      ],
       "actual_assignee_resource_id": null,
       "actual_assignee_name": null,
       "remaining_effort_hours": null,
@@ -7446,7 +7495,7 @@
   ],
   "source_hashes": {
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "docs/00-project/execution-planning-inputs.json": "08d7926f1ff2285cd80ae5932355f80dcca399e97e1e5228a9ee88baac8d5100",
+    "docs/00-project/execution-planning-inputs.json": "beed9ed8e02f475b62f96373ead59105fc065874072261b7bde570f61cab508e",
     "scripts/plan_project_schedule.py": "edf0e452a6877d6ea918a1369fad0af66c261f4768c7fa3be869715d240b38fe"
   }
 }

@@ -29,12 +29,25 @@ TARGETS = [
     "tests/business/test_t014_duties.py",
     "tests/business/test_t014_revocation.py",
     "tests/business/test_t014_work.py",
+    "tests/business/test_catalog_reads.py",
     "tests/business/test_migrations.py::test_empty_database_migrates_and_replay_noops",
     "tests/business/test_migrations.py::test_work_role_facts_upgrade_is_atomic_and_function_only",
+    "tests/business/test_migrations.py::test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables",
 ]
 ROLES = json.loads((ROOT / "docs/08-security/access-control-model.json").read_text(encoding="utf8"))["roles"]
 REQUIRED_CASES = frozenset(
     [
+        ("tests.business.test_catalog_reads", "test_asset_detail_is_actual_metadata_and_fixed_object_version"),
+        ("tests.business.test_catalog_reads", "test_asset_list_reads_current_authorized_database_rows"),
+        ("tests.business.test_catalog_reads", "test_task_list_includes_current_task_without_result"),
+        (
+            "tests.platform.test_t014_six_role",
+            "test_catalog_read_adoption_preserves_roles_and_only_approved_query_scope",
+        ),
+        (
+            "tests.business.test_migrations",
+            "test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables",
+        ),
         ("tests.platform.test_t014", "test_business_401_has_bearer_challenge"),
         ("tests.platform.test_t014", "test_duplicate_authorization_header_is_rejected"),
         ("tests.platform.test_t014", "test_request_reuses_exact_principal_and_rejects_changed_headers_or_expiry"),
@@ -46,7 +59,7 @@ REQUIRED_CASES = frozenset(
             "test_permission_facts_and_least_privilege_survive_independent_restore",
         ),
         ("tests.business.test_t014_permissions", "test_directory_facts_never_allow_without_explicit_policy"),
-        ("tests.business.test_t014_runtime", "test_all_43_real_resource_requests_deny_before_business_side_effects"),
+        ("tests.business.test_t014_runtime", "test_all_46_real_resource_requests_deny_before_business_side_effects"),
         (
             "tests.business.test_t014_runtime",
             "test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
@@ -195,10 +208,10 @@ def validate_results(junit: Path, operation_ids: set[str]) -> dict[str, Any]:
     checks: dict[str, dict[str, str]] = {}
     for operation in sorted(operation_ids):
         names = {
-            "unauthenticated": f"test_all_43_mounted_business_operations_require_authentication[{operation}]",
-            "permission_denied": f"test_all_43_operations_deny_missing_permission[{operation}]",
-            "policy_missing": f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
-            "authority_unavailable": f"test_all_43_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
+            "unauthenticated": f"test_all_46_mounted_business_operations_require_authentication[{operation}]",
+            "permission_denied": f"test_all_46_operations_deny_missing_permission[{operation}]",
+            "policy_missing": f"test_all_46_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
+            "authority_unavailable": f"test_all_46_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
         }
         if any(rows[("tests.platform.test_t014", name)] != 1 for name in names.values()):
             raise RuntimeError("T014_OPERATION_MATRIX_INCOMPLETE")
@@ -224,6 +237,9 @@ def source_context() -> dict[str, Any]:
         ROOT / "docs/08-security/access-control-model.json",
         ROOT / "docs/08-security/t014-interface-scope-matrix.json",
         ROOT / "docs/08-security/t014-six-role-rule-proposal.json",
+        ROOT / "docs/08-security/catalog-read-contract-adoption.json",
+        ROOT / "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml",
+        ROOT / "docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json",
         ROOT / "config/locks/requirements-py310.lock",
     ]
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -238,6 +254,9 @@ def source_context() -> dict[str, Any]:
             "docs/08-security/access-control-model.json",
             "docs/08-security/t014-interface-scope-matrix.json",
             "docs/08-security/t014-six-role-rule-proposal.json",
+            "docs/08-security/catalog-read-contract-adoption.json",
+            "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml",
+            "docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json",
         ],
         cwd=ROOT,
         text=True,
@@ -280,7 +299,7 @@ def mounted_catalog() -> tuple[set[str], list[str]]:
                         raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
                     operations.add(identifier)
             catalog = load_catalog(ROOT)
-            if len(operations) != 43 or len(catalog) != 73 or len(ROLES) != 6:
+            if len(operations) != 46 or len(catalog) != 73 or len(ROLES) != 6:
                 raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
             return operations, sorted(set(catalog) - operations)
         finally:

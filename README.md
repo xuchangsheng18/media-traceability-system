@@ -1,5 +1,7 @@
 # 短视频与图片智能识别溯源系统
 
+T001—T123开发落实：[全部任务的表／接口／方法和状态](docs/03-development/t001-t123-implementation-inventory.md)、[本批读取计划](docs/03-development/t001-t123-catalog-read-implementation-plan.md)、[实际验证](docs/00-project/validation/t001-t123-catalog-read-report.json)。建表、方法源码、隔离验证和运行实例分别判定。
+
 2026-10-21页面优化：[本地12页PPT与实际页面对照](docs/03-development/ppt-interface-alignment.md)、[本批验证及同步状态](docs/00-project/validation/ppt-interface-alignment.json)。现有页面按原型统一布局；待接入模块单列，业务权限与接口保持原行为。
 
 2026-10-21研发演示交付：[本批前后端计划](docs/03-development/development-delivery-implementation-plan.md)、[启动与范围](docs/10-deployment/business-development-runbook.md)、[实际验证](docs/00-project/validation/development-delivery-validation.json)。工作台增加任务与结果、案件待复核队列；Linux演示入口托管真实前端构建并转发后端。实际启动、源码及CI状态见回执；真实身份/授权尚未装配，默认拒绝不当正式业务通过。[上一批记录](docs/00-project/validation/development-continuation-report.json)保留。

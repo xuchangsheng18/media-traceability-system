@@ -1,6 +1,6 @@
 # 业务接口数据结构详表
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f`。契约未冻结，文档存在不代表接口已实现。
 
 共102个源组件；先读[整体说明](system-interface-specification.md)。每个组件给出字段表及完整原始Schema；required、null、枚举、引用、条件组合均保留。字段语义尚未独立定义的情况明确标记，不能把UUID当授权或把0—1分数当业务/法律概率。
 

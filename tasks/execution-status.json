@@ -3419,16 +3419,47 @@
       "task_id": "T030",
       "name": "开发媒体资产管理页面",
       "card": "tasks/frontend/T030.md",
-      "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "尚无本任务已验证交付",
-      "summary_remaining": "完成开发媒体资产管理页面的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "summary_completed": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
+      "summary_remaining": "补媒体资产管理前端、筛选与详情交互、版本/血缘/来源和权限状态展示；受控下载、下载审计、页面权限/E2E及源验收仍待",
+      "completed_steps": [
+        {
+          "description": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/catalog_reads.py",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "backend/business_app/catalog_router.py",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "backend/business_migrations/0012_catalog_reads.sql",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "tests/business/test_catalog_reads.py",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "docs/03-api/openapi.yaml",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "展示媒体元数据、版本、血缘、来源和权限状态。"
+          "description": "完成媒体资产管理前端页面、筛选与详情交互，以及版本、血缘、来源和权限状态展示；本批仅补列表/详情后端支持。"
         },
         {
           "category": "测试",
@@ -3443,7 +3474,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T031",
@@ -3625,8 +3656,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "固定历史运行、结果及当前执行节点/事件读取子范围已有验证",
-      "summary_remaining": "补任务列表分页、真实DAG进度计算与前端；验证同run进度单调/重算新版本分列及全部权限和错误场景",
+      "summary_completed": "固定历史运行、结果及当前执行节点/事件读取子范围已有验证；已实现案件级当前任务列表分页：逐项权限与来源核验、无历史结果任务、当前运行最新节点尝试投影及事务提交前复核；不代表真实DAG进度或任务生产者完成",
+      "summary_remaining": "补真实DAG进度计算与前端接入；验证同run进度单调、重算新版本分列及全部适用权限和错误场景；任务创建/生产者另按T034等依赖实施",
       "completed_steps": [
         {
           "description": "固定历史运行、结果及当前执行节点/事件读取子范围已有验证",
@@ -3649,12 +3680,42 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "description": "已实现案件级当前任务列表分页：逐项权限与来源核验、无历史结果任务、当前运行最新节点尝试投影及事务提交前复核；不代表真实DAG进度或任务生产者完成",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/catalog_reads.py",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "backend/business_app/catalog_router.py",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "backend/business_migrations/0012_catalog_reads.sql",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "tests/business/test_catalog_reads.py",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "docs/03-api/openapi.yaml",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+              "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补任务列表分页、真实DAG进度计算与前端"
+          "description": "补真实DAG进度计算与前端接入；案件级当前任务列表分页已由本批后端子范围提供，不能代替真实任务生产者和完整进度验证。"
         },
         {
           "category": "实施/验证",
@@ -3665,7 +3726,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T036",
@@ -8280,6 +8341,20 @@
       "evidence_ref": "docs/00-project/validation/t015-role-assignment.json",
       "completion_counts_changed": false,
       "actual_review_or_acceptance_recorded": false
+    },
+    {
+      "id": "catalog-read-partial-scope-20261021",
+      "observed_date": "2026-10-21",
+      "task_ids": [
+        "T030",
+        "T035"
+      ],
+      "scope": "verified_isolated_backend_read_substeps_only",
+      "evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+      "owners_inferred": false,
+      "full_task_acceptance_asserted": false,
+      "Python_candidates_created": false,
+      "existing_preview_or_shared_database_migrated": false
     }
   ],
   "authorized_development_scope": {
@@ -8476,5 +8551,19 @@
     "shared_services_adopted": false,
     "whole_task_verified": false,
     "Python_candidates_created": false
+  },
+  "latest_catalog_read_continuation": {
+    "id": "catalog-read-partial-scope-20261021",
+    "observed_date": "2026-10-21",
+    "task_ids": [
+      "T030",
+      "T035"
+    ],
+    "scope": "verified_isolated_backend_read_substeps_only",
+    "evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+    "owners_inferred": false,
+    "full_task_acceptance_asserted": false,
+    "Python_candidates_created": false,
+    "existing_preview_or_shared_database_migrated": false
   }
 }

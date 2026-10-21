@@ -1,0 +1,1141 @@
+{
+  "status": "PASS_LIMITED_CATALOG_READ_SCOPE_NOT_ALL_REQUIRED_GATES_OR_123_TASK_ACCEPTANCE",
+  "observed_at": "2026-10-21T06:54:12.982083+00:00",
+  "base_commit": "85327689fb68d782bde9c5f3a132b31c908dab74",
+  "scope": {
+    "authorized_tasks": "T001-T123",
+    "current_code_batch": [
+      "getAsset",
+      "listAssets",
+      "listTasks"
+    ],
+    "full_123_completion_asserted": false
+  },
+  "user_decision": {
+    "required_case_id_on_listAssets_and_listTasks": "explicitly_approved_in_current_conversation",
+    "Python_candidates": "still_deferred",
+    "shared_environment_or_original_100_package_lock_change": false
+  },
+  "baseline": {
+    "canonical_external_operations": 73,
+    "mounted_business_external_operations": 43,
+    "unmounted_business_operations": 30,
+    "dictionary_business_tables": 62,
+    "dictionary_fields": 825,
+    "migration_versions": [
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0005",
+      "0006",
+      "0007",
+      "0008",
+      "0009",
+      "0010",
+      "0011"
+    ],
+    "migrated_mt_tables_at_0011": 64,
+    "migrated_columns_at_0011": 861,
+    "existing_runtime_preview_14212_migration": "0011",
+    "this_batch_migration_0012_adopted_in_existing_preview": false
+  },
+  "checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": [
+        "All checks passed!"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": [],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/stage-three-type-tools/bin/python",
+        "-m",
+        "mypy",
+        "--config-file",
+        "config/mypy.ini",
+        "--cache-dir",
+        "/workspace/glwy/runtime/media-traceability-system/t123-verification-15fd3c9bb373/.type-cache",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": [
+        "Success: no issues found in 215 source files"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/platform/test_development_inventory.py",
+        "tests/stage_three/test_ci_job_boundaries.py",
+        "tests/platform/test_poc_frontend.py",
+        "tests/platform/test_business_demo_gateway.py",
+        "tests/platform/test_t014_gate.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": [
+        "237 passed, 1 warning in 4.82s"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/business/test_catalog_reads.py",
+        "tests/business/test_migrations.py::test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": [
+        "40 passed, 1 warning in 328.06s (0:05:28)"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_t015_scope.py",
+        "run"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": {
+        "status": "PASS",
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_t016_tokens.py",
+        "run"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": {
+        "status": "PASS",
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/business/test_migrations.py",
+        "tests/business/test_remaining_contracts.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "safe_summary": [
+        "28 passed, 1 warning in 309.75s (0:05:09)"
+      ],
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/business/test_migrations.py::test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables"
+      ],
+      "exit_code": 0,
+      "source_sha256": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
+      "summary": [
+        "1 passed in 28.49s"
+      ]
+    }
+  ],
+  "formal_accepted": false,
+  "runtime_status": "existing_preview_and_CPU_demo_unchanged",
+  "remaining": {
+    "unmounted_business_operations": 27,
+    "unmounted_ids": [
+      "createReport",
+      "createReportDraft",
+      "createSource",
+      "createTask",
+      "decidePropagationEdge",
+      "devLogin",
+      "downloadAsset",
+      "downloadReport",
+      "extractClaims",
+      "getIndex",
+      "getModelHealth",
+      "getReport",
+      "getSearchJob",
+      "health",
+      "listEvaluations",
+      "listModels",
+      "recordEvaluation",
+      "registerModel",
+      "requestFeedback",
+      "rerunTask",
+      "rolloutModel",
+      "sealEvidence",
+      "searchImage",
+      "searchImageRegion",
+      "searchVideo",
+      "switchIndex",
+      "verifyClaim"
+    ],
+    "full_T001_T123_acceptance": false,
+    "current_runtime_still_0011": true,
+    "task_or_model_producers_and_frontend_completion": "Follow the individual task ledger; the catalog read increment does not implement DAG progress, task production, models, controlled download or audit UI",
+    "performance": "Each list page authorizes the case candidate set before paging; large-case latency and throughput remain unverified",
+    "Python_candidates": "still_deferred"
+  },
+  "actual_running_database_inventory": {
+    "status": "PASS_READ_ONLY_RUNNING_PREVIEW_CATALOG_NOT_BUSINESS_ACCEPTANCE",
+    "observed_at": "2026-10-21T05:37:54.142003+00:00",
+    "scope": "existing_development_delivery_preview_at_14212_not_old_14202_or_PoC",
+    "server_version_num": 160015,
+    "table_count": 64,
+    "column_count": 861,
+    "tables": [
+      {
+        "name": "analysis_task",
+        "columns": 18
+      },
+      {
+        "name": "approval_decision",
+        "columns": 13
+      },
+      {
+        "name": "approval_request",
+        "columns": 18
+      },
+      {
+        "name": "asset_lineage",
+        "columns": 13
+      },
+      {
+        "name": "audit_event",
+        "columns": 16
+      },
+      {
+        "name": "audit_export",
+        "columns": 13
+      },
+      {
+        "name": "authorization_epoch",
+        "columns": 6
+      },
+      {
+        "name": "case_membership",
+        "columns": 10
+      },
+      {
+        "name": "cases",
+        "columns": 8
+      },
+      {
+        "name": "claim",
+        "columns": 15
+      },
+      {
+        "name": "claim_evidence_relation",
+        "columns": 12
+      },
+      {
+        "name": "cluster_member",
+        "columns": 11
+      },
+      {
+        "name": "content_cluster",
+        "columns": 10
+      },
+      {
+        "name": "content_item",
+        "columns": 14
+      },
+      {
+        "name": "dataset_version",
+        "columns": 13
+      },
+      {
+        "name": "event_receipt",
+        "columns": 10
+      },
+      {
+        "name": "evidence_item",
+        "columns": 22
+      },
+      {
+        "name": "evidence_package",
+        "columns": 16
+      },
+      {
+        "name": "feature",
+        "columns": 13
+      },
+      {
+        "name": "feedback_request",
+        "columns": 14
+      },
+      {
+        "name": "finding_evidence",
+        "columns": 10
+      },
+      {
+        "name": "first_source_candidate",
+        "columns": 17
+      },
+      {
+        "name": "first_source_ranking",
+        "columns": 16
+      },
+      {
+        "name": "idempotency_record",
+        "columns": 13
+      },
+      {
+        "name": "import_item",
+        "columns": 13
+      },
+      {
+        "name": "import_job",
+        "columns": 9
+      },
+      {
+        "name": "index_registry",
+        "columns": 13
+      },
+      {
+        "name": "keyframe",
+        "columns": 13
+      },
+      {
+        "name": "media_asset",
+        "columns": 20
+      },
+      {
+        "name": "model_evaluation",
+        "columns": 15
+      },
+      {
+        "name": "model_registry",
+        "columns": 17
+      },
+      {
+        "name": "model_release",
+        "columns": 14
+      },
+      {
+        "name": "object_version",
+        "columns": 16
+      },
+      {
+        "name": "operation_token",
+        "columns": 27
+      },
+      {
+        "name": "organizations",
+        "columns": 7
+      },
+      {
+        "name": "outbox_event",
+        "columns": 13
+      },
+      {
+        "name": "package_item",
+        "columns": 11
+      },
+      {
+        "name": "permissions",
+        "columns": 8
+      },
+      {
+        "name": "policy_registry",
+        "columns": 11
+      },
+      {
+        "name": "propagation_edge",
+        "columns": 14
+      },
+      {
+        "name": "propagation_node",
+        "columns": 10
+      },
+      {
+        "name": "report",
+        "columns": 16
+      },
+      {
+        "name": "report_evidence",
+        "columns": 9
+      },
+      {
+        "name": "review_evidence",
+        "columns": 9
+      },
+      {
+        "name": "review_record",
+        "columns": 15
+      },
+      {
+        "name": "risk_finding",
+        "columns": 20
+      },
+      {
+        "name": "role_permissions",
+        "columns": 8
+      },
+      {
+        "name": "roles",
+        "columns": 8
+      },
+      {
+        "name": "search_job",
+        "columns": 12
+      },
+      {
+        "name": "shot",
+        "columns": 12
+      },
+      {
+        "name": "source_match",
+        "columns": 21
+      },
+      {
+        "name": "source_registry",
+        "columns": 14
+      },
+      {
+        "name": "tamper_finding",
+        "columns": 20
+      },
+      {
+        "name": "task_event",
+        "columns": 13
+      },
+      {
+        "name": "task_evidence",
+        "columns": 9
+      },
+      {
+        "name": "task_node_run",
+        "columns": 20
+      },
+      {
+        "name": "task_result",
+        "columns": 13
+      },
+      {
+        "name": "task_run",
+        "columns": 13
+      },
+      {
+        "name": "text_segment",
+        "columns": 17
+      },
+      {
+        "name": "upload_part",
+        "columns": 12
+      },
+      {
+        "name": "upload_session",
+        "columns": 18
+      },
+      {
+        "name": "user_identities",
+        "columns": 13
+      },
+      {
+        "name": "user_roles",
+        "columns": 9
+      },
+      {
+        "name": "users",
+        "columns": 8
+      }
+    ],
+    "migrations": [
+      {
+        "version": "0001",
+        "sha256": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa"
+      },
+      {
+        "version": "0002",
+        "sha256": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953"
+      },
+      {
+        "version": "0003",
+        "sha256": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6"
+      },
+      {
+        "version": "0004",
+        "sha256": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2"
+      },
+      {
+        "version": "0005",
+        "sha256": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f"
+      },
+      {
+        "version": "0006",
+        "sha256": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd"
+      },
+      {
+        "version": "0007",
+        "sha256": "e7191483aa27ddb03357c0ab9dde810cd048b9f844ee756ff46dd1dd29a6f872"
+      },
+      {
+        "version": "0008",
+        "sha256": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc"
+      },
+      {
+        "version": "0009",
+        "sha256": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588"
+      },
+      {
+        "version": "0010",
+        "sha256": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3"
+      },
+      {
+        "version": "0011",
+        "sha256": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd"
+      }
+    ],
+    "backend_source_commit": "8b7fc475b5a0e8c3e7687559a6f09b65e39e1373",
+    "frontend_source_commit": "8c37e9da625d0a4043d5bd40f471063901014443",
+    "business_rows_read": false,
+    "read_only_transaction": true,
+    "migrations_or_data_changed": false,
+    "secrets_published": false
+  },
+  "isolated_validation_snapshot_commit": "1465cd3f56dc5841360df9d7774d7340f3066eae",
+  "isolated_snapshot_is_publication_commit": false,
+  "source_hash_encoding": "sha256_of_tested_Linux_and_staged_Git_LF_bytes",
+  "source_sha256": {
+    "backend/business_app/__init__.py": "7a6002b1296632af7b86e67eaf76fb9a9cc6f687cd02646c74030a4d7020a84a",
+    "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
+    "backend/business_app/catalog_reads.py": "1f077a10ca7c87552e2c8125c7e30cf45338c556ffe72e57ac4a0230a2c4857d",
+    "backend/business_app/catalog_router.py": "272a1bc3896a324407933db7d246431ae95df49a02124cac547ace1687c0988d",
+    "backend/business_app/contracts.py": "15dad14f4a3ebca192c95bd7f175939202c7f479fa1a0973165aa89824b55f4d",
+    "backend/business_app/controls/__init__.py": "06f986fe050ef876c1ed0677bf6b5088cfa889b0c5ddbcb3b88590a0de8e2205",
+    "backend/business_app/controls/approvals.py": "d2de6345e79c49a1c13f9e19e1f9003f499d523ef3cf5ae5adcfe51d55839c2c",
+    "backend/business_app/controls/common.py": "a6ef8b1f978848777c1be07d22a864ea7c2017f11d8b7682076dd6b569e16cc5",
+    "backend/business_app/controls/definitions.py": "449f2780668302797eeb175c05a9bb10d05cdfe8b645e6d231e65fac5e48f03f",
+    "backend/business_app/controls/execution.py": "be55c6a24d7dec6994e17a4a651a6621ceac3dc9baaf598d5a4f9cda6f5fc291",
+    "backend/business_app/controls/exports.py": "4ebef7e17b1022b0122a80b43967d6bcfc94e3e4e27141057936aeaeeb879cdd",
+    "backend/business_app/controls/imports.py": "6213efba2a5d807c5a2f3a8b9d2f199a64a93645c478d7faa5e19f9de5622789",
+    "backend/business_app/controls/operation_tokens.py": "36210cabf35a641ba3dc5ab61a7488d00b160deae328a4189ff79e6aa1362b5d",
+    "backend/business_app/controls/providers.py": "648f9c1fd0a442dcfb3583eab642435190a98134b5726905d3e2404910edc280",
+    "backend/business_app/controls/receipts.py": "00ce7ad5e257f050bd27dc212473026335f86be0108e2f6df03156b3f557137f",
+    "backend/business_app/controls/reviews.py": "499abde4edf583bfbaa8838ce6bd007a96c75f4a5f57d6fd900ed17cda974381",
+    "backend/business_app/controls/router.py": "aeaba6bc3947d287a693479e4e1833023f0447328a79332c008a2207eb6352de",
+    "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
+    "backend/business_app/data_scope.py": "8c9ef9f3dc723e4835cccc9992a6451e4cc23e8ba9fc81ebd22f63d7fd98ba0d",
+    "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
+    "backend/business_app/development.py": "3fabb34ae818f385fed5e7210fb6b8dfb6a47eaa5d657f1657cba8f3d096388b",
+    "backend/business_app/errors.py": "acc0a41efe59c4186ea63cf069569ee72b91cdbfd88312b2d8f38d8bd004c6a8",
+    "backend/business_app/history/__init__.py": "d799250f4999412e03715020266a93680781d158ebfe21360da074b69a9fe7c3",
+    "backend/business_app/history/projection.py": "6fcb54b7255bbb894b848bb28ad119a32493dd4f06e3e44b220dad27784a62f9",
+    "backend/business_app/history/repository.py": "35edca3a3346acc947c1d91258b5ff49737d280f417a10d6030b88eb79c3a0b2",
+    "backend/business_app/history/router.py": "c0c71a38cf03ba7d580e9962574ebfaa2558a5c17586edb067fa9ab6d8e7a162",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
+    "backend/business_app/inference.py": "612d6d4006c03110125db8e56f09b8586c0da59b335f0addc5472a1d5c330f2e",
+    "backend/business_app/main.py": "b4603f0c726d56378317f909811eb05d61512f30ba65ffc3487f9e1a94908cab",
+    "backend/business_app/objects.py": "7e346db512a59b7b7b2444fe1bc3a7a169e321a57669ca15054e0916d3ef33a3",
+    "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
+    "backend/business_app/permissions/catalog.py": "ce16d1d6537ba7ec434ce87cfa40bb6ef4ff6aea854922ded70204e66a37634b",
+    "backend/business_app/permissions/conditional.py": "caeec59573ac4bfff77cda7d72be7321863936ff13eeeabb975b2d29da043f5c",
+    "backend/business_app/permissions/context.py": "a5443dece34062c1ba1e768be1a86cc58042c04da4570691065ad12412080e5b",
+    "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
+    "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
+    "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+    "backend/business_app/permissions/guard.py": "cce4b8b19e88c9590e19d9404e8572e6084d5924ebde4489c8c0f0ab4b7eb4bb",
+    "backend/business_app/permissions/object_facts.py": "cf3d5c0893285e1f499a893218790067bdfce23239888b993d3651bece77e9ae",
+    "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
+    "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
+    "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
+    "backend/business_app/permissions/six_role.py": "c7ab275688ab72be4aff8d0f3597bd6def1529e4e07ea9b195fc0dda34435d96",
+    "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
+    "backend/business_app/permissions/work.py": "cd481f6fab1266669a827589e3080b0f2126514683fccedc495b691b8e368e59",
+    "backend/business_app/permissions/work_subject.py": "dd00ff09568ab0baaa0213d3c158928e79a9eb267dd38f76268282bb3fe5b85b",
+    "backend/business_app/scope_catalog.py": "e677bcc3dd907575c56fb303201857e9422c53052990800b6f83783797c36f90",
+    "backend/business_app/scope_collections.py": "47ec59ca88bfd8d3a154da58ac83a6444bdb4f60a83a3a825df92397a6f32dbf",
+    "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
+    "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
+    "backend/business_app/scoped_objects.py": "5e30fafdb32c4596c0b8f66bb393b13f9518d913304e6c54945309a930a75c05",
+    "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
+    "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+    "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
+    "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
+    "backend/business_app/uploads/repository.py": "021ce78c519af548eaa19b0a12ef270148b00bd32703ff231ac3573433a20c9d",
+    "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
+    "backend/business_app/uploads/service.py": "8d3adfc488ced313b9be547ae29fa713c18408bab5b481bec24616bcf3a5508e",
+    "backend/business_app/uploads/validator.py": "d7fed4480d08e337aa4804e5da7dd724e31988b9a3a9e9da879c96e13f4574da",
+    "backend/business_app/uploads/worker.py": "909b1eebe1cf42be934631879aff429837507ee9537ee1ea577607a103b3aff8",
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+    "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_migrations/0006_permission_lookup.sql": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+    "backend/business_migrations/0007_role_facts.sql": "e7191483aa27ddb03357c0ab9dde810cd048b9f844ee756ff46dd1dd29a6f872",
+    "backend/business_migrations/0008_authorization_fence.sql": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+    "backend/business_migrations/0009_work_role_facts.sql": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588",
+    "backend/business_migrations/0010_data_scope.sql": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+    "backend/business_migrations/0011_operation_token.sql": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd",
+    "backend/business_migrations/0012_catalog_reads.sql": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
+    "backend/business_migrations/__init__.py": "364ce00247004a2405578bd44bc4cc8e88efd9e7a3e7014f0a7d49dcfa28cc8e",
+    "backend/business_migrations/baseline-source.json": "a45459a1869a35a30631259cc14870a936593e1a95d3f8c82b12016a4850ac84",
+    "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3",
+    "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+    "config/stage-three-profile.json": "ab132e92e45de601213a60ac60136c7b93ce8b4bf14e16b872b9a372025abc0a",
+    "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
+    "scripts/business_demo_gateway.py": "51226f0e9d32967b9a894de1347b4a185a0a057f09e1a7e7f2a2f1b53a174c81",
+    "scripts/verify_poc.py": "3c5ce38e5fdda30d4e38a39c4c093151857bdf901a73827858d5eaecddb421ff",
+    "scripts/verify_t014_permissions.py": "bbf728de95d1ca2b8e7a1b0043c8f7e184ef9449e1e637f041841663959d92dc",
+    "scripts/verify_t015_scope.py": "d3608867807a318a5d28b06941429f9d154246a0d606eaf7b847c126518a3316",
+    "scripts/verify_t016_tokens.py": "86d12dcdcf391275234b3c69a19a3e3184387b81db1360d5b713a8ca01236bbb",
+    "tests/business/__init__.py": "b1c27cb798a176b7d2620f0bbd41157b2d339b70e05d2c6738a78819c369690d",
+    "tests/business/conftest.py": "e46b12523aa64e8ab9d0009d7e7a85eda0519d2636c7f5d2c02164283561e424",
+    "tests/business/history_fixtures.py": "229e47fe23c042f950ea37a24dc8e21f7c5b60936b001e597ffc2e7b2c8e2574",
+    "tests/business/http_fixtures.py": "0aaa548c6e36c22332d7294a06fc35d3e21ed5f60564e71f0d6d0b75db9b0a2e",
+    "tests/business/scoped_history_fixtures.py": "3e0c4f9cf45f078d9f36d1953758345430c85ef7a62852d18cbd362388454be4",
+    "tests/business/t014_positive_fixtures.py": "4fa4ce5d75faf2cc70db501e0bee01e8f834364456d9346d6427b0e57b2acaa9",
+    "tests/business/t014_requests.py": "e037031b6a6855af48829d4ca1bef32dcc4eb983d15f62963d817b2fedeb4591",
+    "tests/business/test_adapters_and_execution.py": "b1ef5484a2c70967833def33627a289c1b92dd41e9df57bc8cbc5caef84995a5",
+    "tests/business/test_authorization.py": "af601da95d8c7928c0b87a60965b07d9ad2a69190427ebf5c2baf295f88d74f2",
+    "tests/business/test_catalog_reads.py": "01c69639059cefdd38c57581f642f820228c01d45dc0209db8508b4f227c6d31",
+    "tests/business/test_control_contract_integrity.py": "689e91e8656a36438f4288cc7ef5136fc8dacd8686ebb8f268a8948e189f0428",
+    "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e",
+    "tests/business/test_cursor_canonicality.py": "47bd4d4db811e1a9ed99bf75fbe84c73ed337e6c529b28e7000b69e170d4e72d",
+    "tests/business/test_development_startup.py": "eb6ee136f7be98c8fb7bc049728885444fabd07a87a9ddf8eb03b8983fea115e",
+    "tests/business/test_execution_cancel.py": "48dc5b0e008824903622c701aa971fa65642adf0c4725255c4e042246d958421",
+    "tests/business/test_foundation_errors.py": "6620ae6bf2bf458d465ea81ce90d9f258bca8f803c0a7f16e3938f3cf14a5384",
+    "tests/business/test_history.py": "df4574a3a5c49ac716a8e0f4fe9ed201fdb1c9427ef8822370c80816b3b37ae8",
+    "tests/business/test_history_http.py": "a2b7e0b080ca7cd1e5751d3c662b4ee7a6aa65ae31be31962b4c384375bcc246",
+    "tests/business/test_identity_directory.py": "54cabbee2d42a225b244275e78512336c8b3245f26843c1d2a56b9b1ff6d0aa2",
+    "tests/business/test_migrations.py": "8917bb9196e93323f30bfeb7ac7123c9bd4fbb862319464d8078915c60589d3d",
+    "tests/business/test_recovery.py": "ce7e51beac7c789c1daf5cfe1e92e14975b4540d626d4c6e3ae4d2b5ce7c9017",
+    "tests/business/test_remaining_contracts.py": "5b758c8d8ca2d72e332052a5c04be4b35aa06616e35f42cd2ce82e1f4ba73b6d",
+    "tests/business/test_response_privacy.py": "a8dbe29ac73c1efaedaf6ad14ba3b4f3cce050116184273e091b4504f1cd44b7",
+    "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
+    "tests/business/test_sql_foundation.py": "1aef6ad7575fcde30161ecd6795894fe35d1c7b7d84167833618315ee3044c43",
+    "tests/business/test_t014_duties.py": "c70a25c9ef0fa9357c8a2afd465dfd296e5fff925183cda8cc1053bc253005c1",
+    "tests/business/test_t014_indirect_reads.py": "8e891da821935e0713093f81fa7602d87a700b36cf688f6ae262767359c9a44e",
+    "tests/business/test_t014_object_rules.py": "69a684089b893d3441816d2cab8bc4c36a8d6dbd52cb4b8f72b6790036d12452",
+    "tests/business/test_t014_permissions.py": "5c7d031a3e48dd55c5bcf197354bd3514c9109c3b981c049a9e1e8629ea1ec2b",
+    "tests/business/test_t014_revocation.py": "48ca36b44401d650b3c94b7a6a964ffe56f6b85e6de05534007f3769d1ae950f",
+    "tests/business/test_t014_role_facts.py": "a0ab89ec237d1f42c267bf5c2db7f942e0bbce05d30056faa77089ad5739e598",
+    "tests/business/test_t014_runtime.py": "da8ac04b9c230148673fc0adf2cb6bf233c2b5e43d40f664b2458a2ac9855a72",
+    "tests/business/test_t014_work.py": "4cfea870ed32a629ca6a1566a8539a10cbb2adc6749578ff0cd8673c8f8bf9fa",
+    "tests/business/test_t015_collections.py": "49261d40126c570e2f80a008dc8d34fe6864196adae4ca3f0a3582ae1227cc36",
+    "tests/business/test_t015_metadata_timestamps.py": "2052aa2a6926cd0b9175e5ca79b694aa8f9596b007c53ba2fdd79a7e154b0033",
+    "tests/business/test_t015_scope_http.py": "87597e62f7a92f9548ef8c26c1ecd56cc5f7ad1c308ed988fdd48278bf4acbe3",
+    "tests/business/test_t015_scope_owner.py": "110dfb4d411665ff872972cb9842a1e895ad7f65e78776a4005d9d5bad8fb5fd",
+    "tests/business/test_t015_scope_recovery.py": "9db30beda74f4230e290d67a1bac8cb2ed5e25ff67a886bbc214164966ae5bf1",
+    "tests/business/test_t015_scope_sql.py": "730c716d86400b4ab9b9934801fb3d58c39bc5ec959897145ac54eafbcce9e9d",
+    "tests/business/test_t015_scoped_objects.py": "4d69b3a69bb37eaa346a9fbe52981aeec0b901c025510b647b31692b86027908",
+    "tests/business/test_t016_operation_token_recovery.py": "5c88ac98193ed4fa92cbc0691f734d15c86b0f8b3b81461ad5c2f5fcfca85459",
+    "tests/business/test_t016_operation_tokens.py": "482347132072e46e8fb6af805b0afc039f0c85325a69b93bb6cadbdec332682b",
+    "tests/business/test_t016_permission_facts.py": "b38052173f0c61dda7dc926d9d1e2196052769303497b4d2398accac6be223a3",
+    "tests/business/test_token_identity.py": "e5de1271c9ea703410c1fa7045ac3da532ba39af5b43b49ae4cfacf878905fe3",
+    "tests/business/test_upload_json_boundary.py": "e1aead9b8173b672133900e390494d9e6519fbd0565f194257180cda7614d09e",
+    "tests/business/test_upload_validation.py": "d3d63061a605ed776e7ebe8a1f34270d2d235f73d3206029bbbbd77d521d6321",
+    "tests/business/test_uploads.py": "38e42d9f7288156c13ba8d71758dc2badafa146a53d1a34385d1ba752a34f47a",
+    "tests/platform/test_business_demo_gateway.py": "5d5d497f7ebe284e766a7b021376c18690598604eb01b443a5ea2ba50332ca0f",
+    "tests/platform/test_poc_frontend.py": "9c2226faecffe6497f8e0e88f4c51189d9ed39fe0b1724a1f5d3df0d8e6ae69d",
+    "tests/platform/test_t014.py": "c36024a5e1f6c133e0d332937fea2e2892985de7b04dff92312088003aa9011d",
+    "tests/platform/test_t014_gate.py": "dbeacbd622d0f16ea270eee4af6cbc5622fe69ce6322e82ae4353482d126f9b7",
+    "tests/platform/test_t014_six_role.py": "76b9a7073955244ad62d008490f70c18e60c80afbe3fdbf50785fee251ad5eb2",
+    "tests/platform/test_t014_work_trust.py": "625f30dc15644956fa48e4377ed447ce13139200abd549d677f3d9fed199055b",
+    "scripts/validate_stage_one_completion.py": "0cef5242df664cb69e9591a47ab391c191ff11c8b9b06a8d29442f31f9d6e1e3",
+    "tests/platform/test_stage_one_contract_adoption.py": "8622716490e6a13276ecb282279ae55c3c57174e1811d434497fe6d5f2134135"
+  },
+  "current_source": {
+    "mounted_business_external_operations": 46,
+    "unmounted_business_operations": 27,
+    "internal_inference_operation_separate": 1,
+    "new_migration": "0012",
+    "new_tables_or_columns": false
+  },
+  "intentional_failure_probes": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_t014_permissions.py",
+        "failure-probe"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "safe_summary": {
+        "status": "EXPECTED_FAILURE",
+        "expected_assertion_failure_verified": true
+      },
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_t015_scope.py",
+        "failure-probe"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "safe_summary": {
+        "status": "EXPECTED_FAILURE",
+        "totals": {
+          "tests": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "expected_assertion_failure_verified": true
+      },
+      "expected_result_verified": true
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_t016_tokens.py",
+        "failure-probe"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "safe_summary": {
+        "status": "EXPECTED_FAILURE",
+        "totals": {
+          "tests": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "expected_assertion_failure_verified": true
+      },
+      "expected_result_verified": true
+    }
+  ],
+  "test_scope": {
+    "new_catalog_read_cases": 39,
+    "new_0012_preservation_case": 1,
+    "combined_fresh_run_passed": 40,
+    "normalization_or_discard_of_failures": false
+  },
+  "required_full_permission_gate": {
+    "status": "FAIL_UNRESOLVED_LOCAL_1200_SECOND_TIMEOUT",
+    "snapshot_commit": "df3f83fb554cf9994ecedea57030fc4f4daa7487",
+    "timeout_seconds": 1200,
+    "remaining_assertion_failures_not_ruled_out": true,
+    "timeout_or_assertions_not_disabled": true,
+    "followup_fixture_repair": "New adoption/history evidence files added to temporary Git fixture; 8 real dirty-source cases and all parser regressions passed in the subsequent 237-test run",
+    "note": "The timed-out gate is not counted as PASS; the limited 40-test result does not replace it. Exact subsequent hosted CI is recorded separately."
+  },
+  "retained_scope_and_token_gates": {
+    "T015": {
+      "status": "PASS",
+      "totals": {
+        "tests": 131,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "T016": {
+      "status": "PASS",
+      "totals": {
+        "tests": 187,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "repairs": [
+    {
+      "issue": "Asset binding mismatch raised an unregistered code and returned 500",
+      "repair": "Register ASSET_OBJECT_BINDING_INVALID as 503",
+      "verification": "Fresh full 39-case catalog suite includes the negative check"
+    },
+    {
+      "issue": "Source-binding test fixture lacked three new adoption/history files",
+      "repair": "Create all required evidence paths and add three actual dirty-file variants",
+      "verification": "237 platform/generator/gateway tests passed"
+    },
+    {
+      "issue": "Previous PPT CI gateway mypy assignment and stale frontend title gate failed",
+      "repair": "Separate static_content and verify real new product HTML plus delivered JS; keep all other PoC checks",
+      "verification": "See actual commands and prior_CI_repair field in this report"
+    }
+  ],
+  "prior_CI_repair": {
+    "failed_source_commit": "8c37e9da625d0a4043d5bd40f471063901014443",
+    "run_id": 39548839607,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39548839607",
+    "observed_conclusion": "failure",
+    "identity_job": "success",
+    "engineering_frontend_gate_and_foundation_type_check": "failure_then_locally_repaired",
+    "actual_type_entry_source_files_passed": 215,
+    "gateway_and_frontend_regression_cases_passed": 98,
+    "new_hosted_CI_status": "NOT_YET_OBSERVED_FOR_PUBLICATION_COMMIT"
+  },
+  "synchronization": {
+    "status": "PENDING_PUBLICATION",
+    "source_only": true,
+    "existing_preview_or_shared_database_migrated": false,
+    "existing_preview_services_restarted": false
+  },
+  "existing_live_frontend_read_only": {
+    "check": "existing_PPT_preview_HTML_and_delivered_script",
+    "passed": true,
+    "read_only_GET": true,
+    "browser_JavaScript_execution_asserted": false,
+    "shared_services_restarted": false
+  },
+  "independent_review": {
+    "status": "NO_IMPORTANT_OPEN_CODE_FINDINGS_IN_REVIEWED_INCREMENT",
+    "review_scope": "catalog reads and preservation of historical migrations; followup source dirty evidence fix; later gateway/frontend gate changes and actual partial task updates",
+    "review_did_not_assert_browser_execution_or_complete_123_acceptance": true
+  },
+  "task_ledger_after_limited_evidence": {
+    "authorized_tasks": 123,
+    "authorized_completed_substeps": 113,
+    "authorized_remaining_work_items": 434,
+    "all_source_tasks": 170,
+    "all_completed_substeps": 113,
+    "all_remaining_work_items": 622,
+    "whole_tasks_accepted": 0,
+    "T030": "C1_R4_BACKEND_SUPPORT_ONLY",
+    "T035": "C2_R3_BACKEND_LIST_AND_HISTORY_ONLY",
+    "T030_T035_actual_owners": null
+  },
+  "semantic_source_transition": {
+    "status": "PASS_PURE_SOURCE_BINDING_TRANSITION_TESTS",
+    "source_sha256": {
+      "scripts/validate_stage_one_completion.py": "0cef5242df664cb69e9591a47ab391c191ff11c8b9b06a8d29442f31f9d6e1e3",
+      "tests/platform/test_stage_one_contract_adoption.py": "8622716490e6a13276ecb282279ae55c3c57174e1811d434497fe6d5f2134135"
+    },
+    "historical_review_exact_HEAD_bytes_unchanged": true,
+    "actual_test_command": "E:\\Anconda\\python.exe -m pytest -q tests/platform/test_stage_one_contract_adoption.py",
+    "tests_passed": 23,
+    "independent_review": "No important open finding after explicit null description was rejected",
+    "other_7_source_bindings_unchanged": true,
+    "historical_36_review_records_or_business_approvals_rewritten": false
+  },
+  "migration_EOF_only_followup": {
+    "scope": "remove_one_extra_blank_line_at_EOF_only",
+    "path": "backend/business_migrations/0012_catalog_reads.sql",
+    "prior_sha256": "eb49679f7d41c9fdbefe1f26aeb6916b7954eff01d5f2889c91f272ac738a3f1",
+    "current_sha256": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
+    "all_SQL_nonwhitespace_bytes_unchanged": true,
+    "extra_migration_verification": "PASS_FINAL_BYTES_ONE_ACTUAL_MIGRATION_TEST",
+    "check": {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/business/test_migrations.py::test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables"
+      ],
+      "exit_code": 0,
+      "source_sha256": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
+      "summary": [
+        "1 passed in 28.49s"
+      ]
+    }
+  },
+  "materials_validation": {
+    "status": "PASS_18_EXACT_STAGED_MATERIAL_CHECKS",
+    "staged_tree": "8d1bc4eabb0adee582f06e247ff4c42edb03a13d",
+    "commands": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py",
+          "--task",
+          "T030"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py",
+          "--task",
+          "T035"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "subsequent_changes": "only EOF blank-line cleanup in 0012, its generated static inventory hash and validation metadata; final 0012 migration test passed and final inventory check recorded separately"
+  },
+  "timeout_investigation": {
+    "method": "three application/catalog measurements and one cProfile under blocked database/socket connect; no test or cache changed",
+    "load_catalog_wall_seconds": [
+      0.96908,
+      0.97301,
+      0.92035
+    ],
+    "create_app_wall_seconds": [
+      1.03109,
+      1.02376,
+      1.03942
+    ],
+    "YAML_parse_share_of_profiled_app_creation_percent": 95.5,
+    "profile_overhead_not_compared_to_raw_wall_time": true,
+    "single_cause_of_full_gate_timeout_proven": false,
+    "full_permission_gate_or_timeout_weakened": false
+  }
+}

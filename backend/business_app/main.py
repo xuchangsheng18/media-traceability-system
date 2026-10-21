@@ -15,6 +15,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
 from .auth import AuthorityProvider
+from .catalog_reads import CatalogReads
+from .catalog_router import router as catalog_router
 from .contracts import ROOT
 from .controls.approvals import Approvals
 from .controls.execution import Execution
@@ -95,6 +97,7 @@ def create_app(
     app.state.permission_catalog = MappingProxyType(load_catalog(ROOT))
     app.state.permission_authority = permission_authority
     app.state.conditional_permissions = conditional_permissions
+    app.state.catalog_reads = CatalogReads(database, settings)
     app.state.authorization_fence = authorization_fence
     app.state.work_authorization = work_authorization
     app.state.business_database = database
@@ -141,6 +144,7 @@ def create_app(
     app.include_router(upload_router, dependencies=protected)
     app.include_router(history_router, dependencies=protected)
     app.include_router(control_router, dependencies=protected)
+    app.include_router(catalog_router, dependencies=protected)
     app.include_router(inference_router)
     audit_protected_routes(app)
 

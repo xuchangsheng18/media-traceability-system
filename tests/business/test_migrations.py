@@ -1,3 +1,4 @@
+import hashlib
 import importlib.util
 from pathlib import Path
 
@@ -37,6 +38,7 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
         "0009",
         "0010",
         "0011",
+        "0012",
     ]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
@@ -57,6 +59,42 @@ def test_changed_migration_digest_rejected(database_dsn, tmp_path):
         (tmp_path / original.name).write_bytes(original.read_bytes() + b"\n-- modified\n")
     with pytest.raises(RuntimeError, match="DIGEST"):
         migrate(database_dsn, tmp_path)
+
+
+def test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables(database_dsn, tmp_path):
+    previous = [file for file in sorted(MIGRATIONS.glob("*.sql")) if file.name[:4] <= "0011"]
+    for file in previous:
+        (tmp_path / file.name).write_bytes(file.read_bytes())
+    assert migrate(database_dsn, tmp_path) == [f"{version:04d}" for version in range(1, 12)]
+    with psycopg.connect(database_dsn) as connection:
+        before = connection.execute(
+            "SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='mt' ORDER BY table_name,ordinal_position"
+        ).fetchall()
+    assert migrate(database_dsn) == ["0012"]
+    assert migrate(database_dsn) == []
+    with psycopg.connect(database_dsn) as connection:
+        assert (
+            connection.execute(
+                "SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='mt' ORDER BY table_name,ordinal_position"
+            ).fetchall()
+            == before
+        )
+        assert connection.execute(
+            "SELECT version,sha256 FROM mt_meta.schema_migrations WHERE version<='0011' ORDER BY version"
+        ).fetchall() == [(file.name[:4], hashlib.sha256(file.read_bytes()).hexdigest()) for file in previous]
+        for operation in ["getAsset", "listAssets", "listTasks", "issueOperationToken", "sealEvidence"]:
+            connection.execute("SELECT set_config('app.operation_id',%s,true)", (operation,))
+            assert connection.execute("SELECT mt.scope_operation()").fetchone() == (operation,)
+        for kind, operation in [
+            ("asset", "getAsset"),
+            ("asset", "listAssets"),
+            ("task", "listTasks"),
+            ("approval", "issueOperationToken"),
+            ("task", "sealEvidence"),
+        ]:
+            assert connection.execute("SELECT mt.scope_lookup_kind_allowed(%s,%s)", (kind, operation)).fetchone() == (
+                True,
+            )
 
 
 def test_untracked_existing_mt_schema_rejected(database_dsn):
@@ -108,7 +146,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             assert scalar(connection, "SELECT to_regclass('mt.user_identities')") is None
             assert scalar(connection, "SELECT count(*) FROM mt.case_membership") == 1
     else:
-        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007", "0008", "0009", "0010", "0011"]
+        assert migrate(database_dsn) == ["0004", "0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(
@@ -146,6 +184,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0009",
             "0010",
             "0011",
+            "0012",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -241,7 +280,7 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
                 " bad legacy",
             )
     else:
-        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008", "0009", "0010", "0011"]
+        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012"]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(

@@ -53,6 +53,7 @@ OPERATION_KINDS = MappingProxyType(
         **dict.fromkeys(("decideApproval", "getApproval", "revokeApproval", "issueOperationToken"), "approval"),
         "getImport": "import",
         "getTimeline": "asset",
+        "getAsset": "asset",
         **dict.fromkeys(("completeUpload", "getUploadStatus", "listUploadParts", "putUploadPart"), "upload"),
         **dict.fromkeys(("downloadAuditExport", "getAuditExport"), "export"),
         **dict.fromkeys(
@@ -78,7 +79,9 @@ OPERATION_KINDS = MappingProxyType(
         "getSource": "source",
     }
 )
-CASE_LISTS = frozenset({"listApprovals", "listAuditEvents", "listPendingReviews", "listReviews", "listSources"})
+CASE_LISTS = frozenset(
+    {"listApprovals", "listAuditEvents", "listPendingReviews", "listReviews", "listSources", "listAssets", "listTasks"}
+)
 BODY_SCHEMAS = MappingProxyType(
     {
         "createUpload": "UploadCreate",
@@ -155,6 +158,8 @@ class ObjectFactsReader:
                 "listPolicies": {"policy_collection", "policy"},
                 "listApprovals": {"case", "approval"},
                 "listSources": {"case", "source"},
+                "listAssets": {"case", "asset"},
+                "listTasks": {"case", "task"},
                 "listAuditEvents": {"case", "audit_event"},
                 "getCurrentUser": {"user"},
                 "getModelOperation": {"model_operation"},
@@ -662,7 +667,12 @@ class ObjectFactsReader:
         # The collection entry checks case-level institutional scope only. Its
         # mandatory review_ids port separately evaluates every candidate before
         # the route constructs SQL pagination, including a valid empty result.
-        collection = target.kind == "case" and operation_id in {"listReviews", "listPendingReviews"}
+        collection = target.kind == "case" and operation_id in {
+            "listReviews",
+            "listPendingReviews",
+            "listAssets",
+            "listTasks",
+        }
         source_ok = (bool(sources) or collection) and case is not None
         for source_id in sorted(sources, key=str):
             source = source_rows[source_id]

@@ -1,5 +1,7 @@
 # T014逐操作隔离验证范围
 
+2026-10-21目录读取续批：getAsset、listAssets、listTasks按[已确认范围的计划](../03-development/t001-t123-catalog-read-implementation-plan.md)补充；两个列表必填case_id已获用户确认。本文原43/30及更早42/31均为各自历史源码快照，不能据此覆盖新路由计数；当前源码、逐项方法及实际验证分别见[123项清单](../03-development/t001-t123-implementation-inventory.md)和[本批回执](../00-project/validation/t001-t123-catalog-read-report.json)。0012只作源码及隔离测试，不表示共享权限或现有演示实例已采用。
+
 <!-- T016_NATIVE_FINAL_EVIDENCE -->
 
 已核验的原生隔离源码为`b1b79bfb32b7959e63f302bbef22d32e22dc0b8f`：[T014实际报告](../00-project/validation/t014-permissions-report.json)713项、[T015实际报告](../00-project/validation/t015-data-scope-report.json)131项、[T016实际报告](../00-project/validation/t016-operation-token-report.json)187项，均无失败、错误或跳过；三个独立故障探针均按预期识别断言失败，Ruff、格式和mypy检查通过。三套用例有重叠，数量不相加为唯一测试数或170项任务完成数。此结论限Linux／py310／CPU隔离研发，不是正式验收。
