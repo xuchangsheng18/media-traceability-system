@@ -169,21 +169,28 @@
   "plan_ref": "docs/03-development/t016-operation-token-implementation-plan.md",
   "source_commit_note": "Full implementation commit and exact final source hashes are populated from actual clean gate report; no self-referential commit is invented.",
   "latest_hosted_ci_observation": {
-    "run_id": 39536606317,
-    "source_commit": "7f4fb31d8c0432f4b7a2aa6696ed05137562f80e",
-    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39536606317",
-    "observed_at": "2026-10-21T03:06:52.513367+00:00",
+    "run_id": 39541263830,
+    "source_commit": "7ac14e26b006e3ca009e3d322182780f0146bc89",
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39541263830",
     "status": "in_progress",
     "conclusion": null,
+    "observed_at": "2026-10-21T03:58:29.072772+00:00",
     "jobs": [
       {
         "name": "identity-verification / identity-integration",
         "status": "in_progress",
-        "conclusion": null
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Initialize containers",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
       }
     ],
-    "completed_success_asserted": false,
-    "metadata_followup_scope": "Subsequent receipt changes only existing validation/manifest/server-receipt paths ignored by the unchanged workflow; current CI applies to the source plan payload, not an invented future SHA."
+    "full_success_asserted": false,
+    "metadata_receipt_scope": "This exact source payload CI continues; subsequent validation/manifest/server-receipt-only changes follow existing workflow paths-ignore, not new gate exemptions."
   },
   "active_final_gate_job": {
     "job": "f4985f97b8f4419dbb61d83640425899",
@@ -1379,6 +1386,62 @@
       "durable_report_evidence_ref": "docs/00-project/validation/t016-development-progress.json#/latest_failed_hosted_CI_evidence",
       "latest_recheck_at": "2026-10-21T02:28:55.737609+00:00",
       "candidate_validation_is_not_new_source_lock_CI": true
+    },
+    {
+      "run_id": 39536606317,
+      "source_commit": "7f4fb31d8c0432f4b7a2aa6696ed05137562f80e",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39536606317",
+      "observed_at": "2026-10-21T03:06:52.513367+00:00",
+      "status": "in_progress",
+      "conclusion": null,
+      "jobs": [
+        {
+          "name": "identity-verification / identity-integration",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ],
+      "completed_success_asserted": false,
+      "metadata_followup_scope": "Subsequent receipt changes only existing validation/manifest/server-receipt paths ignored by the unchanged workflow; current CI applies to the source plan payload, not an invented future SHA."
+    },
+    {
+      "run_id": 39536606317,
+      "source_commit": "7f4fb31d8c0432f4b7a2aa6696ed05137562f80e",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39536606317",
+      "status": "in_progress",
+      "conclusion": null,
+      "observed_at": "2026-10-21T03:58:29.072799+00:00",
+      "jobs": [
+        {
+          "name": "identity-verification / identity-integration",
+          "status": "completed",
+          "conclusion": "success",
+          "active_or_failed_steps": []
+        },
+        {
+          "name": "foundation-verification",
+          "status": "completed",
+          "conclusion": "success",
+          "active_or_failed_steps": []
+        },
+        {
+          "name": "engineering-execution",
+          "status": "in_progress",
+          "conclusion": null,
+          "active_or_failed_steps": [
+            {
+              "name": "Run actual engineering gates",
+              "status": "completed",
+              "conclusion": "cancelled"
+            },
+            {
+              "name": "Stop ephemeral development services",
+              "status": "in_progress",
+              "conclusion": null
+            }
+          ]
+        }
+      ]
     }
   ],
   "unchanged_stable_inputs": {
@@ -1991,12 +2054,12 @@
   },
   "final_source_delivery": {
     "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
-    "observed_at": "2026-10-21T03:05:11.143746+00:00",
-    "source_commit": "7f4fb31d8c0432f4b7a2aa6696ed05137562f80e",
-    "previous_server_commit": "e77b24f23e9253991b74884e51575952c617ad1a",
-    "changed_files": 17,
-    "manifest_files_verified": 2177,
-    "manifest_sha256": "d558f80228da1d155947bb61cddb154f04a87551a353c4a144ad4029c11cf0dc",
+    "observed_at": "2026-10-21T03:55:59.809497+00:00",
+    "source_commit": "7ac14e26b006e3ca009e3d322182780f0146bc89",
+    "previous_server_commit": "96c5a134481efbef9249179e2ee731d76f0bc836",
+    "changed_files": 19,
+    "manifest_files_verified": 2179,
+    "manifest_sha256": "15e8caa7acbc1e8d1c4f5d0948d8a5311705ba4d02cb2b90a60e7528ca571c40",
     "tracked_source_clean": true,
     "git_worktree_clean": false,
     "preexisting_IDE_directory_preserved": true,
@@ -2009,7 +2072,6 @@
     "Python_candidates_created": false,
     "formal_accepted": false,
     "task_and_navigation_changes_delivered": true,
-    "preview_still_separate_immutable_source": true,
     "source_only_not_shared_adoption": true
   },
   "future_user_decisions_before_formal_adoption": [
@@ -11292,7 +11354,9 @@
     "no_business_progress_increment": true,
     "Python_candidates_deferred": true,
     "review_status": "P2_FIXED_AND_STATIC_SUITES_GREEN",
-    "admin_required": "Read loaded AppArmor profile state; exact denied capability/policy still not proven; no scope reapproval required."
+    "admin_required": "Read loaded AppArmor profile state; exact denied capability/policy still not proven; no scope reapproval required.",
+    "source_delivery_commit": "7ac14e26b006e3ca009e3d322182780f0146bc89",
+    "latest_CI_ref": "docs/00-project/validation/t016-pillow-py310-isolated-execution.json#/latest_CI_observation"
   },
   "pillow_planning_snapshot_before_execution": {
     "status": "PLAN_WRITTEN_NO_PATCH_BUILD_OR_REGRESSION",
