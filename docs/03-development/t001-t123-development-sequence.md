@@ -7,11 +7,11 @@
 
 2026-10-21续批：[前后端开发计划](business-console-implementation-plan.md)、[真实开发启动](../10-deployment/business-development-runbook.md)及[实际证据](../00-project/validation/development-continuation-report.json)。T014隔离计划沿用已有结果；T015第33门禁源码/解析器、T002独立原生API及T016/T018页面已补充限定开发子范围，综合联调、托管CI、真实身份与全范围验收另列。
 
-2026-10-21依赖规划：[Pillow／py310八条漏洞修复方案](pillow-py310-remediation-plan.md)、[逐项来源及门禁限制](../00-project/validation/t016-pillow-py310-plan-review.json)。11项必要提交均未回移／构建／回归；原100包锁、共享环境与CI保持，Python候选继续暂缓。私有回补仅技术候选，不能以新增扫描skip代替准入；任务完成数不增加。
+2026-10-21依赖规划：[Pillow／py310八条漏洞修复方案](pillow-py310-remediation-plan.md)、[逐项来源及门禁限制](../00-project/validation/t016-pillow-py310-plan-review.json)。11项提交已按[隔离回执](pillow-py310-isolated-execution.md)完成源码层回移与静态核验；PL02未通过，尚未构建或执行漏洞回归；原100包锁、共享环境与CI保持，Python候选继续暂缓。私有回补仅技术候选，不能以新增扫描skip代替准入；任务完成数不增加。
 
 ## 当前事实与先后顺序
 
-本范围有110条已验证子步骤、434条剩余工作，整任务验收0项；全170任务为110条已验证子步骤、622条剩余工作、0项整任务验收。当前台账SHA-256为`ba764e55deb35f984f070119741f8a26cb8328931d7dcded2481a236f17c2ffd`，与机器清单绑定同一字节快照。子步骤粒度不同，不能换算完成百分比。完成子步骤仅按当前台账登记，本页不根据编码状态或历史测试结果新增完成数。
+本范围有110条已验证子步骤、434条剩余工作，整任务验收0项；全170任务为110条已验证子步骤、622条剩余工作、0项整任务验收。当前台账SHA-256为`39fe037e1d3c80f8648af54f9aeeca01e810805de7afa82469bad3e8e6039d0b`，与机器清单绑定同一字节快照。子步骤粒度不同，不能换算完成百分比。完成子步骤仅按当前台账登记，本页不根据编码状态或历史测试结果新增完成数。
 
 1. [T014已批准P01—P07](t014-isolated-six-role-implementation-plan.md)隔离代码、实际回归和精确代码CI已验证；保留正式提供者、共享采用和整卡验收边界。T015[书面设计](t015-data-scope-design.md)与[P01—P07实施计划](t015-data-scope-implementation-plan.md)已获本人批准；[P01实际结果](../00-project/validation/t015-data-scope-p01-report.json)为338项内部类型/纯回归，[P03实际结果](../00-project/validation/t015-data-scope-p03-report.json)为91项适用回归通过。P02全业务CLI和P04全保留回归仍待；本地T015必需范围实际CLI128项和独立失败探针通过，完整托管33门禁仍按精确提交核验，不重复实施T014已完成的隔离子范围。
 2. 同时按[T013本人A01—A10](t013-owner-action-checklist.md)补真实密钥/接管/恢复条件。第二轮签名保护、真实签名/同U盘恢复及四份旧导出限定退役已核验；第二独立介质暂无。实名账号/首次改密/OTP和专用签名MFA管理已由实际回执核实；真实身份数据恢复、旧凭据失效和受控退役仍待，不能由助手代输密码，也不把合成实验当本人完成。

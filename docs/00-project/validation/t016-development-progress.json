@@ -10005,11 +10005,13 @@
       "release_source": "https://pillow.readthedocs.io/en/stable/releasenotes/13.0.0.html",
       "exact_tag_source": "https://github.com/python-pillow/Pillow/blob/13.0.0/pyproject.toml",
       "feasible_py310_backport_not_yet_established": true,
-      "status": "PLAN_WRITTEN_EIGHT_ISSUES_ELEVEN_COMMITS_NO_PATCH_BUILD_AUTHORIZED",
+      "status": "AUTHORIZED_ISOLATED_SOURCE_BACKPORT_STATIC_DONE_PL02_BLOCKED",
       "read_only_review_requires_no_new_permission": true,
-      "next_design_gate": "Review concrete PL01-PL05 isolated execution; private backport does not automatically satisfy current PyPI scanner. No maintained compatible recognized fixed release verified.",
+      "next_design_gate": "No repeat execution approval required. Complete actual build/native/license/diagnostic closure and validate hard isolation before PL03; shared adoption remains separate.",
       "plan_ref": "docs/03-development/pillow-py310-remediation-plan.md",
-      "review_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json"
+      "review_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json",
+      "user_approved_PL01_PL05": true,
+      "execution_ref": "docs/00-project/validation/t016-pillow-py310-isolated-execution.json"
     },
     "not_authorized_by_proposal": [
       "Python3.13/3.12candidate creation",
@@ -11249,6 +11251,50 @@
     ]
   },
   "pillow_py310_remediation_plan": {
+    "status": "PL01_STATIC_DONE_PL02_BLOCKED_PL03_PL05_NOT_EXECUTED",
+    "plan_ref": "docs/03-development/pillow-py310-remediation-plan.md",
+    "review_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json",
+    "issues": 8,
+    "required_patches": 11,
+    "patch_applied": true,
+    "candidate_built": false,
+    "regressions_executed": false,
+    "scanner_route_blocker": "No verified current py310 fixed release that current default service recognizes with zero findings and no new Pillow skip. Original12.3.0 still matches8; local unknown versions/URLs may skip and are not admitted.",
+    "next_decision": "D05-E: review PL01-PL05 isolated technical execution; not adoption or promise of CI zero.",
+    "Python_candidates_deferred": true,
+    "CI_gates_changed": false,
+    "original100_lock_changed": false,
+    "no_business_progress_increment": true,
+    "documentation_checks": "PASS_REFERENCES_AND_PRESERVED_INPUTS_ONLY",
+    "observed_at": "2026-10-21T03:02:36.545224+00:00",
+    "independent_review": {
+      "status": "ONE_P2_PROVENANCE_DISCREPANCY_CORRECTED",
+      "review_type": "independent_agent_readonly_review_not_human_acceptance",
+      "correction": "CNA referenced commits retained separately from behavior/test mapping for112395/112404; three TIFF fixes reviewed together.",
+      "additional_P1_P2_reported": false
+    },
+    "current_CI_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json#/current_plan_submission_CI_observation",
+    "source_delivery_commit": "7f4fb31d8c0432f4b7a2aa6696ed05137562f80e",
+    "current_execution_ref": "docs/00-project/validation/t016-pillow-py310-isolated-execution.json",
+    "approved_isolated_PL01_PL05": true
+  },
+  "pillow_py310_isolated_execution": {
+    "ref": "docs/00-project/validation/t016-pillow-py310-isolated-execution.json",
+    "doc_ref": "docs/03-development/pillow-py310-isolated-execution.md",
+    "status": "PL01_STATIC_DONE_PL02_BLOCKED_PL03_PL05_NOT_EXECUTED",
+    "approved_PL01_PL05": true,
+    "source_static_checks": 68,
+    "source_prerequisite_tests": 9,
+    "input_guard_tests": 12,
+    "actual_inputs_rejected": true,
+    "build_executed": false,
+    "security_regressions_executed": false,
+    "no_business_progress_increment": true,
+    "Python_candidates_deferred": true,
+    "review_status": "P2_FIXED_AND_STATIC_SUITES_GREEN",
+    "admin_required": "Read loaded AppArmor profile state; exact denied capability/policy still not proven; no scope reapproval required."
+  },
+  "pillow_planning_snapshot_before_execution": {
     "status": "PLAN_WRITTEN_NO_PATCH_BUILD_OR_REGRESSION",
     "plan_ref": "docs/03-development/pillow-py310-remediation-plan.md",
     "review_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json",

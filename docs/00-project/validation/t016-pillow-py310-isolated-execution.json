@@ -1,0 +1,970 @@
+{
+  "schema_version": 1,
+  "task_id": "T016",
+  "observed_at": "2026-10-21T03:53:33.648512+00:00",
+  "status": "PL01_STATIC_DONE_PL02_BLOCKED_PL03_PL05_NOT_EXECUTED",
+  "authorized_execution_base_commit": "96c5a134481efbef9249179e2ee731d76f0bc836",
+  "authorization": {
+    "decision": "D05-E",
+    "user_approved_isolated_PL01_PL05": true,
+    "exact_reply": "同意下一批仅隔离实施PL01—PL05",
+    "adoption": false,
+    "Python_candidates": false
+  },
+  "actual_development_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "actual_human_acceptance_recorded": false,
+  "formal_accepted": false,
+  "plan_ref": "docs/03-development/pillow-py310-remediation-plan.md",
+  "execution_doc_ref": "docs/03-development/pillow-py310-isolated-execution.md",
+  "local_isolated_root": "D:\\公安厅项目\\_work\\pillow-py310-isolated-20261021-9c4f20af",
+  "linux_isolated_root": "/workspace/glwy/runtime/media-traceability-system/pillow-py310-isolated-20261021-9c4f20af",
+  "phases": [
+    {
+      "id": "PL01",
+      "status": "SOURCE_BACKPORT_STATIC_VERIFIED_ONLY",
+      "completed_scope": "Source archive/11fixes/13changed files and12test definitions; full1723original/1724derived paths+hashes, final68static checks and9source guard tests; no compile or security runtime.",
+      "whole_security_fix_verified": false
+    },
+    {
+      "id": "PL02",
+      "status": "BLOCKED_INPUTS_AND_ISOLATION",
+      "input_guard_unit_tests": 12,
+      "actual_inputs_rejected": true,
+      "isolation_probe_passed": false,
+      "build_allowed": false
+    },
+    {
+      "id": "PL03",
+      "status": "NOT_EXECUTED_PL02_PRECONDITION_FAILED",
+      "executed": false
+    },
+    {
+      "id": "PL04",
+      "status": "NOT_EXECUTED_PL02_PRECONDITION_FAILED",
+      "executed": false
+    },
+    {
+      "id": "PL05",
+      "status": "NOT_EXECUTED_PL02_PRECONDITION_FAILED",
+      "executed": false
+    },
+    {
+      "id": "PL06",
+      "status": "ADOPTION_NOT_AUTHORIZED",
+      "executed": false
+    }
+  ],
+  "source": {
+    "original_archive": {
+      "file": "downloads/pillow-12.3.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/1c/3d/bb7fca845737cf9d7dbde16ed1843984665ff2e0a518f5db43e77ec540b9/pillow-12.3.0.tar.gz",
+      "sha256": "3b8182a766685eaa002637e28b4ec8d6b18819a0c71f579bf0dbaa5830297cce",
+      "size_bytes": 47025035
+    },
+    "original_files": 1723,
+    "upstream_patch_count": 11,
+    "upstream_patches": [
+      {
+        "file": "patches/852d834491c7ecd252b5072f5d8d18d3bba3f72b.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/852d834491c7ecd252b5072f5d8d18d3bba3f72b.patch",
+        "sha256": "6984c376f71cb2374018bfad90aba84c738eb6a3972d49b45d679479accb4254",
+        "size_bytes": 3871,
+        "upstream_commit": "852d834491c7ecd252b5072f5d8d18d3bba3f72b",
+        "cve": "CVE-2026-112895"
+      },
+      {
+        "file": "patches/6f0e7ee1f9c2fe227906f8a4b926e6622b702bc7.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/6f0e7ee1f9c2fe227906f8a4b926e6622b702bc7.patch",
+        "sha256": "90ee2bcada146c514790b8a07e17dbbc50e496b8397d265afa6170ca728eba2a",
+        "size_bytes": 4117,
+        "upstream_commit": "6f0e7ee1f9c2fe227906f8a4b926e6622b702bc7",
+        "cve": "CVE-2026-112895"
+      },
+      {
+        "file": "patches/e2ae7eacad6de68c37eb28b633a97bebacf2c5bf.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/e2ae7eacad6de68c37eb28b633a97bebacf2c5bf.patch",
+        "sha256": "3e038178e4ee2a6f5a0c93d65356b34bd20fd42b8cb9396f3441c9fe7f931f00",
+        "size_bytes": 3550,
+        "upstream_commit": "e2ae7eacad6de68c37eb28b633a97bebacf2c5bf",
+        "cve": "CVE-2026-112895"
+      },
+      {
+        "file": "patches/6faed707cfb760a4cbd726ddc8406f576cf35bf7.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/6faed707cfb760a4cbd726ddc8406f576cf35bf7.patch",
+        "sha256": "c77b04f151daa0bfa75a63dd4b71c02389da473007b0e195bcd0a0da00eeb5e1",
+        "size_bytes": 1983,
+        "upstream_commit": "6faed707cfb760a4cbd726ddc8406f576cf35bf7",
+        "cve": "CVE-2026-112400"
+      },
+      {
+        "file": "patches/18f7c0dfee93063c51db6ed0ca8c4da2999dcb64.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/18f7c0dfee93063c51db6ed0ca8c4da2999dcb64.patch",
+        "sha256": "9da8bc21cb05c8306e7c5097262b4710196a09e9fe32f8a1293188d97be7751e",
+        "size_bytes": 1743,
+        "upstream_commit": "18f7c0dfee93063c51db6ed0ca8c4da2999dcb64",
+        "cve": "CVE-2026-112397"
+      },
+      {
+        "file": "patches/d03dc3c587a9b0bdc9e4304d70d59a635a87b742.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/d03dc3c587a9b0bdc9e4304d70d59a635a87b742.patch",
+        "sha256": "be5db58b5d5aa28d340a4797e3e275ac7fc806e8de2cfd354eb23893d4d5151b",
+        "size_bytes": 5616,
+        "upstream_commit": "d03dc3c587a9b0bdc9e4304d70d59a635a87b742",
+        "cve": "CVE-2026-112896"
+      },
+      {
+        "file": "patches/0e546950c3d00cb7bcb033e18d49c6ee48c08988.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/0e546950c3d00cb7bcb033e18d49c6ee48c08988.patch",
+        "sha256": "a0caff25ce5ceb730bd4105ace7ba9cd04aed5fe79d2174af1806f8c1ff4a772",
+        "size_bytes": 3141,
+        "upstream_commit": "0e546950c3d00cb7bcb033e18d49c6ee48c08988",
+        "cve": "CVE-2026-112896"
+      },
+      {
+        "file": "patches/1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce.patch",
+        "sha256": "fbee4ebd07249e6b7e98f2c14dcf297d58fffca47363e90a8c20d2776e59e5b7",
+        "size_bytes": 5176,
+        "upstream_commit": "1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce",
+        "cve": "CVE-2026-112897"
+      },
+      {
+        "file": "patches/d01e2fe0f02a0293018c27eb3288b3511675bd89.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/d01e2fe0f02a0293018c27eb3288b3511675bd89.patch",
+        "sha256": "ea5c9b67d21c246f6d4268ac464b7e5b878ea425ca4d0eb4ac493b98b6819a18",
+        "size_bytes": 36975,
+        "upstream_commit": "d01e2fe0f02a0293018c27eb3288b3511675bd89",
+        "cve": "CVE-2026-112395"
+      },
+      {
+        "file": "patches/76869efdbbf2ad7dccd7536520fb61b7a00ab61e.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/76869efdbbf2ad7dccd7536520fb61b7a00ab61e.patch",
+        "sha256": "bc9b4d51bca967983164e1135d1d8fd8e2c0c67fad85e8851b00447608aca8f1",
+        "size_bytes": 6787,
+        "upstream_commit": "76869efdbbf2ad7dccd7536520fb61b7a00ab61e",
+        "cve": "CVE-2026-112404"
+      },
+      {
+        "file": "patches/3e8cc105588d1dfe062fcada0b6058c1b5f14b65.patch",
+        "url": "https://github.com/python-pillow/Pillow/commit/3e8cc105588d1dfe062fcada0b6058c1b5f14b65.patch",
+        "sha256": "0d57b181da12d49c8ece02b391773189f1ac8f27fc67750cfb75e2a6b5185e5e",
+        "size_bytes": 2163,
+        "upstream_commit": "3e8cc105588d1dfe062fcada0b6058c1b5f14b65",
+        "cve": "CVE-2026-112899"
+      }
+    ],
+    "changed_files": [
+      {
+        "path": "src/_imagingmorph.c",
+        "original_sha256": "8244a437c0075b1fc6271677055d1a501e998dc2bd2a33c7443e19abf68939ed",
+        "derived_sha256": "642cc9d438920b717f57039bc65e401180d0e021c58946c74f3df56619c8eaa6",
+        "size_bytes": 8706
+      },
+      {
+        "path": "src/encode.c",
+        "original_sha256": "5802fe25795fdd6e0b74ebe7c759c9177919c0b432fc3c4507c971a6fb4d44f9",
+        "derived_sha256": "6b9c7e343ad4e629c0642fc7741771f4bd8dc58e56ec60700117dcaaed0034f6",
+        "size_bytes": 46826
+      },
+      {
+        "path": "src/libImaging/TiffDecode.c",
+        "original_sha256": "351d45d28bf3349055b98974e464844ed7bb47a9e45cfbcf82ce1d6ae47a0afb",
+        "derived_sha256": "48229b2ef2a61bc3168dbf32571187dceb363171eef6825553e10c0fd91b31f6",
+        "size_bytes": 34674
+      },
+      {
+        "path": "src/PIL/EpsImagePlugin.py",
+        "original_sha256": "94cb1da75871ec97ac6cb07bff57e5809929810ec9d5140fbed555e815adbc81",
+        "derived_sha256": "034d696fa3ef33ecb2d4fcf56ebb3f7b4e9faeb13eeec716b6d2b0248288d317",
+        "size_bytes": 17307
+      },
+      {
+        "path": "src/PIL/GifImagePlugin.py",
+        "original_sha256": "fe956c85ac3a65ba9f01daec1acc3fc58b485dabcf25c90fe9b686039acae361",
+        "derived_sha256": "16a24696e1dab541f48198edef8800bfcba9cee4ef49b8cde95da33b6f00d604",
+        "size_bytes": 43623
+      },
+      {
+        "path": "src/PIL/PdfParser.py",
+        "original_sha256": "7f5dee39ca48e76d2d801bde078fc18b05578fe501c261f9a3277a2de25eb6b9",
+        "derived_sha256": "5e68ef310d5883881b2cecbc5a1c9b522adf0ae43e3bbe3fdaf5f9821fa37fc9",
+        "size_bytes": 40723
+      },
+      {
+        "path": "src/PIL/TiffImagePlugin.py",
+        "original_sha256": "440b2a3a80b280d18cda3fc70d9fd206e2fa44e9897c9550f70b51395047b273",
+        "derived_sha256": "9ca37fcc67fdf7ab989634d56aec53c59a6ac5ee813e9051b1e1f3abc3f092d7",
+        "size_bytes": 88731
+      },
+      {
+        "path": "Tests/images/tiff_tiled_jpeg_oob_read.tif",
+        "original_sha256": null,
+        "derived_sha256": "4eb2d302c93f4ca3c67e3b9dea1ec54b1da618b4a4669acc207270a4d14e0139",
+        "size_bytes": 29653
+      },
+      {
+        "path": "Tests/test_decompression_bomb.py",
+        "original_sha256": "2bc8726a08bf6f9309194fdfb215abd557f086a4344a651fbd1c35e77e714e4c",
+        "derived_sha256": "700a98b74d9c572c57416f35276e8bf91c0e775866520a344ca2c67ceb1ed96c",
+        "size_bytes": 3822
+      },
+      {
+        "path": "Tests/test_file_eps.py",
+        "original_sha256": "9b041011e9d772036cd2ea9dd187457a34fee88ecbe2febac02ff4c91726b54b",
+        "derived_sha256": "9fb843837abf2f39676d5c0de278640bc21c82b484f98744db19600a7c6f0b0c",
+        "size_bytes": 16379
+      },
+      {
+        "path": "Tests/test_file_libtiff.py",
+        "original_sha256": "b12edaa8f3daf087ab144d143fc8fdd06196cf4b7e585098e8f3886545b9e2a6",
+        "derived_sha256": "092a66f864d24cbbf7db8796a22a5176e7633b5150bdb83bde8028e8b77e2bdb",
+        "size_bytes": 56987
+      },
+      {
+        "path": "Tests/test_imagemorph.py",
+        "original_sha256": "ec758f6a90e8941974267c087737b92c7ea2cacc595cbeb13dea866f1c4b4667",
+        "derived_sha256": "9bda388c2acb3dd7363332ca3ddb23f723ac3ac9b30c5901b2c10570250e7b83",
+        "size_bytes": 9889
+      },
+      {
+        "path": "Tests/test_pdfparser.py",
+        "original_sha256": "cd1e028a4366bcc75a96fda9f9f01d0e5895139dd3f83ed43e08d389ac3b1e71",
+        "derived_sha256": "7ccb9fa91dc9204eabdc58f70f27e243e73068844ad99e0c84fd1b65fce0bb3a",
+        "size_bytes": 8285
+      }
+    ],
+    "actual_patch_scope": "9 exact-source upstream changes plus2 TRACE-context adaptations; first full patch applies tests too, other test functions transplanted separately by identity.",
+    "native_context_adaptations": [
+      {
+        "upstream_commit": "1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce",
+        "reason": "12.3.0 has intervening TRACE lines absent from upstream parent; exact upstream patch dry-run rejected. Preserve TRACE only after length commit; same realloc/zero-growth/assign order, no whole-buffer clear.",
+        "upstream_dry_run_failure": {
+          "upstream_commit": "1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce",
+          "cve": "CVE-2026-112897",
+          "dry_run_exit": 1,
+          "dry_run_stderr": "error: patch failed: src/libImaging/TiffDecode.c:361\nerror: src/libImaging/TiffDecode.c: patch does not apply\n",
+          "applied": false,
+          "application_scope": "source_files_exact_upstream_patch_tests_ported_separately"
+        },
+        "derived_patch": "patches/derived-1d4773-trace-context.patch",
+        "derived_patch_sha256": "926074bd9e6ae5113f2b4db307e13d3ea29be4645aa31117908453792df5a27f"
+      },
+      {
+        "upstream_commit": "76869efdbbf2ad7dccd7536520fb61b7a00ab61e",
+        "reason": "12.3.0 has intervening RowsPerBlock/DecodeError TRACE lines; preserve those while placing exact bits!=32 guard before TIFFRGBAImageOK/Begin, plus original row/type guards.",
+        "upstream_dry_run_failure": {
+          "upstream_commit": "76869efdbbf2ad7dccd7536520fb61b7a00ab61e",
+          "cve": "CVE-2026-112404",
+          "dry_run_exit": 1,
+          "dry_run_stderr": "error: patch failed: src/libImaging/TiffDecode.c:239\nerror: src/libImaging/TiffDecode.c: patch does not apply\n",
+          "applied": false,
+          "application_scope": "source_files_exact_upstream_patch_tests_ported_separately"
+        },
+        "derived_patch": "patches/derived-76869ef-trace-context.patch",
+        "derived_patch_sha256": "fb7f3b735dbb00b43fb901f55d9bebaab83bc4182db712577fb483c2025f4558"
+      }
+    ],
+    "source_manifest_sha256": "d65e6efb9992f0fc8ee1b47a8f3d6d9e712baf81147fb801644c688a53b776a4",
+    "source_static_red": {
+      "checks": 23,
+      "vulnerability_guards_failed": 8,
+      "missing_upstream_test_definitions": true
+    },
+    "source_static_green": {
+      "checks": 68,
+      "status": "PASS_STATIC_SOURCE_ONLY",
+      "all1724derived_paths_and_hashes_checked": true,
+      "full1723_original_paths_and_hashes_checked": true,
+      "upstream_and_derived_patches_verified": true,
+      "transplanted_tests_and_QA_hashes_verified": true
+    },
+    "source_prerequisite_mutation_tests": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "3prerequisites plus6integrity mutations only; no Pillow runtime"
+    },
+    "upstream_test_functions_retained": 12,
+    "upstream_test_functions_executed": 0,
+    "test_source_ports": [
+      {
+        "upstream_commit": "852d834491c7ecd252b5072f5d8d18d3bba3f72b",
+        "file": "Tests/test_pdfparser.py",
+        "test": "test_long_trailer_chain",
+        "action": "replace_same_named_test_preserving_full_upstream_decorators_and_assertions",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/852d834491c7ecd252b5072f5d8d18d3bba3f72b/Tests/test_pdfparser.py",
+        "upstream_file_sha256": "a97f71df0f58eaf201421cd0bdb21af5cac7a56cf025d783b39c51122f03510e",
+        "upstream_test_source_sha256": "8d4365d4cde25c31dcc2532d068ca7de88eadc9cca0197d431e44f4a53b7009d",
+        "upstream_source_lines": [
+          178,
+          190
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "852d834491c7ecd252b5072f5d8d18d3bba3f72b",
+        "file": "Tests/test_pdfparser.py",
+        "test": "test_trailer_loop",
+        "action": "replace_same_named_test_preserving_full_upstream_decorators_and_assertions",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/852d834491c7ecd252b5072f5d8d18d3bba3f72b/Tests/test_pdfparser.py",
+        "upstream_file_sha256": "a97f71df0f58eaf201421cd0bdb21af5cac7a56cf025d783b39c51122f03510e",
+        "upstream_test_source_sha256": "0ee3d56865f37e93b410bc23c1a792b5dbff6585c82bda2813edf42778723150",
+        "upstream_source_lines": [
+          173,
+          175
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "6f0e7ee1f9c2fe227906f8a4b926e6622b702bc7",
+        "file": "Tests/test_pdfparser.py",
+        "test": "test_linearize_page_tree_duplicate_reference",
+        "action": "append_missing_upstream_test",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/6f0e7ee1f9c2fe227906f8a4b926e6622b702bc7/Tests/test_pdfparser.py",
+        "upstream_file_sha256": "ba8a48f05f022b35c38732fa3d92512fd06165e34c5df7baf93776500341f6b4",
+        "upstream_test_source_sha256": "e2b6e0eb8c0a585b5359a0bafb225948ba37a06a00bdcd6510ca5d3154558ccc",
+        "upstream_source_lines": [
+          167,
+          200
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "e2ae7eacad6de68c37eb28b633a97bebacf2c5bf",
+        "file": "Tests/test_pdfparser.py",
+        "test": "test_linearize_page_tree_deep",
+        "action": "append_missing_upstream_test",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/e2ae7eacad6de68c37eb28b633a97bebacf2c5bf/Tests/test_pdfparser.py",
+        "upstream_file_sha256": "300a30bbf69c1216e498e5e346720cf8a7f423a3d04c999deab00aa93e7086c7",
+        "upstream_test_source_sha256": "df1b1c927f6aedec9599799a6358bd93c1daab85d63bd2f05a29e26f9c701dd4",
+        "upstream_source_lines": [
+          226,
+          245
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "6faed707cfb760a4cbd726ddc8406f576cf35bf7",
+        "file": "Tests/test_decompression_bomb.py",
+        "test": "test_exception_gif_extents",
+        "action": "replace_same_named_test_preserving_full_upstream_decorators_and_assertions",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/6faed707cfb760a4cbd726ddc8406f576cf35bf7/Tests/test_decompression_bomb.py",
+        "upstream_file_sha256": "700a98b74d9c572c57416f35276e8bf91c0e775866520a344ca2c67ceb1ed96c",
+        "upstream_test_source_sha256": "a61299248080314d023cf06c90e489460c7d9bb72ee6ec2e9da9bf0ff90c619f",
+        "upstream_source_lines": [
+          61,
+          65
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "18f7c0dfee93063c51db6ed0ca8c4da2999dcb64",
+        "file": "Tests/test_imagemorph.py",
+        "test": "test_zero_width",
+        "action": "append_missing_upstream_test",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/18f7c0dfee93063c51db6ed0ca8c4da2999dcb64/Tests/test_imagemorph.py",
+        "upstream_file_sha256": "341d7ca830d7a59f4a0def3553de8e8d520d90575a95ab368a00067b6991dd2a",
+        "upstream_test_source_sha256": "01b3fb07879dca9f28e1f03ad2bbf5dd6336a53c16a28348b05045822a4aa0fd",
+        "upstream_source_lines": [
+          93,
+          97
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "0e546950c3d00cb7bcb033e18d49c6ee48c08988",
+        "file": "Tests/test_file_libtiff.py",
+        "test": "test_palette_save",
+        "action": "replace_same_named_test_preserving_full_upstream_decorators_and_assertions",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/0e546950c3d00cb7bcb033e18d49c6ee48c08988/Tests/test_file_libtiff.py",
+        "upstream_file_sha256": "7b861758b907b7dbf15d151cac603393f6d7a77b00f70ccc2a0cf1f7b4b0eb22",
+        "upstream_test_source_sha256": "fdd9d71a99e20edeee80cdb6225fa2004fdc50b63a5dc9f314ec8e04b4626b4e",
+        "upstream_source_lines": [
+          604,
+          619
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "0e546950c3d00cb7bcb033e18d49c6ee48c08988",
+        "file": "Tests/test_file_libtiff.py",
+        "test": "test_colormap_size_mismatch",
+        "action": "append_missing_method_to_exact_TestFileLibTiff",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/0e546950c3d00cb7bcb033e18d49c6ee48c08988/Tests/test_file_libtiff.py",
+        "upstream_file_sha256": "7b861758b907b7dbf15d151cac603393f6d7a77b00f70ccc2a0cf1f7b4b0eb22",
+        "upstream_test_source_sha256": "3d132b560932bc25523ee1f3d914545c44eef28e5563c48271cfaa6610bf903f",
+        "upstream_source_lines": [
+          621,
+          646
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce",
+        "file": "Tests/test_file_libtiff.py",
+        "test": "test_jpeg_short_strip",
+        "action": "append_missing_method_to_exact_TestFileLibTiff",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/1d4773e6cea0c4a2814e6d4cdc099bbcf56da6ce/Tests/test_file_libtiff.py",
+        "upstream_file_sha256": "a671ced643f1acdc98858238809c3c8f9ea7128b23f4a3fb6f7478a1f6b26154",
+        "upstream_test_source_sha256": "e479fbfe4503511d6cb03da45372c2a5418e6d1fe332ce51380ace657e94add0",
+        "upstream_source_lines": [
+          1218,
+          1254
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "d01e2fe0f02a0293018c27eb3288b3511675bd89",
+        "file": "Tests/test_file_libtiff.py",
+        "test": "test_tiled_jpeg_oob_read",
+        "action": "append_missing_method_to_exact_TestFileLibTiff",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/d01e2fe0f02a0293018c27eb3288b3511675bd89/Tests/test_file_libtiff.py",
+        "upstream_file_sha256": "a8bf39600f6310acfd984f9942be59de8bf1b4635b3482cc0e0abb40d212fe1d",
+        "upstream_test_source_sha256": "be27d46130a732c52a0f3796bffda169590b7ad69ee94b19d713e498490a2f0c",
+        "upstream_source_lines": [
+          1031,
+          1039
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "76869efdbbf2ad7dccd7536520fb61b7a00ab61e",
+        "file": "Tests/test_file_libtiff.py",
+        "test": "test_unpacker_row_wider_than_libtiff_row",
+        "action": "append_missing_method_to_exact_TestFileLibTiff",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/76869efdbbf2ad7dccd7536520fb61b7a00ab61e/Tests/test_file_libtiff.py",
+        "upstream_file_sha256": "025626a91536ddaed0ca0d753f8498b6785b60c0b8df7c6461fdc6e7b64552ce",
+        "upstream_test_source_sha256": "bf8a69c494d1ef461ddd10fefaa9ce009c3daf8f2286f5e923ee67b3e876b001",
+        "upstream_source_lines": [
+          1326,
+          1380
+        ],
+        "executed": false
+      },
+      {
+        "upstream_commit": "3e8cc105588d1dfe062fcada0b6058c1b5f14b65",
+        "file": "Tests/test_file_eps.py",
+        "test": "test_load_scale_decompression_bomb",
+        "action": "append_missing_upstream_test",
+        "upstream_file_url": "https://raw.githubusercontent.com/python-pillow/Pillow/3e8cc105588d1dfe062fcada0b6058c1b5f14b65/Tests/test_file_eps.py",
+        "upstream_file_sha256": "b0924de9fe03085ba7136a7def870b835baf8f906034d40760fd885e559e773e",
+        "upstream_test_source_sha256": "aa59334c17cbf84cafa040486e7a30e9d3a461e278abb11900fc6068504110c1",
+        "upstream_source_lines": [
+          114,
+          129
+        ],
+        "executed": false
+      }
+    ],
+    "imports_adapted": [
+      "Tests/test_pdfparser.py: io.BytesIO missing from old module",
+      "Tests/test_imagemorph.py: helper.assert_image_equal required by transplanted test"
+    ],
+    "new_fixture": {
+      "file": "Tests/images/tiff_tiled_jpeg_oob_read.tif",
+      "url": "https://raw.githubusercontent.com/python-pillow/Pillow/d01e2fe0f02a0293018c27eb3288b3511675bd89/Tests/images/tiff_tiled_jpeg_oob_read.tif",
+      "upstream_commit": "d01e2fe0f02a0293018c27eb3288b3511675bd89",
+      "sha256": "4eb2d302c93f4ca3c67e3b9dea1ec54b1da618b4a4669acc207270a4d14e0139",
+      "git_blob_sha1": "51cd33e729ddfc3ce35bd0b2a12d11e80cb97c82",
+      "patch_blob_prefix": "51cd33e729ddfc3ce35bd0b2a12d11e80cb97c82",
+      "size_bytes": 29653,
+      "executed": false,
+      "license_use_not_yet_reviewed": true,
+      "bytes_published_in_repository": false
+    },
+    "Python310_AST_syntax_only": true,
+    "native_C_compiled": false,
+    "source_runtime_fixed": false,
+    "current_QA_source_files": [
+      {
+        "path": "qa/check_build_inputs.py",
+        "sha256": "ba7481ec1664b116b49c4da096c790e2683c47fefb0223934f6e80d63bb03004"
+      },
+      {
+        "path": "qa/check_source.py",
+        "sha256": "9bfbd205b55cbec0a975ed590fc6cbd4086ea21fb9193a4426204cf5453d8c50"
+      },
+      {
+        "path": "qa/test_build_input_guards.py",
+        "sha256": "4d4f4d8eff9866d876865aaacc2c500db82f8fb64b77c20e5736f1a96ad5ef4a"
+      },
+      {
+        "path": "qa/test_source_prerequisites.py",
+        "sha256": "56f63743513e772df58a33bebc6bc0960f00ddad34f8de403e9051ac474d316f"
+      }
+    ]
+  },
+  "actual_Linux_QA": {
+    "status": "PASS_STATIC_QA_AND_EXPECTED_REJECTION_ONLY_NOT_BUILD_READY",
+    "observed_at": "2026-10-21T03:50:33.698638+00:00",
+    "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+    "commands": [
+      {
+        "label": "posix-final-source-prerequisites-linux",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "qa",
+          "-p",
+          "test_source_prerequisites.py"
+        ],
+        "exit_code": 0,
+        "expected_exit": 0,
+        "log_sha256": "6970b122484bc8e8638595283ab10c548893bd2f48505f05246f683c1e4a7cd4",
+        "output_tail": ".........\n----------------------------------------------------------------------\nRan 9 tests in 8.764s\n\nOK\n"
+      },
+      {
+        "label": "posix-final-all-guards-linux",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "qa",
+          "-p",
+          "test_*.py"
+        ],
+        "exit_code": 0,
+        "expected_exit": 0,
+        "log_sha256": "255de5c90ad60673d35cff48df20f406391de3beec5cc1928b21bac2686994f9",
+        "output_tail": ".....................\n----------------------------------------------------------------------\nRan 21 tests in 7.201s\n\nOK\n"
+      },
+      {
+        "label": "posix-final-static-source-green-linux",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-B",
+          "qa/check_source.py",
+          "--manifest",
+          "manifest/source.json",
+          "--report",
+          "reports/posix-final-static-source-green-linux.json"
+        ],
+        "exit_code": 0,
+        "expected_exit": 0,
+        "log_sha256": "26302b86852e67ede5ef48b5db13c046a002768af904d672b1ea9f2704aaa997",
+        "output_tail": "{\"status\": \"PASS_STATIC_SOURCE_ONLY\", \"checks\": 68, \"errors\": []}\n"
+      },
+      {
+        "label": "posix-final-actual-build-inputs-linux",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-B",
+          "qa/check_build_inputs.py",
+          "--offline",
+          "--manifest",
+          "manifest/build-tools.json",
+          "--report",
+          "reports/posix-final-build-input-check-linux.json"
+        ],
+        "exit_code": 1,
+        "expected_exit": 1,
+        "log_sha256": "449c52343b27517bdf185b80ce236c32b98ee1f206184b4f87146f9eaa81feed",
+        "output_tail": "{\"status\": \"BLOCKED_BUILD_INPUTS_INCOMPLETE\", \"errors\": [\"artifact_license\", \"tools_closed\", \"native_closed\", \"fixtures_closed\", \"diagnostics_closed\", \"hermetic_tool_resolution\", \"codec_coverage\", \"isolation_functional_probe_passed\", \"isolation_cpu_limit\", \"isolation_memory_limit\", \"isolation_pid_namespace\", \"isolation_network_namespace\", \"isolation_temp_quota\"], \"no_build_performed\": true, \"no_security_samples_executed\": true, \"Python_candidates_created\": false}\n"
+      }
+    ],
+    "source_checks": 68,
+    "source_prerequisite_mutation_tests": 9,
+    "input_guard_tests": 12,
+    "actual_inputs_rejected": true,
+    "Pillow_runtime_tests_executed": false,
+    "candidate_built": false,
+    "security_samples_executed": false,
+    "Python_candidate_created": false
+  },
+  "input_guard_red": {
+    "tests": 12,
+    "failures": 11,
+    "errors": 0,
+    "scope": "synthetic validation guard unit tests, not CVE regression"
+  },
+  "actual_offline_input_check": {
+    "status": "BLOCKED_BUILD_INPUTS_INCOMPLETE",
+    "errors": [
+      "artifact_license",
+      "tools_closed",
+      "native_closed",
+      "fixtures_closed",
+      "diagnostics_closed",
+      "hermetic_tool_resolution",
+      "codec_coverage",
+      "isolation_functional_probe_passed",
+      "isolation_cpu_limit",
+      "isolation_memory_limit",
+      "isolation_pid_namespace",
+      "isolation_network_namespace",
+      "isolation_temp_quota"
+    ],
+    "no_build_performed": true,
+    "no_security_samples_executed": true,
+    "Python_candidates_created": false
+  },
+  "isolation_probe": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted\n",
+    "status": "FAIL_NO_CVE_EXECUTION_ALLOWED",
+    "observed_at": "2026-10-21T03:19:29.462679+00:00",
+    "probe_unit": "mt-pillow-pl02-probe-4d2f0a328f",
+    "limit_requests": {
+      "memory_bytes": 134217728,
+      "cpu_quota_percent": 100,
+      "tasks": 32,
+      "runtime_seconds": 15,
+      "tmpfs_bytes": 16777216
+    },
+    "unit_scope": "Disposable own user probe only, not existing services or shared quota",
+    "vulnerability_sample_executed": false,
+    "candidate_build_executed": false,
+    "Python_candidate_created": false
+  },
+  "installed_Pillow_guard": {
+    "files": 239,
+    "bytes_and_paths_identical": true,
+    "before_report_sha256": "c5f9f538c3b013880379391ab9160bca943154b87ad834767ad0e6c43c07172e",
+    "after_report_sha256": "34a8351ba1e4a2f83936c36c38599b39a286af66a812380441fb90024815f665",
+    "scope": "PIL/pillow.libs/pillow dist-info payload and named source files only, not every shared environment file",
+    "Pillow_imported": false,
+    "source_status_unchanged": true,
+    "source_HEAD_before_and_after": "96c5a134481efbef9249179e2ee731d76f0bc836"
+  },
+  "protected_source_sha256": {
+    "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+    "config/versions.yaml": "5d80c8c002584c9ba91e7fadbcc5f63c8b4dc5004082d188acc874d16afa8b8a",
+    "scripts/stage_three_quality.py": "fb134e0944eaa14a64bc9bf09464b609b27aef41d7a0311eda463637e12c288d",
+    ".github/workflows/ci.yml": "951e69f9bd26bce2cdd3590aca924361a8fff8c324a866978256569f65c358ed",
+    ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac"
+  },
+  "private_transfer": {
+    "filename": "D:\\公安厅项目\\_work\\pillow-PL01-PL02-private-transfer-20261021.tar.gz",
+    "files": 3503,
+    "size_bytes": 143769022,
+    "sha256": "983dd0e299549825f945f4e4780b8c3a0eef26ee343e8ffb8780f8f4ef21d34e"
+  },
+  "licenses": {
+    "materials_retained": 6,
+    "materials": [
+      {
+        "source": "Pillow12.3.0 verified sdist",
+        "relative_source": "LICENSE",
+        "retained_file": "licenses/LICENSE",
+        "sha256": "15181e7363dca9aed78b79bebebc7fde7f1814b8bd311ea3b87ae8ccadfc185b",
+        "size_bytes": 1457,
+        "limit": "Retained actual source/license bytes; not complete transitive license review or distribution approval."
+      },
+      {
+        "source": "Pillow12.3.0 verified sdist",
+        "relative_source": "src/thirdparty/raqm/COPYING",
+        "retained_file": "licenses/src/thirdparty/raqm/COPYING",
+        "sha256": "4a574f631d5aee5223d108d3f7ec4f717343685d8a8904f42591be72c907ecba",
+        "size_bytes": 1180,
+        "limit": "Retained actual source/license bytes; not complete transitive license review or distribution approval."
+      },
+      {
+        "source": "Pillow12.3.0 verified sdist",
+        "relative_source": "src/thirdparty/raqm/AUTHORS",
+        "retained_file": "licenses/src/thirdparty/raqm/AUTHORS",
+        "sha256": "e81eb8c13d248620f229af26700a5d8c928bac0fd971cae6e76e2f88228ea9e2",
+        "size_bytes": 138,
+        "limit": "Retained actual source/license bytes; not complete transitive license review or distribution approval."
+      },
+      {
+        "source": "Pillow12.3.0 verified sdist",
+        "relative_source": "src/thirdparty/fribidi-shim/fribidi.c",
+        "retained_file": "licenses/src/thirdparty/fribidi-shim/fribidi.c",
+        "sha256": "7e8cfa78dcd21cebeb0ad91c0cd23e0dba6496c0fbd66e1ec3d25c5b1b365d11",
+        "size_bytes": 3064,
+        "limit": "Retained actual source/license bytes; not complete transitive license review or distribution approval."
+      },
+      {
+        "source": "Pillow12.3.0 verified sdist",
+        "relative_source": "src/thirdparty/fribidi-shim/fribidi.h",
+        "retained_file": "licenses/src/thirdparty/fribidi-shim/fribidi.h",
+        "sha256": "1751c311ab8a3017e30cace05c48e08abe75a3597dd897c0f53d2dbee9293329",
+        "size_bytes": 2856,
+        "limit": "Retained actual source/license bytes; not complete transitive license review or distribution approval."
+      },
+      {
+        "source": "Pillow12.3.0 verified sdist",
+        "relative_source": "src/thirdparty/pythoncapi_compat.h",
+        "retained_file": "licenses/src/thirdparty/pythoncapi_compat.h",
+        "sha256": "97b0e62657965bd01a783b93422a6f7138d64c48546657feacc218ec8319ee0b",
+        "size_bytes": 61260,
+        "limit": "Retained actual source/license bytes; not complete transitive license review or distribution approval."
+      }
+    ],
+    "primary_and_bundled_bytes_retained": true,
+    "complete_nested_review": false,
+    "fribidi": "SBOM declares LGPL2.1+; source shim lacks standalone notice; actual origin/license/linkage still requires verification. No infringement determination made.",
+    "external_distribution_approved": false
+  },
+  "unresolved_inputs": [
+    {
+      "id": "BI01",
+      "item": "Hermetic build tool layer",
+      "remaining": "pybind11 metadata/expectedhash known but no verified private artifact/tool closure; shared setuptools44.1.1 and84.0.0 metadata coexist. Do not edit shared environment."
+    },
+    {
+      "id": "BI02",
+      "item": "Native feature/source/header/patch closure",
+      "remaining": "Match TIFF/JPEG/WebP/OpenJPEG/FreeType/LCMS/AVIF and shaping providers, actual archives/hashes/headers/pedigree plus libavif transitive sources and build helpers."
+    },
+    {
+      "id": "BI03",
+      "item": "Nested license closure",
+      "remaining": "Retain exact downstream source notices, investigate FriBiDi shim SBOM/source discrepancy and actual linkage, no declaration of complete distribution readiness."
+    },
+    {
+      "id": "BI04",
+      "item": "Fixtures",
+      "remaining": "Only exact addedTIFFfixture source/hash obtained; complete test-images archival hash and per-fixture use basis/self-created replacements still needed."
+    },
+    {
+      "id": "BI05",
+      "item": "Diagnostics",
+      "remaining": "ASan/UBSan and initialized-read MSan/Valgrind coverage not established; no silent mandatory skips."
+    },
+    {
+      "id": "BI06",
+      "item": "Hard isolation",
+      "remaining": "Disposable systemd+bwrap probe failed RTM_NEWADDR EPERM before inner checks; cpu/memory/pid/net/tmpquota enforcement not evidenced. Administrator diagnostics required, no global policy relaxation authorized."
+    }
+  ],
+  "issues": [
+    {
+      "cve": "CVE-2026-112895",
+      "ghsa": "GHSA-p4wg-p73j-c528",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_pdf_append_graph_guards"
+    },
+    {
+      "cve": "CVE-2026-112400",
+      "ghsa": "GHSA-65qm-jvmh-6pqg",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_gif_rejected_extent_no_size_commit"
+    },
+    {
+      "cve": "CVE-2026-112397",
+      "ghsa": "GHSA-58r4-6rv3-gfh8",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_morph_empty_no_native_oob"
+    },
+    {
+      "cve": "CVE-2026-112896",
+      "ghsa": "GHSA-pchr-8j38-3x4p",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_tiff_colormap_nonzero_roundtrip"
+    },
+    {
+      "cve": "CVE-2026-112897",
+      "ghsa": "GHSA-q45j-58j2-45rg",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_tiff_short_jpeg_defined_pixels"
+    },
+    {
+      "cve": "CVE-2026-112395",
+      "ghsa": "GHSA-462x-pgg6-55fp",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_tiff_tile_storage_matches"
+    },
+    {
+      "cve": "CVE-2026-112404",
+      "ghsa": "GHSA-c6hw-5grf-ff96",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_tiff_unpacker_rows_match"
+    },
+    {
+      "cve": "CVE-2026-112899",
+      "ghsa": "GHSA-vx6w-vv9f-6gvg",
+      "status": "SOURCE_BACKPORTED_STATIC_ONLY_NOT_RUNTIME_FIXED",
+      "source_patch_applied": true,
+      "build_executed": false,
+      "security_regressions_executed": false,
+      "adopted": false,
+      "vulnerability_closed": false,
+      "required_future_test_family": "test_eps_scaled_budget_before_render"
+    }
+  ],
+  "candidate_built": false,
+  "security_samples_executed": false,
+  "shared_environment_changed": false,
+  "original100_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "Python_candidates_deferred": true,
+  "business_progress_unchanged": {
+    "T016_completed_substeps": 4,
+    "T016_remaining_groups": 4,
+    "all170_completed_substeps": 110,
+    "all170_remaining_items": 622,
+    "whole_tasks_accepted": 0
+  },
+  "review_status": "P2_FIXED_AND_STATIC_SUITES_GREEN",
+  "documentation_validation_status": "PASS_DOC_LINKS_NAVIGATION_PHASE_INPUTS_AND_TASK_COUNTS_ONLY",
+  "raw_source_diffs_CVE_samples_and_package_payload_published": false,
+  "actual_software_adoption_or_N01_overall_admission_approved": false,
+  "final_review": {
+    "status": "P2_FIXED_AND_STATIC_SUITES_GREEN",
+    "review_type": "fresh_agent_not_actual_human_acceptance",
+    "findings": {
+      "P1": 0,
+      "P2": 1
+    },
+    "P2": "Checker originally omitted unchanged derived files/new/deleted paths and source/QA/derivedpatch metadata verification; actual initial bytes had no discrepancy.",
+    "RED": {
+      "tests": 9,
+      "failures": 6,
+      "errors": 0
+    },
+    "GREEN": {
+      "source_guard_tests": 9,
+      "input_guard_tests": 12,
+      "total_guard_tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "static_checks": 68
+    },
+    "minor_correction": "Append correction to earlier import-adaptation intent record; actual io.BytesIO/helper.assert_image_equal imports accurately recorded; original report preserved.",
+    "portability_failure": "First strengthened Linux check rejected Windows-backslash derived_patch paths; serialization normalized to POSIX, expected patch digests and actual patch bytes unchanged. Original failed report and pre-fix manifest retained.",
+    "declined_to_judge": [
+      "runtime fixes",
+      "C memory safety",
+      "compile/ABI",
+      "functional compatibility",
+      "enforced sandbox limits",
+      "full nested licenses",
+      "scanner admission",
+      "software adoption"
+    ],
+    "ruling": "All declined runtime/adoption areas explicitly remain unverified because approved PL02 stop condition was reached; no passing skip or exception inferred."
+  },
+  "documentation_validation": {
+    "repository_links": 11923,
+    "navigation_files": 1229,
+    "stage_one_checks": 12,
+    "task_cards": 170,
+    "source_task_guard_cases": 7,
+    "stage_three_generated_steps": 16,
+    "formal_frozen": false
+  },
+  "namespace_diagnosis": {
+    "kernel_journal_glwy_readable": true,
+    "matching_kernel_events": "Oct 21 03:19:29 ubuntuserver kernel: audit: type=1400 audit(1792552769.446:612): apparmor=\"AUDIT\" operation=\"userns_create\" class=\"namespace\" info=\"Userns create - transitioning profile\" profile=\"unconfined\" pid=2267518 comm=\"bwrap\" requested=\"userns_create\" target=\"unprivileged_userns\"\n",
+    "virtualization_detection": "none",
+    "observed_disk_profile": "/etc/apparmor.d/unprivileged_userns",
+    "profile_sha256": "3729c1ec82ab5384de6553afab455a236ce90096dac9c0e6cb65c133c10e18b3",
+    "disk_profile_contains_audit_deny_capability": true,
+    "aa_status_exit": 4,
+    "aa_status_error": "You do not have enough privilege to read the profile set.\n",
+    "loaded_policy_mode_and_exact_RTM_denial_rule_proven": false,
+    "operator_action": "Administrator read-only aa-status/scoped kernel audit review; no global policy change authorized."
+  },
+  "final_private_evidence_sha256": [
+    {
+      "path": "manifest/source.json",
+      "sha256": "d65e6efb9992f0fc8ee1b47a8f3d6d9e712baf81147fb801644c688a53b776a4"
+    },
+    {
+      "path": "manifest/build-tools.json",
+      "sha256": "58dabbc0883fb8596efa4ffd8fdc9376cbad684f6707f39327c3c8b4481e11cd"
+    },
+    {
+      "path": "manifest/native-libraries.json",
+      "sha256": "0bc68421fa62d154feeda332b47076e2167c35413d9d994b1041556463b91e94"
+    },
+    {
+      "path": "manifest/review-fix-delta.json",
+      "sha256": "01ee63b1727ff2133bc2a2e18eeac91f114d0c07435744c3ffb3c95ab5f93e39"
+    },
+    {
+      "path": "manifest/portability-update.json",
+      "sha256": "ec4421908e0d5fd4eec543807e5af41e467754844ec1ffe102dcf1f9306a3db7"
+    },
+    {
+      "path": "reports/test-source-porting-correction.json",
+      "sha256": "7c2b6e9eeeace5b39e33c76ad2517ff88a6231c58609dcc5bfb9779f8382671c"
+    },
+    {
+      "path": "linux-reports-final/linux-static-qa-posix-final.json",
+      "sha256": "a3e0f43410c299f6ec71f453449b49dcc844d48f79bccd3cba329dc58adc5d0d"
+    },
+    {
+      "path": "linux-reports-final/posix-final-static-source-green-linux.json",
+      "sha256": "2ca67af67ed02f5a5a92dead3197f0a58bee161375fe175b41d262fb8e7cd336"
+    },
+    {
+      "path": "linux-reports-final/posix-final-build-input-check-linux.json",
+      "sha256": "ee8a8d9b8c596aff9da7399f05deb35a0c792d0b925393f8972a56ba2593c693"
+    }
+  ],
+  "prior_plan_CI_observation": {
+    "run_id": 39536606317,
+    "source_commit": "7f4fb31d8c0432f4b7a2aa6696ed05137562f80e",
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39536606317",
+    "status": "in_progress",
+    "conclusion": null,
+    "observed_at": "2026-10-21T03:55:04.319131+00:00",
+    "jobs": [
+      {
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "engineering-execution",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
+  },
+  "publication_scope": "This batch changes repository documentation/task references only. Source backport/QA/payload remain solely in approved private runtime directories; no current new CI success inferred."
+}
