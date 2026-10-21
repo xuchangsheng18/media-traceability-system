@@ -1,6 +1,6 @@
 {
   "revision": "t013-named-mfa-t014-isolated-p01-p07-t015-owner-20261020",
-  "observed_date": "2026-10-21",
+  "observed_date": "2026-10-22",
   "scope": "reviewed_partial_development_and_prototype_evidence_not_full_source_task_acceptance",
   "formal_accepted": false,
   "completion_percentage_asserted": false,
@@ -3250,8 +3250,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "分片上传初始化、权限和幂等约束已实现",
-      "summary_remaining": "完成全部源参数、配额/并发及前端上传联调；补实际认证来源适配后的正反向验收",
+      "summary_completed": "分片上传初始化、权限和幂等约束已实现；前端上传研发子范围：已有案件/有效来源选择、有限预算文件SHA-256及精确六字段初始化已接入；身份/范围/来源到期清理和未知原请求重试已验证，不代表真实身份联调或配额并发验收。",
+      "summary_remaining": "本批前端初始化与预算内PNG/JPEG接线已有证据；仍需完成全部适用源参数、实际配额/并发控制及真实后端页面联调。；补实际身份、来源权威适配后的正反向验收；本批自建传输夹具不替代该验收。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "分片上传初始化、权限和幂等约束已实现",
@@ -3274,23 +3274,52 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "前端上传研发子范围：已有案件/有效来源选择、有限预算文件SHA-256及精确六字段初始化已接入；身份/范围/来源到期清理和未知原请求重试已验证，不代表真实身份联调或配额并发验收。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/uploads.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/src/views/BusinessUploadsView.vue",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/src/business/uploads.test.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "docs/00-project/validation/business-upload-first-batch-report.json",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "完成全部源参数、配额/并发及前端上传联调"
+          "description": "本批前端初始化与预算内PNG/JPEG接线已有证据；仍需完成全部适用源参数、实际配额/并发控制及真实后端页面联调。"
         },
         {
           "category": "实施/验证",
-          "description": "补实际认证来源适配后的正反向验收"
+          "description": "补实际身份、来源权威适配后的正反向验收；本批自建传输夹具不替代该验收。"
         },
         {
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "followup_document_refs": [
+        "docs/03-development/business-upload-first-batch.md"
+      ]
     },
     {
       "task_id": "T023",
@@ -3299,8 +3328,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "分片摘要/偏移、重放及续传子范围已有真实HTTP/数据库测试",
-      "summary_remaining": "补全部适用媒体、并发/大文件/断网跨会话联调；完成实际配额与清理策略、失败恢复及源验收对照",
+      "summary_completed": "分片摘要/偏移、重放及续传子范围已有真实HTTP/数据库测试；前端上传研发子范围：受业务会话保护的真实二进制分片、原字节/原键重试及完整分页/版本/逐片摘要续传核对已实现；Chrome本地接收器验证真实传输，不代表跨刷新、大文件或真实后端E2E。",
+      "summary_remaining": "本页保留文件的分片重试与版本/摘要核对已有证据；仍需全媒体、大文件、并发/断网及跨刷新重新选择文件后的完整绑定恢复。；完成实际配额、过期分片清理、失败恢复及源验收对照；页面重置不删除服务端旧会话。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "分片摘要/偏移、重放及续传子范围已有真实HTTP/数据库测试",
@@ -3319,23 +3348,52 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "前端上传研发子范围：受业务会话保护的真实二进制分片、原字节/原键重试及完整分页/版本/逐片摘要续传核对已实现；Chrome本地接收器验证真实传输，不代表跨刷新、大文件或真实后端E2E。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/uploads.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/src/views/BusinessUploadsView.vue",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/src/business/uploads.test.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "docs/00-project/validation/business-upload-first-batch-report.json",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补全部适用媒体、并发/大文件/断网跨会话联调"
+          "description": "本页保留文件的分片重试与版本/摘要核对已有证据；仍需全媒体、大文件、并发/断网及跨刷新重新选择文件后的完整绑定恢复。"
         },
         {
           "category": "实施/验证",
-          "description": "完成实际配额与清理策略、失败恢复及源验收对照"
+          "description": "完成实际配额、过期分片清理、失败恢复及源验收对照；页面重置不删除服务端旧会话。"
         },
         {
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "followup_document_refs": [
+        "docs/03-development/business-upload-first-batch.md"
+      ]
     },
     {
       "task_id": "T024",
@@ -3344,8 +3402,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
-      "summary_remaining": "补实际部署worker和全媒体安全校验链路；扩大并发、宕机/重放恢复及缺失对象测试并完成任务验收",
+      "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。",
+      "summary_remaining": "仍需实际部署worker、真实对象存储/权威组合及全媒体安全校验；本批仅完成前端受理与进度接线。；扩大并发、宕机/重放恢复及缺失对象测试并完成真实组合验收；202回执和前端夹具不能关闭这些条件。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
@@ -3368,23 +3426,52 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/uploads.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/src/views/BusinessUploadsView.vue",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/src/business/uploads.test.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            },
+            {
+              "path": "docs/00-project/validation/business-upload-first-batch-report.json",
+              "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补实际部署worker和全媒体安全校验链路"
+          "description": "仍需实际部署worker、真实对象存储/权威组合及全媒体安全校验；本批仅完成前端受理与进度接线。"
         },
         {
           "category": "实施/验证",
-          "description": "扩大并发、宕机/重放恢复及缺失对象测试并完成任务验收"
+          "description": "扩大并发、宕机/重放恢复及缺失对象测试并完成真实组合验收；202回执和前端夹具不能关闭这些条件。"
         },
         {
           "category": "任务记录",
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "followup_document_refs": [
+        "docs/03-development/business-upload-first-batch.md"
+      ]
     },
     {
       "task_id": "T025",
@@ -3737,7 +3824,10 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-21"
+      "observed_date": "2026-10-21",
+      "followup_document_refs": [
+        "docs/03-development/business-upload-first-batch.md"
+      ]
     },
     {
       "task_id": "T031",
@@ -9192,6 +9282,16 @@
     "scope": "T001-T123 non-algorithm engineering; mixed tasks split; original dependencies retained",
     "planning_only": true,
     "new_completed_substeps": 0,
-    "whole_tasks_closed": 0
+    "whole_tasks_closed": 0,
+    "latest_implemented_subscope_ref": "docs/00-project/validation/business-upload-first-batch-report.json"
+  },
+  "latest_business_upload_frontend": {
+    "observed_at": "2026-10-21T16:33:04.726261+00:00",
+    "report_ref": "docs/00-project/validation/business-upload-first-batch-report.json",
+    "plan_ref": "docs/03-development/business-upload-first-batch.md",
+    "new_completed_substeps": 3,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "real_business_E2E_verified": false
   }
 }

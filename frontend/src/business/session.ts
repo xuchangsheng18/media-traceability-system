@@ -25,6 +25,16 @@ export function createBusinessSession() {
       throw error
     }
   }
+  async function putPart<T>(...args: Parameters<typeof client.putPart<T>>) {
+    const version = state.generation
+    try {
+      return await client.putPart<T>(...args)
+    } catch (error) {
+      if (version === state.generation && error instanceof ApiError && error.status === 401)
+        disconnect()
+      throw error
+    }
+  }
   async function connect(token: string) {
     disconnect()
     const version = state.generation
@@ -56,7 +66,7 @@ export function createBusinessSession() {
   function has(permission: string) {
     return state.user?.permissions.includes(permission) ?? false
   }
-  return { state, connect, disconnect, has, call }
+  return { state, connect, disconnect, has, call, putPart }
 }
 export type BusinessSession = ReturnType<typeof createBusinessSession>
 export const businessSessionKey: InjectionKey<BusinessSession> = Symbol('business-session')

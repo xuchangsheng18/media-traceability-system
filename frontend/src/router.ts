@@ -10,6 +10,7 @@ import PendingReviewsView from './views/PendingReviewsView.vue'
 import AssetsView from './views/AssetsView.vue'
 import ModelsView from './views/ModelsView.vue'
 import SourcesView from './views/SourcesView.vue'
+import BusinessUploadsView from './views/BusinessUploadsView.vue'
 
 export function createAppRouter(history: RouterHistory = createWebHashHistory()) {
   return createRouter({
@@ -18,6 +19,7 @@ export function createAppRouter(history: RouterHistory = createWebHashHistory())
       { path: '/', name: 'upload', component: UploadView },
       { path: '/health', name: 'health', component: HealthView },
       { path: '/business', name: 'business', component: BusinessView },
+      { path: '/business/uploads', name: 'business-uploads', component: BusinessUploadsView },
       { path: '/approvals', name: 'approvals', component: ApprovalsView },
       { path: '/audit', name: 'audit', component: AuditView },
       { path: '/tasks', name: 'tasks', component: TasksView },

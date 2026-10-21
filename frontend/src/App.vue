@@ -31,6 +31,7 @@ const modules = [
   { label: '系统运维', to: '/health', accessibleName: '系统健康' },
 ]
 const workbench = [
+  { label: '业务上传', to: '/business/uploads' },
   { label: '任务与结果', to: '/tasks' },
   { label: '来源管理', to: '/sources' },
   { label: '模型目录', to: '/models' },
@@ -39,6 +40,10 @@ const workbench = [
   { label: '审计查询', to: '/audit' },
 ]
 const pages: Record<string, { title: string; description: string }> = {
+  'business-uploads': {
+    title: '业务文件与分片接入',
+    description: '在已有案件及来源授权范围内上传、续传并读取实际校验进度。',
+  },
   upload: {
     title: '多源数据接入',
     description: '使用自建图片验证上传、原件保存、异步处理与CPU推理链路。',

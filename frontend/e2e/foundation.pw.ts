@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { createHash } from 'node:crypto'
+import { createServer } from 'node:http'
 import type { Schemas } from '../src/business/api'
 
 // Model rows are self-owned transport fixtures, never a trained-model claim.
@@ -215,6 +216,7 @@ const otherCaseId = '33333333-3333-4333-8333-333333333333'
 async function connectBusiness(
   page: Page,
   permissions = ['task.read', 'review.read', 'asset.read'],
+  caseIds = [caseId, otherCaseId],
 ) {
   await page.route('**/business/api/v1/auth/me', (route) =>
     route.fulfill({
@@ -223,7 +225,7 @@ async function connectBusiness(
         org_id: '55555555-5555-4555-8555-555555555555',
         roles: ['self-owned-browser-fixture'],
         permissions,
-        case_ids: [caseId, otherCaseId],
+        case_ids: caseIds,
       },
     }),
   )
@@ -1147,4 +1149,348 @@ test('catalog pages keep missing functional permission disabled without requesti
   await page.getByRole('link', { name: '任务与结果', exact: true }).click()
   await expect(page.getByRole('button', { name: '查询任务／回到首页' })).toBeDisabled()
   expect(requests).toHaveLength(0)
+})
+
+// Self-owned upload routes test UI wiring; the local HTTP receiver below additionally
+// records actual Chrome PUT bytes/Content-Length. Neither proves real business auth.
+const browserUploadId = '81000000-0000-4000-8000-000000000001'
+const browserAssetId = '82000000-0000-4000-8000-000000000001'
+const uploadPermissions = ['source.read', 'asset.upload', 'asset.read']
+const browserPng = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j1ioAAAAASUVORK5CYII=',
+  'base64',
+)
+const pngDigest = createHash('sha256').update(browserPng).digest('hex')
+function uploadSource(): Schemas['Source'] {
+  return { ...registeredSource(), authorization_status: 'verified', purpose: ['upload'] }
+}
+function browserUploadSession(
+  state: Schemas['UploadSession']['state'] = 'UPLOADING',
+): Schemas['UploadSession'] {
+  return {
+    upload_id: browserUploadId,
+    part_size_bytes: 32,
+    state,
+    expires_at: '2099-01-01T00:00:00Z',
+    version: 1,
+  }
+}
+const pngParts = Array.from({ length: Math.ceil(browserPng.length / 32) }, (_, index) => {
+  const bytes = browserPng.subarray(index * 32, (index + 1) * 32)
+  return {
+    part_no: index + 1,
+    size_bytes: bytes.length,
+    sha256: createHash('sha256').update(bytes).digest('hex'),
+  }
+})
+async function prepareBusinessUpload(page: Page, sources = [uploadSource()]) {
+  await page.route('**/business/api/v1/sources?**', (route) => {
+    const url = new URL(route.request().url())
+    expect(url.searchParams.get('case_id')).toBe(caseId)
+    expect(url.searchParams.get('limit')).toBe('20')
+    return route.fulfill({ json: { items: sources, next_cursor: null } })
+  })
+  await connectBusiness(page, uploadPermissions)
+  await page.getByRole('link', { name: '业务上传', exact: true }).click()
+  await page.getByLabel('上传案件', { exact: true }).selectOption(caseId)
+  await page.getByRole('button', { name: '查询上传来源', exact: true }).click()
+  await page.getByLabel('上传来源', { exact: true }).selectOption(sourceId)
+  await page
+    .getByLabel('业务上传文件', { exact: true })
+    .setInputFiles({ name: 'owned-one-pixel.png', mimeType: 'image/png', buffer: browserPng })
+}
+
+test('business upload requires identity and permission and only offers current case scope', async ({
+  page,
+}) => {
+  let writes = 0
+  await page.route('**/business/api/v1/uploads**', (route) => {
+    writes++
+    return route.abort()
+  })
+  await page.goto('/#/business/uploads')
+  await expect(page.getByRole('button', { name: '初始化业务上传', exact: true })).toBeDisabled()
+  await expect(page.getByLabel('上传案件', { exact: true })).toBeDisabled()
+  await connectBusiness(page, ['source.read'])
+  await page.getByRole('link', { name: '业务上传', exact: true }).click()
+  await expect(page.getByLabel('上传案件').locator('option')).toHaveCount(3)
+  await expect(page.getByLabel('上传案件')).toHaveValue('')
+  await expect(page.getByRole('button', { name: '初始化业务上传', exact: true })).toBeDisabled()
+  await connectBusiness(page, uploadPermissions, [])
+  await page.getByRole('link', { name: '业务上传', exact: true }).click()
+  await expect(page.getByLabel('上传案件')).toBeDisabled()
+  await expect(page.getByLabel('上传案件').locator('option')).toHaveCount(1)
+  await expect(page.getByText('当前无可用案件', { exact: false })).toBeVisible()
+  expect(writes).toBe(0)
+})
+
+test('business upload filters sources by verified upload authorization', async ({ page }) => {
+  const pending = {
+    ...uploadSource(),
+    source_id: '70000000-0000-4000-8000-000000000002',
+    authorization_status: 'pending' as const,
+  }
+  const wrongPurpose = {
+    ...uploadSource(),
+    source_id: '70000000-0000-4000-8000-000000000003',
+    purpose: ['analysis'],
+  }
+  await prepareBusinessUpload(page, [uploadSource(), pending, wrongPurpose])
+  await expect(
+    page.getByLabel('上传来源').locator(`option[value="${pending.source_id}"]:enabled`),
+  ).toHaveCount(0)
+  await expect(
+    page.getByLabel('上传来源').locator(`option[value="${wrongPurpose.source_id}"]:enabled`),
+  ).toHaveCount(0)
+  await expect(page.getByLabel('浏览器摘要内存预算（MiB）')).toHaveValue('8')
+})
+
+test('business upload sends real Chrome binary PUT bytes and distinguishes accepted validation from valid asset', async ({
+  page,
+}) => {
+  const received: {
+    bytes: Buffer
+    headers: Record<string, string | string[] | undefined>
+    path: string
+  }[] = []
+  const receiver = createServer((req, res) => {
+    const chunks: Buffer[] = []
+    req.on('data', (chunk) => chunks.push(Buffer.from(chunk)))
+    req.on('end', () => {
+      const bytes = Buffer.concat(chunks)
+      received.push({ bytes, headers: req.headers, path: req.url ?? '' })
+      const partNo = Number(req.url?.split('/').at(-1))
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://127.0.0.1:14281',
+      })
+      res.end(JSON.stringify(pngParts[partNo - 1]))
+    })
+  })
+  await new Promise<void>((resolve) => receiver.listen(0, '127.0.0.1', resolve))
+  const address = receiver.address()
+  if (!address || typeof address === 'string') throw new Error('receiver address unavailable')
+  let complete = false
+  let validated = false
+  await page.route('**/business/api/v1/uploads**', async (route) => {
+    const request = route.request()
+    const url = new URL(request.url())
+    if (request.method() === 'PUT') {
+      await route.continue({ url: `http://127.0.0.1:${address.port}${url.pathname}` })
+    } else if (request.method() === 'POST' && url.pathname.endsWith('/uploads')) {
+      expect(request.postDataJSON()).toEqual({
+        case_id: caseId,
+        source_id: sourceId,
+        filename: 'owned-one-pixel.png',
+        size_bytes: browserPng.length,
+        mime: 'image/png',
+        sha256: pngDigest,
+      })
+      expect(request.headers()['idempotency-key']).toBeTruthy()
+      await route.fulfill({ status: 201, json: browserUploadSession() })
+    } else if (url.pathname.endsWith('/complete')) {
+      expect(request.postDataJSON()).toEqual({ parts: pngParts })
+      complete = true
+      await route.fulfill({
+        status: 202,
+        json: {
+          upload_id: browserUploadId,
+          asset_id: null,
+          validation: 'VALIDATING',
+          duplicate_of: null,
+          request_id: taskId,
+        },
+      })
+    } else if (url.pathname.endsWith('/parts')) {
+      await route.fulfill({ json: { items: pngParts, next_cursor: null, session_version: 1 } })
+    } else {
+      await route.fulfill({
+        json: {
+          session: browserUploadSession(
+            validated ? 'COMPLETED' : complete ? 'VALIDATING' : 'UPLOADING',
+          ),
+          result: complete
+            ? {
+                upload_id: browserUploadId,
+                asset_id: validated ? browserAssetId : null,
+                validation: validated ? 'VALID' : 'VALIDATING',
+                duplicate_of: null,
+                request_id: taskId,
+              }
+            : null,
+          received_parts_count: received.length,
+          received_bytes: received.reduce((sum, item) => sum + item.bytes.length, 0),
+          total_size_bytes: browserPng.length,
+        },
+      })
+    }
+  })
+  try {
+    await prepareBusinessUpload(page)
+    await page.getByRole('button', { name: '初始化业务上传', exact: true }).click()
+    await page.getByRole('button', { name: '发送剩余分片', exact: true }).click()
+    await expect.poll(() => received.length).toBe(pngParts.length)
+    expect(Buffer.concat(received.map((item) => item.bytes))).toEqual(browserPng)
+    for (const [index, item] of received.entries()) {
+      expect(item.headers['content-length']).toBe(String(pngParts[index]!.size_bytes))
+      expect(item.headers['content-type']).toBe('application/octet-stream')
+      expect(item.headers['x-part-sha256']).toBe(pngParts[index]!.sha256)
+      expect(item.headers['idempotency-key']).toBeTruthy()
+      expect(item.headers.authorization).toBe('Bearer self-owned-business-browser-token')
+    }
+    await page.getByRole('button', { name: '核对服务端分片', exact: true }).click()
+    await page.getByRole('button', { name: '完成上传并校验', exact: true }).click()
+    await expect(page.getByRole('status')).toContainText('VALIDATING')
+    await expect(page.getByText(browserAssetId, { exact: false })).toHaveCount(0)
+    validated = true
+    await page.getByRole('button', { name: '刷新校验进度', exact: true }).click()
+    await expect(page.getByText(browserAssetId, { exact: false })).toBeVisible()
+    const assetLink = page.getByRole('link', { name: '前往资产管理核对并读取', exact: true })
+    const href = await assetLink.getAttribute('href')
+    expect(href).toBeTruthy()
+    const target = new URL(href!, page.url())
+    const query = new URLSearchParams(target.hash.split('?')[1])
+    expect(target.hash.split('?')[0]).toBe('#/assets')
+    expect(query.get('case_id')).toBe(caseId)
+    expect(query.get('asset_id')).toBe(browserAssetId)
+  } finally {
+    await new Promise<void>((resolve, reject) =>
+      receiver.close((error) => (error ? reject(error) : resolve())),
+    )
+  }
+})
+
+test('business upload unknown create outcome retries original key and body', async ({ page }) => {
+  const creates: { key: string | undefined; body: unknown }[] = []
+  await page.route('**/business/api/v1/uploads', async (route) => {
+    creates.push({
+      key: route.request().headers()['idempotency-key'],
+      body: route.request().postDataJSON(),
+    })
+    if (creates.length === 1) await route.abort('failed')
+    else await route.fulfill({ status: 201, json: browserUploadSession() })
+  })
+  await prepareBusinessUpload(page)
+  await page.getByRole('button', { name: '初始化业务上传', exact: true }).click()
+  await expect(page.getByRole('button', { name: '重试原请求', exact: true })).toBeEnabled()
+  await page.getByRole('button', { name: '重试原请求', exact: true }).click()
+  await expect.poll(() => creates.length).toBe(2)
+  expect(creates[1]).toEqual(creates[0])
+  expect(creates[0]!.key).toBeTruthy()
+})
+
+test('business upload discards delayed initialization when identity is cleared after leaving', async ({
+  page,
+}) => {
+  let release!: () => void
+  let start!: () => void
+  const waiting = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  const started = new Promise<void>((resolve) => {
+    start = resolve
+  })
+  await page.route('**/business/api/v1/uploads', async (route) => {
+    start()
+    await waiting
+    await route.fulfill({ status: 201, json: browserUploadSession() })
+  })
+  await prepareBusinessUpload(page)
+  await page.getByRole('button', { name: '初始化业务上传', exact: true }).click()
+  await started
+  await expect(page.getByLabel('上传案件')).toBeDisabled()
+  await expect(page.getByLabel('上传案件')).toHaveValue(caseId)
+  await page.getByRole('link', { name: '业务身份', exact: true }).click()
+  await page.getByRole('button', { name: '清除身份与结果', exact: true }).click()
+  release()
+  await page.getByRole('link', { name: '业务上传', exact: true }).click()
+  await expect(page.getByLabel('上传案件')).toHaveValue('')
+  await expect(page.getByLabel('上传案件').locator('option')).toHaveCount(1)
+  await expect(page.getByText(browserUploadId, { exact: false })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '发送剩余分片', exact: true })).toBeDisabled()
+})
+
+test('business upload unknown part outcome retries original bytes digest and key', async ({
+  page,
+}) => {
+  const attempts: { key: string | undefined; digest: string | undefined; bytes: string }[] = []
+  await page.route('**/business/api/v1/uploads**', async (route) => {
+    const request = route.request()
+    if (request.method() === 'POST')
+      return route.fulfill({ status: 201, json: browserUploadSession() })
+    if (request.method() === 'PUT') {
+      const partNo = Number(new URL(request.url()).pathname.split('/').at(-1))
+      attempts.push({
+        key: request.headers()['idempotency-key'],
+        digest: request.headers()['x-part-sha256'],
+        bytes: request.postDataBuffer()!.toString('hex'),
+      })
+      if (attempts.length === 1) return route.abort('failed')
+      return route.fulfill({ json: pngParts[partNo - 1] })
+    }
+    return route.fulfill({ json: { items: [], next_cursor: null, session_version: 1 } })
+  })
+  await prepareBusinessUpload(page)
+  await page.getByRole('button', { name: '初始化业务上传', exact: true }).click()
+  await page.getByRole('button', { name: '发送剩余分片', exact: true }).click()
+  await expect(page.getByRole('button', { name: '重试原请求', exact: true })).toBeEnabled()
+  await page.getByRole('button', { name: '重试原请求', exact: true }).click()
+  await expect.poll(() => attempts.length).toBeGreaterThanOrEqual(2)
+  expect(attempts[1]).toEqual(attempts[0])
+  expect(attempts[0]!.key).toBeTruthy()
+  expect(attempts[0]!.digest).toBe(pngParts[0]!.sha256)
+  expect(attempts[0]!.bytes).toBe(browserPng.subarray(0, 32).toString('hex'))
+})
+
+test('business upload case changes immediately clear selected source and local file', async ({
+  page,
+}) => {
+  let writes = 0
+  await page.route('**/business/api/v1/uploads**', (route) => {
+    writes++
+    return route.abort()
+  })
+  await prepareBusinessUpload(page)
+  await expect(page.getByLabel('上传来源')).toHaveValue(sourceId)
+  await page.getByLabel('上传案件').selectOption(otherCaseId)
+  await expect(page.getByLabel('上传来源')).toHaveValue('')
+  await expect(page.getByLabel('业务上传文件')).toHaveValue('')
+  await expect(page.getByRole('button', { name: '初始化业务上传', exact: true })).toBeDisabled()
+  expect(writes).toBe(0)
+})
+
+test('business upload leaving alone discards late response while keeping connected identity', async ({
+  page,
+}) => {
+  let release!: () => void
+  let start!: () => void
+  let finish!: () => void
+  const waiting = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  const started = new Promise<void>((resolve) => {
+    start = resolve
+  })
+  const finished = new Promise<void>((resolve) => {
+    finish = resolve
+  })
+  await page.route('**/business/api/v1/uploads', async (route) => {
+    start()
+    await waiting
+    await route.fulfill({ status: 201, json: browserUploadSession() })
+    finish()
+  })
+  await prepareBusinessUpload(page)
+  await page.getByRole('button', { name: '初始化业务上传', exact: true }).click()
+  await started
+  await page.getByRole('link', { name: '业务身份', exact: true }).click()
+  await expect(page.getByRole('status')).toContainText('业务身份已连接')
+  release()
+  await finished
+  await page.getByRole('link', { name: '业务上传', exact: true }).click()
+  await expect(page.getByLabel('上传案件')).toHaveValue('')
+  await expect(page.getByLabel('上传案件').locator('option')).toHaveCount(3)
+  await expect(page.getByLabel('业务上传文件')).toHaveValue('')
+  await expect(page.getByText(browserUploadId, { exact: false })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '发送剩余分片', exact: true })).toBeDisabled()
 })

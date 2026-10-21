@@ -40,9 +40,48 @@ export class BusinessClient {
     binary = false,
   ): Promise<Reply<T>> {
     if (!this.token) throw new ApiError(401, 'AUTHENTICATION_REQUIRED')
+    if (body && !key) throw new Error('变更请求缺少幂等键')
+    const headers: Record<string, string> = {}
+    if (body) headers['Content-Type'] = 'application/json'
+    if (key) headers['Idempotency-Key'] = key
+    if (etag) headers['If-Match'] = etag
+    return this.request<T>(
+      path,
+      body ? 'POST' : 'GET',
+      body ? JSON.stringify(body) : undefined,
+      headers,
+      binary,
+    )
+  }
+
+  async putPart<T>(path: string, body: Blob, sha256: string, key: string): Promise<Reply<T>> {
+    if (!this.token) throw new ApiError(401, 'AUTHENTICATION_REQUIRED')
+    if (
+      !/^\/uploads\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}\/parts\/[1-9][0-9]*$/i.test(
+        path,
+      )
+    )
+      throw new Error('请求地址无效')
+    if (!(body instanceof Blob) || body.size <= 0) throw new Error('分片内容无效')
+    if (!/^[a-f0-9]{64}$/.test(sha256)) throw new Error('分片摘要无效')
+    if (!/^[\x21-\x7e]{1,128}$/.test(key)) throw new Error('幂等键无效')
+    return this.request<T>(path, 'PUT', body, {
+      'Content-Type': 'application/octet-stream',
+      'X-Part-SHA256': sha256,
+      'Idempotency-Key': key,
+    })
+  }
+
+  private async request<T>(
+    path: string,
+    method: 'GET' | 'POST' | 'PUT',
+    body: BodyInit | undefined,
+    extraHeaders: Record<string, string>,
+    binary = false,
+  ): Promise<Reply<T>> {
+    if (!this.token) throw new ApiError(401, 'AUTHENTICATION_REQUIRED')
     if (!path.startsWith('/') || path.startsWith('//') || path.includes('#'))
       throw new Error('请求地址无效')
-    if (body && !key) throw new Error('变更请求缺少幂等键')
     const url = resolveApiUrl(
       path,
       import.meta.env.VITE_BUSINESS_API_BASE_URL ?? '/business/api/v1',
@@ -55,14 +94,12 @@ export class BusinessClient {
       const headers: Record<string, string> = {
         Authorization: `Bearer ${this.token}`,
         Accept: binary ? 'application/octet-stream' : 'application/json',
+        ...extraHeaders,
       }
-      if (body) headers['Content-Type'] = 'application/json'
-      if (key) headers['Idempotency-Key'] = key
-      if (etag) headers['If-Match'] = etag
       const response = await fetch(url, {
-        method: body ? 'POST' : 'GET',
+        method,
         headers,
-        body: body ? JSON.stringify(body) : undefined,
+        body,
         credentials: 'omit',
         redirect: 'error',
         cache: 'no-store',
