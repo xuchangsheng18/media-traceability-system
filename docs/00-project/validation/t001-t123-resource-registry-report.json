@@ -49,7 +49,8 @@
     "tests/platform/test_business_route_registration.py": "6671bc6c46f838439f2c545e96d57e360bce4cdd2c1bc6c2dd6760dc36a3e4ac",
     "tests/platform/test_model_catalog_projection.py": "f31f9289a96675b415cc89746106431cacb9debf22685b16cb04ec970a563bdc",
     "tests/platform/test_t014.py": "4fcc4753ff47dbd0f49dd81998a6ef20526b2ed22be1a81e59ec947cb0ebcfce",
-    "tests/platform/test_t014_gate.py": "2018a176ad904be9773d5ffc38e0c61e18f4ab1b085d4892162bd0be7c213b74"
+    "tests/platform/test_t014_gate.py": "2018a176ad904be9773d5ffc38e0c61e18f4ab1b085d4892162bd0be7c213b74",
+    "tests/business/test_t015_scope_owner.py": "0233b90a1f37acf2ad0ed14d3df507bd42e93577eb2ed613673db4076f493ea7"
   },
   "public_contract_changed": false,
   "original_100_package_lock_changed": false,
@@ -311,10 +312,34 @@
     "current_batch_ci_claimed": false
   },
   "current_batch_ci": {
-    "status": "NOT_PUSHED_YET"
+    "source_commit": "8e6e2a0c3b7628e0c1d921ca23b9fb6b4301286f",
+    "run_id": 39586081688,
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39586081688",
+    "status": "in_progress",
+    "conclusion": null,
+    "will_be_superseded_by_required_owner_expectation_fix": true,
+    "all_CI_pass_asserted": false
   },
   "source_delivery": {
-    "status": "NOT_SYNCHRONIZED_YET"
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-21T10:38:44.087455+00:00",
+    "source_commit": "8e6e2a0c3b7628e0c1d921ca23b9fb6b4301286f",
+    "previous_server_commit": "b18695123c06889c9d1a2bb146adb4853744e70b",
+    "changed_files": 245,
+    "manifest_files_verified": 2253,
+    "manifest_sha256": "99ec571820964d4148b67939c6c238216fe7a88f7f57274a03144794289bf115",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "note": "Code/source checkpoint8e6e2a0; the exact owner expectation follow-up is about to be committed and synchronized separately."
   },
   "frontend_execution_proof": {
     "schema_version": 1,
@@ -492,11 +517,19 @@
     }
   ],
   "additional_scope_regressions": {
-    "status": "AUTHORED_STATIC_CHECKED_DATABASE_EXECUTION_PENDING",
+    "status": "PASS_SIX_CROSS_SCOPE_CASES_IN_36_PASSED_REPAIR_BATCH",
     "files": [
       "tests/business/test_asset_download_cross_scope.py",
       "tests/business/test_model_evaluation_cross_scope.py"
-    ]
+    ],
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "tests/business/test_asset_download_cross_scope.py",
+      "tests/business/test_model_evaluation_cross_scope.py"
+    ],
+    "scope": "Executed as part of the37-test repair batch:36 passed, only separate owner expected0013 chain failed; corrected owner then independently passed1/1 in31.03s. Not a synthetic whole-gate result."
   },
   "materials_validation": {
     "status": "PASS",
@@ -678,5 +711,23 @@
     "wall_time_seconds": 874.87261,
     "timeout_seconds_unchanged": 1200,
     "interpretation": "Three exact registry/migration expectation failures retained; assertions updated only for51 mounted/22 unmounted and0014; no test deleted/skipped and no runtime authorization loosened. Corrected regression still needs execution."
+  },
+  "migration_owner_followup": {
+    "initial": "37 selected tests:36 passed,1 owner-chain expectation failed",
+    "fix": "Exact current0001-0014 expected chain; old checksums and least-privilege assertions retained",
+    "retest": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/business/test_t015_scope_owner.py",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "tests": 1,
+      "result": "1 passed in31.03s"
+    },
+    "full_permission_gate_status": "CORRECTED_THREE_EXPECTATIONS_WAITING_REAL_RERUN_NOT_SYNTHETIC_PASS"
   }
 }
