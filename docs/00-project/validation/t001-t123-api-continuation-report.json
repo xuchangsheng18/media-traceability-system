@@ -83,8 +83,14 @@
     "all_CI_pass_asserted": false
   },
   "latest_source_CI": {
-    "status": "NOT_YET_PUSHED",
-    "all_CI_pass_asserted": false
+    "source_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
+    "run_id": 39573028419,
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39573028419",
+    "status": "in_progress",
+    "conclusion": null,
+    "observed_at": "2026-10-21T09:03:24.156953+00:00",
+    "all_CI_pass_asserted": false,
+    "corrected_migration_expectations_not_in_this_checkpoint": true
   },
   "independent_review": {
     "reviewer": "api_continuation_review",
@@ -498,11 +504,11 @@
     "tests/business/test_t015_collections.py": "49261d40126c570e2f80a008dc8d34fe6864196adae4ca3f0a3582ae1227cc36",
     "tests/business/test_t015_metadata_timestamps.py": "2052aa2a6926cd0b9175e5ca79b694aa8f9596b007c53ba2fdd79a7e154b0033",
     "tests/business/test_t015_scope_http.py": "87597e62f7a92f9548ef8c26c1ecd56cc5f7ad1c308ed988fdd48278bf4acbe3",
-    "tests/business/test_t015_scope_owner.py": "110dfb4d411665ff872972cb9842a1e895ad7f65e78776a4005d9d5bad8fb5fd",
-    "tests/business/test_t015_scope_recovery.py": "9db30beda74f4230e290d67a1bac8cb2ed5e25ff67a886bbc214164966ae5bf1",
+    "tests/business/test_t015_scope_owner.py": "c922de058a5c9f9430d1ea9d46095c75b5b3ba38c49bce6737e033c47e95be01",
+    "tests/business/test_t015_scope_recovery.py": "729e20e100a2eb0ac47467a673c32527d982ac3aa3150d0e2539c2cb401b2926",
     "tests/business/test_t015_scope_sql.py": "730c716d86400b4ab9b9934801fb3d58c39bc5ec959897145ac54eafbcce9e9d",
     "tests/business/test_t015_scoped_objects.py": "4d69b3a69bb37eaa346a9fbe52981aeec0b901c025510b647b31692b86027908",
-    "tests/business/test_t016_operation_token_recovery.py": "5c88ac98193ed4fa92cbc0691f734d15c86b0f8b3b81461ad5c2f5fcfca85459",
+    "tests/business/test_t016_operation_token_recovery.py": "aef4fa8a10a32dc566fc02cc1f2b947f2f8239ec690919cbb9a1cf30350b4a0e",
     "tests/business/test_t016_operation_tokens.py": "482347132072e46e8fb6af805b0afc039f0c85325a69b93bb6cadbdec332682b",
     "tests/business/test_t016_permission_facts.py": "b38052173f0c61dda7dc926d9d1e2196052769303497b4d2398accac6be223a3",
     "tests/business/test_token_identity.py": "e5de1271c9ea703410c1fa7045ac3da532ba39af5b43b49ae4cfacf878905fe3",
@@ -654,7 +660,86 @@
     }
   ],
   "retained_scope_and_token_gates": {
-    "status": "IN_PROGRESS",
-    "old_source_success_not_reused": true
+    "status": "RERUN_IN_PROGRESS_AFTER_STRICT_MIGRATION_EXPECTATION_UPDATE",
+    "old_failure_preserved": true
+  },
+  "migration_expectation_followup": {
+    "previous_payload_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
+    "initial_scope_gate": {
+      "status": "FAIL",
+      "totals": {
+        "tests": 131,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0
+      },
+      "cause": "current-chain recovery expectations and digest-copy fixture omitted0013; no migration runtime failure"
+    },
+    "repair": {
+      "exact_migration_chain_ends_at": "0013",
+      "historical_migrations_changed": false,
+      "original_ROLLBACK_DIGEST_RLS_ACL_assertions_retained": true,
+      "source_sha256": {
+        "tests/business/test_t015_scope_recovery.py": "729e20e100a2eb0ac47467a673c32527d982ac3aa3150d0e2539c2cb401b2926",
+        "tests/business/test_t016_operation_token_recovery.py": "aef4fa8a10a32dc566fc02cc1f2b947f2f8239ec690919cbb9a1cf30350b4a0e",
+        "tests/business/test_t015_scope_owner.py": "c922de058a5c9f9430d1ea9d46095c75b5b3ba38c49bce6737e033c47e95be01"
+      }
+    },
+    "actual_targeted_checks": {
+      "observed_at": "2026-10-21T09:01:17.712115+00:00",
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-546c7b5fc6e5",
+      "validation_snapshot_commit": "3cd72dd03c4c5de28f448d37ca2a2cd424bcffe2",
+      "publication_commit": false,
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_t015_scope_recovery.py::test_upgrade_from_0009_and_partial_failure_are_atomic",
+            "tests/business/test_t015_scope_recovery.py::test_reapply_checks_exact_old_and_new_migration_digests",
+            "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums",
+            "tests/business/test_t015_scope_owner.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "wall_time_seconds": 92.184766,
+          "safe_summary": [
+            "6 passed, 1 warning in 91.65s (0:01:31)"
+          ],
+          "expected_result_verified": true
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "static_type_check": {
+      "exit_code": 0,
+      "summary": "Success: no issues found in 3 source files"
+    },
+    "full_T015_T016_rerun": "IN_PROGRESS",
+    "T014_selected_source_and_target_tests_unchanged": true
+  },
+  "synchronization": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-21T08:56:05.121355+00:00",
+    "source_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
+    "previous_server_commit": "54f7260576f7044635927a2309a014b830d31d92",
+    "changed_files": 223,
+    "manifest_files_verified": 2227,
+    "manifest_sha256": "cec04d7bb79cca1a9795b72c34a0d416e5c4579d39bb0e4dd72b0e7e64cd9708",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false
   }
 }
