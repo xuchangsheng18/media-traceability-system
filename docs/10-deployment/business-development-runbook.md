@@ -2,6 +2,8 @@
 
 本入口用于Linux／现有Miniforge py310／CPU内部研发。原上传验证页与七服务保留；新增业务控制台复用同一Vue工程，业务API单独运行。Python候选暂缓，不安装新Python或替换原100包锁。
 
+页面布局已按本地12页PPT优化，导航、待接入范围及验证见[页面对照](../03-development/ppt-interface-alignment.md)和[实际记录](../00-project/validation/ppt-interface-alignment.json)。
+
 ## 本轮Linux演示入口
 
 本轮使用新的独立业务实例（Linux回环14212）和[`business_demo_gateway.py`](../../scripts/business_demo_gateway.py)（回环14213）。网关托管`npm run build`实际生成的前端文件，`/api`、`/poc`转发到既有CPU PoC 14200，`/business/api/v1`转发到新业务实例14212。它只提供研发入口，固定回环上游，不产生业务身份/案件/授权或结果；静态文件和API响应禁止缓存，不转发Cookie，不跟随上游跳转。

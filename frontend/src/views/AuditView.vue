@@ -130,145 +130,164 @@ async function download() {
 }
 </script>
 <template>
-  <section>
-    <h2>审计查询</h2>
-    <label
-      >案件编号<input
-        v-model="caseId"
-        :disabled="busy"
-        list="audit-cases"
-        aria-label="审计案件编号"
-    /></label>
-    <datalist id="audit-cases">
-      <option
-        v-for="id in session.state.user?.case_ids"
-        :key="id"
-        :value="id"
-      />
-    </datalist>
-    <button
-      :disabled="busy || !session.has('audit.read')"
-      @click="list()"
-    >
-      查询审计</button
-    ><button
-      class="secondary"
-      :disabled="busy || !cursor"
-      @click="list(true)"
-    >
-      下一页
-    </button>
-    <details>
-      <summary>筛选当前页</summary>
-      <p>当前接口按案件分页；下列条件只筛选已返回的当前页，不代表全部记录筛选结果。</p>
-      <label>用户编号<input v-model="actorFilter" /></label
-      ><label>对象编号<input v-model="objectFilter" /></label
-      ><label
-        >开始时间<input
-          v-model="from"
-          type="datetime-local" /></label
-      ><label
-        >结束时间<input
-          v-model="to"
-          type="datetime-local"
-      /></label>
-    </details>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>时间</th>
-            <th>动作</th>
-            <th>结果</th>
-            <th>对象</th>
-            <th>详情</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="event in visible"
-            :key="event.event_id"
+  <div class="view-grid">
+    <section class="panel span-7">
+      <h2 class="panel-heading">审计查询</h2>
+      <div class="toolbar">
+        <label
+          >案件编号<input
+            v-model="caseId"
+            :disabled="busy"
+            list="audit-cases"
+            aria-label="审计案件编号"
+        /></label>
+        <datalist id="audit-cases">
+          <option
+            v-for="id in session.state.user?.case_ids"
+            :key="id"
+            :value="id"
+          />
+        </datalist>
+        <button
+          :disabled="busy || !session.has('audit.read')"
+          @click="list()"
+        >
+          查询审计</button
+        ><button
+          class="secondary"
+          :disabled="busy || !cursor"
+          @click="list(true)"
+        >
+          下一页
+        </button>
+      </div>
+      <details>
+        <summary>筛选当前页</summary>
+        <p class="panel-copy">
+          当前接口按案件分页；下列条件只筛选已返回的当前页，不代表全部记录筛选结果。
+        </p>
+        <div class="form-grid">
+          <label>用户编号<input v-model="actorFilter" /></label
+          ><label>对象编号<input v-model="objectFilter" /></label
+          ><label
+            >开始时间<input
+              v-model="from"
+              type="datetime-local" /></label
+          ><label
+            >结束时间<input
+              v-model="to"
+              type="datetime-local"
+          /></label>
+        </div>
+      </details>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>动作</th>
+              <th>结果</th>
+              <th>对象</th>
+              <th>详情</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="event in visible"
+              :key="event.event_id"
+            >
+              <td>{{ event.occurred_at }}</td>
+              <td>{{ event.action }}</td>
+              <td>{{ event.outcome }}</td>
+              <td>{{ event.object_type }}</td>
+              <td>
+                <button
+                  class="secondary"
+                  @click="detail = event"
+                >
+                  查看
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p
+        v-if="loaded && !visible.length"
+        class="muted empty-state"
+      >
+        当前页无匹配记录；未授权和查询失败不会显示为成功的空结果。
+      </p>
+      <dl v-if="detail">
+        <dt>事件编号</dt>
+        <dd>{{ detail.event_id }}</dd>
+        <dt>操作者</dt>
+        <dd>{{ detail.actor_id }}</dd>
+        <dt>对象编号／版本</dt>
+        <dd>{{ detail.object_id || '无' }} / {{ detail.object_version ?? '无' }}</dd>
+        <dt>请求编号</dt>
+        <dd>{{ detail.request_id }}</dd>
+      </dl>
+    </section>
+    <section class="panel span-5">
+      <h3 class="panel-heading">受控审计导出</h3>
+      <p class="panel-copy">
+        须有对应批准记录。此处的人工勾选只防误操作；服务端继续核验审批、案件、时间窗、大小和有效期。
+      </p>
+      <div class="form-grid">
+        <label class="field-full">批准编号<input v-model="approvalId" /></label
+        ><label
+          >开始时间<input
+            v-model="start"
+            type="datetime-local" /></label
+        ><label
+          >结束时间<input
+            v-model="end"
+            type="datetime-local" /></label
+        ><label class="field-full"
+          >用途<input
+            v-model="purpose"
+            maxlength="128"
+        /></label>
+        <label class="check field-full"
+          ><input
+            v-model="confirmed"
+            type="checkbox"
+          />已核对案件、批准编号、时间和用途。</label
+        >
+        <div class="form-actions">
+          <button
+            :disabled="busy || !confirmed || !session.has('audit.export')"
+            @click="requestExport"
           >
-            <td>{{ event.occurred_at }}</td>
-            <td>{{ event.action }}</td>
-            <td>{{ event.outcome }}</td>
-            <td>{{ event.object_type }}</td>
-            <td>
-              <button
-                class="secondary"
-                @click="detail = event"
-              >
-                查看
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p
-      v-if="loaded && !visible.length"
-      class="muted"
-    >
-      当前页无匹配记录；未授权和查询失败不会显示为成功的空结果。
-    </p>
-    <dl v-if="detail">
-      <dt>事件编号</dt>
-      <dd>{{ detail.event_id }}</dd>
-      <dt>操作者</dt>
-      <dd>{{ detail.actor_id }}</dd>
-      <dt>对象编号／版本</dt>
-      <dd>{{ detail.object_id || '无' }} / {{ detail.object_version ?? '无' }}</dd>
-      <dt>请求编号</dt>
-      <dd>{{ detail.request_id }}</dd>
-    </dl>
-  </section>
-  <section>
-    <h3>受控审计导出</h3>
-    <p>
-      须有对应批准记录。此处的人工勾选只防误操作；服务端继续核验审批、案件、时间窗、大小和有效期。
-    </p>
-    <label>批准编号<input v-model="approvalId" /></label
-    ><label
-      >开始时间<input
-        v-model="start"
-        type="datetime-local" /></label
-    ><label
-      >结束时间<input
-        v-model="end"
-        type="datetime-local" /></label
-    ><label
-      >用途<input
-        v-model="purpose"
-        maxlength="128"
-    /></label>
-    <label class="check"
-      ><input
-        v-model="confirmed"
-        type="checkbox"
-      />已核对案件、批准编号、时间和用途。</label
-    >
-    <button
-      :disabled="busy || !confirmed || !session.has('audit.export')"
-      @click="requestExport"
-    >
-      申请导出
-    </button>
-    <label>导出编号<input v-model="exportId" /></label
-    ><button
-      class="secondary"
-      :disabled="busy || !session.has('audit.export')"
-      @click="checkExport"
-    >
-      读取导出状态</button
-    ><button
-      :disabled="busy || exportStatus?.state !== 'READY' || !session.has('audit.export')"
-      @click="download"
-    >
-      受控下载
-    </button>
-    <p v-if="exportStatus">
-      状态：{{ exportStatus.state }}；有效期：{{ exportStatus.expires_at || '尚未生成' }}
-    </p>
-    <p role="status">{{ message }}</p>
-  </section>
+            申请导出
+          </button>
+        </div>
+        <label class="field-full">导出编号<input v-model="exportId" /></label>
+        <div class="form-actions">
+          <button
+            class="secondary"
+            :disabled="busy || !session.has('audit.export')"
+            @click="checkExport"
+          >
+            读取导出状态</button
+          ><button
+            :disabled="busy || exportStatus?.state !== 'READY' || !session.has('audit.export')"
+            @click="download"
+          >
+            受控下载
+          </button>
+        </div>
+      </div>
+      <p v-if="exportStatus">
+        状态：{{ exportStatus.state }}；有效期：{{ exportStatus.expires_at || '尚未生成' }}
+      </p>
+      <p
+        class="notice"
+        role="status"
+      >
+        {{ message }}
+      </p>
+    </section>
+  </div>
 </template>

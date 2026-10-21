@@ -60,7 +60,7 @@ test('business reading pages require a connected identity', async ({ page }) => 
   await page.goto('/#/tasks')
   await expect(page.getByRole('heading', { name: '任务与结果', exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: '查询任务状态' })).toBeDisabled()
-  await page.getByRole('link', { name: '待复核队列', exact: true }).click()
+  await page.getByRole('link', { name: '审核管理（待复核队列）', exact: true }).click()
   await expect(page.getByRole('heading', { name: '待复核队列', exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: '查询待复核' })).toBeDisabled()
 })
@@ -120,7 +120,7 @@ test('pending review source blocks remain visible and case changes clear rows', 
     }),
   )
   await connectBusiness(page)
-  await page.getByRole('link', { name: '待复核队列', exact: true }).click()
+  await page.getByRole('link', { name: '审核管理（待复核队列）', exact: true }).click()
   await page.getByLabel('队列案件编号').fill(caseId)
   await page.getByRole('button', { name: '查询待复核' }).click()
   await expect(page.getByRole('row').filter({ hasText: taskId })).toContainText(
@@ -169,4 +169,53 @@ test('slow node reads do not replace an explicitly edited history selection', as
   await expect(page.getByText('此运行尚无节点记录。')).toBeVisible()
   await expect(page.getByLabel('历史运行版本')).toHaveValue('7')
   await expect(page.getByLabel('历史结果版本')).toHaveValue('3')
+})
+
+test('PPT desktop shell keeps real routes usable and marks unavailable modules', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  await page.goto('/#/')
+  await expect(
+    page.getByRole('heading', { name: '短视频与图片智能识别溯源系统', exact: true }),
+  ).toBeVisible()
+  await expect(page.locator('.app-sidebar')).toBeVisible()
+  await expect(page.getByRole('button', { name: '资源库 暂未接入', exact: true })).toBeDisabled()
+  await expect(page.getByText('业务身份未连接', { exact: true })).toBeVisible()
+  await page.getByRole('link', { name: '任务与结果', exact: true }).click()
+  await expect(page.getByRole('link', { name: '任务与结果', exact: true })).toHaveAttribute(
+    'aria-current',
+    'page',
+  )
+  await expect(page.getByRole('heading', { name: '任务与结果', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: '查询任务状态' })).toBeDisabled()
+  const sidebar = await page.locator('.app-sidebar').boundingBox()
+  const workspace = await page.locator('#workspace-main').boundingBox()
+  expect(sidebar && workspace && workspace.x >= sidebar.x + sidebar.width).toBeTruthy()
+})
+
+test('PPT mobile navigation opens closes and keeps forms inside the viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/#/')
+  await expect(page.getByRole('link', { name: '业务身份未连接', exact: true })).toBeVisible()
+  await expect(page.locator('.app-sidebar')).toBeHidden()
+  await page.getByRole('button', { name: '展开功能导航' }).click()
+  await expect(page.locator('.app-sidebar')).toBeVisible()
+  await page.getByRole('link', { name: '系统运维（系统健康）', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '系统健康', exact: true })).toBeVisible()
+  await expect(page.locator('.app-sidebar')).toBeHidden()
+  await expect(page.getByRole('button', { name: '展开功能导航' })).toHaveAttribute(
+    'aria-expanded',
+    'false',
+  )
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+})
+
+test('PPT skip link focuses main content without changing the hash route', async ({ page }) => {
+  await page.goto('/#/tasks')
+  await page.getByRole('link', { name: '跳转到主要内容' }).focus()
+  await page.keyboard.press('Enter')
+  await expect(page).toHaveURL(/#\/tasks$/)
+  await expect(page.locator('#workspace-main')).toBeFocused()
+  await expect(page.getByRole('heading', { name: '任务与结果', exact: true })).toBeVisible()
 })

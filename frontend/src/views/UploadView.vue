@@ -54,41 +54,62 @@ async function run() {
 }
 </script>
 <template>
-  <section>
-    <h2>提交测试图片</h2>
-    <p>请使用无敏感内容的PNG或JPEG，小于1 MiB。</p>
-    <label
-      >研发访问令牌<input
-        v-model="token"
-        aria-label="研发访问令牌"
-        type="password"
-        autocomplete="off" /></label
-    ><label
-      >测试图片<input
-        aria-label="测试图片"
-        type="file"
-        accept="image/png,image/jpeg"
-        @change="select" /></label
-    ><button
-      :disabled="busy"
-      @click="run"
-    >
-      {{ busy ? '处理中…' : '开始验证' }}
-    </button>
-    <p role="status">{{ state }}</p>
-  </section>
-  <section>
-    <h2>处理结果</h2>
-    <p>此处使用合成CPU模型，只验证运行链路，结果不能用于业务研判。</p>
-    <pre
-      v-if="result"
-      data-testid="result"
-      >{{ result }}</pre>
-    <p
-      v-else
-      class="muted"
-    >
-      完成分析后显示模型版本、向量引用与耗时。
-    </p>
-  </section>
+  <div class="view-grid">
+    <section class="panel span-8">
+      <h2 class="panel-heading">提交测试图片</h2>
+      <p class="panel-copy">请使用无敏感内容的PNG或JPEG，小于1 MiB。</p>
+      <ol
+        class="upload-flow"
+        aria-label="图片验证流程说明"
+      >
+        <li class="flow-step"><span>01</span>选择图片</li>
+        <li class="flow-step"><span>02</span>保存原件</li>
+        <li class="flow-step"><span>03</span>异步处理</li>
+        <li class="flow-step"><span>04</span>结果读取</li>
+      </ol>
+      <div class="form-grid">
+        <label class="field-full"
+          >研发访问令牌<input
+            v-model="token"
+            aria-label="研发访问令牌"
+            type="password"
+            autocomplete="off" /></label
+        ><label class="file-field field-full"
+          >测试图片<input
+            aria-label="测试图片"
+            type="file"
+            accept="image/png,image/jpeg"
+            @change="select"
+        /></label>
+        <div class="form-actions">
+          <button
+            :disabled="busy"
+            @click="run"
+          >
+            {{ busy ? '处理中…' : '开始验证' }}
+          </button>
+        </div>
+      </div>
+      <p
+        class="notice"
+        role="status"
+      >
+        {{ state }}
+      </p>
+    </section>
+    <section class="panel span-4">
+      <h2 class="panel-heading">处理结果</h2>
+      <p class="panel-copy">此处使用合成CPU模型，只验证运行链路，结果不能用于业务研判。</p>
+      <pre
+        v-if="result"
+        data-testid="result"
+        >{{ result }}</pre>
+      <p
+        v-else
+        class="muted empty-state"
+      >
+        完成分析后显示模型版本、向量引用与耗时。
+      </p>
+    </section>
+  </div>
 </template>

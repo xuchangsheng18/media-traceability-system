@@ -1,5 +1,7 @@
 # 项目文档导航
 
+页面优化入口：[本地PPT与现有页面对照](03-development/ppt-interface-alignment.md)、[实际验证及同步记录](00-project/validation/ppt-interface-alignment.json)。
+
 T016隔离回移：[实际回执与管理员只读诊断](03-development/pillow-py310-isolated-execution.md)、[机器证据](00-project/validation/t016-pillow-py310-isolated-execution.json)。PL01源码静态核验通过，PL02输入及隔离未通过；PL03—PL05未执行，8条漏洞未关闭，原锁/共享环境/CI保持，Python候选暂缓。
 
 T016依赖修复规划：[Pillow／py310八条漏洞处理与回归方案](03-development/pillow-py310-remediation-plan.md)、[逐项来源与门禁限制](00-project/validation/t016-pillow-py310-plan-review.json)。形成方案时仅做只读核对；D05-E现已获准执行，源码静态回移和PL02缺项见页首回执，仍未构建／安全回归／采用。私有候选不等于现有扫描准入。原100包锁、共享环境、CI门禁保持，Python候选继续暂缓；T016仍4项已验证子步骤、4组剩余，未整卡关闭。
@@ -623,7 +625,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1232份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1234份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1205,6 +1207,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/poc-integration-report.json](<00-project/validation/poc-integration-report.json>) | 21项真实API/对象/SQL/队列/CPU/追踪/Problem结果检查，不是业务模型验收。 |
 | [00-project/validation/poc-resilience-report.json](<00-project/validation/poc-resilience-report.json>) | 5项队列/过期租约/服务及版本对象重启/幂等冲突检查，服务恢复记录。 |
 | [00-project/validation/poc-ui.png](<00-project/validation/poc-ui.png>) | 真实浏览器运行截图，保存前已清空研发令牌。 |
+| [00-project/validation/ppt-interface-alignment.json](<00-project/validation/ppt-interface-alignment.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python-audit-report.json](<00-project/validation/python-audit-report.json>) | pip-audit发现与跳过原因；CPU torch被跳过，不能声称全部无漏洞。 |
 | [00-project/validation/python-candidate-deferral-validation.json](<00-project/validation/python-candidate-deferral-validation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python-components.json](<00-project/validation/python-components.json>) | 安装包版本与声明许可元信息；不是完整OS SBOM或正式许可审查。 |
@@ -1633,6 +1636,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-n01-security-remediation-change-request.md](<03-development/native-n01-security-remediation-change-request.md>) | 说明文档：N01安全修补候选变更请求；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/pillow-py310-isolated-execution.md](<03-development/pillow-py310-isolated-execution.md>) | PL01源码与静态核验、PL02真实缺项及namespace失败、PL03—PL05停止条件和管理员只读诊断；不宣称漏洞修复或采用。 |
 | [03-development/pillow-py310-remediation-plan.md](<03-development/pillow-py310-remediation-plan.md>) | 八条漏洞与11项提交、隔离回归、构建许可和现有扫描准入限制；方案未执行，不代替采用批准。 |
+| [03-development/ppt-interface-alignment.md](<03-development/ppt-interface-alignment.md>) | 说明文档：本地PPT原型与研发前端页面对照；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |
