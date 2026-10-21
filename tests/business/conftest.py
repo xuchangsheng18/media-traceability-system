@@ -33,7 +33,11 @@ def database_dsn(request, business_template):
         pytest.fail("PoC database is forbidden as the business test administration target")
     name = "mt_business_test_" + uuid4().hex
     with psycopg.connect(configured, autocommit=True) as admin:
-        template = "template0" if request.node.path.name == "test_migrations.py" else business_template
+        template = (
+            "template0"
+            if request.node.path.name in {"test_migrations.py", "test_report_migration.py"}
+            else business_template
+        )
         admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(sql.Identifier(name), sql.Identifier(template)))
         try:
             yield PrivateTestDSN(make_conninfo(configured, dbname=name))

@@ -1,4 +1,4 @@
-"""Valid contract requests and actual self-owned resources for the expanded 46-operation denial matrix."""
+"""Valid contract requests and actual self-owned resources for the expanded 47-operation denial matrix."""
 
 import hashlib
 import io
@@ -147,8 +147,17 @@ def _populate(c, resources):
     )
     new_policy_body = dict(policy_body, version="fixture/2", definition_ref=next_reference)
 
-    finding, feedback_approval, feedback, model, release, model_operation = [uuid4() for _ in range(6)]
+    finding, feedback_approval, feedback, model, release, model_operation, report = [uuid4() for _ in range(7)]
     with psycopg.connect(c["admin_dsn"]) as admin:
+        admin.execute(
+            "INSERT INTO mt.report(report_id,org_id,case_id,task_id,run_version,result_version,version,template_version,"
+            "state,snapshot_sha256,created_by) VALUES(%s,%s,%s,%s,1,1,1,'synthetic-template/1','DRAFT',%s,%s)",
+            (report, c["actor"].org_id, c["case_id"], c["task_id"], "a" * 64, c["actor"].user_id),
+        )
+        admin.execute(
+            "INSERT INTO mt.report_evidence(link_id,org_id,case_id,report_id,evidence_id) VALUES(%s,%s,%s,%s,%s)",
+            (uuid4(), c["actor"].org_id, c["case_id"], report, c["evidence_id"]),
+        )
         admin.execute(
             "UPDATE mt.source_registry SET purpose=array_append(array_append(purpose,'training'),'import') WHERE source_id=%s",
             (c["source_id"],),
@@ -278,6 +287,7 @@ def _populate(c, resources):
         getAuditExport=export_id,
         downloadAuditExport=export_id,
         getFeedback=str(feedback),
+        getReport=str(report),
         getImport=import_id,
         getModelOperation=str(model_operation),
         getPolicy=policy_id,
@@ -360,4 +370,4 @@ def _populate(c, resources):
             assert isinstance(request["json"], dict)
             validate_api(body["schema"]["$ref"].rsplit("/", 1)[-1], request["json"])
         resources.requests[identifier] = request
-    assert len(resources.requests) == 46
+    assert len(resources.requests) == 47

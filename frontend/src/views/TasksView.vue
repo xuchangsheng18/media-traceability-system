@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBusinessSession } from '../business/session'
 import { createTaskReader, routeTaskId } from '../business/task-read'
+import TaskCatalogPanel from '../components/TaskCatalogPanel.vue'
 
 const session = useBusinessSession()
 const route = useRoute()
@@ -71,9 +72,17 @@ async function loadResults() {
     resultVersion: Number(resultVersion.value),
   })
 }
+async function selectTask(id: string) {
+  taskId.value = id
+  await observe()
+}
 </script>
 <template>
   <div class="view-grid">
+    <TaskCatalogPanel
+      @select="selectTask"
+      @clear="taskId = ''"
+    />
     <section class="panel span-12">
       <h2 class="panel-heading">任务与结果</h2>
       <p class="panel-copy">

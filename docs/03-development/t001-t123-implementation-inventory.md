@@ -4,11 +4,11 @@
 
 任务台账日期：2026-10-21。本清单只读取代码、契约、迁移及现存台账，不连接数据库、不执行迁移、不导入业务代码。
 
-全部170任务：113条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：113条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
+全部170任务：117条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：117条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
 
-T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中46个，尚有27个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、30个不同SQL函数名称。
+T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中47个，尚有26个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、30个不同SQL函数名称。
 
-后端Python静态索引包含415个函数/方法定义，其中60个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
+后端Python静态索引包含420个函数/方法定义，其中62个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
 
 已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。
 
@@ -33,7 +33,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T011 设计用户角色与数据范围模型](#t011) | 部分已验证 | 5/3 | 未声明直接落库 | 0/0 |
 | [T012 实现用户角色数据库模型](#t012) | 部分已验证 | 6/3 | users、roles、permissions、user_roles | 0/0 |
 | [T013 实现认证与令牌校验](#t013) | 部分已验证 | 13/3 | case_membership、user_roles、users | 1/2 |
-| [T014 实现接口级权限控制](#t014) | 部分已验证 | 11/3 | case_membership、user_roles、users | 1/1 |
+| [T014 实现接口级权限控制](#t014) | 部分已验证 | 12/3 | case_membership、user_roles、users | 1/1 |
 | [T015 实现数据范围访问控制](#t015) | 部分已验证 | 4/3 | case_membership、user_roles、users | 1/1 |
 | [T016 实现高风险操作二次确认](#t016) | 部分已验证 | 4/4 | approval_decision、approval_request、audit_event、operation_token | 3/3 |
 | [T017 实现操作审计事件模型](#t017) | 部分已验证 | 1/3 | audit_event | 0/0 |
@@ -49,7 +49,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T027 实现SHA-256完全重复检测](#t027) | 部分已验证 | 1/3 | media_asset、upload_part、upload_session | 1/1 |
 | [T028 实现批量清单导入](#t028) | 部分已验证 | 1/3 | import_item、import_job | 2/2 |
 | [T029 实现第三方接入适配器协议](#t029) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
-| [T030 开发媒体资产管理页面](#t030) | 部分已验证 | 1/4 | asset_lineage、audit_event、media_asset、object_version | 2/3 |
+| [T030 开发媒体资产管理页面](#t030) | 部分已验证 | 2/4 | asset_lineage、audit_event、media_asset、object_version | 2/3 |
 | [T031 设计分析任务与节点执行模型](#t031) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T032 实现任务及节点数据库模型](#t032) | 部分已验证 | 1/3 | analysis_task、task_node_run、task_event | 0/0 |
 | [T033 实现任务状态机](#t033) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
@@ -59,7 +59,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T037 实现DAG任务编排器](#t037) | 尚无充分已验证交付 | 0/4 | report | 0/0 |
 | [T038 实现节点级重试与检查点](#t038) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T039 实现任务取消和退回重算](#t039) | 部分已验证 | 1/3 | analysis_task、outbox_event、task_event、task_run | 1/2 |
-| [T040 开发任务监控页面](#t040) | 部分已验证 | 1/4 | analysis_task、outbox_event、task_event、task_node_run、task_run | 3/4 |
+| [T040 开发任务监控页面](#t040) | 部分已验证 | 2/4 | analysis_task、outbox_event、task_event、task_node_run、task_run | 3/4 |
 | [T041 实现图片元数据解析](#t041) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T042 实现视频ffprobe解析](#t042) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T043 实现标准化媒体副本生成](#t043) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
@@ -126,7 +126,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T104 实现证据固化与完整性校验](#t104) | 尚无充分已验证交付 | 0/4 | audit_event、evidence_package、object_version、package_item | 0/1 |
 | [T105 实现可信时间与签名适配层](#t105) | 尚无充分已验证交付 | 0/4 | audit_event、evidence_package、object_version、package_item | 0/1 |
 | [T106 实现证据约束核查摘要](#t106) | 尚无充分已验证交付 | 0/4 | report、report_evidence | 0/1 |
-| [T107 实现核查报告生成](#t107) | 尚无充分已验证交付 | 0/4 | approval_request、audit_event、report、report_evidence | 0/3 |
+| [T107 实现核查报告生成](#t107) | 部分已验证 | 1/4 | approval_request、audit_event、report、report_evidence | 1/3 |
 | [T108 实现样本纠错与回流审批](#t108) | 部分已验证 | 1/3 | approval_decision、approval_request、audit_event、feedback_request | 2/3 |
 | [T109 建立标注规范与标签质检工具](#t109) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
 | [T110 实现原始素材分组划分](#t110) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
@@ -443,9 +443,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T012,T013；执行依赖候选：T012、T013；依赖是否具备仍需实际核验。
 
-当前已验证范围：原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。
+当前已验证范围：原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。
 
-未完成事项：正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、31未挂载操作及正式验收另列；不以本批通过关闭整任务。
+未完成事项：正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、26未挂载操作及正式验收另列；不以本批通过关闭整任务。
 
 表与创建源码：
 
@@ -859,6 +859,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：media_asset。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset、object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
 - `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.service.UploadService.status(self, request, upload_id)`；[backend/business_app/uploads/service.py:111](<../../backend/business_app/uploads/service.py#L111>)；表：media_asset。
@@ -1035,9 +1036,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T20,T25,T27；执行依赖候选：T020、T025、T027；依赖是否具备仍需实际核验。
 
-当前已验证范围：已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示
+当前已验证范围：资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。
 
-未完成事项：补媒体资产管理前端、筛选与详情交互、版本/血缘/来源和权限状态展示；受控下载、下载审计、页面权限/E2E及源验收仍待
+未完成事项：完整资产血缘和来源授权状态、受控下载及下载审计、真实后端与正式提供者联调、负责人及源标准完整验收仍待
 
 表与创建源码：
 
@@ -1063,6 +1064,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：media_asset。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset、object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
 - `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.service.UploadService.status(self, request, upload_id)`；[backend/business_app/uploads/service.py:111](<../../backend/business_app/uploads/service.py#L111>)；表：media_asset。
@@ -1278,7 +1280,10 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 - `mt.report`：报告生成与下载状态；[backend/business_migrations/0001_business_baseline.sql:1128](<../../backend/business_migrations/0001_business_baseline.sql#L1128>)。本清单不证明运行库已采用。
 
-未在直接SQL字面量中找到与这些表相交的方法；动态SQL和间接调用未展开，须继续核对实际实现。
+关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
+
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：report。
+- `business_app.registry_router.get_report(request, id)`；[backend/business_app/registry_router.py:20](<../../backend/business_app/registry_router.py#L20>)；表：report。
 
 未声明外部操作ID；内部引擎、模型或工具能力需按源范围实施，不以生成空HTTP接口代替。
 
@@ -1359,9 +1364,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T035,T039；执行依赖候选：T035、T039；依赖是否具备仍需实际核验。
 
-当前已验证范围：按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列；按12页PPT优化现有界面，57项单元与10项浏览器夹具通过
+当前已验证范围：按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列；按12页PPT优化现有界面，57项单元与10项浏览器夹具通过；任务页新增案件内当前任务分页与筛选，选择任务衔接现有执行/节点/事件及历史结果读取；无结果和DEFERRED状态保留，不推算DAG百分比；74项前端单元和26项传输夹具浏览器回归通过。
 
-未完成事项：补任务列表、图形DAG、自动刷新、取消/重试；真实身份授权和任务生产者接入后完成源验收
+未完成事项：任务创建/取消/重算的适用前端动作、真实DAG进度与检查点展示、真实后端身份组合联调及源验收仍待；当前案件任务列表和历史读取已有前端回归
 
 表与创建源码：
 
@@ -2887,6 +2892,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：evidence_item。
 - `business_app.history.repository.ResultRepository.persist_ranking(self, connection, scope, key, response)`；[backend/business_app/history/repository.py:221](<../../backend/business_app/history/repository.py#L221>)；表：evidence_item。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：evidence_item。
 - `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：evidence_item。
 
 未声明外部操作ID；内部引擎、模型或工具能力需按源范围实施，不以生成空HTTP接口代替。
@@ -2916,6 +2922,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：evidence_item。
 - `business_app.history.repository.ResultRepository.persist_ranking(self, connection, scope, key, response)`；[backend/business_app/history/repository.py:221](<../../backend/business_app/history/repository.py#L221>)；表：evidence_item。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：evidence_item。
 - `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：evidence_item。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
@@ -3002,6 +3009,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.router.create_policy(request, body, idempotency_key)`；[backend/business_app/controls/router.py:524](<../../backend/business_app/controls/router.py#L524>)；表：audit_event。
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：evidence_item。
 - `business_app.history.repository.ResultRepository.persist_ranking(self, connection, scope, key, response)`；[backend/business_app/history/repository.py:221](<../../backend/business_app/history/repository.py#L221>)；表：evidence_item。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：evidence_item。
 - `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：evidence_item。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
@@ -3043,6 +3051,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：object_version。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
 - `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：object_version。
@@ -3085,6 +3094,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：object_version。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
 - `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：object_version。
@@ -3114,7 +3124,10 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `mt.report`：报告生成与下载状态；[backend/business_migrations/0001_business_baseline.sql:1128](<../../backend/business_migrations/0001_business_baseline.sql#L1128>)。本清单不证明运行库已采用。
 - `mt.report_evidence`：报告证据引用；[backend/business_migrations/0001_business_baseline.sql:1368](<../../backend/business_migrations/0001_business_baseline.sql#L1368>)。本清单不证明运行库已采用。
 
-未在直接SQL字面量中找到与这些表相交的方法；动态SQL和间接调用未展开，须继续核对实际实现。
+关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
+
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：report、report_evidence。
+- `business_app.registry_router.get_report(request, id)`；[backend/business_app/registry_router.py:20](<../../backend/business_app/registry_router.py#L20>)；表：report。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
@@ -3132,9 +3145,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T102,T104,T106；执行依赖候选：T102、T104、T106；依赖是否具备仍需实际核验。
 
-当前已验证范围：尚无本任务已验证交付
+当前已验证范围：新增getReport真实数据库元数据读取：报告/证据/案件/任务及运行结果版本严格绑定、固定对象引用、全部证据来源和事务尾授权复核；32项投影/SQL/HTTP/0013升级回滚测试通过。不包含报告生成、渲染或下载。
 
-未完成事项：完成核查报告生成的交付、异常/权限测试和源验收
+未完成事项：报告生成生产者、版本化模板/渲染、审批及受控下载、完整证据约束报告验收仍待；getReport读取不替代这些工作
 
 表与创建源码：
 
@@ -3150,11 +3163,13 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.common.audit(connection, scope, action, kind, identifier, version, request)`；[backend/business_app/controls/common.py:101](<../../backend/business_app/controls/common.py#L101>)；表：audit_event。
 - `business_app.controls.exports.Exports._process_bound(self, scope, identifier)`；[backend/business_app/controls/exports.py:123](<../../backend/business_app/controls/exports.py#L123>)；表：audit_event。
 - `business_app.controls.router.create_policy(request, body, idempotency_key)`；[backend/business_app/controls/router.py:524](<../../backend/business_app/controls/router.py#L524>)；表：audit_event。
+- `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：report、report_evidence。
+- `business_app.registry_router.get_report(request, id)`；[backend/business_app/registry_router.py:20](<../../backend/business_app/registry_router.py#L20>)；表：report。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
 | `createReport` | `POST /api/v1/reports` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
-| `getReport` | `GET /api/v1/reports/{id}` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
+| `getReport` | `GET /api/v1/reports/{id}` | 无 | `get_report`；[backend/business_app/registry_router.py:20](<../../backend/business_app/registry_router.py#L20>) |
 | `downloadReport` | `GET /api/v1/reports/{id}/content` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
 
 
@@ -3599,13 +3614,13 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | `mt.hold_authorization_epoch` | [backend/business_migrations/0008_authorization_fence.sql:43](<../../backend/business_migrations/0008_authorization_fence.sql#L43>) |
 | `mt.activate_authorization_generation` | [backend/business_migrations/0008_authorization_fence.sql:53](<../../backend/business_migrations/0008_authorization_fence.sql#L53>) |
 | `mt.lookup_actor_work_role_facts` | [backend/business_migrations/0009_work_role_facts.sql:2](<../../backend/business_migrations/0009_work_role_facts.sql#L2>) |
-| `mt.scope_operation` | [backend/business_migrations/0010_data_scope.sql:2](<../../backend/business_migrations/0010_data_scope.sql#L2>)、[backend/business_migrations/0011_operation_token.sql:2](<../../backend/business_migrations/0011_operation_token.sql#L2>)、[backend/business_migrations/0012_catalog_reads.sql:3](<../../backend/business_migrations/0012_catalog_reads.sql#L3>) |
+| `mt.scope_operation` | [backend/business_migrations/0010_data_scope.sql:2](<../../backend/business_migrations/0010_data_scope.sql#L2>)、[backend/business_migrations/0011_operation_token.sql:2](<../../backend/business_migrations/0011_operation_token.sql#L2>)、[backend/business_migrations/0012_catalog_reads.sql:3](<../../backend/business_migrations/0012_catalog_reads.sql#L3>)、[backend/business_migrations/0013_report_reads.sql:3](<../../backend/business_migrations/0013_report_reads.sql#L3>) |
 | `mt.scope_mode` | [backend/business_migrations/0010_data_scope.sql:15](<../../backend/business_migrations/0010_data_scope.sql#L15>) |
 | `mt.scope_case_id` | [backend/business_migrations/0010_data_scope.sql:21](<../../backend/business_migrations/0010_data_scope.sql#L21>) |
 | `mt.scope_allows_case` | [backend/business_migrations/0010_data_scope.sql:31](<../../backend/business_migrations/0010_data_scope.sql#L31>) |
 | `mt.current_actor_case_ids` | [backend/business_migrations/0010_data_scope.sql:77](<../../backend/business_migrations/0010_data_scope.sql#L77>) |
-| `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>) |
-| `mt.lookup_scope_metadata` | [backend/business_migrations/0010_data_scope.sql:127](<../../backend/business_migrations/0010_data_scope.sql#L127>) |
+| `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>)、[backend/business_migrations/0013_report_reads.sql:17](<../../backend/business_migrations/0013_report_reads.sql#L17>) |
+| `mt.lookup_scope_metadata` | [backend/business_migrations/0010_data_scope.sql:127](<../../backend/business_migrations/0010_data_scope.sql#L127>)、[backend/business_migrations/0013_report_reads.sql:39](<../../backend/business_migrations/0013_report_reads.sql#L39>) |
 
 ## 适用边界与后续实际工作
 

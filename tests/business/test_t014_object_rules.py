@@ -233,10 +233,10 @@ def test_no_new_unmounted_operation_is_claimed(permission_context):
     }
     unmounted = {o["operation_id"] for p in SOURCE["permissions"] for o in p["operations"]} - expected
     assert len(expected) == 43 and len(unmounted) == 30
-    added = {"getAsset", "listAssets", "listTasks"}
+    added = {"getAsset", "listAssets", "listTasks", "getReport"}
     assert added <= unmounted
     assert objects.supported_operation_ids == frozenset(expected | added)
-    assert len(unmounted - added) == 27
+    assert len(unmounted - added) == 26
     assert not objects.supported_operation_ids & (unmounted - added)
 
 

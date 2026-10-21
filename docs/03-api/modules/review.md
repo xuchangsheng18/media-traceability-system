@@ -20,7 +20,7 @@
 | [sealEvidence](../operations/sealEvidence.md) | POST /api/v1/evidence-packages/{case_id}/seal | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createReportDraft](../operations/createReportDraft.md) | POST /api/v1/reports/drafts | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createReport](../operations/createReport.md) | POST /api/v1/reports | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [getReport](../operations/getReport.md) | GET /api/v1/reports/{id} | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [getReport](../operations/getReport.md) | GET /api/v1/reports/{id} | DEV_PARTIAL |
 | [downloadReport](../operations/downloadReport.md) | GET /api/v1/reports/{id}/content | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [requestFeedback](../operations/requestFeedback.md) | POST /api/v1/feedback/samples | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | DEV_PARTIAL |

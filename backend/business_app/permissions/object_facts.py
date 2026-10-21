@@ -54,6 +54,7 @@ OPERATION_KINDS = MappingProxyType(
         "getImport": "import",
         "getTimeline": "asset",
         "getAsset": "asset",
+        "getReport": "report",
         **dict.fromkeys(("completeUpload", "getUploadStatus", "listUploadParts", "putUploadPart"), "upload"),
         **dict.fromkeys(("downloadAuditExport", "getAuditExport"), "export"),
         **dict.fromkeys(

@@ -18,7 +18,7 @@ watch(
 
 const modules = [
   { label: '数据接入', to: '/', accessibleName: '上传验证' },
-  { label: '资源库' },
+  { label: '资源库', to: '/assets', accessibleName: '媒体资产管理' },
   { label: '媒体预处理' },
   { label: '风险识别' },
   { label: '篡改检测' },
@@ -60,6 +60,10 @@ const pages: Record<string, { title: string; description: string }> = {
   tasks: {
     title: '任务运行与结果总览',
     description: '观察运行节点和事件，按精确版本查看分析结果与证据。',
+  },
+  assets: {
+    title: '媒体资源与资产管理',
+    description: '按案件查询可见媒体资产，核对来源编号、只读元数据与固定对象版本。',
   },
   'pending-reviews': {
     title: '审核与证据管理',

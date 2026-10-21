@@ -1,5 +1,7 @@
 # 短视频与图片智能识别溯源系统
 
+2026-10-21前后端与权限续批：[27项起点接口逐项台账](docs/03-development/t001-t123-remaining-interface-register.md)、[本批计划](docs/03-development/t001-t123-api-continuation-plan.md)、[实际测试、CI与同步状态](docs/00-project/validation/t001-t123-api-continuation-report.json)。业务源码47项挂载、26项未挂载；新增真实报告元数据读取、资产只读列表/详情和案件任务列表。任务卡和分步导航已同步限定子范围，原CI门禁及Python候选暂缓不变；源码同步不代表0012/0013已应用或既有演示服务已重启。
+
 T001—T123开发落实：[全部任务的表／接口／方法和状态](docs/03-development/t001-t123-implementation-inventory.md)、[本批读取计划](docs/03-development/t001-t123-catalog-read-implementation-plan.md)、[实际验证](docs/00-project/validation/t001-t123-catalog-read-report.json)。建表、方法源码、隔离验证和运行实例分别判定。
 
 2026-10-21页面优化：[本地12页PPT与实际页面对照](docs/03-development/ppt-interface-alignment.md)、[本批验证及同步状态](docs/00-project/validation/ppt-interface-alignment.json)。现有页面按原型统一布局；待接入模块单列，业务权限与接口保持原行为。
@@ -76,7 +78,7 @@ cd /workspace/glwy/projects/media-traceability-system
 /opt/conda/glwy/envs/py310/bin/python scripts/dev.py dev
 ```
 
-统一入口为`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，当前99%容量问题未整改时拒绝执行，避免照旧命令直接重建；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
+统一入口为`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，若实时卷容量低于保护值则拒绝执行，历史99%快照不能代替当前容量核验；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 页面在服务器回环地址 `http://127.0.0.1:14180`；从本机通过SSH转发访问。启动前提、首次复建、研发令牌取得方法和停止操作见[运行手册](docs/10-deployment/development-runbook.md)。秘密与权重在仓库外/命名卷中，不入Git。
 

@@ -1,8 +1,11 @@
 """Read the canonical API permission mapping, rejecting ambiguous registrations."""
 
+import hashlib
 import json
+from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
+from threading import Lock
 
 import yaml
 
@@ -18,10 +21,38 @@ class OperationPermission:
     public: bool
 
 
+# Only validated, immutable API metadata is shared. Every call reads both source
+# files again; neither timestamps nor caller-owned dictionaries are trusted.
+_CATALOG_CACHE: OrderedDict[tuple[Path, Path, bytes, bytes], tuple[tuple[str, OperationPermission], ...]] = (
+    OrderedDict()
+)
+_CATALOG_LOCK = Lock()
+
+
 def load_catalog(root: Path) -> dict[str, OperationPermission]:
     try:
-        document = yaml.safe_load((root / "docs/03-api/openapi.yaml").read_text(encoding="utf8"))
-        model = json.loads((root / "docs/08-security/access-control-model.json").read_text(encoding="utf8"))
+        document_path = (root / "docs/03-api/openapi.yaml").resolve()
+        model_path = (root / "docs/08-security/access-control-model.json").resolve()
+        document_bytes = document_path.read_bytes()
+        model_bytes = model_path.read_bytes()
+        key = (document_path, model_path, hashlib.sha256(document_bytes).digest(), hashlib.sha256(model_bytes).digest())
+        with _CATALOG_LOCK:
+            entries = _CATALOG_CACHE.get(key)
+            if entries is None:
+                entries = tuple(_parse_catalog(document_bytes.decode("utf8"), model_bytes.decode("utf8")).items())
+                _CATALOG_CACHE[key] = entries
+                if len(_CATALOG_CACHE) > 8:
+                    _CATALOG_CACHE.popitem(last=False)
+            _CATALOG_CACHE.move_to_end(key)
+        return dict(entries)
+    except (OSError, ValueError):
+        raise ValueError("PERMISSION_CATALOG_INVALID") from None
+
+
+def _parse_catalog(document_text: str, model_text: str) -> dict[str, OperationPermission]:
+    try:
+        document = yaml.safe_load(document_text)
+        model = json.loads(model_text)
         permissions = model["permissions"]
         if not isinstance(permissions, list) or len(permissions) != len(set(permissions)):
             raise ValueError()

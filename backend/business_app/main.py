@@ -48,6 +48,8 @@ from .permissions.context import FencePort, WorkPort
 from .permissions.duties import IndependentDuties
 from .permissions.guard import audit_protected_routes, authorize_business_route
 from .permissions.types import PermissionAuthority
+from .registry_reads import RegistryReads
+from .registry_router import router as registry_router
 from .settings import BusinessSettings
 from .uploads.repository import UploadRepository
 from .uploads.router import router as upload_router
@@ -98,6 +100,7 @@ def create_app(
     app.state.permission_authority = permission_authority
     app.state.conditional_permissions = conditional_permissions
     app.state.catalog_reads = CatalogReads(database, settings)
+    app.state.registry_reads = RegistryReads(database)
     app.state.authorization_fence = authorization_fence
     app.state.work_authorization = work_authorization
     app.state.business_database = database
@@ -145,6 +148,7 @@ def create_app(
     app.include_router(history_router, dependencies=protected)
     app.include_router(control_router, dependencies=protected)
     app.include_router(catalog_router, dependencies=protected)
+    app.include_router(registry_router, dependencies=protected)
     app.include_router(inference_router)
     audit_protected_routes(app)
 

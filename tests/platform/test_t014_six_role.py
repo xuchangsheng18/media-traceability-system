@@ -14,6 +14,8 @@ from business_app.errors import BusinessError
 from business_app.permissions.types import Principal
 from business_app.types import Actor
 
+from scripts.verify_business_route_registration import verify_business_route_registration
+
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = json.loads((ROOT / "docs/08-security/t014-six-role-rule-proposal.json").read_text(encoding="utf8"))
 NOW = 2_000_000_000
@@ -75,6 +77,7 @@ def test_cell_totals_and_legacy_role_model_are_not_rewritten():
     assert sum(c is None for _, _, c in CELLS) == 174
     assert all(c["runtime_allow"] is False for p in SOURCE["permissions"] for c in p["cells"].values())
     adoption = json.loads((ROOT / "docs/08-security/catalog-read-contract-adoption.json").read_text("utf8"))
+    previous_matrix = verify_business_route_registration(ROOT)
     for name, digest in SOURCE["source_sha256"].items():
         binding = adoption["source_bindings"].get(name)
         if binding is None:
@@ -82,7 +85,10 @@ def test_cell_totals_and_legacy_role_model_are_not_rewritten():
         else:
             assert binding["prior_sha256"] == digest
             assert hashlib.sha256((ROOT / binding["prior_copy"]).read_bytes()).hexdigest() == digest
-            current = (ROOT / name).read_bytes().replace(b"\r\n", b"\n")
+            current_path = (
+                previous_matrix if name == "docs/08-security/t014-interface-scope-matrix.json" else ROOT / name
+            )
+            current = current_path.read_bytes().replace(b"\r\n", b"\n")
             assert hashlib.sha256(current).hexdigest() == binding["current_sha256"]
 
 
@@ -103,7 +109,7 @@ def test_catalog_read_adoption_preserves_roles_and_only_approved_query_scope():
     assert current == prior
     binding = adoption["source_bindings"]["docs/08-security/t014-interface-scope-matrix.json"]
     prior_matrix = json.loads((ROOT / binding["prior_copy"]).read_text("utf8"))
-    current_matrix = json.loads((ROOT / "docs/08-security/t014-interface-scope-matrix.json").read_text("utf8"))
+    current_matrix = json.loads(verify_business_route_registration(ROOT).read_text("utf8"))
     for field in ["roles", "default_effect", "formal_approved", "production_enabled", "source_sha256"]:
         assert current_matrix[field] == prior_matrix[field]
     old_rows = {item["operation_id"]: item for item in prior_matrix["operations"]}

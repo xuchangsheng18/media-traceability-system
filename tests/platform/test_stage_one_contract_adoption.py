@@ -6,6 +6,7 @@ import hashlib
 import importlib
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 import yaml
@@ -30,7 +31,11 @@ def sha(raw):
 
 @pytest.fixture
 def transition(tmp_path):
-    old = {"paths": {}, "security": [{"bearerAuth": []}], "components": {"schemas": {"Asset": {"type": "object"}}}}
+    old: dict[str, Any] = {
+        "paths": {},
+        "security": [{"bearerAuth": []}],
+        "components": {"schemas": {"Asset": {"type": "object"}}},
+    }
     for path, operation in [("/assets", "listAssets"), ("/analysis/tasks", "listTasks")]:
         old["paths"][path] = {
             "get": {

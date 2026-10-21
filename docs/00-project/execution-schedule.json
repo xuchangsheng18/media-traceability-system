@@ -15,7 +15,7 @@
     "unconstrained_dependency_critical_path_low_workdays": 76,
     "unconstrained_dependency_critical_path_high_workdays": 94,
     "full_tasks_verified": 0,
-    "partial_scope_tasks": 53
+    "partial_scope_tasks": 54
   },
   "workload_by_unsplit_source_role": {
     "架构/全栈": {
@@ -2004,7 +2004,7 @@
         },
         {
           "path": "scripts/verify_t014_permissions.py",
-          "scope": "当前Linux/py310隔离研发实现和实测；不是正式策略允许、共享采用或整任务验收。"
+          "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
         },
         {
           "path": ".github/workflows/ci.yml",
@@ -2135,10 +2135,6 @@
           "scope": "已完成且实测的隔离研发子范围；正式权威人员/分类、共享采用和整卡验收另列。"
         },
         {
-          "path": "scripts/verify_t014_permissions.py",
-          "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
-        },
-        {
           "path": "tests/platform/test_t014_gate.py",
           "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
         },
@@ -2153,6 +2149,14 @@
         {
           "path": "docs/00-project/validation/t014-isolated-ci-report.json",
           "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
+        },
+        {
+          "path": "tests/platform/test_permission_catalog_cache.py",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
         }
       ],
       "actual_assignee_resource_id": "PERSON-002",
@@ -3130,6 +3134,26 @@
         {
           "path": "docs/00-project/validation/t001-t123-catalog-read-report.json",
           "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
+        },
+        {
+          "path": "frontend/src/views/AssetsView.vue",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "frontend/src/business/catalog.ts",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "frontend/src/business/catalog.test.ts",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "frontend/e2e/foundation.pw.ts",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
         }
       ],
       "actual_assignee_resource_id": null,
@@ -3483,6 +3507,18 @@
         {
           "path": "docs/00-project/validation/ppt-interface-alignment.json",
           "scope": "12页PPT视觉映射、现有7页面布局和57单元/10浏览器验证；不增加业务接口或整任务完成数"
+        },
+        {
+          "path": "frontend/src/components/TaskCatalogPanel.vue",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "frontend/src/business/catalog.ts",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
         }
       ],
       "actual_assignee_resource_id": null,
@@ -6925,8 +6961,33 @@
       "dependency_only_finish_low_day_offset": 43,
       "dependency_only_start_high_day_offset": 58,
       "dependency_only_finish_high_day_offset": 61,
-      "observed_verification_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
-      "partial_scope_evidence": [],
+      "observed_verification_status": "PARTIAL_VERIFIED_SCOPE",
+      "partial_scope_evidence": [
+        {
+          "path": "backend/business_app/registry_reads.py",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "backend/business_app/registry_router.py",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "backend/business_migrations/0013_report_reads.sql",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "tests/business/test_registry_reads.py",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "tests/business/test_report_migration.py",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        },
+        {
+          "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+          "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+        }
+      ],
       "actual_assignee_resource_id": null,
       "actual_assignee_name": null,
       "remaining_effort_hours": null,
@@ -7495,7 +7556,7 @@
   ],
   "source_hashes": {
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "docs/00-project/execution-planning-inputs.json": "beed9ed8e02f475b62f96373ead59105fc065874072261b7bde570f61cab508e",
+    "docs/00-project/execution-planning-inputs.json": "2d7d86c14dfe5e8607cea0b1026b3c7ddee62ea671335f7981c65d1a0fd09b4d",
     "scripts/plan_project_schedule.py": "edf0e452a6877d6ea918a1369fad0af66c261f4768c7fa3be869715d240b38fe"
   }
 }

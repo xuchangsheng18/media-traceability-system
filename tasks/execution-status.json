@@ -2073,8 +2073,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。",
-      "summary_remaining": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、31未挂载操作及正式验收另列；不以本批通过关闭整任务。",
+      "summary_completed": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。",
+      "summary_remaining": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、26未挂载操作及正式验收另列；不以本批通过关闭整任务。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -2380,6 +2380,32 @@
               "scope": "已实测的隔离代码/门禁及源码交付；正式策略、未实现接口和整卡验收另列。"
             }
           ]
+        },
+        {
+          "description": "以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/catalog.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "tests/platform/test_permission_catalog_cache.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "scripts/verify_t014_permissions.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "tests/platform/test_t014.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -2422,7 +2448,7 @@
           "description": "徐昌胜为已确认开发负责人和指定复核人；PR01/02/04及P01—P07获确认的隔离实现和精确代码CI已实测，整任务验收仍未登记。实际工时/日期仍缺；最终资料回执提交的CI按GitHub精确提交独立观察，不由回执文件为其自身未来提交预先证明。"
         }
       ],
-      "observed_date": "2026-10-20",
+      "observed_date": "2026-10-21",
       "preparation_review_ref": "docs/03-development/t014-dependency-and-scope-review.md",
       "implementation_validation_report": "docs/00-project/validation/t014-permissions-report.json",
       "current_implementation_ref": "docs/03-development/t014-unified-permission-implementation.md",
@@ -3422,8 +3448,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
-      "summary_remaining": "补媒体资产管理前端、筛选与详情交互、版本/血缘/来源和权限状态展示；受控下载、下载审计、页面权限/E2E及源验收仍待",
+      "summary_completed": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。",
+      "summary_remaining": "完整资产血缘和来源授权状态、受控下载及下载审计、真实后端与正式提供者联调、负责人及源标准完整验收仍待",
       "completed_steps": [
         {
           "description": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
@@ -3454,16 +3480,42 @@
               "scope": "本批真实隔离后端读取子范围；精确源码、测试与未验边界见专项报告，不代表前端、整任务或正式环境验收"
             }
           ]
+        },
+        {
+          "description": "资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "frontend/src/views/AssetsView.vue",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/catalog.ts",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/catalog.test.ts",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "完成媒体资产管理前端页面、筛选与详情交互，以及版本、血缘、来源和权限状态展示；本批仅补列表/详情后端支持。"
+          "description": "补完整资产血缘与来源授权展示、受控下载及审计；列表/详情/当前页筛选的只读前端已实现，不代表原始媒体可编辑。"
         },
         {
           "category": "测试",
-          "description": "按源测试要求创建并真实执行：页面组件、权限和E2E测试。"
+          "description": "74项前端单元与26项自建传输浏览器回归已通过；补真实后端、身份/来源提供者组合的页面权限及集成E2E，不能把传输夹具当真实业务验收。"
         },
         {
           "category": "验收",
@@ -3908,8 +3960,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列；按12页PPT优化现有界面，57项单元与10项浏览器夹具通过",
-      "summary_remaining": "补任务列表、图形DAG、自动刷新、取消/重试；真实身份授权和任务生产者接入后完成源验收",
+      "summary_completed": "按编号读取实时执行/节点/事件、精确历史结果和案件待复核队列；按12页PPT优化现有界面，57项单元与10项浏览器夹具通过；任务页新增案件内当前任务分页与筛选，选择任务衔接现有执行/节点/事件及历史结果读取；无结果和DEFERRED状态保留，不推算DAG百分比；74项前端单元和26项传输夹具浏览器回归通过。",
+      "summary_remaining": "任务创建/取消/重算的适用前端动作、真实DAG进度与检查点展示、真实后端身份组合联调及源验收仍待；当前案件任务列表和历史读取已有前端回归",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -3942,6 +3994,32 @@
             {
               "path": "docs/00-project/validation/ppt-interface-alignment.json",
               "scope": "12页PPT视觉映射、现有7页面布局和57单元/10浏览器验证；不增加业务接口或整任务完成数"
+            }
+          ]
+        },
+        {
+          "description": "任务页新增案件内当前任务分页与筛选，选择任务衔接现有执行/节点/事件及历史结果读取；无结果和DEFERRED状态保留，不推算DAG百分比；74项前端单元和26项传输夹具浏览器回归通过。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "frontend/src/components/TaskCatalogPanel.vue",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "frontend/src/views/TasksView.vue",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/catalog.ts",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
             }
           ]
         }
@@ -6123,12 +6201,43 @@
       "task_id": "T107",
       "name": "实现核查报告生成",
       "card": "tasks/backend/T107.md",
-      "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "尚无本任务已验证交付",
-      "summary_remaining": "完成核查报告生成的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "summary_completed": "新增getReport真实数据库元数据读取：报告/证据/案件/任务及运行结果版本严格绑定、固定对象引用、全部证据来源和事务尾授权复核；32项投影/SQL/HTTP/0013升级回滚测试通过。不包含报告生成、渲染或下载。",
+      "summary_remaining": "报告生成生产者、版本化模板/渲染、审批及受控下载、完整证据约束报告验收仍待；getReport读取不替代这些工作",
+      "completed_steps": [
+        {
+          "description": "新增getReport真实数据库元数据读取：报告/证据/案件/任务及运行结果版本严格绑定、固定对象引用、全部证据来源和事务尾授权复核；32项投影/SQL/HTTP/0013升级回滚测试通过。不包含报告生成、渲染或下载。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/registry_reads.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/registry_router.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "backend/business_migrations/0013_report_reads.sql",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_registry_reads.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_report_migration.py",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+              "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
@@ -6147,7 +6256,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T108",
@@ -8355,6 +8464,21 @@
       "full_task_acceptance_asserted": false,
       "Python_candidates_created": false,
       "existing_preview_or_shared_database_migrated": false
+    },
+    {
+      "id": "api-frontend-permission-continuation-20261021",
+      "observed_date": "2026-10-21",
+      "task_ids": [
+        "T014",
+        "T030",
+        "T040",
+        "T107"
+      ],
+      "evidence_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+      "owners_inferred": false,
+      "full_task_acceptance_asserted": false,
+      "Python_candidates_created": false,
+      "existing_preview_or_shared_database_migrated": false
     }
   ],
   "authorized_development_scope": {
@@ -8561,6 +8685,21 @@
     ],
     "scope": "verified_isolated_backend_read_substeps_only",
     "evidence_ref": "docs/00-project/validation/t001-t123-catalog-read-report.json",
+    "owners_inferred": false,
+    "full_task_acceptance_asserted": false,
+    "Python_candidates_created": false,
+    "existing_preview_or_shared_database_migrated": false
+  },
+  "latest_api_frontend_continuation": {
+    "id": "api-frontend-permission-continuation-20261021",
+    "observed_date": "2026-10-21",
+    "task_ids": [
+      "T014",
+      "T030",
+      "T040",
+      "T107"
+    ],
+    "evidence_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json",
     "owners_inferred": false,
     "full_task_acceptance_asserted": false,
     "Python_candidates_created": false,
