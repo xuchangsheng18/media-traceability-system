@@ -1,6 +1,6 @@
 {
-  "status": "DEVELOPMENT_SUBSCOPE_VERIFIED_RUNTIME_PENDING",
-  "observed_at": "2026-10-21T04:22:57.811708+00:00",
+  "status": "DEVELOPMENT_DEMO_RUNNING_WITH_EXPLICIT_BUSINESS_LIMITS",
+  "observed_at": "2026-10-21T04:42:43.185972+00:00",
   "scope": "Linux_py310_CPU_internal_development_demo_only",
   "source_base_commit": "018adfbd0a6c2c3c7e92e04b184449903f3109ee",
   "task_ids": [
@@ -50,7 +50,7 @@
     "status": "PASS",
     "tests": 91,
     "command": "PYTHONPATH=backend:. /opt/conda/glwy/envs/py310/bin/python -m pytest -q tests/platform/test_business_demo_gateway.py",
-    "actual_startup_verified": false
+    "actual_startup_verified": true
   },
   "existing_PoC_runtime": {
     "status": "PASS",
@@ -84,5 +84,235 @@
     "status": "THREE_FINDINGS_FIXED",
     "ref": "docs/03-development/development-delivery-review.md",
     "formal_human_review_asserted": false
-  }
+  },
+  "source_payload_commit": "8b7fc475b5a0e8c3e7687559a6f09b65e39e1373",
+  "runtime": {
+    "status": "LOOPBACK_DEMO_RUNNING_VERIFIED_AFTER_INITIAL_PROBE_TIMEOUT",
+    "source_commit": "8b7fc475b5a0e8c3e7687559a6f09b65e39e1373",
+    "processes": {
+      "business": 2395893,
+      "gateway": 2395894
+    },
+    "checks": [
+      {
+        "port": 14213,
+        "path": "/",
+        "status": 200,
+        "cache_control": "no-store"
+      },
+      {
+        "port": 14213,
+        "path": "/_demo/health",
+        "status": 200,
+        "cache_control": "no-store"
+      },
+      {
+        "port": 14213,
+        "path": "/business/api/v1/auth/me",
+        "status": 401,
+        "cache_control": "no-store"
+      },
+      {
+        "port": 14213,
+        "path": "/api/v1/health",
+        "status": 401,
+        "cache_control": "no-store"
+      },
+      {
+        "port": 14212,
+        "path": "/api/v1/auth/me",
+        "status": 401,
+        "cache_control": "no-store"
+      },
+      {
+        "port": 14212,
+        "path": "/openapi.json",
+        "status": 200,
+        "cache_control": "no-store"
+      }
+    ],
+    "external_business_operations": 43,
+    "build_files": [
+      {
+        "path": "assets/index-BfCKuIGj.css",
+        "sha256": "b984a65d8bb314ad07aa4d00b7e63b89f7bb603d05922218f4d1875b4ba81454",
+        "size_bytes": 1442
+      },
+      {
+        "path": "assets/index-BMQFwdet.js",
+        "sha256": "cc9ddbfcdbd72d5dd0c79a3b054a7ead7a2c2f5c05128aa4fe322254a7d3ec39",
+        "size_bytes": 134513
+      },
+      {
+        "path": "index.html",
+        "sha256": "569ba8d90dfdab963662adb66e883239c7a9fb672abe28d8da64f7ecfff6701f",
+        "size_bytes": 474
+      }
+    ],
+    "initial_probe_timeout": true,
+    "initial_startup_probe_result": "TIMEOUT; processes preserved; subsequent six HTTP checks, source/build hashes and actual browser upload independently passed"
+  },
+  "actual_browser": {
+    "status": "PASS",
+    "observed_at": "2026-10-21T04:37:33.390Z",
+    "url": "http://127.0.0.1:14183/",
+    "scope": "actual_built_frontend_via_Linux_gateway_existing_CPU_PoC",
+    "actual_browser_upload_queue_CPU_result": true,
+    "model": "synthetic-cpu-encoder",
+    "dimension": 8,
+    "business_model_validated": false,
+    "disconnected_business_pages_disabled": true,
+    "browser_storage_entries": {
+      "local": 0,
+      "session": 0
+    },
+    "secrets_published": false
+  },
+  "current_entry": "http://127.0.0.1:14183/",
+  "runtime_migrations": [
+    "0001",
+    "0002",
+    "0003",
+    "0004",
+    "0005",
+    "0006",
+    "0007",
+    "0008",
+    "0009",
+    "0010",
+    "0011"
+  ],
+  "migrations_applied_only_to_new_random_preview_database": true,
+  "latest_source_delivery": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-21T04:35:13.478885+00:00",
+    "source_commit": "8b7fc475b5a0e8c3e7687559a6f09b65e39e1373",
+    "previous_server_commit": "018adfbd0a6c2c3c7e92e04b184449903f3109ee",
+    "changed_files": 159,
+    "manifest_files_verified": 2189,
+    "manifest_sha256": "0e644c3dd98167af705a810f0254a87ff35ddd1a2fe1de5cc402062520bef05c",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false
+  },
+  "exact_staged_source_verification": {
+    "staged_tree": "35f31966ddfbd3c772b6e2d6b229cb2b8e86d1ed",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"full_tasks_verified\": 0, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py",
+          "--task",
+          "T040"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"links_checked\": 11943, \"errors\": [], \"historical_links\": 0}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"time_utc\": \"2026-10-21T04:33:41.409683+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 1232, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/workspace/glwy/runtime/media-traceability-system/stage-three-type-tools/bin/python",
+          "-m",
+          "mypy",
+          "--config-file",
+          "config/mypy.ini",
+          "--cache-dir",
+          "/workspace/glwy/runtime/media-traceability-system/delivery-input-fa8aaf24b272/.type-cache",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "Success: no issues found in 209 source files\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/platform/test_business_demo_gateway.py",
+          "tests/platform/test_task_completion_evidence.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "........................................................................ [ 66%]\n....................................                                     [100%]\n108 passed in 2.09s\n"
+      }
+    ],
+    "private_raw_logs_published": false
+  },
+  "hosted_ci": {
+    "run_id": 39544836250,
+    "source_commit": "8b7fc475b5a0e8c3e7687559a6f09b65e39e1373",
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39544836250",
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "name": "identity-verification / identity-integration",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "observed_at": "2026-10-21T04:42:43.185997+00:00",
+    "full_success_asserted": false
+  },
+  "documentation_only_receipt_does_not_change_running_code": true
 }
