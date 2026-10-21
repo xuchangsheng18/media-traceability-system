@@ -1,6 +1,6 @@
 {
-  "status": "PASS_LIMITED_IMPLEMENTATION_T014_AND_FRONTEND_RETAINED_GATES_RUNNING",
-  "observed_at": "2026-10-21T08:54:03.528552+00:00",
+  "status": "PASS_LIMITED_IMPLEMENTATION_AND_LOCAL_GATES_HOSTED_CI_SEPARATE",
+  "observed_at": "2026-10-21T09:20:30.208514+00:00",
   "base_commit": "54f7260576f7044635927a2309a014b830d31d92",
   "scope": {
     "source_tasks": "T001—T123 only",
@@ -83,14 +83,14 @@
     "all_CI_pass_asserted": false
   },
   "latest_source_CI": {
-    "source_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
-    "run_id": 39573028419,
-    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39573028419",
+    "source_commit": "d91c4e26b4e1734bca967205600cb1a2cb2446b2",
+    "run_id": 39575396775,
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39575396775",
     "status": "in_progress",
     "conclusion": null,
-    "observed_at": "2026-10-21T09:03:24.156953+00:00",
-    "all_CI_pass_asserted": false,
-    "corrected_migration_expectations_not_in_this_checkpoint": true
+    "observed_at": "2026-10-21T09:20:30.208536+00:00",
+    "active_job": "identity-verification / identity-integration",
+    "all_CI_pass_asserted": false
   },
   "independent_review": {
     "reviewer": "api_continuation_review",
@@ -113,7 +113,7 @@
     }
   ],
   "remaining": [
-    "26 external contract operations still unmounted; see per-operation register",
+    "26 external contract operations still unmounted; every operation has a concrete code/regression/input path in the register; allT001—T123 tasks are not declared complete",
     "Report creation/render/download/approved producer not supplied by read implementation",
     "Real shared deployment and0012/0013 adoption not performed",
     "Formal classification/source-purpose/provider/adoption and T013 real restore remain separate",
@@ -129,7 +129,7 @@
     "new_0012_or_0013_adopted": false
   },
   "formal_accepted": false,
-  "status_interpretation": "Bounded implementation,843 strict permission checks,32 report checks and frontend checks passed; retained T015/T016 gates and new hosted CI are still separately observed.",
+  "status_interpretation": "All listed local bounded implementation/quality/permission/scope/token/migration/frontend/material checks passed. Whole tasks, formal policy, shared deployment and hosted CI are separately judged.",
   "initial_full_permission_gate": {
     "validation_snapshot_commit": "9de4d87e500c6f9326df85400829ee709da18e8b",
     "command": [
@@ -375,7 +375,18 @@
     "timeout_changed": false,
     "validation_snapshot_commit": "d0d1d530617028c83718c5c84b9935ba664c96ae",
     "validation_snapshot_is_publication_commit": false,
-    "proof_ref": "docs/00-project/validation/t014-permissions-report.json"
+    "proof_ref": "docs/00-project/validation/t014-permissions-report.json",
+    "current_selected_source_binding": {
+      "status": "PASS_EXACT_T014_SELECTED_CODE_BYTES",
+      "files": 109,
+      "changed_selected_source_files": 0,
+      "compared_against_validation_snapshot": "d0d1d530617028c83718c5c84b9935ba664c96ae",
+      "later_changed_tests_outside_T014_selection": [
+        "tests/business/test_t015_scope_owner.py",
+        "tests/business/test_t015_scope_recovery.py",
+        "tests/business/test_t016_operation_token_recovery.py"
+      ]
+    }
   },
   "source_sha256": {
     "backend/business_app/__init__.py": "7a6002b1296632af7b86e67eaf76fb9a9cc6f687cd02646c74030a4d7020a84a",
@@ -660,8 +671,114 @@
     }
   ],
   "retained_scope_and_token_gates": {
-    "status": "RERUN_IN_PROGRESS_AFTER_STRICT_MIGRATION_EXPECTATION_UPDATE",
-    "old_failure_preserved": true
+    "observed_at": "2026-10-21T09:17:08.168791+00:00",
+    "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-1c071d856be5",
+    "validation_snapshot_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+    "publication_commit": false,
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_t015_scope.py",
+          "run"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 253.197404,
+        "safe_summary": {
+          "status": "PASS",
+          "totals": {
+            "tests": 131,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_t015_scope.py",
+          "failure-probe"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "wall_time_seconds": 0.470944,
+        "safe_summary": {
+          "status": "EXPECTED_FAILURE",
+          "totals": {
+            "tests": 1,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "expected_assertion_failure_verified": true
+        },
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_t016_tokens.py",
+          "run"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 332.021478,
+        "safe_summary": {
+          "status": "PASS",
+          "totals": {
+            "tests": 187,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_t016_tokens.py",
+          "failure-probe"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "wall_time_seconds": 0.355305,
+        "safe_summary": {
+          "status": "EXPECTED_FAILURE",
+          "totals": {
+            "tests": 1,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "expected_assertion_failure_verified": true
+        },
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/business/test_migrations.py",
+          "tests/business/test_remaining_contracts.py",
+          "tests/business/test_t015_scope_owner.py"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 308.391199,
+        "safe_summary": [
+          "29 passed, 1 warning in 307.63s (0:05:07)"
+        ],
+        "expected_result_verified": true
+      }
+    ],
+    "complete": true,
+    "success": true
   },
   "migration_expectation_followup": {
     "previous_payload_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
@@ -719,17 +836,18 @@
       "exit_code": 0,
       "summary": "Success: no issues found in 3 source files"
     },
-    "full_T015_T016_rerun": "IN_PROGRESS",
-    "T014_selected_source_and_target_tests_unchanged": true
+    "full_T015_T016_rerun": "PASS",
+    "T014_selected_source_and_target_tests_unchanged": true,
+    "independent_review": "No weakened assertion; rollback/DIGEST/noop/legacy rows/non-superowner ACL checks retained"
   },
   "synchronization": {
     "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
-    "observed_at": "2026-10-21T08:56:05.121355+00:00",
-    "source_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
-    "previous_server_commit": "54f7260576f7044635927a2309a014b830d31d92",
-    "changed_files": 223,
+    "observed_at": "2026-10-21T09:14:23.956159+00:00",
+    "source_commit": "d91c4e26b4e1734bca967205600cb1a2cb2446b2",
+    "previous_server_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
+    "changed_files": 6,
     "manifest_files_verified": 2227,
-    "manifest_sha256": "cec04d7bb79cca1a9795b72c34a0d416e5c4579d39bb0e4dd72b0e7e64cd9708",
+    "manifest_sha256": "3802d8d86fc501cbb70d918666589f2196a156bbc84ffb237fcfa1f5b4a64e76",
     "tracked_source_clean": true,
     "git_worktree_clean": false,
     "preexisting_IDE_directory_preserved": true,
@@ -741,5 +859,14 @@
     "shared_identity_or_permission_policy_adopted": false,
     "Python_candidates_created": false,
     "formal_accepted": false
+  },
+  "implementation_source_commit": "d91c4e26b4e1734bca967205600cb1a2cb2446b2",
+  "prior_checkpoint_CI": {
+    "source_commit": "10773a813ba03ea3e61f7828c4d7be245bcf9658",
+    "run_id": 39573028419,
+    "conclusion": "cancelled",
+    "identity_job": "success",
+    "reason": "Superseded by required recovery expectation fix on the same branch; original workflow concurrency policy retained",
+    "all_CI_pass_asserted": false
   }
 }
