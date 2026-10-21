@@ -17,6 +17,14 @@ Linux实物：`/workspace/glwy/runtime/media-traceability-system/public-developm
 
 媒体实物位于仓库外；仓库保留[固定清单](../../datasets/public-development/manifest.json)、[工具与命令](../../datasets/public-development/README.md)及[实际回执](../00-project/validation/public-development-data-report.json)。工具只取清单内的小文件，核对版本、大小和摘要，不安装scikit-image或其他包。
 
+## 已生成的可追溯变换样本
+
+两张原图另产生5个开发文件：`chelsea-exact-copy.png`、`chelsea-crop.png`、`chelsea-flip-horizontal.png`、`chelsea-jpeg-quality55.jpg`、`horse-flip-vertical.png`。派生文件共563935字节；连同原图共7个文件、6个不同摘要，原样复制不算新的独立样本。
+
+本地目录：`D:\公安厅项目\_work\public-development-data\scikit-image-v0.25.2-known-transforms-v1`；Linux目录：`/workspace/glwy/runtime/media-traceability-system/public-development-data/scikit-image-v0.25.2-known-transforms-v1`。父文件摘要、变换参数、坐标正反向映射、生成器源码及独立像素核对记录在同一份[实际回执](../00-project/validation/public-development-data-report.json)中；四项无损变换像素核对通过，JPEG仅核验构造参数和实际解码，不把压缩差异当模型指标。
+
+本批没有生成视频：已核验的FFmpeg路径可用，但检查位置内未找到ffprobe，因此按前置条件停止；未安装工具，也不据此声称整台服务器不存在ffprobe。当前上传解码支持仍为PNG/JPEG。
+
 ## 当前验证范围
 
 两张原始图片已经人工查看，Linux现有`inspect_uploaded_media`完整解码及尺寸检查成功；错误摘要和错误MIME均被拒绝。本地和Linux文件摘要相同。下载工具的离线拒绝测试、实际获取和复用检查分别记录在回执中，不把离线传输夹具标作实际上游下载。

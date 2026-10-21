@@ -14,9 +14,9 @@ from fastapi.responses import JSONResponse, Response
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
-from .auth import AuthorityProvider
 from .asset_download import AssetDownload
 from .asset_download_router import router as asset_download_router
+from .auth import AuthorityProvider
 from .catalog_reads import CatalogReads
 from .catalog_router import router as catalog_router
 from .contracts import ROOT
@@ -43,9 +43,9 @@ from .history.repository import ResultRepository
 from .history.router import router as history_router
 from .inference import BackendRegistration, InferenceGateway, ServiceAuthority
 from .inference import router as inference_router
-from .objects import FileObjectStore
 from .model_catalog import ModelCatalog
 from .model_catalog_router import router as model_catalog_router
+from .objects import FileObjectStore
 from .permissions.catalog import load_catalog
 from .permissions.conditional import ConditionalPort
 from .permissions.context import FencePort, WorkPort
