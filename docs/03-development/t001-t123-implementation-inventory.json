@@ -71,6 +71,7 @@
     "backend/business_app/source_registration.py": "f9a0f2722703867e9fe23bf756b6fd2be6ee15b294fc67b04160b8b71777429e",
     "backend/business_app/source_registration_router.py": "86c3d1a139f4be199d531717a81fc72167a09db34202549573e241974bc91978",
     "backend/business_app/source_synchronization.py": "56b1a174f7f1a2be9fae40f0deb038365f56cc480a1ce52726fea7b5e6a7b0bb",
+    "backend/business_app/task_plan.py": "42609f5393e5730dea0765c53eaaaa1ed94adbe4a55b444f6736c177b8b010e9",
     "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
     "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
     "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
@@ -97,7 +98,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "c69b919d125957a94ee35f16116249d78ab404acbbb526a5e70250eb994c0f63",
+    "tasks/execution-status.json": "a50a88ed720b9dbbd1776bad7d869a0739f33acfe163af0400155e045fcc43f1",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -115,10 +116,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 134,
+    "all_completed_substeps": 135,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 134,
+    "authorized_completed_substeps": 135,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -136,7 +137,7 @@
     "declared_operations_without_explicit_business_registration": 22,
     "versioned_create_table_count": 64,
     "versioned_sql_function_name_count": 31,
-    "backend_python_definition_count": 453,
+    "backend_python_definition_count": 458,
     "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -10835,10 +10836,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 1,
+      "completed_substeps_count": 2,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证",
-      "actual_remaining_summary": "补全部任务模型访问、版本约束与业务关联；对接真实调度和结果生产后完成任务级验收",
+      "actual_completed_summary": "任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证；候选任务DAG解析子范围：复用既有Schema与注册表，新增嵌套不可变节点/绑定/入口快照、原始及规范化摘要、稳定拓扑及模型必填绑定校验；全部36候选图及77项解析回归有证据，未选分支与运行节点状态分离。不挂载createTask、不写库、不调度、不采用正式策略；不证明整卡验收。",
+      "actual_remaining_summary": "候选DAG不可变解析已有实测；仍需受信场景/模块/策略映射、固定任务/运行/节点版本关联与实际业务访问，不把candidate-1当正式可执行计划。；对接真实调度和结果生产后完成任务级验收；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证",
@@ -10857,12 +10858,34 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "候选任务DAG解析子范围：复用既有Schema与注册表，新增嵌套不可变节点/绑定/入口快照、原始及规范化摘要、稳定拓扑及模型必填绑定校验；全部36候选图及77项解析回归有证据，未选分支与运行节点状态分离。不挂载createTask、不写库、不调度、不采用正式策略；不证明整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/task_plan.py",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            },
+            {
+              "path": "tests/business/test_task_plan.py",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            },
+            {
+              "path": "docs/03-development/t031-candidate-task-plan.md",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            },
+            {
+              "path": "docs/00-project/validation/t031-candidate-task-plan-report.json",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补全部任务模型访问、版本约束与业务关联"
+          "description": "候选DAG不可变解析已有实测；仍需受信场景/模块/策略映射、固定任务/运行/节点版本关联与实际业务访问，不把candidate-1当正式可执行计划。"
         },
         {
           "category": "实施/验证",
@@ -38725,6 +38748,100 @@
         "var_positional": null,
         "keyword_only": [
           "connection"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_plan.CandidateDAG.select",
+      "python_name": "select",
+      "source_path": "backend/business_app/task_plan.py",
+      "line": 56,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "operation_id"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_plan._unique_object",
+      "python_name": "_unique_object",
+      "source_path": "backend/business_app/task_plan.py",
+      "line": 79,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "pairs"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_plan._reject_constant",
+      "python_name": "_reject_constant",
+      "source_path": "backend/business_app/task_plan.py",
+      "line": 88,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "_"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_plan._ordered_nodes",
+      "python_name": "_ordered_nodes",
+      "source_path": "backend/business_app/task_plan.py",
+      "line": 92,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_plan.parse_candidate_dag",
+      "python_name": "parse_candidate_dag",
+      "source_path": "backend/business_app/task_plan.py",
+      "line": 142,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "max_bytes",
+          "max_nodes"
         ],
         "var_keyword": null
       },

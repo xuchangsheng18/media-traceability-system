@@ -3902,8 +3902,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证",
-      "summary_remaining": "补全部任务模型访问、版本约束与业务关联；对接真实调度和结果生产后完成任务级验收",
+      "summary_completed": "任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证；候选任务DAG解析子范围：复用既有Schema与注册表，新增嵌套不可变节点/绑定/入口快照、原始及规范化摘要、稳定拓扑及模型必填绑定校验；全部36候选图及77项解析回归有证据，未选分支与运行节点状态分离。不挂载createTask、不写库、不调度、不采用正式策略；不证明整卡验收。",
+      "summary_remaining": "候选DAG不可变解析已有实测；仍需受信场景/模块/策略映射、固定任务/运行/节点版本关联与实际业务访问，不把candidate-1当正式可执行计划。；对接真实调度和结果生产后完成任务级验收；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "任务/运行/节点/事件候选表和固定历史身份约束已有迁移验证",
@@ -3922,12 +3922,34 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "候选任务DAG解析子范围：复用既有Schema与注册表，新增嵌套不可变节点/绑定/入口快照、原始及规范化摘要、稳定拓扑及模型必填绑定校验；全部36候选图及77项解析回归有证据，未选分支与运行节点状态分离。不挂载createTask、不写库、不调度、不采用正式策略；不证明整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/task_plan.py",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            },
+            {
+              "path": "tests/business/test_task_plan.py",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            },
+            {
+              "path": "docs/03-development/t031-candidate-task-plan.md",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            },
+            {
+              "path": "docs/00-project/validation/t031-candidate-task-plan-report.json",
+              "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补全部任务模型访问、版本约束与业务关联"
+          "description": "候选DAG不可变解析已有实测；仍需受信场景/模块/策略映射、固定任务/运行/节点版本关联与实际业务访问，不把candidate-1当正式可执行计划。"
         },
         {
           "category": "实施/验证",
@@ -3938,7 +3960,10 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "followup_document_refs": [
+        "docs/03-development/t031-candidate-task-plan.md"
+      ]
     },
     {
       "task_id": "T032",
@@ -9349,7 +9374,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t024-object-durability-report.json"
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t031-candidate-task-plan-report.json"
   },
   "latest_business_upload_frontend": {
     "observed_at": "2026-10-21T16:33:04.726261+00:00",
@@ -9375,6 +9400,17 @@
     "observed_at": "2026-10-21T18:52:03.483137+00:00",
     "report_ref": "docs/00-project/validation/t024-object-durability-report.json",
     "plan_ref": "docs/03-development/t024-object-durability.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_t031_candidate_plan": {
+    "observed_at": "2026-10-21T19:57:31.204356+00:00",
+    "report_ref": "docs/00-project/validation/t031-candidate-task-plan-report.json",
+    "plan_ref": "docs/03-development/t031-candidate-task-plan.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

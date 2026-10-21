@@ -2352,11 +2352,30 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "backend/business_app/task_plan.py",
+          "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+        },
+        {
+          "path": "tests/business/test_task_plan.py",
+          "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+        },
+        {
+          "path": "docs/03-development/t031-candidate-task-plan.md",
+          "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
+        },
+        {
+          "path": "docs/00-project/validation/t031-candidate-task-plan-report.json",
+          "scope": "仅本批候选DAG解析与入口选择；不是任务创建、调度、策略授权或整任务验收"
         }
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
-      "material_or_resource_dependencies": []
+      "material_or_resource_dependencies": [],
+      "followup_document_refs": [
+        "docs/03-development/t031-candidate-task-plan.md"
+      ]
     },
     {
       "task_id": "T032",
@@ -5030,6 +5049,15 @@
       ],
       "event": "LINUX_FILE_OBJECT_DURABILITY_BARRIERS",
       "evidence_ref": "docs/00-project/validation/t024-object-durability-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T031"
+      ],
+      "event": "IMMUTABLE_CANDIDATE_DAG_PARSER",
+      "evidence_ref": "docs/00-project/validation/t031-candidate-task-plan-report.json",
       "whole_task_acceptance_recorded": false
     }
   ],

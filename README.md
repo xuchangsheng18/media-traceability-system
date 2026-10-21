@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T024落盘持久性：[实现与边界](docs/03-development/t024-object-durability.md)、[限定实测回执](docs/00-project/validation/t024-object-durability-report.json)。新增1条工程子步骤；T001—T123当前134条已证、434组剩余，全部170任务134条已证、622组剩余，整卡验收0项。
+2026-10-22本批T031候选计划：[解析实现与边界](docs/03-development/t031-candidate-task-plan.md)、[限定实测回执](docs/00-project/validation/t031-candidate-task-plan-report.json)。新增1条工程子步骤；T001—T123当前135条已证、434组剩余，全部170任务135条已证、622组剩余，整卡验收0项。
+
+2026-10-22本批T024落盘持久性：[实现与边界](docs/03-development/t024-object-durability.md)、[限定实测回执](docs/00-project/validation/t024-object-durability-report.json)。新增1条工程子步骤；T001—T123当批累计134条已证、434组剩余，全部170任务134条已证、622组剩余，整卡验收0项。
 
 2026-10-22本批T024隔离worker联调：[实现与剩余条件](docs/03-development/t024-worker-isolated-integration.md)、[限定实测回执](docs/00-project/validation/t024-worker-isolated-integration-report.json)。新增1条worker子步骤；T001—T123当批累计133条已证、434组剩余，全部170任务为133条已证、622组剩余，整卡验收0项。
 
