@@ -3402,8 +3402,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。",
-      "summary_remaining": "仍需实际部署worker、真实对象存储/权威组合及全媒体安全校验；本批仅完成前端受理与进度接线。；扩大并发、宕机/重放恢复及缺失对象测试并完成真实组合验收；202回执和前端夹具不能关闭这些条件。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。",
+      "summary_remaining": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；本批已验证缺对象、重复消息及提交后未ACK重投；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收和完整恢复组合，按源验收逐项验证。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
@@ -3452,16 +3452,54 @@
               "scope": "仅本批前端及传输子范围；准确测试/源码摘要见专项回执，非整任务/真实业务E2E/运行升级验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。 同时以失败回归修复既有控制夹具的正常客户端上下文退出泄漏；全量复验结果另见专项回执。",
+          "evidence": [
+            {
+              "path": "backend/business_app/uploads/messaging.py",
+              "scope": "仅本批隔离worker/交付绑定子范围；测试权威是自建夹具，真实组合和完整源验收仍待"
+            },
+            {
+              "path": "tests/business/test_upload_delivery_binding.py",
+              "scope": "仅本批隔离worker/交付绑定子范围；测试权威是自建夹具，真实组合和完整源验收仍待"
+            },
+            {
+              "path": "tests/business/test_upload_worker_process.py",
+              "scope": "仅本批隔离worker/交付绑定子范围；测试权威是自建夹具，真实组合和完整源验收仍待"
+            },
+            {
+              "path": "tests/business/upload_worker_process_fixture.py",
+              "scope": "仅本批隔离worker/交付绑定子范围；测试权威是自建夹具，真实组合和完整源验收仍待"
+            },
+            {
+              "path": "docs/03-development/t024-worker-isolated-integration.md",
+              "scope": "仅本批隔离worker/交付绑定子范围；测试权威是自建夹具，真实组合和完整源验收仍待"
+            },
+            {
+              "path": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
+              "scope": "仅本批隔离worker/交付绑定子范围；测试权威是自建夹具，真实组合和完整源验收仍待"
+            },
+            {
+              "path": "tests/business/test_controls.py",
+              "scope": "仅复现并修复测试夹具的正常上下文退出泄漏；不证明旧全量失败原因或正式部署完成"
+            },
+            {
+              "path": "tests/business/test_client_lifecycle.py",
+              "scope": "仅复现并修复测试夹具的正常上下文退出泄漏；不证明旧全量失败原因或正式部署完成"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "仍需实际部署worker、真实对象存储/权威组合及全媒体安全校验；本批仅完成前端受理与进度接线。"
+          "description": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。"
         },
         {
           "category": "实施/验证",
-          "description": "扩大并发、宕机/重放恢复及缺失对象测试并完成真实组合验收；202回执和前端夹具不能关闭这些条件。"
+          "description": "本批已验证缺对象、重复消息及提交后未ACK重投；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收和完整恢复组合，按源验收逐项验证。"
         },
         {
           "category": "任务记录",
@@ -3470,7 +3508,8 @@
       ],
       "observed_date": "2026-10-22",
       "followup_document_refs": [
-        "docs/03-development/business-upload-first-batch.md"
+        "docs/03-development/business-upload-first-batch.md",
+        "docs/03-development/t024-worker-isolated-integration.md"
       ]
     },
     {
@@ -9283,7 +9322,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/business-upload-first-batch-report.json"
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json"
   },
   "latest_business_upload_frontend": {
     "observed_at": "2026-10-21T16:33:04.726261+00:00",
@@ -9293,5 +9332,16 @@
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,
     "real_business_E2E_verified": false
+  },
+  "latest_t024_worker_isolated_integration": {
+    "observed_at": "2026-10-21T17:12:31.753075+00:00",
+    "report_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
+    "plan_ref": "docs/03-development/t024-worker-isolated-integration.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
   }
 }

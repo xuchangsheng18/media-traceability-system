@@ -1,0 +1,1336 @@
+{
+  "status": "PASS_LIMITED_ISOLATED_WORKER_SCOPE_FULL_SUITE_PENDING_HOSTED_CI",
+  "observed_at": "2026-10-21T18:29:42.910097+00:00",
+  "source_base_commit": "6d8b04ddaf74a2d72862f739493d56c7ab985a5f",
+  "task_ids": [
+    "T024"
+  ],
+  "source_binding": "Exact LF source hashes; base commit does not yet contain this uncommitted implementation",
+  "source_sha256_lf": {
+    "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+    "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+    "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+    "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+    "tests/business/test_controls.py": "6350d40f99c4171a5e275b0dcd0085320f3cd27eb4b75675ba7aefd9f6839d03",
+    "tests/business/test_client_lifecycle.py": "b6fbb341a944db170cf07a550e189c96fb61775c24213e9464bb063b14a55c75"
+  },
+  "verification": {
+    "binding-red": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-26e8dbf738cb",
+      "validation_snapshot_commit": "75db57725997e9ca5d21183566510c11ae90c8b8",
+      "publication_commit": false,
+      "mode": "binding-red",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_upload_delivery_binding.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T16:55:54.431214+00:00",
+          "ended_at": "2026-10-21T16:55:56.549961+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_upload_delivery_binding.py::test_malformed_delivery_has_no_worker_or_ack_side_effect[not-json-object0]",
+            "FAILED tests/business/test_upload_delivery_binding.py::test_malformed_delivery_has_no_worker_or_ack_side_effect[body3]",
+            "FAILED tests/business/test_upload_delivery_binding.py::test_malformed_delivery_has_no_worker_or_ack_side_effect[not-json-object1]",
+            "FAILED tests/business/test_upload_delivery_binding.py::test_worker_failure_leaves_delivery_unacknowledged",
+            "FAILED tests/business/test_upload_delivery_binding.py::test_ack_failure_does_not_rerun_committed_worker_in_the_callback",
+            "12 failed in 1.66s"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "targeted": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-f7b3f55aa578",
+      "validation_snapshot_commit": "09dcb9aaa8a05f816281dc8756e34c6fce8ca0d1",
+      "publication_commit": false,
+      "mode": "targeted",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_upload_delivery_binding.py",
+            "tests/business/test_upload_worker_process.py",
+            "tests/business/test_upload_validation.py",
+            "tests/business/test_uploads.py",
+            "tests/business/test_t014_work.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:04:25.775489+00:00",
+          "ended_at": "2026-10-21T17:07:05.850980+00:00",
+          "safe_summary": [
+            "68 passed, 1 warning in 159.29s (0:02:39)"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "quality": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-49f5a8dac4ba",
+      "validation_snapshot_commit": "108c87d969a97ab7762bdb4dc9c7edfe05811cb5",
+      "publication_commit": false,
+      "mode": "quality",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "check",
+            "--config",
+            "ruff.toml",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:49:05.873296+00:00",
+          "ended_at": "2026-10-21T17:49:06.014129+00:00",
+          "safe_summary": [
+            "All checks passed!"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "format",
+            "--check",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:49:06.014222+00:00",
+          "ended_at": "2026-10-21T17:49:06.198265+00:00",
+          "safe_summary": []
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:49:06.198449+00:00",
+          "ended_at": "2026-10-21T17:49:07.135900+00:00",
+          "safe_summary": [
+            "Success: no issues found in 249 source files"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "resource-red": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-5f85eb674d08",
+      "validation_snapshot_commit": "7864c4b40bcab190917a56dd5010034b74115841",
+      "publication_commit": false,
+      "mode": "resource-red",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_client_lifecycle.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:44:46.026822+00:00",
+          "ended_at": "2026-10-21T17:45:04.817952+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_client_lifecycle.py::test_control_context_teardown_stops_entered_upload_client_portal"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "resource": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-5e188aa89d76",
+      "validation_snapshot_commit": "d9c5abdd46fb83032dede86c8eac8a047af643ac",
+      "publication_commit": false,
+      "mode": "resource",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_client_lifecycle.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:46:05.131499+00:00",
+          "ended_at": "2026-10-21T17:46:25.867575+00:00",
+          "safe_summary": [
+            "1 passed, 1 warning in 20.15s"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "followup": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-772ab6917b77",
+      "validation_snapshot_commit": "671019544e34de2ce31ac19e51655e8c19a6538c",
+      "publication_commit": false,
+      "mode": "followup",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_client_lifecycle.py",
+            "tests/business/test_t015_scoped_objects.py::test_timeline_derived_input_keeps_exact_history_and_source_boundaries[task-404]",
+            "tests/business/test_t015_scoped_objects.py::test_timeline_derived_input_keeps_exact_history_and_source_boundaries[result-404]",
+            "tests/business/test_t015_scoped_objects.py::test_timeline_derived_input_keeps_exact_history_and_source_boundaries[source-403]",
+            "tests/business/test_t015_scoped_objects.py::test_timeline_derived_input_keeps_exact_history_and_source_boundaries[task_only-503]",
+            "tests/business/test_t015_scoped_objects.py::test_timeline_derived_input_keeps_exact_history_and_source_boundaries[run_only-503]",
+            "tests/business/test_t015_scoped_objects.py::test_generator_started_after_scope_exit_is_denied",
+            "tests/business/test_t015_scoped_objects.py::test_case_collection_permission_cannot_be_used_as_media_byte_permission",
+            "tests/business/test_t015_scoped_objects.py::test_revocation_between_blocks_stops_remaining_output",
+            "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[object]",
+            "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[version]",
+            "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[digest]",
+            "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[size]",
+            "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[expiry]",
+            "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[approval]",
+            "tests/business/test_t015_scoped_objects.py::test_upload_part_binding_does_not_require_object_version_row",
+            "tests/business/test_t015_scoped_objects.py::test_real_conditional_part_write_keeps_publish_and_receipt_in_one_root",
+            "tests/business/test_t015_scoped_objects.py::test_bad_http_part_digest_is_denied_before_any_object_write",
+            "tests/business/test_t015_scoped_objects.py::test_internal_part_digest_failure_records_exact_unpublished_orphan",
+            "tests/business/test_t015_scoped_objects.py::test_partial_object_write_is_recorded_without_registering_it",
+            "tests/business/test_t015_scoped_objects.py::test_unproven_model_artifact_never_falls_back_to_case_membership",
+            "tests/business/test_t016_operation_token_recovery.py::test_v1_nullable_bindings_cannot_bypass_sql_check",
+            "tests/business/test_t016_operation_token_recovery.py::test_v1_empty_or_invalid_key_rule_and_generation_are_rejected",
+            "tests/business/test_t016_operation_token_recovery.py::test_same_member_of_two_cases_cannot_mix_token_and_approval_scope",
+            "tests/business/test_t016_operation_token_recovery.py::test_consumption_cannot_change_credential_reconstruction_bindings",
+            "tests/business/test_t016_operation_token_recovery.py::test_expiry_is_measured_at_consumption_after_transaction_start",
+            "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums",
+            "tests/business/test_t016_operation_token_recovery.py::test_0011_partial_failure_rolls_back_new_columns_and_scope_catalog",
+            "tests/business/test_t016_operation_tokens.py::test_issue_replay_is_same_credential_and_never_persists_plaintext",
+            "tests/business/test_t016_operation_tokens.py::test_uuid_spelling_is_canonical_before_binding_and_idempotency",
+            "tests/business/test_t016_operation_tokens.py::test_http_issuance_uses_real_six_role_facts_and_current_source",
+            "tests/business/test_t016_operation_tokens.py::test_missing_provider_never_creates_token[rules]",
+            "tests/business/test_t016_operation_tokens.py::test_missing_provider_never_creates_token[keys]",
+            "tests/business/test_t016_operation_tokens.py::test_missing_provider_never_creates_token[confirmation_authority]",
+            "tests/business/test_t016_operation_tokens.py::test_unapproved_or_revoked_chain_cannot_issue[REQUESTED]",
+            "tests/business/test_t016_operation_tokens.py::test_unapproved_or_revoked_chain_cannot_issue[REVOKED]",
+            "tests/business/test_t016_operation_tokens.py::test_unapproved_or_revoked_chain_cannot_issue[RETURNED]",
+            "tests/business/test_t016_operation_tokens.py::test_unapproved_or_revoked_chain_cannot_issue[REJECTED]",
+            "tests/business/test_t016_operation_tokens.py::test_unapproved_or_revoked_chain_cannot_issue[INVALIDATED]",
+            "tests/business/test_t016_operation_tokens.py::test_wrong_database_service_is_denied_before_writes_even_when_caught",
+            "tests/business/test_t016_operation_tokens.py::test_two_connections_compete_for_exactly_one_consumption",
+            "tests/business/test_t016_operation_tokens.py::test_real_fence_concurrent_issuance_does_not_upgrade_shared_task_locks",
+            "tests/business/test_t016_operation_tokens.py::test_idempotent_retry_and_consumer_use_consistent_database_lock_order",
+            "tests/business/test_t016_operation_tokens.py::test_actual_expiry_cannot_be_extended_by_new_request",
+            "tests/business/test_t016_operation_tokens.py::test_current_approval_source_people_or_result_revocation_blocks_consumption[approval]",
+            "tests/business/test_t016_operation_tokens.py::test_current_approval_source_people_or_result_revocation_blocks_consumption[source]",
+            "tests/business/test_t016_operation_tokens.py::test_current_approval_source_people_or_result_revocation_blocks_consumption[people]",
+            "tests/business/test_t016_operation_tokens.py::test_current_approval_source_people_or_result_revocation_blocks_consumption[result]",
+            "tests/business/test_t016_operation_tokens.py::test_restored_database_does_not_revive_old_generation_token",
+            "tests/business/test_t016_operation_tokens.py::test_issue_rejects_request_binding_swap[object]",
+            "tests/business/test_t016_operation_tokens.py::test_issue_rejects_request_binding_swap[version]",
+            "tests/business/test_t016_operation_tokens.py::test_issue_rejects_request_binding_swap[purpose]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_and_synthetic_business_write_commit_once",
+            "tests/business/test_t016_operation_tokens.py::test_business_failure_rolls_back_consume_and_success_audit",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[action]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[object]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[version]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[approval]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[hash]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[generation]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[issuance_root]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[key]",
+            "tests/business/test_t016_operation_tokens.py::test_consume_rejects_binding_key_rule_or_generation_change[rule]",
+            "tests/business/test_t016_operation_tokens.py::test_commit_time_revalidation_rolls_back_late_change[key]",
+            "tests/business/test_t016_operation_tokens.py::test_commit_time_revalidation_rolls_back_late_change[rule]",
+            "tests/business/test_t016_operation_tokens.py::test_commit_time_revalidation_rolls_back_late_change[approval]",
+            "tests/business/test_t016_operation_tokens.py::test_revoked_case_membership_cannot_consume_an_issued_token",
+            "tests/business/test_t016_operation_tokens.py::test_revoked_real_confirmation_role_cannot_consume_an_issued_token",
+            "tests/business/test_t016_operation_tokens.py::test_revoked_synthetic_execution_assignment_cannot_consume_an_issued_token",
+            "tests/business/test_t016_operation_tokens.py::test_revoked_analysis_purpose_cannot_consume_an_issued_token",
+            "tests/business/test_t016_operation_tokens.py::test_issued_credential_cannot_move_between_authorized_principals[actor]",
+            "tests/business/test_t016_operation_tokens.py::test_issued_credential_cannot_move_between_authorized_principals[issuer]",
+            "tests/business/test_t016_operation_tokens.py::test_issued_credential_cannot_move_between_authorized_principals[subject]",
+            "tests/business/test_t016_operation_tokens.py::test_commit_revalidation_rolls_back_current_people_source_or_result_change[people]",
+            "tests/business/test_t016_operation_tokens.py::test_commit_revalidation_rolls_back_current_people_source_or_result_change[source_purpose]",
+            "tests/business/test_t016_operation_tokens.py::test_commit_revalidation_rolls_back_current_people_source_or_result_change[result]",
+            "tests/business/test_t016_operation_tokens.py::test_different_valid_approval_with_same_key_has_exact_idempotency_conflict",
+            "tests/business/test_t016_operation_tokens.py::test_source_version_change_without_revocation_invalidates_issued_credential[before_consume]",
+            "tests/business/test_t016_operation_tokens.py::test_source_version_change_without_revocation_invalidates_issued_credential[before_commit]",
+            "tests/business/test_t016_operation_tokens.py::test_failed_business_write_allows_same_credential_retry_to_commit_once",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_case_confirmation_rechecks_linked_task_and_source_in_same_root",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[row_version]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[run_version]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[result_version]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[policy_version]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[owner]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[state]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_stale_task_or_invalid_approval_cannot_confirm[expires_at]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_linked_source_authorization_is_required[revoked]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_linked_source_authorization_is_required[purpose]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_linked_source_authorization_is_required[expired]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_confirmation_does_not_infer_classification_or_accept_override",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_two_case_member_cannot_replace_approval_case",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_commit_fence_rechecks_confirmation_binding_and_rolls_back[task_policy]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_commit_fence_rechecks_confirmation_binding_and_rolls_back[source_purpose]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_http_object_claims_are_compared_with_approval[object_id]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_http_object_claims_are_compared_with_approval[object_version]",
+            "tests/business/test_t016_permission_facts.py::test_real_sql_http_object_claims_are_compared_with_approval[purpose]",
+            "tests/business/test_token_identity.py::test_active_token_maps_exact_identity_without_granting_case_or_source",
+            "tests/business/test_token_identity.py::test_authenticate_principal_preserves_exact_issuer_subject_mapping",
+            "tests/business/test_token_identity.py::test_principal_expired_after_database_lookup_is_rejected",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[disabled_user]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[disabled_org]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[revoked_mapping]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[expired_mapping]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[disabled_mapping]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[unmapped]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[issuer]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[forged]",
+            "tests/business/test_token_identity.py::test_identity_and_session_changes_are_seen_on_next_authentication[expired_token]",
+            "tests/business/test_token_identity.py::test_directory_manager_connection_rejected_for_authentication",
+            "tests/business/test_token_identity.py::test_missing_lookup_privilege_fails_closed",
+            "tests/business/test_token_identity.py::test_token_expiring_during_lookup_is_rejected",
+            "tests/business/test_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[request_id]",
+            "tests/business/test_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[actor_id]",
+            "tests/business/test_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[source_authorization_version]",
+            "tests/business/test_upload_json_boundary.py::test_decoded_byte_envelope_rejected_before_authority_or_database[extra_unexpected]",
+            "tests/business/test_upload_json_boundary.py::test_ordinary_json_control_reaches_authority_and_stops_before_database",
+            "tests/business/test_upload_validation.py::test_replayed_upload_event_uses_its_own_trace_inside_another_request",
+            "tests/business/test_upload_validation.py::test_corrupted_fixed_part_is_rejected_not_retried_forever",
+            "tests/business/test_upload_validation.py::test_worker_database_failure_records_private_orphan",
+            "tests/business/test_upload_validation.py::test_duplicate_source_revocation_hides_reference",
+            "tests/business/test_upload_validation.py::test_complete_enqueues_once",
+            "tests/business/test_upload_validation.py::test_full_digest_mismatch_rejects_asset",
+            "tests/business/test_upload_validation.py::test_duplicate_event_does_not_duplicate_asset",
+            "tests/business/test_upload_validation.py::test_stale_version_cannot_overwrite_terminal",
+            "tests/business/test_upload_validation.py::test_source_revoked_before_validation",
+            "tests/business/test_upload_validation.py::test_authority_outage_keeps_pending",
+            "tests/business/test_upload_validation.py::test_missing_part_rejects_complete",
+            "tests/business/test_upload_validation.py::test_real_broker_receives_and_worker_commits",
+            "tests/business/test_upload_validation.py::test_broker_recovers_after_confirmation_before_outbox_commit",
+            "tests/business/test_upload_validation.py::test_complete_key_is_bound_to_upload_id",
+            "tests/business/test_upload_validation.py::test_session_expiry_before_worker_does_not_create_asset",
+            "tests/business/test_upload_worker_process.py::test_process_success_duplicate_completion_and_delivery",
+            "tests/business/test_upload_worker_process.py::test_process_rejects_other_upload_in_same_case_queue",
+            "tests/business/test_upload_worker_process.py::test_process_rejects_invalid_bytes[missing_part]",
+            "tests/business/test_upload_worker_process.py::test_process_rejects_invalid_bytes[full_hash]",
+            "tests/business/test_upload_worker_process.py::test_process_commit_then_tcp_close_redelivers_without_second_asset",
+            "tests/business/test_upload_worker_process.py::test_process_rechecks_authority_after_publication[owner]",
+            "tests/business/test_upload_worker_process.py::test_process_rechecks_authority_after_publication[membership]",
+            "tests/business/test_upload_worker_process.py::test_process_rechecks_authority_after_publication[source]",
+            "tests/business/test_uploads.py::test_resume_after_client_disconnect",
+            "tests/business/test_uploads.py::test_same_part_hash_is_idempotent",
+            "tests/business/test_uploads.py::test_conflicting_part_is_409",
+            "tests/business/test_uploads.py::test_expired_session_is_rejected",
+            "tests/business/test_uploads.py::test_DB_failure_does_not_report_received",
+            "tests/business/test_uploads.py::test_cursor_bound_to_session_version",
+            "tests/business/test_uploads.py::test_cross_case_read_denied",
+            "tests/business/test_uploads.py::test_concurrent_duplicate_preserves_orphan_recovery",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:21:03.523735+00:00",
+          "ended_at": "2026-10-21T18:28:55.679642+00:00",
+          "safe_summary": [
+            "149 passed, 1 warning in 471.42s (0:07:51)"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "failure-probe"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T18:28:55.679745+00:00",
+          "ended_at": "2026-10-21T18:28:56.135049+00:00",
+          "safe_summary": {
+            "expected_assertion_failure_verified": true
+          }
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "process-and-probe": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-c6d55d1fa558",
+      "validation_snapshot_commit": "5ac9832f21f9b386e777cdb7129c8583711e79f6",
+      "publication_commit": false,
+      "mode": "process-and-probe",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_upload_worker_process.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:41:24.971799+00:00",
+          "ended_at": "2026-10-21T17:42:27.914836+00:00",
+          "safe_summary": [
+            "8 passed, 1 warning in 62.14s (0:01:02)"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "failure-probe"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:42:27.914940+00:00",
+          "ended_at": "2026-10-21T17:42:28.381942+00:00",
+          "safe_summary": {
+            "expected_assertion_failure_verified": true
+          }
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "first-failure": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-be9d57834568",
+      "validation_snapshot_commit": "7494fc093f33e2bdeb0b21b9ab303a9a7ec767f7",
+      "publication_commit": false,
+      "mode": "first-failure",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_t015_scoped_objects.py::test_timeline_derived_input_keeps_exact_history_and_source_boundaries[task-404]",
+            "-x",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T17:38:53.850846+00:00",
+          "ended_at": "2026-10-21T17:39:24.668699+00:00",
+          "safe_summary": [
+            "1 passed, 1 warning in 30.13s"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "full-diagnostic": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-2367d47ce012",
+      "validation_snapshot_commit": "44ac7a8765ceafc121200a89ba034c72c46f9997",
+      "publication_commit": false,
+      "mode": "full-diagnostic",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "run"
+          ],
+          "exit_code": 2,
+          "expected_exit_code": 0,
+          "expected_result_verified": false,
+          "started_at": "2026-10-21T17:48:04.795434+00:00",
+          "ended_at": "2026-10-21T18:18:05.164969+00:00",
+          "safe_summary": {
+            "status": "BLOCKED_OR_FAIL",
+            "test_count": 0
+          }
+        }
+      ],
+      "complete": false,
+      "success": false
+    },
+    "full_before_lifecycle_fix": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t024-validation-293815f0a040",
+      "validation_snapshot_commit": "b35639d76bbbd880d695ba038eb0301e9443d8be",
+      "publication_commit": false,
+      "mode": "full",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "run"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false,
+          "started_at": "2026-10-21T17:07:36.082824+00:00",
+          "ended_at": "2026-10-21T17:37:14.810200+00:00",
+          "safe_summary": {
+            "status": "FAIL",
+            "test_count": 949
+          }
+        }
+      ],
+      "complete": false,
+      "success": false
+    }
+  },
+  "verification_source_and_log_hashes": {
+    "binding-red": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
+        "tests/business/test_upload_delivery_binding.py": "bfb00b32f4c9c493993463840a713c4b9f82a932a462210d7e1c55996818678a",
+        "tests/business/test_upload_worker_process.py": "f0e1c15354f853961c93a84bd7085136a24624db13669786eb7f0e7a0138f891",
+        "tests/business/upload_worker_process_fixture.py": "7add7f7b9f440690fc7c594e123320acded5d994a6e5158a56440655780236d3",
+        "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e"
+      },
+      "log_sha256": {
+        "check-0.private.log": "fea6540637b3ab08c5439e10dc3899ed7f4293431aa3f3015a93ff0c6e5018b7"
+      }
+    },
+    "targeted": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bfb00b32f4c9c493993463840a713c4b9f82a932a462210d7e1c55996818678a",
+        "tests/business/test_upload_worker_process.py": "f727ed580b2943e4f278b7e461d586491434f36bcc0ebcc92c1ad23aa09a3188",
+        "tests/business/upload_worker_process_fixture.py": "d6662e5c3a444e3768b6566fc3179c6707ec9ac5f2751ef95fd746385581f8e5",
+        "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e"
+      },
+      "log_sha256": {
+        "check-0.private.log": "04df82ba2a8e0e8c66b50b6439f5b8aff11f2940a65b38b5c5a8b2ca34b1f13d"
+      }
+    },
+    "quality": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "6350d40f99c4171a5e275b0dcd0085320f3cd27eb4b75675ba7aefd9f6839d03",
+        "tests/business/test_client_lifecycle.py": "b6fbb341a944db170cf07a550e189c96fb61775c24213e9464bb063b14a55c75"
+      },
+      "log_sha256": {
+        "check-2.private.log": "5b2ac93b890bd5240d7d8728a750a5a310453598b59e9e01ae7f658a5d4b00a6",
+        "check-1.private.log": "5676050d643401265a73e43aa2756e3524a9c712beab2657851900f156987ed1",
+        "check-0.private.log": "98733c3446b52dc3e6b6943142b19a142025d9727521f6abc3783a20e4b6d3c6"
+      }
+    },
+    "resource-red": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e",
+        "tests/business/test_client_lifecycle.py": "8d49e45dd80cc5800bdc724d4fe40a2ab8a4c47c7663ca8090fb06ce6a2e5db0"
+      },
+      "log_sha256": {
+        "check-0.private.log": "f1c3f8888cb89fa563e6fba57106c609a00bfa1ae0e0b74b5fc20b8f0868de4e"
+      }
+    },
+    "resource": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "6350d40f99c4171a5e275b0dcd0085320f3cd27eb4b75675ba7aefd9f6839d03",
+        "tests/business/test_client_lifecycle.py": "8d49e45dd80cc5800bdc724d4fe40a2ab8a4c47c7663ca8090fb06ce6a2e5db0"
+      },
+      "log_sha256": {
+        "check-0.private.log": "b1f8a38a248206ffce019949ffb404ef864862464bdf12335c1ac07d69e42147"
+      }
+    },
+    "followup": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "6350d40f99c4171a5e275b0dcd0085320f3cd27eb4b75675ba7aefd9f6839d03",
+        "tests/business/test_client_lifecycle.py": "b6fbb341a944db170cf07a550e189c96fb61775c24213e9464bb063b14a55c75"
+      },
+      "log_sha256": {
+        "check-1.private.log": "f913172153309e0bb8f0749eb9eb0e18ac72297c3d56f76a67a5376013f5d2a3",
+        "check-0.private.log": "b413695ef482e52d956b78eedcafdac6ca91d7441beea18271905146cb3f66ad"
+      }
+    },
+    "process-and-probe": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e"
+      },
+      "log_sha256": {
+        "check-1.private.log": "f913172153309e0bb8f0749eb9eb0e18ac72297c3d56f76a67a5376013f5d2a3",
+        "check-0.private.log": "cb5f994cf144ba1846fe506e03b72c45449195f5144da43d27559c3143558119"
+      }
+    },
+    "first-failure": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e"
+      },
+      "log_sha256": {
+        "check-0.private.log": "b5eb63da57c26b21a72aa5af68fc1bafe5afc4b662e9d12f674a50dbeb2e0b01"
+      }
+    },
+    "full-diagnostic": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "4d453f097bb03c57e9500352c78ca260d21d7c39f2792c9c335eb81e4296230a",
+        "tests/business/test_controls.py": "6350d40f99c4171a5e275b0dcd0085320f3cd27eb4b75675ba7aefd9f6839d03",
+        "tests/business/test_client_lifecycle.py": "8d49e45dd80cc5800bdc724d4fe40a2ab8a4c47c7663ca8090fb06ce6a2e5db0"
+      },
+      "log_sha256": {
+        "check-0.private.log": "b72e7dfd9585d92a75a11d633571e8d1f7b800894f9bd3e3c2f3059f7de0343e"
+      },
+      "business_report": {
+        "status": "BLOCKED_OR_FAIL",
+        "test_count": 0,
+        "source_commit": "44ac7a8765ceafc121200a89ba034c72c46f9997",
+        "observed_at": "2026-10-21T17:48:04.934654+00:00"
+      },
+      "observer": {
+        "jsonl_sha256": "a9d8d0aa110d16464fa956443036baefca31816a2f602a6140a4c637db09b0cd",
+        "plugin_sha256": "516565953b89183ce5457a1051cbcf3af80aea07c3498963c60ae3d2af86d5d8",
+        "records": 65,
+        "failures": 0,
+        "last": {
+          "event": "periodic",
+          "elapsed_seconds": 1785.794,
+          "completed_calls": 800,
+          "nodeid": "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[digest]",
+          "phase": "teardown",
+          "outcome": "passed",
+          "threads": 1,
+          "nofile": [
+            1024,
+            1048576
+          ],
+          "fd_count": 15,
+          "fd_kinds": {
+            "other": 7,
+            "pipe": 6,
+            "socket": 1
+          }
+        },
+        "max_sampled_fd_count": 23,
+        "max_sampled_threads": 3,
+        "limits": [
+          [
+            1024,
+            1048576
+          ]
+        ],
+        "metadata_only": true
+      }
+    },
+    "full_before_lifecycle_fix": {
+      "source_sha256_lf": {
+        "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+        "tests/business/test_upload_delivery_binding.py": "bf23fb734a9c85181e35619bec694e80d22bdc2025bb757a78b53bb49b458990",
+        "tests/business/test_upload_worker_process.py": "c4e8ff82cc4cc8d23a8de092d55de9d1c63b26d2c76d75861b955a434396938b",
+        "tests/business/upload_worker_process_fixture.py": "8b3e9bda89758fd26ca54965f696d0535e9ca924f6bc2f14d45a5a279a5d957b",
+        "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e"
+      },
+      "log_sha256": {
+        "check-0.private.log": "be512e19264d7709ae2eb49e0214502de92c5e41aaf6f3ad1b7363c2cc6ffbc9"
+      },
+      "business_report": {
+        "status": "FAIL",
+        "test_count": 949,
+        "totals": {
+          "tests": 949,
+          "failures": 6,
+          "errors": 143,
+          "skipped": 0
+        },
+        "source_commit": "b35639d76bbbd880d695ba038eb0301e9443d8be",
+        "observed_at": "2026-10-21T17:07:36.220963+00:00"
+      }
+    }
+  },
+  "targeted_tests": {
+    "tests": 68,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "new_binding_unit_tests": 12,
+    "new_real_process_tests": 8
+  },
+  "full_business_regression_status": "LOCAL_1800_SECOND_BOUNDARY_INCOMPLETE_HOSTED_EXACT_SOURCE_CI_PENDING",
+  "runtime": {
+    "python": "existing Miniforge py310 / Python 3.10.22",
+    "postgres": "isolated random PostgreSQL16 database",
+    "broker": "real loopback RabbitMQ / random case queue",
+    "objects": "real FileObjectStore under private test temp directory",
+    "authority": "synthetic test-only directory/source/work fixture; not formal deployment"
+  },
+  "behavior": {
+    "target_binding_before_worker_and_ACK": true,
+    "ACK_after_worker_transaction_return": true,
+    "public_HTTP_contract_changed": false,
+    "migration_added": false,
+    "queue_names_changed": false
+  },
+  "evidence_limits": [
+    "Owner and membership revocation tests deny at startup before broker delivery; source revocation reaches actual worker callback.",
+    "Test-only publisher sends persisted outbox through real broker; not production publisher deployment evidence.",
+    "Crash test covers DB commit followed by process exit at actual Message.ack; not other crash windows or full backup recovery.",
+    "Same-case different-upload refusal preserves delivery; head-of-line progress and multi-consumer orchestration remain open.",
+    "Initial full949 failed6+143 and raw traceback was not retained; matching TestClient exit fixes a separately reproduced portal leak, and the next local full gate remains incomplete at its original deadline. No claim all initial errors proven to be EMFILE."
+  ],
+  "initial_failures": {
+    "binding_unit_tests": "12 expected failures before implementation",
+    "process_tests": "5 failed / 62 passed; fixed missing test-only RLS context; no permission relaxation",
+    "quality": "fixed import ordering and explicit string narrowing in test helper"
+  },
+  "review": {
+    "independent_read_only_review": "No outstanding P1/P2 after real broker wrong-target coverage; review did not run tests"
+  },
+  "remaining": [
+    "deployable resident worker lifecycle and health",
+    "formal authority/source/work-delegation configuration",
+    "multi-upload/multi-consumer progress and retry/poison-message policy",
+    "temporary part cleanup and hard-crash orphan reconciliation",
+    "full media/malware validation and complete recovery combination",
+    "actual task owner/reviewer/capacity input"
+  ],
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithm_implementation_started": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "formal_accepted": false,
+  "whole_task_accepted": false,
+  "CI_status": "Exact source CI readback added only after actual publication",
+  "source_sync": "Awaiting exact committed GitHub/Linux source verification; no shared runtime adoption",
+  "previous_source_CI": {
+    "observed_at": "2026-10-21T17:19:41.131540+00:00",
+    "run": {
+      "id": 39637456037,
+      "head_sha": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39637456037"
+    },
+    "jobs": [
+      {
+        "id": 119351763006,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119359414761,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119359414926,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 119369887605,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ],
+    "artifacts": [
+      {
+        "artifact_id": 12366350610,
+        "artifact_name": "py310-validation-39637456037-1",
+        "zip_sha256": "556cf921afb74dc5512fd0a6df6781131d1638dcf622d88a9f81cec57e0dceb6",
+        "platform_digest": "sha256:556cf921afb74dc5512fd0a6df6781131d1638dcf622d88a9f81cec57e0dceb6",
+        "platform_digest_verified": true,
+        "reports": [
+          {
+            "name": "business-foundation-report.json",
+            "sha256": "992a744e7efd987d9e88b2700a41e826d57fe2c946a69c538e53f7ac25e56eb7",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 929,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "ci-all-report.json",
+            "sha256": "3ae9e47e0102469dee80d802e11313d9a27281c9585d4dd64a1ec18210b6f385",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": null,
+            "failed_checks": []
+          },
+          {
+            "name": "ci-job-evidence.json",
+            "sha256": "ce76faf2b5d1ce993e7a3703ac1f150c61528bafa306808053a05039b9aafc39",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": null,
+            "source_matches": true,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "job_evidence": {
+              "job": "engineering-execution",
+              "run_id": "39637456037",
+              "run_attempt": "1",
+              "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+              "generation_window_start": "2026-10-21T16:59:15Z",
+              "reports": [
+                {
+                  "name": "ci-all-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "3ae9e47e0102469dee80d802e11313d9a27281c9585d4dd64a1ec18210b6f385",
+                  "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T17:00:39.485275+00:00"
+                },
+                {
+                  "name": "t015-data-scope-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "158f6dcb5324badd224845291a08261b433fd98e5e8e12b298242f936cc98abd",
+                  "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T17:02:43.672052+00:00"
+                },
+                {
+                  "name": "t016-operation-token-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "e3316d4c4c8dcf973f2af8f520b681c0d8c8d9109f6b583a3dab7ae275c5056f",
+                  "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T17:03:31.989894+00:00"
+                },
+                {
+                  "name": "stage-three-runtime-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": false,
+                  "sha256": "80bdd65ac65155f8efb916f70292ec3ed18d4cc4746f0a98198e62682f08e362",
+                  "source_commit": null,
+                  "status": "FAIL",
+                  "report_observed_at": "2026-10-21T17:18:20.731207+00:00"
+                }
+              ],
+              "overall_job_success_not_inferred": true
+            }
+          },
+          {
+            "name": "stage-three-dependency-scan-report.json",
+            "sha256": "8894127ce206558405cf5e4fbd030f3d8a125ff2530b4abd4881847896332a84",
+            "source_commit": null,
+            "status": "FAIL_OR_SCAN_ERROR",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "scan_summary": {
+              "started_at": "2026-10-21T17:18:17.718466+00:00",
+              "ended_at": "2026-10-21T17:18:20.680998+00:00",
+              "python_findings": 9,
+              "python_skips": [
+                {
+                  "name": "torch",
+                  "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+                }
+              ],
+              "quality_tool_findings": 0,
+              "quality_tool_skips": [],
+              "npm_findings_by_severity": {
+                "info": 0,
+                "low": 0,
+                "moderate": 0,
+                "high": 0,
+                "critical": 0,
+                "total": 0
+              },
+              "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+            }
+          },
+          {
+            "name": "stage-three-python-types-report.json",
+            "sha256": "fc632b5c1fc53471b01c1bc5b2a16a9bca485709695065ccbf6385741ee16d29",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": null
+          },
+          {
+            "name": "stage-three-runtime-report.json",
+            "sha256": "80bdd65ac65155f8efb916f70292ec3ed18d4cc4746f0a98198e62682f08e362",
+            "source_commit": null,
+            "status": "FAIL",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null
+          },
+          {
+            "name": "t014-permissions-report.json",
+            "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+            "source_commit": "d0d1d530617028c83718c5c84b9935ba664c96ae",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 843,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t015-data-scope-report.json",
+            "sha256": "158f6dcb5324badd224845291a08261b433fd98e5e8e12b298242f936cc98abd",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 131,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t016-operation-token-report.json",
+            "sha256": "e3316d4c4c8dcf973f2af8f520b681c0d8c8d9109f6b583a3dab7ae275c5056f",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 187,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          }
+        ]
+      },
+      {
+        "artifact_id": 12365103285,
+        "artifact_name": "py310-foundation-validation-39637456037-1",
+        "zip_sha256": "9ddde7699366188f6ccd3536a4c3d92fc16495108222bd972bc1cf71ae64ed48",
+        "platform_digest": "sha256:9ddde7699366188f6ccd3536a4c3d92fc16495108222bd972bc1cf71ae64ed48",
+        "platform_digest_verified": true,
+        "reports": [
+          {
+            "name": "business-foundation-report.json",
+            "sha256": "bdd4e2ea98359d223301f31817371ee1cb7b7a98745624aa2f272aa780a17f04",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 929,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "ci-all-report.json",
+            "sha256": "be1f9dce3bdaf138f66443551d0476a1b5647284aa2b3b9dc1e15f5341dc2615",
+            "source_commit": "3b99b729b5bac9e80edc2804f9a83342b3850422",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "failed_checks": []
+          },
+          {
+            "name": "ci-job-evidence.json",
+            "sha256": "6efe7682ac7630e4ce8fd6b8126ad3c212815bb0601d2183eb1be709d3bde9dc",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": null,
+            "source_matches": true,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "job_evidence": {
+              "job": "foundation-verification",
+              "run_id": "39637456037",
+              "run_attempt": "1",
+              "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+              "generation_window_start": "2026-10-21T16:59:13Z",
+              "reports": [
+                {
+                  "name": "business-foundation-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "bdd4e2ea98359d223301f31817371ee1cb7b7a98745624aa2f272aa780a17f04",
+                  "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T17:01:47.654564+00:00"
+                },
+                {
+                  "name": "t014-permissions-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "ce1c29e51c489fcbcd770e8f9bba954ca021c4afab6353aad8ce62b8cdc5afec",
+                  "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T17:10:50.147113+00:00"
+                }
+              ],
+              "overall_job_success_not_inferred": true
+            }
+          },
+          {
+            "name": "stage-three-dependency-scan-report.json",
+            "sha256": "9f7da335c62c2b72ae6083fc0e10c22a1d38d349df102dd2f36bb130935225a3",
+            "source_commit": null,
+            "status": "NO_REPORTED_BLOCKING_FINDINGS_WITH_COVERAGE_LIMITS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "scan_summary": {
+              "started_at": "2026-10-17T02:41:33.555015+00:00",
+              "ended_at": "2026-10-17T02:41:36.508780+00:00",
+              "python_findings": 0,
+              "python_skips": [
+                {
+                  "name": "torch",
+                  "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+                }
+              ],
+              "quality_tool_findings": 0,
+              "quality_tool_skips": [],
+              "npm_findings_by_severity": {
+                "info": 0,
+                "low": 0,
+                "moderate": 0,
+                "high": 0,
+                "critical": 0,
+                "total": 0
+              },
+              "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+            }
+          },
+          {
+            "name": "stage-three-python-types-report.json",
+            "sha256": "4c8fd6148b4c7bf32bb594107838c9972c52920e73ee7c3826b6a9d92a4258ff",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": null
+          },
+          {
+            "name": "stage-three-runtime-report.json",
+            "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+            "source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null
+          },
+          {
+            "name": "t014-permissions-report.json",
+            "sha256": "ce1c29e51c489fcbcd770e8f9bba954ca021c4afab6353aad8ce62b8cdc5afec",
+            "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 1092,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t015-data-scope-report.json",
+            "sha256": "80786411d2a53eb072f8126eb84344b716a49a08bbe6b49edeb9efb956b31949",
+            "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 131,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t016-operation-token-report.json",
+            "sha256": "7a46cecf911624cee93f9a7c47e8111ae5b4f3abf411d7bac9efa286606a941d",
+            "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 187,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          }
+        ]
+      },
+      {
+        "artifact_id": 12363538235,
+        "artifact_name": "t013-identity-validation-39637456037",
+        "zip_sha256": "70352884e06db49ba6329252330a5998dc4b1a05b96782a98436e63f623bbade",
+        "platform_digest": "sha256:70352884e06db49ba6329252330a5998dc4b1a05b96782a98436e63f623bbade",
+        "platform_digest_verified": true,
+        "reports": []
+      }
+    ],
+    "stale_checked_in_reports_not_promoted": true
+  },
+  "previous_source_CI_interpretation": {
+    "source_commit": "ea282ebaa954a3e0b01ae62df96cb8dc7b75f94f",
+    "not_current_T024_source": true,
+    "overall": "failure",
+    "identity_job": "success",
+    "foundation_job": "success",
+    "business_foundation_tests": 929,
+    "T014_permission_tests": 1092,
+    "engineering_failure_step": "Run actual engineering gates / secret_and_dependency_scans",
+    "python_findings": 9,
+    "torch_scan_coverage_gap_retained": true,
+    "checked_in_stale_PASS_reports_excluded": true,
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false
+  },
+  "initial_full_suite_totals": {
+    "tests": 949,
+    "failures": 6,
+    "errors": 143,
+    "skipped": 0,
+    "original_tracebacks_not_retained": true
+  },
+  "lifecycle_repair": {
+    "file": "tests/business/test_controls.py",
+    "regression": "tests/business/test_client_lifecycle.py",
+    "red_observed": "DID NOT RAISE RuntimeError after fixture teardown: old entered portal remained callable",
+    "green": "1 passed after matching __exit__ cleanup",
+    "initial_149_failure_error_causation_not_proven": true,
+    "no_resource_limits_changed": true,
+    "original_assertions_and_gate_retained": true,
+    "full_rerun": "Local full gate did not finish within original1800second boundary; 800 completed calls sampled with0diagnostic failure events, not a full PASS. Final149-case selected followup passed; original149phase failure causation remains unproven."
+  },
+  "runtime_diagnostics": {
+    "observation_only": true,
+    "outside_published_repository": true,
+    "sha256": "516565953b89183ce5457a1051cbcf3af80aea07c3498963c60ae3d2af86d5d8",
+    "records_limited_to_types_and_resource_counts": true,
+    "no_messages_or_credentials": true,
+    "not_a_CI_gate_change": true,
+    "incomplete_observer": {
+      "records": 65,
+      "failure_events": 0,
+      "last": {
+        "event": "periodic",
+        "elapsed_seconds": 1785.794,
+        "completed_calls": 800,
+        "nodeid": "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[digest]",
+        "phase": "teardown",
+        "outcome": "passed",
+        "threads": 1,
+        "nofile": [
+          1024,
+          1048576
+        ],
+        "fd_count": 15,
+        "fd_kinds": {
+          "other": 7,
+          "pipe": 6,
+          "socket": 1
+        }
+      }
+    },
+    "aggregate": {
+      "jsonl_sha256": "a9d8d0aa110d16464fa956443036baefca31816a2f602a6140a4c637db09b0cd",
+      "plugin_sha256": "516565953b89183ce5457a1051cbcf3af80aea07c3498963c60ae3d2af86d5d8",
+      "records": 65,
+      "failures": 0,
+      "last": {
+        "event": "periodic",
+        "elapsed_seconds": 1785.794,
+        "completed_calls": 800,
+        "nodeid": "tests/business/test_t015_scoped_objects.py::test_export_checks_exact_artifact_version_size_expiry_and_approval[digest]",
+        "phase": "teardown",
+        "outcome": "passed",
+        "threads": 1,
+        "nofile": [
+          1024,
+          1048576
+        ],
+        "fd_count": 15,
+        "fd_kinds": {
+          "other": 7,
+          "pipe": 6,
+          "socket": 1
+        }
+      },
+      "max_sampled_fd_count": 23,
+      "max_sampled_threads": 3,
+      "limits": [
+        [
+          1024,
+          1048576
+        ]
+      ],
+      "metadata_only": true
+    },
+    "resource_limits_changed": false
+  },
+  "local_full_suite_incomplete": {
+    "status": "BLOCKED_OR_FAIL",
+    "reported_test_count": 0,
+    "last_sampled_completed_calls": 800,
+    "diagnostic_failure_events": 0,
+    "not_full_suite_PASS": true
+  },
+  "followup_regression": {
+    "tests": 149,
+    "scope": "148 initially failing unique nodes plus final lifecycle regression; includes8worker process cases",
+    "not_additive_to_full_suite": true
+  },
+  "final_lifecycle_test": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "not_additive_to_full_suite": true
+  },
+  "final_process_tests": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "not_additive_to_full_suite": true
+  },
+  "full_suite_final_source_difference": {
+    "paths": [
+      "tests/business/test_client_lifecycle.py"
+    ],
+    "exact_difference_verified": true,
+    "description": "Only lifecycle regression uses getattr to reach the same pytest wrapped fixture, satisfying static typing. Final149-case followup and249file type check bind all six final source hashes. Production worker code, process fixture and control cleanup are identical to incomplete local full-suite snapshot; no full-suite PASS inferred."
+  }
+}

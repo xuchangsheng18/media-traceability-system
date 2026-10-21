@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22首批实际开发：[业务上传前端及剩余联调](docs/03-development/business-upload-first-batch.md)、[精确验证回执](docs/00-project/validation/business-upload-first-batch-report.json)。业务上传入口已实现，单元311项、浏览器51项分别在开发/生产构建通过；新增3条限定子步骤，T001—T123当前132条已证、434组剩余，整卡验收0项。
+2026-10-22本批T024隔离worker联调：[实现与剩余条件](docs/03-development/t024-worker-isolated-integration.md)、[限定实测回执](docs/00-project/validation/t024-worker-isolated-integration-report.json)。新增1条worker子步骤；T001—T123当前133条已证、434组剩余，全部170任务为133条已证、622组剩余，整卡验收0项。
+
+2026-10-22首批实际开发：[业务上传前端及剩余联调](docs/03-development/business-upload-first-batch.md)、[精确验证回执](docs/00-project/validation/business-upload-first-batch-report.json)。业务上传入口已实现，单元311项、浏览器51项分别在开发/生产构建通过；新增3条限定子步骤，T001—T123当批累计132条已证、434组剩余，整卡验收0项。
 
 **10月28日提交目标：** [非算法工程版快速计划](docs/03-development/non-algorithm-fast-delivery-plan-20261028.md)、[范围与边界](docs/03-development/non-algorithm-delivery-scope.md)。用户要求算法暂缓；70项工程、20项混合拆分、30项算法延期、3项外部验收准备逐项列出；规划本身不增加完成数；当前实际进展见下方首批回执和任务导航。
 

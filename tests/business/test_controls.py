@@ -157,7 +157,7 @@ def control_context(business_context):
     finally:
         http.close()
         app.state.business_database.close()
-        context["http"].close()
+        context["http"].__exit__(None, None, None)
         context["app"].state.business_database.close()
 
 

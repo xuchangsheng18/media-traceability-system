@@ -13,6 +13,29 @@ from .service import UploadService
 from .worker import UploadValidationWorker
 
 
+def deliver_bound_upload(
+    worker: UploadValidationWorker,
+    scope: Scope,
+    upload_id: UUID,
+    body: object,
+    message: Any,
+) -> None:
+    if not isinstance(body, dict) or (
+        body.get("upload_id"),
+        body.get("org_id"),
+        body.get("case_id"),
+        body.get("actor_id"),
+    ) != (
+        str(upload_id),
+        str(scope.actor.org_id),
+        str(scope.case_id),
+        str(scope.actor.user_id),
+    ):
+        raise BusinessError("UPLOAD_EVENT_BINDING_INVALID", 409)
+    worker.consume_validation(body)
+    message.ack()
+
+
 def pump_outbox_once(
     service: UploadService,
     authority: AuthorityProvider,
@@ -105,8 +128,7 @@ def pump_outbox_once(
 
         def receive(body: dict[str, Any], message: Any) -> None:
             nonlocal consumed
-            worker.consume_validation(body)
-            message.ack()
+            deliver_bound_upload(worker, scope, upload_id, body, message)
             consumed += 1
 
         available = int(bound.queue_declare()[1])

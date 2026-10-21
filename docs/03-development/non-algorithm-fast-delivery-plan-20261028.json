@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "IN_PROGRESS_FIRST_UPLOAD_FRONTEND_VERIFIED",
+  "status": "IN_PROGRESS_ISOLATED_UPLOAD_WORKER_SUBSCOPE_VERIFIED",
   "observed_date": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "user_request": "加快T001—T123剩余开发，算法先不做；10月29号之前完成",
@@ -803,7 +803,7 @@
       "name": "实现分片合并与完整哈希",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "复用合并worker与outbox，补可运行消费入口、崩溃恢复及缺对象处理，串接真实完成结果。",
+      "engineering_now": "隔离独立进程/真实队列的合并与故障子范围已验证；继续补可部署常驻入口、正式工作授权、队列进展和清理恢复。",
       "deferred_scope": "生产队列、存储资源和运维恢复演练保留。",
       "blockers": [
         "顺序：T023分片接收与T007消费者配置",
@@ -821,13 +821,13 @@
       "original_test_requirements": "乱序、缺片、重复完成和回收测试。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
-      "completed_substeps": 2,
+      "completed_substeps": 3,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
       "new_code_or_tests_implemented_by_this_plan": true,
       "planned_implementation_not_existing_file_claim": true,
-      "latest_implemented_subscope_ref": "docs/00-project/validation/business-upload-first-batch-report.json"
+      "latest_implemented_subscope_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json"
     },
     {
       "task_id": "T025",
@@ -4017,13 +4017,24 @@
       "planned_implementation_not_existing_file_claim": true
     }
   ],
-  "progress_observed_at": "2026-10-21T16:33:04.726261+00:00",
-  "progress_ledger_sha256_lf": "2f324000e8fe50352ad8f3713b57998dbc3cd99379e92aa4085ec766fe9fc01b",
+  "progress_observed_at": "2026-10-21T17:12:31.753075+00:00",
+  "progress_ledger_sha256_lf": "ccc90630de9164412b5ab607553342b384bb413905d2b64e4c995dca8b968635",
   "current_totals": {
-    "verified_substeps": 132,
+    "verified_substeps": 133,
     "remaining_work_groups_T001_T123": 434,
     "whole_tasks_accepted": 0
   },
-  "latest_implemented_batch_ref": "docs/00-project/validation/business-upload-first-batch-report.json",
-  "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals"
+  "latest_implemented_batch_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
+  "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals",
+  "latest_t024_worker_isolated_integration": {
+    "observed_at": "2026-10-21T17:12:31.753075+00:00",
+    "report_ref": "docs/00-project/validation/t024-worker-isolated-integration-report.json",
+    "plan_ref": "docs/03-development/t024-worker-isolated-integration.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  }
 }
