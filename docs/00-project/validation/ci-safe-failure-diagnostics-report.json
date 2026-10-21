@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_SAFE_FAILURE_DIAGNOSTICS_NOT_BUSINESS_FIX",
+  "observed_at": "2026-10-21T21:59:54.727820+00:00",
+  "base_source_commit": "68b5a0ad8bea57e3aa3f8cf1b764667fccb41dcc",
+  "source_sha256_lf": {
+    "scripts/verify_business_foundation.py": "6ffe02e08f6131f517dbd779e245ad02b9aef891849429d57c71931c24facd84",
+    "tests/platform/test_business_failure_diagnostics.py": "212de4d3ff2ba96581e7d91e9ba8c577e92978b6079783af5b0137e1bfbc7cf0",
+    "tests/business/test_t015_scope_owner.py": "854f5beb30e0a7389f5445a1f5a034f009f825da79d8a70f698a6e0f66eeec79"
+  },
+  "verification_snapshots": {
+    "diagnostic-red": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/ci-diagnostics-45f97c42b7d2",
+      "validation_snapshot_commit": "4d7332e85068ce859b5cb795b0567ee1be39fd9e",
+      "publication_commit": false,
+      "mode": "diagnostic-red",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/platform/test_business_failure_diagnostics.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:47:55.904562+00:00",
+          "ended_at": "2026-10-21T21:47:57.168643+00:00",
+          "safe_summary": [
+            "FAILED tests/platform/test_business_failure_diagnostics.py::test_only_existing_source_selectors_survive_failure_message_and_parameter_redaction",
+            "FAILED tests/platform/test_business_failure_diagnostics.py::test_diagnostic_budget_never_publishes_unbounded_failed_cases",
+            "FAILED tests/platform/test_business_failure_diagnostics.py::test_missing_junit_has_no_fabricated_failure_selector",
+            "FAILED tests/platform/test_business_failure_diagnostics.py::test_real_child_pytest_preserves_gate_and_safe_failure_identity[failure]",
+            "FAILED tests/platform/test_business_failure_diagnostics.py::test_real_child_pytest_preserves_gate_and_safe_failure_identity[skip]",
+            "FAILED tests/platform/test_business_failure_diagnostics.py::test_real_child_pytest_preserves_gate_and_safe_failure_identity[pass]"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "diagnostic-affected": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/ci-diagnostics-5f02fc73db7e",
+      "validation_snapshot_commit": "6708d2e8cf7a5270f6a5431e902720fe82ebab83",
+      "publication_commit": false,
+      "mode": "diagnostic-affected",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/platform/test_business_failure_diagnostics.py",
+            "tests/platform/test_development_inventory.py",
+            "tests/platform/test_business_route_registration.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:49:55.229760+00:00",
+          "ended_at": "2026-10-21T21:49:56.759866+00:00",
+          "safe_summary": [
+            "37 passed in 1.22s"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "failure-probe"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:49:56.759981+00:00",
+          "ended_at": "2026-10-21T21:49:57.236797+00:00",
+          "safe_summary": {
+            "expected_assertion_failure_verified": true
+          }
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "quality": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/ci-diagnostics-c2793c03cfac",
+      "validation_snapshot_commit": "b532d323ea9ab53bb21f6ca78cdea79e2c4b15b7",
+      "publication_commit": false,
+      "mode": "quality",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "check",
+            "--config",
+            "ruff.toml",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:58:20.856756+00:00",
+          "ended_at": "2026-10-21T21:58:20.990235+00:00",
+          "safe_summary": [
+            "All checks passed!"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "format",
+            "--check",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:58:20.990571+00:00",
+          "ended_at": "2026-10-21T21:58:21.382432+00:00",
+          "safe_summary": []
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:58:21.382540+00:00",
+          "ended_at": "2026-10-21T21:58:22.189271+00:00",
+          "safe_summary": [
+            "Success: no issues found in 255 source files"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "owner-red": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/ci-diagnostics-ed82af313571",
+      "validation_snapshot_commit": "0553878ebeb77b8ad8a9cf3a14fb808d4088b0dd",
+      "publication_commit": false,
+      "mode": "owner-red",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_t015_scope_owner.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:55:44.581536+00:00",
+          "ended_at": "2026-10-21T21:56:20.525889+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_t015_scope_owner.py::test_non_super_owner_metadata_port_and_runtime_acl"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "owner": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/ci-diagnostics-90265b77265e",
+      "validation_snapshot_commit": "630f7825b43ce38a77b203b2fc1a868351fe0a42",
+      "publication_commit": false,
+      "mode": "owner",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_t015_scope_owner.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:57:44.308757+00:00",
+          "ended_at": "2026-10-21T21:58:22.677579+00:00",
+          "safe_summary": [
+            "1 passed in 37.95s"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    }
+  },
+  "initial_red_cases": 6,
+  "new_feature_cases": 6,
+  "final_affected_tests": 37,
+  "static_type_source_files": 255,
+  "scope": "Safe bounded existing-source test selectors in business verifier JSON/stdout; never raw parameter/message/type/text. No public business or T033 behavior change",
+  "prior_exact_source_CI_ref": "docs/00-project/validation/t032-task-event-final-ci-report.json",
+  "observed_dependency_failure": {
+    "run_id": 39677167526,
+    "source_commit": "c3370a26b3766ce793b481dff07dadbbcc89ef6f",
+    "tests": 1057,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "failure_identity_available": false,
+    "cause_known": false,
+    "original_failure_fixed": false
+  },
+  "failure_diagnostic_limit": 20,
+  "source_AST_binding": true,
+  "raw_logs_published": false,
+  "parameter_values_published": false,
+  "original_pytest_timeout_seconds": 1800,
+  "original_command_and_skip_failure_semantics_preserved": true,
+  "review": {
+    "remaining_P1_P2_findings": 0,
+    "static_source_selector_checks": 998,
+    "deferred_minor": [],
+    "declined_to_judge": [
+      "Original full business failure cause",
+      "T033 business state machine",
+      "Full CI or database recovery acceptance"
+    ]
+  },
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "actual_owner": "邓昀",
+  "actual_reviewer": null,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "frontend_changed": false,
+  "business_backend_behavior_changed": false,
+  "public_contract_changed": false,
+  "T033_implementation_started": false,
+  "database_migration_created": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "remaining": [
+    "Recheck full exact-source hosted business CI after safe diagnostics and reproduced migration fixture repair; old failure identity remains unavailable",
+    "T033 existing cancellation CAS/event/outbox writer not implemented in this batch",
+    "CI security findings and Torch coverage remain; no gate bypass",
+    "T006 platform governance/Runner/Secret and full acceptance remain"
+  ],
+  "reproduced_migration_fixture_repair": {
+    "nodeid": "tests/business/test_t015_scope_owner.py::test_non_super_owner_metadata_port_and_runtime_acl",
+    "red": "Expected14versions but actual contains0015",
+    "green_tests": 1,
+    "old_expected_versions": 14,
+    "new_expected_versions": 15,
+    "all_prior_owner_and_runtime_ACL_assertions_preserved": true,
+    "original_hosted_failure_cause_proven": false,
+    "full_business_CI_recovered": false
+  }
+}

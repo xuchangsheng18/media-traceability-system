@@ -99,7 +99,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "2227110a836909dfd765e36e20335173d104eca41889bcdf0f9e2455fa432800",
+    "tasks/execution-status.json": "b1e3b2acbbf559a1f2237cd551efb5813767763fc25ff705844fda34f5cec79d",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -117,10 +117,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 136,
+    "all_completed_substeps": 137,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 136,
+    "authorized_completed_substeps": 137,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -1072,10 +1072,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 3,
+      "completed_substeps_count": 4,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "托管流水线、归档门禁和故障探针已有实测；历史32门禁及制品核对保留在具名回执；main规则engineering与普通PR失败禁止合并已有实证。当前源码CI需按资源接口/来源页面回执的精确提交重新核验，不沿用历史成功。",
-      "actual_remaining_summary": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "actual_completed_summary": "托管流水线、归档门禁和故障探针已有实测；历史32门禁及制品核对保留在具名回执；main规则engineering与普通PR失败禁止合并已有实证。当前源码CI需按资源接口/来源页面回执的精确提交重新核验，不沿用历史成功。；业务CI安全失败定位子范围：报告及标准输出保留最多20条已核对源码AST的测试函数/类选择器，剥离参数并省略异常消息、type及正文；6项新增用例含真实失败/跳过/通过子进程及37项相邻检查通过。原失败探针、1800秒上限和门禁不变；尚未定位或修复原1057项中的1项业务失败。；非超级用户0015清单断言已按真实RED/GREEN修复，原权限检查保留。",
+      "actual_remaining_summary": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；安全失败定位已有实测，原提交c3370a2的完整业务回归1057项含1失败仍待定位、复现和修复，不能继承通过。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "既有25道历史门禁证据保留；托管工程门禁、独立资源核验、测试/类型结果和故障探针均有实测，最新源码、数量及CI编号以github-actions-report.json为准；不代表平台已阻止失败合并",
@@ -1114,6 +1114,32 @@
               "scope": "仅证明实际合并拦截子范围；不证明完整绕过/Runner/Secret审计或整任务验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "业务CI安全失败定位子范围：报告及标准输出保留最多20条已核对源码AST的测试函数/类选择器，剥离参数并省略异常消息、type及正文；6项新增用例含真实失败/跳过/通过子进程及37项相邻检查通过。原失败探针、1800秒上限和门禁不变；尚未定位或修复原1057项中的1项业务失败。；另修正非超级用户测试漏列0015的精确断言，实际权限测试通过，托管完整业务CI恢复仍待核验。",
+          "evidence": [
+            {
+              "path": "scripts/verify_business_foundation.py",
+              "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+            },
+            {
+              "path": "tests/platform/test_business_failure_diagnostics.py",
+              "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+            },
+            {
+              "path": "docs/03-development/ci-safe-failure-diagnostics.md",
+              "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
+              "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+            },
+            {
+              "path": "tests/business/test_t015_scope_owner.py",
+              "scope": "非超级用户0015清单断言的真实RED/GREEN及原权限断言保留；不是业务授权或全CI通过"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -1123,7 +1149,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。"
+          "description": "历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；安全失败定位已有实测，原提交c3370a2的完整业务回归1057项含1失败仍待定位、复现和修复，不能继承通过。"
         },
         {
           "category": "任务记录",
@@ -10946,7 +10972,7 @@
       "completed_substeps_count": 2,
       "remaining_work_items_count": 3,
       "actual_completed_summary": "业务版本迁移与当前历史/上传所需任务表访问已有测试；固定运行事件存储子范围：0015增量增加同案件/任务/运行复合外键及现有11种前后状态枚举约束；合法历史保留、异常历史与末尾失败的原子回滚、追加写保护及受影响回归有实测。不实现通用状态迁移或任务创建，不修改旧迁移或共享库，不证明整卡验收。",
-      "actual_remaining_summary": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "actual_remaining_summary": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；当前前置源码的完整业务CI为1057项含1失败，失败身份尚未取得；先核对安全定位回执，不将局部通过当完整业务基线通过。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "业务版本迁移与当前历史/上传所需任务表访问已有测试",
@@ -11008,7 +11034,7 @@
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。"
+          "description": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；当前前置源码的完整业务CI为1057项含1失败，失败身份尚未取得；先核对安全定位回执，不将局部通过当完整业务基线通过。"
         },
         {
           "category": "实施/验证",
@@ -11388,7 +11414,7 @@
       "completed_substeps_count": 1,
       "remaining_work_items_count": 3,
       "actual_completed_summary": "上传及取消状态原子写、审计/outbox与部分状态约束已有验证",
-      "actual_remaining_summary": "实现全业务分析任务状态机及节点聚合；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序",
+      "actual_remaining_summary": "实现全业务分析任务状态机及节点聚合；当前前置源码的完整业务CI为1057项含1失败，失败身份尚未取得；先核对安全定位回执，不将局部通过当完整业务基线通过。；验证全部合法/非法迁移、部分/延期能力、超时及事件顺序；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "上传及取消状态原子写、审计/outbox与部分状态约束已有验证",
@@ -11416,7 +11442,7 @@
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "实现全业务分析任务状态机及节点聚合"
+          "description": "实现全业务分析任务状态机及节点聚合；当前前置源码的完整业务CI为1057项含1失败，失败身份尚未取得；先核对安全定位回执，不将局部通过当完整业务基线通过。"
         },
         {
           "category": "实施/验证",

@@ -494,11 +494,34 @@
         {
           "path": "docs/00-project/validation/main-protection-enforcement-report.json",
           "scope": "仅证明实际合并拦截子范围；不证明完整绕过/Runner/Secret审计或整任务验收"
+        },
+        {
+          "path": "scripts/verify_business_foundation.py",
+          "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+        },
+        {
+          "path": "tests/platform/test_business_failure_diagnostics.py",
+          "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+        },
+        {
+          "path": "docs/03-development/ci-safe-failure-diagnostics.md",
+          "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+        },
+        {
+          "path": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
+          "scope": "仅安全失败定位及门禁保留；不是原业务失败已修复、全CI通过或整卡验收"
+        },
+        {
+          "path": "tests/business/test_t015_scope_owner.py",
+          "scope": "非超级用户0015清单断言的真实RED/GREEN及原权限断言保留；不是业务授权或全CI通过"
         }
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
-      "material_or_resource_dependencies": []
+      "material_or_resource_dependencies": [],
+      "followup_document_refs": [
+        "docs/03-development/ci-safe-failure-diagnostics.md"
+      ]
     },
     {
       "task_id": "T007",
@@ -2431,7 +2454,8 @@
       "external_release_date": null,
       "material_or_resource_dependencies": [],
       "followup_document_refs": [
-        "docs/04-database/task-event-run-integrity.md"
+        "docs/04-database/task-event-run-integrity.md",
+        "docs/03-development/ci-safe-failure-diagnostics.md"
       ]
     },
     {
@@ -2462,7 +2486,10 @@
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
-      "material_or_resource_dependencies": []
+      "material_or_resource_dependencies": [],
+      "followup_document_refs": [
+        "docs/03-development/ci-safe-failure-diagnostics.md"
+      ]
     },
     {
       "task_id": "T034",
@@ -5094,6 +5121,15 @@
       ],
       "event": "FIXED_TASK_RUN_EVENT_CONSTRAINTS",
       "evidence_ref": "docs/00-project/validation/t032-task-event-integrity-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T006"
+      ],
+      "event": "SAFE_BUSINESS_FAILURE_DIAGNOSTICS",
+      "evidence_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
       "whole_task_acceptance_recorded": false
     }
   ],

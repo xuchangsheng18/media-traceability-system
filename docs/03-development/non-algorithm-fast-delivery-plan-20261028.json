@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "IN_PROGRESS_TASK_EVENT_RUN_INTEGRITY_VERIFIED",
+  "status": "IN_PROGRESS_SAFE_CI_DIAGNOSTICS_VERIFIED_BUSINESS_FAILURE_UNRESOLVED",
   "observed_date": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "user_request": "加快T001—T123剩余开发，算法先不做；10月29号之前完成",
@@ -258,7 +258,7 @@
       "name": "建立基础持续集成流水线",
       "scope_class": "ENGINEERING",
       "execution_lane": "REUSE",
-      "engineering_now": "复用现有CI，对精确交付提交执行现有门禁并保存报告，区分旧失败与本批结果。",
+      "engineering_now": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；历史32道工程门禁及制品摘要已核对；最新源码的CI状态见资源接口/来源页面回执，不能自动继承通过。仍需Runner/Secret权限、轮换、离职回收和管理审计的实际平台记录；维护人徐昌胜已确认。；安全失败定位已有实测，原提交c3370a2的完整业务回归1057项含1失败仍待定位、复现和修复，不能继承通过。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "Runner、Secret、分支保护和绕过权限治理待平台侧确认。",
       "blockers": [
         "外部：CI Runner与Secret",
@@ -277,12 +277,13 @@
       "original_test_requirements": "故意引入失败验证门禁。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "邓昀",
-      "completed_substeps": 3,
+      "completed_substeps": 4,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
-      "new_code_or_tests_implemented_by_this_plan": false,
-      "planned_implementation_not_existing_file_claim": true
+      "new_code_or_tests_implemented_by_this_plan": true,
+      "planned_implementation_not_existing_file_claim": true,
+      "latest_implemented_subscope_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json"
     },
     {
       "task_id": "T007",
@@ -4019,14 +4020,14 @@
       "planned_implementation_not_existing_file_claim": true
     }
   ],
-  "progress_observed_at": "2026-10-21T21:09:14.975738+00:00",
-  "progress_ledger_sha256_lf": "2227110a836909dfd765e36e20335173d104eca41889bcdf0f9e2455fa432800",
+  "progress_observed_at": "2026-10-21T21:55:04.542042+00:00",
+  "progress_ledger_sha256_lf": "b1e3b2acbbf559a1f2237cd551efb5813767763fc25ff705844fda34f5cec79d",
   "current_totals": {
-    "verified_substeps": 136,
+    "verified_substeps": 137,
     "remaining_work_groups_T001_T123": 434,
     "whole_tasks_accepted": 0
   },
-  "latest_implemented_batch_ref": "docs/00-project/validation/t032-task-event-integrity-report.json",
+  "latest_implemented_batch_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
   "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals",
   "latest_t024_worker_isolated_integration": {
     "observed_at": "2026-10-21T17:12:31.753075+00:00",
@@ -4065,6 +4066,17 @@
     "observed_at": "2026-10-21T21:09:14.975738+00:00",
     "report_ref": "docs/00-project/validation/t032-task-event-integrity-report.json",
     "plan_ref": "docs/04-database/task-event-run-integrity.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_safe_business_failure_diagnostics": {
+    "observed_at": "2026-10-21T21:55:04.542042+00:00",
+    "report_ref": "docs/00-project/validation/ci-safe-failure-diagnostics-report.json",
+    "plan_ref": "docs/03-development/ci-safe-failure-diagnostics.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

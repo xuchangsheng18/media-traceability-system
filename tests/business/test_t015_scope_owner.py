@@ -45,7 +45,7 @@ def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn):
                 make_conninfo(admin_dsn, options="-crole=" + owner),
                 Path(__file__).resolve().parents[2] / "backend/business_migrations",
             )
-            assert applied == [f"{value:04d}" for value in range(1, 15)]
+            assert applied == [f"{value:04d}" for value in range(1, 16)]
             org, user, case, source = [uuid4() for _ in range(4)]
             with psycopg.connect(admin_dsn) as seed:
                 seed.execute("INSERT INTO mt.organizations(org_id,name) VALUES(%s,'synthetic-owner-unit')", (org,))

@@ -1,9 +1,11 @@
 """Run the selected business checks against explicit isolated test targets only."""
 
 import argparse
+import ast
 import datetime
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -35,6 +37,47 @@ def test_totals(path: Path) -> dict[str, int]:
     return {key: sum(int(s.get(key, "0")) for s in suites) for key in ["tests", "failures", "errors", "skipped"]}
 
 
+def _source_test_selector(root: Path, case: ET.Element) -> str | None:
+    module = re.fullmatch(
+        r"(?:tests\.business\.)?(test_[A-Za-z0-9_]+)(?:\.(Test[A-Za-z0-9_]+))?", case.get("classname", "")
+    )
+    name = case.get("name", "").split("[", 1)[0]
+    if module is None or re.fullmatch(r"test_[A-Za-z0-9_]+", name) is None:
+        return None
+    path = root / "tests" / "business" / (module[1] + ".py")
+    if path.is_symlink():
+        return None
+    try:
+        body = ast.parse(path.read_text("utf8")).body
+    except (OSError, SyntaxError, UnicodeError):
+        return None
+    if module[2] is not None:
+        body = [
+            child for item in body if isinstance(item, ast.ClassDef) and item.name == module[2] for child in item.body
+        ]
+    if not any(isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef)) and item.name == name for item in body):
+        return None
+    parts = [path.relative_to(root).as_posix(), *([module[2]] if module[2] else []), name]
+    return "::".join(parts)
+
+
+def failure_diagnostics(root: Path, path: Path) -> dict[str, Any]:
+    """Publish only existing source selectors; JUnit messages and parameters remain private."""
+    items: list[dict[str, Any]] = []
+    omitted = 0
+    if path.is_file():
+        for index, case in enumerate(ET.parse(path).getroot().iter("testcase")):
+            for child in case:
+                if child.tag not in {"failure", "error"}:
+                    continue
+                nodeid = _source_test_selector(root, case) if len(items) < 20 else None
+                if nodeid is None:
+                    omitted += 1
+                else:
+                    items.append(dict(nodeid=nodeid, kind=child.tag, testcase_index=index))
+    return dict(items=items, omitted=omitted, parameters_and_failure_text_published=False)
+
+
 def run_checks(root: Path, env: dict[str, str], junit: Path) -> dict[str, Any]:
     result = subprocess.run(
         [sys.executable, "-m", "pytest", "tests/business", "-q", "--tb=short", "--junitxml", str(junit)],
@@ -54,6 +97,7 @@ def run_checks(root: Path, env: dict[str, str], junit: Path) -> dict[str, Any]:
         "exit_code": 0 if success else result.returncode or 1,
         "test_count": totals["tests"],
         "totals": totals,
+        "failure_diagnostics": failure_diagnostics(root, junit),
         "raw_logs_published": False,
     }
 
@@ -113,7 +157,16 @@ def main() -> int:
     (ROOT / "docs/00-project/validation/business-foundation-report.json").write_text(
         json.dumps(report, indent=2) + "\n"
     )
-    print(json.dumps({"status": report["status"], "test_count": report["test_count"], "scope": report["scope"]}))
+    print(
+        json.dumps(
+            {
+                "status": report["status"],
+                "test_count": report["test_count"],
+                "scope": report["scope"],
+                "failure_diagnostics": report.get("failure_diagnostics"),
+            }
+        )
+    )
     return int(report["exit_code"])
 
 
