@@ -313,7 +313,7 @@ def test_0011_preserves_legacy_rows_and_original_migration_checksums(fresh_scope
     assert len(apply_migrations(dsn, previous)) == 10
     with psycopg.connect(dsn) as admin:
         token = seed_legacy(admin)
-    assert apply_migrations(dsn, MIGRATIONS) == ["0011", "0012", "0013", "0014"], (
+    assert apply_migrations(dsn, MIGRATIONS) == ["0011", "0012", "0013", "0014", "0015"], (
         "T016_INCREMENTAL_TOKEN_MIGRATION_REQUIRED"
     )
     assert apply_migrations(dsn, MIGRATIONS) == []

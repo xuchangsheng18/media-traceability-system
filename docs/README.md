@@ -38,7 +38,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[757条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有135条已验证子步骤、622条剩余工作；全局编号0001—0757。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[758条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有136条已验证子步骤、622条剩余工作；全局编号0001—0758。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -447,6 +447,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t024-durability-final-ci-report.json](<00-project/validation/t024-durability-final-ci-report.json>) | T024精确落盘提交的最终托管证据：业务952/权限1092等通过，整体CI因9条Python发现和Torch未覆盖仍失败；排除产物中的旧副本。 |
 | [03-development/t031-candidate-task-plan.md](<03-development/t031-candidate-task-plan.md>) | T031候选DAG不可变解析、显式预算、模型字段绑定、固定摘要和入口选择；未选分支不冒充运行状态，不授予调度或正式策略资格。 |
 | [00-project/validation/t031-candidate-task-plan-report.json](<00-project/validation/t031-candidate-task-plan-report.json>) | T031解析层的精确源码、36候选图、失败修复、77项解析和相邻回归、质量及CI/源码同步；任务创建、真实提供者和整卡验收仍待。 |
+| [00-project/validation/t031-candidate-plan-final-ci-report.json](<00-project/validation/t031-candidate-plan-final-ci-report.json>) | T031精确解析提交的最终CI证据：业务1029、权限1092等通过；整体因12条Python扫描发现及Torch未覆盖失败，旧报告排除，原锁与门禁保留。 |
+| [04-database/task-event-run-integrity.md](<04-database/task-event-run-integrity.md>) | T032的0015事件固定运行复合外键、现有11态词汇约束、合法历史保留和失败原子回滚；不实现状态迁移或共享升级。 |
+| [00-project/validation/t032-task-event-integrity-report.json](<00-project/validation/t032-task-event-integrity-report.json>) | T032运行事件约束的RED/GREEN、隔离升级和回滚、相邻权限/恢复回归及源码摘要；CI、同步与整任务验收分开记录。 |
 | [03-development/backend-frontend-data-test-priority-plan.md](<03-development/backend-frontend-data-test-priority-plan.md>) | T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。 |
 | [00-project/validation/backend-frontend-data-test-report.json](<00-project/validation/backend-frontend-data-test-report.json>) | 来源授权同步事务/原请求头、前端回执、离线标注质检及原权限门禁的实测证据，精确CI与源码同步分开记录。 |
 | [07-datasets/annotation-validation.md](<07-datasets/annotation-validation.md>) | D01—D15显式文件离线质检：本地Schema、时间区域边界、UUID重复冲突、预算与脱敏；真实授权、双人仲裁和抽样仍未验证。 |
@@ -669,7 +672,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1276份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1279份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -760,7 +763,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内757条执行事项逐条编号：135条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内758条执行事项逐条编号：136条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1381,7 +1384,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t024-durability-final-ci-report.json](<00-project/validation/t024-durability-final-ci-report.json>) | T024精确落盘提交的最终托管证据：业务952/权限1092等通过，整体CI因9条Python发现和Torch未覆盖仍失败；排除产物中的旧副本。 |
 | [00-project/validation/t024-object-durability-report.json](<00-project/validation/t024-object-durability-report.json>) | T024目录持久性限定子范围的精确源码、RED/GREEN、相邻回归、质量检查、CI和源码同步；不登记共享采用或整任务验收。 |
 | [00-project/validation/t024-worker-isolated-integration-report.json](<00-project/validation/t024-worker-isolated-integration-report.json>) | T024限定子范围的实际命令、源码和日志摘要、失败修复、完整业务回归及精确CI/源码同步；不把测试权威或进程重启当正式组合验收。 |
+| [00-project/validation/t031-candidate-plan-final-ci-report.json](<00-project/validation/t031-candidate-plan-final-ci-report.json>) | T031精确解析提交的最终CI证据：业务1029、权限1092等通过；整体因12条Python扫描发现及Torch未覆盖失败，旧报告排除，原锁与门禁保留。 |
 | [00-project/validation/t031-candidate-task-plan-report.json](<00-project/validation/t031-candidate-task-plan-report.json>) | T031解析层的精确源码、36候选图、失败修复、77项解析和相邻回归、质量及CI/源码同步；任务创建、真实提供者和整卡验收仍待。 |
+| [00-project/validation/t032-task-event-integrity-report.json](<00-project/validation/t032-task-event-integrity-report.json>) | T032运行事件约束的RED/GREEN、隔离升级和回滚、相邻权限/恢复回归及源码摘要；CI、同步与整任务验收分开记录。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1800,6 +1805,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/table-catalog.json](<04-database/table-catalog.json>) | 结构化表目录，保存字段定义和表级关系；应与SQL和字典同步。 |
 | [04-database/table-task-usage.json](<04-database/table-task-usage.json>) | 逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。 |
 | [04-database/table-task-usage.md](<04-database/table-task-usage.md>) | 当前62表与任务引用阅读表，区分职责提案、需求引用与API引用，非实际代码使用证明。 |
+| [04-database/task-event-run-integrity.md](<04-database/task-event-run-integrity.md>) | T032的0015事件固定运行复合外键、现有11态词汇约束、合法历史保留和失败原子回滚；不实现状态迁移或共享升级。 |
 | [05-workflows/dag-index.json](<05-workflows/dag-index.json>) | 36需求保守串行候选节点图、原任务引用和外部输入前提；不是170运行节点或已运行worker。 |
 | [05-workflows/dags/FR-CLAIM-001.json](<05-workflows/dags/FR-CLAIM-001.json>) | 该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。 |
 | [05-workflows/dags/FR-CLAIM-002.json](<05-workflows/dags/FR-CLAIM-002.json>) | 该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。 |

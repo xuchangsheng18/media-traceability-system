@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "IN_PROGRESS_CANDIDATE_TASK_DAG_PARSER_VERIFIED",
+  "status": "IN_PROGRESS_TASK_EVENT_RUN_INTEGRITY_VERIFIED",
   "observed_date": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "user_request": "加快T001—T123剩余开发，算法先不做；10月29号之前完成",
@@ -1050,7 +1050,7 @@
       "name": "实现任务及节点数据库模型",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "复用历史模型，补task、run、节点、事件和outbox的创建访问及关联约束。",
+      "engineering_now": "0015固定运行事件关联和状态词汇约束已有实测；仍需完整任务创建访问层、全部版本升级与前向修复，不用候选DAG替代正式策略映射。；完成生产升级、关联隔离及失败回退验证；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "生产迁移、真实数据恢复与容量验证保留。",
       "blockers": [
         "顺序：T031技术计划与既有任务字段对齐"
@@ -1067,12 +1067,13 @@
       "original_test_requirements": "模型、约束和迁移测试。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
-      "completed_substeps": 1,
+      "completed_substeps": 2,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
-      "new_code_or_tests_implemented_by_this_plan": false,
-      "planned_implementation_not_existing_file_claim": true
+      "new_code_or_tests_implemented_by_this_plan": true,
+      "planned_implementation_not_existing_file_claim": true,
+      "latest_implemented_subscope_ref": "docs/00-project/validation/t032-task-event-integrity-report.json"
     },
     {
       "task_id": "T033",
@@ -4018,14 +4019,14 @@
       "planned_implementation_not_existing_file_claim": true
     }
   ],
-  "progress_observed_at": "2026-10-21T19:57:31.204356+00:00",
-  "progress_ledger_sha256_lf": "a50a88ed720b9dbbd1776bad7d869a0739f33acfe163af0400155e045fcc43f1",
+  "progress_observed_at": "2026-10-21T21:09:14.975738+00:00",
+  "progress_ledger_sha256_lf": "2227110a836909dfd765e36e20335173d104eca41889bcdf0f9e2455fa432800",
   "current_totals": {
-    "verified_substeps": 135,
+    "verified_substeps": 136,
     "remaining_work_groups_T001_T123": 434,
     "whole_tasks_accepted": 0
   },
-  "latest_implemented_batch_ref": "docs/00-project/validation/t031-candidate-task-plan-report.json",
+  "latest_implemented_batch_ref": "docs/00-project/validation/t032-task-event-integrity-report.json",
   "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals",
   "latest_t024_worker_isolated_integration": {
     "observed_at": "2026-10-21T17:12:31.753075+00:00",
@@ -4053,6 +4054,17 @@
     "observed_at": "2026-10-21T19:57:31.204356+00:00",
     "report_ref": "docs/00-project/validation/t031-candidate-task-plan-report.json",
     "plan_ref": "docs/03-development/t031-candidate-task-plan.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_t032_task_event_integrity": {
+    "observed_at": "2026-10-21T21:09:14.975738+00:00",
+    "report_ref": "docs/00-project/validation/t032-task-event-integrity-report.json",
+    "plan_ref": "docs/04-database/task-event-run-integrity.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

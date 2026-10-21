@@ -25,6 +25,123 @@ def scalar(connection, query):
     return row[0]
 
 
+@pytest.mark.parametrize("history", ["valid", "orphan_run", "unknown_from", "unknown_to", "injected_failure"])
+def test_0015_event_upgrade_validates_history_and_rolls_back_atomically(database_dsn, tmp_path, history):
+    from uuid import uuid4
+
+    from tests.business.test_report_migration import schema_snapshot
+
+    previous = [file for file in sorted(MIGRATIONS.glob("*.sql")) if file.name[:4] <= "0014"]
+    for file in previous:
+        (tmp_path / file.name).write_bytes(file.read_bytes())
+    assert migrate(database_dsn, tmp_path) == [f"{version:04d}" for version in range(1, 15)]
+    org, case, source, content, obj, asset, task, run, event = [uuid4() for _ in range(9)]
+    with psycopg.connect(database_dsn) as connection:
+        connection.execute("INSERT INTO mt.organizations(org_id,name) VALUES(%s,'synthetic-upgrade-unit')", (org,))
+        connection.execute(
+            "INSERT INTO mt.cases(case_id,org_id,display_code,status) VALUES(%s,%s,'fixture','ACTIVE')", (case, org)
+        )
+        connection.execute(
+            "INSERT INTO mt.source_registry(source_id,org_id,case_id,name,source_type,authorization_ref,purpose,authorization_status,authorization_version) "
+            "VALUES(%s,%s,%s,'fixture','synthetic','not-formal-authority',ARRAY['analysis'],'pending','fixture-v1')",
+            (source, org, case),
+        )
+        connection.execute(
+            "INSERT INTO mt.content_item(content_id,org_id,case_id,source_id,discovered_at,status) VALUES(%s,%s,%s,%s,now(),'fixture')",
+            (content, org, case, source),
+        )
+        connection.execute(
+            "INSERT INTO mt.object_version(object_id,org_id,case_id,bucket_alias,object_key,version_id,sha256,size_bytes) "
+            "VALUES(%s,%s,%s,'fixture','fixture','1',%s,1)",
+            (obj, org, case, "a" * 64),
+        )
+        connection.execute(
+            "INSERT INTO mt.media_asset(asset_id,org_id,case_id,content_id,source_id,object_id,sha256,mime,size_bytes,kind,mapping_version,state) "
+            "VALUES(%s,%s,%s,%s,%s,%s,%s,'application/octet-stream',1,'original','fixture','VALIDATING')",
+            (asset, org, case, content, source, obj, "a" * 64),
+        )
+        connection.execute(
+            "INSERT INTO mt.analysis_task(task_id,org_id,case_id,asset_id,scene,priority,state,policy_version,modules,report_eligibility) "
+            "VALUES(%s,%s,%s,%s,'accident_rumor','normal','CREATED','fixture',ARRAY['MEDIA'],'draft_only')",
+            (task, org, case, asset),
+        )
+        connection.execute(
+            "INSERT INTO mt.task_run(task_run_id,org_id,case_id,task_id,run_version,input_sha256,dag_version,policy_version) "
+            "VALUES(%s,%s,%s,%s,1,%s,'fixture','fixture')",
+            (run, org, case, task, "a" * 64),
+        )
+        connection.execute(
+            "INSERT INTO mt.task_event(event_id,org_id,case_id,task_id,run_version,from_state,to_state,reason,request_id) "
+            "VALUES(%s,%s,%s,%s,%s,%s,%s,'synthetic legacy record',%s)",
+            (
+                event,
+                org,
+                case,
+                task,
+                99 if history == "orphan_run" else 1,
+                "UNKNOWN" if history == "unknown_from" else None,
+                "UNKNOWN" if history == "unknown_to" else "CREATED",
+                uuid4(),
+            ),
+        )
+        before = schema_snapshot(connection)
+        records = {
+            name: connection.execute(f"SELECT * FROM mt.{name} ORDER BY 1").fetchall()
+            for name in ("analysis_task", "task_run", "task_event")
+        }
+        ledger = connection.execute("SELECT * FROM mt_meta.schema_migrations ORDER BY version").fetchall()
+    upgrades = list(MIGRATIONS.glob("0015_*.sql"))
+    assert len(upgrades) == 1, "fixed-run event migration is missing"
+    upgrade = upgrades[0]
+    (tmp_path / upgrade.name).write_bytes(
+        upgrade.read_bytes()
+        + (b"\nSELECT missing_event_upgrade_function();\n" if history == "injected_failure" else b"")
+    )
+    if history == "valid":
+        assert migrate(database_dsn, tmp_path) == ["0015"]
+        assert migrate(database_dsn, tmp_path) == []
+    else:
+        expected = (
+            psycopg.errors.ForeignKeyViolation
+            if history == "orphan_run"
+            else psycopg.errors.UndefinedFunction
+            if history == "injected_failure"
+            else psycopg.errors.CheckViolation
+        )
+        with pytest.raises(expected):
+            migrate(database_dsn, tmp_path)
+    with psycopg.connect(database_dsn) as connection:
+        after = schema_snapshot(connection)
+        for key in before:
+            if key != "constraints" or history != "valid":
+                assert after[key] == before[key]
+        for name, rows in records.items():
+            assert connection.execute(f"SELECT * FROM mt.{name} ORDER BY 1").fetchall() == rows
+        assert (
+            connection.execute(
+                "SELECT * FROM mt_meta.schema_migrations WHERE version<='0014' ORDER BY version"
+            ).fetchall()
+            == ledger
+        )
+        assert scalar(connection, "SELECT count(*) FROM mt_meta.schema_migrations WHERE version='0015'") == (
+            1 if history == "valid" else 0
+        )
+        if history == "valid":
+            additions = {row[0] for row in after["constraints"]} - {row[0] for row in before["constraints"]}
+            assert additions == {
+                "task_event_run_identity_fk",
+                "task_event_from_state_check",
+                "task_event_to_state_check",
+            }
+            assert (
+                scalar(
+                    connection,
+                    "SELECT bool_and(convalidated) FROM pg_constraint WHERE conname IN ('task_event_run_identity_fk','task_event_from_state_check','task_event_to_state_check')",
+                )
+                is True
+            )
+
+
 def test_empty_database_migrates_and_replay_noops(database_dsn):
     assert migrate(database_dsn) == [
         "0001",
@@ -41,6 +158,7 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
         "0012",
         "0013",
         "0014",
+        "0015",
     ]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
@@ -161,6 +279,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             "0012",
             "0013",
             "0014",
+            "0015",
         ]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
@@ -202,6 +321,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0012",
             "0013",
             "0014",
+            "0015",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -297,7 +417,19 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
                 " bad legacy",
             )
     else:
-        assert migrate(database_dsn) == ["0005", "0006", "0007", "0008", "0009", "0010", "0011", "0012", "0013", "0014"]
+        assert migrate(database_dsn) == [
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010",
+            "0011",
+            "0012",
+            "0013",
+            "0014",
+            "0015",
+        ]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
             assert connection.execute(

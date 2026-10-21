@@ -2396,16 +2396,43 @@
         },
         {
           "path": "tests/business/test_migrations.py",
-          "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
         },
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "backend/business_migrations/0015_task_event_run_integrity.sql",
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
+        },
+        {
+          "path": "tests/business/test_task_event_constraints.py",
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
+        },
+        {
+          "path": "tests/business/test_t015_scope_recovery.py",
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
+        },
+        {
+          "path": "tests/business/test_t016_operation_token_recovery.py",
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
+        },
+        {
+          "path": "docs/04-database/task-event-run-integrity.md",
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
+        },
+        {
+          "path": "docs/00-project/validation/t032-task-event-integrity-report.json",
+          "scope": "仅本批固定运行事件约束及隔离升级/回滚；不是状态迁移批准、生产升级或整任务验收"
         }
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
-      "material_or_resource_dependencies": []
+      "material_or_resource_dependencies": [],
+      "followup_document_refs": [
+        "docs/04-database/task-event-run-integrity.md"
+      ]
     },
     {
       "task_id": "T033",
@@ -5058,6 +5085,15 @@
       ],
       "event": "IMMUTABLE_CANDIDATE_DAG_PARSER",
       "evidence_ref": "docs/00-project/validation/t031-candidate-task-plan-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T032"
+      ],
+      "event": "FIXED_TASK_RUN_EVENT_CONSTRAINTS",
+      "evidence_ref": "docs/00-project/validation/t032-task-event-integrity-report.json",
       "whole_task_acceptance_recorded": false
     }
   ],
