@@ -1,5 +1,7 @@
 # 项目文档导航
 
+T016依赖修复规划：[Pillow／py310八条漏洞处理与回归方案](03-development/pillow-py310-remediation-plan.md)、[逐项来源与门禁限制](00-project/validation/t016-pillow-py310-plan-review.json)。本轮仅方案与只读核对，11项必要提交均未回移／构建；私有候选不等于现有扫描准入。原100包锁、共享环境、CI门禁保持，Python候选继续暂缓；T016仍4项已验证子步骤、4组剩余，未整卡关闭。
+
 T015职责已确认：[开发/复核人徐昌胜](00-project/validation/t015-role-assignment.json)、[依赖和数据范围核对](00-project/validation/t015-dependency-preflight.json)、[已获准设计](03-development/t015-data-scope-design.md)、[已批准P01—P07计划](03-development/t015-data-scope-implementation-plan.md)；[实际进度](00-project/validation/t015-data-scope-progress.json)为P01已验证、P02已编码且当前461项业务回归及质量检查通过；隔离启动路径造成的报告生成失败已定位，修正后完整入口仍待核验、P03隔离91项验证通过，P04测试已准备，P05—P07待实施。[数据库/函数说明](04-database/data-scope-migration.md)、[定向验证](00-project/validation/t015-data-scope-p02-progress.json)、[CI观察](00-project/validation/t015-current-ci-observation.json)各有独立入口，未登记共享采用或整卡验收。
 
 T014本批实现：[统一权限实施与验收对照](03-development/t014-unified-permission-implementation.md)、[已批准P01—P07计划](03-development/t014-isolated-six-role-implementation-plan.md)、[当前逐项实测进度](00-project/validation/t014-isolated-rule-progress.json)、[接口/单位/案件矩阵](08-security/t014-interface-scope-matrix.md)。开发负责人和指定复核人徐昌胜。P01—P07完整角色、246格规则、对象/审批/事务/后台重验及1009项完整隔离回归、精确代码CI已验证。42已挂载/31未挂载不变，未启用共享正式策略，T014未整卡验收；旧CI报告只证明其精确历史源码。
@@ -619,7 +621,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1225份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1227份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1315,6 +1317,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t015-written-design-review.json](<00-project/validation/t015-written-design-review.json>) | 本人设计方向及书面设计批准、精确获审版本和仅状态更新关系；具体计划亦已获准；代码实际子范围以逐项进度为准，不当整卡验收。 |
 | [00-project/validation/t016-development-progress.json](<00-project/validation/t016-development-progress.json>) | T016本批实际开发步骤、RED/GREEN和独立复核、源码与运行采用差异、CI及具体剩余事项；不预填正式审批。 |
 | [00-project/validation/t016-operation-token-report.json](<00-project/validation/t016-operation-token-report.json>) | T016严格运行门禁回执：固定六文件、完整实际nodeid与源摘要、无跳过及独立失败探针；仅据实际PASS解释隔离实现，不替代整卡验收。 |
+| [00-project/validation/t016-pillow-py310-plan-review.json](<00-project/validation/t016-pillow-py310-plan-review.json>) | 官方来源、精确提交及测试族、基线hash和逐项未修复状态；未知版本skip不算通过。 |
 | [00-project/validation/t016-role-assignment.json](<00-project/validation/t016-role-assignment.json>) | 用户确认徐昌胜为T016开发负责人和复核人；仅职责登记，不授予权限，不表示本人已经验收。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1622,6 +1625,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/native-n01-python-candidate-decision.json](<03-development/native-n01-python-candidate-decision.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [03-development/native-n01-python-supported-candidate-request.md](<03-development/native-n01-python-supported-candidate-request.md>) | 说明文档：N01受支持Python独立候选验证申请；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-n01-security-remediation-change-request.md](<03-development/native-n01-security-remediation-change-request.md>) | 说明文档：N01安全修补候选变更请求；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/pillow-py310-remediation-plan.md](<03-development/pillow-py310-remediation-plan.md>) | 八条漏洞与11项提交、隔离回归、构建许可和现有扫描准入限制；方案未执行，不代替采用批准。 |
 | [03-development/README.md](<03-development/README.md>) | 所在专题的局部导航与阅读入口 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |

@@ -9988,9 +9988,11 @@
       "release_source": "https://pillow.readthedocs.io/en/stable/releasenotes/13.0.0.html",
       "exact_tag_source": "https://github.com/python-pillow/Pillow/blob/13.0.0/pyproject.toml",
       "feasible_py310_backport_not_yet_established": true,
-      "status": "READ_ONLY_COMPATIBILITY_REVIEW_DONE_NO_COMPATIBLE_FIXED_RELEASE_VERIFIED_NO_PATCH_BUILD_AUTHORIZED",
+      "status": "PLAN_WRITTEN_EIGHT_ISSUES_ELEVEN_COMMITS_NO_PATCH_BUILD_AUTHORIZED",
       "read_only_review_requires_no_new_permission": true,
-      "next_design_gate": "If a Python3.10-compatible patch route is identified, first specify exact upstream fixes, wheel/build sources, licenses and full regression plan for separate review; no forced Requires-Python override."
+      "next_design_gate": "Review concrete PL01-PL05 isolated execution; private backport does not automatically satisfy current PyPI scanner. No maintained compatible recognized fixed release verified.",
+      "plan_ref": "docs/03-development/pillow-py310-remediation-plan.md",
+      "review_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json"
     },
     "not_authorized_by_proposal": [
       "Python3.13/3.12candidate creation",
@@ -11228,5 +11230,29 @@
       "Main-lock fullCI remains failure39503527743. No repeated fullCI run against unchanged vulnerable inputs.",
       "Existing Torch audit coverage limitation and N01originalCPython issues remain separate and unresolved."
     ]
+  },
+  "pillow_py310_remediation_plan": {
+    "status": "PLAN_WRITTEN_NO_PATCH_BUILD_OR_REGRESSION",
+    "plan_ref": "docs/03-development/pillow-py310-remediation-plan.md",
+    "review_ref": "docs/00-project/validation/t016-pillow-py310-plan-review.json",
+    "issues": 8,
+    "required_patches": 11,
+    "patch_applied": false,
+    "candidate_built": false,
+    "regressions_executed": false,
+    "scanner_route_blocker": "No verified current py310 fixed release that current default service recognizes with zero findings and no new Pillow skip. Original12.3.0 still matches8; local unknown versions/URLs may skip and are not admitted.",
+    "next_decision": "D05-E: review PL01-PL05 isolated technical execution; not adoption or promise of CI zero.",
+    "Python_candidates_deferred": true,
+    "CI_gates_changed": false,
+    "original100_lock_changed": false,
+    "no_business_progress_increment": true,
+    "documentation_checks": "PASS_REFERENCES_AND_PRESERVED_INPUTS_ONLY",
+    "observed_at": "2026-10-21T03:02:36.545224+00:00",
+    "independent_review": {
+      "status": "ONE_P2_PROVENANCE_DISCREPANCY_CORRECTED",
+      "review_type": "independent_agent_readonly_review_not_human_acceptance",
+      "correction": "CNA referenced commits retained separately from behavior/test mapping for112395/112404; three TIFF fixes reviewed together.",
+      "additional_P1_P2_reported": false
+    }
   }
 }
