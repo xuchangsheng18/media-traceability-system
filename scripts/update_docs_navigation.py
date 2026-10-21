@@ -50,8 +50,15 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t001-t123-resource-registry-continuation-plan.md": "本轮四接口及资产下载页面的具体实现与验证边界，沿用契约、原锁、门禁和Python候选暂缓。",
+        "03-development/t001-t123-development-completion-audit.md": "123项原工作范围及验收逐条复核：真实源码、有限验证、尚缺代码和外部输入分列，不以表或路由代替任务完成。",
+        "03-development/t001-t123-development-completion-audit.json": "同源123项验收条款、代码摘要、接口现状、剩余代码和后续批次的机器审计；无虚构整卡完成。",
+        "00-project/validation/t001-t123-resource-registry-report.json": "来源登记、受控下载及页面、模型/评测列表、0014的实际检查与失败修复，CI和源码同步分别核验。",
+        "04-database/resource-registry-boundaries.md": "0014固定查验函数、owner限定策略、零字节/时间精度、不可变对象读取和运行库采用边界。",
+        "08-security/resource-registry-route-registration.json": "四个现有接口的严格47→51后继注册，不改变246格、公共契约或正式拒绝。",
+        "08-security/history/resource-registry-predecessor-scope-matrix.json": "本轮之前47项挂载矩阵的原字节，和报告读取历史形成可核验后继链。",
         "03-development/t001-t123-api-continuation-plan.md": "本批续建顺序：权限目录性能、报告读取及0013、真实资产/任务前端、原CI门禁和三端源码同步；保留正式准入边界。",
-        "03-development/t001-t123-remaining-interface-register.md": "起点27个未挂载接口逐项列用途、原任务、复用能力、待开发代码和缺失条件；新增报告读取后仍有26项未挂载，不批量宣布完成。",
+        "03-development/t001-t123-remaining-interface-register.md": "保留起点27项追踪记录并列当前状态；当前51项已挂载、22项未挂载，逐项区分代码与外部条件。",
         "03-development/t001-t123-remaining-interface-register.json": "27项接口的完整结构、源任务/依赖、SQL定义、实际实现范围和后续执行入口；静态审查与运行证据分列。",
         "00-project/validation/t001-t123-api-continuation-report.json": "本批缓存、报告读取/0013及前端的实际命令、时长、错误修复、完整权限回归、CI与三端同步证据。",
         "08-security/report-read-route-registration.json": "只登记getReport挂载增量，严格绑定46→47的矩阵字节；原246格、正式拒绝与旧采用记录不改。",

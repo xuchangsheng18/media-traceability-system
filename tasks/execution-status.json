@@ -2073,8 +2073,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。",
-      "summary_remaining": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、26未挂载操作及正式验收另列；不以本批通过关闭整任务。",
+      "summary_completed": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。；四个既有接口接入统一权限与范围：下载用途及分类、来源登记的独立权威证明、单位内模型/评测集合逐条过滤和提交前复核；原246格、旧迁移和原CI超时保留，完整门禁及托管结果另见本批回执。",
+      "summary_remaining": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、22未挂载操作及正式验收另列；不以本批通过关闭整任务。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -2404,6 +2404,32 @@
             {
               "path": "docs/00-project/validation/t001-t123-api-continuation-report.json",
               "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
+            }
+          ]
+        },
+        {
+          "description": "四个既有接口接入统一权限与范围：下载用途及分类、来源登记的独立权威证明、单位内模型/评测集合逐条过滤和提交前复核；原246格、旧迁移和原CI超时保留，完整门禁及托管结果另见本批回执。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/object_facts.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/permissions/conditional.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/scope_collections.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "scripts/verify_t014_permissions.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
             }
           ]
         }
@@ -3046,7 +3072,7 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试",
+      "summary_completed": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试；createSource已实现真实SQL登记、pending/verified权威证明精确绑定、同事务幂等与审计及提交前权威重读；客户端不得声明verified，未配置提供者拒绝；不包含到期告警、来源维护页面或正式授权。",
       "summary_remaining": "接入真实来源授权依据和权威适配器，补登记/维护及来源管理页面；补到期告警/修改审计；客户端不能自行声明已核验授权",
       "completed_steps": [
         {
@@ -3066,12 +3092,38 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "description": "createSource已实现真实SQL登记、pending/verified权威证明精确绑定、同事务幂等与审计及提交前权威重读；客户端不得声明verified，未配置提供者拒绝；不包含到期告警、来源维护页面或正式授权。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/source_registration.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/source_registration_router.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_source_registration.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_source_registration_provider.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "接入真实来源授权依据和权威适配器，补登记/维护及来源管理页面"
+          "description": "登记接口已完成限定研发验证；继续接真实来源权威、来源维护及管理页面，不把pending登记当有效用途授权。"
         },
         {
           "category": "实施/验证",
@@ -3082,7 +3134,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T022",
@@ -3234,7 +3286,7 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证",
+      "summary_completed": "PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证；新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。",
       "summary_remaining": "按适用正式存储实现版本/权限/保留及完整对象API；落实WORM/备份与生产准入；开发FileStore不等于正式证据存储",
       "completed_steps": [
         {
@@ -3258,6 +3310,32 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "description": "新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/asset_download.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/scoped_objects.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_asset_download.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/platform/test_asset_download_projection.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -3274,7 +3352,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T026",
@@ -3448,8 +3526,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。",
-      "summary_remaining": "完整资产血缘和来源授权状态、受控下载及下载审计、真实后端与正式提供者联调、负责人及源标准完整验收仍待",
+      "summary_completed": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。",
+      "summary_remaining": "完整血缘、来源授权明细、真实后端/身份/来源组合E2E、实际负责人和源标准完整验收仍待。",
       "completed_steps": [
         {
           "description": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
@@ -3506,12 +3584,38 @@
               "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
             }
           ]
+        },
+        {
+          "description": "资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "frontend/src/views/AssetsView.vue",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/asset-download.ts",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/asset-download.test.ts",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "补完整资产血缘与来源授权展示、受控下载及审计；列表/详情/当前页筛选的只读前端已实现，不代表原始媒体可编辑。"
+          "description": "列表/详情与受控下载前端已实现；补完整资产血缘、来源授权状态展示及真实权威组合联调。"
         },
         {
           "category": "测试",
@@ -4457,16 +4561,43 @@
       "task_id": "T052",
       "name": "实现模型注册表",
       "card": "tasks/algorithm/T052.md",
-      "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "尚无本任务已验证交付",
-      "summary_remaining": "完成模型注册表的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "summary_completed": "尚无本任务已验证交付；listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。",
+      "summary_remaining": "模型登记写入、唯一版本/模型卡约束的服务验证、修改审计、正式制品与上下线管理、页面及整任务验收仍待。",
+      "completed_steps": [
+        {
+          "description": "listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/model_catalog_router.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_migrations/0014_resource_registry.sql",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "管理模型名称、版本、镜像摘要、指标、数据版本和状态。"
+          "description": "列表读取已实现；补模型登记写入、重复版本约束调用、修改审计、上下线权限及模型管理页面。"
         },
         {
           "category": "测试",
@@ -4481,7 +4612,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T053",
@@ -4656,16 +4787,43 @@
       "task_id": "T058",
       "name": "实现模型评测记录管理",
       "card": "tasks/algorithm/T058.md",
-      "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
       "full_task_verified": false,
-      "summary_completed": "尚无本任务已验证交付",
-      "summary_remaining": "完成模型评测记录管理的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "summary_completed": "尚无本任务已验证交付；listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。",
+      "summary_remaining": "真实评测记录写入、总体/分组指标生产者、报告生成/保存及合格评测对发布审批的约束、页面和源验收仍待。",
+      "completed_steps": [
+        {
+          "description": "listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/platform/test_model_catalog_projection.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_resource_registry_migration.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "保存数据集版本、总体和分组指标、报告文件。"
+          "description": "已有评测记录只读列表已实现；补真实评测登记/写入、分组指标、报告生成与发布审批引用。"
         },
         {
           "category": "测试",
@@ -4680,7 +4838,7 @@
           "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-21"
     },
     {
       "task_id": "T059",
@@ -8479,6 +8637,23 @@
       "full_task_acceptance_asserted": false,
       "Python_candidates_created": false,
       "existing_preview_or_shared_database_migrated": false
+    },
+    {
+      "id": "resource-registry-continuation-20261021",
+      "observed_date": "2026-10-21",
+      "task_ids": [
+        "T014",
+        "T021",
+        "T025",
+        "T030",
+        "T052",
+        "T058"
+      ],
+      "evidence_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+      "owners_inferred": false,
+      "full_task_acceptance_asserted": false,
+      "Python_candidates_created": false,
+      "existing_preview_or_shared_database_migrated": false
     }
   ],
   "authorized_development_scope": {
@@ -8700,6 +8875,23 @@
       "T107"
     ],
     "evidence_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+    "owners_inferred": false,
+    "full_task_acceptance_asserted": false,
+    "Python_candidates_created": false,
+    "existing_preview_or_shared_database_migrated": false
+  },
+  "latest_resource_registry_continuation": {
+    "id": "resource-registry-continuation-20261021",
+    "observed_date": "2026-10-21",
+    "task_ids": [
+      "T014",
+      "T021",
+      "T025",
+      "T030",
+      "T052",
+      "T058"
+    ],
+    "evidence_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json",
     "owners_inferred": false,
     "full_task_acceptance_asserted": false,
     "Python_candidates_created": false,

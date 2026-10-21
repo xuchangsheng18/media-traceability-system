@@ -12,12 +12,12 @@
 
 | 详细操作 | 路径 | 实现状态 |
 | --- | --- | --- |
-| [createSource](../operations/createSource.md) | POST /api/v1/sources | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [createSource](../operations/createSource.md) | POST /api/v1/sources | DEV_PARTIAL |
 | [listSources](../operations/listSources.md) | GET /api/v1/sources | DEV_PARTIAL |
 | [createUpload](../operations/createUpload.md) | POST /api/v1/uploads | DEV_PARTIAL |
 | [putUploadPart](../operations/putUploadPart.md) | PUT /api/v1/uploads/{id}/parts/{part_no} | DEV_PARTIAL |
 | [completeUpload](../operations/completeUpload.md) | POST /api/v1/uploads/{id}/complete | DEV_PARTIAL |
-| [downloadAsset](../operations/downloadAsset.md) | GET /api/v1/assets/{id}/content | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [downloadAsset](../operations/downloadAsset.md) | GET /api/v1/assets/{id}/content | DEV_PARTIAL |
 | [createImport](../operations/createImport.md) | POST /api/v1/imports | DEV_PARTIAL |
 | [getImport](../operations/getImport.md) | GET /api/v1/imports/{id} | DEV_PARTIAL |
 

@@ -5,6 +5,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from scripts.verify_resource_registry_registration import verify_resource_registry_registration
+
 MATRIX = "docs/08-security/t014-interface-scope-matrix.json"
 PRIOR = "docs/08-security/history/report-read-predecessor-scope-matrix.json"
 REGISTRATION = "docs/08-security/report-read-route-registration.json"
@@ -22,7 +24,7 @@ def verify_business_route_registration(root: Path) -> Path:
         previous_path = root / PRIOR
         assert previous_path.resolve().is_relative_to(root.resolve())
         previous_raw = previous_path.read_bytes()
-        current_raw = (root / MATRIX).read_bytes().replace(b"\r\n", b"\n")
+        current_raw = verify_resource_registry_registration(root).read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(previous_raw).hexdigest() == PRIOR_SHA256
         record = json.loads((root / REGISTRATION).read_text("utf8"))
         expected_record = dict(

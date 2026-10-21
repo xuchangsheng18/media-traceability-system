@@ -35,7 +35,8 @@ def database_dsn(request, business_template):
     with psycopg.connect(configured, autocommit=True) as admin:
         template = (
             "template0"
-            if request.node.path.name in {"test_migrations.py", "test_report_migration.py"}
+            if request.node.path.name
+            in {"test_migrations.py", "test_report_migration.py", "test_resource_registry_migration.py"}
             else business_template
         )
         admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(sql.Identifier(name), sql.Identifier(template)))

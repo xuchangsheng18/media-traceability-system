@@ -1,4 +1,4 @@
-"""Valid contract requests and actual self-owned resources for the expanded 47-operation denial matrix."""
+"""Valid contract requests and actual self-owned resources for the expanded 51-operation denial matrix."""
 
 import hashlib
 import io
@@ -234,6 +234,14 @@ def _populate(c, resources):
     now = datetime.now(timezone.utc)
 
     bodies = dict(
+        createSource=dict(
+            case_id=str(c["case_id"]),
+            name="self-owned source registration request",
+            source_type="synthetic",
+            authorization_ref="self-owned-fixture",
+            purpose=["upload"],
+            expires_at=None,
+        ),
         createUpload=upload_body,
         completeUpload=dict(parts=[descriptor]),
         requestApproval=dict(
@@ -370,4 +378,4 @@ def _populate(c, resources):
             assert isinstance(request["json"], dict)
             validate_api(body["schema"]["$ref"].rsplit("/", 1)[-1], request["json"])
         resources.requests[identifier] = request
-    assert len(resources.requests) == 47
+    assert len(resources.requests) == 51

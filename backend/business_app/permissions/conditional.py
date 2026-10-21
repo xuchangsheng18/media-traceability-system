@@ -39,6 +39,7 @@ REQUIREMENTS: Mapping[str, tuple[str, ...]] = {
     "SOURCE_WRITE": ("same_org", "case", "authoritative_source_sync"),
     "INGEST": ("same_org", "case", "source", "source_purpose", "classification", "purpose_basis"),
     "CASE_READ": ("same_org", "case", "source", "read_purpose", "classification"),
+    "CASE_DOWNLOAD": ("same_org", "case", "source", "source_purpose", "download_purpose", "classification"),
     "CASE_ANALYSIS": ("same_org", "case", "source", "analysis_purpose", "capability", "classification"),
     "TASK_CREATE": (
         "same_org",

@@ -1,5 +1,7 @@
 # T014 接口权限、单位与案件范围矩阵
 
+本轮当前51/73业务操作已挂载、22项未挂载；新增来源登记、受控下载和单位内模型/评测读取，246格及正式默认拒绝不变。后继注册及实际回归见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)。以下带源码/日期的43项及更早统计为历史验证范围，不作为本轮完成数。
+
 <!-- T016_NATIVE_FINAL_EVIDENCE -->
 
 已核验的原生隔离源码为`b1b79bfb32b7959e63f302bbef22d32e22dc0b8f`：[T014实际报告](../00-project/validation/t014-permissions-report.json)713项、[T015实际报告](../00-project/validation/t015-data-scope-report.json)131项、[T016实际报告](../00-project/validation/t016-operation-token-report.json)187项，均无失败、错误或跳过；三个独立故障探针均按预期识别断言失败，Ruff、格式和mypy检查通过。三套用例有重叠，数量不相加为唯一测试数或170项任务完成数。此结论限Linux／py310／CPU隔离研发，不是正式验收。

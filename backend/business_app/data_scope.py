@@ -193,6 +193,9 @@ def from_evidence(evidence: Evidence, *, clock: Callable[[], float] = time.time)
         "policy_collection",
         "model_release",
         "model_operation",
+        "model_collection",
+        "model",
+        "model_evaluation",
         "approval",
         "feedback",
     }:

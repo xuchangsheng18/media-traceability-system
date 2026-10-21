@@ -1,5 +1,5 @@
 {
-  "status": "SOURCE_DEPENDENCY_INVENTORY_NOT_WHOLE_TASK_ACCEPTANCE",
+  "status": "BASELINE_27_ENTRY_INVENTORY_WITH_EXPLICIT_CURRENT_SOURCE_AND_RUNTIME_STATUS",
   "operation_count": 27,
   "constraints": [
     "no public contract change",
@@ -92,7 +92,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for health; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Existing independent PoC health is not business-app health. Need authenticated business infrastructure readiness definition; never turn process liveness into model readiness.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "devLogin",
@@ -171,7 +174,10 @@
       "next_executable_step": "Keep OIDC identity entrypoint; document historic devLogin exclusion without implementing password bypass.",
       "missing_actual_input": "Historic development password contract is not formal OIDC. Reuse identity entrypoint/session bootstrap; no alternate password bypass authorized.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "createSource",
@@ -251,7 +257,22 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for createSource; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "source_registry and source synchronization port exist. Creation must bind authoritative source/authorization/version; client verified flag is not authority.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "createSource",
+        "method": "POST",
+        "path": "/api/v1/sources",
+        "python_function": "create_source",
+        "source_path": "backend/business_app/source_registration_router.py",
+        "line": 19,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 164
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json"
     },
     {
       "operation_id": "downloadAsset",
@@ -382,7 +403,22 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for downloadAsset; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "No external model artifact is needed for persisted reads; security wiring/fixture-backed tests and precise consumer design remain required.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "downloadAsset",
+        "method": "GET",
+        "path": "/api/v1/assets/{id}/content",
+        "python_function": "download_asset",
+        "source_path": "backend/business_app/asset_download_router.py",
+        "line": 16,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 166
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json"
     },
     {
       "operation_id": "createTask",
@@ -478,7 +514,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for createTask; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Task/outbox/idempotency SQL and execution exist. Creation must resolve approved analysis policy/module/model/version/capability; no real approved recipe/provider currently wired.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "rerunTask",
@@ -618,7 +657,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for rerunTask; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Execution/result history/outbox can be reused; need exact prior task versions, policy/model eligibility, new run and idempotent publication; cannot manufacture model completion.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "searchImage",
@@ -752,7 +794,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for searchImage; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Persistent search/result tables exist; actual embedding/local matcher/index provider, model+index/preprocessing bindings and authorized result visibility missing.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "searchImageRegion",
@@ -840,7 +885,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for searchImageRegion; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Same image search dependencies plus crop coordinate convention/geometry matcher and authorized region evidence; no fake matches.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "searchVideo",
@@ -932,7 +980,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for searchVideo; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Need actual frame embedding, temporal alignment/segment localizer, index compatibility and authorized candidate evidence.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "getSearchJob",
@@ -1051,7 +1102,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for getSearchJob; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "No external model artifact is needed for persisted reads; security wiring/fixture-backed tests and precise consumer design remain required.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "decidePropagationEdge",
@@ -1202,7 +1256,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for decidePropagationEdge; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Graph history read exists; edge decision persistence needs edge lookup/review task versions, reviewer duty and independent-person policy and append-only decision model.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "extractClaims",
@@ -1295,7 +1352,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for extractClaims; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "claim/text_segment SQL exists. Need real source-anchored claim extraction provider with model and text/mapping provenance.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "verifyClaim",
@@ -1396,7 +1456,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for verifyClaim; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "claim/relation SQL exists. Need trusted evidence-relation provider, grounding evidence IDs and same task/source boundaries; human legal conclusion prohibited.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "sealEvidence",
@@ -1525,7 +1588,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for sealEvidence; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "OperationTokens consumes in same transaction; evidence/task result/object registration exist. Need actual immutable package manifest/files, package item validation, seal policy, token consumer and audit; token issuance alone is not sealing.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "createReportDraft",
@@ -1619,7 +1685,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for createReportDraft; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "report/report_evidence and immutable task results exist. Need explicit source selection/template version and actual draft text provider; do not manufacture unsupported statements.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "createReport",
@@ -1716,7 +1785,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for createReport; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Need report renderer/template and exact result/evidence bindings, approval chain/purpose and high-risk consumer scope. Existing approval port alone cannot render a real report.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "getReport",
@@ -1795,7 +1867,22 @@
         "backend/business_app/registry_reads.py",
         "backend/business_app/registry_router.py",
         "backend/business_migrations/0013_report_reads.sql"
-      ]
+      ],
+      "current_source_registration": {
+        "operation_id": "getReport",
+        "method": "GET",
+        "path": "/api/v1/reports/{id}",
+        "python_function": "get_report",
+        "source_path": "backend/business_app/registry_router.py",
+        "line": 20,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 163
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json"
     },
     {
       "operation_id": "downloadReport",
@@ -1910,7 +1997,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for downloadReport; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Reuse immutable object storage/export path but report download requires exact ready artifact, approval/purpose/version checks, audit and pre-delivery revocation; no renderer currently wired.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "requestFeedback",
@@ -1998,7 +2088,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for requestFeedback; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "feedback read and approval SQL exist; write needs training purpose/license authorization, exact finding/evidence/model/dataset binding and sanctioned feedback destination.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "registerModel",
@@ -2078,7 +2171,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for registerModel; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Registry table exists. Client digest/model card/license strings are not byte/license verification; need authoritative artifact/card/license references and organization target policy.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "listModels",
@@ -2179,7 +2275,22 @@
       "next_executable_step": "Specify exact organization collection/object target and trusted model_metadata_scope facts; obtain scope decision before wiring catalog reads.",
       "missing_actual_input": "SQL and Model projection available without executing a model. Current ObjectFacts/DataScope has no model collection target/lookup semantics; adding an organization policy internally requires explicit agreed target/scope rules.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "listModels",
+        "method": "GET",
+        "path": "/api/v1/models",
+        "python_function": "list_models",
+        "source_path": "backend/business_app/model_catalog_router.py",
+        "line": 34,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 165
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json"
     },
     {
       "operation_id": "getModelHealth",
@@ -2269,7 +2380,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for getModelHealth; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Health response is status+request_id, not registry status. Need model-specific runtime health provider and exact organization model scope; REGISTERED/ACTIVE does not prove healthy.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "rolloutModel",
@@ -2404,7 +2518,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for rolloutModel; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "DeploymentOperations exists only as provider boundary. Need artifact/evaluation/license qualification, approved release chain and operation token semantics plus actual backend rollout/rollback.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "recordEvaluation",
@@ -2483,7 +2600,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for recordEvaluation; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Append-only model_evaluation table exists. Need actual metric protocol/sample counts/artifact integrity/dataset split authorization and organization scope; arbitrary submitted metrics cannot count as evaluated.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "listEvaluations",
@@ -2565,7 +2685,22 @@
       "next_executable_step": "Specify exact organization collection/object target and trusted model_metadata_scope facts; obtain scope decision before wiring catalog reads.",
       "missing_actual_input": "SQL/Evaluation schema available without executing model. Need agreed organization collection target, per-evaluation model and artifact metadata visibility; current case-based page cannot be reused with fabricated case_id.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "listEvaluations",
+        "method": "GET",
+        "path": "/api/v1/model-evaluations",
+        "python_function": "list_evaluations",
+        "source_path": "backend/business_app/model_catalog_router.py",
+        "line": 43,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 165
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json"
     },
     {
       "operation_id": "getIndex",
@@ -2638,7 +2773,10 @@
       "next_executable_step": "Specify exact organization collection/object target and trusted model_metadata_scope facts; obtain scope decision before wiring catalog reads.",
       "missing_actual_input": "IndexVersion SQL projection available. Need exact index lookup/organization target and index.manage semantics; no case_id parameter in contract and no approved cross-case index disclosure rule.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     },
     {
       "operation_id": "switchIndex",
@@ -2746,7 +2884,10 @@
       "next_executable_step": "Write consumer/provider-bound design and RED tests for switchIndex; reuse listed code; require real inputs described in reason before any successful business response.",
       "missing_actual_input": "Need real compatible built index, state transition/rollout service and audit/approval semantics; updating database ACTIVE flag is not atomic serving-index switch.",
       "runtime_state": "NOT_MOUNTED",
-      "source_review_is_runtime_verification": false
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null
     }
   ],
   "baseline_unmounted_operation_count": 27,
@@ -2755,5 +2896,10 @@
   "source_scope": "T001_T123_authorized_continuation",
   "report_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json",
   "Python_candidates_created": false,
-  "shared_environment_modified": false
+  "shared_environment_modified": false,
+  "baseline_entry_count": 27,
+  "current_canonical_count": 73,
+  "current_mounted_source_count": 51,
+  "current_not_mounted_source_count": 22,
+  "current_results_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json"
 }

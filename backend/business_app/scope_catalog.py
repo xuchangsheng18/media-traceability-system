@@ -62,6 +62,36 @@ _RESOURCES = MappingProxyType(
         "import": ("import_job", "import_id", ("state", "requested_count")),
         "task": ("analysis_task", "task_id", ("asset_id", "run_version", "result_version", "state", "policy_version")),
         "asset": ("media_asset", "asset_id", ("source_id", "parent_asset_id", "mapping_version", "state")),
+        "model": (
+            "model_registry",
+            "model_id",
+            (
+                "name",
+                "version",
+                "capability",
+                "digest",
+                "dataset_version",
+                "model_card_ref",
+                "license_record_ref",
+                "backend",
+                "environment_ref",
+                "status",
+            ),
+        ),
+        "model_evaluation": (
+            "model_evaluation",
+            "evaluation_id",
+            (
+                "model_id",
+                "dataset_id",
+                "dataset_version",
+                "protocol_id",
+                "split",
+                "sample_count",
+                "failure_count",
+                "artifact_ref",
+            ),
+        ),
         "cluster": ("content_cluster", "cluster_id", ("scope", "policy_version", "status")),
         "upload": ("upload_session", "upload_id", ("source_id", "owner_id", "asset_id", "state", "expires_at")),
         "policy": ("policy_registry", "policy_id", ("kind", "version", "status", "approval_id")),
@@ -81,7 +111,16 @@ _RESOURCES = MappingProxyType(
 )
 LOOKUP_KINDS = frozenset(_RESOURCES)
 RESOURCE_BINDING_KINDS = LOOKUP_KINDS | frozenset(
-    {"case", "audit_event", "upload_part", "media_input", "history_input", "export_artifact", "model_artifact"}
+    {
+        "case",
+        "audit_event",
+        "upload_part",
+        "media_input",
+        "history_input",
+        "asset_content",
+        "export_artifact",
+        "model_artifact",
+    }
 )
 # Fixed action root for a separately authorized consumer. This is not an HTTP
 # implementation or a role grant; no consumer route is mounted by this catalog.
@@ -124,16 +163,21 @@ def lookup_spec(kind: str) -> LookupSpec:
         operations.add("listTasks")
     if kind == "asset":
         operations.add("listAssets")
+    if kind == "model":
+        operations.add("listModels")
+    if kind == "model_evaluation":
+        operations.add("listEvaluations")
     if kind == "operation":
         from .permissions.object_facts import CASE_LISTS
 
         operations.update(CASE_LISTS)
+        operations.add("createSource")
     if kind == "user":
-        operations.update(("getCurrentUser", "createPolicy", "listPolicies"))
+        operations.update(("getCurrentUser", "createPolicy", "listPolicies", "listModels", "listEvaluations"))
     if kind in {"task", "report", "evidence_package", "feedback", "operation"}:
         operations.add("requestApproval")
     columns: tuple[str, ...] = (key, "org_id", "row_version", "created_by")
-    if kind not in {"policy", "user"}:
+    if kind not in {"policy", "user", "model", "model_evaluation"}:
         columns += ("case_id",)
     return LookupSpec(table, key, tuple(dict.fromkeys(columns + extra)), frozenset(operations))
 

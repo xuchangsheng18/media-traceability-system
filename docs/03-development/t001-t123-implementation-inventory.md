@@ -4,11 +4,11 @@
 
 任务台账日期：2026-10-21。本清单只读取代码、契约、迁移及现存台账，不连接数据库、不执行迁移、不导入业务代码。
 
-全部170任务：117条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：117条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
+全部170任务：123条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：123条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
 
-T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中47个，尚有26个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、30个不同SQL函数名称。
+T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、31个不同SQL函数名称。
 
-后端Python静态索引包含420个函数/方法定义，其中62个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
+后端Python静态索引包含447个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
 
 已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。
 
@@ -33,23 +33,23 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T011 设计用户角色与数据范围模型](#t011) | 部分已验证 | 5/3 | 未声明直接落库 | 0/0 |
 | [T012 实现用户角色数据库模型](#t012) | 部分已验证 | 6/3 | users、roles、permissions、user_roles | 0/0 |
 | [T013 实现认证与令牌校验](#t013) | 部分已验证 | 13/3 | case_membership、user_roles、users | 1/2 |
-| [T014 实现接口级权限控制](#t014) | 部分已验证 | 12/3 | case_membership、user_roles、users | 1/1 |
+| [T014 实现接口级权限控制](#t014) | 部分已验证 | 13/3 | case_membership、user_roles、users | 1/1 |
 | [T015 实现数据范围访问控制](#t015) | 部分已验证 | 4/3 | case_membership、user_roles、users | 1/1 |
 | [T016 实现高风险操作二次确认](#t016) | 部分已验证 | 4/4 | approval_decision、approval_request、audit_event、operation_token | 3/3 |
 | [T017 实现操作审计事件模型](#t017) | 部分已验证 | 1/3 | audit_event | 0/0 |
 | [T018 开发审计查询页面与接口](#t018) | 部分已验证 | 2/3 | audit_event、audit_export | 2/2 |
 | [T019 设计内容与媒体资产模型](#t019) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
 | [T020 实现内容与媒体资产表](#t020) | 部分已验证 | 1/3 | source_registry、content_item、media_asset、asset_lineage | 0/0 |
-| [T021 实现数据来源授权登记](#t021) | 部分已验证 | 1/3 | source_registry | 1/2 |
+| [T021 实现数据来源授权登记](#t021) | 部分已验证 | 2/3 | source_registry | 2/2 |
 | [T022 实现分片上传初始化](#t022) | 部分已验证 | 1/3 | source_registry、upload_session | 1/1 |
 | [T023 实现分片接收与校验](#t023) | 部分已验证 | 1/3 | upload_part、upload_session | 1/1 |
 | [T024 实现分片合并与完整哈希](#t024) | 部分已验证 | 1/3 | media_asset、upload_part、upload_session | 1/1 |
-| [T025 实现MinIO对象存储适配器](#t025) | 部分已验证 | 1/3 | audit_event、media_asset、object_version | 0/1 |
+| [T025 实现MinIO对象存储适配器](#t025) | 部分已验证 | 2/3 | audit_event、media_asset、object_version | 1/1 |
 | [T026 实现媒体格式探测与安全校验](#t026) | 部分已验证 | 1/3 | media_asset、upload_part、upload_session | 1/1 |
 | [T027 实现SHA-256完全重复检测](#t027) | 部分已验证 | 1/3 | media_asset、upload_part、upload_session | 1/1 |
 | [T028 实现批量清单导入](#t028) | 部分已验证 | 1/3 | import_item、import_job | 2/2 |
 | [T029 实现第三方接入适配器协议](#t029) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
-| [T030 开发媒体资产管理页面](#t030) | 部分已验证 | 2/4 | asset_lineage、audit_event、media_asset、object_version | 2/3 |
+| [T030 开发媒体资产管理页面](#t030) | 部分已验证 | 3/4 | asset_lineage、audit_event、media_asset、object_version | 3/3 |
 | [T031 设计分析任务与节点执行模型](#t031) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T032 实现任务及节点数据库模型](#t032) | 部分已验证 | 1/3 | analysis_task、task_node_run、task_event | 0/0 |
 | [T033 实现任务状态机](#t033) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
@@ -71,15 +71,15 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T049 接入ASR并建立时间片段](#t049) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
 | [T050 实现媒体统一时间轴服务](#t050) | 尚无充分已验证交付 | 0/4 | keyframe、media_asset、shot、text_segment | 1/1 |
 | [T051 定义统一模型输入输出契约](#t051) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
-| [T052 实现模型注册表](#t052) | 尚无充分已验证交付 | 0/4 | model_registry | 0/2 |
+| [T052 实现模型注册表](#t052) | 部分已验证 | 1/4 | model_registry | 1/2 |
 | [T053 实现统一推理网关](#t053) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T054 实现HTTP与本地Mock适配器](#t054) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
 | [T055 实现推理批处理与GPU队列](#t055) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
 | [T056 实现模型健康检查与熔断](#t056) | 尚无充分已验证交付 | 0/4 | model_registry | 0/1 |
 | [T057 实现模型灰度发布](#t057) | 尚无充分已验证交付 | 0/4 | approval_request、index_registry、model_release | 0/1 |
-| [T058 实现模型评测记录管理](#t058) | 尚无充分已验证交付 | 0/4 | model_evaluation | 0/2 |
+| [T058 实现模型评测记录管理](#t058) | 部分已验证 | 1/4 | model_evaluation | 1/2 |
 | [T059 实现输入输出漂移监测](#t059) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
-| [T060 开发模型运维页面](#t060) | 尚无充分已验证交付 | 0/4 | approval_request、index_registry、model_registry、model_release | 0/3 |
+| [T060 开发模型运维页面](#t060) | 尚无充分已验证交付 | 0/4 | approval_request、index_registry、model_registry、model_release | 1/3 |
 | [T061 定义风险标签和版本管理](#t061) | 尚无充分已验证交付 | 0/4 | policy_registry | 2/2 |
 | [T062 接入图片多标签分类模型](#t062) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
 | [T063 接入敏感目标检测模型](#t063) | 尚无充分已验证交付 | 0/4 | 未声明直接落库 | 0/0 |
@@ -443,9 +443,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T012,T013；执行依赖候选：T012、T013；依赖是否具备仍需实际核验。
 
-当前已验证范围：原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。
+当前已验证范围：原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。；四个既有接口接入统一权限与范围：下载用途及分类、来源登记的独立权威证明、单位内模型/评测集合逐条过滤和提交前复核；原246格、旧迁移和原CI超时保留，完整门禁及托管结果另见本批回执。
 
-未完成事项：正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、26未挂载操作及正式验收另列；不以本批通过关闭整任务。
+未完成事项：正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、22未挂载操作及正式验收另列；不以本批通过关闭整任务。
 
 表与创建源码：
 
@@ -588,7 +588,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.exports.Exports.create(self, scope, body, request, key)`；[backend/business_app/controls/exports.py:89](<../../backend/business_app/controls/exports.py#L89>)；表：audit_export。
 - `business_app.controls.exports.Exports._process_bound(self, scope, identifier)`；[backend/business_app/controls/exports.py:123](<../../backend/business_app/controls/exports.py#L123>)；表：audit_event、audit_export。
 - `business_app.controls.router.create_policy(request, body, idempotency_key)`；[backend/business_app/controls/router.py:524](<../../backend/business_app/controls/router.py#L524>)；表：audit_event。
-- `business_app.scoped_objects.ScopedObjects._export(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:122](<../../backend/business_app/scoped_objects.py#L122>)；表：audit_export。
+- `business_app.scoped_objects.ScopedObjects._export(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:123](<../../backend/business_app/scoped_objects.py#L123>)；表：audit_export。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
@@ -640,6 +640,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -651,6 +652,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：media_asset。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：media_asset。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset、source_registry。
+- `business_app.source_registration.SourceRegistration.create(self, scope, body, request, key)`；[backend/business_app/source_registration.py:170](<../../backend/business_app/source_registration.py#L170>)；表：source_registry。
 - `business_app.uploads.repository.UploadRepository.complete(self, scope, upload_id, payload, key, request_id)`；[backend/business_app/uploads/repository.py:258](<../../backend/business_app/uploads/repository.py#L258>)；表：source_registry。
 - `business_app.uploads.service.UploadService.status(self, request, upload_id)`；[backend/business_app/uploads/service.py:111](<../../backend/business_app/uploads/service.py#L111>)；表：media_asset。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：content_item、media_asset、source_registry。
@@ -669,7 +671,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T020,T014；执行依赖候选：T020、T014；依赖是否具备仍需实际核验。
 
-当前已验证范围：来源列表/详情、权威同步及版本/有效期校验子范围已有测试
+当前已验证范围：来源列表/详情、权威同步及版本/有效期校验子范围已有测试；createSource已实现真实SQL登记、pending/verified权威证明精确绑定、同事务幂等与审计及提交前权威重读；客户端不得声明verified，未配置提供者拒绝；不包含到期告警、来源维护页面或正式授权。
 
 未完成事项：接入真实来源授权依据和权威适配器，补登记/维护及来源管理页面；补到期告警/修改审计；客户端不能自行声明已核验授权
 
@@ -682,12 +684,13 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：source_registry。
 - `business_app.controls.router.sync_source(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:389](<../../backend/business_app/controls/router.py#L389>)；表：source_registry。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：source_registry。
+- `business_app.source_registration.SourceRegistration.create(self, scope, body, request, key)`；[backend/business_app/source_registration.py:170](<../../backend/business_app/source_registration.py#L170>)；表：source_registry。
 - `business_app.uploads.repository.UploadRepository.complete(self, scope, upload_id, payload, key, request_id)`；[backend/business_app/uploads/repository.py:258](<../../backend/business_app/uploads/repository.py#L258>)；表：source_registry。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：source_registry。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `createSource` | `POST /api/v1/sources` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
+| `createSource` | `POST /api/v1/sources` | 无 | `create_source`；[backend/business_app/source_registration_router.py:19](<../../backend/business_app/source_registration_router.py#L19>) |
 | `listSources` | `GET /api/v1/sources` | limit（可选）、cursor（可选）、case_id（必填） | `list_sources`；[backend/business_app/controls/router.py:364](<../../backend/business_app/controls/router.py#L364>) |
 
 
@@ -716,7 +719,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.operation_tokens.OperationTokens._source_snapshot(self, connection, scope, task_id)`；[backend/business_app/controls/operation_tokens.py:167](<../../backend/business_app/controls/operation_tokens.py#L167>)；表：source_registry。
 - `business_app.controls.router.sync_source(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:389](<../../backend/business_app/controls/router.py#L389>)；表：source_registry。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：source_registry。
-- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:101](<../../backend/business_app/scoped_objects.py#L101>)；表：upload_session。
+- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:102](<../../backend/business_app/scoped_objects.py#L102>)；表：upload_session。
+- `business_app.source_registration.SourceRegistration.create(self, scope, body, request, key)`；[backend/business_app/source_registration.py:170](<../../backend/business_app/source_registration.py#L170>)；表：source_registry。
 - `business_app.uploads.repository.UploadRepository.session(self, scope, upload_id, connection)`；[backend/business_app/uploads/repository.py:25](<../../backend/business_app/uploads/repository.py#L25>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.create(self, scope, payload, *, idempotency_key)`；[backend/business_app/uploads/repository.py:93](<../../backend/business_app/uploads/repository.py#L93>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：upload_session。
@@ -751,8 +755,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
-- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:101](<../../backend/business_app/scoped_objects.py#L101>)；表：upload_session。
-- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:231](<../../backend/business_app/scoped_objects.py#L231>)；表：upload_part。
+- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:102](<../../backend/business_app/scoped_objects.py#L102>)；表：upload_session。
+- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:242](<../../backend/business_app/scoped_objects.py#L242>)；表：upload_part。
 - `business_app.uploads.repository.UploadRepository.session(self, scope, upload_id, connection)`；[backend/business_app/uploads/repository.py:25](<../../backend/business_app/uploads/repository.py#L25>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.create(self, scope, payload, *, idempotency_key)`；[backend/business_app/uploads/repository.py:93](<../../backend/business_app/uploads/repository.py#L93>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.existing_part(self, scope, upload_id, number, sha256, size, key)`；[backend/business_app/uploads/repository.py:128](<../../backend/business_app/uploads/repository.py#L128>)；表：upload_part。
@@ -792,6 +796,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -802,8 +807,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：media_asset。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：media_asset。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset。
-- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:101](<../../backend/business_app/scoped_objects.py#L101>)；表：upload_session。
-- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:231](<../../backend/business_app/scoped_objects.py#L231>)；表：upload_part。
+- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:102](<../../backend/business_app/scoped_objects.py#L102>)；表：upload_session。
+- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:242](<../../backend/business_app/scoped_objects.py#L242>)；表：upload_part。
 - `business_app.uploads.repository.UploadRepository.session(self, scope, upload_id, connection)`；[backend/business_app/uploads/repository.py:25](<../../backend/business_app/uploads/repository.py#L25>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.create(self, scope, payload, *, idempotency_key)`；[backend/business_app/uploads/repository.py:93](<../../backend/business_app/uploads/repository.py#L93>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.existing_part(self, scope, upload_id, number, sha256, size, key)`；[backend/business_app/uploads/repository.py:128](<../../backend/business_app/uploads/repository.py#L128>)；表：upload_part。
@@ -832,7 +837,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T004,T024；执行依赖候选：T004、T024；依赖是否具备仍需实际核验。
 
-当前已验证范围：PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证
+当前已验证范围：PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证；新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。
 
 未完成事项：按适用正式存储实现版本/权限/保留及完整对象API；落实WORM/备份与生产准入；开发FileStore不等于正式证据存储
 
@@ -844,6 +849,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset、object_version。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset、object_version。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.common.audit(connection, scope, action, kind, identifier, version, request)`；[backend/business_app/controls/common.py:101](<../../backend/business_app/controls/common.py#L101>)；表：audit_event。
@@ -860,14 +866,14 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset、object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
-- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
+- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:75](<../../backend/business_app/scoped_objects.py#L75>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.service.UploadService.status(self, request, upload_id)`；[backend/business_app/uploads/service.py:111](<../../backend/business_app/uploads/service.py#L111>)；表：media_asset。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：media_asset、object_version。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `downloadAsset` | `GET /api/v1/assets/{id}/content` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
+| `downloadAsset` | `GET /api/v1/assets/{id}/content` | 无 | `download_asset`；[backend/business_app/asset_download_router.py:16](<../../backend/business_app/asset_download_router.py#L16>) |
 
 
 <a id="t026"></a>
@@ -893,6 +899,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -903,8 +910,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：media_asset。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：media_asset。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset。
-- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:101](<../../backend/business_app/scoped_objects.py#L101>)；表：upload_session。
-- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:231](<../../backend/business_app/scoped_objects.py#L231>)；表：upload_part。
+- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:102](<../../backend/business_app/scoped_objects.py#L102>)；表：upload_session。
+- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:242](<../../backend/business_app/scoped_objects.py#L242>)；表：upload_part。
 - `business_app.uploads.repository.UploadRepository.session(self, scope, upload_id, connection)`；[backend/business_app/uploads/repository.py:25](<../../backend/business_app/uploads/repository.py#L25>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.create(self, scope, payload, *, idempotency_key)`；[backend/business_app/uploads/repository.py:93](<../../backend/business_app/uploads/repository.py#L93>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.existing_part(self, scope, upload_id, number, sha256, size, key)`；[backend/business_app/uploads/repository.py:128](<../../backend/business_app/uploads/repository.py#L128>)；表：upload_part。
@@ -945,6 +952,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -955,8 +963,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：media_asset。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：media_asset。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset。
-- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:101](<../../backend/business_app/scoped_objects.py#L101>)；表：upload_session。
-- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:231](<../../backend/business_app/scoped_objects.py#L231>)；表：upload_part。
+- `business_app.scoped_objects.ScopedObjects._upload(self, connection, scope, binding)`；[backend/business_app/scoped_objects.py:102](<../../backend/business_app/scoped_objects.py#L102>)；表：upload_session。
+- `business_app.scoped_objects.ScopedObjects._read_binding(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:242](<../../backend/business_app/scoped_objects.py#L242>)；表：upload_part。
 - `business_app.uploads.repository.UploadRepository.session(self, scope, upload_id, connection)`；[backend/business_app/uploads/repository.py:25](<../../backend/business_app/uploads/repository.py#L25>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.create(self, scope, payload, *, idempotency_key)`；[backend/business_app/uploads/repository.py:93](<../../backend/business_app/uploads/repository.py#L93>)；表：upload_session。
 - `business_app.uploads.repository.UploadRepository.existing_part(self, scope, upload_id, number, sha256, size, key)`；[backend/business_app/uploads/repository.py:128](<../../backend/business_app/uploads/repository.py#L128>)；表：upload_part。
@@ -1036,9 +1044,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T20,T25,T27；执行依赖候选：T020、T025、T027；依赖是否具备仍需实际核验。
 
-当前已验证范围：资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。
+当前已验证范围：资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。
 
-未完成事项：完整资产血缘和来源授权状态、受控下载及下载审计、真实后端与正式提供者联调、负责人及源标准完整验收仍待
+未完成事项：完整血缘、来源授权明细、真实后端/身份/来源组合E2E、实际负责人和源标准完整验收仍待。
 
 表与创建源码：
 
@@ -1049,6 +1057,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset、object_version。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset、object_version。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.common.audit(connection, scope, action, kind, identifier, version, request)`；[backend/business_app/controls/common.py:101](<../../backend/business_app/controls/common.py#L101>)；表：audit_event。
@@ -1065,7 +1074,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：media_asset、object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
-- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
+- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:75](<../../backend/business_app/scoped_objects.py#L75>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.service.UploadService.status(self, request, upload_id)`；[backend/business_app/uploads/service.py:111](<../../backend/business_app/uploads/service.py#L111>)；表：media_asset。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：media_asset、object_version。
@@ -1074,7 +1083,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | --- | --- | --- | --- |
 | `listAssets` | `GET /api/v1/assets` | case_id（必填）、limit（可选）、cursor（可选） | `list_assets`；[backend/business_app/catalog_router.py:37](<../../backend/business_app/catalog_router.py#L37>) |
 | `getAsset` | `GET /api/v1/assets/{id}` | 无 | `get_asset`；[backend/business_app/catalog_router.py:27](<../../backend/business_app/catalog_router.py#L27>) |
-| `downloadAsset` | `GET /api/v1/assets/{id}/content` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
+| `downloadAsset` | `GET /api/v1/assets/{id}/content` | 无 | `download_asset`；[backend/business_app/asset_download_router.py:16](<../../backend/business_app/asset_download_router.py#L16>) |
 
 
 <a id="t031"></a>
@@ -1131,8 +1140,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:688](<../../backend/business_app/controls/router.py#L688>)；表：analysis_task。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task。
-- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:82](<../../backend/business_app/scope_collections.py#L82>)；表：analysis_task。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：analysis_task。
+- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：analysis_task。
 
 未声明外部操作ID；内部引擎、模型或工具能力需按源范围实施，不以生成空HTTP接口代替。
 
@@ -1187,8 +1196,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:688](<../../backend/business_app/controls/router.py#L688>)；表：analysis_task。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task。
-- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:82](<../../backend/business_app/scope_collections.py#L82>)；表：analysis_task。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：analysis_task。
+- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：analysis_task。
 - `business_app.uploads.messaging.pump_outbox_once(service, authority, scope, broker_url, *, work_authorization, upload_id)`；[backend/business_app/uploads/messaging.py:16](<../../backend/business_app/uploads/messaging.py#L16>)；表：outbox_event。
 - `business_app.uploads.repository.UploadRepository.replay(self, connection, scope, operation, key, digest)`；[backend/business_app/uploads/repository.py:51](<../../backend/business_app/uploads/repository.py#L51>)；表：idempotency_record。
 - `business_app.uploads.repository.UploadRepository.remember(self, connection, scope, operation, key, digest, response)`；[backend/business_app/uploads/repository.py:74](<../../backend/business_app/uploads/repository.py#L74>)；表：idempotency_record。
@@ -1232,8 +1241,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.router.cancel_task(request, id, body, idempotency_key)`；[backend/business_app/controls/router.py:688](<../../backend/business_app/controls/router.py#L688>)；表：analysis_task。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task。
-- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:82](<../../backend/business_app/scope_collections.py#L82>)；表：analysis_task。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：analysis_task。
+- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：analysis_task。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
@@ -1341,8 +1350,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.router.list_events(request, id, run_version, cursor, limit)`；[backend/business_app/controls/router.py:740](<../../backend/business_app/controls/router.py#L740>)；表：task_run。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task、task_run。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task、task_run。
-- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:82](<../../backend/business_app/scope_collections.py#L82>)；表：analysis_task、task_run。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：analysis_task。
+- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task、task_run。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：analysis_task。
 - `business_app.uploads.messaging.pump_outbox_once(service, authority, scope, broker_url, *, work_authorization, upload_id)`；[backend/business_app/uploads/messaging.py:16](<../../backend/business_app/uploads/messaging.py#L16>)；表：outbox_event。
 - `business_app.uploads.repository.UploadRepository.complete(self, scope, upload_id, payload, key, request_id)`；[backend/business_app/uploads/repository.py:258](<../../backend/business_app/uploads/repository.py#L258>)；表：outbox_event。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：outbox_event。
@@ -1390,8 +1399,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.router.list_events(request, id, run_version, cursor, limit)`；[backend/business_app/controls/router.py:740](<../../backend/business_app/controls/router.py#L740>)；表：task_run。
 - `business_app.history.repository.ResultRepository.append_snapshot(self, scope, snapshot)`；[backend/business_app/history/repository.py:125](<../../backend/business_app/history/repository.py#L125>)；表：analysis_task、task_run。
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：analysis_task、task_run。
-- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:82](<../../backend/business_app/scope_collections.py#L82>)；表：analysis_task、task_run。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：analysis_task。
+- `business_app.scope_collections.bind_task_scope(connection, scope, task)`；[backend/business_app/scope_collections.py:86](<../../backend/business_app/scope_collections.py#L86>)；表：analysis_task、task_run。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：analysis_task。
 - `business_app.uploads.messaging.pump_outbox_once(service, authority, scope, broker_url, *, work_authorization, upload_id)`；[backend/business_app/uploads/messaging.py:16](<../../backend/business_app/uploads/messaging.py#L16>)；表：outbox_event。
 - `business_app.uploads.repository.UploadRepository.complete(self, scope, upload_id, payload, key, request_id)`；[backend/business_app/uploads/repository.py:258](<../../backend/business_app/uploads/repository.py#L258>)；表：outbox_event。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：outbox_event。
@@ -1616,6 +1625,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -1665,9 +1675,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T051,T014；执行依赖候选：T051、T014；依赖是否具备仍需实际核验。
 
-当前已验证范围：尚无本任务已验证交付
+当前已验证范围：尚无本任务已验证交付；listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。
 
-未完成事项：完成模型注册表的交付、异常/权限测试和源验收
+未完成事项：模型登记写入、唯一版本/模型卡约束的服务验证、修改审计、正式制品与上下线管理、页面及整任务验收仍待。
 
 表与创建源码：
 
@@ -1677,11 +1687,12 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 - `business_app.controls.router.model_operation(request, id)`；[backend/business_app/controls/router.py:488](<../../backend/business_app/controls/router.py#L488>)；表：model_registry。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：model_registry。
+- `business_app.model_catalog.ModelCatalog._item(connection, scope, operation, item)`；[backend/business_app/model_catalog.py:108](<../../backend/business_app/model_catalog.py#L108>)；表：model_registry。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
 | `registerModel` | `POST /api/v1/models` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
-| `listModels` | `GET /api/v1/models` | limit（可选）、cursor（可选） | 未发现显式业务路由注册；不推定其他服务状态 |
+| `listModels` | `GET /api/v1/models` | limit（可选）、cursor（可选） | `list_models`；[backend/business_app/model_catalog_router.py:34](<../../backend/business_app/model_catalog_router.py#L34>) |
 
 
 <a id="t053"></a>
@@ -1767,6 +1778,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 - `business_app.controls.router.model_operation(request, id)`；[backend/business_app/controls/router.py:488](<../../backend/business_app/controls/router.py#L488>)；表：model_registry。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：model_registry。
+- `business_app.model_catalog.ModelCatalog._item(connection, scope, operation, item)`；[backend/business_app/model_catalog.py:108](<../../backend/business_app/model_catalog.py#L108>)；表：model_registry。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
@@ -1817,9 +1829,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T052；执行依赖候选：T052；依赖是否具备仍需实际核验。
 
-当前已验证范围：尚无本任务已验证交付
+当前已验证范围：尚无本任务已验证交付；listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。
 
-未完成事项：完成模型评测记录管理的交付、异常/权限测试和源验收
+未完成事项：真实评测记录写入、总体/分组指标生产者、报告生成/保存及合格评测对发布审批的约束、页面和源验收仍待。
 
 表与创建源码：
 
@@ -1830,7 +1842,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
 | `recordEvaluation` | `POST /api/v1/model-evaluations` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
-| `listEvaluations` | `GET /api/v1/model-evaluations` | limit（可选）、cursor（可选） | 未发现显式业务路由注册；不推定其他服务状态 |
+| `listEvaluations` | `GET /api/v1/model-evaluations` | limit（可选）、cursor（可选） | `list_evaluations`；[backend/business_app/model_catalog_router.py:43](<../../backend/business_app/model_catalog_router.py#L43>) |
 
 
 <a id="t059"></a>
@@ -1881,10 +1893,11 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.controls.approvals.Approvals.decide(self, scope, identifier, body, request, key, *, revoke)`；[backend/business_app/controls/approvals.py:248](<../../backend/business_app/controls/approvals.py#L248>)；表：approval_request。
 - `business_app.controls.router.model_operation(request, id)`；[backend/business_app/controls/router.py:488](<../../backend/business_app/controls/router.py#L488>)；表：model_registry、model_release。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：model_registry、model_release。
+- `business_app.model_catalog.ModelCatalog._item(connection, scope, operation, item)`；[backend/business_app/model_catalog.py:108](<../../backend/business_app/model_catalog.py#L108>)；表：model_registry。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `listModels` | `GET /api/v1/models` | limit（可选）、cursor（可选） | 未发现显式业务路由注册；不推定其他服务状态 |
+| `listModels` | `GET /api/v1/models` | limit（可选）、cursor（可选） | `list_models`；[backend/business_app/model_catalog_router.py:34](<../../backend/business_app/model_catalog_router.py#L34>) |
 | `getModelHealth` | `GET /api/v1/models/{id}/health` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
 | `rolloutModel` | `POST /api/v1/models/{id}/rollouts` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
 
@@ -2394,6 +2407,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -2456,6 +2470,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -2498,6 +2513,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：media_asset。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：media_asset。
 - `business_app.controls.approvals.Approvals.bind(self, connection, scope, item, *, shared)`；[backend/business_app/controls/approvals.py:40](<../../backend/business_app/controls/approvals.py#L40>)；表：media_asset。
 - `business_app.controls.execution.Execution.authorize(self, scope, task_id)`；[backend/business_app/controls/execution.py:45](<../../backend/business_app/controls/execution.py#L45>)；表：media_asset。
@@ -2893,7 +2909,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：evidence_item。
 - `business_app.history.repository.ResultRepository.persist_ranking(self, connection, scope, key, response)`；[backend/business_app/history/repository.py:221](<../../backend/business_app/history/repository.py#L221>)；表：evidence_item。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：evidence_item。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：evidence_item。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：evidence_item。
 
 未声明外部操作ID；内部引擎、模型或工具能力需按源范围实施，不以生成空HTTP接口代替。
 
@@ -2923,7 +2939,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：evidence_item。
 - `business_app.history.repository.ResultRepository.persist_ranking(self, connection, scope, key, response)`；[backend/business_app/history/repository.py:221](<../../backend/business_app/history/repository.py#L221>)；表：evidence_item。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：evidence_item。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：evidence_item。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：evidence_item。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
@@ -3010,7 +3026,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.history.repository.ResultRepository.verify_current_inputs(self, connection, scope, snapshot, *, writing)`；[backend/business_app/history/repository.py:50](<../../backend/business_app/history/repository.py#L50>)；表：evidence_item。
 - `business_app.history.repository.ResultRepository.persist_ranking(self, connection, scope, key, response)`；[backend/business_app/history/repository.py:221](<../../backend/business_app/history/repository.py#L221>)；表：evidence_item。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：evidence_item。
-- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:139](<../../backend/business_app/scoped_objects.py#L139>)；表：evidence_item。
+- `business_app.scoped_objects.ScopedObjects._media(self, connection, scope, binding, reference)`；[backend/business_app/scoped_objects.py:140](<../../backend/business_app/scoped_objects.py#L140>)；表：evidence_item。
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
@@ -3042,6 +3058,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：object_version。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：object_version。
 - `business_app.controls.common.audit(connection, scope, action, kind, identifier, version, request)`；[backend/business_app/controls/common.py:101](<../../backend/business_app/controls/common.py#L101>)；表：audit_event。
 - `business_app.controls.exports.Exports._process_bound(self, scope, identifier)`；[backend/business_app/controls/exports.py:123](<../../backend/business_app/controls/exports.py#L123>)；表：audit_event、object_version。
@@ -3052,7 +3069,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
-- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
+- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:75](<../../backend/business_app/scoped_objects.py#L75>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：object_version。
 
@@ -3085,6 +3102,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 关联后端方法（仅直接SQL表引用的静态交集，不是完整DAO或任务验收）：
 
+- `business_app.asset_download.AssetDownload.content(self, scope, identifier, request)`；[backend/business_app/asset_download.py:97](<../../backend/business_app/asset_download.py#L97>)；表：object_version。
 - `business_app.catalog_reads.CatalogReads.asset(connection, scope, identifier)`；[backend/business_app/catalog_reads.py:40](<../../backend/business_app/catalog_reads.py#L40>)；表：object_version。
 - `business_app.controls.common.audit(connection, scope, action, kind, identifier, version, request)`；[backend/business_app/controls/common.py:101](<../../backend/business_app/controls/common.py#L101>)；表：audit_event。
 - `business_app.controls.exports.Exports._process_bound(self, scope, identifier)`；[backend/business_app/controls/exports.py:123](<../../backend/business_app/controls/exports.py#L123>)；表：audit_event、object_version。
@@ -3095,7 +3113,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 - `business_app.inference.InferenceGateway.check_inputs(self, scope, payload)`；[backend/business_app/inference.py:89](<../../backend/business_app/inference.py#L89>)；表：object_version。
 - `business_app.inference.InferenceGateway._finish_response(self, scope, identifier, payload, backend, value, deadline)`；[backend/business_app/inference.py:203](<../../backend/business_app/inference.py#L203>)；表：object_version。
 - `business_app.registry_reads.RegistryReads.report(connection, scope, identifier)`；[backend/business_app/registry_reads.py:62](<../../backend/business_app/registry_reads.py#L62>)；表：object_version。
-- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:74](<../../backend/business_app/scoped_objects.py#L74>)；表：object_version。
+- `business_app.scoped_objects.ScopedObjects._registered(connection, scope, reference)`；[backend/business_app/scoped_objects.py:75](<../../backend/business_app/scoped_objects.py#L75>)；表：object_version。
 - `business_app.uploads.repository.UploadRepository.put_part(self, scope, upload_id, part_no, stored, *, idempotency_key)`；[backend/business_app/uploads/repository.py:161](<../../backend/business_app/uploads/repository.py#L161>)；表：object_version。
 - `business_app.uploads.worker.UploadValidationWorker._consume_bound(self, event, scope, upload)`；[backend/business_app/uploads/worker.py:47](<../../backend/business_app/uploads/worker.py#L47>)；表：object_version。
 
@@ -3614,13 +3632,14 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | `mt.hold_authorization_epoch` | [backend/business_migrations/0008_authorization_fence.sql:43](<../../backend/business_migrations/0008_authorization_fence.sql#L43>) |
 | `mt.activate_authorization_generation` | [backend/business_migrations/0008_authorization_fence.sql:53](<../../backend/business_migrations/0008_authorization_fence.sql#L53>) |
 | `mt.lookup_actor_work_role_facts` | [backend/business_migrations/0009_work_role_facts.sql:2](<../../backend/business_migrations/0009_work_role_facts.sql#L2>) |
-| `mt.scope_operation` | [backend/business_migrations/0010_data_scope.sql:2](<../../backend/business_migrations/0010_data_scope.sql#L2>)、[backend/business_migrations/0011_operation_token.sql:2](<../../backend/business_migrations/0011_operation_token.sql#L2>)、[backend/business_migrations/0012_catalog_reads.sql:3](<../../backend/business_migrations/0012_catalog_reads.sql#L3>)、[backend/business_migrations/0013_report_reads.sql:3](<../../backend/business_migrations/0013_report_reads.sql#L3>) |
+| `mt.scope_operation` | [backend/business_migrations/0010_data_scope.sql:2](<../../backend/business_migrations/0010_data_scope.sql#L2>)、[backend/business_migrations/0011_operation_token.sql:2](<../../backend/business_migrations/0011_operation_token.sql#L2>)、[backend/business_migrations/0012_catalog_reads.sql:3](<../../backend/business_migrations/0012_catalog_reads.sql#L3>)、[backend/business_migrations/0013_report_reads.sql:3](<../../backend/business_migrations/0013_report_reads.sql#L3>)、[backend/business_migrations/0014_resource_registry.sql:3](<../../backend/business_migrations/0014_resource_registry.sql#L3>) |
 | `mt.scope_mode` | [backend/business_migrations/0010_data_scope.sql:15](<../../backend/business_migrations/0010_data_scope.sql#L15>) |
 | `mt.scope_case_id` | [backend/business_migrations/0010_data_scope.sql:21](<../../backend/business_migrations/0010_data_scope.sql#L21>) |
 | `mt.scope_allows_case` | [backend/business_migrations/0010_data_scope.sql:31](<../../backend/business_migrations/0010_data_scope.sql#L31>) |
 | `mt.current_actor_case_ids` | [backend/business_migrations/0010_data_scope.sql:77](<../../backend/business_migrations/0010_data_scope.sql#L77>) |
-| `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>)、[backend/business_migrations/0013_report_reads.sql:17](<../../backend/business_migrations/0013_report_reads.sql#L17>) |
-| `mt.lookup_scope_metadata` | [backend/business_migrations/0010_data_scope.sql:127](<../../backend/business_migrations/0010_data_scope.sql#L127>)、[backend/business_migrations/0013_report_reads.sql:39](<../../backend/business_migrations/0013_report_reads.sql#L39>) |
+| `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>)、[backend/business_migrations/0013_report_reads.sql:17](<../../backend/business_migrations/0013_report_reads.sql#L17>)、[backend/business_migrations/0014_resource_registry.sql:17](<../../backend/business_migrations/0014_resource_registry.sql#L17>) |
+| `mt.lookup_scope_metadata` | [backend/business_migrations/0010_data_scope.sql:127](<../../backend/business_migrations/0010_data_scope.sql#L127>)、[backend/business_migrations/0013_report_reads.sql:39](<../../backend/business_migrations/0013_report_reads.sql#L39>)、[backend/business_migrations/0014_resource_registry.sql:41](<../../backend/business_migrations/0014_resource_registry.sql#L41>) |
+| `mt.model_evaluation_artifact_metadata` | [backend/business_migrations/0014_resource_registry.sql:173](<../../backend/business_migrations/0014_resource_registry.sql#L173>) |
 
 ## 适用边界与后续实际工作
 

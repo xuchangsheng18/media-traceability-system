@@ -1,6 +1,6 @@
 # T001—T123剩余接口逐项台账
 
-本轮起点为73项契约中46项挂载、27项未挂载。新增getReport源码后为47项挂载、26项未挂载；挂载数量不是整任务完成数量。本批getReport专项32项已通过；完整权限回归保留原1200秒上限，实际结果见本批回执。逐项接口、依赖、SQL定义和缺口见[机器台账](t001-t123-remaining-interface-register.json)，实际验证见[本批回执](../00-project/validation/t001-t123-api-continuation-report.json)。原100包锁、CI门禁不变，Python候选继续暂缓。
+本台账保留起点27项记录便于追踪；当前73项业务契约中51项已挂载、22项未挂载。getReport此前已实现，本轮新增downloadAsset、createSource、listModels、listEvaluations。挂载数量不是整任务完成数量。实际命令、失败修复、CI及同步见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)，全部123项的具体缺口见[逐任务审计](t001-t123-development-completion-audit.md)。原100包锁、CI门禁保持，Python候选继续暂缓。
 
 这些缺口包含待实现代码与待提供真实条件，不能一概归因于上游或等待审批。缺模型时可继续完成协议适配和拒绝路径，但不能登记真实推理成功。devLogin继续使用正式OIDC边界，不能为减少未挂载数开设密码旁路。
 
@@ -38,11 +38,11 @@
 
 `POST /api/v1/sources`；权限`source.manage`；源任务：[T021](../../tasks/backend/T021.md)。
 
-**当前状态：** 业务应用仍未挂载；以下为后续实施导航，不表示已实现或测试通过。
+**当前状态：** `source_registration.py`已实现登记、权威证明及同事务幂等/审计；未配置权威与权限事实仍拒绝。 实测见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)。
 
 **复用与限制：** 已有 `mt.source_registry`、`backend/business_app/controls/router.py` 的来源读取/授权同步、`controls/providers.py` 的 `SourceSynchronization` 协议；可复用 `contracts.py` 校验、案件授权、`db.py` 的事务与RLS、`controls/receipts.py` 的幂等回执及 `controls/common.py` 的审计。客户端只提交 `SourceCreate` 既有字段，不提交可信verified事实。
 
-**下一段代码：** 拟新增 `backend/business_app/source_creation.py`；实现案件来源登记、同事务幂等及审计，并为尚未核实的授权依据保留明确未核实状态或拒绝，不自动授予来源用途。将权威核验所需的创建目标及条件接入既有对象事实/范围目录；先用合成来源适配器验证登记和拒绝。
+**本轮代码及后续：** 本轮实际位置为`backend/business_app/source_registration.py`和`source_registration_router.py`；继续接真实权威、来源修改/到期告警和管理页面。
 
 **必须补齐/保留的回归：** 补跨单位/案件、来源用途和期限不合法、伪授权引用、幂等重放/换体、回滚无半行记录、授权同步撤销及提交前事实变化回归。
 
@@ -52,11 +52,11 @@
 
 `GET /api/v1/assets/{id}/content`；权限`asset.download`；源任务：[T025](../../tasks/backend/T025.md), [T030](../../tasks/frontend/T030.md)。
 
-**当前状态：** 业务应用仍未挂载；以下为后续实施导航，不表示已实现或测试通过。
+**当前状态：** 固定资产/ObjectRef、下载用途及分类、完整内容校验、Range、审计和最终权限复核已实现；资产页核验后保存。 实测见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)。
 
 **复用与限制：** 已有 `catalog_reads.py` 的资产与对象版本对应检查、`objects.py` 的不可变文件完整性读取、`scoped_objects.py` 的受控对象封装，以及 `controls/exports.py` 的单Range/If-Range处理；必须另建asset.download动作根，复用单位/案件/来源、密级及事务结束授权复查。
 
-**下一段代码：** 拟新增 `backend/business_app/asset_downloads.py`；先补 `permissions/conditional.py` 中当前缺失的CASE_DOWNLOAD条件分支和可信下载用途事实，再扩 `scoped_objects.py` 的精确资产下载绑定。实现同案件对象ID/版本/摘要/长度校验、受控响应与审计，交付字节前完成授权复查；不可仅因asset.read成功就放行。
+**本轮代码及后续：** 实际服务`backend/business_app/asset_download.py`，范围读取`scoped_objects.py`，页面`frontend/src/views/AssetsView.vue`；正式S3/WORM和真实后端组合E2E仍待。
 
 **必须补齐/保留的回归：** 补无下载权限、用途/密级未知、跨案件对象引用、摘要/长度不符、文件缺失、来源撤销、读取途中授权变化、200/206/416、If-Range与审计失败回滚回归。
 
@@ -290,11 +290,11 @@
 
 `GET /api/v1/models`；权限`model.read`；源任务：[T052](../../tasks/algorithm/T052.md), [T060](../../tasks/frontend/T060.md)。
 
-**当前状态：** 业务应用仍未挂载；以下为后续实施导航，不表示已实现或测试通过。
+**当前状态：** 同单位真实元数据列表已实现，逐条范围先于分页，游标及提交前复核保留；不生成健康或准入结论。 实测见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)。
 
 **复用与限制：** `mt.model_registry`、Model/ModelPage契约和ORGANIZATION模式已存在，读取目录不需要执行模型；可复用MODEL条件、单位RLS、`controls/common.py` 的游标绑定思路。现有CASE分页不能用伪造case_id直接套用，模型集合目标尚未实现。
 
-**下一段代码：** 在拟新增 `model_registry.py` 建单位模型集合目标、组织级分页与Model投影；扩对象事实和范围目录，仅使用已验证actor.org_id，可信model_metadata_scope缺失即拒绝。先用合成单位目录/权威事实完成隔离成功、空目录与拒绝测试，再接真实目录提供方；不擅增公共参数或正式跨单位共享规则。
+**本轮代码及后续：** 实际服务`backend/business_app/model_catalog.py`及`model_catalog_router.py`；继续模型写入/卡片/唯一版本和管理页面，真实模型准入另验。
 
 **必须补齐/保留的回归：** 补缺可信元数据范围503、跨单位行不可见、合法空目录、隐藏行不影响计数/游标、游标换单位/用户/limit/过滤条件、未知/重复参数、授权撤销及提交前复查回归。
 
@@ -346,11 +346,11 @@
 
 `GET /api/v1/model-evaluations`；权限`model.read`；源任务：[T058](../../tasks/algorithm/T058.md)。
 
-**当前状态：** 业务应用仍未挂载；以下为后续实施导航，不表示已实现或测试通过。
+**当前状态：** 真实已存评测记录读取已实现，同单位模型及登记对象的版本/摘要均核验；不运行评测或生成指标。 实测见[本轮回执](../00-project/validation/t001-t123-resource-registry-report.json)。
 
 **复用与限制：** 已有评测表与Evaluation/EvaluationPage契约；组织DataScope/RLS和MODEL条件可复用，但集合目标、组织分页和每项模型/产物元数据披露尚待实现。不能借案件授权或零UUID读取组织目录。
 
-**下一段代码：** 在拟新增 `model_registry.py` 建单位评测集合目标，分页关联同单位model_registry并精确投影指标/产物引用；按可信model_metadata_scope核验每项可见性后再分页，未知事实拒绝。先覆盖合法空目录和隔离样本，不依赖执行真实模型。
+**本轮代码及后续：** 实际服务`backend/business_app/model_catalog.py`；固定对象查验在0014；继续评测登记/生产、分组指标与发布审批引用。
 
 **必须补齐/保留的回归：** 补跨单位评测/模型、无元数据范围、隐藏评测不泄露总数/游标、指标与artifact_ref契约缺失、游标重放/换绑定及授权变化回归。
 

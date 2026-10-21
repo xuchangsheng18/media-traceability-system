@@ -610,10 +610,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "案件成员有效且未撤销/未到期；功能许可与案件许可必须同时满足",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "Authenticated organization and exact server-resolved case/object or organization metadata collection; client claims cannot expand scope.",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/source_registration_router.py",
+        "function": "create_source",
+        "line": 19,
+        "method": "POST",
+        "path": "/sources",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "Function eligibility, exact bound institutional facts and transaction-end revalidation; absent authority remains denied. Actual isolated results are recorded separately.",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -808,10 +818,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "案件成员有效且未撤销/未到期；功能许可与案件许可必须同时满足",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "Authenticated organization and exact server-resolved case/object or organization metadata collection; client claims cannot expand scope.",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/asset_download_router.py",
+        "function": "download_asset",
+        "line": 16,
+        "method": "GET",
+        "path": "/assets/{id}/content",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "Function eligibility, exact bound institutional facts and transaction-end revalidation; absent authority remains denied. Actual isolated results are recorded separately.",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -2136,10 +2156,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "不凭空要求案件；本人/单位/运维权限须分别核验",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "Authenticated organization and exact server-resolved case/object or organization metadata collection; client claims cannot expand scope.",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/model_catalog_router.py",
+        "function": "list_evaluations",
+        "line": 43,
+        "method": "GET",
+        "path": "/model-evaluations",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "Function eligibility, exact bound institutional facts and transaction-end revalidation; absent authority remains denied. Actual isolated results are recorded separately.",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -2165,10 +2195,20 @@
       "scope_basis": "existing_candidate_case_review_permissions_and_operation_semantics_not_formal_policy",
       "unit_rule": "身份映射user/org启用且匹配；客户端org声明不构成授权；跨单位默认拒绝",
       "case_rule": "不凭空要求案件；本人/单位/运维权限须分别核验",
-      "resource_scope_resolution": "尚无业务路由；后续实施时逐字段绑定，本文不发明可信case_id或正式单位共享规则",
-      "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
-      "runtime_route": null,
-      "current_guard_review": "当前业务应用未挂载此契约操作；不得以404记权限测试通过",
+      "resource_scope_resolution": "Authenticated organization and exact server-resolved case/object or organization metadata collection; client claims cannot expand scope.",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VALIDATION",
+      "runtime_route": {
+        "source": "backend/business_app/model_catalog_router.py",
+        "function": "list_models",
+        "line": 34,
+        "method": "GET",
+        "path": "/models",
+        "guard_expressions": [
+          "authorize_business_route",
+          "Database request transaction with per-object conditions"
+        ]
+      },
+      "current_guard_review": "Function eligibility, exact bound institutional facts and transaction-end revalidation; absent authority remains denied. Actual isolated results are recorded separately.",
       "full_permission_enforcement_verified": false,
       "formal_allow": false,
       "contract_response_codes": [
@@ -3094,5 +3134,21 @@
     "formal_approved": false,
     "shared_services_adopted": false,
     "registration_ref": "docs/08-security/report-read-route-registration.json"
+  },
+  "resource_registry_increment": {
+    "status": "SOURCE_ROUTE_REGISTRATION_ONLY_NOT_RUNTIME_ACCEPTANCE",
+    "previous_mounted_operations": 47,
+    "previous_unmounted_operations": 26,
+    "added_operations": [
+      "downloadAsset",
+      "createSource",
+      "listModels",
+      "listEvaluations"
+    ],
+    "mounted_operations": 51,
+    "unmounted_operations": 22,
+    "formal_approved": false,
+    "shared_services_adopted": false,
+    "registration_ref": "docs/08-security/resource-registry-route-registration.json"
   }
 }

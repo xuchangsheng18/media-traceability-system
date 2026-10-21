@@ -4,7 +4,7 @@
 
 `GET /api/v1/assets/{id}/content`；operationId=`downloadAsset`；源指针=`/paths/~1assets~1{id}~1content/get`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
+实现范围：**DEV_PARTIAL**；独立业务工程已挂载源码；实际隔离测试另行记录，缺少受信权限或来源适配器仍拒绝。。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
 
 ## 调用目的与权限
 
@@ -44,7 +44,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`asset.downl
 | 503 | 失败，错误码见error-codes.md | application/problem+json: Problem |  |
 | 206 | 受控二进制内容，逐请求和Range均鉴权 | application/octet-stream: string; format="binary" | X-Request-Id: string; format="uuid"; ETag: string; minLength=1; maxLength=128; Cache-Control: const="no-store"; Content-Range: string; minLength=1; maxLength=128 |
 | 416 | 请求范围无法满足 | application/problem+json: Problem |  |
-服务端按资产ObjectRef固定version_id读取，逐次Range核验当前授权及摘要；200/206/416及If-Range按源，no-store。
+本批实现限定登记或读取子范围，未执行真实模型训练、正式授权、共享迁移或完整任务验收。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

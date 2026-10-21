@@ -13,7 +13,7 @@ from sqlalchemy import Connection, text
 from ..auth import authenticated_actor, authorize_request
 from ..contracts import validate_response
 from ..cursor_encoding import decode_cursor
-from ..data_scope import ResourceBinding, TaskBinding
+from ..data_scope import DataScope, ResourceBinding, TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..scope_collections import COLLECTION_TABLES, CollectionScope, bind_task_scope, require_resource, require_root
@@ -126,7 +126,7 @@ def page(
     connection: Connection,
     table: str,
     key: str,
-    scope: Scope,
+    scope: Scope | DataScope,
     secret: str,
     cursor: str | None,
     limit: int,

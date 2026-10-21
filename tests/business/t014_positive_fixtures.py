@@ -45,6 +45,9 @@ def candidate(ctx, permission_context, permissions, *, role_code="case_investiga
                 purpose_basis=True,
                 metadata_scope=True,
             )
+            if operation_id == "downloadAsset":
+                # Explicit self-owned download-purpose fixture; never supplied by a product default.
+                checks["download_purpose"] = True
             if operation_id in {"cancelTask", "getApproval"} and self.delegation is not None:
                 checks["control_authorized" if operation_id == "cancelTask" else "own_or_delegated_request"] = (
                     self.delegation

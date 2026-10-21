@@ -129,11 +129,14 @@ def main():
         business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/controls/router.py")}
         business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/catalog_router.py")}
         business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/registry_router.py")}
+        business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/asset_download_router.py")}
+        business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/source_registration_router.py")}
+        business_routes |= {(method, "/api/v1" + path) for method, path in routes("backend/business_app/model_catalog_router.py")}
         business_matching = {oid for oid, (method, path, _) in operations.items() if (method, path) in business_routes}
-        assert business_matching == {'completeUpload', 'getUploadStatus', 'getTask', 'putUploadPart', 'listUploadParts', 'getFirstSource', 'getTaskEvidence', 'createUpload', 'getForensics', 'getRiskFindings', 'getPropagation', 'getTimeline', 'requestApproval', 'decideApproval', 'listApprovals', 'getApproval', 'revokeApproval', 'createReview', 'listReviews', 'listPendingReviews', 'getReview', 'getReviewContext', 'exportAudit', 'listAuditEvents', 'getAuditExport', 'downloadAuditExport', 'getFeedback', 'getModelOperation', 'getCurrentUser', 'listSources', 'getSource', 'syncSourceAuthorization', 'createImport', 'getImport', 'listTaskNodes', 'listTaskEvents', 'getTaskExecution', 'cancelTask', 'createPolicy', 'listPolicies', 'getPolicy', 'getPolicyDefinition', 'issueOperationToken', 'getAsset', 'listAssets', 'listTasks', 'getReport'}
-        assert len(business_matching) == 47
+        assert business_matching == {'completeUpload', 'getUploadStatus', 'getTask', 'putUploadPart', 'listUploadParts', 'getFirstSource', 'getTaskEvidence', 'createUpload', 'getForensics', 'getRiskFindings', 'getPropagation', 'getTimeline', 'requestApproval', 'decideApproval', 'listApprovals', 'getApproval', 'revokeApproval', 'createReview', 'listReviews', 'listPendingReviews', 'getReview', 'getReviewContext', 'exportAudit', 'listAuditEvents', 'getAuditExport', 'downloadAuditExport', 'getFeedback', 'getModelOperation', 'getCurrentUser', 'listSources', 'getSource', 'syncSourceAuthorization', 'createImport', 'getImport', 'listTaskNodes', 'listTaskEvents', 'getTaskExecution', 'cancelTask', 'createPolicy', 'listPolicies', 'getPolicy', 'getPolicyDefinition', 'issueOperationToken', 'getAsset', 'listAssets', 'listTasks', 'getReport', 'downloadAsset', 'createSource', 'listModels', 'listEvaluations'}
+        assert len(business_matching) == 51
         matching |= business_matching
-        assert len(matching) == 48  # Includes the separate PoC health match.
+        assert len(matching) == 52  # Includes the separate PoC health match.
         annotations = read(BASE + "interface-annotations.json")["operations"]
         assert {oid for oid, a in annotations.items() if a["implementation_status"] == "DEV_PARTIAL"} == matching
         assert all(a["implementation_status"] == "CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API" for oid, a in annotations.items() if oid not in matching)
@@ -141,7 +144,7 @@ def main():
         event = read("schemas/events/poc.analysis.requested.v1.schema.json")
         assert event["properties"]["event_type"]["const"] == "poc.analysis.requested.v1"
         assert ("POST", "/inference/{capability}") in routes("backend/business_app/inference.py")
-        return {"business_matching_development_partial_routes": 48, "mounted_business_external_operations": 47, "separate_PoC_matching_operations": ["health"], "all_business_API_implementation_asserted": False,
+        return {"business_matching_development_partial_routes": 52, "mounted_business_external_operations": 51, "separate_PoC_matching_operations": ["health"], "all_business_API_implementation_asserted": False,
                 "new_runtime_tests_executed": False, "one_PoC_event_not_cross_module_bus": True}
 
     check("source_code_PoC_boundary_not_business_acceptance", implemented_boundary)

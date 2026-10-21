@@ -94,10 +94,10 @@ def test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations(
         if path.startswith("/internal/")
         for op in methods.values()
     }
-    assert len(external_operations) == 47
+    assert len(external_operations) == 51
     assert {"getApproval", "issueOperationToken"} <= external_operations
     assert internal_operations == {"internalInference"}
-    assert operations == external_operations | internal_operations and len(operations) == 48
+    assert operations == external_operations | internal_operations and len(operations) == 52
     assert "devLogin" not in operations and "rolloutModel" not in operations and "requestFeedback" not in operations
     assert len(spec["components"]["schemas"]) == 102
     assert (

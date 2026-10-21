@@ -42,6 +42,7 @@ _READ_OPERATIONS = MappingProxyType(
     {
         "media_input": _INPUT_OPERATIONS | {"createImport"},
         "history_input": _INPUT_OPERATIONS,
+        "asset_content": frozenset({"downloadAsset"}),
         "upload_part": frozenset({"validateUploadWork"}),
         "export_artifact": frozenset({"downloadAuditExport"}),
         "model_artifact": frozenset({"finishTaskNodeWork"}),
@@ -137,7 +138,7 @@ class ScopedObjects:
         return dict(item)
 
     def _media(self, connection: Connection, scope: DataScope, binding: ResourceBinding, reference: ObjectRef) -> None:
-        selector = "a.asset_id=:id" if binding.kind == "media_input" else "a.object_id=:id"
+        selector = "a.asset_id=:id" if binding.kind in {"media_input", "asset_content"} else "a.object_id=:id"
         rows = (
             connection.execute(
                 text(
@@ -151,6 +152,8 @@ class ScopedObjects:
             .all()
         )
         task = binding.task or scope.task_binding
+        if binding.kind == "asset_content" and task is not None:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if binding.kind == "history_input" and task is None:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if task is not None:
@@ -226,7 +229,15 @@ class ScopedObjects:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if item["size_bytes"] != self._registered(connection, scope, reference):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-        self._source(scope, item["source_id"], "import" if scope.operation_id == "createImport" else "analysis")
+        self._source(
+            scope,
+            item["source_id"],
+            "download"
+            if binding.kind == "asset_content"
+            else "import"
+            if scope.operation_id == "createImport"
+            else "analysis",
+        )
 
     def _read_binding(
         self, connection: Connection, scope: DataScope, binding: ResourceBinding, reference: ObjectRef
@@ -238,7 +249,7 @@ class ScopedObjects:
         if binding.kind == "model_artifact":
             raise BusinessError("VERIFIED_MODEL_PUBLICATION_REQUIRED", 503)
         size = self._registered(connection, scope, reference)
-        if binding.kind in {"media_input", "history_input"}:
+        if binding.kind in {"media_input", "history_input", "asset_content"}:
             self._media(connection, scope, binding, reference)
         elif binding.kind == "upload_part":
             self._upload(connection, scope, binding)

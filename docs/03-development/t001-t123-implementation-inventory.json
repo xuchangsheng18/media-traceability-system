@@ -6,13 +6,15 @@
   "source_hash_encoding": "sha256_of_utf8_text_with_CRLF_and_CR_normalized_to_LF",
   "source_file_sha256": {
     "backend/business_app/__init__.py": "7a6002b1296632af7b86e67eaf76fb9a9cc6f687cd02646c74030a4d7020a84a",
+    "backend/business_app/asset_download.py": "da13f332f7d02586fbde1723966deda0fe5879b56a5805439b9d6a3ee337476b",
+    "backend/business_app/asset_download_router.py": "3f7ac13dad599ed61b83667469386a47853a90d85b8bcd0832254135656457df",
     "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
     "backend/business_app/catalog_reads.py": "1f077a10ca7c87552e2c8125c7e30cf45338c556ffe72e57ac4a0230a2c4857d",
     "backend/business_app/catalog_router.py": "272a1bc3896a324407933db7d246431ae95df49a02124cac547ace1687c0988d",
     "backend/business_app/contracts.py": "15dad14f4a3ebca192c95bd7f175939202c7f479fa1a0973165aa89824b55f4d",
     "backend/business_app/controls/__init__.py": "06f986fe050ef876c1ed0677bf6b5088cfa889b0c5ddbcb3b88590a0de8e2205",
     "backend/business_app/controls/approvals.py": "d2de6345e79c49a1c13f9e19e1f9003f499d523ef3cf5ae5adcfe51d55839c2c",
-    "backend/business_app/controls/common.py": "a6ef8b1f978848777c1be07d22a864ea7c2017f11d8b7682076dd6b569e16cc5",
+    "backend/business_app/controls/common.py": "662a20ba9476ea25362225287836bd028ba461eee19cc1e32231fb7e6c21c956",
     "backend/business_app/controls/definitions.py": "449f2780668302797eeb175c05a9bb10d05cdfe8b645e6d231e65fac5e48f03f",
     "backend/business_app/controls/execution.py": "be55c6a24d7dec6994e17a4a651a6621ceac3dc9baaf598d5a4f9cda6f5fc291",
     "backend/business_app/controls/exports.py": "4ebef7e17b1022b0122a80b43967d6bcfc94e3e4e27141057936aeaeeb879cdd",
@@ -23,10 +25,10 @@
     "backend/business_app/controls/reviews.py": "499abde4edf583bfbaa8838ce6bd007a96c75f4a5f57d6fd900ed17cda974381",
     "backend/business_app/controls/router.py": "aeaba6bc3947d287a693479e4e1833023f0447328a79332c008a2207eb6352de",
     "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
-    "backend/business_app/data_scope.py": "8c9ef9f3dc723e4835cccc9992a6451e4cc23e8ba9fc81ebd22f63d7fd98ba0d",
+    "backend/business_app/data_scope.py": "a8ffe486e2bdec252609790ee1e2ee0bf0296b31a411fa560c803a171a427ab2",
     "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
     "backend/business_app/development.py": "3fabb34ae818f385fed5e7210fb6b8dfb6a47eaa5d657f1657cba8f3d096388b",
-    "backend/business_app/errors.py": "acda01096baf24ea4de854858d67b1dfd8018c716bc65e5888157f47a5770319",
+    "backend/business_app/errors.py": "a9559fb06785c3f7a328d3afb4cc0e1fe01b73bd8edcc4793bfa9e83eb097555",
     "backend/business_app/history/__init__.py": "d799250f4999412e03715020266a93680781d158ebfe21360da074b69a9fe7c3",
     "backend/business_app/history/projection.py": "6fcb54b7255bbb894b848bb28ad119a32493dd4f06e3e44b220dad27784a62f9",
     "backend/business_app/history/repository.py": "35edca3a3346acc947c1d91258b5ff49737d280f417a10d6030b88eb79c3a0b2",
@@ -38,17 +40,19 @@
     "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
     "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
     "backend/business_app/inference.py": "612d6d4006c03110125db8e56f09b8586c0da59b335f0addc5472a1d5c330f2e",
-    "backend/business_app/main.py": "1473e43e480903bfc728016ba194877fe59017096f0add56676bb0debe5a6b24",
+    "backend/business_app/main.py": "7bdafea2f3018b152b75a8bc5ba820e46145c13697fd389fd5501622d0d15284",
+    "backend/business_app/model_catalog.py": "052f36ed373d3f37c5c590a027f3964d79f254aa4d010ad13476ffeb9007e9ec",
+    "backend/business_app/model_catalog_router.py": "4685662dbe6d80f9910ea0f56071f89bafbb6c717de6ff2c99facea5458e8641",
     "backend/business_app/objects.py": "7e346db512a59b7b7b2444fe1bc3a7a169e321a57669ca15054e0916d3ef33a3",
     "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
     "backend/business_app/permissions/catalog.py": "9829b9136f5871dc97f75c179b26c7becc16d8a7fbc28af0d4da3a301e34119c",
-    "backend/business_app/permissions/conditional.py": "caeec59573ac4bfff77cda7d72be7321863936ff13eeeabb975b2d29da043f5c",
+    "backend/business_app/permissions/conditional.py": "d98259060f24cbad64e2452444ddcec87685873704a48f3664b6d36c0736aef8",
     "backend/business_app/permissions/context.py": "a5443dece34062c1ba1e768be1a86cc58042c04da4570691065ad12412080e5b",
     "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
     "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
     "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
-    "backend/business_app/permissions/guard.py": "32a672ba07a0d6b53d48637b7324e22c5a4f1fed11010d4424ba8a56302e840b",
-    "backend/business_app/permissions/object_facts.py": "6e71e2ba014f74d5ba1d456b82941ba1dbefce08d2ae66ab794d223bad543d72",
+    "backend/business_app/permissions/guard.py": "054414c25681b0e5cd6bc5c90be980c963164d5ed6d9d59c1b1136825c161d0a",
+    "backend/business_app/permissions/object_facts.py": "d7ba2583596058b810c9ee2ed93250d23ac4e497f061e9f8ff16e6e17b489737",
     "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
     "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
     "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
@@ -58,12 +62,14 @@
     "backend/business_app/permissions/work_subject.py": "dd00ff09568ab0baaa0213d3c158928e79a9eb267dd38f76268282bb3fe5b85b",
     "backend/business_app/registry_reads.py": "f1093953436592cc820875261ea843a0ad8e9697ae566ed77dc383864ee41835",
     "backend/business_app/registry_router.py": "bf659140c6500fe005e6e3907320c41a338315fe444f85c84d44e78e2318067f",
-    "backend/business_app/scope_catalog.py": "e677bcc3dd907575c56fb303201857e9422c53052990800b6f83783797c36f90",
-    "backend/business_app/scope_collections.py": "47ec59ca88bfd8d3a154da58ac83a6444bdb4f60a83a3a825df92397a6f32dbf",
+    "backend/business_app/scope_catalog.py": "4f6f2a27f4fcaa05e19cbf95e4fefd39c1612ee99f471738d52b64c7ad2250e1",
+    "backend/business_app/scope_collections.py": "1b9c8d9c0f53cea27c212da55fd3029cd9eb6e44f7a629875794927e5f7c1129",
     "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
     "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
-    "backend/business_app/scoped_objects.py": "5e30fafdb32c4596c0b8f66bb393b13f9518d913304e6c54945309a930a75c05",
+    "backend/business_app/scoped_objects.py": "5ca24b6657079c335680cec26fdd9336bc348ac556657675fc15c46dc39c4853",
     "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
+    "backend/business_app/source_registration.py": "f9a0f2722703867e9fe23bf756b6fd2be6ee15b294fc67b04160b8b71777429e",
+    "backend/business_app/source_registration_router.py": "86c3d1a139f4be199d531717a81fc72167a09db34202549573e241974bc91978",
     "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
     "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
     "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
@@ -85,11 +91,12 @@
     "backend/business_migrations/0011_operation_token.sql": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd",
     "backend/business_migrations/0012_catalog_reads.sql": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
     "backend/business_migrations/0013_report_reads.sql": "9465a51b638f9b13849938e5bc6c4aea6454f2f9a70ac08b03516f6fe81875ec",
+    "backend/business_migrations/0014_resource_registry.sql": "b41cffea753b6f4e758a7a487e86ce396e520a1402540de464184a3b1295c1d7",
     "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "04193ff12c7f9cb5db48588f16939abe0d63ae4ee0c34bd5056912c57f00dc44",
+    "tasks/execution-status.json": "df9869acda92be11c981ef69ed7db790e68ee2fd7212453409ab9bc428a72677",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -107,47 +114,43 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 117,
+    "all_completed_substeps": 123,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 117,
+    "authorized_completed_substeps": 123,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
-      "PARTIAL_VERIFIED_SCOPE": 54,
-      "NO_FULL_TASK_VERIFICATION_EVIDENCE": 69
+      "PARTIAL_VERIFIED_SCOPE": 56,
+      "NO_FULL_TASK_VERIFICATION_EVIDENCE": 67
     },
     "distinct_declared_tables": 55,
     "distinct_declared_operations": 53,
     "canonical_business_operation_count": 73,
     "canonical_internal_operation_count": 1,
-    "registered_business_operation_count": 47,
+    "registered_business_operation_count": 51,
     "registered_internal_operation_count": 1,
-    "unregistered_canonical_business_operation_count": 26,
-    "declared_operations_registered_in_business_source": 27,
-    "declared_operations_without_explicit_business_registration": 26,
+    "unregistered_canonical_business_operation_count": 22,
+    "declared_operations_registered_in_business_source": 31,
+    "declared_operations_without_explicit_business_registration": 22,
     "versioned_create_table_count": 64,
-    "versioned_sql_function_name_count": 30,
-    "backend_python_definition_count": 420,
-    "backend_python_definitions_with_direct_literal_sql_tables": 62,
+    "versioned_sql_function_name_count": 31,
+    "backend_python_definition_count": 447,
+    "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
   "unregistered_canonical_business_operation_ids": [
     "createReport",
     "createReportDraft",
-    "createSource",
     "createTask",
     "decidePropagationEdge",
     "devLogin",
-    "downloadAsset",
     "downloadReport",
     "extractClaims",
     "getIndex",
     "getModelHealth",
     "getSearchJob",
     "health",
-    "listEvaluations",
-    "listModels",
     "recordEvaluation",
     "registerModel",
     "requestFeedback",
@@ -2589,7 +2592,7 @@
             "line": 325,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -2644,10 +2647,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 12,
+      "completed_substeps_count": 13,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。",
-      "actual_remaining_summary": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、26未挂载操作及正式验收另列；不以本批通过关闭整任务。",
+      "actual_completed_summary": "原统一权限四项及P01—P07隔离实现/实际回归/CI/源码交付已验证；完整回归1009项通过，246格逻辑、真实SQL/对象/独立人员审批、事务撤销、工作节点和交付证据分别列明；最终复核7项问题已按实际测试修复。；以内容摘要缓存已校验权限目录，保留每次真实文件读取、变更/缺失拒绝、身份事实不缓存；13项缓存与205项旧权限纯回归通过；首轮843项完整回归在约551秒内结束，保留1项旧注册清单断言失败及修复。最终完整门禁与CI结果按专项回执单列，未放宽原1200秒限制或246格规则。；四个既有接口接入统一权限与范围：下载用途及分类、来源登记的独立权威证明、单位内模型/评测集合逐条过滤和提交前复核；原246格、旧迁移和原CI超时保留，完整门禁及托管结果另见本批回执。",
+      "actual_remaining_summary": "正式分类/用途/人员、工作委托和独立服务身份提供者、共享迁移/策略采用、T013真实身份恢复及旧凭据失效/退役、22未挂载操作及正式验收另列；不以本批通过关闭整任务。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -2979,6 +2982,32 @@
               "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
             }
           ]
+        },
+        {
+          "description": "四个既有接口接入统一权限与范围：下载用途及分类、来源登记的独立权威证明、单位内模型/评测集合逐条过滤和提交前复核；原246格、旧迁移和原CI超时保留，完整门禁及托管结果另见本批回执。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/object_facts.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/permissions/conditional.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/scope_collections.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "scripts/verify_t014_permissions.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -3146,7 +3175,7 @@
             "line": 325,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -3449,7 +3478,7 @@
             "line": 325,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -3935,7 +3964,7 @@
             "line": 116,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -4011,7 +4040,7 @@
             "line": 127,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -4066,7 +4095,7 @@
             "line": 53,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -4469,7 +4498,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._export",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 122,
+          "line": 123,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -4558,7 +4587,7 @@
             "line": 248,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -4613,7 +4642,7 @@
             "line": 265,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -4831,6 +4860,27 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -5064,6 +5114,28 @@
           "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
         },
         {
+          "qualified_name": "business_app.source_registration.SourceRegistration.create",
+          "source_path": "backend/business_app/source_registration.py",
+          "line": 170,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "body",
+              "request",
+              "key"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "source_registry"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
           "qualified_name": "business_app.uploads.repository.UploadRepository.complete",
           "source_path": "backend/business_app/uploads/repository.py",
           "line": 258,
@@ -5178,9 +5250,9 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 1,
+      "completed_substeps_count": 2,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试",
+      "actual_completed_summary": "来源列表/详情、权威同步及版本/有效期校验子范围已有测试；createSource已实现真实SQL登记、pending/verified权威证明精确绑定、同事务幂等与审计及提交前权威重读；客户端不得声明verified，未配置提供者拒绝；不包含到期告警、来源维护页面或正式授权。",
       "actual_remaining_summary": "接入真实来源授权依据和权威适配器，补登记/维护及来源管理页面；补到期告警/修改审计；客户端不能自行声明已核验授权",
       "completed_steps": [
         {
@@ -5200,12 +5272,38 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "description": "createSource已实现真实SQL登记、pending/verified权威证明精确绑定、同事务幂等与审计及提交前权威重读；客户端不得声明verified，未配置提供者拒绝；不包含到期告警、来源维护页面或正式授权。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/source_registration.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/source_registration_router.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_source_registration.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_source_registration_provider.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/外部条件",
-          "description": "接入真实来源授权依据和权威适配器，补登记/维护及来源管理页面"
+          "description": "登记接口已完成限定研发验证；继续接真实来源权威、来源维护及管理页面，不把pending登记当有效用途授权。"
         },
         {
           "category": "实施/验证",
@@ -5285,6 +5383,28 @@
               "self",
               "scope",
               "payload"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "source_registry"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
+          "qualified_name": "business_app.source_registration.SourceRegistration.create",
+          "source_path": "backend/business_app/source_registration.py",
+          "line": 170,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "body",
+              "request",
+              "key"
             ],
             "var_positional": null,
             "keyword_only": [],
@@ -5381,7 +5501,19 @@
               "503"
             ]
           },
-          "business_registration": null,
+          "business_registration": {
+            "operation_id": "createSource",
+            "method": "POST",
+            "path": "/api/v1/sources",
+            "python_function": "create_source",
+            "source_path": "backend/business_app/source_registration_router.py",
+            "line": 19,
+            "included_at": {
+              "source_path": "backend/business_app/main.py",
+              "line": 164
+            },
+            "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+          },
           "runtime_or_end_to_end_verified_by_inventory": false
         },
         {
@@ -5453,7 +5585,7 @@
             "line": 364,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -5645,7 +5777,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._upload",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 101,
+          "line": 102,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -5660,6 +5792,28 @@
           },
           "matched_declared_tables": [
             "upload_session"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
+          "qualified_name": "business_app.source_registration.SourceRegistration.create",
+          "source_path": "backend/business_app/source_registration.py",
+          "line": 170,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "body",
+              "request",
+              "key"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "source_registry"
           ],
           "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
         },
@@ -5850,7 +6004,7 @@
             "line": 19,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 147
+              "line": 159
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -5975,7 +6129,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._upload",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 101,
+          "line": 102,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -5996,7 +6150,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._read_binding",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 231,
+          "line": 242,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -6329,7 +6483,7 @@
             "line": 26,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 147
+              "line": 159
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -6470,6 +6624,27 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -6682,7 +6857,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._upload",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 101,
+          "line": 102,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -6703,7 +6878,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._read_binding",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 231,
+          "line": 242,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -7030,7 +7205,7 @@
             "line": 57,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 147
+              "line": 159
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -7085,9 +7260,9 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 1,
+      "completed_substeps_count": 2,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证",
+      "actual_completed_summary": "PoC S3/SeaweedFS和业务独立FileStore均有开发读写/摘要验证；新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。",
       "actual_remaining_summary": "按适用正式存储实现版本/权限/保留及完整对象API；落实WORM/备份与生产准入；开发FileStore不等于正式证据存储",
       "completed_steps": [
         {
@@ -7109,6 +7284,32 @@
             {
               "path": "docs/00-project/validation/business-foundation-report.json",
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+            }
+          ]
+        },
+        {
+          "description": "新增研发FileStore受控资产下载：固定对象版本/摘要/大小、案件和来源下载用途核验，完整字节校验与审计提交后才返回，支持Range/If-Range；不等于正式S3/WORM/恢复准入。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/asset_download.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/scoped_objects.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_asset_download.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/platform/test_asset_download_projection.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
             }
           ]
         }
@@ -7172,6 +7373,28 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset",
+            "object_version"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -7518,7 +7741,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._registered",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 74,
+          "line": 75,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -7664,7 +7887,19 @@
               "503"
             ]
           },
-          "business_registration": null,
+          "business_registration": {
+            "operation_id": "downloadAsset",
+            "method": "GET",
+            "path": "/api/v1/assets/{id}/content",
+            "python_function": "download_asset",
+            "source_path": "backend/business_app/asset_download_router.py",
+            "line": 16,
+            "included_at": {
+              "source_path": "backend/business_app/main.py",
+              "line": 166
+            },
+            "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+          },
           "runtime_or_end_to_end_verified_by_inventory": false
         }
       ],
@@ -7798,6 +8033,27 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -8010,7 +8266,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._upload",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 101,
+          "line": 102,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8031,7 +8287,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._read_binding",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 231,
+          "line": 242,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8358,7 +8614,7 @@
             "line": 57,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 147
+              "line": 159
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -8497,6 +8753,27 @@
       ],
       "database_method_references": [
         {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
           "line": 40,
@@ -8708,7 +8985,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._upload",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 101,
+          "line": 102,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -8729,7 +9006,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._read_binding",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 231,
+          "line": 242,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -9056,7 +9333,7 @@
             "line": 57,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 147
+              "line": 159
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -9273,7 +9550,7 @@
             "line": 480,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -9327,7 +9604,7 @@
             "line": 437,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -9451,10 +9728,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 2,
+      "completed_substeps_count": 3,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。",
-      "actual_remaining_summary": "完整资产血缘和来源授权状态、受控下载及下载审计、真实后端与正式提供者联调、负责人及源标准完整验收仍待",
+      "actual_completed_summary": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。",
+      "actual_remaining_summary": "完整血缘、来源授权明细、真实后端/身份/来源组合E2E、实际负责人和源标准完整验收仍待。",
       "completed_steps": [
         {
           "description": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
@@ -9511,12 +9788,38 @@
               "scope": "本轮隔离研发子范围；准确源码/命令/结果见专项回执，非整任务、正式策略或共享部署验收"
             }
           ]
+        },
+        {
+          "description": "资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "frontend/src/views/AssetsView.vue",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/asset-download.ts",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "frontend/src/business/asset-download.test.ts",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "补完整资产血缘与来源授权展示、受控下载及审计；列表/详情/当前页筛选的只读前端已实现，不代表原始媒体可编辑。"
+          "description": "列表/详情与受控下载前端已实现；补完整资产血缘、来源授权状态展示及真实权威组合联调。"
         },
         {
           "category": "测试",
@@ -9590,6 +9893,28 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset",
+            "object_version"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -9936,7 +10261,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._registered",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 74,
+          "line": 75,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -10090,7 +10415,7 @@
             "line": 37,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 150
+              "line": 162
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -10144,7 +10469,7 @@
             "line": 27,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 150
+              "line": 162
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -10211,7 +10536,19 @@
               "503"
             ]
           },
-          "business_registration": null,
+          "business_registration": {
+            "operation_id": "downloadAsset",
+            "method": "GET",
+            "path": "/api/v1/assets/{id}/content",
+            "python_function": "download_asset",
+            "source_path": "backend/business_app/asset_download_router.py",
+            "line": 16,
+            "included_at": {
+              "source_path": "backend/business_app/main.py",
+              "line": 166
+            },
+            "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+          },
           "runtime_or_end_to_end_verified_by_inventory": false
         }
       ],
@@ -10666,7 +11003,7 @@
         {
           "qualified_name": "business_app.scope_collections.bind_task_scope",
           "source_path": "backend/business_app/scope_collections.py",
-          "line": 82,
+          "line": 86,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -10686,7 +11023,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11062,7 +11399,7 @@
         {
           "qualified_name": "business_app.scope_collections.bind_task_scope",
           "source_path": "backend/business_app/scope_collections.py",
-          "line": 82,
+          "line": 86,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11082,7 +11419,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11626,7 +11963,7 @@
         {
           "qualified_name": "business_app.scope_collections.bind_task_scope",
           "source_path": "backend/business_app/scope_collections.py",
-          "line": 82,
+          "line": 86,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11646,7 +11983,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -11736,7 +12073,7 @@
             "line": 54,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 150
+              "line": 162
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -11813,7 +12150,7 @@
             "line": 91,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -12460,7 +12797,7 @@
         {
           "qualified_name": "business_app.scope_collections.bind_task_scope",
           "source_path": "backend/business_app/scope_collections.py",
-          "line": 82,
+          "line": 86,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -12481,7 +12818,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -12640,7 +12977,7 @@
             "line": 688,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -13188,7 +13525,7 @@
         {
           "qualified_name": "business_app.scope_collections.bind_task_scope",
           "source_path": "backend/business_app/scope_collections.py",
-          "line": 82,
+          "line": 86,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -13209,7 +13546,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -13367,7 +13704,7 @@
             "line": 54,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 150
+              "line": 162
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -13444,7 +13781,7 @@
             "line": 91,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -13520,7 +13857,7 @@
             "line": 688,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -14440,6 +14777,27 @@
       ],
       "database_method_references": [
         {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
           "line": 40,
@@ -14767,7 +15125,7 @@
             "line": 111,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -14904,17 +15262,44 @@
       "declared_blocking_questions": [
         "Q-33"
       ],
-      "ledger_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 0,
+      "completed_substeps_count": 1,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "尚无本任务已验证交付",
-      "actual_remaining_summary": "完成模型注册表的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "actual_completed_summary": "尚无本任务已验证交付；listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。",
+      "actual_remaining_summary": "模型登记写入、唯一版本/模型卡约束的服务验证、修改审计、正式制品与上下线管理、页面及整任务验收仍待。",
+      "completed_steps": [
+        {
+          "description": "listModels读取同单位真实模型元数据，集合及逐条授权先于分页，游标绑定身份/操作/页大小/可见事实，提交前重核；未实现registerModel写入、正式上下线、真实制品准入或模型管理页面。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_app/model_catalog_router.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "backend/business_migrations/0014_resource_registry.sql",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "管理模型名称、版本、镜像摘要、指标、数据版本和状态。"
+          "description": "列表读取已实现；补模型登记写入、重复版本约束调用、修改审计、上下线权限及模型管理页面。"
         },
         {
           "category": "测试",
@@ -14979,6 +15364,27 @@
               "backend",
               "value",
               "deadline"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "model_registry"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
+          "qualified_name": "business_app.model_catalog.ModelCatalog._item",
+          "source_path": "backend/business_app/model_catalog.py",
+          "line": 108,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "connection",
+              "scope",
+              "operation",
+              "item"
             ],
             "var_positional": null,
             "keyword_only": [],
@@ -15085,7 +15491,19 @@
               "503"
             ]
           },
-          "business_registration": null,
+          "business_registration": {
+            "operation_id": "listModels",
+            "method": "GET",
+            "path": "/api/v1/models",
+            "python_function": "list_models",
+            "source_path": "backend/business_app/model_catalog_router.py",
+            "line": 34,
+            "included_at": {
+              "source_path": "backend/business_app/main.py",
+              "line": 165
+            },
+            "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+          },
           "runtime_or_end_to_end_verified_by_inventory": false
         }
       ],
@@ -15423,6 +15841,27 @@
               "backend",
               "value",
               "deadline"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "model_registry"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
+          "qualified_name": "business_app.model_catalog.ModelCatalog._item",
+          "source_path": "backend/business_app/model_catalog.py",
+          "line": 108,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "connection",
+              "scope",
+              "operation",
+              "item"
             ],
             "var_positional": null,
             "keyword_only": [],
@@ -15795,17 +16234,44 @@
       "declared_blocking_questions": [
         "Q-33"
       ],
-      "ledger_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
+      "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 0,
+      "completed_substeps_count": 1,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "尚无本任务已验证交付",
-      "actual_remaining_summary": "完成模型评测记录管理的交付、异常/权限测试和源验收",
-      "completed_steps": [],
+      "actual_completed_summary": "尚无本任务已验证交付；listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。",
+      "actual_remaining_summary": "真实评测记录写入、总体/分组指标生产者、报告生成/保存及合格评测对发布审批的约束、页面和源验收仍待。",
+      "completed_steps": [
+        {
+          "description": "listEvaluations读取已持久化评测记录，验证同单位模型和登记对象的版本/摘要，保留失败数和协议/数据版本；不运行评测、不生成指标、不代替评测写入或发布审批。",
+          "kind": "DEVELOPMENT",
+          "evidence": [
+            {
+              "path": "backend/business_app/model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/platform/test_model_catalog_projection.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_model_catalog.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "tests/business/test_resource_registry_migration.py",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            },
+            {
+              "path": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+              "scope": "限定研发子范围及实际命令见本批回执；非整任务、正式规则或共享部署验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "保存数据集版本、总体和分组指标、报告文件。"
+          "description": "已有评测记录只读列表已实现；补真实评测登记/写入、分组指标、报告生成与发布审批引用。"
         },
         {
           "category": "测试",
@@ -15932,7 +16398,19 @@
               "503"
             ]
           },
-          "business_registration": null,
+          "business_registration": {
+            "operation_id": "listEvaluations",
+            "method": "GET",
+            "path": "/api/v1/model-evaluations",
+            "python_function": "list_evaluations",
+            "source_path": "backend/business_app/model_catalog_router.py",
+            "line": 43,
+            "included_at": {
+              "source_path": "backend/business_app/main.py",
+              "line": 165
+            },
+            "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+          },
           "runtime_or_end_to_end_verified_by_inventory": false
         }
       ],
@@ -16228,6 +16706,27 @@
             "model_release"
           ],
           "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
+          "qualified_name": "business_app.model_catalog.ModelCatalog._item",
+          "source_path": "backend/business_app/model_catalog.py",
+          "line": 108,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "connection",
+              "scope",
+              "operation",
+              "item"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "model_registry"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
         }
       ],
       "api_scope": [
@@ -16282,7 +16781,19 @@
               "503"
             ]
           },
-          "business_registration": null,
+          "business_registration": {
+            "operation_id": "listModels",
+            "method": "GET",
+            "path": "/api/v1/models",
+            "python_function": "list_models",
+            "source_path": "backend/business_app/model_catalog_router.py",
+            "line": 34,
+            "included_at": {
+              "source_path": "backend/business_app/main.py",
+              "line": 165
+            },
+            "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+          },
           "runtime_or_end_to_end_verified_by_inventory": false
         },
         {
@@ -16550,7 +17061,7 @@
             "line": 524,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -16616,7 +17127,7 @@
             "line": 606,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -17255,7 +17766,7 @@
             "line": 524,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -17321,7 +17832,7 @@
             "line": 606,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -17486,7 +17997,7 @@
             "line": 524,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -17552,7 +18063,7 @@
             "line": 606,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -17733,7 +18244,7 @@
             "line": 96,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -18420,7 +18931,7 @@
             "line": 101,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -19008,6 +19519,27 @@
       ],
       "database_method_references": [
         {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
           "line": 40,
@@ -19544,6 +20076,27 @@
       ],
       "database_method_references": [
         {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
           "line": 40,
@@ -19972,6 +20525,27 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "media_asset"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -21308,7 +21882,7 @@
             "line": 116,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -21573,7 +22147,7 @@
             "line": 121,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -22051,7 +22625,7 @@
             "line": 121,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -22591,7 +23165,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -22799,7 +23373,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -22912,7 +23486,7 @@
             "line": 106,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -23449,7 +24023,7 @@
             "line": 241,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -23504,7 +24078,7 @@
             "line": 116,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -23580,7 +24154,7 @@
             "line": 127,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -23635,7 +24209,7 @@
             "line": 524,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -24004,7 +24578,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 139,
+          "line": 140,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -24117,7 +24691,7 @@
             "line": 106,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 148
+              "line": 160
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -24184,7 +24758,7 @@
             "line": 241,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -24323,6 +24897,27 @@
         }
       ],
       "database_method_references": [
+        {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "object_version"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
         {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
@@ -24541,7 +25136,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._registered",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 74,
+          "line": 75,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -24789,6 +25384,27 @@
       ],
       "database_method_references": [
         {
+          "qualified_name": "business_app.asset_download.AssetDownload.content",
+          "source_path": "backend/business_app/asset_download.py",
+          "line": 97,
+          "parameter_names": {
+            "positional_only": [],
+            "positional_or_keyword": [
+              "self",
+              "scope",
+              "identifier",
+              "request"
+            ],
+            "var_positional": null,
+            "keyword_only": [],
+            "var_keyword": null
+          },
+          "matched_declared_tables": [
+            "object_version"
+          ],
+          "evidence_kind": "STATIC_TABLE_INTERSECTION_NOT_TASK_IMPLEMENTATION_OR_RUNTIME_PROOF"
+        },
+        {
           "qualified_name": "business_app.catalog_reads.CatalogReads.asset",
           "source_path": "backend/business_app/catalog_reads.py",
           "line": 40,
@@ -25006,7 +25622,7 @@
         {
           "qualified_name": "business_app.scoped_objects.ScopedObjects._registered",
           "source_path": "backend/business_app/scoped_objects.py",
-          "line": 74,
+          "line": 75,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -25729,7 +26345,7 @@
             "line": 20,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 151
+              "line": 163
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -26135,7 +26751,7 @@
             "line": 116,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -26211,7 +26827,7 @@
             "line": 127,
             "included_at": {
               "source_path": "backend/business_app/main.py",
-              "line": 149
+              "line": 161
             },
             "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
           },
@@ -27617,7 +28233,7 @@
       "line": 688,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27630,7 +28246,7 @@
       "line": 57,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 147
+        "line": 159
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27643,7 +28259,7 @@
       "line": 480,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27656,7 +28272,7 @@
       "line": 524,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27669,7 +28285,20 @@
       "line": 241,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
+      },
+      "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+    },
+    {
+      "operation_id": "createSource",
+      "method": "POST",
+      "path": "/api/v1/sources",
+      "python_function": "create_source",
+      "source_path": "backend/business_app/source_registration_router.py",
+      "line": 19,
+      "included_at": {
+        "source_path": "backend/business_app/main.py",
+        "line": 164
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27682,7 +28311,7 @@
       "line": 19,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 147
+        "line": 159
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27695,7 +28324,20 @@
       "line": 127,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
+      },
+      "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+    },
+    {
+      "operation_id": "downloadAsset",
+      "method": "GET",
+      "path": "/api/v1/assets/{id}/content",
+      "python_function": "download_asset",
+      "source_path": "backend/business_app/asset_download_router.py",
+      "line": 16,
+      "included_at": {
+        "source_path": "backend/business_app/main.py",
+        "line": 166
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27708,7 +28350,7 @@
       "line": 281,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27721,7 +28363,7 @@
       "line": 265,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27734,7 +28376,7 @@
       "line": 108,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27747,7 +28389,7 @@
       "line": 27,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 150
+        "line": 162
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27760,7 +28402,7 @@
       "line": 275,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27773,7 +28415,7 @@
       "line": 325,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27786,7 +28428,7 @@
       "line": 287,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27799,7 +28441,7 @@
       "line": 116,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27812,7 +28454,7 @@
       "line": 101,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27825,7 +28467,7 @@
       "line": 437,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27838,7 +28480,7 @@
       "line": 488,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27851,7 +28493,7 @@
       "line": 644,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27864,7 +28506,7 @@
       "line": 652,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27877,7 +28519,7 @@
       "line": 121,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27890,7 +28532,7 @@
       "line": 20,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 151
+        "line": 163
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27903,7 +28545,7 @@
       "line": 225,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27916,7 +28558,7 @@
       "line": 233,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27929,7 +28571,7 @@
       "line": 96,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27942,7 +28584,7 @@
       "line": 381,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27955,7 +28597,7 @@
       "line": 91,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27968,7 +28610,7 @@
       "line": 106,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27981,7 +28623,7 @@
       "line": 679,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -27994,7 +28636,7 @@
       "line": 111,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 148
+        "line": 160
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28007,7 +28649,7 @@
       "line": 51,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 147
+        "line": 159
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28020,7 +28662,7 @@
       "line": 283,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 152
+        "line": 167
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28033,7 +28675,7 @@
       "line": 53,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28046,7 +28688,7 @@
       "line": 90,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28059,7 +28701,7 @@
       "line": 37,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 150
+        "line": 162
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28072,7 +28714,33 @@
       "line": 248,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
+      },
+      "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+    },
+    {
+      "operation_id": "listEvaluations",
+      "method": "GET",
+      "path": "/api/v1/model-evaluations",
+      "python_function": "list_evaluations",
+      "source_path": "backend/business_app/model_catalog_router.py",
+      "line": 43,
+      "included_at": {
+        "source_path": "backend/business_app/main.py",
+        "line": 165
+      },
+      "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+    },
+    {
+      "operation_id": "listModels",
+      "method": "GET",
+      "path": "/api/v1/models",
+      "python_function": "list_models",
+      "source_path": "backend/business_app/model_catalog_router.py",
+      "line": 34,
+      "included_at": {
+        "source_path": "backend/business_app/main.py",
+        "line": 165
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28085,7 +28753,7 @@
       "line": 167,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28098,7 +28766,7 @@
       "line": 606,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28111,7 +28779,7 @@
       "line": 143,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28124,7 +28792,7 @@
       "line": 364,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28137,7 +28805,7 @@
       "line": 740,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28150,7 +28818,7 @@
       "line": 672,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28163,7 +28831,7 @@
       "line": 54,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 150
+        "line": 162
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28176,7 +28844,7 @@
       "line": 67,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 147
+        "line": 159
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28189,7 +28857,7 @@
       "line": 26,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 147
+        "line": 159
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28202,7 +28870,7 @@
       "line": 116,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28215,7 +28883,7 @@
       "line": 135,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     },
@@ -28228,7 +28896,7 @@
       "line": 389,
       "included_at": {
         "source_path": "backend/business_app/main.py",
-        "line": 149
+        "line": 161
       },
       "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
     }
@@ -28974,6 +29642,12 @@
         "line": 3,
         "schema": "mt",
         "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      },
+      {
+        "source_path": "backend/business_migrations/0014_resource_registry.sql",
+        "line": 3,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
       }
     ],
     "scope_mode": [
@@ -29032,6 +29706,12 @@
         "line": 17,
         "schema": "mt",
         "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      },
+      {
+        "source_path": "backend/business_migrations/0014_resource_registry.sql",
+        "line": 17,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
       }
     ],
     "lookup_scope_metadata": [
@@ -29046,10 +29726,170 @@
         "line": 39,
         "schema": "mt",
         "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      },
+      {
+        "source_path": "backend/business_migrations/0014_resource_registry.sql",
+        "line": 41,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "model_evaluation_artifact_metadata": [
+      {
+        "source_path": "backend/business_migrations/0014_resource_registry.sql",
+        "line": 173,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
       }
     ]
   },
   "backend_python_method_source_index": [
+    {
+      "qualified_name": "business_app.asset_download.validate_download_request",
+      "python_name": "validate_download_request",
+      "source_path": "backend/business_app/asset_download.py",
+      "line": 25,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "has_query",
+          "ranges",
+          "conditions"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.asset_download.select_range",
+      "python_name": "select_range",
+      "source_path": "backend/business_app/asset_download.py",
+      "line": 38,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "size",
+          "raw",
+          "condition",
+          "tag"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.asset_download.buffer_verified",
+      "python_name": "buffer_verified",
+      "source_path": "backend/business_app/asset_download.py",
+      "line": 58,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "stream",
+          "size",
+          "sha256",
+          "limit"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.asset_download.download_headers",
+      "python_name": "download_headers",
+      "source_path": "backend/business_app/asset_download.py",
+      "line": 81,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "identifier",
+          "tag"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.asset_download.AssetDownload.__init__",
+      "python_name": "__init__",
+      "source_path": "backend/business_app/asset_download.py",
+      "line": 92,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "database",
+          "settings",
+          "store",
+          "authority"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.asset_download.AssetDownload.content",
+      "python_name": "content",
+      "source_path": "backend/business_app/asset_download.py",
+      "line": 97,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "scope",
+          "identifier",
+          "request"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [
+        "media_asset",
+        "object_version"
+      ],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.asset_download_router.download_asset",
+      "python_name": "download_asset",
+      "source_path": "backend/business_app/asset_download_router.py",
+      "line": 16,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request",
+          "id"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
     {
       "qualified_name": "business_app.auth.AuthorityProvider.authenticate",
       "python_name": "authenticate",
@@ -32292,7 +33132,7 @@
       "qualified_name": "business_app.errors.BusinessError.__init__",
       "python_name": "__init__",
       "source_path": "backend/business_app/errors.py",
-      "line": 208,
+      "line": 211,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33863,7 +34703,7 @@
       "qualified_name": "business_app.main.private_response",
       "python_name": "private_response",
       "source_path": "backend/business_app/main.py",
-      "line": 59,
+      "line": 65,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33881,7 +34721,7 @@
       "qualified_name": "business_app.main.create_app",
       "python_name": "create_app",
       "source_path": "backend/business_app/main.py",
-      "line": 67,
+      "line": 73,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33895,6 +34735,7 @@
           "definition_provider",
           "deployment_operations",
           "source_synchronization",
+          "source_registration_authority",
           "service_authority",
           "inference_backends",
           "permission_authority",
@@ -33915,7 +34756,7 @@
       "qualified_name": "business_app.main.create_app.lifespan",
       "python_name": "lifespan",
       "source_path": "backend/business_app/main.py",
-      "line": 90,
+      "line": 97,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33933,7 +34774,7 @@
       "qualified_name": "business_app.main.create_app.published_openapi",
       "python_name": "published_openapi",
       "source_path": "backend/business_app/main.py",
-      "line": 158,
+      "line": 173,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [],
@@ -33949,7 +34790,7 @@
       "qualified_name": "business_app.main.create_app.request_trace",
       "python_name": "request_trace",
       "source_path": "backend/business_app/main.py",
-      "line": 184,
+      "line": 199,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33968,7 +34809,7 @@
       "qualified_name": "business_app.main.create_app.business_error",
       "python_name": "business_error",
       "source_path": "backend/business_app/main.py",
-      "line": 217,
+      "line": 232,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33987,7 +34828,7 @@
       "qualified_name": "business_app.main.create_app.database_error",
       "python_name": "database_error",
       "source_path": "backend/business_app/main.py",
-      "line": 242,
+      "line": 257,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34006,7 +34847,7 @@
       "qualified_name": "business_app.main.create_app.invalid_request",
       "python_name": "invalid_request",
       "source_path": "backend/business_app/main.py",
-      "line": 246,
+      "line": 261,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34025,12 +34866,219 @@
       "qualified_name": "business_app.main.create_app.http_error",
       "python_name": "http_error",
       "source_path": "backend/business_app/main.py",
-      "line": 250,
+      "line": 265,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
           "request",
           "exception"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog._projection",
+      "python_name": "_projection",
+      "source_path": "backend/business_app/model_catalog.py",
+      "line": 54,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "row",
+          "org_id",
+          "fields",
+          "schema"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog.project_model",
+      "python_name": "project_model",
+      "source_path": "backend/business_app/model_catalog.py",
+      "line": 76,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "row",
+          "org_id"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog.project_evaluation",
+      "python_name": "project_evaluation",
+      "source_path": "backend/business_app/model_catalog.py",
+      "line": 80,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "row",
+          "org_id",
+          "model",
+          "artifact"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog.ModelCatalog.__init__",
+      "python_name": "__init__",
+      "source_path": "backend/business_app/model_catalog.py",
+      "line": 104,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "database",
+          "settings"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog.ModelCatalog._item",
+      "python_name": "_item",
+      "source_path": "backend/business_app/model_catalog.py",
+      "line": 108,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "connection",
+          "scope",
+          "operation",
+          "item"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [
+        "model_registry"
+      ],
+      "dynamic_or_indirect_sql_argument_present": true,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog.ModelCatalog.list",
+      "python_name": "list",
+      "source_path": "backend/business_app/model_catalog.py",
+      "line": 143,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "actor",
+          "operation",
+          "cursor",
+          "limit",
+          "conditions"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog_router.validate_query",
+      "python_name": "validate_query",
+      "source_path": "backend/business_app/model_catalog_router.py",
+      "line": 17,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog_router._list",
+      "python_name": "_list",
+      "source_path": "backend/business_app/model_catalog_router.py",
+      "line": 23,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request",
+          "operation",
+          "schema",
+          "cursor",
+          "limit"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog_router.list_models",
+      "python_name": "list_models",
+      "source_path": "backend/business_app/model_catalog_router.py",
+      "line": 34,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request",
+          "cursor",
+          "limit"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.model_catalog_router.list_evaluations",
+      "python_name": "list_evaluations",
+      "source_path": "backend/business_app/model_catalog_router.py",
+      "line": 43,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request",
+          "cursor",
+          "limit"
         ],
         "var_positional": null,
         "keyword_only": [],
@@ -34204,7 +35252,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPort.authorize_http",
       "python_name": "authorize_http",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 103,
+      "line": 104,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34227,7 +35275,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPort.policy_kinds",
       "python_name": "policy_kinds",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 111,
+      "line": 112,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34246,7 +35294,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPort.authorize_collection_item",
       "python_name": "authorize_collection_item",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 112,
+      "line": 113,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34269,7 +35317,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPort.review_ids",
       "python_name": "review_ids",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 115,
+      "line": 116,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34292,7 +35340,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.__init__",
       "python_name": "__init__",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 121,
+      "line": 122,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34316,7 +35364,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority._roles",
       "python_name": "_roles",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 134,
+      "line": 135,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34337,7 +35385,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority._facts",
       "python_name": "_facts",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 141,
+      "line": 142,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34359,7 +35407,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.authorize",
       "python_name": "authorize",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 160,
+      "line": 161,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34382,7 +35430,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.authorize_http",
       "python_name": "authorize_http",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 213,
+      "line": 214,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34405,7 +35453,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.authorize_collection_item",
       "python_name": "authorize_collection_item",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 224,
+      "line": 225,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34428,7 +35476,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority._work_roles",
       "python_name": "_work_roles",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 233,
+      "line": 234,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34449,7 +35497,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority._work_facts",
       "python_name": "_work_facts",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 243,
+      "line": 244,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34471,7 +35519,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.authorize_work",
       "python_name": "authorize_work",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 266,
+      "line": 267,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34494,7 +35542,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.policy_kinds",
       "python_name": "policy_kinds",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 336,
+      "line": 337,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -34513,7 +35561,7 @@
       "qualified_name": "business_app.permissions.conditional.ConditionalPermissionAuthority.review_ids",
       "python_name": "review_ids",
       "source_path": "backend/business_app/permissions/conditional.py",
-      "line": 354,
+      "line": 355,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35303,7 +36351,7 @@
       "qualified_name": "business_app.permissions.guard.audit_protected_routes",
       "python_name": "audit_protected_routes",
       "source_path": "backend/business_app/permissions/guard.py",
-      "line": 143,
+      "line": 158,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35321,7 +36369,7 @@
       "qualified_name": "business_app.permissions.object_facts.digest",
       "python_name": "digest",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 120,
+      "line": 127,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35339,7 +36387,7 @@
       "qualified_name": "business_app.permissions.object_facts.SupplementalFacts.read",
       "python_name": "read",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 127,
+      "line": 134,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35362,7 +36410,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader.__init__",
       "python_name": "__init__",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 135,
+      "line": 142,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35384,7 +36432,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader._validate_target",
       "python_name": "_validate_target",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 145,
+      "line": 152,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35403,7 +36451,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader.resolve_http",
       "python_name": "resolve_http",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 223,
+      "line": 242,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35426,7 +36474,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader._object",
       "python_name": "_object",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 351,
+      "line": 375,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35447,7 +36495,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader.review_candidates",
       "python_name": "review_candidates",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 378,
+      "line": 402,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35468,7 +36516,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader.read",
       "python_name": "read",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 409,
+      "line": 433,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35491,7 +36539,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader.read_for_work",
       "python_name": "read_for_work",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 418,
+      "line": 442,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35515,7 +36563,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader._read",
       "python_name": "_read",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 436,
+      "line": 460,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35540,7 +36588,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader._read.database_timestamp",
       "python_name": "database_timestamp",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 530,
+      "line": 556,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -35558,7 +36606,7 @@
       "qualified_name": "business_app.permissions.object_facts.ObjectFactsReader._read.typed",
       "python_name": "typed",
       "source_path": "backend/business_app/permissions/object_facts.py",
-      "line": 539,
+      "line": 565,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36411,7 +37459,7 @@
       "qualified_name": "business_app.scope_catalog.registered_operation",
       "python_name": "registered_operation",
       "source_path": "backend/business_app/scope_catalog.py",
-      "line": 91,
+      "line": 130,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36429,7 +37477,7 @@
       "qualified_name": "business_app.scope_catalog.lookup_spec",
       "python_name": "lookup_spec",
       "source_path": "backend/business_app/scope_catalog.py",
-      "line": 102,
+      "line": 141,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36447,7 +37495,7 @@
       "qualified_name": "business_app.scope_catalog._table_scopes",
       "python_name": "_table_scopes",
       "source_path": "backend/business_app/scope_catalog.py",
-      "line": 209,
+      "line": 253,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [],
@@ -36463,7 +37511,7 @@
       "qualified_name": "business_app.scope_collections.require_root",
       "python_name": "require_root",
       "source_path": "backend/business_app/scope_collections.py",
-      "line": 53,
+      "line": 57,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36482,7 +37530,7 @@
       "qualified_name": "business_app.scope_collections.require_resource",
       "python_name": "require_resource",
       "source_path": "backend/business_app/scope_collections.py",
-      "line": 75,
+      "line": 79,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36503,7 +37551,7 @@
       "qualified_name": "business_app.scope_collections.bind_task_scope",
       "python_name": "bind_task_scope",
       "source_path": "backend/business_app/scope_collections.py",
-      "line": 82,
+      "line": 86,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36527,7 +37575,7 @@
       "qualified_name": "business_app.scope_collections.collection_metadata",
       "python_name": "collection_metadata",
       "source_path": "backend/business_app/scope_collections.py",
-      "line": 177,
+      "line": 181,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36549,7 +37597,7 @@
       "qualified_name": "business_app.scope_collections.CollectionScope.__init__",
       "python_name": "__init__",
       "source_path": "backend/business_app/scope_collections.py",
-      "line": 264,
+      "line": 268,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36568,7 +37616,7 @@
       "qualified_name": "business_app.scope_collections.CollectionScope.allowed_ids",
       "python_name": "allowed_ids",
       "source_path": "backend/business_app/scope_collections.py",
-      "line": 268,
+      "line": 272,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36803,7 +37851,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects.__init__",
       "python_name": "__init__",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 53,
+      "line": 54,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36825,7 +37873,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._checkpoint",
       "python_name": "_checkpoint",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 59,
+      "line": 60,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36844,7 +37892,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._source",
       "python_name": "_source",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 66,
+      "line": 67,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36865,7 +37913,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._registered",
       "python_name": "_registered",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 74,
+      "line": 75,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36887,7 +37935,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._upload",
       "python_name": "_upload",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 101,
+      "line": 102,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36910,7 +37958,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._export",
       "python_name": "_export",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 122,
+      "line": 123,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36933,7 +37981,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._media",
       "python_name": "_media",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 139,
+      "line": 140,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36959,7 +38007,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._read_binding",
       "python_name": "_read_binding",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 231,
+      "line": 242,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -36983,7 +38031,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects.read",
       "python_name": "read",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 278,
+      "line": 289,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -37005,7 +38053,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects._write_binding",
       "python_name": "_write_binding",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 309,
+      "line": 320,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -37026,7 +38074,7 @@
       "qualified_name": "business_app.scoped_objects.ScopedObjects.put",
       "python_name": "put",
       "source_path": "backend/business_app/scoped_objects.py",
-      "line": 332,
+      "line": 343,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -37071,6 +38119,204 @@
         "positional_only": [],
         "positional_or_keyword": [
           "environment"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration.SourceRegistrationAuthority.resolve",
+      "python_name": "resolve",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 42,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "scope",
+          "body"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "connection"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration.now",
+      "python_name": "now",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 47,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration._aware",
+      "python_name": "_aware",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 51,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration._registration_expiry",
+      "python_name": "_registration_expiry",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 55,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration.resolve_registration_proof",
+      "python_name": "resolve_registration_proof",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 83,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "authority",
+          "scope",
+          "body"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "connection",
+          "clock"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration._wire",
+      "python_name": "_wire",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 143,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "item"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration.SourceRegistration.__init__",
+      "python_name": "__init__",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 160,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "database",
+          "receipts",
+          "authority"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "clock"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration.SourceRegistration.create",
+      "python_name": "create",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 170,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "scope",
+          "body",
+          "request",
+          "key"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [
+        "source_registry"
+      ],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration.SourceRegistration.create.recheck",
+      "python_name": "recheck",
+      "source_path": "backend/business_app/source_registration.py",
+      "line": 202,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.source_registration_router.create_source",
+      "python_name": "create_source",
+      "source_path": "backend/business_app/source_registration_router.py",
+      "line": 19,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request",
+          "body",
+          "idempotency_key"
         ],
         "var_positional": null,
         "keyword_only": [],

@@ -22,11 +22,11 @@
 | [decideApproval](../operations/decideApproval.md) | POST /api/v1/approvals/{id}/decisions | DEV_PARTIAL |
 | [issueOperationToken](../operations/issueOperationToken.md) | POST /api/v1/operation-tokens | DEV_PARTIAL |
 | [registerModel](../operations/registerModel.md) | POST /api/v1/models | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [listModels](../operations/listModels.md) | GET /api/v1/models | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listModels](../operations/listModels.md) | GET /api/v1/models | DEV_PARTIAL |
 | [getModelHealth](../operations/getModelHealth.md) | GET /api/v1/models/{id}/health | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [rolloutModel](../operations/rolloutModel.md) | POST /api/v1/models/{id}/rollouts | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
 | [recordEvaluation](../operations/recordEvaluation.md) | POST /api/v1/model-evaluations | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
-| [listEvaluations](../operations/listEvaluations.md) | GET /api/v1/model-evaluations | CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API |
+| [listEvaluations](../operations/listEvaluations.md) | GET /api/v1/model-evaluations | DEV_PARTIAL |
 | [listAuditEvents](../operations/listAuditEvents.md) | GET /api/v1/audit/events | DEV_PARTIAL |
 | [exportAudit](../operations/exportAudit.md) | POST /api/v1/audit/exports | DEV_PARTIAL |
 | [createPolicy](../operations/createPolicy.md) | POST /api/v1/policies | DEV_PARTIAL |

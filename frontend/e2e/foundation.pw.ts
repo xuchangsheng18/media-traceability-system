@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { createHash } from 'node:crypto'
 import type { Schemas } from '../src/business/api'
 
 test('health navigation shares the in-memory token and reload clears it', async ({ page }) => {
@@ -316,9 +317,8 @@ test('asset transport fixture supports scoped paging, current-page filters and r
   await page.getByRole('button', { name: '查看详情', exact: true }).click()
   await expect(page.locator('dd').filter({ hasText: 'self-owned-fixed-v3' })).toBeVisible()
   await expect(page.locator('dd').filter({ hasText: 'b'.repeat(64) })).toBeVisible()
-  await expect(
-    page.getByText('完整血缘、来源授权明细及受控下载尚未接入本页', { exact: false }),
-  ).toBeVisible()
+  await expect(page.getByText('完整血缘、来源授权明细尚未接入本页', { exact: false })).toBeVisible()
+  await expect(page.getByRole('button', { name: '下载固定版本', exact: true })).toBeDisabled()
   await expect(page.locator('dl input, dl textarea, dl button')).toHaveCount(0)
   await page.getByRole('button', { name: '下一页资产' }).click()
   await expect(page.getByRole('row').filter({ hasText: otherAssetId })).toContainText('QUARANTINED')
@@ -561,6 +561,103 @@ test('asset detail transport fixture rejects a different case and discards an ol
   await response
   await expect(page.locator('dd').filter({ hasText: 'self-owned-fixed-v3' })).toHaveCount(0)
   await expect(page.locator('dd').filter({ hasText: 'self-owned-new-selection' })).toBeVisible()
+})
+
+async function openDownloadAsset(page: Page) {
+  const body = Buffer.from('self-owned browser download bytes')
+  const item = catalogAsset()
+  item.size_bytes = body.length
+  item.object_ref.sha256 = createHash('sha256').update(body).digest('hex')
+  const etag =
+    '"' +
+    createHash('sha256')
+      .update(
+        JSON.stringify([
+          item.object_ref.object_id,
+          item.object_ref.version_id,
+          item.object_ref.sha256,
+        ]),
+      )
+      .digest('hex') +
+    '"'
+  await page.route(`**/business/api/v1/assets/${assetId}`, (route) => route.fulfill({ json: item }))
+  await connectBusiness(page, ['asset.read', 'asset.download'])
+  await page.getByRole('link', { name: '资源库（媒体资产管理）', exact: true }).click()
+  await page.getByLabel('资产案件编号').fill(caseId)
+  await page.getByLabel('资产详情编号').fill(assetId)
+  await page.getByRole('button', { name: '读取资产详情' }).click()
+  await expect(page.getByRole('button', { name: '下载固定版本', exact: true })).toBeEnabled()
+  return { body, etag }
+}
+
+test('asset download transport fixture verifies fixed bytes before browser save', async ({
+  page,
+}) => {
+  const { body, etag } = await openDownloadAsset(page)
+  await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) => {
+    expect(route.request().method()).toBe('GET')
+    expect(route.request().headers().authorization).toBe('Bearer self-owned-business-browser-token')
+    expect(route.request().headers()['if-match']).toBeUndefined()
+    return route.fulfill({ body, contentType: 'application/octet-stream', headers: { ETag: etag } })
+  })
+  const saved = page.waitForEvent('download')
+  await page.getByRole('button', { name: '下载固定版本', exact: true }).click()
+  expect((await saved).suggestedFilename()).toBe(`asset-${assetId}.bin`)
+  await expect(
+    page.getByRole('status').filter({ hasText: '已核验大小、SHA-256和固定对象版本' }),
+  ).toBeVisible()
+})
+
+for (const mode of ['corrupt', '403', '503'])
+  test(`asset download transport ${mode} never saves content`, async ({ page }) => {
+    const { body, etag } = await openDownloadAsset(page)
+    const saved: string[] = []
+    page.on('download', (download) => saved.push(download.suggestedFilename()))
+    await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) =>
+      mode === 'corrupt'
+        ? route.fulfill({
+            body: Buffer.alloc(body.length),
+            contentType: 'application/octet-stream',
+            headers: { ETag: etag },
+          })
+        : route.fulfill({ status: Number(mode), json: { code: 'SOURCE_AUTHORITY_UNAVAILABLE' } }),
+    )
+    await page.getByRole('button', { name: '下载固定版本', exact: true }).click()
+    await expect(
+      page
+        .getByRole('status')
+        .filter({ hasText: mode === 'corrupt' ? '核验未通过' : 'SOURCE_AUTHORITY_UNAVAILABLE' }),
+    ).toBeVisible()
+    expect(saved).toEqual([])
+    await expect(page.getByText('已核验大小', { exact: false })).toHaveCount(0)
+  })
+
+test('asset download late transport response after selection clear cannot save', async ({
+  page,
+}) => {
+  const { body, etag } = await openDownloadAsset(page)
+  let release!: () => void
+  const gate = new Promise<void>((resolve) => (release = resolve))
+  let started!: () => void
+  const observed = new Promise<void>((resolve) => (started = resolve))
+  const saved: string[] = []
+  page.on('download', (download) => saved.push(download.suggestedFilename()))
+  await page.route(`**/business/api/v1/assets/${assetId}/content`, async (route) => {
+    started()
+    await gate
+    await route.fulfill({ body, contentType: 'application/octet-stream', headers: { ETag: etag } })
+  })
+  await page.getByRole('button', { name: '下载固定版本', exact: true }).click()
+  await observed
+  await page.getByLabel('资产详情编号').fill(otherAssetId)
+  const returned = page.waitForResponse((response) =>
+    response.url().endsWith(`/assets/${assetId}/content`),
+  )
+  release()
+  await returned
+  await expect(page.getByRole('button', { name: '下载固定版本', exact: true })).toHaveCount(0)
+  await expect(page.getByText('已核验大小', { exact: false })).toHaveCount(0)
+  expect(saved).toEqual([])
 })
 
 test('catalog pages keep missing functional permission disabled without requesting lists', async ({

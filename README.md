@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-21前后端与权限续批：[27项起点接口逐项台账](docs/03-development/t001-t123-remaining-interface-register.md)、[本批计划](docs/03-development/t001-t123-api-continuation-plan.md)、[实际测试、CI与同步状态](docs/00-project/validation/t001-t123-api-continuation-report.json)。业务源码47项挂载、26项未挂载；新增真实报告元数据读取、资产只读列表/详情和案件任务列表。任务卡和分步导航已同步限定子范围，原CI门禁及Python候选暂缓不变；源码同步不代表0012/0013已应用或既有演示服务已重启。
+2026-10-21当前状态：[T001—T123逐项开发审计](docs/03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](docs/00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
+
+此前一轮前后端与权限续批（历史47/26）：[27项起点接口逐项台账](docs/03-development/t001-t123-remaining-interface-register.md)、[本批计划](docs/03-development/t001-t123-api-continuation-plan.md)、[实际测试、CI与同步状态](docs/00-project/validation/t001-t123-api-continuation-report.json)。业务源码47项挂载、26项未挂载；新增真实报告元数据读取、资产只读列表/详情和案件任务列表。任务卡和分步导航已同步限定子范围，原CI门禁及Python候选暂缓不变；源码同步不代表0012/0013已应用或既有演示服务已重启。
 
 T001—T123开发落实：[全部任务的表／接口／方法和状态](docs/03-development/t001-t123-implementation-inventory.md)、[本批读取计划](docs/03-development/t001-t123-catalog-read-implementation-plan.md)、[实际验证](docs/00-project/validation/t001-t123-catalog-read-report.json)。建表、方法源码、隔离验证和运行实例分别判定。
 

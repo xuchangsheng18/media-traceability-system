@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { createAssetCatalog, createAssetReader } from '../business/catalog'
+import { createAssetDownload } from '../business/asset-download'
 import { useBusinessSession } from '../business/session'
 import { routeTaskId } from '../business/task-read'
 
@@ -14,6 +15,13 @@ const stateFilter = ref('')
 const kindFilter = ref('')
 const catalog = createAssetCatalog(session)
 const detail = createAssetReader(session)
+const download = createAssetDownload(session, () => ({
+  caseId: caseId.value,
+  assetId: assetId.value,
+  asset: detail.state.data,
+  loaded: detail.state.loaded,
+  busy: detail.state.busy,
+}))
 const rows = computed(() =>
   (catalog.state.data?.items ?? []).filter(
     (item) =>
@@ -31,9 +39,15 @@ const status = computed(() => {
   return '请选择有权访问的案件并查询。案件编号与可见候选均不能替代服务端授权。'
 })
 function clear() {
+  download.clear()
   catalog.clear()
   detail.clear()
 }
+watch(
+  [() => detail.state.data, () => detail.state.loaded, () => detail.state.busy],
+  download.clear,
+  { flush: 'sync' },
+)
 watch(
   [caseId, limit],
   () => {
@@ -42,7 +56,14 @@ watch(
   },
   { flush: 'sync' },
 )
-watch(assetId, detail.clear, { flush: 'sync' })
+watch(
+  assetId,
+  () => {
+    download.clear()
+    detail.clear()
+  },
+  { flush: 'sync' },
+)
 watch(
   () => route.query,
   (query) => {
@@ -60,6 +81,7 @@ async function list(next = false) {
   else await catalog.load(caseId.value, limit.value)
 }
 async function show(id = assetId.value) {
+  download.clear()
   assetId.value = id
   await detail.load(caseId.value, id)
 }
@@ -227,7 +249,22 @@ async function show(id = assetId.value) {
       </p>
       <template v-if="detail.state.data">
         <p class="notice">
-          本次读取已通过服务端授权；后续操作仍须逐次核验。原始对象及其固定版本仅供查看。
+          本次读取已通过服务端授权；下载仍逐次核验当前权限、来源用途和固定对象版本。
+        </p>
+        <div class="toolbar">
+          <button
+            :disabled="!download.canDownload()"
+            @click="download.download()"
+          >
+            {{ download.state.busy ? '正在核验下载内容…' : '下载固定版本' }}
+          </button>
+        </div>
+        <p
+          v-if="download.state.error || download.state.message"
+          class="notice"
+          role="status"
+        >
+          {{ download.state.error || download.state.message }}
         </p>
         <dl>
           <dt>资产编号</dt>
@@ -263,7 +300,7 @@ async function show(id = assetId.value) {
         </dl>
       </template>
       <p class="panel-copy">
-        完整血缘、来源授权明细及受控下载尚未接入本页；来源编号和派生类型不能代替血缘关系。下载须另经适用权限与审计流程。
+        完整血缘、来源授权明细尚未接入本页；来源编号和派生类型不能代替血缘关系。下载由服务端逐次授权并记录审计，大小、摘要和固定版本核验通过后交由浏览器保存。
       </p>
     </section>
   </div>

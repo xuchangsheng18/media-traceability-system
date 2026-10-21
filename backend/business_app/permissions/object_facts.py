@@ -40,6 +40,8 @@ RESOURCES = MappingProxyType(
         "import": ("import_job", "import_id"),
         "task": ("analysis_task", "task_id"),
         "asset": ("media_asset", "asset_id"),
+        "model": ("model_registry", "model_id"),
+        "model_evaluation": ("model_evaluation", "evaluation_id"),
         "cluster": ("content_cluster", "cluster_id"),
         "upload": ("upload_session", "upload_id"),
         "policy": ("policy_registry", "policy_id"),
@@ -54,6 +56,7 @@ OPERATION_KINDS = MappingProxyType(
         "getImport": "import",
         "getTimeline": "asset",
         "getAsset": "asset",
+        "downloadAsset": "asset",
         "getReport": "report",
         **dict.fromkeys(("completeUpload", "getUploadStatus", "listUploadParts", "putUploadPart"), "upload"),
         **dict.fromkeys(("downloadAuditExport", "getAuditExport"), "export"),
@@ -86,6 +89,7 @@ CASE_LISTS = frozenset(
 BODY_SCHEMAS = MappingProxyType(
     {
         "createUpload": "UploadCreate",
+        "createSource": "SourceCreate",
         "createImport": "ImportRequest",
         "requestApproval": "ApprovalCreate",
         "createReview": "ReviewCreate",
@@ -112,6 +116,9 @@ SUPPORTED_OPERATIONS = (
             "getCurrentUser",
             "getModelOperation",
             "listPolicies",
+            "createSource",
+            "listModels",
+            "listEvaluations",
         }
     )
 )
@@ -150,6 +157,9 @@ class ObjectFactsReader:
             if operation_id in OPERATION_KINDS
             else {
                 "createUpload": {"source"},
+                "createSource": {"case"},
+                "listModels": {"model_collection", "model"},
+                "listEvaluations": {"model_collection", "model_evaluation"},
                 "createImport": {"source_collection"},
                 "requestApproval": {"task", "report", "evidence_package", "feedback", "model_release", "operation"},
                 "createReview": {"task"},
@@ -191,7 +201,16 @@ class ObjectFactsReader:
             or (target.policy_kind is not None and target.kind not in {"policy", "policy_collection"})
         ):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-        if target.kind == "policy_collection":
+        if target.kind == "model_collection":
+            if (
+                any(
+                    value is not None
+                    for value in (target.object_id, target.object_version, target.case_id, target.purpose)
+                )
+                or target.source_ids
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        elif target.kind == "policy_collection":
             if (
                 target.object_id is not None
                 or target.object_version is not None
@@ -237,6 +256,11 @@ class ObjectFactsReader:
             binding = digest(dict(path=dict(path), query=dict(query), body=dict(body)))
             if operation_id == "getCurrentUser":
                 return RuleTarget(org, "user", principal.actor.user_id, None, None, None, None, request_digest=binding)
+            if operation_id in {"listModels", "listEvaluations"}:
+                return RuleTarget(org, "model_collection", None, None, None, None, None, request_digest=binding)
+            if operation_id == "createSource":
+                case = UUID(str(body["case_id"]))
+                return RuleTarget(org, "case", case, None, case, None, None, request_digest=binding)
             if operation_id == "getModelOperation":
                 # The deployment operation provider owns operation->release resolution. There is
                 # no authority adapter for the proposed rule yet; do not treat an operation id as a release id.
@@ -454,8 +478,10 @@ class ObjectFactsReader:
             raise BusinessError("ORGANIZATION_APPROVAL_ADAPTER_UNAVAILABLE", 503)
         if target.kind == "model_operation":
             raise BusinessError("MODEL_RULE_ADAPTER_UNAVAILABLE", 503)
-        collection_leaf = (operation_id in CASE_LISTS and target.kind != "case") or (
-            operation_id == "listPolicies" and target.kind == "policy"
+        collection_leaf = (
+            (operation_id in CASE_LISTS and target.kind != "case")
+            or (operation_id == "listPolicies" and target.kind == "policy")
+            or (operation_id in {"listModels", "listEvaluations"} and target.kind != "model_collection")
         )
         if collection_leaf:
             from ..scope_collections import collection_metadata
@@ -471,7 +497,7 @@ class ObjectFactsReader:
             else [LookupKey("source", value) for value in sorted(target.source_ids, key=str)]
             if target.kind == "source_collection"
             else [LookupKey("user", principal.actor.user_id)]
-            if target.kind in {"user", "policy_collection"}
+            if target.kind in {"user", "policy_collection", "model_collection"}
             else [LookupKey("operation", cast(UUID, target.object_id))]
             if target.kind == "case"
             else [LookupKey(target.kind, cast(UUID, target.object_id))]
@@ -543,7 +569,11 @@ class ObjectFactsReader:
                 return value
             return {
                 key: UUID(item)
-                if item is not None and (key.endswith("_id") or key in {"created_by", "requested_by"})
+                if item is not None
+                and (
+                    (key.endswith("_id") and key not in {"dataset_id", "protocol_id", "version_id"})
+                    or key in {"created_by", "requested_by"}
+                )
                 else database_timestamp(item)
                 if item is not None and key.endswith("_at")
                 else typed(item)
@@ -564,7 +594,11 @@ class ObjectFactsReader:
         )
         checks["same_org"] = primary["same_org"]
         checks["self"] = target.kind == "user" and target.object_id == principal.actor.user_id
-        item = primary["record"] if target.kind not in {"source_collection", "policy_collection", "user"} else {}
+        item = (
+            primary["record"]
+            if target.kind not in {"source_collection", "policy_collection", "model_collection", "user"}
+            else {}
+        )
         if item:
             versions.append(item)
             if target.object_version is not None and item["row_version"] != target.object_version:
@@ -646,7 +680,9 @@ class ObjectFactsReader:
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
         versions.extend(related)
         purpose = (
-            "import"
+            "download"
+            if operation_id == "downloadAsset"
+            else "import"
             if operation_id in {"createImport", "getImport"}
             else "upload"
             if operation_id

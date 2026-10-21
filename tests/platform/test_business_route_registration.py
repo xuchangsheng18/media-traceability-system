@@ -21,7 +21,17 @@ def verifier(monkeypatch):
 
 @pytest.fixture
 def registered(tmp_path):
-    for relative in [MATRIX, PRIOR, REGISTRATION, "backend/business_app/registry_router.py"]:
+    for relative in [
+        MATRIX,
+        PRIOR,
+        REGISTRATION,
+        "backend/business_app/registry_router.py",
+        "docs/08-security/history/resource-registry-predecessor-scope-matrix.json",
+        "docs/08-security/resource-registry-route-registration.json",
+        "backend/business_app/asset_download_router.py",
+        "backend/business_app/source_registration_router.py",
+        "backend/business_app/model_catalog_router.py",
+    ]:
         source = ROOT / relative
         assert source.is_file(), "REGISTRATION_FIXTURE_REQUIRED"
         target = tmp_path / relative
@@ -45,7 +55,7 @@ def test_registered_report_route_keeps_the_exact_historical_matrix(monkeypatch, 
     old = json.loads((registered / PRIOR).read_text("utf8"))
     current = json.loads((registered / MATRIX).read_text("utf8"))
     assert sum(row["runtime_route"] is not None for row in old["operations"]) == 46
-    assert sum(row["runtime_route"] is not None for row in current["operations"]) == 47
+    assert sum(row["runtime_route"] is not None for row in current["operations"]) == 51
 
 
 @pytest.mark.parametrize(
@@ -105,5 +115,24 @@ def test_historical_copy_bytes_cannot_be_replaced(monkeypatch, registered):
 
 def test_new_increment_cannot_claim_runtime_or_formal_acceptance(monkeypatch, registered):
     change_matrix(registered, lambda value: value["report_read_increment"].__setitem__("formal_approved", True))
+    with pytest.raises(AssertionError, match="ROUTE_REGISTRATION_INVALID"):
+        verifier(monkeypatch)(registered)
+
+
+@pytest.mark.parametrize("defect", ["scope", "hash", "prior", "allow", "integer_allow", "shared"])
+def test_resource_successor_rejects_unapproved_scope_or_adoption(monkeypatch, registered, defect):
+    path = registered / "docs/08-security/resource-registry-route-registration.json"
+    record = json.loads(path.read_text("utf8"))
+    if defect == "scope":
+        record["scope"].append("health")
+    elif defect == "hash":
+        record["source_bindings"][MATRIX]["current_sha256"] = "0" * 64
+    elif defect == "prior":
+        record["source_bindings"][MATRIX]["prior_copy"] = MATRIX
+    elif defect == "shared":
+        record["shared_adopted"] = True
+    else:
+        record["formal_allow"] = True if defect == "allow" else 0
+    path.write_text(json.dumps(record), encoding="utf8")
     with pytest.raises(AssertionError, match="ROUTE_REGISTRATION_INVALID"):
         verifier(monkeypatch)(registered)

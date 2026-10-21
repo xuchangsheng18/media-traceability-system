@@ -35,6 +35,13 @@ TARGETS = [
     "tests/business/test_registry_projection.py",
     "tests/business/test_registry_reads.py",
     "tests/business/test_report_migration.py",
+    "tests/business/test_asset_download.py",
+    "tests/platform/test_asset_download_projection.py",
+    "tests/business/test_source_registration.py",
+    "tests/business/test_source_registration_provider.py",
+    "tests/business/test_model_catalog.py",
+    "tests/platform/test_model_catalog_projection.py",
+    "tests/business/test_resource_registry_migration.py",
     "tests/business/test_migrations.py::test_empty_database_migrates_and_replay_noops",
     "tests/business/test_migrations.py::test_work_role_facts_upgrade_is_atomic_and_function_only",
     "tests/business/test_migrations.py::test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables",
@@ -42,6 +49,10 @@ TARGETS = [
 ROLES = json.loads((ROOT / "docs/08-security/access-control-model.json").read_text(encoding="utf8"))["roles"]
 REQUIRED_CASES = frozenset(
     [
+        ("tests.business.test_asset_download", "test_full_download_verifies_exact_bytes_and_appends_request_audit"),
+        ("tests.business.test_source_registration", "test_registration_replay_does_not_insert_or_audit_twice"),
+        ("tests.business.test_model_catalog", "test_per_row_visibility_precedes_model_pagination"),
+        ("tests.business.test_model_catalog", "test_per_row_evaluation_scope_precedes_pagination"),
         ("tests.business.test_catalog_reads", "test_asset_detail_is_actual_metadata_and_fixed_object_version"),
         ("tests.business.test_catalog_reads", "test_asset_list_reads_current_authorized_database_rows"),
         ("tests.business.test_catalog_reads", "test_task_list_includes_current_task_without_result"),
@@ -75,7 +86,7 @@ REQUIRED_CASES = frozenset(
             "test_permission_facts_and_least_privilege_survive_independent_restore",
         ),
         ("tests.business.test_t014_permissions", "test_directory_facts_never_allow_without_explicit_policy"),
-        ("tests.business.test_t014_runtime", "test_all_47_real_resource_requests_deny_before_business_side_effects"),
+        ("tests.business.test_t014_runtime", "test_all_51_real_resource_requests_deny_before_business_side_effects"),
         (
             "tests.business.test_t014_runtime",
             "test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
@@ -224,10 +235,10 @@ def validate_results(junit: Path, operation_ids: set[str]) -> dict[str, Any]:
     checks: dict[str, dict[str, str]] = {}
     for operation in sorted(operation_ids):
         names = {
-            "unauthenticated": f"test_all_47_mounted_business_operations_require_authentication[{operation}]",
-            "permission_denied": f"test_all_47_operations_deny_missing_permission[{operation}]",
-            "policy_missing": f"test_all_47_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
-            "authority_unavailable": f"test_all_47_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
+            "unauthenticated": f"test_all_51_mounted_business_operations_require_authentication[{operation}]",
+            "permission_denied": f"test_all_51_operations_deny_missing_permission[{operation}]",
+            "policy_missing": f"test_all_51_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
+            "authority_unavailable": f"test_all_51_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
         }
         if any(rows[("tests.platform.test_t014", name)] != 1 for name in names.values()):
             raise RuntimeError("T014_OPERATION_MATRIX_INCOMPLETE")
@@ -315,7 +326,7 @@ def mounted_catalog() -> tuple[set[str], list[str]]:
                         raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
                     operations.add(identifier)
             catalog = load_catalog(ROOT)
-            if len(operations) != 47 or len(catalog) != 73 or len(ROLES) != 6:
+            if len(operations) != 51 or len(catalog) != 73 or len(ROLES) != 6:
                 raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
             return operations, sorted(set(catalog) - operations)
         finally:

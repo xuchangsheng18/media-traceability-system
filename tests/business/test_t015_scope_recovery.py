@@ -75,7 +75,7 @@ def test_upgrade_from_0009_and_partial_failure_are_atomic(fresh_scope_database, 
         assert admin.execute(
             "SELECT count(*) FROM pg_policies WHERE schemaname='mt' AND policyname='request_data_scope'"
         ).fetchone() == (0,)
-    assert apply_migrations(dsn, MIGRATIONS) == ["0010", "0011", "0012", "0013"]
+    assert apply_migrations(dsn, MIGRATIONS) == ["0010", "0011", "0012", "0013", "0014"]
     assert apply_migrations(dsn, MIGRATIONS) == []
 
 

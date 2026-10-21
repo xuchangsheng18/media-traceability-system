@@ -35,6 +35,8 @@ COLLECTION_KINDS = MappingProxyType(
         "listPolicies": "policy",
         "listAssets": "asset",
         "listTasks": "task",
+        "listModels": "model",
+        "listEvaluations": "model_evaluation",
     }
 )
 COLLECTION_TABLES = MappingProxyType(
@@ -46,6 +48,8 @@ COLLECTION_TABLES = MappingProxyType(
         "source": ("source_registry", "source_id"),
         "policy": ("policy_registry", "policy_id"),
         "asset": ("media_asset", "asset_id"),
+        "model": ("model_registry", "model_id"),
+        "model_evaluation": ("model_evaluation", "evaluation_id"),
     }
 )
 
@@ -224,7 +228,7 @@ def collection_metadata(
         else lookup_spec(target.kind).projection
     )
     predicate = "t.org_id=:org AND " + ("t.case_id=:case" if scope.case_id is not None else "TRUE")
-    if (scope.case_id is None) != (target.kind == "policy"):
+    if (scope.case_id is None) != (target.kind in {"policy", "model", "model_evaluation"}):
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
     record = (
         connection.execute(
@@ -233,7 +237,7 @@ def collection_metadata(
                 + ",".join("t." + name for name in columns)
                 + ",encode(sha256(convert_to(to_jsonb(t)::text,'UTF8')),'hex') AS _row_sha256"
                 + f" FROM mt.{table} t WHERE {predicate} AND t.{key}=:id"
-                + (" FOR SHARE" if target.kind != "audit_event" else "")
+                + (" FOR SHARE" if target.kind not in {"audit_event", "model_evaluation"} else "")
             ),
             dict(org=scope.actor.org_id, case=scope.case_id, id=target.object_id),
         )
@@ -276,7 +280,13 @@ class CollectionScope:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         evidence = bound.evidence
         kind = COLLECTION_KINDS.get(scope.operation_id)
-        header = "policy_collection" if scope.operation_id == "listPolicies" else "case"
+        header = (
+            "policy_collection"
+            if scope.operation_id == "listPolicies"
+            else "model_collection"
+            if scope.operation_id in {"listModels", "listEvaluations"}
+            else "case"
+        )
         if evidence.target.kind != header:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         port = getattr(self.authority, "authorize_collection_item", None)

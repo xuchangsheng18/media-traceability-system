@@ -15,6 +15,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
 from .auth import AuthorityProvider
+from .asset_download import AssetDownload
+from .asset_download_router import router as asset_download_router
 from .catalog_reads import CatalogReads
 from .catalog_router import router as catalog_router
 from .contracts import ROOT
@@ -42,6 +44,8 @@ from .history.router import router as history_router
 from .inference import BackendRegistration, InferenceGateway, ServiceAuthority
 from .inference import router as inference_router
 from .objects import FileObjectStore
+from .model_catalog import ModelCatalog
+from .model_catalog_router import router as model_catalog_router
 from .permissions.catalog import load_catalog
 from .permissions.conditional import ConditionalPort
 from .permissions.context import FencePort, WorkPort
@@ -51,6 +55,8 @@ from .permissions.types import PermissionAuthority
 from .registry_reads import RegistryReads
 from .registry_router import router as registry_router
 from .settings import BusinessSettings
+from .source_registration import SourceRegistration, SourceRegistrationAuthority
+from .source_registration_router import router as source_registration_router
 from .uploads.repository import UploadRepository
 from .uploads.router import router as upload_router
 from .uploads.service import UploadService
@@ -73,6 +79,7 @@ def create_app(
     definition_provider: DefinitionProvider | None = None,
     deployment_operations: DeploymentOperations | None = None,
     source_synchronization: SourceSynchronization | None = None,
+    source_registration_authority: SourceRegistrationAuthority | None = None,
     service_authority: ServiceAuthority | None = None,
     inference_backends: dict[str, BackendRegistration] | None = None,
     permission_authority: PermissionAuthority | None = None,
@@ -101,6 +108,7 @@ def create_app(
     app.state.conditional_permissions = conditional_permissions
     app.state.catalog_reads = CatalogReads(database, settings)
     app.state.registry_reads = RegistryReads(database)
+    app.state.model_catalog = ModelCatalog(database, settings)
     app.state.authorization_fence = authorization_fence
     app.state.work_authorization = work_authorization
     app.state.business_database = database
@@ -111,6 +119,10 @@ def create_app(
     )
     app.state.result_repository = ResultRepository(database, app.state.upload_service.store, authority)
     app.state.control_receipts = ControlReceipts(database, settings)
+    app.state.source_registration = SourceRegistration(
+        database, app.state.control_receipts, source_registration_authority
+    )
+    app.state.asset_download = AssetDownload(database, settings, app.state.upload_service.store, authority)
     app.state.approvals = Approvals(database, app.state.control_receipts, rules, authority, independent_duties)
     app.state.operation_tokens = OperationTokens(
         database, app.state.approvals, operation_token_rules, operation_token_keys, permission_authority
@@ -149,6 +161,9 @@ def create_app(
     app.include_router(control_router, dependencies=protected)
     app.include_router(catalog_router, dependencies=protected)
     app.include_router(registry_router, dependencies=protected)
+    app.include_router(source_registration_router, dependencies=protected)
+    app.include_router(model_catalog_router, dependencies=protected)
+    app.include_router(asset_download_router, dependencies=protected)
     app.include_router(inference_router)
     audit_protected_routes(app)
 
