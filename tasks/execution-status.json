@@ -6851,10 +6851,10 @@
       "name": "开发人工复核工作台",
       "card": "tasks/frontend/T103.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "待复核列表、上下文及历史记录后端子范围已有验证",
-      "summary_remaining": "实现复核工作台页面、标注/交互、筛选/分页；联调真实业务规则、结果和权限，并执行完整工作流测试",
+      "summary_completed": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。",
+      "summary_remaining": "已有待复核队列、当前上下文及历史分页只读页面；仍需复核表单、草稿、标注/交互、证据定位和媒体/时间轴/各类结果的完整联动，不从review.read推断审批动作。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
       "completed_steps": [
         {
           "description": "待复核列表、上下文及历史记录后端子范围已有验证",
@@ -6873,23 +6873,64 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/review-read.ts",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/business/review-read.test.ts",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/components/TaskReviewHistoryPanel.vue",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/views/PendingReviewsView.vue",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t103-review-read-console.md",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t103-review-read-report.json",
+              "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "实现复核工作台页面、标注/交互、筛选/分页"
+          "description": "已有待复核队列、当前上下文及历史分页只读页面；仍需复核表单、草稿、标注/交互、证据定位和媒体/时间轴/各类结果的完整联动，不从review.read推断审批动作。"
         },
         {
           "category": "实施/验证",
-          "description": "联调真实业务规则、结果和权限，并执行完整工作流测试"
+          "description": "真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。"
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "designated_reviewer": "徐昌胜",
+      "responsibility_confirmation_ref": "docs/00-project/validation/t103-role-assignment.json",
+      "followup_document_refs": [
+        "docs/00-project/validation/t103-role-assignment.json",
+        "docs/03-development/t103-review-read-console.md",
+        "docs/00-project/validation/t103-review-read-report.json"
+      ]
     },
     {
       "task_id": "T104",
@@ -9677,7 +9718,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/shared-session-rejection-lifecycle-report.json",
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t103-review-read-report.json",
     "latest_design_ref": "docs/03-development/t034-creation-integration-design.md"
   },
   "latest_business_upload_frontend": {
@@ -9827,6 +9868,17 @@
     "observed_at": "2026-10-22T04:57:27.603327+00:00",
     "report_ref": "docs/00-project/validation/shared-session-rejection-lifecycle-report.json",
     "plan_ref": "docs/03-development/shared-session-rejection-lifecycle.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
+  },
+  "latest_t103_review_read_console": {
+    "observed_at": "2026-10-22T05:25:25.714967+00:00",
+    "report_ref": "docs/00-project/validation/t103-review-read-report.json",
+    "plan_ref": "docs/03-development/t103-review-read-console.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

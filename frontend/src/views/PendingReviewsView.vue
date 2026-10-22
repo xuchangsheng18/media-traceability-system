@@ -1,22 +1,65 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { errorMessage, FormError, uuid } from '../business/api'
 import { useBusinessSession } from '../business/session'
 import { createPendingReviewReader } from '../business/task-read'
+import TaskReviewHistoryPanel from '../components/TaskReviewHistoryPanel.vue'
 const session = useBusinessSession()
 const caseId = ref('')
 const queue = createPendingReviewReader(session)
+const selectedTaskId = ref('')
+const localError = ref('')
+const selected = computed(() =>
+  !queue.state.busy && queue.state.loaded
+    ? queue.state.data?.items.find((item) => item.task_id === selectedTaskId.value)
+    : undefined,
+)
 const availability = {
   READY: '可读取结果（READY）',
   RESULT_UNAVAILABLE: '结果不可用（RESULT_UNAVAILABLE）',
   SOURCE_BLOCKED: '来源访问受阻（SOURCE_BLOCKED）',
 }
-watch(caseId, queue.clear, { flush: 'sync' })
-watch(() => session.state.generation, queue.clear, { flush: 'sync' })
-onBeforeUnmount(queue.clear)
+function clear() {
+  selectedTaskId.value = ''
+  localError.value = ''
+  queue.clear()
+}
+watch(caseId, clear, { flush: 'sync' })
+watch(
+  () =>
+    JSON.stringify([
+      session.state.generation,
+      session.state.user?.user_id,
+      session.state.user?.org_id,
+      session.state.user?.roles,
+      session.state.user?.permissions,
+      session.state.user?.case_ids,
+      session.has('review.read'),
+    ]),
+  clear,
+  { flush: 'sync' },
+)
+watch(
+  [() => queue.state.data, () => queue.state.loaded, () => queue.state.busy],
+  () => {
+    if (!selected.value || selected.value.case_id !== caseId.value.toLowerCase())
+      selectedTaskId.value = ''
+  },
+  { flush: 'sync' },
+)
+onBeforeUnmount(clear)
 async function list(next = false) {
   const cursor = next ? queue.state.data?.next_cursor : null
   if (next && !cursor) return
-  await queue.load(caseId.value, cursor)
+  clear()
+  try {
+    const id = uuid(caseId.value).toLowerCase()
+    if (!session.state.user?.case_ids.some((visible) => visible.toLowerCase() === id))
+      throw new FormError('请选择当前身份可见的案件；未向服务端发送查询。')
+    await queue.load(id, cursor)
+  } catch (error) {
+    localError.value = errorMessage(error)
+  }
 }
 </script>
 <template>
@@ -24,7 +67,7 @@ async function list(next = false) {
     <section class="panel span-12">
       <h2 class="panel-heading">待复核队列</h2>
       <p class="panel-copy">
-        按有权访问的案件分页查询。结果可用性与复核任务状态分别展示；此页提供任务查看入口。
+        按有权访问的案件分页查询。选择当前页任务后，可显式读取复核上下文及历史记录；当前页面只读。
       </p>
       <div class="toolbar">
         <label
@@ -79,11 +122,11 @@ async function list(next = false) {
         正在读取待复核队列…
       </p>
       <p
-        v-else-if="queue.state.error"
+        v-else-if="localError || queue.state.error"
         class="notice"
         role="status"
       >
-        {{ queue.state.error }}
+        {{ localError || queue.state.error }}
       </p>
       <p
         v-else-if="queue.state.loaded"
@@ -129,6 +172,13 @@ async function list(next = false) {
                 }}
               </td>
               <td>
+                <button
+                  class="secondary"
+                  :disabled="!session.has('review.read')"
+                  @click="selectedTaskId = item.task_id"
+                >
+                  选择复核记录
+                </button>
                 <RouterLink :to="{ name: 'tasks', query: { task_id: item.task_id } }"
                   >查看任务</RouterLink
                 >
@@ -138,11 +188,17 @@ async function list(next = false) {
         </table>
       </div>
       <p
-        v-if="queue.state.loaded && !queue.state.data?.items.length"
+        v-if="queue.state.loaded && !queue.state.error && !queue.state.data?.items.length"
         class="muted empty-state"
       >
         当前页无待复核记录。
       </p>
     </section>
+    <TaskReviewHistoryPanel
+      v-if="selected"
+      :key="`${selected.case_id}-${selected.task_id}`"
+      :case-id="selected.case_id"
+      :task-id="selected.task_id"
+    />
   </div>
 </template>

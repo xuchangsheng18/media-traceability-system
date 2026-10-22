@@ -50,6 +50,9 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t103-review-read-console.md": "T103既有接口的待复核任务选择、当前上下文与历史分页只读页面；任务/案件/本地身份变化清理、完整响应绑定及未验工作流边界。",
+        "00-project/validation/t103-review-read-report.json": "T103五文件源码、单元/类型/格式/构建及开发和生产浏览器限定证据、独立复核和精确CI/三端同步；不等于正式复核验收。",
+        "00-project/validation/t103-role-assignment.json": "用户确认T103实际开发负责人和指定复核人均为徐昌胜；只登记责任，不授予权限、不证明本人复核、工时或独立双人验收。",
         "03-development/t027-concurrent-sha-association.md": "T027不同上传会话完整SHA竞争的真实双连接复现、案件级事务协调及提交/回滚/超时边界；保留独立原件，不复用分析结果或扩大授权。",
         "00-project/validation/t027-concurrent-sha-association-report.json": "T027精确源码、有效RED、并发与相邻/全量隔离回归、质量检查及CI/三端同步；不是正式权威接入、压力或整卡验收。",
         "00-project/validation/t027-role-assignment.json": "用户确认T027开发负责人和指定复核人均为徐昌胜；只登记责任，不证明本人复核、独立双人验收、工时或平台授权。",

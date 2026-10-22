@@ -40,18 +40,19 @@
         "T024",
         "T034",
         "T030",
-        "T027"
+        "T027",
+        "T103"
       ],
       "assignment_basis_ref": "docs/03-development/repository-access-control.md",
       "confirmation_date": "2026-10-17",
       "github_account": "xuchangsheng18",
       "capacity_status": "UNCONFIRMED",
       "latest_assignment_confirmation": {
-        "task_id": "T027",
+        "task_id": "T103",
         "confirmation_date": "2026-10-22",
         "confirmed_by": "user",
         "scope": "actual_owner_and_designated_reviewer_only",
-        "evidence_ref": "docs/00-project/validation/t027-role-assignment.json"
+        "evidence_ref": "docs/00-project/validation/t103-role-assignment.json"
       }
     }
   ],
@@ -3904,7 +3905,7 @@
     {
       "task_id": "T103",
       "verification_status": "PARTIAL_VERIFIED_SCOPE",
-      "resource_id": null,
+      "resource_id": "PERSON-002",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -3921,11 +3922,44 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "frontend/src/business/review-read.ts",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/src/business/review-read.test.ts",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/src/components/TaskReviewHistoryPanel.vue",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/src/views/PendingReviewsView.vue",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/e2e/foundation.pw.ts",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "docs/03-development/t103-review-read-console.md",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "docs/00-project/validation/t103-review-read-report.json",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
         }
       ],
       "full_task_verification_refs": [],
       "external_release_date": null,
-      "material_or_resource_dependencies": []
+      "material_or_resource_dependencies": [],
+      "followup_document_refs": [
+        "docs/00-project/validation/t103-role-assignment.json",
+        "docs/03-development/t103-review-read-console.md",
+        "docs/00-project/validation/t103-review-read-report.json"
+      ]
     },
     {
       "task_id": "T104",
@@ -5391,6 +5425,15 @@
       ],
       "event": "SHARED_SESSION_REJECTION_PROPAGATION_GUARD",
       "evidence_ref": "docs/00-project/validation/shared-session-rejection-lifecycle-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T103"
+      ],
+      "event": "REVIEW_CONTEXT_HISTORY_READ_ONLY_CONSOLE_AND_RESPONSIBILITY",
+      "evidence_ref": "docs/00-project/validation/t103-review-read-report.json",
       "whole_task_acceptance_recorded": false
     }
   ],

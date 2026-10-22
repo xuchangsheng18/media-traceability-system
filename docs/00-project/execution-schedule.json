@@ -226,7 +226,7 @@
   },
   "actual_capacity_plan": {
     "status": "NOT_COMPUTABLE_ACTUAL_INPUTS_MISSING",
-    "missing_input_count": 382,
+    "missing_input_count": 381,
     "missing_inputs": [
       "confirmed_working_calendar",
       "actual_plan_start_date",
@@ -590,7 +590,6 @@
       "T160:actual_assignee",
       "T160:reestimated_remaining_effort_hours",
       "T160:material_or_resource_release_date",
-      "T103:actual_assignee",
       "T103:reestimated_remaining_effort_hours",
       "T123:actual_assignee",
       "T123:reestimated_remaining_effort_hours",
@@ -7833,10 +7832,38 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "frontend/src/business/review-read.ts",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/src/business/review-read.test.ts",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/src/components/TaskReviewHistoryPanel.vue",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/src/views/PendingReviewsView.vue",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "frontend/e2e/foundation.pw.ts",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "docs/03-development/t103-review-read-console.md",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+        },
+        {
+          "path": "docs/00-project/validation/t103-review-read-report.json",
+          "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
         }
       ],
-      "actual_assignee_resource_id": null,
-      "actual_assignee_name": null,
+      "actual_assignee_resource_id": "PERSON-002",
+      "actual_assignee_name": "徐昌胜",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -8061,7 +8088,7 @@
   ],
   "source_hashes": {
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "docs/00-project/execution-planning-inputs.json": "aaf7b2bd4a797e91243a7e059e1db1482bad1a399a547073883a005337db05e0",
+    "docs/00-project/execution-planning-inputs.json": "19e5f9639577ac26e23ed6bfb034d038b49b042d7e3a507832fdbec105c32055",
     "scripts/plan_project_schedule.py": "edf0e452a6877d6ea918a1369fad0af66c261f4768c7fa3be869715d240b38fe"
   }
 }
