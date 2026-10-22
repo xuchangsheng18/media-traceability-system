@@ -1,5 +1,7 @@
 # T001—T123开发范围、依赖与分批顺序
 
+2026-10-23续批：[T034原子创建候选](t034-atomic-creation-service.md)、[回执](../00-project/validation/t034-atomic-creation-service-report.json)。2026-10-23补齐T034-I03隔离原子创建候选：同根CASE/createTask、明确受信材料端口、A/B及当前采用绑定，双savepoint内完整八表和CREATED→QUEUED、精确历史Accepted/ETag重放及提交前复读已实现；新增0018只修generation.database_oid的JSON整数投影，0001—0017及严格reader不改。事务/新迁移组合82项、受影响组375项、原失败探针及Ruff/格式/288文件类型检查符合预期；完整business实际结果TIMEOUT另列原始汇总，T014未单独重跑，重叠数量不相加。本批无默认权威、可信采用/Proof、HTTP挂载、共享迁移或算法执行；并发、恢复、未知commit结果及E04运行预算仍未齐，0新增C，T034保持4C/4R。
+
 2026-10-23续批：[T013安全故障诊断](t013-readiness-safe-diagnostics.md)、[回执](../00-project/validation/t013-readiness-safe-diagnostics-report.json)。2026-10-23补齐重启/数据库依赖测试的安全固定诊断：实际缺诊断RED后，7条原断言仅加固定理由，既有45秒等待/180秒重启/raises/finally及门禁保留。限定回归91项、原失败探针及Ruff/格式/285文件类型通过。此前eb28失败断言仍未知，不以e0d6身份332项通过关闭；本批不执行本人接管或真实恢复，0新增C、T013仍13C/3R。
 
 2026-10-23续批：[E01机器材料结构回执](t034-material-structure-receipt.md)、[精确回执](../00-project/validation/t034-material-structure-receipt-report.json)。2026-10-23新增E01版本化机器材料结构回执：prepare-development显式opt-in实际写入并由verify-development-receipt安全只读重验；闭合Schema/严格规范字节、4份raw/规范材料身份、节点快照、配置及完整已加载Schema registry与固定源码观察绑定，不生成可信采用/身份/许可/ACTIVE或任务。最终779项纯组合、原失败探针及Ruff/格式/285文件类型符合预期；关闭故障的实际RED与修复单列。仅补已有C02离线工具子范围，0新增C、C05不计，I02/I03—I05及真实202仍未完成。 保持154条已证、434组范围内剩余、全170项622组剩余和0整卡验收。

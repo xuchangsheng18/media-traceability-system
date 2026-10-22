@@ -61,7 +61,7 @@ def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn, tmp_path):
             )
             try:
                 remaining = apply_migrations(owner_dsn, migrations)
-                assert remaining == ["0017"]
+                assert remaining == ["0017", "0018"]
                 applied += remaining
             finally:
                 admin.execute(
@@ -73,7 +73,7 @@ def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn, tmp_path):
                     "('mt_task_plan_lookup'::regrole,'mt_task_plan_case_reader'::regrole)",
                     (owner,),
                 ).fetchone() == (0,)
-            assert applied == [f"{value:04d}" for value in range(1, 18)]
+            assert applied == [f"{value:04d}" for value in range(1, 19)]
             assert apply_migrations(owner_dsn, migrations) == []
             org, user, case, source = [uuid4() for _ in range(4)]
             with psycopg.connect(admin_dsn) as seed:

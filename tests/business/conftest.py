@@ -40,6 +40,7 @@ def database_dsn(request, business_template):
                 "test_migrations.py",
                 "test_report_migration.py",
                 "test_resource_registry_migration.py",
+                "test_task_creation_generation_migration.py",
             }
             or (
                 request.node.path.name == "test_task_creation_migration.py"

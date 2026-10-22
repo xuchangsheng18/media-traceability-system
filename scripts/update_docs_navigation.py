@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t034-atomic-creation-service.md": "T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。",
+        "00-project/validation/t034-atomic-creation-service-report.json": "T034实际组件及OID RED、失败修复、事务/迁移与完整business实测、质量及源码复核、最新CI和三端回执；154C/622R，零新增完成，不当正式202或整卡验收。",
         "03-development/t013-readiness-safe-diagnostics.md": "T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。",
         "00-project/validation/t013-readiness-safe-diagnostics-report.json": "T013诊断实际RED、最终回归/质量/资料检查、固定形状与源码复核、最新CI及三端回执；原170任务154C/622R，0新增完成，T013真实恢复仍待。",
         "03-development/t034-material-structure-receipt.md": "T034 E01版本化机器材料结构回执的显式生成/安全只读重验；绑定4材料原始/规范身份、节点、配置、完整loaded registry与固定源码观察，不是可信采用/身份/许可或执行证明。",

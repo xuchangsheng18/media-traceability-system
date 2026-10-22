@@ -175,6 +175,22 @@ Python重建既有完整声明Manifest并严格校验Schema/规范SHA；不因�
 
 所有对象ref/资产org/case及SHA/size必须同一真实对象匹配；缺行拒绝。时间投影固定UTC，允许微秒；不得放入mode、transaction ID、observed_at或locked等自然随阶段变化的值作为稳定事实。generation三个可空字符串仅是数据库观测，null或同值都不自证独立恢复权威。
 
+## 0018：generation OID的增量类型修复
+
+后续I03隔离连通检查实际取得metadata唯一行，但既有严格Python读口拒绝`generation.database_oid`：原0017将PostgreSQL `oid`值直接放入`jsonb_build_object`，CASE与LOOKUP两支路实际返回JSON字符串。新增两参数回归先直接读取固定SQL，再要求`type(database_oid) is int`；两支路均已实际出现该类型断言失败。这是数据库投影与既有内部整数契约不符，不是SQL超时，也不以修改Python正整数校验或测试夹具内容掩盖。
+
+修复另增[0018_task_creation_generation_json.sql](../../backend/business_migrations/0018_task_creation_generation_json.sql)，原0017及0001—0016保持原字节和迁移摘要。0018只把两个固定函数各自唯一一处JSON实参从`v_generation.database_oid`改为`v_generation.database_oid::bigint`。`bigint`用于保留高于有符号32位整数上限的OID值；不把OID改为业务主键，不更换数据库代际，不改变epoch、有效期、拒绝规则、函数签名或21/9列结构。CASE metadata仍委托原execution路径；LOOKUP仍只读、无正文和行锁。
+
+0018先检查两个固定签名的原正文SHA-256、唯一替换位置，以及预期受限owner、PL/pgSQL、SECURITY DEFINER、VOLATILE和固定search_path。两函数都完成预检后才允许替换，未知或已被篡改的正文/owner拒绝。安装前保存完整`pg_proc`元信息、注释及schema ACL观测；安装后要求除`prosrc`两处精确转换外全部函数元信息、owner、ACL、OID、search_path和注释保持原值，合法的NULL注释同样保留。该比较是与安装前观测值的守恒检查，不把任意未知元信息宣称为已获正式批准。
+
+PostgreSQL 16的[CREATE FUNCTION说明](https://www.postgresql.org/docs/16/sql-createfunction.html)规定替换函数保持既有所有者和权限；[ALTER FUNCTION说明](https://www.postgresql.org/docs/16/sql-alterfunction.html)列明所有者切换及schema权限要求。本迁移仍以本节固定边界和实际非超级用户测试验证安装行为，文档链接不代替执行证据。
+
+非超级迁移者仍须为精确`mt` schema owner，且不继承runtime。管理员按前节协议显式准备两私有角色的临时`INHERIT FALSE, SET TRUE, ADMIN FALSE`成员边；0018不创建或修改角色成员。迁移仅在本事务中临时给固定函数owner schema CREATE权限，分别切换至既有owner执行CREATE OR REPLACE，恢复原迁移者后撤回本次CREATE权限并核对schema ACL原值。成功或失败后，管理员仍须在finally交接中REVOKE临时成员并核验为0；成员GRANT不会因事务结束自动过期，不能留给runtime或业务账号。
+
+版本化runner将0018及其迁移登记置于同一事务，预检、替换、元信息或权限核验任一步失败均须回滚；重放已登记的同摘要迁移应无操作。0018不新增或删除表、字段、索引、RLS策略、触发器或业务行，不seed ACTIVE，不改70张研发业务表及其967列，也不把研发目录与62表业务提案合并。新迁移测试另覆盖0017历史升级、元信息/既有行守恒、重放、非超级SET-only安装及撤权、正文/owner篡改拒绝、NULL注释和高位OID转换；**本节只记录实际RED及实现设计，不将尚未完成的测试登记为GREEN**。
+
+该修复未向共享数据库执行，未形成真实采用、软件许可、独立恢复权威或HTTP202。原业务/权限/软件扫描门禁保持，最终迁移和创建事务验证须以本批精确源码的实际回执分别判定；不能由这两条类型RED或一处类型转换推定I03、I02整步或T034已完成。
+
 ## 未完成范围
 
-本批只完成受限SQL、观测包装器、专用有限事实端口及guard上下文接线的隔离工程子范围；不签发正式采用Proof，不实现I03原子写任务/run/node/event/outbox，不挂载I04 createTask HTTP，不完成I02/I05整步或T034整卡。model_task_version、真实采用/撤销authority、当前handler发布/许可/可用性、分类/用途权威、独立恢复来源和E04实际预算/期限仍待；明确negative按既有拒绝，unknown不填true。原100包锁、CI门禁、公共API/前端/路由保持；Python候选与算法继续暂缓。
+原0017批次只完成受限SQL、观测包装器、专用有限事实端口及guard上下文接线的隔离工程子范围；本轮另有[I03原子创建组件候选](../03-development/t034-atomic-creation-service.md)，实际结果按其精确回执核验。仍不签发正式采用Proof、不挂载I04 createTask HTTP，不完成I02/I03/I05整步或T034整卡。model_task_version、真实采用/撤销authority、当前handler发布/许可/可用性、分类/用途权威、独立恢复来源和E04实际预算/期限仍待；明确negative按既有拒绝，unknown不填true。原100包锁、CI门禁、公共API/前端/路由保持；Python候选与算法继续暂缓。

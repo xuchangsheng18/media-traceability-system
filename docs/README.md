@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t034-atomic-creation-service.md](<03-development/t034-atomic-creation-service.md>) | T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。 |
+| [00-project/validation/t034-atomic-creation-service-report.json](<00-project/validation/t034-atomic-creation-service-report.json>) | T034实际组件及OID RED、失败修复、事务/迁移与完整business实测、质量及源码复核、最新CI和三端回执；154C/622R，零新增完成，不当正式202或整卡验收。 |
 | [03-development/t013-readiness-safe-diagnostics.md](<03-development/t013-readiness-safe-diagnostics.md>) | T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。 |
 | [00-project/validation/t013-readiness-safe-diagnostics-report.json](<00-project/validation/t013-readiness-safe-diagnostics-report.json>) | T013诊断实际RED、最终回归/质量/资料检查、固定形状与源码复核、最新CI及三端回执；原170任务154C/622R，0新增完成，T013真实恢复仍待。 |
 | [03-development/t034-material-structure-receipt.md](<03-development/t034-material-structure-receipt.md>) | T034 E01版本化机器材料结构回执的显式生成/安全只读重验；绑定4材料原始/规范身份、节点、配置、完整loaded registry与固定源码观察，不是可信采用/身份/许可或执行证明。 |
@@ -738,7 +740,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1345份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1347份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1471,6 +1473,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t032-task-event-final-ci-report.json](<00-project/validation/t032-task-event-final-ci-report.json>) | T032精确提交的完整CI：两份业务回归各1057项含1失败，T014及当前安全扫描未执行；旧副本排除，失败身份未保存，不猜测根因。 |
 | [00-project/validation/t032-task-event-integrity-report.json](<00-project/validation/t032-task-event-integrity-report.json>) | T032运行事件约束的RED/GREEN、隔离升级和回滚、相邻权限/恢复回归及源码摘要；CI、同步与整任务验收分开记录。 |
 | [00-project/validation/t033-cancellation-atomic-writer-report.json](<00-project/validation/t033-cancellation-atomic-writer-report.json>) | 取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。 |
+| [00-project/validation/t034-atomic-creation-service-report.json](<00-project/validation/t034-atomic-creation-service-report.json>) | T034实际组件及OID RED、失败修复、事务/迁移与完整business实测、质量及源码复核、最新CI和三端回执；154C/622R，零新增完成，不当正式202或整卡验收。 |
 | [00-project/validation/t034-configured-material-preparation-report.json](<00-project/validation/t034-configured-material-preparation-report.json>) | 离线工具两文件精确源码、缺接线RED/类型失败修复、最终612纯组合/原失败探针和283类型、文档漂移及实际CI/三端回执；0新增C、I02/HTTP仍待。 |
 | [00-project/validation/t034-creation-integration-design-report.json](<00-project/validation/t034-creation-integration-design-report.json>) | T034原设计编制时的输入摘要、修正边界及CI/三端历史回执，新增业务完成数0；当前D01/D02决定及D03计划另有最新记录，历史设计检查不代表真实创建测试。 |
 | [00-project/validation/t034-design-decision-20261022.json](<00-project/validation/t034-design-decision-20261022.json>) | 用户认可T034 D01/D02技术设计及D03计划准备的限定决定；不批准生效映射、预算、产品实施或任务验收，不增加已证步骤。 |
@@ -1892,6 +1895,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t030-asset-source-panel.md](<03-development/t030-asset-source-panel.md>) | 资产详情复用getSource的只读授权记录面板，精确案件/来源与会话保护；40项新单元、390完整前端及61/61传输浏览器，真实权威联调与血缘仍待。 |
 | [03-development/t031-candidate-task-plan.md](<03-development/t031-candidate-task-plan.md>) | T031候选DAG不可变解析、显式预算、模型字段绑定、固定摘要和入口选择；未选分支不冒充运行状态，不授予调度或正式策略资格。 |
 | [03-development/t033-cancellation-atomic-writer.md](<03-development/t033-cancellation-atomic-writer.md>) | T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。 |
+| [03-development/t034-atomic-creation-service.md](<03-development/t034-atomic-creation-service.md>) | T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。 |
 | [03-development/t034-configured-material-preparation.md](<03-development/t034-configured-material-preparation.md>) | T034 E04显式配置离线校验/准备、真实raw/规范正文/全部节点快照累计预算与handler白名单、配置摘要工件绑定；旧模式字节兼容，未采用或HTTP受理。 |
 | [03-development/t034-creation-implementation-plan.md](<03-development/t034-creation-implementation-plan.md>) | T034已批准I01—I05；I02受限SQL/事实/guard代码已实现且限定验证通过、此前完整业务门禁失败，当前修复后未整套重跑，候选C05不计，真实采用/Proof/handler/分类/恢复/预算未齐，I02和I03—I05/HTTP未完，迁移仅0018+。 |
 | [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实映射/受限SQL/原子创建/HTTP设计；受限SQL/事实/guard已有代码，178/544/279限定通过、此前完整业务门禁失败，当前修复后未整套重跑且C05未计，真实采用/Proof和当前handler等未齐，无原子创建/HTTP202，历史拟方案不冒充当前验收。 |
