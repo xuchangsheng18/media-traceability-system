@@ -19,7 +19,7 @@
     "quality": "4d6d537e1da1b79e4cc95d10b1f98d6508ee44539566129bdcb1c2b916ee9ffc",
     "review": "40333b08729941c423f09fce5e2e8dbb08f429d9e9a713b4a80a737e76bb5435",
     "structural_red": "89346d4c999b8da1ef884928786ea1c31d142724f5b72d5b2ca0f426c855812e",
-    "prior_ci": "d908282c27c2d2b3589a3ff8de972fc773e1151ba555ab9bde6d7bce9a152670"
+    "prior_ci": "8381a3970ae220e27515461e4a98335d42453b3c34272c74dfd5880b9a8b61eb"
   },
   "structural_RED": {
     "exit_code": 1,
@@ -213,9 +213,9 @@
     "run_attempt": 1,
     "source_commit": "4cee65a07af4ff9deb6ee23a5516613c0d29080e",
     "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39772836414",
-    "status": "in_progress",
-    "conclusion": null,
-    "observed_at": "2026-10-22T12:16:08.629385+00:00",
+    "status": "completed",
+    "conclusion": "failure",
+    "observed_at": "2026-10-22T12:34:12.767389+00:00",
     "jobs": [
       {
         "id": 119804374455,
@@ -226,14 +226,20 @@
       {
         "id": 119811290566,
         "name": "engineering-execution",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "failure"
       },
       {
         "id": 119811290640,
         "name": "foundation-verification",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119825652409,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure"
       }
     ],
     "current_plan_authority_verified_by_this_run": false,
@@ -241,15 +247,133 @@
     "test_scopes_overlap_do_not_add": true,
     "advisory_matches_not_applicability_or_risk_acceptance": true,
     "runtime_and_scan_reports_missing_own_source_are_diagnostic_only": true,
-    "artifact_receipts": [],
-    "observation_scope": "Exact prior run still pending/in progress; no completed result, artifact counts or current PlanBinding/ExecutionMaterials validation inferred"
+    "artifact_receipts": [
+      {
+        "id": 12425174371,
+        "name": "py310-validation-39772836414-1",
+        "sha256": "50b81577488a0d863e70ab985930ea6d75478f277326deb464d356360b785e57",
+        "platform_digest_verified": true,
+        "source_commit": "4cee65a07af4ff9deb6ee23a5516613c0d29080e",
+        "run_attempt": 1,
+        "owned_job_marker_sha256": "d1a64c1ca046aeb6526a3ec5d729317f20d816c77881a3cd4438246144db391e"
+      },
+      {
+        "id": 12424214648,
+        "name": "py310-foundation-validation-39772836414-1",
+        "sha256": "d4745f713f048bdcd0bde85b169fe4a364b40fbb6c862fc0a922da2741236745",
+        "platform_digest_verified": true,
+        "source_commit": "4cee65a07af4ff9deb6ee23a5516613c0d29080e",
+        "run_attempt": 1,
+        "owned_job_marker_sha256": "8a27ee0ea7550f3485816b8c509bdc52a9d3035d38659887064f4fcb01e813ca"
+      }
+    ],
+    "job_owned_exact_source_tests": {
+      "t015-data-scope-report.json": {
+        "tests": 131,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t016-operation-token-report.json": {
+        "tests": 187,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "business-foundation-report.json": {
+        "tests": 1556,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t014-permissions-report.json": {
+        "tests": 1092,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "job_owned_exact_source_ci_all_checks": {
+      "passed": 34,
+      "total": 34
+    },
+    "engineering_failure_diagnostic": {
+      "job_id": 119811290566,
+      "log_sha256": "09874de3eb7949fe113f4420f78ba9828d4c973ffb5410a6a88d2dce5861057e",
+      "npm_error_codes": [],
+      "github_advisory_ids": [],
+      "CVE_ids": [],
+      "vulnerability_count_mentions": [
+        0
+      ],
+      "npm_audit_report_present": false,
+      "runtime_scan_failure_mentioned": true,
+      "artifact_scan_diagnostic": {
+        "status": "FAILED_SCAN_DIAGNOSTIC_ONLY",
+        "artifact_id": 12425174371,
+        "platform_digest_verified": true,
+        "runtime_report_sha256": "bea884d826e5ce91e49a5b6eddd1b00d3c8fa9b351a264c2f73a24f335643195",
+        "dependency_report_sha256": "391f82ceb5c4415cab0061e176e444fe94afe5d11915372552fcefa5410c92dc",
+        "failed_runtime_checks": [
+          "secret_and_dependency_scans"
+        ],
+        "dependency_scan_status": "FAIL_OR_SCAN_ERROR",
+        "python_advisory_matches": 25,
+        "quality_tool_advisory_matches": 1,
+        "python_skipped_package_names": [
+          "torch"
+        ],
+        "npm_findings_by_severity": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "reports_missing_own_source_are_diagnostic_only": true,
+        "dependency_summary_not_separately_marker_owned": true,
+        "matches_not_exploitability_or_risk_acceptance": true,
+        "skipped_not_safe": true
+      }
+    },
+    "observation_scope": "Completed exact prior run; only actually owned/source/window-verified observations are projected; does not validate current PlanBinding/ExecutionMaterials source"
   },
   "latest_payload_hosted_CI": {
-    "status": "NOT_YET_COMMITTED_OR_PUSHED",
-    "all_CI_pass_asserted": false
+    "id": 39779468023,
+    "head_sha": "22e61e9ccd4df617ff1b33a8931971384ce9781c",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39779468023",
+    "created_at": "2026-10-22T12:34:32Z",
+    "updated_at": "2026-10-22T12:34:36Z",
+    "observed_at": "2026-10-22T12:36:06.968723+00:00",
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false
   },
   "source_sync": {
-    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-22T12:34:34.965151+00:00",
+    "source_commit": "22e61e9ccd4df617ff1b33a8931971384ce9781c",
+    "previous_server_commit": "4234356ca7ed017d89104f6956b3d4995cfa1041",
+    "changed_files": 159,
+    "manifest_files_verified": 2397,
+    "manifest_sha256": "b807434a7af3ee4812ea9df9b7e58925d6134f3bdd85578ec2b9c1445f5cb733",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "scope": "Exact I02_PLAN_AUTHORITY_KERNEL_SUBSCOPE pure PlanBinding/ExecutionMaterials source payload only; no SQL, guard, facts, HTTP activation or shared runtime change"
   },
   "implementation_scope": "I02_PLAN_AUTHORITY_KERNEL_SUBSCOPE",
   "component_scope": "Pure frozen PlanBinding/ExecutionMaterials and exact supplied-data binding only; no real current authority lookup, locking, adoption, dynamic facts or permission decision",
@@ -294,5 +418,174 @@
     "E01 adoption authority, E02 exact adopted materials/mapping, E03 real current identity/source/classification/recovery/handler facts and E04 budgets/TTLs remain unconfirmed",
     "Current exact-source hosted CI and three-source synchronization need observed payload receipts; prior pending/failed CI and software scanning remain",
     "Human review, actual effort/dates, N01/software/Python and T013 actual custody/recovery remain"
-  ]
+  ],
+  "material_checks": {
+    "status": "PASS",
+    "validated_source_commit": "22e61e9ccd4df617ff1b33a8931971384ce9781c",
+    "staged_tree": "e15c96088e17b94f5f980f9231c51cf0f3b19f1e",
+    "commands": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T034"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T015"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "scope": "18 exact-source material/navigation checks, not product/production acceptance"
+  },
+  "bounded_prepublication_check": {
+    "status": "PASS",
+    "staged_tree": "e15c96088e17b94f5f980f9231c51cf0f3b19f1e",
+    "manifest_files_verified": 2397,
+    "files_checked": 2399,
+    "scope": "Known runtime/private values and secret filenames only; not full DLP"
+  },
+  "navigation_script_quality": {
+    "status": "PASS",
+    "source_sha256": "e2e2fe5f6255847c381b92ce3d62335b487f2484b72c601da4c73a626249a51d",
+    "checks": [
+      {
+        "command": [
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      }
+    ]
+  }
 }
