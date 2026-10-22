@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T034请求上下文组件：[实现边界](docs/03-development/t034-request-context.md)、[验证及同步回执](docs/00-project/validation/t034-request-context-report.json)。127项纯回归（63上下文/64旧绑定）和270文件类型/质量通过；仅上下文冻结/绑定/清理，未接guard、SQL/当前事实或HTTP。I02未整步完成；仅新增1条子步骤，T034为3已证/4组剩余，当前153条已证、434组剩余，全部170项622组剩余、整卡验收0项。真实CI按回执观察，不清除扫描失败，算法与Python候选继续暂缓。
+2026-10-22本批T034计划绑定/材料纯边界：[实现边界](docs/03-development/t034-plan-authority.md)、[验证及同步回执](docs/00-project/validation/t034-plan-authority-report.json)。392项纯组合（本批84/旧308）和272文件类型/质量通过；仅冻结/核对调用者提供的精确材料，不当真实采用、SQL锁、当前事实或授权。I02未整步完成。新增1条子步骤，T034为4已证/4组剩余，当前154条已证、434组剩余，全部170项622组剩余、整卡验收0项；CI按真实观察，扫描和原门禁保留，算法与Python候选暂缓。
+
+2026-10-22历史批次T034请求上下文组件：[实现边界](docs/03-development/t034-request-context.md)、[验证及同步回执](docs/00-project/validation/t034-request-context-report.json)。127项纯回归（63上下文/64旧绑定）和270文件类型/质量通过；仅上下文冻结/绑定/清理，未接guard、SQL/当前事实或HTTP。I02未整步完成；仅新增1条子步骤，T034为3已证/4组剩余，当批累计153条已证、434组剩余，全部170项622组剩余、整卡验收0项。真实CI按回执观察，不清除扫描失败，算法与Python候选继续暂缓。
 
 2026-10-22历史批次T034-I01材料与迁移基础：[实现边界](docs/03-development/t034-i01-material-foundation.md)、[验证及同步回执](docs/00-project/validation/t034-i01-material-foundation-report.json)、[六表字段/ACL](docs/04-database/task-creation-plan-bindings.md)。245项纯测试、230项受影响隔离DB回归、失败探针及268文件类型/质量通过；初轮中止不计通过。仅新增1条子步骤，T034为2已证/4组剩余，当批累计152条已证、434组剩余，全部170项622组剩余、整卡验收0项。I02— I05继续；createTask未挂载、无真实202/ACTIVE采用，共享数据库未迁移，托管CI失败仍保留。
 

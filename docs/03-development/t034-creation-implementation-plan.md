@@ -1,8 +1,10 @@
 # T034任务创建接线实施计划（I01—I05）
 
-2026-10-22（北京时间）。状态：**I02_CONTEXT_VERIFIED_SQL_FACTS_PENDING**。I01基础及I02首批请求上下文组件已隔离验证；I02的SQL/当前事实/guard接线和I03—I05未完成，E01—E04未确认。
+2026-10-22（北京时间）。状态：**I02_PLAN_BINDING_MATERIALS_VERIFIED_SQL_FACTS_GUARD_PENDING**。I01及I02纯上下文、计划绑定/执行材料组件已隔离验证；I02 SQL/当前事实/guard与I03—I05未完成，E01—E04未确认。
 
 用户本次已批准I01—I05实施计划，并从I01隔离实施。批准时计划基线SHA-256为`20c1be01c841489d1ad8c49f41d69f3e2ade911653c402a93125a3091be1228d`，见[批准记录](../00-project/validation/t034-i01-i05-implementation-approval-20261022.json)。此前D01/D02认可记录保留；当前授权不包含真实映射采用、预算选定、共享部署或正式验收。
+
+2026-10-22当前新增[I02 PlanBinding/ExecutionMaterials纯边界](t034-plan-authority.md)，结果见[专项回执](../00-project/validation/t034-plan-authority-report.json)。只核对冻结的调用者材料；opaque收据/事实字节不是真实采用、许可、当前能力或授权。I02未整步完成，无SQL/guard/HTTP接线；0016固定，后续SQL仍0017及新增迁移。批准时原计划SHA保持，不将状态覆盖当源码重审。
 
 2026-10-22当前I02首批仅新增[请求上下文纯组件](t034-request-context.md)，精确结果见[专项回执](../00-project/validation/t034-request-context-report.json)。获取上下文不是授权；尚未接guard/HTTP或数据库事实。本批不改任何SQL；0016已发布固定，后续SQL仍须0017及新增迁移。原批准记录及其20c1be01基线SHA不变，历史计划文字不当当前完成证据。
 
