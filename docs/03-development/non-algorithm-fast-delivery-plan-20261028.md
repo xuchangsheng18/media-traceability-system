@@ -1,6 +1,8 @@
 # T001—T123非算法工程版快速完成计划
 
-2026-10-22本批T034请求/计划绑定：[实现与边界](t034-request-plan-binding.md)、[限定实测回执](../00-project/validation/t034-request-plan-binding-report.json)。新增1条内部内核子步骤；T001—T123当前140条已证、434组剩余，全部170任务140条已证、622组剩余，整卡验收0项。64项新测试纳入243项受影响回归及258文件类型检查通过；真实提供方、创建事务和HTTP尚未完成。T024和T034的负责人/指定复核人均已确认为徐昌胜，未登记实际验收。
+2026-10-22本批T034创建接入：[具体设计](t034-creation-integration-design.md)、[方案与CI/同步回执](../00-project/validation/t034-creation-integration-design-report.json)。真实映射、分阶段受限SQL、原子事务及HTTP接线方案已补齐，D01—D03待审；本批未实施产品代码或迁移，完成数不增加。T001—T123保持140条已证、434组剩余；全部170项622组剩余、整卡验收0项。算法与Python候选继续暂缓。
+
+2026-10-22历史批次T034请求/计划绑定：[实现与边界](t034-request-plan-binding.md)、[限定实测回执](../00-project/validation/t034-request-plan-binding-report.json)。新增1条内部内核子步骤；T001—T123当前140条已证、434组剩余，全部170任务140条已证、622组剩余，整卡验收0项。64项新测试纳入243项受影响回归及258文件类型检查通过；真实提供方、创建事务和HTTP尚未完成。T024和T034的负责人/指定复核人均已确认为徐昌胜，未登记实际验收。
 
 2026-10-22历史批次T039取消页面：[实现与边界](task-cancellation-console.md)、[限定实测回执](../00-project/validation/task-cancellation-console-report.json)。新增1条工程子步骤；T001—T123当批累计139条已证、434组剩余，全部170任务139条已证、622组剩余，整卡验收0项。350项前端及开发/生产各55项传输浏览器通过；真实后端E2E、T034创建和真实worker停止未完成。
 

@@ -460,6 +460,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
+| [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。 |
+| [00-project/validation/t034-creation-integration-design-report.json](<00-project/validation/t034-creation-integration-design-report.json>) | T034设计输入摘要、已修正边界、待确认及CI/三端源码回执；本批新增业务完成数0，资料核验与真实创建测试分别记录。 |
 | [00-project/validation/t024-role-assignment.json](<00-project/validation/t024-role-assignment.json>) | 用户明确T024开发负责人和指定复核人均为徐昌胜；仅责任登记，不是实际复核、独立双人验收或系统权限授予。 |
 | [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
 | [00-project/validation/ci43e-final-ci-report.json](<00-project/validation/ci43e-final-ci-report.json>) | 精确43e178d最终CI：业务1095、权限1092、前端350与浏览器开发55/Compose56通过；整体扫描仍失败，后续T034不继承为通过。 |
@@ -686,7 +688,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1293份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1295份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1408,6 +1410,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t032-task-event-final-ci-report.json](<00-project/validation/t032-task-event-final-ci-report.json>) | T032精确提交的完整CI：两份业务回归各1057项含1失败，T014及当前安全扫描未执行；旧副本排除，失败身份未保存，不猜测根因。 |
 | [00-project/validation/t032-task-event-integrity-report.json](<00-project/validation/t032-task-event-integrity-report.json>) | T032运行事件约束的RED/GREEN、隔离升级和回滚、相邻权限/恢复回归及源码摘要；CI、同步与整任务验收分开记录。 |
 | [00-project/validation/t033-cancellation-atomic-writer-report.json](<00-project/validation/t033-cancellation-atomic-writer-report.json>) | 取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。 |
+| [00-project/validation/t034-creation-integration-design-report.json](<00-project/validation/t034-creation-integration-design-report.json>) | T034设计输入摘要、已修正边界、待确认及CI/三端源码回执；本批新增业务完成数0，资料核验与真实创建测试分别记录。 |
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
 | [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
@@ -1804,6 +1807,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t024-worker-isolated-integration.md](<03-development/t024-worker-isolated-integration.md>) | T024目标绑定修复、独立worker进程与真实队列故障联调；区分启动撤销、回调拒绝、提交后未ACK重投，以及常驻部署、正式授权、队列进展和清理恢复的剩余条件。 |
 | [03-development/t031-candidate-task-plan.md](<03-development/t031-candidate-task-plan.md>) | T031候选DAG不可变解析、显式预算、模型字段绑定、固定摘要和入口选择；未选分支不冒充运行状态，不授予调度或正式策略资格。 |
 | [03-development/t033-cancellation-atomic-writer.md](<03-development/t033-cancellation-atomic-writer.md>) | T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。 |
+| [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |

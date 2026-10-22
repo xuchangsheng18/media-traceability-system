@@ -70,6 +70,8 @@ def main():
         "03-development/task-cancellation-console.md": "已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。",
         "03-development/t034-request-plan-binding.md": "T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。",
         "00-project/validation/t034-request-plan-binding-report.json": "64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。",
+        "03-development/t034-creation-integration-design.md": "T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。",
+        "00-project/validation/t034-creation-integration-design-report.json": "T034设计输入摘要、已修正边界、待确认及CI/三端源码回执；本批新增业务完成数0，资料核验与真实创建测试分别记录。",
         "00-project/validation/t024-role-assignment.json": "用户明确T024开发负责人和指定复核人均为徐昌胜；仅责任登记，不是实际复核、独立双人验收或系统权限授予。",
         "00-project/validation/t034-role-assignment.json": "用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。",
         "00-project/validation/ci43e-final-ci-report.json": "精确43e178d最终CI：业务1095、权限1092、前端350与浏览器开发55/Compose56通过；整体扫描仍失败，后续T034不继承为通过。",

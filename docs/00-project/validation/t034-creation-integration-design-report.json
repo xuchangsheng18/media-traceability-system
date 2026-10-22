@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_PREPARED_REVIEW_PENDING",
+  "observed_at": "2026-10-22T02:04:21.905337+00:00",
+  "base_source_commit": "0ffdfb399e159945c025a7b126f1dd7373ecec56",
+  "design_ref": "docs/03-development/t034-creation-integration-design.md",
+  "source_sha256_lf": {
+    "backend/business_app/task_creation.py": "5024c68b443b7898e266e4cdff45ba67242a4f17eff58bb47925a04cee87c2d3",
+    "backend/business_app/task_plan.py": "42609f5393e5730dea0765c53eaaaa1ed94adbe4a55b444f6736c177b8b010e9",
+    "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
+    "backend/business_app/data_scope.py": "a8ffe486e2bdec252609790ee1e2ee0bf0296b31a411fa560c803a171a427ab2",
+    "backend/business_app/scope_catalog.py": "4f6f2a27f4fcaa05e19cbf95e4fefd39c1612ee99f471738d52b64c7ad2250e1",
+    "backend/business_app/scope_collections.py": "1b9c8d9c0f53cea27c212da55fd3029cd9eb6e44f7a629875794927e5f7c1129",
+    "backend/business_app/main.py": "1a4d65617b78471be69ff9d359621fcf561c5c11db33fe0f8c382999af35967e",
+    "backend/business_app/permissions/guard.py": "054414c25681b0e5cd6bc5c90be980c963164d5ed6d9d59c1b1136825c161d0a",
+    "backend/business_app/permissions/object_facts.py": "88af45d414352f9fd467ed2dbd867544c0a14824923432d09e12760328e576e5",
+    "backend/business_app/permissions/conditional.py": "d98259060f24cbad64e2452444ddcec87685873704a48f3664b6d36c0736aef8",
+    "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+    "backend/business_app/controls/receipts.py": "00ce7ad5e257f050bd27dc212473026335f86be0108e2f6df03156b3f557137f",
+    "backend/business_app/controls/execution.py": "0d547fa9b565224b7dc094c9f30285f2192cae9c42f590b24f065c658dffefa1",
+    "backend/business_app/controls/common.py": "662a20ba9476ea25362225287836bd028ba461eee19cc1e32231fb7e6c21c956",
+    "backend/business_app/uploads/repository.py": "021ce78c519af548eaa19b0a12ef270148b00bd32703ff231ac3573433a20c9d",
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0008_authorization_fence.sql": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+    "backend/business_migrations/0014_resource_registry.sql": "b41cffea753b6f4e758a7a487e86ce396e520a1402540de464184a3b1295c1d7",
+    "backend/business_migrations/0015_task_event_run_integrity.sql": "9a81b72ceed7f5bcb2fb4d7af29e8ba95b56f9a4fe1c1daffdc900b472110974",
+    "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
+    "schemas/api/common.schema.json": "f0f97b23bf7e6dbf0ffe62b0ac5f55b033b5aa3c24739436d2be0fcf44cfe269",
+    "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+    ".github/workflows/ci.yml": "b5540f7ba9df61ff73a15a02ccdeb90bff8792c57934b3137c42d8ebbf01733b",
+    "docs/03-development/t034-creation-integration-design.md": "7d647e4e96c4921dfe2894d8eb51816d6941af4d08c21c21c3399cd3634faac3"
+  },
+  "scope": "Concrete architecture only; no product implementation, migration, authority adoption or runtime changes",
+  "design_decisions_pending": [
+    {
+      "id": "D01",
+      "decision": "Same-database adopted head/immutable revisions, fixed SQL, atomic snapshot and revocation locks; exact case only and head switch rejects old-revision receipt replay"
+    },
+    {
+      "id": "D02",
+      "decision": "Proof capability triple denotes actual adopted execution capability manifest; explicit evidence for no-model plans and actual handlers"
+    },
+    {
+      "id": "D03",
+      "decision": "After written design review prepare formal I01-I05 implementation plan; preserve current-session execution method and review plan before product implementation"
+    }
+  ],
+  "missing_inputs": [
+    {
+      "id": "E01",
+      "items": [
+        "Actual adoption/revocation authority",
+        "Approval basis and custody/update channel"
+      ]
+    },
+    {
+      "id": "E02",
+      "items": [
+        "Exact policy identities and canonical artifacts",
+        "Case-scoped scene/ordered modules/priority mappings",
+        "Adopted plan and actual capability/handler releases/licensing"
+      ]
+    },
+    {
+      "id": "E03",
+      "items": [
+        "Actual identity/source/classification/recovery providers",
+        "Real non-algorithm handler and task dispatch integration"
+      ]
+    },
+    {
+      "id": "E04",
+      "items": [
+        "Explicit control receipt TTL and proof validity",
+        "Plan bytes/node/capability and resource budgets"
+      ]
+    }
+  ],
+  "review": {
+    "mode": "Two independent read-only design cross-checks plus root inline correction; not human adoption approval",
+    "corrected": [
+      "Python ContextVar/SQL scope responsibility split; pre-ALLOW LOOKUP has no require_root/evidence",
+      "LOOKUP trusted import validation receipt and dynamic facts, CASE full canonical revalidation",
+      "Unambiguous current-head-only replay; old binding never upgraded",
+      "Same-database policy canonical bytes and exact revision identity/full tuple",
+      "NOLOGIN function owner ACL/FORCE-RLS policy and dynamic release/license locks",
+      "No-model handler facts, nonempty plan, initial progress0/draft_only"
+    ],
+    "user_review_performed": false,
+    "implementation_approved": false,
+    "formal_adoption_approved": false
+  },
+  "latest_prior_implementation_CI_observation": {
+    "observed_at": "2026-10-22T01:59:52.004980+00:00",
+    "run": {
+      "id": 39706228608,
+      "head_sha": "0385b1bbcd864d654860ac9bba5bae12cd68f76d",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39706228608"
+    },
+    "jobs": [
+      {
+        "id": 119586789856,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 119590928031,
+        "name": "foundation-verification",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      },
+      {
+        "id": 119590928038,
+        "name": "engineering-execution",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      }
+    ],
+    "schema": "ci0385-pending-ci-evidence-v1",
+    "scope": "Current platform status only for exact 0385b1b implementation; not final artifact evidence and not validation of later design commits.",
+    "final_CI_verified": false,
+    "artifact_platform_digest_verified": false,
+    "T034_64_tests_in_current_full_suite_verified": false,
+    "mypy_258_verified": false,
+    "frontend_tests_verified": false,
+    "browser_results_verified": false,
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false,
+    "raw_logs_or_credentials_published": false,
+    "limits": [
+      "Identity integration succeeded at platform job level. Foundation business regression and engineering gates are still running.",
+      "No final counts, type results, scan findings or browser results are asserted for this run.",
+      "Prior dependency findings and Torch audit gap are not declared resolved.",
+      "No long polling, repository/index changes, server changes or database tests performed."
+    ],
+    "private_status_sha256": "469fd3e1bd32d4b3a534413ad597d481d0a6166631b4456cf2838c2380dae371"
+  },
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_COMMITTED_OR_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "material_checks": {
+    "status": "NOT_YET_RUN_FOR_FINAL_STAGED_DESIGN"
+  },
+  "completion_counts": {
+    "new_verified_substeps": 0,
+    "verified_substeps_T001_T123": 140,
+    "remaining_groups_T001_T123": 434,
+    "verified_substeps_all170": 140,
+    "remaining_groups_all170": 622,
+    "whole_tasks_accepted": 0
+  },
+  "source_dependency_status": "T033 and T015 remain partially verified; complete creation/worker/recovery acceptance not inferred",
+  "product_code_changed": false,
+  "tests_changed": false,
+  "new_migration": false,
+  "HTTP_createTask_mounted": false,
+  "database_writes_performed": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "actual_mapping_seeded": false,
+  "runtime_authorization_asserted": false,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "tests_not_repeated": [
+    "Unchanged243 kernel tests/type258",
+    "Frontend/browser suites",
+    "Full database regression"
+  ],
+  "official_technical_references": [
+    "https://www.postgresql.org/docs/16/explicit-locking.html",
+    "https://www.postgresql.org/docs/16/sql-createfunction.html",
+    "https://www.postgresql.org/docs/16/ddl-rowsecurity.html",
+    "https://www.postgresql.org/docs/16/functions-binarystring.html"
+  ]
+}
