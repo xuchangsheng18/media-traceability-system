@@ -188,9 +188,9 @@
     "scope_extension_to_T164_approved": false
   },
   "source_backlog_sha256": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-  "ledger_sha256": "f3d807cc2ef188ab5a1e50130337f0a6b6fb160ce393622d5f928dcce764a8c5",
+  "ledger_sha256": "f10fb03baec440449394e3e7071093c90fbdfac17afe5d696e84ad32cba5ef29",
   "task_count": 123,
-  "completed_substeps": 141,
+  "completed_substeps": 142,
   "remaining_work_items": 434,
   "whole_tasks_accepted": 0,
   "deferred_integrated_test_task_ids": [
@@ -202,7 +202,7 @@
   "original_170_task_scope_preserved": true,
   "all_170_task_totals": {
     "task_count": 170,
-    "completed_substeps": 141,
+    "completed_substeps": 142,
     "remaining_work_items": 622,
     "whole_tasks_accepted": 0
   },
@@ -758,14 +758,15 @@
       ],
       "outside_authorized_scope_dependencies": [],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
-      "completed_substeps": 1,
+      "completed_substeps": 2,
       "remaining_work_items": 3,
       "whole_task_accepted": false,
-      "actual_owner": null,
-      "work_arrangement": "实施前核对实际依赖/代码/契约；不凭编号放行",
+      "actual_owner": "徐昌胜",
+      "work_arrangement": "已修复不同上传会话的并发SHA关联及提交/回滚/争用取消重试；仍需批量、多消费者压力/公平性与扩展身份/来源权限组合。完整Linux业务回归约1800秒后返回BLOCKED_OR_FAIL，未取得完整计数/异常类别，不将7例或92项相邻测试当全量通过。；保留独立对象/资产、同SHA跨案件不关联、两个已授权来源及撤销读取边界已有相邻证据；真实身份/来源/存储组合、对象清理和完整恢复、候选首项不可访问时的后续候选规则仍待，不复用分析结果或感知结论。；实际开发负责人和指定复核人均已确认为徐昌胜；剩余工时、实际实施日期、本人复核决定和逐项源卡验收仍待。同人兼任不等于独立双人复核，责任登记不替代验收。",
       "actual_dependency_readiness_verified_by_this_document": false,
       "code_or_test_execution_performed_by_this_document": false,
-      "remaining_work_groups": 3
+      "remaining_work_groups": 3,
+      "latest_implemented_subscope_ref": "docs/00-project/validation/t027-concurrent-sha-association-report.json"
     },
     {
       "task_id": "T028",
@@ -3102,7 +3103,18 @@
   },
   "next_independent_candidate": {
     "task_id": "T027",
-    "status": "READ_ONLY_CANDIDATE_REPRODUCTION_REQUIRED",
-    "scope": "Different upload sessions with same complete SHA; reproduce with independent DB connections before any locking repair. Not T034 design approval."
+    "status": "CONCURRENT_ASSOCIATION_SUBSCOPE_VERIFIED_REMAINDER_OPEN",
+    "scope": "已修复不同上传会话的并发SHA关联及提交/回滚/争用取消重试；仍需批量、多消费者压力/公平性与扩展身份/来源权限组合。完整Linux业务回归约1800秒后返回BLOCKED_OR_FAIL，未取得完整计数/异常类别，不将7例或92项相邻测试当全量通过。；保留独立对象/资产、同SHA跨案件不关联、两个已授权来源及撤销读取边界已有相邻证据；真实身份/来源/存储组合、对象清理和完整恢复、候选首项不可访问时的后续候选规则仍待，不复用分析结果或感知结论。；实际开发负责人和指定复核人均已确认为徐昌胜；剩余工时、实际实施日期、本人复核决定和逐项源卡验收仍待。同人兼任不等于独立双人复核，责任登记不替代验收。"
+  },
+  "latest_t027_concurrent_sha_association": {
+    "observed_at": "2026-10-22T03:55:51.665436+00:00",
+    "report_ref": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+    "plan_ref": "docs/03-development/t027-concurrent-sha-association.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
   }
 }

@@ -3701,10 +3701,10 @@
       "name": "实现SHA-256完全重复检测",
       "card": "tasks/backend/T027.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "案件内精确SHA重复检测及duplicate_of引用已有测试",
-      "summary_remaining": "补全部批量/并发去重与权限策略；验证不同来源/案件不可复用及对象生命周期，不将精确哈希当感知去重",
+      "summary_completed": "案件内精确SHA重复检测及duplicate_of引用已有测试；不同上传会话完整SHA并发关联已用真实双连接复现并修复：原事务按单位/案件/实际SHA协调，获锁后单独查询；提交/回滚、两个已授权来源、跨案件/不同摘要、超时孤儿保留及重投重试7例和相邻隔离回归有证据，保留每份原件和独立资产。不等于压力、正式权威组合、分析结果复用或整卡验收。",
+      "summary_remaining": "已修复不同上传会话的并发SHA关联及提交/回滚/争用取消重试；仍需批量、多消费者压力/公平性与扩展身份/来源权限组合。完整Linux业务回归约1800秒后返回BLOCKED_OR_FAIL，未取得完整计数/异常类别，不将7例或92项相邻测试当全量通过。；保留独立对象/资产、同SHA跨案件不关联、两个已授权来源及撤销读取边界已有相邻证据；真实身份/来源/存储组合、对象清理和完整恢复、候选首项不可访问时的后续候选规则仍待，不复用分析结果或感知结论。；实际开发负责人和指定复核人均已确认为徐昌胜；剩余工时、实际实施日期、本人复核决定和逐项源卡验收仍待。同人兼任不等于独立双人复核，责任登记不替代验收。",
       "completed_steps": [
         {
           "description": "案件内精确SHA重复检测及duplicate_of引用已有测试",
@@ -3723,23 +3723,52 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "不同上传会话完整SHA并发关联已用真实双连接复现并修复：原事务按单位/案件/实际SHA协调，获锁后单独查询；提交/回滚、两个已授权来源、跨案件/不同摘要、超时孤儿保留及重投重试7例和相邻隔离回归有证据，保留每份原件和独立资产。不等于压力、正式权威组合、分析结果复用或整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/uploads/worker.py",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            },
+            {
+              "path": "tests/business/test_upload_sha_concurrency.py",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            },
+            {
+              "path": "docs/03-development/t027-concurrent-sha-association.md",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            },
+            {
+              "path": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补全部批量/并发去重与权限策略"
+          "description": "已修复不同上传会话的并发SHA关联及提交/回滚/争用取消重试；仍需批量、多消费者压力/公平性与扩展身份/来源权限组合。完整Linux业务回归约1800秒后返回BLOCKED_OR_FAIL，未取得完整计数/异常类别，不将7例或92项相邻测试当全量通过。"
         },
         {
           "category": "实施/验证",
-          "description": "验证不同来源/案件不可复用及对象生命周期，不将精确哈希当感知去重"
+          "description": "保留独立对象/资产、同SHA跨案件不关联、两个已授权来源及撤销读取边界已有相邻证据；真实身份/来源/存储组合、对象清理和完整恢复、候选首项不可访问时的后续候选规则仍待，不复用分析结果或感知结论。"
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "实际开发负责人和指定复核人均已确认为徐昌胜；剩余工时、实际实施日期、本人复核决定和逐项源卡验收仍待。同人兼任不等于独立双人复核，责任登记不替代验收。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "designated_reviewer": "徐昌胜",
+      "owner_confirmation_ref": "docs/00-project/validation/t027-role-assignment.json",
+      "followup_document_refs": [
+        "docs/03-development/t027-concurrent-sha-association.md",
+        "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+        "docs/00-project/validation/t027-role-assignment.json"
+      ]
     },
     {
       "task_id": "T028",
@@ -9600,7 +9629,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t030-asset-source-panel-report.json",
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
     "latest_design_ref": "docs/03-development/t034-creation-integration-design.md"
   },
   "latest_business_upload_frontend": {
@@ -9717,6 +9746,17 @@
     "observed_at": "2026-10-22T02:48:19.296153+00:00",
     "report_ref": "docs/00-project/validation/t030-asset-source-panel-report.json",
     "plan_ref": "docs/03-development/t030-asset-source-panel.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
+  },
+  "latest_t027_concurrent_sha_association": {
+    "observed_at": "2026-10-22T03:55:51.665436+00:00",
+    "report_ref": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+    "plan_ref": "docs/03-development/t027-concurrent-sha-association.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

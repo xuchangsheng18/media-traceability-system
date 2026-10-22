@@ -139,6 +139,13 @@ class UploadValidationWorker:
                     repository.database, scope, ResourceBinding("upload", upload), io.BytesIO(data)
                 )
                 asset, content = uuid4(), uuid4()
+                # Distinct upload rows do not serialize the same content. Hold
+                # this case-scoped lock through publication/commit, then query
+                # in a separate statement so a waiting worker sees that commit.
+                connection.execute(
+                    text("SELECT pg_advisory_xact_lock(hashtext(:key))"),
+                    {"key": f"upload-sha256/{actor.org_id}/{scope.case_id}/{stored.ref.sha256}"},
+                )
                 duplicate = (
                     connection.execute(
                         text(

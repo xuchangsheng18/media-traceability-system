@@ -226,7 +226,7 @@
   },
   "actual_capacity_plan": {
     "status": "NOT_COMPUTABLE_ACTUAL_INPUTS_MISSING",
-    "missing_input_count": 383,
+    "missing_input_count": 382,
     "missing_inputs": [
       "confirmed_working_calendar",
       "actual_plan_start_date",
@@ -278,7 +278,6 @@
       "T025:reestimated_remaining_effort_hours",
       "T026:actual_assignee",
       "T026:reestimated_remaining_effort_hours",
-      "T027:actual_assignee",
       "T027:reestimated_remaining_effort_hours",
       "T035:actual_assignee",
       "T035:reestimated_remaining_effort_hours",
@@ -3224,10 +3223,26 @@
         {
           "path": "docs/00-project/validation/business-foundation-report.json",
           "scope": "仅证明本行开发子范围；不证明原任务全部验收"
+        },
+        {
+          "path": "backend/business_app/uploads/worker.py",
+          "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+        },
+        {
+          "path": "tests/business/test_upload_sha_concurrency.py",
+          "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+        },
+        {
+          "path": "docs/03-development/t027-concurrent-sha-association.md",
+          "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+        },
+        {
+          "path": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+          "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
         }
       ],
-      "actual_assignee_resource_id": null,
-      "actual_assignee_name": null,
+      "actual_assignee_resource_id": "PERSON-002",
+      "actual_assignee_name": "徐昌胜",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -8022,7 +8037,7 @@
   ],
   "source_hashes": {
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "docs/00-project/execution-planning-inputs.json": "3402a03d8366324df651042c11c8979069a9da7ae57cdfacba17a9e3b80a822d",
+    "docs/00-project/execution-planning-inputs.json": "cfdc8a29c66700470628c43a36212ad40bdddbca06e0c44de9d8de7ec55d2cb1",
     "scripts/plan_project_schedule.py": "edf0e452a6877d6ea918a1369fad0af66c261f4768c7fa3be869715d240b38fe"
   }
 }

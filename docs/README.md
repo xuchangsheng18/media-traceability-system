@@ -38,7 +38,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[763条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有141条已验证子步骤、622条剩余工作；全局编号0001—0763。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[764条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有142条已验证子步骤、622条剩余工作；全局编号0001—0764。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -440,6 +440,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t027-concurrent-sha-association.md](<03-development/t027-concurrent-sha-association.md>) | T027不同上传会话完整SHA竞争的真实双连接复现、案件级事务协调及提交/回滚/超时边界；保留独立原件，不复用分析结果或扩大授权。 |
+| [00-project/validation/t027-concurrent-sha-association-report.json](<00-project/validation/t027-concurrent-sha-association-report.json>) | T027精确源码、有效RED、并发与相邻/全量隔离回归、质量检查及CI/三端同步；不是正式权威接入、压力或整卡验收。 |
+| [00-project/validation/t027-role-assignment.json](<00-project/validation/t027-role-assignment.json>) | 用户确认T027开发负责人和指定复核人均为徐昌胜；只登记责任，不证明本人复核、独立双人验收、工时或平台授权。 |
 | [03-development/t024-worker-isolated-integration.md](<03-development/t024-worker-isolated-integration.md>) | T024目标绑定修复、独立worker进程与真实队列故障联调；区分启动撤销、回调拒绝、提交后未ACK重投，以及常驻部署、正式授权、队列进展和清理恢复的剩余条件。 |
 | [00-project/validation/t024-worker-isolated-integration-report.json](<00-project/validation/t024-worker-isolated-integration-report.json>) | T024限定子范围的实际命令、源码和日志摘要、失败修复、完整业务回归及精确CI/源码同步；不把测试权威或进程重启当正式组合验收。 |
 | [03-development/t024-object-durability.md](<03-development/t024-object-durability.md>) | T024 Linux文件、对象目录及根目录落盘屏障、初始化重试与故障拒绝；区别目录同步实测与断电、孤立对象清理和完整恢复。 |
@@ -691,7 +694,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1298份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1301份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -782,7 +785,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内763条执行事项逐条编号：141条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内764条执行事项逐条编号：142条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1408,6 +1411,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t024-object-durability-report.json](<00-project/validation/t024-object-durability-report.json>) | T024目录持久性限定子范围的精确源码、RED/GREEN、相邻回归、质量检查、CI和源码同步；不登记共享采用或整任务验收。 |
 | [00-project/validation/t024-role-assignment.json](<00-project/validation/t024-role-assignment.json>) | 用户明确T024开发负责人和指定复核人均为徐昌胜；仅责任登记，不是实际复核、独立双人验收或系统权限授予。 |
 | [00-project/validation/t024-worker-isolated-integration-report.json](<00-project/validation/t024-worker-isolated-integration-report.json>) | T024限定子范围的实际命令、源码和日志摘要、失败修复、完整业务回归及精确CI/源码同步；不把测试权威或进程重启当正式组合验收。 |
+| [00-project/validation/t027-concurrent-sha-association-report.json](<00-project/validation/t027-concurrent-sha-association-report.json>) | T027精确源码、有效RED、并发与相邻/全量隔离回归、质量检查及CI/三端同步；不是正式权威接入、压力或整卡验收。 |
+| [00-project/validation/t027-role-assignment.json](<00-project/validation/t027-role-assignment.json>) | 用户确认T027开发负责人和指定复核人均为徐昌胜；只登记责任，不证明本人复核、独立双人验收、工时或平台授权。 |
 | [00-project/validation/t030-asset-source-panel-report.json](<00-project/validation/t030-asset-source-panel-report.json>) | T030六源文件、RED/GREEN、质量/浏览器/复核裁定及精确CI和三端源码回执；只有只读页面子范围，未关闭父级/会话旧边界或整卡验收。 |
 | [00-project/validation/t030-role-assignment.json](<00-project/validation/t030-role-assignment.json>) | 用户确认T030开发负责人和指定复核人为徐昌胜；仅责任登记，不表示本人已复核、独立双人或系统授权。 |
 | [00-project/validation/t031-candidate-plan-final-ci-report.json](<00-project/validation/t031-candidate-plan-final-ci-report.json>) | T031精确解析提交的最终CI证据：业务1029、权限1092等通过；整体因12条Python扫描发现及Torch未覆盖失败，旧报告排除，原锁与门禁保留。 |
@@ -1810,6 +1815,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t021-source-console-continuation.md](<03-development/t021-source-console-continuation.md>) | 说明文档：T021来源管理前后端续批；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t024-object-durability.md](<03-development/t024-object-durability.md>) | T024 Linux文件、对象目录及根目录落盘屏障、初始化重试与故障拒绝；区别目录同步实测与断电、孤立对象清理和完整恢复。 |
 | [03-development/t024-worker-isolated-integration.md](<03-development/t024-worker-isolated-integration.md>) | T024目标绑定修复、独立worker进程与真实队列故障联调；区分启动撤销、回调拒绝、提交后未ACK重投，以及常驻部署、正式授权、队列进展和清理恢复的剩余条件。 |
+| [03-development/t027-concurrent-sha-association.md](<03-development/t027-concurrent-sha-association.md>) | T027不同上传会话完整SHA竞争的真实双连接复现、案件级事务协调及提交/回滚/超时边界；保留独立原件，不复用分析结果或扩大授权。 |
 | [03-development/t030-asset-source-panel.md](<03-development/t030-asset-source-panel.md>) | 资产详情复用getSource的只读授权记录面板，精确案件/来源与会话保护；40项新单元、390完整前端及61/61传输浏览器，真实权威联调与血缘仍待。 |
 | [03-development/t031-candidate-task-plan.md](<03-development/t031-candidate-task-plan.md>) | T031候选DAG不可变解析、显式预算、模型字段绑定、固定摘要和入口选择；未选分支不冒充运行状态，不授予调度或正式策略资格。 |
 | [03-development/t033-cancellation-atomic-writer.md](<03-development/t033-cancellation-atomic-writer.md>) | T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。 |

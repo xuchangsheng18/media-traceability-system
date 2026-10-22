@@ -50,6 +50,9 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t027-concurrent-sha-association.md": "T027不同上传会话完整SHA竞争的真实双连接复现、案件级事务协调及提交/回滚/超时边界；保留独立原件，不复用分析结果或扩大授权。",
+        "00-project/validation/t027-concurrent-sha-association-report.json": "T027精确源码、有效RED、并发与相邻/全量隔离回归、质量检查及CI/三端同步；不是正式权威接入、压力或整卡验收。",
+        "00-project/validation/t027-role-assignment.json": "用户确认T027开发负责人和指定复核人均为徐昌胜；只登记责任，不证明本人复核、独立双人验收、工时或平台授权。",
         "03-development/t024-worker-isolated-integration.md": "T024目标绑定修复、独立worker进程与真实队列故障联调；区分启动撤销、回调拒绝、提交后未ACK重投，以及常驻部署、正式授权、队列进展和清理恢复的剩余条件。",
         "00-project/validation/t024-worker-isolated-integration-report.json": "T024限定子范围的实际命令、源码和日志摘要、失败修复、完整业务回归及精确CI/源码同步；不把测试权威或进程重启当正式组合验收。",
         "03-development/t024-object-durability.md": "T024 Linux文件、对象目录及根目录落盘屏障、初始化重试与故障拒绝；区别目录同步实测与断电、孤立对象清理和完整恢复。",

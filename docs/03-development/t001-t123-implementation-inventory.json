@@ -80,7 +80,7 @@
     "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
     "backend/business_app/uploads/service.py": "8d3adfc488ced313b9be547ae29fa713c18408bab5b481bec24616bcf3a5508e",
     "backend/business_app/uploads/validator.py": "d7fed4480d08e337aa4804e5da7dd724e31988b9a3a9e9da879c96e13f4574da",
-    "backend/business_app/uploads/worker.py": "909b1eebe1cf42be934631879aff429837507ee9537ee1ea577607a103b3aff8",
+    "backend/business_app/uploads/worker.py": "4402f7afc5c1f1d64a9512a0eb4c7da27b83cdc2756abc35117084d3d82bc4b9",
     "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
     "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
     "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
@@ -100,7 +100,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "f3d807cc2ef188ab5a1e50130337f0a6b6fb160ce393622d5f928dcce764a8c5",
+    "tasks/execution-status.json": "f10fb03baec440449394e3e7071093c90fbdfac17afe5d696e84ad32cba5ef29",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -118,10 +118,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 141,
+    "all_completed_substeps": 142,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 141,
+    "authorized_completed_substeps": 142,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -8902,7 +8902,7 @@
       "group": "来源登记、上传、导入及媒体资源",
       "work_kind": "engineering_or_business_development",
       "source_role": "后端",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "source_dependencies": "T020,T24",
       "execution_dependencies_candidate": [
         "T020",
@@ -8941,10 +8941,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 1,
+      "completed_substeps_count": 2,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "案件内精确SHA重复检测及duplicate_of引用已有测试",
-      "actual_remaining_summary": "补全部批量/并发去重与权限策略；验证不同来源/案件不可复用及对象生命周期，不将精确哈希当感知去重",
+      "actual_completed_summary": "案件内精确SHA重复检测及duplicate_of引用已有测试；不同上传会话完整SHA并发关联已用真实双连接复现并修复：原事务按单位/案件/实际SHA协调，获锁后单独查询；提交/回滚、两个已授权来源、跨案件/不同摘要、超时孤儿保留及重投重试7例和相邻隔离回归有证据，保留每份原件和独立资产。不等于压力、正式权威组合、分析结果复用或整卡验收。",
+      "actual_remaining_summary": "已修复不同上传会话的并发SHA关联及提交/回滚/争用取消重试；仍需批量、多消费者压力/公平性与扩展身份/来源权限组合。完整Linux业务回归约1800秒后返回BLOCKED_OR_FAIL，未取得完整计数/异常类别，不将7例或92项相邻测试当全量通过。；保留独立对象/资产、同SHA跨案件不关联、两个已授权来源及撤销读取边界已有相邻证据；真实身份/来源/存储组合、对象清理和完整恢复、候选首项不可访问时的后续候选规则仍待，不复用分析结果或感知结论。；实际开发负责人和指定复核人均已确认为徐昌胜；剩余工时、实际实施日期、本人复核决定和逐项源卡验收仍待。同人兼任不等于独立双人复核，责任登记不替代验收。",
       "completed_steps": [
         {
           "description": "案件内精确SHA重复检测及duplicate_of引用已有测试",
@@ -8963,20 +8963,42 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "不同上传会话完整SHA并发关联已用真实双连接复现并修复：原事务按单位/案件/实际SHA协调，获锁后单独查询；提交/回滚、两个已授权来源、跨案件/不同摘要、超时孤儿保留及重投重试7例和相邻隔离回归有证据，保留每份原件和独立资产。不等于压力、正式权威组合、分析结果复用或整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/uploads/worker.py",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            },
+            {
+              "path": "tests/business/test_upload_sha_concurrency.py",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            },
+            {
+              "path": "docs/03-development/t027-concurrent-sha-association.md",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            },
+            {
+              "path": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+              "scope": "仅不同上传会话并发SHA关联及事务失败边界；各检查实际源码/结果见专项回执，不证明整任务或真实权威接入"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "补全部批量/并发去重与权限策略"
+          "description": "已修复不同上传会话的并发SHA关联及提交/回滚/争用取消重试；仍需批量、多消费者压力/公平性与扩展身份/来源权限组合。完整Linux业务回归约1800秒后返回BLOCKED_OR_FAIL，未取得完整计数/异常类别，不将7例或92项相邻测试当全量通过。"
         },
         {
           "category": "实施/验证",
-          "description": "验证不同来源/案件不可复用及对象生命周期，不将精确哈希当感知去重"
+          "description": "保留独立对象/资产、同SHA跨案件不关联、两个已授权来源及撤销读取边界已有相邻证据；真实身份/来源/存储组合、对象清理和完整恢复、候选首项不可访问时的后续候选规则仍待，不复用分析结果或感知结论。"
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "实际开发负责人和指定复核人均已确认为徐昌胜；剩余工时、实际实施日期、本人复核决定和逐项源卡验收仍待。同人兼任不等于独立双人复核，责任登记不替代验收。"
         }
       ],
       "database_scope": [
