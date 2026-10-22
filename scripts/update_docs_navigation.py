@@ -75,6 +75,8 @@ def main():
         "00-project/validation/t034-request-plan-binding-report.json": "64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。",
         "03-development/t034-creation-integration-design.md": "T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。",
         "00-project/validation/t034-creation-integration-design-report.json": "T034设计输入摘要、已修正边界、待确认及CI/三端源码回执；本批新增业务完成数0，资料核验与真实创建测试分别记录。",
+        "03-development/shared-session-rejection-lifecycle.md": "共享call已形成旧401的传播窗口保护新连接尝试；6项真实客户端受控调度单元纳入396前端、72/72传输浏览器；不是普通点击或已建立用户丢失复现。",
+        "00-project/validation/shared-session-rejection-lifecycle-report.json": "共享会话精确源码、有效6例RED、质量/浏览器、调度维护事项、旧CI安全失败与本批CI/三端回执；不改公共契约或整卡验收。",
         "03-development/t030-asset-context-invalidation.md": "资产父页同generation本地用户/单位/角色/权限/案件变化同步清理；有效RED、390前端、72/72传输浏览器及复核边界，远端撤销和真实联调仍待。",
         "00-project/validation/t030-asset-context-invalidation-report.json": "T030两个源码、11项新增浏览器、质量检查、1项异步负例覆盖改进、9项裁定及精确CI/三端源码回执；不是整卡验收。",
         "03-development/t030-asset-source-panel.md": "资产详情复用getSource的只读授权记录面板，精确案件/来源与会话保护；40项新单元、390完整前端及61/61传输浏览器，真实权威联调与血缘仍待。",

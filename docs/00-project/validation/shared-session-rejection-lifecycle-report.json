@@ -1,0 +1,1597 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_SHARED_SESSION_REJECTION_LIFECYCLE_NOT_FULL_TASK",
+  "observed_at": "2026-10-22T04:57:27.603327+00:00",
+  "base_source_commit": "3f345b3cdca765fe11c7bde580314b77b27e1303",
+  "source_sha256_lf": {
+    "frontend/src/business/session.ts": "ff3e1448849391812383ef6b8f22242184d071cada0a06db77aa630ce464a0c6",
+    "frontend/src/business/session.test.ts": "6f3093114848a5887e01d1a31b975cb06bbcbb271d6e4f3e91eaca1756a817b1"
+  },
+  "actual_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "responsibility_confirmation_ref": "docs/00-project/validation/t030-role-assignment.json",
+  "approved_scope": "Existing fast-plan ReviewFocus1 and T030 shared late401 remainder; bounded client lifecycle repair without API/policy change",
+  "root_cause": "BusinessClient body-version checks reject ordinary stale replies, but generic session.call unconditionally disconnects on a401 already generated before reconnect and delivered afterward through Promise propagation",
+  "implementation": "Capture session generation before generic call; only current-generation401 may disconnect. Preserve original rejection. Same guard as existing putPart, which is unchanged.",
+  "RED": {
+    "status": "PASS_VALID_ORIGINAL_RED",
+    "observed_at": "2026-10-22T04:51:26.383305+00:00",
+    "exit_code": 1,
+    "command": [
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "src/business/session.test.ts"
+    ],
+    "failed": 6,
+    "cause": "All6 native-client propagation-window cases retain old ApiError401 and fail generation3 vs reconnect2; not ordinary late HTTP/body or established-user loss",
+    "source_sha256_lf": {
+      "frontend/src/business/session.ts": "71f973e21ea55eb00c5e380f08f6adec56d262860ded9377a9d42854ca2f8457",
+      "frontend/src/business/session.test.ts": "6f3093114848a5887e01d1a31b975cb06bbcbb271d6e4f3e91eaca1756a817b1"
+    },
+    "log_sha256": "3b67d48e5fb39f3fa550b56801e805b0c1b6f77c3f1af7a50638467f35e2a893"
+  },
+  "quality": {
+    "source_sha256_lf": {
+      "frontend/src/business/session.ts": "ff3e1448849391812383ef6b8f22242184d071cada0a06db77aa630ce464a0c6",
+      "frontend/src/business/session.test.ts": "6f3093114848a5887e01d1a31b975cb06bbcbb271d6e4f3e91eaca1756a817b1"
+    },
+    "status": "PASS",
+    "checks": [
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vitest/vitest.mjs",
+          "run"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:51:46.355789+00:00",
+        "log_sha256": "35c6e1eb0406e89dd298b017177515faf321116c2f1a9b88d69eb0415d4057c4",
+        "summary": " RUN  v5.0.3 D:/公安厅项目/_work/media-trace-foundation-worktree/frontend\n\n\n Test Files  13 passed (13)\n      Tests  396 passed (396)\n   Start at  12:51:43\n   Duration  2.42s (import 56%, transform 22%, tests 18%, worker 3%)\n\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vue-tsc/bin/vue-tsc.js",
+          "--noEmit"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:51:50.289137+00:00",
+        "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+        "summary": ""
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/eslint/bin/eslint.js",
+          "src",
+          "e2e",
+          "*.ts",
+          "*.mjs",
+          "--max-warnings=0"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:51:56.494915+00:00",
+        "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+        "summary": ""
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/prettier/bin/prettier.cjs",
+          "--check",
+          "src/**/*.{ts,vue,css}",
+          "e2e/**/*.ts",
+          "*.{ts,mjs,json,html}"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:51:58.566582+00:00",
+        "log_sha256": "972f261800bfad73adf8b1f08b4f9c76078a3961010e541b8b21559ef5a628a4",
+        "summary": "Checking formatting...\nAll matched files use Prettier code style!\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vite/bin/vite.js",
+          "build"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:51:59.886868+00:00",
+        "log_sha256": "8b8b9872bf1a95d039e5638dfe223e130edc7cb365a770f5a2bd70e4d21acb72",
+        "summary": "✓ 76 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.50 kB │ gzip:  0.35 kB\ndist/assets/index-CX2qa6mp.css   10.32 kB │ gzip:  3.02 kB\ndist/assets/index-BY0QeVQc.js   218.30 kB │ gzip: 72.03 kB\n\n✓ built in 462ms\n"
+      }
+    ]
+  },
+  "browser": {
+    "development": {
+      "mode": "development",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 72,
+      "failed": 0,
+      "started_at": "2026-10-22T04:52:19.163557+00:00",
+      "ended_at": "2026-10-22T04:53:36.412377+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=foundation-playwright.config.ts"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/business/session.ts": "ff3e1448849391812383ef6b8f22242184d071cada0a06db77aa630ce464a0c6",
+        "frontend/src/business/session.test.ts": "6f3093114848a5887e01d1a31b975cb06bbcbb271d6e4f3e91eaca1756a817b1"
+      },
+      "log_sha256": "b3d3b99439b18e6612979422f48cd10d85b8a225de4ac6c5b3fa222506599413",
+      "browser": "Existing locked Windows Node22.21.1 and Chrome; explicit transport fixtures only, no Linux real-authority backend E2E"
+    },
+    "production": {
+      "mode": "production",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 72,
+      "failed": 0,
+      "started_at": "2026-10-22T04:55:49.618359+00:00",
+      "ended_at": "2026-10-22T04:56:58.565555+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=D:\\公安厅项目\\_work\\session-lifecycle-production-playwright-config.private.mjs"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/business/session.ts": "ff3e1448849391812383ef6b8f22242184d071cada0a06db77aa630ce464a0c6",
+        "frontend/src/business/session.test.ts": "6f3093114848a5887e01d1a31b975cb06bbcbb271d6e4f3e91eaca1756a817b1"
+      },
+      "log_sha256": "6ea1a9a8fc745d393ca36df48f0bf1fd99bd4a119b1daaa9e6dedfc4824cfbe8",
+      "browser": "Existing locked Windows Node22.21.1 and Chrome; explicit transport fixtures only, no Linux real-authority backend E2E"
+    }
+  },
+  "new_unit_tests": 6,
+  "full_frontend_unit_tests": 396,
+  "new_browser_tests": 0,
+  "development_browser_tests": 72,
+  "production_browser_tests": 72,
+  "browser_counts_overlap_not_144_unique": true,
+  "environment": "Existing Windows locked Node22.21.1/Chrome, native BusinessClient/Promise/Response plus self-owned fetch transport fixtures; no Linux real-authority backend E2E",
+  "scheduling_scope": "Three controlled microtasks intentionally cross final error-body check into rejection propagation; not ordinary delayed HTTP/body or user-click reproduction. New identity still pending when old error settles.",
+  "initial_fixture_correction": "Initial two-microtask probe was caught by existing BusinessClient generation check and returned identity-switched Error, so it was not accepted as bugRED. Final3microtask6cases produce oldApiError401 and generation3vs2 before product edit.",
+  "independent_review": {
+    "method": "One fresh independent read-only whole-tranche review",
+    "remaining_critical": 0,
+    "remaining_important": 0,
+    "deferred_minors": [
+      {
+        "behavior": "Three nested queueMicrotask callbacks couple the test to current Promise propagation layers",
+        "future_requirement": "If async wrappers change, preserve a real old ApiError401 and exact lifecycle phase; do not weaken assertions to force the test to pass",
+        "nonblocking_reason": "Native client and final original6RED plus current generation/user/busy/bearer assertions constrain the actual window"
+      }
+    ],
+    "root_rulings": [
+      {
+        "boundary": "Controlled shared-session microtask interleaving",
+        "decision": "6 cases cover already-created old ApiError401 propagation while a new connect starts, not normal UI click timing or remote attack",
+        "cost_if_wrong": "Overstates user-visible frequency or security exploitability"
+      },
+      {
+        "boundary": "Pending versus established identity",
+        "decision": "New auth response is released only after old catch, so evidence proves new connection attempt preservation, not established-user loss",
+        "cost_if_wrong": "Misstates the actual reproduced failure"
+      },
+      {
+        "boundary": "Success propagation, remote revocation and CurrentUser validation",
+        "decision": "Unchanged separate scopes, no claim fixed or fully validated",
+        "cost_if_wrong": "Would hide other lifecycle or validation boundaries"
+      },
+      {
+        "boundary": "Original caller error",
+        "decision": "Old request still rejects with original401; page-level old-error display is separately guarded by existing controllers, not fully proven here",
+        "cost_if_wrong": "Old callers could still affect local feedback despite preserved session"
+      },
+      {
+        "boundary": "PUT transport",
+        "decision": "putPart unchanged; existing late body/current401 tests retained; new6 are JSON GET/POST and binary GET only",
+        "cost_if_wrong": "Incorrectly counts PUT propagation-window regression as newly proven"
+      },
+      {
+        "boundary": "Exact-source CI and source delivery",
+        "decision": "Root verifies actual hashes, gates, commits and3heads; independent code review is not CI or real-authority acceptance",
+        "cost_if_wrong": "Evidence could be bound to the wrong source or overstated as deployment"
+      }
+    ],
+    "human_review_performed": false,
+    "independent_dual_human_review": false,
+    "second_review_loop": false
+  },
+  "prior_T030_deferred_minor": "Negative asset browser cases wait HTTP rather than original application continuation; remains open, not repaired by session tests",
+  "full_database_regression_rerun": false,
+  "database_verification_scope": "No backend/SQL change. Previous local T027 full run BLOCKED_OR_FAIL after1800sec remains true; separate hosted76df fresh1166business passed, with cancelled workflow and failed security gate, not a new local rerun or current-source acceptance.",
+  "prior_T027_hosted_CI_observation": {
+    "schema": "ci76df-final-ci-evidence-v1",
+    "observed_at": "2026-10-22T04:50:24.895517+00:00",
+    "run": {
+      "id": 39720760501,
+      "head_sha": "76df02345ed2c340bfc11230faed057f5033a6ab",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39720760501"
+    },
+    "jobs": [
+      {
+        "id": 119633414154,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119637516522,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "cancelled"
+      },
+      {
+        "id": 119637516545,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119642883627,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ],
+    "artifact_integrity": [
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "zip_sha256": "a25c3c6b7ceb828e5f7f7e462a1aa7ebc0c2226cd6e19c438a3442e17d2b6691",
+        "platform_digest": "sha256:a25c3c6b7ceb828e5f7f7e462a1aa7ebc0c2226cd6e19c438a3442e17d2b6691",
+        "platform_digest_verified": true
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "zip_sha256": "332e46724deffce2156a232299036cb8c6f439947904f6a8a0be6b6ee6a237e4",
+        "platform_digest": "sha256:332e46724deffce2156a232299036cb8c6f439947904f6a8a0be6b6ee6a237e4",
+        "platform_digest_verified": true
+      },
+      {
+        "artifact_id": 12401376692,
+        "artifact_name": "t013-identity-validation-39720760501",
+        "zip_sha256": "7f52cfbdedfceb3df2e3f14bd4e18a4dd8e7d2b8238dc0e80c72a7d2da8c2a37",
+        "platform_digest": "sha256:7f52cfbdedfceb3df2e3f14bd4e18a4dd8e7d2b8238dc0e80c72a7d2da8c2a37",
+        "platform_digest_verified": true
+      }
+    ],
+    "fresh_exact_source_reports": [
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-business-foundation-report.json",
+        "sha256": "51c1fa591b76ca00dbe0901b41da1b7bbe57d533bfa0bb10ad9ba92cea757d3b",
+        "name": "business-foundation-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:33:24.051341+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 1166,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": false,
+        "fresh_exact_source_PASS": true,
+        "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-ci-all-report.json",
+        "sha256": "7acbe38c07639312a855996c762133ac34bc5069ce0f3440510504b7f2327588",
+        "name": "ci-all-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:24:51.082874+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true,
+        "checks_count": 34,
+        "all_checks_PASS": true
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-python-types-report.json",
+        "sha256": "1178a57d4865918801ea0b7646c93d535c7079135684a798817364ddeff84c71",
+        "name": "stage-three-python-types-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": null,
+        "job": "engineering-execution",
+        "fresh_job_window_verified": false,
+        "exit_code": 0,
+        "python": "3.10.22",
+        "mypy": "2.4.0",
+        "source_code_dirty": false,
+        "original_100_package_lock_changed": false,
+        "job_evidence_hash_matches": false,
+        "fresh_exact_source_PASS": true,
+        "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-t016-operation-token-report.json",
+        "sha256": "e2ede8431a3079c190adb4dc55f104c2124df52df1c67c9b4e39892d49566e20",
+        "name": "t016-operation-token-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:27:26.425461+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-t015-data-scope-report.json",
+        "sha256": "b8d0b9ab55d86071af57c5953b4c86f74b8e045f8931a1f1798902e7119d9674",
+        "name": "t015-data-scope-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:26:47.240938+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-business-foundation-report.json",
+        "sha256": "e08aaab4f2dc4b7f098f5d441b8cfa57ae074ad82d19c53e240d81aafcede0d4",
+        "name": "business-foundation-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:25:34.963266+00:00",
+        "job": "foundation-verification",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 1166,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-stage-three-python-types-report.json",
+        "sha256": "3f340e4297d37e0359b27dd0a21f29b0592886762af553520230e73c9831caff",
+        "name": "stage-three-python-types-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": null,
+        "job": "foundation-verification",
+        "fresh_job_window_verified": false,
+        "exit_code": 0,
+        "python": "3.10.22",
+        "mypy": "2.4.0",
+        "source_code_dirty": false,
+        "original_100_package_lock_changed": false,
+        "job_evidence_hash_matches": false,
+        "fresh_exact_source_PASS": true,
+        "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-t014-permissions-report.json",
+        "sha256": "cb2eebf38de6c289bdb2b690b715d86e9e37a7ad7ff5e3415c581a07e2986d3f",
+        "name": "t014-permissions-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:33:10.674792+00:00",
+        "job": "foundation-verification",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 1092,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12401376692,
+        "artifact_name": "t013-identity-validation-39720760501",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401376692-t013-identity-ci-report.json",
+        "sha256": "c797346d5cbf5ff8f5d1284dbdfe1a8962c57b2e27dfe9d1941db8381c214c38",
+        "name": "t013-identity-ci-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:22:46.888609+00:00",
+        "job": "identity-verification / identity-integration",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 332,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "python": "3.10.22",
+        "source_code_dirty": false,
+        "fresh_exact_source_PASS": true
+      }
+    ],
+    "fresh_exact_source_PASS_reports": [
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-business-foundation-report.json",
+        "sha256": "51c1fa591b76ca00dbe0901b41da1b7bbe57d533bfa0bb10ad9ba92cea757d3b",
+        "name": "business-foundation-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:33:24.051341+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 1166,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": false,
+        "fresh_exact_source_PASS": true,
+        "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-ci-all-report.json",
+        "sha256": "7acbe38c07639312a855996c762133ac34bc5069ce0f3440510504b7f2327588",
+        "name": "ci-all-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:24:51.082874+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true,
+        "checks_count": 34,
+        "all_checks_PASS": true
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-python-types-report.json",
+        "sha256": "1178a57d4865918801ea0b7646c93d535c7079135684a798817364ddeff84c71",
+        "name": "stage-three-python-types-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": null,
+        "job": "engineering-execution",
+        "fresh_job_window_verified": false,
+        "exit_code": 0,
+        "python": "3.10.22",
+        "mypy": "2.4.0",
+        "source_code_dirty": false,
+        "original_100_package_lock_changed": false,
+        "job_evidence_hash_matches": false,
+        "fresh_exact_source_PASS": true,
+        "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-t016-operation-token-report.json",
+        "sha256": "e2ede8431a3079c190adb4dc55f104c2124df52df1c67c9b4e39892d49566e20",
+        "name": "t016-operation-token-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:27:26.425461+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-t015-data-scope-report.json",
+        "sha256": "b8d0b9ab55d86071af57c5953b4c86f74b8e045f8931a1f1798902e7119d9674",
+        "name": "t015-data-scope-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:26:47.240938+00:00",
+        "job": "engineering-execution",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-business-foundation-report.json",
+        "sha256": "e08aaab4f2dc4b7f098f5d441b8cfa57ae074ad82d19c53e240d81aafcede0d4",
+        "name": "business-foundation-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:25:34.963266+00:00",
+        "job": "foundation-verification",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 1166,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-stage-three-python-types-report.json",
+        "sha256": "3f340e4297d37e0359b27dd0a21f29b0592886762af553520230e73c9831caff",
+        "name": "stage-three-python-types-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": null,
+        "job": "foundation-verification",
+        "fresh_job_window_verified": false,
+        "exit_code": 0,
+        "python": "3.10.22",
+        "mypy": "2.4.0",
+        "source_code_dirty": false,
+        "original_100_package_lock_changed": false,
+        "job_evidence_hash_matches": false,
+        "fresh_exact_source_PASS": true,
+        "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-t014-permissions-report.json",
+        "sha256": "cb2eebf38de6c289bdb2b690b715d86e9e37a7ad7ff5e3415c581a07e2986d3f",
+        "name": "t014-permissions-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:33:10.674792+00:00",
+        "job": "foundation-verification",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 1092,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "job_evidence_hash_matches": true,
+        "fresh_exact_source_PASS": true
+      },
+      {
+        "artifact_id": 12401376692,
+        "artifact_name": "t013-identity-validation-39720760501",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401376692-t013-identity-ci-report.json",
+        "sha256": "c797346d5cbf5ff8f5d1284dbdfe1a8962c57b2e27dfe9d1941db8381c214c38",
+        "name": "t013-identity-ci-report.json",
+        "status": "PASS",
+        "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "observed_at": "2026-10-22T04:22:46.888609+00:00",
+        "job": "identity-verification / identity-integration",
+        "fresh_job_window_verified": true,
+        "totals": {
+          "tests": 332,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "python": "3.10.22",
+        "source_code_dirty": false,
+        "fresh_exact_source_PASS": true
+      }
+    ],
+    "type_check": {
+      "source_files_observed": [
+        259
+      ],
+      "status": "PASS",
+      "evidence": [
+        {
+          "artifact_id": 12402535275,
+          "artifact_name": "py310-validation-39720760501-1",
+          "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-python-types-report.json",
+          "sha256": "1178a57d4865918801ea0b7646c93d535c7079135684a798817364ddeff84c71",
+          "name": "stage-three-python-types-report.json",
+          "status": "PASS",
+          "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+          "observed_at": null,
+          "job": "engineering-execution",
+          "fresh_job_window_verified": false,
+          "exit_code": 0,
+          "python": "3.10.22",
+          "mypy": "2.4.0",
+          "source_code_dirty": false,
+          "original_100_package_lock_changed": false,
+          "job_evidence_hash_matches": false,
+          "fresh_exact_source_PASS": true,
+          "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+        },
+        {
+          "artifact_id": 12401843484,
+          "artifact_name": "py310-foundation-validation-39720760501-1",
+          "evidence_file_name_only": "ci76df-final-39720760501-12401843484-stage-three-python-types-report.json",
+          "sha256": "3f340e4297d37e0359b27dd0a21f29b0592886762af553520230e73c9831caff",
+          "name": "stage-three-python-types-report.json",
+          "status": "PASS",
+          "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+          "observed_at": null,
+          "job": "foundation-verification",
+          "fresh_job_window_verified": false,
+          "exit_code": 0,
+          "python": "3.10.22",
+          "mypy": "2.4.0",
+          "source_code_dirty": false,
+          "original_100_package_lock_changed": false,
+          "job_evidence_hash_matches": false,
+          "fresh_exact_source_PASS": true,
+          "attribution": "Exact source_commit and platform artifact digest; no binder row. Type report additionally has successful mypy command in completed owning job log but no observation timestamp; business report has an independently verified fresh observation window."
+        }
+      ],
+      "count_source": "Fresh successful mypy summaries in downloaded completed job logs; counts are not inferred."
+    },
+    "security_scan": {
+      "artifact_id": 12402535275,
+      "artifact_name": "py310-validation-39720760501-1",
+      "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-dependency-scan-report.json",
+      "sha256": "82e79705fdf31c91a5c3b951f3161e67deeebe1074720af3993a458dedd0c0d9",
+      "status": "FAIL_OR_SCAN_ERROR",
+      "started_at": "2026-10-22T04:40:54.203062+00:00",
+      "ended_at": "2026-10-22T04:40:56.414567+00:00",
+      "python_dependencies_listed": 100,
+      "python_findings": 25,
+      "python_skips": [
+        {
+          "name": "torch",
+          "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+        }
+      ],
+      "quality_tool_dependencies_listed": 12,
+      "quality_tool_findings": 1,
+      "quality_tool_skips": [],
+      "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+      "npm_findings_by_severity": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "source_commit": null,
+      "source_attribution": "Exact platform-digest-verified engineering artifact and fresh engineering job generation window; scan JSON has no source_commit and is not an exact-source PASS report.",
+      "finding_packages": [
+        {
+          "package": "certifi",
+          "version": "2026.7.22",
+          "advisories": [
+            {
+              "id": "PYSEC-2026-4320",
+              "fix_versions": [
+                "2026.10.19"
+              ],
+              "aliases": [
+                "GHSA-6q48-6c7w-9gw2"
+              ]
+            }
+          ]
+        },
+        {
+          "package": "pillow",
+          "version": "12.3.0",
+          "advisories": [
+            {
+              "id": "CVE-2026-112895",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-p4wg-p73j-c528"
+              ]
+            },
+            {
+              "id": "CVE-2026-112400",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-65qm-jvmh-6pqg"
+              ]
+            },
+            {
+              "id": "CVE-2026-112397",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-58r4-6rv3-gfh8"
+              ]
+            },
+            {
+              "id": "CVE-2026-112896",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-pchr-8j38-3x4p"
+              ]
+            },
+            {
+              "id": "CVE-2026-112897",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-q45j-58j2-45rg"
+              ]
+            },
+            {
+              "id": "CVE-2026-112395",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-462x-pgg6-55fp"
+              ]
+            },
+            {
+              "id": "CVE-2026-112404",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-c6hw-5grf-ff96"
+              ]
+            },
+            {
+              "id": "CVE-2026-112899",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-vx6w-vv9f-6gvg"
+              ]
+            },
+            {
+              "id": "CVE-2026-112402",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-7mwm-ghpf-9vrm"
+              ]
+            },
+            {
+              "id": "CVE-2026-112900",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-w889-685w-c8fh"
+              ]
+            },
+            {
+              "id": "CVE-2026-112893",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-j4m9-6w36-pw47"
+              ]
+            },
+            {
+              "id": "CVE-2026-112392",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-27h8-gf7j-v5hc"
+              ]
+            },
+            {
+              "id": "CVE-2026-112891",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-fc9g-5qg7-mf45"
+              ]
+            },
+            {
+              "id": "CVE-2026-112405",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-cp9v-662q-vvx9"
+              ]
+            },
+            {
+              "id": "CVE-2026-112390",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-22hg-r758-rrw9"
+              ]
+            },
+            {
+              "id": "CVE-2026-112401",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-74r2-7ff9-mjj2"
+              ]
+            },
+            {
+              "id": "CVE-2026-112901",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-xgh8-jp6q-p5x8"
+              ]
+            },
+            {
+              "id": "CVE-2026-112391",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-254f-3936-288h"
+              ]
+            },
+            {
+              "id": "CVE-2026-112894",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-jg86-v3jv-hrpm"
+              ]
+            },
+            {
+              "id": "CVE-2026-112406",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-f2g6-542v-9j58"
+              ]
+            },
+            {
+              "id": "CVE-2026-112399",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-5xm2-6676-qcp9"
+              ]
+            },
+            {
+              "id": "CVE-2026-112892",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-gg2r-wvfm-q9rx"
+              ]
+            },
+            {
+              "id": "CVE-2026-112393",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-332p-7hrc-92wf"
+              ]
+            },
+            {
+              "id": "CVE-2026-112396",
+              "fix_versions": [
+                "13.0.0"
+              ],
+              "aliases": [
+                "GHSA-4rr5-89j8-mwwm"
+              ]
+            }
+          ]
+        }
+      ],
+      "raw_python_report": {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-python-dependency-report.json",
+        "sha256": "4ba61b867ab3a2544ccd1e157e714181a903dcab0ac099f7b7bb7291e6f53b6e"
+      },
+      "torch_audit_covered": false,
+      "torch_skip_does_not_mean_safe": true,
+      "prior_run_id": 39697929206,
+      "prior_python_findings": 25,
+      "new_findings_vs_prior": [],
+      "original_100_package_lock_unchanged_vs_prior": true,
+      "quality_tool_finding_packages": [
+        {
+          "package": "virtualenv",
+          "version": "21.14.7",
+          "advisories": [
+            {
+              "id": "CVE-2026-113722",
+              "fix_versions": [
+                "21.14.9"
+              ],
+              "aliases": [
+                "GHSA-c978-59m8-c77v"
+              ]
+            }
+          ]
+        }
+      ],
+      "raw_quality_tool_report": {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-quality-dependency-report.json",
+        "sha256": "3d68d21717966972738d62513c0adff9c13f7b404051c56c51f48e24a08491ca"
+      }
+    },
+    "engineering_runtime": {
+      "artifact_id": 12402535275,
+      "artifact_name": "py310-validation-39720760501-1",
+      "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-runtime-report.json",
+      "sha256": "acc786299edd4cb528b323b417f75269df3bdc4a312806afeee47530cb48a7bf",
+      "status": "FAIL",
+      "observed_at": "2026-10-22T04:40:56.437051+00:00",
+      "source_commit": null,
+      "checks": [
+        {
+          "name": "setup_existing_locks_and_separate_tools",
+          "status": "PASS",
+          "error_type": null
+        },
+        {
+          "name": "lint_and_TS",
+          "status": "PASS",
+          "error_type": null
+        },
+        {
+          "name": "new_code_format_and_text",
+          "status": "PASS",
+          "error_type": null
+        },
+        {
+          "name": "unit_and_frontend_tests",
+          "status": "PASS",
+          "error_type": null
+        },
+        {
+          "name": "unique_contract_SQL_and_generated_types",
+          "status": "PASS",
+          "error_type": null
+        },
+        {
+          "name": "secret_and_dependency_scans",
+          "status": "FAIL",
+          "error_type": "CalledProcessError"
+        }
+      ],
+      "overall_job_success": false,
+      "source_attribution": "Exact platform-digest-verified engineering artifact and fresh engineering job generation window; runtime JSON itself has no source_commit."
+    },
+    "business_validation": {
+      "status": "PASS",
+      "totals": {
+        "tests": 1166,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+      "has_failures_or_errors_or_skips": false,
+      "raw_tracebacks_published": false
+    },
+    "excluded_stale_reports": [
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-t013-identity-ci-report.json",
+        "sha256": "974618a7868fddc96da964b3448611126c6364c7b09a7db4d07008f457347483",
+        "name": "t013-identity-ci-report.json",
+        "status": "PASS",
+        "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+        "promoted": false
+      },
+      {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-t014-permissions-report.json",
+        "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+        "name": "t014-permissions-report.json",
+        "status": "PASS",
+        "source_commit": "d0d1d530617028c83718c5c84b9935ba664c96ae",
+        "promoted": false,
+        "totals": {
+          "tests": 843,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-ci-all-report.json",
+        "sha256": "be1f9dce3bdaf138f66443551d0476a1b5647284aa2b3b9dc1e15f5341dc2615",
+        "name": "ci-all-report.json",
+        "status": "PASS",
+        "source_commit": "3b99b729b5bac9e80edc2804f9a83342b3850422",
+        "promoted": false,
+        "started_at": "2026-10-19T20:11:20.124670+00:00"
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-stage-three-dependency-scan-report.json",
+        "sha256": "9f7da335c62c2b72ae6083fc0e10c22a1d38d349df102dd2f36bb130935225a3",
+        "name": "stage-three-dependency-scan-report.json",
+        "status": "NO_REPORTED_BLOCKING_FINDINGS_WITH_COVERAGE_LIMITS",
+        "source_commit": null,
+        "promoted": false,
+        "started_at": "2026-10-17T02:41:33.555015+00:00",
+        "python_findings": 0
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-stage-three-runtime-report.json",
+        "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+        "name": "stage-three-runtime-report.json",
+        "status": "PASS",
+        "source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+        "promoted": false
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-t013-identity-ci-report.json",
+        "sha256": "974618a7868fddc96da964b3448611126c6364c7b09a7db4d07008f457347483",
+        "name": "t013-identity-ci-report.json",
+        "status": "PASS",
+        "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+        "promoted": false
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-t016-operation-token-report.json",
+        "sha256": "7a46cecf911624cee93f9a7c47e8111ae5b4f3abf411d7bac9efa286606a941d",
+        "name": "t016-operation-token-report.json",
+        "status": "PASS",
+        "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+        "promoted": false,
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "artifact_id": 12401843484,
+        "artifact_name": "py310-foundation-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12401843484-t015-data-scope-report.json",
+        "sha256": "80786411d2a53eb072f8126eb84344b716a49a08bbe6b49edeb9efb956b31949",
+        "name": "t015-data-scope-report.json",
+        "status": "PASS",
+        "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+        "promoted": false,
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    ],
+    "verified_source_hash_count": 233,
+    "local_private_evidence_sha256": "62cd604137cd629e129d5140f98c670367a577588eb66595a3325be0e091663a",
+    "all_CI_pass_asserted": false,
+    "original_100_package_lock_changed": false,
+    "CI_gates_changed": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "whole_task_accepted": false,
+    "raw_logs_or_credentials_published": false,
+    "scope": "Final CI of exact76df023 implementation payload; not a validation of later493a30a9 source; does not accept later source or any shared deployment.",
+    "limits": [
+      "Workflow and individual job conclusions are preserved; no whole-CI pass inferred from passing subreports.",
+      "Older checked-in report copies are excluded; authoritative current permission report is the fresh foundation artifact, and old foundation zero-findings scan is excluded.",
+      "A passing ci-all subreport does not imply whole CI success.",
+      "Torch remains explicitly unaudited; skip does not mean safe.",
+      "Test groups overlap and must not be summed as unique tests.",
+      "This collection performed no tests, repository/index edits, server changes, commits or upstream communication.",
+      "Exact76df023 frontend unit suite has390 tests; three observed successful summaries are repeated execution, not unique-test aggregation.",
+      "Fresh current browser evidence is 61 development cases from log plus62 combined Compose cases from exact-source Git-metadata JSON; these suites overlap.",
+      "Separate stage-three demo was not reached after the current security scan failure; its old October17 report remains excluded.",
+      "All current passing evidence binds implementation76df023; no conclusion is asserted for later493a30a9 source.",
+      "Workflow and engineering-execution conclude cancelled; the already-failed Run actual engineering gates step and aggregate engineering failure are preserved. Cancellation does not erase the fresh security-scan failure."
+    ],
+    "frontend_validation": {
+      "status": "PASS_FOR_EXACT_76DF_SOURCE_NOT_LATER_493A",
+      "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+      "owning_job_id": 119637516522,
+      "ci_all_report": {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-ci-all-report.json",
+        "sha256": "7acbe38c07639312a855996c762133ac34bc5069ce0f3440510504b7f2327588"
+      },
+      "successful_commands": [
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "lint"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "format-check"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "type-check"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "test"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "node",
+            "scripts/verify-frontend-quality.mjs"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "test:foundation-browser"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "audit",
+            "--audit-level=high"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "exec",
+            "--",
+            "playwright",
+            "test",
+            "--config=frontend/playwright.config.ts"
+          ],
+          "status": "PASS"
+        }
+      ],
+      "engineering_job_log_sha256": "7d4bb6fd9c740010a0734bb907cc7b3ef35a7183e420adf193972b421a148e56",
+      "configuration_source_sha256": {
+        "frontend/foundation-playwright.config.ts": "664cb7e8d7d82e7bebe3261d7b2bbeb8830c8df092ac91232f63e64de70d007f",
+        "frontend/playwright.config.ts": "5bd3875c773eb298dbaf412f78894ea93c8aa1a22a7335271c40a699af4f3e71",
+        "scripts/run_ci.py": "1a182f4811ca533142aed5ac843e6be5a38a99c90505c864f874158cb913aafa",
+        "scripts/dev.py": "471aa7e157fc54bd1c490689a2c193c6dbde618ca9fa55fb0cc15fc586a5ea19"
+      },
+      "no_shared_deployment_or_business_acceptance_asserted": true,
+      "unit_tests": 390,
+      "unit_test_files": 12,
+      "fresh_vitest_350_summary_occurrences": 3,
+      "summary_times": [
+        "2026-10-22T04:26:07.8778391Z",
+        "2026-10-22T04:29:03.2581144Z",
+        "2026-10-22T04:40:37.1637223Z"
+      ],
+      "summary_scope": "Three observed 390-test summaries include normal CI runs and a Docker build run; repeated runs are not 1170 unique tests.",
+      "quality_check": {
+        "status": "PASS",
+        "artifact_report": {
+          "artifact_id": 12402535275,
+          "artifact_name": "py310-validation-39720760501-1",
+          "evidence_file_name_only": "ci76df-final-39720760501-12402535275-frontend-quality-report.json",
+          "sha256": "68b1ed03b9bc3657f97cf5bf012e21747d0c28569da9e7faad01c0f84122f34a"
+        },
+        "report_has_source_commit": false,
+        "report_has_observed_at": false,
+        "attribution": "Fresh exact-source ci-all command node scripts/verify-frontend-quality.mjs passed; deterministic report alone has no source or timestamp provenance."
+      }
+    },
+    "browser_validation": {
+      "status": "PASS_FOR_EXACT_76DF_SOURCE_NOT_LATER_493A",
+      "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+      "owning_job_id": 119637516522,
+      "ci_all_report": {
+        "artifact_id": 12402535275,
+        "artifact_name": "py310-validation-39720760501-1",
+        "evidence_file_name_only": "ci76df-final-39720760501-12402535275-ci-all-report.json",
+        "sha256": "7acbe38c07639312a855996c762133ac34bc5069ce0f3440510504b7f2327588"
+      },
+      "successful_commands": [
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "lint"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "format-check"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "type-check"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "test"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "node",
+            "scripts/verify-frontend-quality.mjs"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "run",
+            "test:foundation-browser"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "audit",
+            "--audit-level=high"
+          ],
+          "status": "PASS"
+        },
+        {
+          "command": [
+            "npm",
+            "--prefix",
+            "frontend",
+            "exec",
+            "--",
+            "playwright",
+            "test",
+            "--config=frontend/playwright.config.ts"
+          ],
+          "status": "PASS"
+        }
+      ],
+      "engineering_job_log_sha256": "7d4bb6fd9c740010a0734bb907cc7b3ef35a7183e420adf193972b421a148e56",
+      "configuration_source_sha256": {
+        "frontend/foundation-playwright.config.ts": "664cb7e8d7d82e7bebe3261d7b2bbeb8830c8df092ac91232f63e64de70d007f",
+        "frontend/playwright.config.ts": "5bd3875c773eb298dbaf412f78894ea93c8aa1a22a7335271c40a699af4f3e71",
+        "scripts/run_ci.py": "1a182f4811ca533142aed5ac843e6be5a38a99c90505c864f874158cb913aafa",
+        "scripts/dev.py": "471aa7e157fc54bd1c490689a2c193c6dbde618ca9fa55fb0cc15fc586a5ea19"
+      },
+      "no_shared_deployment_or_business_acceptance_asserted": true,
+      "foundation_development_suite": {
+        "tests": 61,
+        "status": "PASS",
+        "evidence_kind": "Exact completed job log summary and passing ci-all test:foundation-browser command; list reporter emits no standalone JSON.",
+        "summary_time": "2026-10-22T04:26:46.0499299Z"
+      },
+      "combined_compose_browser_suite": {
+        "tests": 62,
+        "status": "PASS",
+        "report": {
+          "artifact_id": 12402535275,
+          "artifact_name": "py310-validation-39720760501-1",
+          "evidence_file_name_only": "ci76df-final-39720760501-12402535275-poc-browser-report.json",
+          "sha256": "568d85678a523940830a76943a5fc5433aed6523dfd47516579d8e76a0f7dc39"
+        },
+        "source_commit_from_git_metadata": "76df02345ed2c340bfc11230faed057f5033a6ab",
+        "fresh_job_window_verified": true,
+        "stats": {
+          "startTime": "2026-10-22T04:31:44.355Z",
+          "duration": 23413.1,
+          "expected": 62,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "errors_count": 0,
+        "summary_time": "2026-10-22T04:32:07.7687160Z"
+      },
+      "separate_stage_three_demo": {
+        "status": "NOT_RUN_AFTER_EARLIER_SCAN_FAILURE",
+        "artifact_copy": {
+          "artifact_id": 12402535275,
+          "artifact_name": "py310-validation-39720760501-1",
+          "evidence_file_name_only": "ci76df-final-39720760501-12402535275-stage-three-browser-report.json",
+          "sha256": "2fff8081dbbba89528810d2cd98611b6cdd2b74f205091492cab87d210e98c34"
+        },
+        "artifact_source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+        "artifact_stats_start_time": "2026-10-17T02:41:45.495Z",
+        "promoted": false
+      },
+      "count_scope": "61 development and 62 combined Compose browser cases overlap and must not be summed as 123 unique tests."
+    },
+    "completed_job_logs": [
+      {
+        "job_id": 119633414154,
+        "job": "identity-verification / identity-integration",
+        "conclusion": "success",
+        "evidence_file_name_only": "ci76df-final-39720760501-identity.private.log",
+        "sha256": "0e53a70782c51db88680922e81ca51b0ef04bd0510bc02af47496da57635f9a8"
+      },
+      {
+        "job_id": 119637516522,
+        "job": "engineering-execution",
+        "conclusion": "cancelled",
+        "evidence_file_name_only": "ci76df-final-39720760501-engineering.private.log",
+        "sha256": "7d4bb6fd9c740010a0734bb907cc7b3ef35a7183e420adf193972b421a148e56"
+      },
+      {
+        "job_id": 119637516545,
+        "job": "foundation-verification",
+        "conclusion": "success",
+        "evidence_file_name_only": "ci76df-final-39720760501-foundation.private.log",
+        "sha256": "1f470216305cfd42901de3f5bddde07a06762c99a334cdd969b332436cbd7e30"
+      },
+      {
+        "job_id": 119642883627,
+        "job": "engineering",
+        "conclusion": "failure",
+        "evidence_file_name_only": "ci76df-final-39720760501-aggregate.private.log",
+        "sha256": "4de55e03418cc18500c8cfc3b43f679ce100e62bb7983d6359552119a733252f"
+      }
+    ],
+    "failed_steps_preserved": [
+      {
+        "job": "engineering-execution",
+        "name": "Run actual engineering gates",
+        "conclusion": "failure"
+      },
+      {
+        "job": "engineering",
+        "name": "Require every isolated verification job to succeed",
+        "conclusion": "failure"
+      }
+    ],
+    "run_was_cancelled": true,
+    "engineering_gate_failed_before_cancellation": true
+  },
+  "prior_T027_root_evidence_verification": {
+    "status": "PASS_ROOT_EXACT_SOURCE_REPORT_AND_PLATFORM_BINDING",
+    "run_id": 39720760501,
+    "source_commit": "76df02345ed2c340bfc11230faed057f5033a6ab",
+    "committed_sources_verified": 236,
+    "artifact_platform_digests_compared": 3,
+    "local_evidence_files_verified": 28,
+    "all_CI_pass_asserted": false,
+    "downloadable_zip_digests_verified_by_agent": true,
+    "frontend_unit": 390,
+    "browser_development": 61,
+    "browser_compose": 62,
+    "current_run_conclusion": "cancelled",
+    "new_T034_acceptance": false
+  },
+  "latest_prior_T030_CI_observation": {
+    "observed_at": "2026-10-22T04:57:10.783912+00:00",
+    "run": {
+      "id": 39723744476,
+      "head_sha": "493a30a9bf67405dd36924120caa516fec072f62",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39723744476"
+    },
+    "jobs": [
+      {
+        "id": 119642919511,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 119646824805,
+        "name": "engineering-execution",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      },
+      {
+        "id": 119646824870,
+        "name": "foundation-verification",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Install locked UI and browser",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      }
+    ]
+  },
+  "public_contract_changed": false,
+  "new_endpoints": false,
+  "database_migration_created": false,
+  "backend_changed": false,
+  "permission_rules_changed": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "shared_runtime_adopted": false,
+  "new_data_downloads": 0,
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_COMMITTED_OR_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "new_verified_substeps": 1,
+  "verified_substeps_current": 144,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "remaining": [
+    "Full lineage and real identity/source/backend combined integration",
+    "Success propagation and remote revocation separate boundaries",
+    "Prior asset-negative continuation coverage minor and current microtask-scheduling maintenance minor",
+    "Actual effort/dates/performed human review and full source-card acceptance",
+    "Exact-source CI and unresolved software security/N01/T013 conditions"
+  ]
+}

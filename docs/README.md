@@ -38,7 +38,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[765条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有143条已验证子步骤、622条剩余工作；全局编号0001—0765。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[766条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有144条已验证子步骤、622条剩余工作；全局编号0001—0766。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -465,6 +465,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
 | [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。 |
 | [00-project/validation/t034-creation-integration-design-report.json](<00-project/validation/t034-creation-integration-design-report.json>) | T034设计输入摘要、已修正边界、待确认及CI/三端源码回执；本批新增业务完成数0，资料核验与真实创建测试分别记录。 |
+| [03-development/shared-session-rejection-lifecycle.md](<03-development/shared-session-rejection-lifecycle.md>) | 共享call已形成旧401的传播窗口保护新连接尝试；6项真实客户端受控调度单元纳入396前端、72/72传输浏览器；不是普通点击或已建立用户丢失复现。 |
+| [00-project/validation/shared-session-rejection-lifecycle-report.json](<00-project/validation/shared-session-rejection-lifecycle-report.json>) | 共享会话精确源码、有效6例RED、质量/浏览器、调度维护事项、旧CI安全失败与本批CI/三端回执；不改公共契约或整卡验收。 |
 | [03-development/t030-asset-context-invalidation.md](<03-development/t030-asset-context-invalidation.md>) | 资产父页同generation本地用户/单位/角色/权限/案件变化同步清理；有效RED、390前端、72/72传输浏览器及复核边界，远端撤销和真实联调仍待。 |
 | [00-project/validation/t030-asset-context-invalidation-report.json](<00-project/validation/t030-asset-context-invalidation-report.json>) | T030两个源码、11项新增浏览器、质量检查、1项异步负例覆盖改进、9项裁定及精确CI/三端源码回执；不是整卡验收。 |
 | [03-development/t030-asset-source-panel.md](<03-development/t030-asset-source-panel.md>) | 资产详情复用getSource的只读授权记录面板，精确案件/来源与会话保护；40项新单元、390完整前端及61/61传输浏览器，真实权威联调与血缘仍待。 |
@@ -696,7 +698,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1303份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1305份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -787,7 +789,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内765条执行事项逐条编号：143条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内766条执行事项逐条编号：144条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1295,6 +1297,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/repository-secrets-report.json](<00-project/validation/repository-secrets-report.json>) | 确切开发凭据值及已知秘密文件名检查，非完整DLP。 |
 | [00-project/validation/resource-readiness-snapshot.json](<00-project/validation/resource-readiness-snapshot.json>) | 2026-10-13只读宿主/研发卷容量及服务/GPU工具观测；非独占配额或GPU缺失/兼容证明。 |
 | [00-project/validation/runtime-lock-report.json](<00-project/validation/runtime-lock-report.json>) | 实际Python补丁与全部第三方包是否匹配精确锁。 |
+| [00-project/validation/shared-session-rejection-lifecycle-report.json](<00-project/validation/shared-session-rejection-lifecycle-report.json>) | 共享会话精确源码、有效6例RED、质量/浏览器、调度维护事项、旧CI安全失败与本批CI/三端回执；不改公共契约或整卡验收。 |
 | [00-project/validation/sql-attempt-01.json](<00-project/validation/sql-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-attempt-02.json](<00-project/validation/sql-attempt-02.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/sql-validation-report.json](<00-project/validation/sql-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1753,6 +1756,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/repository-platform-options.md](<03-development/repository-platform-options.md>) | 说明文档：仓库平台选择与实际执行依据；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-review-package.md](<03-development/repository-review-package.md>) | 说明文档：仓库和分支治理评审材料；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-structure-decision.md](<03-development/repository-structure-decision.md>) | 说明文档：Monorepo模式与拆分边界；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/shared-session-rejection-lifecycle.md](<03-development/shared-session-rejection-lifecycle.md>) | 共享call已形成旧401的传播窗口保护新连接尝试；6项真实客户端受控调度单元纳入396前端、72/72传输浏览器；不是普通点击或已建立用户丢失复现。 |
 | [03-development/stage-three/business-foundation-implementation.md](<03-development/stage-three/business-foundation-implementation.md>) | 说明文档：首批业务基础实际实现及验收边界；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；73操作825字段0.2快照方案已认可，首批所选工程已实施；后续接口按实际说明和验证报告核验。 |
 | [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。 |

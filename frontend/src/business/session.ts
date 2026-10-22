@@ -18,10 +18,12 @@ export function createBusinessSession() {
     state.message = '已清除本页业务身份与结果'
   }
   async function call<T>(...args: Parameters<typeof client.call<T>>) {
+    const version = state.generation
     try {
       return await client.call<T>(...args)
     } catch (error) {
-      if (error instanceof ApiError && error.status === 401) disconnect()
+      if (version === state.generation && error instanceof ApiError && error.status === 401)
+        disconnect()
       throw error
     }
   }
