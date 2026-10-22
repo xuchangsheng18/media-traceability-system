@@ -220,12 +220,44 @@
     "CI_workflow_unchanged": true
   },
   "full_business_regression": {
-    "status": "RUNNING_ON_EARLIER_DIAGNOSTIC_SNAPSHOT_NOT_FINAL_COHORT",
+    "status": "TIMEOUT_ON_EARLIER_DIAGNOSTIC_SNAPSHOT_NOT_FINAL_COHORT",
     "validation_snapshot_commit": "877aa2dde4d55b521c8fc73f792195e56888b21f",
     "final_deep_json_guard_included": false,
-    "terminal_result": null,
+    "terminal_result": {
+      "observed_at": "2026-10-22T16:40:45.105047+00:00",
+      "status": "TIMEOUT",
+      "source_commit": "877aa2dde4d55b521c8fc73f792195e56888b21f",
+      "exit_code": 2,
+      "complete": false,
+      "timeout_seconds": 1800,
+      "test_count": 0,
+      "totals": {
+        "tests": 0,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "last_test_progress": {
+        "nodeid": "tests/business/test_t014_runtime.py::test_same_old_bearer_is_rechecked_after_real_directory_revocation",
+        "phase": "teardown"
+      },
+      "failure_diagnostics": {
+        "items": [],
+        "omitted": 0,
+        "parameters_and_failure_text_published": false
+      }
+    },
     "passed": false,
-    "full_on_current_final_cohort_completed": false
+    "full_on_current_final_cohort_completed": false,
+    "actual_snapshot_source_sha256_lf": {
+      "scripts/verify_business_foundation.py": "0c8b19a1d9c400e2dfa2628ffe8d765de1ef7e58921715c50727430deb5f5ab4",
+      "scripts/business_test_progress.py": "cdbfa6bac8be3411c431c8394578d07658fdbffb316156c8641ad2b366ea97b2",
+      "tests/platform/test_business_timeout_diagnostics.py": "e4a4929c4e3b6a145c757dad07b025c25da0eba155405849202c1b4217814350",
+      "config/stage-three-profile.json": "7e36261fbfd6de156743a584decc307dc1fee38d22af7d8a9a72e1374ef2fe62"
+    },
+    "complete": false,
+    "failure_probe": "NOT_RUN_AFTER_NORMAL_TIMEOUT",
+    "last_phase_is_observation_not_proven_root_cause": true
   },
   "source_review": {
     "status": "PASS_NO_OPEN_CRITICAL_OR_IMPORTANT",
@@ -557,5 +589,36 @@
     "scope": "14 unchanged-scope checks passed; after canonical-byte candidate correction only 4 affected tail checks rerun; not a business/full CI pass",
     "working_tree_EOL_only_corrections_match_existing_HEAD": true,
     "original_archives_or_source_documents_changed": false
+  },
+  "latest_payload_CI": {
+    "id": 39820526094,
+    "head_sha": "0b972c813437affab06bb58e002e0831bc6ef692",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39820526094",
+    "created_at": "2026-10-22T17:11:52Z",
+    "updated_at": "2026-10-22T17:11:57Z",
+    "observed_at": "2026-10-22T17:13:52.529618+00:00",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-22T17:11:54.975062+00:00",
+    "source_commit": "0b972c813437affab06bb58e002e0831bc6ef692",
+    "previous_server_commit": "240762a80531723d6217b0ae755ab997489a5e46",
+    "changed_files": 24,
+    "manifest_files_verified": 2413,
+    "manifest_sha256": "3df341423268ab6539235387f1a540563bd54c9e8e9ed3872d594a5b055c3b3a",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false
   }
 }
