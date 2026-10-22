@@ -12,10 +12,12 @@ import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
+from uuid import uuid4
 
 from psycopg.conninfo import conninfo_to_dict
 
 ROOT = Path(__file__).resolve().parents[1]
+BUSINESS_TEST_TIMEOUT_SECONDS = 1800
 
 
 def validate_target(env: dict[str, str]) -> None:
@@ -78,26 +80,97 @@ def failure_diagnostics(root: Path, path: Path) -> dict[str, Any]:
     return dict(items=items, omitted=omitted, parameters_and_failure_text_published=False)
 
 
+def last_test_progress(root: Path, path: Path, nonce: str) -> dict[str, str] | None:
+    """A bounded source-checked observation, never a diagnosis of which test hung."""
+    if not isinstance(nonce, str) or re.fullmatch(r"[a-f0-9]{32}", nonce) is None:
+        return None
+    try:
+        if path.is_symlink():
+            return None
+        with path.open("rb") as handle:
+            raw = handle.read(4097)
+        if len(raw) > 4096:
+            return None
+        value = json.loads(raw)
+    except (OSError, ValueError, UnicodeError, RecursionError):
+        return None
+    if not isinstance(value, dict) or set(value) != {"classname", "name", "phase", "nonce"}:
+        return None
+    if not all(isinstance(item, str) for item in value.values()) or value["nonce"] != nonce:
+        return None
+    if value["phase"] not in {"setup", "call", "teardown", "finished"}:
+        return None
+    case = ET.Element("testcase", classname=value["classname"], name=value["name"])
+    selector = _source_test_selector(root, case)
+    return dict(nodeid=selector, phase=value["phase"]) if selector is not None else None
+
+
 def run_checks(root: Path, env: dict[str, str], junit: Path) -> dict[str, Any]:
-    result = subprocess.run(
-        [sys.executable, "-m", "pytest", "tests/business", "-q", "--tb=short", "--junitxml", str(junit)],
-        cwd=root,
-        env=env,
-        capture_output=True,
-        text=True,
-        timeout=1800,
-    )
-    totals = test_totals(junit)
+    # This private side channel survives a killed child without publishing its output.
+    # Each invocation owns its nonce and path; caller-provided checkpoints are ignored.
+    with tempfile.TemporaryDirectory(prefix="media-trace-business-progress-") as temp:
+        progress = Path(temp) / "latest.json"
+        nonce = uuid4().hex
+        child_env = dict(
+            env,
+            MT_BUSINESS_TEST_PROGRESS_FILE=str(progress),
+            MT_BUSINESS_TEST_PROGRESS_NONCE=nonce,
+            PYTHONPATH=os.pathsep.join(filter(None, [str(ROOT / "scripts"), env.get("PYTHONPATH", "")])),
+        )
+        timed_out = False
+        try:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "pytest",
+                    "tests/business",
+                    "-q",
+                    "--tb=short",
+                    "-p",
+                    "business_test_progress",
+                    "--junitxml",
+                    str(junit),
+                ],
+                cwd=root,
+                env=child_env,
+                capture_output=True,
+                text=True,
+                timeout=BUSINESS_TEST_TIMEOUT_SECONDS,
+            )
+            returncode = result.returncode
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            returncode = 2
+        observation = last_test_progress(root, progress, nonce)
+    junit_available = junit.is_file()
+    try:
+        totals = test_totals(junit)
+    except (ET.ParseError, OSError, ValueError):
+        junit_available = False
+        totals = {key: 0 for key in ["tests", "failures", "errors", "skipped"]}
     success = (
-        result.returncode == 0 and totals["tests"] > 0 and not any(totals[k] for k in ["failures", "errors", "skipped"])
+        not timed_out
+        and returncode == 0
+        and totals["tests"] > 0
+        and not any(totals[k] for k in ["failures", "errors", "skipped"])
     )
     # Raw tracebacks can include isolated credentials. Publish counts and safe identifiers only.
     return {
-        "status": "PASS" if success else "FAIL",
-        "exit_code": 0 if success else result.returncode or 1,
+        "status": "TIMEOUT" if timed_out else "PASS" if success else "FAIL",
+        "exit_code": 2 if timed_out else 0 if success else returncode or 1,
+        "complete": not timed_out and junit_available,
+        "timeout_seconds": BUSINESS_TEST_TIMEOUT_SECONDS,
+        "last_test_progress": observation,
         "test_count": totals["tests"],
         "totals": totals,
-        "failure_diagnostics": failure_diagnostics(root, junit),
+        "failure_diagnostics": failure_diagnostics(root, junit)
+        if junit_available
+        else {
+            "items": [],
+            "omitted": 0,
+            "parameters_and_failure_text_published": False,
+        },
         "raw_logs_published": False,
     }
 
@@ -164,6 +237,9 @@ def main() -> int:
                 "test_count": report["test_count"],
                 "scope": report["scope"],
                 "failure_diagnostics": report.get("failure_diagnostics"),
+                "complete": report.get("complete", False),
+                "timeout_seconds": report.get("timeout_seconds"),
+                "last_test_progress": report.get("last_test_progress"),
             }
         )
     )

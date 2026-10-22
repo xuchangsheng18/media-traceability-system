@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+2026-10-23续批：[完整回归超时诊断](ci-safe-failure-diagnostics.md)、[限定验证回执](../00-project/validation/business-timeout-diagnostics-report.json)。原1800秒与CI/扫描门禁保留；59项诊断/旧相邻回归、失败探针及281文件类型/质量通过。完整业务回归在较早诊断快照运行，最终完整结果未确认；不新增C05或已完成子步骤，保持154条已证、T034四已证/四组剩余，算法/Python候选暂缓。
+
 2026-10-22本批T034工程候选：[代码/限定验证与未完成门禁](t034-i02-integration.md)、[精确回执](../00-project/validation/t034-i02-integration-report.json)、[数据库读口](../04-database/task-creation-scope-read-contract.md)。16文件代码已实现；178项SQL、544项纯组合及279文件类型/质量限定通过，范围重叠不相加；此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑）（expected0/actual2/test_count0，约1800秒），其探针未执行，权限整套以独立实际回执为准。不计候选C05，T034仍4已证/4组剩余，当前154条已证、434组剩余，全170项622组剩余、整卡验收0；I02/HTTP/202与真实采用未完成，原CI/扫描门禁保留，算法与Python候选暂缓。
 
 2026-10-22历史批次T034计划绑定/材料纯边界：[实现边界](t034-plan-authority.md)、[验证及同步回执](../00-project/validation/t034-plan-authority-report.json)。392项纯组合（本批84/旧308）和272文件类型/质量通过；仅冻结/核对调用者提供的精确材料，不当真实采用、SQL锁、当前事实或授权。I02未整步完成。新增1条子步骤，T034为4已证/4组剩余，当批累计154条已证、434组剩余，全部170项622组剩余、整卡验收0项；CI按真实观察，扫描和原门禁保留，算法与Python候选暂缓。

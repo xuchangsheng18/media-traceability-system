@@ -1,0 +1,561 @@
+{
+  "status": "LIMITED_DIAGNOSTIC_FIX_VERIFIED_NOT_FULL_BUSINESS_PASS",
+  "observed_at": "2026-10-22T16:49:55.483786+00:00",
+  "base_source_commit": "240762a80531723d6217b0ae755ab997489a5e46",
+  "task_ids": [
+    "T006",
+    "T034"
+  ],
+  "source_sha256_lf": {
+    "scripts/verify_business_foundation.py": "d9530fcd7b76a2a8ad268e83348508bbcd5af0f864a973688979041459e31ef6",
+    "scripts/business_test_progress.py": "cdbfa6bac8be3411c431c8394578d07658fdbffb316156c8641ad2b366ea97b2",
+    "tests/platform/test_business_timeout_diagnostics.py": "b216a8e5a57ce7ea13d81489abb7b36d177d83a66a094b99e07d54f33c377438",
+    "config/stage-three-profile.json": "7e36261fbfd6de156743a584decc307dc1fee38d22af7d8a9a72e1374ef2fe62"
+  },
+  "scope": "Full business regression timeout observability only; no transaction/HTTP/adoption implementation",
+  "unit_validation": {
+    "status": "PASS",
+    "tests": 59,
+    "validation_snapshot_commit": "dc4430726897188179851b468cc59c18e65ab7d9",
+    "commands": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/platform/test_business_timeout_diagnostics.py",
+          "tests/platform/test_business_failure_diagnostics.py",
+          "tests/stage_three/test_business_verification.py",
+          "--tb=short"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "safe_summary": [
+          "59 passed in 9.92s"
+        ]
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_business_foundation.py",
+          "failure-probe"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "safe_summary": {
+          "expected_assertion_failure_verified": true
+        }
+      }
+    ],
+    "overlapping_scopes_not_additive": true
+  },
+  "quality": {
+    "status": "PASS",
+    "mypy_source_files": 281,
+    "validation_snapshot_commit": "d2a29645a1f4ebb47155f66d35247c97b60fd2da",
+    "commands": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/business_test_progress.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "exit_code": 0,
+        "safe_summary": [
+          "All checks passed!"
+        ]
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/business_test_progress.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "exit_code": 0,
+        "safe_summary": []
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "safe_summary": [
+          "Success: no issues found in 281 source files"
+        ]
+      }
+    ]
+  },
+  "red_history": [
+    {
+      "status": "RED_REAL_TIMEOUT_ESCAPES_WITHOUT_SAFE_DIAGNOSTIC",
+      "base_commit": "240762a80531723d6217b0ae755ab997489a5e46",
+      "test_only_deadline_seconds": 2,
+      "production_timeout_changed": false,
+      "actual_exit": 1
+    },
+    {
+      "status": "RED_DEEP_JSON_RECURSION_ERROR",
+      "tests": 59,
+      "failures": 1,
+      "passed": 58,
+      "subsequently_fixed": true
+    }
+  ],
+  "other_attempts": [
+    {
+      "environment": "Windows_local_python_not_target_py310",
+      "status": "COLLECTION_ERROR",
+      "errors": 3,
+      "reason": "PSYCOPG_NOT_INSTALLED",
+      "environment_or_lock_modified": false
+    },
+    {
+      "environment": "Windows_local_metadata_check",
+      "status": "BLOCKED_MISSING_PACKAGE",
+      "reason": "OPENAPI_SPEC_VALIDATOR_NOT_INSTALLED",
+      "environment_or_lock_modified": false
+    },
+    {
+      "environment": "Initial_private_Linux_metadata_snapshot",
+      "status": "FAIL",
+      "failed_checks": [
+        "14_historical_materials_byte_hashes",
+        "table_task_source_pointers_resolve",
+        "current_candidate_input_set_and_exact_hashes"
+      ],
+      "correction": "Private export now respects git text=unset; reviewed candidate input snapshot regenerated after ledger change; original archives unchanged",
+      "passed_after_correction": true
+    }
+  ],
+  "invariants": {
+    "production_timeout_seconds": 1800,
+    "timeout_configurable_by_CLI_or_environment": false,
+    "timeout_exit_code": 2,
+    "timeout_is_incomplete_even_if_JUnit_exists": true,
+    "source_selector_AST_checked": true,
+    "progress_nonce_bound": true,
+    "progress_phase_is_not_root_cause_or_PASS": true,
+    "raw_output_or_parameters_published": false,
+    "original_PASS_criteria_preserved": true,
+    "failure_probe_body_unchanged": true,
+    "original_100_package_lock_unchanged": true,
+    "CI_workflow_unchanged": true
+  },
+  "full_business_regression": {
+    "status": "RUNNING_ON_EARLIER_DIAGNOSTIC_SNAPSHOT_NOT_FINAL_COHORT",
+    "validation_snapshot_commit": "877aa2dde4d55b521c8fc73f792195e56888b21f",
+    "final_deep_json_guard_included": false,
+    "terminal_result": null,
+    "passed": false,
+    "full_on_current_final_cohort_completed": false
+  },
+  "source_review": {
+    "status": "PASS_NO_OPEN_CRITICAL_OR_IMPORTANT",
+    "record_sha256": "69fe040fa110fee4880ea9782cf94ad2de202627a1c56a0315c1ab7c874f8c5b",
+    "human_review_performed": false
+  },
+  "new_verified_substeps": 0,
+  "verified_substeps_current": 154,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_tasks_accepted": 0,
+  "T034_completed": 4,
+  "T034_remaining": 4,
+  "I02_whole_step_completed": false,
+  "all_CI_pass_asserted": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "formal_accepted": false,
+  "prior_payload_CI": {
+    "observed_at": "2026-10-22T16:53:12.609573+00:00",
+    "id": 39809968741,
+    "head_sha": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39809968741",
+    "jobs": [
+      {
+        "id": 119933269118,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 119940861466,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "failure",
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      },
+      {
+        "id": 119940861521,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "failure",
+        "active_or_failed_steps": [
+          {
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      },
+      {
+        "id": 119951846658,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure",
+        "active_or_failed_steps": [
+          {
+            "name": "Require every isolated verification job to succeed",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      }
+    ],
+    "artifact_receipts": [
+      {
+        "id": 12441316076,
+        "name": "py310-validation-39809968741-1",
+        "sha256": "eb21e234d85552b4978685c3061dd4c5b5012095a2e52c7a5f0edd9454fcedfe",
+        "platform_digest_verified": true,
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "run_attempt": 1,
+        "downloaded_size_bytes": 918405,
+        "owned_job_marker_sha256": "b6f1955ad53f9e387333c74e3a384e4b4329d1888796c7a782c520cc5bd8e182",
+        "generation_window_start": "2026-10-22T16:13:40Z"
+      },
+      {
+        "id": 12440809783,
+        "name": "py310-foundation-validation-39809968741-1",
+        "sha256": "9e46905d3d16647b3c6a7388b04afa63ecdfcd4018980d111792d3217442eb93",
+        "platform_digest_verified": true,
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "run_attempt": 1,
+        "downloaded_size_bytes": 914146,
+        "owned_job_marker_sha256": "8ba4dbe6ce212a3b7e3a39eda31e4449df97d7558a96a2e76f7c14e80b465cde",
+        "generation_window_start": "2026-10-22T16:13:41Z"
+      }
+    ],
+    "reports": {
+      "ci-all-report.json": {
+        "status": "FAIL",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "artifact_id": 12441316076,
+        "sha256": "4602e07e00b71817b29486f554a2cbcf3454082803b96b6507db18e6fb9a301f",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false,
+        "check_count": 18,
+        "passed_check_count": 17,
+        "failed_checks": [
+          {
+            "stage": "validate",
+            "status": "FAIL",
+            "command_sha256": "a7e51a380543021e87a7b81ff4150c7492fb8bbc42652f2e51907ddaead11dcd"
+          }
+        ]
+      },
+      "t015-data-scope-report.json": {
+        "status": "PASS",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12441316076,
+        "sha256": "a2e7cf46eac477a1064b132345fb54273153fd08aea3f8069988d43628756fba",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true
+      },
+      "t016-operation-token-report.json": {
+        "status": "FAIL",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "totals": {
+          "tests": 187,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12441316076,
+        "sha256": "2675b302262a5b2db17741c251a7bde594e2c395f9181e4a1089560e34f479ad",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false
+      },
+      "business-foundation-report.json": {
+        "status": "FAIL",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "totals": {
+          "tests": 1868,
+          "failures": 2,
+          "errors": 0,
+          "skipped": 0
+        },
+        "test_count": 1868,
+        "source_code_dirty": false,
+        "artifact_id": 12440809783,
+        "sha256": "9a3468b53b018e5fac0213fe645a37bc3ce22597ef47484f6f3aecb696a1ed37",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false
+      }
+    },
+    "excluded_reports": [
+      {
+        "name": "stage-three-runtime-report.json",
+        "artifact_id": 12441316076,
+        "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+        "reason": "NOT_EXACT_CLEAN_SOURCE_AND_CURRENT_JOB_WINDOW",
+        "exact_source": false,
+        "fresh_generation_window": false,
+        "clean_source": true
+      },
+      {
+        "name": "t014-permissions-report.json",
+        "artifact_id": 12440809783,
+        "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+        "reason": "NOT_EXACT_CLEAN_SOURCE_AND_CURRENT_JOB_WINDOW",
+        "exact_source": false,
+        "fresh_generation_window": false,
+        "clean_source": true
+      }
+    ],
+    "all_CI_pass_asserted": false,
+    "business_failure_selectors": [
+      "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+      "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums"
+    ]
+  },
+  "remaining_next_batch": [
+    "Finish or observe the active serial full-regression snapshot; do not start overlapping database regressions",
+    "Reproduce and update two migration-test fixtures for explicit admin SET-only setup and exact 0017 upgrade expectation; preserve old checksum/identity assertions and historical SQL",
+    "Rerun applicable exact-final-source full business and permission regressions and CI; I02 C05 not counted until requirements actually pass",
+    "Continue I03 atomic task creation and I04 HTTP only when actual implementation dependencies satisfy the approved plan"
+  ],
+  "material_validation": {
+    "status": "PASS_APPLICABLE_CHECKS_WITH_AFFECTED_TAIL_RERUN",
+    "checks": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T034"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T015"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "initial_snapshot_commit": "92288598fb92bf626c0fc2fd1d0fa6521825d6a1",
+    "affected_tail_snapshot_commit": "229387c1548047ece897da5e1cb6c1d0c2fb3a34",
+    "scope": "14 unchanged-scope checks passed; after canonical-byte candidate correction only 4 affected tail checks rerun; not a business/full CI pass",
+    "working_tree_EOL_only_corrections_match_existing_HEAD": true,
+    "original_archives_or_source_documents_changed": false
+  }
+}

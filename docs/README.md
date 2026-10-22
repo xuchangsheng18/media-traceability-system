@@ -440,6 +440,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [00-project/validation/business-timeout-diagnostics-report.json](<00-project/validation/business-timeout-diagnostics-report.json>) | 完整业务回归超时诊断的精确源码、实际RED及59项诊断/旧相邻测试、失败探针和281文件质量；完整回归未据此通过，原1800秒及CI门禁保留，新增完成数为0。 |
 | [03-development/t034-internal-development-decisions.md](<03-development/t034-internal-development-decisions.md>) | 用户委托下选定内部研发E01—E04实现输入与预算、真实完整性helper及一节点adapter方案；尚未应用运行配置，不造身份/采用/许可/恢复事实。 |
 | [00-project/validation/t034-development-design-delegation-20261022.json](<00-project/validation/t034-development-design-delegation-20261022.json>) | 2026-10-22用户委托合理研发设计的范围记录；仅设计与研发选择，不是已存在的正式业务事实或共享部署批准。 |
 | [03-development/t034-i02-integration.md](<03-development/t034-i02-integration.md>) | T034-I02固定SQL/有限事实/guard工程候选，限定验证通过、完整业务回归失败且C05不计数；真实采用/Proof/当前handler和分类/恢复/预算仍缺，无HTTP202或整步验收。 |
@@ -727,7 +728,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1334份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1335份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -827,6 +828,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/browser-metadata-verification-report.json](<00-project/validation/browser-metadata-verification-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/business-foundation-report.json](<00-project/validation/business-foundation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/business-recovery-report.json](<00-project/validation/business-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/business-timeout-diagnostics-report.json](<00-project/validation/business-timeout-diagnostics-report.json>) | 完整业务回归超时诊断的精确源码、实际RED及59项诊断/旧相邻测试、失败探针和281文件质量；完整回归未据此通过，原1800秒及CI门禁保留，新增完成数为0。 |
 | [00-project/validation/business-upload-first-batch-report.json](<00-project/validation/business-upload-first-batch-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/ci-all-report.json](<00-project/validation/ci-all-report.json>) | 最近完整门禁逐命令状态、耗时及环境；托管与源码身份按报告实际字段读取。 |
 | [00-project/validation/ci-failure-gate-report.json](<00-project/validation/ci-failure-gate-report.json>) | 验证故意失败确实阻断构建/部署的判定，PASS不等于探针本身成功。 |

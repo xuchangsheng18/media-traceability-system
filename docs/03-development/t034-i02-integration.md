@@ -1,5 +1,7 @@
 # T034-I02受限SQL、事实与guard工程候选
 
+2026-10-23续批：[完整回归超时诊断](ci-safe-failure-diagnostics.md)、[限定验证回执](../00-project/validation/business-timeout-diagnostics-report.json)。原1800秒与CI/扫描门禁保留；59项诊断/旧相邻回归、失败探针及281文件类型/质量通过。完整业务回归在较早诊断快照运行，最终完整结果未确认；不新增C05或已完成子步骤，保持154条已证、T034四已证/四组剩余，算法/Python候选暂缓。
+
 2026-10-22（北京时间）。本批16文件代码已实现，依据[已批准计划](t034-creation-implementation-plan.md)推进；负责人/指定复核人均徐昌胜，登记不代表本人已审。当前为SOURCE_CANDIDATE_WITH_FAILED_OR_INCOMPLETE_GATE；[精确回执](../00-project/validation/t034-i02-integration-report.json)区分限定通过、完整回归实际失败和未运行项，不能作为可运行发布/正式验收证明。
 
 固定SQL metadata/execution为21/9列，LOOKUP精确asset/read-only/无锁无正文，CASE要求同根上下文/evidence并持锁重查唯一revision/head及三摘要。原receipt字节和受限投影分别处理；有限事实不能覆盖既有SQL核心。4表列级UPDATE仅满足PG16 FOR SHARE，RLS加字典序先执行的INVOKER语句guard拒绝所有case_reader DML（包括0行epoch副作用）。非超级迁移owner需要管理员明确的临时SET-only准备与finally撤权，不能隐式提升session_user。字段、ACL、锁序及安装前提见[数据库读口说明](../04-database/task-creation-scope-read-contract.md)。

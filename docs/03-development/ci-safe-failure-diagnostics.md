@@ -1,5 +1,15 @@
 # CI业务失败的安全定位
 
+## 2026-10-23：超时仍失败，并保留安全进度
+
+原完整业务命令及1800秒上限保留。固定pytest插件在每个测试的setup、call、teardown及finished阶段原子更新私有临时检查点。每次运行使用独有nonce与文件；父进程限4096字节并复核源码AST，只公开已存在的测试函数路径和阶段，参数、stdout/stderr、异常文字和凭据均不公开。缺失、错nonce、坏JSON、深度超限或无效selector只记进度不可用。
+
+真实TimeoutExpired明确返回TIMEOUT、退出2、complete=false；即使已有JUnit或最后阶段为finished，也不判整套通过。无完整JUnit时test_count=0仅表示没有完整计数，不表示未运行测试。最后进度只是观察点，不能直接指认为阻塞根因。PASS仍要求正常退出0、测试数大于0且失败/错误/跳过均为0；原失败探针代码不变。超时仅为内部常量，没有CLI或环境变量放宽入口。
+
+Linux py310中，旧代码用2秒测试预算复现未结构化超时；58例初轮通过后，独立审查新增深JSON负例实际失败，再补RecursionError拒绝并获得最终59例通过，原受控失败探针有效；Ruff、格式和281文件Mypy通过。Windows本机尝试因缺psycopg产生3项收集错误，未安装依赖或修改原锁；它不计目标环境通过。
+
+具体命令、精确源码摘要、历史失败、最终限定结果和当前完整回归状态见[本轮回执](../00-project/validation/business-timeout-diagnostics-report.json)。本批只修诊断，不认定完整回归通过，不增加业务完成步骤，不实现T034原子创建或HTTP。算法、Python候选及共享运行环境继续保持既有边界。
+
 2026-10-22本批属于[T006](../../tasks/platform/T006.md)的测试报告子范围。原T032实现提交`c3370a26b3766ce793b481dff07dadbbcc89ef6f`的[CI 39677167526](https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39677167526)在完整业务回归记录1057项、1失败、0错误、0跳过。旧验证器只保存总数，原始pytest输出未公开、临时JUnit被删除，现存制品没有失败用例身份。不得据此猜测失败原因或将数据库预期拒绝日志当作根因。
 
 [本批实现回执](../00-project/validation/ci-safe-failure-diagnostics-report.json)记录精确源码、RED/GREEN、真实子进程及质量检查。该修复补齐定位能力，尚未证明上述业务失败已修复。T033的取消原子写入代码本轮没有实施；先取得真实失败位置、修复适用依赖，再继续原计划。

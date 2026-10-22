@@ -50,6 +50,7 @@ def main():
         flags=re.M,
     )
     entries = {
+        "00-project/validation/business-timeout-diagnostics-report.json": "完整业务回归超时诊断的精确源码、实际RED及59项诊断/旧相邻测试、失败探针和281文件质量；完整回归未据此通过，原1800秒及CI门禁保留，新增完成数为0。",
         "03-development/t034-internal-development-decisions.md": "用户委托下选定内部研发E01—E04实现输入与预算、真实完整性helper及一节点adapter方案；尚未应用运行配置，不造身份/采用/许可/恢复事实。",
         "00-project/validation/t034-development-design-delegation-20261022.json": "2026-10-22用户委托合理研发设计的范围记录；仅设计与研发选择，不是已存在的正式业务事实或共享部署批准。",
         "03-development/t034-i02-integration.md": "T034-I02固定SQL/有限事实/guard工程候选，限定验证通过、完整业务回归失败且C05不计数；真实采用/Proof/当前handler和分类/恢复/预算仍缺，无HTTP202或整步验收。",
