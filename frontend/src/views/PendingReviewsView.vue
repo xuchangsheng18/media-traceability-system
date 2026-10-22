@@ -67,7 +67,7 @@ async function list(next = false) {
     <section class="panel span-12">
       <h2 class="panel-heading">待复核队列</h2>
       <p class="panel-copy">
-        按有权访问的案件分页查询。选择当前页任务后，可显式读取复核上下文及历史记录；当前页面只读。
+        按有权访问的案件分页查询。选择任务后可读取上下文与历史；复核提交另需执行权限及服务端有效条件。
       </p>
       <div class="toolbar">
         <label

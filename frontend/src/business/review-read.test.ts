@@ -71,6 +71,46 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
+test.each([null, '"server-exact-opaque"', 'W/"read-only-weak"'])(
+  'context remains readable with %s header and preserves server bytes without guessing a tag',
+  async (etag) => {
+    vi.stubGlobal('fetch', async () =>
+      Response.json(context(), { headers: etag ? { ETag: etag } : {} }),
+    )
+    const { reader } = setup()
+    await reader.loadContext(caseId, taskId)
+    expect(reader.state.context.data).toEqual(context())
+    expect(reader.state.context.etag).toBe(etag)
+    reader.clear()
+    expect(reader.state.context.etag).toBeNull()
+  },
+)
+
+test('context reread immediately clears the previous condition before the replacement arrives', async () => {
+  let finish!: (response: Response) => void
+  vi.stubGlobal(
+    'fetch',
+    vi
+      .fn()
+      .mockResolvedValueOnce(Response.json(context(), { headers: { ETag: '"first-context"' } }))
+      .mockImplementationOnce(
+        () =>
+          new Promise<Response>((done) => {
+            finish = done
+          }),
+      ),
+  )
+  const { reader } = setup()
+  await reader.loadContext(caseId, taskId)
+  const replacement = reader.loadContext(caseId, taskId)
+  expect(reader.state.context.data).toBeNull()
+  expect(reader.state.context.etag).toBeNull()
+  finish(Response.json({ code: 'TEST_ONLY_NO_RESULT' }, { status: 404 }))
+  await replacement
+  expect(reader.state.context.data).toBeNull()
+  expect(reader.state.context.etag).toBeNull()
+})
+
 test('reads exact existing GET endpoints and keeps historical result versions separate', async () => {
   const requests: { url: string; init: RequestInit }[] = []
   vi.stubGlobal('fetch', async (url: string, init: RequestInit) => {

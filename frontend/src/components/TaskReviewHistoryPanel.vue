@@ -5,6 +5,7 @@ import type { ReviewEvidenceSelection } from '../business/review-evidence'
 import { createTaskReviewReader } from '../business/review-read'
 import { useBusinessSession } from '../business/session'
 import ReviewEvidencePanel from './ReviewEvidencePanel.vue'
+import ReviewSubmitPanel from './ReviewSubmitPanel.vue'
 
 const props = defineProps<{ caseId: string; taskId: string }>()
 const session = useBusinessSession()
@@ -79,11 +80,11 @@ async function history(next = false) {
 <template>
   <section
     class="panel span-12"
-    aria-label="任务复核只读记录"
+    aria-label="任务复核记录与提交"
   >
     <h2 class="panel-heading">任务复核上下文与历史</h2>
     <p class="panel-copy">
-      当前案件：{{ caseId }}；所选任务：{{ taskId }}。本面板只读，不授予复核或批准权限。
+      当前案件：{{ caseId }}；所选任务：{{ taskId }}。上下文与历史读取不授予复核或批准权限。
       当前上下文与历史记录分别读取；历史保留各自运行、结果及策略版本。
     </p>
     <h3>当前复核上下文</h3>
@@ -225,12 +226,19 @@ async function history(next = false) {
     </article>
     <p class="panel-copy">
       记录决定是历史事实；不表示当前批准有效、证据已核验或可以执行后续动作。
-      证据读取另需evidence.read权限；本面板只读取受控元数据，不下载媒体或提交审批。
+      证据读取另需evidence.read权限；证据面板只读取受控元数据，不下载媒体或提交审批。
     </p>
     <ReviewEvidencePanel
       v-if="evidenceSelection"
       :key="evidenceSelection.sourceKey"
       :selection="evidenceSelection"
+    />
+    <ReviewSubmitPanel
+      v-if="reader.state.context.data"
+      :case-id="caseId"
+      :task-id="taskId"
+      :context="reader.state.context.data"
+      :etag="reader.state.context.etag"
     />
   </section>
 </template>

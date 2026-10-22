@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t103-review-submission.md": "T103复核表单、原样服务端ETag/幂等键及未确认原请求重试、会话内草稿与清理；正式规则/职责、持久化、任务状态转换及真实工作流仍待。",
+        "00-project/validation/t103-review-submit-report.json": "T103八文件源码、前端单元/类型/格式/构建及两模式传输浏览器、限定复核、依赖与精确CI/三端源码回执；不等于正式复核可用或整卡验收。",
         "03-development/evidence-snapshot-pagination.md": "T101/T103既有固定证据投影的显式分页、游标绑定及每页当前授权；省略参数保留旧响应，上游未取齐拒绝503，页面缺引用只作当前页未定位。",
         "00-project/validation/evidence-paging-report.json": "证据分页九源文件、后端初轮测试期望错误及11项HTTP更正回归、688前端/114浏览器各模式、262文件类型、限定复核及精确CI/三端源码回执。",
         "00-project/validation/t101-role-assignment.json": "用户确认T101开发负责人和指定复核人均为徐昌胜；仅责任登记，不证明本人复核、工时、独立双人验收或系统授权。",

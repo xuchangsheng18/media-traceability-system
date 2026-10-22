@@ -1095,6 +1095,362 @@ function reviewHistory(id = taskId): Schemas['Review'] {
     created_at: '2026-10-20T04:00:00Z',
   }
 }
+// Mutation transport fixtures below are self-owned records. They prove browser protocol and
+// stale-response handling, not a real review grant, independent approval, or model execution.
+const reviewSubmitEtag = '"owned-review-context-9"'
+const reviewSubmitReason = '<script>owned review explanation</script>'
+type ReviewMutation = { body: Schemas['ReviewCreate']; key: string; etag: string }
+function reviewMutationReply(body: Schemas['ReviewCreate']): Schemas['Review'] {
+  return {
+    ...body,
+    review_id: '77777777-7777-4777-8777-777777777777',
+    reviewer_id: '44444444-4444-4444-8444-444444444444',
+    review_version: body.expected_review_version + 1,
+    created_at: '2026-10-22T07:10:00Z',
+  }
+}
+function expectedReviewMutation(
+  decision: Schemas['ReviewCreate']['decision'],
+): Schemas['ReviewCreate'] {
+  const context = reviewContext()
+  return {
+    task_id: context.task_id,
+    run_version: context.run_version,
+    result_version: context.result_version,
+    expected_review_version: context.review_version,
+    policy_version: context.policy_version,
+    decision,
+    reason: reviewSubmitReason,
+    evidence_ids: ['99999999-9999-4999-8999-999999999999'],
+  }
+}
+async function openReviewSubmit(
+  page: Page,
+  options: { etag?: string | null; permissions?: string[] } = {},
+) {
+  const etag = options.etag === undefined ? reviewSubmitEtag : options.etag
+  await page.route('**/business/api/v1/analysis/tasks/*/review-context', (route) =>
+    route.fulfill({ json: reviewContext(), headers: etag === null ? {} : { ETag: etag } }),
+  )
+  await openTaskReview(page, options.permissions ?? ['review.read', 'review.perform'])
+  await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+  const panel = page.getByRole('region', { name: '受控复核提交', exact: true })
+  await expect(panel).toBeVisible()
+  return panel
+}
+async function fillReviewSubmit(
+  page: Page,
+  decision: Schemas['ReviewCreate']['decision'] = 'confirm_candidate',
+) {
+  const panel = page.getByRole('region', { name: '受控复核提交', exact: true })
+  await panel.getByLabel('复核决定', { exact: true }).selectOption(decision)
+  await panel.getByLabel('复核理由', { exact: true }).fill(reviewSubmitReason)
+  await panel
+    .getByLabel('关联证据编号', { exact: true })
+    .fill('99999999-9999-4999-8999-999999999999')
+  await panel.getByLabel('确认本次复核内容', { exact: true }).check()
+}
+for (const decision of [
+  'confirm_candidate',
+  'reject_candidate',
+  'return_for_evidence',
+  'request_rerun',
+] as const)
+  test(`controlled review submission sends the exact ${decision} protocol without inventing authority`, async ({
+    page,
+  }) => {
+    const mutations: ReviewMutation[] = []
+    await page.route('**/business/api/v1/reviews', (route) => {
+      expect(route.request().method()).toBe('POST')
+      const body = route.request().postDataJSON() as Schemas['ReviewCreate']
+      mutations.push({
+        body,
+        key: route.request().headers()['idempotency-key']!,
+        etag: route.request().headers()['if-match']!,
+      })
+      return route.fulfill({ status: 201, json: reviewMutationReply(body) })
+    })
+    const panel = await openReviewSubmit(page)
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+    await fillReviewSubmit(page, decision)
+    await panel.getByRole('button', { name: '提交受控复核', exact: true }).click()
+    await expect(panel.getByTestId('review-submit-receipt')).toBeVisible()
+    expect(mutations).toHaveLength(1)
+    expect(mutations[0]!.body).toEqual(expectedReviewMutation(decision))
+    expect(mutations[0]!.etag).toBe(reviewSubmitEtag)
+    expect(mutations[0]!.key).toMatch(/^[\x21-\x7e]{1,128}$/)
+    await expect(panel.getByText(reviewSubmitReason, { exact: true })).toBeVisible()
+    await expect(panel.locator('script')).toHaveCount(0)
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+    await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeDisabled()
+    await expect(panel).toContainText('记录决定不代表退回已执行、重算已启动或允许导出')
+    expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0])
+  })
+
+for (const etag of [null, 'W/"owned-review-context-9"'])
+  test(`controlled review submission refuses absent or weak context ETag (${etag})`, async ({
+    page,
+  }) => {
+    let writes = 0
+    await page.route('**/business/api/v1/reviews', (route) => {
+      writes++
+      return route.fulfill({ status: 503, json: { code: 'UNEXPECTED_OWNED_MUTATION' } })
+    })
+    const panel = await openReviewSubmit(page, { etag })
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+    await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeDisabled()
+    await expect(panel.getByTestId('review-submit-status')).toContainText('ETag')
+    expect(writes).toBe(0)
+  })
+
+test('controlled review submission requires review.perform independently of read permission', async ({
+  page,
+}) => {
+  let writes = 0
+  await page.route('**/business/api/v1/reviews', (route) => {
+    writes++
+    return route.fulfill({ status: 503, json: { code: 'UNEXPECTED_OWNED_MUTATION' } })
+  })
+  const panel = await openReviewSubmit(page, { permissions: ['review.read'] })
+  await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+  await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeDisabled()
+  await expect(panel.getByTestId('review-submit-status')).toContainText('当前身份')
+  expect(writes).toBe(0)
+})
+
+test('controlled review submission requires a deliberate confirmation and valid nonempty unique evidence IDs', async ({
+  page,
+}) => {
+  let writes = 0
+  await page.route('**/business/api/v1/reviews', (route) => {
+    writes++
+    return route.fulfill({ status: 503, json: { code: 'UNEXPECTED_OWNED_MUTATION' } })
+  })
+  const panel = await openReviewSubmit(page)
+  await fillReviewSubmit(page)
+  await panel.getByLabel('确认本次复核内容', { exact: true }).uncheck()
+  await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+  for (const evidence of [
+    '',
+    'not-a-uuid',
+    `${reviewEvidenceId}, ${reviewEvidenceId.toUpperCase()}`,
+  ]) {
+    await panel.getByLabel('关联证据编号', { exact: true }).fill(evidence)
+    await panel.getByLabel('确认本次复核内容', { exact: true }).check()
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+  }
+  await panel.getByLabel('关联证据编号', { exact: true }).fill(reviewEvidenceId)
+  await panel.getByLabel('复核理由', { exact: true }).fill('   ')
+  await panel.getByLabel('确认本次复核内容', { exact: true }).check()
+  await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+  expect(writes).toBe(0)
+})
+
+for (const outcome of ['503', 'network', 'malformed-receipt'] as const)
+  test(`controlled review submission preserves the original body key and tag after uncertain ${outcome}`, async ({
+    page,
+  }) => {
+    const mutations: ReviewMutation[] = []
+    await page.route('**/business/api/v1/reviews', (route) => {
+      const body = route.request().postDataJSON() as Schemas['ReviewCreate']
+      mutations.push({
+        body,
+        key: route.request().headers()['idempotency-key']!,
+        etag: route.request().headers()['if-match']!,
+      })
+      if (mutations.length === 1) {
+        if (outcome === 'network') return route.abort('timedout')
+        if (outcome === 'malformed-receipt')
+          return route.fulfill({
+            status: 201,
+            json: { ...reviewMutationReply(body), task_id: secondReviewTask },
+          })
+        return route.fulfill({ status: 503, json: { code: 'OWNED_REVIEW_PROVIDER_UNAVAILABLE' } })
+      }
+      return route.fulfill({ status: 201, json: reviewMutationReply(body) })
+    })
+    const panel = await openReviewSubmit(page)
+    await fillReviewSubmit(page)
+    await panel.getByRole('button', { name: '提交受控复核', exact: true }).click()
+    await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeEnabled()
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+    await expect(panel.getByLabel('复核理由', { exact: true })).toBeDisabled()
+    await expect(panel.getByTestId('review-submit-receipt')).toHaveCount(0)
+    await panel.getByRole('button', { name: '原请求重试', exact: true }).click()
+    await expect(panel.getByTestId('review-submit-receipt')).toBeVisible()
+    expect(mutations).toHaveLength(2)
+    expect(mutations[1]).toEqual(mutations[0])
+    expect(mutations[0]!.body).toEqual(expectedReviewMutation('confirm_candidate'))
+    expect(mutations[0]!.etag).toBe(reviewSubmitEtag)
+  })
+
+for (const status of [403, 409, 412])
+  test(`controlled review submission treats ${status} as refusal and requires context reread`, async ({
+    page,
+  }) => {
+    const mutations: ReviewMutation[] = []
+    await page.route('**/business/api/v1/reviews', (route) => {
+      mutations.push({
+        body: route.request().postDataJSON(),
+        key: route.request().headers()['idempotency-key']!,
+        etag: route.request().headers()['if-match']!,
+      })
+      return route.fulfill({ status, json: { code: `OWNED_REVIEW_REFUSED_${status}` } })
+    })
+    const panel = await openReviewSubmit(page)
+    await fillReviewSubmit(page)
+    await panel.getByRole('button', { name: '提交受控复核', exact: true }).click()
+    await expect(panel.getByTestId('review-submit-status')).toContainText(
+      `OWNED_REVIEW_REFUSED_${status}`,
+    )
+    await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeDisabled()
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+    await expect(panel.getByTestId('review-submit-receipt')).toHaveCount(0)
+    await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+    await expect(panel.getByLabel('复核理由', { exact: true })).toHaveValue('')
+    await fillReviewSubmit(page)
+    await panel.getByRole('button', { name: '提交受控复核', exact: true }).click()
+    await expect(panel.getByTestId('review-submit-status')).toContainText(
+      `OWNED_REVIEW_REFUSED_${status}`,
+    )
+    expect(mutations).toHaveLength(2)
+    expect(mutations[1]!.key).not.toBe(mutations[0]!.key)
+  })
+
+test('controlled review submission prevents duplicate clicks while the original request is pending', async ({
+  page,
+}) => {
+  let release!: () => void
+  const barrier = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  let begin!: () => void
+  const began = new Promise<void>((resolve) => {
+    begin = resolve
+  })
+  let writes = 0
+  await page.route('**/business/api/v1/reviews', async (route) => {
+    writes++
+    begin()
+    await barrier
+    return route.fulfill({ status: 201, json: reviewMutationReply(route.request().postDataJSON()) })
+  })
+  const panel = await openReviewSubmit(page)
+  await fillReviewSubmit(page)
+  await trackReviewAction(page, '提交受控复核', 'review-pending')
+  await panel.getByRole('button', { name: '提交受控复核', exact: true }).click()
+  await began
+  try {
+    await expect(panel.getByRole('button', { name: '提交受控复核', exact: true })).toBeDisabled()
+    await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeDisabled()
+    await expect(panel.getByRole('button', { name: '清空本页草稿', exact: true })).toBeDisabled()
+    await panel.getByRole('button', { name: '提交受控复核', exact: true }).evaluate((element) => {
+      element.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+    expect(writes).toBe(1)
+  } finally {
+    release()
+  }
+  await finishReviewAction(page, 'review-pending')
+  await expect(panel.getByTestId('review-submit-receipt')).toBeVisible()
+  expect(writes).toBe(1)
+})
+
+for (const outcome of ['success', 'error'] as const)
+  for (const action of ['context', 'identity', 'case', 'unmount'] as const)
+    test(`controlled review submission discards late ${outcome} after ${action} changes`, async ({
+      page,
+    }) => {
+      let release!: () => void
+      const barrier = new Promise<void>((resolve) => {
+        release = resolve
+      })
+      let begin!: () => void
+      const began = new Promise<void>((resolve) => {
+        begin = resolve
+      })
+      let writes = 0
+      await page.route('**/business/api/v1/reviews', async (route) => {
+        writes++
+        begin()
+        await barrier
+        return route.fulfill(
+          outcome === 'success'
+            ? { status: 201, json: reviewMutationReply(route.request().postDataJSON()) }
+            : { status: 503, json: { code: 'OWNED_LATE_REVIEW_MUTATION_FAILURE' } },
+        )
+      })
+      const panel = await openReviewSubmit(page)
+      await fillReviewSubmit(page)
+      await trackReviewAction(page, '提交受控复核', 'review-stale')
+      await panel.getByRole('button', { name: '提交受控复核', exact: true }).click()
+      await began
+      try {
+        if (action === 'context')
+          await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+        else if (action === 'identity') await changeAssetContext(page, 'roles')
+        else if (action === 'case') await page.getByLabel('队列案件编号').fill(otherCaseId)
+        else await page.getByRole('link', { name: '任务与结果', exact: true }).click()
+        if (action === 'context')
+          await expect(panel.getByLabel('复核理由', { exact: true })).toHaveValue('')
+        else await expect(panel).toHaveCount(0)
+      } finally {
+        release()
+      }
+      await finishReviewAction(page, 'review-stale')
+      await expect(page.getByTestId('review-submit-receipt')).toHaveCount(0)
+      await expect(
+        page.getByText('OWNED_LATE_REVIEW_MUTATION_FAILURE', { exact: false }),
+      ).toHaveCount(0)
+      if (action === 'context') {
+        await expect(panel.getByRole('button', { name: '原请求重试', exact: true })).toBeDisabled()
+        await expect(
+          panel.getByRole('button', { name: '提交受控复核', exact: true }),
+        ).toBeDisabled()
+      }
+      expect(writes).toBe(1)
+    })
+
+test('controlled review submission keeps drafts only on the current page and clears every same-generation identity change', async ({
+  page,
+}) => {
+  for (const field of [
+    'roles',
+    'permissions',
+    'case_ids',
+    'user_id',
+    'org_id',
+    'user-null',
+  ] as const) {
+    const panel = await openReviewSubmit(page)
+    await fillReviewSubmit(page)
+    await expect(panel.getByLabel('复核理由', { exact: true })).toHaveValue(reviewSubmitReason)
+    expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0])
+    await changeAssetContext(page, field)
+    await expect(panel).toHaveCount(0)
+  }
+  const panel = await openReviewSubmit(page)
+  await fillReviewSubmit(page)
+  await panel.getByRole('button', { name: '清空本页草稿', exact: true }).click()
+  await expect(panel.getByLabel('复核理由', { exact: true })).toHaveValue('')
+  await expect(panel.getByLabel('关联证据编号', { exact: true })).toHaveValue('')
+  await expect(panel.getByLabel('确认本次复核内容', { exact: true })).not.toBeChecked()
+  await fillReviewSubmit(page)
+  await page.getByRole('link', { name: '任务与结果', exact: true }).click()
+  await page.getByRole('link', { name: '审核管理（待复核队列）', exact: true }).click()
+  await expect(panel).toHaveCount(0)
+  await page.getByLabel('队列案件编号').fill(caseId)
+  await page.getByRole('button', { name: '查询待复核', exact: true }).click()
+  await page
+    .getByRole('row')
+    .filter({ hasText: taskId })
+    .getByRole('button', { name: '选择复核记录', exact: true })
+    .click()
+  await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+  await expect(panel.getByLabel('复核理由', { exact: true })).toHaveValue('')
+  await expect(panel.getByLabel('关联证据编号', { exact: true })).toHaveValue('')
+  await expect(panel.getByLabel('确认本次复核内容', { exact: true })).not.toBeChecked()
+})
 // Evidence fixtures are owned metadata only; no original media or authorization claim is fetched.
 const reviewEvidenceId = '99999999-9999-4999-8999-999999999999'
 const unrelatedEvidenceId = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
@@ -1662,7 +2018,7 @@ async function openTaskReview(page: Page, permissions = ['review.read']) {
     .filter({ hasText: taskId })
     .getByRole('button', { name: '选择复核记录', exact: true })
     .click()
-  await expect(page.getByRole('region', { name: '任务复核只读记录', exact: true })).toBeVisible()
+  await expect(page.getByRole('region', { name: '任务复核记录与提交', exact: true })).toBeVisible()
 }
 
 // Wrap the real Vue click handler and await its returned application promise, including reader
@@ -1739,7 +2095,7 @@ test('review reader explicitly reads current context and independent cross-run h
     })
   })
   await openTaskReview(page)
-  const panel = page.getByRole('region', { name: '任务复核只读记录', exact: true })
+  const panel = page.getByRole('region', { name: '任务复核记录与提交', exact: true })
   expect(requests).toHaveLength(0)
   await panel.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
   await expect(panel.getByTestId('review-context-data')).toContainText('owned-current-policy')
@@ -1753,7 +2109,11 @@ test('review reader explicitly reads current context and independent cross-run h
   await expect(record).toContainText(reviewHistory().evidence_ids[0]!)
   await expect(record).toContainText(reviewHistory().created_at)
   await expect(panel.locator('script')).toHaveCount(0)
-  await expect(panel.getByRole('button')).toHaveCount(5)
+  await expect(panel.getByRole('button')).toHaveCount(8)
+  const submitPanel = panel.getByRole('region', { name: '受控复核提交', exact: true })
+  await expect(submitPanel.getByRole('button')).toHaveCount(3)
+  for (const name of ['提交受控复核', '原请求重试', '清空本页草稿'])
+    await expect(submitPanel.getByRole('button', { name, exact: true })).toBeDisabled()
   await panel.getByRole('button', { name: '下一页复核历史', exact: true }).click()
   await expect(panel.getByTestId('review-history-empty')).toBeVisible()
   await expect(record).toHaveCount(0)
@@ -1797,7 +2157,7 @@ test('review reader sends no queue or detail requests without identity, permissi
   await page.getByLabel('队列案件编号').fill(otherCaseId)
   await page.getByRole('button', { name: '查询待复核', exact: true }).click()
   await expect(page.getByRole('status')).toContainText('未向服务端发送查询')
-  await expect(page.getByRole('region', { name: '任务复核只读记录', exact: true })).toHaveCount(0)
+  await expect(page.getByRole('region', { name: '任务复核记录与提交', exact: true })).toHaveCount(0)
   expect(requests).toBe(0)
 })
 
@@ -1884,7 +2244,9 @@ test('review parent clears selection and both slots on each full identity field 
     await page.getByRole('button', { name: '读取复核历史／回到首页', exact: true }).click()
     await expect(page.getByTestId('review-history-record')).toBeVisible()
     await changeAssetContext(page, field)
-    await expect(page.getByRole('region', { name: '任务复核只读记录', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('region', { name: '任务复核记录与提交', exact: true })).toHaveCount(
+      0,
+    )
     await expect(page.getByRole('button', { name: '选择复核记录', exact: true })).toHaveCount(0)
     await expect(page.getByRole('button', { name: '下一页', exact: true })).toBeDisabled()
   }
@@ -1917,7 +2279,7 @@ test('review selection resets on case edit, queue reload or page, task switch, a
         .getByRole('button', { name: '选择复核记录', exact: true })
         .click()
       await expect(
-        page.getByRole('region', { name: '任务复核只读记录', exact: true }),
+        page.getByRole('region', { name: '任务复核记录与提交', exact: true }),
       ).toContainText(secondReviewTask)
     } else {
       await page.getByRole('link', { name: '任务与结果', exact: true }).click()
@@ -1926,9 +2288,9 @@ test('review selection resets on case edit, queue reload or page, task switch, a
     await expect(page.getByTestId('review-context-data')).toHaveCount(0)
     await expect(page.getByTestId('review-history-record')).toHaveCount(0)
     if (action !== 'task')
-      await expect(page.getByRole('region', { name: '任务复核只读记录', exact: true })).toHaveCount(
-        0,
-      )
+      await expect(
+        page.getByRole('region', { name: '任务复核记录与提交', exact: true }),
+      ).toHaveCount(0)
     await page.getByLabel('队列案件编号').fill(caseId)
     await page.getByRole('button', { name: '查询待复核', exact: true }).click()
     await page
@@ -1985,9 +2347,9 @@ for (const sample of [
         await page.getByRole('button', { name: '下一页', exact: true }).click()
       else if (sample.change === 'case') await page.getByLabel('队列案件编号').fill(otherCaseId)
       else await page.getByRole('link', { name: '任务与结果', exact: true }).click()
-      await expect(page.getByRole('region', { name: '任务复核只读记录', exact: true })).toHaveCount(
-        0,
-      )
+      await expect(
+        page.getByRole('region', { name: '任务复核记录与提交', exact: true }),
+      ).toHaveCount(0)
     } finally {
       release()
     }
@@ -2035,7 +2397,7 @@ test('review parent awaits a stale queue reply after role change before remainin
   }
   await finishReviewAction(page, 'old-queue')
   await expect(page.getByRole('button', { name: '选择复核记录', exact: true })).toHaveCount(0)
-  await expect(page.getByRole('region', { name: '任务复核只读记录', exact: true })).toHaveCount(0)
+  await expect(page.getByRole('region', { name: '任务复核记录与提交', exact: true })).toHaveCount(0)
   await expect(page.getByRole('button', { name: '下一页', exact: true })).toBeDisabled()
 })
 

@@ -129,7 +129,13 @@ function reviewPage(value: unknown, taskId: string): Schemas['ReviewPage'] {
   }
 }
 function slot<T>() {
-  return shallowReactive({ data: null as T | null, busy: false, error: '', loaded: false })
+  return shallowReactive({
+    data: null as T | null,
+    busy: false,
+    error: '',
+    loaded: false,
+    etag: null as string | null,
+  })
 }
 
 export function createTaskReviewReader(session: ReviewSession) {
@@ -155,7 +161,7 @@ export function createTaskReviewReader(session: ReviewSession) {
     selected = ''
     for (const name of ['context', 'history'] as const) {
       generations[name]++
-      Object.assign(state[name], { data: null, busy: false, error: '', loaded: false })
+      Object.assign(state[name], { data: null, busy: false, error: '', loaded: false, etag: null })
     }
   }
   function target(caseId: string, taskId: string): Target {
@@ -171,7 +177,7 @@ export function createTaskReviewReader(session: ReviewSession) {
     name: K,
     caseId: string,
     taskId: string,
-    read: (value: Target) => Promise<(typeof state)[K]['data']>,
+    read: (value: Target) => Promise<{ data: (typeof state)[K]['data']; etag?: string | null }>,
   ) {
     if (disposed) return
     let value: Target
@@ -191,12 +197,12 @@ export function createTaskReviewReader(session: ReviewSession) {
     const signature = identity()
     const current = () =>
       !disposed && selected === key && version === generations[name] && signature === identity()
-    Object.assign(state[name], { data: null, busy: true, error: '', loaded: false })
+    Object.assign(state[name], { data: null, busy: true, error: '', loaded: false, etag: null })
     try {
-      const data = await read(value)
+      const result = await read(value)
       if (!current()) return
       target(caseId, taskId)
-      Object.assign(state[name], { data, loaded: true })
+      Object.assign(state[name], { data: result.data, etag: result.etag ?? null, loaded: true })
     } catch (error) {
       if (current()) state[name].error = errorMessage(error)
     } finally {
@@ -205,10 +211,10 @@ export function createTaskReviewReader(session: ReviewSession) {
   }
   function loadContext(caseId: string, taskId: string) {
     return load('context', caseId, taskId, async (value) => {
-      const { data } = await session.call<Schemas['ReviewContext']>(
+      const { data, etag } = await session.call<Schemas['ReviewContext']>(
         `/analysis/tasks/${value.taskId}/review-context`,
       )
-      return reviewContext(data, value.taskId)
+      return { data: reviewContext(data, value.taskId), etag }
     })
   }
   function loadHistory(caseId: string, taskId: string, cursor?: string | null) {
@@ -218,7 +224,7 @@ export function createTaskReviewReader(session: ReviewSession) {
       const query = new URLSearchParams(pageQuery(value.caseId, 20, cursor))
       query.set('task_id', value.taskId)
       const { data } = await session.call<Schemas['ReviewPage']>(`/reviews?${query}`)
-      return reviewPage(data, value.taskId)
+      return { data: reviewPage(data, value.taskId) }
     })
   }
   const stop = watch(identity, clear, { flush: 'sync' })
@@ -229,3 +235,5 @@ export function createTaskReviewReader(session: ReviewSession) {
   }
   return { state, loadContext, loadHistory, clear, dispose }
 }
+
+export { reviewContext as validateReviewContext, review as validateReviewRecord }
