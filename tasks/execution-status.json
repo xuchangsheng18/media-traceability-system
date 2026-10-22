@@ -907,7 +907,7 @@
       "actual_owner": "邓昀",
       "full_task_verified": false,
       "summary_completed": "托管流水线、归档门禁和故障探针已有实测；历史32门禁及制品核对保留在具名回执；main规则engineering与普通PR失败禁止合并已有实证。当前源码CI需按资源接口/来源页面回执的精确提交重新核验，不沿用历史成功。；业务CI安全失败定位子范围：报告及标准输出保留最多20条已核对源码AST的测试函数/类选择器，剥离参数并省略异常消息、type及正文；6项新增用例含真实失败/跳过/通过子进程及37项相邻检查通过。原失败探针、1800秒上限和门禁不变；尚未定位或修复原1057项中的1项业务失败。；非超级用户0015清单断言已按真实RED/GREEN修复，原权限检查保留。",
-      "summary_remaining": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；精确18f36bf业务1095、T014权限1092及类型256等通过，整体CI仍因Python25条、质量工具1条扫描匹配失败，Torch未覆盖，与前轮无新增Python发现。保留软件处置和Runner/Secret权限轮换、回收及平台审计要求；原锁不变，不放宽门禁。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；精确43e178d业务1095、T014权限1092、前端350、开发浏览器55/Compose组合56等通过，整体CI仍因Python25条、质量工具1条扫描匹配失败；Torch未覆盖。保留软件处置和Runner/Secret权限轮换、回收及平台审计要求；原锁不变，不放宽门禁，也不继承为后续T034源码通过。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "completed_steps": [
         {
           "description": "既有25道历史门禁证据保留；托管工程门禁、独立资源核验、测试/类型结果和故障探针均有实测，最新源码、数量及CI编号以github-actions-report.json为准；不代表平台已阻止失败合并",
@@ -981,7 +981,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "精确18f36bf业务1095、T014权限1092及类型256等通过，整体CI仍因Python25条、质量工具1条扫描匹配失败，Torch未覆盖，与前轮无新增Python发现。保留软件处置和Runner/Secret权限轮换、回收及平台审计要求；原锁不变，不放宽门禁。"
+          "description": "精确43e178d业务1095、T014权限1092、前端350、开发浏览器55/Compose组合56等通过，整体CI仍因Python25条、质量工具1条扫描匹配失败；Torch未覆盖。保留软件处置和Runner/Secret权限轮换、回收及平台审计要求；原锁不变，不放宽门禁，也不继承为后续T034源码通过。"
         },
         {
           "category": "任务记录",
@@ -1015,7 +1015,8 @@
         "docs/00-project/validation/ci973-final-ci-report.json",
         "docs/03-development/t033-cancellation-atomic-writer.md",
         "docs/00-project/validation/ci18f-final-ci-report.json",
-        "docs/03-development/task-cancellation-console.md"
+        "docs/03-development/task-cancellation-console.md",
+        "docs/00-project/validation/ci43e-final-ci-report.json"
       ]
     },
     {
@@ -3433,10 +3434,10 @@
       "name": "实现分片合并与完整哈希",
       "card": "tasks/backend/T024.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
       "summary_completed": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。；Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。",
-      "summary_remaining": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "summary_remaining": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。；开发负责人和指定复核人均已由本人确认为徐昌胜；仍需确认剩余工时、实施日期、实际复核决定，并逐项关闭代码/测试缺口。同人兼任不算独立双人复核，角色登记不算实际验收。",
       "completed_steps": [
         {
           "description": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
@@ -3562,15 +3563,18 @@
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "开发负责人和指定复核人均已由本人确认为徐昌胜；仍需确认剩余工时、实施日期、实际复核决定，并逐项关闭代码/测试缺口。同人兼任不算独立双人复核，角色登记不算实际验收。"
         }
       ],
       "observed_date": "2026-10-22",
       "followup_document_refs": [
         "docs/03-development/business-upload-first-batch.md",
         "docs/03-development/t024-worker-isolated-integration.md",
-        "docs/03-development/t024-object-durability.md"
-      ]
+        "docs/03-development/t024-object-durability.md",
+        "docs/00-project/validation/t024-role-assignment.json"
+      ],
+      "designated_reviewer": "徐昌胜",
+      "owner_confirmation_ref": "docs/00-project/validation/t024-role-assignment.json"
     },
     {
       "task_id": "T025",
@@ -4173,20 +4177,43 @@
       "task_id": "T034",
       "name": "实现任务创建接口",
       "card": "tasks/backend/T034.md",
-      "status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
-      "actual_owner": null,
+      "status": "PARTIAL_VERIFIED_SCOPE",
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "尚无本任务已验证交付",
-      "summary_remaining": "先建立不可变TaskCreate解析和可信scene/policy/modules/plan/capability精确绑定，落实真实提供方；候选DAG不是执行批准。随后接受限SQL/对象事实及任务/run/node/outbox/审计/幂等同事务创建；当前未挂载createTask，不用恒定503算完成。；按源测试要求创建并真实执行：权限、幂等、非法模块测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
-      "completed_steps": [],
+      "summary_completed": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。",
+      "summary_remaining": "内核冻结和可信证明绑定已验证；仍需真实scene/policy/modules/plan/capability映射与提供方、受限SQL/对象事实接入，以及任务/run/node/outbox/审计/幂等同事务创建和末端授权复核。createTask仍未挂载，候选DAG和恒定503不能替代创建。；64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
+      "completed_steps": [
+        {
+          "kind": "DEVELOPMENT",
+          "description": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。",
+          "evidence": [
+            {
+              "path": "backend/business_app/task_creation.py",
+              "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+            },
+            {
+              "path": "tests/business/test_task_creation_binding.py",
+              "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t034-request-plan-binding.md",
+              "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t034-request-plan-binding-report.json",
+              "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+            }
+          ]
+        }
+      ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "先建立不可变TaskCreate解析和可信scene/policy/modules/plan/capability精确绑定，落实真实提供方；候选DAG不是执行批准。随后接受限SQL/对象事实及任务/run/node/outbox/审计/幂等同事务创建；当前未挂载createTask，不用恒定503算完成。"
+          "description": "内核冻结和可信证明绑定已验证；仍需真实scene/policy/modules/plan/capability映射与提供方、受限SQL/对象事实接入，以及任务/run/node/outbox/审计/幂等同事务创建和末端授权复核。createTask仍未挂载，候选DAG和恒定503不能替代创建。"
         },
         {
           "category": "测试",
-          "description": "按源测试要求创建并真实执行：权限、幂等、非法模块测试。"
+          "description": "64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。"
         },
         {
           "category": "验收",
@@ -4194,14 +4221,18 @@
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。"
         }
       ],
       "observed_date": "2026-10-22",
       "followup_document_refs": [
         "docs/00-project/validation/ci18f-final-ci-report.json",
-        "docs/03-development/task-cancellation-console.md"
-      ]
+        "docs/03-development/task-cancellation-console.md",
+        "docs/03-development/t034-request-plan-binding.md",
+        "docs/00-project/validation/t034-role-assignment.json"
+      ],
+      "designated_reviewer": "徐昌胜",
+      "owner_confirmation_ref": "docs/00-project/validation/t034-role-assignment.json"
     },
     {
       "task_id": "T035",
@@ -9522,7 +9553,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/task-cancellation-console-report.json"
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t034-request-plan-binding-report.json"
   },
   "latest_business_upload_frontend": {
     "observed_at": "2026-10-21T16:33:04.726261+00:00",
@@ -9603,6 +9634,17 @@
     "observed_at": "2026-10-22T00:01:53.838627+00:00",
     "report_ref": "docs/00-project/validation/task-cancellation-console-report.json",
     "plan_ref": "docs/03-development/task-cancellation-console.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_t034_request_plan_binding": {
+    "observed_at": "2026-10-22T00:59:18.940422+00:00",
+    "report_ref": "docs/00-project/validation/t034-request-plan-binding-report.json",
+    "plan_ref": "docs/03-development/t034-request-plan-binding.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

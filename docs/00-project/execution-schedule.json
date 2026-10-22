@@ -15,7 +15,7 @@
     "unconstrained_dependency_critical_path_low_workdays": 76,
     "unconstrained_dependency_critical_path_high_workdays": 94,
     "full_tasks_verified": 0,
-    "partial_scope_tasks": 58
+    "partial_scope_tasks": 59
   },
   "workload_by_unsplit_source_role": {
     "架构/全栈": {
@@ -226,7 +226,7 @@
   },
   "actual_capacity_plan": {
     "status": "NOT_COMPUTABLE_ACTUAL_INPUTS_MISSING",
-    "missing_input_count": 386,
+    "missing_input_count": 384,
     "missing_inputs": [
       "confirmed_working_calendar",
       "actual_plan_start_date",
@@ -272,9 +272,7 @@
       "T029:reestimated_remaining_effort_hours",
       "T033:actual_assignee",
       "T033:reestimated_remaining_effort_hours",
-      "T024:actual_assignee",
       "T024:reestimated_remaining_effort_hours",
-      "T034:actual_assignee",
       "T034:reestimated_remaining_effort_hours",
       "T025:actual_assignee",
       "T025:reestimated_remaining_effort_hours",
@@ -3034,8 +3032,8 @@
           "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
         }
       ],
-      "actual_assignee_resource_id": null,
-      "actual_assignee_name": null,
+      "actual_assignee_resource_id": "PERSON-002",
+      "actual_assignee_name": "徐昌胜",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -3061,10 +3059,27 @@
       "dependency_only_finish_low_day_offset": 9,
       "dependency_only_start_high_day_offset": 16,
       "dependency_only_finish_high_day_offset": 18,
-      "observed_verification_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
-      "partial_scope_evidence": [],
-      "actual_assignee_resource_id": null,
-      "actual_assignee_name": null,
+      "observed_verification_status": "PARTIAL_VERIFIED_SCOPE",
+      "partial_scope_evidence": [
+        {
+          "path": "backend/business_app/task_creation.py",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        },
+        {
+          "path": "tests/business/test_task_creation_binding.py",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        },
+        {
+          "path": "docs/03-development/t034-request-plan-binding.md",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        },
+        {
+          "path": "docs/00-project/validation/t034-request-plan-binding-report.json",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        }
+      ],
+      "actual_assignee_resource_id": "PERSON-002",
+      "actual_assignee_name": "徐昌胜",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -7984,7 +7999,7 @@
   ],
   "source_hashes": {
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "docs/00-project/execution-planning-inputs.json": "e29cdcdb959f42ac27e87bf5125f44925caa62023701f0a48f706da648af3021",
+    "docs/00-project/execution-planning-inputs.json": "f579f0a2a24cbab2423134c9e6f3e0e11420e7cebaa38de8eae28b1b0b8dc371",
     "scripts/plan_project_schedule.py": "edf0e452a6877d6ea918a1369fad0af66c261f4768c7fa3be869715d240b38fe"
   }
 }

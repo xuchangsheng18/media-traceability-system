@@ -38,7 +38,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[761条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有139条已验证子步骤、622条剩余工作；全局编号0001—0761。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[762条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有140条已验证子步骤、622条剩余工作；全局编号0001—0762。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -458,6 +458,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t033-cancellation-atomic-writer-report.json](<00-project/validation/t033-cancellation-atomic-writer-report.json>) | 取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。 |
 | [00-project/validation/ci18f-final-ci-report.json](<00-project/validation/ci18f-final-ci-report.json>) | 精确18f36bf最终CI：业务1095、权限1092及类型256通过，整体仍因Python25条及工具1条扫描匹配失败；Torch未覆盖，后续前端不继承为通过。 |
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |
+| [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
+| [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
+| [00-project/validation/t024-role-assignment.json](<00-project/validation/t024-role-assignment.json>) | 用户明确T024开发负责人和指定复核人均为徐昌胜；仅责任登记，不是实际复核、独立双人验收或系统权限授予。 |
+| [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
+| [00-project/validation/ci43e-final-ci-report.json](<00-project/validation/ci43e-final-ci-report.json>) | 精确43e178d最终CI：业务1095、权限1092、前端350与浏览器开发55/Compose56通过；整体扫描仍失败，后续T034不继承为通过。 |
 | [00-project/validation/task-cancellation-console-report.json](<00-project/validation/task-cancellation-console-report.json>) | T039取消前端的实际RED/GREEN、39项新单元、完整前端与开发/生产浏览器验证、复核补强及三端同步；自建传输夹具不当真实后端E2E。 |
 | [03-development/backend-frontend-data-test-priority-plan.md](<03-development/backend-frontend-data-test-priority-plan.md>) | T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。 |
 | [00-project/validation/backend-frontend-data-test-report.json](<00-project/validation/backend-frontend-data-test-report.json>) | 来源授权同步事务/原请求头、前端回执、离线标注质检及原权限门禁的实测证据，精确CI与源码同步分开记录。 |
@@ -681,7 +686,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1288份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1293份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -772,7 +777,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内761条执行事项逐条编号：139条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内762条执行事项逐条编号：140条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -788,6 +793,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/ci-report.json](<00-project/validation/ci-report.json>) | 最近一次正常CI入口执行报告；详细阶段与范围须核对。 |
 | [00-project/validation/ci-safe-failure-diagnostics-report.json](<00-project/validation/ci-safe-failure-diagnostics-report.json>) | T006失败定位的6项RED/GREEN、37项相邻检查、非超级用户迁移测试复现修复与质量/同步；原业务CI是否恢复以精确新运行核验。 |
 | [00-project/validation/ci18f-final-ci-report.json](<00-project/validation/ci18f-final-ci-report.json>) | 精确18f36bf最终CI：业务1095、权限1092及类型256通过，整体仍因Python25条及工具1条扫描匹配失败；Torch未覆盖，后续前端不继承为通过。 |
+| [00-project/validation/ci43e-final-ci-report.json](<00-project/validation/ci43e-final-ci-report.json>) | 精确43e178d最终CI：业务1095、权限1092、前端350与浏览器开发55/Compose56通过；整体扫描仍失败，后续T034不继承为通过。 |
 | [00-project/validation/ci973-final-ci-report.json](<00-project/validation/ci973-final-ci-report.json>) | 精确973a7d7最终CI：业务1057、T014权限1092等通过；整体安全扫描失败，Python25条及工具1条，Torch未覆盖；不继承为后续源码验收。 |
 | [00-project/validation/d02-cursor-hardening-report.json](<00-project/validation/d02-cursor-hardening-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/database-contract-report.json](<00-project/validation/database-contract-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1395,12 +1401,15 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t021-source-console-report.json](<00-project/validation/t021-source-console-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t024-durability-final-ci-report.json](<00-project/validation/t024-durability-final-ci-report.json>) | T024精确落盘提交的最终托管证据：业务952/权限1092等通过，整体CI因9条Python发现和Torch未覆盖仍失败；排除产物中的旧副本。 |
 | [00-project/validation/t024-object-durability-report.json](<00-project/validation/t024-object-durability-report.json>) | T024目录持久性限定子范围的精确源码、RED/GREEN、相邻回归、质量检查、CI和源码同步；不登记共享采用或整任务验收。 |
+| [00-project/validation/t024-role-assignment.json](<00-project/validation/t024-role-assignment.json>) | 用户明确T024开发负责人和指定复核人均为徐昌胜；仅责任登记，不是实际复核、独立双人验收或系统权限授予。 |
 | [00-project/validation/t024-worker-isolated-integration-report.json](<00-project/validation/t024-worker-isolated-integration-report.json>) | T024限定子范围的实际命令、源码和日志摘要、失败修复、完整业务回归及精确CI/源码同步；不把测试权威或进程重启当正式组合验收。 |
 | [00-project/validation/t031-candidate-plan-final-ci-report.json](<00-project/validation/t031-candidate-plan-final-ci-report.json>) | T031精确解析提交的最终CI证据：业务1029、权限1092等通过；整体因12条Python扫描发现及Torch未覆盖失败，旧报告排除，原锁与门禁保留。 |
 | [00-project/validation/t031-candidate-task-plan-report.json](<00-project/validation/t031-candidate-task-plan-report.json>) | T031解析层的精确源码、36候选图、失败修复、77项解析和相邻回归、质量及CI/源码同步；任务创建、真实提供者和整卡验收仍待。 |
 | [00-project/validation/t032-task-event-final-ci-report.json](<00-project/validation/t032-task-event-final-ci-report.json>) | T032精确提交的完整CI：两份业务回归各1057项含1失败，T014及当前安全扫描未执行；旧副本排除，失败身份未保存，不猜测根因。 |
 | [00-project/validation/t032-task-event-integrity-report.json](<00-project/validation/t032-task-event-integrity-report.json>) | T032运行事件约束的RED/GREEN、隔离升级和回滚、相邻权限/恢复回归及源码摘要；CI、同步与整任务验收分开记录。 |
 | [00-project/validation/t033-cancellation-atomic-writer-report.json](<00-project/validation/t033-cancellation-atomic-writer-report.json>) | 取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。 |
+| [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
+| [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/task-cancellation-console-report.json](<00-project/validation/task-cancellation-console-report.json>) | T039取消前端的实际RED/GREEN、39项新单元、完整前端与开发/生产浏览器验证、复核补强及三端同步；自建传输夹具不当真实后端E2E。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1795,6 +1804,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t024-worker-isolated-integration.md](<03-development/t024-worker-isolated-integration.md>) | T024目标绑定修复、独立worker进程与真实队列故障联调；区分启动撤销、回调拒绝、提交后未ACK重投，以及常驻部署、正式授权、队列进展和清理恢复的剩余条件。 |
 | [03-development/t031-candidate-task-plan.md](<03-development/t031-candidate-task-plan.md>) | T031候选DAG不可变解析、显式预算、模型字段绑定、固定摘要和入口选择；未选分支不冒充运行状态，不授予调度或正式策略资格。 |
 | [03-development/t033-cancellation-atomic-writer.md](<03-development/t033-cancellation-atomic-writer.md>) | T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。 |
+| [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |

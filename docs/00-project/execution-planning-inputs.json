@@ -36,18 +36,20 @@
         "T013",
         "T014",
         "T015",
-        "T016"
+        "T016",
+        "T024",
+        "T034"
       ],
       "assignment_basis_ref": "docs/03-development/repository-access-control.md",
       "confirmation_date": "2026-10-17",
       "github_account": "xuchangsheng18",
       "capacity_status": "UNCONFIRMED",
       "latest_assignment_confirmation": {
-        "task_id": "T016",
-        "confirmation_date": "2026-10-21",
+        "task_id": "T034",
+        "confirmation_date": "2026-10-22",
         "confirmed_by": "user",
         "scope": "actual_development_owner_and_designated_reviewer_only_no_account_or_access_grant",
-        "evidence_ref": "docs/00-project/validation/t016-role-assignment.json"
+        "evidence_ref": "docs/00-project/validation/t034-role-assignment.json"
       }
     }
   ],
@@ -524,7 +526,8 @@
         "docs/00-project/validation/ci973-final-ci-report.json",
         "docs/03-development/t033-cancellation-atomic-writer.md",
         "docs/00-project/validation/ci18f-final-ci-report.json",
-        "docs/03-development/task-cancellation-console.md"
+        "docs/03-development/task-cancellation-console.md",
+        "docs/00-project/validation/ci43e-final-ci-report.json"
       ]
     },
     {
@@ -2044,7 +2047,7 @@
     {
       "task_id": "T024",
       "verification_status": "PARTIAL_VERIFIED_SCOPE",
-      "resource_id": null,
+      "resource_id": "PERSON-002",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
@@ -2145,8 +2148,11 @@
       "followup_document_refs": [
         "docs/03-development/business-upload-first-batch.md",
         "docs/03-development/t024-worker-isolated-integration.md",
-        "docs/03-development/t024-object-durability.md"
-      ]
+        "docs/03-development/t024-object-durability.md",
+        "docs/00-project/validation/t024-role-assignment.json"
+      ],
+      "designated_reviewer": "徐昌胜",
+      "responsibility_confirmation_ref": "docs/00-project/validation/t024-role-assignment.json"
     },
     {
       "task_id": "T025",
@@ -2519,20 +2525,41 @@
     },
     {
       "task_id": "T034",
-      "verification_status": "NO_FULL_TASK_VERIFICATION_EVIDENCE",
-      "resource_id": null,
+      "verification_status": "PARTIAL_VERIFIED_SCOPE",
+      "resource_id": "PERSON-002",
       "remaining_effort_hours": null,
       "actual_start": null,
       "actual_end": null,
       "verified_by": null,
-      "partial_scope_evidence": [],
+      "partial_scope_evidence": [
+        {
+          "path": "backend/business_app/task_creation.py",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        },
+        {
+          "path": "tests/business/test_task_creation_binding.py",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        },
+        {
+          "path": "docs/03-development/t034-request-plan-binding.md",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        },
+        {
+          "path": "docs/00-project/validation/t034-request-plan-binding-report.json",
+          "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
+        }
+      ],
       "full_task_verification_refs": [],
       "external_release_date": null,
       "material_or_resource_dependencies": [],
       "followup_document_refs": [
         "docs/00-project/validation/ci18f-final-ci-report.json",
-        "docs/03-development/task-cancellation-console.md"
-      ]
+        "docs/03-development/task-cancellation-console.md",
+        "docs/03-development/t034-request-plan-binding.md",
+        "docs/00-project/validation/t034-role-assignment.json"
+      ],
+      "designated_reviewer": "徐昌胜",
+      "responsibility_confirmation_ref": "docs/00-project/validation/t034-role-assignment.json"
     },
     {
       "task_id": "T035",
@@ -5210,6 +5237,26 @@
       ],
       "event": "CANCELLATION_FRONTEND_WITH_EXACT_RETRY",
       "evidence_ref": "docs/00-project/validation/task-cancellation-console-report.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T024",
+        "T034"
+      ],
+      "event": "T034_INTERNAL_BINDING_AND_T024_RESPONSIBILITY",
+      "evidence_ref": "docs/00-project/validation/t034-request-plan-binding-report.json",
+      "role_assignment_ref": "docs/00-project/validation/t024-role-assignment.json",
+      "whole_task_acceptance_recorded": false
+    },
+    {
+      "date": "2026-10-22",
+      "task_ids": [
+        "T034"
+      ],
+      "event": "USER_CONFIRMED_OWNER_AND_DESIGNATED_REVIEWER",
+      "role_assignment_ref": "docs/00-project/validation/t034-role-assignment.json",
       "whole_task_acceptance_recorded": false
     }
   ],

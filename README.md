@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T039取消页面：[实现与边界](docs/03-development/task-cancellation-console.md)、[限定实测回执](docs/00-project/validation/task-cancellation-console-report.json)。新增1条工程子步骤；T001—T123当前139条已证、434组剩余，全部170任务139条已证、622组剩余，整卡验收0项。350项前端及开发/生产各55项传输浏览器通过；真实后端E2E、T034创建和真实worker停止未完成。
+2026-10-22本批T034请求/计划绑定：[实现与边界](docs/03-development/t034-request-plan-binding.md)、[限定实测回执](docs/00-project/validation/t034-request-plan-binding-report.json)。新增1条内部内核子步骤；T001—T123当前140条已证、434组剩余，全部170任务140条已证、622组剩余，整卡验收0项。64项新测试纳入243项受影响回归及258文件类型检查通过；真实提供方、创建事务和HTTP尚未完成。T024和T034的负责人/指定复核人均已确认为徐昌胜，未登记实际验收。
+
+2026-10-22历史批次T039取消页面：[实现与边界](docs/03-development/task-cancellation-console.md)、[限定实测回执](docs/00-project/validation/task-cancellation-console-report.json)。新增1条工程子步骤；T001—T123当批累计139条已证、434组剩余，全部170任务139条已证、622组剩余，整卡验收0项。350项前端及开发/生产各55项传输浏览器通过；真实后端E2E、T034创建和真实worker停止未完成。
 
 2026-10-22历史批次T033取消统一写入：[实现与边界](docs/03-development/t033-cancellation-atomic-writer.md)、[限定实测回执](docs/00-project/validation/t033-cancellation-atomic-writer-report.json)。新增1条工程子步骤；T001—T123当批累计138条已证、434组剩余，全部170任务138条已证、622组剩余，整卡验收0项。前置精确CI业务及权限通过，整体安全扫描失败；本批精确CI另核对。
 
