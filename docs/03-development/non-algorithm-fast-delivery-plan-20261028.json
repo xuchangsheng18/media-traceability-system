@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "IN_PROGRESS_CANCELLATION_WRITER_VERIFIED_CI_SECURITY_UNRESOLVED",
+  "status": "IN_PROGRESS_CANCEL_FRONTEND_VERIFIED_T034_TRUST_MAPPING_PENDING",
   "observed_date": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "user_request": "加快T001—T123剩余开发，算法先不做；10月29号之前完成",
@@ -258,7 +258,7 @@
       "name": "建立基础持续集成流水线",
       "scope_class": "ENGINEERING",
       "execution_lane": "REUSE",
-      "engineering_now": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；main门禁与历史源码同步证据保留；精确973a7d7业务1057、T014权限1092等通过，整体CI仍因新鲜安全扫描失败：Python25条、质量工具1条、Torch未覆盖。依赖锁不变，不将新增漏洞披露当代码新引入；继续逐项修复/采用及Runner、Secret权限轮换、离职回收和管理审计核验，维护人徐昌胜已确认。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "engineering_now": "main配置及普通PR失败阻止合并已有实际证据；同PR正常恢复与清理结果见main-protection-enforcement-report.json。仍需完整绕过名单及适用平台管理权限核验，不将源码扫描当完整平台审计。；精确18f36bf业务1095、T014权限1092及类型256等通过，整体CI仍因Python25条、质量工具1条扫描匹配失败，Torch未覆盖，与前轮无新增Python发现。保留软件处置和Runner/Secret权限轮换、回收及平台审计要求；原锁不变，不放宽门禁。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "Runner、Secret、分支保护和绕过权限治理待平台侧确认。",
       "blockers": [
         "外部：CI Runner与Secret",
@@ -1112,7 +1112,7 @@
       "name": "实现任务创建接口",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "实现现有createTask契约，校验VALID资产、分析用途、场景、策略及模块能力，同事务写任务、run和outbox并绑定请求摘要幂等。",
+      "engineering_now": "先建立不可变TaskCreate解析和可信scene/policy/modules/plan/capability精确绑定，落实真实提供方；候选DAG不是执行批准。随后接受限SQL/对象事实及任务/run/node/outbox/审计/幂等同事务创建；当前未挂载createTask，不用恒定503算完成。；按源测试要求创建并真实执行：权限、幂等、非法模块测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "算法执行暂缓；缺真实可信计划或能力明确拒绝，不创建假成功任务，不新增契约字段。",
       "blockers": [
         "顺序：T031技术计划子集、T033状态机与T015范围",
@@ -1263,7 +1263,7 @@
       "name": "实现任务取消和退回重算",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "复用取消内核，接真实停止确认和现有rerun契约的新run创建，保留原因、版本及历史。",
+      "engineering_now": "现有取消后端和前端申请/原请求重试已有子范围验证；仍需重跑新run编排、真实worker取消投递/停止和正式规则采用，不把202当停止。；补真实身份/来源/规则组合的页面到后端E2E及执行中结果发布/恢复竞态；成功执行状态传输夹具result_version=0与契约min1的补强保留，不能当完整Schema合规或真实后端联调通过。；落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
       "deferred_scope": "算法执行器停止与重算能力待真实接入，未确认停止不伪造完成。",
       "blockers": [
         "顺序：T033状态机与T037编排",
@@ -1282,12 +1282,13 @@
       "original_test_requirements": "竞争取消、重算版本和权限测试。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": null,
-      "completed_substeps": 1,
+      "completed_substeps": 2,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
-      "new_code_or_tests_implemented_by_this_plan": false,
-      "planned_implementation_not_existing_file_claim": true
+      "new_code_or_tests_implemented_by_this_plan": true,
+      "planned_implementation_not_existing_file_claim": true,
+      "latest_implemented_subscope_ref": "docs/00-project/validation/task-cancellation-console-report.json"
     },
     {
       "task_id": "T040",
@@ -4021,14 +4022,14 @@
       "planned_implementation_not_existing_file_claim": true
     }
   ],
-  "progress_observed_at": "2026-10-21T23:02:24.553407+00:00",
-  "progress_ledger_sha256_lf": "85245c2a8b1916666def59a5f8196d5b36b0f727c34138ce3fbbfd415e7e69c7",
+  "progress_observed_at": "2026-10-22T00:01:53.838627+00:00",
+  "progress_ledger_sha256_lf": "60f7a119c55d1a0065353f320e8e880985c564b89f0bbe3e8e90571936874ac1",
   "current_totals": {
-    "verified_substeps": 138,
+    "verified_substeps": 139,
     "remaining_work_groups_T001_T123": 434,
     "whole_tasks_accepted": 0
   },
-  "latest_implemented_batch_ref": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json",
+  "latest_implemented_batch_ref": "docs/00-project/validation/task-cancellation-console-report.json",
   "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals",
   "latest_t024_worker_isolated_integration": {
     "observed_at": "2026-10-21T17:12:31.753075+00:00",
@@ -4089,6 +4090,17 @@
     "observed_at": "2026-10-21T23:02:24.553407+00:00",
     "report_ref": "docs/00-project/validation/t033-cancellation-atomic-writer-report.json",
     "plan_ref": "docs/03-development/t033-cancellation-atomic-writer.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithm_implementation_started": false
+  },
+  "latest_t039_cancellation_console": {
+    "observed_at": "2026-10-22T00:01:53.838627+00:00",
+    "report_ref": "docs/00-project/validation/task-cancellation-console-report.json",
+    "plan_ref": "docs/03-development/task-cancellation-console.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

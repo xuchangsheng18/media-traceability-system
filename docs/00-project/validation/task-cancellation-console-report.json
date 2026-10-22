@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_CANCELLATION_FRONTEND_NOT_WHOLE_TASK",
+  "observed_at": "2026-10-22T00:01:53.838627+00:00",
+  "base_source_commit": "7314f895c95d2faf2ab9e0c62eaf471f8aa934ef",
+  "source_sha256_lf": {
+    "frontend/src/business/task-cancel.ts": "252ae5cfb38928786d8db937ddbc814478f07135315d926148e0390eb0406b83",
+    "frontend/src/business/task-cancel.test.ts": "ea405d21b212d126e130aed63c000284ae35acb2c857f7266c8077b6efb753e3",
+    "frontend/src/components/TaskCancelPanel.vue": "0053b960ae26e180ac05d6628cdeab2b98781a45a1945ba39c7bc6c16c2b223d",
+    "frontend/src/views/TasksView.vue": "60351b8716239f9cd066e8cedcae58322b36cb468507d512e9d0833c0b76a52c",
+    "frontend/e2e/foundation.pw.ts": "f6d2098cbbc47c3d14d091fad8e1dbead81aa04e09a7162fc78c3ac11d6616fb"
+  },
+  "new_unit_cases": 39,
+  "full_frontend_unit_tests": 350,
+  "development_browser_tests": 55,
+  "production_browser_tests": 55,
+  "frontend_checks": [
+    {
+      "command": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit_code": 0,
+      "observed_at": "2026-10-21T23:55:21.467225+00:00",
+      "log_sha256": "8a58dbf5c89fa6813232c1d11826ff6fdd07e0e8ebbff2a1e3089542e5a96232"
+    },
+    {
+      "command": [
+        "node_modules/vue-tsc/bin/vue-tsc.js",
+        "--noEmit"
+      ],
+      "exit_code": 0,
+      "observed_at": "2026-10-21T23:55:26.293886+00:00",
+      "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "command": [
+        "node_modules/eslint/bin/eslint.js",
+        "src",
+        "e2e",
+        "*.ts",
+        "*.mjs",
+        "--max-warnings=0"
+      ],
+      "exit_code": 0,
+      "observed_at": "2026-10-21T23:55:36.423902+00:00",
+      "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+    },
+    {
+      "command": [
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "src/**/*.{ts,vue,css}",
+        "e2e/**/*.ts",
+        "*.{ts,mjs,json,html}"
+      ],
+      "exit_code": 0,
+      "observed_at": "2026-10-21T23:55:39.231904+00:00",
+      "log_sha256": "972f261800bfad73adf8b1f08b4f9c76078a3961010e541b8b21559ef5a628a4"
+    },
+    {
+      "command": [
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit_code": 0,
+      "observed_at": "2026-10-21T23:55:40.604633+00:00",
+      "log_sha256": "cb70e78f945ade8751932bd95fc67b34edf2eed6f02e8f30400a8ae6e955946f"
+    }
+  ],
+  "browser_checks": {
+    "red": {
+      "mode": "red",
+      "exit_code": 1,
+      "expected_result_verified": true,
+      "passed": 0,
+      "failed": 3,
+      "started_at": "2026-10-21T23:51:59.782189+00:00",
+      "ended_at": "2026-10-21T23:52:24.125042+00:00",
+      "log_sha256": "44f0056a5a51bee9f80c46502db25d2183755dfaecf74d7c74bb771c8555aeca",
+      "browser": "Existing Windows Chrome via supported executablePath; UI transport fixture only, not Linux backend identity E2E"
+    },
+    "confirmation-red": {
+      "mode": "confirmation-red",
+      "exit_code": 1,
+      "expected_result_verified": true,
+      "passed": 3,
+      "failed": 1,
+      "started_at": "2026-10-21T23:53:31.367546+00:00",
+      "ended_at": "2026-10-21T23:53:51.374924+00:00",
+      "log_sha256": "1428421bb8ca48b69f19466c06e04b0749fbfb2fd8bf1563e572f01131955988",
+      "browser": "Existing Windows Chrome via supported executablePath; UI transport fixture only, not Linux backend identity E2E"
+    },
+    "dev": {
+      "mode": "dev",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 55,
+      "failed": 0,
+      "started_at": "2026-10-21T23:55:18.260421+00:00",
+      "ended_at": "2026-10-21T23:56:20.151554+00:00",
+      "log_sha256": "813cae55e1ce9935245180da8f64e9a056f0b3a550b2eb7831b9ff6548889f51",
+      "browser": "Existing Windows Chrome via supported executablePath; UI transport fixture only, not Linux backend identity E2E"
+    },
+    "production": {
+      "mode": "production",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 55,
+      "failed": 0,
+      "started_at": "2026-10-21T23:57:20.866054+00:00",
+      "ended_at": "2026-10-21T23:58:20.564158+00:00",
+      "log_sha256": "c6837d84cd6a464883cf1de456449673443d972494e7ee082bef877e16b2e477",
+      "browser": "Existing Windows Chrome via supported executablePath; UI transport fixture only, not Linux backend identity E2E"
+    }
+  },
+  "unit_initial_RED": {
+    "status": "EXPECTED_RED_MISSING_CONTROLLER",
+    "exit_code": 1,
+    "log_sha256": "5f311029549b7b2c2b96692a72ca9c09af1864a53d3151365f8b888aae0748bb",
+    "observed_at": "2026-10-21T23:46:53.911786+00:00",
+    "command": [
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "src/business/task-cancel.test.ts"
+    ]
+  },
+  "role_late_reply_RED": {
+    "exit_code": 1,
+    "expected_result_verified": true,
+    "command": [
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "src/business/task-cancel.test.ts",
+      "-t",
+      "late read is discarded after role"
+    ],
+    "log_sha256": "c828e61ddd850766b5fedade1485e8d453ba49c80c6084215187c189a042104e",
+    "observed_at": "2026-10-21T23:55:13.210272+00:00"
+  },
+  "browser_production_configuration": {
+    "suite": "frontend/e2e/foundation.pw.ts",
+    "baseURL": "http://127.0.0.1:14282",
+    "webServer": "existing pinned Vite preview --host 127.0.0.1 --port 14282 --strictPort",
+    "workers": 1,
+    "timeout_ms": 20000,
+    "config_location": "Private generated config outside repository; same suite, no weakened assertions or skips",
+    "browser": "Existing Windows Chrome using supported executablePath; no browser installation"
+  },
+  "actual_RED_qualification": "Initial wrong anchored grep and missing default browser were infrastructure failures, not feature RED. Actual absent-panel probe used existing Chrome and produced three locator/assertion failures; source restored. A separate confirmation test reproduced one failure before clearing stale confirmation.",
+  "visual_QA": {
+    "status": "INSPECTED_PRIVATE_SCREENSHOT",
+    "scope": "Self-owned transport fixture panel; no sensitive data or real business acceptance"
+  },
+  "prior_exact_source_CI_ref": "docs/00-project/validation/ci18f-final-ci-report.json",
+  "prior_backend_implementation_source": "18f36bf5e67e2de28acc09e887af6a1aeafc1f20",
+  "backend_changed": false,
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "review": {
+    "remaining_P1_P2_findings": 0,
+    "deferred_minor": [
+      "Successful execution transport fixtures use result_version=0, while TaskExecutionStatus requires minimum1. Controller accepts valid positive responses, but these fixtures do not prove complete response Schema compliance; followup should use1 for positives and0 only for explicit malformed cases."
+    ],
+    "declined_to_judge": [
+      "T034 trusted creation mapping and creation remain unimplemented",
+      "Full T033/T037/T039 rerun, worker delivery/stopping and scheduling remain open",
+      "Formal policy/real identity/provider adoption and real backend E2E not proven by synthetic transport",
+      "Database contention/recovery/production load/runtime adoption unchanged and not exercised",
+      "Root separately verifies exact CI artifact/source/sync/privacy/nav/final test counts"
+    ]
+  },
+  "actual_owner": null,
+  "actual_reviewer": null,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "real_backend_E2E": false,
+  "public_contract_changed": false,
+  "database_migration_created": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "remaining": [
+    "T039 realworker delivery/stop, rerun/newrun and recovery race integration",
+    "T034 trusted scene/policy/modules/plan/provider binding, scoped SQL/facts and atomic task creation",
+    "Fixture result_version contract fidelity minor; formal identity/provider/policy E2E",
+    "Security25Python+1quality/Torchgap and actual owner/reviewer/work estimates"
+  ]
+}

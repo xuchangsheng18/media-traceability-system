@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useBusinessSession } from '../business/session'
 import { createTaskReader, routeTaskId } from '../business/task-read'
 import TaskCatalogPanel from '../components/TaskCatalogPanel.vue'
+import TaskCancelPanel from '../components/TaskCancelPanel.vue'
 
 const session = useBusinessSession()
 const route = useRoute()
@@ -83,6 +84,7 @@ async function selectTask(id: string) {
       @select="selectTask"
       @clear="taskId = ''"
     />
+    <TaskCancelPanel :task-id="taskId" />
     <section class="panel span-12">
       <h2 class="panel-heading">任务与结果</h2>
       <p class="panel-copy">

@@ -236,6 +236,172 @@ async function connectBusiness(
   await expect(page.getByLabel('业务访问令牌')).toHaveValue('')
 }
 
+function cancelExecution(state: Schemas['TaskExecutionStatus']['state'] = 'RUNNING') {
+  return {
+    task_id: taskId,
+    case_id: caseId,
+    state,
+    run_version: 2,
+    result_version: 0,
+    version: 7,
+    result_available: false,
+  }
+}
+
+test('task cancellation requires a fresh condition and explicit confirmation, acceptance is not stopped', async ({
+  page,
+}) => {
+  const mutations: { body: unknown; key: string | undefined; etag: string | undefined }[] = []
+  let state: Schemas['TaskExecutionStatus']['state'] = 'RUNNING'
+  await page.route(`**/business/api/v1/analysis/tasks/${taskId}/execution`, (route) =>
+    route.fulfill({ json: cancelExecution(state), headers: { ETag: '"execution-7"' } }),
+  )
+  await page.route(`**/business/api/v1/analysis/tasks/${taskId}/cancel`, (route) => {
+    mutations.push({
+      body: route.request().postDataJSON(),
+      key: route.request().headers()['idempotency-key'],
+      etag: route.request().headers()['if-match'],
+    })
+    state = 'CANCEL_REQUESTED'
+    return route.fulfill({
+      status: 202,
+      json: { task_id: taskId, state, status_url: `/api/v1/analysis/tasks/${taskId}/execution` },
+    })
+  })
+  await connectBusiness(page, ['task.read', 'task.cancel'])
+  await page.goto('/#/tasks')
+  await page.getByLabel('任务编号', { exact: true }).fill(taskId)
+  await expect(page.getByRole('button', { name: '提交取消申请', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: '读取取消条件', exact: true }).click()
+  await page.getByLabel('取消原因', { exact: true }).fill('browser-owned cancellation intent')
+  await expect(page.getByRole('button', { name: '提交取消申请', exact: true })).toBeDisabled()
+  await page.getByLabel('我确认提交取消申请，受理不代表已停止').check()
+  await page.getByRole('button', { name: '提交取消申请', exact: true }).click()
+  await expect(page.getByTestId('task-cancel-status')).toContainText('取消申请已受理，尚未确认停止')
+  expect(mutations).toHaveLength(1)
+  expect(mutations[0]?.etag).toBe('"execution-7"')
+  expect(mutations[0]?.key).toBeTruthy()
+  expect(mutations[0]?.body).toEqual({
+    reason: 'browser-owned cancellation intent',
+    approval_id: null,
+    expected_run_version: 2,
+    expected_version: 7,
+  })
+  await page.getByRole('button', { name: '读取取消条件', exact: true }).click()
+  await expect(page.getByTestId('task-cancel-status')).toContainText('CANCEL_REQUESTED')
+  await expect(page.getByRole('button', { name: '提交取消申请', exact: true })).toBeDisabled()
+})
+
+test('task cancellation ambiguous failure retries the unchanged original request', async ({
+  page,
+}) => {
+  const requests: { body: string | null; key: string | undefined; etag: string | undefined }[] = []
+  await page.route(`**/business/api/v1/analysis/tasks/${taskId}/execution`, (route) =>
+    route.fulfill({ json: cancelExecution(), headers: { ETag: '"execution-7"' } }),
+  )
+  await page.route(`**/business/api/v1/analysis/tasks/${taskId}/cancel`, (route) => {
+    requests.push({
+      body: route.request().postData(),
+      key: route.request().headers()['idempotency-key'],
+      etag: route.request().headers()['if-match'],
+    })
+    return requests.length === 1
+      ? route.fulfill({
+          status: 500,
+          json: { code: 'INTERNAL_ERROR', detail: 'do not show private text' },
+        })
+      : route.fulfill({
+          status: 202,
+          json: {
+            task_id: taskId,
+            state: 'CANCEL_REQUESTED',
+            status_url: `/api/v1/analysis/tasks/${taskId}/execution`,
+          },
+        })
+  })
+  await connectBusiness(page, ['task.read', 'task.cancel'])
+  await page.goto('/#/tasks')
+  await page.getByLabel('任务编号', { exact: true }).fill(taskId)
+  await page.getByRole('button', { name: '读取取消条件', exact: true }).click()
+  await page.getByLabel('取消原因', { exact: true }).fill('original intent')
+  await page.getByLabel('我确认提交取消申请，受理不代表已停止').check()
+  await page.getByRole('button', { name: '提交取消申请', exact: true }).click()
+  await expect(page.getByTestId('task-cancel-status')).toContainText('结果未确认')
+  await expect(page.getByLabel('取消原因', { exact: true })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '读取取消条件', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: '重试原取消申请', exact: true }).click()
+  await expect(page.getByTestId('task-cancel-status')).toContainText('尚未确认停止')
+  expect(requests).toHaveLength(2)
+  expect(requests[0]).toEqual(requests[1])
+  await expect(page.getByTestId('task-cancel-status')).not.toContainText('private text')
+})
+
+test('task cancellation denied permission or a changed task clears controls', async ({ page }) => {
+  let reads = 0
+  await page.route('**/business/api/v1/analysis/tasks/**/execution', (route) => {
+    reads++
+    return route.fulfill({ json: cancelExecution(), headers: { ETag: '"execution-7"' } })
+  })
+  await connectBusiness(page, ['task.read'])
+  await page.goto('/#/tasks')
+  await page.getByLabel('任务编号', { exact: true }).fill(taskId)
+  await expect(page.getByRole('button', { name: '读取取消条件', exact: true })).toBeDisabled()
+  expect(reads).toBe(0)
+  await connectBusiness(page, ['task.read', 'task.cancel'])
+  await page.goto('/#/tasks')
+  await page.getByLabel('任务编号', { exact: true }).fill(taskId)
+  await page.getByRole('button', { name: '读取取消条件', exact: true }).click()
+  await page.getByLabel('取消原因', { exact: true }).fill('old task reason')
+  await page.getByLabel('任务编号', { exact: true }).fill(otherCaseId)
+  await expect(page.getByLabel('取消原因', { exact: true })).toHaveValue('')
+  await expect(page.getByRole('button', { name: '提交取消申请', exact: true })).toBeDisabled()
+})
+
+test('task cancellation version refusal requires another explicit confirmation after fresh read', async ({
+  page,
+}) => {
+  let version = 7
+  const sent: number[] = []
+  await page.route(`**/business/api/v1/analysis/tasks/${taskId}/execution`, (route) =>
+    route.fulfill({
+      json: { ...cancelExecution(), version },
+      headers: { ETag: `"execution-${version}"` },
+    }),
+  )
+  await page.route(`**/business/api/v1/analysis/tasks/${taskId}/cancel`, (route) => {
+    sent.push(route.request().postDataJSON().expected_version)
+    if (sent.length === 1) {
+      version = 8
+      return route.fulfill({ status: 412, json: { code: 'PRECONDITION_FAILED' } })
+    }
+    return route.fulfill({
+      status: 202,
+      json: {
+        task_id: taskId,
+        state: 'CANCEL_REQUESTED',
+        status_url: `/api/v1/analysis/tasks/${taskId}/execution`,
+      },
+    })
+  })
+  await connectBusiness(page, ['task.read', 'task.cancel'])
+  await page.goto('/#/tasks')
+  await page.getByLabel('任务编号', { exact: true }).fill(taskId)
+  await page.getByRole('button', { name: '读取取消条件', exact: true }).click()
+  await page.getByLabel('取消原因', { exact: true }).fill('freshly confirmed browser intent')
+  await page.getByLabel('我确认提交取消申请，受理不代表已停止').check()
+  await page.getByRole('button', { name: '提交取消申请', exact: true }).click()
+  await expect(page.getByRole('button', { name: '读取取消条件', exact: true })).toBeEnabled()
+  await page.getByRole('button', { name: '读取取消条件', exact: true }).click()
+  await expect(page.getByLabel('取消原因', { exact: true })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '提交取消申请', exact: true })).toBeDisabled()
+  await page.getByLabel('我确认提交取消申请，受理不代表已停止').check()
+  await page.getByRole('button', { name: '提交取消申请', exact: true }).click()
+  await expect(page.getByTestId('task-cancel-status')).toContainText('取消申请已受理，尚未确认停止')
+  expect(sent).toEqual([7, 8])
+  if (process.env.MT_TASK_CANCEL_SCREENSHOT)
+    await page.screenshot({ path: process.env.MT_TASK_CANCEL_SCREENSHOT, fullPage: true })
+})
+
 const sourceId = '70000000-0000-4000-8000-000000000001'
 function registeredSource(selectedCase = caseId): Schemas['Source'] {
   return {

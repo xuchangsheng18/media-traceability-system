@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T033取消统一写入：[实现与边界](docs/03-development/t033-cancellation-atomic-writer.md)、[限定实测回执](docs/00-project/validation/t033-cancellation-atomic-writer-report.json)。新增1条工程子步骤；T001—T123当前138条已证、434组剩余，全部170任务138条已证、622组剩余，整卡验收0项。前置精确CI业务及权限通过，整体安全扫描失败；本批精确CI另核对。
+2026-10-22本批T039取消页面：[实现与边界](docs/03-development/task-cancellation-console.md)、[限定实测回执](docs/00-project/validation/task-cancellation-console-report.json)。新增1条工程子步骤；T001—T123当前139条已证、434组剩余，全部170任务139条已证、622组剩余，整卡验收0项。350项前端及开发/生产各55项传输浏览器通过；真实后端E2E、T034创建和真实worker停止未完成。
+
+2026-10-22历史批次T033取消统一写入：[实现与边界](docs/03-development/t033-cancellation-atomic-writer.md)、[限定实测回执](docs/00-project/validation/t033-cancellation-atomic-writer-report.json)。新增1条工程子步骤；T001—T123当批累计138条已证、434组剩余，全部170任务138条已证、622组剩余，整卡验收0项。前置精确CI业务及权限通过，整体安全扫描失败；本批精确CI另核对。
 
 2026-10-22历史批次T006安全失败定位：[实现与边界](docs/03-development/ci-safe-failure-diagnostics.md)、[限定实测回执](docs/00-project/validation/ci-safe-failure-diagnostics-report.json)。新增1条工程子步骤；T001—T123当批累计137条已证、434组剩余，全部170任务137条已证、622组剩余，整卡验收0项。原完整业务回归1项失败未定位，T033业务修改暂缓。
 
