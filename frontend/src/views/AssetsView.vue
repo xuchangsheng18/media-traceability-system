@@ -5,6 +5,7 @@ import { createAssetCatalog, createAssetReader } from '../business/catalog'
 import { createAssetDownload } from '../business/asset-download'
 import { useBusinessSession } from '../business/session'
 import { routeTaskId } from '../business/task-read'
+import AssetSourcePanel from '../components/AssetSourcePanel.vue'
 
 const session = useBusinessSession()
 const route = useRoute()
@@ -298,9 +299,16 @@ async function show(id = assetId.value) {
           <dt>创建时间</dt>
           <dd>{{ detail.state.data.created_at }}</dd>
         </dl>
+        <AssetSourcePanel
+          :case-id="caseId"
+          :asset-id="assetId"
+          :asset="detail.state.data"
+          :loaded="detail.state.loaded"
+          :busy="detail.state.busy"
+        />
       </template>
       <p class="panel-copy">
-        完整血缘、来源授权明细尚未接入本页；来源编号和派生类型不能代替血缘关系。下载由服务端逐次授权并记录审计，大小、摘要和固定版本核验通过后交由浏览器保存。
+        完整血缘尚未接入本页；来源编号和派生类型不能代替血缘关系。下载由服务端逐次授权并记录审计，大小、摘要和固定版本核验通过后交由浏览器保存。
       </p>
     </section>
   </div>

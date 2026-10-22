@@ -110,6 +110,13 @@ function validateSource(value: unknown, selectedCase: string): Source {
   return value as Source
 }
 
+export function sourceDetail(value: unknown, selectedCase: string, selectedSource: string): Source {
+  const item = validateSource(value, uuid(selectedCase).toLowerCase())
+  if (item.source_id.toLowerCase() !== uuid(selectedSource).toLowerCase())
+    throw new FormError('来源详情编号与请求不一致，已拒绝显示。')
+  return { ...item, purpose: [...item.purpose] }
+}
+
 function validateRegistration(value: unknown, body: SourceCreate): Source {
   const result = validateSource(value, body.case_id)
   if (
@@ -282,9 +289,7 @@ export function createSources(
       const { data, etag } = await session.call<Source>(`/sources/${uuid(sourceId)}`)
       if (!current()) return
       authorize('source.read')
-      const item = validateSource(data, selectedCase)
-      if (item.source_id.toLowerCase() !== sourceId.toLowerCase())
-        throw new FormError('来源详情编号与请求不一致，已拒绝显示。')
+      const item = sourceDetail(data, selectedCase, sourceId)
       detailState.data = item
       detailState.etag = strongEtag(etag)
       detailState.loaded = true

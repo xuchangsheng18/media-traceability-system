@@ -3,6 +3,149 @@ import { createHash } from 'node:crypto'
 import { createServer } from 'node:http'
 import type { Schemas } from '../src/business/api'
 
+// Source/Asset responses below are owned transport fixtures, not real authorization evidence.
+function assetSourceFixture(): Schemas['Source'] {
+  return {
+    ...registeredSource(),
+    source_id: catalogAsset().source_id,
+    name: 'asset-source browser-owned record',
+    authorization_status: 'verified',
+    version: 4,
+  }
+}
+async function openAssetSource(page: Page, permissions = ['asset.read', 'source.read']) {
+  await page.route(`**/business/api/v1/assets/${assetId}`, (route) =>
+    route.fulfill({ json: catalogAsset() }),
+  )
+  await page.route(`**/business/api/v1/assets/${otherAssetId}`, (route) =>
+    route.fulfill({ json: catalogAsset(otherAssetId) }),
+  )
+  await connectBusiness(page, permissions)
+  await page.getByRole('link', { name: '资源库（媒体资产管理）', exact: true }).click()
+  await page.getByLabel('资产案件编号').fill(caseId)
+  await page.getByLabel('资产详情编号').fill(assetId)
+  await page.getByRole('button', { name: '读取资产详情', exact: true }).click()
+}
+
+test('asset source panel reads exact metadata and reported states without enabling media use', async ({
+  page,
+}) => {
+  const states = ['pending', 'verified', 'expired', 'revoked'] as const
+  const requests: string[] = []
+  await page.route(`**/business/api/v1/sources/${catalogAsset().source_id}`, (route) => {
+    expect(route.request().method()).toBe('GET')
+    expect(route.request().postData()).toBeNull()
+    const state = states[requests.length]
+    requests.push(route.request().url())
+    return route.fulfill({ json: { ...assetSourceFixture(), authorization_status: state } })
+  })
+  await openAssetSource(page)
+  const panel = page.getByRole('region', { name: '资产来源授权', exact: true })
+  await expect(panel.getByRole('button', { name: '读取来源授权明细', exact: true })).toBeEnabled()
+  expect(requests).toHaveLength(0)
+  for (const state of states) {
+    await panel.getByRole('button', { name: '读取来源授权明细', exact: true }).click()
+    await expect(panel.getByTestId('asset-source-status-value')).toContainText(state)
+  }
+  await expect(panel.getByText('javascript:alert(1)', { exact: true })).toBeVisible()
+  await expect(panel.locator('a[href]')).toHaveCount(0)
+  await expect(panel.getByText('未提供', { exact: true })).toBeVisible()
+  await expect(panel).toContainText('后续使用仍由服务端逐次授权')
+  expect(requests).toHaveLength(4)
+  expect(requests.every((url) => new URL(url).search === '')).toBe(true)
+})
+
+test('asset source panel requires independent source.read permission', async ({ page }) => {
+  let requests = 0
+  await page.route('**/business/api/v1/sources/**', (route) => {
+    requests++
+    return route.fulfill({ json: assetSourceFixture() })
+  })
+  await openAssetSource(page, ['asset.read'])
+  const panel = page.getByRole('region', { name: '资产来源授权', exact: true })
+  await expect(panel.getByRole('button', { name: '读取来源授权明细', exact: true })).toBeDisabled()
+  await expect(panel).toContainText('来源读取权限')
+  expect(requests).toBe(0)
+})
+
+for (const field of ['source_id', 'case_id'] as const) {
+  test(`asset source panel refuses a mismatched ${field} and clears the preceding record`, async ({
+    page,
+  }) => {
+    let reads = 0
+    await page.route('**/business/api/v1/sources/**', (route) => {
+      reads++
+      return route.fulfill({
+        json:
+          reads === 1 ? assetSourceFixture() : { ...assetSourceFixture(), [field]: otherCaseId },
+      })
+    })
+    await openAssetSource(page)
+    const panel = page.getByRole('region', { name: '资产来源授权', exact: true })
+    await panel.getByRole('button', { name: '读取来源授权明细', exact: true }).click()
+    await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toBeVisible()
+    await panel.getByRole('button', { name: '读取来源授权明细', exact: true }).click()
+    await expect(panel.getByRole('status')).toContainText('拒绝显示')
+    await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toHaveCount(0)
+  })
+}
+
+test('asset source panel does not reuse a late record after switching assets with the same source', async ({
+  page,
+}) => {
+  let release!: () => void
+  const barrier = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  let began!: () => void
+  const started = new Promise<void>((resolve) => {
+    began = resolve
+  })
+  await page.route('**/business/api/v1/sources/**', async (route) => {
+    began()
+    await barrier
+    await route.fulfill({ json: assetSourceFixture() })
+  })
+  await openAssetSource(page)
+  await page.getByRole('button', { name: '读取来源授权明细', exact: true }).click()
+  await started
+  await page.getByLabel('资产详情编号').fill(otherAssetId)
+  await page.getByRole('button', { name: '读取资产详情', exact: true }).click()
+  const panel = page.getByRole('region', { name: '资产来源授权', exact: true })
+  await expect(panel.getByRole('button', { name: '读取来源授权明细', exact: true })).toBeEnabled()
+  const response = page.waitForResponse((reply) => reply.url().includes('/sources/'))
+  release()
+  await (await response).finished()
+  await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toHaveCount(0)
+  await expect(panel.getByRole('status')).toContainText('尚未读取')
+})
+
+test('asset source panel clears displayed authority when roles change without reconnect', async ({
+  page,
+}) => {
+  await page.route('**/business/api/v1/sources/**', (route) =>
+    route.fulfill({ json: assetSourceFixture() }),
+  )
+  await openAssetSource(page)
+  const panel = page.getByRole('region', { name: '资产来源授权', exact: true })
+  await panel.getByRole('button', { name: '读取来源授权明细', exact: true }).click()
+  await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toBeVisible()
+  await page.evaluate(() => {
+    const root = document.getElementById('app') as HTMLElement & {
+      _vnode?: { component?: { provides: Record<symbol, unknown> } }
+    }
+    const provides = root?._vnode?.component?.provides
+    const key =
+      provides &&
+      Object.getOwnPropertySymbols(provides).find((item) => item.description === 'business-session')
+    if (!provides || !key) throw new Error('SELF_OWNED_SESSION_FIXTURE_MISSING')
+    const session = provides[key] as { state: { user: { roles: string[] } } }
+    session.state.user.roles = ['self-owned-changed-role']
+  })
+  await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toHaveCount(0)
+  await expect(panel.getByRole('status')).toContainText('尚未读取')
+})
+
 // Model rows are self-owned transport fixtures, never a trained-model claim.
 const catalogModel: Schemas['Model'] = {
   model_id: '30000000-0000-4000-8000-000000000001',
@@ -953,7 +1096,9 @@ test('asset transport fixture supports scoped paging, current-page filters and r
   await page.getByRole('button', { name: '查看详情', exact: true }).click()
   await expect(page.locator('dd').filter({ hasText: 'self-owned-fixed-v3' })).toBeVisible()
   await expect(page.locator('dd').filter({ hasText: 'b'.repeat(64) })).toBeVisible()
-  await expect(page.getByText('完整血缘、来源授权明细尚未接入本页', { exact: false })).toBeVisible()
+  await expect(page.getByText('完整血缘尚未接入本页', { exact: false })).toBeVisible()
+  await expect(page.getByRole('region', { name: '资产来源授权', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: '读取来源授权明细', exact: true })).toBeDisabled()
   await expect(page.getByRole('button', { name: '下载固定版本', exact: true })).toBeDisabled()
   await expect(page.locator('dl input, dl textarea, dl button')).toHaveCount(0)
   await page.getByRole('button', { name: '下一页资产' }).click()
