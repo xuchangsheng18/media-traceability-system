@@ -1517,7 +1517,7 @@
     "new_T034_acceptance": false
   },
   "latest_prior_T030_CI_observation": {
-    "observed_at": "2026-10-22T04:57:10.783912+00:00",
+    "observed_at": "2026-10-22T05:05:15.533924+00:00",
     "run": {
       "id": 39723744476,
       "head_sha": "493a30a9bf67405dd36924120caa516fec072f62",
@@ -1541,6 +1541,11 @@
         "active_or_failed_steps": [
           {
             "name": "Run actual engineering gates",
+            "status": "completed",
+            "conclusion": "cancelled"
+          },
+          {
+            "name": "Stop ephemeral development services",
             "status": "in_progress",
             "conclusion": null
           }
@@ -1553,7 +1558,12 @@
         "conclusion": null,
         "active_or_failed_steps": [
           {
-            "name": "Install locked UI and browser",
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "completed",
+            "conclusion": "cancelled"
+          },
+          {
+            "name": "Stop containers",
             "status": "in_progress",
             "conclusion": null
           }
@@ -1575,11 +1585,40 @@
   "shared_runtime_adopted": false,
   "new_data_downloads": 0,
   "latest_payload_hosted_CI": {
-    "status": "NOT_YET_COMMITTED_OR_PUSHED",
-    "all_CI_pass_asserted": false
+    "id": 39725909803,
+    "head_sha": "99abdc1de8c1b9cb2230edc15d8a9fef580098c1",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39725909803",
+    "created_at": "2026-10-22T05:04:14Z",
+    "updated_at": "2026-10-22T05:05:31Z",
+    "observed_at": "2026-10-22T05:06:26.548912+00:00",
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false
   },
   "source_sync": {
-    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-22T05:04:17.018681+00:00",
+    "source_commit": "99abdc1de8c1b9cb2230edc15d8a9fef580098c1",
+    "previous_server_commit": "3f345b3cdca765fe11c7bde580314b77b27e1303",
+    "changed_files": 161,
+    "manifest_files_verified": 2345,
+    "manifest_sha256": "37816bd8e889a725a6df838b312ac7d09b0f599ed74d9e02e18de032c050e43f",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "scope": "Exact implementation payload checkpoint; later metadata receipt is not self-included in this earlier checkpoint and no shared runtime upgrade is claimed"
   },
   "new_verified_substeps": 1,
   "verified_substeps_current": 144,
@@ -1593,5 +1632,254 @@
     "Prior asset-negative continuation coverage minor and current microtask-scheduling maintenance minor",
     "Actual effort/dates/performed human review and full source-card acceptance",
     "Exact-source CI and unresolved software security/N01/T013 conditions"
-  ]
+  ],
+  "material_checks": {
+    "status": "PASS",
+    "validated_source_commit": "99abdc1de8c1b9cb2230edc15d8a9fef580098c1",
+    "staged_tree": "ca9e71139b24958ea7f6eb819ed4827fd519fd3c",
+    "commands": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T030"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T027"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "scope": "18 material/navigation checks, not new product or production acceptance tests"
+  },
+  "bounded_prepublication_check": {
+    "status": "PASS",
+    "staged_tree": "ca9e71139b24958ea7f6eb819ed4827fd519fd3c",
+    "manifest_files_verified": 2345,
+    "files_checked": 2347,
+    "scope": "Known runtime/private values and secret filenames, not complete DLP"
+  },
+  "navigation_script_quality": {
+    "status": "PASS",
+    "source_sha256": "1131ee3d0210d6522ce9fe42eb3986b2141e7a56f01fd7b958b3f9b2c4e8698d",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "latest_payload_CI_jobs_observation": {
+    "observed_at": "2026-10-22T05:06:26.548912+00:00",
+    "head_sha": "99abdc1de8c1b9cb2230edc15d8a9fef580098c1",
+    "run_id": 39725909803,
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "id": 119649986503,
+        "name": "identity-verification / identity-integration",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
+  },
+  "source_card_and_navigation_preservation": {
+    "status": "PASS_GENERATED_AND_PRESERVED_SOURCE_CARDS",
+    "checks": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/update_docs_navigation.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "source_cards": 170,
+    "original_bodies_unchanged": 170,
+    "only_user_authorized_owner_line_changed": [],
+    "original_dependencies_preserved": true
+  }
 }
