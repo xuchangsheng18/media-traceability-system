@@ -440,6 +440,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t034-internal-development-decisions.md](<03-development/t034-internal-development-decisions.md>) | 用户委托下选定内部研发E01—E04实现输入与预算、真实完整性helper及一节点adapter方案；尚未应用运行配置，不造身份/采用/许可/恢复事实。 |
+| [00-project/validation/t034-development-design-delegation-20261022.json](<00-project/validation/t034-development-design-delegation-20261022.json>) | 2026-10-22用户委托合理研发设计的范围记录；仅设计与研发选择，不是已存在的正式业务事实或共享部署批准。 |
+| [03-development/t034-i02-integration.md](<03-development/t034-i02-integration.md>) | T034-I02固定SQL/有限事实/guard工程候选，限定验证通过、完整业务回归失败且C05不计数；真实采用/Proof/当前handler和分类/恢复/预算仍缺，无HTTP202或整步验收。 |
+| [00-project/validation/t034-i02-integration-report.json](<00-project/validation/t034-i02-integration-report.json>) | T034候选整批源码、实际RED/失误与178SQL/544纯/279类型限定通过；完整业务回归失败/未执行探针，权限另列，保持154/0新增，CI/同步照实。 |
+| [04-database/task-creation-scope-read-contract.md](<04-database/task-creation-scope-read-contract.md>) | 0017两固定读口21/9列、三JSON、LOOKUP无锁无正文、CASE受限锁/列ACL/RLS和零行语句拒写、显式管理员SET-only安装与撤权、epoch锁序/phantom及真实权威未决。 |
 | [03-development/t034-plan-authority.md](<03-development/t034-plan-authority.md>) | T034-I02纯PlanBinding/ExecutionMaterials及材料摘要/版本/输入核对；opaque收据/事实不当真实采用/许可/动态状态，SQL/guard/事实未接，I02未整步完成。 |
 | [00-project/validation/t034-plan-authority-report.json](<00-project/validation/t034-plan-authority-report.json>) | T034计划绑定/材料纯边界两文件精确源码、实际RED与纯组合/质量、新鲜审查、真实CI及同步回执；旧308不当新完成，不清扫描失败或整卡验收。 |
 | [03-development/t034-request-context.md](<03-development/t034-request-context.md>) | T034-I02首批冻结主体/请求及A-B摘要、ContextVar绑定/重查/清理的纯组件；获取上下文不是授权，guard/HTTP/SQL/当前事实未接线，I02未整步完成。 |
@@ -450,7 +455,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/task-creation-plan-bindings.md](<04-database/task-creation-plan-bindings.md>) | 0016新增六张任务创建材料/映射/运行快照表的字段、复合FK、精确bytea摘要、不可变、RLS/FORCE/ACL和旧数据升级边界；内部基础不等于创建接口或生效映射。 |
 | [03-development/t024-upload-queue-isolation.md](<03-development/t024-upload-queue-isolation.md>) | T024真实RED后v2单位/案件/上传目标队列隔离、逐目标消费与错投不ACK；旧case队列保留且未迁移，共享采用/同上传多消费者及毒消息仍待。 |
 | [00-project/validation/t024-upload-queue-isolation-report.json](<00-project/validation/t024-upload-queue-isolation-report.json>) | T024四文件精确源码、真实RED、受影响隔离回归/失败探针、质量及一次源码复核、CI与三端同步；不等于共享服务采用或整卡验收。 |
-| [03-development/t034-creation-implementation-plan.md](<03-development/t034-creation-implementation-plan.md>) | T034已批准I01—I05计划，I01/I02纯Context和PlanBinding/ExecutionMaterials组件已隔离验证；I02 SQL/当前事实/guard及后续未完成，0016固定，SQL须0017及新增迁移。 |
+| [03-development/t034-creation-implementation-plan.md](<03-development/t034-creation-implementation-plan.md>) | T034已批准I01—I05；I02受限SQL/事实/guard代码已实现且限定验证通过、此前完整业务门禁失败，当前修复后未整套重跑，候选C05不计，真实采用/Proof/handler/分类/恢复/预算未齐，I02和I03—I05/HTTP未完，迁移仅0018+。 |
 | [00-project/validation/t034-design-decision-20261022.json](<00-project/validation/t034-design-decision-20261022.json>) | 用户认可T034 D01/D02技术设计及D03计划准备的限定决定；不批准生效映射、预算、产品实施或任务验收，不增加已证步骤。 |
 | [03-development/t103-evidence-original-access.md](<03-development/t103-evidence-original-access.md>) | T103原始证据限定关联原件、严格case/asset/ref/摘要与有效状态核对、独立权限和大小/SHA/ETag验证后下载；不播放、不派生、不推断证据效力或正式授权。 |
 | [00-project/validation/t103-evidence-original-report.json](<00-project/validation/t103-evidence-original-report.json>) | T103五文件精确源码、前端质量与两模式传输浏览器、20项依赖摘要、限定复核及原锁双端npm诊断、CI/三端源码回执；不等于正式工作流或整卡验收。 |
@@ -487,7 +492,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
-| [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034提供方/受限SQL/原子创建/HTTP设计；已有I01和I02纯组件不等于真实采用、SQL锁或动态权限，当前SQL/事实/guard/原子创建仍待，历史拟设计不当实现证据。 |
+| [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实映射/受限SQL/原子创建/HTTP设计；受限SQL/事实/guard已有代码，178/544/279限定通过、此前完整业务门禁失败，当前修复后未整套重跑且C05未计，真实采用/Proof和当前handler等未齐，无原子创建/HTTP202，历史拟方案不冒充当前验收。 |
 | [00-project/validation/t034-creation-integration-design-report.json](<00-project/validation/t034-creation-integration-design-report.json>) | T034原设计编制时的输入摘要、修正边界及CI/三端历史回执，新增业务完成数0；当前D01/D02决定及D03计划另有最新记录，历史设计检查不代表真实创建测试。 |
 | [03-development/shared-session-rejection-lifecycle.md](<03-development/shared-session-rejection-lifecycle.md>) | 共享call已形成旧401的传播窗口保护新连接尝试；6项真实客户端受控调度单元纳入396前端、72/72传输浏览器；不是普通点击或已建立用户丢失复现。 |
 | [00-project/validation/shared-session-rejection-lifecycle-report.json](<00-project/validation/shared-session-rejection-lifecycle-report.json>) | 共享会话精确源码、有效6例RED、质量/浏览器、调度维护事项、旧CI安全失败与本批CI/三端回执；不改公共契约或整卡验收。 |
@@ -722,7 +727,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1329份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1334份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1454,8 +1459,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t033-cancellation-atomic-writer-report.json](<00-project/validation/t033-cancellation-atomic-writer-report.json>) | 取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。 |
 | [00-project/validation/t034-creation-integration-design-report.json](<00-project/validation/t034-creation-integration-design-report.json>) | T034原设计编制时的输入摘要、修正边界及CI/三端历史回执，新增业务完成数0；当前D01/D02决定及D03计划另有最新记录，历史设计检查不代表真实创建测试。 |
 | [00-project/validation/t034-design-decision-20261022.json](<00-project/validation/t034-design-decision-20261022.json>) | 用户认可T034 D01/D02技术设计及D03计划准备的限定决定；不批准生效映射、预算、产品实施或任务验收，不增加已证步骤。 |
+| [00-project/validation/t034-development-design-delegation-20261022.json](<00-project/validation/t034-development-design-delegation-20261022.json>) | 2026-10-22用户委托合理研发设计的范围记录；仅设计与研发选择，不是已存在的正式业务事实或共享部署批准。 |
 | [00-project/validation/t034-i01-i05-implementation-approval-20261022.json](<00-project/validation/t034-i01-i05-implementation-approval-20261022.json>) | 用户批准I01—I05逐批隔离实施及I01启动的限定记录，保留批准时计划SHA；E01—E04真实权威/材料/事实/预算未确认，不批准ACTIVE采用、共享迁移或正式验收。 |
 | [00-project/validation/t034-i01-material-foundation-report.json](<00-project/validation/t034-i01-material-foundation-report.json>) | T034-I01精确源码、结构RED/实际根约束RED、245纯/受影响DB/失败探针/268文件质量、新鲜源码审查和CI同步；保留初轮中止及扫描失败，不是整卡验收。 |
+| [00-project/validation/t034-i02-integration-report.json](<00-project/validation/t034-i02-integration-report.json>) | T034候选整批源码、实际RED/失误与178SQL/544纯/279类型限定通过；完整业务回归失败/未执行探针，权限另列，保持154/0新增，CI/同步照实。 |
 | [00-project/validation/t034-plan-authority-report.json](<00-project/validation/t034-plan-authority-report.json>) | T034计划绑定/材料纯边界两文件精确源码、实际RED与纯组合/质量、新鲜审查、真实CI及同步回执；旧308不当新完成，不清扫描失败或整卡验收。 |
 | [00-project/validation/t034-request-context-report.json](<00-project/validation/t034-request-context-report.json>) | T034请求上下文两文件精确源码、组件缺失结构RED、纯回归/质量及一次新鲜审查、真实CI和同步回执；不清扫描失败，不等于SQL/业务授权或整卡验收。 |
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
@@ -1866,9 +1873,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t030-asset-source-panel.md](<03-development/t030-asset-source-panel.md>) | 资产详情复用getSource的只读授权记录面板，精确案件/来源与会话保护；40项新单元、390完整前端及61/61传输浏览器，真实权威联调与血缘仍待。 |
 | [03-development/t031-candidate-task-plan.md](<03-development/t031-candidate-task-plan.md>) | T031候选DAG不可变解析、显式预算、模型字段绑定、固定摘要和入口选择；未选分支不冒充运行状态，不授予调度或正式策略资格。 |
 | [03-development/t033-cancellation-atomic-writer.md](<03-development/t033-cancellation-atomic-writer.md>) | T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。 |
-| [03-development/t034-creation-implementation-plan.md](<03-development/t034-creation-implementation-plan.md>) | T034已批准I01—I05计划，I01/I02纯Context和PlanBinding/ExecutionMaterials组件已隔离验证；I02 SQL/当前事实/guard及后续未完成，0016固定，SQL须0017及新增迁移。 |
-| [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034提供方/受限SQL/原子创建/HTTP设计；已有I01和I02纯组件不等于真实采用、SQL锁或动态权限，当前SQL/事实/guard/原子创建仍待，历史拟设计不当实现证据。 |
+| [03-development/t034-creation-implementation-plan.md](<03-development/t034-creation-implementation-plan.md>) | T034已批准I01—I05；I02受限SQL/事实/guard代码已实现且限定验证通过、此前完整业务门禁失败，当前修复后未整套重跑，候选C05不计，真实采用/Proof/handler/分类/恢复/预算未齐，I02和I03—I05/HTTP未完，迁移仅0018+。 |
+| [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实映射/受限SQL/原子创建/HTTP设计；受限SQL/事实/guard已有代码，178/544/279限定通过、此前完整业务门禁失败，当前修复后未整套重跑且C05未计，真实采用/Proof和当前handler等未齐，无原子创建/HTTP202，历史拟方案不冒充当前验收。 |
 | [03-development/t034-i01-material-foundation.md](<03-development/t034-i01-material-foundation.md>) | T034-I01严格材料Schema、规范字节、显式预算、离线工具和0016六表/私有ACL基础；只隔离验证，createTask/原子创建和真实采用未实现，I02新增0017及后续迁移。 |
+| [03-development/t034-i02-integration.md](<03-development/t034-i02-integration.md>) | T034-I02固定SQL/有限事实/guard工程候选，限定验证通过、完整业务回归失败且C05不计数；真实采用/Proof/当前handler和分类/恢复/预算仍缺，无HTTP202或整步验收。 |
+| [03-development/t034-internal-development-decisions.md](<03-development/t034-internal-development-decisions.md>) | 用户委托下选定内部研发E01—E04实现输入与预算、真实完整性helper及一节点adapter方案；尚未应用运行配置，不造身份/采用/许可/恢复事实。 |
 | [03-development/t034-plan-authority.md](<03-development/t034-plan-authority.md>) | T034-I02纯PlanBinding/ExecutionMaterials及材料摘要/版本/输入核对；opaque收据/事实不当真实采用/许可/动态状态，SQL/guard/事实未接，I02未整步完成。 |
 | [03-development/t034-request-context.md](<03-development/t034-request-context.md>) | T034-I02首批冻结主体/请求及A-B摘要、ContextVar绑定/重查/清理的纯组件；获取上下文不是授权，guard/HTTP/SQL/当前事实未接线，I02未整步完成。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
@@ -1905,6 +1914,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [04-database/table-task-usage.json](<04-database/table-task-usage.json>) | 逐关系来源指针和摘要，完整覆盖62表；职责和实现批准明确为false。 |
 | [04-database/table-task-usage.md](<04-database/table-task-usage.md>) | 当前62表与任务引用阅读表，区分职责提案、需求引用与API引用，非实际代码使用证明。 |
 | [04-database/task-creation-plan-bindings.md](<04-database/task-creation-plan-bindings.md>) | 0016新增六张任务创建材料/映射/运行快照表的字段、复合FK、精确bytea摘要、不可变、RLS/FORCE/ACL和旧数据升级边界；内部基础不等于创建接口或生效映射。 |
+| [04-database/task-creation-scope-read-contract.md](<04-database/task-creation-scope-read-contract.md>) | 0017两固定读口21/9列、三JSON、LOOKUP无锁无正文、CASE受限锁/列ACL/RLS和零行语句拒写、显式管理员SET-only安装与撤权、epoch锁序/phantom及真实权威未决。 |
 | [04-database/task-event-run-integrity.md](<04-database/task-event-run-integrity.md>) | T032的0015事件固定运行复合外键、现有11态词汇约束、合法历史保留和失败原子回滚；不实现状态迁移或共享升级。 |
 | [05-workflows/dag-index.json](<05-workflows/dag-index.json>) | 36需求保守串行候选节点图、原任务引用和外部输入前提；不是170运行节点或已运行worker。 |
 | [05-workflows/dags/FR-CLAIM-001.json](<05-workflows/dags/FR-CLAIM-001.json>) | 该需求的普通处理/模型/投影/发布候选节点图，模型输入与原任务引用保留；外部输入未落实，未运行。 |

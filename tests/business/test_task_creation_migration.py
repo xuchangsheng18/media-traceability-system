@@ -260,9 +260,34 @@ def material_rows(connection, values):
     return dict(values, common=common, revision=revision, head=head, run=run)
 
 
+I01_UNREGISTERED_HISTORY_TESTS = {
+    "test_i01_runtime_cannot_read_private_tables_or_use_unregistered_create_scope",
+    "test_i01_private_roles_do_not_enable_material_access_without_i02_scope",
+}
+
+
 @pytest.fixture
-def i01_context(database_dsn):
-    migrate(database_dsn)
+def i01_context(database_dsn, request, tmp_path):
+    if request.node.originalname in I01_UNREGISTERED_HISTORY_TESTS:
+        # The parent-owned conftest routes only these cases to a new template0
+        # database. Preserve the original I01 assertions against real0016,
+        # never remove0017 from an already-upgraded database or relax a check.
+        with psycopg.connect(database_dsn) as connection:
+            assert connection.execute("SELECT to_regclass('mt_meta.schema_migrations')").fetchone() == (None,)
+        history = tmp_path / "through0016"
+        history.mkdir()
+        files = [path for path in sorted(MIGRATIONS.glob("*.sql")) if path.name[:4] <= "0016"]
+        assert len(files) == 16
+        for path in files:
+            (history / path.name).write_bytes(path.read_bytes())
+        assert migrate(database_dsn, history) == [f"{version:04d}" for version in range(1, 17)]
+        with psycopg.connect(database_dsn) as connection:
+            assert connection.execute("SELECT max(version),count(*) FROM mt_meta.schema_migrations").fetchone() == (
+                "0016",
+                16,
+            )
+    else:
+        migrate(database_dsn)
     with psycopg.connect(database_dsn) as connection:
         return material_rows(connection, legacy_rows(connection))
 

@@ -48,6 +48,8 @@ def database_dsn(request, business_template):
                     "test_i01_empty_upgrade_registers_six_private_tables",
                     "test_i01_migration_is_append_only_to_history_and_replay_noops",
                     "test_i01_failed_upgrade_rolls_back_new_objects_and_ledger",
+                    "test_i01_runtime_cannot_read_private_tables_or_use_unregistered_create_scope",
+                    "test_i01_private_roles_do_not_enable_material_access_without_i02_scope",
                 }
             )
             else business_template

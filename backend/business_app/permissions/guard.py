@@ -2,10 +2,12 @@
 
 import hashlib
 import hmac
+import json
 import re
 import time
 from collections.abc import AsyncIterator, Callable, Mapping
-from typing import cast
+from contextlib import nullcontext
+from typing import Any, cast
 
 from fastapi import FastAPI, Request
 from fastapi.dependencies.models import Dependant
@@ -18,7 +20,8 @@ from .conditional import ConditionalPort
 from .context import FencePort, request_authorization
 from .object_facts import BODY_SCHEMAS
 from .policy import validate_principal
-from .rule_types import AuthorizationEvidence
+from .rule_types import AuthorizationEvidence, RuleTarget
+from .task_creation_context import bind_task_creation_context, freeze_task_creation_context
 from .types import PermissionAuthority, Principal
 
 
@@ -85,6 +88,38 @@ def require_permission(permission_code: str) -> Callable[[Request], None]:
     return required
 
 
+def _unique_task_fields(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("INPUT_INVALID")
+        result[name] = value
+    return result
+
+
+def _invalid_task_constant(_value: str) -> None:
+    raise ValueError("INPUT_INVALID")
+
+
+async def _task_body(request: Request) -> dict[str, Any]:
+    # Read multiplicity before flattening; no new key grammar or budget is
+    # invented here. TaskCreate still supplies exactly its original six fields.
+    keys = request.headers.getlist("Idempotency-Key")
+    if request.scope.get("query_string") or len(keys) != 1 or not 1 <= len(keys[0]) <= 128:
+        raise BusinessError("INPUT_INVALID", 422)
+    try:
+        value = json.loads(
+            (await request.body()).decode("utf8"),
+            object_pairs_hook=_unique_task_fields,
+            parse_constant=_invalid_task_constant,
+        )
+        if type(value) is not dict:
+            raise ValueError()
+        return value
+    except (ValueError, TypeError, UnicodeError, RecursionError):
+        raise BusinessError("INPUT_INVALID", 422) from None
+
+
 async def authorize_business_route(request: Request) -> AsyncIterator[None]:
     route = request.scope.get("route")
     catalog = cast(Mapping[str, OperationPermission], request.app.state.permission_catalog)
@@ -120,37 +155,57 @@ async def authorize_business_route(request: Request) -> AsyncIterator[None]:
             raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
         principal = current_principal(request)
         body = {}
-        if operation.operation_id in BODY_SCHEMAS:
+        if operation.operation_id == "createTask":
+            body = await _task_body(request)
+        elif operation.operation_id in BODY_SCHEMAS:
             try:
                 body = await request.json()
             except (ValueError, UnicodeError):
                 raise BusinessError("INPUT_INVALID", 422) from None
             if not isinstance(body, dict):
                 raise BusinessError("INPUT_INVALID", 422)
-        try:
-            evidence = await run_in_threadpool(
-                conditional.authorize_http,
-                principal,
-                operation.operation_id,
-                dict(request.path_params),
-                dict(request.query_params),
-                body,
-            )
-        except BusinessError:
-            raise
-        except Exception:
-            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
-        if (
-            not isinstance(evidence, AuthorizationEvidence)
-            or evidence.principal != principal
-            or evidence.operation_id != operation.operation_id
-        ):
-            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
-        current_principal(request)
-        request.state.business_authorization_evidence = evidence
-        fence = cast(FencePort | None, getattr(request.app.state, "authorization_fence", None))
-        with request_authorization(evidence, fence, mutation=request.method != "GET"):
-            yield
+        context = freeze_task_creation_context(principal, body) if operation.operation_id == "createTask" else None
+        # Bind in the parent async task. Conditional threadpool readers and the
+        # eventual sync handler/fence inherit it; all exits restore its token.
+        with bind_task_creation_context(context) if context is not None else nullcontext():
+            try:
+                evidence = await run_in_threadpool(
+                    conditional.authorize_http,
+                    principal,
+                    operation.operation_id,
+                    dict(request.path_params),
+                    dict(request.query_params),
+                    body,
+                )
+            except BusinessError:
+                raise
+            except Exception:
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+            if (
+                not isinstance(evidence, AuthorizationEvidence)
+                or evidence.principal != principal
+                or evidence.operation_id != operation.operation_id
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            if context is not None:
+                target = evidence.target
+                if (
+                    type(target) is not RuleTarget
+                    or target.org_id != context.principal.actor.org_id
+                    or target.kind != "asset"
+                    or target.object_id != context.request.asset_id
+                    or target.case_id != context.request.case_id
+                    or target.purpose != "analysis"
+                    or type(target.object_version) is not int
+                    or target.object_version < 1
+                    or target.request_digest != context.authorization_request_digest
+                ):
+                    raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            current_principal(request)
+            request.state.business_authorization_evidence = evidence
+            fence = cast(FencePort | None, getattr(request.app.state, "authorization_fence", None))
+            with request_authorization(evidence, fence, mutation=request.method != "GET"):
+                yield
     else:
         yield
 

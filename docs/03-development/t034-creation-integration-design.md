@@ -1,10 +1,12 @@
 # T034真实映射、受限SQL、原子创建及HTTP接线设计
 
-2026-10-22（北京时间）。状态：**I02_PLAN_BINDING_MATERIALS_VERIFIED_SQL_FACTS_GUARD_PENDING**，本文件是已获D01/D02限定认可的技术设计，不是代码、迁移、映射采用或部署结果。依据源码`0ffdfb399e159945c025a7b126f1dd7373ecec56`、[T034任务卡](../../tasks/backend/T034.md)、[非算法交付范围](non-algorithm-delivery-scope.md)及[快速计划](non-algorithm-fast-delivery-plan-20261028.md)。开发负责人和指定复核人均为徐昌胜；实际复核、投入和验收仍需分别记录。
+2026-10-22（北京时间）。状态：**I02_IMPLEMENTED_LIMITED_VALIDATION_FULL_GATE_BLOCKED**，本文件是已获D01/D02限定认可的技术设计，不是代码、迁移、映射采用或部署结果。依据源码`0ffdfb399e159945c025a7b126f1dd7373ecec56`、[T034任务卡](../../tasks/backend/T034.md)、[非算法交付范围](non-algorithm-delivery-scope.md)及[快速计划](non-algorithm-fast-delivery-plan-20261028.md)。开发负责人和指定复核人均为徐昌胜；实际复核、投入和验收仍需分别记录。
 
-2026-10-22最新：[纯PlanBinding/ExecutionMaterials组件](t034-plan-authority.md)已隔离验证；固定SQL/当前事实/guard/原子创建与HTTP仍待，I02未整步完成。精确[回执](../00-project/validation/t034-plan-authority-report.json)保留真实CI及未验项；原方案中的“拟”不当已实现或真实采用证据。
+2026-10-22本批：[I02受限SQL/事实与guard](t034-i02-integration.md)、[数据库固定读口](../04-database/task-creation-scope-read-contract.md)及[精确回执](../00-project/validation/t034-i02-integration-report.json)。代码已实现且限定验证通过，此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑），候选C05未计数；不当真实采用/Proof签发或HTTP202；E01—E04未齐，后续新迁移0018及以上，0001—0017发布后固定。原批准20c1be01计划基线不变；下方历史拟方案不是当前完成证据。
 
-2026-10-22最新执行状态：[I02请求上下文纯组件](t034-request-context.md)已隔离验证，但SQL/当前事实/guard和HTTP尚未接线，I02未整步完成。精确[专项回执](../00-project/validation/t034-request-context-report.json)及[实施计划](t034-creation-implementation-plan.md)优先于下文历史拟方案文字；真实采用/202、E01—E04和验收条件保留。
+历史批次记录（以本段上方最新状态为准）：2026-10-22最新：[纯PlanBinding/ExecutionMaterials组件](t034-plan-authority.md)已隔离验证；固定SQL/当前事实/guard/原子创建与HTTP仍待，I02未整步完成。精确[回执](../00-project/validation/t034-plan-authority-report.json)保留真实CI及未验项；原方案中的“拟”不当已实现或真实采用证据。
+
+历史批次记录（以本段上方最新状态为准）：2026-10-22最新执行状态：[I02请求上下文纯组件](t034-request-context.md)已隔离验证，但SQL/当前事实/guard和HTTP尚未接线，I02未整步完成。精确[专项回执](../00-project/validation/t034-request-context-report.json)及[实施计划](t034-creation-implementation-plan.md)优先于下文历史拟方案文字；真实采用/202、E01—E04和验收条件保留。
 
 2026-10-22当前更新：用户已批准[I01—I05实施计划](t034-creation-implementation-plan.md)，[I01材料/迁移/离线工具基础](t034-i01-material-foundation.md)已隔离验证。E01—E04真实输入未确认，I02— I05及createTask HTTP/真实采用仍待；当前[批准记录](../00-project/validation/t034-i01-i05-implementation-approval-20261022.json)和[专项回执](../00-project/validation/t034-i01-material-foundation-report.json)优先，原D01/D02历史决定保留。下文原“拟、尚未实现”属于方案编制时状态，不能当后续已完成证据。
 

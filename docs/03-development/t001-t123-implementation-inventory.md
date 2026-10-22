@@ -6,9 +6,9 @@
 
 全部170任务：154条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：154条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
 
-T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现70张表定义、33个不同SQL函数名称。
+T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现70张表定义、36个不同SQL函数名称。
 
-后端Python静态索引包含516个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
+后端Python静态索引包含541个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
 
 已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。
 
@@ -1179,7 +1179,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 当前已验证范围：不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。；I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。；I02首批PlanBinding/ExecutionMaterials纯边界：冻结精确请求、revision/head及材料/输入绑定；不把调用者提供的收据/事实字节当真实采用、许可或当前权威。最终392项纯组合（本批84项及原308项）和Ruff/格式/272文件类型通过；无SQL、当前事实、guard/HTTP接线，I02未整步完成。
 
-未完成事项：I01及I02纯请求上下文、PlanBinding/ExecutionMaterials组件已隔离验证；I02仍需固定受限LOOKUP/CASE SQL、精确当前事实/能力、guard和条件授权生命周期接线。后续SQL仅0017及新增迁移，不改已发布0016；I03原子创建/精确重放、I04 HTTP和I05整套仍待。E01—E04未确认，不猜填或自动采用。；本批最终392项纯组合含原308项未改组件回归，272文件类型及质量通过；未重跑DB/HTTP/完整权限/前端。后续仍需I02实际SQL/guard/事实、I03半写/幂等并发/撤销恢复、I04 HTTP及I05适用全回归；托管CI和扫描保留真实pending/失败。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。
+未完成事项：I02受限SQL/有限事实/guard的16文件工程代码已实现；实际纯544、SQL/T015/历史组合178、质量与279文件类型限定通过。此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑）、期望0实际2、约1800秒窗口、test_count0，后续故意失败探针未执行；不计候选C05，不把代码实现或限定通过当完整门禁通过。 真实采用/收据语义/Proof发行者、当前handler发布/许可/可用性、分类/独立恢复/实际预算仍缺；I02未整步完成，I03/I04/I05及HTTP/202未完成。0001—0016固定，0017候选仅源码同步，共享未迁移；发布后新增SQL只0018+。；先定位此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑）（actual2/expected0/test_count0），保留失败和未运行探针；178 SQL/544纯/279类型为重叠限定覆盖，不替代完整回归。权限整套另按本次精确source/nonce实际状态记录；后续I03原子并发/回放/恢复、I04 HTTP和I05验收仍待。原CI及扫描门禁不变，不降低断言或增加skip。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。
 
 表与创建源码：
 
@@ -3636,16 +3636,19 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | `mt.hold_authorization_epoch` | [backend/business_migrations/0008_authorization_fence.sql:43](<../../backend/business_migrations/0008_authorization_fence.sql#L43>) |
 | `mt.activate_authorization_generation` | [backend/business_migrations/0008_authorization_fence.sql:53](<../../backend/business_migrations/0008_authorization_fence.sql#L53>) |
 | `mt.lookup_actor_work_role_facts` | [backend/business_migrations/0009_work_role_facts.sql:2](<../../backend/business_migrations/0009_work_role_facts.sql#L2>) |
-| `mt.scope_operation` | [backend/business_migrations/0010_data_scope.sql:2](<../../backend/business_migrations/0010_data_scope.sql#L2>)、[backend/business_migrations/0011_operation_token.sql:2](<../../backend/business_migrations/0011_operation_token.sql#L2>)、[backend/business_migrations/0012_catalog_reads.sql:3](<../../backend/business_migrations/0012_catalog_reads.sql#L3>)、[backend/business_migrations/0013_report_reads.sql:3](<../../backend/business_migrations/0013_report_reads.sql#L3>)、[backend/business_migrations/0014_resource_registry.sql:3](<../../backend/business_migrations/0014_resource_registry.sql#L3>) |
+| `mt.scope_operation` | [backend/business_migrations/0010_data_scope.sql:2](<../../backend/business_migrations/0010_data_scope.sql#L2>)、[backend/business_migrations/0011_operation_token.sql:2](<../../backend/business_migrations/0011_operation_token.sql#L2>)、[backend/business_migrations/0012_catalog_reads.sql:3](<../../backend/business_migrations/0012_catalog_reads.sql#L3>)、[backend/business_migrations/0013_report_reads.sql:3](<../../backend/business_migrations/0013_report_reads.sql#L3>)、[backend/business_migrations/0014_resource_registry.sql:3](<../../backend/business_migrations/0014_resource_registry.sql#L3>)、[backend/business_migrations/0017_task_creation_scope_reads.sql:45](<../../backend/business_migrations/0017_task_creation_scope_reads.sql#L45>) |
 | `mt.scope_mode` | [backend/business_migrations/0010_data_scope.sql:15](<../../backend/business_migrations/0010_data_scope.sql#L15>) |
 | `mt.scope_case_id` | [backend/business_migrations/0010_data_scope.sql:21](<../../backend/business_migrations/0010_data_scope.sql#L21>) |
 | `mt.scope_allows_case` | [backend/business_migrations/0010_data_scope.sql:31](<../../backend/business_migrations/0010_data_scope.sql#L31>) |
 | `mt.current_actor_case_ids` | [backend/business_migrations/0010_data_scope.sql:77](<../../backend/business_migrations/0010_data_scope.sql#L77>) |
-| `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>)、[backend/business_migrations/0013_report_reads.sql:17](<../../backend/business_migrations/0013_report_reads.sql#L17>)、[backend/business_migrations/0014_resource_registry.sql:17](<../../backend/business_migrations/0014_resource_registry.sql#L17>) |
+| `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>)、[backend/business_migrations/0013_report_reads.sql:17](<../../backend/business_migrations/0013_report_reads.sql#L17>)、[backend/business_migrations/0014_resource_registry.sql:17](<../../backend/business_migrations/0014_resource_registry.sql#L17>)、[backend/business_migrations/0017_task_creation_scope_reads.sql:59](<../../backend/business_migrations/0017_task_creation_scope_reads.sql#L59>) |
 | `mt.lookup_scope_metadata` | [backend/business_migrations/0010_data_scope.sql:127](<../../backend/business_migrations/0010_data_scope.sql#L127>)、[backend/business_migrations/0013_report_reads.sql:39](<../../backend/business_migrations/0013_report_reads.sql#L39>)、[backend/business_migrations/0014_resource_registry.sql:41](<../../backend/business_migrations/0014_resource_registry.sql#L41>) |
 | `mt.model_evaluation_artifact_metadata` | [backend/business_migrations/0014_resource_registry.sql:173](<../../backend/business_migrations/0014_resource_registry.sql#L173>) |
 | `mt.task_plan_modules_valid` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:26](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L26>) |
 | `mt.preserve_task_plan_head` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:210](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L210>) |
+| `mt.reject_task_plan_case_reader_dml` | [backend/business_migrations/0017_task_creation_scope_reads.sql:179](<../../backend/business_migrations/0017_task_creation_scope_reads.sql#L179>) |
+| `mt.task_create_execution_plan` | [backend/business_migrations/0017_task_creation_scope_reads.sql:203](<../../backend/business_migrations/0017_task_creation_scope_reads.sql#L203>) |
+| `mt.task_create_plan_metadata` | [backend/business_migrations/0017_task_creation_scope_reads.sql:272](<../../backend/business_migrations/0017_task_creation_scope_reads.sql#L272>) |
 
 ## 适用边界与后续实际工作
 

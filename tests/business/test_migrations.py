@@ -160,6 +160,7 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
         "0014",
         "0015",
         "0016",
+        "0017",
     ]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
@@ -291,6 +292,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             "0014",
             "0015",
             "0016",
+            "0017",
         ]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
@@ -334,6 +336,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0014",
             "0015",
             "0016",
+            "0017",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -442,6 +445,7 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
             "0014",
             "0015",
             "0016",
+            "0017",
         ]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:

@@ -99,7 +99,7 @@ class Database:
                     AND pg_has_role(current_user,n.nspowner,'MEMBER'))
                 OR EXISTS(SELECT 1 FROM pg_roles p WHERE p.rolname IN (
                     'mt_directory_manager','mt_identity_lookup','mt_permission_lookup',
-                    'mt_task_plan_lookup','mt_task_plan_manager',
+                    'mt_task_plan_lookup','mt_task_plan_manager','mt_task_plan_case_reader',
                     'pg_read_all_data','pg_write_all_data','pg_read_server_files','pg_write_server_files',
                     'pg_execute_server_program','pg_signal_backend','pg_checkpoint')
                     AND pg_has_role(current_user,p.oid,'MEMBER'))

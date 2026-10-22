@@ -27,6 +27,7 @@ from .types import Principal
 from .work_subject import WORK_OPERATIONS, validate_execution_subject
 
 if TYPE_CHECKING:
+    from .task_creation_facts import TaskCreationFactsPort
     from .work import WorkTrust
 
 # Fixed server-controlled identifiers only; never interpolate an HTTP table name.
@@ -57,6 +58,7 @@ OPERATION_KINDS = MappingProxyType(
         "getTimeline": "asset",
         "getAsset": "asset",
         "downloadAsset": "asset",
+        "createTask": "asset",
         "getReport": "report",
         **dict.fromkeys(("completeUpload", "getUploadStatus", "listUploadParts", "putUploadPart"), "upload"),
         **dict.fromkeys(("downloadAuditExport", "getAuditExport"), "export"),
@@ -89,6 +91,7 @@ CASE_LISTS = frozenset(
 BODY_SCHEMAS = MappingProxyType(
     {
         "createUpload": "UploadCreate",
+        "createTask": "TaskCreate",
         "createSource": "SourceCreate",
         "createImport": "ImportRequest",
         "requestApproval": "ApprovalCreate",
@@ -137,7 +140,9 @@ class SupplementalFacts(Protocol):
 
 
 class ObjectFactsReader:
-    supported_operation_ids = SUPPORTED_OPERATIONS
+    # Internal SQL registration precedes HTTP readiness. The default authority
+    # must not advertise createTask before its dedicated facts port is configured.
+    supported_operation_ids = SUPPORTED_OPERATIONS - frozenset({"createTask"})
 
     def __init__(
         self,
@@ -145,8 +150,12 @@ class ObjectFactsReader:
         *,
         clock: Callable[[], float] = time.time,
         supplemental: SupplementalFacts | None = None,
+        task_creation: TaskCreationFactsPort | None = None,
     ) -> None:
         self.database, self.clock, self.supplemental = database, clock, supplemental
+        self.task_creation = task_creation
+        if task_creation is not None:
+            self.supported_operation_ids = SUPPORTED_OPERATIONS
 
     @staticmethod
     def _validate_target(operation_id: str, target: RuleTarget) -> None:
@@ -254,6 +263,34 @@ class ObjectFactsReader:
         try:
             org = principal.actor.org_id
             binding = digest(dict(path=dict(path), query=dict(query), body=dict(body)))
+            if operation_id == "createTask":
+                from .task_creation_context import current_task_creation_context
+
+                context = current_task_creation_context(clock=self.clock)
+                if (
+                    context is None
+                    or context.principal != principal
+                    or path
+                    or query
+                    or binding != context.authorization_request_digest
+                ):
+                    raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+                raw = RuleTarget(
+                    org,
+                    "asset",
+                    context.request.asset_id,
+                    None,
+                    context.request.case_id,
+                    "analysis",
+                    None,
+                    request_digest=binding,
+                )
+                located = SqlScopeLookup(self.database, clock=self.clock).read(
+                    principal, operation_id, LookupKey("asset", context.request.asset_id)
+                )
+                if located.target.case_id != context.request.case_id:
+                    raise BusinessError("RESOURCE_NOT_FOUND", 404)
+                return replace(raw, object_version=located.target.object_version)
             if operation_id == "getCurrentUser":
                 return RuleTarget(org, "user", principal.actor.user_id, None, None, None, None, request_digest=binding)
             if operation_id in {"listModels", "listEvaluations"}:
@@ -474,6 +511,20 @@ class ObjectFactsReader:
             or target.org_id != principal.actor.org_id
         ):
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
+        if operation_id == "createTask":
+            from .task_creation_context import current_task_creation_context
+
+            context = current_task_creation_context(clock=self.clock)
+            if (
+                context is None
+                or context.principal != principal
+                or target.kind != "asset"
+                or target.object_id != context.request.asset_id
+                or target.case_id != context.request.case_id
+                or target.purpose != "analysis"
+                or target.request_digest != context.authorization_request_digest
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         if target.kind == "model_release":
             raise BusinessError("ORGANIZATION_APPROVAL_ADAPTER_UNAVAILABLE", 503)
         if target.kind == "model_operation":
@@ -695,7 +746,7 @@ class ObjectFactsReader:
                 "validateUploadWork",
             }
             else "analysis"
-            if operation_id == "issueOperationToken"
+            if operation_id in {"issueOperationToken", "createTask"}
             or (isinstance(principal, ExecutionSubject) and principal.work_kind == "task_execution")
             else "training"
             if target.purpose == "training_feedback"
@@ -727,13 +778,51 @@ class ObjectFactsReader:
             # Keep active-source deadlines for every other operation and preserve
             # the normal fact TTL, source version digest and transaction fence.
             source_metadata_read = target.kind == "source" and operation_id in {"getSource", "listSources"}
-            if expires is not None and not source_metadata_read:
+            if (
+                expires is not None
+                and not source_metadata_read
+                and not (operation_id == "createTask" and expires.timestamp() <= current_time)
+            ):
                 deadline = min(deadline, expires.timestamp())
             if purpose is not None:
                 source_ok = source_ok and purpose in source["purpose"]
         checks["source"] = source_ok
         checks["source_purpose"] = source_ok if purpose is not None else None
         checks["analysis_purpose"] = source_ok if purpose == "analysis" else None
+        if operation_id == "createTask":
+            # Only the dedicated bound port may supply these predicates. The
+            # generic supplement must not promote unknown plan authority to True.
+            if not isinstance(principal, Principal):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            checks["model_task_version"] = None
+            checks["capability"] = None
+            if source_ok and item.get("state") != "VALID":
+                raise BusinessError("ASSET_STATE_CONFLICT", 409)
+            if checks["same_org"] is True and checks["case"] is True and source_ok and self.task_creation is not None:
+                try:
+                    extra_task = self.task_creation.read(principal, operation_id, target, connection=connection)
+                except BusinessError:
+                    raise
+                except Exception:
+                    raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+                if (
+                    not isinstance(principal, Principal)
+                    or type(extra_task) is not ConditionFacts
+                    or extra_task.principal != principal
+                    or extra_task.target != target
+                    or not isinstance(extra_task.checks, Mapping)
+                    or set(extra_task.checks) != {"model_task_version", "capability"}
+                    or any(value is not None and type(value) is not bool for value in extra_task.checks.values())
+                    or type(extra_task.valid_until) not in (int, float)
+                    or not math.isfinite(extra_task.valid_until)
+                    or extra_task.valid_until <= current_time
+                    or type(extra_task.version_digest) is not str
+                    or re.fullmatch(r"[0-9a-f]{64}", extra_task.version_digest) is None
+                ):
+                    raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+                checks.update(extra_task.checks)
+                versions.append(extra_task.version_digest)
+                deadline = min(deadline, extra_task.valid_until)
         # Classification, reads/downloads, human duty/person and audit delegation do
         # not exist in the present SQL schema. They cannot be inferred from a role.
         if self.supplemental is not None:

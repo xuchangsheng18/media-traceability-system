@@ -16,7 +16,7 @@ from psycopg import sql
 from psycopg.conninfo import make_conninfo
 
 
-def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn):
+def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn, tmp_path):
     owner = "mt_scope_owner_" + uuid4().hex
     login = "mt_scope_runtime_" + uuid4().hex
     name = "mt_business_scope_owner_" + uuid4().hex
@@ -41,11 +41,40 @@ def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn):
             )
         )
         try:
-            applied = apply_migrations(
-                make_conninfo(admin_dsn, options="-crole=" + owner),
-                Path(__file__).resolve().parents[2] / "backend/business_migrations",
-            )
+            migrations = Path(__file__).resolve().parents[2] / "backend/business_migrations"
+            owner_dsn = make_conninfo(admin_dsn, options="-crole=" + owner)
+            history = tmp_path / "non_super_through0016"
+            history.mkdir()
+            files = [path for path in sorted(migrations.glob("*.sql")) if path.name[:4] <= "0016"]
+            assert [path.name[:4] for path in files] == [f"{value:04d}" for value in range(1, 17)]
+            for path in files:
+                (history / path.name).write_bytes(path.read_bytes())
+            applied = apply_migrations(owner_dsn, history)
             assert applied == [f"{value:04d}" for value in range(1, 17)]
+            # Explicit test-admin installation prerequisite. The migration itself
+            # still runs as the original non-super schema owner. These SET-only
+            # grants never reach the runtime login and never enable inheritance.
+            admin.execute(
+                sql.SQL(
+                    "GRANT mt_task_plan_lookup,mt_task_plan_case_reader TO {} WITH INHERIT FALSE, SET TRUE, ADMIN FALSE"
+                ).format(sql.Identifier(owner))
+            )
+            try:
+                remaining = apply_migrations(owner_dsn, migrations)
+                assert remaining == ["0017"]
+                applied += remaining
+            finally:
+                admin.execute(
+                    sql.SQL("REVOKE mt_task_plan_lookup,mt_task_plan_case_reader FROM {}").format(sql.Identifier(owner))
+                )
+                assert admin.execute(
+                    "SELECT count(*) FROM pg_auth_members "
+                    "WHERE member=%s::regrole AND roleid IN "
+                    "('mt_task_plan_lookup'::regrole,'mt_task_plan_case_reader'::regrole)",
+                    (owner,),
+                ).fetchone() == (0,)
+            assert applied == [f"{value:04d}" for value in range(1, 18)]
+            assert apply_migrations(owner_dsn, migrations) == []
             org, user, case, source = [uuid4() for _ in range(4)]
             with psycopg.connect(admin_dsn) as seed:
                 seed.execute("INSERT INTO mt.organizations(org_id,name) VALUES(%s,'synthetic-owner-unit')", (org,))
@@ -91,6 +120,16 @@ def test_non_super_owner_metadata_port_and_runtime_acl(database_dsn):
         finally:
             if runtime is not None:
                 runtime.close()
+            # Also clean the explicit precondition after any earlier failure;
+            # no cross-test or runtime membership may survive this fixture.
+            admin.execute(
+                sql.SQL("REVOKE mt_task_plan_lookup,mt_task_plan_case_reader FROM {}").format(sql.Identifier(owner))
+            )
+            assert admin.execute(
+                "SELECT count(*) FROM pg_auth_members WHERE member=%s::regrole "
+                "AND roleid IN ('mt_task_plan_lookup'::regrole,'mt_task_plan_case_reader'::regrole)",
+                (owner,),
+            ).fetchone() == (0,)
             assert name.startswith("mt_business_scope_owner_")
             admin.execute(sql.SQL("DROP DATABASE {} WITH (FORCE)").format(sql.Identifier(name)))
             admin.execute(sql.SQL("DROP ROLE {}").format(sql.Identifier(login)))
