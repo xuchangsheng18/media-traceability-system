@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_id": {
+      "const": "urn:media-trace:task-capability-manifest:1.0.0"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "capability_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "capability_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "handlers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "handler_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "handler_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "release_id": {
+            "type": "string",
+            "format": "uuid",
+            "not": {
+              "const": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "code_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "package_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "input_schema_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "output_schema_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "license_ref": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "status_protocol_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "model_dependencies": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:media-trace:task-execution-plan:1.0.0#/$defs/Model"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "handler_id",
+          "handler_version",
+          "release_id",
+          "code_sha256",
+          "package_sha256",
+          "input_schema_id",
+          "output_schema_id",
+          "license_ref",
+          "status_protocol_version",
+          "model_dependencies"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_id",
+    "schema_version",
+    "capability_id",
+    "capability_version",
+    "handlers"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:task-capability-manifest:1.0.0",
+  "title": "Internal capability facts references, not current status or licence authorization"
+}

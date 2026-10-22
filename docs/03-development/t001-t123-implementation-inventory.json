@@ -26,7 +26,7 @@
     "backend/business_app/controls/router.py": "eddca15e23237b3fc06665c23c95672cef82d27292c59a67a7ed366507f32828",
     "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
     "backend/business_app/data_scope.py": "a8ffe486e2bdec252609790ee1e2ee0bf0296b31a411fa560c803a171a427ab2",
-    "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
+    "backend/business_app/db.py": "3e43e65163db331eb0b62c1ad0433d51a5c2a8b5469105f1af9e97cdbb2d8399",
     "backend/business_app/development.py": "3fabb34ae818f385fed5e7210fb6b8dfb6a47eaa5d657f1657cba8f3d096388b",
     "backend/business_app/errors.py": "e15ce459f7f8d7bdf42811a52c3c7039103af4c945f413fa514e8a95bb8fea22",
     "backend/business_app/history/__init__.py": "d799250f4999412e03715020266a93680781d158ebfe21360da074b69a9fe7c3",
@@ -63,7 +63,7 @@
     "backend/business_app/permissions/work_subject.py": "dd00ff09568ab0baaa0213d3c158928e79a9eb267dd38f76268282bb3fe5b85b",
     "backend/business_app/registry_reads.py": "f1093953436592cc820875261ea843a0ad8e9697ae566ed77dc383864ee41835",
     "backend/business_app/registry_router.py": "bf659140c6500fe005e6e3907320c41a338315fe444f85c84d44e78e2318067f",
-    "backend/business_app/scope_catalog.py": "4f6f2a27f4fcaa05e19cbf95e4fefd39c1612ee99f471738d52b64c7ad2250e1",
+    "backend/business_app/scope_catalog.py": "1cf9346e2e76d932b1fb1f1a4dc6b6a6e92c1ed1eae6ad7acebf417be2be2c46",
     "backend/business_app/scope_collections.py": "1b9c8d9c0f53cea27c212da55fd3029cd9eb6e44f7a629875794927e5f7c1129",
     "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
     "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
@@ -73,6 +73,7 @@
     "backend/business_app/source_registration_router.py": "86c3d1a139f4be199d531717a81fc72167a09db34202549573e241974bc91978",
     "backend/business_app/source_synchronization.py": "56b1a174f7f1a2be9fae40f0deb038365f56cc480a1ce52726fea7b5e6a7b0bb",
     "backend/business_app/task_creation.py": "5024c68b443b7898e266e4cdff45ba67242a4f17eff58bb47925a04cee87c2d3",
+    "backend/business_app/task_creation_materials.py": "3728d6fca9efd69766d6e955093933f2c3738eb89cc256304a895643b4392a4e",
     "backend/business_app/task_plan.py": "42609f5393e5730dea0765c53eaaaa1ed94adbe4a55b444f6736c177b8b010e9",
     "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
     "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
@@ -97,11 +98,12 @@
     "backend/business_migrations/0013_report_reads.sql": "9465a51b638f9b13849938e5bc6c4aea6454f2f9a70ac08b03516f6fe81875ec",
     "backend/business_migrations/0014_resource_registry.sql": "b41cffea753b6f4e758a7a487e86ce396e520a1402540de464184a3b1295c1d7",
     "backend/business_migrations/0015_task_event_run_integrity.sql": "9a81b72ceed7f5bcb2fb4d7af29e8ba95b56f9a4fe1c1daffdc900b472110974",
+    "backend/business_migrations/0016_task_creation_plan_bindings.sql": "80a221449e3e013360c383d99beee565bd395a7e9e76f0aa8498ce36ef8f809b",
     "docs/03-api/inference-openapi.yaml": "99d1fd3dc475ae48b3f39e6a6f26d233d94506ef50429dc37c503a43def7e7ad",
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "177c7b901e2f6494ed71cb0fd7689d6da4034d258b748173b4761ec21d8127e4",
+    "tasks/execution-status.json": "091d6c7032c2fb2ee6e47edc710df71e41433ea112e50192f032718e9dab3bec",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -119,10 +121,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 151,
+    "all_completed_substeps": 152,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 151,
+    "authorized_completed_substeps": 152,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -138,9 +140,9 @@
     "unregistered_canonical_business_operation_count": 22,
     "declared_operations_registered_in_business_source": 31,
     "declared_operations_without_explicit_business_registration": 22,
-    "versioned_create_table_count": 64,
-    "versioned_sql_function_name_count": 31,
-    "backend_python_definition_count": 471,
+    "versioned_create_table_count": 70,
+    "versioned_sql_function_name_count": 33,
+    "backend_python_definition_count": 494,
     "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -11674,10 +11676,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 1,
+      "completed_substeps_count": 2,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。",
-      "actual_remaining_summary": "用户已认可D01同库采用/受限SQL/原子事务设计与D02能力清单语义，D03实施计划已准备待审；E01—E04实际采用权威、精确映射/计划/能力、身份来源恢复事实及预算仍未确认。需计划审阅和对应输入满足后分批实施；本轮仅登记决定和计划，未写T034创建代码或SQL，createTask仍未挂载，不增加完成数。；64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
+      "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。",
+      "actual_remaining_summary": "I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。；I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -11700,16 +11702,114 @@
               "scope": "仅内部请求/证明绑定与重查内核；自建提供方测试，不是资产授权、实际任务创建、HTTP/数据库联调或整卡验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。",
+          "evidence": [
+            {
+              "path": "backend/business_app/db.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "backend/business_app/scope_catalog.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "backend/business_app/task_creation_materials.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "config/stage-three-profile.json",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "schemas/development/task-capability-manifest.schema.json",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "schemas/development/task-execution-plan.schema.json",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "schemas/development/task-input-manifest.schema.json",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "scripts/task_creation_adoption.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "scripts/verify_t015_scope.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/conftest.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/test_migrations.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/test_t015_scope_owner.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/test_t015_scope_recovery.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/test_t016_operation_token_recovery.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/test_task_creation_materials.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/business/test_task_creation_migration.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/platform/test_t015_data_scope.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "tests/platform/test_task_creation_adoption.py",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t034-i01-material-foundation.md",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t034-i01-material-foundation-report.json",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "docs/04-database/task-creation-plan-bindings.md",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json",
+              "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "用户已认可D01同库采用/受限SQL/原子事务设计与D02能力清单语义，D03实施计划已准备待审；E01—E04实际采用权威、精确映射/计划/能力、身份来源恢复事实及预算仍未确认。需计划审阅和对应输入满足后分批实施；本轮仅登记决定和计划，未写T034创建代码或SQL，createTask仍未挂载，不增加完成数。"
+          "description": "I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。"
         },
         {
           "category": "测试",
-          "description": "64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。"
+          "description": "I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。"
         },
         {
           "category": "验收",
@@ -30233,6 +30333,54 @@
         "schema": "mt",
         "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
       }
+    ],
+    "task_policy_artifact": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 36,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "task_plan_artifact": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 54,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "task_capability_manifest": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 70,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "task_plan_mapping_revision": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 86,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "task_plan_mapping_head": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 133,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "task_run_plan": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 153,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
     ]
   },
   "versioned_sql_function_source_index": {
@@ -30558,6 +30706,22 @@
       {
         "source_path": "backend/business_migrations/0014_resource_registry.sql",
         "line": 173,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "task_plan_modules_valid": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 26,
+        "schema": "mt",
+        "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+      }
+    ],
+    "preserve_task_plan_head": [
+      {
+        "source_path": "backend/business_migrations/0016_task_creation_plan_bindings.sql",
+        "line": 210,
         "schema": "mt",
         "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
       }
@@ -33851,7 +34015,7 @@
       "qualified_name": "business_app.db.Database.scoped_transaction",
       "python_name": "scoped_transaction",
       "source_path": "backend/business_app/db.py",
-      "line": 111,
+      "line": 112,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33870,7 +34034,7 @@
       "qualified_name": "business_app.db.Database.before_commit",
       "python_name": "before_commit",
       "source_path": "backend/business_app/db.py",
-      "line": 164,
+      "line": 165,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33890,7 +34054,7 @@
       "qualified_name": "business_app.db.Database.transaction",
       "python_name": "transaction",
       "source_path": "backend/business_app/db.py",
-      "line": 175,
+      "line": 176,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -33909,7 +34073,7 @@
       "qualified_name": "business_app.db.Database.close",
       "python_name": "close",
       "source_path": "backend/business_app/db.py",
-      "line": 186,
+      "line": 187,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -38406,7 +38570,7 @@
       "qualified_name": "business_app.scope_catalog._table_scopes",
       "python_name": "_table_scopes",
       "source_path": "backend/business_app/scope_catalog.py",
-      "line": 253,
+      "line": 261,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [],
@@ -39479,6 +39643,437 @@
         "keyword_only": [
           "connection",
           "clock"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.MaterialBudgets.__post_init__",
+      "python_name": "__post_init__",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 40,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.CanonicalMaterial.as_dict",
+      "python_name": "as_dict",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 54,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._limits",
+      "python_name": "_limits",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 71,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "budgets"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._invalid",
+      "python_name": "_invalid",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 79,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._binding",
+      "python_name": "_binding",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 83,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._unique",
+      "python_name": "_unique",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 87,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "pairs"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._constant",
+      "python_name": "_constant",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 96,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "_"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._canonical",
+      "python_name": "_canonical",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 100,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._load",
+      "python_name": "_load",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 109,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw",
+          "budgets"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._schema_document",
+      "python_name": "_schema_document",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 126,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "identifier"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._validate",
+      "python_name": "_validate",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 142,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "identifier",
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._freeze",
+      "python_name": "_freeze",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 151,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "identifier",
+          "document_id",
+          "version",
+          "value",
+          "raw",
+          "budgets"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._properties",
+      "python_name": "_properties",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 168,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "identifier"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._model_identity",
+      "python_name": "_model_identity",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 200,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._models",
+      "python_name": "_models",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 210,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "items"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._handler_identity",
+      "python_name": "_handler_identity",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 215,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._graph",
+      "python_name": "_graph",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 219,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.parse_execution_plan",
+      "python_name": "parse_execution_plan",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 263,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "budgets"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.parse_capability_manifest",
+      "python_name": "parse_capability_manifest",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 274,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "budgets"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.parse_input_manifest",
+      "python_name": "parse_input_manifest",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 291,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "budgets"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.parse_policy_artifact",
+      "python_name": "parse_policy_artifact",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 310,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "budgets"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials._asset_value",
+      "python_name": "_asset_value",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 319,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "asset",
+          "selector"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.task_creation_materials.prepare_material_bundle",
+      "python_name": "prepare_material_bundle",
+      "source_path": "backend/business_app/task_creation_materials.py",
+      "line": 328,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "policy_raw",
+          "plan_raw",
+          "capability_raw",
+          "input_raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "budgets"
         ],
         "var_keyword": null
       },

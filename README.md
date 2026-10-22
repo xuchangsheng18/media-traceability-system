@@ -1,8 +1,12 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T024目标上传队列隔离：[实现与旧队列边界](docs/03-development/t024-upload-queue-isolation.md)、[真实RED/GREEN与同步回执](docs/00-project/validation/t024-upload-queue-isolation-report.json)。v2单位/案件/上传独立队列解决同案件另一上传阻塞目标消费者；错投继续拒绝且不ACK。103项受影响隔离回归及既有失败探针、质量检查通过。新增1条子步骤，当前151条已证、434组剩余，全部170项622组剩余、整卡验收0项；旧队列未迁移、共享采用未验，同上传多消费者公平/毒消息处置仍待。
+2026-10-22本批T034-I01材料与迁移基础：[实现边界](docs/03-development/t034-i01-material-foundation.md)、[验证及同步回执](docs/00-project/validation/t034-i01-material-foundation-report.json)、[六表字段/ACL](docs/04-database/task-creation-plan-bindings.md)。245项纯测试、230项受影响隔离DB回归、失败探针及268文件类型/质量通过；初轮中止不计通过。仅新增1条子步骤，T034为2已证/4组剩余，当前152条已证、434组剩余，全部170项622组剩余、整卡验收0项。I02— I05继续；createTask未挂载、无真实202/ACTIVE采用，共享数据库未迁移，托管CI失败仍保留。
 
-2026-10-22 T034决定更新：[D01/D02限定认可](docs/00-project/validation/t034-design-decision-20261022.json)、[I01—I05实施计划待审](docs/03-development/t034-creation-implementation-plan.md)。仅技术设计及D03计划准备，E01—E04实际输入未确认；未新增创建代码、SQL、运行采用或已证子步骤。
+2026-10-22 T034执行决定：[I01—I05计划批准记录](docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json)、[当前实施计划](docs/03-development/t034-creation-implementation-plan.md)。已批准逐批隔离实施，E01—E04真实输入未确认；I01发布后的I02必须新增0017及后续迁移，不改已发布0016。算法与Python候选继续暂缓。
+
+2026-10-22历史批次T024目标上传队列隔离：[实现与旧队列边界](docs/03-development/t024-upload-queue-isolation.md)、[真实RED/GREEN与同步回执](docs/00-project/validation/t024-upload-queue-isolation-report.json)。v2单位/案件/上传独立队列解决同案件另一上传阻塞目标消费者；错投继续拒绝且不ACK。103项受影响隔离回归及既有失败探针、质量检查通过。新增1条子步骤，当批累计151条已证、434组剩余，全部170项622组剩余、整卡验收0项；旧队列未迁移、共享采用未验，同上传多消费者公平/毒消息处置仍待。
+
+2026-10-22历史T034计划编制决定：[D01/D02限定认可](docs/00-project/validation/t034-design-decision-20261022.json)、[I01—I05实施计划待审](docs/03-development/t034-creation-implementation-plan.md)。仅技术设计及D03计划准备，E01—E04实际输入未确认；未新增创建代码、SQL、运行采用或已证子步骤。
 
 2026-10-22历史批次T103原件关联与下载：[实现与边界](docs/03-development/t103-evidence-original-access.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-original-report.json)。仅original证据精确绑定有效原始资产后显式读取/下载，独立权限及大小/SHA-256/ETag核验、逐阶段失效已接线；959项前端、开发/生产各172项传输浏览器通过。新增1条子步骤，当批累计150条已证、434组剩余，全部170项622组剩余、整卡验收0项。播放/派生内容、持久草稿/标注和正式权威组合仍待；原锁npm双端0匹配仅诊断，不继承托管CI通过。
 

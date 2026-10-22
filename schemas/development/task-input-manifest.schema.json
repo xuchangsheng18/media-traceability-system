@@ -1,0 +1,234 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_id": {
+      "const": "urn:media-trace:task-input-manifest:1.0.0"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "input_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "input_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "plan_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "plan_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "asset": {
+      "$ref": "urn:media-trace:task-input-manifest:1.0.0#/$defs/Asset"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:media-trace:task-input-manifest:1.0.0#/$defs/NodeInputs"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_id",
+    "schema_version",
+    "input_id",
+    "input_version",
+    "plan_id",
+    "plan_version",
+    "plan_sha256",
+    "asset",
+    "nodes"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:task-input-manifest:1.0.0",
+  "title": "Frozen actual asset inputs and explicitly unmaterialized upstream selectors",
+  "$defs": {
+    "Asset": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "format": "uuid",
+          "not": {
+            "const": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "object_ref": {
+          "$ref": "urn:media-trace:api:0.1.0#/$defs/ObjectRef"
+        },
+        "source_authorization_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "asset_id",
+        "sha256",
+        "object_ref",
+        "source_authorization_version"
+      ],
+      "additionalProperties": false
+    },
+    "NodeInputs": {
+      "type": "object",
+      "properties": {
+        "node_code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "field_path": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+                    "maxLength": 128
+                  },
+                  "source": {
+                    "const": "asset"
+                  },
+                  "selector": {
+                    "enum": [
+                      "asset.asset_id",
+                      "asset.sha256",
+                      "asset.object_ref.object_id",
+                      "asset.object_ref.version_id",
+                      "asset.object_ref.sha256",
+                      "asset.source_authorization_version"
+                    ]
+                  },
+                  "materialized": {
+                    "const": true
+                  },
+                  "value": {}
+                },
+                "required": [
+                  "field_path",
+                  "source",
+                  "selector",
+                  "materialized",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "field_path": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+                    "maxLength": 128
+                  },
+                  "source": {
+                    "const": "node_output"
+                  },
+                  "node_code": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "output_ref": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "selector": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+                    "maxLength": 128
+                  },
+                  "materialized": {
+                    "const": false
+                  }
+                },
+                "required": [
+                  "field_path",
+                  "source",
+                  "node_code",
+                  "output_ref",
+                  "selector",
+                  "materialized"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "node_code",
+        "inputs"
+      ],
+      "additionalProperties": false
+    },
+    "NodeSnapshot": {
+      "type": "object",
+      "properties": {
+        "schema_id": {
+          "const": "urn:media-trace:task-input-manifest:1.0.0#/$defs/NodeSnapshot"
+        },
+        "schema_version": {
+          "const": "1.0.0"
+        },
+        "input_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "input_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "plan_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "asset": {
+          "$ref": "urn:media-trace:task-input-manifest:1.0.0#/$defs/Asset"
+        },
+        "node": {
+          "$ref": "urn:media-trace:task-input-manifest:1.0.0#/$defs/NodeInputs"
+        }
+      },
+      "required": [
+        "schema_id",
+        "schema_version",
+        "input_id",
+        "input_version",
+        "plan_sha256",
+        "asset",
+        "node"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

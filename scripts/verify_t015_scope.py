@@ -121,8 +121,8 @@ def validate_report(report: dict[str, Any], *, expected_commit: str, expected_so
         require(all(type(value) is int for value in probe["totals"].values()))
         require(probe["totals"] == dict(tests=1, failures=1, errors=0, skipped=0))
         catalog = report["table_catalog"]
-        require(len(catalog) == len(TABLE_SCOPES) == 64)
-        require(len({row["table"] for row in catalog}) == 64)
+        require(len(catalog) == len(TABLE_SCOPES) == 70)
+        require(len({row["table"] for row in catalog}) == 70)
         require({row["table"] for row in catalog} == set(TABLE_SCOPES))
         for row in catalog:
             spec = TABLE_SCOPES[row["table"]]

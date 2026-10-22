@@ -1,8 +1,8 @@
 # T034真实映射、受限SQL、原子创建及HTTP接线设计
 
-2026-10-22（北京时间）。状态：**D01_D02_ACCEPTED_IMPLEMENTATION_PLAN_PREPARED_REVIEW_PENDING**，本文件是已获D01/D02限定认可的技术设计，不是代码、迁移、映射采用或部署结果。依据源码`0ffdfb399e159945c025a7b126f1dd7373ecec56`、[T034任务卡](../../tasks/backend/T034.md)、[非算法交付范围](non-algorithm-delivery-scope.md)及[快速计划](non-algorithm-fast-delivery-plan-20261028.md)。开发负责人和指定复核人均为徐昌胜；实际复核、投入和验收仍需分别记录。
+2026-10-22（北京时间）。状态：**D01_D02_ACCEPTED_I01_ISOLATED_VERIFIED_I02_PENDING**，本文件是已获D01/D02限定认可的技术设计，不是代码、迁移、映射采用或部署结果。依据源码`0ffdfb399e159945c025a7b126f1dd7373ecec56`、[T034任务卡](../../tasks/backend/T034.md)、[非算法交付范围](non-algorithm-delivery-scope.md)及[快速计划](non-algorithm-fast-delivery-plan-20261028.md)。开发负责人和指定复核人均为徐昌胜；实际复核、投入和验收仍需分别记录。
 
-2026-10-22用户已认可D01、D02，D03实施计划已准备、尚待审阅。E01—E04真实采用、映射/能力/事实及预算未确认；本次不授权产品实施或生效采用，不增加已证步骤。当前决定见[限定决定记录](../00-project/validation/t034-design-decision-20261022.json)及[实施计划](t034-creation-implementation-plan.md)。
+2026-10-22当前更新：用户已批准[I01—I05实施计划](t034-creation-implementation-plan.md)，[I01材料/迁移/离线工具基础](t034-i01-material-foundation.md)已隔离验证。E01—E04真实输入未确认，I02— I05及createTask HTTP/真实采用仍待；当前[批准记录](../00-project/validation/t034-i01-i05-implementation-approval-20261022.json)和[专项回执](../00-project/validation/t034-i01-material-foundation-report.json)优先，原D01/D02历史决定保留。下文原“拟、尚未实现”属于方案编制时状态，不能当后续已完成证据。
 
 本轮目标是让后续实现者能按真实数据库、权限与HTTP契约落地创建链路。算法、权重、训练、效果评测及Python候选继续暂缓；原100包锁、现有CI与安全失败门禁保持。本次只形成并同步方案、当前证据和导航，**不增加业务完成数**。
 

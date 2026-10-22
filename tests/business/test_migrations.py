@@ -159,6 +159,7 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
         "0013",
         "0014",
         "0015",
+        "0016",
     ]
     assert migrate(database_dsn) == []
     with psycopg.connect(database_dsn) as connection:
@@ -167,9 +168,18 @@ def test_empty_database_migrates_and_replay_noops(database_dsn):
                 connection,
                 "SELECT count(*) FROM information_schema.tables WHERE table_schema='mt' AND table_type='BASE TABLE'",
             )
-            == 64
+            == 70
         )
-        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 861
+        assert scalar(connection, "SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'") == 967
+        assert (
+            scalar(
+                connection,
+                """SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'
+            AND table_name NOT IN ('task_policy_artifact','task_plan_artifact','task_capability_manifest',
+            'task_plan_mapping_revision','task_plan_mapping_head','task_run_plan')""",
+            )
+            == 861
+        )
         assert scalar(connection, "SELECT rolbypassrls OR rolsuper FROM pg_roles WHERE rolname='mt_runtime'") is False
 
 
@@ -280,6 +290,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             "0013",
             "0014",
             "0015",
+            "0016",
         ]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:
@@ -322,6 +333,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0013",
             "0014",
             "0015",
+            "0016",
         ]
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
@@ -429,6 +441,7 @@ def test_role_catalog_upgrade_preserves_legacy_or_rolls_back_atomically(database
             "0013",
             "0014",
             "0015",
+            "0016",
         ]
         assert migrate(database_dsn) == []
         with psycopg.connect(database_dsn) as connection:

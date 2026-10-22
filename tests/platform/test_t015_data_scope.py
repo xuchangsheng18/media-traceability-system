@@ -267,7 +267,7 @@ def test_catalog_classifies_every_source_table_without_claiming_crud_coverage():
     names = set()
     for file in (ROOT / "backend/business_migrations").glob("*.sql"):
         names.update(re.findall(r"CREATE TABLE mt\.(\w+)\s*\(", file.read_text(encoding="utf8")))
-    assert len(names) == 64 and set(catalog.TABLE_SCOPES) == names
+    assert len(names) == 70 and set(catalog.TABLE_SCOPES) == names
     for name in ("approval_request", "approval_decision", "operation_token", "audit_event"):
         assert catalog.TABLE_SCOPES[name].scope_class == "MIXED"
     assert catalog.TABLE_SCOPES["authorization_epoch"].runtime_select is False

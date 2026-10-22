@@ -225,6 +225,7 @@ _CASE_TABLES = (
     "task_node_run",
     "task_result",
     "task_run",
+    "task_run_plan",
     "text_segment",
     "upload_part",
     "upload_session",
@@ -248,13 +249,20 @@ _DIRECTORY_TABLES = (
     "user_identities",
 )
 _MIXED_TABLES = ("approval_request", "approval_decision", "operation_token", "audit_event")
+_PRIVATE_TASK_PLAN_TABLES = (
+    "task_policy_artifact",
+    "task_plan_artifact",
+    "task_capability_manifest",
+    "task_plan_mapping_revision",
+    "task_plan_mapping_head",
+)
 
 
 def _table_scopes() -> MappingProxyType[str, TableScopeRule]:
     result: dict[str, TableScopeRule] = {}
     groups: tuple[tuple[Literal["CASE", "ORG", "DIRECTORY", "MIXED", "INTERNAL"], tuple[str, ...]], ...] = (
         ("CASE", _CASE_TABLES),
-        ("ORG", _ORG_TABLES),
+        ("ORG", _ORG_TABLES + _PRIVATE_TASK_PLAN_TABLES),
         ("DIRECTORY", _DIRECTORY_TABLES),
         ("MIXED", _MIXED_TABLES),
         ("INTERNAL", ("authorization_epoch",)),
@@ -266,7 +274,7 @@ def _table_scopes() -> MappingProxyType[str, TableScopeRule]:
             result[table] = TableScopeRule(
                 table,
                 category,
-                table not in {"authorization_epoch", "user_identities"},
+                table not in {"authorization_epoch", "user_identities", *_PRIVATE_TASK_PLAN_TABLES},
                 tuple(sorted(kind for kind, value in _RESOURCES.items() if value[0] == table)),
             )
     return MappingProxyType(dict(sorted(result.items())))

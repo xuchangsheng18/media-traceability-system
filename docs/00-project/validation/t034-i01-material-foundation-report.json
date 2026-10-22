@@ -1,0 +1,474 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_T034_I01_MATERIAL_FOUNDATION_NOT_TASK_CREATION",
+  "observed_at": "2026-10-22T10:42:33.264121+00:00",
+  "base_source_commit": "23baa0fb24f2a00e0f1497f7d233de2b42366987",
+  "source_sha256_lf": {
+    "tests/business/test_t016_operation_token_recovery.py": "e1ac93b9edb30ff3bcda19cdabf9ee27e102bfe9d54229dbe6999a2dcad6b04e",
+    "tests/business/test_task_creation_migration.py": "2aa46cd795e3fb24a5a6e54666b0780b6edde4165c62808fdeec2727ad4ed30d",
+    "backend/business_app/scope_catalog.py": "1cf9346e2e76d932b1fb1f1a4dc6b6a6e92c1ed1eae6ad7acebf417be2be2c46",
+    "tests/business/test_t015_scope_recovery.py": "931e23018788c8f79bfbea1b8849bffe418be61d48816d6c4c0124c77b1578ed",
+    "tests/business/conftest.py": "6c0631a38d0a662968be56b4938710982c65c24699f5760ccb5d01d65db480bd",
+    "tests/platform/test_t015_data_scope.py": "51e227841f86881a58207990375325cdc71e2bf9b86f9252ed80a22cb3b2fca8",
+    "schemas/development/task-input-manifest.schema.json": "32fa092a1c23234460a867692a7d88a1e27baf09d0c4fddb4feb635e1c53bcf9",
+    "tests/business/test_task_creation_materials.py": "37f07a1d7a2e8c7d171da4124b6fb2d174869d3ac23d9b702ca65f9c34ecdfa5",
+    "tests/business/test_t015_scope_owner.py": "c08f0769ea175753a34562f344ad9c15768656439fb56c05731838290483a516",
+    "schemas/development/task-execution-plan.schema.json": "e1f8d14db844891cdae6906567ebe282f9f9015ef8e40a50a67a09dffdca0c80",
+    "backend/business_app/task_creation_materials.py": "3728d6fca9efd69766d6e955093933f2c3738eb89cc256304a895643b4392a4e",
+    "backend/business_app/db.py": "3e43e65163db331eb0b62c1ad0433d51a5c2a8b5469105f1af9e97cdbb2d8399",
+    "scripts/verify_t015_scope.py": "8bf46089a13fc67e26a5b556bf817d63923985ee69241f207cb2cfc71d2dd4f1",
+    "schemas/development/task-capability-manifest.schema.json": "07fec017f993673ce551d2881baa14adff30bec0bee340b61c843330b4a7b659",
+    "scripts/task_creation_adoption.py": "96d44f40757d41e43e96c022edfbf297fa38e2cf383150f5272ac0d0f59678b0",
+    "backend/business_migrations/0016_task_creation_plan_bindings.sql": "80a221449e3e013360c383d99beee565bd395a7e9e76f0aa8498ce36ef8f809b",
+    "tests/business/test_migrations.py": "171a7d6b83035dca858eb2edd8166ead5fd5f94eb4830d276f2d812e8746cb43",
+    "config/stage-three-profile.json": "3a7f5140cc4649f98c95ab428f284da28de44578eefde139c21af1419d4aa1b4",
+    "tests/platform/test_task_creation_adoption.py": "90b5d16778ccbadb8c0efe378d5d447ed1fdc19e3e1e54136c523cbffd496c84"
+  },
+  "database_document_ref": "docs/04-database/task-creation-plan-bindings.md",
+  "database_document_sha256_lf": "aafe190e6ab15603a344096ddfc06e7dc85112eebff7b56a760df66ee260743b",
+  "approved_plan_ref": "docs/03-development/t034-creation-implementation-plan.md",
+  "approved_plan_sha256_lf": "20c1be01c841489d1ad8c49f41d69f3e2ade911653c402a93125a3091be1228d",
+  "implementation_approval_ref": "docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json",
+  "actual_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "responsibility_confirmation_ref": "docs/00-project/validation/t034-role-assignment.json",
+  "actual_human_review_performed": false,
+  "proof_receipt_sha256": {
+    "pure": "b2d8bd129e1191bd0860a74dea6c1e9113845c5b2a588b6d5d2820f0a976e995",
+    "affected": "76917789826015c5062cc24fa83c58c3303394ed86b210999db0bcde3205ad2f",
+    "quality": "cb645cf1de1cac5eb5371bf22844ee39fd4f7bbef4adea55ede6384ecea76a81",
+    "core_review": "4de28095f200a8331fc944b831a4ea86e0a94e167771cfcdd710e69e42560297",
+    "cli_review": "941d60c554787391835eb2338b7466f97991326d8eb3ccec6a568df60d884d74",
+    "migration_red": "7a1efd06d03fa5e51d9c323205aef4f049dc94332cc10cd93d49176e5e9cd384",
+    "structural_red": "22a48de8576f1e2be7cea3cf4396b824f834978612334eb1dd758ceef70df73f",
+    "root_constraint_red": "178c245600c318146e8bd915fa5df683912b06c8676d757b2c64642b49380a8f",
+    "initial_quality_failure": "1c49451e4713bb5ebec32c0eaa236f6e2f7e3441f12bb6040d48469f347338e8",
+    "interrupted_affected": "943ca039827a65614e0f6b4ee17fc19c54fab017ce00947b54f8251fe657f28b",
+    "prior_ci": "fcf0f25f7ccb3ac4e961bd7eb1c90339a4767722a33763a2af6280b251d0a562"
+  },
+  "red_and_initial_attempts": {
+    "new_component_absence": {
+      "exit_code": 1,
+      "failed": 2,
+      "structural_only_not_old_business_vulnerability": true
+    },
+    "missing_six_tables": {
+      "exit_code": 1,
+      "root_verified_actual_missing_tables": true
+    },
+    "unpublished_parser_root_constraint_bug": {
+      "exit_code": 1,
+      "failed": 3,
+      "actual_registered_schemas": [
+        "ApprovalCreate",
+        "Relation",
+        "SearchJob"
+      ],
+      "cause": "field projection accepted unsupported root allOf constraints; expected ValueError was not raised",
+      "collection_or_import_error": false
+    },
+    "initial_type_failure": {
+      "exit_code": 1,
+      "issue": "set[str] local annotation missing",
+      "corrected_without_ignore_or_gate_change": true
+    },
+    "interrupted_database_attempt": {
+      "exit_code": 2,
+      "observed_partial_passed": 71,
+      "warnings": 1,
+      "duration_seconds": 1026.98,
+      "complete": false,
+      "passed": false,
+      "is_RED": false,
+      "added_to_final_pass_counts": false,
+      "reason": "Root verified exact validation cwd/process and interrupted obsolete SQL/coarse-fixture run; final restrictive guard and fixture source rerun separately"
+    }
+  },
+  "pure_validation": {
+    "kind": "MATERIAL_CLI_AND_OLD_BINDING_PURE",
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "-q",
+      "tests/business/test_task_creation_materials.py",
+      "tests/platform/test_task_creation_adoption.py",
+      "tests/business/test_task_creation_binding.py",
+      "--tb=short"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T10:20:30.762992+00:00",
+    "ended_at": "2026-10-22T10:20:32.837935+00:00",
+    "tests": 245,
+    "composition": {
+      "materials": 147,
+      "old_request_plan_binding": 64,
+      "offline_CLI": 34
+    },
+    "database_used": false,
+    "command_projection": "python -m pytest -q tests/business/test_task_creation_materials.py tests/platform/test_task_creation_adoption.py tests/business/test_task_creation_binding.py --tb=short",
+    "source_binding": "Actual pure-test and material/CLI dependencies; unrelated old SQL hashes in the pure snapshot are not reused as final SQL proof",
+    "source_sha256_lf": {
+      "backend/business_app/task_creation_materials.py": "3728d6fca9efd69766d6e955093933f2c3738eb89cc256304a895643b4392a4e",
+      "schemas/development/task-capability-manifest.schema.json": "07fec017f993673ce551d2881baa14adff30bec0bee340b61c843330b4a7b659",
+      "schemas/development/task-execution-plan.schema.json": "e1f8d14db844891cdae6906567ebe282f9f9015ef8e40a50a67a09dffdca0c80",
+      "schemas/development/task-input-manifest.schema.json": "32fa092a1c23234460a867692a7d88a1e27baf09d0c4fddb4feb635e1c53bcf9",
+      "scripts/task_creation_adoption.py": "96d44f40757d41e43e96c022edfbf297fa38e2cf383150f5272ac0d0f59678b0",
+      "tests/business/test_task_creation_materials.py": "37f07a1d7a2e8c7d171da4124b6fb2d174869d3ac23d9b702ca65f9c34ecdfa5",
+      "tests/platform/test_task_creation_adoption.py": "90b5d16778ccbadb8c0efe378d5d447ed1fdc19e3e1e54136c523cbffd496c84"
+    }
+  },
+  "affected_database_validation": {
+    "kind": "SERIAL_RANDOM_ISOLATED_DATABASE_AFFECTED_SUBSET",
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "-q",
+      "tests/business/test_task_creation_migration.py",
+      "tests/business/test_migrations.py",
+      "tests/business/test_t015_scope_owner.py",
+      "tests/business/test_t015_scope_recovery.py",
+      "tests/business/test_t016_operation_token_recovery.py",
+      "tests/business/test_t015_scope_sql.py",
+      "tests/platform/test_t015_data_scope.py",
+      "tests/platform/test_t015_gate.py",
+      "--tb=short"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T10:28:04.581523+00:00",
+    "ended_at": "2026-10-22T10:39:32.527776+00:00",
+    "tests": 230,
+    "command_projection": "python -m pytest -q tests/business/test_task_creation_migration.py tests/business/test_migrations.py tests/business/test_t015_scope_owner.py tests/business/test_t015_scope_recovery.py tests/business/test_t016_operation_token_recovery.py tests/business/test_t015_scope_sql.py tests/platform/test_t015_data_scope.py tests/platform/test_t015_gate.py --tb=short",
+    "source_binding": "Exact final cohort equal to quality proof",
+    "I01_template0_cases": [
+      "test_i01_empty_upgrade_registers_six_private_tables",
+      "test_i01_migration_is_append_only_to_history_and_replay_noops",
+      "test_i01_failed_upgrade_rolls_back_new_objects_and_ledger"
+    ],
+    "other_I01_cases": "Each uses its own random isolated database cloned from the validated business template; not all cases initialize from template0",
+    "failure_probe": {
+      "kind": "EXPECTED_ASSERTION_FAILURE",
+      "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+      "command_arguments": [
+        "scripts/verify_business_foundation.py",
+        "failure-probe"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T10:39:32.527879+00:00",
+      "ended_at": "2026-10-22T10:39:32.989555+00:00",
+      "command_projection": "python scripts/verify_business_foundation.py failure-probe",
+      "expected_assertion_failure_verified": true
+    },
+    "full_database_regression_rerun": false,
+    "shared_database_used_or_migrated": false,
+    "warnings": {
+      "count": 1,
+      "category": "StarletteDeprecationWarning",
+      "scope": "Existing FastAPI/Starlette test-client httpx deprecation; all230 tests passed. No dependency replacement or lock change performed.",
+      "private_log_sha256": "c9e327974ad2f7a97dcd0c9681f9a4f31e1c5477d49838b24f3ba9d56962889f",
+      "raw_log_published": false
+    }
+  },
+  "quality": {
+    "checks": [
+      {
+        "kind": "RUFF",
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "command_arguments": [
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T10:28:05.536744+00:00",
+        "ended_at": "2026-10-22T10:28:05.692199+00:00"
+      },
+      {
+        "kind": "FORMAT_CHECK",
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "command_arguments": [
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T10:28:05.692311+00:00",
+        "ended_at": "2026-10-22T10:28:05.827474+00:00"
+      },
+      {
+        "kind": "MYPY",
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "command_arguments": [
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T10:28:05.827581+00:00",
+        "ended_at": "2026-10-22T10:28:08.149205+00:00"
+      }
+    ],
+    "mypy_source_files": 268,
+    "source_binding": "Exact final cohort"
+  },
+  "source_review": {
+    "core": {
+      "critical_count": 0,
+      "important_count": 0,
+      "source_files": {
+        "backend/business_app/db.py": "3e43e65163db331eb0b62c1ad0433d51a5c2a8b5469105f1af9e97cdbb2d8399",
+        "backend/business_app/scope_catalog.py": "1cf9346e2e76d932b1fb1f1a4dc6b6a6e92c1ed1eae6ad7acebf417be2be2c46",
+        "backend/business_app/task_creation_materials.py": "3728d6fca9efd69766d6e955093933f2c3738eb89cc256304a895643b4392a4e",
+        "backend/business_migrations/0016_task_creation_plan_bindings.sql": "80a221449e3e013360c383d99beee565bd395a7e9e76f0aa8498ce36ef8f809b",
+        "schemas/development/task-capability-manifest.schema.json": "07fec017f993673ce551d2881baa14adff30bec0bee340b61c843330b4a7b659",
+        "schemas/development/task-execution-plan.schema.json": "e1f8d14db844891cdae6906567ebe282f9f9015ef8e40a50a67a09dffdca0c80",
+        "schemas/development/task-input-manifest.schema.json": "32fa092a1c23234460a867692a7d88a1e27baf09d0c4fddb4feb635e1c53bcf9",
+        "tests/business/test_task_creation_materials.py": "37f07a1d7a2e8c7d171da4124b6fb2d174869d3ac23d9b702ca65f9c34ecdfa5",
+        "tests/business/test_task_creation_migration.py": "2aa46cd795e3fb24a5a6e54666b0780b6edde4165c62808fdeec2727ad4ed30d"
+      },
+      "reviewer": "/root/review_form_browser"
+    },
+    "CLI": {
+      "critical_count": 0,
+      "important_count": 0,
+      "source_files": {
+        "scripts/task_creation_adoption.py": "96d44f40757d41e43e96c022edfbf297fa38e2cf383150f5272ac0d0f59678b0",
+        "tests/platform/test_task_creation_adoption.py": "90b5d16778ccbadb8c0efe378d5d447ed1fdc19e3e1e54136c523cbffd496c84"
+      },
+      "reviewer": "/root"
+    },
+    "not_human_acceptance": true,
+    "runtime_validation_separate": true
+  },
+  "prior_payload_hosted_CI": {
+    "id": 39757423011,
+    "run_attempt": 1,
+    "source_commit": "8ed6b725d0dd597d96d07439b1dccaa3c1f244b9",
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39757423011",
+    "status": "completed",
+    "conclusion": "failure",
+    "observed_at": "2026-10-22T10:22:00.000616+00:00",
+    "artifact_receipts": [
+      {
+        "id": 12418097446,
+        "name": "py310-validation-39757423011-1",
+        "sha256": "f420e8787edc792babaacd23e123d63dad5cb7fd9af31323824172d4a631feff",
+        "platform_digest_verified": true,
+        "source_commit": "8ed6b725d0dd597d96d07439b1dccaa3c1f244b9",
+        "run_attempt": 1,
+        "owned_job_marker_sha256": "fbaa1689ef40d8e2842ab5ff4939e1bf8f1d53b1006de576d0033cd07bb836cf"
+      },
+      {
+        "id": 12417981928,
+        "name": "py310-foundation-validation-39757423011-1",
+        "sha256": "ee5db98711f6acb99c159fa86f31307cffc4a9069e5511363a719ad56366ddfd",
+        "platform_digest_verified": true,
+        "source_commit": "8ed6b725d0dd597d96d07439b1dccaa3c1f244b9",
+        "run_attempt": 1,
+        "owned_job_marker_sha256": "1ea897695388359e9065098eecd60d8b9c4a6caa65c4cf3ea940362ffa4b742d"
+      }
+    ],
+    "job_owned_exact_source_ci_all_checks": {
+      "passed": 34,
+      "total": 34
+    },
+    "job_owned_exact_source_tests": {
+      "t015-data-scope-report.json": {
+        "tests": 131,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t016-operation-token-report.json": {
+        "tests": 187,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "business-foundation-report.json": {
+        "tests": 1271,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t014-permissions-report.json": {
+        "tests": 1092,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "test_scopes_overlap_do_not_add": true,
+    "outer_failure": "secret_and_dependency_scans / CalledProcessError",
+    "original_py310_findings": 25,
+    "separate_quality_tool_findings": 1,
+    "npm_findings": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "torch_skip_not_accepted_safe": true,
+    "advisory_matches_not_applicability_or_risk_acceptance": true,
+    "runtime_and_scan_reports_missing_own_source_are_diagnostic_only": true,
+    "current_I01_verified_by_this_run": false,
+    "all_CI_pass_asserted": false
+  },
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_COMMITTED_OR_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "canonicalization_version": "task-material-json-utf8-sortkeys-v1",
+  "internal_schema_ids": [
+    "urn:media-trace:task-execution-plan:1.0.0",
+    "urn:media-trace:task-capability-manifest:1.0.0",
+    "urn:media-trace:task-input-manifest:1.0.0"
+  ],
+  "policy_schema_reused": "urn:media-trace:api:0.1.0#/$defs/PolicyDefinition",
+  "new_private_tables": [
+    "task_policy_artifact",
+    "task_plan_artifact",
+    "task_capability_manifest",
+    "task_plan_mapping_revision",
+    "task_plan_mapping_head",
+    "task_run_plan"
+  ],
+  "new_migration": "0016_task_creation_plan_bindings.sql",
+  "future_I02_migration_minimum": "0017",
+  "published_0016_must_remain_immutable": true,
+  "explicit_budgets_without_business_defaults": true,
+  "strict_closed_static_root_mapping_subset": true,
+  "nested_trusted_field_schemas_still_validated": true,
+  "no_model_declarations_not_execution_availability": true,
+  "offline_CLI_modes": [
+    "validate",
+    "prepare"
+  ],
+  "CLI_database_network_or_activation": false,
+  "CLI_verified_platform": "Current Linux POSIX private filesystem; unavailable secure-I/O primitives fail closed",
+  "real_policy_plan_capability_or_handler_adopted": false,
+  "ACTIVE_seed_created": false,
+  "lookup_or_management_SQL_functions_implemented": false,
+  "createTask_mounted": false,
+  "atomic_task_creation_implemented": false,
+  "real_202_verified": false,
+  "task_consumer_or_algorithm_implemented": false,
+  "protected_base_input_count": 332,
+  "protected_base_input_hash_map_sha256": "b28a3b07f083db9a6133fb956691aa077076b147ec70fadbadfa5309e4478391",
+  "old_0001_0015_SQL_unchanged": true,
+  "public_contract_changed": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "existing_quality_scope_expanded": [
+    "scripts/task_creation_adoption.py"
+  ],
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "frontend_changed_or_regression_rerun": false,
+  "new_data_downloads": 0,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "E01_E04_actual_inputs_confirmed": false,
+  "actual_effort_or_dates_inferred": false,
+  "new_verified_substeps": 1,
+  "verified_substeps_current": 152,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "remaining": [
+    "I02 fixed read SQL, exact request context and real current facts remain; after publication use 0017 or later, never rewrite 0016",
+    "I03 atomic creation, replay/current-head and concurrency/recovery, then I04 actual protected createTask HTTP remain",
+    "I05 applicable complete database/permission regression, exact published-source CI and actual synchronization still require observed receipts",
+    "E01 adoption/revocation authority, E02 exact materials/mapping, E03 real current facts and handlers, E04 budgets/TTLs remain unconfirmed",
+    "Human review, actual effort/dates, source acceptance, N01/Python/security and T013 actual custody/recovery conditions remain"
+  ]
+}

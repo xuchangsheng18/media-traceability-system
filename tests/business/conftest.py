@@ -36,7 +36,20 @@ def database_dsn(request, business_template):
         template = (
             "template0"
             if request.node.path.name
-            in {"test_migrations.py", "test_report_migration.py", "test_resource_registry_migration.py"}
+            in {
+                "test_migrations.py",
+                "test_report_migration.py",
+                "test_resource_registry_migration.py",
+            }
+            or (
+                request.node.path.name == "test_task_creation_migration.py"
+                and request.node.originalname
+                in {
+                    "test_i01_empty_upgrade_registers_six_private_tables",
+                    "test_i01_migration_is_append_only_to_history_and_replay_noops",
+                    "test_i01_failed_upgrade_rolls_back_new_objects_and_ledger",
+                }
+            )
             else business_template
         )
         admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(sql.Identifier(name), sql.Identifier(template)))

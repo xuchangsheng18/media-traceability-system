@@ -1,8 +1,10 @@
 # T034任务创建接线实施计划（I01—I05）
 
-2026-10-22（北京时间）。状态：**IMPLEMENTATION_PLAN_PREPARED_REVIEW_PENDING**。本轮仅编制计划，未实施产品代码、迁移、采用登记、HTTP挂载或数据库验证，不增加业务完成数。
+2026-10-22（北京时间）。状态：**I01_ISOLATED_VERIFIED_I02_PENDING_E01_E04_UNCONFIRMED**。用户已批准I01—I05逐批实施，本批仅完成I01隔离基础；I02— I05尚未完成，正式输入与验收边界保留。
 
-用户已在本次会话认可[创建接入设计](t034-creation-integration-design.md)的D01、D02，并要求继续D03实施计划编制。该确认包含同库current-head/不可变revision方案，以及Proof能力三元组指向执行能力清单版本；不包含本计划执行、真实映射生效、预算采用、共享部署或正式验收。原设计中的历史“待审”文字以其编制时状态理解，执行授权仍须按本计划审阅决定单独记录。
+用户本次已批准I01—I05实施计划，并从I01隔离实施。批准时计划基线SHA-256为`20c1be01c841489d1ad8c49f41d69f3e2ade911653c402a93125a3091be1228d`，见[批准记录](../00-project/validation/t034-i01-i05-implementation-approval-20261022.json)。此前D01/D02认可记录保留；当前授权不包含真实映射采用、预算选定、共享部署或正式验收。
+
+当前I01限定结果见[基础说明](t034-i01-material-foundation.md)、[精确验证回执](../00-project/validation/t034-i01-material-foundation-report.json)及[六表字段/ACL](../04-database/task-creation-plan-bindings.md)。下文未改写的“拟、未实施、待审”等属于批准时计划描述，不代表当前I01仍未实现，也不代表后续I02— I05已完成。0016本批发布后固定，I02及后续只能使用0017及后续新增迁移；禁止以原计划中的“同一拟0016”扩写已发布历史。
 
 本计划核对基线为`cf3f783b3d4762b415622238099e8097b6256d78`。编制时另有`tests/business/test_upload_worker_process.py`未提交修改，属于并行T024工作；本计划不修改、纳入T034完成证据或覆盖该文件。开始实施前重新核对HEAD、工作区和迁移编号；发生实质差异先更新受影响部分。
 
@@ -30,8 +32,8 @@
 | 步骤 | 允许修改/新增文件 | 前置和完成条件 |
 | --- | --- | --- |
 | I01 同库材料与内部规范 | `backend/business_migrations/0016_task_creation_plan_bindings.sql`；`schemas/development/task-execution-plan.schema.json`、`task-capability-manifest.schema.json`、`task-input-manifest.schema.json`；`backend/business_app/task_creation_materials.py`；`scripts/task_creation_adoption.py`；`tests/business/test_task_creation_materials.py`、`test_task_creation_migration.py`；必要时仅扩展现有`tests/business/conftest.py`空库迁移测试名单 | 再核对0016未占用；严格Schema/规范字节、不可变约束和私有ACL可验证；迁移不seed ACTIVE、不回填历史；受控工具默认只做验证和准备，不给人员授角色 |
-| I02 固定SQL、事实与请求上下文 | 同一拟0016中的两个只读函数；`backend/business_app/task_creation_authority.py`、`permissions/task_creation_context.py`、`permissions/task_creation_facts.py`；现有`permissions/object_facts.py`、`permissions/guard.py`、`scope_catalog.py`、`db.py`；`tests/business/test_task_creation_authority.py`、`test_task_creation_scope_sql.py`、`test_task_creation_context.py` | I01成立；LOOKUP无锁/无正文、CASE同根/持锁、请求主体/资产/A与B摘要隔离、动态能力未知拒绝、上下文并发不串用；不配置默认提供方 |
-| I03 原子创建及精确重放 | `backend/business_app/task_creation_service.py`；I01迁移中run_plan写约束；`tests/business/test_task_creation_transaction.py`、`test_task_creation_concurrency.py`、`test_task_creation_recovery.py`；复用`task_creation.py`、`controls/receipts.py`、`controls/common.py`和既有事件Schema | I02成立；同连接/savepoint/根栅栏；完整写集合一次提交；每一写入和末检失败零半写；独立双连接竞争、当前head约束和响应丢失重放 |
+| I02 固定SQL、事实与请求上下文 | 发布后的0017及后续新增迁移中的两个只读函数；`backend/business_app/task_creation_authority.py`、`permissions/task_creation_context.py`、`permissions/task_creation_facts.py`；现有`permissions/object_facts.py`、`permissions/guard.py`、`scope_catalog.py`、`db.py`；`tests/business/test_task_creation_authority.py`、`test_task_creation_scope_sql.py`、`test_task_creation_context.py` | I01成立；LOOKUP无锁/无正文、CASE同根/持锁、请求主体/资产/A与B摘要隔离、动态能力未知拒绝、上下文并发不串用；不配置默认提供方 |
+| I03 原子创建及精确重放 | `backend/business_app/task_creation_service.py`；已发布0016中的run_plan基础约束，后续增强另用0017及后续增量；`tests/business/test_task_creation_transaction.py`、`test_task_creation_concurrency.py`、`test_task_creation_recovery.py`；复用`task_creation.py`、`controls/receipts.py`、`controls/common.py`和既有事件Schema | I02成立；同连接/savepoint/根栅栏；完整写集合一次提交；每一写入和末检失败零半写；独立双连接竞争、当前head约束和响应丢失重放 |
 | I04 HTTP与启动注入 | `backend/business_app/task_creation_router.py`；现有`main.py`及按需`development.py`的显式可选依赖注入；`tests/business/test_task_creation_http.py`；现有`tests/business/t014_requests.py`、`t014_positive_fixtures.py`和路由覆盖断言按实际挂载精确更新 | I03成立；202为Accepted，不含upload_id/伪结果；无真实配置仍拒绝；默认路由保护、精确头/query/body、缓存/Problem/日志边界通过 |
 | I05 适用全回归与发布回执 | T034卡、`tasks/execution-status.json`、`tasks/README.md`、docs导航、开发清单/快计划及实际验证回执；新增`docs/04-database/task-creation-plan-bindings.md`逐字段说明本增量表、FK、字节摘要、RLS/ACL和固定函数；公共映射仅在真实字段映射发生变化时同步 | I01—I04的实际代码/输入/验证逐项成立；完整业务DB回归串行；原失败探针及安全扫描保留；精确提交CI与三端源码摘要核对；计划认可或本地测试不等于正式验收 |
 
@@ -247,6 +249,6 @@ I01重点逐项验证：同org复合FK、材料bytea摘要、不可变/历史不
 | E02 映射与三份材料 | 精确org/case、scene、有序modules、priority、policy身份/kind/version/hash、plan正文/版本/摘要、能力清单及真实发布/许可；未知不代填ID、ACTIVE或通配映射 |
 | E03 分类/来源/恢复/能力/派发 | 各事实的实际适配器与当前版本/撤销协议；普通handler动态状态关系尚未落实；未知逐项拒绝，不能以无模型声明省略handler或分类授权 |
 | E04 预算/期限 | control_ttl_seconds、Proof/采用期限、最大字节/节点/能力、数据库/运行资源上限及合法边界；尚未确认不填生产默认数值，测试值仅为显式自建夹具 |
-| 计划执行决定 | 是否按I01→I02→I03→I04→I05由当前会话逐批实施；本文件本身不代表认可执行。认可后仍按每批实际依赖/授权范围推进，不把缺失E01—E04当已经提供 |
+| 计划执行决定 | 用户已批准I01→I02→I03→I04→I05逐批实施，本批I01已隔离验证；后续仍核对各批实际依赖，E01—E04未提供不得猜填 |
 
 本轮不需要密码、Token、私钥或真实案件数据，不要求管理员执行安装/数据库命令。计划认可后可以先实施隔离基础和拒绝验证；真实有效202、共享映射采用与完整T034验收须等实际输入齐备再分别验证。

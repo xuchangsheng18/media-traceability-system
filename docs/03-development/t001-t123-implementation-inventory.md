@@ -4,11 +4,11 @@
 
 任务台账日期：2026-10-22。本清单只读取代码、契约、迁移及现存台账，不连接数据库、不执行迁移、不导入业务代码。
 
-全部170任务：151条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：151条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
+全部170任务：152条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：152条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
 
-T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、31个不同SQL函数名称。
+T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现70张表定义、33个不同SQL函数名称。
 
-后端Python静态索引包含471个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
+后端Python静态索引包含494个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
 
 已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。
 
@@ -53,7 +53,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T031 设计分析任务与节点执行模型](#t031) | 部分已验证 | 2/3 | 未声明直接落库 | 0/0 |
 | [T032 实现任务及节点数据库模型](#t032) | 部分已验证 | 2/3 | analysis_task、task_node_run、task_event | 0/0 |
 | [T033 实现任务状态机](#t033) | 部分已验证 | 2/3 | 未声明直接落库 | 0/0 |
-| [T034 实现任务创建接口](#t034) | 部分已验证 | 1/4 | analysis_task、idempotency_record、outbox_event | 0/1 |
+| [T034 实现任务创建接口](#t034) | 部分已验证 | 2/4 | analysis_task、idempotency_record、outbox_event | 0/1 |
 | [T035 实现任务查询和进度接口](#t035) | 部分已验证 | 2/3 | analysis_task、task_node_run | 2/2 |
 | [T036 实现异步队列与优先级](#t036) | 部分已验证 | 1/3 | 未声明直接落库 | 0/0 |
 | [T037 实现DAG任务编排器](#t037) | 尚无充分已验证交付 | 0/4 | report | 0/0 |
@@ -1177,9 +1177,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T033,T015；执行依赖候选：T033、T015；依赖是否具备仍需实际核验。
 
-当前已验证范围：不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。
+当前已验证范围：不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。
 
-未完成事项：用户已认可D01同库采用/受限SQL/原子事务设计与D02能力清单语义，D03实施计划已准备待审；E01—E04实际采用权威、精确映射/计划/能力、身份来源恢复事实及预算仍未确认。需计划审阅和对应输入满足后分批实施；本轮仅登记决定和计划，未写T034创建代码或SQL，createTask仍未挂载，不增加完成数。；64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。
+未完成事项：I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。；I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。
 
 表与创建源码：
 
@@ -3600,6 +3600,12 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | `mt.first_source_candidate` | [backend/business_migrations/0001_business_baseline.sql:1455](<../../backend/business_migrations/0001_business_baseline.sql#L1455>) |
 | `mt.user_identities` | [backend/business_migrations/0004_identity_relations.sql:25](<../../backend/business_migrations/0004_identity_relations.sql#L25>) |
 | `mt.authorization_epoch` | [backend/business_migrations/0008_authorization_fence.sql:2](<../../backend/business_migrations/0008_authorization_fence.sql#L2>) |
+| `mt.task_policy_artifact` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:36](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L36>) |
+| `mt.task_plan_artifact` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:54](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L54>) |
+| `mt.task_capability_manifest` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:70](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L70>) |
+| `mt.task_plan_mapping_revision` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:86](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L86>) |
+| `mt.task_plan_mapping_head` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:133](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L133>) |
+| `mt.task_run_plan` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:153](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L153>) |
 
 ## SQL函数与版本定义
 
@@ -3638,6 +3644,8 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | `mt.scope_lookup_kind_allowed` | [backend/business_migrations/0010_data_scope.sql:104](<../../backend/business_migrations/0010_data_scope.sql#L104>)、[backend/business_migrations/0011_operation_token.sql:16](<../../backend/business_migrations/0011_operation_token.sql#L16>)、[backend/business_migrations/0012_catalog_reads.sql:17](<../../backend/business_migrations/0012_catalog_reads.sql#L17>)、[backend/business_migrations/0013_report_reads.sql:17](<../../backend/business_migrations/0013_report_reads.sql#L17>)、[backend/business_migrations/0014_resource_registry.sql:17](<../../backend/business_migrations/0014_resource_registry.sql#L17>) |
 | `mt.lookup_scope_metadata` | [backend/business_migrations/0010_data_scope.sql:127](<../../backend/business_migrations/0010_data_scope.sql#L127>)、[backend/business_migrations/0013_report_reads.sql:39](<../../backend/business_migrations/0013_report_reads.sql#L39>)、[backend/business_migrations/0014_resource_registry.sql:41](<../../backend/business_migrations/0014_resource_registry.sql#L41>) |
 | `mt.model_evaluation_artifact_metadata` | [backend/business_migrations/0014_resource_registry.sql:173](<../../backend/business_migrations/0014_resource_registry.sql#L173>) |
+| `mt.task_plan_modules_valid` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:26](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L26>) |
+| `mt.preserve_task_plan_head` | [backend/business_migrations/0016_task_creation_plan_bindings.sql:210](<../../backend/business_migrations/0016_task_creation_plan_bindings.sql#L210>) |
 
 ## 适用边界与后续实际工作
 

@@ -75,15 +75,15 @@ def test_upgrade_from_0009_and_partial_failure_are_atomic(fresh_scope_database, 
         assert admin.execute(
             "SELECT count(*) FROM pg_policies WHERE schemaname='mt' AND policyname='request_data_scope'"
         ).fetchone() == (0,)
-    assert apply_migrations(dsn, MIGRATIONS) == ["0010", "0011", "0012", "0013", "0014", "0015"]
+    assert apply_migrations(dsn, MIGRATIONS) == ["0010", "0011", "0012", "0013", "0014", "0015", "0016"]
     assert apply_migrations(dsn, MIGRATIONS) == []
 
 
 @pytest.mark.parametrize("version", ["0001", "0009", "0010"])
 def test_reapply_checks_exact_old_and_new_migration_digests(fresh_scope_database, tmp_path, version):
     dsn = fresh_scope_database
-    assert apply_migrations(dsn, MIGRATIONS) == [f"{value:04d}" for value in range(1, 16)]
-    changed = copied_migrations(tmp_path / "changed", 15)
+    assert apply_migrations(dsn, MIGRATIONS) == [f"{value:04d}" for value in range(1, 17)]
+    changed = copied_migrations(tmp_path / "changed", 16)
     file = next(changed.glob(version + "_*.sql"))
     file.write_bytes(file.read_bytes() + b"\n-- intentional digest mismatch\n")
     with pytest.raises(RuntimeError, match="DIGEST"):
@@ -102,7 +102,7 @@ def table_scope_catalog(connection):
     actual = connection.execute(
         "SELECT c.relname,c.relrowsecurity,c.relforcerowsecurity FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='mt' AND c.relkind='r' ORDER BY c.relname"
     ).fetchall()
-    assert [row[0] for row in actual] == sorted(TABLE_SCOPES) and len(actual) == 64
+    assert [row[0] for row in actual] == sorted(TABLE_SCOPES) and len(actual) == 70
     for name, enabled, forced in actual:
         if TABLE_SCOPES[name].runtime_select:
             assert enabled, name
@@ -115,7 +115,7 @@ def table_scope_catalog(connection):
                 (name,),
             ).fetchone() == ("RESTRICTIVE",)
     assert connection.execute("SELECT count(*) FROM information_schema.columns WHERE table_schema='mt'").fetchone() == (
-        861,
+        967,
     )
     assert connection.execute(
         "SELECT EXISTS(SELECT 1 FROM pg_proc p,LATERAL aclexplode(p.proacl) a WHERE p.oid='mt.lookup_scope_metadata(text,uuid)'::regprocedure AND a.grantee=0 AND a.privilege_type='EXECUTE')"
