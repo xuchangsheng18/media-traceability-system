@@ -4,6 +4,7 @@ import {
   createReviewEvidenceReader,
   type ReviewEvidenceSelection,
 } from '../business/review-evidence'
+import { createReviewEvidenceAsset } from '../business/review-evidence-asset'
 import { useBusinessSession } from '../business/session'
 
 const props = defineProps<{ selection: ReviewEvidenceSelection }>()
@@ -12,7 +13,17 @@ const reader = createReviewEvidenceReader(session, () => props.selection)
 const selected = computed(reader.selected)
 const items = computed(reader.visibleItems)
 const missing = computed(reader.missingIds)
-onBeforeUnmount(reader.dispose)
+const original = createReviewEvidenceAsset(session, () => ({
+  selection: props.selection,
+  evidence: reader.selected(),
+  loaded: reader.state.loaded,
+  busy: reader.state.busy,
+  page: reader.state.data,
+}))
+onBeforeUnmount(() => {
+  original.dispose()
+  reader.dispose()
+})
 </script>
 
 <template>
@@ -151,5 +162,74 @@ onBeforeUnmount(reader.dispose)
       <dt>创建时间</dt>
       <dd>{{ selected.created_at }}</dd>
     </dl>
+    <section aria-label="证据关联原件">
+      <h4>证据关联原件</h4>
+      <p
+        class="panel-copy"
+        data-testid="review-evidence-asset-scope"
+      >
+        仅对所选原始类型证据显式读取资产详情；当前有效原始资产的案件、编号和固定对象版本、摘要均恰好匹配时才允许下载。
+        缺少引用或版本不一致时不回退当前其他原件。本区域不提供媒体播放或派生证据内容，也不证明证据法律效力。
+      </p>
+      <button
+        data-testid="review-evidence-asset-read"
+        :disabled="!original.canLoad() || original.state.busy"
+        @click="original.load()"
+      >
+        读取证据关联原件
+      </button>
+      <button
+        class="secondary"
+        data-testid="review-evidence-asset-download"
+        :disabled="!original.canDownload()"
+        @click="original.download()"
+      >
+        下载证据固定原件
+      </button>
+      <p
+        class="notice"
+        role="status"
+        data-testid="review-evidence-asset-status"
+      >
+        {{
+          original.state.busy
+            ? '正在读取并核对所选原始证据的资产详情…'
+            : original.state.error ||
+              (original.state.loaded
+                ? '已核对当前有效原件与所选证据的固定引用；下载仍须服务端逐次授权。'
+                : '尚未核对原件；请先定位原始类型证据，并具备复核、证据和资产读取权限。')
+        }}
+      </p>
+      <p
+        class="notice"
+        role="status"
+        data-testid="review-evidence-download-status"
+      >
+        {{
+          original.downloadState.busy
+            ? '正在下载并核验原件字节…'
+            : original.downloadState.error ||
+              original.downloadState.message ||
+              '下载另需资产下载权限；本页不以对象引用直接构造存储地址。'
+        }}
+      </p>
+      <dl
+        v-if="original.state.asset"
+        data-testid="review-evidence-asset-data"
+      >
+        <dt>已绑定资产编号</dt>
+        <dd>{{ original.state.asset.asset_id }}</dd>
+        <dt>已绑定对象编号</dt>
+        <dd>{{ original.state.asset.object_ref.object_id }}</dd>
+        <dt>固定对象版本</dt>
+        <dd>{{ original.state.asset.object_ref.version_id }}</dd>
+        <dt>原件SHA-256</dt>
+        <dd>{{ original.state.asset.object_ref.sha256 }}</dd>
+        <dt>媒体格式／大小</dt>
+        <dd>{{ original.state.asset.mime }}／{{ original.state.asset.size_bytes }} 字节</dd>
+        <dt>资产状态／记录版本</dt>
+        <dd>{{ original.state.asset.state }}／{{ original.state.asset.version }}</dd>
+      </dl>
+    </section>
   </section>
 </template>

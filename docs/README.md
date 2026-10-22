@@ -38,7 +38,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[771条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有149条已验证子步骤、622条剩余工作；全局编号0001—0771。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[772条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有150条已验证子步骤、622条剩余工作；全局编号0001—0772。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t103-evidence-original-access.md](<03-development/t103-evidence-original-access.md>) | T103原始证据限定关联原件、严格case/asset/ref/摘要与有效状态核对、独立权限和大小/SHA/ETag验证后下载；不播放、不派生、不推断证据效力或正式授权。 |
+| [00-project/validation/t103-evidence-original-report.json](<00-project/validation/t103-evidence-original-report.json>) | T103五文件精确源码、前端质量与两模式传输浏览器、20项依赖摘要、限定复核及原锁双端npm诊断、CI/三端源码回执；不等于正式工作流或整卡验收。 |
 | [03-development/t103-review-submission.md](<03-development/t103-review-submission.md>) | T103复核表单、原样服务端ETag/幂等键及未确认原请求重试、会话内草稿与清理；正式规则/职责、持久化、任务状态转换及真实工作流仍待。 |
 | [00-project/validation/t103-review-submit-report.json](<00-project/validation/t103-review-submit-report.json>) | T103八文件源码、前端单元/类型/格式/构建及两模式传输浏览器、限定复核、依赖与精确CI/三端源码回执；不等于正式复核可用或整卡验收。 |
 | [03-development/evidence-snapshot-pagination.md](<03-development/evidence-snapshot-pagination.md>) | T101/T103既有固定证据投影的显式分页、游标绑定及每页当前授权；省略参数保留旧响应，上游未取齐拒绝503，页面缺引用只作当前页未定位。 |
@@ -708,7 +710,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1315份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1317份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -799,7 +801,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内771条执行事项逐条编号：149条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内772条执行事项逐条编号：150条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -1442,6 +1444,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/t101-role-assignment.json](<00-project/validation/t101-role-assignment.json>) | 用户确认T101开发负责人和指定复核人均为徐昌胜；仅责任登记，不证明本人复核、工时、独立双人验收或系统授权。 |
+| [00-project/validation/t103-evidence-original-report.json](<00-project/validation/t103-evidence-original-report.json>) | T103五文件精确源码、前端质量与两模式传输浏览器、20项依赖摘要、限定复核及原锁双端npm诊断、CI/三端源码回执；不等于正式工作流或整卡验收。 |
 | [00-project/validation/t103-evidence-read-report.json](<00-project/validation/t103-evidence-read-report.json>) | T103证据定位历史批次的五文件源码、结构/绑定/生命周期及限定测试、复核和源码回执；当批未实现分页，后续分页见新回执，媒体内容与完整复核仍待。 |
 | [00-project/validation/t103-review-read-report.json](<00-project/validation/t103-review-read-report.json>) | T103五文件源码、单元/类型/格式/构建及开发和生产浏览器限定证据、独立复核和精确CI/三端同步；不等于正式复核验收。 |
 | [00-project/validation/t103-review-submit-report.json](<00-project/validation/t103-review-submit-report.json>) | T103八文件源码、前端单元/类型/格式/构建及两模式传输浏览器、限定复核、依赖与精确CI/三端源码回执；不等于正式复核可用或整卡验收。 |
@@ -1847,6 +1850,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t034-creation-integration-design.md](<03-development/t034-creation-integration-design.md>) | T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
 | [03-development/t103-evidence-location.md](<03-development/t103-evidence-location.md>) | T103当前/历史复核的精确证据元数据读取与编号定位；三响应头/案件版本绑定、归一化区域和毫秒区间、缺引用及不完整返回，不下载媒体或执行审批。 |
+| [03-development/t103-evidence-original-access.md](<03-development/t103-evidence-original-access.md>) | T103原始证据限定关联原件、严格case/asset/ref/摘要与有效状态核对、独立权限和大小/SHA/ETag验证后下载；不播放、不派生、不推断证据效力或正式授权。 |
 | [03-development/t103-review-read-console.md](<03-development/t103-review-read-console.md>) | T103既有接口的待复核任务选择、当前上下文与历史分页只读页面；任务/案件/本地身份变化清理、完整响应绑定及未验工作流边界。 |
 | [03-development/t103-review-submission.md](<03-development/t103-review-submission.md>) | T103复核表单、原样服务端ETag/幂等键及未确认原请求重试、会话内草稿与清理；正式规则/职责、持久化、任务状态转换及真实工作流仍待。 |
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |

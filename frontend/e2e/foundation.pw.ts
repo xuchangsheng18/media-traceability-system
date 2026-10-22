@@ -1482,6 +1482,525 @@ function reviewEvidence(run = 7, result = 3, id = reviewEvidenceId): Schemas['Ev
 function reviewEvidenceHeaders(run = 7, result = 3) {
   return { 'X-Task-Id': taskId, 'X-Run-Version': String(run), 'X-Result-Version': String(result) }
 }
+// Self-owned bytes and original-evidence records exercise the download boundary only. They
+// are not real case material, real source authorization, playback, or approval acceptance.
+function evidenceOriginalFixture() {
+  const body = Buffer.from('self-owned original evidence download bytes')
+  const asset = catalogAsset()
+  asset.size_bytes = body.length
+  asset.object_ref.sha256 = createHash('sha256').update(body).digest('hex')
+  const evidence: Schemas['Evidence'] = {
+    ...reviewEvidence(),
+    kind: 'original',
+    object_ref: { ...asset.object_ref },
+    sha256: asset.object_ref.sha256,
+    time_range: null,
+    bbox: null,
+  }
+  const etag =
+    '"' +
+    createHash('sha256')
+      .update(
+        JSON.stringify([
+          asset.object_ref.object_id,
+          asset.object_ref.version_id,
+          asset.object_ref.sha256,
+        ]),
+      )
+      .digest('hex') +
+    '"'
+  return { body, asset, evidence, etag }
+}
+async function openEvidenceOriginal(
+  page: Page,
+  options: { evidence?: Schemas['Evidence']; permissions?: string[]; extraEvidence?: boolean } = {},
+) {
+  const fixture = evidenceOriginalFixture()
+  const item = options.evidence ?? fixture.evidence
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) => {
+    const next = new URL(route.request().url()).searchParams.has('cursor')
+    return route.fulfill({
+      json: {
+        items: next
+          ? []
+          : options.extraEvidence
+            ? [item, { ...item, evidence_id: unrelatedEvidenceId }]
+            : [item],
+        next_cursor: next ? null : 'owned-original-evidence-next',
+      },
+      headers: reviewEvidenceHeaders(),
+    })
+  })
+  await prepareReviewEvidence(
+    page,
+    options.permissions ?? ['review.read', 'evidence.read', 'asset.read', 'asset.download'],
+  )
+  await chooseReviewEvidence(page)
+  const panel = page.getByRole('region', { name: '证据关联原件', exact: true })
+  await expect(panel.getByRole('button', { name: '读取证据关联原件', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+  await page.getByRole('button', { name: `定位证据 ${item.evidence_id}`, exact: true }).click()
+  return { ...fixture, panel }
+}
+async function readEvidenceOriginal(page: Page) {
+  await page.getByRole('button', { name: '读取证据关联原件', exact: true }).click()
+  await expect(page.getByTestId('review-evidence-asset-data')).toBeVisible()
+}
+
+test('evidence original access explicitly binds metadata and verifies bytes before browser saving', async ({
+  page,
+}) => {
+  const fixture = evidenceOriginalFixture()
+  const requests: string[] = []
+  await page.route(`**/business/api/v1/assets/${assetId}`, (route) => {
+    expect(route.request().method()).toBe('GET')
+    expect(route.request().postData()).toBeNull()
+    requests.push('detail')
+    return route.fulfill({ json: fixture.asset })
+  })
+  await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) => {
+    expect(route.request().method()).toBe('GET')
+    expect(route.request().postData()).toBeNull()
+    expect(route.request().headers().authorization).toBe('Bearer self-owned-business-browser-token')
+    expect(route.request().headers()['if-match']).toBeUndefined()
+    requests.push('content')
+    return route.fulfill({
+      body: fixture.body,
+      contentType: 'application/octet-stream',
+      headers: { ETag: fixture.etag },
+    })
+  })
+  const { panel } = await openEvidenceOriginal(page)
+  expect(requests).toEqual([])
+  await expect(panel.getByRole('button', { name: '下载证据固定原件', exact: true })).toBeDisabled()
+  await readEvidenceOriginal(page)
+  expect(requests).toEqual(['detail'])
+  await expect(panel.getByTestId('review-evidence-asset-data')).toContainText(assetId)
+  await expect(panel.getByTestId('review-evidence-asset-data')).toContainText(
+    fixture.asset.object_ref.sha256,
+  )
+  await expect(panel.locator('img,video,audio,iframe,script,a[href]')).toHaveCount(0)
+  const saving = page.waitForEvent('download')
+  await panel.getByRole('button', { name: '下载证据固定原件', exact: true }).click()
+  const saved = await saving
+  expect(saved.suggestedFilename()).toBe(`asset-${assetId}.bin`)
+  const stream = await saved.createReadStream()
+  if (!stream) throw new Error('OWNED_EVIDENCE_DOWNLOAD_STREAM_MISSING')
+  const chunks: Buffer[] = []
+  for await (const chunk of stream) chunks.push(Buffer.from(chunk))
+  expect(Buffer.concat(chunks)).toEqual(fixture.body)
+  await expect(panel.getByTestId('review-evidence-download-status')).toContainText(
+    '已核验大小、SHA-256和固定对象版本',
+  )
+  expect(requests).toEqual(['detail', 'content'])
+})
+
+for (const mode of ['derived', 'null-reference', 'sha-mismatch'] as const)
+  test(`evidence original access refuses ${mode} evidence without asset or content requests`, async ({
+    page,
+  }) => {
+    const fixture = evidenceOriginalFixture()
+    const evidence =
+      mode === 'derived'
+        ? { ...fixture.evidence, kind: 'frame' as const }
+        : mode === 'null-reference'
+          ? { ...fixture.evidence, object_ref: null }
+          : { ...fixture.evidence, sha256: '0'.repeat(64) }
+    let requests = 0
+    await page.route('**/business/api/v1/assets/**', (route) => {
+      requests++
+      return route.fulfill({ status: 503, json: { code: 'UNEXPECTED_OWNED_EVIDENCE_ASSET_READ' } })
+    })
+    const { panel } = await openEvidenceOriginal(page, { evidence })
+    await expect(
+      panel.getByRole('button', { name: '读取证据关联原件', exact: true }),
+    ).toBeDisabled()
+    await expect(
+      panel.getByRole('button', { name: '下载证据固定原件', exact: true }),
+    ).toBeDisabled()
+    await expect(panel.getByTestId('review-evidence-asset-data')).toHaveCount(0)
+    expect(requests).toBe(0)
+  })
+
+for (const mode of [
+  'asset_id',
+  'case_id',
+  'kind',
+  'state',
+  'object_ref',
+  'sha256',
+  'fields',
+] as const)
+  test(`evidence original access rejects a mismatched asset ${mode} without fetching content`, async ({
+    page,
+  }) => {
+    const fixture = evidenceOriginalFixture()
+    const asset =
+      mode === 'asset_id'
+        ? { ...fixture.asset, asset_id: otherAssetId }
+        : mode === 'case_id'
+          ? { ...fixture.asset, case_id: otherCaseId }
+          : mode === 'kind'
+            ? { ...fixture.asset, kind: 'frame' }
+            : mode === 'state'
+              ? { ...fixture.asset, state: 'QUARANTINED' }
+              : mode === 'object_ref'
+                ? {
+                    ...fixture.asset,
+                    object_ref: { ...fixture.asset.object_ref, version_id: 'owned-wrong-version' },
+                  }
+                : mode === 'sha256'
+                  ? {
+                      ...fixture.asset,
+                      object_ref: { ...fixture.asset.object_ref, sha256: '0'.repeat(64) },
+                    }
+                  : { ...fixture.asset, unconfirmed_field: 'owned-extra-field' }
+    let reads = 0
+    let content = 0
+    await page.route(`**/business/api/v1/assets/${assetId}`, (route) => {
+      reads++
+      return route.fulfill({ json: asset })
+    })
+    await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) => {
+      content++
+      return route.fulfill({ body: fixture.body, headers: { ETag: fixture.etag } })
+    })
+    const { panel } = await openEvidenceOriginal(page)
+    await trackReviewAction(page, '读取证据关联原件', 'invalid-evidence-asset')
+    await panel.getByRole('button', { name: '读取证据关联原件', exact: true }).click()
+    await finishReviewAction(page, 'invalid-evidence-asset')
+    await expect(panel.getByTestId('review-evidence-asset-data')).toHaveCount(0)
+    await expect(
+      panel.getByRole('button', { name: '下载证据固定原件', exact: true }),
+    ).toBeDisabled()
+    await expect(panel.getByTestId('review-evidence-asset-status')).toContainText(
+      /不匹配|无效|核验|拒绝/,
+    )
+    expect(reads).toBe(1)
+    expect(content).toBe(0)
+  })
+
+for (const missing of ['asset.read', 'asset.download'] as const)
+  test(`evidence original access requires independent ${missing} permission`, async ({ page }) => {
+    const fixture = evidenceOriginalFixture()
+    const requests: string[] = []
+    await page.route(`**/business/api/v1/assets/${assetId}`, (route) => {
+      requests.push('detail')
+      return route.fulfill({ json: fixture.asset })
+    })
+    await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) => {
+      requests.push('content')
+      return route.fulfill({ body: fixture.body, headers: { ETag: fixture.etag } })
+    })
+    const { panel } = await openEvidenceOriginal(page, {
+      permissions: [
+        'review.read',
+        'evidence.read',
+        missing === 'asset.read' ? 'asset.download' : 'asset.read',
+      ],
+    })
+    if (missing === 'asset.read') {
+      await expect(
+        panel.getByRole('button', { name: '读取证据关联原件', exact: true }),
+      ).toBeDisabled()
+      expect(requests).toEqual([])
+    } else {
+      await readEvidenceOriginal(page)
+      expect(requests).toEqual(['detail'])
+    }
+    await expect(
+      panel.getByRole('button', { name: '下载证据固定原件', exact: true }),
+    ).toBeDisabled()
+  })
+
+for (const stage of ['detail', 'content'] as const)
+  for (const status of [403, 503])
+    test(`evidence original access preserves ${stage} HTTP ${status} refusal without saving`, async ({
+      page,
+    }) => {
+      const fixture = evidenceOriginalFixture()
+      const saved: string[] = []
+      page.on('download', (download) => saved.push(download.suggestedFilename()))
+      await page.route(`**/business/api/v1/assets/${assetId}`, (route) =>
+        stage === 'detail'
+          ? route.fulfill({ status, json: { code: 'OWNED_EVIDENCE_ASSET_REFUSED' } })
+          : route.fulfill({ json: fixture.asset }),
+      )
+      let content = 0
+      await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) => {
+        content++
+        return route.fulfill({ status, json: { code: 'OWNED_EVIDENCE_CONTENT_REFUSED' } })
+      })
+      const { panel } = await openEvidenceOriginal(page)
+      await panel.getByRole('button', { name: '读取证据关联原件', exact: true }).click()
+      if (stage === 'content') {
+        await expect(panel.getByTestId('review-evidence-asset-data')).toBeVisible()
+        await panel.getByRole('button', { name: '下载证据固定原件', exact: true }).click()
+      }
+      await expect(
+        panel.getByTestId(
+          stage === 'detail' ? 'review-evidence-asset-status' : 'review-evidence-download-status',
+        ),
+      ).toContainText(
+        stage === 'detail' ? 'OWNED_EVIDENCE_ASSET_REFUSED' : 'OWNED_EVIDENCE_CONTENT_REFUSED',
+      )
+      expect(content).toBe(stage === 'content' ? 1 : 0)
+      expect(saved).toEqual([])
+    })
+
+for (const mode of ['size', 'sha256', 'etag'] as const)
+  test(`evidence original access refuses content ${mode} mismatch before saving`, async ({
+    page,
+  }) => {
+    const fixture = evidenceOriginalFixture()
+    const saved: string[] = []
+    page.on('download', (download) => saved.push(download.suggestedFilename()))
+    await page.route(`**/business/api/v1/assets/${assetId}`, (route) =>
+      route.fulfill({ json: fixture.asset }),
+    )
+    await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) =>
+      route.fulfill({
+        body:
+          mode === 'size'
+            ? fixture.body.subarray(1)
+            : mode === 'sha256'
+              ? Buffer.alloc(fixture.body.length)
+              : fixture.body,
+        contentType: 'application/octet-stream',
+        headers: { ETag: mode === 'etag' ? '"owned-wrong-fixed-version"' : fixture.etag },
+      }),
+    )
+    const { panel } = await openEvidenceOriginal(page)
+    await readEvidenceOriginal(page)
+    await trackReviewAction(page, '下载证据固定原件', 'invalid-original-bytes')
+    await panel.getByRole('button', { name: '下载证据固定原件', exact: true }).click()
+    await finishReviewAction(page, 'invalid-original-bytes')
+    await expect(panel.getByTestId('review-evidence-download-status')).toContainText('核验未通过')
+    await expect(panel.getByTestId('review-evidence-download-status')).not.toContainText(
+      '已核验大小',
+    )
+    expect(saved).toEqual([])
+  })
+
+for (const sample of [
+  { stage: 'detail', action: 'selection' },
+  { stage: 'detail', action: 'unmount' },
+  { stage: 'content', action: 'page' },
+  { stage: 'content', action: 'reload' },
+  { stage: 'content', action: 'identity' },
+] as const)
+  for (const outcome of ['success', 'error'] as const)
+    test(`evidence original access awaits late ${sample.stage} ${outcome} after ${sample.action}`, async ({
+      page,
+    }) => {
+      const fixture = evidenceOriginalFixture()
+      let release!: () => void
+      const gate = new Promise<void>((resolve) => {
+        release = resolve
+      })
+      let begin!: () => void
+      const began = new Promise<void>((resolve) => {
+        begin = resolve
+      })
+      const saved: string[] = []
+      page.on('download', (download) => saved.push(download.suggestedFilename()))
+      const detailReply = { json: fixture.asset }
+      const contentReply = {
+        body: fixture.body,
+        contentType: 'application/octet-stream',
+        headers: { ETag: fixture.etag },
+      }
+      await page.route(`**/business/api/v1/assets/${assetId}`, async (route) => {
+        if (sample.stage === 'detail') {
+          begin()
+          await gate
+          return route.fulfill(
+            outcome === 'success'
+              ? detailReply
+              : { status: 503, json: { code: 'OWNED_LATE_EVIDENCE_ASSET_FAILURE' } },
+          )
+        }
+        return route.fulfill(detailReply)
+      })
+      await page.route(`**/business/api/v1/assets/${assetId}/content`, async (route) => {
+        begin()
+        await gate
+        return route.fulfill(
+          outcome === 'success'
+            ? contentReply
+            : { status: 503, json: { code: 'OWNED_LATE_EVIDENCE_ASSET_FAILURE' } },
+        )
+      })
+      const { panel } = await openEvidenceOriginal(page, { extraEvidence: true })
+      if (sample.stage === 'content') await readEvidenceOriginal(page)
+      const label = sample.stage === 'detail' ? '读取证据关联原件' : '下载证据固定原件'
+      await trackReviewAction(page, label, 'late-original-access')
+      await panel.getByRole('button', { name: label, exact: true }).click()
+      await began
+      try {
+        if (sample.action === 'selection')
+          await page
+            .getByRole('button', { name: `定位证据 ${unrelatedEvidenceId}`, exact: true })
+            .click()
+        else if (sample.action === 'page')
+          await page.getByRole('button', { name: '下一页证据', exact: true }).click()
+        else if (sample.action === 'reload')
+          await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+        else if (sample.action === 'identity') await changeAssetContext(page, 'roles')
+        else await page.getByRole('link', { name: '任务与结果', exact: true }).click()
+        await expect(page.getByTestId('review-evidence-asset-data')).toHaveCount(0)
+      } finally {
+        release()
+      }
+      await finishReviewAction(page, 'late-original-access')
+      await expect(page.getByTestId('review-evidence-asset-data')).toHaveCount(0)
+      await expect(
+        page.getByText('OWNED_LATE_EVIDENCE_ASSET_FAILURE', { exact: false }),
+      ).toHaveCount(0)
+      await expect(
+        page.getByText('已核验大小、SHA-256和固定对象版本', { exact: false }),
+      ).toHaveCount(0)
+      expect(saved).toEqual([])
+      if (sample.action === 'selection')
+        await expect(
+          panel.getByRole('button', { name: '下载证据固定原件', exact: true }),
+        ).toBeDisabled()
+    })
+
+for (const outcome of ['success', 'error'] as const)
+  test(`evidence original access refuses a late digest ${outcome} after same-generation identity change`, async ({
+    page,
+  }) => {
+    const fixture = evidenceOriginalFixture()
+    const saved: string[] = []
+    page.on('download', (download) => saved.push(download.suggestedFilename()))
+    await page.route(`**/business/api/v1/assets/${assetId}`, (route) =>
+      route.fulfill({ json: fixture.asset }),
+    )
+    await page.route(`**/business/api/v1/assets/${assetId}/content`, (route) =>
+      route.fulfill({
+        body: fixture.body,
+        contentType: 'application/octet-stream',
+        headers: { ETag: fixture.etag },
+      }),
+    )
+    const { panel } = await openEvidenceOriginal(page)
+    await readEvidenceOriginal(page)
+    await page.evaluate((fail) => {
+      const original = crypto.subtle.digest.bind(crypto.subtle)
+      let release!: () => void
+      const gate = new Promise<void>((resolve) => {
+        release = resolve
+      })
+      const state = { started: 0, release }
+      ;(window as unknown as { __ownedEvidenceDigest: typeof state }).__ownedEvidenceDigest = state
+      crypto.subtle.digest = async (...args: Parameters<SubtleCrypto['digest']>) => {
+        state.started++
+        await gate
+        if (fail) throw new Error('OWNED_LATE_EVIDENCE_DIGEST_FAILURE')
+        return original(...args)
+      }
+    }, outcome === 'error')
+    await trackReviewAction(page, '下载证据固定原件', 'late-original-digest')
+    await panel.getByRole('button', { name: '下载证据固定原件', exact: true }).click()
+    await page.waitForFunction(
+      () =>
+        (window as unknown as { __ownedEvidenceDigest: { started: number } }).__ownedEvidenceDigest
+          .started === 2,
+    )
+    await changeAssetContext(page, 'roles')
+    await expect(panel).toHaveCount(0)
+    await page.evaluate(() =>
+      (
+        window as unknown as { __ownedEvidenceDigest: { release: () => void } }
+      ).__ownedEvidenceDigest.release(),
+    )
+    await finishReviewAction(page, 'late-original-digest')
+    await expect(page.getByTestId('review-evidence-asset-data')).toHaveCount(0)
+    await expect(
+      page.getByText('OWNED_LATE_EVIDENCE_DIGEST_FAILURE', { exact: false }),
+    ).toHaveCount(0)
+    expect(saved).toEqual([])
+  })
+
+test('evidence original access clears matched detail on every same-generation identity or case scope change', async ({
+  page,
+}) => {
+  const fixture = evidenceOriginalFixture()
+  let reads = 0
+  await page.route(`**/business/api/v1/assets/${assetId}`, (route) => {
+    reads++
+    return route.fulfill({ json: fixture.asset })
+  })
+  for (const field of [
+    'roles',
+    'permissions',
+    'case_ids',
+    'user_id',
+    'org_id',
+    'user-null',
+  ] as const) {
+    const { panel } = await openEvidenceOriginal(page)
+    await readEvidenceOriginal(page)
+    await changeAssetContext(page, field)
+    await expect(panel).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-asset-data')).toHaveCount(0)
+  }
+  expect(reads).toBe(6)
+})
+
+test('evidence original access guards duplicate detail and content clicks while awaiting requests', async ({
+  page,
+}) => {
+  const fixture = evidenceOriginalFixture()
+  const { panel } = await openEvidenceOriginal(page)
+  for (const stage of ['detail', 'content'] as const) {
+    let release!: () => void
+    const gate = new Promise<void>((resolve) => {
+      release = resolve
+    })
+    let begin!: () => void
+    const began = new Promise<void>((resolve) => {
+      begin = resolve
+    })
+    let requests = 0
+    await page.route(
+      `**/business/api/v1/assets/${assetId}${stage === 'content' ? '/content' : ''}`,
+      async (route) => {
+        requests++
+        begin()
+        await gate
+        return route.fulfill(
+          stage === 'detail'
+            ? { json: fixture.asset }
+            : {
+                body: fixture.body,
+                contentType: 'application/octet-stream',
+                headers: { ETag: fixture.etag },
+              },
+        )
+      },
+    )
+    const label = stage === 'detail' ? '读取证据关联原件' : '下载证据固定原件'
+    await trackReviewAction(page, label, `duplicate-original-${stage}`)
+    const saving = stage === 'content' ? page.waitForEvent('download') : null
+    await panel.getByRole('button', { name: label, exact: true }).click()
+    await began
+    try {
+      await expect(panel.getByRole('button', { name: label, exact: true })).toBeDisabled()
+      await panel
+        .getByRole('button', { name: label, exact: true })
+        .evaluate((element) => element.dispatchEvent(new MouseEvent('click', { bubbles: true })))
+      expect(requests).toBe(1)
+    } finally {
+      release()
+    }
+    await finishReviewAction(page, `duplicate-original-${stage}`)
+    if (saving) expect((await saving).suggestedFilename()).toBe(`asset-${assetId}.bin`)
+    else await expect(panel.getByTestId('review-evidence-asset-data')).toBeVisible()
+    expect(requests).toBe(1)
+  }
+})
 async function prepareReviewEvidence(page: Page, permissions = ['review.read', 'evidence.read']) {
   await page.route('**/business/api/v1/analysis/tasks/*/review-context', (route) =>
     route.fulfill({ json: reviewContext() }),

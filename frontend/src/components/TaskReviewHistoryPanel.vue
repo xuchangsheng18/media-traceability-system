@@ -226,7 +226,7 @@ async function history(next = false) {
     </article>
     <p class="panel-copy">
       记录决定是历史事实；不表示当前批准有效、证据已核验或可以执行后续动作。
-      证据读取另需evidence.read权限；证据面板只读取受控元数据，不下载媒体或提交审批。
+      证据读取另需evidence.read权限；固定原件匹配后可另行受控下载，下载权限与复核、批准权限分别核验。
     </p>
     <ReviewEvidencePanel
       v-if="evidenceSelection"
