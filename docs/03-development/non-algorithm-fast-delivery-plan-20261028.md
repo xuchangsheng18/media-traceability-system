@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+2026-10-23续批：[E04独立研发配置](t034-development-configuration.md)、[精确回执](../00-project/validation/t034-development-configuration-report.json)。2026-10-23已实现E04独立严格研发配置解析/冻结/摘要及Linux私有读取；最终726项纯组合、原失败探针及Ruff/格式/283文件类型检查通过。只验证配置组件，未接BusinessSettings/HTTP/SQL/当前事实或共享配置，聚合预算、运行总时限/取消/配额尚未实施；未新增完成步骤，候选C05不计，真实采用/Proof/handler许可/分类/独立恢复及I03—I05和202仍未完成。 保持154条已证、434组范围内剩余、全170项622组剩余和0整卡验收。
+
 2026-10-23续批：[两处迁移CI回归修复](migration-ci-regression-repair.md)、[精确限定回执](../00-project/validation/migration-ci-regression-repair-report.json)。2026-10-23两处CI迁移回归失败已用原源码实际复现并修复：非超级schema owner按既有0017安装前提接受管理员临时SET-only授权且finally撤回；旧令牌升级预期精确纳入0017。最终受影响SQL回归93项、T016专用完整门禁187项及两个原故意失败探针通过，Ruff/格式及281文件类型检查通过；范围重叠不相加。较早9项为格式冻结前源码，另列历史。本轮没有完整business/T014或新托管CI通过回执，不新增已完成子步骤，不登记整卡验收。 保持154条已证、434组范围内剩余、全170项622组剩余和0整卡验收；T034四已证/四组剩余。算法/Python候选暂缓。
 
 2026-10-23续批：[完整回归超时诊断](ci-safe-failure-diagnostics.md)、[限定验证回执](../00-project/validation/business-timeout-diagnostics-report.json)。原1800秒与CI/扫描门禁保留；59项诊断/旧相邻回归、失败探针及281文件类型/质量通过。完整业务回归在较早诊断快照运行，最终完整结果未确认；不新增C05或已完成子步骤，保持154条已证、T034四已证/四组剩余，算法/Python候选暂缓。

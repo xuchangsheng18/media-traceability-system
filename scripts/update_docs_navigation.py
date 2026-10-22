@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t034-development-configuration.md": "T034 E04显式研发配置、严格24数值及冻结profile摘要、Linux私有文件/链接/读中变更拒绝；仅独立组件，运行预算/authority/创建事务及HTTP仍未接线。",
+        "00-project/validation/t034-development-configuration-report.json": "E04两文件精确源码、缺组件RED、最终726纯组合/原失败探针和283文件质量、新鲜源码复核及实际CI/三端回执；0新增C，不代替完整业务/权限/整卡验收。",
         "03-development/migration-ci-regression-repair.md": "两处既有0017迁移测试适配修复、非超级owner管理员临时SET-only授权与撤回；93项受影响SQL和187项T016限定通过，完整business/T014及新CI分别记录，完成数不增加。",
         "00-project/validation/migration-ci-regression-repair-report.json": "精确两测试源码、原失败实际复现、93SQL/187T016与失败探针、281文件类型及6项撤销隔离观察；不推定原超时根因、完整门禁或整卡验收，CI/三端同步据实。",
         "00-project/validation/business-timeout-diagnostics-report.json": "完整业务回归超时诊断的精确源码、实际RED及59项诊断/旧相邻测试、失败探针和281文件质量；完整回归未据此通过，原1800秒及CI门禁保留，新增完成数为0。",
