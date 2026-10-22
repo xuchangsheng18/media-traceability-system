@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t013-readiness-safe-diagnostics.md](<03-development/t013-readiness-safe-diagnostics.md>) | T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。 |
+| [00-project/validation/t013-readiness-safe-diagnostics-report.json](<00-project/validation/t013-readiness-safe-diagnostics-report.json>) | T013诊断实际RED、最终回归/质量/资料检查、固定形状与源码复核、最新CI及三端回执；原170任务154C/622R，0新增完成，T013真实恢复仍待。 |
 | [03-development/t034-material-structure-receipt.md](<03-development/t034-material-structure-receipt.md>) | T034 E01版本化机器材料结构回执的显式生成/安全只读重验；绑定4材料原始/规范身份、节点、配置、完整loaded registry与固定源码观察，不是可信采用/身份/许可或执行证明。 |
 | [00-project/validation/t034-material-structure-receipt-report.json](<00-project/validation/t034-material-structure-receipt-report.json>) | 结构回执精确源码、缺接线及真实描述符关闭故障RED、最终限定回归/质量/资料检查、源码复核及实际CI/三端回执；0新增C、T034/I02与真实受理仍待。 |
 | [03-development/t034-configured-material-preparation.md](<03-development/t034-configured-material-preparation.md>) | T034 E04显式配置离线校验/准备、真实raw/规范正文/全部节点快照累计预算与handler白名单、配置摘要工件绑定；旧模式字节兼容，未采用或HTTP受理。 |
@@ -736,7 +738,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1343份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1345份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1397,6 +1399,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t013-named-admin-adoption-progress.json](<00-project/validation/t013-named-admin-adoption-progress.json>) | 批准四项身份配置采用后的实际观察及本人首次改密/OTP状态；签名管理会话由单独实际回执证明。 |
 | [00-project/validation/t013-owner-mfa-management-validation.json](<00-project/validation/t013-owner-mfa-management-validation.json>) | 本人真实密码/OTP与PKCE/nonce/签名管理校验、配置检查及临时令牌文件清理；不含网址/令牌，未关闭真实恢复与bootstrap退役。 |
 | [00-project/validation/t013-owner-mfa-negative-attestation.json](<00-project/validation/t013-owner-mfa-negative-attestation.json>) | 徐昌胜本人反馈仅密码不能进入控制台、单次错误OTP被拒绝；与自动正向回执分开，未独立关联负向事件，不含秘密。 |
+| [00-project/validation/t013-readiness-safe-diagnostics-report.json](<00-project/validation/t013-readiness-safe-diagnostics-report.json>) | T013诊断实际RED、最终回归/质量/资料检查、固定形状与源码复核、最新CI及三端回执；原170任务154C/622R，0新增完成，T013真实恢复仍待。 |
 | [00-project/validation/t013-recovery-ci-report.json](<00-project/validation/t013-recovery-ci-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-recovery-code-review.json](<00-project/validation/t013-recovery-code-review.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t013-recovery-report.json](<00-project/validation/t013-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1863,6 +1866,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t013-known-signer-copy-disposition.md](<03-development/t013-known-signer-copy-disposition.md>) | 两种旧导出的双E归档实际解密及本人授权四份精确文件逻辑退役；保留现用密钥/新备份，不证明安全擦除或第二介质。 |
 | [03-development/t013-named-admin-adoption-checklist.md](<03-development/t013-named-admin-adoption-checklist.md>) | 本人明确批准的四项精确采用范围、采用前历史预检、当前CA/账号/专用MFA配置和实际管理回执；bootstrap仍保留。 |
 | [03-development/t013-owner-action-checklist.md](<03-development/t013-owner-action-checklist.md>) | 徐昌胜本人A01—A10：公开核对、两子密钥解密/备份恢复、签名保护、MFA及共享恢复前置；明确现在可做和暂不能做。 |
+| [03-development/t013-readiness-safe-diagnostics.md](<03-development/t013-readiness-safe-diagnostics.md>) | T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。 |
 | [03-development/t013-recovery-validation.md](<03-development/t013-recovery-validation.md>) | 说明文档：T013：重启、历史凭据审查与恢复回切验证；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-rotation-fault-validation.md](<03-development/t013-rotation-fault-validation.md>) | 说明文档：T013：密钥轮换、故障拒绝与CI补齐；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-signer-protection-followup.md](<03-development/t013-signer-protection-followup.md>) | 早期密钥保护问题与后续处理入口；当前第二轮保护、实际签名/恢复及旧导出处置以新增精确实际回执为准。 |

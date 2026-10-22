@@ -1,5 +1,7 @@
 # T001—T123开发范围、依赖与分批顺序
 
+2026-10-23续批：[T013安全故障诊断](t013-readiness-safe-diagnostics.md)、[回执](../00-project/validation/t013-readiness-safe-diagnostics-report.json)。2026-10-23补齐重启/数据库依赖测试的安全固定诊断：实际缺诊断RED后，7条原断言仅加固定理由，既有45秒等待/180秒重启/raises/finally及门禁保留。限定回归91项、原失败探针及Ruff/格式/285文件类型通过。此前eb28失败断言仍未知，不以e0d6身份332项通过关闭；本批不执行本人接管或真实恢复，0新增C、T013仍13C/3R。
+
 2026-10-23续批：[E01机器材料结构回执](t034-material-structure-receipt.md)、[精确回执](../00-project/validation/t034-material-structure-receipt-report.json)。2026-10-23新增E01版本化机器材料结构回执：prepare-development显式opt-in实际写入并由verify-development-receipt安全只读重验；闭合Schema/严格规范字节、4份raw/规范材料身份、节点快照、配置及完整已加载Schema registry与固定源码观察绑定，不生成可信采用/身份/许可/ACTIVE或任务。最终779项纯组合、原失败探针及Ruff/格式/285文件类型符合预期；关闭故障的实际RED与修复单列。仅补已有C02离线工具子范围，0新增C、C05不计，I02/I03—I05及真实202仍未完成。 保持154条已证、434组范围内剩余、全170项622组剩余和0整卡验收。
 
 2026-10-23续批：[E04离线配置与材料预算](t034-configured-material-preparation.md)、[精确回执](../00-project/validation/t034-configured-material-preparation-report.json)。2026-10-23已将E04真实私有配置接入离线validate-development/prepare-development：冻结profile及配置摘要，实际累计四份raw正文、四份规范正文和全部节点快照，执行逐材料/节点/能力上限及handler白名单，超限在工件写入前拒绝；旧validate/prepare字节兼容。最终612项纯组合、原故意失败探针和Ruff/格式/283文件类型检查符合预期；初次类型推断错误如实保留并修复。仅完成已有C02离线工具/E04子范围，不新增完成步骤或候选C05，不代表ACTIVE、许可、创建事务、HTTP202或共享采用。 保持154条已证、434组范围内剩余、全170项622组剩余和0整卡验收。

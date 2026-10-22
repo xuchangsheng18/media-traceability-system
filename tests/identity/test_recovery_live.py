@@ -21,27 +21,29 @@ def test_restart_and_database_dependency_readiness(recovery_lab):
     token = lab.login()
     lab.assert_exact_business_mapping(token["access_token"])
     lab.restart()
-    assert lab.snapshot() == before
-    assert lab.introspect(token["access_token"])["active"] is True
+    assert lab.snapshot() == before, "RECOVERY_LAB_READINESS_RESTART_SNAPSHOT_CHANGED"
+    assert lab.introspect(token["access_token"])["active"] is True, "RECOVERY_LAB_READINESS_RESTART_SESSION_INACTIVE"
     try:
         lab.compose("stop", "identity-postgres")
         lab.wait_dependency_down()
-        assert lab.readiness()["status"] == "DOWN"
+        assert lab.readiness()["status"] == "DOWN", "RECOVERY_LAB_READINESS_DATABASE_STATE_NOT_DOWN"
         marker = "self-owned-fault-query-" + uuid4().hex
         lab.private_values.append(marker)
         with lab.http() as http:
             response = http.get(
                 lab.issuer + "/.well-known/openid-configuration", params={"code": marker, "token": marker}
             )
-        assert response.status_code >= 500 and marker not in response.text
+        assert response.status_code >= 500 and marker not in response.text, (
+            "RECOVERY_LAB_READINESS_DISCOVERY_FAILURE_BOUNDARY"
+        )
         with pytest.raises(BusinessError) as failure:
             lab.verify(token["access_token"])
-        assert failure.value.http_status == 503
+        assert failure.value.http_status == 503, "RECOVERY_LAB_READINESS_VERIFIER_STATUS_NOT_503"
     finally:
         lab.compose("start", "identity-postgres")
         lab.wait_ready()
-    assert lab.snapshot() == before
-    assert lab.verify(token["access_token"]).subject == lab.user_id
+    assert lab.snapshot() == before, "RECOVERY_LAB_READINESS_RECOVERED_SNAPSHOT_CHANGED"
+    assert lab.verify(token["access_token"]).subject == lab.user_id, "RECOVERY_LAB_READINESS_RECOVERED_SUBJECT_CHANGED"
     lab.assert_exact_business_mapping(token["access_token"])
     lab.record("restart_persistence_and_dependency_readiness", state_persistent=True, database_failure_denied=True)
 

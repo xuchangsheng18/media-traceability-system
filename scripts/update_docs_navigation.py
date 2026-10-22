@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t013-readiness-safe-diagnostics.md": "T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。",
+        "00-project/validation/t013-readiness-safe-diagnostics-report.json": "T013诊断实际RED、最终回归/质量/资料检查、固定形状与源码复核、最新CI及三端回执；原170任务154C/622R，0新增完成，T013真实恢复仍待。",
         "03-development/t034-material-structure-receipt.md": "T034 E01版本化机器材料结构回执的显式生成/安全只读重验；绑定4材料原始/规范身份、节点、配置、完整loaded registry与固定源码观察，不是可信采用/身份/许可或执行证明。",
         "00-project/validation/t034-material-structure-receipt-report.json": "结构回执精确源码、缺接线及真实描述符关闭故障RED、最终限定回归/质量/资料检查、源码复核及实际CI/三端回执；0新增C、T034/I02与真实受理仍待。",
         "03-development/t034-configured-material-preparation.md": "T034 E04显式配置离线校验/准备、真实raw/规范正文/全部节点快照累计预算与handler白名单、配置摘要工件绑定；旧模式字节兼容，未采用或HTTP受理。",

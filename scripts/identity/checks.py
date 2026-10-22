@@ -35,6 +35,53 @@ GROUPS = {
 }
 FIELDS = ("tests", "failures", "errors", "skipped")
 GROUP_TIMEOUTS = {"identity-live.xml": 1800, "identity-adapters.xml": 900, "identity-mapping.xml": 900}
+READINESS_CASE = ("tests.identity.test_recovery_live", "test_restart_and_database_dependency_readiness")
+READINESS_MISSING_ERROR = "RECOVERY_LAB_READINESS_BUSINESS_ERROR_NOT_RAISED"
+
+
+def readiness_diagnostic_codes() -> set[str]:
+    """Load only the target assertions and the existing dependency timeout raise."""
+    tree = ast.parse((ROOT / "tests/identity/test_recovery_live.py").read_text(encoding="utf-8"))
+    codes = {
+        node.msg.value
+        for function in tree.body
+        if isinstance(function, ast.FunctionDef) and function.name == READINESS_CASE[1]
+        for node in ast.walk(function)
+        if isinstance(node, ast.Assert)
+        and isinstance(node.msg, ast.Constant)
+        and isinstance(node.msg.value, str)
+        and re.fullmatch(r"RECOVERY_LAB_READINESS_[A-Z][A-Z0-9_]*[A-Z0-9]", node.msg.value)
+    }
+    lab = ast.parse((ROOT / "tests/identity/recovery_lab.py").read_text(encoding="utf-8"))
+    codes.update(
+        node.exc.args[0].value
+        for definition in lab.body
+        if isinstance(definition, ast.ClassDef) and definition.name == "RecoveryLab"
+        for method in definition.body
+        if isinstance(method, ast.FunctionDef) and method.name == "wait_dependency_down"
+        for node in ast.walk(method)
+        if isinstance(node, ast.Raise)
+        and isinstance(node.exc, ast.Call)
+        and isinstance(node.exc.func, ast.Name)
+        and node.exc.func.id == "AssertionError"
+        and len(node.exc.args) == 1
+        and isinstance(node.exc.args[0], ast.Constant)
+        and node.exc.args[0].value == "KEYCLOAK_READINESS_DID_NOT_DETECT_DATABASE_FAILURE"
+    )
+    return codes
+
+
+def readiness_failure_code(problem: ET.Element | None, codes: set[str]) -> str | None:
+    """Recognize observed pytest call-failure shapes, never arbitrary payload words."""
+    if problem is None or problem.tag != "failure" or "type" in problem.attrib:
+        return None
+    first = problem.get("message", "").split("\n", 1)[0]
+    if first == "Failed: DID NOT RAISE BusinessError":
+        return READINESS_MISSING_ERROR
+    prefix = "AssertionError: "
+    if first.startswith(prefix) and first[len(prefix) :] in codes:
+        return first[len(prefix) :]
+    return None
 
 
 def private_root(path: Path) -> Path:
@@ -116,6 +163,7 @@ def safe_failed_cases(path: Path) -> list[dict[str, Any]]:
     sources = [
         p for folder in ["scripts/identity", "backend/business_app/identity"] for p in (ROOT / folder).glob("*.py")
     ] + [ROOT / "tools/identity_oidc_probe.py", ROOT / "tests/identity/recovery_lab.py"]
+    readiness_codes = readiness_diagnostic_codes()
     codes = {
         node.value
         for p in sources
@@ -123,6 +171,7 @@ def safe_failed_cases(path: Path) -> list[dict[str, Any]]:
         if isinstance(node, ast.Constant)
         and isinstance(node.value, str)
         and re.fullmatch(r"(?:IDENTITY|RECOVERY_LAB)_[A-Z][A-Z0-9_]*[A-Z0-9]", node.value)
+        and node.value not in readiness_codes | {READINESS_MISSING_ERROR}
     }
     exception_types = {
         "RuntimeError",
@@ -145,6 +194,10 @@ def safe_failed_cases(path: Path) -> list[dict[str, Any]]:
             words = set(re.findall(r"\b[A-Za-z][A-Za-z0-9_]*\b", message))
             if codes.intersection(words):
                 item["diagnostic_codes"] = sorted(codes.intersection(words))
+            if (module, name) == READINESS_CASE:
+                reason = readiness_failure_code(problem, readiness_codes)
+                if reason is not None:
+                    item["diagnostic_codes"] = sorted({*item.get("diagnostic_codes", []), reason})
             if exception_types.intersection(words):
                 item["exception_types"] = sorted(exception_types.intersection(words))
             for phase in ("setup", "teardown", "call"):

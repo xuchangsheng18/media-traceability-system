@@ -1,0 +1,2181 @@
+{
+  "schema_version": 1,
+  "status": "SAFE_READINESS_FAILURE_DIAGNOSTICS_VERIFIED_NOT_ROOT_CAUSE_OR_ACCEPTANCE",
+  "observed_at": "2026-10-22T21:21:53.696742+00:00",
+  "base_source_commit": "6c9ab9d93cf08753a8e67de8ad6e7bbeb0477dc7",
+  "source_sha256_lf": {
+    "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+    "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+    "tests/platform/test_t013_identity_checks.py": "b1af6a3cec6d956700a11d5014c3de9e4d43790958c77bec91ab6c4205eda3b7"
+  },
+  "task_ids": [
+    "T013"
+  ],
+  "actual_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "actual_human_review_performed": false,
+  "original_source_acceptance": "过期、伪造、禁用用户均被拒绝；生产接口可替换为统一身份认证。",
+  "original_test_requirements": "认证正反向测试。",
+  "validation_checks": [
+    {
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T21:04:08.137827+00:00",
+      "ended_at": "2026-10-22T21:04:09.114092+00:00",
+      "group": "RED",
+      "command_arguments": [
+        "-m",
+        "pytest",
+        "tests/platform/test_t013_identity_checks.py::test_recovery_readiness_timeout_code_is_preserved_without_private_payload",
+        "-q",
+        "--tb=short"
+      ],
+      "safe_summary": [
+        "FAILED tests/platform/test_t013_identity_checks.py::test_recovery_readiness_timeout_code_is_preserved_without_private_payload"
+      ]
+    },
+    {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T21:20:09.367391+00:00",
+      "ended_at": "2026-10-22T21:20:54.638481+00:00",
+      "group": "unit",
+      "command_arguments": [
+        "-m",
+        "pytest",
+        "tests/platform/test_t013_identity_checks.py",
+        "-q",
+        "--tb=short"
+      ],
+      "safe_summary": [
+        "91 passed in 44.97s"
+      ]
+    },
+    {
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T21:20:54.638590+00:00",
+      "ended_at": "2026-10-22T21:20:55.107088+00:00",
+      "group": "unit",
+      "command_arguments": [
+        "scripts/verify_business_foundation.py",
+        "failure-probe"
+      ],
+      "safe_summary": {
+        "expected_assertion_failure_verified": true
+      }
+    },
+    {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T21:20:10.014599+00:00",
+      "ended_at": "2026-10-22T21:20:10.148660+00:00",
+      "group": "quality",
+      "command_arguments": [
+        "-m",
+        "ruff",
+        "check",
+        "--config",
+        "ruff.toml",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/business_test_progress.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py",
+        "scripts/verify_business_route_registration.py",
+        "scripts/validate_annotations.py",
+        "tests/data",
+        "scripts/task_creation_adoption.py"
+      ],
+      "safe_summary": [
+        "All checks passed!"
+      ]
+    },
+    {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T21:20:10.148741+00:00",
+      "ended_at": "2026-10-22T21:20:10.330702+00:00",
+      "group": "quality",
+      "command_arguments": [
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "backend/app",
+        "ai-services/inference",
+        "tests/poc",
+        "scripts/dev.py",
+        "scripts/stage_three_quality.py",
+        "scripts/generate_stage_three_docs.py",
+        "scripts/validate_stage_three.py",
+        "scripts/verify_stage_three_demo.py",
+        "tools/stage_three_demo/app.py",
+        "tests/stage_three",
+        "scripts/stage_three_types.py",
+        "backend/business_app",
+        "backend/business_migrations",
+        "tests/business",
+        "scripts/verify_business_foundation.py",
+        "scripts/business_test_progress.py",
+        "scripts/verify_http_log_privacy.py",
+        "tools/access_control_review.py",
+        "scripts/validate_access_control_model.py",
+        "tests/platform",
+        "scripts/verify_development_limits.py",
+        "scripts/identity",
+        "scripts/native",
+        "tests/native",
+        "scripts/storage_readiness.py",
+        "tests/identity",
+        "scripts/verify_t014_permissions.py",
+        "scripts/verify_t015_scope.py",
+        "scripts/verify_t016_tokens.py",
+        "scripts/business_development.py",
+        "scripts/generate_development_inventory.py",
+        "scripts/verify_business_route_registration.py",
+        "scripts/validate_annotations.py",
+        "tests/data",
+        "scripts/task_creation_adoption.py"
+      ],
+      "safe_summary": []
+    },
+    {
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T21:20:10.330795+00:00",
+      "ended_at": "2026-10-22T21:20:11.141903+00:00",
+      "group": "quality",
+      "command_arguments": [
+        "scripts/stage_three_types.py",
+        "check"
+      ],
+      "safe_summary": [
+        "Success: no issues found in 285 source files"
+      ]
+    }
+  ],
+  "proof_receipt_sha256": {
+    "RED": "63a358a8e61338463714ecff24b77d2ab0d94df5a5c1e9031e71ddee4c42e9ec",
+    "unit": "25a3f53ca1560f490d1a500130fd2897241f3cdd7c83fa2cd4fb30cfb3241dc0",
+    "quality": "118b6436bbbebb0e729aa1dc7472ecd2ce33cc3f30104eeabe3d1bde1eb7d149",
+    "source_review": "23ab8fac8b2be53c6970f71ddbda8e89aaf3de89aa17f96948039f6d06275a3b"
+  },
+  "unit_tests": 91,
+  "mypy_source_files": 285,
+  "source_review": {
+    "status": "PASS_LIMITED_FRESH_SOURCE_REVIEW_RUNTIME_VALIDATION_SEPARATE",
+    "observed_at": "2026-10-22T21:21:25.028801+00:00",
+    "base_commit": "6c9ab9d93cf08753a8e67de8ad6e7bbeb0477dc7",
+    "reviewer": "/root/next_media_scope_audit",
+    "source_sha256_lf": {
+      "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+      "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+      "tests/platform/test_t013_identity_checks.py": "b1af6a3cec6d956700a11d5014c3de9e4d43790958c77bec91ab6c4205eda3b7"
+    },
+    "dependencies_read_sha256_lf": {
+      "AGENTS.md": "3e8da2f265c6d659519faa3506ed00cf844aa3380450773a3e72391d2a1c9931",
+      "tests/identity/recovery_lab.py": "bf7bfee10dfd1c8a6756bcc090e7a5cda46acff45a131b4b47bcb0197e9f3f75",
+      "backend/business_app/errors.py": "e15ce459f7f8d7bdf42811a52c3c7039103af4c945f413fa514e8a95bb8fea22",
+      "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      ".github/workflows/ci.yml": "b5540f7ba9df61ff73a15a02ccdeb90bff8792c57934b3137c42d8ebbf01733b"
+    },
+    "critical_count": 0,
+    "important_count": 0,
+    "findings": [],
+    "review_scope": [
+      "Fresh read-only source review of the exact identity collector, live recovery test and final collector test file. The reviewer authored none of these three files.",
+      "The target live test has seven original Assert predicates. Only their fixed literal messages changed: the complete live-test AST is identical to baseline after removing Assert.msg. The compound HTTP status/private-query predicate, pytest.raises(BusinessError), finally recovery and execution order remain unchanged.",
+      "RecoveryLab is byte-exact with baseline, including the 45-second database-down wait, helper exception types and readiness retries. The other live recovery test is unchanged.",
+      "The new readiness allowlist comes only from literal assertion messages in the named test and the exact existing AssertionError literal in RecoveryLab.wait_dependency_down. It does not allow a KEYCLOAK prefix family or arbitrary test-file strings.",
+      "New readiness codes and the fixed missing-BusinessError reason are excluded from the legacy global word pool. Their only acceptance route is the exact named test, a failure element without a type attribute and the exact observed first-line shape. Standard setup/teardown error elements and phase-prefixed messages do not qualify.",
+      "The collector never publishes raw message tails, traceback text, parameter suffixes, URLs or arbitrary failure body values. A recognized fixed first line may have a pytest rewrite tail, which is discarded.",
+      "Existing generic IDENTITY/RECOVERY_LAB diagnostic behavior remains in place, including RECOVERY_LAB_READINESS_TIMEOUT and RECOVERY_LAB_REAL_CODE_EXCHANGE_FAILED. New target-only codes cannot be recovered through the old global word search.",
+      "The no-exception branch leaves pytest.raises unchanged and maps only the observed exact Failed: DID NOT RAISE BusinessError first line. Missing, prefixed, suffixed, other-class, qualified-name and alternative-type shapes remain failed without a new reason.",
+      "All pre-existing collector test source is retained as an exact prefix. Added tests check the seven fixed assertion reasons, missing error, rewritten tails, selector/phase/type/tag restrictions, private parameter/body/URL noise, unknown codes and exact baseline predicate/control-flow digests.",
+      "Collector totals, nonpassing/skipped/missing/inconsistent JUnit gates, group commands/timeouts, private-log handling, workflow files and the original 100-package lock are unchanged. This diagnostic addition does not accept or waive a failing identity run.",
+      "Final focused test delta replaces only the interpreter-specific ast.dump digest guard with the explicit canonical field representation and checks that nonempty/None type parameters, unknown fields, None and empty lists remain represented. The seven predicates, pytest.raises, finally restoration and 45-second wait remain exactly baseline-derived.",
+      "Final focused type-only test delta adds assert isinstance(probe, ast.FunctionDef) and uses setattr for seven mutations on the self-owned AST probe. Reversing exactly those changes reconstructs the previous 03cd source hash. Canonicalizer, baseline digests, existing test bodies and all empty/nonempty/None/future-field counterexamples remain unchanged; no ignore, skip or relaxed gate was introduced."
+    ],
+    "static_preservation": {
+      "live_test_AST_identical_after_removing_only_assert_messages": true,
+      "target_original_assert_count": 7,
+      "compound_assert_not_split": true,
+      "pytest_raises_and_finally_unchanged": true,
+      "recovery_lab_raw_git_blob_unchanged": true,
+      "wait_dependency_down_seconds": 45,
+      "preexisting_platform_test_source_exact_prefix": true,
+      "unchanged_collector_functions_AST": [
+        "private_root",
+        "junit_counts",
+        "source_hashes",
+        "collect",
+        "run_groups",
+        "main"
+      ],
+      "original_lock_and_both_workflows_raw_git_blob_unchanged": true,
+      "portable_AST_guard_preserves_all_other_fields": true,
+      "original_Git_blob_baselines_not_replaced_by_current_predicates": true,
+      "final_type_probe_delta_reconstructs_prior_03cd_source": true
+    },
+    "pytest_shape_observation": {
+      "receipt_sha256_raw": "22489ae39dd9e2b0c0af6ad541e5e8aa8788554988b97784e8ba9e697dfce987",
+      "status": "EXPECTED_3_FAILURE_SHAPES_OBSERVED",
+      "reported_python": "3.10.22",
+      "process_exit_code": 1,
+      "observed_controlled_failure_cases": 3,
+      "fixed_observations": [
+        {
+          "case": "test_assert_message",
+          "message_first_line": "AssertionError: RECOVERY_LAB_READINESS_SNAPSHOT_MISMATCH",
+          "type_attribute_present": false,
+          "has_rewrite_tail": true
+        },
+        {
+          "case": "test_explicit_raise",
+          "message_first_line": "AssertionError: KEYCLOAK_READINESS_DID_NOT_DETECT_DATABASE_FAILURE",
+          "type_attribute_present": false,
+          "has_rewrite_tail": false
+        },
+        {
+          "case": "test_missing_exception",
+          "message_first_line": "Failed: DID NOT RAISE BusinessError",
+          "type_attribute_present": false,
+          "has_rewrite_tail": false
+        }
+      ],
+      "boundary": "ROOT-owned controlled subprocess formatter observation only. This reviewer read the safe receipt and did not run that subprocess. It establishes these three observed JUnit shapes, not the root cause of the historical identity failure, a universal pytest-format guarantee or final live identity success."
+    },
+    "runtime_validation": {
+      "executed_by_reviewer": false,
+      "database_executed_by_reviewer": false,
+      "final_unit_quality_and_live_CI_results": "Final b1af collector unit/quality and live CI results remain ROOT-owned and separately bound. Prior 03cd 91-unit PASS, expected failure probe and its actual Mypy failure are retained as prior-source observations only."
+    },
+    "claim_boundaries": [
+      "A fixed diagnostic code is an observation of a known source-defined failure shape, not authenticated proof of the actual cause. A fully fabricated JUnit with the exact known selector and shape cannot be authenticated by parsing alone; owned-run and exact-source binding remain necessary.",
+      "No historical failure is assigned a newly guessed reason. New diagnostics cannot retroactively recover private details that were not in the old safe report.",
+      "This review does not mark T013 complete, approve personal identity handover or recovery, change service configuration, establish whole-suite/CI PASS, or create Python candidates."
+    ],
+    "raw_logs_or_JUnit_published_in_review": false,
+    "resolved_findings": [
+      {
+        "id": "NEW_GUARD_AST_DUMP_NOT_CROSS_PYTHON_STABLE",
+        "prior_severity": "Important",
+        "status": "SOURCE_FIX_REVIEWED_TARGETED_GUARD_RUNTIME_OBSERVED_FINAL_SUITE_SEPARATE",
+        "initial_actual_failure": {
+          "receipt_sha256_raw": "76f7cd721c1fd032d61abd09cd90ae90a39baa605fd614a60f4ee5370839a79e",
+          "base_source_commit": "6c9ab9d93cf08753a8e67de8ad6e7bbeb0477dc7",
+          "source_sha256_lf": {
+            "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+            "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+            "tests/platform/test_t013_identity_checks.py": "cc8bb308d194687c288c46ad6feed49d2ed9ae7e7c59d2810fb8a401a4fd20cd"
+          },
+          "mode": "diag-unit",
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false,
+          "safe_selector": "tests/platform/test_t013_identity_checks.py::test_readiness_diagnostic_messages_preserve_the_original_conditions_and_recovery_control_flow",
+          "safe_counts": {
+            "passed": 90,
+            "failed": 1
+          },
+          "boundary": "This was a real new-test guard compatibility failure, not a recovered cause of the historical live identity failure and not a passing unit run."
+        },
+        "cause_reviewed": "The new test initially fixed Python 3.13 ast.dump bytes as a cross-platform digest. Python 3.10 emits explicit empty fields that the newer formatter omits; the observed raw dumps differ despite the preserved predicate/control-flow AST.",
+        "fix_reviewed": "The guard now recursively serializes explicit AST _fields with a versioned canonical JSON envelope. It preserves names, order, empty lists, None, missing-field markers and all other field values. Only the known newly added empty-list FunctionDef.type_params is omitted. Nonempty or None type_params and a future unknown empty field are explicitly checked to remain distinguishable.",
+        "original_blob_cross_python_observation": {
+          "receipt_sha256_raw": "fa03906cfea69abdc88408f66fd7ac79319ca6365a520f657e1681a41b1952da",
+          "scope": "BASELINE_GIT_BLOBS_CROSS_PYTHON_AST_NORMALIZATION_NO_DATABASE_OR_DOCKER",
+          "local_python": "3.13.9",
+          "linux_python": "3.10.22",
+          "canonical_baselines_match": true,
+          "normalization_version": "python-ast-function-fields-v1",
+          "original_base_canonical_sha256": {
+            "tests/identity/test_recovery_live.py": "beba6652277f1ce9dc174637cdf2c64530c89a417f27206d256a4c02754579e9",
+            "tests/identity/recovery_lab.py": "e2503c902fb236ebfdf7973f1cb010809b295c3dd1b93017d05c94218cb93ac8"
+          },
+          "boundary": "Safe receipt read by this reviewer. Baselines were derived from the exact original Git blobs, separately on the two reported interpreters; no current changed predicates were adopted as a new expected baseline."
+        },
+        "targeted_guard_observation": {
+          "receipt_sha256_raw": "8bf6afc4b07ac6b92ea06e82ece7476ec8c3c83a99ea276a551493a50ec6a6df",
+          "status": "PASS_AST_GUARD_ONLY_BOTH_PYTHON_VERSIONS_NOT_FULL_UNIT_SUITE",
+          "test_sha256_lf": "03cd5ceb1c963e3601b359c224730ef7822d3d76b3a44b3b305fa1b7a3390e13",
+          "local_python": "3.13.9",
+          "local_ast_guard": "PASS",
+          "linux_python": "3.10.22",
+          "linux_ast_guard": "PASS",
+          "database_or_docker_executed": false,
+          "boundary": "AST guard only; this is not the final complete collector unit suite or CI result, and was not executed by this reviewer."
+        }
+      },
+      {
+        "id": "OWNED_AST_PROBE_STATIC_TYPE_ERRORS",
+        "prior_severity": "Important",
+        "status": "NARROW_SOURCE_TYPE_FIX_REVIEWED_FINAL_RUNTIME_RESULTS_SEPARATE",
+        "actual_failure": {
+          "receipt_sha256_raw": "6072f6b2a7c7b506d5260d97cb27cefe6bcdff6b8e4def7776daa9fc49ce1dc3",
+          "source_sha256_lf": {
+            "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+            "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+            "tests/platform/test_t013_identity_checks.py": "03cd5ceb1c963e3601b359c224730ef7822d3d76b3a44b3b305fa1b7a3390e13"
+          },
+          "mode": "quality",
+          "ruff_exit_code": 0,
+          "format_exit_code": 0,
+          "type_check_exit_code": 1,
+          "type_check_expected_exit_code": 0,
+          "expected_result_verified": false,
+          "reported_error_count_by_ROOT": 8,
+          "count_evidence_boundary": "The safe receipt independently confirms the type-check failure and source binding; ROOT reported eight errors. The receipt does not include the individual raw Mypy diagnostics, which are not copied into this review."
+        },
+        "same_prior_source_unit_observation": {
+          "receipt_sha256_raw": "b6e012167aa2fe8d96e0438db4b5a09a129d18ab3728c77bc360a82cd3a1d279",
+          "source_sha256_lf": {
+            "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+            "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+            "tests/platform/test_t013_identity_checks.py": "03cd5ceb1c963e3601b359c224730ef7822d3d76b3a44b3b305fa1b7a3390e13"
+          },
+          "unit_exit_code": 0,
+          "safe_observed_count": 91,
+          "failure_probe_exit_code": 1,
+          "failure_probe_expected_exit_code": 1,
+          "failure_probe_expected_result_verified": true,
+          "boundary": "Actual prior 03cd unit/probe results only; they do not certify final b1af unit/quality results or whole identity CI."
+        },
+        "fix_reviewed": "The parsed test probe is explicitly narrowed to FunctionDef. Runtime-equivalent setattr operations express dynamic self-owned _fields/type_params/future-field mutations without claiming those fields exist on every statically typed stmt or changing the canonicalizer.",
+        "exact_delta_check": {
+          "prior_test_sha256_lf": "03cd5ceb1c963e3601b359c224730ef7822d3d76b3a44b3b305fa1b7a3390e13",
+          "current_test_sha256_lf": "b1af6a3cec6d956700a11d5014c3de9e4d43790958c77bec91ab6c4205eda3b7",
+          "reversing_only_type_probe_delta_reconstructs_prior_source": true,
+          "canonicalizer_baselines_and_all_existing_negative_assertions_unchanged": true
+        }
+      }
+    ],
+    "behavioral_RED_observed": {
+      "receipt_sha256_raw": "63a358a8e61338463714ecff24b77d2ab0d94df5a5c1e9031e71ddee4c42e9ec",
+      "base_source_commit": "6c9ab9d93cf08753a8e67de8ad6e7bbeb0477dc7",
+      "source_sha256_lf": {
+        "scripts/identity/checks.py": "9f3b473b66e2d6b154a532fe78f37df5b81b400a474dc60b5f1de7d51741c759",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/platform/test_t013_identity_checks.py": "ab75cad9568f23813cedb50d305f6b331e99a66f4dfd4238c4b376210e755208"
+      },
+      "mode": "diag-red",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_result_verified": true,
+      "safe_selector": "tests/platform/test_t013_identity_checks.py::test_recovery_readiness_timeout_code_is_preserved_without_private_payload",
+      "boundary": "Actual pre-fix diagnostic gap reproduction: the new exact timeout-code assertion failed with the old collector. This is separate from the later unexpected AST guard failure."
+    }
+  },
+  "assertions_preserved": 7,
+  "live_assertion_and_control_flow_AST_unchanged_except_messages": true,
+  "existing_wait_restart_raises_and_finally_unchanged": true,
+  "exact_case": [
+    "tests.identity.test_recovery_live",
+    "test_restart_and_database_dependency_readiness"
+  ],
+  "new_diagnostic_scope": "Observed locked-pytest normal failure/call shapes only, fixed first line, no type attribute; not JUnit authentication or old failure reconstruction",
+  "new_missing_exception_shape": "Failed: DID NOT RAISE BusinessError",
+  "raw_logs_published": false,
+  "previous_payload_hosted_CI": {
+    "observed_at": "2026-10-22T21:07:18.546278+00:00",
+    "id": 39848278910,
+    "head_sha": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39848278910",
+    "created_at": "2026-10-22T20:22:27Z",
+    "updated_at": "2026-10-22T21:02:56Z",
+    "jobs": [
+      {
+        "id": 120067312424,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T20:22:31Z",
+        "completed_at": "2026-10-22T20:36:44Z",
+        "completed_steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:22:32Z",
+            "completed_at": "2026-10-22T20:22:33Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:22:33Z",
+            "completed_at": "2026-10-22T20:22:48Z"
+          },
+          {
+            "number": 3,
+            "name": "Configure isolated browser cache",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:22:48Z",
+            "completed_at": "2026-10-22T20:22:48Z"
+          },
+          {
+            "number": 4,
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:22:48Z",
+            "completed_at": "2026-10-22T20:22:51Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:22:51Z",
+            "completed_at": "2026-10-22T20:22:57Z"
+          },
+          {
+            "number": 6,
+            "name": "Recreate original locked py310 runtime",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:22:57Z",
+            "completed_at": "2026-10-22T20:24:03Z"
+          },
+          {
+            "number": 7,
+            "name": "Install existing locked browser tools",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:24:03Z",
+            "completed_at": "2026-10-22T20:24:27Z"
+          },
+          {
+            "number": 8,
+            "name": "Prepare disposable three-service identity target",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:24:27Z",
+            "completed_at": "2026-10-22T20:25:30Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify browser signature and diagnostic boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:25:30Z",
+            "completed_at": "2026-10-22T20:25:31Z"
+          },
+          {
+            "number": 10,
+            "name": "Run real identity rotation faults adapters and database mapping",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:25:31Z",
+            "completed_at": "2026-10-22T20:36:36Z"
+          },
+          {
+            "number": 11,
+            "name": "Preserve safe scoped evidence only",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:36Z",
+            "completed_at": "2026-10-22T20:36:37Z"
+          },
+          {
+            "number": 12,
+            "name": "Stop this disposable identity project",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:37Z",
+            "completed_at": "2026-10-22T20:36:39Z"
+          },
+          {
+            "number": 22,
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:39Z",
+            "completed_at": "2026-10-22T20:36:39Z"
+          },
+          {
+            "number": 23,
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:39Z",
+            "completed_at": "2026-10-22T20:36:40Z"
+          },
+          {
+            "number": 24,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:40Z",
+            "completed_at": "2026-10-22T20:36:40Z"
+          },
+          {
+            "number": 25,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:40Z",
+            "completed_at": "2026-10-22T20:36:40Z"
+          }
+        ],
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 120074546184,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T20:36:47Z",
+        "completed_at": "2026-10-22T20:53:23Z",
+        "completed_steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:47Z",
+            "completed_at": "2026-10-22T20:36:48Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:48Z",
+            "completed_at": "2026-10-22T20:37:08Z"
+          },
+          {
+            "number": 3,
+            "name": "Require successful isolated identity verification",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T20:37:08Z",
+            "completed_at": "2026-10-22T20:37:08Z"
+          },
+          {
+            "number": 4,
+            "name": "Configure isolated runtime paths",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:08Z",
+            "completed_at": "2026-10-22T20:37:08Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:08Z",
+            "completed_at": "2026-10-22T20:37:10Z"
+          },
+          {
+            "number": 6,
+            "name": "Record this job report generation window",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:10Z",
+            "completed_at": "2026-10-22T20:37:10Z"
+          },
+          {
+            "number": 7,
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:10Z",
+            "completed_at": "2026-10-22T20:37:15Z"
+          },
+          {
+            "number": 8,
+            "name": "Recreate locked Miniforge py310 environment",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:15Z",
+            "completed_at": "2026-10-22T20:38:09Z"
+          },
+          {
+            "number": 9,
+            "name": "Install locked UI and browser",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:38:09Z",
+            "completed_at": "2026-10-22T20:38:39Z"
+          },
+          {
+            "number": 10,
+            "name": "Validate phase materials and navigation",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:38:39Z",
+            "completed_at": "2026-10-22T20:39:13Z"
+          },
+          {
+            "number": 11,
+            "name": "Python static type check",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:39:13Z",
+            "completed_at": "2026-10-22T20:39:27Z"
+          },
+          {
+            "number": 12,
+            "name": "Verify native migration read-only preparation tools",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:39:27Z",
+            "completed_at": "2026-10-22T20:39:28Z"
+          },
+          {
+            "number": 13,
+            "name": "Verify T011 candidate access model and review cases",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:39:28Z",
+            "completed_at": "2026-10-22T20:39:30Z"
+          },
+          {
+            "number": 14,
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:39:30Z",
+            "completed_at": "2026-10-22T20:49:28Z"
+          },
+          {
+            "number": 15,
+            "name": "Verify T014 permission coverage and failure gate",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:49:28Z",
+            "completed_at": "2026-10-22T20:53:16Z"
+          },
+          {
+            "number": 16,
+            "name": "Bind this job owned reports to run attempt and source",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:16Z",
+            "completed_at": "2026-10-22T20:53:17Z"
+          },
+          {
+            "number": 17,
+            "name": "Preserve non-secret validation evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:17Z",
+            "completed_at": "2026-10-22T20:53:18Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop ephemeral development services",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:18Z",
+            "completed_at": "2026-10-22T20:53:18Z"
+          },
+          {
+            "number": 34,
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:18Z",
+            "completed_at": "2026-10-22T20:53:18Z"
+          },
+          {
+            "number": 35,
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:18Z",
+            "completed_at": "2026-10-22T20:53:19Z"
+          },
+          {
+            "number": 36,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:19Z",
+            "completed_at": "2026-10-22T20:53:19Z"
+          },
+          {
+            "number": 37,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:53:19Z",
+            "completed_at": "2026-10-22T20:53:19Z"
+          }
+        ],
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 120074546194,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-10-22T20:36:47Z",
+        "completed_at": "2026-10-22T21:02:50Z",
+        "completed_steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:47Z",
+            "completed_at": "2026-10-22T20:36:48Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:36:48Z",
+            "completed_at": "2026-10-22T20:37:08Z"
+          },
+          {
+            "number": 3,
+            "name": "Require successful isolated identity verification",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T20:37:08Z",
+            "completed_at": "2026-10-22T20:37:08Z"
+          },
+          {
+            "number": 4,
+            "name": "Configure isolated runtime paths",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:08Z",
+            "completed_at": "2026-10-22T20:37:08Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:08Z",
+            "completed_at": "2026-10-22T20:37:11Z"
+          },
+          {
+            "number": 6,
+            "name": "Record this job report generation window",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:11Z",
+            "completed_at": "2026-10-22T20:37:11Z"
+          },
+          {
+            "number": 7,
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:11Z",
+            "completed_at": "2026-10-22T20:37:15Z"
+          },
+          {
+            "number": 8,
+            "name": "Recreate locked Miniforge py310 environment",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:37:15Z",
+            "completed_at": "2026-10-22T20:38:09Z"
+          },
+          {
+            "number": 9,
+            "name": "Install locked UI and browser",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T20:38:09Z",
+            "completed_at": "2026-10-22T20:38:47Z"
+          },
+          {
+            "number": 10,
+            "name": "Run actual engineering gates",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-22T20:38:47Z",
+            "completed_at": "2026-10-22T21:02:32Z"
+          },
+          {
+            "number": 11,
+            "name": "Verify T015 data scope failure gate",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T21:02:32Z",
+            "completed_at": "2026-10-22T21:02:32Z"
+          },
+          {
+            "number": 12,
+            "name": "Verify configured development cgroup limits",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T21:02:32Z",
+            "completed_at": "2026-10-22T21:02:32Z"
+          },
+          {
+            "number": 13,
+            "name": "Bind this job owned reports to run attempt and source",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:32Z",
+            "completed_at": "2026-10-22T21:02:32Z"
+          },
+          {
+            "number": 14,
+            "name": "Preserve non-secret validation evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:32Z",
+            "completed_at": "2026-10-22T21:02:33Z"
+          },
+          {
+            "number": 15,
+            "name": "Stop ephemeral development services",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:33Z",
+            "completed_at": "2026-10-22T21:02:44Z"
+          },
+          {
+            "number": 28,
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T21:02:44Z",
+            "completed_at": "2026-10-22T21:02:44Z"
+          },
+          {
+            "number": 29,
+            "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:44Z",
+            "completed_at": "2026-10-22T21:02:44Z"
+          },
+          {
+            "number": 30,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:44Z",
+            "completed_at": "2026-10-22T21:02:45Z"
+          },
+          {
+            "number": 31,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:45Z",
+            "completed_at": "2026-10-22T21:02:45Z"
+          }
+        ],
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      },
+      {
+        "id": 120087359849,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-10-22T21:02:53Z",
+        "completed_at": "2026-10-22T21:02:55Z",
+        "completed_steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:54Z",
+            "completed_at": "2026-10-22T21:02:54Z"
+          },
+          {
+            "number": 2,
+            "name": "Require every isolated verification job to succeed",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-22T21:02:54Z",
+            "completed_at": "2026-10-22T21:02:54Z"
+          },
+          {
+            "number": 3,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T21:02:54Z",
+            "completed_at": "2026-10-22T21:02:54Z"
+          }
+        ],
+        "active_or_failed_steps": [
+          {
+            "name": "Require every isolated verification job to succeed",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      }
+    ],
+    "artifacts_metadata": [
+      {
+        "id": 12458850230,
+        "name": "py310-foundation-validation-39848278910-1",
+        "size_in_bytes": 976169,
+        "digest": "sha256:2df6f2bb1899e87004597ce198f1d8843623a560449b3e0d5f702fb8df156e5d",
+        "expired": false,
+        "created_at": "2026-10-22T20:53:18Z",
+        "updated_at": "2026-10-22T20:53:18Z"
+      },
+      {
+        "id": 12458402431,
+        "name": "py310-validation-39848278910-1",
+        "size_in_bytes": 1136337,
+        "digest": "sha256:f593e62d5b37d008d3ba1e8df16749d54e438d075756cad4b7798fe91dd436be",
+        "expired": false,
+        "created_at": "2026-10-22T21:02:33Z",
+        "updated_at": "2026-10-22T21:02:33Z"
+      },
+      {
+        "id": 12456787512,
+        "name": "t013-identity-validation-39848278910",
+        "size_in_bytes": 3233,
+        "digest": "sha256:91db2be6a2c15616a2d46114120a79d64e934dd19402551b81131a040aa5328a",
+        "expired": false,
+        "created_at": "2026-10-22T20:36:37Z",
+        "updated_at": "2026-10-22T20:36:37Z"
+      }
+    ],
+    "artifact_receipts": [
+      {
+        "id": 12458850230,
+        "name": "py310-foundation-validation-39848278910-1",
+        "sha256": "2df6f2bb1899e87004597ce198f1d8843623a560449b3e0d5f702fb8df156e5d",
+        "platform_digest_verified": true,
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "run_attempt": 1,
+        "job_id": 120074546184,
+        "job_name": "foundation-verification",
+        "job_conclusion": "success",
+        "downloaded_size_bytes": 976169,
+        "owned_job_marker_sha256": "1b25707c538d2d6f8c8b4e96a100c522f41c054758222d9ac9954bb4cf7944cd",
+        "generation_window_start": "2026-10-22T20:37:10Z"
+      },
+      {
+        "id": 12458402431,
+        "name": "py310-validation-39848278910-1",
+        "sha256": "f593e62d5b37d008d3ba1e8df16749d54e438d075756cad4b7798fe91dd436be",
+        "platform_digest_verified": true,
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "run_attempt": 1,
+        "job_id": 120074546194,
+        "job_name": "engineering-execution",
+        "job_conclusion": "failure",
+        "downloaded_size_bytes": 1136337,
+        "owned_job_marker_sha256": "80a62765d4feff2df53b01edaa43f48ed8f7e78c17bcc796057cd64bafba1a3e",
+        "generation_window_start": "2026-10-22T20:37:11Z"
+      },
+      {
+        "id": 12456787512,
+        "name": "t013-identity-validation-39848278910",
+        "sha256": "91db2be6a2c15616a2d46114120a79d64e934dd19402551b81131a040aa5328a",
+        "platform_digest_verified": true,
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "run_attempt": 1,
+        "job_id": 120067312424,
+        "job_name": "identity-verification / identity-integration",
+        "job_conclusion": "success",
+        "job_window_verified": true,
+        "independent_job_marker_present": false,
+        "source_hash_count": 53,
+        "all_source_hashes_verified_against_immutable_git_blobs": true
+      }
+    ],
+    "reports": {
+      "business-foundation-report.json": {
+        "status": "PASS",
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "totals": {
+          "tests": 2236,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "test_count": 2236,
+        "source_code_dirty": false,
+        "complete": true,
+        "timeout_seconds": 1800,
+        "artifact_id": 12458850230,
+        "sha256": "6ad0f2d570ca94f10d1a73c1f863cb6a646881a4b2828c26a048cafa445c7a92",
+        "job_owned": true,
+        "job_id": 120074546184,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true,
+        "failure_selectors": [],
+        "last_test_progress": {
+          "nodeid": "tests/business/test_uploads.py::test_concurrent_duplicate_preserves_orphan_recovery",
+          "phase": "finished"
+        }
+      },
+      "t014-permissions-report.json": {
+        "status": "PASS",
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "totals": {
+          "tests": 1092,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12458850230,
+        "sha256": "8ad02408da1551abd3d2d147dd2c6f5e7619a3056e1197b8c449fc13fc67b967",
+        "job_owned": true,
+        "job_id": 120074546184,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true,
+        "failure_selectors": []
+      },
+      "ci-all-report.json": {
+        "status": "PASS",
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "artifact_id": 12458402431,
+        "sha256": "92e602f870d9d43c07b4487ddd694255b2bd986ed1dcde5dddaa238025e3765c",
+        "job_owned": true,
+        "job_id": 120074546194,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true,
+        "check_count": 34,
+        "passed_check_count": 34,
+        "failed_checks": [],
+        "failure_selectors": []
+      },
+      "t015-data-scope-report.json": {
+        "status": "PASS",
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12458402431,
+        "sha256": "a513c2efb70d7b2842006cbaccc2b21959fb898afa2af26fdd9dd489bef506ad",
+        "job_owned": true,
+        "job_id": 120074546194,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true,
+        "failure_selectors": []
+      },
+      "t016-operation-token-report.json": {
+        "status": "PASS",
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12458402431,
+        "sha256": "e64aa3a6a7e07d09a584557f9dd0927f7a0e17463bf6a1e936900ff71284e790",
+        "job_owned": true,
+        "job_id": 120074546194,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true,
+        "failure_selectors": []
+      },
+      "t013-identity-ci-report.json": {
+        "status": "PASS",
+        "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+        "source_code_dirty": false,
+        "sha256": "cad9745e93993f2955c6b58dfed21ab4ac9994d6b5d9283a9bc2a2ee4c545650",
+        "observed_at": "2026-10-22T20:36:36.031906+00:00",
+        "totals": {
+          "tests": 332,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "groups": [
+          {
+            "report": "identity-live.xml",
+            "status": "PASS",
+            "totals": {
+              "tests": 52,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "failed_cases": []
+          },
+          {
+            "report": "identity-adapters.xml",
+            "status": "PASS",
+            "totals": {
+              "tests": 200,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "failed_cases": []
+          },
+          {
+            "report": "identity-mapping.xml",
+            "status": "PASS",
+            "totals": {
+              "tests": 80,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "failed_cases": []
+          }
+        ],
+        "process_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "source_sha256": {
+          ".github/workflows/ci.yml": "b5540f7ba9df61ff73a15a02ccdeb90bff8792c57934b3137c42d8ebbf01733b",
+          ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+          "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+          "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+          "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+          "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+          "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+          "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
+          "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+          "config/stage-three-profile.json": "7e36261fbfd6de156743a584decc307dc1fee38d22af7d8a9a72e1374ef2fe62",
+          "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+          "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+          "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+          "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+          "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+          "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+          "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+          "scripts/identity/checks.py": "9f3b473b66e2d6b154a532fe78f37df5b81b400a474dc60b5f1de7d51741c759",
+          "scripts/identity/ci.py": "32c6cc9936ebc9f2566f32f899e4d411b84b84c9243f052b839d7b5aa2bf2d20",
+          "scripts/identity/common.py": "54699620774cebb5b2abae33f53f12abad44ba465a9526a19cce2a8480f50ee3",
+          "scripts/identity/control.py": "36ffa580b67af26dd00a45cbae3c30a44e3e4690435e7774137043b1f6b0e0f9",
+          "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+          "scripts/identity/management.py": "cf9210d950d44b77209f30ed6dc4d9c8cb91612ecb83b77d428e45198384b666",
+          "scripts/identity/management_config.py": "1a395349f130160f1f88830994eba166a7ce38cd1c9216daad0e9343841ac39e",
+          "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+          "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+          "scripts/identity/provision.py": "1fa40c94c012e5c22b41b5453b4543b3edfda1685c0b78837ccd8bf0339a994a",
+          "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+          "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+          "scripts/identity/retirement.py": "c596bee2c7970ac73f26c643346825ea56c464004b84ffeba8c8ff0b366eedd5",
+          "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+          "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+          "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+          "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+          "tests/identity/handover_lab.py": "7eb45907f4ae1f09f9136346efd7911981132137949fc60ce9508dff251feeb2",
+          "tests/identity/recovery_lab.py": "bf7bfee10dfd1c8a6756bcc090e7a5cda46acff45a131b4b47bcb0197e9f3f75",
+          "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+          "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+          "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+          "tests/identity/test_management_live.py": "dda8fa28a7b1eecede493a69164fafc772c564ff9e6d5671f98d9ec8e93bc3e2",
+          "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+          "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+          "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+          "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+          "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+          "tests/platform/test_t013_identity_checks.py": "9caa7b8abb0d3ba47085fd64f600711081f93e5fcaedb923e7f13e39bb65da6e",
+          "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+          "tests/platform/test_t013_management.py": "4ede24e264677121537ab70e0b0c3bac3dd21a2314a1866382acb3614ad39bed",
+          "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+          "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+          "tools/identity_admin_tokens.mjs": "f008e425bec084bab7f27a4ebd7c937ed04d7749ed38809576ff8630db46772c",
+          "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+          "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+        },
+        "source_hash_count": 53,
+        "job_owned_by_workflow_window_and_exact_source_bytes": true,
+        "independent_job_marker_present": false
+      }
+    },
+    "excluded_reports": [
+      {
+        "name": "stage-three-runtime-report.json",
+        "artifact_id": 12458402431,
+        "sha256": "1f8669443022c4ac1c25450dfebdadd7880fe4d994278c43d3074cf2502baea2",
+        "reason": "NOT_EXACT_SOURCE_CLEAN_OR_FRESH_OWNED_WINDOW",
+        "exact_source": false,
+        "fresh_generation_window": true,
+        "source_dirty": null
+      }
+    ],
+    "excluded_artifacts": [],
+    "allowed_exact_source_job_owned_test_totals": {
+      "business-foundation-report.json": {
+        "tests": 2236,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t014-permissions-report.json": {
+        "tests": 1092,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t015-data-scope-report.json": {
+        "tests": 131,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t016-operation-token-report.json": {
+        "tests": 187,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "business_failure_selectors": [],
+    "all_CI_pass_asserted": false,
+    "current_T034_next_batch_verified_by_this_run": false,
+    "counts_are_overlapping_scopes_not_additive": true,
+    "raw_logs_downloaded": true,
+    "raw_logs_published": false,
+    "repository_modified": false,
+    "lock_or_gate_changed": false,
+    "collection_scope": "One fresh terminal-state read and terminal exact-job artifacts; bounded terminal engineering job log read for diagnostic correlation; no test or CI rerun",
+    "prior_eb28_unknown_failed_assertion_resolved": false,
+    "new_identity_PASS_is_not_prior_failure_root_cause_or_closure": true,
+    "identity_job_status_only_not_archived_report_reuse": [
+      {
+        "id": 120067312424,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "recorded_final_state": true,
+    "observed_payload_only_not_next_batch_verification": true,
+    "engineering_failure_diagnostic": {
+      "run_id": 39848278910,
+      "run_attempt": 1,
+      "source_commit": "e0d6f084b8118bd9776ecc91b7b2f82a8ceb6b65",
+      "job_id": 120074546194,
+      "job_conclusion": "failure",
+      "failed_GitHub_step": "Run actual engineering gates",
+      "step_exit_code": 1,
+      "failed_command_chain": [
+        "scripts/validate_stage_three.py --runtime",
+        "scripts/dev.py security-scan",
+        "scripts/stage_three_quality.py dependencies"
+      ],
+      "actual_log_private_sha256": "610467eedca5217f6ce152e816b3ab7eb37e89026adaf9250648b36b10a4815f",
+      "log_safe_summary_sha256": "ef7378465709a909433ef9cfcd7cd3c2e21771c0a946a6aed5a655788eaf84ad",
+      "log_raw_published": false,
+      "same_job_secret_checker_PASS_outputs": [
+        {
+          "status": "PASS",
+          "files_checked": 2433,
+          "scope": "repository_secret_checker_output"
+        },
+        {
+          "status": "PASS",
+          "files_checked": 2428,
+          "scope": "repository_secret_checker_output"
+        }
+      ],
+      "runtime_diagnostic_status": "FAIL",
+      "runtime_checks": [
+        {
+          "name": "setup_existing_locks_and_separate_tools",
+          "status": "PASS"
+        },
+        {
+          "name": "lint_and_TS",
+          "status": "PASS"
+        },
+        {
+          "name": "new_code_format_and_text",
+          "status": "PASS"
+        },
+        {
+          "name": "unit_and_frontend_tests",
+          "status": "PASS"
+        },
+        {
+          "name": "unique_contract_SQL_and_generated_types",
+          "status": "PASS"
+        },
+        {
+          "name": "secret_and_dependency_scans",
+          "status": "FAIL"
+        }
+      ],
+      "dependency_diagnostic_status": "FAIL_OR_SCAN_ERROR",
+      "python_dependencies_listed": 100,
+      "python_finding_records": 36,
+      "quality_tool_dependencies_listed": 12,
+      "quality_tool_finding_records": 1,
+      "package_finding_records": [
+        {
+          "layer": "original_runtime_lock",
+          "name": "certifi",
+          "version": "2026.7.22",
+          "finding_records": 1,
+          "findings": [
+            {
+              "id": "PYSEC-2026-4320",
+              "aliases": [
+                "GHSA-6q48-6c7w-9gw2"
+              ],
+              "fix_versions": [
+                "2026.10.19"
+              ]
+            }
+          ]
+        },
+        {
+          "layer": "original_runtime_lock",
+          "name": "pillow",
+          "version": "12.3.0",
+          "finding_records": 35,
+          "findings": [
+            {
+              "id": "CVE-2026-112895",
+              "aliases": [
+                "GHSA-p4wg-p73j-c528"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112400",
+              "aliases": [
+                "GHSA-65qm-jvmh-6pqg"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112397",
+              "aliases": [
+                "GHSA-58r4-6rv3-gfh8"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112896",
+              "aliases": [
+                "GHSA-pchr-8j38-3x4p"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112897",
+              "aliases": [
+                "GHSA-q45j-58j2-45rg"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112395",
+              "aliases": [
+                "GHSA-462x-pgg6-55fp"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112404",
+              "aliases": [
+                "GHSA-c6hw-5grf-ff96"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112899",
+              "aliases": [
+                "GHSA-vx6w-vv9f-6gvg"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112402",
+              "aliases": [
+                "GHSA-7mwm-ghpf-9vrm"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112900",
+              "aliases": [
+                "GHSA-w889-685w-c8fh"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112893",
+              "aliases": [
+                "GHSA-j4m9-6w36-pw47"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112392",
+              "aliases": [
+                "GHSA-27h8-gf7j-v5hc"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112891",
+              "aliases": [
+                "GHSA-fc9g-5qg7-mf45"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112405",
+              "aliases": [
+                "GHSA-cp9v-662q-vvx9"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112390",
+              "aliases": [
+                "GHSA-22hg-r758-rrw9"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112401",
+              "aliases": [
+                "GHSA-74r2-7ff9-mjj2"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112901",
+              "aliases": [
+                "GHSA-xgh8-jp6q-p5x8"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112391",
+              "aliases": [
+                "GHSA-254f-3936-288h"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112894",
+              "aliases": [
+                "GHSA-jg86-v3jv-hrpm"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112406",
+              "aliases": [
+                "GHSA-f2g6-542v-9j58"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112399",
+              "aliases": [
+                "GHSA-5xm2-6676-qcp9"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112892",
+              "aliases": [
+                "GHSA-gg2r-wvfm-q9rx"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112393",
+              "aliases": [
+                "GHSA-332p-7hrc-92wf"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-112396",
+              "aliases": [
+                "GHSA-4rr5-89j8-mwwm"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96638",
+              "aliases": [
+                "GHSA-24rc-8hj2-v98c"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96641",
+              "aliases": [
+                "GHSA-4rm8-3hmm-39fg"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96640",
+              "aliases": [
+                "GHSA-mrfp-p49p-3hf2"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96642",
+              "aliases": [
+                "GHSA-3j72-p6qg-6xp7"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96639",
+              "aliases": [
+                "GHSA-v9pv-5gc8-w2m6"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96643",
+              "aliases": [
+                "GHSA-g4qv-2jxx-769h"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96637",
+              "aliases": [
+                "GHSA-g842-9rc4-69pw"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96644",
+              "aliases": [
+                "GHSA-9v9v-9qvf-h2hj"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96778",
+              "aliases": [
+                "GHSA-g7cr-3p24-7wf7"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "CVE-2026-96636",
+              "aliases": [
+                "GHSA-p8hx-v2p6-rp84"
+              ],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            },
+            {
+              "id": "GHSA-78g4-xqwv-q3g8",
+              "aliases": [],
+              "fix_versions": [
+                "13.0.0"
+              ]
+            }
+          ]
+        },
+        {
+          "layer": "separate_quality_tool_lock",
+          "name": "virtualenv",
+          "version": "21.14.7",
+          "finding_records": 1,
+          "findings": [
+            {
+              "id": "CVE-2026-113722",
+              "aliases": [
+                "GHSA-c978-59m8-c77v"
+              ],
+              "fix_versions": [
+                "21.14.9"
+              ]
+            }
+          ]
+        }
+      ],
+      "python_skips": [
+        {
+          "name": "torch",
+          "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+        }
+      ],
+      "torch_audited": false,
+      "skip_does_not_mean_safe": true,
+      "npm_findings_by_severity": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "original_python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+      "source_control_git_blob_sha256": {
+        ".github/workflows/ci.yml": "b5540f7ba9df61ff73a15a02ccdeb90bff8792c57934b3137c42d8ebbf01733b",
+        "scripts/validate_stage_three.py": "bd3674a29517ca419d6d290dfcf83fa591fae46a097325987fa11e8d7a42931f",
+        "scripts/dev.py": "471aa7e157fc54bd1c490689a2c193c6dbde618ca9fa55fb0cc15fc586a5ea19",
+        "scripts/stage_three_quality.py": "fb134e0944eaa14a64bc9bf09464b609b27aef41d7a0311eda463637e12c288d",
+        "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+      },
+      "diagnostic_report_sha256": {
+        "stage-three-runtime-report.json": "1f8669443022c4ac1c25450dfebdadd7880fe4d994278c43d3074cf2502baea2",
+        "stage-three-dependency-scan-report.json": "dc8ecabd5bee830ad3cf5ebb07400b594eb22ce1228b5deec8ec88737ad228cf",
+        "stage-three-python-dependency-report.json": "90bf038e03c7b822e132efcc0f53360b269f03452d548c74979c4ce4caf12ff4",
+        "stage-three-quality-dependency-report.json": "3d68d21717966972738d62513c0adff9c13f7b404051c56c51f48e24a08491ca",
+        "stage-three-npm-dependency-report.json": "ae762616f17c1f30e45a74185a88da7e75e97d3335ddec89a3c1a0061f647d61"
+      },
+      "diagnostic_reports_bound_by_same_job_artifact_and_runtime_window": true,
+      "source_less_security_reports_are_diagnostics_not_owned_exact_source_PASS": true,
+      "security_reports_have_independent_source_commit_field": false,
+      "current_source_runtime_security_PASS_asserted": false,
+      "finding_applicability_or_exploitability_review_performed": false,
+      "proposed_fix_versions_are_scanner_metadata_not_adopted_versions": true,
+      "Python_OS_model_full_DLP_acceptance": false,
+      "ci_all_34_PASS_not_overall_CI_PASS": true,
+      "current_T034_next_batch_verified_by_this_run": false,
+      "additional_unreported_scan_error_absence_asserted": false,
+      "skipped_later_GitHub_steps": [
+        {
+          "name": "Verify T015 data scope failure gate",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Verify configured development cgroup limits",
+          "conclusion": "skipped"
+        }
+      ],
+      "prior_eb28_unknown_failed_assertion_resolved": false,
+      "new_identity_PASS_is_not_prior_failure_root_cause_or_closure": true
+    },
+    "raw_logs_downloaded_scope": "Only terminal engineering job 120074546194 log; stored privately, safe bounded projection only",
+    "diagnostic_added_at": "2026-10-22T21:11:47.115161+00:00"
+  },
+  "previous_payload_CI_receipt_sha256": "976e31ee77d3c1fd594136168dd8550baa8aa736f3ec1a07de2006762a7aed45",
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_COMMITTED_OR_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "new_verified_substeps": 0,
+  "verified_substeps_current": 154,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_tasks_closed": 0,
+  "T013_completed_remaining": [
+    13,
+    3
+  ],
+  "formal_accepted": false,
+  "old_identity_failure_root_cause_verified": false,
+  "full_business_validation": {
+    "status": "NOT_RUN_BY_THIS_NON_DATABASE_DIAGNOSTIC_BATCH",
+    "passed": false
+  },
+  "full_T014_validation": {
+    "status": "NOT_RUN_BY_THIS_NON_DATABASE_DIAGNOSTIC_BATCH",
+    "passed": false
+  },
+  "full_identity_live_validation": {
+    "status": "NOT_RUN_BY_THIS_DIAGNOSTIC_BATCH",
+    "passed": false
+  },
+  "original_17_SQL_changed": false,
+  "original_100_package_lock_changed": false,
+  "public_contract_or_route_changed": false,
+  "CI_gates_changed": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "protected_original_input_count": 1051,
+  "protected_input_hash_map_sha256": "2bf09a2bb9e3737c653c744b38a8d95284562110a34e6b95d8bd74d29b3fb294",
+  "remaining": [
+    "Old eb28 identity failure lacks its exact assertion; new diagnostics cannot retrospectively reconstruct it. Treat latest current-source CI as separate evidence and preserve every failed gate.",
+    "T013 actual identity-data recovery, old-session/key invalidation, controlled rollback/bootstrap retirement, second independent medium, software admission and actual human acceptance remain open. Backup server directory/RPO/RTO/maintenance window remain undetermined.",
+    "Resume approved T034 E01 unadopted-material registration only within precise authenticated management trust boundary; no placeholder ACTIVE/INACTIVE head, authority, licence, Proof or task 202. I03-I05 remain open."
+  ],
+  "locked_pytest_shape_probe": {
+    "status": "EXPECTED_3_FAILURE_SHAPES_OBSERVED",
+    "expected_exit_code": 1,
+    "actual_exit_code": 1,
+    "cases": [
+      {
+        "name": "test_assert_message",
+        "attributes": {
+          "message": "AssertionError: RECOVERY_LAB_READINESS_SNAPSHOT_MISMATCH\nassert False"
+        }
+      },
+      {
+        "name": "test_explicit_raise",
+        "attributes": {
+          "message": "AssertionError: KEYCLOAK_READINESS_DID_NOT_DETECT_DATABASE_FAILURE"
+        }
+      },
+      {
+        "name": "test_missing_exception",
+        "attributes": {
+          "message": "Failed: DID NOT RAISE BusinessError"
+        }
+      }
+    ],
+    "receipt_sha256": "22489ae39dd9e2b0c0af6ad541e5e8aa8788554988b97784e8ba9e697dfce987",
+    "version_field_is_baseline_not_independent_measurement": true
+  },
+  "initial_validation_failure": {
+    "receipt_sha256": "76f7cd721c1fd032d61abd09cd90ae90a39baa605fd614a60f4ee5370839a79e",
+    "source_sha256_lf": {
+      "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+      "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+      "tests/platform/test_t013_identity_checks.py": "cc8bb308d194687c288c46ad6feed49d2ed9ae7e7c59d2810fb8a401a4fd20cd"
+    },
+    "exit_code": 1,
+    "expected_exit_code": 0,
+    "safe_summary": [
+      "FAILED tests/platform/test_t013_identity_checks.py::test_readiness_diagnostic_messages_preserve_the_original_conditions_and_recovery_control_flow",
+      "1 failed, 90 passed in 44.80s"
+    ],
+    "scope": "New AST guard compatibility defect: Python 3.13 ast.dump omits empty fields and has an empty FunctionDef.type_params field absent in 3.10; not a changed live-test predicate",
+    "repair": "Explicit ordered _fields recursive canonicalization preserves None, empty lists and all other fields; ignore only known empty FunctionDef.type_params; expected digest independently derived from original baseline Git blobs on both interpreters; final tests and quality rerun on exact final cohort"
+  },
+  "cross_python_original_baseline_check": {
+    "receipt_sha256": "fa03906cfea69abdc88408f66fd7ac79319ca6365a520f657e1681a41b1952da",
+    "base_commit": "6c9ab9d93cf08753a8e67de8ad6e7bbeb0477dc7",
+    "local_python": "3.13.9",
+    "linux_python": "3.10.22",
+    "canonical_baselines_match": true,
+    "observations": {
+      "local": {
+        "tests/identity/test_recovery_live.py": {
+          "blob_sha256": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+          "canonical_sha256": "beba6652277f1ce9dc174637cdf2c64530c89a417f27206d256a4c02754579e9",
+          "canonical_bytes": 9055,
+          "dump_sha256": "0ea2641e06c65bd6f0c3328a4ba69d1d6a0faf0f4148595d899babd173e74e57",
+          "function_fields": [
+            "name",
+            "args",
+            "body",
+            "decorator_list",
+            "returns",
+            "type_comment",
+            "type_params"
+          ]
+        },
+        "tests/identity/recovery_lab.py": {
+          "blob_sha256": "bf7bfee10dfd1c8a6756bcc090e7a5cda46acff45a131b4b47bcb0197e9f3f75",
+          "canonical_sha256": "e2503c902fb236ebfdf7973f1cb010809b295c3dd1b93017d05c94218cb93ac8",
+          "canonical_bytes": 2235,
+          "dump_sha256": "4efceddf766b5e6112039c4bf114bcb00f6942ebd9520c028acfcd1f91f14a75",
+          "function_fields": [
+            "name",
+            "args",
+            "body",
+            "decorator_list",
+            "returns",
+            "type_comment",
+            "type_params"
+          ]
+        }
+      },
+      "linux": {
+        "tests/identity/test_recovery_live.py": {
+          "blob_sha256": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+          "canonical_sha256": "beba6652277f1ce9dc174637cdf2c64530c89a417f27206d256a4c02754579e9",
+          "canonical_bytes": 9055,
+          "dump_sha256": "db98933b453b56bdf5fd7000ccafa2fc4b3dd86220be95df44ee925f8d226fa8",
+          "function_fields": [
+            "name",
+            "args",
+            "body",
+            "decorator_list",
+            "returns",
+            "type_comment"
+          ]
+        },
+        "tests/identity/recovery_lab.py": {
+          "blob_sha256": "bf7bfee10dfd1c8a6756bcc090e7a5cda46acff45a131b4b47bcb0197e9f3f75",
+          "canonical_sha256": "e2503c902fb236ebfdf7973f1cb010809b295c3dd1b93017d05c94218cb93ac8",
+          "canonical_bytes": 2235,
+          "dump_sha256": "b2762ee54c57eb3be985a18784415ed831d39ccf6056891ad2a75db01c1fafc0",
+          "function_fields": [
+            "name",
+            "args",
+            "body",
+            "decorator_list",
+            "returns",
+            "type_comment"
+          ]
+        }
+      }
+    }
+  },
+  "initial_portable_guard_type_failure": {
+    "receipt_sha256": "6072f6b2a7c7b506d5260d97cb27cefe6bcdff6b8e4def7776daa9fc49ce1dc3",
+    "source_sha256_lf": {
+      "scripts/identity/checks.py": "c2a98aa6cf624678b3deaa9949d63d7bce3054ed32593bf3938c5dc71879e08b",
+      "tests/identity/test_recovery_live.py": "283bddd062fa159d7b8a5d6458fd1500f5e21053b1b96b5c4d94e1e390dcab47",
+      "tests/platform/test_t013_identity_checks.py": "03cd5ceb1c963e3601b359c224730ef7822d3d76b3a44b3b305fa1b7a3390e13"
+    },
+    "mypy_exit_code": 1,
+    "scope": "Eight static typing diagnostics in the synthetic AST field-compatibility probe only",
+    "repair": "Narrow parsed statement explicitly to FunctionDef and use explicit setattr for deliberately dynamic synthetic fields; preserve all semantic and negative assertions; no ignore or weakened gate"
+  },
+  "material_validation": {
+    "status": "PASS_APPLICABLE_CHECKS",
+    "receipt_sha256": "a916ca1cd86f61d42fd7f4edd08f0c1be7072fb502b01b581e1ce6f50e0f0ddb",
+    "checks": [
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:23:37.540754+00:00",
+        "ended_at": "2026-10-22T21:23:37.795603+00:00",
+        "command_arguments": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:23:37.795714+00:00",
+        "ended_at": "2026-10-22T21:24:04.475064+00:00",
+        "command_arguments": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T013"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:04.475165+00:00",
+        "ended_at": "2026-10-22T21:24:07.929250+00:00",
+        "command_arguments": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:07.929434+00:00",
+        "ended_at": "2026-10-22T21:24:09.268479+00:00",
+        "command_arguments": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:09.268570+00:00",
+        "ended_at": "2026-10-22T21:24:09.377459+00:00",
+        "command_arguments": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:09.377554+00:00",
+        "ended_at": "2026-10-22T21:24:10.324316+00:00",
+        "command_arguments": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:10.324530+00:00",
+        "ended_at": "2026-10-22T21:24:10.388096+00:00",
+        "command_arguments": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:10.388195+00:00",
+        "ended_at": "2026-10-22T21:24:10.436076+00:00",
+        "command_arguments": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:10.436168+00:00",
+        "ended_at": "2026-10-22T21:24:11.418796+00:00",
+        "command_arguments": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:11.418900+00:00",
+        "ended_at": "2026-10-22T21:24:18.045593+00:00",
+        "command_arguments": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "safe_summary": []
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:18.045690+00:00",
+        "ended_at": "2026-10-22T21:24:19.650005+00:00",
+        "command_arguments": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:19.650099+00:00",
+        "ended_at": "2026-10-22T21:24:26.694054+00:00",
+        "command_arguments": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:26.694146+00:00",
+        "ended_at": "2026-10-22T21:24:34.593014+00:00",
+        "command_arguments": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:34.593108+00:00",
+        "ended_at": "2026-10-22T21:24:48.808834+00:00",
+        "command_arguments": [
+          "scripts/validate_stage_one.py"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:48.808925+00:00",
+        "ended_at": "2026-10-22T21:24:50.453426+00:00",
+        "command_arguments": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:50.453519+00:00",
+        "ended_at": "2026-10-22T21:24:50.498225+00:00",
+        "command_arguments": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T21:24:50.498300+00:00",
+        "ended_at": "2026-10-22T21:24:50.650972+00:00",
+        "command_arguments": [
+          "scripts/validate_stage_three.py"
+        ],
+        "safe_summary": {
+          "status": "PASS"
+        }
+      }
+    ]
+  }
+}
