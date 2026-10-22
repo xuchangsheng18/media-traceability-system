@@ -1,6 +1,10 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T103原件关联与下载：[实现与边界](docs/03-development/t103-evidence-original-access.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-original-report.json)。仅original证据精确绑定有效原始资产后显式读取/下载，独立权限及大小/SHA-256/ETag核验、逐阶段失效已接线；959项前端、开发/生产各172项传输浏览器通过。新增1条子步骤，当前150条已证、434组剩余，全部170项622组剩余、整卡验收0项。播放/派生内容、持久草稿/标注和正式权威组合仍待；原锁npm双端0匹配仅诊断，不继承托管CI通过。
+2026-10-22本批T024目标上传队列隔离：[实现与旧队列边界](docs/03-development/t024-upload-queue-isolation.md)、[真实RED/GREEN与同步回执](docs/00-project/validation/t024-upload-queue-isolation-report.json)。v2单位/案件/上传独立队列解决同案件另一上传阻塞目标消费者；错投继续拒绝且不ACK。103项受影响隔离回归及既有失败探针、质量检查通过。新增1条子步骤，当前151条已证、434组剩余，全部170项622组剩余、整卡验收0项；旧队列未迁移、共享采用未验，同上传多消费者公平/毒消息处置仍待。
+
+2026-10-22 T034决定更新：[D01/D02限定认可](docs/00-project/validation/t034-design-decision-20261022.json)、[I01—I05实施计划待审](docs/03-development/t034-creation-implementation-plan.md)。仅技术设计及D03计划准备，E01—E04实际输入未确认；未新增创建代码、SQL、运行采用或已证子步骤。
+
+2026-10-22历史批次T103原件关联与下载：[实现与边界](docs/03-development/t103-evidence-original-access.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-original-report.json)。仅original证据精确绑定有效原始资产后显式读取/下载，独立权限及大小/SHA-256/ETag核验、逐阶段失效已接线；959项前端、开发/生产各172项传输浏览器通过。新增1条子步骤，当批累计150条已证、434组剩余，全部170项622组剩余、整卡验收0项。播放/派生内容、持久草稿/标注和正式权威组合仍待；原锁npm双端0匹配仅诊断，不继承托管CI通过。
 
 2026-10-22历史批次T103复核表单：[实现与边界](docs/03-development/t103-review-submission.md)、[实测及同步回执](docs/00-project/validation/t103-review-submit-report.json)。原样ETag和幂等提交、当前页内存草稿及不确定原请求重试已接线；755项前端、开发/生产各138项传输浏览器通过。新增1条子步骤，当批累计149条已证、434组剩余，全部170项622组剩余、整卡验收0项。正式规则/职责提供方、持久草稿/标注、媒体及真实工作流仍待；不把记录决定当批准或已重算。
 
@@ -18,7 +22,7 @@
 
 2026-10-22历史批次T030资产来源面板：[实现与边界](docs/03-development/t030-asset-source-panel.md)、[限定验证与同步回执](docs/00-project/validation/t030-asset-source-panel-report.json)。新增1条只读页面子步骤，390项前端、开发/生产各61项传输浏览器通过；真实权威组合联调和完整血缘未验收。T001—T123当批累计141条已证、434组剩余；全部170项622组剩余，整卡验收0项。T034新设计D01—D03仍待审，算法与Python候选继续暂缓。
 
-2026-10-22待审T034创建接入：[具体设计](docs/03-development/t034-creation-integration-design.md)、[方案与CI/同步回执](docs/00-project/validation/t034-creation-integration-design-report.json)。真实映射、分阶段受限SQL、原子事务及HTTP接线方案已补齐，D01—D03待审；本批未实施产品代码或迁移，完成数不增加。方案编制时快照为140条已证、434组剩余；全部170项622组剩余、整卡验收0项。算法与Python候选继续暂缓。
+2026-10-22历史待审T034创建接入：[具体设计](docs/03-development/t034-creation-integration-design.md)、[方案与CI/同步回执](docs/00-project/validation/t034-creation-integration-design-report.json)。真实映射、分阶段受限SQL、原子事务及HTTP接线方案已补齐，D01—D03待审；本批未实施产品代码或迁移，完成数不增加。方案编制时快照为140条已证、434组剩余；全部170项622组剩余、整卡验收0项。算法与Python候选继续暂缓。
 
 2026-10-22历史批次T034请求/计划绑定：[实现与边界](docs/03-development/t034-request-plan-binding.md)、[限定实测回执](docs/00-project/validation/t034-request-plan-binding-report.json)。新增1条内部内核子步骤；T001—T123当批累计140条已证、434组剩余，全部170任务140条已证、622组剩余，整卡验收0项。64项新测试纳入243项受影响回归及258文件类型检查通过；真实提供方、创建事务和HTTP尚未完成。T024和T034的负责人/指定复核人均已确认为徐昌胜，未登记实际验收。
 

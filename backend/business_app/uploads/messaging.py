@@ -8,9 +8,27 @@ from sqlalchemy import text
 from ..auth import AuthorityProvider
 from ..errors import BusinessError
 from ..permissions.context import WorkPort, protected_work
-from ..types import Scope
+from ..types import Actor, Scope
 from .service import UploadService
 from .worker import UploadValidationWorker
+
+
+def validation_queue_name(scope: Scope, upload_id: UUID) -> str:
+    """Route only the selected upload; routing identity is not authorization.
+
+    Version 2 never consumes or migrates the legacy case-scoped queue. Its
+    existing deliveries require a separately reviewed operational handoff.
+    """
+    if (
+        not isinstance(scope, Scope)
+        or not isinstance(scope.actor, Actor)
+        or any(
+            not isinstance(value, UUID) or value.int == 0
+            for value in (scope.actor.user_id, scope.actor.org_id, scope.case_id, upload_id)
+        )
+    ):
+        raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+    return f"mt_business_validation_v2_{scope.actor.org_id.hex}_{scope.case_id.hex}_{upload_id.hex}"
 
 
 def deliver_bound_upload(
@@ -47,8 +65,9 @@ def pump_outbox_once(
 ) -> dict[str, int | bool]:
     if work_authorization is None:
         raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
-    if not isinstance(upload_id, UUID) or upload_id.int == 0:
+    if not isinstance(upload_id, UUID):
         raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+    name = validation_queue_name(scope, upload_id)
     with (
         protected_work(work_authorization, scope, "upload_validation", upload_id, "validateUploadWork"),
         service.database.transaction(scope) as sql_connection,
@@ -64,7 +83,6 @@ def pump_outbox_once(
         )
     published, consumed = 0, 0
     exchange = Exchange("mt_business_validation", type="direct", durable=True)
-    name = "mt_business_validation_" + scope.case_id.hex
     queue = Queue(name, exchange=exchange, routing_key=name, durable=True)
     worker = UploadValidationWorker(service, authority, work_authorization)
     with Connection(broker_url, transport_options={"confirm_publish": True}) as connection:

@@ -76,7 +76,7 @@
     "backend/business_app/task_plan.py": "42609f5393e5730dea0765c53eaaaa1ed94adbe4a55b444f6736c177b8b010e9",
     "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
     "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
-    "backend/business_app/uploads/messaging.py": "d36b065b109dc7960ebcbdfefc12f5187913dd7485defee3bc37c4bec76b2641",
+    "backend/business_app/uploads/messaging.py": "61d47cc385bb54568142bf2e44a73ec4fbe86f95756cda830969a534397bcb12",
     "backend/business_app/uploads/repository.py": "021ce78c519af548eaa19b0a12ef270148b00bd32703ff231ac3573433a20c9d",
     "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
     "backend/business_app/uploads/service.py": "8d3adfc488ced313b9be547ae29fa713c18408bab5b481bec24616bcf3a5508e",
@@ -101,7 +101,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "5cad527a4e222cc3d0e9b25a9e3b7b8335ce03e67a5a1b5ca1f769f136cc173a",
+    "tasks/execution-status.json": "177c7b901e2f6494ed71cb0fd7689d6da4034d258b748173b4761ec21d8127e4",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -119,10 +119,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 150,
+    "all_completed_substeps": 151,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 150,
+    "authorized_completed_substeps": 151,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -140,7 +140,7 @@
     "declared_operations_without_explicit_business_registration": 22,
     "versioned_create_table_count": 64,
     "versioned_sql_function_name_count": 31,
-    "backend_python_definition_count": 470,
+    "backend_python_definition_count": 471,
     "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -6720,10 +6720,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 4,
+      "completed_substeps_count": 5,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。；Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。",
-      "actual_remaining_summary": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。；开发负责人和指定复核人均已由本人确认为徐昌胜；仍需确认剩余工时、实施日期、实际复核决定，并逐项关闭代码/测试缺口。同人兼任不算独立双人复核，角色登记不算实际验收。",
+      "actual_completed_summary": "异步合并、完整性、原子状态及回执/outbox子范围已有验证；前端上传研发子范围：完整parts提交、原202回执与实际状态分离、有限轮询及COMPLETED＋VALID资产交接已实现并验证；后端worker/全媒体安全/真实恢复链路未因此通过。；worker隔离联调子范围：目标上传/单位/案件/发起人绑定在消费与ACK前核验；独立子进程配合真实RabbitMQ、随机PostgreSQL隔离库与文件对象存储，验证正常/重复交付、缺对象/整文件哈希拒绝、数据库提交后未ACK的重投重启及身份/成员/来源撤销拒绝。测试权威仅为夹具，不证明正式身份接入、常驻worker部署、全媒体安全或完整恢复验收。；以失败回归修复控制夹具正常退出泄漏，完整回归结果按专项回执分别记录。；Linux文件对象落盘屏障子范围：初始化逐级同步新目录及父目录，写入按文件→对象目录→根目录同步后才返回引用；目录同步故障不发布分片/资产回执，恢复后同请求或事件可重试。真实文件、9项RED→GREEN及相邻隔离回归有证据，不是断电、完整恢复、孤立回收或整卡验收。；真实同案件双上传的后目标先消费失败已复现后，改为v2单位/案件/上传三元组独立队列，保留目标与提交后ACK核验；两个上传可分别进展，不再由目标专属消费者取走另一上传消息。旧case队列保留、不自动搬运或清空；103项受影响隔离回归及现有失败探针、Ruff/格式/类型通过；不证明共享采用、同上传多消费者公平、毒消息处置或整卡验收。",
+      "actual_remaining_summary": "仍需常驻worker运行入口、正式工作委托/身份与来源权威接入、实际对象存储组合及全媒体安全校验；本批独立进程与真实队列隔离验证不能替代共享服务部署或正式组合验收。；已验证交付绑定、提交后未ACK重投、文件/目录持久性屏障及同案件不同上传的目标队列隔离与独立进展；仍需同上传多消费者公平和并发、毒消息等待/死信处置、v2持久队列生命周期/容量与安全清理、旧case队列库存及实际迁移/回退验证、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。旧队列未自动搬运、清空或删除。；开发负责人和指定复核人均已由本人确认为徐昌胜；仍需确认剩余工时、实施日期、实际复核决定，并逐项关闭代码/测试缺口。同人兼任不算独立双人复核，角色登记不算实际验收。",
       "completed_steps": [
         {
           "description": "异步合并、完整性、原子状态及回执/outbox子范围已有验证",
@@ -6836,6 +6836,36 @@
               "scope": "仅本批Linux文件存储持久性屏障和引用发布边界；不证明真实断电、自动清理或完整恢复"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "真实同案件双上传的后目标先消费失败已复现后，改为v2单位/案件/上传三元组独立队列，保留目标与提交后ACK核验；两个上传可分别进展，不再由目标专属消费者取走另一上传消息。旧case队列保留、不自动搬运或清空；103项受影响隔离回归及现有失败探针、Ruff/格式/类型通过；不证明共享采用、同上传多消费者公平、毒消息处置或整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/uploads/messaging.py",
+              "scope": "T024-C05目标上传v2队列隔离限定子范围；精确RED/GREEN、源码、回归及旧队列未迁移边界见报告，不等于共享采用或整卡验收"
+            },
+            {
+              "path": "tests/business/test_upload_queue_identity.py",
+              "scope": "T024-C05目标上传v2队列隔离限定子范围；精确RED/GREEN、源码、回归及旧队列未迁移边界见报告，不等于共享采用或整卡验收"
+            },
+            {
+              "path": "tests/business/test_upload_worker_process.py",
+              "scope": "T024-C05目标上传v2队列隔离限定子范围；精确RED/GREEN、源码、回归及旧队列未迁移边界见报告，不等于共享采用或整卡验收"
+            },
+            {
+              "path": "tests/business/upload_worker_process_fixture.py",
+              "scope": "T024-C05目标上传v2队列隔离限定子范围；精确RED/GREEN、源码、回归及旧队列未迁移边界见报告，不等于共享采用或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t024-upload-queue-isolation.md",
+              "scope": "T024-C05目标上传v2队列隔离限定子范围；精确RED/GREEN、源码、回归及旧队列未迁移边界见报告，不等于共享采用或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t024-upload-queue-isolation-report.json",
+              "scope": "T024-C05目标上传v2队列隔离限定子范围；精确RED/GREEN、源码、回归及旧队列未迁移边界见报告，不等于共享采用或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
@@ -6845,7 +6875,7 @@
         },
         {
           "category": "实施/验证",
-          "description": "已验证交付绑定、提交后未ACK重投及Linux文件/目录持久性屏障和故障拒绝；仍需多上传/多消费者并发与队列进展、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。"
+          "description": "已验证交付绑定、提交后未ACK重投、文件/目录持久性屏障及同案件不同上传的目标队列隔离与独立进展；仍需同上传多消费者公平和并发、毒消息等待/死信处置、v2持久队列生命周期/容量与安全清理、旧case队列库存及实际迁移/回退验证、临时分片清理、硬崩溃后孤立对象识别/回收、真实文件系统故障和完整恢复组合。旧队列未自动搬运、清空或删除。"
         },
         {
           "category": "任务记录",
@@ -11647,7 +11677,7 @@
       "completed_substeps_count": 1,
       "remaining_work_items_count": 4,
       "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。",
-      "actual_remaining_summary": "具体方案已入库待审：同库真实采用登记、精确案件/请求上下文、分阶段受限SQL、完整正文与能力核验、同事务创建/幂等及HTTP接线。仍需D01—D03设计/计划确认及E01—E04实际输入后按计划实施；本轮未写创建代码或SQL，createTask仍未挂载，不增加完成数。；64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
+      "actual_remaining_summary": "用户已认可D01同库采用/受限SQL/原子事务设计与D02能力清单语义，D03实施计划已准备待审；E01—E04实际采用权威、精确映射/计划/能力、身份来源恢复事实及预算仍未确认。需计划审阅和对应输入满足后分批实施；本轮仅登记决定和计划，未写T034创建代码或SQL，createTask仍未挂载，不增加完成数。；64项内核边界测试和243项受影响纯回归已通过；仍需创建HTTP/数据库的权限、实际资产/来源状态、幂等、非法模块、撤销、并发和恢复测试。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -11675,7 +11705,7 @@
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "具体方案已入库待审：同库真实采用登记、精确案件/请求上下文、分阶段受限SQL、完整正文与能力核验、同事务创建/幂等及HTTP接线。仍需D01—D03设计/计划确认及E01—E04实际输入后按计划实施；本轮未写创建代码或SQL，createTask仍未挂载，不增加完成数。"
+          "description": "用户已认可D01同库采用/受限SQL/原子事务设计与D02能力清单语义，D03实施计划已准备待审；E01—E04实际采用权威、精确映射/计划/能力、身份来源恢复事实及预算仍未确认。需计划审阅和对应输入满足后分批实施；本轮仅登记决定和计划，未写T034创建代码或SQL，createTask仍未挂载，不增加完成数。"
         },
         {
           "category": "测试",
@@ -11916,7 +11946,7 @@
         {
           "qualified_name": "business_app.uploads.messaging.pump_outbox_once",
           "source_path": "backend/business_app/uploads/messaging.py",
-          "line": 39,
+          "line": 57,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -13340,7 +13370,7 @@
         {
           "qualified_name": "business_app.uploads.messaging.pump_outbox_once",
           "source_path": "backend/business_app/uploads/messaging.py",
-          "line": 39,
+          "line": 57,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -14076,7 +14106,7 @@
         {
           "qualified_name": "business_app.uploads.messaging.pump_outbox_once",
           "source_path": "backend/business_app/uploads/messaging.py",
-          "line": 39,
+          "line": 57,
           "parameter_names": {
             "positional_only": [],
             "positional_or_keyword": [
@@ -39551,10 +39581,29 @@
       "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
     },
     {
+      "qualified_name": "business_app.uploads.messaging.validation_queue_name",
+      "python_name": "validation_queue_name",
+      "source_path": "backend/business_app/uploads/messaging.py",
+      "line": 16,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "scope",
+          "upload_id"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
       "qualified_name": "business_app.uploads.messaging.deliver_bound_upload",
       "python_name": "deliver_bound_upload",
       "source_path": "backend/business_app/uploads/messaging.py",
-      "line": 16,
+      "line": 34,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -39576,7 +39625,7 @@
       "qualified_name": "business_app.uploads.messaging.pump_outbox_once",
       "python_name": "pump_outbox_once",
       "source_path": "backend/business_app/uploads/messaging.py",
-      "line": 39,
+      "line": 57,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [
@@ -39602,7 +39651,7 @@
       "qualified_name": "business_app.uploads.messaging.pump_outbox_once.receive",
       "python_name": "receive",
       "source_path": "backend/business_app/uploads/messaging.py",
-      "line": 129,
+      "line": 147,
       "parameter_names": {
         "positional_only": [],
         "positional_or_keyword": [

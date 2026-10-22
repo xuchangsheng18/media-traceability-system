@@ -50,6 +50,10 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t024-upload-queue-isolation.md": "T024真实RED后v2单位/案件/上传目标队列隔离、逐目标消费与错投不ACK；旧case队列保留且未迁移，共享采用/同上传多消费者及毒消息仍待。",
+        "00-project/validation/t024-upload-queue-isolation-report.json": "T024四文件精确源码、真实RED、受影响隔离回归/失败探针、质量及一次源码复核、CI与三端同步；不等于共享服务采用或整卡验收。",
+        "03-development/t034-creation-implementation-plan.md": "T034在D01/D02限定认可后准备的I01—I05实施计划，仍需计划审阅；E01—E04实际采用权威、映射/能力/事实及预算未确认，不代表创建代码已实现。",
+        "00-project/validation/t034-design-decision-20261022.json": "用户认可T034 D01/D02技术设计及D03计划准备的限定决定；不批准生效映射、预算、产品实施或任务验收，不增加已证步骤。",
         "03-development/t103-evidence-original-access.md": "T103原始证据限定关联原件、严格case/asset/ref/摘要与有效状态核对、独立权限和大小/SHA/ETag验证后下载；不播放、不派生、不推断证据效力或正式授权。",
         "00-project/validation/t103-evidence-original-report.json": "T103五文件精确源码、前端质量与两模式传输浏览器、20项依赖摘要、限定复核及原锁双端npm诊断、CI/三端源码回执；不等于正式工作流或整卡验收。",
         "03-development/t103-review-submission.md": "T103复核表单、原样服务端ETag/幂等键及未确认原请求重试、会话内草稿与清理；正式规则/职责、持久化、任务状态转换及真实工作流仍待。",
@@ -85,8 +89,8 @@ def main():
         "03-development/task-cancellation-console.md": "已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。",
         "03-development/t034-request-plan-binding.md": "T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。",
         "00-project/validation/t034-request-plan-binding-report.json": "64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。",
-        "03-development/t034-creation-integration-design.md": "T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01—D03待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。",
-        "00-project/validation/t034-creation-integration-design-report.json": "T034设计输入摘要、已修正边界、待确认及CI/三端源码回执；本批新增业务完成数0，资料核验与真实创建测试分别记录。",
+        "03-development/t034-creation-integration-design.md": "T034真实采用提供方、LOOKUP/CASE分阶段事实、受限SQL、原子创建及HTTP具体设计；D01/D02已获限定认可，D03实施计划仍待审，E01—E04真实输入未齐，不是已实施迁移或创建能力。",
+        "00-project/validation/t034-creation-integration-design-report.json": "T034原设计编制时的输入摘要、修正边界及CI/三端历史回执，新增业务完成数0；当前D01/D02决定及D03计划另有最新记录，历史设计检查不代表真实创建测试。",
         "03-development/shared-session-rejection-lifecycle.md": "共享call已形成旧401的传播窗口保护新连接尝试；6项真实客户端受控调度单元纳入396前端、72/72传输浏览器；不是普通点击或已建立用户丢失复现。",
         "00-project/validation/shared-session-rejection-lifecycle-report.json": "共享会话精确源码、有效6例RED、质量/浏览器、调度维护事项、旧CI安全失败与本批CI/三端回执；不改公共契约或整卡验收。",
         "03-development/t030-asset-context-invalidation.md": "资产父页同generation本地用户/单位/角色/权限/案件变化同步清理；有效RED、390前端、72/72传输浏览器及复核边界，远端撤销和真实联调仍待。",

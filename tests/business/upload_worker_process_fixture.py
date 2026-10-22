@@ -18,7 +18,7 @@ from business_app.errors import BusinessError
 from business_app.objects import FileObjectStore
 from business_app.settings import BusinessSettings
 from business_app.types import Actor, Scope
-from business_app.uploads.messaging import pump_outbox_once
+from business_app.uploads.messaging import pump_outbox_once, validation_queue_name
 from business_app.uploads.repository import UploadRepository
 from business_app.uploads.service import UploadService
 from kombu import Connection, Exchange, Producer, Queue
@@ -108,7 +108,10 @@ def run(config, mode):
     try:
         if mode == "publish":
             exchange = Exchange("mt_business_validation", type="direct", durable=True)
-            name = "mt_business_validation_" + scope.case_id.hex
+            # Only the private test publisher may deliberately misroute a
+            # persisted event to exercise the unchanged delivery boundary.
+            target = UUID(config.get("misroute_to_upload", str(upload)))
+            name = validation_queue_name(scope, target)
             queue = Queue(name, exchange=exchange, routing_key=name, durable=True)
             with (
                 work.open(scope, "upload_validation", upload, "validateUploadWork"),
