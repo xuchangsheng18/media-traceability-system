@@ -1,0 +1,412 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_id": {
+      "type": "string",
+      "const": "urn:media-trace:task-material-structure-receipt:1.0.0"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "canonicalization_version": {
+      "type": "string",
+      "const": "task-structure-receipt-json-utf8-sortkeys-v1"
+    },
+    "material_canonicalization_version": {
+      "type": "string",
+      "const": "task-material-json-utf8-sortkeys-v1"
+    },
+    "status": {
+      "type": "string",
+      "const": "MATERIAL_STRUCTURE_VALIDATED_NOT_ADOPTED"
+    },
+    "validator_protocol": {
+      "type": "string",
+      "const": "offline-task-material-structure-validation-v1"
+    },
+    "development_configuration": {
+      "$ref": "#/$defs/DevelopmentConfiguration"
+    },
+    "materials": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/Material"
+      }
+    },
+    "node_inputs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "$ref": "#/$defs/NodeInput"
+      }
+    },
+    "schema_registry": {
+      "type": "object",
+      "properties": {
+        "canonicalization_version": {
+          "type": "string",
+          "const": "local-schema-registry-json-v1"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "schema_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096
+        }
+      },
+      "required": [
+        "canonicalization_version",
+        "sha256",
+        "schema_count"
+      ],
+      "additionalProperties": false
+    },
+    "observed_source_inventory": {
+      "type": "object",
+      "properties": {
+        "semantics": {
+          "type": "string",
+          "const": "LOCAL_SOURCE_BYTES_OBSERVED_NOT_EXECUTED_CODE_OR_RELEASE_ATTESTATION"
+        },
+        "files": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/SourceFile"
+          }
+        }
+      },
+      "required": [
+        "semantics",
+        "files"
+      ],
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "object",
+      "properties": {
+        "adopted": {
+          "type": "boolean",
+          "const": false
+        },
+        "authority_verified": {
+          "type": "boolean",
+          "const": false
+        },
+        "licence_verified": {
+          "type": "boolean",
+          "const": false
+        },
+        "current_facts_verified": {
+          "type": "boolean",
+          "const": false
+        },
+        "handlers_executed": {
+          "type": "boolean",
+          "const": false
+        },
+        "database_written": {
+          "type": "boolean",
+          "const": false
+        },
+        "network_accessed": {
+          "type": "boolean",
+          "const": false
+        },
+        "task_created": {
+          "type": "boolean",
+          "const": false
+        },
+        "active_mapping_created": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "required": [
+        "adopted",
+        "authority_verified",
+        "licence_verified",
+        "current_facts_verified",
+        "handlers_executed",
+        "database_written",
+        "network_accessed",
+        "task_created",
+        "active_mapping_created"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_id",
+    "schema_version",
+    "canonicalization_version",
+    "material_canonicalization_version",
+    "status",
+    "validator_protocol",
+    "development_configuration",
+    "materials",
+    "node_inputs",
+    "schema_registry",
+    "observed_source_inventory",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:task-material-structure-receipt:1.0.0",
+  "title": "Offline machine material structure receipt; never adoption or trusted validator attestation",
+  "$defs": {
+    "DevelopmentConfiguration": {
+      "type": "object",
+      "properties": {
+        "runtime_profile": {
+          "type": "string",
+          "enum": [
+            "development",
+            "test"
+          ]
+        },
+        "environment": {
+          "type": "string",
+          "const": "linux-py310-cpu-internal-rnd"
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "canonicalization_version": {
+          "type": "string",
+          "const": "task-creation-development-json-v1"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "aggregate_bytes": {
+          "type": "object",
+          "properties": {
+            "source_documents": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1073741824
+            },
+            "canonical_documents": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1073741824
+            },
+            "node_snapshots": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1073741824
+            }
+          },
+          "required": [
+            "source_documents",
+            "canonical_documents",
+            "node_snapshots"
+          ],
+          "additionalProperties": false
+        },
+        "enforced_limits": {
+          "type": "object",
+          "properties": {
+            "max_material_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 262144
+            },
+            "max_nodes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            "max_capabilities": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            },
+            "max_bundle_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1048576
+            },
+            "max_snapshots_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4194304
+            },
+            "allowed_handler_ids": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 64,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              }
+            }
+          },
+          "required": [
+            "max_material_bytes",
+            "max_nodes",
+            "max_capabilities",
+            "max_bundle_bytes",
+            "max_snapshots_bytes",
+            "allowed_handler_ids"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "runtime_profile",
+        "environment",
+        "revision",
+        "canonicalization_version",
+        "sha256",
+        "aggregate_bytes",
+        "enforced_limits"
+      ],
+      "additionalProperties": false
+    },
+    "Material": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "policy",
+            "plan",
+            "capability",
+            "input"
+          ]
+        },
+        "schema_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "document_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "document_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "canonicalization_version": {
+          "type": "string",
+          "const": "task-material-json-utf8-sortkeys-v1"
+        },
+        "source_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source_size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 262144
+        },
+        "canonical_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "canonical_size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 262144
+        }
+      },
+      "required": [
+        "kind",
+        "schema_id",
+        "document_id",
+        "document_version",
+        "canonicalization_version",
+        "source_sha256",
+        "source_size_bytes",
+        "canonical_sha256",
+        "canonical_size_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "NodeInput": {
+      "type": "object",
+      "properties": {
+        "node_code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "schema_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "input_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "canonical_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "canonical_size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 262144
+        }
+      },
+      "required": [
+        "node_code",
+        "schema_id",
+        "input_version",
+        "canonical_sha256",
+        "canonical_size_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "SourceFile": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "enum": [
+            "backend/business_app/contracts.py",
+            "backend/business_app/task_creation_development.py",
+            "backend/business_app/task_creation_materials.py",
+            "backend/business_app/task_creation_receipt.py",
+            "scripts/task_creation_adoption.py"
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1048576
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "size_bytes"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

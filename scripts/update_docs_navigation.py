@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t034-material-structure-receipt.md": "T034 E01版本化机器材料结构回执的显式生成/安全只读重验；绑定4材料原始/规范身份、节点、配置、完整loaded registry与固定源码观察，不是可信采用/身份/许可或执行证明。",
+        "00-project/validation/t034-material-structure-receipt-report.json": "结构回执精确源码、缺接线及真实描述符关闭故障RED、最终限定回归/质量/资料检查、源码复核及实际CI/三端回执；0新增C、T034/I02与真实受理仍待。",
         "03-development/t034-configured-material-preparation.md": "T034 E04显式配置离线校验/准备、真实raw/规范正文/全部节点快照累计预算与handler白名单、配置摘要工件绑定；旧模式字节兼容，未采用或HTTP受理。",
         "00-project/validation/t034-configured-material-preparation-report.json": "离线工具两文件精确源码、缺接线RED/类型失败修复、最终612纯组合/原失败探针和283类型、文档漂移及实际CI/三端回执；0新增C、I02/HTTP仍待。",
         "03-development/t034-development-configuration.md": "T034 E04显式研发配置、严格24数值及冻结profile摘要、Linux私有文件/链接/读中变更拒绝；仅独立组件，运行预算/authority/创建事务及HTTP仍未接线。",

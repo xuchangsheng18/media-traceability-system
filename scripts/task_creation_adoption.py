@@ -225,10 +225,21 @@ def _finish_preparation(
     limits: dict[str, int],
     output: Path | None,
     configuration: dict[str, Any] | None = None,
+    structure_receipt: bytes | None = None,
 ) -> dict[str, Any]:
     manifest, files = _manifest(bundle, limits)
     if configuration is not None:
         manifest["development_configuration"] = configuration
+    receipt_record = None
+    if structure_receipt is not None:
+        receipt_record = dict(
+            file_name="material-structure-receipt.json",
+            sha256=hashlib.sha256(structure_receipt).hexdigest(),
+            size_bytes=len(structure_receipt),
+            status="MATERIAL_STRUCTURE_VALIDATED_NOT_ADOPTED",
+        )
+        manifest["structure_receipt"] = receipt_record
+        files.append(("material-structure-receipt.json", structure_receipt))
     manifest_bytes = json.dumps(
         manifest, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
     ).encode()
@@ -247,6 +258,8 @@ def _finish_preparation(
     )
     if configuration is not None:
         result["development_configuration"] = configuration
+    if receipt_record is not None:
+        result["structure_receipt"] = receipt_record
     return result
 
 
@@ -319,13 +332,19 @@ def run_development(
     *,
     runtime_profile: str,
     output: Path | None = None,
+    structure_receipt: bool = False,
+    receipt_path: Path | None = None,
 ) -> dict[str, Any]:
     """Enforce offline byte budgets; never activate, import or execute handlers."""
     if (
-        action not in {"validate-development", "prepare-development"}
+        action not in {"validate-development", "prepare-development", "verify-development-receipt"}
         or set(paths) != set(_KINDS)
         or any(not isinstance(path, Path) for path in paths.values())
         or (action == "prepare-development") != (output is not None)
+        or type(structure_receipt) is not bool
+        or (structure_receipt and action != "prepare-development")
+        or (action == "verify-development-receipt") != (receipt_path is not None)
+        or (receipt_path is not None and not isinstance(receipt_path, Path))
     ):
         raise PreparationError("TASK_PREPARATION_ARGUMENT_INVALID")
     backend = str(ROOT / "backend")
@@ -350,7 +369,36 @@ def run_development(
         raw.append(value)
     bundle = prepare_material_bundle(*raw, budgets=budgets)
     observation = _development_observation(settings, bundle, source_size)
-    return _finish_preparation(bundle, limits, output, observation)
+    if action == "verify-development-receipt":
+        from business_app.task_creation_receipt import verify_structure_receipt
+
+        assert receipt_path is not None
+        try:
+            receipt_raw = _read_material(receipt_path, settings.max_material_bytes)
+        except PreparationError as error:
+            if str(error) == "TASK_MATERIAL_BUDGET_EXCEEDED":
+                raise PreparationError("TASK_STRUCTURE_RECEIPT_BUDGET_EXCEEDED") from None
+            raise
+        receipt = verify_structure_receipt(receipt_raw, tuple(raw), settings)
+        return dict(
+            status="STRUCTURE_RECEIPT_VERIFIED_NOT_ADOPTED",
+            receipt_sha256=receipt.sha256,
+            receipt_source_sha256=hashlib.sha256(receipt_raw).hexdigest(),
+            development_configuration=observation,
+            output_written=False,
+            database_written=False,
+            network_accessed=False,
+            active_mapping_created=False,
+            task_created=False,
+            handlers_executed=False,
+            authority_or_license_verified=False,
+        )
+    receipt_bytes = None
+    if structure_receipt:
+        from business_app.task_creation_receipt import create_structure_receipt
+
+        receipt_bytes = create_structure_receipt(tuple(raw), settings).canonical_bytes
+    return _finish_preparation(bundle, limits, output, observation, receipt_bytes)
 
 
 def _positive(value: str) -> int:
@@ -366,11 +414,11 @@ def _positive(value: str) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = SafeParser(description=__doc__)
     actions = parser.add_subparsers(dest="action", required=True, parser_class=SafeParser)
-    for action in ("validate", "prepare", "validate-development", "prepare-development"):
+    for action in ("validate", "prepare", "validate-development", "prepare-development", "verify-development-receipt"):
         current = actions.add_parser(action)
         for kind in _KINDS:
             current.add_argument("--" + kind, type=Path, required=True)
-        if action.endswith("-development"):
+        if action.endswith("-development") or action == "verify-development-receipt":
             current.add_argument("--runtime-profile", choices=("development", "test"), required=True)
             current.add_argument("--development-config", type=Path, required=True)
         else:
@@ -378,16 +426,22 @@ def main(argv: Sequence[str] | None = None) -> int:
                 current.add_argument("--" + limit, type=_positive, required=True)
         if action in {"prepare", "prepare-development"}:
             current.add_argument("--output", type=Path, required=True)
+        if action == "prepare-development":
+            current.add_argument("--structure-receipt", action="store_true")
+        if action == "verify-development-receipt":
+            current.add_argument("--receipt", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         paths = {kind: getattr(args, kind) for kind in _KINDS}
-        if args.action.endswith("-development"):
+        if args.action.endswith("-development") or args.action == "verify-development-receipt":
             result = run_development(
                 args.action,
                 paths,
                 args.development_config,
                 runtime_profile=args.runtime_profile,
                 output=getattr(args, "output", None),
+                structure_receipt=getattr(args, "structure_receipt", False),
+                receipt_path=getattr(args, "receipt", None),
             )
         else:
             result = run(
@@ -405,6 +459,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             "TASK_CREATION_DEVELOPMENT_CONFIG_INVALID",
             "TASK_CREATION_DEVELOPMENT_PROFILE_NOT_APPROVED",
             "TASK_CREATION_DEVELOPMENT_PRIVATE_FILE_REQUIRED",
+            "TASK_STRUCTURE_RECEIPT_INVALID",
+            "TASK_STRUCTURE_RECEIPT_BUDGET_EXCEEDED",
+            "TASK_STRUCTURE_RECEIPT_BINDING_INVALID",
+            "TASK_STRUCTURE_RECEIPT_INVENTORY_UNAVAILABLE",
         }
         code = (
             str(error)
