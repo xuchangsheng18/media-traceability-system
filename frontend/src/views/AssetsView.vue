@@ -73,7 +73,19 @@ watch(
     detail.clear()
   },
 )
-watch(() => session.state.generation, clear, { flush: 'sync' })
+watch(
+  () =>
+    JSON.stringify([
+      session.state.generation,
+      session.state.user?.user_id,
+      session.state.user?.org_id,
+      session.state.user?.roles,
+      session.state.user?.permissions,
+      session.state.user?.case_ids,
+    ]),
+  clear,
+  { flush: 'sync' },
+)
 onBeforeUnmount(clear)
 async function list(next = false) {
   detail.clear()

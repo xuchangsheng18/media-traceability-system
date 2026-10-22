@@ -13,7 +13,11 @@ function assetSourceFixture(): Schemas['Source'] {
     version: 4,
   }
 }
-async function openAssetSource(page: Page, permissions = ['asset.read', 'source.read']) {
+async function openAssetSource(
+  page: Page,
+  permissions = ['asset.read', 'source.read'],
+  loadCatalog = false,
+) {
   await page.route(`**/business/api/v1/assets/${assetId}`, (route) =>
     route.fulfill({ json: catalogAsset() }),
   )
@@ -23,6 +27,8 @@ async function openAssetSource(page: Page, permissions = ['asset.read', 'source.
   await connectBusiness(page, permissions)
   await page.getByRole('link', { name: '资源库（媒体资产管理）', exact: true }).click()
   await page.getByLabel('资产案件编号').fill(caseId)
+  if (loadCatalog)
+    await page.getByRole('button', { name: '查询资产／回到首页', exact: true }).click()
   await page.getByLabel('资产详情编号').fill(assetId)
   await page.getByRole('button', { name: '读取资产详情', exact: true }).click()
 }
@@ -143,7 +149,147 @@ test('asset source panel clears displayed authority when roles change without re
     session.state.user.roles = ['self-owned-changed-role']
   })
   await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toHaveCount(0)
-  await expect(panel.getByRole('status')).toContainText('尚未读取')
+  await expect(panel).toHaveCount(0)
+  await expect(page.locator('dl').filter({ hasText: '固定对象编号' })).toHaveCount(0)
+})
+
+type AssetContextChange = 'roles' | 'permissions' | 'case_ids' | 'user_id' | 'org_id' | 'user-null'
+async function changeAssetContext(page: Page, field: AssetContextChange) {
+  const generations = await page.evaluate((selected) => {
+    const root = document.getElementById('app') as HTMLElement & {
+      _vnode?: { component?: { provides: Record<symbol, unknown> } }
+    }
+    const provides = root?._vnode?.component?.provides
+    const key =
+      provides &&
+      Object.getOwnPropertySymbols(provides).find((item) => item.description === 'business-session')
+    if (!provides || !key) throw new Error('SELF_OWNED_SESSION_FIXTURE_MISSING')
+    const session = provides[key] as {
+      state: { generation: number; user: Schemas['CurrentUser'] | null }
+    }
+    const before = session.state.generation
+    const user = session.state.user
+    if (!user) throw new Error('SELF_OWNED_CONNECTED_FIXTURE_REQUIRED')
+    if (selected === 'roles') user.roles.push('self-owned-new-role')
+    else if (selected === 'permissions') user.permissions = ['source.read']
+    else if (selected === 'case_ids') user.case_ids = []
+    else if (selected === 'user_id') user.user_id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
+    else if (selected === 'org_id') user.org_id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
+    else session.state.user = null
+    return [before, session.state.generation]
+  }, field)
+  expect(generations[1]).toBe(generations[0])
+}
+
+for (const field of ['roles', 'permissions', 'case_ids', 'user_id', 'org_id', 'user-null'] as const)
+  test(`asset context clears loaded data on ${field} without changing generation`, async ({
+    page,
+  }) => {
+    await page.route('**/business/api/v1/assets?**', (route) =>
+      route.fulfill({ json: { items: [catalogAsset()], next_cursor: 'old-context-cursor' } }),
+    )
+    await page.route('**/business/api/v1/sources/**', (route) =>
+      route.fulfill({ json: assetSourceFixture() }),
+    )
+    await openAssetSource(page, ['asset.read', 'asset.download', 'source.read'], true)
+    const panel = page.getByRole('region', { name: '资产来源授权', exact: true })
+    await panel.getByRole('button', { name: '读取来源授权明细', exact: true }).click()
+    await expect(page.locator('tbody tr')).toHaveCount(1)
+    await expect(page.getByText('self-owned-fixed-v3', { exact: true })).toBeVisible()
+    await expect(panel.getByText(assetSourceFixture().name, { exact: true })).toBeVisible()
+    await changeAssetContext(page, field)
+    await expect(page.locator('tbody tr')).toHaveCount(0)
+    await expect(page.getByText('self-owned-fixed-v3', { exact: true })).toHaveCount(0)
+    await expect(panel).toHaveCount(0)
+    await expect(page.getByRole('button', { name: '下载固定版本', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('button', { name: '下一页资产', exact: true })).toBeDisabled()
+  })
+
+for (const target of ['list', 'detail'] as const)
+  for (const outcome of ['success', 'error'] as const)
+    test(`asset context discards late ${target} ${outcome} after role change`, async ({ page }) => {
+      await openAssetSource(page)
+      await expect(page.getByText('self-owned-fixed-v3', { exact: true })).toBeVisible()
+      let release!: () => void
+      const gate = new Promise<void>((resolve) => (release = resolve))
+      let began!: () => void
+      const started = new Promise<void>((resolve) => (began = resolve))
+      let pending = true
+      const path =
+        target === 'list' ? '**/business/api/v1/assets?**' : `**/business/api/v1/assets/${assetId}`
+      await page.route(path, async (route) => {
+        if (pending) {
+          began()
+          await gate
+        }
+        const data =
+          target === 'list'
+            ? { items: [catalogAsset()], next_cursor: 'late-context-cursor' }
+            : catalogAsset()
+        await route.fulfill(
+          outcome === 'error' && pending
+            ? { status: 503, json: { code: 'SOURCE_AUTHORITY_UNAVAILABLE' } }
+            : { json: data },
+        )
+      })
+      const button = page.getByRole('button', {
+        name: target === 'list' ? '查询资产／回到首页' : '读取资产详情',
+        exact: true,
+      })
+      await button.click()
+      await started
+      const returned = page.waitForResponse((response) =>
+        target === 'list'
+          ? /\/assets\?/.test(response.url())
+          : response.url().endsWith(`/assets/${assetId}`),
+      )
+      try {
+        await changeAssetContext(page, 'roles')
+        await expect(button).toBeEnabled()
+      } finally {
+        release()
+      }
+      await (await returned).finished()
+      await expect(page.locator('tbody tr')).toHaveCount(0)
+      await expect(page.locator('dl').filter({ hasText: '固定对象编号' })).toHaveCount(0)
+      await expect(page.getByText('SOURCE_AUTHORITY_UNAVAILABLE', { exact: false })).toHaveCount(0)
+      await expect(page.getByRole('button', { name: '下一页资产', exact: true })).toBeDisabled()
+      // Current-context reads remain usable after the stale reply is discarded.
+      pending = false
+      await button.click()
+      if (target === 'list') await expect(page.locator('tbody tr')).toHaveCount(1)
+      else await expect(page.getByText('self-owned-fixed-v3', { exact: true })).toBeVisible()
+    })
+
+test('asset context role change prevents saving an already requested download', async ({
+  page,
+}) => {
+  const { body, etag } = await openDownloadAsset(page)
+  let release!: () => void
+  const gate = new Promise<void>((resolve) => (release = resolve))
+  let began!: () => void
+  const started = new Promise<void>((resolve) => (began = resolve))
+  const saved: string[] = []
+  page.on('download', (download) => saved.push(download.suggestedFilename()))
+  await page.route(`**/business/api/v1/assets/${assetId}/content`, async (route) => {
+    began()
+    await gate
+    await route.fulfill({ body, contentType: 'application/octet-stream', headers: { ETag: etag } })
+  })
+  await page.getByRole('button', { name: '下载固定版本', exact: true }).click()
+  await started
+  const returned = page.waitForResponse((response) =>
+    response.url().endsWith(`/assets/${assetId}/content`),
+  )
+  try {
+    await changeAssetContext(page, 'roles')
+    await expect(page.getByRole('button', { name: '下载固定版本', exact: true })).toHaveCount(0)
+  } finally {
+    release()
+  }
+  await (await returned).finished()
+  await expect(page.getByText('已核验大小', { exact: false })).toHaveCount(0)
+  expect(saved).toEqual([])
 })
 
 // Model rows are self-owned transport fixtures, never a trained-model claim.

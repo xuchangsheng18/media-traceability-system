@@ -1,6 +1,8 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T027并发SHA关联：[修复与边界](docs/03-development/t027-concurrent-sha-association.md)、[实测及同步回执](docs/00-project/validation/t027-concurrent-sha-association-report.json)。不同上传会话真实双连接RED后修复，7例并发边界及92项相邻回归通过；完整回归、精确CI和源码以回执逐项结果为准。新增1条工程子步骤，当前142条已证、434组剩余，全部170项622组剩余，整卡验收0项；算法与Python候选暂缓。
+2026-10-22本批T030资产上下文清理：[修复与边界](docs/03-development/t030-asset-context-invalidation.md)、[实测及同步回执](docs/00-project/validation/t030-asset-context-invalidation-report.json)。同generation本地身份变化同步清除资产返回数据；有效RED后11项新增浏览器、390项前端、开发/生产各72项传输浏览器通过。新增1条工程子步骤，当前143条已证、434组剩余，全部170项622组剩余，整卡验收0项。真实权威组合、远端撤销和完整血缘仍待，保留1项异步负例覆盖改进；算法与Python候选暂缓。
+
+2026-10-22历史批次T027并发SHA关联：[修复与边界](docs/03-development/t027-concurrent-sha-association.md)、[实测及同步回执](docs/00-project/validation/t027-concurrent-sha-association-report.json)。不同上传会话真实双连接RED后修复，7例并发边界及92项相邻回归通过；完整回归、精确CI和源码以回执逐项结果为准。新增1条工程子步骤，当批累计142条已证、434组剩余，全部170项622组剩余，整卡验收0项；算法与Python候选暂缓。
 
 2026-10-22历史批次T030资产来源面板：[实现与边界](docs/03-development/t030-asset-source-panel.md)、[限定验证与同步回执](docs/00-project/validation/t030-asset-source-panel-report.json)。新增1条只读页面子步骤，390项前端、开发/生产各61项传输浏览器通过；真实权威组合联调和完整血缘未验收。T001—T123当批累计141条已证、434组剩余；全部170项622组剩余，整卡验收0项。T034新设计D01—D03仍待审，算法与Python候选继续暂缓。
 

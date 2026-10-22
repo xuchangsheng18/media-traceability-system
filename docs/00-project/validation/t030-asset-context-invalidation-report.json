@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_LOCAL_ASSET_CONTEXT_INVALIDATION_NOT_FULL_TASK",
+  "observed_at": "2026-10-22T04:33:55.064271+00:00",
+  "base_source_commit": "4eaef5902b45c68c6aed7fa992c431ae62259423",
+  "source_sha256_lf": {
+    "frontend/src/views/AssetsView.vue": "d879aa43f3bdf82caff29639a86b26943b4df9a07b18d2f5db6c0b5768afe2e3",
+    "frontend/e2e/foundation.pw.ts": "01e78753ca5b49300c1b54a89912e318d879ebc5e13d1dce5bdca888f512b04d"
+  },
+  "actual_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "responsibility_confirmation_ref": "docs/00-project/validation/t030-role-assignment.json",
+  "approved_scope": "Existing fast-plan Review Focus1, T030-R01 and source-panel parent-context remainder; bounded repair, no new public contract or policy",
+  "root_cause": "Parent watched session.generation only. Same-generation local role/permission/user/org/case changes did not clear readers and their request versions.",
+  "implementation": "Synchronously observe JSON signature of generation, user_id, org_id, roles, permissions, case_ids and reuse existing clear of list/detail/download; child source panel unmounts. Existing reader-version guards invalidate obsolete results.",
+  "actual_RED": {
+    "mode": "red",
+    "exit_code": 1,
+    "expected_result_verified": true,
+    "passed": 0,
+    "failed": 1,
+    "started_at": "2026-10-22T04:20:41.128079+00:00",
+    "ended_at": "2026-10-22T04:21:15.729892+00:00",
+    "command": [
+      "node_modules/@playwright/test/cli.js",
+      "test",
+      "--config=foundation-playwright.config.ts",
+      "--grep",
+      "asset context clears loaded data on permissions",
+      "--timeout=3000"
+    ],
+    "source_sha256_lf": {
+      "frontend/src/views/AssetsView.vue": "33c56f51fb6dce9756781c052332bfcce1196751febbed6989044330367e7c3e",
+      "frontend/e2e/foundation.pw.ts": "01e78753ca5b49300c1b54a89912e318d879ebc5e13d1dce5bdca888f512b04d"
+    },
+    "log_sha256": "4009363394485bfe99cc1d7566ba47ef49236a493a92609a5be7fb1d8f40f274",
+    "browser": "Existing locked Windows Node22.21.1 and Chrome; explicit transport fixtures only, no Linux real-authority backend E2E"
+  },
+  "browser": {
+    "targeted": {
+      "mode": "targeted",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 11,
+      "failed": 0,
+      "started_at": "2026-10-22T04:22:05.422536+00:00",
+      "ended_at": "2026-10-22T04:22:26.935563+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=foundation-playwright.config.ts",
+        "--grep",
+        "asset context"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/views/AssetsView.vue": "d879aa43f3bdf82caff29639a86b26943b4df9a07b18d2f5db6c0b5768afe2e3",
+        "frontend/e2e/foundation.pw.ts": "01e78753ca5b49300c1b54a89912e318d879ebc5e13d1dce5bdca888f512b04d"
+      },
+      "log_sha256": "940fb9ab51a11bb0bb90b60c62de476918639e7711c1b18602efa1b11a53d2bf",
+      "browser": "Existing locked Windows Node22.21.1 and Chrome; explicit transport fixtures only, no Linux real-authority backend E2E"
+    },
+    "development": {
+      "mode": "development",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 72,
+      "failed": 0,
+      "started_at": "2026-10-22T04:23:28.431856+00:00",
+      "ended_at": "2026-10-22T04:24:47.982240+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=foundation-playwright.config.ts"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/views/AssetsView.vue": "d879aa43f3bdf82caff29639a86b26943b4df9a07b18d2f5db6c0b5768afe2e3",
+        "frontend/e2e/foundation.pw.ts": "01e78753ca5b49300c1b54a89912e318d879ebc5e13d1dce5bdca888f512b04d"
+      },
+      "log_sha256": "c774a42b8c7e82d4b9574a38a9c9263afc8a558f2f355dbd3259208e96306e50",
+      "browser": "Existing locked Windows Node22.21.1 and Chrome; explicit transport fixtures only, no Linux real-authority backend E2E"
+    },
+    "production": {
+      "mode": "production",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 72,
+      "failed": 0,
+      "started_at": "2026-10-22T04:26:13.161434+00:00",
+      "ended_at": "2026-10-22T04:27:20.910172+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=D:\\公安厅项目\\_work\\t030-context-production-playwright-config.private.mjs"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/views/AssetsView.vue": "d879aa43f3bdf82caff29639a86b26943b4df9a07b18d2f5db6c0b5768afe2e3",
+        "frontend/e2e/foundation.pw.ts": "01e78753ca5b49300c1b54a89912e318d879ebc5e13d1dce5bdca888f512b04d"
+      },
+      "log_sha256": "d369e0206232f267ba05a63ffe533f817f211d7aa8592191857da070705e56ad",
+      "browser": "Existing locked Windows Node22.21.1 and Chrome; explicit transport fixtures only, no Linux real-authority backend E2E"
+    }
+  },
+  "quality": {
+    "source_sha256_lf": {
+      "frontend/src/views/AssetsView.vue": "d879aa43f3bdf82caff29639a86b26943b4df9a07b18d2f5db6c0b5768afe2e3",
+      "frontend/e2e/foundation.pw.ts": "01e78753ca5b49300c1b54a89912e318d879ebc5e13d1dce5bdca888f512b04d"
+    },
+    "status": "PASS",
+    "checks": [
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vitest/vitest.mjs",
+          "run"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:22:53.746481+00:00",
+        "log_sha256": "9c6e1420bd6f756710cab08315df28ec52cdd4af67806ad1f309f377031400bc",
+        "summary": " RUN  v5.0.3 D:/公安厅项目/_work/media-trace-foundation-worktree/frontend\n\n\n Test Files  12 passed (12)\n      Tests  390 passed (390)\n   Start at  12:22:50\n   Duration  3.07s (import 50%, transform 23%, tests 17%, worker 10%)\n\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vue-tsc/bin/vue-tsc.js",
+          "--noEmit"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:23:09.809767+00:00",
+        "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+        "summary": ""
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/eslint/bin/eslint.js",
+          "src",
+          "e2e",
+          "*.ts",
+          "*.mjs",
+          "--max-warnings=0"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:25:11.416847+00:00",
+        "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+        "summary": ""
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/prettier/bin/prettier.cjs",
+          "--check",
+          "src/**/*.{ts,vue,css}",
+          "e2e/**/*.ts",
+          "*.{ts,mjs,json,html}"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:25:13.801837+00:00",
+        "log_sha256": "972f261800bfad73adf8b1f08b4f9c76078a3961010e541b8b21559ef5a628a4",
+        "summary": "Checking formatting...\nAll matched files use Prettier code style!\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vite/bin/vite.js",
+          "build"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T04:25:16.683514+00:00",
+        "log_sha256": "ca5f1e6aa8ee3ee12afe1048eea54ec587e1adc62b762c9bf75e40eed8702ae7",
+        "summary": "✓ 76 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.50 kB │ gzip:  0.35 kB\ndist/assets/index-CX2qa6mp.css   10.32 kB │ gzip:  3.02 kB\ndist/assets/index-C4WA7X7R.js   218.26 kB │ gzip: 72.04 kB\n\n✓ built in 1.40s\n"
+      }
+    ]
+  },
+  "new_browser_tests": 11,
+  "full_frontend_unit_tests": 390,
+  "development_browser_tests": 72,
+  "production_browser_tests": 72,
+  "browser_counts_overlap_not_144_unique": true,
+  "environment": "Existing Windows locked Node22.21.1 and Chrome, explicit self-owned transport fixtures; no real Linux authority/backend E2E or shared runtime adoption",
+  "independent_review": {
+    "method": "One fresh independent read-only whole-tranche review by gpt-6-astra",
+    "observed_at": "2026-10-22T04:27:51.907849+00:00",
+    "remaining_critical": 0,
+    "remaining_important": 0,
+    "deferred_minors": [
+      {
+        "behavior": "New negative browser assertions wait HTTP completion rather than the original application promise",
+        "effect": "Blob/hash/save or old reader continuation could run later; existing awaited controller tests reduce this to a coverage limit",
+        "paths": [
+          "frontend/e2e/foundation.pw.ts:252",
+          "frontend/e2e/foundation.pw.ts:290"
+        ],
+        "future_requirement": "Await original application completion using test instrumentation or mounted component, with mutation proof"
+      }
+    ],
+    "root_rulings": [
+      {
+        "boundary": "Remote revocation notification/polling",
+        "decision": "Only locally observed CurrentUser mutations covered; no provider/event/polling added",
+        "cost_if_wrong": "Remote revocation freshness would be overstated"
+      },
+      {
+        "boundary": "Shared late401 lifecycle",
+        "decision": "Separate scope; no claim this batch reproduced or fixed generic session.call race",
+        "cost_if_wrong": "An older rejected operation may still disconnect a newer session"
+      },
+      {
+        "boundary": "Query inputs, routes and filters",
+        "decision": "Preserve query intent; clear returned data/cursor/download state only; inputs do not grant access",
+        "cost_if_wrong": "Remembered identifiers may persist contrary to a broader privacy/UX expectation"
+      },
+      {
+        "boundary": "New request local case-membership preflight",
+        "decision": "Keep existing server-authoritative access; current case_ids not an authorization grant; no controller redesign",
+        "cost_if_wrong": "User could expect a local denial this patch does not implement; backend still decides"
+      },
+      {
+        "boundary": "Equivalent array ordering/replacement",
+        "decision": "Conservative identity-signature changes may clear and require reread; no normalization",
+        "cost_if_wrong": "Unnecessary rereads or loss of displayed context"
+      },
+      {
+        "boundary": "Malformed/circular/BigInt/nonreactive state",
+        "decision": "Valid JSON reactive CurrentUser contract only; general validation hardening separate",
+        "cost_if_wrong": "Out-of-contract mutation may not be handled safely by this watcher"
+      },
+      {
+        "boundary": "Route-selection/unmount redesign",
+        "decision": "Existing selection/unmount clear retained and existing affected browser/controllers checked",
+        "cost_if_wrong": "Incorrect retention could allow obsolete display or needless clearing"
+      },
+      {
+        "boundary": "Transport abort or previously received/saved bytes",
+        "decision": "Logical invalidation only; no claim to cancel network, erase bytes or revoke an already completed download",
+        "cost_if_wrong": "Overstates deletion/transport/revocation capability"
+      },
+      {
+        "boundary": "Lineage, real authority/backend integration, acceptance and final evidence",
+        "decision": "Full task remains open; executor owns exact tests/CI/source proof; transport fixture not formal integration",
+        "cost_if_wrong": "Readiness overstated or evidence misbound"
+      }
+    ],
+    "performed_human_review": false,
+    "independent_dual_human_review": false,
+    "second_review_loop": false
+  },
+  "full_database_regression_rerun": false,
+  "no_database_rerun_reason": "No backend, SQL, migration or public contract changes. Prior T027 full Linux business run remains BLOCKED_OR_FAIL after1800seconds, no complete count or retained exception class; not claimed fixed here.",
+  "public_contract_changed": false,
+  "new_endpoints": false,
+  "database_migration_created": false,
+  "backend_changed": false,
+  "permission_rules_changed": false,
+  "query_inputs_filters_routes_cleared": false,
+  "transport_aborted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "shared_runtime_adopted": false,
+  "new_data_downloads": 0,
+  "prior_T027_hosted_CI_observation": {
+    "observed_at": "2026-10-22T04:31:09.155688+00:00",
+    "run": {
+      "id": 39720760501,
+      "head_sha": "76df02345ed2c340bfc11230faed057f5033a6ab",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39720760501"
+    },
+    "jobs": [
+      {
+        "id": 119633414154,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 119637516522,
+        "name": "engineering-execution",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      },
+      {
+        "id": 119637516545,
+        "name": "foundation-verification",
+        "status": "in_progress",
+        "conclusion": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      }
+    ]
+  },
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_COMMITTED_OR_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "new_verified_substeps": 1,
+  "verified_substeps_current": 143,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "remaining": [
+    "Complete asset lineage and real identity/source/backend combined integration",
+    "Remote revocation notification and separate generic shared late401 lifecycle",
+    "Deferred minor: await original application continuation in negative async browser cases with mutation proof",
+    "Actual effort/dates/performed human review and full source-card acceptance",
+    "Fresh exact-source hosted CI; previous full business regression and N01/T013 unresolved conditions"
+  ]
+}

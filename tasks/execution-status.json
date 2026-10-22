@@ -3852,8 +3852,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。；资产详情已接既有getSource只读来源授权：精确案件/资产/来源绑定、独立asset.read/source.read、完整Source校验、状态/用途/有效期/依据/版本照实展示；身份/角色/权限/详情变化及卸载拒绝晚回复。40项新单元纳入390项完整前端，开发与生产各61项传输浏览器通过；不是实际权威联调或完整血缘。",
-      "summary_remaining": "列表、详情、受控下载和来源授权只读面板已实现；完整资产血缘、真实身份/来源权威组合联调仍需补齐。另需治理父级资产元数据在同generation权限变化时的清理，以及共享会话旧请求晚401影响新连接的问题；本批不将这些旧边界标完成。；390项完整前端及开发/生产各61项传输浏览器通过；仍需真实后端/身份/来源提供者组合页面权限与集成E2E，不能把自建传输夹具当真实业务验收。；逐项核对源验收标准并补实际证据：支持筛选和详情；原始对象不可直接编辑；下载受权限和审计控制。；实际开发负责人和指定复核人均已确认为徐昌胜；仍需剩余工时、实际实施日期、本人复核决定及逐项源卡验收。同人兼任不等于独立双人复核，责任登记不替代实际验收。",
+      "summary_completed": "资产列表/详情真实后端支持已有专项验证；资产前端已接真实列表/详情GET：案件分页、当前页筛选、固定对象版本只读详情、权限/错误提示和案件/身份切换清除旧响应；单元74与浏览器26均通过，但浏览器使用自建传输夹具，不代表真实后端联调或受控下载。；资产详情页已接受控下载，仅VALID及asset.download启用；浏览器保存前核验大小、摘要与固定版本ETag，身份/案件/资产变化废弃晚响应。101项单元和31项自建传输浏览器测试通过，不冒充真实后端E2E。；资产详情已接既有getSource只读来源授权：精确案件/资产/来源绑定、独立asset.read/source.read、完整Source校验、状态/用途/有效期/依据/版本照实展示；身份/角色/权限/详情变化及卸载拒绝晚回复。40项新单元纳入390项完整前端，开发与生产各61项传输浏览器通过；不是实际权威联调或完整血缘。；资产父页同generation身份上下文变化已修复：同步观察用户/单位/角色/权限/案件列表，复用清理使旧列表、详情、来源及下载状态失效；有效RED后11项新增浏览器、390项前端及开发/生产各72项传输浏览器通过。仅本地已观察变化，不证明远端撤销、真实权威联调或完整血缘；异步负例等待存在1项非阻断覆盖改进。",
+      "summary_remaining": "资产父页同generation本地用户/单位/角色/权限/案件变化清理已修复；仍需完整资产血缘、真实身份/来源权威组合联调、远端撤销通知及共享会话旧请求晚401边界，后两者不因本批完成。；390项完整前端及开发/生产各72项传输浏览器通过（场景重叠）；仍需真实后端/身份/来源提供者组合页面权限与集成E2E。异步负例目前等待HTTP而非原应用Promise，保留1项非阻断覆盖改进，不能据此独立证明所有晚续体均已执行后拒绝。；逐项核对源验收标准并补实际证据：支持筛选和详情；原始对象不可直接编辑；下载受权限和审计控制。；实际开发负责人和指定复核人均已确认为徐昌胜；仍需剩余工时、实际实施日期、本人复核决定及逐项源卡验收。同人兼任不等于独立双人复核，责任登记不替代实际验收。",
       "completed_steps": [
         {
           "description": "已实现媒体资产列表与详情的后端支持：案件级分页、逐项权限与来源核验、固定对象版本及摘要/大小绑定；不包含资产管理前端、受控下载或完整血缘展示",
@@ -3974,16 +3974,38 @@
               "scope": "只读资产来源面板、已有Source读取校验复用及自建传输夹具；不等于真实身份/来源提供者E2E或整任务验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "资产父页同generation身份上下文变化已修复：同步观察用户/单位/角色/权限/案件列表，复用清理使旧列表、详情、来源及下载状态失效；有效RED后11项新增浏览器、390项前端及开发/生产各72项传输浏览器通过。仅本地已观察变化，不证明远端撤销、真实权威联调或完整血缘；异步负例等待存在1项非阻断覆盖改进。",
+          "evidence": [
+            {
+              "path": "frontend/src/views/AssetsView.vue",
+              "scope": "仅资产页面本地身份变化与既有读取版本失效；精确源码/命令和限制见本批报告，不等于真实权威联调或整任务验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "仅资产页面本地身份变化与既有读取版本失效；精确源码/命令和限制见本批报告，不等于真实权威联调或整任务验收"
+            },
+            {
+              "path": "docs/03-development/t030-asset-context-invalidation.md",
+              "scope": "仅资产页面本地身份变化与既有读取版本失效；精确源码/命令和限制见本批报告，不等于真实权威联调或整任务验收"
+            },
+            {
+              "path": "docs/00-project/validation/t030-asset-context-invalidation-report.json",
+              "scope": "仅资产页面本地身份变化与既有读取版本失效；精确源码/命令和限制见本批报告，不等于真实权威联调或整任务验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "列表、详情、受控下载和来源授权只读面板已实现；完整资产血缘、真实身份/来源权威组合联调仍需补齐。另需治理父级资产元数据在同generation权限变化时的清理，以及共享会话旧请求晚401影响新连接的问题；本批不将这些旧边界标完成。"
+          "description": "资产父页同generation本地用户/单位/角色/权限/案件变化清理已修复；仍需完整资产血缘、真实身份/来源权威组合联调、远端撤销通知及共享会话旧请求晚401边界，后两者不因本批完成。"
         },
         {
           "category": "测试",
-          "description": "390项完整前端及开发/生产各61项传输浏览器通过；仍需真实后端/身份/来源提供者组合页面权限与集成E2E，不能把自建传输夹具当真实业务验收。"
+          "description": "390项完整前端及开发/生产各72项传输浏览器通过（场景重叠）；仍需真实后端/身份/来源提供者组合页面权限与集成E2E。异步负例目前等待HTTP而非原应用Promise，保留1项非阻断覆盖改进，不能据此独立证明所有晚续体均已执行后拒绝。"
         },
         {
           "category": "验收",
@@ -3999,7 +4021,9 @@
         "docs/03-development/business-upload-first-batch.md",
         "docs/03-development/t030-asset-source-panel.md",
         "docs/00-project/validation/t030-asset-source-panel-report.json",
-        "docs/00-project/validation/t030-role-assignment.json"
+        "docs/00-project/validation/t030-role-assignment.json",
+        "docs/03-development/t030-asset-context-invalidation.md",
+        "docs/00-project/validation/t030-asset-context-invalidation-report.json"
       ],
       "designated_reviewer": "徐昌胜",
       "owner_confirmation_ref": "docs/00-project/validation/t030-role-assignment.json"
@@ -9629,7 +9653,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t030-asset-context-invalidation-report.json",
     "latest_design_ref": "docs/03-development/t034-creation-integration-design.md"
   },
   "latest_business_upload_frontend": {
@@ -9757,6 +9781,17 @@
     "observed_at": "2026-10-22T03:55:51.665436+00:00",
     "report_ref": "docs/00-project/validation/t027-concurrent-sha-association-report.json",
     "plan_ref": "docs/03-development/t027-concurrent-sha-association.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
+  },
+  "latest_t030_asset_context_invalidation": {
+    "observed_at": "2026-10-22T04:33:55.064271+00:00",
+    "report_ref": "docs/00-project/validation/t030-asset-context-invalidation-report.json",
+    "plan_ref": "docs/03-development/t030-asset-context-invalidation.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,
