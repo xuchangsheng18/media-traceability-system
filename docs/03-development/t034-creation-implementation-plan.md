@@ -1,8 +1,10 @@
 # T034任务创建接线实施计划（I01—I05）
 
-2026-10-22（北京时间）。状态：**I01_ISOLATED_VERIFIED_I02_PENDING_E01_E04_UNCONFIRMED**。用户已批准I01—I05逐批实施，本批仅完成I01隔离基础；I02— I05尚未完成，正式输入与验收边界保留。
+2026-10-22（北京时间）。状态：**I02_CONTEXT_VERIFIED_SQL_FACTS_PENDING**。I01基础及I02首批请求上下文组件已隔离验证；I02的SQL/当前事实/guard接线和I03—I05未完成，E01—E04未确认。
 
 用户本次已批准I01—I05实施计划，并从I01隔离实施。批准时计划基线SHA-256为`20c1be01c841489d1ad8c49f41d69f3e2ade911653c402a93125a3091be1228d`，见[批准记录](../00-project/validation/t034-i01-i05-implementation-approval-20261022.json)。此前D01/D02认可记录保留；当前授权不包含真实映射采用、预算选定、共享部署或正式验收。
+
+2026-10-22当前I02首批仅新增[请求上下文纯组件](t034-request-context.md)，精确结果见[专项回执](../00-project/validation/t034-request-context-report.json)。获取上下文不是授权；尚未接guard/HTTP或数据库事实。本批不改任何SQL；0016已发布固定，后续SQL仍须0017及新增迁移。原批准记录及其20c1be01基线SHA不变，历史计划文字不当当前完成证据。
 
 当前I01限定结果见[基础说明](t034-i01-material-foundation.md)、[精确验证回执](../00-project/validation/t034-i01-material-foundation-report.json)及[六表字段/ACL](../04-database/task-creation-plan-bindings.md)。下文未改写的“拟、未实施、待审”等属于批准时计划描述，不代表当前I01仍未实现，也不代表后续I02— I05已完成。0016本批发布后固定，I02及后续只能使用0017及后续新增迁移；禁止以原计划中的“同一拟0016”扩写已发布历史。
 

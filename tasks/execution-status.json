@@ -4332,8 +4332,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。",
-      "summary_remaining": "I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。；I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
+      "summary_completed": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。；I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。",
+      "summary_remaining": "I01材料/离线工具/0016基础及I02首批请求上下文组件已隔离验证；I02仍需guard/条件授权生命周期接线、固定受限LOOKUP/CASE SQL、精确当前事实和能力读取。后续SQL仅0017及新增迁移，不改已发布0016；I03原子创建/精确重放、I04 HTTP和I05整套仍待。E01—E04未确认，不猜填或自动采用。；I01原验证保留；本批127项纯上下文/既有绑定及270文件类型和质量通过，未重跑DB/HTTP/完整权限或前端。仍需I02实际SQL/guard/事实、I03半写/幂等并发/撤销恢复、I04 HTTP及I05适用完整回归；托管CI真实pending/失败和软件扫描门禁保留。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -4454,16 +4454,38 @@
               "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/task_creation_context.py",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            },
+            {
+              "path": "tests/business/test_task_creation_context.py",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t034-request-context.md",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t034-request-context-report.json",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。"
+          "description": "I01材料/离线工具/0016基础及I02首批请求上下文组件已隔离验证；I02仍需guard/条件授权生命周期接线、固定受限LOOKUP/CASE SQL、精确当前事实和能力读取。后续SQL仅0017及新增迁移，不改已发布0016；I03原子创建/精确重放、I04 HTTP和I05整套仍待。E01—E04未确认，不猜填或自动采用。"
         },
         {
           "category": "测试",
-          "description": "I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。"
+          "description": "I01原验证保留；本批127项纯上下文/既有绑定及270文件类型和质量通过，未重跑DB/HTTP/完整权限或前端。仍需I02实际SQL/guard/事实、I03半写/幂等并发/撤销恢复、I04 HTTP及I05适用完整回归；托管CI真实pending/失败和软件扫描门禁保留。"
         },
         {
           "category": "验收",
@@ -4487,11 +4509,13 @@
         "docs/03-development/t034-i01-material-foundation.md",
         "docs/00-project/validation/t034-i01-material-foundation-report.json",
         "docs/04-database/task-creation-plan-bindings.md",
-        "docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json"
+        "docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json",
+        "docs/03-development/t034-request-context.md",
+        "docs/00-project/validation/t034-request-context-report.json"
       ],
       "designated_reviewer": "徐昌胜",
       "owner_confirmation_ref": "docs/00-project/validation/t034-role-assignment.json",
-      "next_design_status": "I01_ISOLATED_VERIFIED_I02_PENDING_E01_E04_UNCONFIRMED",
+      "next_design_status": "I02_CONTEXT_VERIFIED_SQL_FACTS_PENDING",
       "next_design_ref": "docs/03-development/t034-creation-implementation-plan.md",
       "current_design_decision_ref": "docs/00-project/validation/t034-design-decision-20261022.json",
       "current_implementation_approval_ref": "docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json"
@@ -10049,7 +10073,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t034-i01-material-foundation-report.json",
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t034-request-context-report.json",
     "latest_design_ref": "docs/03-development/t034-creation-integration-design.md"
   },
   "latest_business_upload_frontend": {
@@ -10322,5 +10346,21 @@
     "I02_I05_completed": false,
     "E01_E04_actual_inputs_confirmed": false,
     "shared_runtime_adopted": false
+  },
+  "latest_t034_request_context": {
+    "observed_at": "2026-10-22T11:24:08.906424+00:00",
+    "report_ref": "docs/00-project/validation/t034-request-context-report.json",
+    "plan_ref": "docs/03-development/t034-creation-implementation-plan.md",
+    "implementation_doc_ref": "docs/03-development/t034-request-context.md",
+    "task_ids": [
+      "T034"
+    ],
+    "new_completed_substeps": 1,
+    "I02_whole_step_completed": false,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
   }
 }

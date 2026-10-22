@@ -58,6 +58,7 @@
     "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
     "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
     "backend/business_app/permissions/six_role.py": "c7ab275688ab72be4aff8d0f3597bd6def1529e4e07ea9b195fc0dda34435d96",
+    "backend/business_app/permissions/task_creation_context.py": "d965a25fe6470c200a93514c0c2fec77ffe56acc294c4a523e6fdfac4c576245",
     "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
     "backend/business_app/permissions/work.py": "cd481f6fab1266669a827589e3080b0f2126514683fccedc495b691b8e368e59",
     "backend/business_app/permissions/work_subject.py": "dd00ff09568ab0baaa0213d3c158928e79a9eb267dd38f76268282bb3fe5b85b",
@@ -103,7 +104,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "091d6c7032c2fb2ee6e47edc710df71e41433ea112e50192f032718e9dab3bec",
+    "tasks/execution-status.json": "3a830dcb682f240e45fcf648b7b68d94bb919e65315d0d7c06ed757895f71671",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -121,10 +122,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 152,
+    "all_completed_substeps": 153,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 152,
+    "authorized_completed_substeps": 153,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -142,7 +143,7 @@
     "declared_operations_without_explicit_business_registration": 22,
     "versioned_create_table_count": 70,
     "versioned_sql_function_name_count": 33,
-    "backend_python_definition_count": 494,
+    "backend_python_definition_count": 503,
     "backend_python_definitions_with_direct_literal_sql_tables": 65,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -11676,10 +11677,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 2,
+      "completed_substeps_count": 3,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。",
-      "actual_remaining_summary": "I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。；I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
+      "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。；I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。",
+      "actual_remaining_summary": "I01材料/离线工具/0016基础及I02首批请求上下文组件已隔离验证；I02仍需guard/条件授权生命周期接线、固定受限LOOKUP/CASE SQL、精确当前事实和能力读取。后续SQL仅0017及新增迁移，不改已发布0016；I03原子创建/精确重放、I04 HTTP和I05整套仍待。E01—E04未确认，不猜填或自动采用。；I01原验证保留；本批127项纯上下文/既有绑定及270文件类型和质量通过，未重跑DB/HTTP/完整权限或前端。仍需I02实际SQL/guard/事实、I03半写/幂等并发/撤销恢复、I04 HTTP及I05适用完整回归；托管CI真实pending/失败和软件扫描门禁保留。；逐项核对源验收标准并补实际证据：校验资产授权与状态、策略版本及幂等；相同键同摘要返回原任务，摘要不同返回冲突；不以upload_id替代task_id。；实际开发负责人和指定复核人均已由本人确认为徐昌胜；仍需投入工时、实际实施日期和复核决定，对照原依赖及验收逐项关闭代码/测试缺口。同人兼任不当作独立双人复核，责任登记不替代任务验收。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -11800,16 +11801,38 @@
               "scope": "T034-I01隔离材料/迁移/工具限定子步骤；实际失败、验证、精确源码与剩余边界见报告，不等于原子任务创建或整卡验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。",
+          "evidence": [
+            {
+              "path": "backend/business_app/permissions/task_creation_context.py",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            },
+            {
+              "path": "tests/business/test_task_creation_context.py",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t034-request-context.md",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t034-request-context-report.json",
+              "scope": "T034-I02请求上下文纯组件限定子步骤；不是guard/SQL接线、业务授权或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施",
-          "description": "I01—I05计划已获用户批准，I01材料/离线工具/0016基础已隔离验证；继续I02固定受限SQL/当前事实与请求上下文、I03同事务创建/精确重放和I04 HTTP，I05适用全回归。0016发布后不再修改，I02使用0017及后续增量。E01—E04真实采用权威、精确材料/映射、事实/handler和预算仍未确认；不得自动激活或登记真实202。"
+          "description": "I01材料/离线工具/0016基础及I02首批请求上下文组件已隔离验证；I02仍需guard/条件授权生命周期接线、固定受限LOOKUP/CASE SQL、精确当前事实和能力读取。后续SQL仅0017及新增迁移，不改已发布0016；I03原子创建/精确重放、I04 HTTP和I05整套仍待。E01—E04未确认，不猜填或自动采用。"
         },
         {
           "category": "测试",
-          "description": "I01最终245纯测试及230项受影响DB子集、失败探针和质量检查已通过；初轮71通过的中止尝试不计最终通过。仍需I02— I04的权限/当前事实/错scope、原子半写、幂等并发、HTTP、撤销与恢复测试及I05适用整套；软件扫描/托管CI失败保留。"
+          "description": "I01原验证保留；本批127项纯上下文/既有绑定及270文件类型和质量通过，未重跑DB/HTTP/完整权限或前端。仍需I02实际SQL/guard/事实、I03半写/幂等并发/撤销恢复、I04 HTTP及I05适用完整回归；托管CI真实pending/失败和软件扫描门禁保留。"
         },
         {
           "category": "验收",
@@ -38158,6 +38181,174 @@
         ],
         "var_positional": null,
         "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context._scope_invalid",
+      "python_name": "_scope_invalid",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 40,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context._actor_copy",
+      "python_name": "_actor_copy",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 44,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "actor"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context._principal_copy",
+      "python_name": "_principal_copy",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 48,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "principal",
+          "clock"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context._request_copy",
+      "python_name": "_request_copy",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 71,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "principal",
+          "body"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context._authorization_digest",
+      "python_name": "_authorization_digest",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 97,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "request"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context.freeze_task_creation_context",
+      "python_name": "freeze_task_creation_context",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 103,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "principal",
+          "body"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "clock"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context._context_copy",
+      "python_name": "_context_copy",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 112,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value",
+          "clock"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context.current_task_creation_context",
+      "python_name": "current_task_creation_context",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 149,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [
+          "clock"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.task_creation_context.bind_task_creation_context",
+      "python_name": "bind_task_creation_context",
+      "source_path": "backend/business_app/permissions/task_creation_context.py",
+      "line": 156,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "context"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "clock"
+        ],
         "var_keyword": null
       },
       "direct_literal_sql_tables": [],
