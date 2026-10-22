@@ -39,6 +39,13 @@ onBeforeUnmount(reader.dispose)
     >
       读取所选版本证据
     </button>
+    <button
+      class="secondary"
+      :disabled="!reader.canLoad() || reader.state.busy || !reader.state.data?.next_cursor"
+      @click="reader.load(true)"
+    >
+      下一页证据
+    </button>
     <p
       class="notice"
       role="status"
@@ -64,7 +71,7 @@ onBeforeUnmount(reader.dispose)
       class="notice"
       data-testid="review-evidence-incomplete"
     >
-      本次响应包含后续游标，证据集合不完整；当前接口未提供可用翻页接线，不自动续取，也不将本页缺失当作证据不存在。
+      当前为分页结果，未显示引用可继续查询；不自动续取，也不将本页缺失当作证据不存在。
     </p>
     <p
       v-if="missing.length"

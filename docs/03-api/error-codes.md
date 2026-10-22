@@ -55,3 +55,15 @@
 | ASSET_OBJECT_BINDING_INVALID | 503 | 资产元数据与同单位、同案件的固定对象版本摘要或大小不一致，拒绝返回对象引用；不泄露存储路径或具体差异 |
 
 `READ_PARAMETER_UNSUPPORTED`继续用于重复或未知查询参数（422）；案件、身份、来源和游标错误复用既有对应错误码。接口范围及参数依据见[目录读取契约](catalog-read-contract-change.md)。
+
+## 固定历史证据显式分页
+
+既有getTaskEvidence仅在显式提供limit或cursor时采用本地固定投影分页；两项均省略保留旧投影响应，不宣称全局默认20已改造。cursor不授予权限，每页仍核对当前身份、案件、来源/对象授权和实际所选历史结果；历史未命中不回退最新。接口结构不变，详情见[实现与限定范围](../03-development/evidence-snapshot-pagination.md)。
+
+| 代码 | HTTP | 含义与处理 |
+| --- | --- | --- |
+| PAGE_CURSOR_INVALID | 422 | 游标编码、长度、MAC、主体/单位/案件/任务/运行/结果/limit绑定或位置无效；最新版本已变化时旧游标不能跨到新结果。重新选择并从首页读取，不将游标当授权。 |
+| PAGE_CURSOR_STALE | 409 | MAC绑定有效但固定投影摘要已变化；拒绝续页，重新读取所选版本，不拼接不同快照。无有效MAC时不披露该区别。 |
+| EVIDENCE_PAGING_SOURCE_INCOMPLETE | 503 | 已存投影仍带上游next_cursor，完整证据尚未取得；拒绝本地分页，不覆盖为本地游标或null，不回退旧模式/最新结果。 |
+
+缺运行仍返回TASK_RUN_NOT_FOUND/404，运行存在但缺结果返回RESULT_NOT_FOUND/404；本批修正的是HTTP测试原期望，没有改变这两个既有运行错误。未知非history查询字段继续READ_PARAMETER_UNSUPPORTED/422，未知/重复或不完整history选择返回HISTORY_SELECTION_INVALID/422；重复limit/cursor返回PAGE_CURSOR_INVALID/422，参数类型或范围不符沿用框架校验；未提供新的类型或人工状态筛选参数。

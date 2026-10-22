@@ -260,8 +260,10 @@ export function createReviewEvidenceReader(
       return false
     }
   }
-  async function load() {
-    if (disposed) return
+  async function load(next = false) {
+    if (disposed || state.busy) return
+    const cursor = next ? state.data?.next_cursor : null
+    if (next && !cursor) return
     clear()
     let value: ReviewEvidenceSelection
     try {
@@ -278,7 +280,9 @@ export function createReviewEvidenceReader(
       const query = new URLSearchParams({
         'history[run_version]': String(value.runVersion),
         'history[result_version]': String(value.resultVersion),
+        limit: '20',
       })
+      if (cursor) query.set('cursor', cursor)
       const reply = await session.call<unknown>(`/analysis/tasks/${value.taskId}/evidence?${query}`)
       if (!current()) return
       target()

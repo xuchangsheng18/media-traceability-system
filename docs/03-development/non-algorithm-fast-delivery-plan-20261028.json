@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "IN_PROGRESS_T103_EVIDENCE_LOCATION_VERIFIED_T034_DESIGN_REVIEW_PENDING",
+  "status": "IN_PROGRESS_T101_T103_EXPLICIT_EVIDENCE_PAGING_VERIFIED_T034_DESIGN_REVIEW_PENDING",
   "observed_date": "2026-10-21",
   "timezone": "Asia/Shanghai",
   "user_request": "加快T001—T123剩余开发，算法先不做；10月29号之前完成",
@@ -3277,7 +3277,7 @@
       "name": "实现风险与取证证据卡片接口",
       "scope_class": "MIXED",
       "execution_lane": "CORE",
-      "engineering_now": "复用已有历史证据读取，完善卡片分页、类型/人工状态过滤和原件定位。",
+      "engineering_now": "完整固定投影已实现显式分页及每页当前权限重查；仍需类型/人工状态过滤、真实结果生产/聚合、原件定位与全部详情联动；上游部分投影仍拒绝分页，省略参数保留旧兼容响应。；核对全部真实模型结果、版本/原件映射和部分能力边界；算法/真实producer继续暂缓，不以自建历史测试行冒充真实输出或媒体有效性，完整快照逐页物化不当大数据性能通过。；开发负责人及指定复核人均已由用户确认为徐昌胜；工时、实际日期、本人已复核及源卡逐项验收仍待。责任登记不授予权限或构成独立双人复核。",
       "deferred_scope": "风险、取证、同源和视频定位算法发现生产暂缓。",
       "blockers": [
         "T100证据版本与映射完整性",
@@ -3298,13 +3298,14 @@
       "original_acceptance": "核心结论均有证据；支持过滤类型和人工状态；坐标时间可定位。",
       "original_test_requirements": "缺证据检测、分页和权限测试。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
-      "completed_substeps": 1,
+      "actual_owner": "徐昌胜",
+      "completed_substeps": 2,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
       "new_code_or_tests_implemented_by_this_plan": false,
-      "planned_implementation_not_existing_file_claim": true
+      "planned_implementation_not_existing_file_claim": true,
+      "latest_implemented_subscope_ref": "docs/00-project/validation/evidence-paging-report.json"
     },
     {
       "task_id": "T102",
@@ -3343,7 +3344,7 @@
       "name": "开发人工复核工作台",
       "scope_class": "ENGINEERING",
       "execution_lane": "CORE",
-      "engineering_now": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
+      "engineering_now": "证据固定版本元数据、编号定位及显式手动分页已接线；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。缺引用为当前页未定位，不证明全量不存在，不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤和完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
       "deferred_scope": "风险/篡改/传播算法页面完整结果联调暂缓；不假造可定位证据。",
       "blockers": [
         "T102真实后端动作与权限状态",
@@ -3364,13 +3365,13 @@
       "original_test_requirements": "审批页面与后端拒绝一致、越权请求、退回/撤销、旧版本提示、多人步骤及证据定位测试。",
       "actual_status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
-      "completed_substeps": 3,
+      "completed_substeps": 4,
       "remaining_work_groups": 3,
       "whole_task_accepted": false,
       "actual_dependencies_verified_by_this_plan": false,
       "new_code_or_tests_implemented_by_this_plan": false,
       "planned_implementation_not_existing_file_claim": true,
-      "latest_implemented_subscope_ref": "docs/00-project/validation/t103-evidence-read-report.json"
+      "latest_implemented_subscope_ref": "docs/00-project/validation/evidence-paging-report.json"
     },
     {
       "task_id": "T104",
@@ -4028,14 +4029,14 @@
       "planned_implementation_not_existing_file_claim": true
     }
   ],
-  "progress_observed_at": "2026-10-22T06:00:34.665904+00:00",
-  "progress_ledger_sha256_lf": "bc32ea34099bcda472355f25e0ac0de571643fcd0bda2dce227893d2708f575c",
+  "progress_observed_at": "2026-10-22T06:46:20.142211+00:00",
+  "progress_ledger_sha256_lf": "9de5b677b197fcc572fd73a62bb21b047733a955cb8dabe9c09280f37f846169",
   "current_totals": {
-    "verified_substeps": 146,
+    "verified_substeps": 148,
     "remaining_work_groups_T001_T123": 434,
     "whole_tasks_accepted": 0
   },
-  "latest_implemented_batch_ref": "docs/00-project/validation/t103-evidence-read-report.json",
+  "latest_implemented_batch_ref": "docs/00-project/validation/evidence-paging-report.json",
   "baseline_fields_scope": "Historical planning start at 4db848b; current progress is separately bound by progress_ledger_sha256_lf/current_totals",
   "latest_t024_worker_isolated_integration": {
     "observed_at": "2026-10-21T17:12:31.753075+00:00",
@@ -4199,6 +4200,21 @@
     "report_ref": "docs/00-project/validation/t103-evidence-read-report.json",
     "plan_ref": "docs/03-development/t103-evidence-location.md",
     "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
+  },
+  "latest_evidence_snapshot_pagination": {
+    "observed_at": "2026-10-22T06:46:20.142211+00:00",
+    "report_ref": "docs/00-project/validation/evidence-paging-report.json",
+    "plan_ref": "docs/03-development/evidence-snapshot-pagination.md",
+    "task_ids": [
+      "T101",
+      "T103"
+    ],
+    "new_completed_substeps": 2,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,
     "formal_authority_verified": false,

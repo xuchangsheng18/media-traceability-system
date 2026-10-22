@@ -88,7 +88,7 @@ test('reads only the exact historical GET and locally locates identifiers withou
   await reader.load()
   const [url, init] = fetch.mock.calls[0]!
   expect(url).toBe(
-    `/business/api/v1/analysis/tasks/${taskId}/evidence?history%5Brun_version%5D=3&history%5Bresult_version%5D=4`,
+    `/business/api/v1/analysis/tasks/${taskId}/evidence?history%5Brun_version%5D=3&history%5Bresult_version%5D=4&limit=20`,
   )
   expect(init.method).toBe('GET')
   expect(init.body).toBeUndefined()
@@ -103,7 +103,7 @@ test('reads only the exact historical GET and locally locates identifiers withou
   expect(reader.selected()).toBeNull()
   expect(fetch).toHaveBeenCalledTimes(1)
 })
-test('historical references expose missing identifiers and partial-page cursor without fetching another page', async () => {
+test('historical references expose page-local missing identifiers without automatically fetching another page', async () => {
   const fetch = vi.fn(async () =>
     response({
       items: [evidence(), { ...evidence(), evidence_id: userId }],
@@ -140,6 +140,163 @@ test('an empty historical page reports linked IDs missing rather than successful
   reader.locate(evidenceId)
   expect(reader.selected()).toBeNull()
 })
+
+test.each([false, true])(
+  'explicit pagination keeps the fixed historical binding and replaces only the current page (history=%s)',
+  async (historical) => {
+    const cursor = 'opaque+cursor/=?&history[run_version]=99'
+    const fetch = vi.fn(async (_url: string, _init: RequestInit) =>
+      response({ items: [evidence()], next_cursor: cursor }),
+    )
+    vi.stubGlobal('fetch', fetch)
+    const { reader, value } = setup()
+    if (historical)
+      value.value = {
+        ...selection(),
+        sourceKey: 'review/owned',
+        evidenceIds: [evidenceId, otherId],
+      }
+    await reader.load()
+    expect(fetch).toHaveBeenCalledTimes(1)
+    reader.locate(evidenceId)
+    expect(reader.selected()).not.toBeNull()
+    if (historical) expect(reader.missingIds()).toEqual([otherId])
+    fetch.mockImplementation(async () =>
+      response({ items: [{ ...evidence(), evidence_id: otherId }], next_cursor: null }),
+    )
+    const pending = reader.load(true)
+    expect(reader.state.data).toBeNull()
+    expect(reader.state.selectedId).toBe('')
+    expect(reader.state.loaded).toBe(false)
+    expect(reader.state.busy).toBe(true)
+    await pending
+    const first = new URL(fetch.mock.calls[0]![0]!, 'http://owned.invalid')
+    const next = new URL(fetch.mock.calls[1]![0]!, 'http://owned.invalid')
+    expect(first.pathname).toBe(`/business/api/v1/analysis/tasks/${taskId}/evidence`)
+    expect(Object.fromEntries(first.searchParams)).toEqual({
+      'history[run_version]': '3',
+      'history[result_version]': '4',
+      limit: '20',
+    })
+    expect(next.pathname).toBe(first.pathname)
+    expect(Object.fromEntries(next.searchParams)).toEqual({
+      'history[run_version]': '3',
+      'history[result_version]': '4',
+      limit: '20',
+      cursor,
+    })
+    expect([...next.searchParams]).toHaveLength(4)
+    expect(reader.visibleItems()).toEqual([{ ...evidence(), evidence_id: otherId }])
+    expect(reader.state.data?.next_cursor).toBeNull()
+    expect(reader.selected()).toBeNull()
+    if (historical) expect(reader.missingIds()).toEqual([evidenceId])
+    await reader.load(true)
+    expect(fetch).toHaveBeenCalledTimes(2)
+    await reader.load()
+    expect(
+      new URL(fetch.mock.calls[2]![0]!, 'http://owned.invalid').searchParams.has('cursor'),
+    ).toBe(false)
+    expect(fetch).toHaveBeenCalledTimes(3)
+  },
+)
+test('next before a loaded cursor emits no request and preserves initial state', async () => {
+  const fetch = vi.fn()
+  vi.stubGlobal('fetch', fetch)
+  const { reader } = setup()
+  await reader.load(true)
+  expect(fetch).not.toHaveBeenCalled()
+  expect(reader.state).toEqual({
+    data: null,
+    busy: false,
+    error: '',
+    loaded: false,
+    selectedId: '',
+  })
+})
+test('busy first and next reads cannot issue duplicate requests or invalidate the pending page', async () => {
+  let finish!: (reply: Response) => void
+  const fetch = vi.fn(
+    () =>
+      new Promise<Response>((resolve) => {
+        finish = resolve
+      }),
+  )
+  vi.stubGlobal('fetch', fetch)
+  const { reader } = setup()
+  const first = reader.load()
+  await reader.load()
+  await reader.load(true)
+  expect(fetch).toHaveBeenCalledTimes(1)
+  expect(reader.state.busy).toBe(true)
+  finish(response({ items: [evidence()], next_cursor: 'owned-next' }))
+  await first
+  const next = reader.load(true)
+  await reader.load(true)
+  await reader.load()
+  expect(fetch).toHaveBeenCalledTimes(2)
+  expect(reader.state.busy).toBe(true)
+  finish(response({ items: [], next_cursor: null }))
+  await next
+  expect(reader.state.data).toEqual({ items: [], next_cursor: null })
+  expect(reader.state.loaded).toBe(true)
+})
+test.each([403, 409, 503])(
+  'next-page HTTP %s clears data and cursor without legacy/latest fallback',
+  async (status) => {
+    const fetch = vi.fn(async () => response({ items: [evidence()], next_cursor: 'owned-next' }))
+    vi.stubGlobal('fetch', fetch)
+    const { reader } = setup()
+    await reader.load()
+    reader.locate(evidenceId)
+    fetch.mockImplementation(async () => Response.json({ code: 'OWNED_PAGE_FAILURE' }, { status }))
+    await reader.load(true)
+    expect(reader.state.data).toBeNull()
+    expect(reader.state.selectedId).toBe('')
+    expect(reader.state.loaded).toBe(false)
+    expect(reader.state.error).toContain('OWNED_PAGE_FAILURE')
+    await reader.load(true)
+    expect(fetch).toHaveBeenCalledTimes(2)
+  },
+)
+test.each(['task-header', 'run-header', 'result-version', 'case-binding'])(
+  'next-page %s mismatch clears the cursor and selection',
+  async (invalid) => {
+    const fetch = vi.fn(async () => response({ items: [evidence()], next_cursor: 'owned-next' }))
+    vi.stubGlobal('fetch', fetch)
+    const { reader } = setup()
+    await reader.load()
+    reader.locate(evidenceId)
+    fetch.mockImplementation(async () =>
+      response(
+        {
+          items: [
+            {
+              ...evidence(),
+              ...(invalid === 'result-version'
+                ? { result_version: 99 }
+                : invalid === 'case-binding'
+                  ? { case_id: otherId }
+                  : {}),
+            },
+          ],
+          next_cursor: 'must-not-reuse',
+        },
+        invalid === 'task-header'
+          ? { 'X-Task-Id': otherId }
+          : invalid === 'run-header'
+            ? { 'X-Run-Version': '99' }
+            : {},
+      ),
+    )
+    await reader.load(true)
+    expect(reader.state.data).toBeNull()
+    expect(reader.state.selectedId).toBe('')
+    expect(reader.state.loaded).toBe(false)
+    expect(reader.state.error).toContain('已拒绝显示')
+    await reader.load(true)
+    expect(fetch).toHaveBeenCalledTimes(2)
+  },
+)
 test('empty current pages are valid and nullable locators remain explicit', async () => {
   vi.stubGlobal('fetch', async () => response({ items: [], next_cursor: null }))
   const { reader } = setup()
@@ -482,7 +639,8 @@ const changes: [string, (env: Environment) => void][] = [
 test.each(changes)(
   '%s synchronously clears loaded data and selected evidence',
   async (_name, change) => {
-    vi.stubGlobal('fetch', async () => response())
+    const fetch = vi.fn(async () => response({ items: [evidence()], next_cursor: 'old-page' }))
+    vi.stubGlobal('fetch', fetch)
     const env = setup()
     await env.reader.load()
     env.reader.locate(evidenceId)
@@ -492,6 +650,8 @@ test.each(changes)(
     expect(env.reader.state.selectedId).toBe('')
     expect(env.reader.state.loaded).toBe(false)
     expect(env.reader.state.busy).toBe(false)
+    await env.reader.load(true)
+    expect(fetch).toHaveBeenCalledTimes(1)
   },
 )
 test.each(
@@ -523,6 +683,54 @@ test.each(
   })
   expect(fetch).toHaveBeenCalledTimes(1)
 })
+test.each(
+  changes
+    .filter(([name]) =>
+      [
+        'generation',
+        'user',
+        'evidence permission revoked',
+        'source with unchanged result versions',
+        'run',
+        'dispose',
+      ].includes(name),
+    )
+    .flatMap(([name, change]) => [[name, change, false] as const, [name, change, true] as const]),
+)('%s discards actual pending continuation (error=%s)', async (_name, change, error) => {
+  let finish!: (reply: Response) => void
+  const fetch = vi
+    .fn()
+    .mockImplementationOnce(async () =>
+      response({ items: [evidence()], next_cursor: 'owned-next' }),
+    )
+    .mockImplementationOnce(
+      () =>
+        new Promise<Response>((resolve) => {
+          finish = resolve
+        }),
+    )
+  vi.stubGlobal('fetch', fetch)
+  const env = setup()
+  await env.reader.load()
+  const pending = env.reader.load(true)
+  expect(env.reader.state.busy).toBe(true)
+  expect(fetch).toHaveBeenCalledTimes(2)
+  expect(
+    new URL(fetch.mock.calls[1]![0] as string, 'http://owned.invalid').searchParams.get('cursor'),
+  ).toBe('owned-next')
+  change(env)
+  finish(error ? Response.json({ code: 'OWNED_LATE_NEXT_FAILURE' }, { status: 503 }) : response())
+  await pending
+  expect(env.reader.state).toEqual({
+    data: null,
+    busy: false,
+    error: '',
+    loaded: false,
+    selectedId: '',
+  })
+  await env.reader.load(true)
+  expect(fetch).toHaveBeenCalledTimes(2)
+})
 test('manual clear invalidates pending reads and dispose prevents any further request', async () => {
   let finish!: (response: Response) => void
   const fetch = vi.fn(
@@ -551,6 +759,7 @@ test.each([false, true])(
     vi.stubGlobal('fetch', () => new Promise<Response>((resolve) => finish.push(resolve)))
     const { reader } = setup()
     const first = reader.load()
+    reader.clear()
     const second = reader.load()
     finish[0]!(
       error ? Response.json({ code: 'SELF_OWNED_SUPERSEDED' }, { status: 503 }) : response(),

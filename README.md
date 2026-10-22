@@ -1,8 +1,10 @@
 # 短视频与图片智能识别溯源系统
 
-2026-10-22本批T103证据定位：[实现与边界](docs/03-development/t103-evidence-location.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-read-report.json)。精确历史证据读取与编号定位、时间/归一化区域、缺引用和不完整提示已接线；665项前端、开发/生产各103项传输浏览器通过。新增1条子步骤，当前146条已证、434组剩余，全部170项622组剩余、整卡验收0项；媒体字节/播放、证据分页、审批/草稿和真实权威组合仍待。
+2026-10-22本批T101/T103证据分页：[实现与边界](docs/03-development/evidence-snapshot-pagination.md)、[实测及同步回执](docs/00-project/validation/evidence-paging-report.json)。显式limit/cursor分页、每页当前授权与固定投影绑定及前端下一页已接线；省略参数保留旧响应，上游未取齐拒绝503。688项前端、开发/生产各114项传输浏览器通过；后端初轮135项为134通过/1项测试期望错误，修正后11项HTTP通过，59纯及65相邻测试保留初轮通过证据。新增2条子步骤，当前148条已证、434组剩余，全部170项622组剩余、整卡验收0项。过滤、真实producer、媒体播放、复核写入和完整工作流仍待；算法与Python候选继续暂缓。
 
-2026-10-22本批T103复核只读页面：[实现与边界](docs/03-development/t103-review-read-console.md)、[实测及同步回执](docs/00-project/validation/t103-review-read-report.json)。当前上下文与历史分页分别保留版本；487项前端、开发/生产各88项传输浏览器通过。新增1条子步骤，当前145条已证、434组剩余，全部170项622组剩余、整卡验收0项；审批/草稿、正式规则、真实权威组合及算法联调仍待。
+2026-10-22历史批次T103证据定位：[实现与边界](docs/03-development/t103-evidence-location.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-read-report.json)。精确历史证据读取与编号定位、时间/归一化区域、缺引用和不完整提示已接线；665项前端、开发/生产各103项传输浏览器通过。新增1条子步骤，当批累计146条已证、434组剩余，全部170项622组剩余、整卡验收0项；媒体字节/播放、证据分页、审批/草稿和真实权威组合仍待。
+
+2026-10-22历史批次T103复核只读页面：[实现与边界](docs/03-development/t103-review-read-console.md)、[实测及同步回执](docs/00-project/validation/t103-review-read-report.json)。当前上下文与历史分页分别保留版本；487项前端、开发/生产各88项传输浏览器通过。新增1条子步骤，当批累计145条已证、434组剩余，全部170项622组剩余、整卡验收0项；审批/草稿、正式规则、真实权威组合及算法联调仍待。
 
 2026-10-22历史批次T030共享会话：[修复与边界](docs/03-development/shared-session-rejection-lifecycle.md)、[实测及同步回执](docs/00-project/validation/shared-session-rejection-lifecycle-report.json)。旧401拒绝传播期间的新连接尝试保护已修复；6项受控调度新单元纳入396项前端，开发/生产各72项传输浏览器通过。新增1条子步骤，当批累计144条已证、434组剩余，全部170项622组剩余，整卡验收0项；非普通点击故障或真实权威验收，保留测试维护事项。算法与Python候选暂缓。
 
@@ -22,13 +24,13 @@
 
 2026-10-22历史批次T006安全失败定位：[实现与边界](docs/03-development/ci-safe-failure-diagnostics.md)、[限定实测回执](docs/00-project/validation/ci-safe-failure-diagnostics-report.json)。新增1条工程子步骤；T001—T123当批累计137条已证、434组剩余，全部170任务137条已证、622组剩余，整卡验收0项。原完整业务回归1项失败未定位，T033业务修改暂缓。
 
-2026-10-22本批T032运行事件约束：[0015实现与边界](docs/04-database/task-event-run-integrity.md)、[限定实测回执](docs/00-project/validation/t032-task-event-integrity-report.json)。新增1条工程子步骤；T001—T123当批累计136条已证、434组剩余，全部170任务136条已证、622组剩余，整卡验收0项。
+2026-10-22历史批次T032运行事件约束：[0015实现与边界](docs/04-database/task-event-run-integrity.md)、[限定实测回执](docs/00-project/validation/t032-task-event-integrity-report.json)。新增1条工程子步骤；T001—T123当批累计136条已证、434组剩余，全部170任务136条已证、622组剩余，整卡验收0项。
 
-2026-10-22本批T031候选计划：[解析实现与边界](docs/03-development/t031-candidate-task-plan.md)、[限定实测回执](docs/00-project/validation/t031-candidate-task-plan-report.json)。新增1条工程子步骤；T001—T123当批累计135条已证、434组剩余，全部170任务135条已证、622组剩余，整卡验收0项。
+2026-10-22历史批次T031候选计划：[解析实现与边界](docs/03-development/t031-candidate-task-plan.md)、[限定实测回执](docs/00-project/validation/t031-candidate-task-plan-report.json)。新增1条工程子步骤；T001—T123当批累计135条已证、434组剩余，全部170任务135条已证、622组剩余，整卡验收0项。
 
-2026-10-22本批T024落盘持久性：[实现与边界](docs/03-development/t024-object-durability.md)、[限定实测回执](docs/00-project/validation/t024-object-durability-report.json)。新增1条工程子步骤；T001—T123当批累计134条已证、434组剩余，全部170任务134条已证、622组剩余，整卡验收0项。
+2026-10-22历史批次T024落盘持久性：[实现与边界](docs/03-development/t024-object-durability.md)、[限定实测回执](docs/00-project/validation/t024-object-durability-report.json)。新增1条工程子步骤；T001—T123当批累计134条已证、434组剩余，全部170任务134条已证、622组剩余，整卡验收0项。
 
-2026-10-22本批T024隔离worker联调：[实现与剩余条件](docs/03-development/t024-worker-isolated-integration.md)、[限定实测回执](docs/00-project/validation/t024-worker-isolated-integration-report.json)。新增1条worker子步骤；T001—T123当批累计133条已证、434组剩余，全部170任务为133条已证、622组剩余，整卡验收0项。
+2026-10-22历史批次T024隔离worker联调：[实现与剩余条件](docs/03-development/t024-worker-isolated-integration.md)、[限定实测回执](docs/00-project/validation/t024-worker-isolated-integration-report.json)。新增1条worker子步骤；T001—T123当批累计133条已证、434组剩余，全部170任务为133条已证、622组剩余，整卡验收0项。
 
 2026-10-22首批实际开发：[业务上传前端及剩余联调](docs/03-development/business-upload-first-batch.md)、[精确验证回执](docs/00-project/validation/business-upload-first-batch-report.json)。业务上传入口已实现，单元311项、浏览器51项分别在开发/生产构建通过；新增3条限定子步骤，T001—T123当批累计132条已证、434组剩余，整卡验收0项。
 

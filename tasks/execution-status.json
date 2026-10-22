@@ -6757,10 +6757,10 @@
       "name": "实现风险与取证证据卡片接口",
       "card": "tasks/backend/T101.md",
       "status": "PARTIAL_VERIFIED_SCOPE",
-      "actual_owner": null,
+      "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "风险/取证/证据等固定历史结果读取子范围已有验证",
-      "summary_remaining": "实现真实结果生产、聚合及前端详情/证据展示；核对全部模型结果、版本/原件映射和部分能力边界，不用测试历史行冒充真实模型输出",
+      "summary_completed": "风险/取证/证据等固定历史结果读取子范围已有验证；既有getTaskEvidence显式limit/cursor按完整固定投影分页，省略参数保留旧响应；游标绑定主体/单位/案件/任务/运行/结果/limit、全投影摘要及位置，每页仍经当前授权和真实仓库校验。上游未取齐拒绝503，不回退最新。59纯测试及65相邻测试初轮通过，11项HTTP在修正缺运行的测试期望并补缺结果断言后通过，失败探针按预期失败；262文件类型、Ruff通过。不含真实算法producer、过滤或整卡验收。",
+      "summary_remaining": "完整固定投影已实现显式分页及每页当前权限重查；仍需类型/人工状态过滤、真实结果生产/聚合、原件定位与全部详情联动；上游部分投影仍拒绝分页，省略参数保留旧兼容响应。；核对全部真实模型结果、版本/原件映射和部分能力边界；算法/真实producer继续暂缓，不以自建历史测试行冒充真实输出或媒体有效性，完整快照逐页物化不当大数据性能通过。；开发负责人及指定复核人均已由用户确认为徐昌胜；工时、实际日期、本人已复核及源卡逐项验收仍待。责任登记不授予权限或构成独立双人复核。",
       "completed_steps": [
         {
           "description": "风险/取证/证据等固定历史结果读取子范围已有验证",
@@ -6779,23 +6779,64 @@
               "scope": "仅证明本行开发子范围；不证明原任务全部验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "既有getTaskEvidence显式limit/cursor按完整固定投影分页，省略参数保留旧响应；游标绑定主体/单位/案件/任务/运行/结果/limit、全投影摘要及位置，每页仍经当前授权和真实仓库校验。上游未取齐拒绝503，不回退最新。59纯测试及65相邻测试初轮通过，11项HTTP在修正缺运行的测试期望并补缺结果断言后通过，失败探针按预期失败；262文件类型、Ruff通过。不含真实算法producer、过滤或整卡验收。",
+          "evidence": [
+            {
+              "path": "backend/business_app/history/evidence_paging.py",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "backend/business_app/history/router.py",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "backend/business_app/errors.py",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "tests/business/test_evidence_paging.py",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "tests/business/test_evidence_paging_http.py",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "docs/03-development/evidence-snapshot-pagination.md",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "docs/00-project/validation/evidence-paging-report.json",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "实现真实结果生产、聚合及前端详情/证据展示"
+          "description": "完整固定投影已实现显式分页及每页当前权限重查；仍需类型/人工状态过滤、真实结果生产/聚合、原件定位与全部详情联动；上游部分投影仍拒绝分页，省略参数保留旧兼容响应。"
         },
         {
           "category": "实施/验证",
-          "description": "核对全部模型结果、版本/原件映射和部分能力边界，不用测试历史行冒充真实模型输出"
+          "description": "核对全部真实模型结果、版本/原件映射和部分能力边界；算法/真实producer继续暂缓，不以自建历史测试行冒充真实输出或媒体有效性，完整快照逐页物化不当大数据性能通过。"
         },
         {
           "category": "任务记录",
-          "description": "落实实际负责人及剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。"
+          "description": "开发负责人及指定复核人均已由用户确认为徐昌胜；工时、实际日期、本人已复核及源卡逐项验收仍待。责任登记不授予权限或构成独立双人复核。"
         }
       ],
-      "observed_date": "2026-10-17"
+      "observed_date": "2026-10-22",
+      "designated_reviewer": "徐昌胜",
+      "responsibility_confirmation_ref": "docs/00-project/validation/t101-role-assignment.json",
+      "followup_document_refs": [
+        "docs/00-project/validation/t101-role-assignment.json",
+        "docs/03-development/evidence-snapshot-pagination.md",
+        "docs/00-project/validation/evidence-paging-report.json"
+      ]
     },
     {
       "task_id": "T102",
@@ -6853,8 +6894,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。；当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。",
-      "summary_remaining": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
+      "summary_completed": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。；当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。；证据页面显式limit20及精确历史选择，受控下一页保留不透明游标、逐页校验响应头/证据绑定并替换当前页；来源或身份变化及晚响应清理，页内缺引用不当全量不存在，错误不回退。688项前端（含201项证据reader）、开发/生产各114项传输浏览器通过；两模式重叠，不含真实权威E2E、媒体播放或复核写入。",
+      "summary_remaining": "证据固定版本元数据、编号定位及显式手动分页已接线；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。缺引用为当前页未定位，不证明全量不存在，不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤和完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
       "completed_steps": [
         {
           "description": "待复核列表、上下文及历史记录后端子范围已有验证",
@@ -6941,16 +6982,46 @@
               "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "证据页面显式limit20及精确历史选择，受控下一页保留不透明游标、逐页校验响应头/证据绑定并替换当前页；来源或身份变化及晚响应清理，页内缺引用不当全量不存在，错误不回退。688项前端（含201项证据reader）、开发/生产各114项传输浏览器通过；两模式重叠，不含真实权威E2E、媒体播放或复核写入。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/review-evidence.ts",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "frontend/src/business/review-evidence.test.ts",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "frontend/src/components/ReviewEvidencePanel.vue",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "docs/03-development/evidence-snapshot-pagination.md",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            },
+            {
+              "path": "docs/00-project/validation/evidence-paging-report.json",
+              "scope": "T101/T103显式固定证据投影分页限定子范围；精确源码、命令、初轮失败修正及未验边界见报告，不等于整卡或共享采用验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。"
+          "description": "证据固定版本元数据、编号定位及显式手动分页已接线；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。缺引用为当前页未定位，不证明全量不存在，不从读取推断审批或证据效力。"
         },
         {
           "category": "实施/验证",
-          "description": "真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。"
+          "description": "真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤和完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。"
         },
         {
           "category": "任务记录",
@@ -6965,7 +7036,9 @@
         "docs/03-development/t103-review-read-console.md",
         "docs/00-project/validation/t103-review-read-report.json",
         "docs/03-development/t103-evidence-location.md",
-        "docs/00-project/validation/t103-evidence-read-report.json"
+        "docs/00-project/validation/t103-evidence-read-report.json",
+        "docs/03-development/evidence-snapshot-pagination.md",
+        "docs/00-project/validation/evidence-paging-report.json"
       ]
     },
     {
@@ -9754,7 +9827,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t103-evidence-read-report.json",
+    "latest_implemented_subscope_ref": "docs/00-project/validation/evidence-paging-report.json",
     "latest_design_ref": "docs/03-development/t034-creation-integration-design.md"
   },
   "latest_business_upload_frontend": {
@@ -9927,6 +10000,21 @@
     "report_ref": "docs/00-project/validation/t103-evidence-read-report.json",
     "plan_ref": "docs/03-development/t103-evidence-location.md",
     "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
+  },
+  "latest_evidence_snapshot_pagination": {
+    "observed_at": "2026-10-22T06:46:20.142211+00:00",
+    "report_ref": "docs/00-project/validation/evidence-paging-report.json",
+    "plan_ref": "docs/03-development/evidence-snapshot-pagination.md",
+    "task_ids": [
+      "T101",
+      "T103"
+    ],
+    "new_completed_substeps": 2,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,
     "formal_authority_verified": false,

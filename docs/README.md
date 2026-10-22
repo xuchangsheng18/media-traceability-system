@@ -38,7 +38,7 @@ T011/T012身份底座：[本批设计](03-development/t012-identity-relations-de
 
 T013身份系统：[本人实名/MFA接管实际回执](00-project/validation/t013-owner-mfa-management-validation.json)、[四项采用及核查](03-development/t013-named-admin-adoption-checklist.md)、[两把恢复子密钥及同U盘恢复](00-project/validation/t013-recovery-subkeys-owner-validation.json)、[第二轮签名保护及新备份恢复](00-project/validation/t013-reprotected-signer-owner-validation.json)、[四份已知旧导出限定退役](03-development/t013-known-signer-copy-disposition.md)、[后续本人步骤](03-development/t013-owner-action-checklist.md)。本人首次改密/OTP、专用PKCE签名MFA管理会话及临时令牌文件清理已核实；不重复A01—A07。第二独立介质暂无，真实身份数据恢复、恢复后旧凭据失效及bootstrap退役/回切和整卡验收仍待。
 
-任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[768条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有146条已验证子步骤、622条剩余工作；全局编号0001—0768。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
+任务执行入口：[分步任务导航](../tasks/README.md#分步任务导航)、[170张独立任务卡](../tasks/README.md)、[同源状态台账](../tasks/execution-status.json)、[770条执行事项逐项清单](00-project/task-execution-steps.txt)。当前有148条已验证子步骤、622条剩余工作；全局编号0001—0770。任务内C/R编号、实际证据与剩余条件保持对应；子步骤数量不换算为整任务完成率。
 
 第三阶段入口：[16步实际操作与状态](03-development/stage-three/readiness.md)、[环境验证报告](03-development/development-environment-validation-report.md)、[基线候选](03-development/development-environment-baseline.md)。两份手册原件和全文阅读版已归档；当前用户工程授权与正式冻结分别判断。
 
@@ -440,8 +440,11 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/evidence-snapshot-pagination.md](<03-development/evidence-snapshot-pagination.md>) | T101/T103既有固定证据投影的显式分页、游标绑定及每页当前授权；省略参数保留旧响应，上游未取齐拒绝503，页面缺引用只作当前页未定位。 |
+| [00-project/validation/evidence-paging-report.json](<00-project/validation/evidence-paging-report.json>) | 证据分页九源文件、后端初轮测试期望错误及11项HTTP更正回归、688前端/114浏览器各模式、262文件类型、限定复核及精确CI/三端源码回执。 |
+| [00-project/validation/t101-role-assignment.json](<00-project/validation/t101-role-assignment.json>) | 用户确认T101开发负责人和指定复核人均为徐昌胜；仅责任登记，不证明本人复核、工时、独立双人验收或系统授权。 |
 | [03-development/t103-evidence-location.md](<03-development/t103-evidence-location.md>) | T103当前/历史复核的精确证据元数据读取与编号定位；三响应头/案件版本绑定、归一化区域和毫秒区间、缺引用及不完整返回，不下载媒体或执行审批。 |
-| [00-project/validation/t103-evidence-read-report.json](<00-project/validation/t103-evidence-read-report.json>) | T103五文件源码、结构/绑定/生命周期及浏览器限定测试、独立复核、最新CI和三端源码回执；保留服务端证据分页、媒体内容和完整复核验收条件。 |
+| [00-project/validation/t103-evidence-read-report.json](<00-project/validation/t103-evidence-read-report.json>) | T103证据定位历史批次的五文件源码、结构/绑定/生命周期及限定测试、复核和源码回执；当批未实现分页，后续分页见新回执，媒体内容与完整复核仍待。 |
 | [03-development/t103-review-read-console.md](<03-development/t103-review-read-console.md>) | T103既有接口的待复核任务选择、当前上下文与历史分页只读页面；任务/案件/本地身份变化清理、完整响应绑定及未验工作流边界。 |
 | [00-project/validation/t103-review-read-report.json](<00-project/validation/t103-review-read-report.json>) | T103五文件源码、单元/类型/格式/构建及开发和生产浏览器限定证据、独立复核和精确CI/三端同步；不等于正式复核验收。 |
 | [00-project/validation/t103-role-assignment.json](<00-project/validation/t103-role-assignment.json>) | 用户确认T103实际开发负责人和指定复核人均为徐昌胜；只登记责任，不授予权限、不证明本人复核、工时或独立双人验收。 |
@@ -703,7 +706,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1310份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1313份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -794,7 +797,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/stage-one/steps-and-deliverables.md](<00-project/stage-one/steps-and-deliverables.md>) | 已在现有24步对应表更新实际材料/技术状态、操作、产物、待办及正式状态；不另建状态展示页，不与170业务任务完成率混同。 |
 | [00-project/stage-one/visual-layout-audit.json](<00-project/stage-one/visual-layout-audit.json>) | 10原件/PDF/369页PNG摘要、实际Office16.0只读渲染、页级几何/浏览范围和8项发现；CI不冒称重做人工看图。 |
 | [00-project/stage-one/visual-layout-audit.md](<00-project/stage-one/visual-layout-audit.md>) | 9Word357页＋12页原型全页概览/关键页放大核验，8项阅读处置；保留原件，未声称全页逐像素交付审校。 |
-| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内768条执行事项逐条编号：146条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
+| [00-project/task-execution-steps.txt](<00-project/task-execution-steps.txt>) | 170任务内770条执行事项逐条编号：148条已验证子步骤、622条剩余工作；保留C/R编号、具体证据及源依赖、测试和验收要求。 |
 | [00-project/upstream-file-manifest.json](<00-project/upstream-file-manifest.json>) | 本轮仓库适配前的上游文件摘要，供对比。 |
 | [00-project/upstream-package-readme.md](<00-project/upstream-package-readme.md>) | 上游资料包原始说明，属于历史状态。 |
 | [00-project/validation/acceptance-metric-reference-report.json](<00-project/validation/acceptance-metric-reference-report.json>) | 8组自建公式计算证据：失败不删分母、未知单列和引用语义支持；不代表真实业务达标。 |
@@ -825,6 +828,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/development-recovery-report.json](<00-project/validation/development-recovery-report.json>) | 8项5表/原对象版本/权重恢复，已有私有凭据保留，非生产灾备。 |
 | [00-project/validation/documentation-completion-report.json](<00-project/validation/documentation-completion-report.json>) | 当前全量导航、字段来源及原件摘要的覆盖检查 |
 | [00-project/validation/environment-inventory.json](<00-project/validation/environment-inventory.json>) | 实际宿主/引擎/服务版本、上限和时点快照；不是峰值或独占配额。 |
+| [00-project/validation/evidence-paging-report.json](<00-project/validation/evidence-paging-report.json>) | 证据分页九源文件、后端初轮测试期望错误及11项HTTP更正回归、688前端/114浏览器各模式、262文件类型、限定复核及精确CI/三端源码回执。 |
 | [00-project/validation/frontend-quality-report.json](<00-project/validation/frontend-quality-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/generated-contract-report.json](<00-project/validation/generated-contract-report.json>) | 4份TS类型临时重新生成后的字节一致性，新增workflow来源包装仍需运行Schema检查。 |
 | [00-project/validation/github-actions-report.json](<00-project/validation/github-actions-report.json>) | 实际GitHub run、源码SHA、结论、制品摘要/门禁验真；配置和执行严格分开。 |
@@ -1435,7 +1439,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
 | [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
-| [00-project/validation/t103-evidence-read-report.json](<00-project/validation/t103-evidence-read-report.json>) | T103五文件源码、结构/绑定/生命周期及浏览器限定测试、独立复核、最新CI和三端源码回执；保留服务端证据分页、媒体内容和完整复核验收条件。 |
+| [00-project/validation/t101-role-assignment.json](<00-project/validation/t101-role-assignment.json>) | 用户确认T101开发负责人和指定复核人均为徐昌胜；仅责任登记，不证明本人复核、工时、独立双人验收或系统授权。 |
+| [00-project/validation/t103-evidence-read-report.json](<00-project/validation/t103-evidence-read-report.json>) | T103证据定位历史批次的五文件源码、结构/绑定/生命周期及限定测试、复核和源码回执；当批未实现分页，后续分页见新回执，媒体内容与完整复核仍待。 |
 | [00-project/validation/t103-review-read-report.json](<00-project/validation/t103-review-read-report.json>) | T103五文件源码、单元/类型/格式/构建及开发和生产浏览器限定证据、独立复核和精确CI/三端同步；不等于正式复核验收。 |
 | [00-project/validation/t103-role-assignment.json](<00-project/validation/t103-role-assignment.json>) | 用户确认T103实际开发负责人和指定复核人均为徐昌胜；只登记责任，不授予权限、不证明本人复核、工时或独立双人验收。 |
 | [00-project/validation/task-cancellation-console-report.json](<00-project/validation/task-cancellation-console-report.json>) | T039取消前端的实际RED/GREEN、39项新单元、完整前端与开发/生产浏览器验证、复核补强及三端同步；自建传输夹具不当真实后端E2E。 |
@@ -1731,6 +1736,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
 | [03-development/development-environment-change-request.md](<03-development/development-environment-change-request.md>) | 说明文档：开发环境变更和恢复要求；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
+| [03-development/evidence-snapshot-pagination.md](<03-development/evidence-snapshot-pagination.md>) | T101/T103既有固定证据投影的显式分页、游标绑定及每页当前授权；省略参数保留旧响应，上游未取齐拒绝503，页面缺引用只作当前页未定位。 |
 | [03-development/main-protection-handoff.md](<03-development/main-protection-handoff.md>) | 说明文档：main分支保护：已获授权的设置与复验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/migrations-and-events.md](<03-development/migrations-and-events.md>) | 专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。 |
 | [03-development/native-linux-admin-checklist.md](<03-development/native-linux-admin-checklist.md>) | 说明文档：原生研发环境：徐昌胜的管理员执行清单；结合正文的状态、来源和适用范围阅读。 |

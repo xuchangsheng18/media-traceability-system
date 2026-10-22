@@ -4,11 +4,11 @@
 
 任务台账日期：2026-10-22。本清单只读取代码、契约、迁移及现存台账，不连接数据库、不执行迁移、不导入业务代码。
 
-全部170任务：146条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：146条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
+全部170任务：148条已验证子步骤、622条剩余工作、0项整任务验收。T001—T123：148条已验证子步骤、434条剩余工作、0项整任务验收。三种计数单位不同，不据此计算任务完成率。
 
 T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73个操作，当前源码显式注册其中51个，尚有22个未注册；内部推理契约/源码另计1/1。当前版本迁移中发现64张表定义、31个不同SQL函数名称。
 
-后端Python静态索引包含469个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
+后端Python静态索引包含470个函数/方法定义，其中65个在直接SQL字面量中引用已定义表。完整限定名、参数名与位置见机器清单的`backend_python_method_source_index`；下方按任务列出与声明表直接相交的方法。动态SQL、间接调用和服务转发不作推断，未列出不代表没有方法实现。
 
 已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。
 
@@ -120,9 +120,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | [T098 实现结构化主张抽取服务](#t098) | 尚无充分已验证交付 | 0/4 | claim、text_segment | 0/1 |
 | [T099 实现权威证据检索与关系判断](#t099) | 尚无充分已验证交付 | 0/4 | claim、claim_evidence_relation | 0/1 |
 | [T100 实现统一证据对象模型](#t100) | 尚无充分已验证交付 | 0/4 | evidence_item | 0/0 |
-| [T101 实现风险与取证证据卡片接口](#t101) | 部分已验证 | 1/3 | evidence_item、task_evidence | 1/1 |
+| [T101 实现风险与取证证据卡片接口](#t101) | 部分已验证 | 2/3 | evidence_item、task_evidence | 1/1 |
 | [T102 实现人工复核工作流](#t102) | 部分已验证 | 1/3 | approval_decision、approval_request、audit_event、policy_registry、propagation_edge、review_evidence、review_record | 4/5 |
-| [T103 开发人工复核工作台](#t103) | 部分已验证 | 3/3 | audit_event、evidence_item、review_evidence、review_record、task_evidence | 2/2 |
+| [T103 开发人工复核工作台](#t103) | 部分已验证 | 4/3 | audit_event、evidence_item、review_evidence、review_record、task_evidence | 2/2 |
 | [T104 实现证据固化与完整性校验](#t104) | 尚无充分已验证交付 | 0/4 | audit_event、evidence_package、object_version、package_item | 0/1 |
 | [T105 实现可信时间与签名适配层](#t105) | 尚无充分已验证交付 | 0/4 | audit_event、evidence_package、object_version、package_item | 0/1 |
 | [T106 实现证据约束核查摘要](#t106) | 尚无充分已验证交付 | 0/4 | report、report_evidence | 0/1 |
@@ -1246,7 +1246,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
 | `listTasks` | `GET /api/v1/analysis/tasks` | case_id（必填）、limit（可选）、cursor（可选） | `list_tasks`；[backend/business_app/catalog_router.py:54](<../../backend/business_app/catalog_router.py#L54>) |
-| `getTask` | `GET /api/v1/analysis/tasks/{id}` | history（可选） | `task`；[backend/business_app/history/router.py:91](<../../backend/business_app/history/router.py#L91>) |
+| `getTask` | `GET /api/v1/analysis/tasks/{id}` | history（可选） | `task`；[backend/business_app/history/router.py:112](<../../backend/business_app/history/router.py#L112>) |
 
 
 <a id="t036"></a>
@@ -1406,7 +1406,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
 | `listTasks` | `GET /api/v1/analysis/tasks` | case_id（必填）、limit（可选）、cursor（可选） | `list_tasks`；[backend/business_app/catalog_router.py:54](<../../backend/business_app/catalog_router.py#L54>) |
-| `getTask` | `GET /api/v1/analysis/tasks/{id}` | history（可选） | `task`；[backend/business_app/history/router.py:91](<../../backend/business_app/history/router.py#L91>) |
+| `getTask` | `GET /api/v1/analysis/tasks/{id}` | history（可选） | `task`；[backend/business_app/history/router.py:112](<../../backend/business_app/history/router.py#L112>) |
 | `cancelTask` | `POST /api/v1/analysis/tasks/{id}/cancel` | 无 | `cancel_task`；[backend/business_app/controls/router.py:721](<../../backend/business_app/controls/router.py#L721>) |
 | `rerunTask` | `POST /api/v1/analysis/tasks/{id}/rerun` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
 
@@ -1639,7 +1639,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getTimeline` | `GET /api/v1/assets/{id}/timeline` | history（可选） | `timeline`；[backend/business_app/history/router.py:111](<../../backend/business_app/history/router.py#L111>) |
+| `getTimeline` | `GET /api/v1/assets/{id}/timeline` | history（可选） | `timeline`；[backend/business_app/history/router.py:132](<../../backend/business_app/history/router.py#L132>) |
 
 
 <a id="t051"></a>
@@ -2135,7 +2135,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getRiskFindings` | `GET /api/v1/analysis/tasks/{id}/risk-findings` | history（可选） | `risk`；[backend/business_app/history/router.py:96](<../../backend/business_app/history/router.py#L96>) |
+| `getRiskFindings` | `GET /api/v1/analysis/tasks/{id}/risk-findings` | history（可选） | `risk`；[backend/business_app/history/router.py:117](<../../backend/business_app/history/router.py#L117>) |
 
 
 <a id="t071"></a>
@@ -2302,7 +2302,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getForensics` | `GET /api/v1/analysis/tasks/{id}/forensics` | history（可选） | `forensics`；[backend/business_app/history/router.py:101](<../../backend/business_app/history/router.py#L101>) |
+| `getForensics` | `GET /api/v1/analysis/tasks/{id}/forensics` | history（可选） | `forensics`；[backend/business_app/history/router.py:122](<../../backend/business_app/history/router.py#L122>) |
 
 
 <a id="t079"></a>
@@ -2717,7 +2717,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getFirstSource` | `GET /api/v1/clusters/{id}/first-source` | ranking_id（可选）、history（可选） | `first_source`；[backend/business_app/history/router.py:116](<../../backend/business_app/history/router.py#L116>) |
+| `getFirstSource` | `GET /api/v1/clusters/{id}/first-source` | ranking_id（可选）、history（可选） | `first_source`；[backend/business_app/history/router.py:137](<../../backend/business_app/history/router.py#L137>) |
 
 
 <a id="t094"></a>
@@ -2764,7 +2764,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getPropagation` | `GET /api/v1/propagation/{cluster_id}` | history（可选） | `propagation`；[backend/business_app/history/router.py:121](<../../backend/business_app/history/router.py#L121>) |
+| `getPropagation` | `GET /api/v1/propagation/{cluster_id}` | history（可选） | `propagation`；[backend/business_app/history/router.py:142](<../../backend/business_app/history/router.py#L142>) |
 
 
 <a id="t096"></a>
@@ -2825,7 +2825,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getPropagation` | `GET /api/v1/propagation/{cluster_id}` | history（可选） | `propagation`；[backend/business_app/history/router.py:121](<../../backend/business_app/history/router.py#L121>) |
+| `getPropagation` | `GET /api/v1/propagation/{cluster_id}` | history（可选） | `propagation`；[backend/business_app/history/router.py:142](<../../backend/business_app/history/router.py#L142>) |
 | `decidePropagationEdge` | `POST /api/v1/propagation/edges/{id}/decisions` | 无 | 未发现显式业务路由注册；不推定其他服务状态 |
 
 
@@ -2915,7 +2915,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 <a id="t101"></a>
 ## T101 实现风险与取证证据卡片接口
 
-任务卡：[tasks/backend/T101.md](<../../tasks/backend/T101.md>)；分组：主张核查、证据、复核及报告；源责任角色：后端；实际负责人：未确定。
+任务卡：[tasks/backend/T101.md](<../../tasks/backend/T101.md>)；分组：主张核查、证据、复核及报告；源责任角色：后端；实际负责人：徐昌胜。
 
 原工作范围：将算法结果转换为统一证据卡片。
 
@@ -2923,9 +2923,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T068,T077,T084,T089,T100；执行依赖候选：T068、T077、T084、T089、T100；依赖是否具备仍需实际核验。
 
-当前已验证范围：风险/取证/证据等固定历史结果读取子范围已有验证
+当前已验证范围：风险/取证/证据等固定历史结果读取子范围已有验证；既有getTaskEvidence显式limit/cursor按完整固定投影分页，省略参数保留旧响应；游标绑定主体/单位/案件/任务/运行/结果/limit、全投影摘要及位置，每页仍经当前授权和真实仓库校验。上游未取齐拒绝503，不回退最新。59纯测试及65相邻测试初轮通过，11项HTTP在修正缺运行的测试期望并补缺结果断言后通过，失败探针按预期失败；262文件类型、Ruff通过。不含真实算法producer、过滤或整卡验收。
 
-未完成事项：实现真实结果生产、聚合及前端详情/证据展示；核对全部模型结果、版本/原件映射和部分能力边界，不用测试历史行冒充真实模型输出
+未完成事项：完整固定投影已实现显式分页及每页当前权限重查；仍需类型/人工状态过滤、真实结果生产/聚合、原件定位与全部详情联动；上游部分投影仍拒绝分页，省略参数保留旧兼容响应。；核对全部真实模型结果、版本/原件映射和部分能力边界；算法/真实producer继续暂缓，不以自建历史测试行冒充真实输出或媒体有效性，完整快照逐页物化不当大数据性能通过。；开发负责人及指定复核人均已由用户确认为徐昌胜；工时、实际日期、本人已复核及源卡逐项验收仍待。责任登记不授予权限或构成独立双人复核。
 
 表与创建源码：
 
@@ -2941,7 +2941,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getTaskEvidence` | `GET /api/v1/analysis/tasks/{id}/evidence` | limit（可选）、cursor（可选）、history（可选） | `evidence`；[backend/business_app/history/router.py:106](<../../backend/business_app/history/router.py#L106>) |
+| `getTaskEvidence` | `GET /api/v1/analysis/tasks/{id}/evidence` | limit（可选）、cursor（可选）、history（可选） | `evidence`；[backend/business_app/history/router.py:127](<../../backend/business_app/history/router.py#L127>) |
 
 
 <a id="t102"></a>
@@ -3001,9 +3001,9 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 源依赖：T070,T078,T097,T102；执行依赖候选：T070、T078、T097、T102；依赖是否具备仍需实际核验。
 
-当前已验证范围：待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。；当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。
+当前已验证范围：待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。；当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。；证据页面显式limit20及精确历史选择，受控下一页保留不透明游标、逐页校验响应头/证据绑定并替换当前页；来源或身份变化及晚响应清理，页内缺引用不当全量不存在，错误不回退。688项前端（含201项证据reader）、开发/生产各114项传输浏览器通过；两模式重叠，不含真实权威E2E、媒体播放或复核写入。
 
-未完成事项：已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。
+未完成事项：证据固定版本元数据、编号定位及显式手动分页已接线；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。缺引用为当前页未定位，不证明全量不存在，不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤和完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。
 
 表与创建源码：
 
@@ -3028,7 +3028,7 @@ T001—T123声明55张不同表、53个不同操作ID；完整业务契约含73�
 
 | 操作ID | 契约HTTP方法和路径 | query参数 | 已注册业务Python方法及位置 |
 | --- | --- | --- | --- |
-| `getTaskEvidence` | `GET /api/v1/analysis/tasks/{id}/evidence` | limit（可选）、cursor（可选）、history（可选） | `evidence`；[backend/business_app/history/router.py:106](<../../backend/business_app/history/router.py#L106>) |
+| `getTaskEvidence` | `GET /api/v1/analysis/tasks/{id}/evidence` | limit（可选）、cursor（可选）、history（可选） | `evidence`；[backend/business_app/history/router.py:127](<../../backend/business_app/history/router.py#L127>) |
 | `createReview` | `POST /api/v1/reviews` | 无 | `create_review`；[backend/business_app/controls/router.py:243](<../../backend/business_app/controls/router.py#L243>) |
 
 
