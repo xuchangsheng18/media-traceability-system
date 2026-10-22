@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/migration-ci-regression-repair.md](<03-development/migration-ci-regression-repair.md>) | 两处既有0017迁移测试适配修复、非超级owner管理员临时SET-only授权与撤回；93项受影响SQL和187项T016限定通过，完整business/T014及新CI分别记录，完成数不增加。 |
+| [00-project/validation/migration-ci-regression-repair-report.json](<00-project/validation/migration-ci-regression-repair-report.json>) | 精确两测试源码、原失败实际复现、93SQL/187T016与失败探针、281文件类型及6项撤销隔离观察；不推定原超时根因、完整门禁或整卡验收，CI/三端同步据实。 |
 | [00-project/validation/business-timeout-diagnostics-report.json](<00-project/validation/business-timeout-diagnostics-report.json>) | 完整业务回归超时诊断的精确源码、实际RED及59项诊断/旧相邻测试、失败探针和281文件质量；完整回归未据此通过，原1800秒及CI门禁保留，新增完成数为0。 |
 | [03-development/t034-internal-development-decisions.md](<03-development/t034-internal-development-decisions.md>) | 用户委托下选定内部研发E01—E04实现输入与预算、真实完整性helper及一节点adapter方案；尚未应用运行配置，不造身份/采用/许可/恢复事实。 |
 | [00-project/validation/t034-development-design-delegation-20261022.json](<00-project/validation/t034-development-design-delegation-20261022.json>) | 2026-10-22用户委托合理研发设计的范围记录；仅设计与研发选择，不是已存在的正式业务事实或共享部署批准。 |
@@ -728,7 +730,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1335份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1337份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -904,6 +906,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/main-protection-readback.json](<00-project/validation/main-protection-readback.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/media-query-report.json](<00-project/validation/media-query-report.json>) | 6项合成媒体和微型SQL/向量/鉴权检查；不代表中文或大规模业务。 |
 | [00-project/validation/media-timestamp-report.json](<00-project/validation/media-timestamp-report.json>) | 真实非零原点合成抽帧PTS和像素核验；未证明VFR业务链路。 |
+| [00-project/validation/migration-ci-regression-repair-report.json](<00-project/validation/migration-ci-regression-repair-report.json>) | 精确两测试源码、原失败实际复现、93SQL/187T016与失败探针、281文件类型及6项撤销隔离观察；不推定原超时根因、完整门禁或整卡验收，CI/三端同步据实。 |
 | [00-project/validation/migration-fencing-report.json](<00-project/validation/migration-fencing-report.json>) | 15项隔离迁移/权限/8数据库竞争者检查，非8Celery传输验收。 |
 | [00-project/validation/native-artifact-acquisition-report.json](<00-project/validation/native-artifact-acquisition-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/native-binary-probe-report.json](<00-project/validation/native-binary-probe-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1771,6 +1774,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
 | [03-development/evidence-snapshot-pagination.md](<03-development/evidence-snapshot-pagination.md>) | T101/T103既有固定证据投影的显式分页、游标绑定及每页当前授权；省略参数保留旧响应，上游未取齐拒绝503，页面缺引用只作当前页未定位。 |
 | [03-development/main-protection-handoff.md](<03-development/main-protection-handoff.md>) | 说明文档：main分支保护：已获授权的设置与复验；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/migration-ci-regression-repair.md](<03-development/migration-ci-regression-repair.md>) | 两处既有0017迁移测试适配修复、非超级owner管理员临时SET-only授权与撤回；93项受影响SQL和187项T016限定通过，完整business/T014及新CI分别记录，完成数不增加。 |
 | [03-development/migrations-and-events.md](<03-development/migrations-and-events.md>) | 专用开发迁移/摘要、版本事件、原始追踪与旧租约拒绝；明确旧库接管及并发边界。 |
 | [03-development/native-linux-admin-checklist.md](<03-development/native-linux-admin-checklist.md>) | 说明文档：原生研发环境：徐昌胜的管理员执行清单；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/native-linux-execution-status.json](<03-development/native-linux-execution-status.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |

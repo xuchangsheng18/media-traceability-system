@@ -303,7 +303,7 @@ def test_identity_upgrade_preserves_legacy_rows_or_rejects_cross_unit_members(da
             assert scalar(connection, "SELECT count(*) FROM mt.case_membership") == 1
 
 
-def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_dsn):
+def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_dsn, tmp_path):
     from uuid import uuid4
 
     from psycopg import sql
@@ -318,8 +318,57 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
                 sql.Identifier(str(settings["dbname"])), sql.Identifier(role)
             )
         )
+
+    def revoke_installation_memberships():
+        with psycopg.connect(database_dsn, autocommit=True) as admin:
+            admin.execute(
+                sql.SQL("REVOKE mt_task_plan_lookup,mt_task_plan_case_reader FROM {}").format(sql.Identifier(role))
+            )
+            assert admin.execute(
+                "SELECT count(*) FROM pg_auth_members WHERE member=%s::regrole AND roleid IN "
+                "('mt_task_plan_lookup'::regrole,'mt_task_plan_case_reader'::regrole)",
+                (role,),
+            ).fetchone() == (0,)
+
     try:
-        assert migrate(make_conninfo(database_dsn, options="-crole=" + role)) == [
+        owner_dsn = make_conninfo(database_dsn, options="-crole=" + role)
+        history = tmp_path / "identity_owner_through0016"
+        history.mkdir()
+        previous = [path for path in sorted(MIGRATIONS.glob("*.sql")) if path.name[:4] <= "0016"]
+        assert [path.name[:4] for path in previous] == [f"{version:04d}" for version in range(1, 17)]
+        for path in previous:
+            (history / path.name).write_bytes(path.read_bytes())
+        applied = migrate(owner_dsn, history)
+        assert applied == [f"{version:04d}" for version in range(1, 17)]
+        # The test administrator supplies the documented installation prerequisite.
+        # Migration execution remains the same non-super, non-BYPASSRLS owner.
+        with psycopg.connect(database_dsn, autocommit=True) as admin:
+            assert admin.execute("SELECT rolsuper,rolbypassrls FROM pg_roles WHERE rolname=%s", (role,)).fetchone() == (
+                False,
+                False,
+            )
+            admin.execute(
+                sql.SQL(
+                    "GRANT mt_task_plan_lookup,mt_task_plan_case_reader TO {} WITH INHERIT FALSE, SET TRUE, ADMIN FALSE"
+                ).format(sql.Identifier(role))
+            )
+            assert admin.execute(
+                "SELECT r.rolname,m.inherit_option,m.set_option,m.admin_option "
+                "FROM pg_auth_members m JOIN pg_roles r ON r.oid=m.roleid "
+                "WHERE m.member=%s::regrole AND r.rolname IN "
+                "('mt_task_plan_lookup','mt_task_plan_case_reader') ORDER BY r.rolname",
+                (role,),
+            ).fetchall() == [
+                ("mt_task_plan_case_reader", False, True, False),
+                ("mt_task_plan_lookup", False, True, False),
+            ]
+        try:
+            remaining = migrate(owner_dsn)
+            assert remaining == ["0017"]
+            applied += remaining
+        finally:
+            revoke_installation_memberships()
+        assert applied == [
             "0001",
             "0002",
             "0003",
@@ -338,6 +387,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             "0016",
             "0017",
         ]
+        assert migrate(owner_dsn) == []
         org, user = uuid4(), uuid4()
         with psycopg.connect(database_dsn) as admin:
             admin.execute("INSERT INTO mt.organizations(org_id,name) VALUES(%s,'owner-test')", (org,))
@@ -351,6 +401,7 @@ def test_identity_lookup_works_when_migration_owner_cannot_bypass_rls(database_d
             row = admin.execute("SELECT user_id FROM mt.resolve_identity('owner-provider','owner-subject')").fetchone()
             assert row == (user,)
     finally:
+        revoke_installation_memberships()
         with psycopg.connect(database_dsn) as admin:
             admin.execute(sql.SQL("REASSIGN OWNED BY {} TO CURRENT_USER").format(sql.Identifier(role)))
             admin.execute(sql.SQL("DROP OWNED BY {}").format(sql.Identifier(role)))

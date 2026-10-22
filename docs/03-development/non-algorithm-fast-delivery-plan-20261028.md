@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+2026-10-23续批：[两处迁移CI回归修复](migration-ci-regression-repair.md)、[精确限定回执](../00-project/validation/migration-ci-regression-repair-report.json)。2026-10-23两处CI迁移回归失败已用原源码实际复现并修复：非超级schema owner按既有0017安装前提接受管理员临时SET-only授权且finally撤回；旧令牌升级预期精确纳入0017。最终受影响SQL回归93项、T016专用完整门禁187项及两个原故意失败探针通过，Ruff/格式及281文件类型检查通过；范围重叠不相加。较早9项为格式冻结前源码，另列历史。本轮没有完整business/T014或新托管CI通过回执，不新增已完成子步骤，不登记整卡验收。 保持154条已证、434组范围内剩余、全170项622组剩余和0整卡验收；T034四已证/四组剩余。算法/Python候选暂缓。
+
 2026-10-23续批：[完整回归超时诊断](ci-safe-failure-diagnostics.md)、[限定验证回执](../00-project/validation/business-timeout-diagnostics-report.json)。原1800秒与CI/扫描门禁保留；59项诊断/旧相邻回归、失败探针及281文件类型/质量通过。完整业务回归在较早诊断快照运行，最终完整结果未确认；不新增C05或已完成子步骤，保持154条已证、T034四已证/四组剩余，算法/Python候选暂缓。
 
 2026-10-22本批T034工程候选：[代码/限定验证与未完成门禁](t034-i02-integration.md)、[精确回执](../00-project/validation/t034-i02-integration-report.json)、[数据库读口](../04-database/task-creation-scope-read-contract.md)。16文件代码已实现；178项SQL、544项纯组合及279文件类型/质量限定通过，范围重叠不相加；此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑）（expected0/actual2/test_count0，约1800秒），其探针未执行，权限整套以独立实际回执为准。不计候选C05，T034仍4已证/4组剩余，当前154条已证、434组剩余，全170项622组剩余、整卡验收0；I02/HTTP/202与真实采用未完成，原CI/扫描门禁保留，算法与Python候选暂缓。

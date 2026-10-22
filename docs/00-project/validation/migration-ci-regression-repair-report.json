@@ -1,0 +1,960 @@
+{
+  "schema_version": 1,
+  "status": "MIGRATION_REGRESSION_REPAIR_LIMITED_GATES_VERIFIED_NOT_FULL_BUSINESS_PASS",
+  "observed_at": "2026-10-22T17:51:58.019531+00:00",
+  "base_source_commit": "841f91da817f0dcbacc11cf675f2b2286fbe393f",
+  "source_sha256_lf": {
+    "tests/business/test_migrations.py": "8481f6a3009395d3e5ad1df79eebb8fa9bd058dd048b2a407391dcef4c3de0dd",
+    "tests/business/test_t016_operation_token_recovery.py": "1fea5f096046b22e414775958f9087bfa4b7edbec3290bfde2b55daf9e5fb36a"
+  },
+  "task_ids": [
+    "T016",
+    "T034"
+  ],
+  "proof_receipt_sha256": {
+    "red": "2b35f4fccd30f4428a6a02956af8de0f679e4c73e86aca1408ac1aca1604e9f2",
+    "earlier_focused": "ae6ae5639fb5ac162e93bb0b3249d413e3d8f32a24c6136d0535ab7e46f9aecc",
+    "affected": "55bf0342212b138c6173d20acc6362a39f90646ab4d840e5d868c0b50e753332",
+    "quality": "1b0b46284e44be256632a6de108641afb729d612ab342b773e65ccd422e18468",
+    "source_review": "5b41e5a51bad0bbb38fc957107b5a0fb8b6a0fb41f810bb9c734e3a97a5e164b",
+    "cleanup_observation": "37dd0a1ba19cdfa954842352aaf3122a264f3992ed7c1f0fd204a2db9e40cd01"
+  },
+  "RED_history": {
+    "kind": "ORIGINAL_TWO_CI_FAILURES_REPRODUCED",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+      "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums",
+      "-q",
+      "--tb=short"
+    ],
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T17:22:49.277637+00:00",
+    "ended_at": "2026-10-22T17:23:38.022282+00:00",
+    "failed_source_selectors": [
+      "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+      "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums"
+    ],
+    "failed_selector_count": 2,
+    "source_sha256_lf": {
+      "tests/business/test_migrations.py": "bb341fd0c184c0af07323a4eb29f567fee30bf11f7266b842e5ab34fa905487a",
+      "tests/business/test_t016_operation_token_recovery.py": "e1ac93b9edb30ff3bcda19cdabf9ee27e102bfe9d54229dbe6999a2dcad6b04e"
+    },
+    "included_in_final_counts": false
+  },
+  "earlier_focused_validation": {
+    "kind": "EARLIER_NINE_CASES_BEFORE_FORMAT_FREEZE",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+      "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums",
+      "tests/business/test_t015_scope_owner.py::test_non_super_owner_metadata_port_and_runtime_acl",
+      "tests/business/test_task_creation_scope_sql.py::test_installation_precheck_rejects_every_nonexact_temporary_membership",
+      "-q",
+      "--tb=short"
+    ],
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T17:24:58.964255+00:00",
+    "ended_at": "2026-10-22T17:26:09.456165+00:00",
+    "tests": 9,
+    "source_sha256_lf": {
+      "tests/business/test_migrations.py": "6d6185d069f0f5ad56386873a8d89f8012c5687d14e16bac226da613816880c2",
+      "tests/business/test_t016_operation_token_recovery.py": "1fea5f096046b22e414775958f9087bfa4b7edbec3290bfde2b55daf9e5fb36a"
+    },
+    "exact_final_source": false,
+    "included_in_final_counts": false
+  },
+  "affected_SQL_validation": {
+    "kind": "MIGRATIONS_NON_SUPER_OWNER_AND_FIXED_SQL_REGRESSION",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "tests/business/test_migrations.py",
+      "tests/business/test_t015_scope_owner.py",
+      "tests/business/test_task_creation_scope_sql.py",
+      "-q",
+      "--tb=short"
+    ],
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T17:28:45.843594+00:00",
+    "ended_at": "2026-10-22T17:36:14.876708+00:00",
+    "tests": 93,
+    "counts_overlap_not_additive": true
+  },
+  "T016_dedicated_gate": {
+    "kind": "COMPLETE_T016_DEDICATED_GATE_NOT_COMPLETE_BUSINESS_OR_T014",
+    "command_arguments": [
+      "scripts/verify_t016_tokens.py",
+      "run"
+    ],
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T17:36:14.876803+00:00",
+    "ended_at": "2026-10-22T17:41:53.069875+00:00",
+    "totals": {
+      "tests": 187,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "counts_overlap_not_additive": true
+  },
+  "T014_isolated_cleanup_observation": {
+    "kind": "SIX_REVOCATION_VARIANTS_ISOLATED_NOT_FULL_GATE",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "tests/business/test_t014_runtime.py::test_same_old_bearer_is_rechecked_after_real_directory_revocation",
+      "-vv",
+      "--setup-show",
+      "--durations=20",
+      "--tb=short"
+    ],
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T17:43:54.296322+00:00",
+    "ended_at": "2026-10-22T17:44:16.966687+00:00",
+    "tests": 6,
+    "all_six_passed": true,
+    "prior_1800_second_timeout_reproduced": false,
+    "prior_timeout_root_cause_proven": false,
+    "full_T014_gate_passed": false
+  },
+  "failure_probes": [
+    {
+      "kind": "BUSINESS_FAILURE_PROBE",
+      "command_arguments": [
+        "scripts/verify_business_foundation.py",
+        "failure-probe"
+      ],
+      "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T17:41:53.069972+00:00",
+      "ended_at": "2026-10-22T17:41:53.527845+00:00",
+      "expected_assertion_failure_verified": true
+    },
+    {
+      "kind": "T016_FAILURE_PROBE",
+      "command_arguments": [
+        "scripts/verify_t016_tokens.py",
+        "failure-probe"
+      ],
+      "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "expected_result_verified": true,
+      "started_at": "2026-10-22T17:41:53.527922+00:00",
+      "ended_at": "2026-10-22T17:41:53.870563+00:00",
+      "expected_assertion_failure_verified": true
+    }
+  ],
+  "quality": {
+    "checks": [
+      {
+        "kind": "RUFF",
+        "command_arguments": [
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/business_test_progress.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:28:50.393870+00:00",
+        "ended_at": "2026-10-22T17:28:50.559126+00:00"
+      },
+      {
+        "kind": "FORMAT_CHECK",
+        "command_arguments": [
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/business_test_progress.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:28:50.559215+00:00",
+        "ended_at": "2026-10-22T17:28:50.713569+00:00"
+      },
+      {
+        "kind": "MYPY",
+        "command_arguments": [
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:28:50.713633+00:00",
+        "ended_at": "2026-10-22T17:28:53.074073+00:00"
+      }
+    ],
+    "mypy_source_files": 281
+  },
+  "source_review": {
+    "status": "PASS_LIMITED_FRESH_SOURCE_REVIEW_RUNTIME_VALIDATION_SEPARATE",
+    "critical_count": 0,
+    "important_count": 0,
+    "source_sha256_lf": {
+      "tests/business/test_migrations.py": "8481f6a3009395d3e5ad1df79eebb8fa9bd058dd048b2a407391dcef4c3de0dd",
+      "tests/business/test_t016_operation_token_recovery.py": "1fea5f096046b22e414775958f9087bfa4b7edbec3290bfde2b55daf9e5fb36a"
+    },
+    "dependencies_read_sha256_lf": {
+      "AGENTS.md": "3e8da2f265c6d659519faa3506ed00cf844aa3380450773a3e72391d2a1c9931",
+      "backend/business_migrations/0017_task_creation_scope_reads.sql": "b8a5401f43895a7cd9d84ffdf434356be95d4499875c6ef7cf61bafe1616dd98",
+      "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3",
+      "tests/business/test_t015_scope_owner.py": "91d8bdb78c77f241a891e1f61347d80cfed6f34934c1a04b5c2bf051067d62ae",
+      "tests/business/conftest.py": "d4900a27b84678e64fbd25019717e0895de3e7762c27813a57dc89b05b815f1c",
+      "tests/business/test_task_creation_scope_sql.py": "0d8b0424bd525a88fa63a0d9b643701bf03537f1ef98b09cbae519ac077b3c1e"
+    },
+    "reviewer": "/root/next_media_scope_audit",
+    "not_human_acceptance": true,
+    "runtime_results_separate": true
+  },
+  "historical_failed_payload_hosted_CI": {
+    "observed_at": "2026-10-22T16:53:12.609573+00:00",
+    "id": 39809968741,
+    "head_sha": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39809968741",
+    "jobs": [
+      {
+        "id": 119933269118,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 119940861466,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "failure",
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      },
+      {
+        "id": 119940861521,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "failure",
+        "active_or_failed_steps": [
+          {
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      },
+      {
+        "id": 119951846658,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure",
+        "active_or_failed_steps": [
+          {
+            "name": "Require every isolated verification job to succeed",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      }
+    ],
+    "artifact_receipts": [
+      {
+        "id": 12441316076,
+        "name": "py310-validation-39809968741-1",
+        "sha256": "eb21e234d85552b4978685c3061dd4c5b5012095a2e52c7a5f0edd9454fcedfe",
+        "platform_digest_verified": true,
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "run_attempt": 1,
+        "downloaded_size_bytes": 918405,
+        "owned_job_marker_sha256": "b6f1955ad53f9e387333c74e3a384e4b4329d1888796c7a782c520cc5bd8e182",
+        "generation_window_start": "2026-10-22T16:13:40Z"
+      },
+      {
+        "id": 12440809783,
+        "name": "py310-foundation-validation-39809968741-1",
+        "sha256": "9e46905d3d16647b3c6a7388b04afa63ecdfcd4018980d111792d3217442eb93",
+        "platform_digest_verified": true,
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "run_attempt": 1,
+        "downloaded_size_bytes": 914146,
+        "owned_job_marker_sha256": "8ba4dbe6ce212a3b7e3a39eda31e4449df97d7558a96a2e76f7c14e80b465cde",
+        "generation_window_start": "2026-10-22T16:13:41Z"
+      }
+    ],
+    "reports": {
+      "ci-all-report.json": {
+        "status": "FAIL",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "artifact_id": 12441316076,
+        "sha256": "4602e07e00b71817b29486f554a2cbcf3454082803b96b6507db18e6fb9a301f",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false,
+        "check_count": 18,
+        "passed_check_count": 17,
+        "failed_checks": [
+          {
+            "stage": "validate",
+            "status": "FAIL",
+            "command_sha256": "a7e51a380543021e87a7b81ff4150c7492fb8bbc42652f2e51907ddaead11dcd"
+          }
+        ]
+      },
+      "t015-data-scope-report.json": {
+        "status": "PASS",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12441316076,
+        "sha256": "a2e7cf46eac477a1064b132345fb54273153fd08aea3f8069988d43628756fba",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": true
+      },
+      "t016-operation-token-report.json": {
+        "status": "FAIL",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "totals": {
+          "tests": 187,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "artifact_id": 12441316076,
+        "sha256": "2675b302262a5b2db17741c251a7bde594e2c395f9181e4a1089560e34f479ad",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false
+      },
+      "business-foundation-report.json": {
+        "status": "FAIL",
+        "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+        "totals": {
+          "tests": 1868,
+          "failures": 2,
+          "errors": 0,
+          "skipped": 0
+        },
+        "test_count": 1868,
+        "source_code_dirty": false,
+        "artifact_id": 12440809783,
+        "sha256": "9a3468b53b018e5fac0213fe645a37bc3ce22597ef47484f6f3aecb696a1ed37",
+        "job_owned": true,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false
+      }
+    },
+    "excluded_reports": [
+      {
+        "name": "stage-three-runtime-report.json",
+        "artifact_id": 12441316076,
+        "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+        "reason": "NOT_EXACT_CLEAN_SOURCE_AND_CURRENT_JOB_WINDOW",
+        "exact_source": false,
+        "fresh_generation_window": false,
+        "clean_source": true
+      },
+      {
+        "name": "t014-permissions-report.json",
+        "artifact_id": 12440809783,
+        "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+        "reason": "NOT_EXACT_CLEAN_SOURCE_AND_CURRENT_JOB_WINDOW",
+        "exact_source": false,
+        "fresh_generation_window": false,
+        "clean_source": true
+      }
+    ],
+    "all_CI_pass_asserted": false,
+    "business_failure_selectors": [
+      "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+      "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums"
+    ]
+  },
+  "previous_payload_hosted_CI": {
+    "observed_at": "2026-10-22T17:49:04.950157+00:00",
+    "id": 39820526094,
+    "head_sha": "0b972c813437affab06bb58e002e0831bc6ef692",
+    "run_attempt": 1,
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39820526094",
+    "created_at": "2026-10-22T17:11:52Z",
+    "updated_at": "2026-10-22T17:27:09Z",
+    "jobs": [
+      {
+        "id": 119970292856,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T17:11:56Z",
+        "completed_at": "2026-10-22T17:27:05Z",
+        "active_or_failed_steps": []
+      },
+      {
+        "id": 119978146254,
+        "name": "engineering-execution",
+        "status": "in_progress",
+        "conclusion": null,
+        "started_at": "2026-10-22T17:27:09Z",
+        "completed_at": null,
+        "active_or_failed_steps": [
+          {
+            "name": "Run actual engineering gates",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      },
+      {
+        "id": 119978146485,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-10-22T17:27:09Z",
+        "completed_at": "2026-10-22T17:43:05Z",
+        "active_or_failed_steps": [
+          {
+            "name": "Verify isolated business migrations HTTP messaging and recovery",
+            "status": "completed",
+            "conclusion": "failure"
+          }
+        ]
+      }
+    ],
+    "artifacts_metadata": [
+      {
+        "id": 12445636340,
+        "name": "t013-identity-validation-39820526094",
+        "size_in_bytes": 3231,
+        "digest": "sha256:6c444ba25cef91ae50f3b50ff20cd7336de5ef65795985959a78dc7d9896858c",
+        "expired": false,
+        "created_at": "2026-10-22T17:26:59Z",
+        "updated_at": "2026-10-22T17:26:59Z"
+      },
+      {
+        "id": 12445603393,
+        "name": "py310-foundation-validation-39820526094-1",
+        "size_in_bytes": 920074,
+        "digest": "sha256:042b97f1fad1844d8c7cfc838ffdd014fd289193159cbe8b0fbb2381fa82d061",
+        "expired": false,
+        "created_at": "2026-10-22T17:43:00Z",
+        "updated_at": "2026-10-22T17:43:00Z"
+      }
+    ],
+    "artifact_receipts": [
+      {
+        "id": 12445603393,
+        "name": "py310-foundation-validation-39820526094-1",
+        "sha256": "042b97f1fad1844d8c7cfc838ffdd014fd289193159cbe8b0fbb2381fa82d061",
+        "platform_digest_verified": true,
+        "source_commit": "0b972c813437affab06bb58e002e0831bc6ef692",
+        "run_attempt": 1,
+        "job_id": 119978146485,
+        "job_name": "foundation-verification",
+        "job_conclusion": "failure",
+        "downloaded_size_bytes": 920074,
+        "owned_job_marker_sha256": "21a55ae321aac7fc8329c8f745b3d62e492225005fb02cdce045d0cfeb3c5fa4",
+        "generation_window_start": "2026-10-22T17:27:33Z"
+      }
+    ],
+    "reports": {
+      "business-foundation-report.json": {
+        "status": "FAIL",
+        "source_commit": "0b972c813437affab06bb58e002e0831bc6ef692",
+        "totals": {
+          "tests": 1868,
+          "failures": 2,
+          "errors": 0,
+          "skipped": 0
+        },
+        "test_count": 1868,
+        "source_code_dirty": false,
+        "complete": true,
+        "timeout_seconds": 1800,
+        "artifact_id": 12445603393,
+        "sha256": "6a23045de3f11ba7691cbd1545b269c78b235198b1a161e8f97d03576281d446",
+        "job_owned": true,
+        "job_id": 119978146485,
+        "fresh_generation_window": true,
+        "fresh_exact_source_PASS": false,
+        "failure_selectors": [
+          {
+            "nodeid": "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+            "kind": "failure"
+          },
+          {
+            "nodeid": "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums",
+            "kind": "failure"
+          }
+        ],
+        "last_test_progress": {
+          "nodeid": "tests/business/test_uploads.py::test_concurrent_duplicate_preserves_orphan_recovery",
+          "phase": "finished"
+        }
+      }
+    },
+    "excluded_reports": [
+      {
+        "name": "t014-permissions-report.json",
+        "artifact_id": 12445603393,
+        "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+        "reason": "NOT_EXACT_SOURCE_CLEAN_OR_FRESH_OWNED_WINDOW",
+        "exact_source": false,
+        "fresh_generation_window": false,
+        "source_dirty": false
+      }
+    ],
+    "excluded_artifacts": [
+      {
+        "name": "py310-validation-39820526094-1",
+        "reason": "OWNED_JOB_NOT_TERMINAL",
+        "job_id": 119978146254
+      }
+    ],
+    "allowed_exact_source_job_owned_test_totals": {},
+    "business_failure_selectors": [
+      "tests/business/test_migrations.py::test_identity_lookup_works_when_migration_owner_cannot_bypass_rls",
+      "tests/business/test_t016_operation_token_recovery.py::test_0011_preserves_legacy_rows_and_original_migration_checksums"
+    ],
+    "all_CI_pass_asserted": false,
+    "current_repair_source_verified_by_this_old_payload": false,
+    "counts_are_overlapping_scopes_not_additive": true,
+    "raw_logs_downloaded": false,
+    "raw_logs_published": false,
+    "repository_modified": false,
+    "lock_or_gate_changed": false,
+    "collection_scope": "One fresh read; collect only terminal exact-job-owned artifacts even if other jobs still run; no polling or inference of failure cause",
+    "identity_job_status_only_not_archived_report_reuse": [
+      {
+        "id": 119970292856,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "recorded_final_state": false,
+    "old_payload_only_not_current_repair_result": true
+  },
+  "previous_payload_CI_observation_not_refreshed_by_this_script": false,
+  "latest_payload_hosted_CI": {
+    "status": "NOT_YET_COMMITTED_OR_PUSHED",
+    "all_CI_pass_asserted": false
+  },
+  "source_sync": {
+    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+  },
+  "full_business_validation": {
+    "status": "NOT_VERIFIED_ON_EXACT_REPAIR_COHORT_BY_THESE_CHECKS",
+    "passed": false,
+    "not_replaced_by_T016_or_affected_SQL_PASS": true
+  },
+  "full_T014_validation": {
+    "status": "NOT_VERIFIED_BY_THIS_REPORT",
+    "passed": false
+  },
+  "original_17_SQL_changed": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "public_contract_or_route_changed": false,
+  "backend_product_or_frontend_changed": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "I02_complete": false,
+  "HTTP_createTask_mounted": false,
+  "actual_task_creation_or_202_verified": false,
+  "formal_accepted": false,
+  "new_verified_substeps": 0,
+  "verified_substeps_current": 154,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_tasks_closed": 0,
+  "protected_base_input_count": 1047,
+  "protected_base_input_hash_map_sha256": "02610b1f415e76e96312bc4f4a535b10c57e0d22e36f3d59ce212360eaa17029",
+  "remaining": [
+    "Complete current-source business and T014 gates and new payload hosted CI need their own exact terminal receipts; these limited results do not fill those gates.",
+    "T034 real adoption/receipt semantics/Proof issuer, current handler/model licence/publication/availability, classification, independent recovery and actual budgets remain; I02 and I03-I05, atomic creation and HTTP202 are not complete.",
+    "T016 formal duties/TTL/key custody and rotation, actual high-risk consumers, public compatibility decisions, shared migration and genuine business E2E remain.",
+    "N01/software admission and T013 custody/recovery remain separate. Algorithms and Python candidates stay deferred; no actual effort/date or human acceptance inferred."
+  ],
+  "responsibility_records": {
+    "T016": {
+      "actual_owner": "徐昌胜",
+      "designated_reviewer": "徐昌胜",
+      "responsibility_confirmation_ref": "docs/00-project/validation/t016-role-assignment.json",
+      "actual_human_review_performed": false
+    },
+    "T034": {
+      "actual_owner": "徐昌胜",
+      "designated_reviewer": "徐昌胜",
+      "responsibility_confirmation_ref": "docs/00-project/validation/t034-role-assignment.json",
+      "actual_human_review_performed": false
+    }
+  },
+  "previous_payload_CI_receipt_sha256": "682608e9de724f11d596e50983f642c6c99e926a675c38624b587f66e8aad64d",
+  "material_validation": {
+    "status": "PASS_APPLICABLE_CHECKS_WITH_AFFECTED_TAIL_RERUN",
+    "checks": [
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:53:24.471958+00:00",
+        "ended_at": "2026-10-22T17:53:24.718729+00:00",
+        "command_arguments": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:53:24.718824+00:00",
+        "ended_at": "2026-10-22T17:53:58.839075+00:00",
+        "command_arguments": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T034"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:53:58.839165+00:00",
+        "ended_at": "2026-10-22T17:54:25.783028+00:00",
+        "command_arguments": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T016"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:25.783121+00:00",
+        "ended_at": "2026-10-22T17:54:29.021299+00:00",
+        "command_arguments": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:29.021473+00:00",
+        "ended_at": "2026-10-22T17:54:30.314119+00:00",
+        "command_arguments": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:30.314196+00:00",
+        "ended_at": "2026-10-22T17:54:30.418670+00:00",
+        "command_arguments": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:30.418761+00:00",
+        "ended_at": "2026-10-22T17:54:31.359308+00:00",
+        "command_arguments": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:31.359519+00:00",
+        "ended_at": "2026-10-22T17:54:31.420307+00:00",
+        "command_arguments": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:31.420440+00:00",
+        "ended_at": "2026-10-22T17:54:31.470041+00:00",
+        "command_arguments": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:31.470116+00:00",
+        "ended_at": "2026-10-22T17:54:32.449048+00:00",
+        "command_arguments": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:32.449141+00:00",
+        "ended_at": "2026-10-22T17:54:38.976192+00:00",
+        "command_arguments": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:38.976281+00:00",
+        "ended_at": "2026-10-22T17:54:40.639124+00:00",
+        "command_arguments": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:40.639235+00:00",
+        "ended_at": "2026-10-22T17:54:47.682116+00:00",
+        "command_arguments": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:47.682214+00:00",
+        "ended_at": "2026-10-22T17:54:55.655025+00:00",
+        "command_arguments": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:54:55.655124+00:00",
+        "ended_at": "2026-10-22T17:55:09.978969+00:00",
+        "command_arguments": [
+          "scripts/validate_stage_one.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:55:09.979071+00:00",
+        "ended_at": "2026-10-22T17:55:11.595328+00:00",
+        "command_arguments": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:55:11.595541+00:00",
+        "ended_at": "2026-10-22T17:55:11.640097+00:00",
+        "command_arguments": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:55:11.640186+00:00",
+        "ended_at": "2026-10-22T17:55:11.792205+00:00",
+        "command_arguments": [
+          "scripts/validate_stage_three.py"
+        ],
+        "source_kind": "repair-material"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:55:47.205151+00:00",
+        "ended_at": "2026-10-22T17:55:48.505063+00:00",
+        "command_arguments": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "source_kind": "repair-doc-tail"
+      },
+      {
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T17:55:48.505152+00:00",
+        "ended_at": "2026-10-22T17:55:48.608494+00:00",
+        "command_arguments": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "source_kind": "repair-doc-tail"
+      }
+    ],
+    "receipt_sha256": {
+      "repair-material": "bf47e4da539b2024e180689f1990ffb2254d9474bf6e857e6edf61279b1c1e89",
+      "repair-doc-tail": "f194876dce4c345990ad538cf57b555f2df127a1315faefdc29010af4d1ba2fa"
+    },
+    "initial_checks": 18,
+    "affected_documentation_checks_after_wording_clarification": 2,
+    "not_runtime_or_business_acceptance": true
+  },
+  "navigation_script_static_checks": {
+    "Ruff": {
+      "exit_code": 0
+    },
+    "format_check": {
+      "exit_code": 0
+    },
+    "source_sha256_lf": "62cfb7b893ded7d11b212ee8f38d51a50d0df9e9ba264b53ec8c6ed92ba45a95",
+    "scope": "two descriptive entries only; product implementation unchanged"
+  }
+}
