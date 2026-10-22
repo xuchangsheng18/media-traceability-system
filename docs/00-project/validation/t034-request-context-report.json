@@ -19,7 +19,7 @@
     "pure": "3c850fd76382b6b10ca3b8db35f41f2231675a39ea9a419760f4663d9d8509a5",
     "quality": "0b364f15ccb63136e93623362aece1d451b19af9968c85e707d76375b42b0fff",
     "review": "9f708527492e035b4838e0ac171d3f0c9ab20bacc1358502d3c4bde2599d0a71",
-    "prior_ci": "3d41e0789e552128901bd98c382594b89d3b15175af9a1c60e150f22ec17ebab",
+    "prior_ci": "d172f717a51105f679a40d452f2b7b091c61c9fc19c3df0190b2fc3feb9607d7",
     "damaged_red": "1c606b26b0e1bb5b8f404ccb33a3251b8f4d4734822c81f0146c0b6e7611feae"
   },
   "structural_RED": {
@@ -216,10 +216,10 @@
     "id": 39766494694,
     "run_attempt": 1,
     "source_commit": "587890f440987edefc8cc2ccb185888c668b40c9",
-    "status": "in_progress",
-    "conclusion": null,
     "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39766494694",
-    "observed_at": "2026-10-22T11:21:15.708326+00:00",
+    "status": "completed",
+    "conclusion": "failure",
+    "observed_at": "2026-10-22T11:46:50.956588+00:00",
     "jobs": [
       {
         "id": 119783132651,
@@ -230,28 +230,154 @@
       {
         "id": 119788658798,
         "name": "engineering-execution",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "failure"
       },
       {
         "id": 119788658873,
         "name": "foundation-verification",
         "status": "completed",
         "conclusion": "success"
+      },
+      {
+        "id": 119802049418,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure"
       }
     ],
+    "current_context_verified_by_this_run": false,
     "all_CI_pass_asserted": false,
-    "current_request_context_code_verified_by_this_run": false,
-    "collection_scope": "One fresh pending observation; no artifact or completed result reused",
-    "artifact_receipts": [],
-    "job_owned_exact_source_tests": {}
+    "test_scopes_overlap_do_not_add": true,
+    "advisory_matches_not_applicability_or_risk_acceptance": true,
+    "runtime_and_scan_reports_missing_own_source_are_diagnostic_only": true,
+    "artifact_receipts": [
+      {
+        "id": 12422338262,
+        "name": "py310-validation-39766494694-1",
+        "sha256": "e9abb8b701cf70cb821c4e247f29961a29d2ab90d23519c3f0bb47389469014a",
+        "platform_digest_verified": true,
+        "source_commit": "587890f440987edefc8cc2ccb185888c668b40c9",
+        "run_attempt": 1,
+        "owned_job_marker_sha256": "0c649bca5dd93e5582ee1f9b86d7b2a650ba6cf12c4390e74672263ec0018851"
+      },
+      {
+        "id": 12421337708,
+        "name": "py310-foundation-validation-39766494694-1",
+        "sha256": "850a3cf6af1d3d62d828ce5a5be45bddb0e2d2c5d8041ea5a8a30949ef480260",
+        "platform_digest_verified": true,
+        "source_commit": "587890f440987edefc8cc2ccb185888c668b40c9",
+        "run_attempt": 1,
+        "owned_job_marker_sha256": "ac949ff8b5ffb9af2e6fe0bf70896939fa881f3514ae32b51657c04599835c53"
+      }
+    ],
+    "job_owned_exact_source_tests": {
+      "t015-data-scope-report.json": {
+        "tests": 131,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t016-operation-token-report.json": {
+        "tests": 187,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "business-foundation-report.json": {
+        "tests": 1493,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "t014-permissions-report.json": {
+        "tests": 1092,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "job_owned_exact_source_ci_all_checks": {
+      "passed": 34,
+      "total": 34
+    },
+    "engineering_failure_diagnostic": {
+      "job_id": 119788658798,
+      "log_sha256": "6cf6b74df1f0238ddaf52981721bbc271eb53b33218aa82bc986e1ac341f3426",
+      "npm_error_codes": [],
+      "github_advisory_ids": [],
+      "CVE_ids": [],
+      "vulnerability_count_mentions": [
+        0
+      ],
+      "npm_audit_report_present": false,
+      "runtime_scan_failure_mentioned": true,
+      "artifact_scan_diagnostic": {
+        "status": "FAILED_SCAN_DIAGNOSTIC_ONLY",
+        "artifact_id": 12422338262,
+        "platform_digest_verified": true,
+        "runtime_report_sha256": "20e0526ca321650b2a1bd46c5600419381036f369b09e5d455f424b2e916ca95",
+        "dependency_report_sha256": "50db6550a0bdb556452d1bd18128a72f5412ad5bd565d32034fc9b6862ca02a3",
+        "failed_runtime_checks": [
+          "secret_and_dependency_scans"
+        ],
+        "dependency_scan_status": "FAIL_OR_SCAN_ERROR",
+        "python_advisory_matches": 25,
+        "quality_tool_advisory_matches": 1,
+        "python_skipped_package_names": [
+          "torch"
+        ],
+        "npm_findings_by_severity": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "reports_missing_own_source_are_diagnostic_only": true,
+        "dependency_summary_not_separately_marker_owned": true,
+        "matches_not_exploitability_or_risk_acceptance": true,
+        "skipped_not_safe": true
+      }
+    },
+    "observation_scope": "Completed exact prior run; only actually owned/source/window-verified observations are projected; does not validate current Context source"
   },
   "latest_payload_hosted_CI": {
-    "status": "NOT_YET_COMMITTED_OR_PUSHED",
-    "all_CI_pass_asserted": false
+    "id": 39772836414,
+    "head_sha": "4cee65a07af4ff9deb6ee23a5516613c0d29080e",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39772836414",
+    "created_at": "2026-10-22T11:44:18Z",
+    "updated_at": "2026-10-22T11:44:22Z",
+    "observed_at": "2026-10-22T11:54:21.546284+00:00",
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false
   },
   "source_sync": {
-    "status": "NOT_YET_COMMITTED_OR_SYNCED"
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-22T11:44:21.221882+00:00",
+    "source_commit": "4cee65a07af4ff9deb6ee23a5516613c0d29080e",
+    "previous_server_commit": "e22fce45fa56d2707fa1a44a91524126a5615106",
+    "changed_files": 159,
+    "manifest_files_verified": 2393,
+    "manifest_sha256": "94cb86fedaf00399ffcc89fd5fa0a62fc79d0e4a579b26a2913eed986017199a",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "scope": "Exact I02_CONTEXT_KERNEL_SUBSCOPE request-local pure Context source payload only; no SQL, guard, facts, HTTP activation or shared runtime change"
   },
   "component_scope": "Frozen detached request/principal/A-B digest context and explicit ContextVar binding/reset only; obtaining a context is not authorization",
   "I02_context_component_implemented": true,
@@ -294,5 +420,176 @@
     "retained": true,
     "local_failure_probe_rerun": false,
     "scope": "Only two new pure component files; existing SQL, permission enforcement, probe code, workflow and dependency locks unchanged. Hosted CI still runs its full required gates."
+  },
+  "material_checks": {
+    "status": "PASS",
+    "validated_source_commit": "4cee65a07af4ff9deb6ee23a5516613c0d29080e",
+    "staged_tree": "141c6d35269b732fb8863311ac30519778382a26",
+    "commands": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T034"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T015"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "scope": "18 exact-source material/navigation checks, not product/production acceptance"
+  },
+  "bounded_prepublication_check": {
+    "status": "PASS",
+    "staged_tree": "141c6d35269b732fb8863311ac30519778382a26",
+    "manifest_files_verified": 2393,
+    "files_checked": 2395,
+    "scope": "Known runtime/private values and secret filenames only; not full DLP"
+  },
+  "navigation_script_quality": {
+    "status": "PASS",
+    "source_sha256": "3f762f6e7e34ddf77d5c81f564ecec18853cf258d379cfc17012470317c87f0a",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      }
+    ]
   }
 }
