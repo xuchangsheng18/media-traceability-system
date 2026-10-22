@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, NoReturn
 
 if TYPE_CHECKING:
+    from business_app.task_creation_development import TaskCreationDevelopmentSettings
     from business_app.task_creation_materials import CanonicalMaterial, MaterialBundle
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -219,6 +220,36 @@ def _save_prepared(output: Path, files: list[tuple[str, bytes]]) -> None:
         os.close(parent)
 
 
+def _finish_preparation(
+    bundle: "MaterialBundle",
+    limits: dict[str, int],
+    output: Path | None,
+    configuration: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    manifest, files = _manifest(bundle, limits)
+    if configuration is not None:
+        manifest["development_configuration"] = configuration
+    manifest_bytes = json.dumps(
+        manifest, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
+    ).encode()
+    if output is not None:
+        _save_prepared(output, [*files, ("manifest.json", manifest_bytes)])
+    result: dict[str, Any] = dict(
+        status="PREPARED_OFFLINE_NOT_ADOPTED" if output is not None else "VALIDATED_OFFLINE_NOT_ADOPTED",
+        artifact_count=len(files),
+        manifest_sha256=hashlib.sha256(manifest_bytes).hexdigest(),
+        output_written=output is not None,
+        database_written=False,
+        network_accessed=False,
+        active_mapping_created=False,
+        task_created=False,
+        authority_or_license_verified=False,
+    )
+    if configuration is not None:
+        result["development_configuration"] = configuration
+    return result
+
+
 def run(action: str, paths: dict[str, Path], limits: dict[str, int], output: Path | None = None) -> dict[str, Any]:
     if action not in {"validate", "prepare"} or set(paths) != set(_KINDS):
         raise PreparationError("TASK_PREPARATION_ARGUMENT_INVALID")
@@ -239,23 +270,87 @@ def run(action: str, paths: dict[str, Path], limits: dict[str, int], output: Pat
     budgets = MaterialBudgets(**limits)
     raw = [_read_material(paths[kind], budgets.max_bytes) for kind in _KINDS]
     bundle = prepare_material_bundle(*raw, budgets=budgets)
-    manifest, files = _manifest(bundle, limits)
-    manifest_bytes = json.dumps(
-        manifest, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
-    ).encode()
-    if output is not None:
-        _save_prepared(output, [*files, ("manifest.json", manifest_bytes)])
-    return dict(
-        status="PREPARED_OFFLINE_NOT_ADOPTED" if output is not None else "VALIDATED_OFFLINE_NOT_ADOPTED",
-        artifact_count=len(files),
-        manifest_sha256=hashlib.sha256(manifest_bytes).hexdigest(),
-        output_written=output is not None,
-        database_written=False,
-        network_accessed=False,
-        active_mapping_created=False,
-        task_created=False,
-        authority_or_license_verified=False,
+    return _finish_preparation(bundle, limits, output)
+
+
+def _development_observation(
+    settings: "TaskCreationDevelopmentSettings", bundle: "MaterialBundle", source_size: int
+) -> dict[str, Any]:
+    from business_app.task_creation_development import CANONICALIZATION_VERSION
+
+    canonical_size = sum(
+        len(value.canonical_bytes) for value in (bundle.policy, bundle.plan, bundle.capability, bundle.inputs)
     )
+    if canonical_size > settings.max_bundle_bytes:
+        raise PreparationError("TASK_PREPARATION_BUNDLE_BUDGET_EXCEEDED")
+    snapshot_size = sum(len(value.canonical_bytes) for value in bundle.node_inputs)
+    if snapshot_size > settings.max_snapshots_bytes:
+        raise PreparationError("TASK_PREPARATION_SNAPSHOT_BUDGET_EXCEEDED")
+    plan = bundle.plan.as_dict()
+    capabilities = bundle.capability.as_dict()
+    declared = [node["handler"]["handler_id"] for node in plan["nodes"]]
+    declared += [handler["handler_id"] for handler in capabilities["handlers"]]
+    if any(identifier not in settings.allowed_handler_ids for identifier in declared):
+        raise PreparationError("TASK_PREPARATION_HANDLER_NOT_ALLOWED")
+    return dict(
+        runtime_profile=settings.runtime_profile,
+        environment=settings.environment,
+        revision=settings.revision,
+        canonicalization_version=CANONICALIZATION_VERSION,
+        sha256=settings.sha256,
+        aggregate_bytes=dict(
+            source_documents=source_size, canonical_documents=canonical_size, node_snapshots=snapshot_size
+        ),
+        enforced_limits=dict(
+            max_material_bytes=settings.max_material_bytes,
+            max_nodes=settings.max_nodes,
+            max_capabilities=settings.max_capabilities,
+            max_bundle_bytes=settings.max_bundle_bytes,
+            max_snapshots_bytes=settings.max_snapshots_bytes,
+            allowed_handler_ids=list(settings.allowed_handler_ids),
+        ),
+    )
+
+
+def run_development(
+    action: str,
+    paths: dict[str, Path],
+    configuration_path: Path,
+    *,
+    runtime_profile: str,
+    output: Path | None = None,
+) -> dict[str, Any]:
+    """Enforce offline byte budgets; never activate, import or execute handlers."""
+    if (
+        action not in {"validate-development", "prepare-development"}
+        or set(paths) != set(_KINDS)
+        or any(not isinstance(path, Path) for path in paths.values())
+        or (action == "prepare-development") != (output is not None)
+    ):
+        raise PreparationError("TASK_PREPARATION_ARGUMENT_INVALID")
+    backend = str(ROOT / "backend")
+    if backend not in sys.path:
+        sys.path.insert(0, backend)
+    from business_app.task_creation_development import load_task_creation_development
+    from business_app.task_creation_materials import prepare_material_bundle
+
+    # Config/profile rejection happens before material reads and output selection.
+    settings = load_task_creation_development(configuration_path, runtime_profile=runtime_profile)
+    if output is not None:
+        _output_path(output)
+    budgets = settings.material_budgets()
+    limits = dict(max_bytes=budgets.max_bytes, max_nodes=budgets.max_nodes, max_capabilities=budgets.max_capabilities)
+    raw = []
+    source_size = 0
+    for kind in _KINDS:
+        value = _read_material(paths[kind], budgets.max_bytes)
+        source_size += len(value)
+        if source_size > settings.max_bundle_bytes:
+            raise PreparationError("TASK_PREPARATION_BUNDLE_BUDGET_EXCEEDED")
+        raw.append(value)
+    bundle = prepare_material_bundle(*raw, budgets=budgets)
+    observation = _development_observation(settings, bundle, source_size)
+    return _finish_preparation(bundle, limits, output, observation)
 
 
 def _positive(value: str) -> int:
@@ -271,28 +366,45 @@ def _positive(value: str) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = SafeParser(description=__doc__)
     actions = parser.add_subparsers(dest="action", required=True, parser_class=SafeParser)
-    for action in ("validate", "prepare"):
+    for action in ("validate", "prepare", "validate-development", "prepare-development"):
         current = actions.add_parser(action)
         for kind in _KINDS:
             current.add_argument("--" + kind, type=Path, required=True)
-        for limit in ("max-bytes", "max-nodes", "max-capabilities"):
-            current.add_argument("--" + limit, type=_positive, required=True)
-        if action == "prepare":
+        if action.endswith("-development"):
+            current.add_argument("--runtime-profile", choices=("development", "test"), required=True)
+            current.add_argument("--development-config", type=Path, required=True)
+        else:
+            for limit in ("max-bytes", "max-nodes", "max-capabilities"):
+                current.add_argument("--" + limit, type=_positive, required=True)
+        if action in {"prepare", "prepare-development"}:
             current.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
-        result = run(
-            args.action,
-            {kind: getattr(args, kind) for kind in _KINDS},
-            {name: getattr(args, name) for name in ("max_bytes", "max_nodes", "max_capabilities")},
-            getattr(args, "output", None),
-        )
+        paths = {kind: getattr(args, kind) for kind in _KINDS}
+        if args.action.endswith("-development"):
+            result = run_development(
+                args.action,
+                paths,
+                args.development_config,
+                runtime_profile=args.runtime_profile,
+                output=getattr(args, "output", None),
+            )
+        else:
+            result = run(
+                args.action,
+                paths,
+                {name: getattr(args, name) for name in ("max_bytes", "max_nodes", "max_capabilities")},
+                getattr(args, "output", None),
+            )
     except (OSError, ValueError, RuntimeError) as error:
         safe_material_codes = {
             "TASK_MATERIAL_INVALID",
             "TASK_MATERIAL_LIMIT_INVALID",
             "TASK_MATERIAL_BUDGET_EXCEEDED",
             "TASK_MATERIAL_BINDING_INVALID",
+            "TASK_CREATION_DEVELOPMENT_CONFIG_INVALID",
+            "TASK_CREATION_DEVELOPMENT_PROFILE_NOT_APPROVED",
+            "TASK_CREATION_DEVELOPMENT_PRIVATE_FILE_REQUIRED",
         }
         code = (
             str(error)
