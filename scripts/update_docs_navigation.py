@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t103-evidence-location.md": "T103当前/历史复核的精确证据元数据读取与编号定位；三响应头/案件版本绑定、归一化区域和毫秒区间、缺引用及不完整返回，不下载媒体或执行审批。",
+        "00-project/validation/t103-evidence-read-report.json": "T103五文件源码、结构/绑定/生命周期及浏览器限定测试、独立复核、最新CI和三端源码回执；保留服务端证据分页、媒体内容和完整复核验收条件。",
         "03-development/t103-review-read-console.md": "T103既有接口的待复核任务选择、当前上下文与历史分页只读页面；任务/案件/本地身份变化清理、完整响应绑定及未验工作流边界。",
         "00-project/validation/t103-review-read-report.json": "T103五文件源码、单元/类型/格式/构建及开发和生产浏览器限定证据、独立复核和精确CI/三端同步；不等于正式复核验收。",
         "00-project/validation/t103-role-assignment.json": "用户确认T103实际开发负责人和指定复核人均为徐昌胜；只登记责任，不授予权限、不证明本人复核、工时或独立双人验收。",

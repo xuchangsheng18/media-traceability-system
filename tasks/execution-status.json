@@ -6853,8 +6853,8 @@
       "status": "PARTIAL_VERIFIED_SCOPE",
       "actual_owner": "徐昌胜",
       "full_task_verified": false,
-      "summary_completed": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。",
-      "summary_remaining": "已有待复核队列、当前上下文及历史分页只读页面；仍需复核表单、草稿、标注/交互、证据定位和媒体/时间轴/各类结果的完整联动，不从review.read推断审批动作。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
+      "summary_completed": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。；当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。",
+      "summary_remaining": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
       "completed_steps": [
         {
           "description": "待复核列表、上下文及历史记录后端子范围已有验证",
@@ -6907,12 +6907,46 @@
               "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/review-evidence.ts",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/business/review-evidence.test.ts",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/components/ReviewEvidencePanel.vue",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/components/TaskReviewHistoryPanel.vue",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t103-evidence-location.md",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t103-evidence-read-report.json",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "已有待复核队列、当前上下文及历史分页只读页面；仍需复核表单、草稿、标注/交互、证据定位和媒体/时间轴/各类结果的完整联动，不从review.read推断审批动作。"
+          "description": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。"
         },
         {
           "category": "实施/验证",
@@ -6929,7 +6963,9 @@
       "followup_document_refs": [
         "docs/00-project/validation/t103-role-assignment.json",
         "docs/03-development/t103-review-read-console.md",
-        "docs/00-project/validation/t103-review-read-report.json"
+        "docs/00-project/validation/t103-review-read-report.json",
+        "docs/03-development/t103-evidence-location.md",
+        "docs/00-project/validation/t103-evidence-read-report.json"
       ]
     },
     {
@@ -9718,7 +9754,7 @@
     "planning_only": true,
     "new_completed_substeps": 0,
     "whole_tasks_closed": 0,
-    "latest_implemented_subscope_ref": "docs/00-project/validation/t103-review-read-report.json",
+    "latest_implemented_subscope_ref": "docs/00-project/validation/t103-evidence-read-report.json",
     "latest_design_ref": "docs/03-development/t034-creation-integration-design.md"
   },
   "latest_business_upload_frontend": {
@@ -9879,6 +9915,17 @@
     "observed_at": "2026-10-22T05:25:25.714967+00:00",
     "report_ref": "docs/00-project/validation/t103-review-read-report.json",
     "plan_ref": "docs/03-development/t103-review-read-console.md",
+    "new_completed_substeps": 1,
+    "whole_tasks_closed": 0,
+    "shared_runtime_adopted": false,
+    "formal_authority_verified": false,
+    "Python_candidates_created": false,
+    "algorithms_implemented": false
+  },
+  "latest_t103_review_evidence_read": {
+    "observed_at": "2026-10-22T06:00:34.665904+00:00",
+    "report_ref": "docs/00-project/validation/t103-evidence-read-report.json",
+    "plan_ref": "docs/03-development/t103-evidence-location.md",
     "new_completed_substeps": 1,
     "whole_tasks_closed": 0,
     "shared_runtime_adopted": false,

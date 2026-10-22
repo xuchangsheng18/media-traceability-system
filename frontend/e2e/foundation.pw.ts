@@ -1095,6 +1095,366 @@ function reviewHistory(id = taskId): Schemas['Review'] {
     created_at: '2026-10-20T04:00:00Z',
   }
 }
+// Evidence fixtures are owned metadata only; no original media or authorization claim is fetched.
+const reviewEvidenceId = '99999999-9999-4999-8999-999999999999'
+const unrelatedEvidenceId = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
+function reviewEvidence(run = 7, result = 3, id = reviewEvidenceId): Schemas['Evidence'] {
+  return {
+    evidence_id: id,
+    case_id: caseId,
+    task_id: taskId,
+    run_version: run,
+    result_version: result,
+    kind: 'region',
+    asset_id: assetId,
+    object_ref: {
+      object_id: otherAssetId,
+      version_id: '<script>owned-object-version</script>',
+      sha256: 'b'.repeat(64),
+    },
+    time_range: { start_ms: 125, end_ms: 375 },
+    bbox: { x: 0.1, y: 0.2, width: 0.3, height: 0.4 },
+    mapping_version: 'owned-mapping-version',
+    model_name: null,
+    model_version: null,
+    authorization_version: 'owned-authorization-version',
+    sha256: 'c'.repeat(64),
+    version: 4,
+    created_at: '2026-10-20T04:00:00Z',
+  }
+}
+function reviewEvidenceHeaders(run = 7, result = 3) {
+  return { 'X-Task-Id': taskId, 'X-Run-Version': String(run), 'X-Result-Version': String(result) }
+}
+async function prepareReviewEvidence(page: Page, permissions = ['review.read', 'evidence.read']) {
+  await page.route('**/business/api/v1/analysis/tasks/*/review-context', (route) =>
+    route.fulfill({ json: reviewContext() }),
+  )
+  await page.route('**/business/api/v1/reviews?**', (route) =>
+    route.fulfill({ json: { items: [reviewHistory()], next_cursor: 'owned-history-next' } }),
+  )
+  await openTaskReview(page, permissions)
+}
+async function chooseReviewEvidence(page: Page, history = false) {
+  await page
+    .getByRole('button', {
+      name: history ? '读取复核历史／回到首页' : '读取当前复核上下文',
+      exact: true,
+    })
+    .click()
+  await page
+    .getByRole('button', { name: history ? '选择此复核关联证据' : '选择当前结果证据', exact: true })
+    .click()
+  await expect(
+    page.getByRole('region', { name: '所选版本证据只读定位', exact: true }),
+  ).toBeVisible()
+}
+
+test('review evidence explicitly reads exact current binding and locates all controlled metadata fields', async ({
+  page,
+}) => {
+  const requests: string[] = []
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) => {
+    expect(route.request().method()).toBe('GET')
+    expect(route.request().postData()).toBeNull()
+    requests.push(route.request().url())
+    return route.fulfill({
+      json: { items: [reviewEvidence()], next_cursor: null },
+      headers: reviewEvidenceHeaders(),
+    })
+  })
+  await prepareReviewEvidence(page)
+  await chooseReviewEvidence(page)
+  expect(requests).toHaveLength(0)
+  await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+  await expect(page.getByTestId('review-evidence-item')).toContainText(reviewEvidenceId)
+  await expect(page.getByTestId('review-evidence-selected')).toHaveCount(0)
+  await page.getByRole('button', { name: `定位证据 ${reviewEvidenceId}`, exact: true }).click()
+  const card = page.getByTestId('review-evidence-selected')
+  await expect(card.locator('dt')).toHaveCount(17)
+  for (const text of [
+    reviewEvidenceId,
+    caseId,
+    taskId,
+    assetId,
+    otherAssetId,
+    '<script>owned-object-version</script>',
+    '[125, 375)',
+    '0.1、0.2、0.3、0.4',
+    'owned-mapping-version',
+    'owned-authorization-version',
+    'b'.repeat(64),
+    'c'.repeat(64),
+    '2026-10-20T04:00:00Z',
+  ])
+    await expect(card).toContainText(text)
+  await expect(card.getByText('未提供', { exact: true })).toHaveCount(2)
+  await expect(card.locator('script,a[href],img,video,audio')).toHaveCount(0)
+  expect(requests).toHaveLength(1)
+  const url = new URL(requests[0]!)
+  expect(url.pathname).toBe(`/business/api/v1/analysis/tasks/${taskId}/evidence`)
+  expect(Object.fromEntries(url.searchParams)).toEqual({
+    'history[run_version]': '7',
+    'history[result_version]': '3',
+  })
+})
+
+test('review evidence historical selection stays cross-run and filters unrelated metadata with partial missing references', async ({
+  page,
+}) => {
+  const missing = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) => {
+    const query = new URL(route.request().url()).searchParams
+    expect(Object.fromEntries(query)).toEqual({
+      'history[run_version]': '2',
+      'history[result_version]': '1',
+    })
+    return route.fulfill({
+      json: {
+        items: [reviewEvidence(2, 1), reviewEvidence(2, 1, unrelatedEvidenceId)],
+        next_cursor: 'owned-unfollowed-next',
+      },
+      headers: reviewEvidenceHeaders(2, 1),
+    })
+  })
+  await prepareReviewEvidence(page)
+  await page.route('**/business/api/v1/reviews?**', (route) =>
+    route.fulfill({
+      json: {
+        items: [{ ...reviewHistory(), evidence_ids: [reviewEvidenceId, missing] }],
+        next_cursor: null,
+      },
+    }),
+  )
+  await chooseReviewEvidence(page, true)
+  await expect(page.getByTestId('review-evidence-binding')).toContainText('2 / 1')
+  await expect(page.getByTestId('review-evidence-binding')).toContainText('所选历史复核记录')
+  await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+  await expect(page.getByTestId('review-evidence-item')).toHaveCount(1)
+  await expect(
+    page.getByRole('button', { name: `定位证据 ${unrelatedEvidenceId}`, exact: true }),
+  ).toHaveCount(0)
+  await expect(page.getByTestId('review-evidence-missing')).toContainText(missing)
+  await expect(page.getByTestId('review-evidence-incomplete')).toContainText('不自动续取')
+  await expect(page.getByRole('button', { name: /下一页.*证据/ })).toHaveCount(0)
+  await page.getByRole('button', { name: `定位证据 ${reviewEvidenceId}`, exact: true }).click()
+  await expect(page.getByTestId('review-evidence-selected')).toContainText('owned-mapping-version')
+})
+
+test('review evidence valid empty response stays distinct from errors and offers no locator', async ({
+  page,
+}) => {
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) =>
+    route.fulfill({ json: { items: [], next_cursor: null }, headers: reviewEvidenceHeaders() }),
+  )
+  await prepareReviewEvidence(page)
+  await chooseReviewEvidence(page)
+  await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+  await expect(page.getByTestId('review-evidence-empty')).toBeVisible()
+  await expect(page.getByTestId('review-evidence-status')).toContainText('已校验')
+  await expect(page.getByTestId('review-evidence-item')).toHaveCount(0)
+  await expect(page.getByTestId('review-evidence-selected')).toHaveCount(0)
+})
+
+for (const status of [403, 404, 503])
+  test(`review evidence keeps ${status} refusal distinct from missing or empty metadata`, async ({
+    page,
+  }) => {
+    await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) =>
+      route.fulfill({ status, json: { code: `OWNED_EVIDENCE_${status}` } }),
+    )
+    await prepareReviewEvidence(page)
+    await chooseReviewEvidence(page)
+    await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+    await expect(page.getByTestId('review-evidence-status')).toContainText(
+      `OWNED_EVIDENCE_${status}`,
+    )
+    await expect(page.getByTestId('review-evidence-empty')).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-missing')).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-item')).toHaveCount(0)
+  })
+
+for (const invalid of ['headers', 'case', 'result', 'schema'] as const)
+  test(`review evidence refuses ${invalid} mismatch and clears preceding metadata`, async ({
+    page,
+  }) => {
+    let reads = 0
+    await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) => {
+      reads++
+      const value = reviewEvidence()
+      const bad =
+        invalid === 'case'
+          ? { ...value, case_id: otherCaseId }
+          : invalid === 'result'
+            ? { ...value, result_version: 99 }
+            : { ...value, bbox: { x: 0.9, y: 0.2, width: 0.3, height: 0.4 } }
+      return route.fulfill({
+        json: { items: [reads === 1 || invalid === 'headers' ? value : bad], next_cursor: null },
+        headers: reads > 1 && invalid === 'headers' ? {} : reviewEvidenceHeaders(),
+      })
+    })
+    await prepareReviewEvidence(page)
+    await chooseReviewEvidence(page)
+    await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+    await page.getByRole('button', { name: `定位证据 ${reviewEvidenceId}`, exact: true }).click()
+    await expect(page.getByTestId('review-evidence-selected')).toBeVisible()
+    await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+    await expect(page.getByTestId('review-evidence-status')).toContainText('拒绝显示')
+    await expect(page.getByTestId('review-evidence-selected')).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-item')).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-empty')).toHaveCount(0)
+  })
+
+test('review evidence requires independent evidence.read and emits no request without it', async ({
+  page,
+}) => {
+  let reads = 0
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) => {
+    reads++
+    return route.fulfill({
+      json: { items: [reviewEvidence()], next_cursor: null },
+      headers: reviewEvidenceHeaders(),
+    })
+  })
+  await prepareReviewEvidence(page, ['review.read'])
+  await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+  await page.getByRole('button', { name: '读取复核历史／回到首页', exact: true }).click()
+  await expect(page.getByRole('button', { name: '选择当前结果证据', exact: true })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '选择此复核关联证据', exact: true })).toBeDisabled()
+  await expect(page.getByRole('region', { name: '所选版本证据只读定位', exact: true })).toHaveCount(
+    0,
+  )
+  expect(reads).toBe(0)
+})
+
+test('review evidence clears on every identity permission and membership field without reconnect', async ({
+  page,
+}) => {
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) =>
+    route.fulfill({
+      json: { items: [reviewEvidence()], next_cursor: null },
+      headers: reviewEvidenceHeaders(),
+    }),
+  )
+  for (const field of [
+    'roles',
+    'permissions',
+    'case_ids',
+    'user_id',
+    'org_id',
+    'user-null',
+  ] as const) {
+    await prepareReviewEvidence(page)
+    await chooseReviewEvidence(page)
+    await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+    await page.getByRole('button', { name: `定位证据 ${reviewEvidenceId}`, exact: true }).click()
+    await expect(page.getByTestId('review-evidence-selected')).toBeVisible()
+    await changeAssetContext(page, field)
+    await expect(
+      page.getByRole('region', { name: '所选版本证据只读定位', exact: true }),
+    ).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-selected')).toHaveCount(0)
+  }
+})
+
+test('review evidence clears on same-version source refresh history reload and parent selection changes', async ({
+  page,
+}) => {
+  await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', (route) => {
+    const query = new URL(route.request().url()).searchParams
+    const run = Number(query.get('history[run_version]'))
+    const result = Number(query.get('history[result_version]'))
+    return route.fulfill({
+      json: { items: [reviewEvidence(run, result)], next_cursor: null },
+      headers: reviewEvidenceHeaders(run, result),
+    })
+  })
+  for (const action of [
+    'context',
+    'history',
+    'historical-refresh',
+    'historical-page',
+    'page',
+    'task',
+    'case',
+    'unmount',
+  ] as const) {
+    await prepareReviewEvidence(page)
+    await chooseReviewEvidence(page, action.startsWith('historical'))
+    await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+    await page.getByRole('button', { name: `定位证据 ${reviewEvidenceId}`, exact: true }).click()
+    await expect(page.getByTestId('review-evidence-selected')).toBeVisible()
+    if (action === 'context')
+      await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+    else if (action === 'history' || action === 'historical-refresh')
+      await page.getByRole('button', { name: '读取复核历史／回到首页', exact: true }).click()
+    else if (action === 'historical-page')
+      await page.getByRole('button', { name: '下一页复核历史', exact: true }).click()
+    else if (action === 'page')
+      await page.getByRole('button', { name: '下一页', exact: true }).click()
+    else if (action === 'task')
+      await page
+        .getByRole('row')
+        .filter({ hasText: secondReviewTask })
+        .getByRole('button', { name: '选择复核记录', exact: true })
+        .click()
+    else if (action === 'case') await page.getByLabel('队列案件编号').fill(otherCaseId)
+    else await page.getByRole('link', { name: '任务与结果', exact: true }).click()
+    await expect(
+      page.getByRole('region', { name: '所选版本证据只读定位', exact: true }),
+    ).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-selected')).toHaveCount(0)
+  }
+})
+
+for (const outcome of ['success', 'error'] as const)
+  test(`review evidence awaits stale ${outcome} after source refresh or unmount`, async ({
+    page,
+  }) => {
+    let release!: () => void
+    const barrier = new Promise<void>((resolve) => {
+      release = resolve
+    })
+    let begin!: () => void
+    const began = new Promise<void>((resolve) => {
+      begin = resolve
+    })
+    await page.route('**/business/api/v1/analysis/tasks/*/evidence?**', async (route) => {
+      begin()
+      await barrier
+      return route.fulfill(
+        outcome === 'success'
+          ? {
+              json: { items: [reviewEvidence()], next_cursor: null },
+              headers: reviewEvidenceHeaders(),
+            }
+          : { status: 503, json: { code: 'OWNED_LATE_EVIDENCE_FAILURE' } },
+      )
+    })
+    await prepareReviewEvidence(page)
+    await chooseReviewEvidence(page)
+    await trackReviewAction(page, '读取所选版本证据', 'old-evidence')
+    await page.getByRole('button', { name: '读取所选版本证据', exact: true }).click()
+    await began
+    try {
+      if (outcome === 'success')
+        await page.getByRole('button', { name: '读取当前复核上下文', exact: true }).click()
+      else await page.getByRole('link', { name: '任务与结果', exact: true }).click()
+      await expect(
+        page.getByRole('region', { name: '所选版本证据只读定位', exact: true }),
+      ).toHaveCount(0)
+    } finally {
+      release()
+    }
+    await finishReviewAction(page, 'old-evidence')
+    await expect(page.getByTestId('review-evidence-item')).toHaveCount(0)
+    await expect(page.getByTestId('review-evidence-selected')).toHaveCount(0)
+    await expect(page.getByText('OWNED_LATE_EVIDENCE_FAILURE', { exact: false })).toHaveCount(0)
+    if (outcome === 'success') {
+      await page.getByRole('button', { name: '选择当前结果证据', exact: true }).click()
+      await expect(page.getByTestId('review-evidence-status')).toContainText('尚未读取')
+    }
+  })
 const secondReviewTask = '66666666-6666-4666-8666-666666666666'
 function pendingReviewPage(cursor = 'queue+next/=') {
   return {
@@ -1108,11 +1468,11 @@ function pendingReviewPage(cursor = 'queue+next/=') {
     next_cursor: cursor,
   }
 }
-async function openTaskReview(page: Page) {
+async function openTaskReview(page: Page, permissions = ['review.read']) {
   await page.route('**/business/api/v1/reviews/pending?**', (route) =>
     route.fulfill({ json: pendingReviewPage() }),
   )
-  await connectBusiness(page, ['review.read'])
+  await connectBusiness(page, permissions)
   await page.getByRole('link', { name: '审核管理（待复核队列）', exact: true }).click()
   await page.getByLabel('队列案件编号').fill(caseId)
   await page.getByRole('button', { name: '查询待复核', exact: true }).click()
@@ -1212,7 +1572,7 @@ test('review reader explicitly reads current context and independent cross-run h
   await expect(record).toContainText(reviewHistory().evidence_ids[0]!)
   await expect(record).toContainText(reviewHistory().created_at)
   await expect(panel.locator('script')).toHaveCount(0)
-  await expect(panel.getByRole('button')).toHaveCount(3)
+  await expect(panel.getByRole('button')).toHaveCount(5)
   await panel.getByRole('button', { name: '下一页复核历史', exact: true }).click()
   await expect(panel.getByTestId('review-history-empty')).toBeVisible()
   await expect(record).toHaveCount(0)

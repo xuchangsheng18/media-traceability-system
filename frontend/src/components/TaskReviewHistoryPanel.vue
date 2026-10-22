@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, watch } from 'vue'
+import { computed, onBeforeUnmount, shallowRef, watch } from 'vue'
+import type { Schemas } from '../business/api'
+import type { ReviewEvidenceSelection } from '../business/review-evidence'
 import { createTaskReviewReader } from '../business/review-read'
 import { useBusinessSession } from '../business/session'
+import ReviewEvidencePanel from './ReviewEvidencePanel.vue'
 
 const props = defineProps<{ caseId: string; taskId: string }>()
 const session = useBusinessSession()
 const reader = createTaskReviewReader(session)
+const evidenceSelection = shallowRef<ReviewEvidenceSelection | null>(null)
+let sourceGeneration = 0
 const allowed = computed(
   () =>
     !!session.state.user &&
@@ -13,7 +18,57 @@ const allowed = computed(
     session.state.user.case_ids.some((id) => id.toLowerCase() === props.caseId.toLowerCase()),
 )
 watch(() => [props.caseId, props.taskId], reader.clear, { flush: 'sync' })
+watch(
+  () => [
+    props.caseId,
+    props.taskId,
+    reader.state.context.data,
+    reader.state.history.data,
+    JSON.stringify([reader.state.context.data, reader.state.history.data]),
+    JSON.stringify([
+      session.state.generation,
+      session.state.user?.user_id,
+      session.state.user?.org_id,
+      session.state.user?.roles,
+      session.state.user?.permissions,
+      session.state.user?.case_ids,
+    ]),
+  ],
+  () => {
+    sourceGeneration++
+    evidenceSelection.value = null
+  },
+  { flush: 'sync' },
+)
 onBeforeUnmount(reader.dispose)
+function chooseCurrent() {
+  const source = reader.state.context.data
+  if (!source || !allowed.value || !session.has('evidence.read')) return
+  evidenceSelection.value = {
+    caseId: props.caseId,
+    taskId: source.task_id,
+    runVersion: source.run_version,
+    resultVersion: source.result_version,
+    sourceKey: JSON.stringify(['context', sourceGeneration, source]),
+    evidenceIds: null,
+  }
+}
+function chooseHistory(source: Schemas['Review']) {
+  if (
+    !reader.state.history.data?.items.includes(source) ||
+    !allowed.value ||
+    !session.has('evidence.read')
+  )
+    return
+  evidenceSelection.value = {
+    caseId: props.caseId,
+    taskId: source.task_id,
+    runVersion: source.run_version,
+    resultVersion: source.result_version,
+    sourceKey: JSON.stringify(['history', sourceGeneration, source]),
+    evidenceIds: [...source.evidence_ids],
+  }
+}
 async function history(next = false) {
   const cursor = next ? reader.state.history.data?.next_cursor : null
   if (next && !cursor) return
@@ -73,6 +128,14 @@ async function history(next = false) {
       <dt>当前复核版本</dt>
       <dd>{{ reader.state.context.data.review_version }}</dd>
     </dl>
+    <button
+      v-if="reader.state.context.data"
+      class="secondary"
+      :disabled="!allowed || !session.has('evidence.read')"
+      @click="chooseCurrent"
+    >
+      选择当前结果证据
+    </button>
     <h3>历史复核记录</h3>
     <div class="toolbar">
       <button
@@ -152,9 +215,22 @@ async function history(next = false) {
         <dt>创建时间</dt>
         <dd>{{ item.created_at }}</dd>
       </dl>
+      <button
+        class="secondary"
+        :disabled="!allowed || !session.has('evidence.read')"
+        @click="chooseHistory(item)"
+      >
+        选择此复核关联证据
+      </button>
     </article>
     <p class="panel-copy">
-      记录决定是历史事实；不表示当前批准有效、证据已核验或可以执行后续动作。证据编号供定位，本批不读取或下载证据内容。
+      记录决定是历史事实；不表示当前批准有效、证据已核验或可以执行后续动作。
+      证据读取另需evidence.read权限；本面板只读取受控元数据，不下载媒体或提交审批。
     </p>
+    <ReviewEvidencePanel
+      v-if="evidenceSelection"
+      :key="evidenceSelection.sourceKey"
+      :selection="evidenceSelection"
+    />
   </section>
 </template>

@@ -100,7 +100,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "0e7cc4b9c734acae7b44b01dfc515671424a5ffb2c2da3b65091ebe5ceba128a",
+    "tasks/execution-status.json": "bc32ea34099bcda472355f25e0ac0de571643fcd0bda2dce227893d2708f575c",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -118,10 +118,10 @@
   "summary": {
     "all_source_tasks": 170,
     "authorized_task_count": 123,
-    "all_completed_substeps": 145,
+    "all_completed_substeps": 146,
     "all_remaining_work_items": 622,
     "all_whole_tasks_verified": 0,
-    "authorized_completed_substeps": 145,
+    "authorized_completed_substeps": 146,
     "authorized_remaining_work_items": 434,
     "authorized_whole_tasks_verified": 0,
     "authorized_status_counts": {
@@ -24811,10 +24811,10 @@
       ],
       "ledger_status": "PARTIAL_VERIFIED_SCOPE",
       "whole_task_verified": false,
-      "completed_substeps_count": 2,
+      "completed_substeps_count": 3,
       "remaining_work_items_count": 3,
-      "actual_completed_summary": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。",
-      "actual_remaining_summary": "已有待复核队列、当前上下文及历史分页只读页面；仍需复核表单、草稿、标注/交互、证据定位和媒体/时间轴/各类结果的完整联动，不从review.read推断审批动作。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
+      "actual_completed_summary": "待复核列表、上下文及历史记录后端子范围已有验证；待复核队列选择任务后，通过既有review.read接口读取当前上下文及独立历史分页，校验完整结构与任务绑定；本地身份/权限/案件、任务及页面变化清理旧内容并丢弃晚响应。487项前端及开发/生产各88项传输浏览器通过；不包含复核写入、正式规则、真实权威E2E或整卡验收。；当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。",
+      "actual_remaining_summary": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。；真实身份/来源/后端及正式规则组合、审批拒绝一致、退回/撤销、多人步骤、证据定位及完整工作流仍待；本批浏览器为传输夹具，算法结果联调继续暂缓。；实际开发负责人和指定复核人均已确认为徐昌胜；实际工时/日期、本人复核决定和源卡逐项验收仍待。同人兼任不等于独立双人复核，责任登记不授予权限。",
       "completed_steps": [
         {
           "description": "待复核列表、上下文及历史记录后端子范围已有验证",
@@ -24867,12 +24867,46 @@
               "scope": "T103只读上下文/历史子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
             }
           ]
+        },
+        {
+          "kind": "DEVELOPMENT",
+          "description": "当前上下文或历史复核选择精确任务/运行/结果后读取证据，校验3个历史响应头、17字段及案件版本绑定；支持关联证据编号定位、缺引用及不完整返回提示，时间毫秒半开区间与归一化区域展示。本地身份/范围/来源选择变化清理旧内容及晚响应。665项前端及开发/生产各103项传输浏览器通过；不含媒体字节读取、审批、算法生成或整卡验收。",
+          "evidence": [
+            {
+              "path": "frontend/src/business/review-evidence.ts",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/business/review-evidence.test.ts",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/components/ReviewEvidencePanel.vue",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/src/components/TaskReviewHistoryPanel.vue",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "frontend/e2e/foundation.pw.ts",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "docs/03-development/t103-evidence-location.md",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            },
+            {
+              "path": "docs/00-project/validation/t103-evidence-read-report.json",
+              "scope": "T103精确历史证据读取与编号定位子范围；源码、命令和未验边界见报告，不等于审批或整卡验收"
+            }
+          ]
         }
       ],
       "remaining_steps": [
         {
           "category": "实施/验证",
-          "description": "已有待复核队列、当前上下文及历史分页只读页面；仍需复核表单、草稿、标注/交互、证据定位和媒体/时间轴/各类结果的完整联动，不从review.read推断审批动作。"
+          "description": "已接线当前/历史复核精确版本证据元数据及编号定位；仍需复核表单、草稿、标注、媒体内容/播放定位和完整结果联动。证据接口服务端分页尚未实现，非空游标明确为不完整；不从读取推断审批或证据效力。"
         },
         {
           "category": "实施/验证",
