@@ -753,7 +753,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1371份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1373份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1358,6 +1358,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/python311-migration-authorization-20261023.json](<00-project/validation/python311-migration-authorization-20261023.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python311-migration-report.json](<00-project/validation/python311-migration-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python311-runtime-audit.json](<00-project/validation/python311-runtime-audit.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/python311-security-followup-20261024.json](<00-project/validation/python311-security-followup-20261024.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/repository-docs-validation.json](<00-project/validation/repository-docs-validation.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/repository-governance-snapshot.json](<00-project/validation/repository-governance-snapshot.json>) | 实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。 |
 | [00-project/validation/repository-secrets-report.json](<00-project/validation/repository-secrets-report.json>) | 确切开发凭据值及已知秘密文件名检查，非完整DLP。 |
@@ -1844,6 +1845,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/pillow-py310-remediation-plan.md](<03-development/pillow-py310-remediation-plan.md>) | 八条漏洞与11项提交、隔离回归、构建许可和现有扫描准入限制；方案未执行，不代替采用批准。 |
 | [03-development/ppt-interface-alignment.md](<03-development/ppt-interface-alignment.md>) | 说明文档：本地PPT原型与研发前端页面对照；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/python311-migration.md](<03-development/python311-migration.md>) | 说明文档：Python3.11迁移与CI修复；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/python311-security-followup-20261024.md](<03-development/python311-security-followup-20261024.md>) | 说明文档：Python3.11依赖安全修复续批（2026-10-24）；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |
 | [03-development/repository-layout.md](<03-development/repository-layout.md>) | 说明文档：仓库目录与依赖边界；结合正文的状态、来源和适用范围阅读。 |
