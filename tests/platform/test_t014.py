@@ -155,21 +155,21 @@ def test_catalog_rejects_new_public_exception(tmp_path):
         module.load_catalog(tmp_path)
 
 
-def test_effective_route_set_is_exactly_51_and_does_not_skip_included_routers(tmp_path):
+def test_effective_route_set_is_exactly_52_and_does_not_skip_included_routers(tmp_path):
     app, _, _ = business_app(tmp_path)
     routes = [
         r
         for r in iter_route_contexts(app.routes)
         if isinstance(r.original_route, APIRoute) and (r.path or "").startswith("/api/v1/")
     ]
-    assert len(routes) == len(MOUNTED) == 51
+    assert len(routes) == len(MOUNTED) == 52
     assert {r.operation_id for r in routes} == {op.operation_id for op in MOUNTED}
-    assert len(set(CATALOG) - {op.operation_id for op in MOUNTED}) == 22
+    assert len(set(CATALOG) - {op.operation_id for op in MOUNTED}) == 21
     app.state.business_database.close()
 
 
 @pytest.mark.parametrize("operation", MOUNTED, ids=lambda op: op.operation_id)
-def test_all_51_mounted_business_operations_require_authentication(tmp_path, operation):
+def test_all_52_mounted_business_operations_require_authentication(tmp_path, operation):
     app, identity, permissions = business_app(tmp_path)
     with TestClient(app) as client:
         response = invoke(client, operation)
@@ -181,7 +181,7 @@ def test_all_51_mounted_business_operations_require_authentication(tmp_path, ope
 
 
 @pytest.mark.parametrize("operation", MOUNTED, ids=lambda op: op.operation_id)
-def test_all_51_operations_deny_missing_permission(tmp_path, operation):
+def test_all_52_operations_deny_missing_permission(tmp_path, operation):
     app, identity, permissions = business_app(tmp_path)
     with TestClient(app) as client:
         response = invoke(client, operation, authorization="Bearer fixture-valid-token")
@@ -196,7 +196,7 @@ def test_all_51_operations_deny_missing_permission(tmp_path, operation):
 @pytest.mark.parametrize(
     "mode,code", [("missing", "FORMAL_POLICY_UNCONFIGURED"), ("unavailable", "IDENTITY_AUTHORITY_UNAVAILABLE")]
 )
-def test_all_51_operations_fail_closed_on_missing_or_unavailable_permissions(tmp_path, operation, mode, code):
+def test_all_52_operations_fail_closed_on_missing_or_unavailable_permissions(tmp_path, operation, mode, code):
     app, identity, permissions = business_app(tmp_path, mode)
     with TestClient(app) as client:
         response = invoke(client, operation, authorization="Bearer fixture-valid-token")

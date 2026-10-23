@@ -57,6 +57,9 @@ from .registry_router import router as registry_router
 from .settings import BusinessSettings
 from .source_registration import SourceRegistration, SourceRegistrationAuthority
 from .source_registration_router import router as source_registration_router
+from .task_creation_materials import MaterialBudgets
+from .task_creation_router import router as task_creation_router
+from .task_creation_service import TaskCreationMaterialsPort, TaskCreationService
 from .uploads.repository import UploadRepository
 from .uploads.router import router as upload_router
 from .uploads.service import UploadService
@@ -89,7 +92,11 @@ def create_app(
     work_authorization: WorkPort | None = None,
     operation_token_rules: OperationTokenRules | None = None,
     operation_token_keys: OperationTokenKeys | None = None,
+    task_creation_materials: TaskCreationMaterialsPort | None = None,
+    task_creation_budgets: MaterialBudgets | None = None,
 ) -> FastAPI:
+    if task_creation_materials is not None and task_creation_budgets is None:
+        raise ValueError("EXPLICIT_TASK_CREATION_BUDGETS_REQUIRED")
     logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
 
@@ -114,6 +121,11 @@ def create_app(
     app.state.business_database = database
     app.state.business_authority = authority
     app.state.business_settings = settings
+    app.state.task_creation_service = (
+        TaskCreationService(database, settings, materials_reader=task_creation_materials, budgets=task_creation_budgets)
+        if task_creation_budgets is not None
+        else None
+    )
     app.state.upload_service = UploadService(
         database, UploadRepository(database, settings), FileObjectStore(settings.object_root), authority=authority
     )
@@ -164,6 +176,7 @@ def create_app(
     app.include_router(source_registration_router, dependencies=protected)
     app.include_router(model_catalog_router, dependencies=protected)
     app.include_router(asset_download_router, dependencies=protected)
+    app.include_router(task_creation_router, dependencies=protected)
     app.include_router(inference_router)
     audit_protected_routes(app)
 

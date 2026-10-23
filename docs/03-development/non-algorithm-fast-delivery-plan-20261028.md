@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+2026-10-23当前增量：[上传到资产真实传输及T034 HTTP接线](upload-asset-t034-http-20261023.md)、[精确验证记录](../00-project/validation/upload-asset-t034-http-20261023.json)。浏览器实际3分片经HTTP/PG/Rabbit/worker生成资产并下载核对SHA；身份和机构事实仍为隔离自建夹具。T034 I04入口已挂载并默认拒绝缺失提供方，实际受保护业务操作为52/73，未挂载21；I03恢复/未知提交、真实材料和完整门禁继续未关闭。以下历史“未挂载HTTP”以各自原验证时点解释，不能覆盖本段当前源码状态。170任务及完成子步骤数不因本批自动增加。
+
 2026-10-23续批：[持有者真实写入后回滚并发验证](t034-task-creation-concurrency-rollback.md)、[回执](../00-project/validation/t034-task-creation-concurrency-rollback-report.json)。2026-10-23完成T034 I03持锁者真实写入后回滚的独立连接验证批次：两个独立Database/连接及不同后端PID，以pg_locks与pg_blocking_pids核对同一幂等事务锁的实际争用；持有者已成功INSERT analysis_task后，下一写入前受控异常真实传播并回滚，等待者随后独立创建一次完整写集合，Accepted/ETag及事件/审计归属于等待者请求，失败持有者集合及请求记录为0、task_result为0。本批回滚并发用例1项、相邻回滚/幂等边界8项、原失败探针及Ruff/格式/291文件类型通过；范围重叠不相加。仅新增测试、未修产品；受控异常不是漏洞RED，synthetic issuer不作正式提供方或HTTP授权。旧7097全组1800秒TIMEOUT保留，本cohort未重跑全组。C03、真实故障/恢复及代际、真实采用/Proof/HTTP仍未完成。0新增C，T034仍4C/4R。
 
 2026-10-23续批：[独立连接并发验证](t034-task-creation-concurrency.md)、[回执](../00-project/validation/t034-task-creation-concurrency-report.json)。2026-10-23完成T034 I03独立连接并发验证批次：两个独立Database/连接及不同后端PID，以pg_locks与pg_blocking_pids核对同一幂等事务锁的已授予/等待争用；持有者提交后等待者复用原Accepted与ETag，八组持久化写集合保持一次创建且业务结果为0。本批独立并发用例1项、相邻幂等/当前材料边界10项、原失败探针及Ruff/格式/290文件类型通过；范围重叠不相加。仅新增测试、未改产品；synthetic issuer不作正式提供方或HTTP授权。旧全组1800秒TIMEOUT保留，本cohort未重跑全组。C02/C03、真实故障/恢复及代际、真实采用/Proof/HTTP仍未完成。0新增C，T034仍4C/4R。

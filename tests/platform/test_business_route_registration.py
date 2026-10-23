@@ -31,6 +31,9 @@ def registered(tmp_path):
         "backend/business_app/asset_download_router.py",
         "backend/business_app/source_registration_router.py",
         "backend/business_app/model_catalog_router.py",
+        "backend/business_app/task_creation_router.py",
+        "docs/08-security/history/task-creation-predecessor-scope-matrix.json",
+        "docs/08-security/task-creation-route-registration.json",
     ]:
         source = ROOT / relative
         assert source.is_file(), "REGISTRATION_FIXTURE_REQUIRED"
@@ -55,7 +58,49 @@ def test_registered_report_route_keeps_the_exact_historical_matrix(monkeypatch, 
     old = json.loads((registered / PRIOR).read_text("utf8"))
     current = json.loads((registered / MATRIX).read_text("utf8"))
     assert sum(row["runtime_route"] is not None for row in old["operations"]) == 46
-    assert sum(row["runtime_route"] is not None for row in current["operations"]) == 51
+    assert sum(row["runtime_route"] is not None for row in current["operations"]) == 52
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "roles",
+        "default_effect",
+        "formal_approved",
+        "integer_flag",
+        "another_operation",
+        "extra_route",
+        "task_formal_allow",
+        "task_authentication",
+    ],
+)
+def test_latest_registration_rehash_cannot_expand_the_semantic_delta(registered, change):
+    from scripts.verify_task_creation_registration import verify_task_creation_registration
+
+    current = json.loads((registered / MATRIX).read_text("utf8"))
+    if change in {"roles", "default_effect", "formal_approved", "integer_flag"}:
+        field, value = {
+            "roles": ("roles", []),
+            "default_effect": ("default_effect", "ALLOW"),
+            "formal_approved": ("formal_approved", True),
+            "integer_flag": ("formal_approved", 0),
+        }[change]
+        current[field] = value
+    elif change == "another_operation":
+        current["operations"][0]["current_guard_review"] = "untrusted expansion"
+    elif change == "extra_route":
+        current["task_creation_increment"]["mounted_operations"] = 53
+    else:
+        row = next(item for item in current["operations"] if item["operation_id"] == "createTask")
+        row["formal_allow" if change == "task_formal_allow" else "authentication"] = True
+    raw = (json.dumps(current, ensure_ascii=False, indent=2) + "\n").encode()
+    (registered / MATRIX).write_bytes(raw)
+    path = registered / "docs/08-security/task-creation-route-registration.json"
+    record = json.loads(path.read_text("utf8"))
+    record["current_sha256"] = hashlib.sha256(raw).hexdigest()
+    path.write_text(json.dumps(record), encoding="utf8")
+    with pytest.raises(AssertionError):
+        verify_task_creation_registration(registered)
 
 
 @pytest.mark.parametrize(

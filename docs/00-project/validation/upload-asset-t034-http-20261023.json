@@ -1,0 +1,142 @@
+{
+  "observed_date": "2026-10-23",
+  "status": "LIMITED_CHECKS_PASSED_FULL_REGRESSION_IN_PROGRESS",
+  "base_source_commit": "de5630e59beda1af08b24bc292ab555a3d9c0693",
+  "scope": "isolated_real_browser_http_postgres_rabbit_object_transport_with_explicit_synthetic_trust_and_task_creation_http_component",
+  "formal_accepted": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "identity_grants_created": false,
+  "original_100_package_lock_changed": false,
+  "Python_candidates_created": false,
+  "algorithm_implemented": false,
+  "new_completed_task_substeps": 0,
+  "checks": [
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/business_browser -q --tb=short",
+      "status": "PASS",
+      "tests": 1,
+      "trust": "explicit_synthetic_fixture_only",
+      "part_count": 3,
+      "published": 1,
+      "consumed": 1,
+      "download_sha256_matches_original": true
+    },
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/business/test_task_creation_http.py -q --tb=short",
+      "status": "PASS_BEFORE_TEST_PROTOCOL_TYPING_CLEANUP",
+      "tests": 7
+    },
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/business/test_task_creation_http.py tests/platform/test_t014.py tests/platform/test_business_route_registration.py tests/business/test_t014_runtime.py -q --tb=short",
+      "status": "PASS_BEFORE_TEST_PROTOCOL_TYPING_CLEANUP",
+      "tests": 278
+    },
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/platform/test_business_demo_gateway.py tests/platform/test_t014_gate.py -q --tb=short",
+      "status": "PASS",
+      "tests": 144
+    },
+    {
+      "command": "npm --prefix frontend test",
+      "status": "PASS",
+      "tests": 959
+    },
+    {
+      "command": "npm --prefix frontend run build",
+      "status": "PASS"
+    },
+    {
+      "command": "npm --prefix frontend run lint",
+      "status": "PASS"
+    },
+    {
+      "command": "npm --prefix frontend run format-check",
+      "status": "PASS_AFTER_NEW_SCRIPT_FORMATTING"
+    },
+    {
+      "command": "MT_TYPE_REPORT_DISABLED=1 PYTHONPATH=backend:. python scripts/stage_three_types.py check",
+      "status": "PASS",
+      "source_files": 296
+    },
+    {
+      "command": "PYTHONPATH=backend timeout 1800 python -m pytest tests/business -q --tb=short --junitxml PRIVATE_PATH",
+      "status": "IN_PROGRESS"
+    },
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/platform/test_business_route_registration.py -q --tb=short",
+      "status": "PASS",
+      "tests": 33,
+      "latest_semantic_rehash_cases": 8
+    },
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/platform tests/stage_three -q --tb=short",
+      "status": "FAIL_EXISTING_NODE_NOT_ON_SSH_PATH",
+      "passed": 1890,
+      "failed": 17,
+      "failed_selector": "tests/platform/test_t013_management.py::test_management_verifier_requires_signature_mfa_client_and_short_expiry",
+      "retest": "PASS",
+      "retest_tests": 41
+    },
+    {
+      "command": "PYTHONPATH=backend python scripts/verify_t014_permissions.py failure-probe",
+      "status": "EXPECTED_FAILURE",
+      "exit_code": 1
+    },
+    {
+      "command": "PYTHONPATH=backend python scripts/verify_business_foundation.py failure-probe",
+      "status": "EXPECTED_FAILURE",
+      "exit_code": 1
+    },
+    {
+      "command": "python scripts/validate_repository_docs.py",
+      "status": "PASS",
+      "links_checked": 14363
+    },
+    {
+      "command": "python scripts/validate_stage_one.py",
+      "status": "PASS",
+      "checks": 12
+    }
+  ],
+  "red_evidence": {
+    "test": "test_task_creation_is_mounted_and_refuses_unauthenticated_requests",
+    "before_http_status": 405,
+    "expected_http_status": 401,
+    "observed_failure": true
+  },
+  "mounted_business_operations": 52,
+  "not_mounted_business_operations": 21,
+  "canonical_business_operations": 73,
+  "existing_warning": "Starlette TestClient httpx deprecation; dependencies unchanged",
+  "hosted_CI": {
+    "head_sha": "de5630e59beda1af08b24bc292ab555a3d9c0693",
+    "run_id": 39933240340,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39933240340",
+    "identity": "SUCCESS",
+    "foundation": "FAIL_INVENTORY_DRIFT",
+    "failed_path": "docs/03-development/t001-t123-implementation-inventory.json",
+    "engineering": "FAILURE",
+    "new_batch_CI_verified": false,
+    "main_merge_allowed": false,
+    "overall": "FAILURE_TERMINAL",
+    "current_run_finished_before_new_push": true
+  },
+  "synchronization": {
+    "status": "PENDING_VERIFICATION_AND_EXISTING_CI_TERMINAL",
+    "main_merged": false,
+    "current_PR_head_preserved": true
+  },
+  "remaining": [
+    "actual identity takeover and institutional permission/source/work providers for shared business demonstration",
+    "T034 trusted adoption/current facts/Proof and handler provenance; aggregate budgets and deadline integration",
+    "unknown commit and recovery-generation verification plus complete I05 gates",
+    "resident upload worker, full media safety, quotas and recovery",
+    "current exact source hosted CI success before any normal PR2 merge"
+  ],
+  "code_review": {
+    "status": "NO_CRITICAL_OR_IMPORTANT_FINDINGS",
+    "latest_registration_rehash_semantic_gap": "ADDED_8_NEGATIVE_CASES_ALL_PASS",
+    "scope": "read_only_product_route_factory_registration_and_live_harness"
+  }
+}

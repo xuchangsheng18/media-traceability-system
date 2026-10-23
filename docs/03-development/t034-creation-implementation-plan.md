@@ -1,5 +1,7 @@
 # T034任务创建接线实施计划（I01—I05）
 
+2026-10-23当前增量：[上传到资产真实传输及T034 HTTP接线](upload-asset-t034-http-20261023.md)、[精确验证记录](../00-project/validation/upload-asset-t034-http-20261023.json)。浏览器实际3分片经HTTP/PG/Rabbit/worker生成资产并下载核对SHA；身份和机构事实仍为隔离自建夹具。T034 I04入口已挂载并默认拒绝缺失提供方，实际受保护业务操作为52/73，未挂载21；I03恢复/未知提交、真实材料和完整门禁继续未关闭。以下历史“未挂载HTTP”以各自原验证时点解释，不能覆盖本段当前源码状态。170任务及完成子步骤数不因本批自动增加。
+
 2026-10-22（北京时间）。状态：**I02_IMPLEMENTED_LIMITED_VALIDATION_FULL_GATE_BLOCKED**。I02受限SQL/观测/guard工程代码已实现，178SQL/544纯/279类型与质量限定通过；此前源码完整业务回归实际失败，当前修复后未整套重跑/未完成，候选C05不计，保持154。I02及真实采用/Proof/当前handler/分类/恢复/预算、I03—I05与HTTP未完成。
 
 2026-10-22本批：[I02受限SQL/事实与guard](t034-i02-integration.md)、[数据库固定读口](../04-database/task-creation-scope-read-contract.md)及[精确回执](../00-project/validation/t034-i02-integration-report.json)。代码已实现且限定验证通过，此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑），候选C05未计数；不当真实采用/Proof签发或HTTP202；E01—E04未齐，后续新迁移0018及以上，0001—0017发布后固定。原批准20c1be01计划基线不变；下方历史拟方案不是当前完成证据。

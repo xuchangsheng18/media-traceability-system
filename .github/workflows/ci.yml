@@ -145,6 +145,11 @@ jobs:
           result=$?
           set -e
           test "$result" -eq 1
+      - name: Verify browser upload to asset over real isolated transports
+        shell: bash
+        run: |
+          npm --prefix frontend run build
+          "$PYTHON" -m pytest tests/business_browser -q --tb=short
       - name: Bind this job owned reports to run attempt and source
         if: always()
         shell: bash

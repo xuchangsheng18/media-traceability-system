@@ -33,7 +33,7 @@ def request_helpers():
     return importlib.import_module("tests.business.t014_requests")
 
 
-def test_all_51_real_resource_requests_deny_before_business_side_effects(control_context):
+def test_all_52_real_resource_requests_deny_before_business_side_effects(control_context):
     c = control_context
     helper = request_helpers()
     resources = helper.prepare_requests(c)
@@ -46,7 +46,7 @@ def test_all_51_real_resource_requests_deny_before_business_side_effects(control
             raise TimeoutError("self-owned unavailable authority fixture")
 
     try:
-        assert len(resources.requests) == 51
+        assert len(resources.requests) == 52
         for mode, port, expected, code in [
             ("unauthenticated", original, 401, "AUTHENTICATION_REQUIRED"),
             ("denied", FixturePermissions(frozenset(), frozenset()), 403, "PERMISSION_REQUIRED"),

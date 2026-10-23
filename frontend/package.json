@@ -8,9 +8,9 @@
     "build": "vue-tsc --noEmit && vite build",
     "test": "vitest run",
     "generate:contracts": "openapi-typescript ../docs/03-api/openapi.yaml -o ../shared-contracts/generated/business-api.d.ts && openapi-typescript ../docs/03-api/inference-openapi.yaml -o ../shared-contracts/generated/inference-api.d.ts && node ../scripts/generate-event-types.mjs",
-    "lint": "eslint src e2e *.ts *.mjs --max-warnings=0",
-    "format-check": "prettier --check \"src/**/*.{ts,vue,css}\" \"e2e/**/*.ts\" \"*.{ts,mjs,json,html}\"",
-    "format": "prettier --write \"src/**/*.{ts,vue,css}\" \"e2e/**/*.ts\" \"*.{ts,mjs,json,html}\"",
+    "lint": "eslint src e2e e2e-live *.ts *.mjs --max-warnings=0",
+    "format-check": "prettier --check \"src/**/*.{ts,vue,css}\" \"e2e/**/*.ts\" \"e2e-live/**/*.mjs\" \"*.{ts,mjs,json,html}\"",
+    "format": "prettier --write \"src/**/*.{ts,vue,css}\" \"e2e/**/*.ts\" \"e2e-live/**/*.mjs\" \"*.{ts,mjs,json,html}\"",
     "type-check": "vue-tsc --noEmit",
     "test:foundation-browser": "playwright test --config=foundation-playwright.config.ts"
   },

@@ -1,4 +1,4 @@
-"""Valid contract requests and actual self-owned resources for the expanded 51-operation denial matrix."""
+"""Valid contract requests and actual self-owned resources for the expanded 52-operation denial matrix."""
 
 import hashlib
 import io
@@ -243,6 +243,14 @@ def _populate(c, resources):
             expires_at=None,
         ),
         createUpload=upload_body,
+        createTask=dict(
+            case_id=str(c["case_id"]),
+            asset_id=str(c["asset_id"]),
+            scene="accident_rumor",
+            policy_version="policy-dev-1",
+            modules=["INGEST"],
+            priority="normal",
+        ),
         completeUpload=dict(parts=[descriptor]),
         requestApproval=dict(
             case_id=str(c["case_id"]),
@@ -378,4 +386,4 @@ def _populate(c, resources):
             assert isinstance(request["json"], dict)
             validate_api(body["schema"]["$ref"].rsplit("/", 1)[-1], request["json"])
         resources.requests[identifier] = request
-    assert len(resources.requests) == 51
+    assert len(resources.requests) == 52

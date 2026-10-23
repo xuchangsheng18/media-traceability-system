@@ -17,6 +17,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = [
+    "tests/business/test_task_creation_http.py",
     "tests/platform/test_t014.py",
     "tests/platform/test_t014_gate.py",
     "tests/business/test_t014_permissions.py",
@@ -49,6 +50,11 @@ TARGETS = [
 ROLES = json.loads((ROOT / "docs/08-security/access-control-model.json").read_text(encoding="utf8"))["roles"]
 REQUIRED_CASES = frozenset(
     [
+        (
+            "tests.business.test_task_creation_http",
+            "test_task_creation_is_mounted_and_refuses_unauthenticated_requests",
+        ),
+        ("tests.business.test_task_creation_http", "test_http_acceptance_replays_exact_response_and_writes_one_run"),
         ("tests.business.test_asset_download", "test_full_download_verifies_exact_bytes_and_appends_request_audit"),
         ("tests.business.test_source_registration", "test_registration_replay_does_not_insert_or_audit_twice"),
         ("tests.business.test_model_catalog", "test_per_row_visibility_precedes_model_pagination"),
@@ -86,7 +92,7 @@ REQUIRED_CASES = frozenset(
             "test_permission_facts_and_least_privilege_survive_independent_restore",
         ),
         ("tests.business.test_t014_permissions", "test_directory_facts_never_allow_without_explicit_policy"),
-        ("tests.business.test_t014_runtime", "test_all_51_real_resource_requests_deny_before_business_side_effects"),
+        ("tests.business.test_t014_runtime", "test_all_52_real_resource_requests_deny_before_business_side_effects"),
         (
             "tests.business.test_t014_runtime",
             "test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
@@ -235,10 +241,10 @@ def validate_results(junit: Path, operation_ids: set[str]) -> dict[str, Any]:
     checks: dict[str, dict[str, str]] = {}
     for operation in sorted(operation_ids):
         names = {
-            "unauthenticated": f"test_all_51_mounted_business_operations_require_authentication[{operation}]",
-            "permission_denied": f"test_all_51_operations_deny_missing_permission[{operation}]",
-            "policy_missing": f"test_all_51_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
-            "authority_unavailable": f"test_all_51_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
+            "unauthenticated": f"test_all_52_mounted_business_operations_require_authentication[{operation}]",
+            "permission_denied": f"test_all_52_operations_deny_missing_permission[{operation}]",
+            "policy_missing": f"test_all_52_operations_fail_closed_on_missing_or_unavailable_permissions[missing-FORMAL_POLICY_UNCONFIGURED-{operation}]",
+            "authority_unavailable": f"test_all_52_operations_fail_closed_on_missing_or_unavailable_permissions[unavailable-IDENTITY_AUTHORITY_UNAVAILABLE-{operation}]",
         }
         if any(rows[("tests.platform.test_t014", name)] != 1 for name in names.values()):
             raise RuntimeError("T014_OPERATION_MATRIX_INCOMPLETE")
@@ -326,7 +332,7 @@ def mounted_catalog() -> tuple[set[str], list[str]]:
                         raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
                     operations.add(identifier)
             catalog = load_catalog(ROOT)
-            if len(operations) != 51 or len(catalog) != 73 or len(ROLES) != 6:
+            if len(operations) != 52 or len(catalog) != 73 or len(ROLES) != 6:
                 raise RuntimeError("T014_MOUNTED_SCOPE_CHANGED")
             return operations, sorted(set(catalog) - operations)
         finally:

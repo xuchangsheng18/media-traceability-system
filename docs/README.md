@@ -1,5 +1,7 @@
 # 项目文档导航
 
+**2026-10-23当前增量：** [上传到资产真实传输与T034创建接口](03-development/upload-asset-t034-http-20261023.md)、[测试／CI／同步记录](00-project/validation/upload-asset-t034-http-20261023.json)。浏览器3分片经真实HTTP、PG、RabbitMQ和worker形成资产并下载校验；身份和机构事实仍为自建隔离夹具。业务接口现为52/73已挂载、21未挂载；总台账仍为154条已验证子步骤、622条剩余事项、0项整任务验收。以下日期较早的数字保留为历史时点，当前入口以本段和[任务总导航](../tasks/README.md)为准。
+
 **10月28日提交目标：** [非算法工程版快速计划](03-development/non-algorithm-fast-delivery-plan-20261028.md)、[范围与边界](03-development/non-algorithm-delivery-scope.md)。用户要求算法暂缓；70项工程、20项混合拆分、30项算法延期、3项外部验收准备逐项列出；实际完成仍为129条子步骤，计划不增加完成数。
 
 2026-10-21优先续批：[后端→前端→数据→测试](03-development/backend-frontend-data-test-priority-plan.md)、[实测回执](00-project/validation/backend-frontend-data-test-report.json)。新增来源授权同步事务/页面和离线标注质检工具；T001—T123为129条已验证子步骤、434组剩余工作，整任务验收0项；源码同步与共享服务采用分别记录。
@@ -746,7 +748,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1354份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1358份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1506,6 +1508,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t103-role-assignment.json](<00-project/validation/t103-role-assignment.json>) | 用户确认T103实际开发负责人和指定复核人均为徐昌胜；只登记责任，不授予权限、不证明本人复核、工时或独立双人验收。 |
 | [00-project/validation/task-cancellation-console-report.json](<00-project/validation/task-cancellation-console-report.json>) | T039取消前端的实际RED/GREEN、39项新单元、完整前端与开发/生产浏览器验证、复核补强及三端同步；自建传输夹具不当真实后端E2E。 |
 | [00-project/validation/trace-regression-report.json](<00-project/validation/trace-regression-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/upload-asset-t034-http-20261023.json](<00-project/validation/upload-asset-t034-http-20261023.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/upstream/local-attempt-01.json](<00-project/validation/upstream/local-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/local-validation-report.json](<00-project/validation/upstream/local-validation-report.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/upstream/sql-attempt-01.json](<00-project/validation/upstream/sql-attempt-01.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
@@ -1925,6 +1928,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t103-review-read-console.md](<03-development/t103-review-read-console.md>) | T103既有接口的待复核任务选择、当前上下文与历史分页只读页面；任务/案件/本地身份变化清理、完整响应绑定及未验工作流边界。 |
 | [03-development/t103-review-submission.md](<03-development/t103-review-submission.md>) | T103复核表单、原样服务端ETag/幂等键及未确认原请求重试、会话内草稿与清理；正式规则/职责、持久化、任务状态转换及真实工作流仍待。 |
 | [03-development/task-cancellation-console.md](<03-development/task-cancellation-console.md>) | 已有取消后端的页面接线、版本与明确确认、未知结果原请求重试和身份/任务切换；202不当停止，T034可信创建映射及真实worker仍未齐。 |
+| [03-development/upload-asset-t034-http-20261023.md](<03-development/upload-asset-t034-http-20261023.md>) | 说明文档：上传到资产真实传输联调与T034创建接口；结合正文的状态、来源和适用范围阅读。 |
 | [04-database/api-field-mapping.csv](<04-database/api-field-mapping.csv>) | 按操作、方向和字段路径排列的可表格查看映射。 |
 | [04-database/api-field-mapping.json](<04-database/api-field-mapping.json>) | 用于校验的机器映射，包括嵌套字段。 |
 | [04-database/api-field-mapping.md](<04-database/api-field-mapping.md>) | 接口到数据库的映射原则与典型对象解释。 |
@@ -2039,6 +2043,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [08-security/history/resource-registry-predecessor-scope-matrix.json](<08-security/history/resource-registry-predecessor-scope-matrix.json>) | 本轮之前47项挂载矩阵的原字节，和报告读取历史形成可核验后继链。 |
 | [08-security/history/t001-t123-catalog-predecessor-openapi.yaml](<08-security/history/t001-t123-catalog-predecessor-openapi.yaml>) | 本批之前85327689提交的OpenAPI原字节快照，用于核对已确认六角色规则的历史来源，不作为当前调用契约。 |
 | [08-security/history/t001-t123-catalog-predecessor-scope-matrix.json](<08-security/history/t001-t123-catalog-predecessor-scope-matrix.json>) | 本批之前85327689提交的权限范围矩阵原字节快照；保留历史绑定，当前46项源码挂载与真实验证另列。 |
+| [08-security/history/task-creation-predecessor-scope-matrix.json](<08-security/history/task-creation-predecessor-scope-matrix.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [08-security/permission-matrix.md](<08-security/permission-matrix.md>) | 角色与动作权限的对应关系及限制。 |
 | [08-security/README.md](<08-security/README.md>) | 所在专题的局部导航与阅读入口 |
 | [08-security/report-read-route-registration.json](<08-security/report-read-route-registration.json>) | 只登记getReport挂载增量，严格绑定46→47的矩阵字节；原246格、正式拒绝与旧采用记录不改。 |
@@ -2049,6 +2054,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [08-security/t014-six-role-rule-proposal.json](<08-security/t014-six-role-rule-proposal.json>) | 六角色逐格候选值、完整条件、契约摘要及PR01—PR06待决项；不是活动策略配置。 |
 | [08-security/t014-six-role-rule-proposal.md](<08-security/t014-six-role-rule-proposal.md>) | 六角色41权限246格、73操作及对象/用途条件；PR01/02/04已确认隔离实现输入，PR03/05/06仍待，未变成运行ALLOW。 |
 | [08-security/t016-operation-token-boundaries.md](<08-security/t016-operation-token-boundaries.md>) | 案件task/seal令牌的授权、独立批准、当前密钥/代际和TTL边界；真实封存角色冲突、未接入消费者及采用前决定逐项列出。 |
+| [08-security/task-creation-route-registration.json](<08-security/task-creation-route-registration.json>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
 | [09-testing/acceptance-criteria.md](<09-testing/acceptance-criteria.md>) | 交付判定口径和不能省略的证据。 |
 | [09-testing/acceptance-execution-configuration.md](<09-testing/acceptance-execution-configuration.md>) | 24项实际样本/版本/资源/负载/目标/人员配置与NOT_EVALUABLE缺项，READY也不是验收成绩。 |
 | [09-testing/acceptance-execution-inputs.json](<09-testing/acceptance-execution-inputs.json>) | 24协议待填实际执行配置；正式目标和环境保持null，按Schema及适用指标检查。 |

@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from scripts.verify_task_creation_registration import verify_task_creation_registration
+
 MATRIX = "docs/08-security/t014-interface-scope-matrix.json"
 PRIOR = "docs/08-security/history/resource-registry-predecessor-scope-matrix.json"
 REGISTRATION = "docs/08-security/resource-registry-route-registration.json"
@@ -88,7 +90,7 @@ def verify_resource_registry_registration(root: Path) -> Path:
     previous_path = root / PRIOR
     previous_raw = previous_path.read_bytes()
     assert hashlib.sha256(previous_raw).hexdigest() == PRIOR_SHA256
-    current_raw = (root / MATRIX).read_bytes().replace(b"\r\n", b"\n")
+    current_raw = verify_task_creation_registration(root).read_bytes().replace(b"\r\n", b"\n")
     assert same(json.loads((root / REGISTRATION).read_text("utf8")), registration(current_raw))
     previous, current = json.loads(previous_raw), json.loads(current_raw)
     assert same(current.pop("resource_registry_increment"), increment())
