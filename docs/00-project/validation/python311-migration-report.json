@@ -58,7 +58,7 @@
   "production_frozen": false,
   "whole_task_acceptance": false,
   "linux_full_regression": "PASS 2427 on a new durable isolated temporary PostgreSQL target; original target TIMEOUT/partial887 remains recorded",
-  "new_head_github_CI": "3ca PR terminal FAIL in recovery administrator authentication; 3ca push terminal SUCCESS; stricter readiness repair requires new exact-head CI",
+  "new_head_github_CI": "6b pull_request and push terminal FAIL: each identity407/2fail; personal-administrator lifecycle repair verified in isolated Linux only, new exact-head CI pending",
   "main_merged": false,
   "prior_failure_preserved": {
     "head": "8c42c0e57d3dcebe86b6cf291fa846dc722c8f55",
@@ -209,5 +209,115 @@
         "engineering": "success"
       }
     ]
+  },
+  "retired_bootstrap_readiness_followup": {
+    "observed_date": "2026-10-24",
+    "failed_head": "6b4c93f6bb9dc109a32ef4bd9d581754354d515c",
+    "failed_runs": [
+      39994731115,
+      39994722882
+    ],
+    "failed_totals": {
+      "tests": 407,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failed_cases": [
+      "tests.identity.test_admin_handover_live.test_real_master_mfa_bootstrap_removal_and_restart",
+      "tests.identity.test_management_live.test_personal_mfa_tools_and_private_retirement_candidates_without_bootstrap"
+    ],
+    "diagnostic": "RECOVERY_LAB_READINESS_TIMEOUT",
+    "artifact_pr": {
+      "id": 12519569106,
+      "sha256": "1400a2b3b3bc39bdff50c910744811da288190007becd5915f8dce6997c62738"
+    },
+    "source_sha256": {
+      "tests/identity/recovery_lab.py": "d6768744c9a5ba9aaa46c425b83334ccb0a4702031ab3174596ae9c8a1644785",
+      "tests/identity/test_admin_handover_live.py": "90be405d29bdc1042f1331a422845ab471bad27646dbc86a6cdbed015296a63d",
+      "tests/identity/test_management_live.py": "325b893a1a1b2134ea7c53f39680ca9e92f50f257c2dddef1f69327fc41547f9",
+      "tests/platform/test_t013_recovery_readiness.py": "003d4a9ba1001056220ab7c4372eb23108e75973a404489b83e2003d42034df6"
+    },
+    "regression_red": {
+      "failed": 4,
+      "passed": 11
+    },
+    "unit_regression": {
+      "tests": 106,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 45.91
+    },
+    "typed_source_files": 303,
+    "real_isolated_live": {
+      "status": "PASS",
+      "scope": "two_remaining_original_recovery_cases_only_not_complete_identity_CI",
+      "exit_code": 0,
+      "complete": true,
+      "timeout_seconds": 1800,
+      "original_identity_live_group_budget_unchanged": true,
+      "totals": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [],
+      "elapsed_seconds": 1028.457,
+      "source_sha256": {
+        "tests/identity/recovery_lab.py": "d6768744c9a5ba9aaa46c425b83334ccb0a4702031ab3174596ae9c8a1644785",
+        "tests/identity/test_admin_handover_live.py": "90be405d29bdc1042f1331a422845ab471bad27646dbc86a6cdbed015296a63d",
+        "tests/identity/test_management_live.py": "325b893a1a1b2134ea7c53f39680ca9e92f50f257c2dddef1f69327fc41547f9",
+        "tests/platform/test_t013_recovery_readiness.py": "003d4a9ba1001056220ab7c4372eb23108e75973a404489b83e2003d42034df6"
+      },
+      "raw_logs_published": false,
+      "shared_services_changed": false
+    },
+    "new_exact_head_hosted_CI": "PENDING",
+    "main_merged": false,
+    "whole_task_acceptance": false,
+    "shared_services_restarted": false,
+    "original_readiness_seconds": 180,
+    "no_retired_credential_fallback": true,
+    "first_stale_personal_session_attempt": {
+      "tests": 1,
+      "failures": 1,
+      "complete": false,
+      "stopped_after_observed_failure": true,
+      "diagnostic": "RECOVERY_LAB_READINESS_TIMEOUT",
+      "public_discovery_200_count": 62,
+      "admin_operation_401_count": 62,
+      "raw_logs_published": false
+    },
+    "personal_MFA_reauthenticated_after_service_readiness": true,
+    "original_four_case_diagnostic": {
+      "status": "TIMEOUT",
+      "diagnostic_timeout_seconds": 1200,
+      "complete": false,
+      "junit_created": false,
+      "partial_passed_case_events": [
+        "tests/identity/test_admin_handover_live.py::test_real_master_mfa_bootstrap_removal_and_restart",
+        "tests/identity/test_management_live.py::test_personal_mfa_tools_and_private_retirement_candidates_without_bootstrap"
+      ],
+      "partial_events_not_complete_suite_totals": true,
+      "source_sha256": {
+        "tests/identity/recovery_lab.py": "d6768744c9a5ba9aaa46c425b83334ccb0a4702031ab3174596ae9c8a1644785",
+        "tests/identity/test_admin_handover_live.py": "90be405d29bdc1042f1331a422845ab471bad27646dbc86a6cdbed015296a63d",
+        "tests/identity/test_management_live.py": "325b893a1a1b2134ea7c53f39680ca9e92f50f257c2dddef1f69327fc41547f9",
+        "tests/platform/test_t013_recovery_readiness.py": "003d4a9ba1001056220ab7c4372eb23108e75973a404489b83e2003d42034df6"
+      },
+      "private_log_sha256": "c6a598746d4f9cc56bf18d96ed479e88c51b9c1e73466ed3be18536d2f5c0a7c",
+      "cleanup": {
+        "owned_project": "media-trace-identity-restore-82b5640b",
+        "containers_stopped_and_removed": true,
+        "volumes_removed": false,
+        "shared_services_changed": false
+      },
+      "raw_logs_published": false,
+      "whole_CI_passed": false
+    },
+    "remaining_recovery_junit_sha256": "24a94e8aae5d2094d665fb947052018b66ce3c88ea66f9808e4583bda6f3cf38",
+    "complete_identity_group_verified": false
   }
 }

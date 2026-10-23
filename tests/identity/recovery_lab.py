@@ -232,7 +232,7 @@ class RecoveryLab:
             raise RuntimeError("RECOVERY_LAB_HEALTH_RESPONSE_NOT_READY")
         return result
 
-    def wait_ready(self):
+    def wait_ready(self, *, administrator_factory=None):
         deadline = time.monotonic() + 180
         while time.monotonic() < deadline:
             try:
@@ -242,7 +242,9 @@ class RecoveryLab:
                             client.get(self.public_url + "/realms/master/.well-known/openid-configuration").status_code
                             == 200
                         ):
-                            self.admin.request("GET", "/admin/realms/master")
+                            (self.admin if administrator_factory is None else administrator_factory()).request(
+                                "GET", "/admin/realms/master"
+                            )
                             return
             except (RuntimeError, ValueError, httpx.HTTPError):
                 pass
@@ -409,9 +411,9 @@ class RecoveryLab:
         self.private_values.append(self.api_secret)
         return self.api_secret
 
-    def restart(self):
+    def restart(self, *, administrator_factory=None):
         self.compose("restart", "identity-postgres", "keycloak", "identity-gateway")
-        self.wait_ready()
+        self.wait_ready(administrator_factory=administrator_factory)
 
     def backup(self, recovery_key):
         home, public, signer = recovery_key

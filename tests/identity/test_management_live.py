@@ -357,7 +357,17 @@ def test_personal_mfa_tools_and_private_retirement_candidates_without_bootstrap(
             )
             denied_token = http.get(lab.admin_url + "/admin/realms", headers={"Authorization": "Bearer " + old_token})
         assert denied_secret.status_code in {400, 401} and denied_token.status_code in {401, 403}
-        lab.restart()
+
+        def authenticate_after_restart():
+            nonlocal admin
+            renewed_path = fresh_session()
+            monkeypatch.setenv("MT_IDENTITY_ADMIN_SESSION", str(renewed_path))
+            renewed = provision.AdminClient()
+            admin.close()
+            admin = renewed
+            return admin
+
+        lab.restart(administrator_factory=authenticate_after_restart)
         assert admin.request("GET", base).json()["realm"] == "master"
         assert not any(
             c["clientId"] == "bootstrap-project-service" for c in admin.request("GET", base + "/clients").json()

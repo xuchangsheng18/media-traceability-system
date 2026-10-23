@@ -161,17 +161,25 @@ def test_real_master_mfa_bootstrap_removal_and_restart(handover_lab):
         ]
         is True
     )
-    lab.restart()
-    last = HumanLogin(lab, client_id, username, personal_password)
-    try:
-        last.password_step()
-        assert last.requires_otp()
-        code, counter = otp(secret, after_counter=counter)
-        last.post_form(dict(otp=code))
-        restarted = last.exchange()
-    finally:
-        last.close()
-    final = inspect_handover(HumanAdmin(lab, restarted), administrator_id=UUID(subject), master_realm_id=master_id)
+    restarted_admin = None
+
+    def authenticate_after_restart():
+        nonlocal counter, restarted_admin
+        last = HumanLogin(lab, client_id, username, personal_password)
+        try:
+            last.password_step()
+            assert last.requires_otp()
+            code, counter = otp(secret, after_counter=counter)
+            last.post_form(dict(otp=code))
+            restarted = last.exchange()
+        finally:
+            last.close()
+        restarted_admin = HumanAdmin(lab, restarted)
+        return restarted_admin
+
+    lab.restart(administrator_factory=authenticate_after_restart)
+    assert restarted_admin is not None
+    final = inspect_handover(restarted_admin, administrator_id=UUID(subject), master_realm_id=master_id)
     assert final["configuration_ready"] is True
     assert final["actual_personal_handover_completed"] is False
     lab.record(

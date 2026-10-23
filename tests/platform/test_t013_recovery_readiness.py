@@ -91,3 +91,67 @@ def test_admin_authentication_failure_has_only_a_static_nonsecret_reason(status,
     assert str(failure.value) == code
     assert private not in repr(failure.value)
     assert len(posts) == 1
+
+
+def test_retired_bootstrap_readiness_uses_personal_administrator_only(monkeypatch):
+    lab, bootstrap_calls, sleeps = readiness_lab(monkeypatch, failures=100)
+    personal_calls: list[tuple[str, str]] = []
+
+    def request(method, path):
+        personal_calls.append((method, path))
+        return SimpleNamespace(status_code=200)
+
+    lab.wait_ready(administrator_factory=lambda: SimpleNamespace(request=request))
+    assert personal_calls == [("GET", "/admin/realms/master")]
+    assert bootstrap_calls == []
+    assert sleeps == []
+
+
+def test_failed_personal_readiness_never_falls_back_to_retired_bootstrap(monkeypatch):
+    lab, bootstrap_calls, _ = readiness_lab(monkeypatch, failures=0)
+    personal_calls: list[tuple[str, str]] = []
+
+    def request(method, path):
+        personal_calls.append((method, path))
+        raise RuntimeError("IDENTITY_HANDOVER_HUMAN_ADMIN_OPERATION_FAILED")
+
+    with pytest.raises(RuntimeError, match="^RECOVERY_LAB_READINESS_TIMEOUT$"):
+        lab.wait_ready(administrator_factory=lambda: SimpleNamespace(request=request))
+    assert len(personal_calls) == 2
+    assert bootstrap_calls == []
+
+
+def test_restart_preserves_selected_administrator_and_service_targets(monkeypatch):
+    lab = RecoveryLab.__new__(RecoveryLab)
+    administrator = object()
+    service_calls: list[tuple[str, ...]] = []
+    readiness_calls: list[object] = []
+    monkeypatch.setattr(lab, "compose", lambda *args: service_calls.append(args))
+    monkeypatch.setattr(
+        lab, "wait_ready", lambda *, administrator_factory=None: readiness_calls.append(administrator_factory)
+    )
+    lab.restart(administrator_factory=administrator)
+    assert service_calls == [("restart", "identity-postgres", "keycloak", "identity-gateway")]
+    assert readiness_calls == [administrator]
+
+
+def test_personal_administration_is_reauthenticated_after_a_rejected_session(monkeypatch):
+    lab, bootstrap_calls, sleeps = readiness_lab(monkeypatch, failures=0)
+    authenticated: list[int] = []
+
+    def authenticate():
+        authenticated.append(len(authenticated) + 1)
+        generation = authenticated[-1]
+
+        def request(method, path):
+            assert (method, path) == ("GET", "/admin/realms/master")
+            if generation == 1:
+                raise RuntimeError("IDENTITY_HANDOVER_HUMAN_ADMIN_OPERATION_FAILED")
+            return SimpleNamespace(status_code=200)
+
+        return SimpleNamespace(request=request)
+
+    lab.wait_ready(administrator_factory=authenticate)
+    assert authenticated == [1, 2]
+    assert bootstrap_calls == []
+    assert sleeps == [1]
