@@ -50,6 +50,7 @@ def main():
         flags=re.M,
     )
     entries = {
+        "00-project/validation/pr2-83c492fa-ci-terminal-report.json": "PR #2精确83c492fa的CI失败：完整业务2385及基础作业通过，运行扫描36条导致必需engineering失败；原锁/门禁保持，后续提交不借用成绩，main未合并。",
         "03-development/t034-identity-inventory.md": "T034 E01实名身份、单位及案件只读盘点：精确固定SQL、同一只读快照及私有独占结果；非认证、采用/许可/分类或真实管理授权。",
         "00-project/validation/t034-identity-inventory-report.json": "T034只读盘点精确源码、Linux70项/301文件类型及原失败探针、独立审查修复；真实输入与上批全组TIMEOUT、最新CI分别保留，零新增C。",
         "03-development/t034-task-creation-concurrency-rollback.md": "T034-I03持有者真实写入后回滚：实际同一advisory锁等待后故障，失败请求零残留，等待者独立创建唯一写集合；隔离夹具，非HTTP、恢复或正式采用。",

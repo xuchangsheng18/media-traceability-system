@@ -442,6 +442,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [00-project/validation/pr2-83c492fa-ci-terminal-report.json](<00-project/validation/pr2-83c492fa-ci-terminal-report.json>) | PR #2精确83c492fa的CI失败：完整业务2385及基础作业通过，运行扫描36条导致必需engineering失败；原锁/门禁保持，后续提交不借用成绩，main未合并。 |
 | [03-development/t034-identity-inventory.md](<03-development/t034-identity-inventory.md>) | T034 E01实名身份、单位及案件只读盘点：精确固定SQL、同一只读快照及私有独占结果；非认证、采用/许可/分类或真实管理授权。 |
 | [00-project/validation/t034-identity-inventory-report.json](<00-project/validation/t034-identity-inventory-report.json>) | T034只读盘点精确源码、Linux70项/301文件类型及原失败探针、独立审查修复；真实输入与上批全组TIMEOUT、最新CI分别保留，零新增C。 |
 | [03-development/t034-task-creation-concurrency-rollback.md](<03-development/t034-task-creation-concurrency-rollback.md>) | T034-I03持有者真实写入后回滚：实际同一advisory锁等待后故障，失败请求零残留，等待者独立创建唯一写集合；隔离夹具，非HTTP、恢复或正式采用。 |
@@ -750,7 +751,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1362份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1363份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1345,6 +1346,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/poc-resilience-report.json](<00-project/validation/poc-resilience-report.json>) | 5项队列/过期租约/服务及版本对象重启/幂等冲突检查，服务恢复记录。 |
 | [00-project/validation/poc-ui.png](<00-project/validation/poc-ui.png>) | 真实浏览器运行截图，保存前已清空研发令牌。 |
 | [00-project/validation/ppt-interface-alignment.json](<00-project/validation/ppt-interface-alignment.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/pr2-83c492fa-ci-terminal-report.json](<00-project/validation/pr2-83c492fa-ci-terminal-report.json>) | PR #2精确83c492fa的CI失败：完整业务2385及基础作业通过，运行扫描36条导致必需engineering失败；原锁/门禁保持，后续提交不借用成绩，main未合并。 |
 | [00-project/validation/public-development-data-report.json](<00-project/validation/public-development-data-report.json>) | Windows实际下载、Linux同摘要解码、26项无跳过安全测试、240文件类型检查及Linux直连下载失败与替代路径。 |
 | [00-project/validation/python-audit-report.json](<00-project/validation/python-audit-report.json>) | pip-audit发现与跳过原因；CPU torch被跳过，不能声称全部无漏洞。 |
 | [00-project/validation/python-candidate-deferral-validation.json](<00-project/validation/python-candidate-deferral-validation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
