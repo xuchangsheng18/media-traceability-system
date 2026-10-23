@@ -746,7 +746,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1353份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1354份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -854,6 +854,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/ci-failure-probe-report.json](<00-project/validation/ci-failure-probe-report.json>) | 故意插入失败后的真实非零门禁报告；FAIL为探针预期。 |
 | [00-project/validation/ci-report.json](<00-project/validation/ci-report.json>) | 最近一次正常CI入口执行报告；详细阶段与范围须核对。 |
 | [00-project/validation/ci-safe-failure-diagnostics-report.json](<00-project/validation/ci-safe-failure-diagnostics-report.json>) | T006失败定位的6项RED/GREEN、37项相邻检查、非超级用户迁移测试复现修复与质量/同步；原业务CI是否恢复以精确新运行核验。 |
+| [00-project/validation/ci-security-remediation-20261023.json](<00-project/validation/ci-security-remediation-20261023.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/ci18f-final-ci-report.json](<00-project/validation/ci18f-final-ci-report.json>) | 精确18f36bf最终CI：业务1095、权限1092及类型256通过，整体仍因Python25条及工具1条扫描匹配失败；Torch未覆盖，后续前端不继承为通过。 |
 | [00-project/validation/ci43e-final-ci-report.json](<00-project/validation/ci43e-final-ci-report.json>) | 精确43e178d最终CI：业务1095、权限1092、前端350与浏览器开发55/Compose56通过；整体扫描仍失败，后续T034不继承为通过。 |
 | [00-project/validation/ci973-final-ci-report.json](<00-project/validation/ci973-final-ci-report.json>) | 精确973a7d7最终CI：业务1057、T014权限1092等通过；整体安全扫描失败，Python25条及工具1条，Torch未覆盖；不继承为后续源码验收。 |
