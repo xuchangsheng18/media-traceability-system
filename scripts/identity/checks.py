@@ -22,6 +22,7 @@ GROUPS = {
         "tests/platform/test_t013_identity_operations.py",
         "tests/platform/test_t013_identity_deploy.py",
         "tests/platform/test_t013_identity_checks.py",
+        "tests/platform/test_t013_recovery_readiness.py",
         "tests/platform/test_t013_recovery_guard.py",
         "tests/platform/test_t013_privacy_audit.py",
         "tests/platform/test_t013_handover.py",
@@ -129,6 +130,7 @@ def source_hashes() -> dict[str, str]:
         ROOT / p
         for p in [
             "tests/platform/test_t013_identity_checks.py",
+            "tests/platform/test_t013_recovery_readiness.py",
             "tests/platform/test_t013_identity_operations.py",
             "tests/platform/test_t013_recovery_guard.py",
             "tests/platform/test_t013_privacy_audit.py",

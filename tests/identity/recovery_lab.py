@@ -48,6 +48,10 @@ class LabAdmin:
                 },
             )
             if auth.status_code != 200:
+                if auth.status_code in {400, 401, 403}:
+                    raise RuntimeError("RECOVERY_LAB_ADMIN_AUTH_REJECTED")
+                if 500 <= auth.status_code < 600:
+                    raise RuntimeError("RECOVERY_LAB_ADMIN_AUTH_UNAVAILABLE")
                 raise RuntimeError("RECOVERY_LAB_ADMIN_AUTH_FAILED")
             response = client.request(
                 method,
@@ -238,6 +242,7 @@ class RecoveryLab:
                             client.get(self.public_url + "/realms/master/.well-known/openid-configuration").status_code
                             == 200
                         ):
+                            self.admin.request("GET", "/admin/realms/master")
                             return
             except (RuntimeError, ValueError, httpx.HTTPError):
                 pass

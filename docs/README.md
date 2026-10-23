@@ -510,6 +510,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/ci-safe-failure-diagnostics.md](<03-development/ci-safe-failure-diagnostics.md>) | T006安全失败选择器、源码AST绑定、参数及异常文本省略和20条上限；补0015非超级用户测试清单，完整业务失败与T033后续分别记录。 |
 | [00-project/validation/ci-safe-failure-diagnostics-report.json](<00-project/validation/ci-safe-failure-diagnostics-report.json>) | T006失败定位的6项RED/GREEN、37项相邻检查、非超级用户迁移测试复现修复与质量/同步；原业务CI是否恢复以精确新运行核验。 |
 | [00-project/validation/ci973-final-ci-report.json](<00-project/validation/ci973-final-ci-report.json>) | 精确973a7d7最终CI：业务1057、T014权限1092等通过；整体安全扫描失败，Python25条及工具1条，Torch未覆盖；不继承为后续源码验收。 |
+| [03-development/t013-admin-readiness.md](<03-development/t013-admin-readiness.md>) | 隔离恢复新增只读管理员就绪条件及固定脱敏诊断；保留3ca身份失败、原存储完整超时和真实新head回归待验，不增加整任务完成数。 |
+| [00-project/validation/python311-linux-business-storage-report.json](<00-project/validation/python311-linux-business-storage-report.json>) | 同版PostgreSQL且持久性保持的存储对照：原完整1800秒门禁2427项通过，原实例partial887超时保留；不证明旧存储已修复或整体验收。 |
 | [03-development/t033-cancellation-atomic-writer.md](<03-development/t033-cancellation-atomic-writer.md>) | T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。 |
 | [00-project/validation/t033-cancellation-atomic-writer-report.json](<00-project/validation/t033-cancellation-atomic-writer-report.json>) | 取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。 |
 | [00-project/validation/ci18f-final-ci-report.json](<00-project/validation/ci18f-final-ci-report.json>) | 精确18f36bf最终CI：业务1095、权限1092及类型256通过，整体仍因Python25条及工具1条扫描匹配失败；Torch未覆盖，后续前端不继承为通过。 |
@@ -751,7 +753,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1369份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1371份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1352,6 +1354,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/python-candidate-deferral-validation.json](<00-project/validation/python-candidate-deferral-validation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python-components.json](<00-project/validation/python-components.json>) | 安装包版本与声明许可元信息；不是完整OS SBOM或正式许可审查。 |
 | [00-project/validation/python311-artifact-inventory.json](<00-project/validation/python311-artifact-inventory.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/python311-linux-business-storage-report.json](<00-project/validation/python311-linux-business-storage-report.json>) | 同版PostgreSQL且持久性保持的存储对照：原完整1800秒门禁2427项通过，原实例partial887超时保留；不证明旧存储已修复或整体验收。 |
 | [00-project/validation/python311-migration-authorization-20261023.json](<00-project/validation/python311-migration-authorization-20261023.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python311-migration-report.json](<00-project/validation/python311-migration-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python311-runtime-audit.json](<00-project/validation/python311-runtime-audit.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
@@ -1888,6 +1891,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t012-identity-relations-plan.md](<03-development/t012-identity-relations-plan.md>) | 本批测试、0004增量迁移、内部DAO、空研发库、资料和同步步骤；实际完成状态按实测报告和任务卡核对。 |
 | [03-development/t012-role-model-implementation.md](<03-development/t012-role-model-implementation.md>) | T012实际模型补齐、37目录专项/368完整回归、三条源验收对照及正式身份/后续任务边界。 |
 | [03-development/t013-admin-handover-validation.md](<03-development/t013-admin-handover-validation.md>) | T013新管理员受控初始化、首次改密/MFA和bootstrap退出的隔离验证、失败记录及本人交接边界。 |
+| [03-development/t013-admin-readiness.md](<03-development/t013-admin-readiness.md>) | 隔离恢复新增只读管理员就绪条件及固定脱敏诊断；保留3ca身份失败、原存储完整超时和真实新head回归待验，不增加整任务完成数。 |
 | [03-development/t013-bootstrap-management-replacement.md](<03-development/t013-bootstrap-management-replacement.md>) | T013本人MFA/PKCE短期管理会话、无bootstrap回退、独立退役候选与实际操作顺序；不表示共享采用或实名接管。 |
 | [03-development/t013-keycloak-identity-design.md](<03-development/t013-keycloak-identity-design.md>) | 说明文档：T013 项目自建 Keycloak 身份系统完整设计；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t013-keycloak-implementation-plan.md](<03-development/t013-keycloak-implementation-plan.md>) | 说明文档：T013 Keycloak Identity Implementation Plan；结合正文的状态、来源和适用范围阅读。 |

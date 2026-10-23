@@ -1,0 +1,205 @@
+{
+  "observed_date": "2026-10-24",
+  "scope": "isolated_Linux_Python311_business_storage_comparison_not_shared_adoption",
+  "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+  "python": "3.11.17",
+  "postgres": "16.15",
+  "original_instance": {
+    "source_commit": "baa9d4cd0a3754dbbb5f8387c93664da34c4997d",
+    "status": "TIMEOUT",
+    "complete": false,
+    "timeout_seconds": 1800,
+    "partial_totals": {
+      "tests": 887,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "remediated": false
+  },
+  "business_code_unchanged_between_compared_commits": true,
+  "durable_file_probe": {
+    "bytes_per_location": 4194304,
+    "fsync_calls_per_location": 4,
+    "workspace_runtime_seconds": 0.213354,
+    "system_temporary_directory_seconds": 0.013454
+  },
+  "same_adjacent_tests": {
+    "tests": 33,
+    "original_instance_seconds": 119.346,
+    "temporary_instance_seconds": 47.272,
+    "both_passed": true
+  },
+  "isolated_temporary_instance": {
+    "fsync": "on",
+    "synchronous_commit": "on",
+    "full_page_writes": "on",
+    "data_checksums": "on",
+    "command": "python scripts/verify_business_foundation.py run",
+    "status": "PASS",
+    "complete": true,
+    "source_code_dirty": false,
+    "elapsed_seconds": 1384.909,
+    "timeout_seconds": 1800,
+    "totals": {
+      "tests": 2427,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "single_observation_not_sole_cause_proof": true,
+  "gate_threshold_or_assertions_changed": false,
+  "full_suite_split_or_skipped": false,
+  "permission_token_and_browser_followups": "PASS on the same source; overlapping suites are not summed",
+  "shared_services_or_databases_changed": false,
+  "whole_task_acceptance": false,
+  "raw_logs_published": false,
+  "followup_results": {
+    "checks": [
+      {
+        "name": "business-foundation-report.json",
+        "status": "PASS",
+        "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+        "totals": {
+          "tests": 2427,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false
+      },
+      {
+        "name": "t014-permissions-report.json",
+        "status": "PASS",
+        "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+        "totals": {
+          "tests": 1112,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false,
+        "mounted_operation_count": 52,
+        "not_mounted_operation_count": 21
+      },
+      {
+        "name": "t015-data-scope-report.json",
+        "status": "PASS",
+        "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+        "totals": {
+          "tests": 131,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false
+      },
+      {
+        "name": "t016-operation-token-report.json",
+        "status": "PASS",
+        "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+        "totals": {
+          "tests": 187,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "source_code_dirty": false
+      }
+    ],
+    "browser_totals": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "serial_checks": [
+      {
+        "name": "adjacent-storage-comparison",
+        "actual_exit": 0,
+        "expected_exit": 0,
+        "elapsed_seconds": 47.272,
+        "status": "PASS"
+      },
+      {
+        "name": "full-business-original-gate",
+        "actual_exit": 0,
+        "expected_exit": 0,
+        "elapsed_seconds": 1384.909,
+        "status": "PASS",
+        "complete": true,
+        "totals": {
+          "tests": 2427,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "partial_totals": null
+      },
+      {
+        "name": "t014",
+        "actual_exit": 0,
+        "expected_exit": 0,
+        "elapsed_seconds": 463.446,
+        "status": "PASS"
+      },
+      {
+        "name": "t015",
+        "actual_exit": 0,
+        "expected_exit": 0,
+        "elapsed_seconds": 111.676,
+        "status": "PASS"
+      },
+      {
+        "name": "t016",
+        "actual_exit": 0,
+        "expected_exit": 0,
+        "elapsed_seconds": 153.021,
+        "status": "PASS"
+      },
+      {
+        "name": "business-failure",
+        "actual_exit": 1,
+        "expected_exit": 1,
+        "elapsed_seconds": 0.475,
+        "status": "PASS",
+        "expected_assertion_failure_verified": true
+      },
+      {
+        "name": "t014-failure",
+        "actual_exit": 1,
+        "expected_exit": 1,
+        "elapsed_seconds": 0.467,
+        "status": "PASS",
+        "expected_assertion_failure_verified": true
+      },
+      {
+        "name": "t015-failure",
+        "actual_exit": 1,
+        "expected_exit": 1,
+        "elapsed_seconds": 0.466,
+        "status": "PASS",
+        "expected_assertion_failure_verified": true
+      },
+      {
+        "name": "t016-failure",
+        "actual_exit": 1,
+        "expected_exit": 1,
+        "elapsed_seconds": 0.366,
+        "status": "PASS",
+        "expected_assertion_failure_verified": true
+      },
+      {
+        "name": "upload-assets-browser",
+        "actual_exit": 0,
+        "expected_exit": 0,
+        "elapsed_seconds": 11.241,
+        "status": "PASS"
+      }
+    ],
+    "isolated_postgres_stopped": true,
+    "shared_services_or_databases_changed": false,
+    "not_whole_task_acceptance": true
+  }
+}

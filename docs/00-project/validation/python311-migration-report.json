@@ -1,5 +1,5 @@
 {
-  "status": "CODE_AND_RUNTIME_VERIFIED_BUSINESS_AND_HOSTED_CI_PENDING",
+  "status": "RUNTIME_AND_ISOLATED_BUSINESS_VERIFIED_PR_IDENTITY_FIX_PENDING",
   "observed_at": "2026-10-23T15:18:18.322127+00:00",
   "scope": "Linux_development_Python_migration_not_production_acceptance",
   "authorization_ref": "docs/00-project/validation/python311-migration-authorization-20261023.json",
@@ -57,8 +57,8 @@
   "shared_database_migrated": false,
   "production_frozen": false,
   "whole_task_acceptance": false,
-  "linux_full_regression": "PENDING",
-  "new_head_github_CI": "NOT_SUBMITTED_YET",
+  "linux_full_regression": "PASS 2427 on a new durable isolated temporary PostgreSQL target; original target TIMEOUT/partial887 remains recorded",
+  "new_head_github_CI": "3ca PR terminal FAIL in recovery administrator authentication; 3ca push terminal SUCCESS; stricter readiness repair requires new exact-head CI",
   "main_merged": false,
   "prior_failure_preserved": {
     "head": "8c42c0e57d3dcebe86b6cf291fa846dc722c8f55",
@@ -69,7 +69,7 @@
     "engineering": "failure",
     "runtime_scan_findings": 36
   },
-  "record_scope": "Pre-submission observation; pending fields are as of this timestamp, not a live GitHub status assertion",
+  "record_scope": "Pre-next-submission observation; original migration build results retain their original source and timestamp, followup is not a live GitHub status assertion",
   "platform_regression": {
     "status": "PASS",
     "command": "python -m pytest tests/poc tests/stage_three tests/platform tests/data tests/native -q --tb=short",
@@ -156,5 +156,58 @@
       ]
     }
   ],
-  "doc_links_verified": 14426
+  "doc_links_verified": 14426,
+  "followup_observation": {
+    "observed_date": "2026-10-24",
+    "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+    "storage_report_ref": "docs/00-project/validation/python311-linux-business-storage-report.json",
+    "readiness_document_ref": "docs/03-development/t013-admin-readiness.md",
+    "main_merged": false,
+    "shared_services_restarted": false,
+    "prepared_readiness_fix": {
+      "base_source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+      "working_tree_modified": true,
+      "source_sha256": {
+        "tests/identity/recovery_lab.py": "61e4cd16c8b093ddd389d4d5de6d43d115f475c94f1fb52279d2647b6f82ee77",
+        "scripts/identity/checks.py": "27901c47dbd208321e0ad973d808f5d023d13195324d2598af269506aff66c80",
+        "tests/platform/test_t013_recovery_readiness.py": "84622068780b97563f2bc5fe9552ed06ae9c726c47857215a16f5423c7c468e0"
+      },
+      "regression_red": {
+        "failed": 9,
+        "passed": 2
+      },
+      "final_unit_regression": {
+        "elapsed_seconds": 46.3,
+        "command": "python -m pytest tests/platform/test_t013_recovery_readiness.py tests/platform/test_t013_identity_checks.py -q --tb=short",
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "tests": 102
+      },
+      "full_type_check": {
+        "status": "PASS",
+        "source_files": 303
+      },
+      "real_identity_and_new_head_CI": "PENDING",
+      "whole_task_acceptance": false
+    },
+    "exact_3ca_hosted_runs": [
+      {
+        "run_id": 39986008795,
+        "event": "pull_request",
+        "identity": "failure",
+        "foundation": "skipped",
+        "engineering_execution": "skipped",
+        "engineering": "failure"
+      },
+      {
+        "run_id": 39985999721,
+        "event": "push",
+        "identity": "success",
+        "foundation": "success",
+        "engineering_execution": "success",
+        "engineering": "success"
+      }
+    ]
+  }
 }

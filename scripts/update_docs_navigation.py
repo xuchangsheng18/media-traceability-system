@@ -118,6 +118,8 @@ def main():
         "03-development/ci-safe-failure-diagnostics.md": "T006安全失败选择器、源码AST绑定、参数及异常文本省略和20条上限；补0015非超级用户测试清单，完整业务失败与T033后续分别记录。",
         "00-project/validation/ci-safe-failure-diagnostics-report.json": "T006失败定位的6项RED/GREEN、37项相邻检查、非超级用户迁移测试复现修复与质量/同步；原业务CI是否恢复以精确新运行核验。",
         "00-project/validation/ci973-final-ci-report.json": "精确973a7d7最终CI：业务1057、T014权限1092等通过；整体安全扫描失败，Python25条及工具1条，Torch未覆盖；不继承为后续源码验收。",
+        "03-development/t013-admin-readiness.md": "隔离恢复新增只读管理员就绪条件及固定脱敏诊断；保留3ca身份失败、原存储完整超时和真实新head回归待验，不增加整任务完成数。",
+        "00-project/validation/python311-linux-business-storage-report.json": "同版PostgreSQL且持久性保持的存储对照：原完整1800秒门禁2427项通过，原实例partial887超时保留；不证明旧存储已修复或整体验收。",
         "03-development/t033-cancellation-atomic-writer.md": "T033两条既有取消路径的统一写入、运行/行版本及范围校验、savepoint/CAS和事件/outbox原子性；全业务状态机及正式规则仍未完成。",
         "00-project/validation/t033-cancellation-atomic-writer-report.json": "取消专用写入器的实际RED/GREEN、受影响数据库回归、故障/并发/撤销、质量与源码同步；只证明T033工程子范围。",
         "00-project/validation/ci18f-final-ci-report.json": "精确18f36bf最终CI：业务1095、权限1092及类型256通过，整体仍因Python25条及工具1条扫描匹配失败；Torch未覆盖，后续前端不继承为通过。",
