@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+2026-10-23续批：[持有者真实写入后回滚并发验证](t034-task-creation-concurrency-rollback.md)、[回执](../00-project/validation/t034-task-creation-concurrency-rollback-report.json)。2026-10-23完成T034 I03持锁者真实写入后回滚的独立连接验证批次：两个独立Database/连接及不同后端PID，以pg_locks与pg_blocking_pids核对同一幂等事务锁的实际争用；持有者已成功INSERT analysis_task后，下一写入前受控异常真实传播并回滚，等待者随后独立创建一次完整写集合，Accepted/ETag及事件/审计归属于等待者请求，失败持有者集合及请求记录为0、task_result为0。本批回滚并发用例1项、相邻回滚/幂等边界8项、原失败探针及Ruff/格式/291文件类型通过；范围重叠不相加。仅新增测试、未修产品；受控异常不是漏洞RED，synthetic issuer不作正式提供方或HTTP授权。旧7097全组1800秒TIMEOUT保留，本cohort未重跑全组。C03、真实故障/恢复及代际、真实采用/Proof/HTTP仍未完成。0新增C，T034仍4C/4R。
+
 2026-10-23续批：[独立连接并发验证](t034-task-creation-concurrency.md)、[回执](../00-project/validation/t034-task-creation-concurrency-report.json)。2026-10-23完成T034 I03独立连接并发验证批次：两个独立Database/连接及不同后端PID，以pg_locks与pg_blocking_pids核对同一幂等事务锁的已授予/等待争用；持有者提交后等待者复用原Accepted与ETag，八组持久化写集合保持一次创建且业务结果为0。本批独立并发用例1项、相邻幂等/当前材料边界10项、原失败探针及Ruff/格式/290文件类型通过；范围重叠不相加。仅新增测试、未改产品；synthetic issuer不作正式提供方或HTTP授权。旧全组1800秒TIMEOUT保留，本cohort未重跑全组。C02/C03、真实故障/恢复及代际、真实采用/Proof/HTTP仍未完成。0新增C，T034仍4C/4R。
 
 2026-10-23续批：[验证器有界超时收尾](business-timeout-shutdown.md)、[回执](../00-project/validation/business-timeout-shutdown-report.json)。2026-10-23补齐完整business验证器的有界超时收尾：执行上限仍1800秒，Linux独立组SIGINT→5秒清理宽限→TERM→2秒→KILL，最终drain/reap最多2秒；先冻结超时瞬间进度，超时仍TIMEOUT/退出2/complete=false及规范0计数，partial JUnit仅独立观测。真实finally缺失RED之后，新旧相邻诊断组合72项、原失败探针及Ruff/格式/289文件类型通过。旧1800秒全组TIMEOUT未关闭，旧last-selector两参数23.47秒通过只属原cohort，不证明挂起位置或根因；本批无完整DB/T014重跑、DB或逃逸孙进程清理验收，Windows DEVNULL直子进程兜底不当原生验证。0新增C，T034仍4C/4R。

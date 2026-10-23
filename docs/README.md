@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t034-task-creation-concurrency-rollback.md](<03-development/t034-task-creation-concurrency-rollback.md>) | T034-I03持有者真实写入后回滚：实际同一advisory锁等待后故障，失败请求零残留，等待者独立创建唯一写集合；隔离夹具，非HTTP、恢复或正式采用。 |
+| [00-project/validation/t034-task-creation-concurrency-rollback-report.json](<00-project/validation/t034-task-creation-concurrency-rollback-report.json>) | T034真实写入后回滚与同键等待者创建、八项动态JUnit观测、相邻回滚回归/失败探针及类型审查；保留逐源码CI历史和未完项，零新增C。 |
 | [03-development/t034-task-creation-concurrency.md](<03-development/t034-task-creation-concurrency.md>) | T034-I03独立双连接并发验证：真实同一advisory锁等待与blocker、唯一八表集合和原Accepted/ETag；显式自建权威夹具，非HTTP、恢复或正式采用。 |
 | [00-project/validation/t034-task-creation-concurrency-report.json](<00-project/validation/t034-task-creation-concurrency-report.json>) | T034真实双连接同键竞争及逐断言安全观测、相邻幂等回归/失败探针、类型质量与源码复核；旧全组超时和未完成项保留，最新CI及三端同步，零新增C。 |
 | [03-development/business-timeout-shutdown.md](<03-development/business-timeout-shutdown.md>) | 业务回归超时收尾：保留1800秒，Linux组中断/终止和有界回收，冻结原检查点，部分JUnit独立记录；不宣称整套超时根因或数据库清理已解决。 |
@@ -744,7 +746,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1351份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1353份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1493,6 +1495,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
 | [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
 | [00-project/validation/t034-task-creation-concurrency-report.json](<00-project/validation/t034-task-creation-concurrency-report.json>) | T034真实双连接同键竞争及逐断言安全观测、相邻幂等回归/失败探针、类型质量与源码复核；旧全组超时和未完成项保留，最新CI及三端同步，零新增C。 |
+| [00-project/validation/t034-task-creation-concurrency-rollback-report.json](<00-project/validation/t034-task-creation-concurrency-rollback-report.json>) | T034真实写入后回滚与同键等待者创建、八项动态JUnit观测、相邻回滚回归/失败探针及类型审查；保留逐源码CI历史和未完项，零新增C。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/t101-role-assignment.json](<00-project/validation/t101-role-assignment.json>) | 用户确认T101开发负责人和指定复核人均为徐昌胜；仅责任登记，不证明本人复核、工时、独立双人验收或系统授权。 |
 | [00-project/validation/t103-evidence-original-report.json](<00-project/validation/t103-evidence-original-report.json>) | T103五文件精确源码、前端质量与两模式传输浏览器、20项依赖摘要、限定复核及原锁双端npm诊断、CI/三端源码回执；不等于正式工作流或整卡验收。 |
@@ -1914,6 +1917,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t034-plan-authority.md](<03-development/t034-plan-authority.md>) | T034-I02纯PlanBinding/ExecutionMaterials及材料摘要/版本/输入核对；opaque收据/事实不当真实采用/许可/动态状态，SQL/guard/事实未接，I02未整步完成。 |
 | [03-development/t034-request-context.md](<03-development/t034-request-context.md>) | T034-I02首批冻结主体/请求及A-B摘要、ContextVar绑定/重查/清理的纯组件；获取上下文不是授权，guard/HTTP/SQL/当前事实未接线，I02未整步完成。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
+| [03-development/t034-task-creation-concurrency-rollback.md](<03-development/t034-task-creation-concurrency-rollback.md>) | T034-I03持有者真实写入后回滚：实际同一advisory锁等待后故障，失败请求零残留，等待者独立创建唯一写集合；隔离夹具，非HTTP、恢复或正式采用。 |
 | [03-development/t034-task-creation-concurrency.md](<03-development/t034-task-creation-concurrency.md>) | T034-I03独立双连接并发验证：真实同一advisory锁等待与blocker、唯一八表集合和原Accepted/ETag；显式自建权威夹具，非HTTP、恢复或正式采用。 |
 | [03-development/t103-evidence-location.md](<03-development/t103-evidence-location.md>) | T103当前/历史复核的精确证据元数据读取与编号定位；三响应头/案件版本绑定、归一化区域和毫秒区间、缺引用及不完整返回，不下载媒体或执行审批。 |
 | [03-development/t103-evidence-original-access.md](<03-development/t103-evidence-original-access.md>) | T103原始证据限定关联原件、严格case/asset/ref/摘要与有效状态核对、独立权限和大小/SHA/ETag验证后下载；不播放、不派生、不推断证据效力或正式授权。 |
