@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t034-identity-inventory.md": "T034 E01实名身份、单位及案件只读盘点：精确固定SQL、同一只读快照及私有独占结果；非认证、采用/许可/分类或真实管理授权。",
+        "00-project/validation/t034-identity-inventory-report.json": "T034只读盘点精确源码、Linux70项/301文件类型及原失败探针、独立审查修复；真实输入与上批全组TIMEOUT、最新CI分别保留，零新增C。",
         "03-development/t034-task-creation-concurrency-rollback.md": "T034-I03持有者真实写入后回滚：实际同一advisory锁等待后故障，失败请求零残留，等待者独立创建唯一写集合；隔离夹具，非HTTP、恢复或正式采用。",
         "00-project/validation/t034-task-creation-concurrency-rollback-report.json": "T034真实写入后回滚与同键等待者创建、八项动态JUnit观测、相邻回滚回归/失败探针及类型审查；保留逐源码CI历史和未完项，零新增C。",
         "03-development/t034-task-creation-concurrency.md": "T034-I03独立双连接并发验证：真实同一advisory锁等待与blocker、唯一八表集合和原Accepted/ETag；显式自建权威夹具，非HTTP、恢复或正式采用。",

@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+2026-10-23续批：[实名身份/单位/案件只读盘点](t034-identity-inventory.md)、[限定实测回执](../00-project/validation/t034-identity-inventory-report.json)。新增管理工具仅观察精确当前目录，不写库、不认证操作者、不激活采用；Linux70项回归及301文件类型通过。真实映射、采用/许可/分类与代际维护仍待；上批Linux完整回归TIMEOUT/partial873仍不算通过。原锁与CI不变，0新增完成子步骤。
+
 2026-10-23续批：[独立代际读取器与f10回归复核](t034-independent-generation-reader.md)、[精确回执](../00-project/validation/t034-independent-generation-reader-report.json)。本批仅补E03显式读取及栅栏适配，真实权威/其余提供方仍缺；f10完整托管业务2327项正常结束，唯一失败已定位到旧51接口断言并修复。Linux历史1800秒未完成仍保留，不声称全套超时根因已解决；原锁与门禁不变，0新增完成子步骤。
 
 2026-10-23当前增量：[上传到资产真实传输及T034 HTTP接线](upload-asset-t034-http-20261023.md)、[精确验证记录](../00-project/validation/upload-asset-t034-http-20261023.json)。浏览器实际3分片经HTTP/PG/Rabbit/worker生成资产并下载核对SHA；身份和机构事实仍为隔离自建夹具。T034 I04入口已挂载并默认拒绝缺失提供方，实际受保护业务操作为52/73，未挂载21；I03恢复/未知提交、真实材料和完整门禁继续未关闭。以下历史“未挂载HTTP”以各自原验证时点解释，不能覆盖本段当前源码状态。170任务及完成子步骤数不因本批自动增加。
