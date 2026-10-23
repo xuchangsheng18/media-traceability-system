@@ -1,5 +1,7 @@
 # T001—T123开发范围、依赖与分批顺序
 
+2026-10-23续批：[验证器有界超时收尾](business-timeout-shutdown.md)、[回执](../00-project/validation/business-timeout-shutdown-report.json)。2026-10-23补齐完整business验证器的有界超时收尾：执行上限仍1800秒，Linux独立组SIGINT→5秒清理宽限→TERM→2秒→KILL，最终drain/reap最多2秒；先冻结超时瞬间进度，超时仍TIMEOUT/退出2/complete=false及规范0计数，partial JUnit仅独立观测。真实finally缺失RED之后，新旧相邻诊断组合72项、原失败探针及Ruff/格式/289文件类型通过。旧1800秒全组TIMEOUT未关闭，旧last-selector两参数23.47秒通过只属原cohort，不证明挂起位置或根因；本批无完整DB/T014重跑、DB或逃逸孙进程清理验收，Windows DEVNULL直子进程兜底不当原生验证。0新增C，T034仍4C/4R。
+
 2026-10-23续批：[T034原子创建候选](t034-atomic-creation-service.md)、[回执](../00-project/validation/t034-atomic-creation-service-report.json)。2026-10-23补齐T034-I03隔离原子创建候选：同根CASE/createTask、明确受信材料端口、A/B及当前采用绑定，双savepoint内完整八表和CREATED→QUEUED、精确历史Accepted/ETag重放及提交前复读已实现；新增0018只修generation.database_oid的JSON整数投影，0001—0017及严格reader不改。事务/新迁移组合82项、受影响组375项、原失败探针及Ruff/格式/288文件类型检查符合预期；完整business实际结果TIMEOUT另列原始汇总，T014未单独重跑，重叠数量不相加。本批无默认权威、可信采用/Proof、HTTP挂载、共享迁移或算法执行；并发、恢复、未知commit结果及E04运行预算仍未齐，0新增C，T034保持4C/4R。
 
 2026-10-23续批：[T013安全故障诊断](t013-readiness-safe-diagnostics.md)、[回执](../00-project/validation/t013-readiness-safe-diagnostics-report.json)。2026-10-23补齐重启/数据库依赖测试的安全固定诊断：实际缺诊断RED后，7条原断言仅加固定理由，既有45秒等待/180秒重启/raises/finally及门禁保留。限定回归91项、原失败探针及Ruff/格式/285文件类型通过。此前eb28失败断言仍未知，不以e0d6身份332项通过关闭；本批不执行本人接管或真实恢复，0新增C、T013仍13C/3R。

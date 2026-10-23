@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/business-timeout-shutdown.md": "业务回归超时收尾：保留1800秒，Linux组中断/终止和有界回收，冻结原检查点，部分JUnit独立记录；不宣称整套超时根因或数据库清理已解决。",
+        "00-project/validation/business-timeout-shutdown-report.json": "超时收尾实际RED、72项相邻回归、失败探针、289文件类型/质量及独立源码复核；旧完整回归TIMEOUT保留，最新CI与三端源码回执，零新增C及整卡验收。",
         "03-development/t034-atomic-creation-service.md": "T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。",
         "00-project/validation/t034-atomic-creation-service-report.json": "T034实际组件及OID RED、失败修复、事务/迁移与完整business实测、质量及源码复核、最新CI和三端回执；154C/622R，零新增完成，不当正式202或整卡验收。",
         "03-development/t013-readiness-safe-diagnostics.md": "T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。",

@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/business-timeout-shutdown.md](<03-development/business-timeout-shutdown.md>) | 业务回归超时收尾：保留1800秒，Linux组中断/终止和有界回收，冻结原检查点，部分JUnit独立记录；不宣称整套超时根因或数据库清理已解决。 |
+| [00-project/validation/business-timeout-shutdown-report.json](<00-project/validation/business-timeout-shutdown-report.json>) | 超时收尾实际RED、72项相邻回归、失败探针、289文件类型/质量及独立源码复核；旧完整回归TIMEOUT保留，最新CI与三端源码回执，零新增C及整卡验收。 |
 | [03-development/t034-atomic-creation-service.md](<03-development/t034-atomic-creation-service.md>) | T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。 |
 | [00-project/validation/t034-atomic-creation-service-report.json](<00-project/validation/t034-atomic-creation-service-report.json>) | T034实际组件及OID RED、失败修复、事务/迁移与完整business实测、质量及源码复核、最新CI和三端回执；154C/622R，零新增完成，不当正式202或整卡验收。 |
 | [03-development/t013-readiness-safe-diagnostics.md](<03-development/t013-readiness-safe-diagnostics.md>) | T013重启与数据库依赖故障固定诊断：7条原断言、45秒等待和恢复控制流保持；精确pytest形状、隐私及来源边界；不是旧CI根因、本人交接或恢复验收。 |
@@ -740,7 +742,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1347份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1349份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -841,6 +843,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/business-foundation-report.json](<00-project/validation/business-foundation-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/business-recovery-report.json](<00-project/validation/business-recovery-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/business-timeout-diagnostics-report.json](<00-project/validation/business-timeout-diagnostics-report.json>) | 完整业务回归超时诊断的精确源码、实际RED及59项诊断/旧相邻测试、失败探针和281文件质量；完整回归未据此通过，原1800秒及CI门禁保留，新增完成数为0。 |
+| [00-project/validation/business-timeout-shutdown-report.json](<00-project/validation/business-timeout-shutdown-report.json>) | 超时收尾实际RED、72项相邻回归、失败探针、289文件类型/质量及独立源码复核；旧完整回归TIMEOUT保留，最新CI与三端源码回执，零新增C及整卡验收。 |
 | [00-project/validation/business-upload-first-batch-report.json](<00-project/validation/business-upload-first-batch-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/ci-all-report.json](<00-project/validation/ci-all-report.json>) | 最近完整门禁逐命令状态、耗时及环境；托管与源码身份按报告实际字段读取。 |
 | [00-project/validation/ci-failure-gate-report.json](<00-project/validation/ci-failure-gate-report.json>) | 验证故意失败确实阻断构建/部署的判定，PASS不等于探针本身成功。 |
@@ -1770,6 +1773,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-api/system-interface-specification.md](<03-api/system-interface-specification.md>) | 第二阶段整体接口入口：七类服务边界、73操作/102结构/34能力、详细阅读标准及13项开放缺口。 |
 | [03-development/backend-frontend-data-test-priority-plan.md](<03-development/backend-frontend-data-test-priority-plan.md>) | T001—T123按后端、前端、数据、测试及实际依赖推进；本批来源同步和离线标注工具的具体范围、保留门禁及交付边界。 |
 | [03-development/business-console-implementation-plan.md](<03-development/business-console-implementation-plan.md>) | 说明文档：前后端开发优先：业务控制台实施计划；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/business-timeout-shutdown.md](<03-development/business-timeout-shutdown.md>) | 业务回归超时收尾：保留1800秒，Linux组中断/终止和有界回收，冻结原检查点，部分JUnit独立记录；不宣称整套超时根因或数据库清理已解决。 |
 | [03-development/business-upload-first-batch.md](<03-development/business-upload-first-batch.md>) | 说明文档：第一批业务上传前端实现与剩余联调；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/architecture-decision.md](<03-development/change-templates/architecture-decision.md>) | 说明文档：架构决策记录模板；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/change-templates/database-change.md](<03-development/change-templates/database-change.md>) | 说明文档：数据库变更记录模板；结合正文的状态、来源和适用范围阅读。 |

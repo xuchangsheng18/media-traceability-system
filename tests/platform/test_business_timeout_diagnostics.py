@@ -123,8 +123,8 @@ def test_real_child_terminal_results_preserve_existing_gate_and_complete_junit(t
 def test_normal_child_without_junit_cannot_claim_complete_or_pass(tmp_path, monkeypatch):
     readable_source(tmp_path)
     monkeypatch.setattr(
-        verifier.subprocess,
-        "run",
+        verifier,
+        "_run_pytest",
         lambda *args, **kwargs: subprocess.CompletedProcess(args[0], 0, MARKER, MARKER),
     )
     value = verifier.run_checks(tmp_path, child_environment(), tmp_path / "missing.xml")
@@ -162,7 +162,7 @@ def test_timeout_never_publishes_exception_output_or_passes_from_junit(tmp_path,
             )
         raise subprocess.TimeoutExpired(MARKER, kwargs["timeout"], output=MARKER, stderr=MARKER)
 
-    monkeypatch.setattr(verifier.subprocess, "run", expired_child)
+    monkeypatch.setattr(verifier, "_run_pytest", expired_child)
     value = verifier.run_checks(tmp_path, child_environment(), junit)
     assert value["status"] == "TIMEOUT" and value["exit_code"] == 2
     assert value["complete"] is False and value["last_test_progress"] is None
@@ -202,7 +202,7 @@ def test_each_run_owns_a_new_progress_nonce_instead_of_reusing_caller_values(tmp
         )
         return subprocess.CompletedProcess(command, 0, MARKER, MARKER)
 
-    monkeypatch.setattr(verifier.subprocess, "run", completed_child)
+    monkeypatch.setattr(verifier, "_run_pytest", completed_child)
     env = dict(child_environment(), MT_BUSINESS_TEST_PROGRESS_NONCE=NONCE)
     for index in range(2):
         value = verifier.run_checks(tmp_path, env, tmp_path / f"complete-{index}.xml")

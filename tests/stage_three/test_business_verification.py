@@ -22,7 +22,7 @@ def test_verification_requires_isolated_target():
 
 
 def test_failed_business_check_returns_nonzero(tmp_path, monkeypatch):
-    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: subprocess.CompletedProcess(args, 1, "", ""))
+    monkeypatch.setattr(tools, "_run_pytest", lambda *args, **kwargs: subprocess.CompletedProcess(args, 1, "", ""))
     report = tools.run_checks(tmp_path, {}, tmp_path / "report.xml")
     assert report["exit_code"] != 0 and report["status"] == "FAIL"
     assert report["test_count"] == 0
