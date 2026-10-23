@@ -748,7 +748,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1358份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1360份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1492,6 +1492,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t034-i01-i05-implementation-approval-20261022.json](<00-project/validation/t034-i01-i05-implementation-approval-20261022.json>) | 用户批准I01—I05逐批隔离实施及I01启动的限定记录，保留批准时计划SHA；E01—E04真实权威/材料/事实/预算未确认，不批准ACTIVE采用、共享迁移或正式验收。 |
 | [00-project/validation/t034-i01-material-foundation-report.json](<00-project/validation/t034-i01-material-foundation-report.json>) | T034-I01精确源码、结构RED/实际根约束RED、245纯/受影响DB/失败探针/268文件质量、新鲜源码审查和CI同步；保留初轮中止及扫描失败，不是整卡验收。 |
 | [00-project/validation/t034-i02-integration-report.json](<00-project/validation/t034-i02-integration-report.json>) | T034候选整批源码、实际RED/失误与178SQL/544纯/279类型限定通过；完整业务回归失败/未执行探针，权限另列，保持154/0新增，CI/同步照实。 |
+| [00-project/validation/t034-independent-generation-reader-report.json](<00-project/validation/t034-independent-generation-reader-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/t034-material-structure-receipt-report.json](<00-project/validation/t034-material-structure-receipt-report.json>) | 结构回执精确源码、缺接线及真实描述符关闭故障RED、最终限定回归/质量/资料检查、源码复核及实际CI/三端回执；0新增C、T034/I02与真实受理仍待。 |
 | [00-project/validation/t034-plan-authority-report.json](<00-project/validation/t034-plan-authority-report.json>) | T034计划绑定/材料纯边界两文件精确源码、实际RED与纯组合/质量、新鲜审查、真实CI及同步回执；旧308不当新完成，不清扫描失败或整卡验收。 |
 | [00-project/validation/t034-request-context-report.json](<00-project/validation/t034-request-context-report.json>) | T034请求上下文两文件精确源码、组件缺失结构RED、纯回归/质量及一次新鲜审查、真实CI和同步回执；不清扫描失败，不等于SQL/业务授权或整卡验收。 |
@@ -1916,6 +1917,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t034-development-configuration.md](<03-development/t034-development-configuration.md>) | T034 E04显式研发配置、严格24数值及冻结profile摘要、Linux私有文件/链接/读中变更拒绝；仅独立组件，运行预算/authority/创建事务及HTTP仍未接线。 |
 | [03-development/t034-i01-material-foundation.md](<03-development/t034-i01-material-foundation.md>) | T034-I01严格材料Schema、规范字节、显式预算、离线工具和0016六表/私有ACL基础；只隔离验证，createTask/原子创建和真实采用未实现，I02新增0017及后续迁移。 |
 | [03-development/t034-i02-integration.md](<03-development/t034-i02-integration.md>) | T034-I02固定SQL/有限事实/guard工程候选，限定验证通过、完整业务回归失败且C05不计数；真实采用/Proof/当前handler和分类/恢复/预算仍缺，无HTTP202或整步验收。 |
+| [03-development/t034-independent-generation-reader.md](<03-development/t034-independent-generation-reader.md>) | 说明文档：T034独立恢复代际读取器与f10回归复核；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/t034-internal-development-decisions.md](<03-development/t034-internal-development-decisions.md>) | 用户委托下选定内部研发E01—E04实现输入与预算、真实完整性helper及一节点adapter方案；尚未应用运行配置，不造身份/采用/许可/恢复事实。 |
 | [03-development/t034-material-structure-receipt.md](<03-development/t034-material-structure-receipt.md>) | T034 E01版本化机器材料结构回执的显式生成/安全只读重验；绑定4材料原始/规范身份、节点、配置、完整loaded registry与固定源码观察，不是可信采用/身份/许可或执行证明。 |
 | [03-development/t034-plan-authority.md](<03-development/t034-plan-authority.md>) | T034-I02纯PlanBinding/ExecutionMaterials及材料摘要/版本/输入核对；opaque收据/事实不当真实采用/许可/动态状态，SQL/guard/事实未接，I02未整步完成。 |

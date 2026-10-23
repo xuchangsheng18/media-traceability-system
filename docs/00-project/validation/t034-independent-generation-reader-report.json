@@ -1,0 +1,230 @@
+{
+  "observed_at": "2026-10-23T12:19:05.036727+00:00",
+  "task_id": "T034",
+  "scope": "independent_generation_reader_existing_fence_port_and_exact_route_contract_regression",
+  "status": "COMPONENT_VERIFIED_REAL_AUTHORITY_AND_FULL_GATES_PENDING",
+  "base_source_commit": "f10e2ba2fc0990d0ba2b832eda78f0146da8741b",
+  "validated_source": "exact_changed_file_sha256_not_unchanged_git_head",
+  "source_file_sha256": {
+    "backend/business_app/permissions/generation_manifest.py": "825f1b9677b661b90e42bde458c582dfd4367e4ab4185888e6c6f16f4b7d8344",
+    "tests/business/test_generation_manifest.py": "e7ccb1257367e1d13d1d1c632bd3c208f684e3853deb72370ff97db67020b2d7",
+    "tests/business/test_remaining_contracts.py": "d1a611bea24707f7ed4cbd04a110d2b2faf460987d65386fcbfef2993bbbaeb0"
+  },
+  "original_runtime_lock_changed": false,
+  "ci_gates_changed": false,
+  "python_candidate_deferred": true,
+  "algorithms_deferred": true,
+  "formal_accepted": false,
+  "real_generation_authority_configured": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "default_provider_added": false,
+  "red_evidence": [
+    {
+      "test": "test_independent_reader_exists_and_returns_existing_fence_protocol",
+      "failure_observed": true,
+      "reason": "component absent"
+    },
+    {
+      "test": "test_read_refuses_a_detached_ancestor_namespace",
+      "failure_observed": true,
+      "reason": "old ancestor attachment unchecked"
+    },
+    {
+      "test": "test_read_refuses_a_writable_ancestor_even_with_private_custody_parent",
+      "failure_observed": true,
+      "reason": "ancestor permissions unchecked"
+    },
+    {
+      "test": "test_expired_observation_cannot_be_resurrected_by_clock_rollback",
+      "failure_observed": true,
+      "reason": "failed read did not advance time floor"
+    },
+    {
+      "test": "test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations",
+      "failure_observed": true,
+      "reason": "actual52 expected51 after createTask mounting"
+    }
+  ],
+  "verification": [
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/business/test_generation_manifest.py -q --tb=short",
+      "status": "PASS",
+      "tests": 58,
+      "duration_seconds": 0.32
+    },
+    {
+      "command": "PYTHONPATH=backend python scripts/dev.py type-check",
+      "status": "PASS",
+      "python_source_files": 298
+    },
+    {
+      "command": "python -m ruff check backend/business_app/permissions/generation_manifest.py tests/business/test_generation_manifest.py tests/business/test_remaining_contracts.py",
+      "status": "PASS"
+    },
+    {
+      "command": "python -m ruff format --check backend/business_app/permissions/generation_manifest.py tests/business/test_generation_manifest.py tests/business/test_remaining_contracts.py",
+      "status": "PASS"
+    },
+    {
+      "command": "PYTHONPATH=backend python -m pytest tests/business/test_generation_manifest.py tests/business/test_task_creation_http.py tests/business/test_task_creation_transaction.py tests/business/test_remaining_contracts.py tests/business/test_t014_runtime.py -q --tb=no",
+      "status": "PASS",
+      "tests": 159,
+      "duration_seconds": 158.39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "command": "PYTHONPATH=backend python scripts/verify_business_foundation.py failure-probe",
+      "status": "EXPECTED_FAILURE",
+      "exit_code": 1
+    },
+    {
+      "command": "PYTHONPATH=backend python scripts/verify_t014_permissions.py failure-probe",
+      "status": "EXPECTED_FAILURE",
+      "exit_code": 1
+    },
+    {
+      "command": "python scripts/generate_task_progress.py --check",
+      "status": "PASS",
+      "task_cards": 170
+    },
+    {
+      "command": "python scripts/generate_development_inventory.py --check",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/validate_repository_docs.py",
+      "status": "PASS",
+      "links_checked": 14387
+    },
+    {
+      "command": "python scripts/validate_stage_one.py",
+      "status": "PASS",
+      "checks": 12
+    },
+    {
+      "command": "python scripts/dev.py lint",
+      "status": "PYTHON_PASS_FRONTEND_TOOL_UNAVAILABLE_IN_NEW_PRIVATE_CLONE",
+      "frontend_changed": false
+    },
+    {
+      "command": "python scripts/stage_three_quality.py text",
+      "status": "PASS",
+      "files": 310
+    },
+    {
+      "command": "MT_QUALITY_REPORT_DISABLED=1 python scripts/stage_three_quality.py secrets",
+      "status": "PASS",
+      "files": 2460,
+      "comprehensive_DLP_or_history_scan": false
+    }
+  ],
+  "historical_test_errors": [
+    "initial new tests used status instead of existing BusinessError.http_status; corrected test field, no product error API change",
+    "initial test types inferred list[int] and untyped SimpleNamespace; explicit fixture types corrected, no type suppression",
+    "initial shell PATH diagnostic failed before tests; retried with explicit existing executable directories",
+    "direct runtime mypy unavailable; existing project independent type-check entry used, no installation",
+    "initial final format check caught one long assertion, formatted and rechecked all3 PASS",
+    "old private clone lacked f10 documentation; fresh full f10 private clone passes all navigation checks"
+  ],
+  "hosted_CI": {
+    "head_sha": "f10e2ba2fc0990d0ba2b832eda78f0146da8741b",
+    "tested_merge_sha": "dd771ded162b13d3212e1f53f8b4df7f68c8ccc2",
+    "run_id": 39945824436,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39945824436",
+    "overall": "FAILURE_TERMINAL",
+    "identity": "SUCCESS",
+    "foundation": "FAILURE_TERMINAL",
+    "foundation_business": {
+      "tests": 2327,
+      "complete": true,
+      "failure_count_in_safe_diagnostics": 1,
+      "failed_test": "tests/business/test_remaining_contracts.py::test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations",
+      "execution_window_utc": [
+        "2026-10-23T11:41:47Z",
+        "2026-10-23T11:50:28Z"
+      ],
+      "timeout_seconds": 1800,
+      "timed_out": false
+    },
+    "engineering_execution": "FAILURE_TERMINAL_SAME_OPENAPI_ASSERTION",
+    "engineering_required": "FAILURE_TERMINAL",
+    "new_component_CI_success_asserted": false,
+    "main_merge_allowed": false,
+    "current_run_finished_before_new_push": true,
+    "engineering_execution_business": {
+      "tests": 2327,
+      "complete": true,
+      "failure_count_in_safe_diagnostics": 1,
+      "failed_test": "tests/business/test_remaining_contracts.py::test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations",
+      "timed_out": false,
+      "ended_at": "2026-10-23T12:14:45Z"
+    },
+    "latest_security_scan": "NOT_REACHED_AFTER_BUSINESS_FAILURE_PREVIOUS_LOCKED_FINDINGS_NOT_CLEARED"
+  },
+  "local_full_regression": {
+    "historical_status": "INCOMPLETE_AFTER_1800_SECOND_BUDGET_NO_FINAL_RESULT",
+    "timeout_root_cause_proven": false,
+    "targeted_reproduction_before_repair": {
+      "tests": 18,
+      "passed": 17,
+      "failed": 1,
+      "duration_seconds": 52.07
+    },
+    "timeout_budget_increased": false,
+    "database_suites_parallelized": false,
+    "new_full_suite_pass_asserted": false,
+    "current_attempt": "IN_PROGRESS_ORIGINAL_1800_SECOND_VERIFIER_SERIAL",
+    "clone_drop_measurement": {
+      "scope": "three_owned_disposable_database_clone_drop_samples_not_full_suite_root_cause",
+      "samples": [
+        {
+          "create_seconds": 0.403,
+          "drop_seconds": 2.4649
+        },
+        {
+          "create_seconds": 0.1953,
+          "drop_seconds": 0.6049
+        },
+        {
+          "create_seconds": 0.1748,
+          "drop_seconds": 0.4477
+        }
+      ],
+      "mean_pair_seconds": 1.4302,
+      "shared_configuration_changed": false
+    }
+  },
+  "review": {
+    "independent_review_performed": true,
+    "reviewer_is_not_named_human_reviewer": true,
+    "findings": [
+      "ancestor custody/attachment",
+      "failed-observation clock rollback"
+    ],
+    "ruling": "Treat both as important for the standalone independent reader; both reproduced RED then fixed and full component58 GREEN"
+  },
+  "task_counts": {
+    "original_tasks": 170,
+    "verified_substeps": 154,
+    "remaining_work_items": 622,
+    "whole_tasks_accepted": 0,
+    "T034_completed_substeps": 4,
+    "T034_remaining_groups": 4,
+    "new_completed_substeps": 0
+  },
+  "remaining": [
+    "independently maintained generation authority path and recovery rebinding process",
+    "real adoption/revocation and receipt authority",
+    "current handler release/license/availability and classification adapters",
+    "trusted Proof/material composition, aggregate budgets/deadlines",
+    "unknown commit/recovery and full I05 gates",
+    "runtime security findings under original locked dependencies"
+  ],
+  "synchronization": {
+    "status": "READY_TO_COMMIT_AFTER_OLD_CI_TERMINAL_FINAL_RECEIPT_SEPARATE",
+    "main_merged": false
+  }
+}

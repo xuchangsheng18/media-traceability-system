@@ -52,6 +52,7 @@
     "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
     "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
     "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+    "backend/business_app/permissions/generation_manifest.py": "825f1b9677b661b90e42bde458c582dfd4367e4ab4185888e6c6f16f4b7d8344",
     "backend/business_app/permissions/guard.py": "b300498d44a44ec4fcd258f116f738791aa61c6f4d740be487829f0b65d6b476",
     "backend/business_app/permissions/object_facts.py": "dc1660b723921db74fffdcd121098a8cb012c39f3125a2ae2941c035eefcc4dd",
     "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
@@ -113,7 +114,7 @@
     "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
     "docs/04-database/table-catalog.json": "e612a75ed87068a285b01847e31cc0a67e5e298ba3c8410eeb4d2b10621c914b",
     "tasks/backlog.yaml": "f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d",
-    "tasks/execution-status.json": "b865d73565637348c8dea9df3003034f9a05a1427f4d32dc0a9adf1725f56791",
+    "tasks/execution-status.json": "1af4d62cd739501f3cdee8d31348dcbd1f7c9de2d58ecde120e03a0cd5dfb716",
     "tasks/source-task-cards.json": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565"
   },
   "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
@@ -152,7 +153,7 @@
     "declared_operations_without_explicit_business_registration": 21,
     "versioned_create_table_count": 70,
     "versioned_sql_function_name_count": 36,
-    "backend_python_definition_count": 586,
+    "backend_python_definition_count": 597,
     "backend_python_definitions_with_direct_literal_sql_tables": 69,
     "declared_tables_without_catalog_or_migration_source": []
   },
@@ -12178,8 +12179,8 @@
       "whole_task_verified": false,
       "completed_substeps_count": 4,
       "remaining_work_items_count": 4,
-      "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。；I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。；I02首批PlanBinding/ExecutionMaterials纯边界：冻结精确请求、revision/head及材料/输入绑定；不把调用者提供的收据/事实字节当真实采用、许可或当前权威。最终392项纯组合（本批84项及原308项）和Ruff/格式/272文件类型通过；无SQL、当前事实、guard/HTTP接线，I02未整步完成。 2026-10-23按I04挂载POST创建接口，复用原子服务、冻结上下文和统一guard，显式可选材料/预算注入；7项专项及278项相邻验证通过，真实采用/提供方和完整门禁继续待验，0新增C。",
-      "actual_remaining_summary": "创建HTTP代码已挂载，缺提供方默认拒绝；继续补可信映射采用、当前事实/Proof及handler能力许可来源、完整运行预算/截止约束、I03未知提交结果及恢复代际、真实身份接线和I05完整门禁。接口和隔离自建授权测试不等于整任务验收。",
+      "actual_completed_summary": "不可变TaskCreate请求、主体/案件及精确JSON摘要冻结；显式无默认计划提供方的策略/计划/能力/authority版本与摘要绑定和时效重查已实现。64项新测试纳入243项受影响纯回归，Ruff和258文件类型检查通过；没有创建事务、HTTP或运行许可。；I01严格材料Schema、规范UTF-8/独立摘要、显式预算及不可变快照、离线validate/prepare工具和0016六表/私有ACL基础已实现；245项纯测试（147材料、64既有绑定、34工具）、230项受影响隔离DB回归、既有失败探针及Ruff/格式/268文件类型检查通过。仅内部基础，不含采用管理/计划读取函数、原子创建事务、createTask HTTP或真实202；E01—E04未确认，未生效映射或共享迁移。；I02首批请求上下文纯组件：冻结并重新核验主体/请求及A、B独立摘要，ContextVar显式绑定和finally恢复，读取仅返回隔离副本，不等于授权。127项纯回归（63上下文、64既有绑定）及Ruff/格式/270文件类型检查通过；仅新增两文件，未接guard/路由、受限SQL或当前事实，不含I02整步完成或真实202。；I02首批PlanBinding/ExecutionMaterials纯边界：冻结精确请求、revision/head及材料/输入绑定；不把调用者提供的收据/事实字节当真实采用、许可或当前权威。最终392项纯组合（本批84项及原308项）和Ruff/格式/272文件类型通过；无SQL、当前事实、guard/HTTP接线，I02未整步完成。 2026-10-23按I04挂载POST创建接口，复用原子服务、冻结上下文和统一guard，显式可选材料/预算注入；7项专项及278项相邻验证通过，真实采用/提供方和完整门禁继续待验，0新增C。 本批补独立Linux代际文件读取器，适配现有GenerationReader/事务栅栏；严格绑定、每次重读、保管目录链和失败后时钟防回退已有隔离测试，未配置实际代际权威。精确结果见本批回执，不新增C。",
+      "actual_remaining_summary": "创建HTTP已挂载，缺提供方默认拒绝；独立代际读取组件已实现，实际维护渠道及恢复重绑定仍缺。继续可信映射采用/当前handler许可分类/Proof材料组合、聚合预算与截止、I03未知提交/恢复及I05完整门禁；不将组件验证当整任务验收。",
       "completed_steps": [
         {
           "kind": "DEVELOPMENT",
@@ -38655,6 +38656,211 @@
           "self",
           "connection",
           "evidence"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._unavailable",
+      "python_name": "_unavailable",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 29,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._unique",
+      "python_name": "_unique",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 43,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "pairs"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._constant",
+      "python_name": "_constant",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 52,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "_"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._number",
+      "python_name": "_number",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 56,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest.parse_generation_manifest",
+      "python_name": "parse_generation_manifest",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 60,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "raw"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "expected",
+          "max_age_seconds",
+          "now"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._identity",
+      "python_name": "_identity",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 121,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._directory_identity",
+      "python_name": "_directory_identity",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 138,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._trusted_ancestor",
+      "python_name": "_trusted_ancestor",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 142,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "value"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest._read_private",
+      "python_name": "_read_private",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 150,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "path"
+        ],
+        "var_positional": null,
+        "keyword_only": [],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest.PrivateGenerationReader.__init__",
+      "python_name": "__init__",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 227,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self",
+          "path"
+        ],
+        "var_positional": null,
+        "keyword_only": [
+          "expected",
+          "max_age_seconds",
+          "clock"
+        ],
+        "var_keyword": null
+      },
+      "direct_literal_sql_tables": [],
+      "dynamic_or_indirect_sql_argument_present": false,
+      "evidence_kind": "STATIC_METHOD_AND_DIRECT_LITERAL_SQL_REFERENCES_NOT_RUNTIME_OR_COMPLETE_DAO"
+    },
+    {
+      "qualified_name": "business_app.permissions.generation_manifest.PrivateGenerationReader.read",
+      "python_name": "read",
+      "source_path": "backend/business_app/permissions/generation_manifest.py",
+      "line": 235,
+      "parameter_names": {
+        "positional_only": [],
+        "positional_or_keyword": [
+          "self"
         ],
         "var_positional": null,
         "keyword_only": [],

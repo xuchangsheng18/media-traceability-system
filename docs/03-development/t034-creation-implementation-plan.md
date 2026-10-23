@@ -1,5 +1,7 @@
 # T034任务创建接线实施计划（I01—I05）
 
+2026-10-23续批：[独立代际读取器与f10回归复核](t034-independent-generation-reader.md)、[精确回执](../00-project/validation/t034-independent-generation-reader-report.json)。本批仅补E03显式读取及栅栏适配，真实权威/其余提供方仍缺；f10完整托管业务2327项正常结束，唯一失败已定位到旧51接口断言并修复。Linux历史1800秒未完成仍保留，不声称全套超时根因已解决；原锁与门禁不变，0新增完成子步骤。
+
 2026-10-23当前增量：[上传到资产真实传输及T034 HTTP接线](upload-asset-t034-http-20261023.md)、[精确验证记录](../00-project/validation/upload-asset-t034-http-20261023.json)。浏览器实际3分片经HTTP/PG/Rabbit/worker生成资产并下载核对SHA；身份和机构事实仍为隔离自建夹具。T034 I04入口已挂载并默认拒绝缺失提供方，实际受保护业务操作为52/73，未挂载21；I03恢复/未知提交、真实材料和完整门禁继续未关闭。以下历史“未挂载HTTP”以各自原验证时点解释，不能覆盖本段当前源码状态。170任务及完成子步骤数不因本批自动增加。
 
 2026-10-22（北京时间）。状态：**I02_IMPLEMENTED_LIMITED_VALIDATION_FULL_GATE_BLOCKED**。I02受限SQL/观测/guard工程代码已实现，178SQL/544纯/279类型与质量限定通过；此前源码完整业务回归实际失败，当前修复后未整套重跑/未完成，候选C05不计，保持154。I02及真实采用/Proof/当前handler/分类/恢复/预算、I03—I05与HTTP未完成。
