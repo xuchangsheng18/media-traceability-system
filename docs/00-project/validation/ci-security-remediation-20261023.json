@@ -1,0 +1,40 @@
+{
+  "observed_at": "2026-10-23T04:29:21Z",
+  "scope": "isolated_quality_tool_remediation_only",
+  "source_commit_before_change": "014cee3c6022384dcf18ef338604f34d44b729f1",
+  "pr": 2,
+  "ci_run": {
+    "id": 39888437959,
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39888437959",
+    "head": "014cee3c6022384dcf18ef338604f34d44b729f1",
+    "engineering": "FAILURE",
+    "runtime_findings": 36,
+    "quality_tool_findings": 1,
+    "blocking_packages": {
+      "certifi": "2026.7.22 -> 2026.10.19 candidate remains isolated and not adopted",
+      "pillow": "12.3.0; known fixed release 13.0.0 requires Python >=3.11",
+      "virtualenv": "21.14.7 -> 21.14.9"
+    }
+  },
+  "change": {
+    "quality_lock": "config/locks/requirements-stage-three-quality.lock",
+    "quality_artifact_lock": "config/locks/stage-three-quality-artifacts.json",
+    "virtualenv_version": "21.14.9",
+    "virtualenv_wheel_sha256": "ac51744da66ae56ff814b087d65096c94de698ec520adc624b108b679655809b",
+    "runtime_100_package_lock_changed": false,
+    "python_candidates_created": false,
+    "ci_gate_changed": false
+  },
+  "isolated_pillow_status": {
+    "source_static_check": "PASS_STATIC_SOURCE_ONLY",
+    "build_input_check": "BLOCKED_BUILD_INPUTS_INCOMPLETE",
+    "build_executed": false,
+    "security_regressions_executed": false,
+    "adoption": false
+  },
+  "main_update": {
+    "allowed_only_after_exact_head_all_required_checks_pass": true,
+    "performed": false,
+    "reason": "engineering gate failed on the observed exact head; no bypass or merge"
+  }
+}
