@@ -99,7 +99,7 @@ def main() -> int:
         "status": "PASS" if passed else "FAIL",
         "observed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "scope": "configured_development_limits_match_actual_cgroup_v2_only",
-        "python_profile": "py310",
+        "python_profile": "py311",
         "compose_sha256": hashlib.sha256(definition.read_bytes()).hexdigest(),
         "services": observations,
         "services_restarted": False,

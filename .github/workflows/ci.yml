@@ -1,4 +1,4 @@
-name: py310 CPU engineering
+name: py311 CPU engineering
 on:
   push:
     branches: [main, 'feat/t001-t012-closeout-*', 'feat/t013-keycloak-implementation-*']
@@ -11,7 +11,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: py310-${{ github.ref }}
+  group: py311-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   identity-verification:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     env:
-      PYTHON: /opt/conda/glwy/envs/py310/bin/python
+      PYTHON: /opt/conda/glwy/envs/py311/bin/python
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
       MT_DOCKER_CONTEXT: default
@@ -63,7 +63,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22.21.1
-      - name: Recreate locked Miniforge py310 environment
+      - name: Recreate locked Miniforge py311 environment
         shell: bash
         run: |
           set -euo pipefail
@@ -78,8 +78,8 @@ jobs:
           PY
           sudo mkdir -p /opt/conda/glwy/envs
           sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
-          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py310 --file config/locks/conda-linux-64.explicit.txt
-          "$PYTHON" -m pip install -r config/locks/requirements-py310.lock
+          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py311 --file config/locks/conda-linux-64-py311.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py311.lock
       - name: Install locked UI and browser
         shell: bash
         run: |
@@ -187,7 +187,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: py310-foundation-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          name: py311-foundation-validation-${{ github.run_id }}-${{ github.run_attempt }}
           retention-days: 14
           path: |
             docs/00-project/validation/*report.json
@@ -204,7 +204,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     env:
-      PYTHON: /opt/conda/glwy/envs/py310/bin/python
+      PYTHON: /opt/conda/glwy/envs/py311/bin/python
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
       MT_DOCKER_CONTEXT: default
@@ -246,7 +246,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22.21.1
-      - name: Recreate locked Miniforge py310 environment
+      - name: Recreate locked Miniforge py311 environment
         shell: bash
         run: |
           set -euo pipefail
@@ -261,8 +261,8 @@ jobs:
           PY
           sudo mkdir -p /opt/conda/glwy/envs
           sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
-          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py310 --file config/locks/conda-linux-64.explicit.txt
-          "$PYTHON" -m pip install -r config/locks/requirements-py310.lock
+          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py311 --file config/locks/conda-linux-64-py311.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py311.lock
       - name: Install locked UI and browser
         shell: bash
         run: |
@@ -321,7 +321,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: py310-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          name: py311-validation-${{ github.run_id }}-${{ github.run_attempt }}
           retention-days: 14
           path: |
             docs/00-project/validation/*report.json

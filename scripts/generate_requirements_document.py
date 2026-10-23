@@ -82,11 +82,11 @@ NFR_EVIDENCE = {
     "NFR-AVAIL-001": ("outbox、原子领取、旧租约拒绝及开发恢复已验证。", "全业务DAG、真实多worker消息故障/取消/长任务续租待实现和验收。", ["migration-fencing-report.json", "poc-resilience-report.json"]),
     "NFR-COMPAT-001": ("4份生成类型漂移、PoC事件及M15结果身份有检查。", "34能力的真实后端、旧版本迁移和生产Python候选兼容未全部验证。", ["generated-contract-report.json", "poc-integration-report.json"]),
     "NFR-AUDIT-001": ("请求追踪、安全Problem和普通应用追加审计已验证。", "正式审批审计、特权防篡改、WORM/可信时间尚待。", ["migration-fencing-report.json", "repository-secrets-report.json"]),
-    "NFR-MAINTAIN-001": ("当前py310托管门禁及失败阻断已有实际run/制品，新增范围以最新源码报告为准。", "生产版本新锁/新环境及受控制品治理另验，不能转记其他Python PASS。", ["github-actions-report.json", "ci-failure-gate-report.json"]),
+    "NFR-MAINTAIN-001": ("历史py310托管门禁及失败阻断保留实际run/制品；新py311迁移CI仍待新精确head验证，不继承历史通过。", "生产版本新锁/新环境及受控制品治理另验，不能转记其他Python PASS。", ["github-actions-report.json", "ci-failure-gate-report.json"]),
     "NFR-DATA-001": ("合成元信息、父组计数与泄漏边界有控制检查。", "真实用途授权、样本质检和独立封存清单未落实，未据此训练业务模型。", ["stage-one-controls-report.json"]),
     "NFR-AI-001": ("合成CPU训练/推理和8组验收公式夹具有证据。", "正式业务模型/校准、授权盲测及批准目标未验收。", ["synthetic-training-experiment.json", "acceptance-metric-reference-report.json"]),
     "NFR-PERF-001": ("微型SQL/检索、代表性媒体与竞争边界已执行。", "20/100性质与混合负载/大索引、正式时延吞吐和项目配额未验收。", ["media-query-report.json", "stage-two-media-report.json"]),
-    "NFR-DEPLOY-001": ("已盘点Linux/VM/容器，py310锁与7服务有证据。", "容量按当前快照判定；生产节点/准入、GPU和3.12/3.13候选待验证。", ["environment-inventory.json", "resource-readiness-snapshot.json"]),
+    "NFR-DEPLOY-001": ("已盘点Linux/VM/容器，旧py310锁与7服务保留历史证据，新py311迁移另验。", "容量按当前快照判定；生产节点/准入、GPU和3.12/3.13候选待验证。", ["environment-inventory.json", "resource-readiness-snapshot.json"]),
     "NFR-AVAIL-002": ("开发5表、对象固定版本/摘要及权重冷恢复有代表性证据。", "生产异机PITR/WAL、密钥恢复及正式RPO/RTO/保留期待落实。", ["development-recovery-report.json"]),
 }
 
@@ -292,7 +292,7 @@ def build():
                     ("正式目标/结果", "未批准；未在真实验收数据上执行，不能填写正式PASS")])
     out += "执行前提供协议/目标、用途授权和独立样本清单摘要、标签真值/分母、代码/模型/阈值/索引/映射版本、实际资源/负载、分组数量/重复/区间方案、逐样本失败日志与执行复核人。任一所需输入缺失只能记NOT_EXECUTED或NOT_EVALUABLE。源协议详情与8组公式夹具见" + link("docs/09-testing/metric-protocols.json") + "、" + link("docs/09-testing/metric-protocols.md") + "及" + link("docs/09-testing/acceptance-execution-configuration.md") + "。\n\n"
     out += "## 7 完整170条工程需求展开\n\n"
-    out += "ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原文保留，执行依赖候选分列，实际责任人/完成证据另填。全量工作范围和验收在本页展示，单任务执行仍以原卡及唯一契约为输入。源任务中的Python3.11等历史候选与当前py310执行、生产3.13/3.12待验证选择分别判断，见" + link("docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md") + "。\n\n"
+    out += "ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原文保留，执行依赖候选分列，实际责任人/完成证据另填。全量工作范围和验收在本页展示，单任务执行仍以原卡及唯一契约为输入。源任务中的Python3.11等历史候选与当前已授权py311迁移执行、生产3.13/3.12待验证选择分别判断，见" + link("docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md") + "。\n\n"
     for requirement in engineering:
         task_id = requirement["source_task_id"]
         card, task = cards[task_id], backlog[task_id]
@@ -311,15 +311,15 @@ def build():
     out += "## 8 未决事项、接口缺口与完成标准\n\n"
     out += "### 33项源Q记录\n\n"
     out += table(["事项", "需确认内容", "来源状态", "处理原则"], questions)
-    out += "来源状态未因文档汇总改变；项目范围、GitHub与当前py310等已收到的用户工程选择可作为相应执行依据，但不替代正式业务规则、人员授权或验收批准。\n\n"
+    out += "来源状态未因文档汇总改变；项目范围、GitHub与当前已授权py311迁移等已收到的用户工程选择可作为相应执行依据，但不替代正式业务规则、人员授权或验收批准。\n\n"
     out += "### 13项已登记接口缺口\n\n"
     out += "完整拟补方案在" + link("docs/03-api/interface-gap-register.md") + "；候选路径未加入OpenAPI、不可调用。表内具体缺口与阶段18项实际条件有交叉，不能相加计算完成率。\n\n"
     out += table(["缺口", "主题", "严格状态"], [(item["id"], item.get("title", item.get("name", "见源登记")), "OPEN；候选路径不可调用；关闭须唯一契约/实现和对应证据") for item in gaps])
     out += "### 文档、开发与验收分别完成\n\n"
     out += "1. 文档层：36/170/10覆盖、原件摘要、任务/契约/表/能力/测试引用与生成文档同源无漂移；不以引用完整替代正式语义确认。\n2. 对应任务开发层：本次所需输入、契约/迁移/权限/事件先明确，再记录真实实现、正反测试与结果；不能用资料通过代替代码实现。\n3. 算法与场景层：按批准协议、授权封存样本、真实模型/硬件/负载和不少于3场景执行，保存逐项原始结果；失败和未知不能从分母隐去。\n4. 冻结/生产层：有效责任人与决定、实际资源/安全/软件准入、灾备/密钥和受控制品落实后再冻结，未满足仍NOT_FROZEN。\n\n"
     out += "## 9 当前落地状态与来源摘要\n\n"
-    out += "当前py310 CPU最小工程与托管门禁已有实际证据，新增范围以最新源码报告为准；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见" + link("docs/00-project/repository-readiness.md") + "和" + link("docs/02-architecture/technical-validation-report.md") + "。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。\n\n"
-    out += "生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；研发环境与锁保留。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见" + link("docs/00-project/stage-one/steps-and-deliverables.md", "第一阶段24步") + "、" + link("docs/03-development/stage-two-readiness.md", "第二阶段23步") + "和" + link("docs/00-project/remaining-work-navigation.md", "实际剩余条件") + "。\n\n"
+    out += "历史py310 CPU最小工程与托管门禁已有其时点证据；当前已授权py311迁移，托管门禁仍待新精确head验证，不继承旧run通过；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见" + link("docs/00-project/repository-readiness.md") + "和" + link("docs/02-architecture/technical-validation-report.md") + "。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。\n\n"
+    out += "生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；旧研发环境与锁保留回退，活动研发已授权迁移至Python3.11.17。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见" + link("docs/00-project/stage-one/steps-and-deliverables.md", "第一阶段24步") + "、" + link("docs/03-development/stage-two-readiness.md", "第二阶段23步") + "和" + link("docs/00-project/remaining-work-navigation.md", "实际剩余条件") + "。\n\n"
     out += "### 本集中阅读版的输入摘要\n\n"
     out += "由既有来源和工程展开生成，维护输入后重新生成本文；输入摘要和--check发现内容漂移。生成器不修改原件、主追踪、任务状态、接口/SQL/Schema或业务参数。\n\n"
     out += table(["输入来源", "SHA-256"], [(link(path), hashlib.sha256((ROOT / path).read_bytes()).hexdigest()) for path in SOURCES])

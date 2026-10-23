@@ -26,7 +26,7 @@ SQL验证仅使用新建隔离PostgreSQL16数据库，参见docs/04-database/dat
 
 ## 第三阶段与统一入口
 
-- 16步状态及适用边界见docs/03-development/stage-three/readiness.md；Development Environment Baseline 1.0仍NOT_FROZEN，沿用现有Miniforge py310与原100包锁。新增pre-commit仅放在外部独立工具层。
+- 16步状态及适用边界见docs/03-development/stage-three/readiness.md；Development Environment Baseline 1.0仍NOT_FROZEN，2026-10-23用户明确授权全项目迁移至Python>=3.11，当前活动目标为Miniforge Python3.11.17、新100包锁requirements-py311.lock（Pillow13.0.0、certifi2026.10.19）；原py310及原锁仅保留回退。所有CI门禁保持，生产仍未冻结；算法继续暂缓。新增pre-commit仅放在外部独立工具层。
 - Windows入口scripts/dev.ps1默认协调指定Linux；Linux用make或scripts/dev.py。先读取help/status，具体检查用lint、format-check、type-check、test、contract-test和security-scan；修改资料执行validate_stage_three及对应生成漂移检查。
 - dev默认观察既有7服务，clean默认只预览精确缓存；共享栈build/integration/ci受显式命令标志和卷内容量保护。不得删除源件、Git、权重、数据和数据库卷。
 - tools/stage_three_demo只作三服务模拟连通性夹具，mock=true/business_result=false；不得当真实M15/34业务模型，不将夹具结构并入正式业务API或持久化业务结果。

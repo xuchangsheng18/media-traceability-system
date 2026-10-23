@@ -1,4 +1,4 @@
-"""Verify third-stage inputs and actually execute the bounded existing py310 profile."""
+"""Verify third-stage inputs and actually execute the bounded approved py311 profile."""
 
 import argparse
 import datetime
@@ -76,11 +76,11 @@ def static_checks():
     checks.append({"name": "sixteen_source_steps_exact_titles_acceptance_and_real_outputs", "status": "PASS"})
     profile = read("config/stage-three-profile.json")
     versions = yaml.safe_load((ROOT / "config/versions.yaml").read_text(encoding="utf-8"))
-    assert (ROOT / ".python-version").read_text().strip() == versions["python"]["version"] == "3.10.22"
+    assert (ROOT / ".python-version").read_text().strip() == versions["python"]["version"] == "3.11.17"
     assert (ROOT / ".nvmrc").read_text().strip() == versions["frontend"]["node"] == "22.21.1"
     assert profile["python_executable"] == versions["python"]["executable"]
     assert versions["production_python_selection"]["production_approved"] is False
-    checks.append({"name": "existing_py310_node_versions_preserved_production_not_approved", "status": "PASS"})
+    checks.append({"name": "approved_py311_node_versions_preserved_production_not_approved", "status": "PASS"})
     fields = read(PREFIX + "external-inputs.json")
     assert fields["formal_frozen"] is False and fields["formal_approved"] is False
     assert record["formal_frozen"] is False and all(
@@ -231,7 +231,7 @@ def run_profile():
         from dev import PROFILE, environment
         from poc_control import RUNTIME, compose
 
-    assert sys.version_info[:2] == (3, 10)
+    assert sys.version_info[:2] == (3, 11)
     python = str(Path(sys.executable).resolve())
     env = environment()
     commands = [

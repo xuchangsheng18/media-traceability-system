@@ -6,7 +6,7 @@ Vue3/TypeScript/Vite研发验证台；package.json和package-lock.json精确锁�
 
 ## 验证入口
 
-Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适用时）：
+Linux仓库根目录运行，前置为已锁py311、Node及独立开发栈（适用时）：
 
 ```sh
 npm --prefix frontend ci

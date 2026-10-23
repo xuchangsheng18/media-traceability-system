@@ -56,8 +56,8 @@ def main():
           candidate["production_frozen"] is False and candidate["formal_RPO_seconds"] is None
           and candidate["formal_RTO_seconds"] is None and candidate["identity_provider"] is None
           and ledger["stage_steps"] == 23 and ledger["original_business_tasks"] == 170
-          and ledger["development_environment"] == "Miniforge py310"
-          and versions["python"]["version"] == "3.10.22"
+          and ledger["development_environment"] == "Miniforge py311"
+          and versions["python"]["version"] == "3.11.17"
           and versions["not_selected"]["production_python"] is None
           and selection["status"] == "CANDIDATES_NOT_VALIDATED_NOT_APPROVED"
           and selection["candidate_priority"] == ["3.13", "3.12"]

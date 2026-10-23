@@ -33,6 +33,7 @@ REQUIRED_SOURCE_PATHS = frozenset(
         "scripts/run_ci.py",
         "config/stage-three-profile.json",
         "config/locks/requirements-py310.lock",
+        "config/locks/requirements-py311.lock",
         ".github/workflows/ci.yml",
         "backend/business_app/controls/operation_tokens.py",
         "backend/business_app/controls/providers.py",

@@ -1,5 +1,7 @@
 # T001—T123非算法工程版快速完成计划
 
+> 2026-10-23活动基线变更：用户已批准全项目迁移至Python3.11.17、Pillow13.0.0及certifi2026.10.19。当前执行按[迁移计划](../superpowers/plans/2026-10-23-python311-migration.md)与config/versions.yaml；旧py310、原锁及历史记录仅保留回退和来源。新环境已闭合100包且扫描无已报告阻断匹配，完整CI与运行验证尚需按新源码核验；生产未冻结，算法仍暂缓。
+
 2026-10-23续批：[实名身份/单位/案件只读盘点](t034-identity-inventory.md)、[限定实测回执](../00-project/validation/t034-identity-inventory-report.json)。新增管理工具仅观察精确当前目录，不写库、不认证操作者、不激活采用；Linux70项回归及301文件类型通过。真实映射、采用/许可/分类与代际维护仍待；上批Linux完整回归TIMEOUT/partial873仍不算通过。原锁与CI不变，0新增完成子步骤。
 
 2026-10-23续批：[独立代际读取器与f10回归复核](t034-independent-generation-reader.md)、[精确回执](../00-project/validation/t034-independent-generation-reader-report.json)。本批仅补E03显式读取及栅栏适配，真实权威/其余提供方仍缺；f10完整托管业务2327项正常结束，唯一失败已定位到旧51接口断言并修复。Linux历史1800秒未完成仍保留，不声称全套超时根因已解决；原锁与门禁不变，0新增完成子步骤。

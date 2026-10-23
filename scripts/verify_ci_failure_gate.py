@@ -2,11 +2,11 @@
 import json
 import subprocess
 
-from poc_control import PY310, ROOT
+from poc_control import PYTHON, ROOT
 
 
 def main():
-    process = subprocess.run([str(PY310), "scripts/run_ci.py", "all", "--failure-probe"], cwd=ROOT)
+    process = subprocess.run([str(PYTHON), "scripts/run_ci.py", "all", "--failure-probe"], cwd=ROOT)
     result = json.loads((ROOT/"docs/00-project/validation/ci-failure-probe-report.json").read_text())
     assert process.returncode != 0
     assert result["status"] == "FAIL" and len(result["checks"]) == 2

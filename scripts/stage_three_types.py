@@ -56,7 +56,7 @@ def verify_artifacts(lock_path: Path, artifacts_path: Path) -> None:
     if expected != observed or len(lines) != len(entries) or len(observed) != len(entries):
         raise RuntimeError("TYPE_LOCK_ARTIFACT_CLOSURE_MISMATCH")
     for entry in entries:
-        file = Path(entry.get("local_path", RUNTIME / "stage-three-type-artifacts" / entry["filename"]))
+        file = Path(entry.get("local_path", RUNTIME / "stage-three-type-artifacts-py311" / entry["filename"]))
         if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest() != entry["sha256"]:
             raise RuntimeError("TYPE_ARTIFACT_DIGEST_MISMATCH")
 
@@ -64,16 +64,16 @@ def verify_artifacts(lock_path: Path, artifacts_path: Path) -> None:
 def setup_type_environment(runtime_dir: Path, base_python: Path) -> Path:
     if runtime_dir.resolve().is_relative_to(ROOT.resolve()):
         raise RuntimeError("TYPE_ENVIRONMENT_MUST_BE_OUTSIDE_SOURCE")
-    target = runtime_dir / "stage-three-type-tools"
+    target = runtime_dir / "stage-three-type-tools-py311"
     if any(path.is_symlink() for path in [runtime_dir, target, *runtime_dir.parents]):
         raise RuntimeError("TYPE_ENVIRONMENT_SYMLINK_REJECTED")
     version = subprocess.check_output(
         [str(base_python), "-c", "import sys; print('.'.join(map(str,sys.version_info[:3])))"], text=True
     ).strip()
-    if version != "3.10.22":
-        raise RuntimeError("TYPE_TOOLS_REQUIRE_LOCKED_PYTHON_3_10_22")
+    if version != "3.11.17":
+        raise RuntimeError("TYPE_TOOLS_REQUIRE_LOCKED_PYTHON_3_11_17")
     before = subprocess.check_output([str(base_python), "-m", "pip", "freeze"])
-    cache = runtime_dir / "stage-three-type-artifacts"
+    cache = runtime_dir / "stage-three-type-artifacts-py311"
     cache.mkdir(parents=True, exist_ok=True)
     metadata = json.loads(ARTIFACTS.read_text())
     for entry in metadata["artifacts"]:
@@ -112,7 +112,7 @@ def setup_type_environment(runtime_dir: Path, base_python: Path) -> Path:
     if (
         Path(identity["prefix"]).resolve() != target.resolve()
         or Path(identity["base_prefix"]).resolve() == target.resolve()
-        or identity["version"] != [3, 10, 22]
+        or identity["version"] != [3, 11, 17]
     ):
         raise RuntimeError("TYPE_ENVIRONMENT_PREFIX_INVALID")
     subprocess.run(
@@ -156,7 +156,7 @@ def main() -> int:
     if args.action == "setup":
         setup_type_environment(RUNTIME, Path(sys.executable))
         return 0
-    tool_python = RUNTIME / "stage-three-type-tools/bin/python"
+    tool_python = RUNTIME / "stage-three-type-tools-py311/bin/python"
     if args.action == "failure-probe":
         with tempfile.TemporaryDirectory(prefix="media-trace-type-failure-") as directory:
             root = Path(directory)
@@ -171,7 +171,7 @@ def main() -> int:
     if os.environ.get("MT_TYPE_REPORT_DISABLED") != "1":
         report = {
             "status": "PASS" if result.returncode == 0 else "FAIL",
-            "python": "3.10.22",
+            "python": "3.11.17",
             "mypy": "2.4.0",
             "locked_tool_artifacts": len(json.loads(ARTIFACTS.read_text())["artifacts"]),
             "tool_lock_sha256": hashlib.sha256(LOCK.read_bytes()).hexdigest(),
@@ -210,7 +210,7 @@ def run_type_check(tool_python: Path, root: Path) -> subprocess.CompletedProcess
         raise RuntimeError("TYPE_CHECK_EMPTY_SCOPE")
     # Keep scripts.identity/native in the same namespace as their real callers.
     env = dict(os.environ, MYPYPATH=os.pathsep.join([str(root / "backend"), str(root)]))
-    cache = RUNTIME / "stage-three-type-cache"
+    cache = RUNTIME / "stage-three-type-cache-py311"
     return subprocess.run(
         [
             str(tool_python),

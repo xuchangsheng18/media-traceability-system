@@ -229,6 +229,7 @@ def test_declared_report_counts_cannot_be_ignored(tmp_path, field):
     [
         ("config/locks/runtime-archive.json", False),
         ("config/locks/requirements-py310.lock", True),
+        ("config/locks/requirements-py311.lock", True),
         ("docs/03-api/openapi.yaml", True),
         ("docs/08-security/t014-six-role-rule-proposal.json", True),
         ("docs/08-security/catalog-read-contract-adoption.json", True),
@@ -243,6 +244,7 @@ def test_source_binding_distinguishes_generated_archive_from_actual_changes(tmp_
         "scripts/verify_t014_permissions.py",
         "config/locks/runtime-archive.json",
         "config/locks/requirements-py310.lock",
+        "config/locks/requirements-py311.lock",
         "docs/03-api/openapi.yaml",
         "docs/08-security/access-control-model.json",
         "docs/08-security/t014-interface-scope-matrix.json",

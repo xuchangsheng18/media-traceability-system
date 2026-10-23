@@ -96,8 +96,8 @@ def main() -> int:
     args = parser.parse_args()
     os.umask(0o077)
     try:
-        if os.name != "posix" or sys.version_info[:3] != (3, 10, 22):
-            raise RuntimeError("EXISTING_LINUX_PY310_22_RUNTIME_REQUIRED")
+        if os.name != "posix" or sys.version_info[:3] != (3, 11, 17):
+            raise RuntimeError("APPROVED_LINUX_PY311_17_RUNTIME_REQUIRED")
         if args.action == "prepare":
             if not args.create_isolated_database or args.admin_config is None:
                 raise RuntimeError("EXPLICIT_ISOLATED_CREATION_FLAG_REQUIRED")

@@ -36,7 +36,7 @@ def collect_inventory() -> dict[str, Any]:
             "/workspace/glwy/runtime/media-traceability-system/business-postgres-tools/bin/postgres",
             "--version",
         ],
-        "python": ["/opt/conda/glwy/envs/py310/bin/python", "--version"],
+        "python": ["/opt/conda/glwy/envs/py311/bin/python", "--version"],
         "ports": ["ss", "-H", "-ltn"],
     }
     for key, command in probes.items():

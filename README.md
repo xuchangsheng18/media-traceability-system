@@ -1,5 +1,7 @@
 # 短视频与图片智能识别溯源系统
 
+2026-10-23当前优先：[Python3.11.17迁移与CI修复](docs/03-development/python311-migration.md)、[实测状态](docs/00-project/validation/python311-migration-report.json)。新Linux环境与100包已核对，Pillow/certifi新锁0已报告匹配；完整新head CI与main合并仍按实际门禁登记。旧py310仅保留回退，算法仍暂缓；下列带日期记录保留历史语境。
+
 2026-10-22本批T034工程候选：[代码/限定验证与未完成门禁](docs/03-development/t034-i02-integration.md)、[精确回执](docs/00-project/validation/t034-i02-integration-report.json)、[数据库读口](docs/04-database/task-creation-scope-read-contract.md)。16文件代码已实现；178项SQL、544项纯组合及279文件类型/质量限定通过，范围重叠不相加；此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑）（expected0/actual2/test_count0，约1800秒），其探针未执行，权限整套以独立实际回执为准。不计候选C05，T034仍4已证/4组剩余，当前154条已证、434组剩余，全170项622组剩余、整卡验收0；I02/HTTP/202与真实采用未完成，原CI/扫描门禁保留，算法与Python候选暂缓。
 
 2026-10-22历史批次T034计划绑定/材料纯边界：[实现边界](docs/03-development/t034-plan-authority.md)、[验证及同步回执](docs/00-project/validation/t034-plan-authority-report.json)。392项纯组合（本批84/旧308）和272文件类型/质量通过；仅冻结/核对调用者提供的精确材料，不当真实采用、SQL锁、当前事实或授权。I02未整步完成。新增1条子步骤，T034为4已证/4组剩余，当批累计154条已证、434组剩余，全部170项622组剩余、整卡验收0项；CI按真实观察，扫描和原门禁保留，算法与Python候选暂缓。
@@ -81,7 +83,7 @@ T015当前限定验证：此前461项业务快照和128项CLI记录保留历史�
 
 当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定及前后端/数据库/对象/队列/真实合成推理闭环。本机21道CI记录为原1.1历史范围，托管CI本批已扩展检查，实际源码和数量见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；未宣称全部业务实现。
 
-服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py310/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
+服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py311/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
 
 
 <!-- development-entry-summary:start -->
@@ -133,12 +135,12 @@ T015当前限定验证：此前461项业务快照和128项CLI记录保留历史�
 
 ```sh
 cd /workspace/glwy/projects/media-traceability-system
-/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help
-/opt/conda/glwy/envs/py310/bin/python scripts/dev.py setup
-/opt/conda/glwy/envs/py310/bin/python scripts/dev.py dev
+/opt/conda/glwy/envs/py311/bin/python scripts/dev.py help
+/opt/conda/glwy/envs/py311/bin/python scripts/dev.py setup
+/opt/conda/glwy/envs/py311/bin/python scripts/dev.py dev
 ```
 
-统一入口为`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，若实时卷容量低于保护值则拒绝执行，历史99%快照不能代替当前容量核验；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
+统一入口为`/opt/conda/glwy/envs/py311/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，若实时卷容量低于保护值则拒绝执行，历史99%快照不能代替当前容量核验；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 页面在服务器回环地址 `http://127.0.0.1:14180`；从本机通过SSH转发访问。启动前提、首次复建、研发令牌取得方法和停止操作见[运行手册](docs/10-deployment/development-runbook.md)。秘密与权重在仓库外/命名卷中，不入Git。
 

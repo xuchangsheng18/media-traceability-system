@@ -185,7 +185,9 @@ def main(argv=None):
     parser.add_argument("command", choices=COMMANDS, nargs="?", default="help")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
-        "--tools", action="store_true", help="Set up the separately locked quality tools; preserve project py310"
+        "--tools",
+        action="store_true",
+        help="Set up the separately locked quality tools; preserve the selected project runtime",
     )
     parser.add_argument("--apply", action="store_true", help="Apply clean only to the exact cache allowlist")
     parser.add_argument(
@@ -243,7 +245,7 @@ def main(argv=None):
         return 0
     try:
         if not Path(python()).is_file():
-            raise RuntimeError("LOCKED_PY310_EXECUTABLE_MISSING_USE_WINDOWS_SERVER_ENTRY_OR_PREPARE_LOCKED_RUNTIME")
+            raise RuntimeError("LOCKED_PY311_EXECUTABLE_MISSING_USE_WINDOWS_SERVER_ENTRY_OR_PREPARE_LOCKED_RUNTIME")
         if args.command in {"integration-test", "build", "ci"} or args.command == "dev" and args.allow_stack_changes:
             stack_change_guard(args.allow_stack_changes)
         if args.command in {"dev", "status"} and not commands:

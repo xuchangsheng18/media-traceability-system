@@ -1,0 +1,160 @@
+{
+  "status": "CODE_AND_RUNTIME_VERIFIED_BUSINESS_AND_HOSTED_CI_PENDING",
+  "observed_at": "2026-10-23T15:18:18.322127+00:00",
+  "scope": "Linux_development_Python_migration_not_production_acceptance",
+  "authorization_ref": "docs/00-project/validation/python311-migration-authorization-20261023.json",
+  "source_base_commit": "8c42c0e57d3dcebe86b6cf291fa846dc722c8f55",
+  "working_tree_modified": true,
+  "python": "3.11.17",
+  "prefix": "/opt/conda/glwy/envs/py311",
+  "package_count": 100,
+  "package_name_set_preserved": true,
+  "dependency_changes": [
+    {
+      "name": "Pillow",
+      "before": "12.3.0",
+      "after": "13.0.0"
+    },
+    {
+      "name": "certifi",
+      "before": "2026.7.22",
+      "after": "2026.10.19"
+    }
+  ],
+  "runtime_lock_sha256": "716bd56bc9c8a8c33f33b90c2909c16ee299f23f924c3bd8b6ce357457255a3e",
+  "rollback_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+  "conda_lock_sha256": "1d4ef790723ae49319d24ac8224191deacff7b883497b79facb22808894f057f",
+  "exact_lock_differences": [],
+  "pip_check": "PASS",
+  "tool_packages": 12,
+  "type_check": {
+    "status": "PASS",
+    "source_files": 302
+  },
+  "affected_regressions": {
+    "status": "PASS",
+    "tests": 80,
+    "command": "python -m pytest tests/platform/test_t014_gate.py tests/platform/test_business_timeout_shutdown.py tests/stage_three/test_types.py tests/stage_three/test_runtime_migration.py -q --tb=short"
+  },
+  "security_scan": {
+    "status": "NO_REPORTED_FINDINGS_WITH_COVERAGE_LIMITS",
+    "packages": 100,
+    "reported_findings": 0,
+    "skips": [
+      {
+        "name": "torch",
+        "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+      }
+    ],
+    "raw_report_ref": "docs/00-project/validation/python311-runtime-audit.json",
+    "skip_is_not_acceptance": true
+  },
+  "old_runtime_untouched": true,
+  "persistent_volume_identifiers_preserved": true,
+  "native_n01_py310_bundle_is_rollback_only": true,
+  "native_n01_new_runtime_admission_complete": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "production_frozen": false,
+  "whole_task_acceptance": false,
+  "linux_full_regression": "PENDING",
+  "new_head_github_CI": "NOT_SUBMITTED_YET",
+  "main_merged": false,
+  "prior_failure_preserved": {
+    "head": "8c42c0e57d3dcebe86b6cf291fa846dc722c8f55",
+    "run_id": 39961337884,
+    "identity": "success",
+    "foundation": "success",
+    "engineering_execution": "failure",
+    "engineering": "failure",
+    "runtime_scan_findings": 36
+  },
+  "record_scope": "Pre-submission observation; pending fields are as of this timestamp, not a live GitHub status assertion",
+  "platform_regression": {
+    "status": "PASS",
+    "command": "python -m pytest tests/poc tests/stage_three tests/platform tests/data tests/native -q --tb=short",
+    "totals": {
+      "tests": 2080,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "elapsed_seconds": 220.61,
+    "junit_sha256": "80ef8168fc3cdd4fd3eb4f4f6b8b68b32b3d7742ccfa17b3e625c7671c049736"
+  },
+  "frontend_regression": {
+    "status": "PASS",
+    "vitest_summary": [
+      "Test Files  17 passed (17)",
+      "Tests  959 passed (959)"
+    ]
+  },
+  "frontend_production_build": "PASS",
+  "backend_wheel_and_sdist_build": "PASS",
+  "runtime_archive": {
+    "profile": "miniforge-py311-linux-x86_64-cpu",
+    "python": "3.11.17",
+    "source_environment": "/opt/conda/glwy/envs/py311",
+    "requirements_lock_sha256": "716bd56bc9c8a8c33f33b90c2909c16ee299f23f924c3bd8b6ce357457255a3e",
+    "archive_sha256": "3e2b9231aa1a5bd826842766986a5f6d1fb36297a305c0a97996c23edf64fd05",
+    "archive_repository_path": "deploy/build/py311.tar.gz",
+    "archive_committed": false
+  },
+  "lint_format_and_types": {
+    "status": "PASS",
+    "typed_source_files": 302
+  },
+  "official_origin_verified": {
+    "wheels": 100,
+    "conda_packages": 26,
+    "all_digests_match": true
+  },
+  "review": {
+    "status": "FINDINGS_FIXED_AND_REGRESSION_VERIFIED",
+    "critical": 0,
+    "important": 3,
+    "minor": 1,
+    "minor_regraded_for_user_workflow": true,
+    "fixes": [
+      "active_operator_commands_and_T034_examples",
+      "historical_CI_evidence_attribution",
+      "official_artifact_origin_chain"
+    ],
+    "regression_red": {
+      "tests": 3,
+      "passed": 1,
+      "failed": 2
+    },
+    "regression_green": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "ci_failure_probe": "EXPECTED_FAILURE_STOPPED_BEFORE_BUILD",
+  "repository_secret_check": {
+    "status": "PASS",
+    "files_checked": 2481
+  },
+  "prior_attempts": [
+    {
+      "tests": 2025,
+      "passed": 1996,
+      "failed": 29,
+      "reasons": [
+        "missing_Node_PATH_and_selected_type_tool_directory",
+        "fixture_missing_new_runtime_lock"
+      ]
+    },
+    {
+      "tests": 2077,
+      "passed": 2064,
+      "failed": 13,
+      "reasons": [
+        "old_patch_archive_was_reextracted",
+        "short_shutdown_probes_competed_with_parallel_type_check"
+      ]
+    }
+  ],
+  "doc_links_verified": 14426
+}

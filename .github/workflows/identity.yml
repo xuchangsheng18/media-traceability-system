@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
-      PYTHON: /opt/conda/glwy/envs/py310/bin/python
+      PYTHON: /opt/conda/glwy/envs/py311/bin/python
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
       MT_BUSINESS_TEST_ADMIN_DSN: host=127.0.0.1 port=35432 dbname=postgres user=mt_test_admin password=self-owned-ephemeral-ci-only
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22.21.1
-      - name: Recreate original locked py310 runtime
+      - name: Recreate approved locked py311 runtime
         shell: bash
         run: |
           set -euo pipefail
@@ -51,8 +51,8 @@ jobs:
           PY
           sudo mkdir -p /opt/conda/glwy/envs
           sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
-          "$RUNNER_TEMP/identity-miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py310 --file config/locks/conda-linux-64.explicit.txt
-          "$PYTHON" -m pip install -r config/locks/requirements-py310.lock
+          "$RUNNER_TEMP/identity-miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py311 --file config/locks/conda-linux-64-py311.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py311.lock
       - name: Install existing locked browser tools
         shell: bash
         run: |

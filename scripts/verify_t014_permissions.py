@@ -274,6 +274,7 @@ def source_context() -> dict[str, Any]:
         ROOT / "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml",
         ROOT / "docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json",
         ROOT / "config/locks/requirements-py310.lock",
+        ROOT / "config/locks/requirements-py311.lock",
     ]
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     state = source_tree_state(ROOT)

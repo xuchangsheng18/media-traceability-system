@@ -207,7 +207,7 @@ def test_existing_development_stack_is_only_observed_by_default():
 
 
 def test_command_profile_keeps_exact_development_version():
-    assert dev.PROFILE["python_executable"] == "/opt/conda/glwy/envs/py310/bin/python"
+    assert dev.PROFILE["python_executable"] == "/opt/conda/glwy/envs/py311/bin/python"
     assert dev.PROFILE["production_release_or_formal_data_access"] is False
     assert not dev.PROFILE["formal_approval_refs"]
 

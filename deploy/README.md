@@ -2,16 +2,16 @@
 
 2026-10-13文档状态更新；CPU研发工程已验证，正式业务/生产NOT_FROZEN。
 
-docker-compose.yml定义7服务、5卷、专用网络和回环端口；Dockerfile.py310打包实际环境，frontend/Dockerfile构建静态页面；nginx.conf动态解析API地址。
+docker-compose.yml定义7服务、5卷、专用网络和回环端口；Dockerfile.py311打包实际环境，frontend/Dockerfile构建静态页面；nginx.conf动态解析API地址。
 
 ## 验证入口
 
-Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适用时）：
+Linux仓库根目录运行，前置为已锁py311、Node及独立开发栈（适用时）：
 
 ```sh
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py pack
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py build
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py up
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py pack
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py build
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py up
 ```
 
 详细启动、资源、影响与排查见[运行手册](../docs/10-deployment/development-runbook.md)，结果见[验证报告](../docs/02-architecture/technical-validation-report.md)。

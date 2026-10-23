@@ -92,7 +92,7 @@ def outputs():
     text += f"资源只读观测时间：`{resource['observed_at']}`；研发PostgreSQL卷所在文件系统可用约 **{volume['available_bytes']/1024**3:.2f} GiB**，df使用率 **{volume['used_percent_observed']}**。宿主机剩余空间不能直接当该卷可用空间，也不代表项目独占配额。GPU工具可用性={resource['gpu']['tool_available']}，没有据工具不可用宣称GPU不存在。详见[时点快照](validation/resource-readiness-snapshot.json)。\n\n"
     text += f"仓库治理观测时间：`{governance['observed_at']}`；GitHub报告main protected={governance['branch']['protected_reported_by_provider']}；rulesets查询结果为 `{governance['rulesets']['query']}`，不可据不可查询认定规则集为空。Actions已启用不等于组织治理闭合。详见[治理快照](validation/repository-governance-snapshot.json)，本轮没有修改设置。\n\n"
     text += "## 建议推进顺序\n\n1. 落实当前数据卷容量和项目资源范围，形成实际可执行的存储计划。\n2. 补需求/内部处理/结果对象身份的语义闭环，以及13项接口缺口的关键契约。\n3. 明确规则/指标/数据计数、负责人投入和分期范围，形成可执行的验证方案。\n4. 按选定代表性功能进行任务编排、授权、模型/媒体/查询验证；其余功能按后续任务交付。\n5. 进入正式环境前落实版本迁移、完整安全/备份/制品/治理与正式场景/容量验证，再办理适用冻结。\n\n"
-    text += "当前py310研发指令保持；Python3.10维护状态参见[官方维护表](https://devguide.python.org/versions/)，生产目标与迁移验证仍需落实。旧原件/历史报告按其时点保存，不从新快照倒改历史。\n"
+    text += "2026-10-23已授权当前研发迁移至Python3.11.17，旧py310仅作回退；维护状态参见[官方维护表](https://devguide.python.org/versions/)，生产目标与迁移验证仍需落实。旧原件/历史报告按其时点保存，不从新快照倒改历史。\n"
     return {PREFIX + "requirement-processing-map.json": jdump(mapping) + "\n",
             PREFIX + "requirement-processing-map.md": mapping_text,
             PREFIX + "phase-readiness-register.md": text}

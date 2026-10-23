@@ -46,7 +46,7 @@ Windows通过SSH转发14200和14202，Vite使用锁定Node22.21.1运行，不使
 
 ```sh
 cd /workspace/glwy/projects/media-traceability-system
-/opt/conda/glwy/envs/py310/bin/python scripts/business_development.py prepare \
+/opt/conda/glwy/envs/py311/bin/python scripts/business_development.py prepare \
   --private-directory /workspace/glwy/runtime/media-traceability-system/business-preview-NEW-ID \
   --admin-config /workspace/glwy/runtime/media-traceability-system/business-test-postgres-private.json \
   --create-isolated-database
@@ -57,7 +57,7 @@ cd /workspace/glwy/projects/media-traceability-system
 启动使用既有私密目录，在当前终端前台运行：
 
 ```sh
-/opt/conda/glwy/envs/py310/bin/python scripts/business_development.py serve \
+/opt/conda/glwy/envs/py311/bin/python scripts/business_development.py serve \
   --private-directory /workspace/glwy/runtime/media-traceability-system/business-preview-NEW-ID \
   --port 14202
 ```

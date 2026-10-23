@@ -59,8 +59,8 @@ def validate(snapshot: dict[str, Any]) -> list[str]:
     for field, expected in (("platform", "linux"), ("architecture", "x86_64"), ("docker_context", CONTEXT)):
         if snapshot.get(field) != expected:
             errors.append("UNSUPPORTED_" + field.upper())
-    if not str(snapshot.get("python", "")).startswith("3.10."):
-        errors.append("PY310_REQUIRED")
+    if not str(snapshot.get("python", "")).startswith("3.11."):
+        errors.append("PY311_REQUIRED")
     if not snapshot.get("docker_server_version"):
         errors.append("DOCKER_OBSERVATION_MISSING")
     for field, code in (

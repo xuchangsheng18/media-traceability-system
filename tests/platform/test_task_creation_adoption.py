@@ -514,7 +514,7 @@ def rebind_configured_documents(values):
 def development_configuration(**changes):
     values = dict(
         schema_version="1.0.0",
-        environment="linux-py310-cpu-internal-rnd",
+        environment="linux-py311-cpu-internal-rnd",
         revision="e04-v1",
         allowed_handler_ids=["internal-rnd-original-integrity"],
         max_material_bytes=262144,

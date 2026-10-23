@@ -84,7 +84,7 @@ def test_runtime_symlink_rejected(tmp_path):
 
 def type_python():
     tools = load_types()
-    return tools.RUNTIME / "stage-three-type-tools/bin/python"
+    return tools.RUNTIME / "stage-three-type-tools-py311/bin/python"
 
 
 def test_type_error_returns_nonzero(tmp_path):
@@ -138,7 +138,7 @@ def test_type_failure_propagates_to_dev_command(monkeypatch, capfd):
 def test_existing_nonvenv_python_never_installs(tmp_path, monkeypatch, linked_bin):
     tools = load_types()
     marker = tmp_path / "install-was-called"
-    target = tmp_path / "stage-three-type-tools/bin"
+    target = tmp_path / "stage-three-type-tools-py311/bin"
     target.parent.mkdir(parents=True)
     if linked_bin:
         linked = tmp_path / "controlled-other-bin"
@@ -154,7 +154,7 @@ def test_existing_nonvenv_python_never_installs(tmp_path, monkeypatch, linked_bi
         f'exec "{sys.executable}" "$@"\n'
     )
     wrapper.chmod(0o700)
-    cache = tmp_path / "stage-three-type-artifacts"
+    cache = tmp_path / "stage-three-type-artifacts-py311"
     cache.mkdir()
     wheel = cache / "example.whl"
     wheel.write_bytes(b"fixture")

@@ -19,7 +19,7 @@ def snapshot():
     return {
         "platform": "linux",
         "architecture": "x86_64",
-        "python": "3.10.22",
+        "python": "3.11.17",
         "docker_context": "desktop-linux",
         "docker_server_version": "29.8.2",
         "host_available_bytes": 100 * 1024**3,

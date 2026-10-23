@@ -40,8 +40,8 @@ services:
       interval: 5s
       retries: 20
   api:
-    image: media-trace-py310:1.0.0-dev
-    build: {context: .., dockerfile: deploy/Dockerfile.py310}
+    image: media-trace-py311:1.0.0-dev
+    build: {context: .., dockerfile: deploy/Dockerfile.py311}
     env_file: ${MT_RUNTIME_DIR}/poc.env
     depends_on:
       postgres: {condition: service_healthy}
@@ -51,13 +51,13 @@ services:
     cpus: 1
     pids_limit: 128
     healthcheck:
-      test: ["CMD", "/opt/py310/bin/python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
+      test: ["CMD", "/opt/py311/bin/python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
       interval: 5s
       retries: 20
   inference:
-    image: media-trace-py310:1.0.0-dev
+    image: media-trace-py311:1.0.0-dev
     env_file: ${MT_RUNTIME_DIR}/poc.env
-    command: ["/opt/py310/bin/python", "-m", "uvicorn", "service:app", "--host", "0.0.0.0", "--port", "8001", "--no-access-log"]
+    command: ["/opt/py311/bin/python", "-m", "uvicorn", "service:app", "--host", "0.0.0.0", "--port", "8001", "--no-access-log"]
     volumes: ["model-data:/runtime"]
     ports: ["127.0.0.1:14201:8001"]
     mem_limit: 2g
@@ -65,13 +65,13 @@ services:
     pids_limit: 128
     environment: {MODEL_DIR: /runtime, OMP_NUM_THREADS: "1"}
     healthcheck:
-      test: ["CMD", "/opt/py310/bin/python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8001/healthz')"]
+      test: ["CMD", "/opt/py311/bin/python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8001/healthz')"]
       interval: 5s
       retries: 30
   worker:
-    image: media-trace-py310:1.0.0-dev
+    image: media-trace-py311:1.0.0-dev
     env_file: ${MT_RUNTIME_DIR}/poc.env
-    command: ["/opt/py310/bin/python", "-m", "celery", "-A", "app.worker:celery", "worker", "--concurrency=1", "--beat", "--without-mingle", "--without-gossip", "--schedule=/tmp/mt-celerybeat", "--loglevel=INFO"]
+    command: ["/opt/py311/bin/python", "-m", "celery", "-A", "app.worker:celery", "worker", "--concurrency=1", "--beat", "--without-mingle", "--without-gossip", "--schedule=/tmp/mt-celerybeat", "--loglevel=INFO"]
     depends_on:
       rabbitmq: {condition: service_healthy}
       api: {condition: service_healthy}
@@ -80,7 +80,7 @@ services:
     cpus: 1
     pids_limit: 128
     healthcheck:
-      test: ["CMD", "/opt/py310/bin/python", "-c", "import pathlib,time;assert time.time()-pathlib.Path('/tmp/mt-worker-heartbeat').stat().st_mtime < 30"]
+      test: ["CMD", "/opt/py311/bin/python", "-c", "import pathlib,time;assert time.time()-pathlib.Path('/tmp/mt-worker-heartbeat').stat().st_mtime < 30"]
       interval: 5s
       start_period: 45s
       retries: 8

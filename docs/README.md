@@ -648,8 +648,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/stage-three/business-interface-implementation-plan.md](<03-development/stage-three/business-interface-implementation-plan.md>) | 独立业务迁移/RLS、上传续传和7历史读取的文件/签名/失败测试/恢复计划；73操作825字段0.2快照方案已认可，首批所选工程已实施；后续接口按实际说明和验证报告核验。 |
 | [03-development/stage-three/readiness.md](<03-development/stage-three/readiness.md>) | 第三阶段16步及57条原验收逐条状态：文档、实测、部分/待落实与适用差异各列证据范围，与24/23步和170任务分开。 |
 | [03-development/stage-three/deliverables.json](<03-development/stage-three/deliverables.json>) | 16源步骤、57条验收审查及实际状态/证据/限制；文档和配置生效独立判定，不伪造人员或批准。 |
-| [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
-| [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
+| [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段当前活动Python基线/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
+| [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；原1.1-py310保留来源，1.2-py311按新授权迁移，正式冻结条件未满足。 |
 | [00-project/validation/stage-three-runtime-report.json](<00-project/validation/stage-three-runtime-report.json>) | 实际13项Linux/托管CPU命令与环境；共享栈未重启，GPU/Windows原生/生产未驗。 |
 | [00-project/validation/stage-three-demo-report.json](<00-project/validation/stage-three-demo-report.json>) | 三临时进程11项实测含三服务脱敏日志/trace及依赖停止503/502，1例浏览器；mock标记，无DB/权重/GPU访问。 |
 | [00-project/validation/stage-three-dependency-scan-report.json](<00-project/validation/stage-three-dependency-scan-report.json>) | Python/npm实际已知漏洞扫描、退出状态和包跳过；不是全面安全或PythonEOL/OS准入证明。 |
@@ -660,7 +660,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/remaining-work-navigation.json](<00-project/remaining-work-navigation.json>) | 从19项权威台账与专项来源生成的同源导航索引/摘要；不作新的工作状态源、不关闭任务、不编造人员。 |
 | [02-architecture/environment-constraints.md](<02-architecture/environment-constraints.md>) | 实际Linux、Miniforge py310、Desktop挂载/网络/CPU与PythonEOL边界。 |
 | [02-architecture/resource-and-team-inventory.md](<02-architecture/resource-and-team-inventory.md>) | 宿主、Desktop虚拟机与容器配额分别盘点；磁盘、GPU与责任人未决。 |
-| [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 1.1-py310-cpu研发执行基线，区别于正式生产冻结和全部业务实现。 |
+| [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 当前研发执行基线与Python3.11迁移，区别于正式生产冻结和全部业务实现。 |
 | [02-architecture/technology-options.md](<02-architecture/technology-options.md>) | 12个技术域的替代方案、研发执行选择、实测和扩展边界。 |
 | [02-architecture/compatibility-matrix.md](<02-architecture/compatibility-matrix.md>) | 实际锁定组合、安装/构建/运行兼容证据及升级路径。 |
 | [02-architecture/licenses.md](<02-architecture/licenses.md>) | 包/镜像/FFmpeg/Desktop与权重的许可盘点、审核缺口和再分发要求。 |
@@ -751,7 +751,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1363份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1369份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1351,6 +1351,10 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/python-audit-report.json](<00-project/validation/python-audit-report.json>) | pip-audit发现与跳过原因；CPU torch被跳过，不能声称全部无漏洞。 |
 | [00-project/validation/python-candidate-deferral-validation.json](<00-project/validation/python-candidate-deferral-validation.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/python-components.json](<00-project/validation/python-components.json>) | 安装包版本与声明许可元信息；不是完整OS SBOM或正式许可审查。 |
+| [00-project/validation/python311-artifact-inventory.json](<00-project/validation/python311-artifact-inventory.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/python311-migration-authorization-20261023.json](<00-project/validation/python311-migration-authorization-20261023.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/python311-migration-report.json](<00-project/validation/python311-migration-report.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
+| [00-project/validation/python311-runtime-audit.json](<00-project/validation/python311-runtime-audit.json>) | 实际或历史验证记录；须核对时间、status、scope、环境和未执行项，不当正式验收。 |
 | [00-project/validation/repository-docs-validation.json](<00-project/validation/repository-docs-validation.json>) | 验证记录；核对执行时间、对象摘要和范围，upstream为历史结果 |
 | [00-project/validation/repository-governance-snapshot.json](<00-project/validation/repository-governance-snapshot.json>) | 实际GitHub主分支/规则集查询/Actions时点快照；不可查询不等于不存在，本轮未修改治理配置。 |
 | [00-project/validation/repository-secrets-report.json](<00-project/validation/repository-secrets-report.json>) | 确切开发凭据值及已知秘密文件名检查，非完整DLP。 |
@@ -1573,7 +1577,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [02-architecture/stage-two-official-sources.md](<02-architecture/stage-two-official-sources.md>) | 本轮官方兼容、机制与许可来源；网页不替代部署实测。 |
 | [02-architecture/system-architecture.md](<02-architecture/system-architecture.md>) | 五层系统架构、服务关系与核心处理链路。 |
 | [02-architecture/technical-baseline-change-control.md](<02-architecture/technical-baseline-change-control.md>) | 开发快照、正式冻结、ADR/锁/迁移变更和恢复规则。 |
-| [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 1.1-py310-cpu研发执行基线，区别于正式生产冻结和全部业务实现。 |
+| [02-architecture/technical-baseline.md](<02-architecture/technical-baseline.md>) | 当前研发执行基线与Python3.11迁移，区别于正式生产冻结和全部业务实现。 |
 | [02-architecture/technical-validation-report.md](<02-architecture/technical-validation-report.md>) | 各真实检查结果、证据路径、范围和未测事项。 |
 | [02-architecture/technology-options.md](<02-architecture/technology-options.md>) | 12个技术域的替代方案、研发执行选择、实测和扩展边界。 |
 | [02-architecture/third-party-notices/eastasianwidth-later-0.3.0-MIT-LICENSE.reference.txt](<02-architecture/third-party-notices/eastasianwidth-later-0.3.0-MIT-LICENSE.reference.txt>) | 项目结构化资料或来源附件；按所在专题的来源、版本与质量要求使用。 |
@@ -1805,9 +1809,9 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/development-delivery-implementation-plan.md](<03-development/development-delivery-implementation-plan.md>) | 说明文档：Linux研发演示版前后端补齐实施计划；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/development-delivery-review.md](<03-development/development-delivery-review.md>) | 说明文档：研发演示交付代码复核与修复；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/development-environment-acceptance-record.md](<03-development/development-environment-acceptance-record.md>) | 说明文档：开发环境验收记录候选；结合正文的状态、来源和适用范围阅读。 |
-| [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；沿用1.1-py310工程源，正式冻结条件未满足。 |
+| [03-development/development-environment-baseline.md](<03-development/development-environment-baseline.md>) | Development Environment Baseline 1.0候选；原1.1-py310保留来源，1.2-py311按新授权迁移，正式冻结条件未满足。 |
 | [03-development/development-environment-change-request.md](<03-development/development-environment-change-request.md>) | 说明文档：开发环境变更和恢复要求；结合正文的状态、来源和适用范围阅读。 |
-| [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段实际py310/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
+| [03-development/development-environment-validation-report.md](<03-development/development-environment-validation-report.md>) | 第三阶段当前活动Python基线/Node/统一命令/独立工具层/三进程浏览器/扫描结果及未执行范围。 |
 | [03-development/evidence-snapshot-pagination.md](<03-development/evidence-snapshot-pagination.md>) | T101/T103既有固定证据投影的显式分页、游标绑定及每页当前授权；省略参数保留旧响应，上游未取齐拒绝503，页面缺引用只作当前页未定位。 |
 | [03-development/main-protection-handoff.md](<03-development/main-protection-handoff.md>) | 说明文档：main分支保护：已获授权的设置与复验；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/migration-ci-regression-repair.md](<03-development/migration-ci-regression-repair.md>) | 两处既有0017迁移测试适配修复、非超级owner管理员临时SET-only授权与撤回；93项受影响SQL和187项T016限定通过，完整business/T014及新CI分别记录，完成数不增加。 |
@@ -1836,6 +1840,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/pillow-py310-isolated-execution.md](<03-development/pillow-py310-isolated-execution.md>) | PL01源码与静态核验、PL02真实缺项及namespace失败、PL03—PL05停止条件和管理员只读诊断；不宣称漏洞修复或采用。 |
 | [03-development/pillow-py310-remediation-plan.md](<03-development/pillow-py310-remediation-plan.md>) | 八条漏洞与11项提交、隔离回归、构建许可和现有扫描准入限制；方案未执行，不代替采用批准。 |
 | [03-development/ppt-interface-alignment.md](<03-development/ppt-interface-alignment.md>) | 说明文档：本地PPT原型与研发前端页面对照；结合正文的状态、来源和适用范围阅读。 |
+| [03-development/python311-migration.md](<03-development/python311-migration.md>) | 说明文档：Python3.11迁移与CI修复；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-access-control.md](<03-development/repository-access-control.md>) | 说明文档：仓库账号权限与回收；结合正文的状态、来源和适用范围阅读。 |
 | [03-development/repository-bootstrap.md](<03-development/repository-bootstrap.md>) | 仓库、基础环境、最小闭环、算法与交付的推进顺序。 |
 | [03-development/repository-layout.md](<03-development/repository-layout.md>) | 说明文档：仓库目录与依赖边界；结合正文的状态、来源和适用范围阅读。 |
@@ -2118,3 +2123,4 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [source/original/面向网络违法有害信息治理的短视频与图片智能识别溯源系统详细设计实现方案V2.docx](<source/original/面向网络违法有害信息治理的短视频与图片智能识别溯源系统详细设计实现方案V2.docx>) | 按摘要保护的业务来源原件或当前修订原件 |
 | [source/revisions/项目任务书_技术修订版V1.3.docx](<source/revisions/项目任务书_技术修订版V1.3.docx>) | 按摘要保护的业务来源原件或当前修订原件 |
 | [source/revisions/项目总体设计方案_技术修订版V1.4.docx](<source/revisions/项目总体设计方案_技术修订版V1.4.docx>) | 按摘要保护的业务来源原件或当前修订原件 |
+| [superpowers/plans/2026-10-23-python311-migration.md](<superpowers/plans/2026-10-23-python311-migration.md>) | 说明文档：Python 3.11 全项目迁移与 CI 修复实施计划；结合正文的状态、来源和适用范围阅读。 |

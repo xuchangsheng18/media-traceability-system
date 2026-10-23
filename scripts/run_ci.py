@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PYTHON = "/opt/conda/glwy/envs/py310/bin/python"
+PYTHON = "/opt/conda/glwy/envs/py311/bin/python"
 
 
 def main():

@@ -6,10 +6,10 @@ app/main.py提供PoC API、请求ID、安全Problem与鉴权；settings.py验证
 
 ## 验证入口
 
-Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适用时）：
+Linux仓库根目录运行，前置为已锁py311、Node及独立开发栈（适用时）：
 
 ```sh
-PYTHONPATH=backend /opt/conda/glwy/envs/py310/bin/python -m pytest tests/poc -q
+PYTHONPATH=backend /opt/conda/glwy/envs/py311/bin/python -m pytest tests/poc -q
 ```
 
 详细启动、资源、影响与排查见[运行手册](../docs/10-deployment/development-runbook.md)，结果见[验证报告](../docs/02-architecture/technical-validation-report.md)。

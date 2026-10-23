@@ -176,7 +176,7 @@ const page = computed(
             /><span>{{ item.label }}</span>
           </RouterLink>
         </nav>
-        <p class="sidebar-footnote">Linux研发环境<br />py310 · CPU</p>
+        <p class="sidebar-footnote">Linux研发环境<br />py311 · CPU</p>
       </aside>
       <main
         id="workspace-main"

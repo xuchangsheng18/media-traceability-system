@@ -49,7 +49,7 @@
   ],
   "algorithm_exclusion_preserves_original_scope": true,
   "original_170_tasks_retained": true,
-  "Python_candidates_deferred": true,
+  "Python_candidates_deferred": false,
   "original_100_package_lock_changes_authorized": false,
   "CI_gate_removal_or_skip_authorized": false,
   "public_contract_changes_authorized_by_this_plan": false,
@@ -139,7 +139,7 @@
       "name": "配置Python后端工程",
       "scope_class": "ENGINEERING",
       "execution_lane": "REUSE",
-      "engineering_now": "复用现有Linux py310、FastAPI启动与原锁，将新增服务纳入现有启动和健康检查。",
+      "engineering_now": "采用已授权Python3.11.17新100包锁及FastAPI启动；原py310锁保留回退，所有原CI门禁保留。",
       "deferred_scope": "原生部署、生产依赖就绪和实际运行环境验证另行完成。",
       "blockers": [
         "外部：正式运行环境与依赖就绪证据"
@@ -4764,5 +4764,10 @@
     "prepared_commit": "0b4812e2eb8df852e021f52ae97004c6701586a4",
     "prepared_commit_tested_by_this_run": false,
     "main_merged": false
-  }
+  },
+  "Python_migration_authorization_ref": "docs/00-project/validation/python311-migration-authorization-20261023.json",
+  "active_runtime_target": "Python3.11.17",
+  "old_py310_and_original_lock_retained_for_rollback": true,
+  "revision_100_package_lock_changes_authorized": true,
+  "runtime_migration_report_ref": "docs/00-project/validation/python311-migration-report.json"
 }

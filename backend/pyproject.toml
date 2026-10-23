@@ -5,9 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "media-trace-poc"
 version = "0.1.0"
-requires-python = ">=3.10,<3.11"
+requires-python = ">=3.11,<3.12"
 description = "CPU development baseline validation, not a business model release"
-dependencies = ["fastapi==0.143.0", "uvicorn==0.54.0", "SQLAlchemy==2.0.54", "psycopg[binary]==3.3.6", "boto3==1.43.111", "celery==5.6.3", "httpx==0.28.1", "pillow==12.3.0", "jsonschema==4.26.0", "referencing==0.37.0", "pydantic-settings==2.15.0"]
+dependencies = ["fastapi==0.143.0", "uvicorn==0.54.0", "SQLAlchemy==2.0.54", "psycopg[binary]==3.3.6", "boto3==1.43.111", "celery==5.6.3", "httpx==0.28.1", "pillow==13.0.0", "jsonschema==4.26.0", "referencing==0.37.0", "pydantic-settings==2.15.0"]
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -17,7 +17,7 @@ include = ["app", "app.*", "business_app", "business_app.*", "business_migration
 business_migrations = ["*.sql", "baseline-source.json"]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 120
 
 [tool.ruff.lint]

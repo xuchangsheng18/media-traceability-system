@@ -486,7 +486,7 @@ def build_inventory(root):
         "source_file_sha256": {
             path: hashlib.sha256((root / path).read_text(encoding="utf-8").encode("utf-8")).hexdigest() for path in refs
         },
-        "active_environment_boundary": "Current Linux/Miniforge py310/CPU development; Python candidates remain deferred; historical source-card versions are provenance, not newly adopted baselines.",
+        "active_environment_boundary": "Current Linux/Miniforge Python3.11.17/CPU migration authorized on 2026-10-23; old py310 is rollback only; production remains unfrozen and algorithms remain deferred.",
         "interpretation": [
             "Source scope, dependencies, acceptance and tests are copied from backlog/source cards; current ownership and completed/remaining work are copied from the execution ledger.",
             "Only routers explicitly included by business create_app are statically indexed. Registration is not a successful request, deployment, permission decision or complete task acceptance.",
@@ -551,7 +551,7 @@ def render_markdown(document):
         "",
         "已有表定义不等于目标库已创建；路由与Python方法存在不等于运行服务已部署或业务成功。所有当前实际状态沿用任务台账，不自动接受任务。未知负责人保持未确定。",
         "",
-        "当前环境沿用Linux、Miniforge py310和CPU；Python候选继续暂缓，原任务卡的历史Python版本仅保留来源。`health`可位于独立PoC入口；历史`devLogin`不能作为新增密码登录的授权。",
+        "2026-10-23用户已授权迁移至Linux、Miniforge Python3.11.17和CPU；旧py310仅作回退，算法继续暂缓，生产未冻结，原任务卡历史版本仅保留来源。`health`可位于独立PoC入口；历史`devLogin`不能作为新增密码登录的授权。",
         "",
         "完整字段、原验收和测试要求、完成证据、逐项剩余工作及来源SHA-256见[机器清单](t001-t123-implementation-inventory.json)。[实施顺序](t001-t123-development-sequence.md)与[本批读取实现计划](t001-t123-catalog-read-implementation-plan.md)分别记录开发安排和具体修改边界。",
         "",
@@ -694,7 +694,7 @@ def render_markdown(document):
             "- T013本人身份接管、MFA、密钥验证与实际恢复仍按任务卡逐项核验；备份目录、RPO/RTO及维护窗口等未知输入保持未确定，不把公开口令当已妥善保护。",
             "- 六角色已确认的设计输入不等于正式策略已采用；正式来源授权、分类/用途事实不足时拒绝相应业务动作。",
             "- 模型、权重许可、用途授权数据及适用GPU未落实的算法任务保持剩余；合成CPU编码器不能充当全部正式模型。",
-            "- 20/100并发、准确率和正式验收口径需有效输入及真实执行；现有CI门禁继续保留，Python候选暂缓不等于维护风险已接受。",
+            "- 20/100并发、准确率和正式验收口径需有效输入及真实执行；现有CI门禁继续保留，Python3.11迁移按2026-10-23新授权推进，旧环境仅保留回退，生产准入另验。",
             "- 本清单仅整理T001—T123；其他47任务仍保留在总台账。未知人员、工时、日期或批准不得编造。",
             "",
         ]

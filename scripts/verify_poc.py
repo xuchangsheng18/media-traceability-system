@@ -123,7 +123,7 @@ def main():
                                        headers={"Authorization": "Bearer "+c["internal_token"]})
         check("internal_contract_error_uses_problem", invalid_internal.status_code == 422 and invalid_internal.json()["code"] == "MODEL_CONTRACT_INVALID")
         inference = client.get("http://127.0.0.1:14201/healthz").json()
-        check("container_python310", inference["python"].startswith("3.10."))
+        check("container_python311", inference["python"].startswith("3.11."))
         check("CPU_profile", inference["device"] == "cpu" and inference["business_model"] is False)
         # Capture a durable task ID for a separate restart/persistence check, no secrets.
         report = {"status": "PASS", "scope": "real_cpu_development_vertical_slice", "checks": checks,

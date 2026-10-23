@@ -2272,11 +2272,11 @@ flowchart TD
 | NFR-AVAIL-001 任务幂等租约故障恢复 | 同主体同键同摘要无重复效果；旧租约提交拒绝，失败与延期可观察。 | outbox、原子领取、旧租约拒绝及开发恢复已验证。<br>[migration-fencing-report.json](<../00-project/validation/migration-fencing-report.json>)、[poc-resilience-report.json](<../00-project/validation/poc-resilience-report.json>) | 全业务DAG、真实多worker消息故障/取消/长任务续租待实现和验收。 |
 | NFR-COMPAT-001 版本与契约兼容 | 客户端、模型、索引、前后处理版本不兼容明确拒绝；Mock标识不能混入正式成果。 | 4份生成类型漂移、PoC事件及M15结果身份有检查。<br>[generated-contract-report.json](<../00-project/validation/generated-contract-report.json>)、[poc-integration-report.json](<../00-project/validation/poc-integration-report.json>) | 34能力的真实后端、旧版本迁移和生产Python候选兼容未全部验证。 |
 | NFR-AUDIT-001 重要操作审计与脱敏 | 审计主体对象时间结果及请求ID完整；普通用户不能改事实；日志无令牌和密钥。 | 请求追踪、安全Problem和普通应用追加审计已验证。<br>[migration-fencing-report.json](<../00-project/validation/migration-fencing-report.json>)、[repository-secrets-report.json](<../00-project/validation/repository-secrets-report.json>) | 正式审批审计、特权防篡改、WORM/可信时间尚待。 |
-| NFR-MAINTAIN-001 开发规范与持续集成 | 格式、类型、契约、SQL及必要安全门禁失败时阻断；保留实际报告。 | 当前py310托管门禁及失败阻断已有实际run/制品，新增范围以最新源码报告为准。<br>[github-actions-report.json](<../00-project/validation/github-actions-report.json>)、[ci-failure-gate-report.json](<../00-project/validation/ci-failure-gate-report.json>) | 生产版本新锁/新环境及受控制品治理另验，不能转记其他Python PASS。 |
+| NFR-MAINTAIN-001 开发规范与持续集成 | 格式、类型、契约、SQL及必要安全门禁失败时阻断；保留实际报告。 | 历史py310托管门禁及失败阻断保留实际run/制品；新py311迁移CI仍待新精确head验证，不继承历史通过。<br>[github-actions-report.json](<../00-project/validation/github-actions-report.json>)、[ci-failure-gate-report.json](<../00-project/validation/ci-failure-gate-report.json>) | 生产版本新锁/新环境及受控制品治理另验，不能转记其他Python PASS。 |
 | NFR-DATA-001 授权与数据集防泄漏 | 来源与用途授权有效；组合父组同集合；封存验收数据不得训练、调参或难例挖掘。 | 合成元信息、父组计数与泄漏边界有控制检查。<br>[stage-one-controls-report.json](<../00-project/validation/stage-one-controls-report.json>) | 真实用途授权、样本质检和独立封存清单未落实，未据此训练业务模型。 |
 | NFR-AI-001 真实模型评测与概率校准 | 工程流水线与模型指标分开；按固定MetricProtocol记录分母、失败、分组及未知。 | 合成CPU训练/推理和8组验收公式夹具有证据。<br>[synthetic-training-experiment.json](<../00-project/validation/synthetic-training-experiment.json>)、[acceptance-metric-reference-report.json](<../00-project/validation/acceptance-metric-reference-report.json>) | 正式业务模型/校准、授权盲测及批准目标未验收。 |
 | NFR-PERF-001 真实混合负载与容量 | 20/100均待确认；固定素材模型索引资源与计时范围，记录P50/P95/P99和吞吐，不用Mock声明达标。 | 微型SQL/检索、代表性媒体与竞争边界已执行。<br>[media-query-report.json](<../00-project/validation/media-query-report.json>)、[stage-two-media-report.json](<../00-project/validation/stage-two-media-report.json>) | 20/100性质与混合负载/大索引、正式时延吞吐和项目配额未验收。 |
-| NFR-DEPLOY-001 现场环境与资源约束 | 记录实际CPU内存IO配额和软件环境；无GPU项目不能声称GPU验证通过。 | 已盘点Linux/VM/容器，py310锁与7服务有证据。<br>[environment-inventory.json](<../00-project/validation/environment-inventory.json>)、[resource-readiness-snapshot.json](<../00-project/validation/resource-readiness-snapshot.json>) | 容量按当前快照判定；生产节点/准入、GPU和3.12/3.13候选待验证。 |
+| NFR-DEPLOY-001 现场环境与资源约束 | 记录实际CPU内存IO配额和软件环境；无GPU项目不能声称GPU验证通过。 | 已盘点Linux/VM/容器，旧py310锁与7服务保留历史证据，新py311迁移另验。<br>[environment-inventory.json](<../00-project/validation/environment-inventory.json>)、[resource-readiness-snapshot.json](<../00-project/validation/resource-readiness-snapshot.json>) | 容量按当前快照判定；生产节点/准入、GPU和3.12/3.13候选待验证。 |
 | NFR-AVAIL-002 恢复与证据完整性 | 隔离恢复后对账对象version_id与SHA-256；RPO/RTO待确认，损坏/WAL缺段可检测。 | 开发5表、对象固定版本/摘要及权重冷恢复有代表性证据。<br>[development-recovery-report.json](<../00-project/validation/development-recovery-report.json>) | 生产异机PITR/WAL、密钥恢复及正式RPO/RTO/保留期待落实。 |
 
 ## 6 数据、模型与验收测量
@@ -2616,7 +2616,7 @@ flowchart TD
 
 ## 7 完整170条工程需求展开
 
-ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原文保留，执行依赖候选分列，实际责任人/完成证据另填。全量工作范围和验收在本页展示，单任务执行仍以原卡及唯一契约为输入。源任务中的Python3.11等历史候选与当前py310执行、生产3.13/3.12待验证选择分别判断，见[TB-ADR-002-backend-stack.md](<../02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md>)。
+ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原文保留，执行依赖候选分列，实际责任人/完成证据另填。全量工作范围和验收在本页展示，单任务执行仍以原卡及唯一契约为输入。源任务中的Python3.11等历史候选与当前已授权py311迁移执行、生产3.13/3.12待验证选择分别判断，见[TB-ADR-002-backend-stack.md](<../02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md>)。
 
 ### ER-T001
 
@@ -5548,7 +5548,7 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | Q-32 | 人工复核阈值、首发未知、报告审批、回流和样本计数规则 ／ 业务、数据与测试负责人；正式结论及数据集发布前 | 沿用源状态；尚未形成有效决定 | 生成提案/检验结构，不自动关闭 |
 | Q-33 | 剩余实际进度、人力、样本及GPU日期与37周工作量重排 ／ 项目负责人及各工作流负责人；阶段交付计划冻结前 | 沿用源状态；尚未形成有效决定 | 生成提案/检验结构，不自动关闭 |
 
-来源状态未因文档汇总改变；项目范围、GitHub与当前py310等已收到的用户工程选择可作为相应执行依据，但不替代正式业务规则、人员授权或验收批准。
+来源状态未因文档汇总改变；项目范围、GitHub与当前已授权py311迁移等已收到的用户工程选择可作为相应执行依据，但不替代正式业务规则、人员授权或验收批准。
 
 ### 13项已登记接口缺口
 
@@ -5579,9 +5579,9 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 
 ## 9 当前落地状态与来源摘要
 
-当前py310 CPU最小工程与托管门禁已有实际证据，新增范围以最新源码报告为准；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
+历史py310 CPU最小工程与托管门禁已有其时点证据；当前已授权py311迁移，托管门禁仍待新精确head验证，不继承旧run通过；7服务工程、5表PoC、M15合成CPU及代表性RLS/媒体/恢复范围见[repository-readiness.md](<../00-project/repository-readiness.md>)和[technical-validation-report.md](<../02-architecture/technical-validation-report.md>)。本页不将73业务操作、62表访问迁移、全DAG、34真实能力或三场景验收写成已完成。
 
-生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；研发环境与锁保留。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见[第一阶段24步](<../00-project/stage-one/steps-and-deliverables.md>)、[第二阶段23步](<../03-development/stage-two-readiness.md>)和[实际剩余条件](<../00-project/remaining-work-navigation.md>)。
+生产Python条件已登记，3.13/3.12仍未验证候选，3.10例外未批准；旧研发环境与锁保留回退，活动研发已授权迁移至Python3.11.17。真实数据、规则、GPU与容量/配额仍需落实。阶段状态见[第一阶段24步](<../00-project/stage-one/steps-and-deliverables.md>)、[第二阶段23步](<../03-development/stage-two-readiness.md>)和[实际剩余条件](<../00-project/remaining-work-navigation.md>)。
 
 ### 本集中阅读版的输入摘要
 
@@ -5594,7 +5594,7 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | [项目任务书_技术修订版V1.3.md](<../_converted/revision/项目任务书_技术修订版V1.3.md>) | 1d38d1589f1fff1d2207d9872213ec05f6342955fe0a4f7ade1deab3fad83943 |
 | [requirement-traceability.yaml](<../00-project/requirement-traceability.yaml>) | a3a9efd585510c8c0b296f230bf2e15b35b16fa3e6c4526e28151ac089da092b |
 | [source-inventory.json](<../00-project/source-inventory.json>) | 24ef4bc967fad08ebfd96370ec3d76893b2bafc1b91fdc58a5e8581555467a16 |
-| [requirement-processing-map.json](<../00-project/requirement-processing-map.json>) | ca8cf96bf4be0595c8d9cae3b53abdc8cfd9f3bf44324f12befab8577450e4e4 |
+| [requirement-processing-map.json](<../00-project/requirement-processing-map.json>) | 65fe65d89b7889f63e7e3c06f208aaf11a66370cbba9744b040fcacf19ce81d1 |
 | [requirement-semantic-review.json](<../00-project/requirement-semantic-review.json>) | fa10a5f07cb192bd116eb570f8d633e2a5fa8565e3d9182f21d875d7184f27fa |
 | [engineering-requirements.yaml](<engineering-requirements.yaml>) | 60ecfa7c9255d124fdc205b4b7ca9ce88cf9faf9733c70d437618842036d08ca |
 | [business-rules.md](<business-rules.md>) | a1de51d242165bb927ea570dd85e68ec1ecc039a75eb835d5f7517eb432f2527 |
@@ -5610,5 +5610,5 @@ ER编号直接对应原T任务，不新增功能；源角色/工时与依赖原�
 | [open-questions.md](<../00-project/open-questions.md>) | dd6b13ae7381ec58c38e6863327356bc6cff442b75c990f2156a017c337afbf5 |
 | [source-task-cards.json](<../../tasks/source-task-cards.json>) | de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565 |
 | [backlog.yaml](<../../tasks/backlog.yaml>) | f925cf24728a035d4a01b4eef91c0a8dc1e31542bf3f645b917bea064376899d |
-| [versions.yaml](<../../config/versions.yaml>) | 5d80c8c002584c9ba91e7fadbcc5f63c8b4dc5004082d188acc874d16afa8b8a |
-| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | c5234c3454f187a7fd83f3dc9316b3c9da6ce80df704616af92b6de4f0d181ef |
+| [versions.yaml](<../../config/versions.yaml>) | 102c52b26c301a40cf8a05df794eb6ce0bc8745ea3a577f95588d248b3486599 |
+| [generate_requirements_document.py](<../../scripts/generate_requirements_document.py>) | 1b2df120919b341cd3d3f4db981edb0fb370909536aa886cd4e5229283253ccf |

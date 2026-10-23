@@ -46,7 +46,7 @@ def configuration():
     return {
         "task_creation_development": {
             "schema_version": "1.0.0",
-            "environment": "linux-py310-cpu-internal-rnd",
+            "environment": "linux-py311-cpu-internal-rnd",
             "revision": "e04-v1",
             "allowed_handler_ids": ["internal-rnd-original-integrity"],
             **LIMITS,
@@ -102,7 +102,7 @@ def test_explicit_approved_profile_carries_exact_e04_values_without_authority(pr
         assert type(getattr(value, name)) is int
         assert getattr(value, name) == expected
     assert value.schema_version == "1.0.0"
-    assert value.environment == "linux-py310-cpu-internal-rnd"
+    assert value.environment == "linux-py311-cpu-internal-rnd"
     assert value.revision == "e04-v1"
     assert value.allowed_handler_ids == ("internal-rnd-original-integrity",)
     assert not any(hasattr(value, name) for name in ("authorized", "active", "adopted", "executable", "authority"))

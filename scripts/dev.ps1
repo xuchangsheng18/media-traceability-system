@@ -20,7 +20,7 @@ if ($Target -eq 'server') {
     $taskRemote = 'cd ' + $taskProfile.server_repository + ' && ' + $taskProfile.python_executable + ' ' + ($taskArguments -join ' ')
     & ssh -o BatchMode=yes -- $taskProfile.server_alias $taskRemote
 } else {
-    if (-not $env:MT_PYTHON -or -not (Test-Path -LiteralPath $env:MT_PYTHON -PathType Leaf)) { throw 'Local mode requires an explicit MT_PYTHON pointing to a separately prepared locked Python 3.10.22 environment. Use the default server target for the existing Miniforge py310.' }
+    if (-not $env:MT_PYTHON -or -not (Test-Path -LiteralPath $env:MT_PYTHON -PathType Leaf)) { throw 'Local mode requires an explicit MT_PYTHON pointing to a separately prepared locked Python 3.11.17 environment. Use the default server target for the existing Miniforge py311.' }
     Push-Location -LiteralPath $taskRoot
     try { & $env:MT_PYTHON @taskArguments } finally { Pop-Location }
 }

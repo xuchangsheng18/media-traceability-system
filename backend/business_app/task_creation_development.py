@@ -20,7 +20,7 @@ from .task_creation_materials import MaterialBudgets
 
 CONFIGURATION_MAX_BYTES = 16384
 CANONICALIZATION_VERSION = "task-creation-development-json-v1"
-ENVIRONMENT = "linux-py310-cpu-internal-rnd"
+ENVIRONMENT = "linux-py311-cpu-internal-rnd"
 RESERVED_HANDLER_ID = "internal-rnd-original-integrity"
 ROOT = Path(__file__).resolve().parents[2]
 _CEILINGS = {

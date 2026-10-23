@@ -1,5 +1,7 @@
 # T034 显式研发配置组件与验证边界
 
+2026-10-23活动示例更新：当前Python3.11迁移使用下列py311环境标识；具名历史回执仍保留原生成时点内容，不改写历史摘要。
+
 2026-10-23（北京时间）。本批落实 [E04 研发配置设计](t034-internal-development-decisions.md#4-e04建议直接落实的研发配置值)中的纯配置解析、冻结和私有文件读取组件，为 [I01—I05 实施计划](t034-creation-implementation-plan.md)提供后续接线输入。实际结果见[本批验证回执](../00-project/validation/t034-development-configuration-report.json)。
 
 本批新增 `backend/business_app/task_creation_development.py` 和 `tests/business/test_task_creation_development.py`。尚未接入 `BusinessSettings`、应用启动、HTTP guard、SQL事务、处理器或worker；配置中的限额和期限目前是已校验的输入值，不能据此声称对应运行预算、取消、超时或磁盘防线已经执行。没有创建真实采用、ACTIVE映射、权限事实或成功202，也未写共享运行配置、迁移数据库或重启服务。原100包锁和CI门禁保留，算法与Python候选继续暂缓。
@@ -28,7 +30,7 @@ load_task_creation_development(
 
 错误不包含配置正文、路径或底层异常中的私有标记。`raw`必须为精确 `bytes`，长度1—16384字节；JSON必须只有一个根字段 `task_creation_development`，且该对象必须显式提供下例全部字段。拒绝未知字段、重复键、非UTF-8、非有限数值、非法代理字符及过深/非法结构，不进行类型强转。
 
-元数据固定为 `schema_version="1.0.0"` 和 `environment="linux-py310-cpu-internal-rnd"`；`revision`满足 `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`。`allowed_handler_ids`在JSON中必须是无重复非空列表，目前仅允许预留标识 `internal-rnd-original-integrity`，输出冻结为tuple。该标识不触发模块导入、处理器注册、发布、执行或许可采用。
+元数据固定为 `schema_version="1.0.0"` 和 `environment="linux-py311-cpu-internal-rnd"`；`revision`满足 `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`。`allowed_handler_ids`在JSON中必须是无重复非空列表，目前仅允许预留标识 `internal-rnd-original-integrity`，输出冻结为tuple。该标识不触发模块导入、处理器注册、发布、执行或许可采用。
 
 ## 2. 24项数值的完整示例
 
@@ -38,7 +40,7 @@ load_task_creation_development(
 {
   "task_creation_development": {
     "schema_version": "1.0.0",
-    "environment": "linux-py310-cpu-internal-rnd",
+    "environment": "linux-py311-cpu-internal-rnd",
     "revision": "e04-v1",
     "allowed_handler_ids": ["internal-rnd-original-integrity"],
     "max_material_bytes": 262144,

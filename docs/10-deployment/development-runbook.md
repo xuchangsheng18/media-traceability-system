@@ -1,26 +1,26 @@
-# py310最小工程启动与排查
+# py311最小工程启动与排查
 
-实际Linux目录 `/workspace/glwy/projects/media-traceability-system`；Miniforge `/opt/conda/glwy/envs/py310`。本轮独立开发项目 `media-trace-py310`，仅处理自建素材。凭据由启动工具随机生成并保存仓库外，不复制进代码、日志或聊天。
+实际Linux目录 `/workspace/glwy/projects/media-traceability-system`；Miniforge `/opt/conda/glwy/envs/py311`。本轮独立开发项目 `media-trace-py310`，仅处理自建素材。凭据由启动工具随机生成并保存仓库外，不复制进代码、日志或聊天。
 
 ## 已有环境启动
 
-第三阶段已提供[统一入口与验证](../03-development/stage-three/readiness.md)。当前服务器优先执行`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py status`观察现有7服务；共享Docker数据盘容量问题未整改时不执行重建/恢复。下列低层生命周期命令用于说明工程机制，不能绕过统一入口的容量保护而视作当前安全的直接操作步骤。
+第三阶段已提供[统一入口与验证](../03-development/stage-three/readiness.md)。当前服务器优先执行`/opt/conda/glwy/envs/py311/bin/python scripts/dev.py status`观察现有7服务；共享Docker数据盘容量问题未整改时不执行重建/恢复。下列低层生命周期命令用于说明工程机制，不能绕过统一入口的容量保护而视作当前安全的直接操作步骤。
 
 ```sh
 cd /workspace/glwy/projects/media-traceability-system
-/opt/conda/glwy/envs/py310/bin/python scripts/verify_runtime_lock.py
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py prepare
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py pack
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py build
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py up
-/opt/conda/glwy/envs/py310/bin/python scripts/poc_control.py status
+/opt/conda/glwy/envs/py311/bin/python scripts/verify_runtime_lock.py
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py prepare
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py pack
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py build
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py up
+/opt/conda/glwy/envs/py311/bin/python scripts/poc_control.py status
 ```
 
 成功条件：7服务健康；前端页面可见；verify_poc.py输出PASS且模型为cpu、business_model=false、mock=false。up幂等创建专用schema/角色/桶并启用版本；不向任何既有业务数据库执行62表初始化。
 
 ## 依赖复建
 
-在新的专用目录创建环境；禁止直接覆盖正在使用的py310。Conda系统库与Python版本按 `config/locks/conda-linux-64.explicit.txt` 创建，再使用该环境Python安装 `config/locks/requirements-py310.lock`。此锁针对Linux x86_64 / CPython3.10.22 / CPU，Windows不可直接套用。PyTorch CPU源已经写进锁文件；pip-freeze-observed里的conda构建机file://路径仅作观测，不是安装入口。
+在新的专用目录创建环境；禁止直接覆盖正在使用的py310。Conda系统库与Python版本按 `config/locks/conda-linux-64-py311.explicit.txt` 创建，再使用该环境Python安装 `config/locks/requirements-py311.lock`。此锁针对Linux x86_64 / CPython3.11.17 / CPU，Windows不可直接套用。PyTorch CPU源已经写进锁文件；pip-freeze-observed里的conda构建机file://路径仅作观测，不是安装入口。
 
 本轮100包锁已在仓库外干净venv安装通过。首次构建需已有基础镜像摘要、Node官方归档或镜像；前端执行npm ci。Node缓存路径为 `/home/glwy/.cache/media-trace-node/node-v22.21.1-linux-x64/bin`。浏览器在此前缀PATH下于frontend目录执行 `PLAYWRIGHT_BROWSERS_PATH=/home/glwy/.cache/media-trace-browsers npx playwright install chromium --only-shell`。真正离线环境仍需另外准备已核验的轮子、Conda包、镜像和浏览器包。
 

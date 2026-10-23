@@ -1,5 +1,7 @@
 # T034 离线材料结构回执
 
+2026-10-23活动示例更新：当前Python3.11迁移使用下列py311环境标识；具名历史回执仍保留原生成时点内容，不改写历史摘要。
+
 2026-10-23（北京时间）。本批为已配置的离线材料工具增加可选结构回执及独立复核入口。实现包括[回执Schema](../../schemas/development/task-material-structure-receipt.schema.json)、[纯结构回执模块](../../backend/business_app/task_creation_receipt.py)和[CLI接线](../../scripts/task_creation_adoption.py)。材料解析、显式研发配置与文件写出继续复用[配置接线说明](t034-configured-material-preparation.md)和[I01材料基础](t034-i01-material-foundation.md)。
 
 回执记录材料结构校验、精确输入绑定以及本地观察。它没有签名、可信发布者身份或正式采用效力，不能作为 `TaskPlanProof`、正式采用回执、授权事实或模型可执行证明。T034整卡、I02整体及I03—I05仍未完成；原100包锁、公共接口、17份既有SQL和CI门禁不因本批改变。算法与Python候选继续暂缓。
@@ -57,7 +59,7 @@ Schema使用JSON Schema Draft 2020-12。顶层及各记录边界采用闭合字�
 | `material_canonicalization_version` | 固定为既有 `task-material-json-utf8-sortkeys-v1`。 |
 | `status` | 固定为 `MATERIAL_STRUCTURE_VALIDATED_NOT_ADOPTED`。 |
 | `validator_protocol` | 固定为 `offline-task-material-structure-validation-v1`，表示本地协议约定，不是经认证的验证者身份或发布版本证明。 |
-| `development_configuration` | `runtime_profile`、`environment`、`revision`、配置规范化版本与摘要，以及实际 `aggregate_bytes` 和 `enforced_limits`。环境为 `linux-py310-cpu-internal-rnd`。 |
+| `development_configuration` | `runtime_profile`、`environment`、`revision`、配置规范化版本与摘要，以及实际 `aggregate_bytes` 和 `enforced_limits`。环境为 `linux-py311-cpu-internal-rnd`。 |
 | `materials` | 严格按policy、plan、capability、input顺序保存四条记录；每条包括kind、Schema身份、文档身份／版本、规范化版本、原字节摘要／长度和规范字节摘要／长度。 |
 | `node_inputs` | 按生成的节点快照顺序保存 `node_code`、`schema_id`、`input_version`、`canonical_sha256`、`canonical_size_bytes`。这些是输入快照描述，不是已执行节点或上游产物的证明。 |
 | `schema_registry` | 当前已加载Schema映射的规范化版本、内容摘要和数量。 |
