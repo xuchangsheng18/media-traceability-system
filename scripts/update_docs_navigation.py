@@ -50,6 +50,8 @@ def main():
         flags=re.M,
     )
     entries = {
+        "03-development/t034-task-creation-concurrency.md": "T034-I03独立双连接并发验证：真实同一advisory锁等待与blocker、唯一八表集合和原Accepted/ETag；显式自建权威夹具，非HTTP、恢复或正式采用。",
+        "00-project/validation/t034-task-creation-concurrency-report.json": "T034真实双连接同键竞争及逐断言安全观测、相邻幂等回归/失败探针、类型质量与源码复核；旧全组超时和未完成项保留，最新CI及三端同步，零新增C。",
         "03-development/business-timeout-shutdown.md": "业务回归超时收尾：保留1800秒，Linux组中断/终止和有界回收，冻结原检查点，部分JUnit独立记录；不宣称整套超时根因或数据库清理已解决。",
         "00-project/validation/business-timeout-shutdown-report.json": "超时收尾实际RED、72项相邻回归、失败探针、289文件类型/质量及独立源码复核；旧完整回归TIMEOUT保留，最新CI与三端源码回执，零新增C及整卡验收。",
         "03-development/t034-atomic-creation-service.md": "T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。",

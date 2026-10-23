@@ -440,6 +440,8 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 | 文档 | 含义与严格判定要求 |
 | --- | --- |
+| [03-development/t034-task-creation-concurrency.md](<03-development/t034-task-creation-concurrency.md>) | T034-I03独立双连接并发验证：真实同一advisory锁等待与blocker、唯一八表集合和原Accepted/ETag；显式自建权威夹具，非HTTP、恢复或正式采用。 |
+| [00-project/validation/t034-task-creation-concurrency-report.json](<00-project/validation/t034-task-creation-concurrency-report.json>) | T034真实双连接同键竞争及逐断言安全观测、相邻幂等回归/失败探针、类型质量与源码复核；旧全组超时和未完成项保留，最新CI及三端同步，零新增C。 |
 | [03-development/business-timeout-shutdown.md](<03-development/business-timeout-shutdown.md>) | 业务回归超时收尾：保留1800秒，Linux组中断/终止和有界回收，冻结原检查点，部分JUnit独立记录；不宣称整套超时根因或数据库清理已解决。 |
 | [00-project/validation/business-timeout-shutdown-report.json](<00-project/validation/business-timeout-shutdown-report.json>) | 超时收尾实际RED、72项相邻回归、失败探针、289文件类型/质量及独立源码复核；旧完整回归TIMEOUT保留，最新CI与三端源码回执，零新增C及整卡验收。 |
 | [03-development/t034-atomic-creation-service.md](<03-development/t034-atomic-creation-service.md>) | T034-I03隔离原子创建候选：八表与QUEUED状态、精确Accepted/ETag重放、同根材料/提交栅栏、0018整数投影；无默认权威/HTTP，恢复并发及运行预算仍待。 |
@@ -742,7 +744,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 
 ## 当前文件完整索引
 
-以下按实际文件生成，共1349份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
+以下按实际文件生成，共1351份；文件存在不代表正式批准。旧输入快照/历史报告按其时间与scope阅读。
 
 | 实际文件 | 含义与使用要求 |
 | --- | --- |
@@ -1490,6 +1492,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [00-project/validation/t034-request-context-report.json](<00-project/validation/t034-request-context-report.json>) | T034请求上下文两文件精确源码、组件缺失结构RED、纯回归/质量及一次新鲜审查、真实CI和同步回执；不清扫描失败，不等于SQL/业务授权或整卡验收。 |
 | [00-project/validation/t034-request-plan-binding-report.json](<00-project/validation/t034-request-plan-binding-report.json>) | 64项新内核测试纳入243项受影响纯回归、258文件类型及RED/GREEN/复核/同步；实际创建、真实授权、HTTP和整卡验收均未完成。 |
 | [00-project/validation/t034-role-assignment.json](<00-project/validation/t034-role-assignment.json>) | 用户明确T034开发负责人和指定复核人均为徐昌胜；仅责任登记，工时和实际复核/验收仍待，不授予系统权限。 |
+| [00-project/validation/t034-task-creation-concurrency-report.json](<00-project/validation/t034-task-creation-concurrency-report.json>) | T034真实双连接同键竞争及逐断言安全观测、相邻幂等回归/失败探针、类型质量与源码复核；旧全组超时和未完成项保留，最新CI及三端同步，零新增C。 |
 | [00-project/validation/t060-readonly-ui-report.json](<00-project/validation/t060-readonly-ui-report.json>) | T060只读模型/评测页面的129项单元与36项浏览器传输回归、权限撤销修复及尚缺健康/发布/回滚边界。 |
 | [00-project/validation/t101-role-assignment.json](<00-project/validation/t101-role-assignment.json>) | 用户确认T101开发负责人和指定复核人均为徐昌胜；仅责任登记，不证明本人复核、工时、独立双人验收或系统授权。 |
 | [00-project/validation/t103-evidence-original-report.json](<00-project/validation/t103-evidence-original-report.json>) | T103五文件精确源码、前端质量与两模式传输浏览器、20项依赖摘要、限定复核及原锁双端npm诊断、CI/三端源码回执；不等于正式工作流或整卡验收。 |
@@ -1911,6 +1914,7 @@ data-dictionary意为数据字典。每行应解释字段类型、可空性、�
 | [03-development/t034-plan-authority.md](<03-development/t034-plan-authority.md>) | T034-I02纯PlanBinding/ExecutionMaterials及材料摘要/版本/输入核对；opaque收据/事实不当真实采用/许可/动态状态，SQL/guard/事实未接，I02未整步完成。 |
 | [03-development/t034-request-context.md](<03-development/t034-request-context.md>) | T034-I02首批冻结主体/请求及A-B摘要、ContextVar绑定/重查/清理的纯组件；获取上下文不是授权，guard/HTTP/SQL/当前事实未接线，I02未整步完成。 |
 | [03-development/t034-request-plan-binding.md](<03-development/t034-request-plan-binding.md>) | T034内部不可变TaskCreate、精确请求/策略/计划/能力/authority证明及有效期重查；无默认提供方，不创建任务或授予执行权，实际SQL/事务/HTTP仍待接。 |
+| [03-development/t034-task-creation-concurrency.md](<03-development/t034-task-creation-concurrency.md>) | T034-I03独立双连接并发验证：真实同一advisory锁等待与blocker、唯一八表集合和原Accepted/ETag；显式自建权威夹具，非HTTP、恢复或正式采用。 |
 | [03-development/t103-evidence-location.md](<03-development/t103-evidence-location.md>) | T103当前/历史复核的精确证据元数据读取与编号定位；三响应头/案件版本绑定、归一化区域和毫秒区间、缺引用及不完整返回，不下载媒体或执行审批。 |
 | [03-development/t103-evidence-original-access.md](<03-development/t103-evidence-original-access.md>) | T103原始证据限定关联原件、严格case/asset/ref/摘要与有效状态核对、独立权限和大小/SHA/ETag验证后下载；不播放、不派生、不推断证据效力或正式授权。 |
 | [03-development/t103-review-read-console.md](<03-development/t103-review-read-console.md>) | T103既有接口的待复核任务选择、当前上下文与历史分页只读页面；任务/案件/本地身份变化清理、完整响应绑定及未验工作流边界。 |
