@@ -1,0 +1,21 @@
+import datetime
+import hashlib
+import json
+import os
+import platform
+import re
+import subprocess
+from pathlib import Path
+from packaging.specifiers import SpecifierSet
+base=Path('/workspace/glwy/runtime/media-traceability-system/native-python-closure-20261017');source=base/'conda-origin-and-record-difference-report.json';data=json.loads(source.read_text());assert data['status']=='PASS'
+packages={r['name']:r for r in data['packages']};virtual={'__glibc':platform.libc_ver()[1],'__unix':'0' if os.name=='posix' else None};edges=[];blockers=[]
+for name,row in packages.items():
+    for text in row['declared_dependencies']:
+        parts=text.split();dep=parts[0];version=virtual.get(dep) if dep.startswith('__') else packages.get(dep,{}).get('version')
+        supported=len(parts)<=2 and (len(parts)==1 or bool(re.fullmatch(r'(?:>=|<=|>|<|==|!=)[0-9A-Za-z.]+(?:,(?:>=|<=|>|<|==|!=)[0-9A-Za-z.]+)*',parts[1])))
+        ok=supported and version is not None and (len(parts)==1 or SpecifierSet(parts[1]).contains(version,prereleases=True))
+        entry={'from_package':name,'declared_requirement':text,'resolved_package':dep,'resolved_version':version,'constraint_grammar_supported':supported,'satisfied':ok};edges.append(entry)
+        if not ok:blockers.append(entry)
+r={'schema_version':1,'status':'FAIL' if blockers else 'PASS','blockers':blockers,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd='/workspace/glwy/projects/media-traceability-system',text=True).strip(),'scope':'declared_25_Conda_package_graph_for_observed_simple_version_interval_constraints_and_Linux_virtual_packages_not_general_Conda_solver_or_all_file_integrity','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'origin_report_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'packages':list(packages.values()),'virtual_packages':virtual,'edges':edges,'full_native_environment_admission':False}
+(base/'conda-runtime-dependency-graph-report.json').write_text(json.dumps(r,indent=2)+'\n')
+print(json.dumps({'status':r['status'],'package_nodes':len(packages),'dependency_edges':len(edges),'unresolved':len(blockers)}))

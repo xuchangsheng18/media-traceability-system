@@ -1,0 +1,19 @@
+import datetime,hashlib,importlib.metadata,json,os,zipfile
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'n01-recovery-input-crosswalk';r=Path('/workspace/glwy/projects/media-traceability-system');metadata=out/'tzdata-release.json'
+source=json.loads(metadata.read_text());row=next(x for x in source['urls'] if x['filename']=='tzdata-2026.5-py2.py3-none-any.whl');assert row['url'].startswith('https://files.pythonhosted.org/')
+p=base/'native-pip-closure-cache'/row['filename'];raw=p.read_bytes();assert hashlib.sha256(raw).hexdigest()==row['digests']['sha256'] and len(raw)==row['size'];dist=importlib.metadata.distribution('tzdata');assert dist.version=='2026.5'
+site=Path('/opt/conda/glwy/envs/py310/lib/python3.10/site-packages');matches=[];differences=[];texts=[]
+with zipfile.ZipFile(p) as z:
+ for name in z.namelist():
+  q=Path(name);assert not q.is_absolute() and '..' not in q.parts,name
+  if name.endswith('/') or name.endswith('.dist-info/RECORD'):continue
+  data=z.read(name);target=site/q
+  if not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest()!=hashlib.sha256(data).hexdigest():differences.append(name)
+  else:matches.append(name)
+  if any(x in q.name.lower() for x in ['license','notice','copyright']):
+   digest=hashlib.sha256(data).hexdigest();(out/(digest+'.txt')).write_bytes(data);texts.append({'member':name,'sha256':digest,'size_bytes':len(data)})
+assert not differences,differences
+assert matches and texts
+report={'status':'PASS_EXACT_BASELINE_WHEEL_AND_INSTALLED_PAYLOAD_MATCH','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'distribution':'tzdata','version':'2026.5','original_runtime_requirement':'tzdata==2026.5','original_100_package_lock_sha256':hashlib.sha256((r/'config/locks/requirements-py310.lock').read_bytes()).hexdigest(),'metadata_source':'https://pypi.org/pypi/tzdata/2026.5/json','metadata_sha256':hashlib.sha256(metadata.read_bytes()).hexdigest(),'wheel':{'name':'tzdata','version':'2026.5','provider':'pypi','filename':p.name,'url':row['url'],'sha256':row['digests']['sha256'],'size_bytes':row['size'],'metadata_source':'https://pypi.org/pypi/tzdata/2026.5/json','metadata_filename':'tzdata-release.json','metadata_sha256':hashlib.sha256(metadata.read_bytes()).hexdigest(),'target':'actual_existing_Python_distribution_no_environment_change','status':'PASS'},'matched_installed_files':len(matches),'differences':differences,'excluded_installer_generated_record_only':True,'license_materials':texts,'previous_incorrect_Conda_classification_ref':'config/native/python-runtime-wheels.lock.json#/Conda_owned_distribution_names','no_version_alias_claimed':True,'environment_modified':False,'Python_candidates_created':False,'formal_license_admission':False}
+(out/'tzdata-recovery-correction.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'matched_files':len(matches),'license_materials':len(texts),'environment_modified':False}))

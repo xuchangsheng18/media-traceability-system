@@ -1,0 +1,21 @@
+import base64,hashlib,io,json,re,tarfile,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;c=w/'n01-r7-followup-cache';c.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();reports=[]
+def get(url,p):
+ if not p.exists():p.write_bytes(urllib.request.urlopen(url,timeout=60).read())
+ return p.read_bytes()
+for name,repo,ref in [('is-reference','Rich-Harris/is-reference','9d2719fbcc2059567203063f1e7b65d7831bfd64'),('is-module','component/is-module','1.0.0'),('rollup-native','rollup/rollup','ae846957f109690a866cc3e4c073613c338d3476')]:
+ try:
+  url='https://codeload.github.com/'+repo+'/tar.gz/'+ref;blob=get(url,c/(name+'.tgz'))
+  with tarfile.open(fileobj=io.BytesIO(blob)) as t:fs={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+  materials=[{'path':n,'sha256':sha(b),'utf8_text':b.decode('utf8')} for n,b in fs.items() if re.search(r'(^|/)(licen[sc]e|copying|notice)(\.|$)',n,re.I) and len(b)<400000];row={'object':name,'repository':repo,'source_ref':ref,'archive_url':url,'archive_sha256':sha(blob),'materials':materials,'source_ref_is_registry_gitHead':name!='is-module'}
+  if name=='is-module':
+   p=next(x for x in json.loads((w/'n01-r7-build-inputs/build-inputs.json').read_text())['packages'] if x['name']=='is-module')
+   with tarfile.open(w/'n01-r7-build-inputs'/p['archive_file']) as t:original={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+   row['exact_npm_member_source_matches']=[{'npm_path':n,'source_path':sn,'sha256':sha(b)} for n,b in original.items() for sn,sb in fs.items() if sn.split('/',1)[-1]==n.removeprefix('package/') and b==sb]
+  reports.append(row);print(name,len(materials),flush=True)
+ except Exception as e:reports.append({'object':name,'url':url,'status':'ACQUISITION_FAILED','error':type(e).__name__+':'+str(e)});print(name,'failed',type(e).__name__,flush=True)
+url='https://registry.npmjs.org/@fortawesome/fontawesome-free/5.15.4';meta_raw=get(url,c/'fa5.json');meta=json.loads(meta_raw);blob=get(meta['dist']['tarball'],c/'fa5.tgz');alg,ds=meta['dist']['integrity'].split('-',1);assert base64.b64encode(hashlib.new(alg,blob).digest()).decode()==ds
+with tarfile.open(fileobj=io.BytesIO(blob)) as t:fs={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+with zipfile.ZipFile(w/'n01-r6-vendor.jar') as z:matches=[{'release_path':n,'npm_member':m,'sha256':sha(z.read(n))} for n in z.namelist() if n.endswith(('.ttf','.woff','.woff2','.eot','.svg')) for m,b in fs.items() if Path(m).name==Path(n).name and sha(z.read(n))==sha(b)]
+fa={'package':'@fortawesome/fontawesome-free','version':'5.15.4','metadata_url':url,'metadata_sha256':sha(meta_raw),'archive_sha256':sha(blob),'integrity_verified':True,'version_selection_basis':'source candidate by asset family;only exact matched member bytes are attributed;not Keycloak transitive-lock assertion','exact_release_member_matches':matches,'materials':[{'path':n,'sha256':sha(b),'utf8_text':b.decode('utf8')} for n,b in fs.items() if re.search(r'(^|/)(licen[sc]e|notice|copying)(\.|$)',n,re.I)]};(c/'nested-followup-report.json').write_text(json.dumps({'tool_source_followup':reports,'fontawesome':fa},indent=2)+'\n',encoding='utf8');print('FontAwesome5 exact assets',len(matches),flush=True)

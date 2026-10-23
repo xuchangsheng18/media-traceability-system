@@ -5,8 +5,12 @@ import urllib.error
 import urllib.request
 import uuid
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from poc_control import compose
+if TYPE_CHECKING:
+    from scripts.poc_control import compose
+else:
+    from poc_control import compose
 
 ROOT = Path(__file__).resolve().parents[1]
 

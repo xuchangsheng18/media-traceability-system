@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "observed_at": "2026-10-17T14:50:39.728140+00:00",
+  "scope": "Linux_py310_N01_round2_verifier_tests_quality_and_real_packages_not_full_native_deployment",
+  "source_commit": "259707e23df5345a6e61a361d184e88584847c31",
+  "checks": [
+    {
+      "name": "native-tests",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/native",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/native-n01-round2-runtime/tests.xml"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "totals": {
+        "tests": 45,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "lint-types",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/dev.py",
+        "lint"
+      ],
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "format",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/dev.py",
+        "format-check"
+      ],
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "primary_package_verification_status": "PASS",
+  "source_sha256": {
+    "scripts/native/__init__.py": "4cb98b5e75db6724b636d10a0d675312fe37f96866cf10f9fe83fef43dac780f",
+    "scripts/native/inventory.py": "6b7cb5ba0c1745f5ec9c3c04460acd573dda47c6d8d18df77354fad10d2511ac",
+    "scripts/native/artifacts.py": "ac2b477af453ad83b77af736d2ea61aba380643230533299a4fe00483c88e5bd",
+    "tests/native/test_artifacts.py": "e9b44cc3cc8d6d74ea7c689088dcb99b79f7634e0982b239f7959aae66f6e83e",
+    "tests/native/test_inventory.py": "c2f189b995a49b651e6bf3ba18bb82b498cad5b2269c77d745c85b9e96c8fc4e"
+  },
+  "full_N01_complete": false,
+  "services_changed": false
+}

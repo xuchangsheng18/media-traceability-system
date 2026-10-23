@@ -1,5 +1,7 @@
 # 开发环境基线候选
 
+> 2026-10-23活动基线变更：用户已批准全项目迁移至Python3.11.17、Pillow13.0.0及certifi2026.10.19。当前执行按[迁移计划](../superpowers/plans/2026-10-23-python311-migration.md)与config/versions.yaml；旧py310、原锁及历史记录仅保留回退和来源。新环境已闭合100包且扫描无已报告阻断匹配，完整CI与运行验证尚需按新源码核验；生产未冻结，算法仍暂缓。
+
 2026-10-14；第三阶段研发实施候选，正式批准/冻结未完成。
 
 Development Environment Baseline 1.0候选，NOT_FROZEN。此名称来自第三阶段手册，不取代实际Technical Baseline 1.1-py310-cpu的工程版本，也不是已批准的生产Python基线。

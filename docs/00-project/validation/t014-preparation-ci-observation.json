@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-19T13:22:23.529223+00:00",
+  "scope": "previous_navigation_commit_CI_observation_and_cause_not_current_T014_CI_acceptance",
+  "run_id": 39255897321,
+  "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39255897321",
+  "source_commit": "9ec94bd86032cc29b6844b04328ffcedd3c64d3b",
+  "status": "completed",
+  "conclusion": "failure",
+  "identity_job": {
+    "id": 118070973685,
+    "conclusion": "success"
+  },
+  "engineering_job": {
+    "id": 118077596911,
+    "conclusion": "failure",
+    "failed_step": "Validate phase materials and navigation",
+    "failed_check": "current_candidate_input_set_and_exact_hashes",
+    "reason": "candidate input set or source hashes changed; regenerate after review"
+  },
+  "root_cause": "Task/navigation documents changed in the previous continuation without regenerating the existing NOT_FROZEN input candidate. Current T014 preparation also changes selected inputs.",
+  "remediation": "Review selected document changes, run the existing scripts/build_stage_one_candidate.py and rerun the original unchanged validators; do not change checks, baselines or runtime source.",
+  "original_failure_preserved": true,
+  "raw_logs_published": false,
+  "current_T014_hosted_CI_pass_asserted": false,
+  "Python_candidates_created": false
+}

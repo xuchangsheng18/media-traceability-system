@@ -1,0 +1,11 @@
+import base64,hashlib,json,urllib.request
+from pathlib import Path
+base=Path(__file__).parent;out=base/'native-license-source-cache'
+req=urllib.request.Request('https://api.github.com/repos/google/flatbuffers/commits/3b8644d32c50',headers={'User-Agent':'native-N01-audit'})
+with urllib.request.urlopen(req,timeout=60) as r:meta=json.load(r)
+commit=meta['sha'];assert commit.startswith('3b8644d32c50');url='https://api.github.com/repos/google/flatbuffers/license?ref='+commit
+with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'native-N01-audit'}),timeout=60) as r:license_meta=json.load(r)
+raw=base64.b64decode(license_meta['content']);url=license_meta['download_url'];assert commit in url
+(out/('flatbuffers-'+commit+'-LICENSE')).write_bytes(raw)
+report={'status':'PASS_MATERIAL_ONLY','module':'github.com/google/flatbuffers/go','version':'v0.0.0-20230108230133-3b8644d32c50','commit':commit,'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw),'scope':'repository_root_LICENSE_for_exact_Go_submodule_commit_not_semantic_admission','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+(base/'native-n01-round3-evidence/flatbuffers-license-source-report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status'])

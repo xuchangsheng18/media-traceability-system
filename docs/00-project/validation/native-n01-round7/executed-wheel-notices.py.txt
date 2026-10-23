@@ -1,0 +1,14 @@
+import datetime,hashlib,json,os,re,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');cache=base/'native-pip-closure-cache';lock=json.loads((repo/'config/native/python-runtime-wheels.lock.json').read_text());rows=[]
+for x in lock['wheels']:
+ p=cache/x['filename'];assert hashlib.sha256(p.read_bytes()).hexdigest()==x['sha256'];materials=[]
+ with zipfile.ZipFile(p) as z:
+  for n in z.namelist():
+   if n.endswith(('.py','.pyc','.class','.java','.so','.dll')) or n.startswith('META-INF/services/') or not re.search(r'(^|[_.-])(licen[sc]e|notice|copying|copyright)([_.-]|$)',Path(n).name,re.I):continue
+   b=z.read(n)
+   try:text=b.decode('utf8')
+   except UnicodeDecodeError:continue
+   materials.append({'path':n,'sha256':hashlib.sha256(b).hexdigest(),'utf8_text':text})
+ rows.append({'name':x['name'],'version':x['version'],'wheel_sha256':x['sha256'],'materials':materials})
+d={'scope':'95_exact_authenticated_wheel_notice_texts_not_complete_nested_license_approval','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'rows':rows,'missing_materials':[x['name'] for x in rows if not x['materials']],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(base/'native-n01-r7-wheel-notices.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'wheels':len(rows),'texts':sum(len(x['materials']) for x in rows),'missing':d['missing_materials']}))

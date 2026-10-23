@@ -1,0 +1,40 @@
+import datetime,hashlib,json,os,re,subprocess
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system')
+out=base/'native-python-closure-20261017'
+tool=base/'native-n01-private-toolchain-20261017'
+build=base/'native-n01-source-builds-20261017'
+paths=set(json.loads((out/'python-runtime-closure-report.json').read_text())['elf_files'])
+roots=[build/'nginx-1.30.6/objs/nginx',build/'postgresql-16.15/src',build/'otp_src_27.3.4.18/bin',build/'otp_src_27.3.4.18/lib/crypto',base/'native-n01-binary-probes-20261017',base/'native-n01-sbom-audit-20261017/rabbitmq']
+for root in roots:
+    for p in ([root] if root.is_file() else root.rglob('*')):
+        if p.is_file() and not p.is_symlink():
+            with p.open('rb') as f:magic=f.read(4)
+            if magic==b'\x7fELF':paths.add(str(p))
+rows=[];libraries={};missing=[];relocatable_skipped=0
+jdk=next((base/'native-n01-binary-probes-20261017/java').glob('jdk-*'))
+library_paths=[tool/'usr/lib/x86_64-linux-gnu',jdk/'lib',jdk/'lib/server',Path('/opt/conda/glwy/envs/py310/lib/python3.10/site-packages/torch/lib')]
+library_paths += [build/'postgresql-16.15/src/interfaces'/p for p in ['libpq','ecpg/pgtypeslib','ecpg/ecpglib','ecpg/compatlib']]
+env=dict(os.environ,LD_LIBRARY_PATH=':'.join(map(str,library_paths)))
+for path in sorted(paths):
+    p=Path(path)
+    header=p.read_bytes()[:20];kind=int.from_bytes(header[16:18],'little' if header[5]==1 else 'big')
+    if kind==1:
+        relocatable_skipped+=1;continue
+    # Only previously authenticated/private-built files in explicit roots.
+    r=subprocess.run(['/usr/bin/ldd',path],capture_output=True,text=True,env=env,timeout=20)
+    text=r.stdout+r.stderr
+    unresolved=[line.strip() for line in text.splitlines() if 'not found' in line]
+    resolved=sorted(set(re.findall(r'(?:=>\s*)?(/[^\s()]+)',text)))
+    row={'path':path,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'exit_code':r.returncode,'unresolved':unresolved,'resolved':resolved,'static':('statically linked' in text or 'not a dynamic executable' in text)}
+    rows.append(row)
+    if unresolved or (r.returncode and not row['static']):missing.append(row)
+    for name in resolved:
+        q=Path(name).resolve()
+        if q.is_file() and str(q) not in libraries:
+            owner=subprocess.run(['dpkg-query','-S',str(q)],capture_output=True,text=True)
+            libraries[str(q)]={'sha256':hashlib.sha256(q.read_bytes()).hexdigest(),'size_bytes':q.stat().st_size,'dpkg_owner':owner.stdout.strip() if owner.returncode==0 else None,'private_toolchain':str(q).startswith(str(tool))}
+report={'schema_version':1,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'allowlisted_ELF_loader_resolution_with_explicit_private_build_JDK_and_Torch_library_paths_not_all_dlopen_or_feature_paths','status':'PASS' if not missing else 'FAIL','elf_count':len(rows),'relocatable_objects_skipped':relocatable_skipped,'library_paths':list(map(str,library_paths)),'library_count':len(libraries),'unresolved_count':len(missing),'files':rows,'libraries':libraries,'blockers':missing,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'closure_admitted':False,'limitations':['Private library path is build evidence, not a deployable service configuration','Runtime dlopen, optional plugins and unexecuted feature paths require separate validation','Host library hashes do not replace signed recovery packages'],'services_changed':False,'system_packages_changed':False}
+(out/'elf-runtime-resolution-report.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({k:report[k] for k in ['status','elf_count','library_count','unresolved_count']}))

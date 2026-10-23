@@ -1,0 +1,13 @@
+import concurrent.futures,hashlib,json,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-package-source-cache';out.mkdir(exist_ok=True)
+sources=[('gcc-16.2.0.tar.gz','https://ftp.gnu.org/gnu/gcc/gcc-16.2.0/gcc-16.2.0.tar.gz','071d00a097579e5ef7ce97fc4a9e58e73fd3503c0a013c765c970370a5a53b9b'),('sqlite-autoconf-3530400.tar.gz','https://www.sqlite.org/2026/sqlite-autoconf-3530400.tar.gz','0e9483900e92cd5de8fd48d16bf9200145a61f7fd5be542a5ac81d8a9516eb9c')]
+def get(row):
+ n,u,h=row;p=out/n
+ if not p.exists():
+  with urllib.request.urlopen(u,timeout=180) as s,p.open('wb') as f:
+   while b:=s.read(1048576):f.write(b)
+ digest=hashlib.sha256(p.read_bytes()).hexdigest();assert digest==h,(n,digest)
+ return {'filename':n,'url':u,'sha256':digest,'size_bytes':p.stat().st_size,'digest_authority':'exact_recipe_in_previously_verified_Conda_archive_not_new_upstream_signature','installation_permitted':False}
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(get,sources))
+(out/'source-acquisition.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows))

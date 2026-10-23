@@ -1,0 +1,59 @@
+{
+  "realm": "media-trace",
+  "enabled": true,
+  "sslRequired": "all",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": false,
+  "bruteForceProtected": true,
+  "passwordPolicy": "length(14)",
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 28800,
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "defaultOptionalClientScopes": [],
+  "eventsEnabled": true,
+  "eventsExpiration": 604800,
+  "eventsListeners": [],
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": false,
+  "clients": [
+    {
+      "clientId": "media-trace-api",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [],
+      "defaultClientScopes": [],
+      "optionalClientScopes": []
+    },
+    {
+      "clientId": "media-trace-web",
+      "enabled": false,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [],
+      "webOrigins": [],
+      "defaultClientScopes": ["basic"],
+      "optionalClientScopes": [],
+      "attributes": {"pkce.code.challenge.method": "S256"},
+      "protocolMappers": [
+        {
+          "name": "media-trace-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "config": {"included.client.audience": "media-trace-api", "id.token.claim": "false", "access.token.claim": "true", "introspection.token.claim": "true"}
+        }
+      ]
+    }
+  ]
+}

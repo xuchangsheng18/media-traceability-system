@@ -1,0 +1,340 @@
+{
+  "task_id": "T013",
+  "record_kind": "implementation_progress_register_not_validator_acceptance_input",
+  "observed_at": "2026-10-19T09:22:19.524564+00:00",
+  "tested_source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+  "status": "INCOMPLETE_EVIDENCE_REGISTER_FORMAL_ACCEPTANCE_PENDING",
+  "pass_count": 20,
+  "not_executed_count": 2,
+  "formal_accepted": false,
+  "hosted_ci_triggered": true,
+  "entries": [
+    {
+      "id": "IDP-01",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "Images had zero High/Critical scanner findings and deployment preflight passed; formal software admission and license/security owner approval remain absent.",
+      "references": [
+        "docs/00-project/validation/t013-identity-image-admission-report.json"
+      ]
+    },
+    {
+      "id": "IDP-02",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Three isolated identity services and resource/volume boundaries were deployed and inspected; original seven project services remained healthy.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json",
+        "deploy/identity/compose.yaml"
+      ]
+    },
+    {
+      "id": "IDP-03",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Public TLS endpoint and SSH-only loopback management origin were exercised; human administrator/MFA handover is still open.",
+      "references": [
+        "tests/identity/test_tls_gateway.py",
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-04",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Public management API/path bypasses and internal-only service boundaries were checked in live TLS tests and preflight.",
+      "references": [
+        "tests/identity/test_tls_gateway.py",
+        "tests/platform/test_t013_identity_deploy.py"
+      ]
+    },
+    {
+      "id": "IDP-05",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Live discovery/forwarded-header and wrong-Host checks passed.",
+      "references": [
+        "tests/identity/test_tls_gateway.py"
+      ]
+    },
+    {
+      "id": "IDP-06",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Live trusted CA/SAN behavior and wrong-CA/hostname rejection passed.",
+      "references": [
+        "tests/identity/test_tls_gateway.py"
+      ]
+    },
+    {
+      "id": "IDP-07",
+      "status": "PASS_SCOPED_REAL_ROTATION",
+      "evidence_boundary": "Real browser tokens, public JWKS and distinct kid were checked in a temporary realm. Old token remained valid during overlap, then failed after old provider removal; new token remained valid. No shared realm key or signing private key was changed/read.",
+      "references": [
+        "tests/identity/test_key_rotation_live.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
+      ]
+    },
+    {
+      "id": "IDP-08",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Real browser authorization-code flow covered PKCE/state/nonce, wrong verifier, and code replay against a temporary realm.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-09",
+      "status": "NOT_EXECUTED",
+      "evidence_boundary": "徐昌胜及xuchangsheng登录名已登记；本人MFA管理替代工具、真实隔离退役后操作与重启及共享私密候选准备已验证。真实账号/本人设备MFA、共享专用客户端采用、bootstrap及历史凭据退役仍未执行。",
+      "references": [
+        "docs/00-project/validation/t013-role-assignment.json",
+        "docs/00-project/validation/t013-bootstrap-management-report.json",
+        "docs/10-deployment/keycloak-identity-runbook.md"
+      ]
+    },
+    {
+      "id": "IDP-10",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Live tests rejected ID tokens, invalid signatures, and wrong issuer/audience.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-11",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence_boundary": "Original real expiration/signature/claim tests were rerun. Added four malformed/oversize/empty/whitespace boundaries: three were rejected locally, one malformed JWT reached the issuer. This is bounded input coverage, not exhaustive parser proof.",
+      "references": [
+        "tests/identity/test_faults_live.py",
+        "tests/identity/test_oidc_live.py",
+        "tests/platform/test_t013_tokens.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
+      ]
+    },
+    {
+      "id": "IDP-12",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Live revocation/session actions were measured against the ten-second new-request denial target.",
+      "references": [
+        "tests/identity/test_oidc_live.py"
+      ]
+    },
+    {
+      "id": "IDP-13",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Real Keycloak issuer+sub mapping, unmapped-subject denial, disabled user/organization, and mapping revoke passed against isolated business DB.",
+      "references": [
+        "tests/identity/test_mapping_live.py"
+      ]
+    },
+    {
+      "id": "IDP-14",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "No case permission was inferred from Keycloak admin status; unmapped or unauthorized business identity remained denied.",
+      "references": [
+        "tests/identity/test_mapping_live.py"
+      ]
+    },
+    {
+      "id": "IDP-15",
+      "status": "PASS_SCOPED_REAL_SOCKET_TLS_DATABASE_FAULTS",
+      "evidence_boundary": "Nineteen cases passed: fifteen real TLS/socket/database faults with positive real-token controls, plus four token-input boundaries (three rejected locally, one sent to the issuer). Slow-response RED/GREEN evidence is retained. Response progress budget and per-I/O timeouts are verified on these paths, not a universal hard real-time total deadline.",
+      "references": [
+        "tests/identity/test_faults_live.py",
+        "backend/business_app/identity/tokens.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
+      ]
+    },
+    {
+      "id": "IDP-16",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence_boundary": "Real temporary client-secret rotation: old adapter rejects with existing 503, new secret verifies the same real token. Original live secret tests retained. Not a formal secret custody handover.",
+      "references": [
+        "tests/identity/test_key_rotation_live.py",
+        "tests/identity/test_oidc_live.py",
+        "docs/00-project/validation/t013-rotation-fault-report.json"
+      ]
+    },
+    {
+      "id": "IDP-17",
+      "status": "PASS_ISOLATED_RESTART_AND_DEPENDENCY_DENIAL",
+      "evidence_boundary": "真实隔离三服务重启后realm、用户、客户端、签名标识及精确映射保留。停止数据库后就绪DOWN且认证503拒绝，恢复后正向核验成功。共享身份容器未重启。",
+      "references": [
+        "docs/00-project/validation/t013-recovery-report.json",
+        "tests/identity/test_recovery_live.py",
+        "deploy/identity/nginx.conf"
+      ]
+    },
+    {
+      "id": "IDP-18",
+      "status": "PASS_BOUNDED_AVAILABLE_HISTORY_RUNTIME_AND_CURRENT_CI_LOG_REVIEW",
+      "evidence_boundary": "Current payload public references/raw reachable blobs, current source, ten retained project logs and both exact current hosted CI job logs scanned against twelve known private values and credential patterns without findings. Reachable commit metadata additionally pattern-scanned. Real fault-query leak has retained RED/GREEN fix evidence. Deleted/expired logs, unreachable history, decompressed binaries and unknown credentials remain outside this bounded audit.",
+      "references": [
+        "docs/00-project/validation/t013-recovery-report.json",
+        "docs/00-project/validation/t013-gateway-log-privacy-report.json",
+        "docs/00-project/validation/t013-recovery-ci-report.json",
+        "docs/00-project/validation/t013-admin-handover-ci-report.json",
+        "docs/00-project/validation/t013-bootstrap-management-ci-report.json"
+      ],
+      "current_handover_CI_log_boundary": "Both exact current handover CI jobs additionally scanned against 12 known runtime values and credential patterns without findings; bounded decoded-log audit only.",
+      "current_management_CI_log_boundary": "Two exact current jobs scanned against 12 known shared values and credential patterns; bounded decoded-log audit, not universal DLP."
+    },
+    {
+      "id": "IDP-19",
+      "status": "PASS_ISOLATED_RESTORE_ONLY",
+      "evidence_boundary": "Encrypted backup restored into a new network-isolated database volume; counts 2 realms, 16 clients, 1 synthetic user; original DB unchanged. This is not production DR acceptance.",
+      "references": [
+        "docs/00-project/validation/t013-keycloak-execution-report.json",
+        "scripts/identity/backup.py",
+        "scripts/identity/restore.py"
+      ]
+    },
+    {
+      "id": "IDP-20",
+      "status": "PASS_ISOLATED_RESTORE_CREDENTIAL_RECONCILIATION",
+      "evidence_boundary": "真实旧备份可恢复已撤销会话；清会话/not-before、撤下旧SIG密钥和APIsecret轮换后旧access/refresh/secret失败，新身份精确映射且未授予案件权限。注入清理失败保持临时realm禁用。范围仅临时业务realm，不包含master/bootstrap/CA正式交接或共享切换。",
+      "references": [
+        "docs/00-project/validation/t013-recovery-report.json",
+        "scripts/identity/reconcile.py",
+        "scripts/identity/restore.py",
+        "tests/identity/test_recovery_live.py"
+      ]
+    },
+    {
+      "id": "IDP-21",
+      "status": "PASS_ISOLATED_ROLLBACK_WITH_FRESH_CREDENTIAL_EPOCH",
+      "evidence_boundary": "仅隔离身份项目切回原测试卷；稳定身份字段和映射保留，再次清会话/换密钥/换APIsecret后旧恢复凭据不能复活。保留原卷，不覆盖业务库；未执行生产回切。",
+      "references": [
+        "docs/00-project/validation/t013-recovery-report.json",
+        "tests/identity/test_recovery_live.py"
+      ]
+    },
+    {
+      "id": "IDP-22",
+      "status": "PASS_EXACT_SCOPED_HOSTED_IDENTITY_AND_REQUIRED_ENGINEERING",
+      "evidence_boundary": "Exact bootstrap-management and owned same-digest CI profile payload passed 330 identity checks, 32 required engineering gates and 246 business tests; two actual ZIPs verified by platform size/digest and 53 committed source hashes. Linux 443 unit/engineering tests and the complete real management rerun match all current 53 identity files. Suites overlap; actual-person handover, shared adoption and software admission remain unclosed.",
+      "references": [
+        "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
+        "docs/00-project/validation/t013-bootstrap-management-report.json",
+        ".github/workflows/identity.yml",
+        ".github/workflows/ci.yml"
+      ]
+    }
+  ],
+  "historical_snapshots": [
+    {
+      "observed_at": "2026-10-17T08:08:01+00:00",
+      "tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
+      "pass_count": 13,
+      "not_executed_count": 9,
+      "hosted_ci_triggered": false
+    },
+    {
+      "observed_at": "2026-10-18T19:31:40.687739+00:00",
+      "pass_count": 16,
+      "not_executed_count": 6,
+      "current_batch_report_ref": "docs/00-project/validation/t013-rotation-fault-report.json"
+    }
+  ],
+  "current_batch_report_ref": "docs/00-project/validation/t013-recovery-report.json",
+  "current_batch_tested_source": "Exact committed MFA operator management and retirement-preparation hosted CI, matching Linux runtime source hashes.",
+  "failed_count": 0,
+  "pending_count": 2,
+  "current_hosted_tested_source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+  "current_hosted_ci_ref": "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
+  "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json",
+  "historical_tested_source_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
+  "tested_payload_history": [
+    {
+      "source_commit": "79ab553d7fc8e70beb78b1eae53a762d6f2b88f0",
+      "hosted_ci_ref": "docs/00-project/validation/t013-recovery-ci-report.json"
+    },
+    {
+      "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+      "hosted_ci_ref": "docs/00-project/validation/t013-admin-handover-ci-report.json"
+    }
+  ],
+  "key_custody_operator_progress_ref": "docs/00-project/validation/t013-admin-handover-report.json",
+  "current_key_custody_scope": "Real independent RSA4096 signer now exists: C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D, signing/certification only as designed. Server public self-signature, protection P, 1672-byte public export and 3486-byte protected private export structure verified. Automatic signer revocation file exists. USB recovery group and revocation encrypted envelope retain earlier scoped proof. Signer USB copy, actual signing/two-subkey decrypt/detached verify/restored-home and identity recovery remain unexecuted. T013/IDP counts unchanged; Python candidates deferred.",
+  "current_task_navigation_update": {
+    "observed_at": "2026-10-19T12:50:15.957164+00:00",
+    "source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb",
+    "task_count": 170,
+    "partial_evidence_task_count": 51,
+    "no_task_verification_evidence_count": 119,
+    "verified_substeps": 87,
+    "remaining_work_groups": 621,
+    "execution_items": 708,
+    "whole_tasks_accepted": 0,
+    "T013_verified_substeps": 8,
+    "T013_remaining_work_groups": 3,
+    "updated_internal_milestones": [
+      {
+        "id": "T013-R02-M01",
+        "description": "真实恢复主密钥和两把加密子密钥存在，三个保护标记和完整公开指纹已核验。",
+        "status": "PASS_EXISTENCE_BINDINGS_AND_PROTECTION_METADATA_ONLY",
+        "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
+        "full_task_acceptance_asserted": false
+      },
+      {
+        "id": "T013-R02-M02",
+        "description": "10361字节恢复私钥导出包含完整受保护密钥组；1329字节恢复吊销副本AES256封装通过。",
+        "status": "PASS_EXPORT_AND_ENVELOPE_STRUCTURE_ONLY_NOT_RESTORE",
+        "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
+        "full_task_acceptance_asserted": false
+      },
+      {
+        "id": "T013-R02-M03",
+        "description": "修复SSH终端口令入口；本人已成功创建Linux独立RSA4096签名密钥，公钥1672字节及受保护私钥导出3486字节通过核验。",
+        "status": "PASS_REAL_SIGNER_AND_LOCAL_PROTECTED_EXPORT_STRUCTURE_ONLY",
+        "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
+        "evidence_ref": "docs/00-project/validation/t013-role-assignment.json",
+        "full_task_acceptance_asserted": false
+      }
+    ],
+    "counting_note": "本轮实际成果登记在尚未关闭的T013-R02内部；未新增完整C步骤，原170任务和708条C/R执行事项数量不变。",
+    "task_ledger_ref": "tasks/execution-status.json",
+    "step_navigation_ref": "docs/00-project/task-execution-steps.txt"
+  },
+  "next_development_entry_review": {
+    "observed_at": "2026-10-19T12:50:15.957164+00:00",
+    "status": "READY_FOR_T014_PREPARATION_ONLY_NOT_FULL_DEPENDENCY_CLOSEOUT",
+    "next_task_id": "T014",
+    "next_task_name": "实现接口级权限控制",
+    "source_dependencies": [
+      "T012",
+      "T013"
+    ],
+    "environment_scope": "current Linux / Miniforge py310 / CPU development; Windows is a remote/custodian entry",
+    "reviewed_source_commit": "99e8bfa7490831351818824e67859552a9bc2ebb",
+    "source_file_sha256": {
+      "backend/business_app/auth.py": "c31784af863bb2b498983e795802965f5de869907ff2a3eae4da045f483c07f6",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "backend/business_app/controls/router.py": "c720cba1c8cfdf6c9527ad021c92d9ac4c93a418b01afefee2c911390966d399",
+      "tests/business/test_authorization.py": "b9f6ef420b75fee02d94ae207f4467a3a2ae8e9a53133d15e1aec3bf518dd13f",
+      "tests/business/test_token_identity.py": "0e69f6ebddd3996ccad2c3197faeef0e09d49439099c21c23a2a20fc7f95f2a7",
+      "tasks/platform/T014.md": "f9300a635ae73ead23faa666b00ba29bf25e1621537d15dddc32f9037412c6e8"
+    },
+    "review_method": "Read source task dependencies, actual authentication/authorization ports and existing test assertions; no new runtime business tests or policy authorization asserted by this review.",
+    "ready_for_dependency_review_and_test_design": true,
+    "ready_for_unconditional_implementation": false,
+    "full_source_dependencies_accepted": false,
+    "formal_identity_or_shared_environment_integration_ready": false,
+    "new_T014_implementation_started": false,
+    "T014_actual_owner": null,
+    "allowed_next_activities": [
+      "按T014卡核对T012模型/迁移与T013认证的适用实现和测试证据",
+      "整理受保护接口与动作权限、单位和案件范围矩阵",
+      "设计隔离合成策略下401/403、撤销及跨范围拒绝测试；正式规则缺失时保持拒绝",
+      "确认下一批具体代码范围、实际负责人和验收输入后再实施"
+    ],
+    "noted_boundaries": [
+      "现有authorize_request在未配置权威身份时返回503；已配置身份但缺少Bearer返回401",
+      "TokenIdentityAuthority缺少case/source正式策略时返回FORMAL_POLICY_UNCONFIGURED 503，不自动产生授权",
+      "当前部分跨案件拒绝测试使用404隐藏对象存在性，T014测试设计须核对既有契约，不能统一改成403而不审查",
+      "GPG备份签名密钥不是Keycloak登录身份、MFA或业务权限决定"
+    ],
+    "remaining_conditions": [
+      "T013本人改密/MFA接管、bootstrap退役与共享配置采用尚未完成",
+      "T013实际签名、两子密钥解密/验签、备份恢复仍待验证",
+      "T014实际负责人、权威权限规则及适用完整验收证据未落实"
+    ],
+    "formal_accepted": false,
+    "Python_candidates_created": false
+  }
+}

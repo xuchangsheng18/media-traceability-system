@@ -1,0 +1,20 @@
+import hashlib,json,shutil
+from pathlib import Path
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree';o=r/'docs/00-project/validation/native-n01-round6'
+def read(p):return json.loads(p.read_text(encoding='utf8'))
+def write(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+d=read(o/'font-metadata-and-obligations-report.json');groups={}
+for row in d['fonts_and_svg_assets']:
+ texts='\n'.join(x['text'] for x in row.get('name_records',[]) if x['nameID'] in [13,14]);category='LGPL_LINK_REQUIRES_EXACT_ROUTE_REVIEW' if 'lesser.html' in texts else 'OFL_DECLARATION_REQUIRES_COPYRIGHT_AND_RESERVED_NAMES' if 'Open Font License' in texts or 'scripts.sil.org' in texts else 'APACHE_DECLARATION_REQUIRES_NOTICES' if 'Apache' in texts or 'apache.org' in texts else 'NO_COMPLETE_LICENSE_IN_SELECTED_NAME_RECORDS'
+ groups.setdefault(category,[]).append(row['path'])
+d['obligation_groups']=groups;write(o/'font-metadata-and-obligations-report.json',d)
+notice=r/'docs/02-architecture/third-party-notices/native-n01-vendor-font-notices.txt';parts=['实际字体内嵌许可材料；来自nameID13/14，不推断未声明字体许可或覆盖全部字体资产。逐文件来源和摘要见font-metadata-and-obligations-report.json。']
+seen=set()
+for row in d['fonts_and_svg_assets']:
+ for n in row.get('name_records',[]):
+  if n['nameID']==13 and 'PERMISSION & CONDITIONS' in n['text'] and n['text'] not in seen:parts.append('\n--- '+row['path']+' ---\n'+n['text']);seen.add(n['text'])
+notice.write_text('\n'.join(parts).rstrip()+'\n',encoding='utf8',newline='\n')
+obs={'scope':'audit_helper_observations_not_service_failures','observations':[{'event':'Windows default GBK failed reading UTF8 GitHub metadata','resolution':'explicit PYTHONUTF8 used; artifact then downloaded and API digest verified'},{'event':'conventional PatternFlyv4.224.5 tag404','resolution':'actual prerelease tag fixed commit verified;247 source asset byte matches,not npm gitHead claim'},{'event':'PowerShell quote parser rejected attempted helper edit','resolution':'apply_patch used;failed command made no change'},{'event':'notice appendix extra blank EOF failed git diff --check','resolution':'display appendix final whitespace normalized;exact original notice bytes retained in JSON;subsequent check passed'},{'event':'GNU GPL web reader timeout','resolution':'existing round5 authenticated official GPL fulltext evidence retained;no claim of fresh successful web fetch'}]};write(o/'audit-observations.json',obs)
+shutil.copyfile(w/'native-n01-round6-documentation-validation.json',o/'documentation-validation-report.json')
+report=read(r/'docs/00-project/validation/native-n01-round6-admission-report.json');report['font_probe']={'sfnt_fonts_parsed':181,'parse_failures':0,'font_and_SVG_assets_examined':293,'FontAwesome4_7_exact_matches':6,'all_fonts_approved':False};report['evidence_files']=[{'path':p.relative_to(r).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'size_bytes':p.stat().st_size} for p in sorted(o.rglob('*')) if p.is_file()];write(r/'docs/00-project/validation/native-n01-round6-admission-report.json',report)
+print('font obligation groups', {k:len(v) for k,v in groups.items()})

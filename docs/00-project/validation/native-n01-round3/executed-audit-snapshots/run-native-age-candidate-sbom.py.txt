@@ -1,0 +1,24 @@
+import datetime
+import hashlib
+import json
+import os
+import subprocess
+import tarfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');tools=base/'native-n01-audit-tools';out=base/'native-n01-age-candidate-sbom-audit-20261017';out.mkdir(mode=0o700,exist_ok=True)
+lock=json.loads((repo/'config/native/artifacts.lock.json').read_text())
+config=tools/'syft-native-audit.yaml';config.write_text('check-for-app-update: false\njava:\n  use-network: false\n  use-maven-local-repository: false\nlicense:\n  content: none\n')
+env=os.environ.copy();env.update(SYFT_CHECK_FOR_APP_UPDATE='false',SYFT_JAVA_USE_NETWORK='false',GOMAXPROCS='2',GOMEMLIMIT='2GiB')
+targets={'age_candidate':base/'native-security-candidates-20261017/age-candidate-binaries'}
+summary={'schema_version':1,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'allowlisted_native_runtime_SBOM_and_license_inventory_offline_no_service_start','status':'NOT_EXECUTED','blockers':[],'targets':[],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'tool_lock_sha256':hashlib.sha256((tools/'tools.lock.json').read_bytes()).hexdigest(),'services_changed':False,'system_packages_changed':False}
+for name,path in targets.items():
+    dest=out/(name+'-syft.json');log=out/(name+'-syft.log')
+    cmd=[str(tools/'syft/syft'),'-c',str(config),'scan','dir:'+str(path),'-o','syft-json='+str(dest)]
+    with log.open('wb') as stream:result=subprocess.run(cmd,env=env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
+    row={'component':name,'command':cmd,'exit_code':result.returncode,'status':'FAIL','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    if result.returncode==0:
+        data=json.loads(dest.read_text());artifacts=data['artifacts'];row.update(status='PASS',package_count=len(artifacts),licenses_missing=sum(not a.get('licenses') for a in artifacts),sbom_sha256=hashlib.sha256(dest.read_bytes()).hexdigest(),packages=[{k:a.get(k) for k in ['id','name','version','type','purl','cpes','licenses','foundBy']} for a in artifacts])
+    else:summary['blockers'].append(name+':SBOM_FAILED')
+    summary['targets'].append(row);(out/'sbom-inventory-report.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps({k:row[k] for k in ['component','exit_code','status','package_count','licenses_missing'] if k in row}),flush=True)
+summary['status']='FAIL' if summary['blockers'] else 'PASS';(out/'sbom-inventory-report.json').write_text(json.dumps(summary,indent=2)+'\n')

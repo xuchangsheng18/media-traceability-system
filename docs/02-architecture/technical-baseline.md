@@ -1,5 +1,7 @@
 # Technical Baseline 1.1 — py310 CPU 研发基线
 
+> 2026-10-23活动基线变更：用户已批准全项目迁移至Python3.11.17、Pillow13.0.0及certifi2026.10.19。当前执行按[迁移计划](../superpowers/plans/2026-10-23-python311-migration.md)与config/versions.yaml；旧py310、原锁及历史记录仅保留回退和来源。新环境已闭合100包且扫描无已报告阻断匹配，完整CI与运行验证尚需按新源码核验；生产未冻结，算法仍暂缓。
+
 2026-10-16更新；状态 `DEVELOPMENT_VALIDATED`；正式业务/生产基线 `NOT_FROZEN`。用户指定 Miniforge py310，已据此完成环境盘点、开发技术选择和锁定、真实最小工程及GitHub接入。本机21门禁历史保留，现有托管配置为32道工程门禁，实际源码/run/制品证据见[GitHub报告](../00-project/validation/github-actions-report.json)。
 
 T012之前的逐项工程核验、实际cgroup检查和仍未关闭的条件见[T001—T011复核](../03-development/t001-t011-foundation-review.md)；新增cgroup工作流检查与32项run_ci门禁分别记数。
@@ -74,6 +76,8 @@ T012之前的逐项工程核验、实际cgroup检查和仍未关闭的条件见[
 
 | 内容 | 文件入口 | 含义和使用要求 |
 | --- | --- | --- |
+| 案件令牌及数据库 | [T016令牌0011扩展](<../04-database/operation-token-extension.md>) | 案件签发、非秘密绑定及同根消费；完整0011为64表861列，当前共享/预览库未采用。 |
+| 令牌权限及消费者 | [T016权限和消费者边界](<../08-security/t016-operation-token-boundaries.md>) | 列出实际内核与真实封存/导出/模型消费者的差异、角色关系和采用前决定，不以令牌代替业务权限。 |
 | 剩余接口实际实现 | [11类缺口实际子范围](<../03-development/stage-three/remaining-interface-implementation.md>) | 审批/复核/审计/配置及适配、任务控制和内部协议的真实代码、验证与正式接入边界。 |
 | 整体接口范围 | [系统整体接口说明](<../03-api/system-interface-specification.md>) | 七类接口面、73业务操作/102组件/34能力、服务边界和完整性要求。 |
 | 逐操作/模块目录 | [73操作与12模块导航](<../03-api/detailed-interface-index.md>) | 跳转每个操作的参数、请求/响应、权限、版本、异步终态、样例和任务引用。 |

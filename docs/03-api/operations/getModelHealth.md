@@ -1,6 +1,6 @@
 # 读取模型健康状态：getModelHealth
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f`。契约未冻结，文档存在不代表接口已实现。
 
 `GET /api/v1/models/{id}/health`；operationId=`getModelHealth`；源指针=`/paths/~1models~1{id}~1health/get`。
 

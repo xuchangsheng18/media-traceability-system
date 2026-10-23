@@ -22,9 +22,9 @@ def history_context(business_context):
 
 
 def repository(context):
-    from business_app.history.repository import ResultRepository
+    from tests.business.scoped_history_fixtures import FixtureResultRepository
 
-    return ResultRepository(
+    return FixtureResultRepository(
         context["app"].state.business_database, context["app"].state.upload_service.store, context["authority"]
     )
 
@@ -162,6 +162,7 @@ def test_nested_object_version_is_actually_verified(history_context):
     from business_app.errors import BusinessError
 
     from tests.business.history_fixtures import snapshot
+    from tests.business.http_fixtures import synthetic_case_evidence
 
     changed = snapshot(history_context, 1)
     item = evidence(history_context)
@@ -170,7 +171,10 @@ def test_nested_object_version_is_actually_verified(history_context):
     repo = repository(history_context)
     repo.validate_snapshot(changed)
     with pytest.raises(BusinessError):
-        with repo.database.transaction(scope(history_context)) as connection:
+        with (
+            synthetic_case_evidence(history_context["actor"], history_context["case_id"]),
+            repo.database.transaction(scope(history_context)) as connection,
+        ):
             repo.verify_current_inputs(connection, scope(history_context), changed)
 
 

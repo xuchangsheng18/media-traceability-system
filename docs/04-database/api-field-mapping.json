@@ -6880,8 +6880,8 @@
         "operation_token.approval_id"
       ],
       "handling": "persistence_or_join",
-      "semantics": "服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
-      "status": "proposal_pending_review"
+      "semantics": "服务端核验当前批准链及案件、独立人员、对象、用途、策略和版本，绑定approval_version；不接受客户端批准声明",
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "issueOperationToken",
@@ -6896,7 +6896,7 @@
       ],
       "handling": "persistence_or_join",
       "semantics": "服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
-      "status": "proposal_pending_review"
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "issueOperationToken",
@@ -6911,7 +6911,7 @@
       ],
       "handling": "persistence_or_join",
       "semantics": "服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
-      "status": "proposal_pending_review"
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "issueOperationToken",
@@ -6926,7 +6926,7 @@
       ],
       "handling": "persistence_or_join",
       "semantics": "服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
-      "status": "proposal_pending_review"
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "issueOperationToken",
@@ -6936,10 +6936,12 @@
       "schema": "OperationToken",
       "field": "operation_token",
       "required": true,
-      "targets": [],
-      "handling": "service_projection_or_input",
-      "semantics": "一次性随机凭据只返回本次；DB只存token_sha256",
-      "status": "proposal_pending_review"
+      "targets": [
+        "operation_token.token_sha256"
+      ],
+      "handling": "secret_response_hash_only_and_nonsecret_binding",
+      "semantics": "独立密钥HMAC派生凭据仅通过受控响应返回；合法幂等重试重建同一凭据，DB仅保存完整凭据摘要和0011非秘密绑定；不是业务动作授权",
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "issueOperationToken",
@@ -6954,7 +6956,7 @@
       ],
       "handling": "persistence_or_join",
       "semantics": "服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
-      "status": "proposal_pending_review"
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "issueOperationToken",
@@ -6969,7 +6971,7 @@
       ],
       "handling": "persistence_or_join",
       "semantics": "服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。",
-      "status": "proposal_pending_review"
+      "status": "isolated_development_candidate_not_formally_accepted"
     },
     {
       "operation_id": "sealEvidence",

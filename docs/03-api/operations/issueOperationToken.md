@@ -1,10 +1,10 @@
 # 签发受限操作确认凭据：issueOperationToken
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f`。契约未冻结，文档存在不代表接口已实现。
 
 `POST /api/v1/operation-tokens`；operationId=`issueOperationToken`；源指针=`/paths/~1operation-tokens/post`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
+实现范围：**DEV_PARTIAL**；案件级task/seal签发和内部同事务消费已编码；缺正式规则或独立密钥拒绝；当前共享和预览库未采用0011。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
 
 ## 调用目的与权限
 
@@ -12,7 +12,7 @@
 
 OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`operation.confirm`。
 
-按object_type/purpose核验组织或案件对象；模型发布可为组织级，操作确认不能等同业务批准。
+批准ID服务端定位案件；当前申请人、operation.confirm、任务快照及非空授权来源；实际消费另需动作权限
 
 来源任务：[T016 实现高风险操作二次确认](../../../tasks/platform/T016.md)。
 
@@ -83,7 +83,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`operation.c
 }
 ```
 
-操作确认只防误操作，不替代身份、权限或审批；执行仍核验撤销、版本、到期与单次使用规则。
+仅在当前获准规则及批准链下签发HMAC凭据；幂等重建同一秘密而不落明文。真实seal/其他消费者、组织级发布、正式TTL/密钥保管及角色执行关系待各自实施和确认，见operation-token-extension.md与t016-operation-token-boundaries.md。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 
@@ -93,11 +93,11 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`operation.c
 
 | 方向/字段 | 当前映射 | 处理说明 |
 | --- | --- | --- |
-| request/approval_id | operation_token.approval_id | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
+| request/approval_id | operation_token.approval_id | 服务端核验当前批准链及案件、独立人员、对象、用途、策略和版本，绑定approval_version；不接受客户端批准声明 |
 | request/object_id | operation_token.object_id | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
 | request/object_version | operation_token.object_version | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
 | request/purpose | operation_token.purpose | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
-| response/operation_token | 服务层输入/聚合，不直接生成数据库列 | 一次性随机凭据只返回本次；DB只存token_sha256 |
+| response/operation_token | operation_token.token_sha256 | 独立密钥HMAC派生凭据仅通过受控响应返回；合法幂等重试重建同一凭据，DB仅保存完整凭据摘要和0011非秘密绑定；不是业务动作授权 |
 | response/expires_at | operation_token.expires_at | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
 | response/object_version | operation_token.object_version | 服务层契约输入/聚合结果；下层关联与持久化按操作表清单及源任务核验；不生成无依据列。 |
 

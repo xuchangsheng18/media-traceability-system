@@ -1,0 +1,98 @@
+{
+  "status": "QUALITY_PASS_RUNTIME_TESTS_NOT_RUN",
+  "source_base_commit": "028042c50c24ce141c01e829c001fd3bb3b5495e",
+  "quality_checks": [
+    {
+      "name": "ruff_lint",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "ruff_format",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "mypy",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "documentation_checks": [
+    {
+      "name": "stage_one",
+      "command": "python scripts/validate_stage_one.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "inputs",
+      "command": "python scripts/validate_inputs.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "repository_docs",
+      "command": "python scripts/validate_repository_docs.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "documentation_completion",
+      "command": "python scripts/validate_documentation_completion.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_three",
+      "command": "python scripts/validate_stage_three.py",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "task_navigation_drift",
+      "command": "python scripts/generate_task_progress.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "schedule_drift",
+      "command": "python scripts/plan_project_schedule.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_three_navigation_drift",
+      "command": "python scripts/generate_stage_three_docs.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "requirement_drift",
+      "command": "python scripts/generate_requirements_document.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "remaining_work_drift",
+      "command": "python scripts/generate_remaining_work_navigation.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "stage_status_drift",
+      "command": "python scripts/generate_stage_status_navigation.py --check",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "totals": {
+    "tests": 0,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "runtime_tests_executed": false,
+  "formal_accepted": false,
+  "Python_candidates_created": false
+}

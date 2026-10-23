@@ -88,7 +88,7 @@ configure(app, trust_request_id=True)
 def health():
     return {
         "status": "ok",
-        "python_profile": "py310",
+        "python_profile": "py311",
         "python": sys.version.split()[0],
         "torch": torch.__version__,
         "device": "cpu",

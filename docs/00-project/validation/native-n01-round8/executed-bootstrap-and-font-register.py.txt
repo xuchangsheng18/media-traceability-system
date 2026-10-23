@@ -1,0 +1,22 @@
+import base64,hashlib,io,json,re,tarfile,urllib.request,yaml
+from pathlib import Path
+w=Path(__file__).parent;c=w/'n01-r8-material-cache';sha=lambda b:hashlib.sha256(b).hexdigest();url='https://registry.npmjs.org/bootstrap/3.4.1';mp=c/'bootstrap341.json';ap=c/'bootstrap341.tgz'
+if not mp.exists():mp.write_bytes(urllib.request.urlopen(url,timeout=60).read())
+m=json.loads(mp.read_bytes())
+if not ap.exists():ap.write_bytes(urllib.request.urlopen(m['dist']['tarball'],timeout=60).read())
+b=ap.read_bytes();alg,ds=m['dist']['integrity'].split('-',1);assert base64.b64encode(hashlib.new(alg,b).digest()).decode()==ds;lock=yaml.safe_load((w/'n01-r6-pnpm-lock.yaml').read_text());assert lock['packages']['bootstrap@3.4.1']['resolution']['integrity']==m['dist']['integrity']
+with tarfile.open(fileobj=io.BytesIO(b)) as t:fs={x.name:t.extractfile(x).read() for x in t if x.isfile()}
+old=json.loads((w/'media-trace-foundation-worktree/docs/00-project/validation/native-n01-round6/font-metadata-and-obligations-report.json').read_text());byhash={sha(v):n for n,v in fs.items()};matches=[{'release_path':x['path'],'upstream_member':byhash[x['sha256']],'sha256':x['sha256']} for x in old['fonts_and_svg_assets'] if x['sha256'] in byhash];materials=[{'path':n,'sha256':sha(b),'utf8_text':b.decode()} for n,b in fs.items() if re.search(r'(^|/)(license|notice|copying)(\.|$)',n,re.I)]
+rows=[]
+for x in old['fonts_and_svg_assets']:
+ if x['status']!='PARSED_NAME_TABLE':continue
+ text='\n'.join(n['text'] for n in x.get('name_records',[]) if n['nameID']==13);links='\n'.join(n['text'] for n in x.get('name_records',[]) if n['nameID']==14);family=sorted({n['text'] for n in x['name_records'] if n['nameID']==1});copyrights=sorted({n['text'] for n in x['name_records'] if n['nameID']==0})
+ if 'Open Font License' in text or 'OPEN FONT LICENSE' in text:route='OFL_EXPLICIT_IN_NAME13';basis='actual_font_license_declaration'
+ elif 'Apache' in text:route='APACHE_EXPLICIT_IN_NAME13';basis='actual_font_license_declaration'
+ elif 'scripts.sil.org' in links:route='OFL_LINK_ONLY_REQUIRES_ATTRIBUTION_REVIEW';basis='font_metadata_URL_only'
+ elif 'fa-solid-900' in x['path']:route='FA563_TABLE_PAYLOAD_MATCH_OFL_ROUTE';basis='font-table-review.json;glyph/name/other tables exact,only head checksum and timestamps differ'
+ elif 'fontawesome-webfont' in x['path']:route='FA470_EXACT_ARCHIVE_MATCH_ROUTE';basis='round6 exact FontAwesome4.7 archive member matches'
+ elif x['sha256'] in byhash:route='BOOTSTRAP341_EXACT_MATCH_PARENT_MIT_SCOPE_REVIEW';basis='exact Bootstrap3.4.1 member and root LICENSE;do not infer unrestricted separate Glyphicons licensing'
+ else:route='PARENT_SOURCE_LICENSE_SCOPE_REVIEW';basis='fixed PatternFly source/member matching and root MIT material;confirm own-icon/trademark boundaries'
+ rows.append({'path':x['path'],'sha256':x['sha256'],'families':family,'original_copyrights':copyrights,'route':route,'basis':basis,'OFL_body_takes_precedence_over_additional_LGPL_link_for_review':route=='OFL_EXPLICIT_IN_NAME13' and 'lesser.html' in links,'formal_admission':False})
+d={'scope':'actual_font_declarations_and_upstream_bindings_for_internal_team_review_not_blanket_license_approval','rows':rows,'bootstrap':{'version':'3.4.1','archive_sha256':sha(b),'SRI_and_Keycloak_lock_verified':True,'matches':matches,'materials':materials},'summary':{route:sum(x['route']==route for x in rows) for route in sorted({x['route'] for x in rows})},'external_distribution_conditions_not_current_completed_obligations':True};(c/'font-license-register.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8');print(json.dumps({'font_routes':d['summary'],'bootstrap_exact_assets':len(matches)},ensure_ascii=False))

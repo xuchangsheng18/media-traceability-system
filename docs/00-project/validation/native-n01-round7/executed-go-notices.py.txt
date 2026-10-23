@@ -1,0 +1,17 @@
+import hashlib,json,os,re
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-security-candidates-20261017';repo=Path('/workspace/glwy/projects/media-traceability-system');d=json.loads((repo/'docs/00-project/validation/native-n01-round3/go-bundled-license-materials-report.json').read_text());rows=[]
+def escape(s):return ''.join('!'+c.lower() if c.isupper() else c for c in s)
+for candidate in d['candidates']:
+ source=root/('age-b74dce4cdbe35b5e5f66c06d9612b72f89028758' if candidate['name']=='age' else 'seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93')
+ for m in candidate['modules']:
+  actual=m.get('replacement',m);path=source if m['main'] else root/'gomodcache'/(escape(actual['module'])+'@'+escape(actual['version']));materials=[]
+  for p in path.rglob('*'):
+   if not p.is_file() or p.is_symlink() or p.stat().st_size>400000 or p.suffix.lower() in ['.go','.java','.class','.html','.js','.c','.h','.py','.rs']:continue
+   if not re.search(r'(^|[_.-])(licen[sc]e|copying|notice|copyright|patents)([_.-]|$)',p.name,re.I):continue
+   b=p.read_bytes()
+   try:text=b.decode('utf8')
+   except UnicodeDecodeError:continue
+   materials.append({'path':p.relative_to(path).as_posix(),'sha256':hashlib.sha256(b).hexdigest(),'utf8_text':text})
+  rows.append({'candidate':candidate['name'],'binary_sha256':candidate['binary_sha256'],'module':m['module'],'version':m['version'],'replacement':m.get('replacement'),'source_present':path.is_dir(),'materials':materials,'nested_materials_are_candidates_not_proof_all_are_in_binary':True})
+out=base/'native-n01-r7-go-notices.json';out.write_text(json.dumps({'scope':'actual_compiled_module_list_recursive_notice_candidates_not_software_admission','rows':rows,'source_report_sha256':hashlib.sha256((repo/'docs/00-project/validation/native-n01-round3/go-bundled-license-materials-report.json').read_bytes()).hexdigest(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},indent=2)+'\n');print(json.dumps({'module_records':len(rows),'nested_or_root_materials':sum(len(x['materials']) for x in rows),'modules_without_materials':sum(not x['materials'] for x in rows)}))

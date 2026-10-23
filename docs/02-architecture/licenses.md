@@ -1,5 +1,13 @@
 # 许可、维护与制品边界
 
+[N01第八轮内部研发材料与未来分发条件](../03-development/native-n01-internal-semantic-license-review.md)及[实际声明附录](third-party-notices/native-n01-round8-font-theme-notices.txt)；当前不制作正式外发运行包，软件准入未批准。
+
+[N01第七轮材料装配与未决义务](../03-development/native-n01-generated-source-and-distribution-kit.md)；来源/字节核验不代替正式软件准入。
+
+[N01第六轮义务登记](../03-development/native-n01-generation-and-distribution-review.md)及[实际vendor声明](third-party-notices/native-n01-vendor-upstream-notices.txt)；审查材料不代表准入批准。
+
+[N01第五轮捆绑许可与来源复核](../03-development/native-n01-bundled-origin-review.md)及[Swagger上游声明附录](third-party-notices/native-n01-swagger-ui-upstream-notices.txt)提供精确材料；它们不是全部第三方软件准入或正式发行许可决定。
+
 2026-10-12；这是工程许可盘点与待办，未代表单位法律审查或生产准入。Python 包声明见 [python-components.json](../00-project/validation/python-components.json)，npm 物料见 [npm-sbom.cdx.json](../00-project/validation/npm-sbom.cdx.json)。安装包元数据并不能证明所有间接依赖或再分发义务已满足。
 
 | 组件 | 上游许可/需要处理的事项 | 本轮处理 |
@@ -44,3 +52,9 @@ OSV按精确版本2.14.1+cpu及基础版本2.14.1分别查询，当前均未返�
 | eslint-config-prettier | 10.1.8 | MIT |
 
 补充Node类型开发物料：@types/node 22.20.5，发行包license字段MIT；完整传递依赖仍以锁及扫描为准。
+
+当前N01十类软件准入、候选精确摘要及内部字体/Flatbuffers补充见[第九轮复核](../03-development/native-n01-candidate-adoption-review.md)；三项候选仅获原生研发制品预选确认，无安装或整体准入批准。
+
+当前嵌套许可逐项范围与N01-A/B/C待决状态见[第十轮复核](../03-development/native-n01-nested-license-use-review.md)；三项预选已确认，Python候选仍暂缓。
+
+当前需要确认的信息、12条CVE及实际游标观察见[统一准入清单](../03-development/native-n01-admission-decisions.md)；嵌套许可的限定材料复核保留，Python候选仍暂缓。

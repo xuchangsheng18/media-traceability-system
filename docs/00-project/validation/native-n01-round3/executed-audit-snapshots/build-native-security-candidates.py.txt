@@ -1,0 +1,31 @@
+import datetime,hashlib,json,os,subprocess,tarfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');cache=base/'native-security-candidate-cache';out=base/'native-security-candidates-20261017';out.mkdir(mode=0o700,exist_ok=True)
+lock=json.loads((cache/'candidate-inputs.lock.json').read_text());assert len(lock['artifacts'])==4
+paths={}
+for row in lock['artifacts']:
+ p=cache/row['filename'];assert hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256']
+ with tarfile.open(p) as a:
+  paths['go' if p.name.startswith('go1') else 'node' if p.name.startswith('node-') else row['repository'].split('/')[-1]]=out/a.getmembers()[0].name.split('/')[0]
+  a.extractall(out,filter='data')
+env=dict(os.environ,PATH=str(paths['go']/'bin')+':/usr/bin:/bin',GOTOOLCHAIN='local',GOPATH=str(out/'gopath'),GOMODCACHE=str(out/'gomodcache'),GOCACHE=str(out/'gocache'),GOMAXPROCS='4',GOFLAGS='-p=4',CGO_ENABLED='0',GOPROXY='http://127.0.0.1:18764',GOSUMDB='sum.golang.org http://127.0.0.1:18764/sumdb/sum.golang.org')
+report={'scope':'user_approved_isolated_candidates_not_adopted_baseline','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'checks':[],'status':'IN_PROGRESS','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'services_changed':False}
+def run(name,cmd,cwd,timeout=900):
+ p=out/(name+'.log')
+ with p.open('wb') as f:r=subprocess.run(cmd,cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout)
+ report['checks'].append({'name':name,'command':cmd,'exit_code':r.returncode,'status':'PASS' if r.returncode==0 else 'FAIL','log_sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+ (out/'candidate-build-report.json').write_text(json.dumps(report,indent=2)+'\n');print(name,r.returncode,flush=True);return r.returncode==0
+run('node-version',[str(paths['node']/'bin/node'),'--version'],out)
+run('go-version',[str(paths['go']/'bin/go'),'version'],out)
+for name,dep,target in [('age','golang.org/x/crypto@v0.56.0','./cmd/age'),('seaweedfs','golang.org/x/net@v0.60.0','./weed')]:
+ cwd=paths[name]
+ if not run(name+'-dependency-update',['go','get',dep],cwd):continue
+ run(name+'-module-verification',['go','mod','verify'],cwd)
+ if run(name+'-build',['go','build','-trimpath','-o',str(out/(name+'-candidate')),target],cwd):
+  run(name+'-version',[str(out/(name+'-candidate')),'--version' if name=='age' else 'version'],cwd)
+  run(name+'-build-info',['go','version','-m',str(out/(name+'-candidate'))],cwd)
+ for f in ['go.mod','go.sum']:
+  p=cwd/f;report.setdefault('module_locks',[]).append({'component':name,'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+report['status']='PASS_BUILD_ONLY_NOT_ADMISSION' if all(c['status']=='PASS' for c in report['checks']) and len(report['checks'])==12 else 'FAIL'
+(out/'candidate-build-report.json').write_text(json.dumps(report,indent=2)+'\n')

@@ -1,0 +1,22 @@
+import datetime,hashlib,json,tarfile
+from pathlib import Path
+repo=Path('/workspace/glwy/projects/media-traceability-system')
+f=repo/'docs/00-project/validation/native-n01-admission-decisions'
+root=Path('/workspace/glwy/runtime/media-traceability-system/n01-notice-scope-current');root.mkdir(mode=0o700,exist_ok=True)
+def sha(b):return hashlib.sha256(b).hexdigest()
+def read(n):return json.loads((f/n).read_text())
+rows=[]
+for name,key in [('recovery-license-appendix-report.json','appendix_archive'),('library-provider-notice-review.json','archive')]:
+ d=read(name);a=d[key];p=Path(a['path']);assert sha(p.read_bytes())==a['sha256'] and p.stat().st_size==a['size_bytes']
+ with tarfile.open(p) as t:
+  for x in d['materials']:
+   component=x.get('component')
+   if name.startswith('library') and x.get('group')=='POSTGRESQL_SOURCE':component='postgres'
+   if component not in {'java','rabbitmq','erlang','nginx','node22.23.3','postgres'}:continue
+   b=t.extractfile(x['stored_as']).read();assert sha(b)==x['sha256'] and len(b)==x['size_bytes']
+   rows.append({'component':component,'member':x.get('member'),'sha256':x['sha256'],'size_bytes':len(b),'evidence_report':name,'material_archive_sha256':a['sha256']})
+components={n:sum(x['component']==n for x in rows) for n in sorted({x['component'] for x in rows})}
+assert set(components)=={'java','rabbitmq','erlang','nginx','node22.23.3','postgres'}
+d={'schema_version':1,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'status':'PASS_RETAINED_MATERIAL_BYTES_NOT_COMPATIBILITY_OR_SOFTWARE_APPROVAL','component_material_bindings_checked':components,'bindings':rows,'scope':'reread previously retained selected package/JDK/PG notice materials;does not extend whole nested semantics or license coverage','installation_permitted':False,'whole_N01_accepted':False,'executed_script_sha256':sha(Path(__file__).read_bytes())}
+(root/'software-primary-material-byte-check.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'status':d['status'],'components':components,'bindings':len(rows)}))

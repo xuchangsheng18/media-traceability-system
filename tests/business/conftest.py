@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 from pathlib import Path
 from uuid import uuid4
 
@@ -32,7 +33,28 @@ def database_dsn(request, business_template):
         pytest.fail("PoC database is forbidden as the business test administration target")
     name = "mt_business_test_" + uuid4().hex
     with psycopg.connect(configured, autocommit=True) as admin:
-        template = "template0" if request.node.path.name == "test_migrations.py" else business_template
+        template = (
+            "template0"
+            if request.node.path.name
+            in {
+                "test_migrations.py",
+                "test_report_migration.py",
+                "test_resource_registry_migration.py",
+                "test_task_creation_generation_migration.py",
+            }
+            or (
+                request.node.path.name == "test_task_creation_migration.py"
+                and request.node.originalname
+                in {
+                    "test_i01_empty_upgrade_registers_six_private_tables",
+                    "test_i01_migration_is_append_only_to_history_and_replay_noops",
+                    "test_i01_failed_upgrade_rolls_back_new_objects_and_ledger",
+                    "test_i01_runtime_cannot_read_private_tables_or_use_unregistered_create_scope",
+                    "test_i01_private_roles_do_not_enable_material_access_without_i02_scope",
+                }
+            )
+            else business_template
+        )
         admin.execute(sql.SQL("CREATE DATABASE {} TEMPLATE {}").format(sql.Identifier(name), sql.Identifier(template)))
         try:
             yield PrivateTestDSN(make_conninfo(configured, dbname=name))
@@ -49,8 +71,12 @@ def business_context(database_dsn, tmp_path):
         return
     from business_app.db import Database
     from business_app.errors import BusinessError
+    from business_app.permissions.catalog import load_catalog
+    from business_app.permissions.types import Principal
     from business_app.settings import BusinessSettings
     from business_app.types import Actor, Scope
+
+    from tests.business.http_fixtures import FixtureConditionals, FixtureFence, FixturePermissions, FixtureWork
 
     org, other_org, case, other_case, user, other_user = [uuid4() for _ in range(6)]
     role = "mt_business_runtime_" + uuid4().hex
@@ -91,6 +117,11 @@ def business_context(database_dsn, tmp_path):
     other_actor = Actor(user_id=other_user, org_id=other_org)
 
     class TestAuthority:
+        def authenticate_principal(self, bearer):
+            return Principal(
+                self.authenticate(bearer), "https://identity.example.test", str(actor.user_id), int(time.time()) + 600
+            )
+
         def authenticate(self, bearer):
             if bearer != "test-only-valid-token":
                 raise BusinessError("AUTHENTICATION_REQUIRED", 401)
@@ -125,6 +156,12 @@ def business_context(database_dsn, tmp_path):
         yield dict(
             settings=settings,
             authority=TestAuthority(),
+            conditional_permissions=FixtureConditionals(frozenset({actor}), database),
+            authorization_fence=FixtureFence(frozenset({actor})),
+            work_authorization=FixtureWork(frozenset({actor})),
+            permission_authority=FixturePermissions(
+                frozenset({actor}), frozenset(item.permission for item in load_catalog(root).values())
+            ),
             database=database,
             actor=actor,
             other_actor=other_actor,

@@ -1,0 +1,13 @@
+import datetime,hashlib,json,zipfile
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1';out=base/'native-n01-r5';p=root/'lib/quarkus-run.jar';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+with zipfile.ZipFile(p) as z:
+ names=[x for x in z.namelist() if not x.endswith('/')];assert names==['META-INF/MANIFEST.MF'];raw=z.read(names[0]);text=raw.decode().replace('\r\n ','');fields=dict(line.split(': ',1) for line in text.splitlines() if ': ' in line)
+rows=[];main=fields['Main-Class'].replace('.','/')+'.class';providers=[]
+for value in fields['Class-Path'].split():
+ q=(p.parent/value).resolve();assert q.is_relative_to(root.resolve()) and q.is_file();row={'relative_classpath':value,'release_path':q.relative_to(root).as_posix(),'sha256':sha(q)}
+ with zipfile.ZipFile(q) as z:
+  if main in z.namelist():providers.append(row['release_path'])
+ rows.append(row)
+assert len(providers)==1
+report={'scope':'manifest_only_bootstrap_descriptor_with_all_relative_classpath_bytes_and_unique_main_provider_not_runtime_or_security_acceptance','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':sha(Path(__file__)),'archive_sha256':sha(p),'member_count':1,'class_count':0,'fields':fields,'classpath':rows,'main_class_providers':providers,'status':'PASS_BOOT_DESCRIPTOR_BINDINGS','formal_admission':False};(out/'boot-descriptor-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'classpath':len(rows),'main_provider':providers}))

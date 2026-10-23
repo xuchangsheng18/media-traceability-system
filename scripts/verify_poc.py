@@ -4,8 +4,10 @@ import hashlib
 import io
 import json
 import os
+import re
 import time
 import uuid
+from html.parser import HTMLParser
 from pathlib import Path
 
 import httpx
@@ -14,6 +16,54 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
+
+
+class FrontendPage(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.title: list[str] = []
+        self.in_title = False
+        self.has_app = False
+        self.scripts: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        source = values.get("src")
+        if tag == "title":
+            self.in_title = True
+        elif tag == "div" and values.get("id") == "app":
+            self.has_app = True
+        elif tag == "script" and values.get("type") == "module" and source:
+            self.scripts.append(source)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self.in_title = False
+
+    def handle_data(self, data: str) -> None:
+        if self.in_title:
+            self.title.append(data)
+
+
+def frontend_served(client: httpx.Client, base: str) -> bool:
+    response = client.get(base)
+    if response.status_code != 200 or response.headers.get("content-type", "").split(";", 1)[0] != "text/html":
+        return False
+    page = FrontendPage()
+    page.feed(response.text)
+    if "短视频与图片智能识别溯源系统" not in "".join(page.title) or not page.has_app or not page.scripts:
+        return False
+    for source in page.scripts:
+        if re.fullmatch(r"/assets/[A-Za-z0-9_.-]+\.js", source) is None:
+            return False
+        script = client.get(base.rstrip("/") + source)
+        if (
+            script.status_code != 200
+            or script.headers.get("content-type", "").split(";", 1)[0] not in {"text/javascript", "application/javascript"}
+            or not script.content.strip()
+        ):
+            return False
+    return True
 
 
 def main():
@@ -25,7 +75,7 @@ def main():
         def check(name, condition):
             assert condition, name
             checks.append({"name": name, "status": "PASS"})
-        check("frontend_served", "媒体溯源" in client.get(base).text)
+        check("frontend_served", frontend_served(client, base))
         check("unauthorized_health_denied", client.get(base+"/api/v1/health").status_code == 401)
         health = client.get(base+"/api/v1/health", headers=headers)
         check("database_connected", health.status_code == 200 and health.json()["status"] == "ok")
@@ -73,7 +123,7 @@ def main():
                                        headers={"Authorization": "Bearer "+c["internal_token"]})
         check("internal_contract_error_uses_problem", invalid_internal.status_code == 422 and invalid_internal.json()["code"] == "MODEL_CONTRACT_INVALID")
         inference = client.get("http://127.0.0.1:14201/healthz").json()
-        check("container_python310", inference["python"].startswith("3.10."))
+        check("container_python311", inference["python"].startswith("3.11."))
         check("CPU_profile", inference["device"] == "cpu" and inference["business_model"] is False)
         # Capture a durable task ID for a separate restart/persistence check, no secrets.
         report = {"status": "PASS", "scope": "real_cpu_development_vertical_slice", "checks": checks,

@@ -1,0 +1,56 @@
+import base64,contextlib,datetime,hashlib,hmac,json,subprocess,sys
+from pathlib import Path
+from types import SimpleNamespace
+from uuid import UUID
+repo=Path('/workspace/glwy/projects/media-traceability-system');sys.path.insert(0,str(repo/'backend'))
+from business_app.controls.common import page
+from business_app.errors import BusinessError
+from business_app.types import Actor,Scope
+from business_app.uploads.repository import UploadRepository
+out=Path('/workspace/glwy/runtime/media-traceability-system/native-n01-admission-decisions');out.mkdir(mode=0o700,exist_ok=True)
+scope=Scope(Actor(UUID(int=11),UUID(int=12)),UUID(int=13));signature=hashlib.sha256(b'self-owned-fixed-snapshot').hexdigest();checks=[]
+class Result:
+ def __init__(self,value):self.value=value
+ def scalar_one(self):return self.value
+ def mappings(self):return self
+ def all(self):return self.value
+class ControlsConnection:
+ def execute(self,statement,params):
+  if 'SELECT encode' in str(statement):return Result(signature)
+  after=params['after'];return Result([{'object_id':UUID(int=i)} for i in range(1,4) if after is None or UUID(int=i)>after][:params['limit']])
+def controls(cursor,secret,actor_scope=scope):return page(ControlsConnection(),'synthetic_fixture','object_id',actor_scope,secret,cursor,1)
+def observed(name,value,expect=True,meaning='probe_observation_not_business_acceptance'):
+ assert value is expect,(name,value,expect);checks.append({'id':name,'probe_status':'PASS','observed':value,'meaning':meaning})
+def rejects(name,func,code):
+ try:func()
+ except BusinessError as error:observed(name,error.code==code);return
+ raise AssertionError(name+':was_not_rejected')
+for i in range(256):
+ secret='self-owned-test-only-'+str(i);_,cursor=controls(None,secret)
+ if '-' in cursor or '_' in cursor:break
+else:raise AssertionError('could_not_construct_alias_fixture')
+items,_=controls(cursor,secret);observed('C01_server_issued_controls_cursor_consumed',items[0]['object_id']==UUID(int=2))
+alias=cursor.translate(str.maketrans('-_','+/'));assert alias!=cursor
+other,_=controls(alias,secret);observed('C02_controls_cross_alphabet_alias_consumed_same_rows',items==other,meaning='noncanonical_text_currently_accepted;not_a_changed_authorized_scope_or_claim_of_security_pass')
+raw=bytearray(base64.urlsafe_b64decode(cursor+'='*(-len(cursor)%4)));raw[0]^=1;tampered=base64.urlsafe_b64encode(raw).decode().rstrip('=')
+rejects('C03_changed_controls_payload_HMAC_rejected',lambda:controls(tampered,secret),'PAGE_CURSOR_INVALID')
+rejects('C04_other_actor_controls_binding_rejected',lambda:controls(cursor,secret,Scope(Actor(UUID(int=99),scope.actor.org_id),scope.case_id)),'PAGE_CURSOR_INVALID')
+rejects('C05_controls_postpadding_tail_rejected',lambda:controls(cursor+'=Yg==',secret),'PAGE_CURSOR_INVALID')
+class PartsConnection:
+ def execute(self,statement,params):return Result([{'part_no':i,'sha256':'0'*64,'size_bytes':1} for i in range(1,4) if i>params['after']][:params['limit']])
+class FakeDatabase:
+ @contextlib.contextmanager
+ def transaction(self,actor_scope):yield PartsConnection()
+repository=UploadRepository(FakeDatabase(),SimpleNamespace(cursor_secret='self-owned-upload-test-key'))
+repository.session=lambda actor_scope,upload,connection:{'row_version':1}
+upload=UUID(int=20);response=repository.parts(scope,upload,None,1);upload_cursor=response['next_cursor'];value,mac=upload_cursor.split('.')
+observed('U01_server_issued_upload_cursor_consumed',repository.parts(scope,upload,upload_cursor,1)['items'][0]['part_no']==2)
+rejects('U02_upload_postpadding_tail_without_resign_rejected',lambda:repository.parts(scope,upload,value+'Yg==.'+mac,1),'INPUT_INVALID')
+rejects('U03_upload_extra_padding_without_resign_rejected',lambda:repository.parts(scope,upload,value+'=.'+mac,1),'INPUT_INVALID')
+repository.session=lambda actor_scope,upload,connection:{'row_version':2}
+rejects('U04_upload_snapshot_version_binding_rejected',lambda:repository.parts(scope,upload,upload_cursor,1),'UPLOAD_CURSOR_STALE')
+repository.session=lambda actor_scope,upload,connection:{'row_version':1}
+noncanonical=value+'=Yg==';mac2=hmac.new(repository.settings.cursor_secret.encode(),noncanonical.encode(),hashlib.sha256).hexdigest()
+observed('U05_synthetic_issuer_signed_noncanonical_value_consumed',repository.parts(scope,upload,noncanonical+'.'+mac2,1)['items'][0]['part_no']==2,meaning='requires_fixture_issuer_secret;existing_server_issuer_emits_canonical_text;not_unauthenticated_forgery')
+observed('P01_existing_stdlib_default_decoder_accepts_postpadding_tail',base64.b64decode('YQ==Yg==')==b'a',meaning='interpreter_behavior_remains_not_patched')
+paths=['backend/business_app/controls/common.py','backend/business_app/uploads/repository.py','backend/business_app/types.py','backend/business_app/errors.py'];report={'observed_at':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'python_version':sys.version,'scope':'actual_production_parser_functions_with_self_owned_in_memory_collaborators_only_no_HTTP_or_actual_DB_RLS_test','status':'PROBES_COMPLETED_WITH_UNRESOLVED_CANONICALITY_AND_INTERPRETER_RISKS','checks':checks,'probe_count':len(checks),'source_file_sha256':{p:hashlib.sha256((repo/p).read_bytes()).hexdigest() for p in paths},'mock_collaborators':True,'business_result':False,'actual_database_connections':0,'network_connections':0,'services_changed':False,'Python_candidates_created':False,'software_admission':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'conclusions':['Controls accepts cross-alphabet aliases for same valid signed raw cursor;HMAC payload/actor changes rejected in fixture','Upload rejects unsigned text alterations before default decode;synthetic trusted signer can still sign noncanonical text;canonicality is not enforced','No whole application reachability proof,no interpreter CVE fix,no RLS or HTTP acceptance,no software risk acceptance']};(out/'cursor-parser-observations.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'probe_count':len(checks),'status':report['status'],'business_result':False}))

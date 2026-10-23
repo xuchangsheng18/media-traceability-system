@@ -1,0 +1,51 @@
+{
+  "scope": "user_approved_isolated_candidates_not_adopted_baseline",
+  "observed_at": "2026-10-17T16:01:54.437459+00:00",
+  "checks": [
+    {
+      "name": "node-version",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/node-v22.23.3-linux-x64/bin/node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "33e26f35db6e57ce0c486ddc815fe966867e4f649e418eaf323f75f4720eb8e9"
+    },
+    {
+      "name": "go-version",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+        "version"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "ed4307d760c597256afdc696a61d47d13e832615d7741ead11c64966a440b376"
+    },
+    {
+      "name": "age-dependency-update",
+      "command": [
+        "go",
+        "get",
+        "golang.org/x/crypto@v0.56.0"
+      ],
+      "exit_code": 1,
+      "status": "FAIL",
+      "log_sha256": "d00b09743430fe7db6c30f0117d2a90cc8a9daa2f0fa21b32b41d57a86d1de3a"
+    },
+    {
+      "name": "seaweedfs-dependency-update",
+      "command": [
+        "go",
+        "get",
+        "golang.org/x/net@v0.60.0"
+      ],
+      "exit_code": -15,
+      "status": "FAIL",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "status": "FAIL",
+  "executed_script_sha256": "a47309971eed829772953cdf045f79378095848016c6fb6a733c4229426ecd75",
+  "services_changed": false
+}

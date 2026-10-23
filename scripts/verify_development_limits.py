@@ -7,7 +7,7 @@ import re
 import subprocess
 from fractions import Fraction
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
 
@@ -38,7 +38,10 @@ def check_limits(declared: dict[str, Any], inspected: dict[str, int], kernel: st
 
 
 def main() -> int:
-    from poc_control import compose, docker_env
+    if TYPE_CHECKING:
+        from scripts.poc_control import compose, docker_env
+    else:
+        from poc_control import compose, docker_env
 
     definition = ROOT / "deploy/docker-compose.yml"
     services = yaml.safe_load(definition.read_text(encoding="utf-8"))["services"]
@@ -96,7 +99,7 @@ def main() -> int:
         "status": "PASS" if passed else "FAIL",
         "observed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "scope": "configured_development_limits_match_actual_cgroup_v2_only",
-        "python_profile": "py310",
+        "python_profile": "py311",
         "compose_sha256": hashlib.sha256(definition.read_bytes()).hexdigest(),
         "services": observations,
         "services_restarted": False,

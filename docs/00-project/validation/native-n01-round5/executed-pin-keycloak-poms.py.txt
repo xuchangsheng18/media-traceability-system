@@ -1,0 +1,10 @@
+import concurrent.futures,hashlib,json,tarfile
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';commit='24ed1dadf3f246a555adb6d3d4a99e9b3003fb3b';sources=json.loads((out/'source-acquisition.json').read_text())['sources']
+def verify(row):
+ url=row['url'].replace('/26.8.1/','/'+commit+'/')
+ relative={'keycloak-dist-pom.xml':'quarkus/dist/pom.xml','keycloak-root-pom.xml':'pom.xml','keycloak-server-pom.xml':'quarkus/server/pom.xml','keycloak-deployment-pom.xml':'quarkus/deployment/pom.xml'}[row['file']]
+ with tarfile.open(out/'keycloak-exact-source.tar.gz') as t:raw=t.extractfile('keycloak-'+commit+'/'+relative).read()
+ digest=hashlib.sha256(raw).hexdigest();assert digest==row['sha256'];return {'file':row['file'],'pinned_url':url,'acquisition':'member_of_pinned_commit_archive_after_direct_raw_HTTPS_timeout','sha256':digest,'matches_observed_tag_bytes':True}
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:rows=list(pool.map(verify,[x for x in sources if 'raw.githubusercontent.com/keycloak/' in x['url']]))
+(out/'keycloak-pinned-pom-verification.json').write_text(json.dumps({'commit':commit,'files':rows},indent=2)+'\n');print('four Keycloak POMs pinned-byte verification PASS')

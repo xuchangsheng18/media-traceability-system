@@ -8,9 +8,12 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import Connection, text
 
+from ..cursor_encoding import decode_cursor
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import StoredObject
+from ..scope_collections import require_resource
+from ..scope_context import current_data_scope
 from ..settings import BusinessSettings
 from ..types import Scope
 
@@ -20,6 +23,7 @@ class UploadRepository:
         self.database, self.settings = database, settings
 
     def session(self, scope: Scope, upload_id: UUID, connection: Connection) -> dict[str, Any]:
+        require_resource(connection, current_data_scope(), "upload", upload_id)
         row = (
             connection.execute(
                 text("SELECT * FROM mt.upload_session WHERE case_id=:case AND upload_id=:id FOR UPDATE"),
@@ -344,7 +348,7 @@ class UploadRepository:
                     ).hexdigest()
                     if not hmac.compare_digest(signature, expected):
                         raise ValueError()
-                    binding = json.loads(base64.urlsafe_b64decode(value.encode()))
+                    binding = json.loads(decode_cursor(value, padded=True))
                     if binding["upload_id"] != str(upload_id) or binding["version"] != session["row_version"]:
                         raise BusinessError("UPLOAD_CURSOR_STALE", 409)
                     after = int(binding["after"])

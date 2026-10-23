@@ -1,0 +1,11 @@
+import datetime,hashlib,json,subprocess
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=Path(json.loads((base/'n01-recovery-license-latest.json').read_text())['root']);d=json.loads((out/'recovery-license-appendix-report.json').read_text());catalogue={x['application']:x for x in d['rabbitmq_application_catalogue']};results=[];sets={}
+for mode,flag in [('enabled','-e'),('explicit','-E')]:
+ cmd=['docker','--context','desktop-linux','exec','media-trace-py310-rabbitmq-1','rabbitmq-plugins','list',flag,'-m'];r=subprocess.run(cmd,capture_output=True,text=True,timeout=60);assert r.returncode==0
+ names=sorted(x.strip() for x in r.stdout.splitlines() if x.strip() and not x.startswith('Listing plugins'))
+ assert all(x in catalogue for x in names),names
+ sets[mode]=names;results.append({'command':cmd,'exit_code':r.returncode,'stdout_sha256':hashlib.sha256(r.stdout.encode()).hexdigest(),'names':names,'native_archive_application_matches':[catalogue[x] for x in names]})
+assert set(sets['explicit'])<=set(sets['enabled'])
+report={'status':'PASS_CURRENT_PLUGIN_NAMES_BOUND_TO_TARGET_ARCHIVE_NOT_NATIVE_RUNTIME','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'checks':results,'current_enabled':sets['enabled'],'current_explicit':sets['explicit'],'native_configuration_proposal':'Preserve observed explicit management and prometheus plugins plus their dependencies;N03 must validate actual native startup,binding,TLS and credentials','observed_scope_only':True,'plugins_changed':False,'service_restarted':False,'whole_software_admission':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+(out/'rabbitmq-active-scope.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'enabled':sets['enabled'],'explicit':sets['explicit']}))

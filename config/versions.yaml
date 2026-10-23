@@ -1,24 +1,24 @@
-baseline: 1.1-py310-cpu
-status: DEVELOPMENT_VALIDATED
+baseline: 1.2-py311-cpu
+status: MIGRATION_VALIDATION_IN_PROGRESS
 production_status: NOT_FROZEN
-observed_at: '2026-10-12'
+observed_at: '2026-10-23'
 scope: linux_x86_64_cpu_development
 python:
   distribution: Miniforge
-  version: 3.10.22
-  prefix: /opt/conda/glwy/envs/py310
-  executable: /opt/conda/glwy/envs/py310/bin/python
-  container_executable: /opt/py310/bin/python
-  end_of_life: '2026-10-01'
-  full_lock: config/locks/requirements-py310.lock
-  conda_lock: config/locks/conda-linux-64.explicit.txt
+  version: 3.11.17
+  prefix: /opt/conda/glwy/envs/py311
+  executable: /opt/conda/glwy/envs/py311/bin/python
+  container_executable: /opt/py311/bin/python
+  end_of_life: '2027-10'
+  full_lock: config/locks/requirements-py311.lock
+  conda_lock: config/locks/conda-linux-64-py311.explicit.txt
 production_python_selection:
   status: CANDIDATES_NOT_VALIDATED_NOT_APPROVED
   reviewed_at: '2026-10-13'
   decision_ref: docs/02-architecture/architecture-decisions/TB-ADR-002-backend-stack.md
   actual_evidence_ref: docs/03-development/stage-two-external-inputs.json
   enforcement_scope: planning_material_consistency_only_not_production_deployment_authorization
-  current_development_profile: miniforge-py310-linux-x86_64-cpu
+  current_development_profile: miniforge-py311-linux-x86_64-cpu
   current_development_environment_preserved: true
   candidate_priority: ['3.13', '3.12']
   candidates:
@@ -34,6 +34,7 @@ production_python_selection:
   selected_exact_version: null
   production_approved: false
   new_environment_installed_or_runtime_switched: false
+  new_environment_field_scope: production_candidates_only_not_the_authorized_development_py311_migration
   existing_py310_lock_reusable_as_production_candidate_lock: false
   required_evidence:
     - upstream_or_documented_supplier_security_support_and_upgrade_plan
@@ -92,7 +93,7 @@ inference:
   mapping_version: poc-analysis-copy-1
   business_model: false
 media:
-  pillow: 12.3.0
+  pillow: 13.0.0
   imageio_ffmpeg: 0.6.0
   ffmpeg: 7.0.2-static
 infrastructure:

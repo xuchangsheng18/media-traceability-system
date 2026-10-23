@@ -1,0 +1,324 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_id": {
+      "const": "urn:media-trace:task-execution-plan:1.0.0"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "plan_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "scene": {
+      "$ref": "urn:media-trace:api:0.1.0#/$defs/TaskCreate/properties/scene"
+    },
+    "modules": {
+      "$ref": "urn:media-trace:api:0.1.0#/$defs/TaskCreate/properties/modules"
+    },
+    "priority": {
+      "$ref": "urn:media-trace:api:0.1.0#/$defs/TaskCreate/properties/priority"
+    },
+    "policy_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "capability": {
+      "type": "object",
+      "properties": {
+        "capability_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "capability_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "capability_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "capability_id",
+        "capability_version",
+        "capability_sha256"
+      ],
+      "additionalProperties": false
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "node_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "missing_policy": {
+            "enum": [
+              "FAIL_REQUIRED",
+              "SKIP_OPTIONAL"
+            ]
+          },
+          "handler": {
+            "type": "object",
+            "properties": {
+              "handler_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "handler_version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "release_id": {
+                "type": "string",
+                "format": "uuid",
+                "not": {
+                  "const": "00000000-0000-0000-0000-000000000000"
+                }
+              },
+              "code_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "package_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "handler_id",
+              "handler_version",
+              "release_id",
+              "code_sha256",
+              "package_sha256"
+            ],
+            "additionalProperties": false
+          },
+          "model_dependencies": {
+            "type": "array",
+            "items": {
+              "$ref": "urn:media-trace:task-execution-plan:1.0.0#/$defs/Model"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "input_schema_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "output_schema_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "input_bindings": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "field_path": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+                      "maxLength": 128
+                    },
+                    "source": {
+                      "const": "asset"
+                    },
+                    "selector": {
+                      "enum": [
+                        "asset.asset_id",
+                        "asset.sha256",
+                        "asset.object_ref.object_id",
+                        "asset.object_ref.version_id",
+                        "asset.object_ref.sha256",
+                        "asset.source_authorization_version"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "field_path",
+                    "source",
+                    "selector"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "field_path": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+                      "maxLength": 128
+                    },
+                    "source": {
+                      "const": "node_output"
+                    },
+                    "node_code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128
+                    },
+                    "output_ref": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128
+                    },
+                    "selector": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+                      "maxLength": 128
+                    }
+                  },
+                  "required": [
+                    "field_path",
+                    "source",
+                    "node_code",
+                    "output_ref",
+                    "selector"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "preprocessing_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "postprocessing_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "output_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "dispatch_protocol_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "node_code",
+          "dependencies",
+          "required",
+          "missing_policy",
+          "handler",
+          "model_dependencies",
+          "input_schema_id",
+          "output_schema_id",
+          "input_bindings",
+          "preprocessing_version",
+          "postprocessing_version",
+          "output_refs",
+          "dispatch_protocol_version"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_id",
+    "schema_version",
+    "plan_id",
+    "plan_version",
+    "scene",
+    "modules",
+    "priority",
+    "policy_version",
+    "capability",
+    "nodes"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:media-trace:task-execution-plan:1.0.0",
+  "title": "Internal execution-plan material; validation is not adoption or handler availability",
+  "$defs": {
+    "Model": {
+      "type": "object",
+      "properties": {
+        "model_id": {
+          "type": "string",
+          "format": "uuid",
+          "not": {
+            "const": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "model_task_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "release_id": {
+          "type": "string",
+          "format": "uuid",
+          "not": {
+            "const": "00000000-0000-0000-0000-000000000000"
+          }
+        },
+        "artifact_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "model_id",
+        "model_version",
+        "model_task_version",
+        "release_id",
+        "artifact_sha256"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

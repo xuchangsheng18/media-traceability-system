@@ -1,0 +1,19 @@
+import concurrent.futures,hashlib,json,tarfile,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';commit='f8b54eb7d123378206265fee69a9e66867b28be2';urls={'pglast-README.rst':'https://raw.githubusercontent.com/lelit/pglast/'+commit+'/README.rst','pglast-setup.py':'https://raw.githubusercontent.com/lelit/pglast/'+commit+'/setup.py','GPL-3.0.txt':'https://www.gnu.org/licenses/gpl-3.0.txt'}
+def get(item):
+ name,url=item
+ try:
+  with urllib.request.urlopen(url,timeout=22) as f:raw=f.read()
+  assert raw;(out/name).write_bytes(raw);return {'file':name,'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'utf8_text':raw.decode('utf8'),'status':'PASS_RETRIEVAL_ONLY'}
+ except Exception as e:return {'file':name,'url':url,'status':'FAIL_RETRIEVAL','error':str(e)}
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:rows=list(pool.map(get,urls.items()))
+source_report=json.loads((w/'media-trace-foundation-worktree/docs/00-project/validation/native-n01-round3/missing-wheel-license-source-report.json').read_text());expected=next(x['sha256'] for x in source_report['packages'] if x['package']=='pglast');matches=[]
+for p in (w/'native-license-source-cache').glob('*'):
+ if p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==expected:
+  with tarfile.open(p) as t:
+   for row in rows:
+    if row['file'] in ['pglast-README.rst','pglast-setup.py'] and row['status']=='PASS_RETRIEVAL_ONLY':
+     name=row['file'].removeprefix('pglast-');member=next((m for m in t.getmembers() if m.name.endswith('/'+name)),None)
+     if member:raw=t.extractfile(member).read();matches.append({'path':member.name,'sdist_member_sha256':hashlib.sha256(raw).hexdigest(),'pinned_commit_file_sha256':row['sha256'],'matches':hashlib.sha256(raw).hexdigest()==row['sha256']})
+report={'scope':'pglast8.5_pinned_upstream_license_declarations_and_optional_standard_GPL_text_not_distribution_or_combination_approval','tag':'v8.5','annotated_tag_object':'4a58e4dc574804d0b69b60f38badf8201a6c7971','commit':commit,'PyPI_authenticated_sdist_sha256':expected,'upstream_sources':rows,'sdist_comparisons':matches,'formal_admission':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'pglast-license-followup-report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps({'sources':[(x['file'],x['status']) for x in rows],'sdist_comparisons':matches}))

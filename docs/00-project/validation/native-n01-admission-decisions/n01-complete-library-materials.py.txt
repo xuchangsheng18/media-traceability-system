@@ -1,0 +1,50 @@
+import datetime,hashlib,importlib.metadata,json,os,subprocess,tarfile,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');f=repo/'docs/00-project/validation';out=Path(json.loads((base/'n01-package-notice-latest.json').read_text())['root']);r=json.loads((out/'library-license-crosswalk.json').read_text());lic=json.loads((out/'runtime-package-notice-final-report.json').read_text());origin=json.loads((f/'native-n01-round3/os-runtime-package-origin-report.json').read_text());origins={x['path']:x for x in origin['files']};os_lic={x['package']:x for x in lic['OS_packages']};wanted={x['path'] for x in r['libraries'] if x['classification'].startswith('PRIVATE')};owners={}
+for dist in importlib.metadata.distributions():
+ for file in dist.files or []:
+  p=os.path.normpath(str(dist.locate_file(file)))
+  if p in wanted:owners[p]={'name':dist.metadata['Name'],'version':dist.version,'member':str(file)}
+wheel_lock=json.loads((repo/'config/native/python-runtime-wheels.lock.json').read_text());wheel_rows=wheel_lock.get('wheels',[]);assert wheel_rows
+def norm(s):return s.lower().replace('_','-')
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+extra=[];wheel_materials={};wheel_verified={};all_materials=list(lic['materials']);materials=out/'materials'
+def keep(group,package,member,raw,kind):
+ h=hashlib.sha256(raw).hexdigest();(materials/h).write_bytes(raw);d={'group':group,'package':package,'member':member,'sha256':h,'size_bytes':len(raw),'stored_as':'materials/'+h,'kind':kind};extra.append(d);return d
+for row in r['libraries']:
+ if not row['classification'].startswith('PRIVATE'):continue
+ name=row['path']
+ if name in origins and origins[name]['os_package']:
+  o=origins[name];assert o['sha256']==row['sha256'];pkg=o['os_package'].split(':')[0];x=os_lic[pkg];row['OS_materials']=[{'package':pkg,'version':x['version'],'copyright_material':x['copyright_material'],'historical_host_payload_origin_ref':'native-n01-round3/os-runtime-package-origin-report.json'}];row['classification']='PRIVATE_COPY_OF_OS_PACKAGE_MATERIAL_BOUND';continue
+ if name in owners:
+  owner=owners[name];key=norm(owner['name']);wheel=next(x for x in wheel_rows if norm(x['name'])==key and x['version']==owner['version']);archive=base/'native-pip-closure-cache'/wheel['filename']
+  if key not in wheel_verified:assert sha(archive)==wheel['sha256'];wheel_verified[key]=True
+  with zipfile.ZipFile(archive) as z:
+   h=hashlib.sha256()
+   with z.open(owner['member']) as stream:
+    for b in iter(lambda:stream.read(1048576),b''):h.update(b)
+   assert h.hexdigest()==row['sha256'],name
+   if key not in wheel_materials:
+    texts=[]
+    for member in z.namelist():
+     if member.endswith('/') or not any(x in Path(member).name.lower() for x in ['license','copying','notice','copyright']):continue
+     texts.append(keep('WHEEL',key,member,z.read(member),'EXACT_WHEEL_NOTICE_CANDIDATE_NOT_ALL_VENDOR_SEMANTICS'))
+    wheel_materials[key]=texts
+  row['wheel_source_binding']={**owner,'archive_filename':wheel['filename'],'archive_sha256':wheel['sha256'],'payload_sha256':h.hexdigest(),'materials':wheel_materials[key]};row['classification']='EXACT_WHEEL_MEMBER_AND_NOTICE_SET_BOUND';continue
+ if '/java/jdk-' in name:
+  row['existing_legal_set_ref']='docs/00-project/validation/native-n01-admission-decisions/recovery-license-appendix-report.json#java';row['classification']='EXACT_JDK_PRODUCT_LEGAL_SET_BOUND_NOT_EACH_NATIVE_SUBCOMPONENT_COMPATIBILITY';continue
+ if '/postgresql-16.15/' in name:
+  key='PG_SOURCE';x=next(x for x in json.loads((repo/'config/native/artifacts.lock.json').read_text())['artifacts'] if x['component']=='postgres');p=base/'native-artifacts'/x['filename'];assert sha(p)==x['sha256']
+  if key not in wheel_materials:
+   with tarfile.open(p) as t:member='postgresql-16.15/COPYRIGHT';text=keep('POSTGRESQL_SOURCE','postgres16.15',member,t.extractfile(member).read(),'EXACT_POSTGRESQL_SOURCE_COPYRIGHT_NOT_DEPENDENCY_LICENSE');wheel_materials[key]=[text]
+  row['source_archive_sha256']=x['sha256'];row['primary_legal_materials']=wheel_materials[key];row['classification']='PRIVATE_POSTGRESQL_SOURCE_PRODUCT_NOTICE_BOUND';continue
+ row['classification']='UNRESOLVED_PROVIDER_MATERIAL'
+assert not any(x['classification']=='UNRESOLVED_PROVIDER_MATERIAL' for x in r['libraries'])
+all_materials+=extra;archive=out/'runtime-package-and-library-notices.tar.gz';(out/'library-materials-manifest.json').write_text(json.dumps({'files':all_materials},indent=2)+'\n')
+with tarfile.open(archive,'w:gz') as t:
+ t.add(out/'library-materials-manifest.json',arcname='materials-manifest.json')
+ for p in sorted(materials.iterdir()):t.add(p,arcname='materials/'+p.name)
+with tarfile.open(archive) as t:
+ for x in all_materials:raw=t.extractfile(x['stored_as']).read();assert hashlib.sha256(raw).hexdigest()==x['sha256'] and len(raw)==x['size_bytes']
+r.update(observed_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),status='PASS104_OBSERVED_LIBRARY_PROVIDER_AND_MATERIAL_SET_BINDINGS_NOT_LICENSE_COMPATIBILITY',material_counts={k:sum(x['classification']==k for x in r['libraries']) for k in sorted({x['classification'] for x in r['libraries']})},new_material_bindings=len(extra),total_material_bindings=len(all_materials),unique_material_digests=len({x['sha256'] for x in all_materials}),materials=all_materials,archive={'path':str(archive),'sha256':sha(archive),'size_bytes':archive.stat().st_size},previous_package_archive=lic['archive'],exact_wheel_providers=sorted(wheel_verified),executed_completion_script_sha256=sha(Path(__file__)),all_license_compatibility_approved=False,all_corresponding_source_complete=False)
+(out/'library-provider-final-report.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({k:r[k] for k in ['library_count','material_counts','new_material_bindings','total_material_bindings','unique_material_digests','exact_wheel_providers','archive']}))

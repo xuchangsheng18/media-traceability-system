@@ -1,0 +1,41 @@
+{
+  "scope": "N01_recovery_correction_only_not_entire_historical_feature_branch",
+  "reviewer": "independent read-only agent n01_recovery_correction_review",
+  "reviewed_base": "ac5d79006de57548220048da0c80ee3c56934374",
+  "reviewed_head": "22b17280a54166241264bb54e635f7379f32dc0d",
+  "critical": 0,
+  "important_findings": 2,
+  "minor": 0,
+  "findings": [
+    {
+      "issue": "CRLF normalization changed the indexed digest and byte count",
+      "status": "FIXED_RED_TO_GREEN",
+      "red": "Old index5062/b55ccea3 differs from canonical Git blob5111/c97c7cc0",
+      "green": "All23 current raw-byte digest/size checks pass; original file unchanged"
+    },
+    {
+      "issue": "Current navigation still referenced an earlier CI receipt",
+      "status": "FIXED_RED_TO_GREEN",
+      "red": "Old current paragraph names c41578/39117174347",
+      "green": "Current paragraph names ac5d790/39118272632 with authenticated artifact digest; new commits use their own CI"
+    }
+  ],
+  "verification": [
+    "python -X utf8 scripts/validate_repository_docs.py:PASS10797links after fixes",
+    "Linux py3108 documentation and ledger checks at22b1728:PASS",
+    "Canonical Linux crosswalk at22b1728:224 inputs/223 digests/100 distributions/40build-package subset:PASS"
+  ],
+  "review_limitations": [
+    "Reviewer inspected source/provenance/method, did not independently repeat private632-file or cached-input probes",
+    "Whole restore,Go closure,final installation lock and software admission not judged complete",
+    "Historical branch implementation outside this continuation not reviewed"
+  ],
+  "executor_rulings": [
+    "Keep private runtime probes as authenticated observation evidence; do not claim reviewer independently reran them",
+    "Outstanding full closure and admission remain R1-R6; do not infer installation authorization",
+    "Review scope is this continuation fromac5d790; do not represent it as a new audit of all historical features"
+  ],
+  "whole_N01_accepted": false,
+  "installation_permitted": false,
+  "Python_candidates_created": false
+}

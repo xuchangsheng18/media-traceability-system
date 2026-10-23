@@ -1,0 +1,52 @@
+"""Reconstruct approved Go candidate inputs privately; never install or use shared caches."""
+import datetime,hashlib,json,os,shutil,subprocess,tarfile,tempfile,time
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system')
+out=Path(tempfile.mkdtemp(prefix='n01-go-recovery-',dir=base));old=base/'native-security-candidates-20261017'
+def sha(p):
+ h=hashlib.sha256()
+ with p.open('rb') as f:
+  for b in iter(lambda:f.read(1048576),b''):h.update(b)
+ return h.hexdigest()
+report={'status':'IN_PROGRESS','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'approved_exact_candidates_linux_amd64_CGO0_default_tags_private_cache_reconstruction_not_service_restore','root':str(out),'executed_script_sha256':sha(Path(__file__)),'checks':[],'archives':[],'components':[],'Python_candidates_created':False,'services_changed':False,'installation_permitted':False,'whole_N01_accepted':False}
+def save():
+ (out/'go-recovery-report.json').write_text(json.dumps(report,indent=2)+'\n');(base/'n01-go-recovery-latest.json').write_text(json.dumps({'root':str(out)})+'\n')
+def run(label,args,cwd,env,timeout=900):
+ log=out/(label+'.log');start=time.monotonic()
+ with log.open('wb') as f:
+  try:code=subprocess.run(['nice','-n','10',*args],cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout).returncode
+  except subprocess.TimeoutExpired:code=124
+ row={'name':label,'command':args,'exit_code':code,'status':'PASS' if code==0 else 'FAIL','elapsed_seconds':round(time.monotonic()-start,2),'log_sha256':sha(log),'log_size_bytes':log.stat().st_size,'log_tail':log.read_text(errors='replace')[-2000:]};report['checks'].append(row);save();print(label,code,flush=True);return code
+lock=json.loads((repo/'config/native/security-candidate-inputs.lock.json').read_text());proposal=json.loads((repo/'config/native/candidate-adoption.proposal.json').read_text());sources={}
+for item in lock['artifacts']:
+ if item['filename'].startswith('node-'):continue
+ p=base/'native-security-candidate-cache'/item['filename'];assert sha(p)==item['sha256']
+ report['archives'].append({'filename':p.name,'sha256':sha(p),'size_bytes':p.stat().st_size})
+ with tarfile.open(p) as a:
+  root=a.getmembers()[0].name.split('/')[0];a.extractall(out,filter='data')
+ name='go' if p.name.startswith('go1') else item['repository'].split('/')[-1];sources[name]=out/root
+for component in ['age','seaweedfs']:
+ candidate=next(x for x in proposal['candidates'] if x['component']==component)
+ for row in candidate['module_locks']:
+  p=repo/row['path'];assert sha(p)==row['sha256'];shutil.copyfile(p,sources[component]/('go.mod' if p.name.endswith('.go.mod') else 'go.sum'))
+target=out/'gomodcache/cache/download';copied=[]
+for p in sorted((old/'gomodcache/cache/download').rglob('*')):
+ if p.is_file() and not p.is_symlink() and p.suffix in {'.zip','.mod','.info'}:
+  rel=p.relative_to(old/'gomodcache/cache/download');dest=target/rel;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest);assert sha(p)==sha(dest)
+  copied.append({'path':rel.as_posix(),'sha256':sha(dest),'size_bytes':dest.stat().st_size})
+(out/'download-inputs.json').write_text(json.dumps({'files':copied},indent=2)+'\n');report['download_inputs']={'files':len(copied),'sha256':sha(out/'download-inputs.json'),'size_bytes':sum(x['size_bytes'] for x in copied),'seeded_extensions':['.info','.mod','.zip'],'ziphash_and_expanded_sources_not_seeded':True,'build_cache_initially_empty':True}
+env=dict(os.environ,PATH=str(sources['go']/'bin')+':/usr/bin:/bin',GOROOT=str(sources['go']),GOTOOLCHAIN='local',GOPATH=str(out/'gopath'),GOMODCACHE=str(out/'gomodcache'),GOCACHE=str(out/'gocache'),GOMAXPROCS='2',GOFLAGS='-p=2 -mod=readonly',CGO_ENABLED='0',GOPROXY='off',GOSUMDB='off',GONOPROXY='',GOPRIVATE='',GONOSUMDB='',GOENV='off',GOWORK='off',GOOS='linux',GOARCH='amd64')
+report['go_environment']={k:env[k] for k in ['GOTOOLCHAIN','GOMAXPROCS','GOFLAGS','CGO_ENABLED','GOPROXY','GOSUMDB','GOENV','GOWORK','GOOS','GOARCH']};report['network_boundary']='Go module/toolchain network disabled by explicit environment; not a kernel network namespace';report['checksum_boundary']='Go recomputes hashes from zip/mod inputs against committed go.sum; no fresh online sumdb attestation'
+go=str(sources['go']/'bin/go');save();run('toolchain-version',[go,'version'],out,env)
+for component in ['age','seaweedfs']:
+ cwd=sources[component];candidate=next(x for x in proposal['candidates'] if x['component']==component);row={'component':component,'source':str(cwd),'module_locks_before':{n:sha(cwd/n) for n in ['go.mod','go.sum']},'binaries':[]};report['components'].append(row)
+ if run(component+'-download-all',[go,'mod','download','-json','all'],cwd,env,300):continue
+ if run(component+'-module-verify',[go,'mod','verify'],cwd,env,300):continue
+ for b in candidate['binaries']:
+  label='age-keygen' if b['target'].endswith('age-keygen') else component;binary=out/(label+'-rebuilt')
+  code=run(label+'-build',[go,'build','-trimpath','-o',str(binary),b['target']],cwd,env,1200)
+  actual=sha(binary) if binary.is_file() else None;row['binaries'].append({'target':b['target'],'sha256':actual,'preselected_sha256':b['sha256'],'exact_match':actual==b['sha256'],'exit_code':code})
+ row['module_locks_after']={n:sha(cwd/n) for n in ['go.mod','go.sum']};assert row['module_locks_after']==row['module_locks_before'];save()
+report['status']='PASS_OFFLINE_SELECTED_MODULE_CLOSURE_AND_EXACT_REBUILD' if all(x['status']=='PASS' for x in report['checks']) and sum(len(x['binaries']) for x in report['components'])==3 and all(b['exact_match'] for x in report['components'] for b in x['binaries']) else 'INCOMPLETE_RETAIN_ACTUAL_FAILURES'
+save();print(json.dumps({'root':str(out),'status':report['status'],'checks':len(report['checks'])}),flush=True)

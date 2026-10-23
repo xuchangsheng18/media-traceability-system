@@ -1,0 +1,47 @@
+import datetime,hashlib,json,re,shutil,tarfile
+from pathlib import Path
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree';o=r/'docs/00-project/validation/native-n01-round7';o.mkdir(exist_ok=True);kit=w/'native-n01-round7-review-kit';assert not kit.exists(),'Fresh kit required';kit.mkdir();(kit/'texts').mkdir();(kit/'sources').mkdir();sha=lambda b:hashlib.sha256(b).hexdigest()
+def read(p):return json.loads(p.read_text(encoding='utf8'))
+def write(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+files={'vendor-build-report.json':w/'n01-r7-build-report.json','vendor-build-inputs.json':w/'n01-r7-build-inputs/build-inputs.json','go-nested-notice-texts.json':w/'n01-r7-go-notices.json','wheel-notice-texts.json':w/'n01-r7-wheel-notices.json','tool-and-font-candidate-followup.json':w/'n01-r7-followup-cache/nested-followup-report.json','tool-and-font572-candidate-followup.json':w/'n01-r7-followup-cache/nested-followup-report-font572.json'}
+for n,p in files.items():shutil.copyfile(p,o/n)
+build=read(o/'vendor-build-report.json');assert [x['exit_code'] for x in build['runs']]==[0,0];assert len(build['comparisons'])==4 and all(x['equal'] for x in build['comparisons']);inputs=read(o/'vendor-build-inputs.json');assert len(inputs['packages'])==43 and all(x['registry_and_pinned_lock_SRI_verified'] for x in inputs['packages']);old=read(r/'docs/00-project/validation/native-n01-round6/vendor-npm-origin-report.json');assert old['matched_assets']==417;matches={x['release_path'] for p in old['packages'] for x in p['exact_release_member_matches']};matches.update(x['path'] for x in build['comparisons']);assert len(matches)==old['assets_total']==421
+texts={};bindings=[]
+def add(raw,ref,member,kind):
+ digest=sha(raw);p=kit/'texts'/(digest+'.txt')
+ if digest not in texts:p.write_bytes(raw);texts[digest]={'path':'texts/'+digest+'.txt','sha256':digest,'size_bytes':len(raw)}
+ bindings.append({'source_report':ref,'member':member,'kind':kind,'text_sha256':digest})
+def walk(obj,ref,trail=''):
+ if isinstance(obj,dict):
+  if isinstance(obj.get('utf8_text'),str) and 'sha256' in obj and any(k in obj for k in ['path','member']):
+   name=obj.get('path',obj.get('member',''));b=obj['utf8_text'].encode('utf8')
+   if re.search(r'(^|[/_.-])(licen[sc]e|notice|copying|copyright|patents)([_.-]|$)',name,re.I) and not name.endswith(('.java','.class','.go','.js','.py','.rs')):
+    assert sha(b)==obj['sha256'],(ref,name);add(b,ref,name,'exact_upstream_notice_candidate')
+  for key,val in obj.items():walk(val,ref,trail+'/'+key)
+ elif isinstance(obj,list):
+  for i,val in enumerate(obj):walk(val,ref,trail+'/'+str(i))
+reports=[o/'vendor-build-report.json',o/'wheel-notice-texts.json',o/'go-nested-notice-texts.json',o/'tool-and-font-candidate-followup.json',o/'tool-and-font572-candidate-followup.json',r/'docs/00-project/validation/native-n01-round5/bundled-text-complement-report.json',r/'docs/00-project/validation/native-n01-round5/source-route-followup-report.json',r/'docs/00-project/validation/native-n01-round5/swagger-ui-notice-recovery-report.json',r/'docs/00-project/validation/native-n01-round6/vendor-npm-origin-report.json',r/'docs/00-project/validation/native-n01-round6/patternfly-source-license-report.json']
+for p in reports:walk(read(p),p.relative_to(r).as_posix())
+for x in read(r/'docs/00-project/validation/native-n01-round5/canonical-license-texts-and-mapping.json')['canonical_texts']:
+ b=x['body'].encode();assert sha(b)==x['sha256'];add(b,'round5/canonical-license-texts-and-mapping.json',x['identifier'],'standard_license_text_not_component_permission')
+flat=w/'native-license-source-cache/flatbuffers-3b8644d32c50e86872584829af4b8caf180235ab-LICENSE';record=read(r/'docs/00-project/validation/native-n01-round3/flatbuffers-license-source-report.json');assert sha(flat.read_bytes())==record['sha256'];add(flat.read_bytes(),'round3/flatbuffers-license-source-report.json','flatbuffers/go repository-root LICENSE','exact_submodule_commit_parent_license')
+sources=[];fallback=read(r/'docs/00-project/validation/native-n01-round3/missing-wheel-license-source-report.json')
+for n in ['pglast-8.5.tar.gz','packageurl_python-0.17.6.tar.gz']:
+ p=w/'native-license-source-cache'/n;expected=next(x['sha256'] for x in fallback['packages'] if x['package']==('pglast' if n.startswith('pglast') else 'packageurl-python'));assert sha(p.read_bytes())==expected;shutil.copyfile(p,kit/'sources'/n)
+ with tarfile.open(p) as t:
+  ms=[m for m in t if m.isfile()];member_paths=[m.name for m in ms];materials=[]
+  for m in ms:
+   if re.search(r'(^|[/_.-])(licen[sc]e|notice|copying|copyright)([_.-]|$)',m.name,re.I):
+    b=t.extractfile(m).read();add(b,'round3/missing-wheel-license-source-report.json',m.name,'authenticated_source_archive_notice');materials.append({'path':m.name,'sha256':sha(b)})
+  sources.append({'path':'sources/'+n,'sha256':expected,'size_bytes':p.stat().st_size,'member_count':len(ms),'libpg_query_source_files':sum('/libpg_query/' in x for x in member_paths),'build_materials':[x for x in member_paths if Path(x).name in ['setup.py','pyproject.toml','Makefile','Makefile.release']],'materials':materials})
+gpl=w/'n01-r5-upstream/GPL-3.0.txt';add(gpl.read_bytes(),'round5/pglast-license-followup-report.json','GPL-3.0.txt','official_standard_GPL_text_not_blanket_approval')
+for p in (r/'docs/02-architecture/third-party-notices').glob('native-n01-*.txt'):add(p.read_bytes(),p.relative_to(r).as_posix(),p.name,'human_readable_notice_appendix_source_JSON_preserves_exact_original_text')
+write(kit/'NOTICE-INDEX.json',{'scope':'review_material_kit_not_approved_formal_distribution','bindings':bindings,'texts':list(texts.values()),'source_archives':sources,'Python_candidate':'DEFERRED_BY_USER','formal_approved':False})
+(kit/'README.txt').write_text('N01审查材料包，未获正式分发准入。\n按NOTICE-INDEX.json核对每份原声明的报告/成员及摘要。texts去重仅减少副本，不删除来源绑定。\nsources含精确验真的pglast8.5与packageurl-python0.17.6源包。pglast含libpg_query及构建文件；未完成与已部署parser扩展的源码重建，不冒充已证明完整对应源码。\n缺少正式交付件完整SBOM/来源与许可复核、部分字体/图标及源码义务；不能将本材料包当最终软件发行包或完整GPL履约证明。\n',encoding='utf8')
+kitfiles=[{'path':p.relative_to(kit).as_posix(),'sha256':sha(p.read_bytes()),'size_bytes':p.stat().st_size} for p in sorted(kit.rglob('*')) if p.is_file()];write(kit/'FILE-MANIFEST.json',{'files':kitfiles,'excluded_self':'FILE-MANIFEST.json'})
+archive=w/'native-n01-round7-review-kit.tar.gz'
+with tarfile.open(archive,'w:gz') as t:t.add(kit,arcname='native-n01-review-kit')
+write(o/'distribution-material-kit-report.json',{'scope':'actual_private_review_material_archive_not_public_release_or_software_admission','archive_filename':archive.name,'archive_sha256':sha(archive.read_bytes()),'archive_size_bytes':archive.stat().st_size,'unique_text_bodies':len(texts),'source_member_bindings':len(bindings),'files':kitfiles,'source_archives':sources,'notice_candidate_scope':'Go recursive materials and nonmatching font candidate texts are evidence candidates,not declarations that every material applies to actual binaries','all_vendor_resource_origins_bound':421,'pending':['formal-deliverable full SBOM and per-component obligation/source review','specific font/icon/image attribution and SPDX route;FA5.15.4 and5.7.2 fonts did not match,not accepted as exact font sources','is-reference1.2.1 full license body absent in exact source/npm;build-only tool distribution separately scoped','pglast actual binary/source rebuild and complete applicable source delivery arrangement','remaining generated Java transformation causality and software security admission','Python lifecycle/CVE unresolved and candidates deferred'],'formal_approved':False})
+for name in ['acquire-build','build-linux','nested-followup','font572','go-notices','wheel-notices','evidence-and-kit']:shutil.copyfile(w/('n01-r7-'+name+'.py'),o/('executed-'+name+'.py.txt'))
+write(o/'vendor-origin-closure.json',{'status':'PASS_EXACT_421_VENDOR_RESOURCE_ORIGINS','direct_copy_matches':417,'exact_generated_rebuild_matches':4,'matched_paths':sorted(matches),'private_build_lifecycle_scripts_executed':False,'build_tool_packages':43,'whole_Keycloak_build_claimed':False,'license_or_security_admission':False})
+print(json.dumps({'vendor_origins':421,'kit_bytes':archive.stat().st_size,'unique_text_bodies':len(texts),'bindings':len(bindings),'source_archives':len(sources)}))

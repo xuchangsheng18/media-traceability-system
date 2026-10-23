@@ -1,0 +1,506 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_TASK_EVENT_RUN_CONSTRAINTS",
+  "observed_at": "2026-10-21T21:09:14.975738+00:00",
+  "base_source_commit": "5a00be555952d9c252b390c802a06c5ad8aa9da2",
+  "source_sha256_lf": {
+    "backend/business_migrations/0015_task_event_run_integrity.sql": "9a81b72ceed7f5bcb2fb4d7af29e8ba95b56f9a4fe1c1daffdc900b472110974",
+    "tests/business/test_task_event_constraints.py": "f8009e4bdb71cfeb5a0ce2908b26adbcfdeed950587cde079062a289efff4789",
+    "tests/business/test_migrations.py": "112c3a84e07d0574fb30f5800915dd77498eab6b1dd79a31477a1a4d04e5bc58",
+    "tests/business/test_t015_scope_recovery.py": "d2aa959246f3849a1564abbaac37456ef674f11c9a46815dc09ef9ba08714482",
+    "tests/business/test_t016_operation_token_recovery.py": "7ddd7c696be366a3e44aec043e0fddd99a78b66b29c7549fc5cda9bda76e9fe8"
+  },
+  "unchanged_0001_0014_sha256_lf": {
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+    "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_migrations/0006_permission_lookup.sql": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+    "backend/business_migrations/0007_role_facts.sql": "e7191483aa27ddb03357c0ab9dde810cd048b9f844ee756ff46dd1dd29a6f872",
+    "backend/business_migrations/0008_authorization_fence.sql": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+    "backend/business_migrations/0009_work_role_facts.sql": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588",
+    "backend/business_migrations/0010_data_scope.sql": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+    "backend/business_migrations/0011_operation_token.sql": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd",
+    "backend/business_migrations/0012_catalog_reads.sql": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
+    "backend/business_migrations/0013_report_reads.sql": "9465a51b638f9b13849938e5bc6c4aea6454f2f9a70ac08b03516f6fe81875ec",
+    "backend/business_migrations/0014_resource_registry.sql": "b41cffea753b6f4e758a7a487e86ce396e520a1402540de464184a3b1295c1d7"
+  },
+  "verification_snapshots": {
+    "event-red": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t032-events-51c25f4c9c8f",
+      "validation_snapshot_commit": "fafc24ea219009b58f638c626429fc3cfca381b2",
+      "publication_commit": false,
+      "mode": "event-red",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_task_event_constraints.py",
+            "tests/business/test_migrations.py",
+            "-k",
+            "task_events_reject or 0015",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T20:42:28.046749+00:00",
+          "ended_at": "2026-10-21T20:43:57.671074+00:00",
+          "safe_summary": [
+            "FAILED tests/business/test_migrations.py::test_0015_event_upgrade_validates_history_and_rolls_back_atomically[valid]",
+            "FAILED tests/business/test_migrations.py::test_0015_event_upgrade_validates_history_and_rolls_back_atomically[orphan_run]",
+            "FAILED tests/business/test_migrations.py::test_0015_event_upgrade_validates_history_and_rolls_back_atomically[unknown_from]",
+            "FAILED tests/business/test_migrations.py::test_0015_event_upgrade_validates_history_and_rolls_back_atomically[unknown_to]",
+            "FAILED tests/business/test_migrations.py::test_0015_event_upgrade_validates_history_and_rolls_back_atomically[injected_failure]",
+            "9 failed, 2 passed, 40 deselected, 1 warning in 88.92s (0:01:28)"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "event-affected": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t032-events-4414a526f1e7",
+      "validation_snapshot_commit": "96520739fb78252959d5ad08bb0db70a95a02993",
+      "publication_commit": false,
+      "mode": "event-affected",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_task_event_constraints.py",
+            "tests/business/test_migrations.py",
+            "tests/business/test_adapters_and_execution.py",
+            "tests/business/test_execution_cancel.py",
+            "tests/business/test_t014_work.py",
+            "tests/business/test_t015_scope_recovery.py",
+            "tests/business/test_t016_operation_token_recovery.py",
+            "--tb=short"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T20:57:06.613371+00:00",
+          "ended_at": "2026-10-21T21:08:21.777274+00:00",
+          "safe_summary": [
+            "105 passed, 1 warning in 674.51s (0:11:14)"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/verify_business_foundation.py",
+            "failure-probe"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 1,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T21:08:21.777459+00:00",
+          "ended_at": "2026-10-21T21:08:22.223154+00:00",
+          "safe_summary": {
+            "expected_assertion_failure_verified": true
+          }
+        }
+      ],
+      "complete": true,
+      "success": true
+    },
+    "quality": {
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t032-events-60f8ad7f0016",
+      "validation_snapshot_commit": "39fd0857bae376f0438bc3caea816103946c5210",
+      "publication_commit": false,
+      "mode": "quality",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "check",
+            "--config",
+            "ruff.toml",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T20:58:52.407939+00:00",
+          "ended_at": "2026-10-21T20:58:52.545505+00:00",
+          "safe_summary": [
+            "All checks passed!"
+          ]
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "ruff",
+            "format",
+            "--check",
+            "backend/app",
+            "ai-services/inference",
+            "tests/poc",
+            "scripts/dev.py",
+            "scripts/stage_three_quality.py",
+            "scripts/generate_stage_three_docs.py",
+            "scripts/validate_stage_three.py",
+            "scripts/verify_stage_three_demo.py",
+            "tools/stage_three_demo/app.py",
+            "tests/stage_three",
+            "scripts/stage_three_types.py",
+            "backend/business_app",
+            "backend/business_migrations",
+            "tests/business",
+            "scripts/verify_business_foundation.py",
+            "scripts/verify_http_log_privacy.py",
+            "tools/access_control_review.py",
+            "scripts/validate_access_control_model.py",
+            "tests/platform",
+            "scripts/verify_development_limits.py",
+            "scripts/identity",
+            "scripts/native",
+            "tests/native",
+            "scripts/storage_readiness.py",
+            "tests/identity",
+            "scripts/verify_t014_permissions.py",
+            "scripts/verify_t015_scope.py",
+            "scripts/verify_t016_tokens.py",
+            "scripts/business_development.py",
+            "scripts/generate_development_inventory.py",
+            "scripts/verify_business_route_registration.py",
+            "scripts/validate_annotations.py",
+            "tests/data"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T20:58:52.545595+00:00",
+          "ended_at": "2026-10-21T20:58:52.720706+00:00",
+          "safe_summary": []
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true,
+          "started_at": "2026-10-21T20:58:52.720817+00:00",
+          "ended_at": "2026-10-21T20:58:56.897698+00:00",
+          "safe_summary": [
+            "Success: no issues found in 254 source files"
+          ]
+        }
+      ],
+      "complete": true,
+      "success": true
+    }
+  },
+  "verification_snapshot_source_hashes": {
+    "event-affected": {
+      "backend/business_migrations/0015_task_event_run_integrity.sql": "9a81b72ceed7f5bcb2fb4d7af29e8ba95b56f9a4fe1c1daffdc900b472110974",
+      "tests/business/test_task_event_constraints.py": "f8dc52a57a3c46d3a5c4f6f3023d4ecc905021ce3aa2ff41ead47fa257dd5442",
+      "tests/business/test_migrations.py": "112c3a84e07d0574fb30f5800915dd77498eab6b1dd79a31477a1a4d04e5bc58",
+      "tests/business/test_t015_scope_recovery.py": "d2aa959246f3849a1564abbaac37456ef674f11c9a46815dc09ef9ba08714482",
+      "tests/business/test_t016_operation_token_recovery.py": "7ddd7c696be366a3e44aec043e0fddd99a78b66b29c7549fc5cda9bda76e9fe8"
+    },
+    "quality": {
+      "backend/business_migrations/0015_task_event_run_integrity.sql": "9a81b72ceed7f5bcb2fb4d7af29e8ba95b56f9a4fe1c1daffdc900b472110974",
+      "tests/business/test_task_event_constraints.py": "f8009e4bdb71cfeb5a0ce2908b26adbcfdeed950587cde079062a289efff4789",
+      "tests/business/test_migrations.py": "112c3a84e07d0574fb30f5800915dd77498eab6b1dd79a31477a1a4d04e5bc58",
+      "tests/business/test_t015_scope_recovery.py": "d2aa959246f3849a1564abbaac37456ef674f11c9a46815dc09ef9ba08714482",
+      "tests/business/test_t016_operation_token_recovery.py": "7ddd7c696be366a3e44aec043e0fddd99a78b66b29c7549fc5cda9bda76e9fe8"
+    }
+  },
+  "format_only_source_bindings": {
+    "tests/business/test_task_event_constraints.py": {
+      "tested_sha256": "f8dc52a57a3c46d3a5c4f6f3023d4ecc905021ce3aa2ff41ead47fa257dd5442",
+      "final_formatted_sha256": "f8009e4bdb71cfeb5a0ce2908b26adbcfdeed950587cde079062a289efff4789",
+      "AST_equivalence_verified": true,
+      "scope": "Single context-manager line wrapping only; quality checks use exact final bytes"
+    }
+  },
+  "initial_red": {
+    "failed": 9,
+    "passed": 2,
+    "deselected": 40,
+    "scope": "Four missing event guards and five missing incremental migration cases"
+  },
+  "final_affected_tests": 105,
+  "static_type_source_files": 254,
+  "new_constraint_and_upgrade_cases": 28,
+  "initial_affected_result": {
+    "private_evidence_file": "t032-event-affected-initial-failed.private.json",
+    "failed": 9,
+    "passed": 96,
+    "scope": "Six tests initially expected generic P0001 instead of existing exact append-only55000; three digest tests copied only14 after migration15",
+    "remediation": "Assert exact ObjectNotInPrerequisiteState with append-only reason and copy all15 registered migrations; no guard/assertion removed"
+  },
+  "scope": "0015 fixed task-run association and existing11-state vocabulary only; no task creation, transition policy, scheduler, data repair or shared runtime adoption",
+  "database_tables": 64,
+  "database_columns": 861,
+  "added_tables": 0,
+  "added_columns": 0,
+  "added_constraints": 3,
+  "upgrade": {
+    "previous": "0014",
+    "target": "0015",
+    "constraints_validated": true,
+    "legal_history_preserved": true,
+    "invalid_history_atomic_rollback_verified": true,
+    "injected_end_failure_atomic_rollback_verified": true,
+    "old_migration_digests_preserved": true,
+    "automatic_history_rewriting": false,
+    "production_upgrade": false
+  },
+  "dependencies": [
+    {
+      "task": "T031",
+      "evidence": "backend/business_app/task_plan.py",
+      "scope": "Existing candidate plan identities and semantics; not executable policy adoption"
+    }
+  ],
+  "review": {
+    "remaining_P1_P2_findings": 0,
+    "deferred_minor": [
+      "Successful-upgrade test can additionally compare every old constraint definition; current SQL only adds3 and invalid-upgrade path compares complete schema snapshot"
+    ],
+    "declined_to_judge": [
+      "Full task creation/repository",
+      "T033 full transitions and aggregation",
+      "Production recovery, formal authorization and task acceptance"
+    ]
+  },
+  "prior_exact_source_CI_ref": "docs/00-project/validation/t031-candidate-plan-final-ci-report.json",
+  "latest_payload_hosted_CI": {
+    "id": 39677167526,
+    "head_sha": "c3370a26b3766ce793b481dff07dadbbcc89ef6f",
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39677167526",
+    "observed_at": "2026-10-21T21:57:47.917021+00:00",
+    "all_CI_pass_asserted": false,
+    "final_verified_evidence_ref": "docs/00-project/validation/t032-task-event-final-ci-report.json"
+  },
+  "frontend_changed": false,
+  "frontend_checks_rerun": false,
+  "public_contract_changed": false,
+  "database_migration_created": true,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "actual_owner": null,
+  "actual_reviewer": null,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "remaining": [
+    "Trusted scene/module/policy/version mapping and task creation access layer",
+    "All applicable upgrade/forward-repair and production recovery/capacity scenarios",
+    "T033 legal transitions, node aggregation and event publication semantics",
+    "Actual T032 owner/reviewer and effort"
+  ],
+  "source_sync": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-21T21:14:39.679791+00:00",
+    "source_commit": "c3370a26b3766ce793b481dff07dadbbcc89ef6f",
+    "previous_server_commit": "5a00be555952d9c252b390c802a06c5ad8aa9da2",
+    "changed_files": 167,
+    "manifest_files_verified": 2307,
+    "manifest_sha256": "a280fff0d249a6c67dcc944bef2394b65afe0ad90c3f6f7208a1c2f6e9edb22e",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "scope": "Exact implementation payload checkpoint; later metadata receipt is not self-included in this earlier checkpoint and no shared runtime upgrade is claimed"
+  },
+  "material_checks": {
+    "status": "PASS",
+    "validated_source_commit": "c3370a26b3766ce793b481dff07dadbbcc89ef6f",
+    "staged_tree": "f4f9191522464a7d396db2ddfd236db6e4344256",
+    "commands": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T032"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T031"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "scope": "18 material/navigation checks, not new product or production acceptance tests"
+  },
+  "bounded_prepublication_check": {
+    "status": "PASS",
+    "staged_tree": "f4f9191522464a7d396db2ddfd236db6e4344256",
+    "manifest_files_verified": 2307,
+    "files_checked": 2309,
+    "scope": "Known runtime/private values and secret filenames, not complete DLP"
+  }
+}

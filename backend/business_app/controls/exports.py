@@ -11,9 +11,13 @@ from fastapi.responses import Response
 from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
+from ..data_scope import ResourceBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import FileObjectStore, StoredObject
+from ..permissions.context import WorkPort, protected_work
+from ..scope_context import current_data_scope
+from ..scoped_objects import ScopedObjects
 from ..types import ObjectRef, Scope
 from ..uploads.repository import UploadRepository
 from .approvals import Approvals
@@ -42,6 +46,7 @@ class Exports:
         store: FileObjectStore,
         rules: RuleProvider | None,
         authority: AuthorityProvider | None,
+        work_authorization: WorkPort | None = None,
     ) -> None:
         self.database, self.receipts, self.approvals, self.store, self.rules, self.authority = (
             database,
@@ -51,6 +56,7 @@ class Exports:
             rules,
             authority,
         )
+        self.work_authorization = work_authorization
 
     def check(self, connection: Connection, scope: Scope, item: dict[str, Any]) -> ExportRule:
         if self.rules is None:
@@ -111,6 +117,10 @@ class Exports:
         authorized = self.authority.authorize_case(scope.actor, scope.case_id, "audit.export")
         if authorized != scope:
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        with protected_work(self.work_authorization, scope, "audit_export", identifier, "processAuditExportWork"):
+            self._process_bound(scope, identifier)
+
+    def _process_bound(self, scope: Scope, identifier: UUID) -> None:
         stored: StoredObject | None = None
         try:
             with self.database.transaction(scope) as connection:
@@ -158,7 +168,9 @@ class Exports:
                         ),
                     )
                     return
-                stored = self.store.put_part(scope, identifier, 1, io.BytesIO(data))
+                stored = ScopedObjects(self.store, self.authority, export_check=self.check).put(
+                    self.database, scope, ResourceBinding("export_artifact", identifier), io.BytesIO(data)
+                )
                 ref = dict(
                     object_id=str(stored.ref.object_id),
                     version_id=stored.ref.version_id,
@@ -231,7 +243,14 @@ class Exports:
             try:
                 if ref["size_bytes"] > rule.max_bytes:
                     raise BusinessError("EXPORT_LIMIT_EXCEEDED", 413)
-                data = b"".join(self.store.read(ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"])))
+                data = b"".join(
+                    ScopedObjects(self.store, self.authority, export_check=self.check).read(
+                        connection,
+                        current_data_scope(),
+                        ResourceBinding("export_artifact", identifier),
+                        ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"]),
+                    )
+                )
                 if len(data) != ref["size_bytes"]:
                     raise RuntimeError("SIZE_MISMATCH")
             except (OSError, RuntimeError, ValueError):

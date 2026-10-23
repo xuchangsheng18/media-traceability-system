@@ -1,0 +1,26 @@
+import datetime,hashlib,json,os,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');cache=base/'native-pip-closure-cache';out=base/'native-python-closure-20261017'
+lock=json.loads((cache/'python-wheels.lock.json').read_text());assert lock['status']=='PASS'
+rows=[]
+for item in lock['wheels']:
+ p=cache/item['filename'];sha=hashlib.sha256(p.read_bytes()).hexdigest();assert sha==item['sha256'] and p.stat().st_size==item['size_bytes']
+ with zipfile.ZipFile(p) as z:
+  materials=[];metadata=[]
+  for n in z.namelist():
+   if not n.endswith('/') and any(x in Path(n).name.lower() for x in ['license','copying','notice','copyright']):
+    raw=z.read(n);materials.append({'path':n,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw)})
+   if n.endswith('.dist-info/METADATA'):
+    text=z.read(n).decode('utf8',errors='replace');metadata=[line for line in text.splitlines() if line.startswith(('License:','License-Expression:','License-File:','Classifier: License','Requires-Dist:'))]
+ rows.append({'name':item['name'],'version':item['version'],'sha256':sha,'materials':materials,'metadata':metadata,'license_semantically_approved':False})
+bundled=[]
+root=base/'native-n01-sbom-audit-20261017/keycloak'
+for p in sorted(root.rglob('*.jar')):
+ with zipfile.ZipFile(p) as z:
+  names=[n for n in z.namelist() if not n.endswith('/') and any(x in Path(n).name.lower() for x in ['license','notice','copyright','copying'])]
+  materials=[{'path':n,'sha256':hashlib.sha256(z.read(n)).hexdigest()} for n in names]
+ bundled.append({'archive':str(p.relative_to(root)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'materials':materials})
+report={'schema_version':1,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'95_authenticated_wheels_and_nested_Keycloak_JAR_material_inventory_not_license_approval','status':'PASS_MATERIAL_INVENTORY_ONLY','wheel_count':len(rows),'wheel_license_material_count':sum(len(x['materials']) for x in rows),'wheels_without_license_materials':[x['name'] for x in rows if not x['materials']],'jars_count':len(bundled),'jars_without_embedded_materials':sum(not x['materials'] for x in bundled),'wheels':rows,'jars':bundled,'admission_passed':False,'remaining':['Resolve absent material from authoritative source/POM and exact version','Review redistribution obligations of all bundled dependencies and OS packages','Approve NOTICE, source offer and applicable software admission decisions'],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+(out/'wheel-and-jar-license-materials-report.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({k:report[k] for k in ['status','wheel_count','wheel_license_material_count','wheels_without_license_materials','jars_count','jars_without_embedded_materials']}))

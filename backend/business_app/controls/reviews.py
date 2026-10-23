@@ -5,9 +5,14 @@ from uuid import UUID, uuid4
 from fastapi import Request
 from sqlalchemy import Connection, text
 
+from ..data_scope import ResourceBinding, TaskBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..history.repository import ResultRepository
+from ..permissions.duties import IndependentDuties
+from ..scope_collections import bind_task_scope, require_resource
+from ..scope_context import current_data_scope
+from ..scoped_objects import ScopedObjects
 from ..types import ObjectRef, ResultKey, Scope
 from ..uploads.repository import UploadRepository
 from .common import audit, canonical, match, row
@@ -16,11 +21,18 @@ from .providers import RuleProvider
 
 class Reviews:
     def __init__(
-        self, database: Database, receipts: UploadRepository, results: ResultRepository, rules: RuleProvider | None
+        self,
+        database: Database,
+        receipts: UploadRepository,
+        results: ResultRepository,
+        rules: RuleProvider | None,
+        duties: IndependentDuties | None = None,
     ) -> None:
         self.database, self.receipts, self.results, self.rules = database, receipts, results, rules
+        self.duties = duties
 
     def context(self, connection: Connection, scope: Scope, task_id: UUID, *, lock: bool = False) -> dict[str, Any]:
+        bind_task_scope(connection, current_data_scope(), TaskBinding(task_id))
         task = row(connection, "analysis_task", "task_id", task_id, lock)
         latest = (
             connection.execute(
@@ -34,6 +46,11 @@ class Reviews:
         )
         if latest is None:
             raise BusinessError("RESULT_NOT_FOUND", 404)
+        bind_task_scope(
+            connection,
+            current_data_scope(),
+            TaskBinding(task_id, int(latest["run_version"]), int(latest["result_version"])),
+        )
         version = connection.execute(
             text("SELECT coalesce(max(review_version),0) FROM mt.review_record WHERE case_id=:case AND task_id=:task"),
             dict(case=scope.case_id, task=task_id),
@@ -49,7 +66,13 @@ class Reviews:
         )
 
     def wire(self, connection: Connection, identifier: UUID) -> dict[str, Any]:
+        require_resource(connection, current_data_scope(), "review", identifier)
         item = row(connection, "review_record", "review_id", identifier)
+        bind_task_scope(
+            connection,
+            current_data_scope(),
+            TaskBinding(item["task_id"], int(item["run_version"]), int(item["result_version"])),
+        )
         ids = (
             connection.execute(
                 text(
@@ -84,6 +107,10 @@ class Reviews:
         digest = hashlib.sha256(canonical(body)).hexdigest()
         with self.database.transaction(scope) as connection:
             context = self.context(connection, scope, result_key.task_id, lock=True)
+            if self.duties is None:
+                raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+            task = row(connection, "analysis_task", "task_id", result_key.task_id)
+            self.duties.review(scope, task, context, connection=connection)
             replay = self.receipts.replay(connection, scope, "createReview", key, digest)
             if replay is not None:
                 return replay
@@ -115,13 +142,21 @@ class Reviews:
                     if fixed["sha256"] != evidence["sha256"]:
                         raise BusinessError("REVIEW_EVIDENCE_OBJECT_BINDING_INVALID", 409)
                     try:
-                        for _ in self.results.store.read(
-                            ObjectRef(fixed["object_id"], fixed["version_id"], fixed["sha256"])
+                        for _ in ScopedObjects(self.results.store, self.results.authority).read(
+                            connection,
+                            current_data_scope(),
+                            ResourceBinding(
+                                "history_input",
+                                fixed["object_id"],
+                                task=TaskBinding(result_key.task_id, result_key.run_version, result_key.result_version),
+                            ),
+                            ObjectRef(fixed["object_id"], fixed["version_id"], fixed["sha256"]),
                         ):
                             pass
                     except (OSError, ValueError, RuntimeError):
                         raise BusinessError("REVIEW_EVIDENCE_INTEGRITY_FAILED", 503) from None
             identifier, version = uuid4(), context["review_version"] + 1
+            self.duties.review(scope, task, context, connection=connection)
             connection.execute(
                 text("""INSERT INTO mt.review_record(review_id,org_id,case_id,task_id,run_version,result_version,reviewer_id,decision,comments,review_version,policy_version,created_by)
                 VALUES(:id,:org,:case,:task_id,:run_version,:result_version,:actor,:decision,:reason,:version,:policy_version,:actor)"""),

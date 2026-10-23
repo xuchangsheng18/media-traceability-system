@@ -141,7 +141,7 @@ def setup_tools():
             {
                 "status": "PASS",
                 "quality_python": str(py),
-                "project_py310_or_100_package_lock_changed": False,
+                "runtime_lock_changed_by_tool_setup": False,
                 "git_hooks_installed": False,
             }
         )
@@ -225,7 +225,7 @@ def dependency_check():
             "-m",
             "pip_audit",
             "-r",
-            "config/locks/requirements-py310.lock",
+            "config/locks/requirements-py311.lock",
             "--no-deps",
             "--disable-pip",
             "--progress-spinner",
@@ -318,7 +318,7 @@ def dependency_check():
         "npm_findings_by_severity": node_counts,
         "raw_python_report": python_path.relative_to(ROOT).as_posix(),
         "raw_npm_report": node_path.relative_to(ROOT).as_posix(),
-        "python_lock_sha256": hashlib.sha256((ROOT / "config/locks/requirements-py310.lock").read_bytes()).hexdigest(),
+        "python_lock_sha256": hashlib.sha256((ROOT / "config/locks/requirements-py311.lock").read_bytes()).hexdigest(),
         "runtime_Python_OS_model_and_full_DLP_acceptance": False,
         "skip_does_not_mean_safe": True,
         "npm_development_gate_severity": "high_and_critical_block_low_and_moderate_recorded_not_formally_accepted",

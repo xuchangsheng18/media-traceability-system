@@ -1,0 +1,323 @@
+{
+  "status": "RUNTIME_AND_ISOLATED_BUSINESS_VERIFIED_PR_IDENTITY_FIX_PENDING",
+  "observed_at": "2026-10-23T15:18:18.322127+00:00",
+  "scope": "Linux_development_Python_migration_not_production_acceptance",
+  "authorization_ref": "docs/00-project/validation/python311-migration-authorization-20261023.json",
+  "source_base_commit": "8c42c0e57d3dcebe86b6cf291fa846dc722c8f55",
+  "working_tree_modified": true,
+  "python": "3.11.17",
+  "prefix": "/opt/conda/glwy/envs/py311",
+  "package_count": 100,
+  "package_name_set_preserved": true,
+  "dependency_changes": [
+    {
+      "name": "Pillow",
+      "before": "12.3.0",
+      "after": "13.0.0"
+    },
+    {
+      "name": "certifi",
+      "before": "2026.7.22",
+      "after": "2026.10.19"
+    }
+  ],
+  "runtime_lock_sha256": "716bd56bc9c8a8c33f33b90c2909c16ee299f23f924c3bd8b6ce357457255a3e",
+  "rollback_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8",
+  "conda_lock_sha256": "1d4ef790723ae49319d24ac8224191deacff7b883497b79facb22808894f057f",
+  "exact_lock_differences": [],
+  "pip_check": "PASS",
+  "tool_packages": 12,
+  "type_check": {
+    "status": "PASS",
+    "source_files": 302
+  },
+  "affected_regressions": {
+    "status": "PASS",
+    "tests": 80,
+    "command": "python -m pytest tests/platform/test_t014_gate.py tests/platform/test_business_timeout_shutdown.py tests/stage_three/test_types.py tests/stage_three/test_runtime_migration.py -q --tb=short"
+  },
+  "security_scan": {
+    "status": "NO_REPORTED_FINDINGS_WITH_COVERAGE_LIMITS",
+    "packages": 100,
+    "reported_findings": 0,
+    "skips": [
+      {
+        "name": "torch",
+        "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+      }
+    ],
+    "raw_report_ref": "docs/00-project/validation/python311-runtime-audit.json",
+    "skip_is_not_acceptance": true
+  },
+  "old_runtime_untouched": true,
+  "persistent_volume_identifiers_preserved": true,
+  "native_n01_py310_bundle_is_rollback_only": true,
+  "native_n01_new_runtime_admission_complete": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "production_frozen": false,
+  "whole_task_acceptance": false,
+  "linux_full_regression": "PASS 2427 on a new durable isolated temporary PostgreSQL target; original target TIMEOUT/partial887 remains recorded",
+  "new_head_github_CI": "6b pull_request and push terminal FAIL: each identity407/2fail; personal-administrator lifecycle repair verified in isolated Linux only, new exact-head CI pending",
+  "main_merged": false,
+  "prior_failure_preserved": {
+    "head": "8c42c0e57d3dcebe86b6cf291fa846dc722c8f55",
+    "run_id": 39961337884,
+    "identity": "success",
+    "foundation": "success",
+    "engineering_execution": "failure",
+    "engineering": "failure",
+    "runtime_scan_findings": 36
+  },
+  "record_scope": "Pre-next-submission observation; original migration build results retain their original source and timestamp, followup is not a live GitHub status assertion",
+  "platform_regression": {
+    "status": "PASS",
+    "command": "python -m pytest tests/poc tests/stage_three tests/platform tests/data tests/native -q --tb=short",
+    "totals": {
+      "tests": 2080,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "elapsed_seconds": 220.61,
+    "junit_sha256": "80ef8168fc3cdd4fd3eb4f4f6b8b68b32b3d7742ccfa17b3e625c7671c049736"
+  },
+  "frontend_regression": {
+    "status": "PASS",
+    "vitest_summary": [
+      "Test Files  17 passed (17)",
+      "Tests  959 passed (959)"
+    ]
+  },
+  "frontend_production_build": "PASS",
+  "backend_wheel_and_sdist_build": "PASS",
+  "runtime_archive": {
+    "profile": "miniforge-py311-linux-x86_64-cpu",
+    "python": "3.11.17",
+    "source_environment": "/opt/conda/glwy/envs/py311",
+    "requirements_lock_sha256": "716bd56bc9c8a8c33f33b90c2909c16ee299f23f924c3bd8b6ce357457255a3e",
+    "archive_sha256": "3e2b9231aa1a5bd826842766986a5f6d1fb36297a305c0a97996c23edf64fd05",
+    "archive_repository_path": "deploy/build/py311.tar.gz",
+    "archive_committed": false
+  },
+  "lint_format_and_types": {
+    "status": "PASS",
+    "typed_source_files": 302
+  },
+  "official_origin_verified": {
+    "wheels": 100,
+    "conda_packages": 26,
+    "all_digests_match": true
+  },
+  "review": {
+    "status": "FINDINGS_FIXED_AND_REGRESSION_VERIFIED",
+    "critical": 0,
+    "important": 3,
+    "minor": 1,
+    "minor_regraded_for_user_workflow": true,
+    "fixes": [
+      "active_operator_commands_and_T034_examples",
+      "historical_CI_evidence_attribution",
+      "official_artifact_origin_chain"
+    ],
+    "regression_red": {
+      "tests": 3,
+      "passed": 1,
+      "failed": 2
+    },
+    "regression_green": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "ci_failure_probe": "EXPECTED_FAILURE_STOPPED_BEFORE_BUILD",
+  "repository_secret_check": {
+    "status": "PASS",
+    "files_checked": 2481
+  },
+  "prior_attempts": [
+    {
+      "tests": 2025,
+      "passed": 1996,
+      "failed": 29,
+      "reasons": [
+        "missing_Node_PATH_and_selected_type_tool_directory",
+        "fixture_missing_new_runtime_lock"
+      ]
+    },
+    {
+      "tests": 2077,
+      "passed": 2064,
+      "failed": 13,
+      "reasons": [
+        "old_patch_archive_was_reextracted",
+        "short_shutdown_probes_competed_with_parallel_type_check"
+      ]
+    }
+  ],
+  "doc_links_verified": 14426,
+  "followup_observation": {
+    "observed_date": "2026-10-24",
+    "source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+    "storage_report_ref": "docs/00-project/validation/python311-linux-business-storage-report.json",
+    "readiness_document_ref": "docs/03-development/t013-admin-readiness.md",
+    "main_merged": false,
+    "shared_services_restarted": false,
+    "prepared_readiness_fix": {
+      "base_source_commit": "3ca42b6c5f223dbe4f2978b1ad315318eebc65df",
+      "working_tree_modified": true,
+      "source_sha256": {
+        "tests/identity/recovery_lab.py": "61e4cd16c8b093ddd389d4d5de6d43d115f475c94f1fb52279d2647b6f82ee77",
+        "scripts/identity/checks.py": "27901c47dbd208321e0ad973d808f5d023d13195324d2598af269506aff66c80",
+        "tests/platform/test_t013_recovery_readiness.py": "84622068780b97563f2bc5fe9552ed06ae9c726c47857215a16f5423c7c468e0"
+      },
+      "regression_red": {
+        "failed": 9,
+        "passed": 2
+      },
+      "final_unit_regression": {
+        "elapsed_seconds": 46.3,
+        "command": "python -m pytest tests/platform/test_t013_recovery_readiness.py tests/platform/test_t013_identity_checks.py -q --tb=short",
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "tests": 102
+      },
+      "full_type_check": {
+        "status": "PASS",
+        "source_files": 303
+      },
+      "real_identity_and_new_head_CI": "PENDING",
+      "whole_task_acceptance": false
+    },
+    "exact_3ca_hosted_runs": [
+      {
+        "run_id": 39986008795,
+        "event": "pull_request",
+        "identity": "failure",
+        "foundation": "skipped",
+        "engineering_execution": "skipped",
+        "engineering": "failure"
+      },
+      {
+        "run_id": 39985999721,
+        "event": "push",
+        "identity": "success",
+        "foundation": "success",
+        "engineering_execution": "success",
+        "engineering": "success"
+      }
+    ]
+  },
+  "retired_bootstrap_readiness_followup": {
+    "observed_date": "2026-10-24",
+    "failed_head": "6b4c93f6bb9dc109a32ef4bd9d581754354d515c",
+    "failed_runs": [
+      39994731115,
+      39994722882
+    ],
+    "failed_totals": {
+      "tests": 407,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failed_cases": [
+      "tests.identity.test_admin_handover_live.test_real_master_mfa_bootstrap_removal_and_restart",
+      "tests.identity.test_management_live.test_personal_mfa_tools_and_private_retirement_candidates_without_bootstrap"
+    ],
+    "diagnostic": "RECOVERY_LAB_READINESS_TIMEOUT",
+    "artifact_pr": {
+      "id": 12519569106,
+      "sha256": "1400a2b3b3bc39bdff50c910744811da288190007becd5915f8dce6997c62738"
+    },
+    "source_sha256": {
+      "tests/identity/recovery_lab.py": "d6768744c9a5ba9aaa46c425b83334ccb0a4702031ab3174596ae9c8a1644785",
+      "tests/identity/test_admin_handover_live.py": "90be405d29bdc1042f1331a422845ab471bad27646dbc86a6cdbed015296a63d",
+      "tests/identity/test_management_live.py": "325b893a1a1b2134ea7c53f39680ca9e92f50f257c2dddef1f69327fc41547f9",
+      "tests/platform/test_t013_recovery_readiness.py": "003d4a9ba1001056220ab7c4372eb23108e75973a404489b83e2003d42034df6"
+    },
+    "regression_red": {
+      "failed": 4,
+      "passed": 11
+    },
+    "unit_regression": {
+      "tests": 106,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 45.91
+    },
+    "typed_source_files": 303,
+    "real_isolated_live": {
+      "status": "PASS",
+      "scope": "two_remaining_original_recovery_cases_only_not_complete_identity_CI",
+      "exit_code": 0,
+      "complete": true,
+      "timeout_seconds": 1800,
+      "original_identity_live_group_budget_unchanged": true,
+      "totals": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [],
+      "elapsed_seconds": 1028.457,
+      "source_sha256": {
+        "tests/identity/recovery_lab.py": "d6768744c9a5ba9aaa46c425b83334ccb0a4702031ab3174596ae9c8a1644785",
+        "tests/identity/test_admin_handover_live.py": "90be405d29bdc1042f1331a422845ab471bad27646dbc86a6cdbed015296a63d",
+        "tests/identity/test_management_live.py": "325b893a1a1b2134ea7c53f39680ca9e92f50f257c2dddef1f69327fc41547f9",
+        "tests/platform/test_t013_recovery_readiness.py": "003d4a9ba1001056220ab7c4372eb23108e75973a404489b83e2003d42034df6"
+      },
+      "raw_logs_published": false,
+      "shared_services_changed": false
+    },
+    "new_exact_head_hosted_CI": "PENDING",
+    "main_merged": false,
+    "whole_task_acceptance": false,
+    "shared_services_restarted": false,
+    "original_readiness_seconds": 180,
+    "no_retired_credential_fallback": true,
+    "first_stale_personal_session_attempt": {
+      "tests": 1,
+      "failures": 1,
+      "complete": false,
+      "stopped_after_observed_failure": true,
+      "diagnostic": "RECOVERY_LAB_READINESS_TIMEOUT",
+      "public_discovery_200_count": 62,
+      "admin_operation_401_count": 62,
+      "raw_logs_published": false
+    },
+    "personal_MFA_reauthenticated_after_service_readiness": true,
+    "original_four_case_diagnostic": {
+      "status": "TIMEOUT",
+      "diagnostic_timeout_seconds": 1200,
+      "complete": false,
+      "junit_created": false,
+      "partial_passed_case_events": [
+        "tests/identity/test_admin_handover_live.py::test_real_master_mfa_bootstrap_removal_and_restart",
+        "tests/identity/test_management_live.py::test_personal_mfa_tools_and_private_retirement_candidates_without_bootstrap"
+      ],
+      "partial_events_not_complete_suite_totals": true,
+      "source_sha256": {
+        "tests/identity/recovery_lab.py": "d6768744c9a5ba9aaa46c425b83334ccb0a4702031ab3174596ae9c8a1644785",
+        "tests/identity/test_admin_handover_live.py": "90be405d29bdc1042f1331a422845ab471bad27646dbc86a6cdbed015296a63d",
+        "tests/identity/test_management_live.py": "325b893a1a1b2134ea7c53f39680ca9e92f50f257c2dddef1f69327fc41547f9",
+        "tests/platform/test_t013_recovery_readiness.py": "003d4a9ba1001056220ab7c4372eb23108e75973a404489b83e2003d42034df6"
+      },
+      "private_log_sha256": "c6a598746d4f9cc56bf18d96ed479e88c51b9c1e73466ed3be18536d2f5c0a7c",
+      "cleanup": {
+        "owned_project": "media-trace-identity-restore-82b5640b",
+        "containers_stopped_and_removed": true,
+        "volumes_removed": false,
+        "shared_services_changed": false
+      },
+      "raw_logs_published": false,
+      "whole_CI_passed": false
+    },
+    "remaining_recovery_junit_sha256": "24a94e8aae5d2094d665fb947052018b66ce3c88ea66f9808e4583bda6f3cf38",
+    "complete_identity_group_verified": false
+  }
+}

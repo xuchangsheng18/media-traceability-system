@@ -1,0 +1,808 @@
+{
+  "schema_version": 1,
+  "status": "SOURCE_CANDIDATE_WITH_FAILED_OR_INCOMPLETE_GATE",
+  "observed_at": "2026-10-22T15:48:21.467785+00:00",
+  "base_source_commit": "0d3142cab76d65196593f3588f90bef2b56d0f36",
+  "source_sha256_lf": {
+    "backend/business_app/db.py": "8ca7f2131d065dd1fada9332de03a431e655e7113d7b1864a19b1a1490b7a7ff",
+    "backend/business_app/permissions/guard.py": "b300498d44a44ec4fcd258f116f738791aa61c6f4d740be487829f0b65d6b476",
+    "backend/business_app/permissions/object_facts.py": "dc1660b723921db74fffdcd121098a8cb012c39f3125a2ae2941c035eefcc4dd",
+    "backend/business_app/permissions/task_creation_facts.py": "4c5cbf74857d939dd71ac3a62625f65f6752c8839c366b99eb8c21b8c6c9c6a9",
+    "backend/business_app/task_creation_sql_authority.py": "cc0ae778ff11417f6042d58a024a628b44f38eadd3885f6680c819bdc578ecb9",
+    "backend/business_migrations/0017_task_creation_scope_reads.sql": "b8a5401f43895a7cd9d84ffdf434356be95d4499875c6ef7cf61bafe1616dd98",
+    "tests/business/conftest.py": "d4900a27b84678e64fbd25019717e0895de3e7762c27813a57dc89b05b815f1c",
+    "tests/business/test_migrations.py": "bb341fd0c184c0af07323a4eb29f567fee30bf11f7266b842e5ab34fa905487a",
+    "tests/business/test_t015_scope_owner.py": "91d8bdb78c77f241a891e1f61347d80cfed6f34934c1a04b5c2bf051067d62ae",
+    "tests/business/test_t015_scope_recovery.py": "55085a859bccac3a2fd900bbe73a444a6c81f3d8a192f64243eda9c223f246e4",
+    "tests/business/test_task_creation_core_facts.py": "83217b3539728f791a96008df0ef87258bd0c92688d614f982376d8685d14f77",
+    "tests/business/test_task_creation_facts.py": "23884421ae5e8e0c7b64b21d63c9984d378e789dcee8e672b4c83bb3135b83ab",
+    "tests/business/test_task_creation_guard.py": "b076c53a5b774f0b0699881dc061d243aef1cb358e8a431b9773f98e19919888",
+    "tests/business/test_task_creation_migration.py": "f6f3aa07b5e62755c820c9008176abfee587127ec958ed68be29ad5e5d7a9267",
+    "tests/business/test_task_creation_scope_sql.py": "0d8b0424bd525a88fa63a0d9b643701bf03537f1ef98b09cbae519ac077b3c1e",
+    "tests/business/test_task_creation_sql_authority.py": "97e5ddeca0782a49e50d30388f9531da503fd0003fb834db73a6432cc1c3cd30"
+  },
+  "approved_plan_ref": "docs/03-development/t034-creation-implementation-plan.md",
+  "approved_plan_sha256_lf": "20c1be01c841489d1ad8c49f41d69f3e2ade911653c402a93125a3091be1228d",
+  "approval_ref": "docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json",
+  "actual_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "actual_human_review_performed": false,
+  "responsibility_confirmation_ref": "docs/00-project/validation/t034-role-assignment.json",
+  "proof_receipt_sha256": {
+    "pure": "70bf5f610a96147dbb69ef80656616a877ca371a3b5d8e7f045e997d3b82d41a",
+    "quality": "b6ba5a8328dd0aff2e12a8ec93b0f63434b7de22bf918c69a00fb950f4106c96",
+    "sql": "f1fd6c75dd273c9cda82353f6ef8f604c4d6c93b7e49995dd3c4185d7eac6da1",
+    "full": "1ad837257182c8f6dff12bf5bc884a07566b81d6dc00c9143f3d3f4451124c90",
+    "permissions": "b008b1850ee248f3f7f8fcadca276d8e71986ddd0ba81cdf59d6f364e72e9184",
+    "zero_row_effective_DML_RED": "44481e19bd9eaaa3b83d1f8b0f714ad95dd9e6dc7b90c1e6c1968d8a4ff7fbdc",
+    "review": "ce2c21f82f1ba1a5f9e6e4cd722f5693b8e20f2cb1e3f676a0d9126a7465f2ee",
+    "prior_ci": "5c63d69b1b4e50fd9bcd4fa92eb2c7cbe09f8ba09631508ec939ffc3af940d08",
+    "new_components": "dd5cab819f1dc29676e55408d5637c6bfec5f32b56594a3444bcb018de50e6e6",
+    "guard_context_query": "efd236277e67bfab71f2eb192ab0ced8a1ee669fbef94bea02534718d6c5095a",
+    "missing_fixed_SQL": "f14ad6b2ad7553451482936a75b87cb6110bf0f83d4b7077cead3ff5f1874a04",
+    "pure_old_kernel_assertion": "6f7228961d2515a8aa91a6ca4857e256cd211481654489e7fba10607e7aa352f",
+    "quality_import_format": "8b0046aea84c23acdba1495545e96be5381649d03f7042587e00efca73a93727",
+    "quality_second_import_grouping": "07383c1e973ded6afe534f482c54d6765a333ff013271685e1dd8ccb4f5b2869",
+    "quality_optional_protocol_types": "49911071920845f3e950fd2e10e818e36e1ad1981840d38f6e3055203d16551f",
+    "owner_transfer_execution_ACL": "43b46a253e916a19de79500390206ada015fb6f7f76001d7dd69cd2b57c13fb0",
+    "initial_SQL_owner_history_fixtures": "e206b5fe607462d83e7cf63cbe047b41c92179a7e12623787c37b9d4391735da",
+    "postfix_guard_wrong_runner_mode": "7f9b8eb585a0064da5f5705e12e2f1c23c761b3c67294169956a6a217b8881f7"
+  },
+  "RED_history": {
+    "new_components": {
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "root_cause_readback_verified": true,
+      "source_scope": "Original assertion snapshot, not final cohort",
+      "proof_kind": "Missing new components/functions or previously absent context/query rejection; no mounted-endpoint security/202 claim"
+    },
+    "guard_context_query": {
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "root_cause_readback_verified": true,
+      "source_scope": "Original assertion snapshot, not final cohort",
+      "proof_kind": "Missing new components/functions or previously absent context/query rejection; no mounted-endpoint security/202 claim"
+    },
+    "missing_fixed_SQL": {
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "root_cause_readback_verified": true,
+      "source_scope": "Original assertion snapshot, not final cohort",
+      "proof_kind": "Missing new components/functions or previously absent context/query rejection; no mounted-endpoint security/202 claim"
+    }
+  },
+  "zero_row_DML_regression": {
+    "original_actual_failed_cases": 4,
+    "head_epoch_side_effect_reproduced": true,
+    "source_scope": "Original vulnerable unpublished0017 snapshot; final closure requires actual affected SQL/full regressions",
+    "fix": "Four-table first BEFORE STATEMENT SECURITY INVOKER role guard rejects even zero-row DML before epoch triggers; no weakening of RLS or SELECT FOR SHARE",
+    "raw_logs_published": false
+  },
+  "initial_attempts": {
+    "pure_old_kernel_assertion": {
+      "mode": "i02-pure",
+      "complete": true,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    },
+    "quality_import_format": {
+      "mode": "quality",
+      "complete": false,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    },
+    "quality_second_import_grouping": {
+      "mode": "quality",
+      "complete": false,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    },
+    "quality_optional_protocol_types": {
+      "mode": "quality",
+      "complete": true,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true
+        },
+        {
+          "exit_code": 0,
+          "expected_exit_code": 0,
+          "expected_result_verified": true
+        },
+        {
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    },
+    "owner_transfer_execution_ACL": {
+      "mode": "i02-owner-zero",
+      "complete": true,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    },
+    "initial_SQL_owner_history_fixtures": {
+      "mode": "i02-sql",
+      "complete": true,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    },
+    "postfix_guard_wrong_runner_mode": {
+      "mode": "guard-red",
+      "complete": true,
+      "success": false,
+      "checks": [
+        {
+          "exit_code": 0,
+          "expected_exit_code": 1,
+          "expected_result_verified": false
+        }
+      ],
+      "included_in_final_counts": false
+    }
+  },
+  "initial_failures_explanation": "First pure run had1 failed/540 passed due the preserved old pure kernel identity assertion; SQL wrapper was split into a separate module and original pure module restored exactly. Initial quality failed import/format checks; existing Linux Ruff/config was applied in the project snapshot without changing rules/assertions. First SQL/T015 combination had5 failed/159 passed in owner/recovery expectations; those fixtures are separately updated for the new explicit temporary administrator SET-only role handoff for the non-super migration owner and exact0017, preserving historical assertions. Focused SQL then found missing execution ACL after owner transfer; all grants/comments now precede owner transfer. Type-check failures were fixed with actual assertions and protocol fixtures, not ignores. Corrected guard run used the RED mode accidentally (exit0 versus expected1); not a genuine failing product and not a final proof.",
+  "pure_validation": {
+    "kind": "I02_AND_UNCHANGED_PURE_REGRESSION",
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "-q",
+      "tests/business/test_task_creation_sql_authority.py",
+      "tests/business/test_task_creation_facts.py",
+      "tests/business/test_task_creation_guard.py",
+      "tests/business/test_task_creation_authority.py",
+      "tests/business/test_task_creation_context.py",
+      "tests/business/test_task_creation_binding.py",
+      "tests/business/test_task_creation_materials.py",
+      "tests/platform/test_task_creation_adoption.py",
+      "--tb=short"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T15:22:17.860217+00:00",
+    "ended_at": "2026-10-22T15:22:24.081866+00:00",
+    "tests": 544,
+    "existing_pure_tests": 392,
+    "new_tests": 152,
+    "database_used": false,
+    "counts_overlap_not_additive": true
+  },
+  "sql_validation": {
+    "kind": "REAL_RANDOM_ISOLATED_PG16_SCOPE_READS_AND_T015_HISTORY",
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "command_arguments": [
+      "-m",
+      "pytest",
+      "-q",
+      "tests/business/test_task_creation_scope_sql.py",
+      "tests/business/test_task_creation_core_facts.py",
+      "tests/business/test_t014_object_rules.py::test_no_new_unmounted_operation_is_claimed",
+      "tests/business/test_task_creation_migration.py",
+      "tests/business/test_t015_scope_sql.py",
+      "tests/business/test_t015_scope_owner.py",
+      "tests/business/test_t015_scope_recovery.py",
+      "--tb=short"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "expected_result_verified": true,
+    "started_at": "2026-10-22T15:24:25.188021+00:00",
+    "ended_at": "2026-10-22T15:32:54.552957+00:00",
+    "tests": 178,
+    "source_binding": "Exact final full changed cohort",
+    "superuser_or_tableowner_not_used_as_case_owner_or_runtime_ACL_proof": true
+  },
+  "current_full_database_validation": {
+    "status": "NOT_RUN_AFTER_DEFAULT_ADVERTISEMENT_FIX",
+    "passed": false,
+    "not_replaced_by_targeted_PASS": true
+  },
+  "full_database_validation": {
+    "kind": "BUSINESS_FOUNDATION_FULL_RANDOM_ISOLATED_DATABASES",
+    "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+    "command_arguments": [
+      "scripts/verify_business_foundation.py",
+      "run"
+    ],
+    "exit_code": 2,
+    "expected_exit_code": 0,
+    "expected_result_verified": false,
+    "started_at": "2026-10-22T14:03:51.894424+00:00",
+    "ended_at": "2026-10-22T14:33:52.157120+00:00",
+    "status": "BLOCKED_OR_FAIL",
+    "source_sha256_lf": {
+      "tests/business/test_task_creation_facts.py": "23884421ae5e8e0c7b64b21d63c9984d378e789dcee8e672b4c83bb3135b83ab",
+      "backend/business_migrations/0017_task_creation_scope_reads.sql": "b8a5401f43895a7cd9d84ffdf434356be95d4499875c6ef7cf61bafe1616dd98",
+      "tests/business/conftest.py": "d4900a27b84678e64fbd25019717e0895de3e7762c27813a57dc89b05b815f1c",
+      "tests/business/test_t015_scope_recovery.py": "55085a859bccac3a2fd900bbe73a444a6c81f3d8a192f64243eda9c223f246e4",
+      "tests/business/test_t015_scope_owner.py": "91d8bdb78c77f241a891e1f61347d80cfed6f34934c1a04b5c2bf051067d62ae",
+      "backend/business_app/task_creation_sql_authority.py": "cc0ae778ff11417f6042d58a024a628b44f38eadd3885f6680c819bdc578ecb9",
+      "backend/business_app/db.py": "8ca7f2131d065dd1fada9332de03a431e655e7113d7b1864a19b1a1490b7a7ff",
+      "backend/business_app/permissions/guard.py": "b300498d44a44ec4fcd258f116f738791aa61c6f4d740be487829f0b65d6b476",
+      "tests/business/test_migrations.py": "bb341fd0c184c0af07323a4eb29f567fee30bf11f7266b842e5ab34fa905487a",
+      "backend/business_app/permissions/object_facts.py": "9d5177f9f7bcca6462b733a2fcaf8edcced8f4c6b22699ec874aff53cf7bea0b",
+      "tests/business/test_task_creation_scope_sql.py": "0d8b0424bd525a88fa63a0d9b643701bf03537f1ef98b09cbae519ac077b3c1e",
+      "tests/business/test_task_creation_sql_authority.py": "97e5ddeca0782a49e50d30388f9531da503fd0003fb834db73a6432cc1c3cd30",
+      "tests/business/test_task_creation_migration.py": "f6f3aa07b5e62755c820c9008176abfee587127ec958ed68be29ad5e5d7a9267",
+      "backend/business_app/permissions/task_creation_facts.py": "4c5cbf74857d939dd71ac3a62625f65f6752c8839c366b99eb8c21b8c6c9c6a9",
+      "tests/business/test_task_creation_core_facts.py": "8bee7a1864f890ff21e17a192389651465566fddde1440b69f22bbfa362aee6a",
+      "tests/business/test_task_creation_guard.py": "b076c53a5b774f0b0699881dc061d243aef1cb358e8a431b9773f98e19919888"
+    },
+    "current_code_verified_by_this_run": false,
+    "test_count": 0,
+    "tests_completed": false,
+    "passed": false,
+    "elapsed_seconds": 1800.262696,
+    "failure_is_preserved_not_converted_to_PASS": true,
+    "overlapping_passing_targeted_suites_do_not_replace_this_gate": true
+  },
+  "permissions_observation": {
+    "status": "HISTORICAL_PERMISSIONS_FAILURE_BEFORE_ADVERTISEMENT_FIX",
+    "source_sha256_lf": {
+      "tests/business/test_task_creation_facts.py": "23884421ae5e8e0c7b64b21d63c9984d378e789dcee8e672b4c83bb3135b83ab",
+      "backend/business_migrations/0017_task_creation_scope_reads.sql": "b8a5401f43895a7cd9d84ffdf434356be95d4499875c6ef7cf61bafe1616dd98",
+      "tests/business/conftest.py": "d4900a27b84678e64fbd25019717e0895de3e7762c27813a57dc89b05b815f1c",
+      "tests/business/test_t015_scope_recovery.py": "55085a859bccac3a2fd900bbe73a444a6c81f3d8a192f64243eda9c223f246e4",
+      "tests/business/test_t015_scope_owner.py": "91d8bdb78c77f241a891e1f61347d80cfed6f34934c1a04b5c2bf051067d62ae",
+      "backend/business_app/task_creation_sql_authority.py": "cc0ae778ff11417f6042d58a024a628b44f38eadd3885f6680c819bdc578ecb9",
+      "backend/business_app/db.py": "8ca7f2131d065dd1fada9332de03a431e655e7113d7b1864a19b1a1490b7a7ff",
+      "backend/business_app/permissions/guard.py": "b300498d44a44ec4fcd258f116f738791aa61c6f4d740be487829f0b65d6b476",
+      "tests/business/test_migrations.py": "bb341fd0c184c0af07323a4eb29f567fee30bf11f7266b842e5ab34fa905487a",
+      "backend/business_app/permissions/object_facts.py": "9d5177f9f7bcca6462b733a2fcaf8edcced8f4c6b22699ec874aff53cf7bea0b",
+      "tests/business/test_task_creation_scope_sql.py": "0d8b0424bd525a88fa63a0d9b643701bf03537f1ef98b09cbae519ac077b3c1e",
+      "tests/business/test_task_creation_sql_authority.py": "97e5ddeca0782a49e50d30388f9531da503fd0003fb834db73a6432cc1c3cd30",
+      "tests/business/test_task_creation_migration.py": "f6f3aa07b5e62755c820c9008176abfee587127ec958ed68be29ad5e5d7a9267",
+      "backend/business_app/permissions/task_creation_facts.py": "4c5cbf74857d939dd71ac3a62625f65f6752c8839c366b99eb8c21b8c6c9c6a9",
+      "tests/business/test_task_creation_core_facts.py": "8bee7a1864f890ff21e17a192389651465566fddde1440b69f22bbfa362aee6a",
+      "tests/business/test_task_creation_guard.py": "b076c53a5b774f0b0699881dc061d243aef1cb358e8a431b9773f98e19919888"
+    },
+    "current_code_retested_by_this_full_suite": false,
+    "current_permission_suite_status": "NOT_RERUN_AFTER_DEFAULT_ADVERTISEMENT_FIX",
+    "complete": false,
+    "success": false,
+    "all_permissions_pass_asserted": false,
+    "checks": [
+      {
+        "kind": "RUN",
+        "exit_code": 1,
+        "expected_exit_code": 0,
+        "expected_result_verified": false,
+        "started_at": "2026-10-22T14:51:00.104729+00:00",
+        "ended_at": "2026-10-22T15:06:07.101892+00:00",
+        "summary": {
+          "status": "FAIL",
+          "totals": {
+            "tests": 1092,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          }
+        }
+      }
+    ],
+    "proof_sha256": "b008b1850ee248f3f7f8fcadca276d8e71986ddd0ba81cdf59d6f364e72e9184",
+    "not_full_business_gate_pass": true
+  },
+  "failure_probe": {
+    "status": "NOT_RUN",
+    "reason": "Full business gate returned actual2 while expected0, runner stopped before its second command",
+    "exit_code": null,
+    "expected_exit_code": 1,
+    "expected_assertion_failure_verified": false
+  },
+  "quality": {
+    "checks": [
+      {
+        "kind": "RUFF",
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "command_arguments": [
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T15:22:08.329644+00:00",
+        "ended_at": "2026-10-22T15:22:08.463547+00:00"
+      },
+      {
+        "kind": "FORMAT_CHECK",
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "command_arguments": [
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data",
+          "scripts/task_creation_adoption.py"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T15:22:08.463649+00:00",
+        "ended_at": "2026-10-22T15:22:08.661066+00:00"
+      },
+      {
+        "kind": "MYPY",
+        "python_environment": "Current Linux Miniforge py310 / Python3.10.22",
+        "command_arguments": [
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "expected_result_verified": true,
+        "started_at": "2026-10-22T15:22:08.661160+00:00",
+        "ended_at": "2026-10-22T15:22:11.981728+00:00"
+      }
+    ],
+    "mypy_source_files": 279
+  },
+  "development_design_decision": {
+    "document_ref": "docs/03-development/t034-internal-development-decisions.md",
+    "authorization_ref": "docs/00-project/validation/t034-development-design-delegation-20261022.json",
+    "engineering_defaults_selected_for_next_isolated_implementation": true,
+    "runtime_configuration_changed": false,
+    "actual_identity_case_licence_recovery_or_adoption_facts_created": false
+  },
+  "source_review": {
+    "critical_count": 0,
+    "important_count": 0,
+    "source_sha256_lf": {
+      "backend/business_app/db.py": "8ca7f2131d065dd1fada9332de03a431e655e7113d7b1864a19b1a1490b7a7ff",
+      "backend/business_app/permissions/guard.py": "b300498d44a44ec4fcd258f116f738791aa61c6f4d740be487829f0b65d6b476",
+      "backend/business_app/permissions/object_facts.py": "dc1660b723921db74fffdcd121098a8cb012c39f3125a2ae2941c035eefcc4dd",
+      "backend/business_app/permissions/task_creation_facts.py": "4c5cbf74857d939dd71ac3a62625f65f6752c8839c366b99eb8c21b8c6c9c6a9",
+      "backend/business_app/task_creation_sql_authority.py": "cc0ae778ff11417f6042d58a024a628b44f38eadd3885f6680c819bdc578ecb9",
+      "backend/business_migrations/0017_task_creation_scope_reads.sql": "b8a5401f43895a7cd9d84ffdf434356be95d4499875c6ef7cf61bafe1616dd98",
+      "tests/business/conftest.py": "d4900a27b84678e64fbd25019717e0895de3e7762c27813a57dc89b05b815f1c",
+      "tests/business/test_migrations.py": "bb341fd0c184c0af07323a4eb29f567fee30bf11f7266b842e5ab34fa905487a",
+      "tests/business/test_t015_scope_owner.py": "91d8bdb78c77f241a891e1f61347d80cfed6f34934c1a04b5c2bf051067d62ae",
+      "tests/business/test_t015_scope_recovery.py": "55085a859bccac3a2fd900bbe73a444a6c81f3d8a192f64243eda9c223f246e4",
+      "tests/business/test_task_creation_core_facts.py": "83217b3539728f791a96008df0ef87258bd0c92688d614f982376d8685d14f77",
+      "tests/business/test_task_creation_facts.py": "23884421ae5e8e0c7b64b21d63c9984d378e789dcee8e672b4c83bb3135b83ab",
+      "tests/business/test_task_creation_guard.py": "b076c53a5b774f0b0699881dc061d243aef1cb358e8a431b9773f98e19919888",
+      "tests/business/test_task_creation_migration.py": "f6f3aa07b5e62755c820c9008176abfee587127ec958ed68be29ad5e5d7a9267",
+      "tests/business/test_task_creation_scope_sql.py": "0d8b0424bd525a88fa63a0d9b643701bf03537f1ef98b09cbae519ac077b3c1e",
+      "tests/business/test_task_creation_sql_authority.py": "97e5ddeca0782a49e50d30388f9531da503fd0003fb834db73a6432cc1c3cd30"
+    },
+    "dependencies_read_sha256_lf": {
+      "AGENTS.md": "3e8da2f265c6d659519faa3506ed00cf844aa3380450773a3e72391d2a1c9931",
+      "docs/03-development/t034-creation-implementation-plan.md": "d2417eaf24a85688e8bf82eba0f5ad24c4e8b86104c673b7624f2a3419ff6006",
+      "tasks/backend/T034.md": "c336c3d85821f55252fc6b05f5551e53f5ad3388d0d3b4c3b40c44190db34a8a",
+      "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
+      "schemas/api/common.schema.json": "f0f97b23bf7e6dbf0ffe62b0ac5f55b033b5aa3c24739436d2be0fcf44cfe269",
+      "backend/business_app/permissions/task_creation_context.py": "d965a25fe6470c200a93514c0c2fec77ffe56acc294c4a523e6fdfac4c576245",
+      "backend/business_app/task_creation_authority.py": "c08fb7ac51a1300ac349754075de950489962d56035db750ee439fb902ae91e8",
+      "tests/business/test_task_creation_authority.py": "e027492c569c7a397b2bb7ccf9c10879d31b58dbdd474f197e97ae0e61dbe896",
+      "backend/business_app/task_creation_materials.py": "3728d6fca9efd69766d6e955093933f2c3738eb89cc256304a895643b4392a4e",
+      "backend/business_app/permissions/catalog.py": "9829b9136f5871dc97f75c179b26c7becc16d8a7fbc28af0d4da3a301e34119c",
+      "backend/business_app/permissions/context.py": "a5443dece34062c1ba1e768be1a86cc58042c04da4570691065ad12412080e5b",
+      "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
+      "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
+      "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
+      "backend/business_app/permissions/conditional.py": "d98259060f24cbad64e2452444ddcec87685873704a48f3664b6d36c0736aef8",
+      "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+      "backend/business_app/data_scope.py": "a8ffe486e2bdec252609790ee1e2ee0bf0296b31a411fa560c803a171a427ab2",
+      "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
+      "backend/business_app/scope_collections.py": "1b9c8d9c0f53cea27c212da55fd3029cd9eb6e44f7a629875794927e5f7c1129",
+      "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
+      "backend/business_app/scope_catalog.py": "1cf9346e2e76d932b1fb1f1a4dc6b6a6e92c1ed1eae6ad7acebf417be2be2c46",
+      "backend/business_app/contracts.py": "15dad14f4a3ebca192c95bd7f175939202c7f479fa1a0973165aa89824b55f4d",
+      "backend/business_app/errors.py": "e15ce459f7f8d7bdf42811a52c3c7039103af4c945f413fa514e8a95bb8fea22",
+      "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+      "backend/business_migrations/0016_task_creation_plan_bindings.sql": "80a221449e3e013360c383d99beee565bd395a7e9e76f0aa8498ce36ef8f809b",
+      "backend/business_migrations/0010_data_scope.sql": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+      "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3"
+    },
+    "independent_review_scope": "ROOT aggregate of independently reviewed product/core and SQL scopes; other tests are bound to runtime results, not all independently rereviewed",
+    "not_human_acceptance": true,
+    "later_documentation_overlay_not_source_rereview": true
+  },
+  "prior_payload_hosted_CI": {
+    "id": 39779468023,
+    "run_attempt": 1,
+    "source_commit": "22e61e9ccd4df617ff1b33a8931971384ce9781c",
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39779468023",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "observed_at": "2026-10-22T14:58:53.701998+00:00",
+    "jobs": [
+      {
+        "id": 119826695442,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "cancelled"
+      },
+      {
+        "id": 119848869635,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 119848870618,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 119848871667,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "current_i02_integration_verified_by_this_run": false,
+    "all_CI_pass_asserted": false,
+    "test_scopes_overlap_do_not_add": true,
+    "advisory_matches_not_applicability_or_risk_acceptance": true,
+    "runtime_and_scan_reports_missing_own_source_are_diagnostic_only": true,
+    "artifact_receipts": [],
+    "observation_scope": "Completed exact prior run; only actually owned/source/window-verified observations are projected; does not validate current restricted SQL/current facts/guard integration source"
+  },
+  "latest_payload_hosted_CI": {
+    "id": 39809968741,
+    "head_sha": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+    "status": "in_progress",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39809968741",
+    "created_at": "2026-10-22T15:59:24Z",
+    "updated_at": "2026-10-22T16:13:19Z",
+    "observed_at": "2026-10-22T16:22:40.532403+00:00",
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false
+  },
+  "source_sync": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-22T15:59:27.151552+00:00",
+    "source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+    "previous_server_commit": "0d3142cab76d65196593f3588f90bef2b56d0f36",
+    "changed_files": 41,
+    "manifest_files_verified": 2410,
+    "manifest_sha256": "e82a695bef7c077bd081245cef713a7245ff1eeff62f8f714baa8fed0e2c3014",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "scope": "Exact SOURCE_CANDIDATE_WITH_FAILED_OR_INCOMPLETE_GATE restricted SQL/current facts/guard integration source payload only; fixed SQL/facts/guard source only; no real adoption, HTTP mount, task creation or shared runtime change"
+  },
+  "implementation_scope": "SOURCE_CANDIDATE_WITH_FAILED_OR_INCOMPLETE_GATE",
+  "implemented_subscope": "I02_SQL_FACTS_GUARD_RESTRICTED_INTEGRATION_SUBSCOPE",
+  "validation_status": "LIMITED_PASS_FULL_GATE_BLOCKED",
+  "I02_restricted_SQL_facts_guard_engineering_implemented": true,
+  "I02_whole_step_completed": false,
+  "fixed_SQL_read_ports_implemented": true,
+  "guard_context_hooked": true,
+  "dedicated_model_task_version_default": null,
+  "current_handler_provider_default": null,
+  "formal_adoption_or_proof_issuer_implemented": false,
+  "real_current_capability_provider_implemented": false,
+  "classification_or_independent_recovery_provider_implemented": false,
+  "HTTP_createTask_mounted": false,
+  "createTask_mounted": false,
+  "atomic_task_creation_implemented": false,
+  "real_202_verified": false,
+  "real_policy_plan_capability_or_handler_adopted": false,
+  "ACTIVE_seed_created": false,
+  "original_100_package_lock_changed": false,
+  "old_0001_0016_SQL_changed": false,
+  "new_SQL_created": "0017_task_creation_scope_reads.sql",
+  "CI_gates_changed": false,
+  "public_contract_or_route_changed": false,
+  "frontend_changed_or_regression_rerun": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "database_validation_this_batch": true,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "E01_E04_actual_inputs_confirmed": false,
+  "actual_effort_or_dates_inferred": false,
+  "protected_base_input_count": 1030,
+  "protected_base_input_hash_map_sha256": "ce5ad570bad57e93cb63f0d0f97644e728b56b7d8e1b0a682f56a48a950ce2d5",
+  "new_verified_substeps": 0,
+  "verified_substeps_current": 154,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "remaining": [
+    "Full business regression BLOCKED_OR_FAIL expected0/actual2 after1800-second window, test_count0; failure-probe not run. Keep required gates, diagnose without raising limits/lowering assertions to manufacture PASS.",
+    "I02 real adoption authority/valid receipt semantics and proof issuance, exact adopted materials and current handler/model publication/licence/availability provider remain unconfirmed; model_task_version remains unknown.",
+    "Classification/purpose authority, independent recovery generation and actual E04 budgets/TTLs remain; clear negatives deny, missing facts do not become true.",
+    "I03 atomic task/run/node/event/outbox creation, exact replay/concurrency/recovery; I04 protected HTTP mount and I05 applicable complete acceptance remain.",
+    "Current source hostedCI and local/GitHub/Linux receipts must be observed separately; keep failed/pending scans and original gates.",
+    "Human review/actual effort, N01 software admission/Python support and T013 custody/recovery remain separate."
+  ],
+  "material_checks": {
+    "status": "PASS",
+    "validated_source_commit": "11dc4b6d24cdfd5f85b1f2e9122a39f912edbec6",
+    "staged_tree": "66525a75fe1ff126d0fb72c2b470de2bab6e883c",
+    "commands": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T034"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T015"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "scope": "18 exact-source material/navigation checks, not product/production acceptance"
+  },
+  "bounded_prepublication_check": {
+    "status": "PASS",
+    "staged_tree": "66525a75fe1ff126d0fb72c2b470de2bab6e883c",
+    "manifest_files_verified": 2410,
+    "files_checked": 2412,
+    "scope": "Known runtime/private values and secret filenames only; not full DLP"
+  },
+  "navigation_script_quality": {
+    "status": "PASS",
+    "source_sha256": "aa7112da38b7d16a0af50e5d91bc8fac941dc929b9782a0d1d5bdde5bd536bb0",
+    "checks": [
+      {
+        "command": [
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "--config",
+          "/workspace/glwy/projects/media-traceability-system/ruff.toml",
+          "--stdin-filename",
+          "scripts/update_docs_navigation.py",
+          "-"
+        ],
+        "exit_code": 0
+      }
+    ]
+  }
+}

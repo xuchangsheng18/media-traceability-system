@@ -33,12 +33,12 @@ def main():
                          "image_id": inspected["Image"], "memory_limit_bytes": host["Memory"],
                          "cpu_limit": host["NanoCpus"]/1e9, "pids_limit": host["PidsLimit"],
                          "ports": inspected["NetworkSettings"]["Ports"]})
-    image_names = ["media-trace-py310:1.0.0-dev", "media-trace-web:1.0.0-dev", "postgres:16", "rabbitmq:4.3.6-management", "chrislusf/seaweedfs:4.48", "node:22-alpine3.21", "nginx:1.31.4-alpine", "python:3.12-slim-bookworm"]
+    image_names = ["media-trace-py311:1.0.0-dev", "media-trace-web:1.0.0-dev", "postgres:16", "rabbitmq:4.3.6-management", "chrislusf/seaweedfs:4.48", "node:22-alpine3.21", "nginx:1.31.4-alpine", "python:3.12-slim-bookworm"]
     for name in image_names:
         inspected = json.loads(docker("image", "inspect", name))[0]
         images.append({"name": name, "image_id": inspected["Id"], "repo_digests": inspected["RepoDigests"],
                        "platform": inspected["Os"]+"/"+inspected["Architecture"], "size_bytes": inspected["Size"]})
-    archive = ROOT/"deploy/build/py310.tar.gz"
+    archive = ROOT/"deploy/build/py311.tar.gz"
     report = {"observed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
               "host": "172.16.58.179", "user": "glwy", "os_release": Path("/etc/os-release").read_text(),
               "kernel": platform.release(), "cpu_logical": os.cpu_count(),
@@ -46,7 +46,7 @@ def main():
               "memory": memory, "host_disks": disks,
               "gpu_validation": "not_validated", "nvidia_smi_available": shutil.which("nvidia-smi") is not None,
               "python": sys.version, "python_executable": sys.executable,
-              "miniforge_base": "/opt/apps/miniforge3", "conda_environment": "/opt/conda/glwy/envs/py310",
+              "miniforge_base": "/opt/apps/miniforge3", "conda_environment": "/opt/conda/glwy/envs/py311",
               "python_packages": {d.metadata["Name"]: d.version for d in importlib.metadata.distributions()},
               "docker_context": "desktop-linux", "docker": {k: info[k] for k in ["ServerVersion", "OperatingSystem", "NCPU", "MemTotal", "DockerRootDir"]},
               "daemon_disk_df": docker("run", "--rm", "--network", "none", "node:22-alpine3.21", "df", "-Pk", "/"),

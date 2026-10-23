@@ -1,0 +1,51 @@
+{
+  "scope": "exact_Maven_H2_source_and_POM_license_declarations_not_legal_approval",
+  "sources": [
+    {
+      "file": "h2-2.4.240.pom",
+      "attempts": [
+        {
+          "url": "https://repo.maven.apache.org/maven2/com/h2database/h2/2.4.240/h2-2.4.240.pom",
+          "status": "PASS",
+          "sha256": "27af4b7805856b3170d587e0a02caac93d421f875cfc9497dbf5ffd7f3247a4a"
+        }
+      ],
+      "retrieved": true,
+      "licenses": [
+        {
+          "name": "MPL 2.0",
+          "url": "https://www.mozilla.org/en-US/MPL/2.0/",
+          "distribution": "repo"
+        },
+        {
+          "name": "EPL 1.0",
+          "url": "https://opensource.org/licenses/eclipse-1.0.php",
+          "distribution": "repo"
+        }
+      ]
+    },
+    {
+      "file": "h2-2.4.240-sources.jar",
+      "attempts": [
+        {
+          "url": "https://repo.maven.apache.org/maven2/com/h2database/h2/2.4.240/h2-2.4.240-sources.jar",
+          "status": "FAIL",
+          "error": "<urlopen error timed out>"
+        },
+        {
+          "url": "https://repo1.maven.org/maven2/com/h2database/h2/2.4.240/h2-2.4.240-sources.jar",
+          "status": "PASS",
+          "sha256": "a853be74b3f6d63438c53d19e2c368f158ee622499422ba586d1f8bc17b843e2"
+        }
+      ],
+      "retrieved": true,
+      "materials": [],
+      "driver_header": {
+        "path": "org/h2/Driver.java",
+        "source_sha256": "1dc74c4e5b3d2e7087fa2e65f783fe67f2cb76f71c159a774dd558abf70e954e",
+        "first30lines": "/*\n * Copyright 2004-2025 H2 Group. Multiple-Licensed under the MPL 2.0,\n * and the EPL 1.0 (https://h2database.com/html/license.html).\n * Initial Developer: H2 Group\n */\npackage org.h2;\n\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.DriverPropertyInfo;\nimport java.sql.SQLException;\nimport java.util.Properties;\nimport java.util.logging.Logger;\nimport org.h2.api.ErrorCode;\nimport org.h2.engine.Constants;\nimport org.h2.jdbc.JdbcConnection;\nimport org.h2.message.DbException;\n\n/**\n * The database driver. An application should not use this class directly. The\n * only thing the application needs to do is load the driver. This can be done\n * using Class.forName. To load the driver and open a database connection, use\n * the following code:\n *\n * <pre>\n * Class.forName(&quot;org.h2.Driver&quot;);\n * Connection conn = DriverManager.getConnection(\n *      &quot;jdbc:h2:&tilde;/test&quot;, &quot;sa&quot;, &quot;sa&quot;);\n * </pre>\n */"
+      }
+    }
+  ],
+  "formal_admission": false
+}

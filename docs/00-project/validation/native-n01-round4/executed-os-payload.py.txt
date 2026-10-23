@@ -1,0 +1,7 @@
+import hashlib,io,json,subprocess,tarfile
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');lock=json.loads((repo/'config/native/os-runtime-recovery-packages.lock.json').read_text());packages=lock.get('packages',[]);package=next(x for x in packages if x.get('package',x.get('name'))=='libc6');archive=base/'native-os-closure-cache/libc6_2.39-0ubuntu8.9_amd64.deb';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert sha(archive)==package['sha256'];raw=subprocess.check_output(['dpkg-deb','--fsys-tarfile',str(archive)]);wanted='usr/lib/x86_64-linux-gnu/libutil.so.1'
+with tarfile.open(fileobj=io.BytesIO(raw)) as t:
+ m=next(m for m in t if m.name.removeprefix('./')==wanted);payload=t.extractfile(m).read()
+actual=Path('/'+wanted).read_bytes();assert payload==actual
+result={'status':'PASS','scope':'new_host_libutil_exact_payload_of_previously_signed_index_authenticated_libc6_recovery_package','path':'/'+wanted,'package':package,'sha256':hashlib.sha256(actual).hexdigest(),'payload_matches':True,'executed_script_sha256':sha(Path(__file__))};(base/'native-n01-r4/libutil-os-payload-report.json').write_text(json.dumps(result,indent=2)+'\n');print('libutil recovered package payload PASS')

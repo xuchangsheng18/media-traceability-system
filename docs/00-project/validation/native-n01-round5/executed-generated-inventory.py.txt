@@ -1,0 +1,42 @@
+import datetime,hashlib,json,os,struct,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1';out=base/'native-n01-r5';out.mkdir(mode=0o700,exist_ok=True)
+sha=lambda b:hashlib.sha256(b).hexdigest()
+targets=[root/'lib/quarkus/generated-bytecode.jar',root/'lib/quarkus/transformed-bytecode.jar',root/'lib/quarkus-run.jar',root/'lib/lib/main/com.h2database.h2-2.4.240.jar'];wanted=set();rows=[]
+def strings(raw):
+ if raw[:4]!=b'\xca\xfe\xba\xbe':return []
+ count=struct.unpack_from('>H',raw,8)[0];i=1;offset=10;values=[]
+ while i<count:
+  tag=raw[offset];offset+=1
+  if tag==1:
+   size=struct.unpack_from('>H',raw,offset)[0];offset+=2;values.append(raw[offset:offset+size].decode('utf8',errors='replace'));offset+=size
+  elif tag in [3,4,9,10,11,12,17,18]:offset+=4
+  elif tag in [5,6]:offset+=8;i+=1
+  elif tag in [7,8,16,19,20]:offset+=2
+  elif tag==15:offset+=3
+  else:raise ValueError('Unknown constant pool tag '+str(tag))
+  i+=1
+ return values
+for p in targets:
+ with zipfile.ZipFile(p) as z:
+  members=[]
+  for n in z.namelist():
+   if n.endswith('/'):continue
+   raw=z.read(n);entry={'path':n,'sha256':sha(raw),'size_bytes':len(raw)}
+   if n.endswith('.class'):
+    utf=strings(raw);entry['source_file_constants']=[s for s in utf if s.endswith('.java')];entry['origin_related_constants']=[s for s in utf if s.startswith(('org/keycloak/','io/quarkus/','org/hibernate/','org/jboss/','org/eclipse/','jakarta/')) and len(s)<240][:35];wanted.add(n)
+   elif n.upper().endswith('MANIFEST.MF'):entry['utf8_text']=raw.decode(errors='replace')
+   members.append(entry)
+ rows.append({'archive':p.relative_to(root).as_posix(),'sha256':sha(p.read_bytes()),'members':members})
+origins={}
+for p in sorted(root.rglob('*.jar')):
+ if p in targets:continue
+ with zipfile.ZipFile(p) as z:
+  found=wanted.intersection(z.namelist())
+  for name in found:origins.setdefault(name,[]).append({'archive':p.relative_to(root).as_posix(),'member_sha256':sha(z.read(name))})
+for row in rows:
+ for entry in row['members']:
+  if entry['path'].endswith('.class'):entry['same_class_path_in_other_release_jars']=origins.get(entry['path'],[])
+props=root/'lib/quarkus/build-system.properties'
+report={'scope':'exact_release_JAR_members_constant_pool_strings_and_same_class_path_origins_not_reproducible_build_or_license_admission','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':sha(Path(__file__).read_bytes()),'archives':rows,'build_system_properties':{'sha256':sha(props.read_bytes()),'text':props.read_text()},'formal_admission':False};(out/'generated-and-h2-inventory.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps([{'archive':x['archive'],'members':len(x['members']),'classes':sum(y['path'].endswith('.class') for y in x['members']),'classes_with_release_origins':sum(bool(y.get('same_class_path_in_other_release_jars')) for y in x['members'])} for x in rows]))

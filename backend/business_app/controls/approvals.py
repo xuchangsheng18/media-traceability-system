@@ -1,6 +1,6 @@
 import hashlib
 import json
-from datetime import timedelta
+from dataclasses import replace
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -8,11 +8,15 @@ from fastapi import Request
 from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
+from ..data_scope import TaskBinding
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.duties import IndependentDuties
+from ..scope_collections import bind_task_scope, require_resource
+from ..scope_context import current_data_scope
 from ..types import Scope
 from ..uploads.repository import UploadRepository
-from .common import audit, canonical, match, now, row
+from .common import audit, canonical, match, row
 from .providers import RuleProvider
 
 
@@ -23,10 +27,17 @@ class Approvals:
         receipts: UploadRepository,
         rules: RuleProvider | None,
         authority: AuthorityProvider | None,
+        duties: IndependentDuties | None = None,
     ) -> None:
         self.database, self.receipts, self.rules, self.authority = database, receipts, rules, authority
+        self.duties = duties
 
-    def bind(self, connection: Connection, scope: Scope, item: dict[str, Any]) -> None:
+    def require_duties(self) -> IndependentDuties:
+        if self.duties is None:
+            raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+        return self.duties
+
+    def bind(self, connection: Connection, scope: Scope, item: dict[str, Any], *, shared: bool = False) -> None:
         targets = {
             "task": ("analysis_task", "task_id"),
             "report": ("report", "report_id"),
@@ -36,13 +47,24 @@ class Approvals:
         }
         if item["object_type"] not in targets:
             raise BusinessError("APPROVAL_OBJECT_ADAPTER_UNAVAILABLE", 503)
+        if item["object_type"] == "task":
+            bind_task_scope(
+                connection,
+                current_data_scope(),
+                TaskBinding(UUID(str(item["object_id"])), item["run_version"], item["result_version"]),
+            )
         if item["object_type"] == "operation" and (
             UUID(str(item["object_id"])) != scope.case_id or item["purpose"] != "report_export"
         ):
             raise BusinessError("APPROVAL_OBJECT_BINDING_INVALID", 422)
         table, key = targets[item["object_type"]]
         target = row(
-            connection, table, key, UUID(str(item["object_id"])), lock=table in {"analysis_task", "cases", "report"}
+            connection,
+            table,
+            key,
+            UUID(str(item["object_id"])),
+            lock=table in {"analysis_task", "cases", "report"},
+            shared=shared and table in {"analysis_task", "cases", "report"},
         )
         if target["case_id"] != scope.case_id or int(target["row_version"]) != item["object_version"]:
             raise BusinessError("APPROVAL_OBJECT_STALE", 409)
@@ -84,21 +106,47 @@ class Approvals:
             if exists is None or latest is None or tuple(latest) != (item["run_version"], item["result_version"]):
                 raise BusinessError("APPROVAL_RESULT_STALE", 409)
 
-    def detail(self, connection: Connection, scope: Scope, identifier: UUID, *, lock: bool = False) -> dict[str, Any]:
-        item = row(connection, "approval_request", "approval_id", identifier, lock)
+    def detail(
+        self,
+        connection: Connection,
+        scope: Scope,
+        identifier: UUID,
+        *,
+        lock: bool = False,
+        shared_binding: bool = False,
+    ) -> dict[str, Any]:
+        require_resource(connection, current_data_scope(), "approval", identifier)
+        item = row(connection, "approval_request", "approval_id", identifier, lock, shared=shared_binding)
         if item["case_id"] != scope.case_id:
             raise BusinessError("RESOURCE_NOT_FOUND", 404)
-        decisions = (
-            connection.execute(
-                text(
-                    "SELECT * FROM mt.approval_decision WHERE case_id=:case AND approval_id=:id ORDER BY created_at,decision_id"
-                ),
-                dict(case=scope.case_id, id=identifier),
+        decisions = [
+            dict(record)
+            for record in (
+                connection.execute(
+                    text(
+                        "SELECT * FROM mt.approval_decision WHERE case_id=:case AND approval_id=:id ORDER BY created_at,decision_id"
+                    ),
+                    dict(case=scope.case_id, id=identifier),
+                )
+                .mappings()
+                .all()
             )
-            .mappings()
-            .all()
-        )
+        ]
         state = item["state"]
+        duties = self.require_duties()
+        facts = duties.collect(scope, item, decisions, connection=connection)
+        if self.rules is None:
+            raise BusinessError("APPROVAL_RULE_UNAVAILABLE", 503)
+        current_rule = self.rules.approval(scope, item["purpose"], item["policy_version"])
+        duties._rule(current_rule)
+        if current_rule.version != item["policy_version"]:
+            raise BusinessError("APPROVAL_RULE_VERSION_INVALID", 503)
+        try:
+            duties.validate_records(facts, decisions)
+        except BusinessError as error:
+            if error.http_status != 403:
+                raise
+            state = "INVALIDATED"
         if state == "APPROVED":
             if self.rules is None:
                 raise BusinessError("APPROVAL_RULE_UNAVAILABLE", 503)
@@ -114,12 +162,19 @@ class Approvals:
                 or any(d["decision"] in {"reject", "return", "revoke", "invalidate"} for d in decisions)
             ):
                 state = "INVALIDATED"
+            if state == "APPROVED":
+                try:
+                    duties.validate_approval(facts, rule)
+                except BusinessError as error:
+                    if error.http_status != 403:
+                        raise
+                    state = "INVALIDATED"
         if state in {"REQUESTED", "APPROVED"}:
-            if item["expires_at"] is None or item["expires_at"] <= now():
+            if not duties.approval_live(item["created_at"], item["expires_at"], current_rule):
                 state = "EXPIRED"
             else:
                 try:
-                    self.bind(connection, scope, item)
+                    self.bind(connection, scope, item, shared=shared_binding)
                 except BusinessError as error:
                     if error.http_status not in {404, 409}:
                         raise
@@ -163,8 +218,11 @@ class Approvals:
         rule = self.rules.approval(scope, body["purpose"], body["policy_version"])
         if rule.version != body["policy_version"]:
             raise BusinessError("APPROVAL_RULE_VERSION_INVALID", 503)
+        duties = self.require_duties()
+        duties._rule(rule)
         digest = hashlib.sha256(canonical(body)).hexdigest()
         with self.database.transaction(scope) as connection:
+            duties.collect(scope, dict(body, requested_by=scope.actor.user_id), [], connection=connection)
             self.bind(connection, scope, body)
             old = self.receipts.replay(connection, scope, "requestApproval", key, digest)
             if old is not None:
@@ -172,14 +230,14 @@ class Approvals:
             identifier = uuid4()
             connection.execute(
                 text("""INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version,created_by)
-                VALUES(:id,:org,:case,:object_type,:object_id,:object_version,:purpose,:policy_version,:actor,'REQUESTED',:expires,:reason,:run_version,:result_version,:actor)"""),
+                VALUES(:id,:org,:case,:object_type,:object_id,:object_version,:purpose,:policy_version,:actor,'REQUESTED',now()+(:ttl * interval '1 second'),:reason,:run_version,:result_version,:actor)"""),
                 dict(
                     body,
                     id=identifier,
                     org=scope.actor.org_id,
                     case=scope.case_id,
                     actor=scope.actor.user_id,
-                    expires=now() + timedelta(seconds=rule.ttl_seconds),
+                    ttl=rule.ttl_seconds,
                 ),
             )
             result = self.detail(connection, scope, identifier)
@@ -206,6 +264,22 @@ class Approvals:
             rule = self.rules.approval(scope, current["approval"]["purpose"], current["approval"]["policy_version"])
             if rule.version != current["approval"]["policy_version"]:
                 raise BusinessError("APPROVAL_RULE_VERSION_INVALID", 503)
+            duties = self.require_duties()
+            raw = row(connection, "approval_request", "approval_id", identifier)
+            records = [
+                dict(record)
+                for record in (
+                    connection.execute(
+                        text(
+                            "SELECT * FROM mt.approval_decision WHERE case_id=:case AND approval_id=:id ORDER BY created_at,decision_id"
+                        ),
+                        dict(case=scope.case_id, id=identifier),
+                    )
+                    .mappings()
+                    .all()
+                )
+            ]
+            facts = duties.collect(scope, raw, records, connection=connection, extra_actors=frozenset({scope.actor}))
             if revoke:
                 if state not in {"REQUESTED", "APPROVED", "RETURNED"}:
                     raise BusinessError("APPROVAL_STATE_CONFLICT", 409)
@@ -217,12 +291,11 @@ class Approvals:
                     raise BusinessError("INDEPENDENT_APPROVER_REQUIRED", 403)
                 if any(d["actor_id"] == str(scope.actor.user_id) for d in current["decisions"]):
                     raise BusinessError("APPROVER_ALREADY_DECIDED", 409)
+                person_id = duties.candidate(scope.actor, facts)
                 decision = body["decision"]
                 target = {"reject": "REJECTED", "return": "RETURNED", "approve": "REQUESTED"}[decision]
-                if (
-                    decision == "approve"
-                    and 1 + sum(d["decision"] == "approve" for d in current["decisions"]) >= rule.independent_approvers
-                ):
+                if decision == "approve" and len(facts.approved_people | {person_id}) >= rule.independent_approvers:
+                    duties.validate_approval(replace(facts, approved_people=facts.approved_people | {person_id}), rule)
                     target = "APPROVED"
             for evidence_id in body.get("evidence_ids", []):
                 evidence = row(connection, "evidence_item", "evidence_id", UUID(evidence_id))
@@ -249,7 +322,12 @@ class Approvals:
                     decision=decision,
                     actor=scope.actor.user_id,
                     reason=body["reason"],
-                    evidence=json.dumps(dict(evidence_ids=body.get("evidence_ids", []))),
+                    evidence=json.dumps(
+                        dict(
+                            evidence_ids=body.get("evidence_ids", []),
+                            independence=duties.decision_proof(scope.actor, facts),
+                        )
+                    ),
                     policy=rule.version,
                 ),
             )

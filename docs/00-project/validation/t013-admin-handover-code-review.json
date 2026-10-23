@@ -1,0 +1,94 @@
+{
+  "task_id": "T013",
+  "status": "REVIEWED_IMPORTANT_FIXED_LINUX_AND_EXACT_HOSTED_CI_PASS_NOT_HUMAN_ACCEPTANCE",
+  "base_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+  "scope": "one_fresh_read_only_review_current_handover_delta_not_whole_branch_or_formal_acceptance",
+  "reviewer_kind": "independent_code_review_agent",
+  "critical": 0,
+  "important": 1,
+  "minor": 0,
+  "finding": {
+    "id": "MASTER-PASSWORD-PROTECTION",
+    "severity": "Important",
+    "description": "Only media-trace had length14; master personal password replacement was not protected.",
+    "resolution": "Explicit master protection prerequisite and configuration observation, separately applied initial policy preserving stronger policies, 13-character personal-password negative live case.",
+    "red": "six invalid-policy variants did not reject; three establishment-function tests absent",
+    "unit_green": 27,
+    "Linux_full_suite": "PASS_387",
+    "exact_live_and_hosted_CI": "Matching Linux real isolated handover passed; exact committed hosted CI passed 273 identity checks, 32 required engineering gates and 246 business checks."
+  },
+  "actual_personal_handover_completed": false,
+  "formal_accepted": false,
+  "reviewer_did_not_execute_tests": true,
+  "second_review_dispatched": false,
+  "observed_at": "2026-10-19T06:12:28.595320+00:00",
+  "open_critical": 0,
+  "open_important": 0,
+  "fix_verification": {
+    "Windows_platform_tests": 27,
+    "Linux_unit_engineering_tests": 387,
+    "real_isolated_handover_cases": 1,
+    "real_short_password_denial": true,
+    "real_admin_event_without_payload": true,
+    "original_protection_and_failure_counters_retained": true
+  },
+  "owner_additional_guard": {
+    "finding": "Important administrator operations require audit without request payloads",
+    "red": 2,
+    "platform_total_after_green": 27
+  },
+  "declined_to_judge_rulings": [
+    {
+      "behavior": "Actual named-person login, device custody, MFA handover and signatures",
+      "ruling": "Remain human actions; role/login confirmation and synthetic tests are not acceptance.",
+      "cost_if_wrong": "False personal handover; flags stay false."
+    },
+    {
+      "behavior": "Software admission, production policy, shared cutover and bootstrap disk/backup retirement",
+      "ruling": "Remain explicit environment/implementation obligations, not this source delivery.",
+      "cost_if_wrong": "Unsafe deployment; no adoption or service changes are performed."
+    },
+    {
+      "behavior": "T014 and Python candidates",
+      "ruling": "Neither is executed by this continuation.",
+      "cost_if_wrong": "Unapproved scope or skipped dependencies; both remain pending."
+    },
+    {
+      "behavior": "Generated task/navigation records finalized by root",
+      "ruling": "Root validates ledger, source evidence, generation and links with project checks.",
+      "cost_if_wrong": "Stale counts/links; exact CI repeats these checks."
+    },
+    {
+      "behavior": "Earlier feature-branch implementation",
+      "ruling": "Historical code is context, with applicable regression rather than a new complete manual review.",
+      "cost_if_wrong": "Prior defects remain possible; do not call whole-branch acceptance."
+    },
+    {
+      "behavior": "Browser visual acceptance and full OIDC conformance",
+      "ruling": "New case is real HTTP/TLS; existing browser tests retained, no complete conformance assertion.",
+      "cost_if_wrong": "Overstated visual/protocol assurance; scope stays limited."
+    },
+    {
+      "behavior": "Partially granted roles after confirmed preparation failure",
+      "ruling": "Keep the confirmed new account disabled for inspection; do not claim deletion or full rollback.",
+      "cost_if_wrong": "Residual role data; disabled state and manual review remain explicit."
+    },
+    {
+      "behavior": "Arbitrary Location origin/path",
+      "ruling": "Only parsed UUID is used on fixed master URL; exact newly disabled user is confirmed before mutation.",
+      "cost_if_wrong": "Cross-account mutation; negative test covers misdirected Location."
+    },
+    {
+      "behavior": "Malformed provider responses beyond supported Keycloak",
+      "ruling": "No demonstrated new escalation; bounded supported API and failure/uncertain-state reporting only.",
+      "cost_if_wrong": "Untested malformed shapes; not an exhaustive parser proof."
+    },
+    {
+      "behavior": "Well-formed incorrect OTP distinct from valid-code replay",
+      "ruling": "Current wrong-input case is malformed and replay uses a valid consumed code; do not claim exhaustive numeric OTP coverage.",
+      "cost_if_wrong": "A distinct negative case remains untested; no broad authentication completeness claim."
+    }
+  ],
+  "exact_CI_tested_source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+  "current_hosted_ci_ref": "docs/00-project/validation/t013-admin-handover-ci-report.json"
+}

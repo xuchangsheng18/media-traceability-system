@@ -1,0 +1,81 @@
+{
+  "source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+  "observed_at": "2026-10-18T17:39:11.566528+00:00",
+  "private_test_configuration_available": true,
+  "python": "3.10.22",
+  "services": [
+    {
+      "ID": "f99770aefdcd",
+      "Names": "media-trace-identity-identity-gateway-1",
+      "Status": "Up 35 hours (healthy)"
+    },
+    {
+      "ID": "dc1cfac9d9b0",
+      "Names": "media-trace-identity-keycloak-1",
+      "Status": "Up 35 hours (healthy)"
+    },
+    {
+      "ID": "c18e485f71a5",
+      "Names": "media-trace-identity-identity-postgres-1",
+      "Status": "Up 35 hours (healthy)"
+    },
+    {
+      "ID": "1f4264d2ea07",
+      "Names": "media-trace-py310-worker-1",
+      "Status": "Up 4 days (healthy)"
+    },
+    {
+      "ID": "b1fd98fc33a8",
+      "Names": "media-trace-py310-inference-1",
+      "Status": "Up 4 days (healthy)"
+    },
+    {
+      "ID": "b0d8bdb5e2d7",
+      "Names": "media-trace-py310-api-1",
+      "Status": "Up 4 days (healthy)"
+    },
+    {
+      "ID": "8ab1441cb3cc",
+      "Names": "media-trace-py310-s3-1",
+      "Status": "Up 4 days (healthy)"
+    },
+    {
+      "ID": "20d6347b1394",
+      "Names": "media-trace-py310-web-1",
+      "Status": "Up 4 days (healthy)"
+    },
+    {
+      "ID": "869b8e2178a9",
+      "Names": "media-trace-py310-postgres-1",
+      "Status": "Up 4 days (healthy)"
+    },
+    {
+      "ID": "93728e609bef",
+      "Names": "media-trace-py310-rabbitmq-1",
+      "Status": "Up 4 days (healthy)"
+    }
+  ],
+  "command": [
+    "/opt/conda/glwy/envs/py310/bin/python",
+    "-m",
+    "pytest",
+    "tests/platform/test_t013_tokens.py",
+    "tests/platform/test_t013_identity_config.py",
+    "tests/platform/test_t013_identity_operations.py",
+    "tests/platform/test_t013_identity_deploy.py",
+    "tests/business/test_role_directory.py",
+    "tests/business/test_identity_directory.py",
+    "-q",
+    "--tb=short",
+    "--junitxml",
+    "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/baseline.xml"
+  ],
+  "exit_code": 0,
+  "totals": {
+    "tests": 154,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "raw_logs_published": false
+}

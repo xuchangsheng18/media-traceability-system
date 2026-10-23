@@ -34,14 +34,14 @@ def test_missing_and_wrong_bearer_are_denied(monkeypatch):
     assert authorize("Bearer synthetic-unit-token") is None
 
 
-def test_python_runtime_is_310():
+def test_python_runtime_is_311():
     import sys
 
-    assert sys.version_info[:2] == (3, 10)
+    assert sys.version_info[:2] == (3, 11)
 
 
 def test_environment_path_is_explicit():
-    assert Path("/opt/conda/glwy/envs/py310/bin/python").is_file()
+    assert Path("/opt/conda/glwy/envs/py311/bin/python").is_file()
 
 
 def test_auth_error_has_traceable_safe_problem(monkeypatch):

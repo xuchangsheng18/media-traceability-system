@@ -7,10 +7,11 @@ import secrets
 import subprocess
 import time
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = Path(os.environ.get("MT_RUNTIME_DIR", "/workspace/glwy/runtime/media-traceability-system"))
-PY310 = Path("/opt/conda/glwy/envs/py310/bin/python")
+PYTHON = Path("/opt/conda/glwy/envs/py311/bin/python")
 
 
 def docker_env():
@@ -107,21 +108,24 @@ def main():
     if args.action == "prepare":
         print("Private runtime configuration ready; credentials not printed")
     elif args.action == "pack":
-        from verify_runtime_lock import main as verify_lock
+        if TYPE_CHECKING:
+            from scripts.verify_runtime_lock import main as verify_lock
+        else:
+            from verify_runtime_lock import main as verify_lock
         lock_report = verify_lock()
-        target = ROOT/"deploy/build/py310.tar.gz"
+        target = ROOT/"deploy/build/py311.tar.gz"
         target.parent.mkdir(exist_ok=True)
         manifest_path = ROOT/"config/locks/runtime-archive.json"
         manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
         if (target.exists() and manifest.get("requirements_lock_sha256") == lock_report["lock_sha256"]
                 and hashlib.sha256(target.read_bytes()).hexdigest() == manifest.get("archive_sha256")):
-            print("Verified existing packed py310 runtime")
+            print("Verified existing packed py311 runtime")
         else:
-            subprocess.run([str(PY310.parent/"conda-pack"), "-p", str(PY310.parent.parent), "-o", str(target), "--force", "--ignore-editable-packages"], check=True)
-            manifest = {"profile": "miniforge-py310-linux-x86_64-cpu", "python": lock_report["python"],
-                        "source_environment": str(PY310.parent.parent), "requirements_lock_sha256": lock_report["lock_sha256"],
+            subprocess.run([str(PYTHON.parent/"conda-pack"), "-p", str(PYTHON.parent.parent), "-o", str(target), "--force", "--ignore-editable-packages"], check=True)
+            manifest = {"profile": "miniforge-py311-linux-x86_64-cpu", "python": lock_report["python"],
+                        "source_environment": str(PYTHON.parent.parent), "requirements_lock_sha256": lock_report["lock_sha256"],
                         "archive_sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
-                        "archive_repository_path": "deploy/build/py310.tar.gz", "archive_committed": False}
+                        "archive_repository_path": "deploy/build/py311.tar.gz", "archive_committed": False}
             manifest_path.write_text(json.dumps(manifest, indent=2)+"\n")
     elif args.action == "build":
         compose("config", "--quiet")

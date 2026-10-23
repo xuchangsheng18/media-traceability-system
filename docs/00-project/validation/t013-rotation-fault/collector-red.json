@@ -1,0 +1,48 @@
+{
+  "mode": "ci-red",
+  "observed_at": "2026-10-18T17:46:39.139817+00:00",
+  "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+  "source_sha256": {
+    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "tests/identity/test_key_rotation_live.py": "15ed13039d7a5291a2f60f388fb77bd476a6aabd88bb1ab1ddd6ed781a161455",
+    "tests/identity/test_faults_live.py": "8bf8991549153633b6d0ccdd73b22b26bdfc4a954149f8ce8e49d1475eeaffb8"
+  },
+  "checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/platform/test_t013_identity_checks.py",
+        "-k",
+        "successful_reports",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/ci-red.xml"
+      ],
+      "exit_code": 1,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "failed_cases": [
+        {
+          "name": "test_successful_reports_are_collected_without_private_payloads",
+          "class": "tests.platform.test_t013_identity_checks",
+          "failure_kind": "failure"
+        }
+      ],
+      "started_at": "2026-10-18T17:46:38.730372+00:00",
+      "elapsed_seconds": 0.409249,
+      "private_log_sha256": "c283269364edcd466d1c68307da5e572e4228ad3fe8634b10ede7c6aeb88828c"
+    }
+  ],
+  "Python_candidates_created": false,
+  "shared_services_restarted": false,
+  "formal_accepted": false,
+  "raw_logs_published": false
+}

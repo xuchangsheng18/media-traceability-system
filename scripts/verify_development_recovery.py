@@ -152,7 +152,7 @@ assert missing
 print(json.dumps({'status':'PASS','versions_verified':len(c['objects']),'missing_version_detected':True}))
 """
         probe_result = docker("run", "--rm", "--network", prefix, "--memory", "256m", "--cpus", "1", "-i",
-                              "media-trace-py310:1.0.0-dev", "/opt/py310/bin/python", "-c", probe,
+                              "media-trace-py311:1.0.0-dev", "/opt/py311/bin/python", "-c", probe,
                               data=json.dumps({"access": credentials["s3_access"], "secret": credentials["s3_secret"], "objects": objects}))
         probe_result = json.loads(probe_result)
         check("original_version_ids_and_digests_restored", probe_result["versions_verified"] == len(objects))

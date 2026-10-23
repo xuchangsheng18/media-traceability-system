@@ -8,9 +8,12 @@ from fastapi import Request
 from sqlalchemy import text
 
 from ..auth import AuthorityProvider
+from ..data_scope import ResourceBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import FileObjectStore
+from ..scope_context import current_data_scope
+from ..scoped_objects import ScopedObjects
 from ..settings import BusinessSettings
 from ..types import ObjectRef, Scope
 from ..uploads.repository import UploadRepository
@@ -81,8 +84,11 @@ class Imports:
                 try:
                     size = sum(
                         len(chunk)
-                        for chunk in self.store.read(
-                            ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"])
+                        for chunk in ScopedObjects(self.store, self.authority).read(
+                            connection,
+                            current_data_scope(),
+                            ResourceBinding("media_input", asset["asset_id"]),
+                            ObjectRef(UUID(ref["object_id"]), ref["version_id"], ref["sha256"]),
                         )
                     )
                 except (OSError, ValueError, RuntimeError):

@@ -1,0 +1,73 @@
+import ast
+import datetime
+import hashlib
+import json
+import marshal
+import os
+import subprocess
+import tarfile
+import textwrap
+import zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');cache=base/'native-conda-closure-cache';out=base/'native-python-closure-20261017';prefix=Path('/opt/conda/glwy/envs/py310');lock=json.loads((cache/'conda-closure-packages.lock.json').read_text())
+reference=(out/'conda-create-26.7.2.py').read_text();template=None
+for node in ast.parse(reference).body:
+    if isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='python_entry_point_template' for t in node.targets):template=textwrap.dedent(ast.literal_eval(node.value.args[0])).lstrip()
+assert template
+rows=[];archive_metadata={};licenses=[]
+for item in lock['packages']:
+    p=cache/item['filename'];assert hashlib.sha256(p.read_bytes()).hexdigest()==item['sha256']
+    entries={};license_files=[];wanted=set()
+    with zipfile.ZipFile(p) as z:
+        info=next(n for n in z.namelist() if n.startswith('info-') and n.endswith('.tar.zst'))
+        info_path=out/(item['name']+'-info.tar.zst');info_path.write_bytes(z.read(info))
+        process=subprocess.Popen(['/usr/bin/zstd','-q','-d','-c',str(info_path)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        with tarfile.open(fileobj=process.stdout,mode='r|') as stream:
+            for member in stream:
+                name=member.name.removeprefix('./')
+                if not member.isfile():continue
+                if name in ['info/index.json','info/link.json','info/paths.json']:
+                    entries[name]=json.loads(stream.extractfile(member).read())
+                elif name.startswith('info/licenses/'):
+                    raw=stream.extractfile(member).read();license_files.append({'path':name,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw)})
+        process.stdout.close();errors=process.stderr.read();assert process.wait()==0
+        index=entries['info/index.json'];assert index['name']==item['name'] and index['version']==item['version'] and index['build']==item['build']
+        installer_paths=[r['_path'] for r in entries.get('info/paths.json',{}).get('paths',[]) if r['_path'].endswith('.dist-info/INSTALLER')]
+        archive_installers={}
+        if installer_paths:
+            pkg=next(n for n in z.namelist() if n.startswith('pkg-') and n.endswith('.tar.zst'))
+            pkg_path=out/(item['name']+'-payload.tar.zst');pkg_path.write_bytes(z.read(pkg))
+            process=subprocess.Popen(['/usr/bin/zstd','-q','-d','-c',str(pkg_path)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            with tarfile.open(fileobj=process.stdout,mode='r|') as stream:
+                for member in stream:
+                    name=member.name.removeprefix('./')
+                    if name in installer_paths and member.isfile():archive_installers[name]=stream.extractfile(member).read()
+            process.stdout.close();errors=process.stderr.read();assert process.wait()==0
+    row={'name':item['name'],'version':item['version'],'build':item['build'],'archive_sha256':item['sha256'],'index_identity_verified':True,'declared_dependencies':index.get('depends',[]),'license_materials':license_files,'noarch':entries.get('info/link.json',{}).get('noarch',{})}
+    rows.append(row);archive_metadata[item['name']]={'record':row,'installers':archive_installers}
+resolved=[]
+raw=json.loads((out/'python-runtime-closure-report.json').read_text())
+for failure in raw['record_hash_failures']:
+    path=prefix/failure['path'];name=failure['package'];result={'original_finding':failure,'status':'FAIL'}
+    meta=archive_metadata.get(name)
+    if meta and path.name=='INSTALLER':
+        relative='site-packages/'+str(path.relative_to(prefix/'lib/python3.10/site-packages'))
+        actual=path.read_bytes();expected=meta['installers'].get(relative)
+        if expected==actual:result.update(status='PASS',basis='exact_official_conda_archive_payload',actual_sha256=hashlib.sha256(actual).hexdigest())
+    elif meta and failure['path'] in ['bin/pip','bin/pip3','bin/wheel']:
+        entry=next((s for s in meta['record']['noarch'].get('entry_points',[]) if s.split('=')[0].strip()==path.name),None)
+        if entry:
+            module,func=entry.split('=',1)[1].strip().split(':');expected=('#!'+str(prefix/'bin/python3.10')+'\n'+template%{'module':module,'func':func,'import_name':func.split('.')[0]}).encode()
+            if path.read_bytes()==expected:result.update(status='PASS',basis='exact_official_Conda_noarch_entrypoint_template_and_upstream_entrypoint_metadata',actual_sha256=hashlib.sha256(expected).hexdigest())
+    elif meta and failure['path']=='bin/pip3.12' and failure['reason']=='MISSING_HASHED_FILE':
+        names=[s.split('=')[0].strip() for s in meta['record']['noarch'].get('entry_points',[])]
+        if 'pip' in names and 'pip3' in names and 'pip3.12' not in names:result.update(status='PASS',basis='stale_wheel_RECORD_entry_not_declared_by_official_noarch_python310_entrypoints',official_entrypoint_names=names)
+    elif name=='numpy' and path.suffix=='.pyc':
+        py=path.parent.parent/(path.name.split('.cpython-')[0]+'.py')
+        rawpyc=path.read_bytes();code=marshal.loads(rawpyc[16:]);compiled=compile(py.read_bytes(),code.co_filename,'exec',optimize=0)
+        if marshal.dumps(compiled)==marshal.dumps(code):result.update(status='PASS',basis='runtime_generated_bytecode_equals_compilation_of_RECORD_verified_source_no_code_execution',source_sha256=hashlib.sha256(py.read_bytes()).hexdigest(),code_object_sha256=hashlib.sha256(marshal.dumps(code)).hexdigest())
+    resolved.append(result)
+report={'schema_version':1,'status':'PASS' if all(r['status']=='PASS' for r in resolved) else 'FAIL','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd='/workspace/glwy/projects/media-traceability-system',text=True).strip(),'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'official_25_Conda_archive_identity_and_7_RECORD_difference_classification_not_full_prefix_integrity_or_license_approval','blockers':[r['original_finding'] for r in resolved if r['status']!='PASS'],'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'source_lock_sha256':hashlib.sha256((cache/'conda-closure-packages.lock.json').read_bytes()).hexdigest(),'Conda_template_source':'https://raw.githubusercontent.com/conda/conda/26.7.2/conda/gateways/disk/create.py','Conda_template_source_sha256':hashlib.sha256((out/'conda-create-26.7.2.py').read_bytes()).hexdigest(),'packages':rows,'RECORD_difference_classification':resolved,'existing_environment_modified':False,'whole_prefix_integrity_asserted':False}
+(out/'conda-origin-and-record-difference-report.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'status':report['status'],'official_conda_archives':len(rows),'resolved_RECORD_differences':sum(r['status']=='PASS' for r in resolved),'remaining_RECORD_differences':len(report['blockers'])}),flush=True)

@@ -1,0 +1,41 @@
+import ast,asyncio,base64,datetime,hashlib,http.cookies,inspect,json,os,platform,shutil,ssl,subprocess,sys,sysconfig
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-n01-r4';out.mkdir(mode=0o700,exist_ok=True)
+repo=Path('/workspace/glwy/projects/media-traceability-system');build=base/'native-n01-source-builds-20261017';tool=base/'native-n01-private-toolchain-20261017'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def run(argv,env=None,timeout=45):
+ try:
+  r=subprocess.run(argv,capture_output=True,text=True,env=env,timeout=timeout);return {'command':argv,'exit_code':r.returncode,'stdout':r.stdout[-16000:],'stderr':r.stderr[-3000:]}
+ except subprocess.TimeoutExpired:return {'command':argv,'exit_code':124,'error':'timeout'}
+checks=[]
+snippets={
+ 'stdlib_crypto_compression_sqlite_ctypes_readline':'''import ssl,hashlib,bz2,lzma,sqlite3,ctypes,readline,json; data=b"N01 harmless fixture";assert bz2.decompress(bz2.compress(data))==data;assert lzma.decompress(lzma.compress(data))==data;c=sqlite3.connect(":memory:");assert c.execute("select 7").fetchone()==(7,);assert len(hashlib.sha256(data).digest())==32;assert ssl.create_default_context().verify_mode==ssl.CERT_REQUIRED;ctypes.CDLL(None);print(json.dumps(dict(openssl=ssl.OPENSSL_VERSION,sqlite=sqlite3.sqlite_version,readline=readline.__doc__.splitlines()[0])))''',
+ 'numpy_torch_cpu_faiss':'''import numpy as np,torch,faiss,json; a=np.array([[1,0],[0,1]],dtype="float32");idx=faiss.IndexFlatL2(2);idx.add(a);d,i=idx.search(a[:1],1);assert i[0,0]==0;assert torch.equal(torch.tensor([1,2])+1,torch.tensor([2,3]));print(json.dumps(dict(numpy=np.__version__,torch=torch.__version__,faiss=faiss.__version__,cuda_available=torch.cuda.is_available(),cuda_tested=False)))'''
+}
+for name,code in snippets.items():checks.append(dict(name=name,**run([sys.executable,'-c',code])))
+erl=build/'otp_src_27.3.4.18/bin/erl';env=dict(os.environ,LD_LIBRARY_PATH=str(tool/'usr/lib/x86_64-linux-gnu'))
+code='{ok,_}=application:ensure_all_started(ssl),{ok,_}=application:ensure_all_started(public_key),{ok,_}=application:ensure_all_started(asn1),32=byte_size(crypto:strong_rand_bytes(32)),io:format("~p~n",[crypto:hash(sha256,<<"N01 fixture">>)]),halt().'
+checks.append(dict(name='OTP_ssl_public_key_asn1_crypto_NIF',**run([str(erl),'+S','2:2','+A','1','-noshell','-noinput','-eval',code],env)))
+jdk=next((base/'native-n01-binary-probes-20261017/java').glob('jdk-*'))
+checks.append(dict(name='JDK_modules',**run([str(jdk/'bin/java'),'--list-modules'])))
+source=out/'N01RuntimeProbe.java';source.write_text('import javax.net.ssl.SSLContext; import java.security.MessageDigest; public class N01RuntimeProbe { public static void main(String[] a) throws Exception { if(MessageDigest.getInstance("SHA-256").digest(new byte[]{1}).length!=32)throw new Exception(); System.out.println(SSLContext.getDefault().getProtocol());System.out.println(java.awt.GraphicsEnvironment.isHeadless()); }}\n')
+checks.append(dict(name='JDK_TLS_crypto_headless',**run([str(jdk/'bin/java'),'-Djava.awt.headless=true',str(source)])))
+def b64(data,**kwargs):
+ try:return {'accepted':True,'decoded_hex':base64.b64decode(data,**kwargs).hex()}
+ except Exception as e:return {'accepted':False,'exception':type(e).__name__}
+m=http.cookies.Morsel();m.set('fixture','</script><p>N01</p>','</script><p>N01</p>')
+facts={'platform':sys.platform,'python':sys.version,'executable':sys.executable,'executable_sha256':sha(sys.executable),'sysconfig':{k:sysconfig.get_config_var(k) for k in ['VPATH','srcdir','Py_ENABLE_SHARED','CONFIG_ARGS']},'has_BaseEventLoop_sock_recvfrom_into':hasattr(asyncio.BaseEventLoop,'sock_recvfrom_into'),'rmtree_avoids_symlink_attacks':shutil.rmtree.avoids_symlink_attacks,'base64_altchars_accepts_standard':b64(b'++//',altchars=b'-_',validate=True),'base64_trailing_default':b64(b'YQ==Yg=='),'base64_trailing_strict':b64(b'YQ==Yg==',validate=True),'morsel_js_contains_injected_script_end':'</script><p>N01</p>' in m.js_output(),'postgresql_common_package':run(['dpkg-query','-W','-f=${Status} ${Version}','postgresql-common']),'postgres_scripts':{n:shutil.which(n) for n in ['pg_ctlcluster','pg_createcluster','pg_upgradecluster']},'private_PG_source_has_Debian_scripts':{n:any((build/'postgresql-16.15').rglob(n)) for n in ['pg_ctlcluster','pg_createcluster','pg_upgradecluster']}}
+for name in ['base64','tempfile','imaplib','poplib','http.cookies','pkgutil','email.utils','mimetypes']:
+ module=__import__(name,fromlist=['*']);p=Path(module.__file__);facts.setdefault('stdlib_sources',{})[name]={'path':str(p),'sha256':sha(p)}
+tracked=subprocess.check_output(['git','ls-files','*.py'],cwd=repo,text=True).splitlines();hits=[];parse_errors=[]
+target={'b64decode','urlsafe_b64decode','TemporaryDirectory','parseaddr','get_data','js_output','IMAP4','IMAP4_SSL','POP3','POP3_SSL','mimetypes'}
+for rel in tracked:
+ try:tree=ast.parse((repo/rel).read_text(encoding='utf-8-sig'))
+ except (SyntaxError,UnicodeDecodeError) as e:parse_errors.append({'path':rel,'error':str(e)});continue
+ for node in ast.walk(tree):
+  if isinstance(node,ast.Call):
+   name=node.func.attr if isinstance(node.func,ast.Attribute) else node.func.id if isinstance(node.func,ast.Name) else ''
+   if name in target:hits.append({'path':rel,'line':node.lineno,'call':ast.unparse(node.func),'keywords':[x.arg for x in node.keywords]})
+report={'scope':'bounded_CPU_runtime_dynamic_load_and_vulnerability_facts_no_service_migration_or_formal_admission','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'executed_script_sha256':sha(__file__),'checks':checks,'facts':facts,'static_call_inventory':{'scope':'tracked_python_AST_name_search_not_alias_transitive_or_reflective_proof','files':len(tracked),'parse_errors':parse_errors,'hits':hits},'status':'PASS' if all(x['exit_code']==0 for x in checks) and not parse_errors else 'FAIL','formal_admission':False,'not_validated':['all transitive/dynamic application call paths','OTP GUI and all other apps','FIPS/HSM/LDAP/Kerberos plugins','live PG TLS/ICU/session paths and recovery','GPU/Windows native/production/offline','default final systemd environment']}
+(out/'runtime-and-cve-facts.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'checks':[(x['name'],x['exit_code']) for x in checks],'call_hits':len(hits),'PG_package':facts['postgresql_common_package']}))

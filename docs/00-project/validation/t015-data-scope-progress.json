@@ -1,0 +1,201 @@
+{
+  "task_id": "T015",
+  "status": "P01_P03_AND_LOCAL_REQUIRED_SCOPE_CLI_VERIFIED_WHOLE_REGRESSION_AND_HOSTED_CI_PENDING",
+  "observed_at": "2026-10-20T17:09:28.030370+00:00",
+  "approved_plan_ref": "docs/03-development/t015-data-scope-implementation-plan.md",
+  "approved_plan_review_ref": "docs/00-project/validation/t015-implementation-plan-review.json",
+  "current_source_commit": "aa2070b0740884e9619370355aebe3b0532afdae",
+  "completed_plan_tasks": 2,
+  "total_plan_tasks": 7,
+  "tasks": [
+    {
+      "id": "P01",
+      "status": "VERIFIED_ISOLATED_TYPES_ONLY",
+      "evidence_ref": "docs/00-project/validation/t015-data-scope-p01-report.json"
+    },
+    {
+      "id": "P02",
+      "status": "RUNTIME_VERIFIED_461_CLI_REPORT_PENDING",
+      "evidence_ref": "docs/00-project/validation/t015-data-scope-p02-progress.json"
+    },
+    {
+      "id": "P03",
+      "status": "VERIFIED_ISOLATED_91_TESTS",
+      "evidence_ref": "docs/00-project/validation/t015-data-scope-p03-report.json"
+    },
+    {
+      "id": "P04",
+      "status": "SCOPED_OBJECTS_27_AND_REQUIRED_SCOPE_CLI_VERIFIED_FULL_RETAINED_REGRESSION_PENDING",
+      "evidence_ref": "docs/00-project/validation/development-continuation-report.json"
+    },
+    {
+      "id": "P05",
+      "status": "EIGHT_SCOPE_RECOVERY_CASES_IN_ACTUAL_CLI_VERIFIED_FULL_RETAINED_REGRESSION_PENDING",
+      "evidence_ref": "docs/00-project/validation/t015-data-scope-report.json"
+    },
+    {
+      "id": "P06",
+      "status": "LOCAL_REAL_CLI_AND_STANDALONE_FAILURE_PROBE_PASS_HOSTED_33_GATE_RUN_PENDING",
+      "evidence_ref": "docs/00-project/validation/t015-data-scope-report.json"
+    },
+    {
+      "id": "P07",
+      "status": "SOURCE_DELIVERED_EXACT_MANIFEST_HOSTED_CI_AND_FULL_ACCEPTANCE_PENDING",
+      "evidence_ref": "docs/00-project/server-sync-receipt.json"
+    }
+  ],
+  "shared_migration_or_policy_adopted": false,
+  "full_T015_accepted": false,
+  "Python_candidates_created": false,
+  "candidate_source_commit": "c61c8deedf83f77ac522650534cce3ca41ff609d",
+  "last_verified_source_commit": "aa2070b0740884e9619370355aebe3b0532afdae",
+  "latest_full_verifier": {
+    "source_base_commit": "c6697eb19cbd38e7697a54b2e4cbddab0cfe5439",
+    "totals": {
+      "tests": 461,
+      "failures": 4,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "isolated_job": "2e910deebb6b43dead48ec89c3e28779",
+    "command": "python scripts/verify_business_foundation.py run",
+    "failed_tests": [
+      "test_t014_work.test_upload_longer_than_fact_refresh_rechecks_before_commit[False]",
+      "test_upload_validation.test_real_broker_receives_and_worker_commits",
+      "test_upload_validation.test_broker_recovers_after_confirmation_before_outbox_commit",
+      "test_uploads.test_concurrent_duplicate_preserves_orphan_recovery"
+    ]
+  },
+  "whole_task_verification_passed": false,
+  "full_verifier_status": "461_RUNTIME_PASS_PRIVATE_WRAPPER_POSTPROCESSING_IMPORT_ERROR",
+  "current_full_verifier_attempt": {
+    "source_commit": "88f6f651bd82237db24c7ca663c6d21522314465",
+    "isolated_job": "7548ed772d9e44e78b481abcc066ea2b",
+    "status": "RUNTIME_PASS_CLI_POSTPROCESSING_IMPORT_ERROR",
+    "command": "python scripts/verify_business_foundation.py run",
+    "totals": {
+      "tests": 461,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      "ruff_lint:PASS",
+      "ruff_format:PASS",
+      "mypy:PASS"
+    ],
+    "failure_stage": "Private runpy wrapper did not add scripts/ to sys.path; stage_three_types import failed after tests.",
+    "prior_business_report_is_stale_and_not_evidence": true,
+    "wrapper_fix": "Restore normal script directory sys.path before runpy; real full CLI pass still required."
+  },
+  "forward_fix_targeted_result": {
+    "isolated_job": "6c7566ec97b34836bef543ba32c7b9c1",
+    "totals": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "quality_checks": [
+      "ruff_lint:PASS",
+      "ruff_format:PASS",
+      "mypy:PASS"
+    ],
+    "scope": "Original four failure paths plus missing-work-authority denial; not the whole verifier.",
+    "tested_source_base_commit": "c6697eb19cbd38e7697a54b2e4cbddab0cfe5439",
+    "tested_code_delta_sha256": {
+      "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
+      "tests/business/http_fixtures.py": "62e33efb05313d2ea7c031ccadb6cba76b9f95532632a855c7a7a014c7e3fa45",
+      "tests/business/test_t014_work.py": "4cfea870ed32a629ca6a1566a8539a10cbb2adc6749578ff0cd8673c8f8bf9fa",
+      "tests/business/test_upload_validation.py": "d3d63061a605ed776e7ebe8a1f34270d2d235f73d3206029bbbbd77d521d6321",
+      "tests/business/test_uploads.py": "38e42d9f7288156c13ba8d71758dc2badafa146a53d1a34385d1ba752a34f47a"
+    },
+    "corresponding_code_commit": "88f6f651bd82237db24c7ca663c6d21522314465"
+  },
+  "candidate_source_sha256": {
+    "backend/business_app/controls/approvals.py": "c03840b43a8ffdc68af3e884a4c85be26ea89a3f41cd9c696dc3fe43fd41cdf4",
+    "backend/business_app/controls/common.py": "8501644a230b126a5b49024d227cbfdeec659478bdc9461190edda1abf375ca8",
+    "backend/business_app/controls/execution.py": "be55c6a24d7dec6994e17a4a651a6621ceac3dc9baaf598d5a4f9cda6f5fc291",
+    "backend/business_app/controls/reviews.py": "fde00beb2887a9aa256bc6f76718b1b303c87b51f0b6f58a73b6fd85e7811bc5",
+    "backend/business_app/controls/router.py": "6ada8bfc6ab3bf7a0833ff5e04f4fc258beb30767581930b60e83b9c43a5663b",
+    "backend/business_app/db.py": "21cc7be45b14740c3d27cdf5851490f0617f8412b45f5ae1ad38637a6267dd67",
+    "backend/business_app/history/repository.py": "d7fada24191e11415ad2687ec1cfc17e540e9a13b603e2c75927d29b937ccc76",
+    "backend/business_app/inference.py": "050361b88e61eebad01c3f6dff114ad6c58f7b671eeb72e64508a9358a951b6b",
+    "backend/business_app/main.py": "a16dbcb6d4c1d3481ef915f84b38eed61beb041a206661ea6a7c440cb3dcff12",
+    "backend/business_app/permissions/conditional.py": "8d4b086cccfe8cb73da7e7ffd43677d373196bde4ce048834b04bf62087b37aa",
+    "backend/business_app/permissions/object_facts.py": "bef98139d00a8c0d116817ed6ae589be8ff0b59f8bf48af0cb12b397b1b2ec9d",
+    "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
+    "backend/business_app/permissions/work.py": "cd481f6fab1266669a827589e3080b0f2126514683fccedc495b691b8e368e59",
+    "backend/business_app/scope_catalog.py": "0a0cca30c400c341b73f2971c7c4b54284c90b0c4cd86c2146f81bf058e95a64",
+    "backend/business_app/scope_collections.py": "acaff431d54c58f2c185d174b6ce5943da17732eae25aa785bfd41644140cbad",
+    "backend/business_app/scope_context.py": "cc9223f319a9e14e8b7518a8eb88c02aa668b1318fa11dfeca4029c6ef3a91fa",
+    "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
+    "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
+    "backend/business_app/uploads/repository.py": "021ce78c519af548eaa19b0a12ef270148b00bd32703ff231ac3573433a20c9d",
+    "backend/business_migrations/0010_data_scope.sql": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+    "tests/business/conftest.py": "e46b12523aa64e8ab9d0009d7e7a85eda0519d2636c7f5d2c02164283561e424",
+    "tests/business/http_fixtures.py": "0aaa548c6e36c22332d7294a06fc35d3e21ed5f60564e71f0d6d0b75db9b0a2e",
+    "tests/business/scoped_history_fixtures.py": "c23d3740b0b8896dd8f5d1cf497a36aea87a91fe6ad24348facc190ad931d337",
+    "tests/business/t014_positive_fixtures.py": "4fa4ce5d75faf2cc70db501e0bee01e8f834364456d9346d6427b0e57b2acaa9",
+    "tests/business/test_adapters_and_execution.py": "b1ef5484a2c70967833def33627a289c1b92dd41e9df57bc8cbc5caef84995a5",
+    "tests/business/test_authorization.py": "af601da95d8c7928c0b87a60965b07d9ad2a69190427ebf5c2baf295f88d74f2",
+    "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e",
+    "tests/business/test_execution_cancel.py": "48dc5b0e008824903622c701aa971fa65642adf0c4725255c4e042246d958421",
+    "tests/business/test_history.py": "df4574a3a5c49ac716a8e0f4fe9ed201fdb1c9427ef8822370c80816b3b37ae8",
+    "tests/business/test_identity_directory.py": "54cabbee2d42a225b244275e78512336c8b3245f26843c1d2a56b9b1ff6d0aa2",
+    "tests/business/test_migrations.py": "c9892e28ffa46a985b240ac4a2aaca8b263c08c2823c789411bea0b7cedc3f01",
+    "tests/business/test_recovery.py": "ce7e51beac7c789c1daf5cfe1e92e14975b4540d626d4c6e3ae4d2b5ce7c9017",
+    "tests/business/test_t014_indirect_reads.py": "8e891da821935e0713093f81fa7602d87a700b36cf688f6ae262767359c9a44e",
+    "tests/business/test_t014_object_rules.py": "a88a97f415e2f5311974141191e9e63eec29a8703d5ec6920e8c2af0e2151bcc",
+    "tests/business/test_t014_revocation.py": "48ca36b44401d650b3c94b7a6a964ffe56f6b85e6de05534007f3769d1ae950f",
+    "tests/business/test_t014_role_facts.py": "a0ab89ec237d1f42c267bf5c2db7f942e0bbce05d30056faa77089ad5739e598",
+    "tests/business/test_t014_work.py": "4cfea870ed32a629ca6a1566a8539a10cbb2adc6749578ff0cd8673c8f8bf9fa",
+    "tests/business/test_t015_collections.py": "49261d40126c570e2f80a008dc8d34fe6864196adae4ca3f0a3582ae1227cc36",
+    "tests/business/test_t015_scope_http.py": "87597e62f7a92f9548ef8c26c1ecd56cc5f7ad1c308ed988fdd48278bf4acbe3",
+    "tests/business/test_t015_scope_owner.py": "91e0f9e7cf8aaf1ee9c2ed8d870bb3e5266aefd04a35447ac91717a3295d0e51",
+    "tests/business/test_t015_scope_sql.py": "730c716d86400b4ab9b9934801fb3d58c39bc5ec959897145ac54eafbcce9e9d",
+    "tests/business/test_upload_validation.py": "d3d63061a605ed776e7ebe8a1f34270d2d235f73d3206029bbbbd77d521d6321",
+    "tests/business/test_uploads.py": "38e42d9f7288156c13ba8d71758dc2badafa146a53d1a34385d1ba752a34f47a",
+    "tests/platform/test_t015_data_scope.py": "fbbf289d95195e7d270abe84ada6316067583259dab6bf848804a70e44e4c7a7"
+  },
+  "source_delivery": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-20T16:59:41.209705+00:00",
+    "source_commit": "c61c8deedf83f77ac522650534cce3ca41ff609d",
+    "previous_server_commit": "dd2f172966f78aa95bc835b0060de0bc49034dff",
+    "changed_files": 28,
+    "manifest_files_verified": 2158,
+    "manifest_sha256": "8fd0fd12f4a13627766678d99c538770f6431a85f98e1bbad91ebd6c5604677a",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false
+  },
+  "continuation_ref": "docs/00-project/validation/development-continuation-report.json",
+  "candidate_source_base_commit": "028042c50c24ce141c01e829c001fd3bb3b5495e",
+  "current_local_required_scope_CLI_ref": "docs/00-project/validation/t015-data-scope-report.json"
+}

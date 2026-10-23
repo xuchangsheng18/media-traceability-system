@@ -1,0 +1,19 @@
+import hashlib,json,os,re,tarfile
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=Path(json.loads((base/'n01-recovery-license-latest.json').read_text())['root']);p=out/'recovery-license-appendix-report.json';report=json.loads(p.read_text());rows=report['materials'];apps=[]
+with tarfile.open(out/'rabbitmq.input.tar') as a:
+ for m in a:
+  if m.isfile() and '/plugins/' in m.name and m.name.endswith('.app'):
+   raw=a.extractfile(m).read();digest=hashlib.sha256(raw).hexdigest();text=raw.decode('utf8');version=re.search(r'\{vsn,\s*"([^\"]+)"',text);name=re.search(r'\{application,\s*([^,\s]+)',text)
+   q=out/'materials'/digest
+   if not q.exists():q.write_bytes(raw)
+   rows.append({'component':'rabbitmq','member':m.name,'kind':'ERLANG_APPLICATION_METADATA_NOT_ACTIVATION','sha256':digest,'size_bytes':len(raw),'stored_as':'materials/'+digest})
+   apps.append({'member':m.name,'application':name.group(1).strip(chr(39)) if name else None,'version':version.group(1) if version else None,'sha256':digest,'enabled':None,'license_not_inferred_from_application_name':True})
+report['rabbitmq_application_catalogue']=apps;report['file_bindings']=len(rows);report['unique_material_digests']=len({x['sha256'] for x in rows});report['groups']={c:sum(x['component']==c for x in rows) for c in sorted({x['component'] for x in rows})};report['application_catalogue_script_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+(out/'materials-manifest.json').write_text(json.dumps({'files':rows},indent=2)+'\n');archive=Path(report['appendix_archive']['path'])
+with tarfile.open(archive,'w:gz') as a:
+ a.add(out/'materials-manifest.json',arcname='materials-manifest.json')
+ for q in sorted((out/'materials').iterdir()):a.add(q,arcname='materials/'+q.name)
+with tarfile.open(archive) as a:
+ for x in rows:assert hashlib.sha256(a.extractfile(x['stored_as']).read()).hexdigest()==x['sha256']
+report['appendix_archive'].update(sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),size_bytes=archive.stat().st_size);p.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'file_bindings':len(rows),'RabbitMQ_applications':len(apps),'unique_material_digests':report['unique_material_digests']}))

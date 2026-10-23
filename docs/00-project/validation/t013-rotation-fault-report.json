@@ -1,0 +1,803 @@
+{
+  "task_id": "T013",
+  "status": "PASS_SCOPED_LOCAL_AND_HOSTED_NOT_FULL_T013",
+  "observed_at": "2026-10-18T18:32:49.378185+00:00",
+  "environment": "Linux / Miniforge py310 / CPU / existing explicitly configured identity target",
+  "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+  "tested_working_tree_dirty": true,
+  "source_binding": "Working-tree tests bind the recorded SHA256 map; base commit alone is not the tested implementation. Hosted result will separately bind the committed payload.",
+  "source_sha256": {
+    ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+    ".github/workflows/identity.yml": "60501900e5ff13c50208699c121fd359d040de5b58979b8452fb549ec3a53784",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+    "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+    "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+    "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+    "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+    "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+    "scripts/identity/checks.py": "70565d3a5087bc33560f7d3a2c6edab19d6c2e12e500d697639753fc4541ad7a",
+    "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+    "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+    "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+    "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+    "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+    "scripts/identity/restore.py": "403e757c2cf1954464966fa0e1a883fe96a132d2ad0ad0636d71d5e3fe538181",
+    "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+    "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+    "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+    "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+    "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+    "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+    "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+    "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+    "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+    "tests/platform/test_t013_identity_checks.py": "119c8d33ddc304b75e6ba211cf46c9d2b823c077e08714e78717d9ea3362d21c",
+    "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+    "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+  },
+  "tests": {
+    "dependency_baseline": {
+      "tests": 154,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "unit_regression": {
+      "tests": 342,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "identity_scoped": {
+      "tests": 225,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "business_regression": {
+      "tests": 246,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "counts_overlap_do_not_sum": true
+  },
+  "quality": {
+    "format_check": "PASS",
+    "lint": "PASS",
+    "static_types": "PASS"
+  },
+  "tdd": [
+    {
+      "case": "real TLS slow_body",
+      "red_ref": "docs/00-project/validation/t013-rotation-fault/slow-body-red.json",
+      "red": "one assertion failure, zero test errors: old implementation returned 401 after the configured response window; expected 503",
+      "green": "same real TLS test passed in the 48-case live group; no weakened assertion"
+    },
+    {
+      "case": "scoped report collector",
+      "red_ref": "docs/00-project/validation/t013-rotation-fault/collector-red.json",
+      "red": "one failure because the collector module did not yet exist",
+      "green": "10 report/CI-boundary unit tests passed; full three-group runner passed"
+    }
+  ],
+  "coverage": {
+    "signing_key_and_client_secret_rotation_tests": 2,
+    "identity_live_group_tests": 48,
+    "report_guard_tests": 10,
+    "real_malformed_issuer_requests": 1,
+    "locally_rejected_bad_token_boundaries": 3,
+    "fault_and_input_tests": 19,
+    "real_TLS_network_and_database_fault_tests": 15,
+    "token_input_boundary_tests": 4
+  },
+  "limits": [
+    "Response-progress checks plus per-I/O timeouts are not an OS-enforced hard real-time deadline for every transport phase.",
+    "All realm/key/client changes were confined to randomly named temporary acceptance realms; no shared realm signing key or human account was changed.",
+    "Database faults use a freshly created isolated business database, not existing project data.",
+    "Unit, identity and business test counts overlap.",
+    "This is not N01 software admission, CPython vulnerability remediation, formal identity acceptance, or production recovery."
+  ],
+  "evidence_index_ref": "docs/00-project/validation/t013-rotation-fault/evidence-index.json",
+  "hosted_ci_ref": "docs/00-project/validation/t013-identity-ci-report.json",
+  "acceptance_ledger_ref": "docs/00-project/validation/t013-keycloak-acceptance-ledger.json",
+  "Python_candidates_created": false,
+  "original_python_and_100_package_lock_changed": false,
+  "shared_services_restarted": false,
+  "formal_accepted": false,
+  "T014_started": false,
+  "remaining": [
+    "IDP-01 software admission",
+    "IDP-09 named administrator/MFA/bootstrap handover",
+    "IDP-17 service restart/persistence",
+    "IDP-18 complete runtime-log and history credential review",
+    "IDP-20 restored token/session/client-secret invalidation",
+    "IDP-21 recovery rollback",
+    "remaining effort and actual T013 human review/acceptance record remain unspecified; development owner, designated identity administrator and T013 reviewer now confirmed as 徐昌胜"
+  ],
+  "hosted_ci_attempts": [
+    {
+      "source_commit": "c295620b0a0336332de4e9696ce71221af238dd0",
+      "workflow_run_id": 39154958727,
+      "identity_parse_run_id": 39154957989,
+      "status": "FAILED_BEFORE_ANY_JOB_EXECUTED",
+      "cause": "GitHub rejected job-level env runner.temp expression in called workflow, line18",
+      "correction": "Move browser path configuration to a shell step using RUNNER_TEMP and GITHUB_ENV, following the existing engineering workflow. No test assertion, runtime lock or service target changed.",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39154958727"
+    },
+    {
+      "source_commit": "24bcfd3a9de3b76d7589ee84f8993167c335f8f4",
+      "workflow_run_id": 39155134190,
+      "status": "FAILED_MAPPING_GROUP",
+      "safe_artifact": {
+        "artifact_id": 12146233305,
+        "bytes": 2327,
+        "sha256": "c73ac53fbeb4ec884304c150dd80a389198054562205c8292acee4d89274c157",
+        "platform_digest_verified": true
+      },
+      "safe_report": {
+        "status": "FAIL",
+        "scope": "T013_isolated_identity_rotation_fault_and_mapping_tests_not_whole_acceptance",
+        "observed_at": "2026-10-18T18:44:25.112260+00:00",
+        "source_commit": "24bcfd3a9de3b76d7589ee84f8993167c335f8f4",
+        "source_sha256": {
+          ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+          ".github/workflows/identity.yml": "fd00eda242a82a795166a42e2dc27546d9f0f7d1b9b6428851abeb26ea1b3b9f",
+          "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+          "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+          "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+          "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+          "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+          "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+          "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+          "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+          "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+          "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+          "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+          "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+          "scripts/identity/checks.py": "70565d3a5087bc33560f7d3a2c6edab19d6c2e12e500d697639753fc4541ad7a",
+          "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+          "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+          "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+          "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+          "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+          "scripts/identity/restore.py": "403e757c2cf1954464966fa0e1a883fe96a132d2ad0ad0636d71d5e3fe538181",
+          "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+          "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+          "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+          "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+          "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+          "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+          "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+          "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+          "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+          "tests/platform/test_t013_identity_checks.py": "119c8d33ddc304b75e6ba211cf46c9d2b823c077e08714e78717d9ea3362d21c",
+          "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+          "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+        },
+        "python": "3.10.22",
+        "groups": [
+          {
+            "report": "identity-live.xml",
+            "status": "PASS",
+            "totals": {
+              "tests": 48,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "sha256": "a28f57a051172506e20b68542e2ee3b784277439108e76bc8bf96ba85b32dfd3"
+          },
+          {
+            "report": "identity-adapters.xml",
+            "status": "PASS",
+            "totals": {
+              "tests": 99,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "sha256": "9db450127fbf66d112eedf830662fbb8a96269055bf1e82f16e547408a443544"
+          },
+          {
+            "report": "identity-mapping.xml",
+            "status": "FAIL",
+            "totals": {
+              "tests": 78,
+              "failures": 1,
+              "errors": 0,
+              "skipped": 0
+            },
+            "sha256": "2ae53d8da94938cf516dfbb7ac34436192ac6a056d100973ead07d51f2e1122e"
+          }
+        ],
+        "totals": {
+          "tests": 225,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "formal_accepted": false,
+        "raw_logs_published": false,
+        "Python_candidates_created": false,
+        "source_code_dirty": false,
+        "process_exit_codes": [
+          0,
+          0,
+          1
+        ]
+      },
+      "required_engineering_guard_result": "FAIL_AS_EXPECTED_WHEN_IDENTITY_FAILED",
+      "diagnosis_boundary": "First safe report retained counts but no failed-test identifier. Exact failing test was not captured. Code inspection found the role-directory recovery test depends on MT_BUSINESS_PG_BIN, absent from new identity CI; it defaulted to a shared-server-only path. Declared the existing engineering PG16 path and checked both tools before tests; final actual run must verify the result.",
+      "correction": "Report publishes only source-whitelisted test function names, removing parameters and error text. Added privacy assertions to the existing negative test; no test count or assertions dropped."
+    },
+    {
+      "source_commit": "b3bd2016c020c2de04a4070eb311c266144cf5f2",
+      "workflow_run_id": 39156103509,
+      "status": "IDENTITY_AND_BUSINESS_PASS_ENGINEERING_IMPORT_FORMAT_FAILURE",
+      "identity_totals": {
+        "tests": 225,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "business_totals": {
+        "tests": 246,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "safe_reports_verified": true,
+      "engineering_artifact": {
+        "id": 12146912957,
+        "bytes": 335759,
+        "sha256": "820cdb24e5190040224389db2c885488b92c50a3dcf3fadcee16f30a0ab2923a"
+      },
+      "identity_artifact": {
+        "id": 12146924003,
+        "bytes": 2317,
+        "sha256": "547507af893341f0f3592136971b5da7638f0e19e683aa185ad6a4a2df828eb3"
+      },
+      "failed_gates": {
+        "started_at": "2026-10-18T19:01:27.914786+00:00",
+        "runner": "github-hosted-ubuntu-24.04",
+        "python": "3.10.22 | packaged by conda-forge | (main, Oct  6 2026, 23:02:24) [GCC 14.4.0]",
+        "stage": "all",
+        "checks": [
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "pip",
+              "check"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.264098
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "scripts/verify_runtime_lock.py"
+            ],
+            "status": "PASS",
+            "elapsed_seconds": 0.114052
+          },
+          {
+            "stage": "validate",
+            "command": [
+              "/opt/conda/glwy/envs/py310/bin/python",
+              "-m",
+              "ruff",
+              "check",
+              "--config",
+              "ruff.toml",
+              "backend/app",
+              "ai-services/inference",
+              "tests/poc",
+              "scripts/poc_control.py",
+              "scripts/run_ci.py",
+              "scripts/verify_poc.py",
+              "scripts/verify_poc_resilience.py",
+              "scripts/verify_generated_contracts.py",
+              "scripts/verify_media_and_queries.py",
+              "scripts/verify_sql_baseline.py",
+              "scripts/verify_runtime_lock.py",
+              "scripts/collect_environment.py",
+              "scripts/verify_ci_failure_gate.py",
+              "scripts/check_repository_secrets.py",
+              "scripts/verify_migrations_and_fencing.py",
+              "scripts/verify_media_timestamps.py",
+              "scripts/verify_development_recovery.py"
+            ],
+            "status": "FAIL",
+            "elapsed_seconds": 0.031808
+          }
+        ],
+        "hosted_pipeline_executed": true,
+        "provider": "github_actions",
+        "source_commit": "b3bd2016c020c2de04a4070eb311c266144cf5f2",
+        "workflow_run_id": "39156103509",
+        "status": "FAIL",
+        "error": "RuntimeError",
+        "ended_at": "2026-10-18T19:01:28.324790+00:00"
+      },
+      "cause": "Ruff I001: scripts/verify_runtime_lock.py lacked a blank line between third-party import and TYPE_CHECKING block. This file is checked by the original CI static gate outside the dev.py lint scope.",
+      "correction": "One blank line only, with full original CI static scope verified on Linux and Windows; no gate disabled, dependency changed or assertion lowered."
+    },
+    {
+      "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+      "workflow_run_id": 39157203313,
+      "run_attempt": 1,
+      "status": "FAILED_BEFORE_TESTS_PULLING_PINNED_NGINX",
+      "error": "IDENTITY_CI_STAGE_FAILED_PULL-NGINX",
+      "identity_tests_executed": false,
+      "rerun_API_result": "403 Resource not accessible by integration",
+      "retry_action": "Used already signed-in GitHub browser to select Re-run failed jobs, debug logging remained disabled; UI and API verified run attempt2, same commit and image digests. No code or gate changed for retry.",
+      "scope": "Registry-pull failure; underlying private Docker pull log was not published or available after disposable VM ended, so no HTTP/network root cause is asserted."
+    }
+  ],
+  "source_binding_note": "Original Linux225 report preserves its actual working-tree hashes. Subsequent changes are the browser cache context, explicit existing PG16 tool path and safe CI failure identifiers. The supplementary342-unit/format/lint/type checks validate diagnostic code; final hosted report must bind its exact committed source. A subsequent single blank-line import-format correction in scripts/verify_runtime_lock.py passed the complete original CI static scope; final hosted evidence must bind the final payload.",
+  "additional_diagnostic_TDD": {
+    "red": {
+      "mode": "ci-diagnostic-red",
+      "observed_at": "2026-10-18T18:48:18.881444+00:00",
+      "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+      "source_sha256": {
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform/test_t013_identity_checks.py::test_missing_or_nonpassing_evidence_cannot_be_success[failure]",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/ci-diagnostic-red.xml"
+          ],
+          "exit_code": 1,
+          "totals": {
+            "tests": 1,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [
+            {
+              "name": "test_missing_or_nonpassing_evidence_cannot_be_success[failure]",
+              "class": "tests.platform.test_t013_identity_checks",
+              "failure_kind": "failure"
+            }
+          ],
+          "started_at": "2026-10-18T18:48:18.164291+00:00",
+          "elapsed_seconds": 0.716967,
+          "private_log_sha256": "c4a40fe0f6095fbc69b2cf342057677c8805953f367e7c13f42ff97520e7bfaf"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false,
+      "raw_logs_published": false
+    },
+    "green": {
+      "mode": "ci-diagnostic-green",
+      "observed_at": "2026-10-18T18:49:26.150593+00:00",
+      "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+      "source_sha256": {
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform/test_t013_identity_checks.py",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/ci-diagnostic-green.xml"
+          ],
+          "exit_code": 0,
+          "totals": {
+            "tests": 10,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "started_at": "2026-10-18T18:49:24.070115+00:00",
+          "elapsed_seconds": 2.080338,
+          "private_log_sha256": "c3d2a85fcf1f5ffcdf556835f0391d77a1e4756347d1ce944f5d8bb3f75f02de"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false,
+      "raw_logs_published": false
+    }
+  },
+  "supplementary_linux_quality": {
+    "mode": "unit-quality-ci-diagnostic",
+    "observed_at": "2026-10-18T18:50:41.058693+00:00",
+    "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+    "source_sha256": {
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/platform",
+          "tests/stage_three",
+          "tests/poc",
+          "tests/native",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-rotation-fault-20261019/unit-quality-ci-diagnostic.xml"
+        ],
+        "exit_code": 0,
+        "totals": {
+          "tests": 342,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "started_at": "2026-10-18T18:50:13.704353+00:00",
+        "elapsed_seconds": 20.130606,
+        "private_log_sha256": "d6b22308d7f9dd2509df5a5037f18e0ddb4b19bf434ba3a2dbdbffd75cb82a74"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "format-check"
+        ],
+        "exit_code": 0,
+        "totals": null,
+        "failed_cases": [],
+        "started_at": "2026-10-18T18:50:33.835149+00:00",
+        "elapsed_seconds": 1.199914,
+        "private_log_sha256": "2186ee0c83fae3c14963173e48cbffb98d86c6c67d8c2f8914d81c43024d06fa"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "lint"
+        ],
+        "exit_code": 0,
+        "totals": null,
+        "failed_cases": [],
+        "started_at": "2026-10-18T18:50:35.035226+00:00",
+        "elapsed_seconds": 5.300077,
+        "private_log_sha256": "3b05774bc40dfff2b99aa88626834b3165b71cc1e97fb5ff4807bac51164f4aa"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "totals": null,
+        "failed_cases": [],
+        "started_at": "2026-10-18T18:50:40.335456+00:00",
+        "elapsed_seconds": 0.723083,
+        "private_log_sha256": "8b5797357e93091221a6fcd852b451114a3ea8e2435b261bb73dd79f29e7412b"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false,
+    "raw_logs_published": false,
+    "capture_note": "Only the first command has JUnit test totals; subsequent format/lint/type commands have no test-count claim."
+  },
+  "supplementary_checked_source_sha256": {
+    ".github/workflows/identity.yml": "945def5699c6075858626a485075ff68bc738af5caca9f1e1784cc7b3b50c756",
+    "scripts/identity/checks.py": "663ed607c0f00ff5cf89ebed4cbac4823f2e13e810cf0a643ba0ec18cb778c8a",
+    "tests/platform/test_t013_identity_checks.py": "92cde972d270a9f5876a47d283777c47466b44acb1abf5a24188af665c851e7e"
+  },
+  "supplementary_original_CI_lint": {
+    "mode": "legacy-lint",
+    "observed_at": "2026-10-18T19:05:04.441328+00:00",
+    "base_source_commit": "a5d9a6564f415fbfe8657a5bae313162e69ac363",
+    "source_sha256": {
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/poc_control.py",
+          "scripts/run_ci.py",
+          "scripts/verify_poc.py",
+          "scripts/verify_poc_resilience.py",
+          "scripts/verify_generated_contracts.py",
+          "scripts/verify_media_and_queries.py",
+          "scripts/verify_sql_baseline.py",
+          "scripts/verify_runtime_lock.py",
+          "scripts/collect_environment.py",
+          "scripts/verify_ci_failure_gate.py",
+          "scripts/check_repository_secrets.py",
+          "scripts/verify_migrations_and_fencing.py",
+          "scripts/verify_media_timestamps.py",
+          "scripts/verify_development_recovery.py"
+        ],
+        "exit_code": 0,
+        "totals": null,
+        "failed_cases": [],
+        "started_at": "2026-10-18T19:05:04.275974+00:00",
+        "elapsed_seconds": 0.165239,
+        "private_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false,
+    "raw_logs_published": false
+  },
+  "hosted_ci": {
+    "run_id": 39157203313,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39157203313",
+    "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+    "status": "PASS",
+    "identity_tests": 225,
+    "engineering_gates": 32,
+    "business_tests": 246,
+    "artifact_verified": true,
+    "run_attempt": 2
+  },
+  "source_delivery_verification": {
+    "status": "PASS_SOURCE_AND_SCOPED_BOUNDARIES",
+    "observed_at": "2026-10-18T19:08:19.418131+00:00",
+    "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+    "git_worktree_clean": true,
+    "manifest_files_verified": 1988,
+    "manifest_matches_all_tracked_files_except_explicit_self_and_receipt": true,
+    "source_originals_verified": 12,
+    "original_locks_unchanged": [
+      "config/locks/conda-linux-64.explicit.txt",
+      "config/locks/requirements-py310.lock",
+      "frontend/package-lock.json",
+      "config/identity/versions.json"
+    ],
+    "python": "3.10.22",
+    "services": [
+      {
+        "id": "f99770aefdcd",
+        "name": "media-trace-identity-identity-gateway-1",
+        "healthy": true,
+        "started_at": "2026-10-17T06:49:36.751495445Z"
+      },
+      {
+        "id": "dc1cfac9d9b0",
+        "name": "media-trace-identity-keycloak-1",
+        "healthy": true,
+        "started_at": "2026-10-17T06:46:54.559220608Z"
+      },
+      {
+        "id": "c18e485f71a5",
+        "name": "media-trace-identity-identity-postgres-1",
+        "healthy": true,
+        "started_at": "2026-10-17T06:46:42.071084134Z"
+      },
+      {
+        "id": "1f4264d2ea07",
+        "name": "media-trace-py310-worker-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:16.589620508Z"
+      },
+      {
+        "id": "b1fd98fc33a8",
+        "name": "media-trace-py310-inference-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:19.136886727Z"
+      },
+      {
+        "id": "b0d8bdb5e2d7",
+        "name": "media-trace-py310-api-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:25.141427835Z"
+      },
+      {
+        "id": "8ab1441cb3cc",
+        "name": "media-trace-py310-s3-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:33.553331383Z"
+      },
+      {
+        "id": "20d6347b1394",
+        "name": "media-trace-py310-web-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:37.633811982Z"
+      },
+      {
+        "id": "869b8e2178a9",
+        "name": "media-trace-py310-postgres-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:44.101215299Z"
+      },
+      {
+        "id": "93728e609bef",
+        "name": "media-trace-py310-rabbitmq-1",
+        "healthy": true,
+        "started_at": "2026-10-14T09:54:48.667656358Z"
+      }
+    ],
+    "shared_service_ids_unchanged": true,
+    "shared_service_started_before_batch": true,
+    "temporary_acceptance_realms_remaining": 0,
+    "project_realm_user_count": 0,
+    "task_count": 170,
+    "completed_substeps": 84,
+    "remaining_work_items": 621,
+    "whole_tasks_accepted": 0,
+    "T013_completed_substeps": 5,
+    "T013_remaining_items": 3,
+    "post_Linux_test_change_paths": [
+      ".github/workflows/identity.yml",
+      "scripts/identity/checks.py",
+      "tests/platform/test_t013_identity_checks.py"
+    ],
+    "post_test_change_scope": "Hosted browser-cache context and explicit PG16 tool path corrected; report diagnostic publishes only source-whitelisted test names, without parameters/messages. Supplementary342-unit/format/lint/type checks and final hosted source hashes verify these changes.",
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false,
+    "T014_started": false,
+    "selected_scope_hash_map_is_not_whole_repository_diff": true,
+    "additional_checked_change": {
+      "path": "scripts/verify_runtime_lock.py",
+      "scope": "one import-block blank line; complete original CI Ruff scope passed, with original gates retained"
+    }
+  },
+  "material_checks_current_source": {
+    "source_commit": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+    "checks": 8,
+    "status": "PASS",
+    "reference": "docs/00-project/validation/t013-rotation-fault/linux-documentation-checks.json"
+  },
+  "user_inputs_for_whole_T013": [
+    "徐昌胜已被指定为开发负责人、身份管理员和T013复核人；仍缺实际工时、实名账号/MFA/bootstrap交接及实际复核决定。",
+    "Role names recorded as 徐昌胜; actual account/MFA/bootstrap handover and human review still pending.",
+    "Confirm applicable formal identity scope and revocation SLA, and provide actual software-admission decisions; Python candidates remain deferred without inferred risk acceptance.",
+    "Review a concrete restart/persistence and post-restore invalidation/rollback exercise before shared-service changes. No such changes were executed in this batch."
+  ],
+  "actual_owner": "徐昌胜",
+  "owner_assignment": {
+    "observed_at": "2026-10-19T01:30:24.110888+00:00",
+    "confirmation_date": "2026-10-19",
+    "confirmed_by": "user",
+    "actual_development_owner": "徐昌胜",
+    "resource_id": "PERSON-002",
+    "basis_ref": "docs/03-development/repository-access-control.md",
+    "confirmation": "用户对“T013的实际开发负责人由谁承担？”答复“徐昌胜”。",
+    "scope": "仅T013实际开发任务责任；不自动指定身份管理员、T013复核人或验收人，不创建账号或授予权限。",
+    "identity_administrator_confirmed": false,
+    "T013_reviewer_confirmed": false,
+    "formal_accepted": false
+  },
+  "owner_assignment_documentation_validation": {
+    "observed_at": "2026-10-19T01:31:55.468220+00:00",
+    "scope": "T013_user_confirmed_development_owner_documentation_only",
+    "base_source_commit": "6eec8003c2e1fd2a3c7ffeed2ea5b5b80677d2ea",
+    "working_tree_contains_ownership_changes": true,
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "9a635c2e64ffce309989c1cc6c6dbe0df70a2d1e9d6deaacf432c83210b498cd"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "12e7f5c6474b2b435e8c1bfb04816003bb4537be83a6562dd0632a1dc3c9164b"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/build_stage_one_candidate.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "5341535555f6efb16318c2c517027e2d2204726c719642c302f7e89d13dce22d"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "48a9741aa653edb3aab011de1d90ddabd1f3dd44aab6d108d45bf2c44fc06d9f"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "ccd6e9da7eb49a5c716786f09643c862eca2c6de7a705e1e17f365655e9cd070"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "972c93da5a5e4f36c552d315baa50adee8ffd99e1d878e6a7a1fe4e31358cc29"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "8202d0412f0a0905b6f8b1d0703e744a4beaa3f14ae8e23629021896028524df"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "output_sha256": "e03291f6ba2f95d12007357476132d08055584c92dd6704da9b575288fdf0815"
+      }
+    ],
+    "account_changes": false,
+    "formal_accepted": false,
+    "Python_candidates_created": false,
+    "status": "PASS"
+  },
+  "current_role_assignment_ref": "docs/00-project/validation/t013-role-assignment.json",
+  "current_followup_ref": "docs/00-project/validation/t013-recovery-report.json"
+}

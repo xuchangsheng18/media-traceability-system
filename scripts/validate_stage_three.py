@@ -1,4 +1,4 @@
-"""Verify third-stage inputs and actually execute the bounded existing py310 profile."""
+"""Verify third-stage inputs and actually execute the bounded approved py311 profile."""
 
 import argparse
 import datetime
@@ -10,7 +10,7 @@ import signal
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
@@ -76,11 +76,11 @@ def static_checks():
     checks.append({"name": "sixteen_source_steps_exact_titles_acceptance_and_real_outputs", "status": "PASS"})
     profile = read("config/stage-three-profile.json")
     versions = yaml.safe_load((ROOT / "config/versions.yaml").read_text(encoding="utf-8"))
-    assert (ROOT / ".python-version").read_text().strip() == versions["python"]["version"] == "3.10.22"
+    assert (ROOT / ".python-version").read_text().strip() == versions["python"]["version"] == "3.11.17"
     assert (ROOT / ".nvmrc").read_text().strip() == versions["frontend"]["node"] == "22.21.1"
     assert profile["python_executable"] == versions["python"]["executable"]
     assert versions["production_python_selection"]["production_approved"] is False
-    checks.append({"name": "existing_py310_node_versions_preserved_production_not_approved", "status": "PASS"})
+    checks.append({"name": "approved_py311_node_versions_preserved_production_not_approved", "status": "PASS"})
     fields = read(PREFIX + "external-inputs.json")
     assert fields["formal_frozen"] is False and fields["formal_approved"] is False
     assert record["formal_frozen"] is False and all(
@@ -152,7 +152,10 @@ def static_checks():
     precommit = yaml.safe_load((ROOT / ".pre-commit-config.yaml").read_text())
     assert precommit["repos"][0]["hooks"][0]["entry"] == profile["python_executable"] + " scripts/dev.py pre-commit"
     checks.append({"name": "project_config_preserves_user_model_permissions_and_valid_local_hook", "status": "PASS"})
-    from dev import COMMANDS, plan
+    if TYPE_CHECKING:
+        from scripts.dev import COMMANDS, plan
+    else:
+        from dev import COMMANDS, plan
 
     assert set(
         [
@@ -196,9 +199,12 @@ def static_checks():
 
 
 def run_bounded(command, env):
+    # dev.py test serially runs platform, business and frontend suites. Keep its
+    # aggregate budget finite while preserving the smaller bound for other entries.
+    timeout = 2400 if command[1:] == ["scripts/dev.py", "test"] else 300
     process = subprocess.Popen(command, cwd=ROOT, env=env, start_new_session=os.name == "posix")
     try:
-        result = process.wait(timeout=300)
+        result = process.wait(timeout=timeout)
     except subprocess.TimeoutExpired:
         if os.name == "posix":
             os.killpg(process.pid, signal.SIGTERM)
@@ -218,10 +224,14 @@ def run_bounded(command, env):
 
 
 def run_profile():
-    from dev import PROFILE, environment
-    from poc_control import RUNTIME, compose
+    if TYPE_CHECKING:
+        from scripts.dev import PROFILE, environment
+        from scripts.poc_control import RUNTIME, compose
+    else:
+        from dev import PROFILE, environment
+        from poc_control import RUNTIME, compose
 
-    assert sys.version_info[:2] == (3, 10)
+    assert sys.version_info[:2] == (3, 11)
     python = str(Path(sys.executable).resolve())
     env = environment()
     commands = [

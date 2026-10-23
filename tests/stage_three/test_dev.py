@@ -1,6 +1,8 @@
 import importlib.util
 import json
 import os
+import signal
+import subprocess
 import sys
 import types
 from pathlib import Path
@@ -37,7 +39,7 @@ def test_only_precommit_disables_report_writes_without_disabling_checks(monkeypa
 def test_read_only_secret_check_still_rejects_prohibited_files(monkeypatch, tmp_path, unsafe):
     script_dir = str(ROOT / "scripts")
     monkeypatch.syspath_prepend(script_dir)
-    import stage_three_quality as quality
+    from scripts import stage_three_quality as quality
 
     monkeypatch.setattr(quality, "ROOT", tmp_path)
     monkeypatch.setattr(quality, "VALIDATION", tmp_path)
@@ -54,7 +56,7 @@ def test_read_only_secret_check_still_rejects_prohibited_files(monkeypatch, tmp_
 def test_stage_capacity_text_uses_timestamped_snapshot_or_unknown(monkeypatch, known):
     script_dir = str(ROOT / "scripts")
     monkeypatch.syspath_prepend(script_dir)
-    import generate_stage_three_docs as generation
+    from scripts import generate_stage_three_docs as generation
 
     original = generation.read
     receipt = (
@@ -128,6 +130,15 @@ def test_precommit_contains_format_types_and_frontend_checks():
     assert ["npm", "--prefix", "frontend", "run", "format-check"] in commands
 
 
+def test_test_entry_includes_annotation_checks_without_replacing_existing_suites():
+    commands = dev.plan("test")
+    pytest_commands = [command for command in commands if command[1:3] == ["-m", "pytest"]]
+    assert len(pytest_commands) == 1
+    assert {"tests/poc", "tests/stage_three", "tests/platform", "tests/data"} <= set(pytest_commands[0])
+    assert any("scripts/verify_business_foundation.py" in command for command in commands)
+    assert ["npm", "--prefix", "frontend", "test"] in commands
+
+
 @pytest.mark.parametrize("name,frontend", [("lint", "lint"), ("format-check", "format-check")])
 def test_frontend_quality_is_part_of_same_local_ci_entry(name, frontend):
     assert ["npm", "--prefix", "frontend", "run", frontend] in dev.plan(name)
@@ -196,7 +207,7 @@ def test_existing_development_stack_is_only_observed_by_default():
 
 
 def test_command_profile_keeps_exact_development_version():
-    assert dev.PROFILE["python_executable"] == "/opt/conda/glwy/envs/py310/bin/python"
+    assert dev.PROFILE["python_executable"] == "/opt/conda/glwy/envs/py311/bin/python"
     assert dev.PROFILE["production_release_or_formal_data_access"] is False
     assert not dev.PROFILE["formal_approval_refs"]
 
@@ -364,7 +375,7 @@ def test_new_python_module_is_checked_without_updating_a_file_list(monkeypatch, 
 
 def test_directory_format_scope_also_checks_new_module_text(monkeypatch, tmp_path):
     monkeypatch.syspath_prepend(str(ROOT / "scripts"))
-    import stage_three_quality as quality
+    from scripts import stage_three_quality as quality
 
     for name in [
         "CONTRIBUTING.md",
@@ -393,3 +404,91 @@ def test_directory_format_scope_also_checks_new_module_text(monkeypatch, tmp_pat
         quality.text_check()
     added.write_bytes(b"VALUE = 1\n")
     assert quality.text_check() == 0
+
+
+def runtime_validator():
+    runtime_spec = importlib.util.spec_from_file_location(
+        "bounded_runtime_validation", ROOT / "scripts/validate_stage_three.py"
+    )
+    assert runtime_spec is not None and runtime_spec.loader is not None
+    runtime = importlib.util.module_from_spec(runtime_spec)
+    runtime_spec.loader.exec_module(runtime)
+    return runtime
+
+
+def test_runtime_budget_for_compound_development_tests(monkeypatch):
+    runtime = runtime_validator()
+    waits = []
+
+    class SlowSuccessfulCommand:
+        pid = 12345
+
+        def wait(self, timeout):
+            waits.append(timeout)
+            if timeout == 5:
+                return -15
+            if timeout < 600:
+                raise subprocess.TimeoutExpired("compound-tests", timeout)
+            return 0
+
+        def terminate(self):
+            pass
+
+    monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: SlowSuccessfulCommand())
+    monkeypatch.setattr(runtime.os, "killpg", lambda *args: None, raising=False)
+    assert any("verify_business_foundation.py" in " ".join(command) for command in dev.plan("test"))
+    runtime.run_bounded([sys.executable, "scripts/dev.py", "test"], {})
+    assert 600 <= waits[0] <= 2700, "compound entry must allow the serial suites and retain a finite ceiling"
+
+
+@pytest.mark.parametrize("tail", [["lint"], ["contract-test"], ["test", "--dry-run"]])
+def test_runtime_budget_for_unrelated_commands_stays_bounded(monkeypatch, tail):
+    runtime = runtime_validator()
+    waits = []
+
+    def wait(timeout):
+        waits.append(timeout)
+        return 0
+
+    process = types.SimpleNamespace(wait=wait)
+    monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: process)
+    runtime.run_bounded([sys.executable, "scripts/dev.py", *tail], {})
+    assert waits == [300]
+
+
+@pytest.mark.parametrize("exit_code", [1, 7])
+def test_runtime_budget_does_not_hide_nonzero_exit(monkeypatch, exit_code):
+    runtime = runtime_validator()
+    process = types.SimpleNamespace(wait=lambda timeout: exit_code)
+    monkeypatch.setattr(runtime.subprocess, "Popen", lambda *args, **kwargs: process)
+    with pytest.raises(subprocess.CalledProcessError) as failure:
+        runtime.run_bounded([sys.executable, "scripts/dev.py", "test"], {})
+    assert failure.value.returncode == exit_code
+
+
+def test_runtime_budget_still_terminates_timed_out_process_group(monkeypatch):
+    runtime = runtime_validator()
+    waits, stopped, starts = [], [], []
+
+    class StuckCommand:
+        pid = 12345
+
+        def wait(self, timeout):
+            waits.append(timeout)
+            if len(waits) == 1:
+                raise subprocess.TimeoutExpired("stuck-tests", timeout)
+            return -15
+
+        def terminate(self):
+            stopped.append(signal.SIGTERM)
+
+    def start(*args, **kwargs):
+        starts.append(kwargs)
+        return StuckCommand()
+
+    monkeypatch.setattr(runtime.subprocess, "Popen", start)
+    monkeypatch.setattr(runtime.os, "killpg", lambda pid, sig: stopped.append(sig), raising=False)
+    with pytest.raises(subprocess.TimeoutExpired):
+        runtime.run_bounded([sys.executable, "scripts/dev.py", "test"], {})
+    assert stopped == [signal.SIGTERM] and waits[1:] == [5]
+    assert starts[0]["start_new_session"] == (os.name == "posix")

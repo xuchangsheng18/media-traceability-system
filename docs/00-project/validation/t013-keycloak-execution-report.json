@@ -1,0 +1,121 @@
+{
+  "task_id": "T013",
+  "plan": "docs/03-development/t013-keycloak-implementation-plan.md",
+  "observed_at": "2026-10-17T08:08:01Z",
+  "source_base_commit": "bbc818a8523f8b8b2b8c37bbda3f7f98652702f0",
+  "implementation_commit": "42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8",
+  "acceptance_ledger": "docs/00-project/validation/t013-keycloak-acceptance-ledger.json",
+  "source_state": "implementation_committed_and_pushed_to_feature_branch;linux_source_checked_out_at_same_commit",
+  "environment": {
+    "host": "Linux 172.16.58.179",
+    "python": "Miniforge py310 / Python 3.10.22",
+    "docker_context": "desktop-linux",
+    "identity_project": "media-trace-identity"
+  },
+  "overall_status": "PARTIAL_ENGINEERING_VALIDATION_FORMAL_ACCEPTANCE_PENDING",
+  "steps": [
+    {
+      "step": 1,
+      "name": "dependency-lock-and-read-only-preflight",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence": [
+        "Read-only server preflight passed with owned identity ports accounted for and existing seven project services healthy.",
+        "All three running image IDs matched the recorded image scan; Trivy reported zero High and zero Critical findings.",
+        "docs/00-project/validation/t013-identity-image-admission-report.json"
+      ],
+      "remaining": ["Formal software admission is not approved."]
+    },
+    {
+      "step": 2,
+      "name": "certificates-and-private-volumes",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence": [
+        "tests/platform/test_t013_identity_operations.py",
+        "tests/platform/test_t013_identity_deploy.py",
+        "Private identity runtime permissions and mounted secret-volume content were checked on the Linux target."
+      ],
+      "remaining": ["Named operational owner and formal key-custody procedure are not confirmed."]
+    },
+    {
+      "step": 3,
+      "name": "three-services-and-tls-boundaries",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence": [
+        "Three identity containers were healthy; original seven project services remained healthy.",
+        "tests/identity/test_tls_gateway.py: 12 passed against the live HTTPS endpoints with the project CA."
+      ],
+      "remaining": ["This is not formal security acceptance."]
+    },
+    {
+      "step": 4,
+      "name": "explicit-backend-assembly",
+      "status": "PASS_ENGINEERING_SCOPE",
+      "evidence": [
+        "scripts/dev.py lint passed.",
+        "scripts/dev.py format-check passed.",
+        "scripts/dev.py type-check passed.",
+        "T013 identity platform, token, and business identity regression group: 102 passed.",
+        "tools/identity_oidc_browser.test.mjs: 9 passed.",
+        "scripts/dev.py security-scan passed: no known Python/npm dependency vulnerabilities; 1502 files checked for configured secret patterns."
+      ],
+      "remaining": ["The new identity provider is not enabled for real business users."]
+    },
+    {
+      "step": 5,
+      "name": "realm-and-live-oidc",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence": [
+        "tests/identity/test_oidc_live.py: 9 passed against a temporary Keycloak realm with a real browser PKCE flow.",
+        "The temporary realm and test account were removed after the test."
+      ],
+      "remaining": ["No named human administrator/MFA handover or real user onboarding is recorded."]
+    },
+    {
+      "step": 6,
+      "name": "identity-and-business-mapping",
+      "status": "PASS_ISOLATED_REAL_SERVICE_TESTS",
+      "evidence": [
+        "tests/identity/test_mapping_live.py: 6 passed against real Keycloak tokens and an isolated business database.",
+        "Tested issuer+sub mapping, unmapped-subject denial, disabled user/organization, mapping revocation, and default-deny business policy."
+      ],
+      "remaining": ["No real-person mapping or formal case/source authorization was created."]
+    },
+    {
+      "step": 7,
+      "name": "encrypted-backup-and-isolated-restore",
+      "status": "PASS_ISOLATED_DATABASE_RESTORE_ONLY",
+      "evidence": [
+        "A signed/encrypted PostgreSQL dump, configuration bundle, and CA recovery bundle were created in the private Linux host backup directory for the test.",
+        "The database restored into a new Docker volume with network=none; verified counts were 2 realms, 16 clients, and 1 synthetic user.",
+        "The original database was unchanged; the restore container exited 0. The temporary signing/decryption key, test backup files, and restored validation volume were removed after the test."
+      ],
+      "remaining": [
+        "No approved long-term/offsite recipient key or key custodian is configured.",
+        "Session invalidation and client-secret rotation during a production restore/cutover were not exercised.",
+        "This is not production disaster-recovery acceptance."
+      ]
+    },
+    {
+      "step": 8,
+      "name": "acceptance-ledger-ci-and-three-way-sync",
+      "status": "PARTIAL_SOURCE_SYNCED_ACCEPTANCE_AND_HOSTED_CI_PENDING",
+      "evidence": [
+        "Linux lint, format, type, secret/dependency scan, browser verifier unit tests, and 102-test identity/token/business regression results passed.",
+        "scripts/validate_inputs.py --task T013 reported no blocking findings; one source check was skipped by the validator.",
+        "Implementation commit 42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8 was pushed to origin/feat/t013-keycloak-implementation-20261017.",
+        "Linux project source /workspace/glwy/projects/media-traceability-system is checked out at the same implementation commit; no project service was restarted.",
+        "The interface-documentation and local-input validation reports were refreshed on the Linux py310 host and copied into this repository for traceability."
+      ],
+      "remaining": [
+        "The 22-item status register records 13 scoped passes and 9 NOT_EXECUTED items; complete independently hashed evidence for all acceptance rows is not assembled.",
+        "GitHub integration returned HTTP 403 when creating a draft PR; hosted CI has not run against this implementation commit.",
+        "Formal software admission and named administrator handover remain outstanding."
+      ]
+    }
+  ],
+  "formal_acceptance": false,
+  "t013_task_closed": false,
+  "real_person_accounts_created": false,
+  "real_business_authorization_granted": false,
+  "software_admission_approved": false
+}

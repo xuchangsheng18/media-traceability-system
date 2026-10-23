@@ -1,0 +1,209 @@
+{
+  "scope": "T001-T012_current_linux_py310_cpu_development_not_formal_acceptance",
+  "source_commit": "4cb812bece81ff6610df5935f8ee2f9b1efbfe14",
+  "started_at": "2026-10-17T13:32:44.232114+00:00",
+  "checks": [
+    {
+      "name": "runtime-lock",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_runtime_lock.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 0.215
+    },
+    {
+      "name": "lint-and-type",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/dev.py",
+        "lint"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 4.926
+    },
+    {
+      "name": "format",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/dev.py",
+        "format-check"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 1.117
+    },
+    {
+      "name": "python-regression",
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/poc",
+        "tests/stage_three",
+        "tests/platform",
+        "tests/business",
+        "tests/native",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/pre-t013-final-20261017/python-regression.xml"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 476.336,
+      "totals": {
+        "tests": 539,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "frontend-unit",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "test"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 1.469
+    },
+    {
+      "name": "frontend-build",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 3.573
+    },
+    {
+      "name": "frontend-browser",
+      "command": [
+        "npm",
+        "--prefix",
+        "frontend",
+        "run",
+        "test:foundation-browser"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 4.425
+    }
+  ],
+  "ended_at": "2026-10-17T13:40:56.302196+00:00",
+  "status": "PASS",
+  "previous_observation": {
+    "scope": "T001-T012_current_linux_py310_cpu_development_not_formal_acceptance",
+    "source_commit": "341ad5b9aaa2a1edb381bbacf77526af5ce0fe5c",
+    "started_at": "2026-10-17T12:32:28.274909+00:00",
+    "checks": [
+      {
+        "name": "runtime-lock",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_runtime_lock.py"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 0.717
+      },
+      {
+        "name": "lint-and-type",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "lint"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 13.847
+      },
+      {
+        "name": "format",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "format-check"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 1.535
+      },
+      {
+        "name": "python-regression",
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/poc",
+          "tests/stage_three",
+          "tests/platform",
+          "tests/business",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/pre-t013-closeout-20261017/python-regression.xml"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 453.233,
+        "totals": {
+          "tests": 502,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      {
+        "name": "frontend-unit",
+        "command": [
+          "npm",
+          "--prefix",
+          "frontend",
+          "test"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 1.469
+      },
+      {
+        "name": "frontend-build",
+        "command": [
+          "npm",
+          "--prefix",
+          "frontend",
+          "run",
+          "build"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 3.823
+      },
+      {
+        "name": "frontend-browser",
+        "command": [
+          "npm",
+          "--prefix",
+          "frontend",
+          "run",
+          "test:foundation-browser"
+        ],
+        "exit_code": 0,
+        "status": "PASS",
+        "duration_seconds": 4.778
+      }
+    ],
+    "ended_at": "2026-10-17T12:40:27.683149+00:00",
+    "status": "PASS"
+  }
+}

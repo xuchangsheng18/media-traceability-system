@@ -1,0 +1,23 @@
+import datetime,hashlib,json,os,subprocess
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path(json.loads((base/'n01-package-notice-latest.json').read_text())['root']);f=repo/'docs/00-project/validation';lic=json.loads((out/'runtime-package-notice-final-report.json').read_text());old=json.loads((f/'native-n01-round4/elf-expanded-runtime-report.json').read_text());follow=json.loads((f/'native-n01-round4/runtime-followup-report.json').read_text());prefix=Path('/opt/conda/glwy/envs/py310');owners={}
+for p in (prefix/'conda-meta').glob('*.json'):
+ d=json.loads(p.read_text())
+ for name in d.get('files',[]):owners.setdefault(str(prefix/name),[]).append({'name':d['name'],'version':d['version'],'build':d['build']})
+os_lic={x['package']:x for x in lic['OS_packages']};conda_lic={x['package']:x for x in lic['Conda_packages']};paths={p:x['sha256'] for p,x in old['libraries'].items()};paths.update({x['path']:x['sha256'] for x in follow.get('new_libraries',[])})
+rows=[]
+for name,expected in sorted(paths.items()):
+ p=Path(name);actual=hashlib.sha256(p.read_bytes()).hexdigest();assert actual==expected,name
+ dpkg=subprocess.run(['dpkg-query','-S',str(p)],capture_output=True,text=True);os_packages=[]
+ if dpkg.returncode==0:
+  for line in dpkg.stdout.splitlines():
+   package=line.split(': ',1)[0].split(':')[0]
+   if package in os_lic:os_packages.append({'package':package,'version':os_lic[package]['version'],'copyright_material':os_lic[package]['copyright_material']})
+ conda=[]
+ for q in owners.get(name,[]):
+  if q['name'] in conda_lic:
+   x=conda_lic[q['name']];assert x['version']==q['version'] and x['build']==q['build'];conda.append({'package':q['name'],'version':q['version'],'archive_sha256':x['archive_sha256'],'legal_status':x['status'],'materials':x['legal_materials']+x.get('upstream_legal_materials',[])})
+ kind='OS_PACKAGE_MATERIAL_BOUND' if os_packages else 'CONDA_PACKAGE_MATERIAL_BOUND' if conda else 'PRIVATE_OR_PYTHON_WHEEL_LIBRARY_SEPARATE_EXISTING_MATERIAL_EVIDENCE'
+ rows.append({'path':name,'sha256':actual,'historical_library_bytes_unchanged':True,'OS_materials':os_packages,'Conda_materials':conda,'classification':kind})
+readline_users=[{'path':x['path'],'sha256':x['sha256'],'resolved_readline':[p for p in x['resolved'] if 'readline' in p]} for x in old['files'] if any('readline' in p for p in x['resolved'])]
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'status':'PASS_OBSERVED_LIBRARY_BYTES_AND_TARGETED_NOTICE_BINDINGS_NOT_ALL_COMPONENT_LICENSE_COMPATIBILITY','scope':'prior104library_set_plus_followup_union_read_only_rehash_not_fresh_all486loader_runs','libraries':rows,'library_count':len(rows),'material_counts':{k:sum(x['classification']==k for x in rows) for k in sorted({x['classification'] for x in rows})},'historical_readline_loader_users':readline_users,'readline_fact_scope':'prior loader resolution shows which executables link readline;not assertion entire PostgreSQL/application inherits same terms','whole_dynamic_dlopen_or_optional_paths_covered':False,'source_material_correspondence_not_binary_rebuild':True,'installation_permitted':False,'Python_candidate_created':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'library-license-crosswalk.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'libraries':len(rows),'counts':d['material_counts'],'readline_users':[x['path'] for x in readline_users]}))

@@ -1,0 +1,2932 @@
+{
+  "status": "BASELINE_27_ENTRY_INVENTORY_WITH_EXPLICIT_CURRENT_SOURCE_AND_RUNTIME_STATUS",
+  "operation_count": 27,
+  "constraints": [
+    "no public contract change",
+    "no password replacement of OIDC",
+    "no fake model/healthy/success output",
+    "no shared deployment or dependency changes",
+    "T001-T123 scope; outside task refs are dependencies only"
+  ],
+  "operations": [
+    {
+      "operation_id": "health",
+      "http": "GET",
+      "path": "/api/v1/health",
+      "permission": "health.read",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/Health"
+          }
+        }
+      },
+      "source_tasks": [
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T002",
+          "card": "tasks/platform/T002.md",
+          "source_dependencies": "T001",
+          "execution_dependencies": [
+            "T001"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T003",
+          "card": "tasks/frontend/T003.md",
+          "source_dependencies": "T001",
+          "execution_dependencies": [
+            "T001"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T004",
+          "card": "tasks/platform/T004.md",
+          "source_dependencies": "T002,T003",
+          "execution_dependencies": [
+            "T002",
+            "T003"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {},
+      "candidate_scope": "HEALTH_STATUS",
+      "disposition": "readiness-provider",
+      "reason": "Existing independent PoC health is not business-app health. Need authenticated business infrastructure readiness definition; never turn process liveness into model readiness.",
+      "reuse": "business_app/main.py; independent backend/app",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for health; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Existing independent PoC health is not business-app health. Need authenticated business infrastructure readiness definition; never turn process liveness into model readiness.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "devLogin",
+      "http": "POST",
+      "path": "/api/v1/auth/login",
+      "permission": "development.login",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/AuthLogin"
+          }
+        }
+      },
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/AuthSession"
+          }
+        }
+      },
+      "source_tasks": [
+        "T013"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T013",
+          "card": "tasks/platform/T013.md",
+          "source_dependencies": "T012",
+          "execution_dependencies": [
+            "T012"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "users": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 166,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "DEVELOPMENT_LOGIN_EXCEPTION",
+      "disposition": "do-not-mount",
+      "reason": "Historic development password contract is not formal OIDC. Reuse identity entrypoint/session bootstrap; no alternate password bypass authorized.",
+      "reuse": "business_app/identity/entrypoint.py; identity/runtime.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Keep OIDC identity entrypoint; document historic devLogin exclusion without implementing password bypass.",
+      "missing_actual_input": "Historic development password contract is not formal OIDC. Reuse identity entrypoint/session bootstrap; no alternate password bypass authorized.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "createSource",
+      "http": "POST",
+      "path": "/api/v1/sources",
+      "permission": "source.manage",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/SourceCreate"
+          }
+        }
+      },
+      "success_schemas": {
+        "201": {
+          "application/json": {
+            "$ref": "#/components/schemas/Source"
+          }
+        }
+      },
+      "source_tasks": [
+        "T021"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T021",
+          "card": "tasks/backend/T021.md",
+          "source_dependencies": "T020,T014",
+          "execution_dependencies": [
+            "T020",
+            "T014"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "source_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 405,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-authoritative-input",
+      "reason": "source_registry and source synchronization port exist. Creation must bind authoritative source/authorization/version; client verified flag is not authority.",
+      "reuse": "business_app/source_registration.py source creation; source_synchronization.py and controls/router.py existing sync; frontend SourcesView/sources controller",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Do not repeat existing create/sync kernel or UI; integrate real source authority, purpose/owner evidence and background expiry alert under existing contracts.",
+      "missing_actual_input": "Real authority/provider, purpose authorization and source owner, background alert design and full combined runtime validation; client verified flag is not authority.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "createSource",
+        "method": "POST",
+        "path": "/api/v1/sources",
+        "python_function": "create_source",
+        "source_path": "backend/business_app/source_registration_router.py",
+        "line": 19,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 164
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/backend-frontend-data-test-report.json",
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "downloadAsset",
+      "http": "GET",
+      "path": "/api/v1/assets/{id}/content",
+      "permission": "asset.download",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Range",
+          "in": "header",
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "If-Range",
+          "in": "header",
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/octet-stream": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "206": {
+          "application/octet-stream": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "source_tasks": [
+        "T025",
+        "T030"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T025",
+          "card": "tasks/backend/T025.md",
+          "source_dependencies": "T004,T024",
+          "execution_dependencies": [
+            "T004",
+            "T024"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T030",
+          "card": "tasks/frontend/T030.md",
+          "source_dependencies": "T20,T25,T27",
+          "execution_dependencies": [
+            "T020",
+            "T025",
+            "T027"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "media_asset": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 583,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "object_version": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 356,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "audit_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 210,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "implementable-narrow-after-design",
+      "reason": "Immutable FileObjectStore, ScopedObjects and Range-aware export pattern exist. Need asset.download root/resource binding, download_purpose/classification, exact object bytes/version, audit, transaction-end revocation before delivery.",
+      "reuse": "business_app/scoped_objects.py; controls/exports.py; objects.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for downloadAsset; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "No external model artifact is needed for persisted reads; security wiring/fixture-backed tests and precise consumer design remain required.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "downloadAsset",
+        "method": "GET",
+        "path": "/api/v1/assets/{id}/content",
+        "python_function": "download_asset",
+        "source_path": "backend/business_app/asset_download_router.py",
+        "line": 16,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 166
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "createTask",
+      "http": "POST",
+      "path": "/api/v1/analysis/tasks",
+      "permission": "task.create",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/TaskCreate"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/Accepted"
+          }
+        }
+      },
+      "source_tasks": [
+        "T034"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T034",
+          "card": "tasks/backend/T034.md",
+          "source_dependencies": "T033,T015",
+          "execution_dependencies": [
+            "T033",
+            "T015"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "analysis_task": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 642,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "outbox_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 382,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "idempotency_record": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 291,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-model-policy-adapter",
+      "reason": "Task/outbox/idempotency SQL and execution exist. Creation must resolve approved analysis policy/module/model/version/capability; no real approved recipe/provider currently wired.",
+      "reuse": "business_app/controls/execution.py; inference.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for createTask; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Task/outbox/idempotency SQL and execution exist. Creation must resolve approved analysis policy/module/model/version/capability; no real approved recipe/provider currently wired.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "rerunTask",
+      "http": "POST",
+      "path": "/api/v1/analysis/tasks/{id}/rerun",
+      "permission": "task.rerun",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "If-Match",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "description": "服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。"
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Rerun"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/Accepted"
+          }
+        }
+      },
+      "source_tasks": [
+        "T039",
+        "T040"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T039",
+          "card": "tasks/backend/T039.md",
+          "source_dependencies": "T033,T037",
+          "execution_dependencies": [
+            "T033",
+            "T037"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T040",
+          "card": "tasks/frontend/T040.md",
+          "source_dependencies": "T035,T039",
+          "execution_dependencies": [
+            "T035",
+            "T039"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "analysis_task": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 642,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "task_run": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 958,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "task_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 935,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "outbox_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 382,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-model-policy-adapter",
+      "reason": "Execution/result history/outbox can be reused; need exact prior task versions, policy/model eligibility, new run and idempotent publication; cannot manufacture model completion.",
+      "reuse": "business_app/controls/execution.py; history/repository.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for rerunTask; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Execution/result history/outbox can be reused; need exact prior task versions, policy/model eligibility, new run and idempotent publication; cannot manufacture model completion.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "searchImage",
+      "http": "POST",
+      "path": "/api/v1/search/image",
+      "permission": "asset.search",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ImageSearch"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/SearchAccepted"
+          }
+        }
+      },
+      "source_tasks": [
+        "T082",
+        "T084",
+        "T085"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T082",
+          "card": "tasks/algorithm/T082.md",
+          "source_dependencies": "T027,T079-T081",
+          "execution_dependencies": [
+            "T027",
+            "T079",
+            "T080",
+            "T081"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T084",
+          "card": "tasks/algorithm/T084.md",
+          "source_dependencies": "T082,T083",
+          "execution_dependencies": [
+            "T082",
+            "T083"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M18"
+          ],
+          "dataset_ids": [
+            "D09"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T085",
+          "card": "tasks/algorithm/T085.md",
+          "source_dependencies": "T082,T084",
+          "execution_dependencies": [
+            "T082",
+            "T084"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "source_match": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 899,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "index_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 84,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "media_asset": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 583,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-real-inference",
+      "reason": "Persistent search/result tables exist; actual embedding/local matcher/index provider, model+index/preprocessing bindings and authorized result visibility missing.",
+      "reuse": "business_app/inference.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for searchImage; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Persistent search/result tables exist; actual embedding/local matcher/index provider, model+index/preprocessing bindings and authorized result visibility missing.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "searchImageRegion",
+      "http": "POST",
+      "path": "/api/v1/search/image-region",
+      "permission": "asset.search",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ImageSearch"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/SearchAccepted"
+          }
+        }
+      },
+      "source_tasks": [
+        "T085"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T085",
+          "card": "tasks/algorithm/T085.md",
+          "source_dependencies": "T082,T084",
+          "execution_dependencies": [
+            "T082",
+            "T084"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "source_match": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 899,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "index_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 84,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-real-inference",
+      "reason": "Same image search dependencies plus crop coordinate convention/geometry matcher and authorized region evidence; no fake matches.",
+      "reuse": "business_app/inference.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for searchImageRegion; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Same image search dependencies plus crop coordinate convention/geometry matcher and authorized region evidence; no fake matches.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "searchVideo",
+      "http": "POST",
+      "path": "/api/v1/search/video",
+      "permission": "asset.search",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/VideoSearch"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/SearchAccepted"
+          }
+        }
+      },
+      "source_tasks": [
+        "T089"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T089",
+          "card": "tasks/algorithm/T089.md",
+          "source_dependencies": "T044,T088",
+          "execution_dependencies": [
+            "T044",
+            "T088"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M22"
+          ],
+          "dataset_ids": [
+            "D11"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "source_match": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 899,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "index_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 84,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-real-inference",
+      "reason": "Need actual frame embedding, temporal alignment/segment localizer, index compatibility and authorized candidate evidence.",
+      "reuse": "business_app/inference.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for searchVideo; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Need actual frame embedding, temporal alignment/segment localizer, index compatibility and authorized candidate evidence.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "getSearchJob",
+      "http": "GET",
+      "path": "/api/v1/search/jobs/{id}",
+      "permission": "asset.search",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/SearchJob"
+          }
+        }
+      },
+      "source_tasks": [
+        "T082",
+        "T085",
+        "T089"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T082",
+          "card": "tasks/algorithm/T082.md",
+          "source_dependencies": "T027,T079-T081",
+          "execution_dependencies": [
+            "T027",
+            "T079",
+            "T080",
+            "T081"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T085",
+          "card": "tasks/algorithm/T085.md",
+          "source_dependencies": "T082,T084",
+          "execution_dependencies": [
+            "T082",
+            "T084"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T089",
+          "card": "tasks/algorithm/T089.md",
+          "source_dependencies": "T044,T088",
+          "execution_dependencies": [
+            "T044",
+            "T088"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M22"
+          ],
+          "dataset_ids": [
+            "D11"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "search_job": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 773,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "source_match": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 899,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "implementable-narrow-after-design",
+      "reason": "search_job/source_match persisted facts can be read; must add exact search lookup, source binding and complete SearchResults projection/authorized target rows; no empty success result fabrication.",
+      "reuse": "business_app/history/projection.py; permissions/object_facts.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for getSearchJob; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "No external model artifact is needed for persisted reads; security wiring/fixture-backed tests and precise consumer design remain required.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "decidePropagationEdge",
+      "http": "POST",
+      "path": "/api/v1/propagation/edges/{id}/decisions",
+      "permission": "review.perform",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "If-Match",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "description": "服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。"
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/GraphDecision"
+          }
+        }
+      },
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/GraphEdge"
+          }
+        }
+      },
+      "source_tasks": [
+        "T096",
+        "T097",
+        "T102"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T096",
+          "card": "tasks/backend/T096.md",
+          "source_dependencies": "T084,T089,T095",
+          "execution_dependencies": [
+            "T084",
+            "T089",
+            "T095"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M27"
+          ],
+          "dataset_ids": [
+            "D12"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T097",
+          "card": "tasks/frontend/T097.md",
+          "source_dependencies": "T093,T095,T096",
+          "execution_dependencies": [
+            "T093",
+            "T095",
+            "T096"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M26"
+          ],
+          "dataset_ids": [
+            "D12"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T102",
+          "card": "tasks/backend/T102.md",
+          "source_dependencies": "T069,T101,T033",
+          "execution_dependencies": [
+            "T069",
+            "T101",
+            "T033"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "propagation_edge": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 616,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "review_record": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1158,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-decision-policy",
+      "reason": "Graph history read exists; edge decision persistence needs edge lookup/review task versions, reviewer duty and independent-person policy and append-only decision model.",
+      "reuse": "business_app/controls/reviews.py; history/projection.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for decidePropagationEdge; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Graph history read exists; edge decision persistence needs edge lookup/review task versions, reviewer duty and independent-person policy and append-only decision model.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "extractClaims",
+      "http": "POST",
+      "path": "/api/v1/claims/extract",
+      "permission": "claim.analyze",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ClaimExtract"
+          }
+        }
+      },
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/ClaimList"
+          }
+        }
+      },
+      "source_tasks": [
+        "T098"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T098",
+          "card": "tasks/algorithm/T098.md",
+          "source_dependencies": "T048,T049,T053",
+          "execution_dependencies": [
+            "T048",
+            "T049",
+            "T053"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M28"
+          ],
+          "dataset_ids": [
+            "D13"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "claim": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 696,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "text_segment": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 818,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-real-inference",
+      "reason": "claim/text_segment SQL exists. Need real source-anchored claim extraction provider with model and text/mapping provenance.",
+      "reuse": "business_app/inference.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for extractClaims; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "claim/text_segment SQL exists. Need real source-anchored claim extraction provider with model and text/mapping provenance.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "verifyClaim",
+      "http": "POST",
+      "path": "/api/v1/claims/{id}/verify",
+      "permission": "claim.analyze",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ClaimVerify"
+          }
+        }
+      },
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/Relation"
+          }
+        }
+      },
+      "source_tasks": [
+        "T099"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T099",
+          "card": "tasks/algorithm/T099.md",
+          "source_dependencies": "T098,T021",
+          "execution_dependencies": [
+            "T098",
+            "T021"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M29"
+          ],
+          "dataset_ids": [
+            "D14"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "claim": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 696,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "claim_evidence_relation": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1249,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-real-inference",
+      "reason": "claim/relation SQL exists. Need trusted evidence-relation provider, grounding evidence IDs and same task/source boundaries; human legal conclusion prohibited.",
+      "reuse": "business_app/inference.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for verifyClaim; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "claim/relation SQL exists. Need trusted evidence-relation provider, grounding evidence IDs and same task/source boundaries; human legal conclusion prohibited.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "sealEvidence",
+      "http": "POST",
+      "path": "/api/v1/evidence-packages/{case_id}/seal",
+      "permission": "evidence.seal",
+      "parameters": [
+        {
+          "name": "case_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/SealRequest"
+          }
+        }
+      },
+      "success_schemas": {
+        "201": {
+          "application/json": {
+            "$ref": "#/components/schemas/EvidencePackage"
+          }
+        }
+      },
+      "source_tasks": [
+        "T104",
+        "T105"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T104",
+          "card": "tasks/backend/T104.md",
+          "source_dependencies": "T100,T102,T025",
+          "execution_dependencies": [
+            "T100",
+            "T102",
+            "T025"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T105",
+          "card": "tasks/backend/T105.md",
+          "source_dependencies": "T104",
+          "execution_dependencies": [
+            "T104"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "evidence_package": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1099,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "package_item": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1344,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "object_version": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 356,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "audit_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 210,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "implementable-after-consumer-design",
+      "reason": "OperationTokens consumes in same transaction; evidence/task result/object registration exist. Need actual immutable package manifest/files, package item validation, seal policy, token consumer and audit; token issuance alone is not sealing.",
+      "reuse": "business_app/controls/operation_tokens.py; scoped_objects.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for sealEvidence; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "OperationTokens consumes in same transaction; evidence/task result/object registration exist. Need actual immutable package manifest/files, package item validation, seal policy, token consumer and audit; token issuance alone is not sealing.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "createReportDraft",
+      "http": "POST",
+      "path": "/api/v1/reports/drafts",
+      "permission": "report.draft",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ReportDraft"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/Report"
+          }
+        }
+      },
+      "source_tasks": [
+        "T106"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T106",
+          "card": "tasks/backend/T106.md",
+          "source_dependencies": "T099,T101,T053",
+          "execution_dependencies": [
+            "T099",
+            "T101",
+            "T053"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [
+            "M30"
+          ],
+          "dataset_ids": [
+            "D13",
+            "D14"
+          ],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "report": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1128,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "report_evidence": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1368,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-source-template-provider",
+      "reason": "report/report_evidence and immutable task results exist. Need explicit source selection/template version and actual draft text provider; do not manufacture unsupported statements.",
+      "reuse": "business_app/history/repository.py; controls/providers.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for createReportDraft; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "report/report_evidence and immutable task results exist. Need explicit source selection/template version and actual draft text provider; do not manufacture unsupported statements.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "createReport",
+      "http": "POST",
+      "path": "/api/v1/reports",
+      "permission": "report.generate",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ReportCreate"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/Report"
+          }
+        }
+      },
+      "source_tasks": [
+        "T107"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T107",
+          "card": "tasks/backend/T107.md",
+          "source_dependencies": "T102,T104,T106",
+          "execution_dependencies": [
+            "T102",
+            "T104",
+            "T106"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "report": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1128,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "report_evidence": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1368,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "approval_request": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 179,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-report-provider-and-approval",
+      "reason": "Need report renderer/template and exact result/evidence bindings, approval chain/purpose and high-risk consumer scope. Existing approval port alone cannot render a real report.",
+      "reuse": "business_app/controls/approvals.py; operation_tokens.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for createReport; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Need report renderer/template and exact result/evidence bindings, approval chain/purpose and high-risk consumer scope. Existing approval port alone cannot render a real report.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "getReport",
+      "http": "GET",
+      "path": "/api/v1/reports/{id}",
+      "permission": "report.read",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/Report"
+          }
+        }
+      },
+      "source_tasks": [
+        "T107"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T107",
+          "card": "tasks/backend/T107.md",
+          "source_dependencies": "T102,T104,T106",
+          "execution_dependencies": [
+            "T102",
+            "T104",
+            "T106"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "report": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1128,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "selected-db-read",
+      "reason": "Exact report lookup kind and CASE_READ permission semantics already exist; add operation registration/source metadata enrichment. Read persisted report/evidence/object version; reject incomplete/mismatched bindings. No new public parameters.",
+      "reuse": "business_app/scope_catalog.py report; scope_collections.py bind_task_scope; new registry_reads.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Implement persisted report read and SQL/HTTP security tests; root integrates shared guard/catalog and runs isolated DB suite.",
+      "missing_actual_input": "No external model artifact is needed for persisted reads; security wiring/fixture-backed tests and precise consumer design remain required.",
+      "runtime_state": "MOUNTED_SOURCE_PENDING_ISOLATED_VERIFICATION",
+      "source_review_is_runtime_verification": false,
+      "current_source": [
+        "backend/business_app/registry_reads.py",
+        "backend/business_app/registry_router.py",
+        "backend/business_migrations/0013_report_reads.sql"
+      ],
+      "current_source_registration": {
+        "operation_id": "getReport",
+        "method": "GET",
+        "path": "/api/v1/reports/{id}",
+        "python_function": "get_report",
+        "source_path": "backend/business_app/registry_router.py",
+        "line": 20,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 163
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "downloadReport",
+      "http": "GET",
+      "path": "/api/v1/reports/{id}/content",
+      "permission": "report.export",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Range",
+          "in": "header",
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "If-Range",
+          "in": "header",
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/octet-stream": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "206": {
+          "application/octet-stream": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "source_tasks": [
+        "T107"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T107",
+          "card": "tasks/backend/T107.md",
+          "source_dependencies": "T102,T104,T106",
+          "execution_dependencies": [
+            "T102",
+            "T104",
+            "T106"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "report": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1128,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "approval_request": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 179,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "audit_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 210,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-report-artifact-and-policy",
+      "reason": "Reuse immutable object storage/export path but report download requires exact ready artifact, approval/purpose/version checks, audit and pre-delivery revocation; no renderer currently wired.",
+      "reuse": "business_app/scoped_objects.py; controls/exports.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for downloadReport; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Reuse immutable object storage/export path but report download requires exact ready artifact, approval/purpose/version checks, audit and pre-delivery revocation; no renderer currently wired.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "requestFeedback",
+      "http": "POST",
+      "path": "/api/v1/feedback/samples",
+      "permission": "feedback.request",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Feedback"
+          }
+        }
+      },
+      "success_schemas": {
+        "201": {
+          "application/json": {
+            "$ref": "#/components/schemas/FeedbackRecord"
+          }
+        }
+      },
+      "source_tasks": [
+        "T108"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T108",
+          "card": "tasks/backend/T108.md",
+          "source_dependencies": "T102,T058",
+          "execution_dependencies": [
+            "T102",
+            "T058"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "feedback_request": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 1296,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "approval_request": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 179,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "CASE_CANDIDATE",
+      "disposition": "requires-training-approval-provider",
+      "reason": "feedback read and approval SQL exist; write needs training purpose/license authorization, exact finding/evidence/model/dataset binding and sanctioned feedback destination.",
+      "reuse": "business_app/controls/providers.py; controls/approvals.py",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for requestFeedback; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "feedback read and approval SQL exist; write needs training purpose/license authorization, exact finding/evidence/model/dataset binding and sanctioned feedback destination.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "registerModel",
+      "http": "POST",
+      "path": "/api/v1/models",
+      "permission": "model.manage",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ModelCreate"
+          }
+        }
+      },
+      "success_schemas": {
+        "201": {
+          "application/json": {
+            "$ref": "#/components/schemas/Model"
+          }
+        }
+      },
+      "source_tasks": [
+        "T052"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T052",
+          "card": "tasks/algorithm/T052.md",
+          "source_dependencies": "T051,T014",
+          "execution_dependencies": [
+            "T051",
+            "T014"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "model_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 106,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "requires-artifact-license-provider",
+      "reason": "Registry table exists. Client digest/model card/license strings are not byte/license verification; need authoritative artifact/card/license references and organization target policy.",
+      "reuse": "business_app/controls/providers.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for registerModel; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Registry table exists. Client digest/model card/license strings are not byte/license verification; need authoritative artifact/card/license references and organization target policy.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "listModels",
+      "http": "GET",
+      "path": "/api/v1/models",
+      "permission": "model.read",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/ModelPage"
+          }
+        }
+      },
+      "source_tasks": [
+        "T052",
+        "T060"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T052",
+          "card": "tasks/algorithm/T052.md",
+          "source_dependencies": "T051,T014",
+          "execution_dependencies": [
+            "T051",
+            "T014"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T060",
+          "card": "tasks/frontend/T060.md",
+          "source_dependencies": "T052,T057,T058,T059",
+          "execution_dependencies": [
+            "T052",
+            "T057",
+            "T058",
+            "T059"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "model_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 106,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "organization-target-policy-decision",
+      "reason": "SQL and Model projection available without executing a model. Current ObjectFacts/DataScope has no model collection target/lookup semantics; adding an organization policy internally requires explicit agreed target/scope rules.",
+      "reuse": "business_app/permissions/conditional.py MODEL; scope_catalog.py _ORG_TABLES",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Specify exact organization collection/object target and trusted model_metadata_scope facts; obtain scope decision before wiring catalog reads.",
+      "missing_actual_input": "SQL and Model projection available without executing a model. Current ObjectFacts/DataScope has no model collection target/lookup semantics; adding an organization policy internally requires explicit agreed target/scope rules.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "listModels",
+        "method": "GET",
+        "path": "/api/v1/models",
+        "python_function": "list_models",
+        "source_path": "backend/business_app/model_catalog_router.py",
+        "line": 34,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 165
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "getModelHealth",
+      "http": "GET",
+      "path": "/api/v1/models/{id}/health",
+      "permission": "model.manage",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/Health"
+          }
+        }
+      },
+      "source_tasks": [
+        "T056",
+        "T060"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T056",
+          "card": "tasks/algorithm/T056.md",
+          "source_dependencies": "T053",
+          "execution_dependencies": [
+            "T053"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T060",
+          "card": "tasks/frontend/T060.md",
+          "source_dependencies": "T052,T057,T058,T059",
+          "execution_dependencies": [
+            "T052",
+            "T057",
+            "T058",
+            "T059"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "model_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 106,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "requires-real-health-provider",
+      "reason": "Health response is status+request_id, not registry status. Need model-specific runtime health provider and exact organization model scope; REGISTERED/ACTIVE does not prove healthy.",
+      "reuse": "business_app/controls/providers.py DeploymentOperations",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for getModelHealth; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Health response is status+request_id, not registry status. Need model-specific runtime health provider and exact organization model scope; REGISTERED/ACTIVE does not prove healthy.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "rolloutModel",
+      "http": "POST",
+      "path": "/api/v1/models/{id}/rollouts",
+      "permission": "model.release",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "If-Match",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "description": "服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。"
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/Rollout"
+          }
+        }
+      },
+      "success_schemas": {
+        "202": {
+          "application/json": {
+            "$ref": "#/components/schemas/ActionAck"
+          }
+        }
+      },
+      "source_tasks": [
+        "T057",
+        "T060",
+        "T170"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T057",
+          "card": "tasks/algorithm/T057.md",
+          "source_dependencies": "T052,T053",
+          "execution_dependencies": [
+            "T052",
+            "T053"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        },
+        {
+          "task_id": "T060",
+          "card": "tasks/frontend/T060.md",
+          "source_dependencies": "T052,T057,T058,T059",
+          "execution_dependencies": [
+            "T052",
+            "T057",
+            "T058",
+            "T059"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "model_release": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 513,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "approval_request": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 179,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "index_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 84,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "requires-deployment-provider",
+      "reason": "DeploymentOperations exists only as provider boundary. Need artifact/evaluation/license qualification, approved release chain and operation token semantics plus actual backend rollout/rollback.",
+      "reuse": "business_app/controls/providers.py DeploymentOperations; permissions/object_facts.py model_operation denial",
+      "implementation_scope": "WITHIN_T001_T123_WITH_EXTERNAL_DEPENDENCIES",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for rolloutModel; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "DeploymentOperations exists only as provider boundary. Need artifact/evaluation/license qualification, approved release chain and operation token semantics plus actual backend rollout/rollback.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "recordEvaluation",
+      "http": "POST",
+      "path": "/api/v1/model-evaluations",
+      "permission": "model.evaluate",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/EvaluationCreate"
+          }
+        }
+      },
+      "success_schemas": {
+        "201": {
+          "application/json": {
+            "$ref": "#/components/schemas/Evaluation"
+          }
+        }
+      },
+      "source_tasks": [
+        "T058"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T058",
+          "card": "tasks/algorithm/T058.md",
+          "source_dependencies": "T052",
+          "execution_dependencies": [
+            "T052"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "model_evaluation": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 332,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "requires-evaluation-artifact-provider",
+      "reason": "Append-only model_evaluation table exists. Need actual metric protocol/sample counts/artifact integrity/dataset split authorization and organization scope; arbitrary submitted metrics cannot count as evaluated.",
+      "reuse": "business_app/controls/providers.py; schemas/model",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for recordEvaluation; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Append-only model_evaluation table exists. Need actual metric protocol/sample counts/artifact integrity/dataset split authorization and organization scope; arbitrary submitted metrics cannot count as evaluated.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "listEvaluations",
+      "http": "GET",
+      "path": "/api/v1/model-evaluations",
+      "permission": "model.read",
+      "parameters": [
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/EvaluationPage"
+          }
+        }
+      },
+      "source_tasks": [
+        "T058"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T058",
+          "card": "tasks/algorithm/T058.md",
+          "source_dependencies": "T052",
+          "execution_dependencies": [
+            "T052"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "model_evaluation": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 332,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "organization-target-policy-decision",
+      "reason": "SQL/Evaluation schema available without executing model. Need agreed organization collection target, per-evaluation model and artifact metadata visibility; current case-based page cannot be reused with fabricated case_id.",
+      "reuse": "business_app/permissions/conditional.py MODEL; scope_catalog.py _ORG_TABLES",
+      "implementation_scope": "WITHIN_T001_T123",
+      "next_executable_step": "Specify exact organization collection/object target and trusted model_metadata_scope facts; obtain scope decision before wiring catalog reads.",
+      "missing_actual_input": "SQL/Evaluation schema available without executing model. Need agreed organization collection target, per-evaluation model and artifact metadata visibility; current case-based page cannot be reused with fabricated case_id.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": {
+        "operation_id": "listEvaluations",
+        "method": "GET",
+        "path": "/api/v1/model-evaluations",
+        "python_function": "list_evaluations",
+        "source_path": "backend/business_app/model_catalog_router.py",
+        "line": 43,
+        "included_at": {
+          "source_path": "backend/business_app/main.py",
+          "line": 165
+        },
+        "evidence_kind": "STATIC_INCLUDED_ROUTER_REGISTRATION_NOT_RUNTIME_OR_ACCEPTANCE"
+      },
+      "current_runtime_state": "LIMITED_ISOLATED_IMPLEMENTATION_VERIFIED_NOT_SHARED_ADOPTION",
+      "current_validation_ref": "docs/00-project/validation/t001-t123-resource-registry-report.json",
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "getIndex",
+      "http": "GET",
+      "path": "/api/v1/indices/{id}",
+      "permission": "index.manage",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "request_schema": {},
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/IndexVersion"
+          }
+        }
+      },
+      "source_tasks": [
+        "T081",
+        "T157"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T081",
+          "card": "tasks/algorithm/T081.md",
+          "source_dependencies": "T080",
+          "execution_dependencies": [
+            "T080"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "index_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 84,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "organization-target-policy-decision",
+      "reason": "IndexVersion SQL projection available. Need exact index lookup/organization target and index.manage semantics; no case_id parameter in contract and no approved cross-case index disclosure rule.",
+      "reuse": "business_app/permissions/conditional.py MODEL; scope_catalog.py _ORG_TABLES",
+      "implementation_scope": "WITHIN_T001_T123_WITH_EXTERNAL_DEPENDENCIES",
+      "next_executable_step": "Specify exact organization collection/object target and trusted model_metadata_scope facts; obtain scope decision before wiring catalog reads.",
+      "missing_actual_input": "IndexVersion SQL projection available. Need exact index lookup/organization target and index.manage semantics; no case_id parameter in contract and no approved cross-case index disclosure rule.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    },
+    {
+      "operation_id": "switchIndex",
+      "http": "POST",
+      "path": "/api/v1/indices/{id}/switch",
+      "permission": "index.manage",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "X-Request-Id",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        {
+          "name": "Idempotency-Key",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "If-Match",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "description": "服务端生成强ETag，含对象和运行/结果版本；过期412，缺失428。"
+        }
+      ],
+      "request_schema": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/IndexSwitch"
+          }
+        }
+      },
+      "success_schemas": {
+        "200": {
+          "application/json": {
+            "$ref": "#/components/schemas/IndexVersion"
+          }
+        }
+      },
+      "source_tasks": [
+        "T081",
+        "T157"
+      ],
+      "tasks_in_T001_T123": [
+        {
+          "task_id": "T081",
+          "card": "tasks/algorithm/T081.md",
+          "source_dependencies": "T080",
+          "execution_dependencies": [
+            "T080"
+          ],
+          "outside_scope_dependencies": [],
+          "model_ids": [],
+          "dataset_ids": [],
+          "blocking_questions": [
+            "Q-33"
+          ]
+        }
+      ],
+      "sql_tables": {
+        "index_registry": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 84,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ],
+        "audit_event": [
+          {
+            "source_path": "backend/business_migrations/0001_business_baseline.sql",
+            "line": 210,
+            "schema": "mt",
+            "evidence_kind": "VERSIONED_SQL_DEFINITION_NOT_TARGET_DATABASE_DEPLOYMENT"
+          }
+        ]
+      },
+      "candidate_scope": "ORGANIZATION_CANDIDATE",
+      "disposition": "requires-index-provider",
+      "reason": "Need real compatible built index, state transition/rollout service and audit/approval semantics; updating database ACTIVE flag is not atomic serving-index switch.",
+      "reuse": "business_app/controls/providers.py DeploymentOperations",
+      "implementation_scope": "WITHIN_T001_T123_WITH_EXTERNAL_DEPENDENCIES",
+      "next_executable_step": "Write consumer/provider-bound design and RED tests for switchIndex; reuse listed code; require real inputs described in reason before any successful business response.",
+      "missing_actual_input": "Need real compatible built index, state transition/rollout service and audit/approval semantics; updating database ACTIVE flag is not atomic serving-index switch.",
+      "runtime_state": "NOT_MOUNTED",
+      "source_review_is_runtime_verification": false,
+      "current_source_registration": null,
+      "current_runtime_state": "NOT_MOUNTED",
+      "current_validation_ref": null,
+      "runtime_state_scope": "Historical27-operation capture; current_source_registration/current_runtime_state are current observations, not deployment acceptance"
+    }
+  ],
+  "baseline_unmounted_operation_count": 27,
+  "current_mounted_business_operation_count": 51,
+  "current_unmounted_business_operation_count": 22,
+  "source_scope": "T001_T123_authorized_continuation",
+  "report_ref": "docs/00-project/validation/t001-t123-api-continuation-report.json",
+  "Python_candidates_created": false,
+  "shared_environment_modified": false,
+  "baseline_entry_count": 27,
+  "current_canonical_count": 73,
+  "current_mounted_source_count": 51,
+  "current_not_mounted_source_count": 22,
+  "current_results_ref": "docs/00-project/validation/backend-frontend-data-test-report.json"
+}

@@ -1,6 +1,7 @@
 import { defineConfig } from '@playwright/test'
 import { fileURLToPath } from 'node:url'
 export default defineConfig({
+  captureGitInfo: { commit: true, diff: false },
   testDir: './e2e',
   testMatch: '**/*.pw.ts',
   timeout: 90000,

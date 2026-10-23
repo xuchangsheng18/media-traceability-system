@@ -1,0 +1,657 @@
+{
+  "revision": "pre-t013-native-closeout-20261017",
+  "observed_at": "2026-10-17T10:31:25.200830+00:00",
+  "scope": "T001-T012_review_against_original_acceptance_with_user_selected_native_environment_change",
+  "source_task_cards_sha256": "de6b217fd0e78b1eefcf23df3482603b0afc45b6da3a7a0c0a5e48acbf04e565",
+  "baseline_source_commit": "2e2b034440bc1569fd86e9c654af25ef6481f521",
+  "baseline_report_ref": "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+  "baseline_report_sha256": "1d990f7f064af5ae73d3f3793b430a9a7476c36624c32176df19e7fa6e881ff6",
+  "baseline_python_tests": 485,
+  "baseline_failures": 0,
+  "baseline_errors": 0,
+  "baseline_skipped": 0,
+  "all_native_middleware_validated": false,
+  "main_protection_applied": true,
+  "formal_accepted": false,
+  "tasks": [
+    {
+      "task_id": "T001",
+      "name": "建立单仓库目录与基础README",
+      "source_requirements": {
+        "责任角色": "架构/全栈",
+        "源前置依赖": "无",
+        "执行依赖候选": "无",
+        "工作范围": "按DES-001 §8.6核验并沿用既有backend、frontend、ai-services、shared-contracts、schemas、docs、tasks、prompts、config、deploy、scripts、tests目录；仅补充获准的缺项，建立职责与原目录映射，不直接迁移。",
+        "接口或数据契约": "根目录README；目录约定docs/architecture/repository-layout.md。",
+        "验收标准": "仓库结构与设计一致；README包含启动、测试、提交规范；不得包含真实密钥。",
+        "测试要求": "目录检查脚本和Markdown链接检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "DIRECTORY_LINKS_AND_SECRET_GATES_PASS_REVIEW_PENDING",
+      "scope_boundary": "当前目录、资料/链接及已知运行秘密检查已有实测；仍需徐昌胜对照本卡源标准给出实际复核决定，不把未知历史日期或工时编造为已完成。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "README.md",
+        "CONTRIBUTING.md",
+        "docs/02-architecture/repository-layout.md"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T002",
+      "name": "配置Python后端工程",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立Python 3.11项目、依赖锁定、FastAPI入口、配置管理和日志初始化。",
+        "接口或数据契约": "GET /health；环境变量Settings模型。",
+        "验收标准": "服务可启动；缺少必要配置时给出明确错误；依赖版本锁定。",
+        "测试要求": "健康检查单测、配置加载和非法配置测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "CODE_GATES_PASS_NATIVE_INTEGRATION_PENDING",
+      "scope_boundary": "py310锁、配置及启动测试通过；用户已选择py310，源3.11偏差保留为显式选择；全部原生环境启动另行验证。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/app/settings.py",
+        "backend/app/main.py",
+        "config/locks/requirements-py310.lock"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T003",
+      "name": "配置Vue前端工程",
+      "source_requirements": {
+        "责任角色": "前端",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立Vue 3、TypeScript、Vite、路由、状态管理和API客户端。",
+        "接口或数据契约": "前端/health页面调用GET /health。",
+        "验收标准": "开发服务器可启动；严格类型检查通过；API地址环境化。",
+        "测试要求": "lint、typecheck、组件冒烟测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_DEVELOPMENT_CRITERIA_PASS_REVIEW_PENDING",
+      "scope_boundary": "前端单元、严格类型、开发浏览器及构建通过；原生网关集成属于本次环境切换复验，不要求先实现未来业务页面。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "frontend/package.json",
+        "frontend/src/api.ts",
+        "frontend/foundation-playwright.config.ts"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T004",
+      "name": "建立本地容器开发环境",
+      "source_requirements": {
+        "责任角色": "DevOps",
+        "源前置依赖": "T002,T003",
+        "执行依赖候选": "T002,T003",
+        "工作范围": "使用固定版本编排SQL、一个执行broker、对象存储、API/Web及媒体worker；缓存按需启用，全文/图/向量按能力逐项接入；不默认部署全部生产组件。",
+        "接口或数据契约": "docker compose配置；/health依赖状态。",
+        "验收标准": "一条命令启动；隔离数据卷和密钥；按获准项目配额设置CPU、内存、进程和临时盘限制，核对实际cgroup生效；不认定单机容器为生产高可用。",
+        "测试要求": "容器启动/依赖ready、配置校验、配额与cgroup生效、资源耗尽隔离；卷所在介质及对象存储间接依赖核验。",
+        "建议工作量": "2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.7、§8.11；本书§7补充技术验证。"
+      },
+      "technical_status": "DESIGN_PLAN_QUOTA_APPROVED_N01_TOOLS_PASS_NATIVE_MIGRATION_NOT_EXECUTED",
+      "scope_boundary": "原生设计/详细计划及候选15.5核/18.5GiB、slice上限20GiB已获用户认可；N01工具和3包字节核验已完成，仍需其余制品/完整依赖/准入、管理员初始化、原生资源限制及迁移恢复实测，不能沿用容器cgroup结果冒充。；管理员徐昌胜参与能力已确认；原生预算仅为获准候选上限，尚未生效。仍需暂存实例、备份密钥保管、演练后实际切换窗口与回退对账，保留旧数据及其他项目。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "deploy/docker-compose.yml",
+        "docs/03-development/native-linux-migration-design.md"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T005",
+      "name": "配置代码格式化与静态检查",
+      "source_requirements": {
+        "责任角色": "全栈",
+        "源前置依赖": "T002,T003",
+        "执行依赖候选": "T002,T003",
+        "工作范围": "配置Ruff/Black或等价工具、mypy、ESLint、Prettier和提交前检查。",
+        "接口或数据契约": "pyproject、前端lint配置、pre-commit。",
+        "验收标准": "本地和CI命令一致；示例违规代码能被拦截。",
+        "测试要求": "运行格式、lint和类型检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "CURRENT_LINUX_STATIC_AND_ACTUAL_HOOK_PASS_REVIEW_PENDING",
+      "scope_boundary": "当前Linux钩子、格式/lint/类型已实际复验通过，新增检查纳入本地/CI同源入口；保留当前源码托管证据及实际复核记录。Windows仅作远程入口，不强行要求Windows原生钩子。；实际负责人已指定为邓昀；仍需落实剩余工时；对照本卡源依赖、适用外部条件和验收标准记录实际结果，仍有代码/测试缺口时不能仅靠审批关闭。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "scripts/dev.py",
+        ".pre-commit-config.yaml",
+        "scripts/stage_three_quality.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T006",
+      "name": "建立基础持续集成流水线",
+      "source_requirements": {
+        "责任角色": "DevOps",
+        "源前置依赖": "T004,T005",
+        "执行依赖候选": "T004,T005",
+        "工作范围": "建立后端、前端、迁移、单元测试和构建流水线。",
+        "接口或数据契约": "CI jobs：lint、typecheck、unit、build、migration-check。",
+        "验收标准": "任一门禁失败阻止合并；产出测试报告；缓存不影响正确性。",
+        "测试要求": "故意引入失败验证门禁。",
+        "建议工作量": "2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "MAIN_RULESET_CONFIGURATION_PASS_FAILED_PR_ENFORCEMENT_PENDING",
+      "scope_boundary": "main规则25302203已回查Active，目标main，PR、禁止强推/删除和GitHub Actions必需engineering均已配置；失败PR实际合并拦截及完整绕过清单尚未验证。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        ".github/workflows/ci.yml",
+        "docs/03-development/main-protection-handoff.md",
+        "docs/00-project/validation/main-protection-readback.json"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T007",
+      "name": "建立统一配置和密钥规范",
+      "source_requirements": {
+        "责任角色": "后端/DevOps",
+        "源前置依赖": "T002,T004",
+        "执行依赖候选": "T002,T004",
+        "工作范围": "划分开发、测试、生产配置；密钥只从Secret或环境注入。",
+        "接口或数据契约": "Settings字段、.env.example、配置说明。",
+        "验收标准": "仓库无真实密钥；敏感配置不写日志；启动时校验必需项。",
+        "测试要求": "secret扫描、配置单测。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "DEVELOPMENT_CONFIG_TESTS_PASS_NATIVE_CONFIG_PENDING",
+      "scope_boundary": "现有配置缺失/非法/脱敏测试通过；需生成原生私密配置版本并复验；正式生产profile另行验收。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/app/settings.py",
+        "backend/business_app/settings.py",
+        "tests/stage_three/test_foundation_configuration.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T008",
+      "name": "建立统一日志与请求追踪",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T002",
+        "执行依赖候选": "T002",
+        "工作范围": "统一日志和request_id，跨API、队列、节点及网关传播trace_id并关联task_id/run_version/attempt；敏感字段脱敏。",
+        "接口或数据契约": "X-Request-Id请求头；日志字段规范。",
+        "验收标准": "所有API日志可关联请求；令牌、密码、原始敏感文本被过滤。",
+        "测试要求": "请求与异步追踪、采样、日志及指标标签脱敏测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.11；本书§7补充技术验证。"
+      },
+      "technical_status": "CURRENT_TRACING_TESTS_PASS_NATIVE_CHAIN_RECHECK_PENDING",
+      "scope_boundary": "已实现API日志、队列/推理传播和脱敏回归通过；原生全链重启后复验；未来DAG功能按相应任务实现，不提前要求业务功能全部交付。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/app/tracing.py",
+        "tests/stage_three/test_foundation_tracing.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T009",
+      "name": "建立统一异常与错误码框架",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T002",
+        "执行依赖候选": "T002",
+        "工作范围": "实现业务异常、HTTP映射、错误码注册和统一响应。",
+        "接口或数据契约": "错误响应{code,message,request_id,details}。",
+        "验收标准": "未知异常不泄露堆栈；已知异常映射稳定；错误码不可重复。",
+        "测试要求": "异常映射与敏感信息测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_ERROR_FRAMEWORK_TESTS_PASS_REVIEW_PENDING",
+      "scope_boundary": "稳定错误映射、异常脱敏及唯一注册回归通过；未来新增业务错误登记是持续维护，不等于当前框架始终不可完成。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/business_app/errors.py",
+        "tests/business/test_foundation_errors.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T010",
+      "name": "建立架构决策记录和变更模板",
+      "source_requirements": {
+        "责任角色": "架构",
+        "源前置依赖": "T001",
+        "执行依赖候选": "T001",
+        "工作范围": "建立ADR、需求变更、模型变更和数据库变更模板。",
+        "接口或数据契约": "docs/adr与Pull Request模板。",
+        "验收标准": "重要决策有状态、背景、方案、影响和回滚；模板可直接复用。",
+        "测试要求": "文档结构和链接检查。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §8.6、§8.11、§9.6、§10.9；本书§7补充技术验证。"
+      },
+      "technical_status": "SOURCE_TEMPLATES_REVIEW_IN_PROGRESS",
+      "scope_boundary": "既有ADR及需求/模型/数据库变更模板；本次原生迁移设计形成具体变更依据，实际复核仍待登记。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "docs/03-development/native-linux-migration-design.md",
+        ".github/PULL_REQUEST_TEMPLATE.md"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T011",
+      "name": "设计用户角色与数据范围模型",
+      "source_requirements": {
+        "责任角色": "后端/安全",
+        "源前置依赖": "T002,T010",
+        "执行依赖候选": "T002,T010",
+        "工作范围": "设计用户、角色、权限、单位、案件范围和数据密级模型。",
+        "接口或数据契约": "ERD；RBAC+ABAC权限矩阵。",
+        "验收标准": "覆盖管理员、数据管理员、算法管理员、审核员、核查人员和审计员；默认拒绝。",
+        "测试要求": "权限矩阵评审用例。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。"
+      },
+      "technical_status": "SIX_ROLE_DESIGN_CONFIRMED_SPECIFIC_ALLOWS_PENDING",
+      "scope_boundary": "用户确认六角色为主要设计；默认拒绝和候选矩阵有测试；具体授权/职责冲突/分类未知保持拒绝，不将设计任务扩展成完整T014运行授权。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "docs/08-security/access-control-model.json",
+        "docs/08-security/permission-matrix.md",
+        "tests/platform/test_t011.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    },
+    {
+      "task_id": "T012",
+      "name": "实现用户角色数据库模型",
+      "source_requirements": {
+        "责任角色": "后端",
+        "源前置依赖": "T011",
+        "执行依赖候选": "T011",
+        "工作范围": "实现用户、角色、权限和关联表及迁移。",
+        "接口或数据契约": "users、roles、permissions、user_roles。",
+        "验收标准": "唯一约束、外键和软禁用正确；迁移升级可验证；可逆回退或不可逆恢复/前向修复方案齐全。",
+        "测试要求": "模型、约束和迁移测试。",
+        "建议工作量": "1～2人日",
+        "CI门禁": "按本书§3.2—3.4及DES §10.9、§10.13执行适用门禁和关闭条件。",
+        "设计依据": "DES-001 V1.4 §2.4、§5.4、§8.5.2、§9.1；本书§7补充技术验证。"
+      },
+      "technical_status": "MODEL_MIGRATION_TESTS_PASS_REVIEW_PENDING",
+      "scope_boundary": "用户/角色/身份/单位案件模型和迁移回归通过，实际业务测试数据库已经原生；徐昌胜已指定负责人，但登记不代表签认。",
+      "evidence_refs": [
+        "docs/00-project/validation/t001-t012-linux-baseline-report.json",
+        "backend/business_migrations/0004_identity_relations.sql",
+        "backend/business_migrations/0005_role_catalog.sql",
+        "tests/business/test_role_directory.py"
+      ],
+      "task_closed": false,
+      "reviewer_assigned": "徐昌胜",
+      "actual_review_decision": null
+    }
+  ],
+  "main_protection_configuration_valid": true,
+  "main_protection_readback_ref": "docs/00-project/validation/main-protection-readback.json",
+  "current_linux_report_ref": "docs/00-project/validation/t001-t012-linux-current-report.json",
+  "current_linux_tested_source_commit": "4cb812bece81ff6610df5935f8ee2f9b1efbfe14",
+  "current_linux_python_tests": 539,
+  "current_hosted_ci": {
+    "run_id": 39226217064,
+    "head_sha": "aff738a3e6636c1254326b55ac25197c9251e80f",
+    "status": "PASS",
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
+    "artifact_verified": true,
+    "artifact_sha256": "f2f0608d3cd1e9160cce4cb139cc81ca6b14e898ad44994c70fd2434a3550bed"
+  },
+  "native_n01_runtime_ref": "docs/00-project/validation/native-n01-runtime-report.json",
+  "native_n01_tested_source_commit": "4cb812bece81ff6610df5935f8ee2f9b1efbfe14",
+  "native_n01_tests": 32,
+  "storage_restart_readiness_tests": 5,
+  "ci_history": [
+    {
+      "run_id": 39032906660,
+      "source_commit": "341ad5b9aaa2a1edb381bbacf77526af5ce0fe5c",
+      "status": "FAIL",
+      "failed_step": "Validate phase materials and navigation",
+      "reason": "current_candidate_input_set_and_exact_hashes drift",
+      "corrective_action": "review current inputs and regenerate NOT_FROZEN candidate; rerun current source CI",
+      "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39032906660"
+    },
+    {
+      "run_id": 39034655139,
+      "source_commit": "2840ced09aee788d69ee28c478e8afd0a21835e2",
+      "status": "FAIL",
+      "reason": "versioned GetObject temporarily returned500 after storage restart; exact-version bounded readiness and SHA256 verification added"
+    },
+    {
+      "run_id": 39036953802,
+      "head_sha": "4cb812bece81ff6610df5935f8ee2f9b1efbfe14",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39036953802",
+      "artifact_verified": true,
+      "artifact_sha256": "3ebca3262a584e5cc0e340708a0ec2d6046c6398317e7dd3cc45425e562bb108"
+    },
+    {
+      "run_id": 39039055455,
+      "head_sha": "e17ddffbfdfcec8fd5ff488756103bca5ef940db",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39039055455",
+      "artifact_verified": true,
+      "artifact_sha256": "bec9223cd441c4f4c31217cb8c24be0d6067d41d5f7cbbc71dfe1ed2227c7a5f"
+    },
+    {
+      "run_id": 39042416657,
+      "head_sha": "259707e23df5345a6e61a361d184e88584847c31",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39042416657",
+      "artifact_verified": true,
+      "artifact_sha256": "115c0b2436d9d5c4289d0df42741b13af2db44dbbc8ffd507c9ef9302fa7b5b8"
+    },
+    {
+      "run_id": 39051475537,
+      "head_sha": "1dfcfdb28ab871ce37599aa3772f1209737599f5",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39051475537",
+      "artifact_verified": true,
+      "artifact_sha256": "b407f496218b7547896d367aadaff3fde1fcd0699af17eba711c0f073cd799a6"
+    },
+    {
+      "run_id": 39052910889,
+      "head_sha": "be3898a0dca4ce58d10f19af3e0de4588540561f",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39052910889",
+      "artifact_verified": true,
+      "artifact_sha256": "f66b760cb4757ebb00d69c62a48dfdaad51416e13bec11777ad7f8750a48b659"
+    },
+    {
+      "run_id": 39057307978,
+      "head_sha": "a58accd4f0a3fd7a80621571ad406f4631125c6a",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39057307978",
+      "artifact_verified": true,
+      "artifact_sha256": "f840d304a3d19a45048ec9fe4de86cdbf7481b386ce6f15bc394ca6024b8203d"
+    },
+    {
+      "run_id": 39086701432,
+      "head_sha": "7fde4ecbf68c749ba1f4c53d2860ae5e47484db5",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39086701432",
+      "artifact_verified": true,
+      "artifact_sha256": "f19630c13526ba471a59cbad1b452953d0c894d7d08d2b904226bc2734cafb4b"
+    },
+    {
+      "run_id": 39089384975,
+      "head_sha": "77eeb7783b4da4356806318cc906351618edc392",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39089384975",
+      "artifact_verified": true,
+      "artifact_sha256": "5fbbb27c14945e3e79908fa04fa7cc848c861e0e05daa61e2aea8d7e2b8931a6"
+    },
+    {
+      "run_id": 39090305363,
+      "head_sha": "2fd8d49cfb7ff03a515c25a822cae51aa422f7e7",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39090305363",
+      "artifact_verified": true,
+      "artifact_sha256": "0755aeb8c1f2fe88650022fffc76ee419c3d470212f2c5f988bdbc70c2aea6b9"
+    },
+    {
+      "run_id": 39094664558,
+      "head_sha": "9138bdd2fc6fce651d25d7310a173f1ed2dc9ca7",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39094664558",
+      "artifact_verified": true,
+      "artifact_sha256": "589efb279375d754b7a2fb7aa84201022941e477fbc2d54473d789020021f09e"
+    },
+    {
+      "run_id": 39095357141,
+      "head_sha": "e4bb9656070af3b0d127753ddcc672318c07c965",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39095357141",
+      "artifact_verified": true,
+      "artifact_sha256": "dc66263387ee91af04e0324c8fdbe09b1d590939b8db0f0da66a46f43d439854"
+    },
+    {
+      "run_id": 39096183445,
+      "head_sha": "ef385aee98dcdc8045fc97c67d7a4f95b7859a05",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39096183445",
+      "artifact_verified": true,
+      "artifact_sha256": "6c0dc9dc3345a9289af7a783313378a39efa1eaf753102e51c735cbfa9381534"
+    },
+    {
+      "run_id": 39096961185,
+      "head_sha": "1d9758749df755522d3d77392cff972ea807815d",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39096961185",
+      "artifact_verified": true,
+      "artifact_sha256": "c918c131b692090c5bfc462c8fa371b78afc5004fdd932e98a19d521b8ccfc17"
+    },
+    {
+      "run_id": 39097933420,
+      "head_sha": "bf5b6e1f1d6a394a34bb694eff8962dbc3a4add5",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39097933420",
+      "artifact_verified": true,
+      "artifact_sha256": "fe5441c7151ef8f690c6511429f82d3796590fb1bd48b9cfe5ce9dc61dfc35e8"
+    },
+    {
+      "run_id": 39099562000,
+      "head_sha": "0df5dc5062cd5d77665819de8c0a47dc843042b8",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39099562000",
+      "artifact_verified": true,
+      "artifact_sha256": "53d938432e20a9990e203683b8776fbe3d0dc01c8ae9bbc24b42b6fe083c5bda"
+    },
+    {
+      "run_id": 39106903654,
+      "head_sha": "9572b1db64ac782ab7e1018cdee786cfdeac1e2e",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39106903654",
+      "artifact_verified": true,
+      "artifact_sha256": "d1c0bf21003e5ebee5e614e53ac452d14ce7eeb18bb6ef99cb3690ef17f05c32"
+    },
+    {
+      "run_id": 39107719597,
+      "head_sha": "592c2c21a5b2ccb871786f9dafea46542f294405",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39107719597",
+      "artifact_verified": true,
+      "artifact_sha256": "4cbf867e879940e18354242faf9e415119e30000f806b5d81b055b536083b8f3"
+    },
+    {
+      "run_id": 39109417756,
+      "head_sha": "fd428efc464ab0bcfbd0299bfaaf74fe56313f97",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39109417756",
+      "artifact_verified": true,
+      "artifact_sha256": "20150addfaef46e281811c4845d2a4d97c7b0b7e7fda542dd40b09c5b8f952a2"
+    },
+    {
+      "run_id": 39111313029,
+      "head_sha": "00cd21bbaf0dce4db9f03661c8f9471fde440a41",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39111313029",
+      "artifact_verified": true,
+      "artifact_sha256": "ac5a5a24ed0b8ab62656aa13a1935e9dff2aaebae928aaed513ecbc2abecde18"
+    },
+    {
+      "run_id": 39112219675,
+      "head_sha": "ba99b74319b36d1f09c545900d0061eff9cbc08b",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39112219675",
+      "artifact_verified": true,
+      "artifact_sha256": "01b4ea66fd06d836b95ef674fa0109bfe7702cb3988baf9acbc40c000bfc958f"
+    },
+    {
+      "run_id": 39114528317,
+      "head_sha": "0673bb399c9693708656a549a8f3e9a4f2ec71ac",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39114528317",
+      "artifact_verified": true,
+      "artifact_sha256": "56d1f373c591a97ee1763672f26116495f1fb122b52010f157d69d5c65aa71a1"
+    },
+    {
+      "run_id": 39117174347,
+      "head_sha": "c41578f1d1c18677ad583a3336acbab4675fc324",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39117174347",
+      "artifact_verified": true,
+      "artifact_sha256": "eb5e489ad7b9459621e665e830ddb5724bed1eb98ee0bc5c91a1e9dd852cf099"
+    },
+    {
+      "run_id": 39118272632,
+      "head_sha": "ac5d79006de57548220048da0c80ee3c56934374",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39118272632",
+      "artifact_verified": true,
+      "artifact_sha256": "9799684ee122186f4b68623f66014041d1742ea6a527298531742e56b47d0bf8"
+    },
+    {
+      "run_id": 39119876583,
+      "head_sha": "25c4dec6a1292061a956edbcc72687aed6a1d751",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39119876583",
+      "artifact_verified": true,
+      "artifact_sha256": "55061728b14a84adcc127083ef2805950fe634dceab27abffeaea6bd424e36da"
+    },
+    {
+      "run_id": 39123548792,
+      "head_sha": "4d0df1f1729fa9112af93a3e0107d88bb1c266a4",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39123548792",
+      "artifact_verified": true,
+      "artifact_sha256": "56479b281d1bad0b6388b6edc9afdfab7b85133adb418d81626d7f2174525538"
+    },
+    {
+      "run_id": 39126497169,
+      "head_sha": "a456f45b16a16da454111dd9751e1dcc13cc50e2",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39126497169",
+      "artifact_verified": true,
+      "artifact_sha256": "ada644ed28855c3b9f49c40dd541920487861a4aad33dc73db505161817fd583"
+    },
+    {
+      "run_id": 39130559193,
+      "head_sha": "c04d6de9eb9a8bde2ac1aee973b5984473eb06cc",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39130559193",
+      "artifact_verified": true,
+      "artifact_sha256": "a5b69e323a6463f1a4d8dc2636f855bfc34ee267bf6b31fd2309622827c19d24"
+    },
+    {
+      "run_id": 39137005347,
+      "head_sha": "de21aa9d1af36473f03cd6da397ae0ba9ef51325",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39137005347",
+      "artifact_verified": true,
+      "artifact_sha256": "c223ffb6873c39aca60de0d29592b8b200506c9fd46ce2f242ae0f7d1756c376"
+    },
+    {
+      "run_id": 39139416029,
+      "head_sha": "acd6dcfee3676cdd2bac9f37d0033038df9fc145",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39139416029",
+      "artifact_verified": true,
+      "artifact_sha256": "1860fac4213accc5e7ce1fc41a7a2141df64e62d12ad6f604829676915160194"
+    },
+    {
+      "run_id": 39141919100,
+      "head_sha": "ae52e71dfaee8cd3de85a28bbc986eaaf907fa03",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39141919100",
+      "artifact_verified": true,
+      "artifact_sha256": "6bb95e364106ca35b894fcb77eedff1711b4f8da8e43ec7be42b2537ce8a0c32"
+    },
+    {
+      "run_id": 39148150214,
+      "head_sha": "98daf65f64c16a60962e1de7db4776173ded3fa9",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39148150214",
+      "artifact_verified": true,
+      "artifact_sha256": "1e8f6db9376bee0bb2702fbe8359eeb498466bd883f5be36daab400fbe52c0b3"
+    },
+    {
+      "run_id": 39157203313,
+      "head_sha": "89f9eacdbaffc0855c9788ab7057a42e6718f6f1",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39157203313",
+      "artifact_verified": true,
+      "artifact_sha256": "2a833a5369a67afd6f5a8973e03409b0dd5c8641516e26abc7646c10a4cb418a"
+    },
+    {
+      "run_id": 39198110442,
+      "head_sha": "79ab553d7fc8e70beb78b1eae53a762d6f2b88f0",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39198110442",
+      "artifact_verified": true,
+      "artifact_sha256": "dacfba2510a269594fa53c9e590e3373d82b159ab65a15481fc968a4595a19b8"
+    },
+    {
+      "run_id": 39206156386,
+      "head_sha": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+      "status": "PASS",
+      "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39206156386",
+      "artifact_verified": true,
+      "artifact_sha256": "d81d24f633df363d21ac1c87e3aca28a0aa099b018ca4dc39298a9a5a35c77c8"
+    }
+  ],
+  "full_native_environment_validated": false,
+  "full_tasks_closed": 0,
+  "main_negative_enforcement_ref": "docs/00-project/validation/main-protection-enforcement-report.json",
+  "native_n01_latest_evidence_refs": [
+    "docs/00-project/validation/native-primary-artifact-verification-report.json",
+    "docs/00-project/validation/native-nginx-signature-report.json",
+    "docs/00-project/validation/native-build-package-verification-report.json",
+    "docs/00-project/validation/native-runtime-dependency-inventory-report.json",
+    "docs/00-project/validation/native-binary-probe-report.json",
+    "config/native/os-build-dependencies.lock.json"
+  ],
+  "native_n01_primary_packages_verified": 10,
+  "native_n01_candidate_build_packages_verified": 40
+}

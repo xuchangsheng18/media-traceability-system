@@ -1,6 +1,16 @@
 # 开发、契约与CI
 
-- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)：设计已认可，实施计划待审阅；覆盖部署、TLS、登录、映射、撤销、备份恢复和22项实际验收，尚未部署。
+- 当前研发演示交付：[本批计划](development-delivery-implementation-plan.md)、[启动与范围](../10-deployment/business-development-runbook.md)、[实际验证](../00-project/validation/development-delivery-validation.json)。新增任务与结果、案件待复核队列、Linux回环演示网关及后端禁止缓存；真实业务提供者、整树CI和完整验收另列。
+- [前后端开发批次](business-console-implementation-plan.md)与[实际启动说明](../10-deployment/business-development-runbook.md)：新增业务身份、审批、审计页面及独立Linux/py310 API入口；综合联调与验收后置，默认拒绝不等于正式业务通过。
+
+- [T015已获准设计](t015-data-scope-design.md)、[已批准P01—P07计划](t015-data-scope-implementation-plan.md)、[设计批准](../00-project/validation/t015-written-design-review.json)及[计划自查](../00-project/validation/t015-implementation-plan-review.json)：开发/复核人徐昌胜；[实际进度](../00-project/validation/t015-data-scope-progress.json)区分P01已验证、P02已编码/完整验证运行中和P03隔离91项验证通过，P04字节实现和后续恢复测试已补，P06本地必需范围CLI128项、解析器及独立失败探针通过；P02全业务CLI、P04/P05全保留回归和完整托管33门禁仍待核验；新增[数据库与事务说明](../04-database/data-scope-migration.md)、[定向证据](../00-project/validation/t015-data-scope-p02-progress.json)、[CI实际状态](../00-project/validation/t015-current-ci-observation.json)，未共享采用。
+
+- [T014已批准P01—P07隔离计划](t014-isolated-six-role-implementation-plan.md)、[实际逐项进度](../00-project/validation/t014-isolated-rule-progress.json)、[T001—T123范围及顺序](t001-t123-development-sequence.md)：P01—P07已隔离实测，完整1009项、扩展权限门禁及精确代码CI通过；综合专项验证另批，实现必要测试和CI保留。
+
+- [T001—T012逐项收口](t001-t012-closeout.md)、[原生迁移设计](native-linux-migration-design.md)、[N01—N08实施计划](native-linux-implementation-plan.md)、[执行台账](native-linux-execution-status.json)、[管理员清单](native-linux-admin-checklist.md)：设计/计划及候选上限已获用户认可；N01只读工具已实现，制品核验继续进行，现有服务未切换。T012/复核/维护指定徐昌胜，T001—T011仍为邓昀。
+
+- [T013自建Keycloak身份系统完整设计](t013-keycloak-identity-design.md)、[8步实施计划](t013-keycloak-implementation-plan.md)、[首批执行历史](../00-project/validation/t013-keycloak-execution-report.json)、[22项登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)：首批1,501项文件同步及当时CI状态仅作历史，不代表当前托管检查或最新源码。当前本人交接和恢复待办按下列清单及任务卡核验，T013整卡未关闭。
+- [T014六角色具体方案](../08-security/t014-six-role-rule-proposal.md)、[当前实施与精确CI](t014-unified-permission-implementation.md)、[T013本人A01—A10操作](t013-owner-action-checklist.md)：P01—P07隔离实现已验证，共享正式策略未采用；真实密钥、MFA和身份数据恢复分别验证，Python候选继续暂缓。
 - [T013令牌核验与身份映射首批实现](t013-token-validation.md)：可选远端核验、最小权限数据库查询、禁用/到期/撤销测试及未完成的正式身份接入范围。
 
 2026-10-13更新；CPU研发工程已验证，正式基线NOT_FROZEN。

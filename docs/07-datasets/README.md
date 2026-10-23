@@ -4,6 +4,8 @@
 
 优先阅读[dataset-catalog.md](dataset-catalog.md)。
 
+当前已取得两张官方CC0小样本，供现有图片解码和后续工程开发使用；实际文件、许可、摘要和验证范围见[公开研发数据](public-development-data.md)。它们独立于15类规划业务卡，不能替代业务标签、模型权重或正式验收集。
+
 - [annotation-specification.md](annotation-specification.md)
 - [data-card-template.md](data-card-template.md)
 - [data-compliance.md](data-compliance.md)

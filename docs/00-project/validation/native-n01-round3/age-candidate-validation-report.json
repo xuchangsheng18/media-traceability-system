@@ -1,0 +1,88 @@
+{
+  "observed_at": "2026-10-17T16:08:44.165521+00:00",
+  "scope": "isolated_age_patch_candidate_not_adopted",
+  "checks": [
+    {
+      "name": "age-patch-attempt-1",
+      "command": [
+        "go",
+        "get",
+        "golang.org/x/crypto@v0.56.0"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "f9a70f4394a91bdefc9090f3d9add405e1046f9a2c79111f65ffcb33f893c739"
+    },
+    {
+      "name": "age-module-verify",
+      "command": [
+        "go",
+        "mod",
+        "verify"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "b4537ed75f533f993f371954de47e42a793b8e5b0587577de7e27fb3e50696bd"
+    },
+    {
+      "name": "age-upstream-test",
+      "command": [
+        "go",
+        "test",
+        "./..."
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "dcc32865e58d1ca7c7bd0550ca46060977a6142ecd7f6c5bf03a5dba3c010799"
+    },
+    {
+      "name": "age-patched-build",
+      "command": [
+        "go",
+        "build",
+        "-trimpath",
+        "-o",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate",
+        "./cmd/age"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "age-patched-version",
+      "command": [
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate",
+        "--version"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "9c70fc81fff6543d8b28cb67a07496d3d351e6fa87ba07b1a7007d3c57c23a8f"
+    },
+    {
+      "name": "age-patched-build-info",
+      "command": [
+        "go",
+        "version",
+        "-m",
+        "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log_sha256": "ceddfd8f1f692732e42bfb9181f91cf3eec935d11e8500d9dea9bf85eedd432a"
+    }
+  ],
+  "executed_script_sha256": "b8adfd142310677fb9794a1975326401bc52a1e4dac4c8d8b01d0a9455493f37",
+  "checksum_database_verification_enabled": true,
+  "status": "PASS_BUILD_TEST_ONLY_NOT_ADMITTED",
+  "module_locks": [
+    {
+      "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-b74dce4cdbe35b5e5f66c06d9612b72f89028758/go.mod",
+      "sha256": "c993cee8e71eb01fb7b2e2994cf4f0c4f1181eea1ae5008d2d968b2c7e001b43"
+    },
+    {
+      "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-b74dce4cdbe35b5e5f66c06d9612b72f89028758/go.sum",
+      "sha256": "04917b476d69af4e08536efedebe7c0f8449838c5ca7d8b4d8e6c822114999a7"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+import concurrent.futures,hashlib,json,threading,urllib.request,xml.etree.ElementTree as E
+from pathlib import Path
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree';o=r/'docs/00-project/validation/native-n01-round10';o.mkdir(exist_ok=True);cache=w/'n01-r10-pom-cache';cache.mkdir(exist_ok=True)
+def read(p):return json.loads(p.read_text(encoding='utf8'))
+def write(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+old=read(r/'docs/00-project/validation/native-n01-round4/maven-pom-source-materials.json')
+for s in old['sources']:
+ raw=s['utf8_xml'].encode();assert hashlib.sha256(raw).hexdigest()==s['sha256'];(cache/hashlib.sha256(s['url'].encode()).hexdigest()).write_bytes(raw)
+locks={};guard=threading.Lock();acquired={}
+def fetch(url):
+ with guard:lock=locks.setdefault(url,threading.Lock())
+ with lock:
+  p=cache/hashlib.sha256(url.encode()).hexdigest()
+  if p.exists():raw=p.read_bytes();route='previous_authenticated_report_body'
+  else:
+   raw=urllib.request.urlopen(url,timeout=30).read();assert raw;p.write_bytes(raw);route='current_official_Maven_HTTPS'
+  with guard:acquired[url]={'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'utf8_xml':raw.decode(),'acquisition_route':route}
+  return raw
+def pom(g,a,v,seen=()):
+ key=(g,a,v)
+ if key in seen or len(seen)>12:return {'error':'cycle_or_depth'}
+ if any(not x or '${' in x for x in key):return {'error':'unresolved_parent_coordinate','coordinate':key}
+ url='https://repo.maven.apache.org/maven2/'+g.replace('.','/')+'/'+a+'/'+v+'/'+a+'-'+v+'.pom'
+ try:
+  raw=fetch(url);root=E.fromstring(raw)
+  for element in root.iter():element.tag=element.tag.split('}')[-1]
+  licenses=[{n.tag:n.text for n in e} for e in root.findall('licenses/license')];d={'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'licenses':licenses,'license_source':'own_pom' if licenses else None}
+  if not licenses:
+   p=root.find('parent')
+   if p is not None:
+    parent=pom(*(p.findtext(n) for n in ['groupId','artifactId','version']),seen=seen+(key,));d['parent']=parent;d['licenses']=parent.get('licenses',[]);d['license_source']='parent_pom' if d['licenses'] else None
+  return d
+ except Exception as e:return {'url':url,'error':type(e).__name__+':'+str(e)}
+inventory=read(r/'docs/00-project/validation/native-n01-round4/jar-metadata.json')['jars'];targets=[x for x in inventory if len(x['coordinates'])>1];coords={tuple(x[n] for n in ['groupId','artifactId','version']) for row in targets for x in row['coordinates']}
+def resolve(c):return {'coordinate':dict(zip(['groupId','artifactId','version'],c)),'pom_evidence':pom(*c)}
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:rows=list(pool.map(resolve,sorted(coords)))
+out={'scope':'five_metadata_multi_coordinate_JARs_exact_coordinate_declaration_resolution_not_complete_shaded_byte_attribution','jars':[{'archive':x['archive'],'sha256':x['sha256'],'embedded_coordinates':x['coordinates']} for x in targets],'coordinates':rows,'summary':{'jars':len(targets),'unique_coordinates':len(rows),'with_declaration':sum(bool(x['pom_evidence'].get('licenses')) for x in rows)},'formal_admission':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};write(o/'nested-coordinate-declarations.json',out);write(o/'nested-pom-source-materials.json',{'scope':'exact_official_Maven_POM_declarations_not_license_body_or_whole_shaded_payload_proof','sources':list(acquired.values())});print(out['summary'])

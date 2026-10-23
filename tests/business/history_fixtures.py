@@ -21,9 +21,9 @@ def prepare_history(context):
         ).fetchone()
         assert ref is not None
         connection.execute(
-            """INSERT INTO mt.analysis_task(task_id,org_id,case_id,asset_id,scene,priority,state,policy_version,modules,report_eligibility)
-            VALUES(%s,%s,%s,%s,'synthetic-test-only','normal','CREATED','policy-dev-1',ARRAY[]::text[],'draft_only')""",
-            (task, context["actor"].org_id, context["case_id"], asset),
+            """INSERT INTO mt.analysis_task(task_id,org_id,case_id,asset_id,scene,priority,state,policy_version,modules,report_eligibility,created_by)
+            VALUES(%s,%s,%s,%s,'synthetic-test-only','normal','CREATED','policy-dev-1',ARRAY[]::text[],'draft_only',%s)""",
+            (task, context["actor"].org_id, context["case_id"], asset, context["actor"].user_id),
         )
         connection.execute(
             "INSERT INTO mt.content_cluster(cluster_id,org_id,case_id,scope,policy_version,status) VALUES(%s,%s,%s,'test-only-no-observations','policy-dev-1','candidate')",

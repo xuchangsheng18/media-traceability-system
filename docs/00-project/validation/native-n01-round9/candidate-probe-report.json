@@ -1,0 +1,255 @@
+{
+  "observed_at": "2026-10-18T07:08:19.260428+00:00",
+  "source_commit": "0df5dc5062cd5d77665819de8c0a47dc843042b8",
+  "scope": "existing_isolated_candidates_exact_bytes_and_build_graph_review_no_install_or_rebuild",
+  "advisory": {
+    "url": "https://vuln.go.dev/ID/GO-2026-5932.json",
+    "sha256": "f277b0400996200a7d5034c676661cd8cf18adeab1fdc5d0dc369e456ddf1fad",
+    "affected_imports": [
+      "golang.org/x/crypto/openpgp",
+      "golang.org/x/crypto/openpgp/armor",
+      "golang.org/x/crypto/openpgp/clearsign",
+      "golang.org/x/crypto/openpgp/elgamal",
+      "golang.org/x/crypto/openpgp/errors",
+      "golang.org/x/crypto/openpgp/packet",
+      "golang.org/x/crypto/openpgp/s2k"
+    ]
+  },
+  "candidates": [
+    {
+      "name": "age",
+      "target": "./cmd/age",
+      "binary_path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate",
+      "binary_sha256": "0945696f036f1108052ff6037995997237592022d82562d052946827477f0aea",
+      "binary_size_bytes": 6983193,
+      "checks": [
+        {
+          "name": "build-info",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "version",
+            "-m",
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate"
+          ],
+          "exit_code": 0,
+          "output_sha256": "ceddfd8f1f692732e42bfb9181f91cf3eec935d11e8500d9dea9bf85eedd432a"
+        },
+        {
+          "name": "deps",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "list",
+            "-deps",
+            "-f",
+            "{{.ImportPath}}",
+            "./cmd/age"
+          ],
+          "exit_code": 0,
+          "output_sha256": "b174008a7cca2b40b9ea5bae436c1742f96ae38177ed153726b565add6548aa6"
+        },
+        {
+          "name": "symbols",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "tool",
+            "nm",
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate"
+          ],
+          "exit_code": 0,
+          "output_sha256": "2ceb3bf5725cf1b0bff744283a95875efad303a37f48e0820fa355d94bc2a1df"
+        }
+      ],
+      "module_locks": [
+        {
+          "file": "go.mod",
+          "sha256": "c993cee8e71eb01fb7b2e2994cf4f0c4f1181eea1ae5008d2d968b2c7e001b43"
+        },
+        {
+          "file": "go.sum",
+          "sha256": "04917b476d69af4e08536efedebe7c0f8449838c5ca7d8b4d8e6c822114999a7"
+        }
+      ],
+      "package_count": 200,
+      "package_graph_sha256": "303e5ecd99898b63222d887678be7368c484cb66fdd8fac263aced54da6f9c88",
+      "affected_imports_present": [],
+      "affected_symbols_present": [],
+      "affected_symbol_count": 0,
+      "build_info": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate: go1.27.2\n\tpath\tfilippo.io/age/cmd/age\n\tmod\tfilippo.io/age\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tfilippo.io/hpke\tv0.4.0\th1:p575VVQ6ted4pL+it6M00V/f2qTZITO0zgmdKCkd5+A=\n\tdep\tfilippo.io/nistec\tv0.0.4\th1:F14ZHT5htWlMnQVPndX9ro9arf56cBhQxq4LnDI491s=\n\tdep\tgolang.org/x/crypto\tv0.56.0\th1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=\n\tdep\tgolang.org/x/sys\tv0.47.0\th1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=\n\tdep\tgolang.org/x/term\tv0.45.0\th1:NwWyBmoJCbfTHpxrWoZ9C6/VxOf7ic219I8xZZFdrf0=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
+      "graph_scope": "linux_amd64_CGO_ENABLED0_default_tags_main_target_no_tests_no_plugins",
+      "advisory_disposition": "NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED",
+      "original_scanner_findings_retained": true,
+      "formal_decision": null,
+      "scanned_binary_copies": [
+        {
+          "name": "age-keygen",
+          "sha256": "faa43e52f8090c737e88a6e5704f9e83b3c930e8882cc785d9fb83ecbd104ff2",
+          "same_bytes": false
+        },
+        {
+          "name": "age",
+          "sha256": "0945696f036f1108052ff6037995997237592022d82562d052946827477f0aea",
+          "same_bytes": true
+        }
+      ]
+    },
+    {
+      "name": "age",
+      "target": "./cmd/age-keygen",
+      "binary_path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate-binaries/age-keygen",
+      "binary_sha256": "faa43e52f8090c737e88a6e5704f9e83b3c930e8882cc785d9fb83ecbd104ff2",
+      "binary_size_bytes": 4056921,
+      "checks": [
+        {
+          "name": "build-info",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "version",
+            "-m",
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate-binaries/age-keygen"
+          ],
+          "exit_code": 0,
+          "output_sha256": "659e9fb76fd97805f4db9c6b4da6b8cd03bc82dc7c115aee3cc92cf2a50d1394"
+        },
+        {
+          "name": "deps",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "list",
+            "-deps",
+            "-f",
+            "{{.ImportPath}}",
+            "./cmd/age-keygen"
+          ],
+          "exit_code": 0,
+          "output_sha256": "ae14fcdad4c35d900ec7216e495d0985dab76efecc5584c4262c82fff532ea72"
+        },
+        {
+          "name": "symbols",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "tool",
+            "nm",
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate-binaries/age-keygen"
+          ],
+          "exit_code": 0,
+          "output_sha256": "6979c3c8be95da329b0c273d6f190c1e497d82b22dee522a2c91db2a16250e9e"
+        }
+      ],
+      "module_locks": [
+        {
+          "file": "go.mod",
+          "sha256": "c993cee8e71eb01fb7b2e2994cf4f0c4f1181eea1ae5008d2d968b2c7e001b43"
+        },
+        {
+          "file": "go.sum",
+          "sha256": "04917b476d69af4e08536efedebe7c0f8449838c5ca7d8b4d8e6c822114999a7"
+        }
+      ],
+      "package_count": 145,
+      "package_graph_sha256": "c0a8603a42fc8a23aed27bf76aaeebfb714e583cf55f5c93a167da1da48e059e",
+      "affected_imports_present": [],
+      "affected_symbols_present": [],
+      "affected_symbol_count": 0,
+      "build_info": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate-binaries/age-keygen: go1.27.2\n\tpath\tfilippo.io/age/cmd/age-keygen\n\tmod\tfilippo.io/age\t(devel)\t\n\tdep\tfilippo.io/hpke\tv0.4.0\th1:p575VVQ6ted4pL+it6M00V/f2qTZITO0zgmdKCkd5+A=\n\tdep\tgolang.org/x/crypto\tv0.56.0\th1:GUh5Ii4J5jtcseSMiRqr1jXCNHoxjeV9Fmekc2oLy6Y=\n\tdep\tgolang.org/x/sys\tv0.47.0\th1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=\n\tdep\tgolang.org/x/term\tv0.45.0\th1:NwWyBmoJCbfTHpxrWoZ9C6/VxOf7ic219I8xZZFdrf0=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
+      "graph_scope": "linux_amd64_CGO_ENABLED0_default_tags_main_target_no_tests_no_plugins",
+      "advisory_disposition": "NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED",
+      "original_scanner_findings_retained": true,
+      "formal_decision": null,
+      "scanned_binary_copies": [
+        {
+          "name": "age-keygen",
+          "sha256": "faa43e52f8090c737e88a6e5704f9e83b3c930e8882cc785d9fb83ecbd104ff2",
+          "same_bytes": true
+        },
+        {
+          "name": "age",
+          "sha256": "0945696f036f1108052ff6037995997237592022d82562d052946827477f0aea",
+          "same_bytes": false
+        }
+      ]
+    },
+    {
+      "name": "seaweedfs",
+      "target": "./weed",
+      "binary_path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+      "binary_sha256": "ad11e47651a0af2fad48612d8317b0c676711a46ed6ccd25018bedc9999f0062",
+      "binary_size_bytes": 212361023,
+      "checks": [
+        {
+          "name": "build-info",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "version",
+            "-m",
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate"
+          ],
+          "exit_code": 0,
+          "output_sha256": "a0a79c58e9b0a53fd1b301313b9c0f5821e3aaec52207a9bbcfaf66d0ecd0ce2"
+        },
+        {
+          "name": "deps",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "list",
+            "-deps",
+            "-f",
+            "{{.ImportPath}}",
+            "./weed"
+          ],
+          "exit_code": 0,
+          "output_sha256": "e7839497a31f5c3349929ad531f8b9c403ca815148dffca5468c32943ab8ff7a"
+        },
+        {
+          "name": "symbols",
+          "command": [
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/go/bin/go",
+            "tool",
+            "nm",
+            "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate"
+          ],
+          "exit_code": 0,
+          "output_sha256": "a3e3d713dcdeb971e2d74af62047cc38acf34232befc370f03228ec0a30e6273"
+        }
+      ],
+      "module_locks": [
+        {
+          "file": "go.mod",
+          "sha256": "0f87660d3ee0ed812bf826effcb978805a2f078c34150613df2735e99e6f55c6"
+        },
+        {
+          "file": "go.sum",
+          "sha256": "024c79a32333739ad86f61900de25632027d3ad6e557003635b10761c044f8f7"
+        }
+      ],
+      "package_count": 1743,
+      "package_graph_sha256": "cefc9ae2712fd2893ca956d3b935c47f40dfff62a3e9a8b2b726b7313e0ea416",
+      "affected_imports_present": [],
+      "affected_symbols_present": [],
+      "affected_symbol_count": 0,
+      "build_info": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate: go1.27.2\n\tpath\tgithub.com/seaweedfs/seaweedfs/weed\n\tmod\tgithub.com/seaweedfs/seaweedfs\t(devel)\t\n\tdep\tatomicgo.dev/cursor\tv0.2.0\th1:H6XN5alUJ52FZZUkI7AlJbUc1aW38GWZalpYRPpoPOw=\n\tdep\tatomicgo.dev/keyboard\tv0.2.9\th1:tOsIid3nlPLZ3lwgG8KZMp/SFmr7P0ssEN5JUsm78K8=\n\tdep\tatomicgo.dev/schedule\tv0.1.0\th1:nTthAbhZS5YZmgYbb2+DH8uQIZcTlIrd4eYr3UQxEjs=\n\tdep\tcel.dev/expr\tv0.25.3\th1:A2jO8jwOugrrovveCWfj0KEZOfqiLgAcwjpHPhzIGw0=\n\tdep\tcloud.google.com/go\tv0.123.0\th1:2NAUJwPR47q+E35uaJeYoNhuNEM9kM8SjgRgdeOJUSE=\n\tdep\tcloud.google.com/go/auth\tv0.23.2\th1:pxSCpfiji41hpzpPdMCftEUCezpgpqmmDdYiAjCKXxo=\n\tdep\tcloud.google.com/go/auth/oauth2adapt\tv0.2.8\th1:keo8NaayQZ6wimpNSmW5OPc283g65QNIiLpZnkHRbnc=\n\tdep\tcloud.google.com/go/compute/metadata\tv0.9.0\th1:pDUj4QMoPejqq20dK0Pg2N4yG9zIkYGdBtwLoEkH9Zs=\n\tdep\tcloud.google.com/go/iam\tv1.12.0\th1:Aki3bX9aHUDKPHfnRJfDcTdVedvy6quGBQcTqx3DRXk=\n\tdep\tcloud.google.com/go/kms\tv1.34.0\th1:mxWcXEiyjxwFH5gclulLx+B8Y2OEpKJRZ5FOF78c2XE=\n\tdep\tcloud.google.com/go/longrunning\tv1.2.0\th1:WjYH3YHBGCxGJP9M4dWGHBfXr/cFIjMkNgWcJj7/iMM=\n\tdep\tcloud.google.com/go/monitoring\tv1.30.0\th1:r/d+JUbyKmJ8b07iznuKfzVzrIXTWxHQ3lBRm3x2LlY=\n\tdep\tcloud.google.com/go/pubsub\tv1.51.1\th1:R3G1wCOxBO7jRpL8x2pdZMv1GAJDF6ax/m2zPOtvTNE=\n\tdep\tcloud.google.com/go/pubsub/v2\tv2.6.0\th1:8pjR0id+GTB+krKx5G6AGJoYrHog58w2Q89PCOrfM64=\n\tdep\tcloud.google.com/go/storage\tv1.67.0\th1:8xD3NvKuHE4c+b/kmSIVBdTc0BiOjplx+KecKGR9fr8=\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tgithub.com/Azure/azure-sdk-for-go/sdk/azcore\tv1.22.0\th1:aokoqcHvaGjiM3VpjKDfMMnF/8epJ+Q1HLJ7CudztqE=\n\tdep\tgithub.com/Azure/azure-sdk-for-go/sdk/azidentity\tv1.14.0\th1:CU4+EJeJi3TKYWEcYuSdWsjzw0nVsK/H0MSQOiPcymU=\n\tdep\tgithub.com/Azure/azure-sdk-for-go/sdk/internal\tv1.12.0\th1:fhqpLE3UEXi9lPaBRpQ6XuRW0nU7hgg4zlmZZa+a9q4=\n\tdep\tgithub.com/Azure/azure-sdk-for-go/sdk/storage/azblob\tv1.8.0\th1:irsmOWwkp0KCTTNS5e2hdFeIvSQClQo2No3IaNmL3Vw=\n\tdep\tgithub.com/Azure/go-ntlmssp\tv0.1.1\th1:l+FM/EEMb0U9QZE7mKNEDw5Mu3mFiaa2GKOoTSsNDPw=\n\tdep\tgithub.com/AzureAD/microsoft-authentication-library-for-go\tv1.7.2\th1:RHK7bS+HQMslb1sZpAokUt+zTVmue0hKSs2C791hhzU=\n\tdep\tgithub.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp\tv1.35.0\th1:bN1gA3of5bXtbnLsRPrwfmbbe7A5UWFlcTHseujLnpc=\n\tdep\tgithub.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric\tv0.57.0\th1:jLdiS1vO+XJFyDSWRHBx56r4s/NNtcl5J6KyCcWUX/w=\n\tdep\tgithub.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping\tv0.57.0\th1:RoO5+d7uCmDqovLrHCr2/BuViUXvdcrNxyNM1pN9dDQ=\n\tdep\tgithub.com/Jille/raft-grpc-transport\tv1.6.1\th1:gN3sjapb+fVbiebS7AfQQgbV2ecTOI7ur7NPPC7Mhoc=\n\tdep\tgithub.com/RoaringBitmap/roaring/v2\tv2.24.0\th1:zQkkBZtG3WRP4j+P3A5DO221SvL1Br88TJkhyqEQRZo=\n\tdep\tgithub.com/Shopify/sarama\tv1.38.1\th1:lqqPUPQZ7zPqYlWpTh+LQ9bhYNu2xJL6k1SJN4WVe2A=\n\tdep\tgithub.com/ThreeDotsLabs/watermill\tv1.5.2\th1:0ES33Eq1jEsP/pWvtE4n8bE0bs+9Jq7boT7wGBCVY6Q=\n\tdep\tgithub.com/a-h/templ\tv0.3.1020\th1:ypAT/L5ySWEnZ6Zft/5yfoWXYYkhFNvEFOeeqecg4tw=\n\tdep\tgithub.com/andybalholm/brotli\tv1.2.2\th1:HzTuoo2ErYQqf5qvcJInB8uvqSVxRttzkFexPWtnceM=\n\tdep\tgithub.com/antlr4-go/antlr/v4\tv4.13.1\th1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYWrPrQ=\n\tdep\tgithub.com/apache/arrow-go/v18\tv18.7.0\th1:Vw/i+cJyebUofT7JlqFpe65LrmwxULn166jjwStM4HY=\n\tdep\tgithub.com/apache/cassandra-gocql-driver/v2\tv2.1.2\th1:lu/p0Db2av18enHJvWJQoChLssI0P+AR06STq4VdvCc=\n\tdep\tgithub.com/apache/iceberg-go\tv0.6.1-0.20260817192109-c2105090c9e2\th1:xRULj4L2wrlAAPAYNruyuP17lz2zq2DGLgIFDgqiBjo=\n\tdep\tgithub.com/apache/thrift\tv0.24.0\th1:zy31L1a49QTNB2bG1BBfMXol3yJrTH975G3pPubQVLQ=\n\tdep\tgithub.com/arangodb/go-driver\tv1.6.9\th1:zckB+xuA16NmHUuYOX7INCJTIyIkoBQjAGqNpiyf2HQ=\n\tdep\tgithub.com/arangodb/go-velocypack\tv0.0.0-20200318135517-5af53c29c67e\th1:Xg+hGrY2LcQBbxd0ZFdbGSyRKTYMZCfBbw/pMJFOk1g=\n\tdep\tgithub.com/armon/go-metrics\tv0.4.1\th1:hR91U9KYmb6bLBYLQjyM+3j+rcd/UhE+G78SFnF8gJA=\n\tdep\tgithub.com/aws/aws-sdk-go\tv1.55.8\th1:JRmEUbU52aJQZ2AjX4q4Wu7t4uZjOu71uyNmaWlUkJQ=\n\tdep\tgithub.com/beorn7/perks\tv1.0.1\th1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=\n\tdep\tgithub.com/bits-and-blooms/bitset\tv1.24.4\th1:95H15Og1clikBrKr/DuzMXkQzECs1M6hhoGXLwLQOZE=\n\tdep\tgithub.com/boltdb/bolt\tv1.3.1\th1:JQmyP4ZBrce+ZQu0dY660FMfatumYDLun9hBCUVIkF4=\n\tdep\tgithub.com/bwmarrin/snowflake\tv0.3.0\th1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=\n\tdep\tgithub.com/cenkalti/backoff/v4\tv4.3.0\th1:MyRJ/UdXutAwSAT+s3wNd7MfTIcy71VQueUuFK343L8=\n\tdep\tgithub.com/cenkalti/backoff/v5\tv5.0.3\th1:ZN+IMa753KfX5hd8vVaMixjnqRZ3y8CuJKRKj1xcsSM=\n\tdep\tgithub.com/cespare/xxhash/v2\tv2.3.0\th1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=\n\tdep\tgithub.com/clipperhouse/uax29/v2\tv2.7.0\th1:+gs4oBZ2gPfVrKPthwbMzWZDaAFPGYK72F0NJv2v7Vk=\n\tdep\tgithub.com/cncf/xds/go\tv0.0.0-20260202195803-dba9d589def2\th1:aBangftG7EVZoUb69Os8IaYg++6uMOdKK83QtkkvJik=\n\tdep\tgithub.com/cockroachdb/apd/v3\tv3.2.1\th1:U+8j7t0axsIgvQUqthuNm82HIrYXodOV2iWLWtEaIwg=\n\tdep\tgithub.com/cognusion/imaging\tv1.0.4\th1:hrmWVa4S9fiLJJFKEHYYRNBUnHEKZD8/oxnC77xTUa0=\n\tdep\tgithub.com/containerd/console\tv1.0.5\th1:R0ymNeydRqH2DmakFNdmjR2k0t7UPuiOV/N/27/qqsc=\n\tdep\tgithub.com/coreos/go-semver\tv0.3.1\th1:yi21YpKnrx1gt5R+la8n5WgS0kCrsPp33dmEyHReZr4=\n\tdep\tgithub.com/coreos/go-systemd/v22\tv22.7.0\th1:LAEzFkke61DFROc7zNLX/WA2i5J8gYqe0rSj9KI28KA=\n\tdep\tgithub.com/creasty/defaults\tv1.8.0\th1:z27FJxCAa0JKt3utc0sCImAEb+spPucmKoOdLHvHYKk=\n\tdep\tgithub.com/davecgh/go-spew\tv1.1.2-0.20180830191138-d8f796af33cc\th1:U9qPSI2PIWSS1VwoXQT9A3Wy9MM3WgvqSxFWenqJduM=\n\tdep\tgithub.com/dustin/go-humanize\tv1.0.1\th1:GzkhY7T5VNhEkwH0PVJgjz+fX1rhBrR7pRT3mDkpeCY=\n\tdep\tgithub.com/eapache/go-resiliency\tv1.6.0\th1:CqGDTLtpwuWKn6Nj3uNUdflaq+/kIPsg0gfNzHton30=\n\tdep\tgithub.com/eapache/go-xerial-snappy\tv0.0.0-20230731223053-c322873962e3\th1:Oy0F4ALJ04o5Qqpdz8XLIpNA3WM/iSIXqxtqo7UGVws=\n\tdep\tgithub.com/eapache/queue\tv1.1.0\th1:YOEu7KNc61ntiQlcEeUIoDTJ2o8mQznoNvUhiigpIqc=\n\tdep\tgithub.com/envoyproxy/go-control-plane/envoy\tv1.39.1-0.20260819172001-e6e3fd93e4be\th1:SWe0x6yfglnxuvOiYgTTnNq7QD/yvqthOh1RBI8Bj8w=\n\tdep\tgithub.com/envoyproxy/protoc-gen-validate\tv1.3.3\th1:MVQghNeW+LZcmXe7SY1V36Z+WFMDjpqGAGacLe2T0ds=\n\tdep\tgithub.com/facebookgo/clock\tv0.0.0-20150410010913-600d898af40a\th1:yDWHCSQ40h88yih2JAcL6Ls/kVkSE8GFACTGVnMPruw=\n\tdep\tgithub.com/facebookgo/stats\tv0.0.0-20151006221625-1b76add642e4\th1:0YtRCqIZs2+Tz49QuH6cJVw/IFqzo39gEqZ0iYLxD2M=\n\tdep\tgithub.com/fatih/color\tv1.18.0\th1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=\n\tdep\tgithub.com/felixge/httpsnoop\tv1.1.0\th1:3YtUj32ZZkqZtt3sZZsClsymw/QDuVfpNhoA31zeORc=\n\tdep\tgithub.com/fluent/fluent-logger-golang\tv1.10.1\th1:wu54iN1O2afll5oQrtTjhgZRwWcfOeFFzwRsEkABfFQ=\n\tdep\tgithub.com/fsnotify/fsnotify\tv1.9.0\th1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=\n\tdep\tgithub.com/geoarrow/geoarrow-go\tv0.0.0-20260403143023-f54751c3e3a1\th1:8VcjuP5pKZ717K4zOLS9Lm4Zsn8JwD9X+CQGFCiRT2E=\n\tdep\tgithub.com/getsentry/sentry-go\tv0.49.0\th1:Ehejknu1l023Ub7QoRBVLAI7g3Jnhqku4oWx4B4Sh5s=\n\tdep\tgithub.com/go-asn1-ber/asn1-ber\tv1.5.8\th1:H9AZkK22UOmfX8J84ubyaZxKJZ3FMHVwn8swoMML7iQ=\n\tdep\tgithub.com/go-jose/go-jose/v4\tv4.1.4\th1:moDMcTHmvE6Groj34emNPLs/qtYXRVcd6S7NHbHz3kA=\n\tdep\tgithub.com/go-ldap/ldap/v3\tv3.4.14\th1:D6PYdEgsaVzsXyr6w/yDC06Ria4uUhWm+Rb+er8lfAs=\n\tdep\tgithub.com/go-logr/logr\tv1.4.4\th1:tG4xh9yMsRCAiodLVTxyrkzSZ9+o0L1Kg/+cPVcbP/8=\n\tdep\tgithub.com/go-logr/stdr\tv1.2.2\th1:hSWxHoqTgW2S2qGc0LTAI563KZ5YKYRhT3MFKZMbjag=\n\tdep\tgithub.com/go-redsync/redsync/v4\tv4.17.0\th1:FFJ+uxZs44y4Sq10//IFKic9T94AYl+u3Sog98AHzBo=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.10.1\th1:arlSnNLq6a5yxGxV7qg9lF4j0C+KwD6NbQyKr9QL6ME=\n\tdep\tgithub.com/go-viper/mapstructure/v2\tv2.5.0\th1:vM5IJoUAy3d7zRSVtIwQgBj7BiWtMPfmPEgAXnvj1Ro=\n\tdep\tgithub.com/go-zookeeper/zk\tv1.0.4\th1:DPzxraQx7OrPyXq2phlGlNSIyWEsAox0RJmjTseMV6I=\n\tdep\tgithub.com/goccy/go-json\tv0.10.6\th1:p8HrPJzOakx/mn/bQtjgNjdTcN+/S6FcG2CTtQOrHVU=\n\tdep\tgithub.com/goccy/go-yaml\tv1.18.0\th1:8W7wMFS12Pcas7KU+VVkaiCng+kG8QiFeFwzFb+rwuw=\n\tdep\tgithub.com/golang-jwt/jwt/v5\tv5.3.1\th1:kYf81DTWFe7t+1VvL7eS+jKFVWaUnK9cB1qbwn63YCY=\n\tdep\tgithub.com/golang/protobuf\tv1.5.4\th1:i7eJL8qZTpSEXOPTxNKhASYpMn+8e5Q6AdndVa1dWek=\n\tdep\tgithub.com/golang/snappy\tv1.0.0\th1:Oy607GVXHs7RtbggtPBnr2RmDArIsAefDwvrdWvRhGs=\n\tdep\tgithub.com/google/btree\tv1.1.3\th1:CVpQJjYgC4VbzxeGVHfvZrv1ctoYCAI8vbl07Fcxlyg=\n\tdep\tgithub.com/google/flatbuffers/go\tv0.0.0-20230108230133-3b8644d32c50\th1:T0YCYlZLzmdsd0bsozI4ecxk03KYOiszof14y7ekQFw=\n\tdep\tgithub.com/google/s2a-go\tv0.1.9\th1:LGD7gtMgezd8a/Xak7mEWL0PjoTQFvpRudN895yqKW0=\n\tdep\tgithub.com/google/uuid\tv1.6.0\th1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=\n\tdep\tgithub.com/googleapis/enterprise-certificate-proxy\tv0.3.21\th1:OFdQ3tnCX/zaQ0Cedur3D3z7kI6HiLX9g3TiAN4/DFU=\n\tdep\tgithub.com/googleapis/gax-go/v2\tv2.24.0\th1:myMaPYyF9MecEmvQqMqomIwn9t/4KCZN9qnwsS76wlg=\n\tdep\tgithub.com/gookit/color\tv1.6.0\th1:JjJXBTk1ETNyqyilJhkTXJYYigHG24TM9Xa2M1xAhRA=\n\tdep\tgithub.com/gorilla/mux\tv1.8.1\th1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=\n\tdep\tgithub.com/gorilla/securecookie\tv1.1.2\th1:YCIWL56dvtr73r6715mJs5ZvhtnY73hBvEF8kXD8ePA=\n\tdep\tgithub.com/gorilla/sessions\tv1.4.0\th1:kpIYOp/oi6MG/p5PgxApU8srsSw9tuFbt46Lt7auzqQ=\n\tdep\tgithub.com/grpc-ecosystem/grpc-gateway/v2\tv2.29.0\th1:5VipnvEpbqr2gA2VbM+nYVbkIF28c5ZQfqCBQ5g2xfk=\n\tdep\tgithub.com/hashicorp/errwrap\tv1.1.0\th1:OxrOeh75EUXMY8TBjag2fzXGZ40LB6IKw45YeGUDY2I=\n\tdep\tgithub.com/hashicorp/go-cleanhttp\tv0.5.2\th1:035FKYIWjmULyFRBKPs8TBQoi0x6d9G4xc9neXJWAZQ=\n\tdep\tgithub.com/hashicorp/go-hclog\tv1.6.3\th1:Qr2kF+eVWjTiYmU7Y31tYlP1h0q/X3Nl3tPGdaB11/k=\n\tdep\tgithub.com/hashicorp/go-immutable-radix\tv1.3.1\th1:DKHmCUm2hRBK510BaiZlwvpD40f8bJFeZnpfm2KLowc=\n\tdep\tgithub.com/hashicorp/go-metrics\tv0.5.4\th1:8mmPiIJkTPPEbAiV97IxdAGNdRdaWwVap1BU6elejKY=\n\tdep\tgithub.com/hashicorp/go-msgpack/v2\tv2.1.2\th1:4Ee8FTp834e+ewB71RDrQ0VKpyFdrKOjvYtnQ/ltVj0=\n\tdep\tgithub.com/hashicorp/go-multierror\tv1.1.1\th1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+lD48awMYo=\n\tdep\tgithub.com/hashicorp/go-retryablehttp\tv0.7.8\th1:ylXZWnqa7Lhqpk0L1P1LzDtGcCR0rPVUrx/c8Unxc48=\n\tdep\tgithub.com/hashicorp/go-rootcerts\tv1.0.2\th1:jzhAVGtqPKbwpyCPELlgNWhE1znq+qwJtW5Oi2viEzc=\n\tdep\tgithub.com/hashicorp/go-secure-stdlib/parseutil\tv0.2.0\th1:U+kC2dOhMFQctRfhK0gRctKAPTloZdMU5ZJxaesJ/VM=\n\tdep\tgithub.com/hashicorp/go-secure-stdlib/strutil\tv0.1.2\th1:kes8mmyCpxJsI7FTwtzRqEy9CdjCtrXrXGuOpxEA7Ts=\n\tdep\tgithub.com/hashicorp/go-sockaddr\tv1.0.7\th1:G+pTkSO01HpR5qCxg7lxfsFEZaG+C0VssTy/9dbT+Fw=\n\tdep\tgithub.com/hashicorp/go-uuid\tv1.0.3\th1:2gKiV6YVmrJ1i2CKKa9obLvRieoRGviZFL26PcT/Co8=\n\tdep\tgithub.com/hashicorp/golang-lru\tv0.6.0\th1:uL2shRDx7RTrOrTCUZEGP/wJUFiUI8QT6E7z5o8jga4=\n\tdep\tgithub.com/hashicorp/golang-lru/v2\tv2.0.7\th1:a+bsQ5rvGLjzHuww6tVxozPZFVghXaHOwFs4luLUK2k=\n\tdep\tgithub.com/hashicorp/hcl\tv1.0.1-vault-7\th1:ag5OxFVy3QYTFTJODRzTKVZ6xvdfLLCA1cy/Y6xGI0I=\n\tdep\tgithub.com/hashicorp/raft\tv1.7.3\th1:DxpEqZJysHN0wK+fviai5mFcSYsCkNpFUl1xpAW8Rbo=\n\tdep\tgithub.com/hashicorp/raft-boltdb/v2\tv2.3.1\th1:ackhdCNPKblmOhjEU9+4lHSJYFkJd6Jqyvj6eW9pwkc=\n\tdep\tgithub.com/hashicorp/vault/api\tv1.23.0\th1:gXgluBsSECfRWTSW9niY2jwg2e9mMJc4WoHNv4g3h6A=\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.10.0\th1:VhSvgU2jSli8o3AqIEOTJr7rZwAEUVo4E4XhR94Zfr0=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.2\th1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=\n\tdep\tgithub.com/jcmturner/aescts/v2\tv2.0.0\th1:9YKLH6ey7H4eDBXW8khjYslgyqG2xZikXP0EQFKrle8=\n\tdep\tgithub.com/jcmturner/dnsutils/v2\tv2.0.0\th1:lltnkeZGL0wILNvrNiVCR6Ro5PGU/SeBvVO/8c/iPbo=\n\tdep\tgithub.com/jcmturner/gofork\tv1.7.6\th1:QH0l3hzAU1tfT3rZCnW5zXl+orbkNMMRGJfdJjHVETg=\n\tdep\tgithub.com/jcmturner/gokrb5/v8\tv8.4.4\th1:x1Sv4HaTpepFkXbt2IkL29DXRf8sOfZXo8eRKh687T8=\n\tdep\tgithub.com/jcmturner/rpc/v2\tv2.0.3\th1:7FXXj8Ti1IaVFpSAziCZWNzbNuZmnvw/i6CqLNdWfZY=\n\tdep\tgithub.com/jhump/protoreflect\tv1.18.0\th1:TOz0MSR/0JOZ5kECB/0ufGnC2jdsgZ123Rd/k4Z5/2w=\n\tdep\tgithub.com/jhump/protoreflect/v2\tv2.0.0-beta.1\th1:Dw1rslK/VotaUGYsv53XVWITr+5RCPXfvvlGrM/+B6w=\n\tdep\tgithub.com/jmespath/go-jmespath\tv0.4.0\th1:BEgLn5cpjn8UN1mAw4NjwDrS35OdebyEtFe+9YPoQUg=\n\tdep\tgithub.com/karlseguin/ccache/v2\tv2.0.8\th1:lT38cE//uyf6KcFok0rlgXtGFBWxkI6h/qg4tbFyDnA=\n\tdep\tgithub.com/klauspost/compress\tv1.19.2\th1:hMRETovs/pu/dVWN7zIT1PGG8t509MwT6bO7XSi26R8=\n\tdep\tgithub.com/klauspost/cpuid/v2\tv2.4.0\th1:S6Hrbc7+ywsr0r+RLapfGBHfyefhCTwEh3A0tV913Dw=\n\tdep\tgithub.com/klauspost/reedsolomon\tv1.14.2\th1:SafJYwpBBQBI6amHUygcjxZjXeN2HpiENHQDwuPWCCQ=\n\tdep\tgithub.com/kr/fs\tv0.1.0\th1:Jskdu9ieNAYnjxsi0LbQp1ulIKZV1LAFgK1tWhpZgl8=\n\tdep\tgithub.com/kurin/blazer\tv0.5.3\th1:SAgYv0TKU0kN/ETfO5ExjNAPyMt2FocO2s/UlCHfjAk=\n\tdep\tgithub.com/kylelemons/godebug\tv1.1.0\th1:RPNrshWIDI6G2gRW9EHilWtl7Z6Sb1BR0xunSBf0SNc=\n\tdep\tgithub.com/linkedin/goavro/v2\tv2.15.0\th1:pDj1UrjUOO62iXhgBiE7jQkpNIc5/tA5eZsgolMjgVI=\n\tdep\tgithub.com/lithammer/fuzzysearch\tv1.1.8\th1:/HIuJnjHuXS8bKaiTMeeDlW2/AyIWk2brx1V8LFgLN4=\n\tdep\tgithub.com/lithammer/shortuuid/v3\tv3.0.7\th1:trX0KTHy4Pbwo/6ia8fscyHoGA+mf1jWbPJVuvyJQQ8=\n\tdep\tgithub.com/mattn/go-colorable\tv0.1.15\th1:+u9SLTRGnXv73cEsnsmoZBom+dMU88B2M0aDcWy0/jY=\n\tdep\tgithub.com/mattn/go-isatty\tv0.0.24\th1:tGZZoVgT/KiqK1c8ocVLeDS8BSWMRd47J3Lbz7vsReI=\n\tdep\tgithub.com/mattn/go-runewidth\tv0.0.24\th1:cpokDiIn0MGnhdHwuWnJBITySJ20QyNGnY2kR/ay2DU=\n\tdep\tgithub.com/minio/crc64nvme\tv1.1.1\th1:8dwx/Pz49suywbO+auHCBpCtlW1OfpcLN7wYgVR6wAI=\n\tdep\tgithub.com/mitchellh/colorstring\tv0.0.0-20190213212951-d06e56a500db\th1:62I3jR2EmQ4l5rM/4FEfDWcRD+abF5XlKShorW5LRoQ=\n\tdep\tgithub.com/mitchellh/mapstructure\tv1.5.1-0.20220423185008-bf980b35cac4\th1:BpfhmLKZf+SjVanKKhCgf3bg+511DmU9eDQTen7LLbY=\n\tdep\tgithub.com/montanaflynn/stats\tv0.7.1\th1:etflOAAHORrCC44V+aR6Ftzort912ZU+YLiSTuV8eaE=\n\tdep\tgithub.com/mschoch/smat\tv0.2.0\th1:8imxQsjDm8yFEAVBe7azKmKSgzSkZXDuKkSq9374khM=\n\tdep\tgithub.com/munnerz/goautoneg\tv0.0.0-20191010083416-a7dc8b61c822\th1:C3w9PqII01/Oq1c1nUAm88MOHcQC9l5mIlSMApZMrHA=\n\tdep\tgithub.com/oklog/ulid\tv1.3.1\th1:EGfNDEx6MqHz8B3uNV6QAib1UR2Lm97sHi3ocA6ESJ4=\n\tdep\tgithub.com/orcaman/concurrent-map/v2\tv2.0.1\th1:jOJ5Pg2w1oeB6PeDurIYf6k9PQ+aTITr/6lP/L/zp6c=\n\tdep\tgithub.com/parquet-go/bitpack\tv1.0.0\th1:AUqzlKzPPXf2bCdjfj4sTeacrUwsT7NlcYDMUQxPcQA=\n\tdep\tgithub.com/parquet-go/jsonlite\tv1.0.0\th1:87QNdi56wOfsE5bdgas0vRzHPxfJgzrXGml1zZdd7VU=\n\tdep\tgithub.com/parquet-go/parquet-go\tv0.32.0\th1:NWDqTUHfrCS4cJP/Fj2HlxvqsrVedWG3sayMkf+znzM=\n\tdep\tgithub.com/pelletier/go-toml/v2\tv2.4.3\th1:GTRvJQutkOSftxIFD5xw9aepkYNuPWmVJpffdDPYVpY=\n\tdep\tgithub.com/peterh/liner\tv1.2.2\th1:aJ4AOodmL+JxOZZEL2u9iJf8omNRpqHc/EbrK+3mAXw=\n\tdep\tgithub.com/philhofer/fwd\tv1.2.0\th1:e6DnBTl7vGY+Gz322/ASL4Gyp1FspeMvx1RNDoToZuM=\n\tdep\tgithub.com/pierrec/lz4/v4\tv4.1.29\th1:CDQY6qZOLI4DW0Nx6R1vRrifrCeQHnNXkMb0hZWXFjg=\n\tdep\tgithub.com/pkg/browser\tv0.0.0-20240102092130-5ac0b6a4141c\th1:+mdjkGKdHQG3305AYmdv1U2eRNDiU2ErMBj1gwrq8eQ=\n\tdep\tgithub.com/pkg/errors\tv0.9.1\th1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=\n\tdep\tgithub.com/pkg/sftp\tv1.13.11\th1:0N92SLTB8JqASJB14ZLHHzFnBV8mG9zw4K7jghEFWuE=\n\tdep\tgithub.com/planetscale/vtprotobuf\tv0.6.1-0.20240319094008-0393e58bdf10\th1:GFCKgmp0tecUJ0sJuv4pzYCqS9+RGSn52M3FUwPs+uo=\n\tdep\tgithub.com/posener/complete\tv1.2.3\th1:NP0eAhjcjImqslEwo/1hq7gpajME0fTLTezBKDqfXqo=\n\tdep\tgithub.com/pquerna/cachecontrol\tv0.2.0\th1:vBXSNuE5MYP9IJ5kjsdo8uq+w41jSPgvba2DEnkRx9k=\n\tdep\tgithub.com/prometheus/client_golang\tv1.24.1\th1:JnJkREXzWxUdCuPFpIWZiPispT9xVV59uiuyR2bPlnU=\n\tdep\tgithub.com/prometheus/client_model\tv0.6.3\th1:O0jaTVAYNxTHYInEPFJt5I3+sN8zqBtVMPTB1qyxiEo=\n\tdep\tgithub.com/prometheus/common\tv0.70.1\th1:1HvjP4D5oL3t8RsPlwxA9onvvStjtIHYE5XuuwOi/PY=\n\tdep\tgithub.com/prometheus/procfs\tv0.22.0\th1:6q9+/JL9IKAPbCmBrv9n5O5Ty3NKnciV5X7YGw0oics=\n\tdep\tgithub.com/pterm/pterm\tv0.12.83\th1:ie+YmGmA727VuhxBlyGr74Ks+7McV6kT99IB8EU80aA=\n\tdep\tgithub.com/rcrowley/go-metrics\tv0.0.0-20201227073835-cf1acfcdf475\th1:N/ElC8H3+5XpJzTSTfLsJV/mx9Q9g7kxmchpfZyxgzM=\n\tdep\tgithub.com/rdleal/intervalst\tv1.5.0\th1:SEB9bCFz5IqD1yhfH1Wv8IBnY/JQxDplwkxHjT6hamU=\n\tdep\tgithub.com/redis/go-redis/v9\tv9.22.0\th1:laDvpYXTJtZLloinw1fA5Kqd6HAEH2XKxOkG/PDq2F0=\n\tdep\tgithub.com/rivo/uniseg\tv0.4.7\th1:WUdvkW8uEhrYfLC4ZzdpI2ztxP1I582+49Oc5Mq64VQ=\n\tdep\tgithub.com/rwcarlsen/goexif\tv0.0.0-20190401172101-9e8deecbddbd\th1:CmH9+J6ZSsIjUK3dcGsnCnO41eRBOnY12zwkn5qVwgc=\n\tdep\tgithub.com/ryanuber/go-glob\tv1.0.0\th1:iQh3xXAumdQ+4Ufa5b25cRpC5TYKlno6hsv6Cb3pkBk=\n\tdep\tgithub.com/sagikazarmark/locafero\tv0.11.0\th1:1iurJgmM9G3PA/I+wWYIOw/5SyBtxapeHDcg+AAIFXc=\n\tdep\tgithub.com/schollz/progressbar/v3\tv3.19.1\th1:iv8BgwOvdML/S3p84uBpy/IMigv4U9594vPZYa2EdrU=\n\tdep\tgithub.com/seaweedfs/go-fuse/v2\tv2.9.4\th1:ACyloiuopdhRSjdLLeSWbsVaemMPskORaRF01TY6GyM=\n\tdep\tgithub.com/seaweedfs/goexif\tv2.0.0+incompatible\th1:x8pckiT12QQhifwhDQpeISgDfsqmQ6VR4LFPQ64JRps=\n\tdep\tgithub.com/seaweedfs/raft\tv1.2.1\th1:QgFl/aaPnagpUxYB6Bx+fFss1NyetVVcJmraMmnaQ5Q=\n\tdep\tgithub.com/shirou/gopsutil/v4\tv4.26.7\th1:IXzpHz/dkMRYAhKkOXr1HB6SuzWU3eoyyeWe7g3bNZc=\n\tdep\tgithub.com/sirupsen/logrus\tv1.9.4\th1:TsZE7l11zFCLZnZ+teH4Umoq5BhEIfIzfRDZ1Uzql2w=\n\tdep\tgithub.com/sony/gobreaker\tv1.0.0\th1:feX5fGGXSl3dYd4aHZItw+FpHLvvoaqkawKjVNiFMNQ=\n\tdep\tgithub.com/sourcegraph/conc\tv0.3.1-0.20240121214520-5f936abd7ae8\th1:+jumHNA0Wrelhe64i8F6HNlS8pkoyMv5sreGx2Ry5Rw=\n\tdep\tgithub.com/spf13/afero\tv1.15.0\th1:b/YBCLWAJdFWJTN9cLhiXXcD7mzKn9Dm86dNnfyQw1I=\n\tdep\tgithub.com/spf13/cast\tv1.10.0\th1:h2x0u2shc1QuLHfxi+cTJvs30+ZAHOGRic8uyGTDWxY=\n\tdep\tgithub.com/spf13/pflag\tv1.0.10\th1:4EBh2KAYBwaONj6b2Ye1GiHfwjqyROoF4RwYO+vPwFk=\n\tdep\tgithub.com/spf13/viper\tv1.21.0\th1:x5S+0EU27Lbphp4UKm1C+1oQO+rKx36vfCoaVebLFSU=\n\tdep\tgithub.com/spiffe/go-spiffe/v2\tv2.8.1\th1:eXZMLsu+3MLEPJyGJkolqtVrteZfQdUpOWj6LTiDl/E=\n\tdep\tgithub.com/stretchr/objx\tv0.5.3\th1:jmXUvGomnU1o3W/V5h2VEradbpJDwGrzugQQvL0POH4=\n\tdep\tgithub.com/stretchr/testify\tv1.12.1\th1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE=\n\tdep\tgithub.com/subosito/gotenv\tv1.6.0\th1:9NlTDc1FTs4qu0DDq7AEtTPNw6SVm7uBMsUCUjABIf8=\n\tdep\tgithub.com/substrait-io/substrait\tv0.87.0\th1:40rP4LejyK6SNQlWz7NX6kQELf8cmScWMBGruWhN4io=\n\tdep\tgithub.com/substrait-io/substrait-go/v8\tv8.1.1\th1:XL7CqVVOQkXP9FRSIm2ylJCjqRASg1yBRcn5nRCRwss=\n\tdep\tgithub.com/substrait-io/substrait-protobuf/go\tv0.85.0\th1:zk6MtNWLtDSl8a7qCZRFH0+EIIXVrrd/hsgYK/SQTgM=\n\tdep\tgithub.com/syndtr/goleveldb\tv1.0.1-0.20190318030020-c3a204f8e965\th1:1oFLiOyVl+W7bnBzGhf7BbIv9loSFQcieWWYIjLqcAw=\n\tdep\tgithub.com/tidwall/gjson\tv1.18.0\th1:FIDeeyB800efLX89e5a8Y0BNH+LOngJyGrIWxG2FKQY=\n\tdep\tgithub.com/tidwall/match\tv1.2.0\th1:0pt8FlkOwjN2fPt4bIl4BoNxb98gGHN2ObFEDkrfZnM=\n\tdep\tgithub.com/tidwall/pretty\tv1.2.0\th1:RWIZEg2iJ8/g6fDDYzMpobmaoGh5OLl4AXtGUGPcqCs=\n\tdep\tgithub.com/tinylib/msgp\tv1.6.4\th1:mOwYbyYDLPj35mkA2BjjYejgJk9BuHxDdvRnb6v2ZcQ=\n\tdep\tgithub.com/tklauser/go-sysconf\tv0.4.0\th1:7H0uAN+7RkwWRaxhYXDLqa5V3LPrJeV8wmD9dRUgPQU=\n\tdep\tgithub.com/tklauser/numcpus\tv0.12.0\th1:NR85qdvHA9pFse3x3weVZ0r0ST8R6l5RHbZrlRaqob4=\n\tdep\tgithub.com/tsuna/gohbase\tv0.0.0-20201125011725-348991136365\th1:6iRwZdrFUzbcVYZwa8dXTIILGIxmmhjyUPJEcwzPGaU=\n\tdep\tgithub.com/twmb/avro\tv1.8.0\th1:UMWLg+nH4P3yad5Om7yFSohYLy2RG1s7BcFFiOvmK9Q=\n\tdep\tgithub.com/twmb/murmur3\tv1.1.8\th1:8Yt9taO/WN3l08xErzjeschgZU2QSrwm1kclYq+0aRg=\n\tdep\tgithub.com/twpayne/go-geom\tv1.6.1\th1:iLE+Opv0Ihm/ABIcvQFGIiFBXd76oBIar9drAwHFhR4=\n\tdep\tgithub.com/tylertreat/BoomFilters\tv0.0.0-20210315201527-1a82519a3e43\th1:QEePdg0ty2r0t1+qwfZmQ4OOl/MB2UXIeJSpIZv56lg=\n\tdep\tgithub.com/valyala/bytebufferpool\tv1.0.0\th1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=\n\tdep\tgithub.com/viant/ptrie\tv1.0.1\th1:3fFC8XqCSchf11sCSS5sbb8eGDNEP2g2Hj96lNdHlZY=\n\tdep\tgithub.com/xdg-go/scram\tv1.2.0\th1:bYKF2AEwG5rqd1BumT4gAnvwU/M9nBp2pTSxeZw7Wvs=\n\tdep\tgithub.com/xdg-go/stringprep\tv1.0.4\th1:XLI/Ng3O1Atzq0oBs3TWm+5ZVgkq2aqdlvP9JtoZ6c8=\n\tdep\tgithub.com/xeipuuv/gojsonpointer\tv0.0.0-20190905194746-02993c407bfb\th1:zGWFAtiMcyryUHoUjUJX0/lt1H2+i2Ka2n+D3DImSNo=\n\tdep\tgithub.com/xeipuuv/gojsonreference\tv0.0.0-20180127040603-bd5ef7bd5415\th1:EzJWgHovont7NscjpAxXsDA8S8BMYve8Y5+7cuRE7R0=\n\tdep\tgithub.com/xeipuuv/gojsonschema\tv1.2.0\th1:LhYJRs+L4fBtjZUfuSZIKGeVu0QRy8e5Xi7D17UxZ74=\n\tdep\tgithub.com/xo/terminfo\tv0.0.0-20220910002029-abceb7e1c41e\th1:JVG44RsyaB9T2KIHavMF/ppJZNG9ZpyihvCd0w101no=\n\tdep\tgithub.com/youmark/pkcs8\tv0.0.0-20240726163527-a2c0da244d78\th1:ilQV1hzziu+LLM3zUTJ0trRztfwgjqKnBWNtSRkbmwM=\n\tdep\tgithub.com/zeebo/xxh3\tv1.1.0\th1:s7DLGDK45Dyfg7++yxI0khrfwq9661w9EN78eP/UZVs=\n\tdep\tgo.etcd.io/bbolt\tv1.5.0\th1:S7GAl7Fxv12yohbwFfIbQCGDWbQbtDGPET4P/bD4lxU=\n\tdep\tgo.etcd.io/etcd/api/v3\tv3.7.1\th1:KJG0/DcWGfe3Y1otDf/fsBf0TSSgpxZ5RO/L8SFt73E=\n\tdep\tgo.etcd.io/etcd/client/pkg/v3\tv3.7.1\th1:rKYsj3pRkR0eK3yjT3XOgrhqfmIfj9pzNgxjh7mfFv4=\n\tdep\tgo.etcd.io/etcd/client/v3\tv3.7.1\th1:0PEMMC0KuZmVIN+RAbdqfkZ45pYTgKVtmBEbRCvZFUg=\n\tdep\tgo.mongodb.org/mongo-driver\tv1.17.9\th1:IexDdCuuNJ3BHrELgBlyaH9p60JXAvdzWR128q+U5tU=\n\tdep\tgo.opencensus.io\tv0.24.0\th1:y73uSU6J157QMP2kn2r30vwW1A2W2WFwSCGnAVxeaD0=\n\tdep\tgo.opentelemetry.io/auto/sdk\tv1.2.1\th1:jXsnJ4Lmnqd11kwkBV2LgLoFMZKizbCi5fNZ/ipaZ64=\n\tdep\tgo.opentelemetry.io/contrib/detectors/gcp\tv1.45.0\th1:9jR0ZPRok9ryaOQ2Wx8rg5F7Aon59mxrqbVI60/vlBk=\n\tdep\tgo.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc\tv0.69.0\th1:2yEATaop1/a1I4psnSLgWVPLWwCzkqWakgJy7xTDVy0=\n\tdep\tgo.opentelemetry.io/contrib/instrumentation/net/http/otelhttp\tv0.70.0\th1:LMuyCAyfalSjDyjdC65nK6N0zoTT63+E/u95X0JovZI=\n\tdep\tgo.opentelemetry.io/otel\tv1.45.0\th1:pdrWmLHofpubmArBv1LgFSv1Z0Ie/ppdZzu+kUN5EeU=\n\tdep\tgo.opentelemetry.io/otel/metric\tv1.45.0\th1:7Eg1uH7CJ5cXv9is6tnBe1FI6rj1nwUdbFypRm3br/M=\n\tdep\tgo.opentelemetry.io/otel/sdk\tv1.45.0\th1:4VVSMgQ83dUgW2aoX5f6JgLvHwIvzcuLnF9lUdCSpCw=\n\tdep\tgo.opentelemetry.io/otel/sdk/metric\tv1.45.0\th1:oVFszMfyj1Am6s24Vtc7wBb8BKLcwepJjNEYILuiE3o=\n\tdep\tgo.opentelemetry.io/otel/trace\tv1.45.0\th1:l/mP6Uv7oNO7/TblbhpbgMidxhq1uO/rPsikOyVhxag=\n\tdep\tgo.uber.org/atomic\tv1.12.0\th1:BvcXdFKuviU4fTL/f+SxdQ5qJX/Jix8pAkgdUcb3XOE=\n\tdep\tgo.uber.org/multierr\tv1.11.0\th1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=\n\tdep\tgo.uber.org/zap\tv1.27.1\th1:08RqriUEv8+ArZRYSTXy1LeBScaMpVSTBhCeaZYfMYc=\n\tdep\tgo.yaml.in/yaml/v3\tv3.0.5\th1:N6y/pJk8buWs9NY5ERU2HSMfm+IuD/OtfdAnq6kESPw=\n\tdep\tgolang.org/x/crypto\tv0.57.0\th1:3ZVCjf8Ggz7zneR/EHRVx68Ctf+2pmIMP2UFhh9cC6M=\n\tdep\tgolang.org/x/exp\tv0.0.0-20260709172345-9ea1abe57597\th1:qLvzZeaANDgyVOA8pyHCOStGlXn0rseXma+GQjeuv2g=\n\tdep\tgolang.org/x/image\tv0.46.0\th1:b1+oYj0Jbp6K5MDT4i4/eZpYlk3V8SJhhDKh6LBHAyQ=\n\tdep\tgolang.org/x/net\tv0.60.0\th1:79p50tfZlm0J9YfoDsSi639qSXNGVwEzOPLCxM2FsYU=\n\tdep\tgolang.org/x/oauth2\tv0.36.0\th1:peZ/1z27fi9hUOFCAZaHyrpWG5lwe0RJEEEeH0ThlIs=\n\tdep\tgolang.org/x/sync\tv0.23.0\th1:KameEIfc1IkluZyXWLn39Wd4tURc6GbCiISGiZm2bQk=\n\tdep\tgolang.org/x/sys\tv0.48.0\th1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=\n\tdep\tgolang.org/x/term\tv0.46.0\th1:3+OXuTbaKDgwk8jTi3aSLHRlmWqHEUDUtxnbFigO4YE=\n\tdep\tgolang.org/x/text\tv0.42.0\th1:JbOZXgfeCPU9gacVtYliJqOhD+zhrEqK4LfdpmlUZqI=\n\tdep\tgolang.org/x/time\tv0.15.0\th1:bbrp8t3bGUeFOx08pvsMYRTCVSMk89u4tKbNOZbp88U=\n\tdep\tgoogle.golang.org/api\tv0.297.0\th1:WktxTsnnx0yZNnsR6j0q6hR21RnnK81FHTOPy/ux4OE=\n\tdep\tgoogle.golang.org/genproto\tv0.0.0-20260715232425-e75dac1f907d\th1:C9v1o0/4quuhOAfmRXA2j+we0PqZIp8traLdeogF3Ms=\n\tdep\tgoogle.golang.org/genproto/googleapis/api\tv0.0.0-20260817212433-ac3dfec99bb1\th1:lrupDmKL3p5kEX1M92oan027eCKcouzjuPbH6YBK+Rs=\n\tdep\tgoogle.golang.org/genproto/googleapis/rpc\tv0.0.0-20260819154853-08b0e4226688\th1:cYNAzI2sUwhmCcoj9TxvihSrqsxt6uIkj3rDRhSDmW4=\n\tdep\tgoogle.golang.org/grpc\tv1.85.0-dev.0.20260915183914-4e49413dcab7\th1:5+EEM1fC0yjOZID0NUZVrE2+8M/+1TclNrSz/l1xMYs=\n\tdep\tgoogle.golang.org/grpc/security/advancedtls\tv1.0.0\th1:/KQ7VP/1bs53/aopk9QhuPyFAp9Dm9Ejix3lzYkCrDA=\n\tdep\tgoogle.golang.org/protobuf\tv1.36.12\th1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=\n\tdep\tgopkg.in/inf.v0\tv0.9.1\th1:73M5CoZyi3ZLMOyDlQh031Cx6N9NDJ2Vvfl76EDAgDc=\n\tdep\tgopkg.in/yaml.v3\tv3.0.1\th1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=\n\tdep\tmodernc.org/b\tv1.0.0\th1:vpvqeyp17ddcQWF29Czawql4lDdABCDRbXRAS4+aF2o=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
+      "graph_scope": "linux_amd64_CGO_ENABLED0_default_tags_main_target_no_tests_no_plugins",
+      "advisory_disposition": "NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED",
+      "original_scanner_findings_retained": true,
+      "formal_decision": null,
+      "scanned_binary_copies": [
+        {
+          "name": "weed",
+          "sha256": "ad11e47651a0af2fad48612d8317b0c676711a46ed6ccd25018bedc9999f0062",
+          "same_bytes": true
+        }
+      ]
+    }
+  ],
+  "services_changed": false,
+  "Python_candidates_created": false,
+  "software_admission": false,
+  "executed_script_sha256": "c8654aa1980ff9bf93dcc3dd41c56b179a2a361d85d700ca77fa1228a4656e0a",
+  "node": {
+    "binary_sha256": "fde6a4bf8d0562f7751d1a2d6cb9b417c4cfe107bbcb0aa3e9a24e125e348f48",
+    "version": "v22.23.3",
+    "exit_code": 0,
+    "archive_lock_ref": "config/native/security-candidate-inputs.lock.json",
+    "version_adoption": null
+  },
+  "status": "PASS_BOUNDED_TECHNICAL_REVIEW_NOT_ADMISSION"
+}

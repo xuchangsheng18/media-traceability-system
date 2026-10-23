@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "status": "PRESELECTION_ACCEPTED_FINAL_INSTALLATION_LOCK_PENDING",
+  "scope": "N01_native_artifact_preselection_only_not_installation_or_full_admission",
+  "observed_at": "2026-10-18T07:11:20.712641+00:00",
+  "input_lock_ref": "config/native/security-candidate-inputs.lock.json",
+  "input_lock_sha256": "3d0bba3c1f7fb958a89734c9799f524bd75923ed182aa3733aa52397318a3803",
+  "python_candidate_state": "DEFERRED_BY_USER",
+  "primary_artifacts_lock_unchanged": true,
+  "installation_permitted": false,
+  "candidates": [
+    {
+      "component": "node",
+      "version": "22.23.3",
+      "archive": {
+        "filename": "node-v22.23.3-linux-x64.tar.xz",
+        "url": "https://nodejs.org/dist/v22.23.3/node-v22.23.3-linux-x64.tar.xz",
+        "sha256": "df450af89261115ef9f9e3830c3eeb2cc9213b63c720b1af623cb5dcbe2e02de",
+        "size_bytes": 31001304,
+        "digest_authority": "official_published_digest"
+      },
+      "binary": {
+        "binary_sha256": "fde6a4bf8d0562f7751d1a2d6cb9b417c4cfe107bbcb0aa3e9a24e125e348f48",
+        "version": "v22.23.3",
+        "exit_code": 0,
+        "archive_lock_ref": "config/native/security-candidate-inputs.lock.json",
+        "version_adoption": null
+      },
+      "technical_recommendation": "PRESELECT_FOR_NATIVE_DEVELOPMENT_PENDING_USER_DECISION",
+      "limits": [
+        "prior pinned database scan0 matches is not proof no vulnerabilities",
+        "not an existing frontend/package-lock or shared service upgrade"
+      ],
+      "selection_state": "USER_ACCEPTED_PRESELECTION_ONLY",
+      "installation_permitted": false
+    },
+    {
+      "component": "age",
+      "version": "1.3.2",
+      "source_archive": {
+        "filename": "age-b74dce4cdbe35b5e5f66c06d9612b72f89028758.tar.gz",
+        "url": "https://codeload.github.com/FiloSottile/age/tar.gz/b74dce4cdbe35b5e5f66c06d9612b72f89028758",
+        "sha256": "bc05c14997560754e4b03a3be4f39bce527802eeb45585ca1ae6ca088fe37994",
+        "size_bytes": 252656,
+        "digest_authority": "observed_https_source_archive_digest_not_upstream_signature",
+        "repository": "FiloSottile/age",
+        "tag": "v1.3.2",
+        "commit": "b74dce4cdbe35b5e5f66c06d9612b72f89028758",
+        "tag_api": "https://api.github.com/repos/FiloSottile/age/git/ref/tags/v1.3.2"
+      },
+      "build_toolchain": "go1.27.2 linux/amd64 CGO_ENABLED=0 -trimpath default_tags",
+      "module_locks": [
+        {
+          "path": "config/native/security-candidate-module-locks/age.go.mod",
+          "sha256": "c993cee8e71eb01fb7b2e2994cf4f0c4f1181eea1ae5008d2d968b2c7e001b43"
+        },
+        {
+          "path": "config/native/security-candidate-module-locks/age.go.sum",
+          "sha256": "04917b476d69af4e08536efedebe7c0f8449838c5ca7d8b4d8e6c822114999a7"
+        }
+      ],
+      "binaries": [
+        {
+          "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate",
+          "sha256": "0945696f036f1108052ff6037995997237592022d82562d052946827477f0aea",
+          "size_bytes": 6983193,
+          "target": "./cmd/age"
+        },
+        {
+          "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/age-candidate-binaries/age-keygen",
+          "sha256": "faa43e52f8090c737e88a6e5704f9e83b3c930e8882cc785d9fb83ecbd104ff2",
+          "size_bytes": 4056921,
+          "target": "./cmd/age-keygen"
+        }
+      ],
+      "residual_GO_2026_5932": "NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED_under_observed_exact_build_graph_and_symbol_table",
+      "original_scanner_status": "FAIL_RETAINED",
+      "technical_recommendation": "PRESELECT_FOR_NATIVE_DEVELOPMENT_PENDING_USER_DECISION",
+      "limits": [
+        "technical applicability candidate not signed security exception",
+        "any rebuild/tags/plugin/platform change requires revalidation",
+        "not installation or complete native service acceptance"
+      ],
+      "selection_state": "USER_ACCEPTED_PRESELECTION_ONLY",
+      "installation_permitted": false
+    },
+    {
+      "component": "seaweedfs",
+      "version": "4.48",
+      "source_archive": {
+        "filename": "seaweedfs-530be3e37337488ecc34d58441e0bc476e121c93.tar.gz",
+        "url": "https://codeload.github.com/seaweedfs/seaweedfs/tar.gz/530be3e37337488ecc34d58441e0bc476e121c93",
+        "sha256": "217b507e7457d10629e837cebea6542d8b7685819dafbb56ef910330594af0e1",
+        "size_bytes": 80998811,
+        "digest_authority": "observed_https_source_archive_digest_not_upstream_signature",
+        "repository": "seaweedfs/seaweedfs",
+        "tag": "4.48",
+        "commit": "530be3e37337488ecc34d58441e0bc476e121c93",
+        "tag_api": "https://api.github.com/repos/seaweedfs/seaweedfs/git/ref/tags/4.48"
+      },
+      "build_toolchain": "go1.27.2 linux/amd64 CGO_ENABLED=0 -trimpath default_tags",
+      "module_locks": [
+        {
+          "path": "config/native/security-candidate-module-locks/seaweedfs.go.mod",
+          "sha256": "0f87660d3ee0ed812bf826effcb978805a2f078c34150613df2735e99e6f55c6"
+        },
+        {
+          "path": "config/native/security-candidate-module-locks/seaweedfs.go.sum",
+          "sha256": "024c79a32333739ad86f61900de25632027d3ad6e557003635b10761c044f8f7"
+        }
+      ],
+      "binaries": [
+        {
+          "path": "/workspace/glwy/runtime/media-traceability-system/native-security-candidates-20261017/seaweedfs-candidate",
+          "sha256": "ad11e47651a0af2fad48612d8317b0c676711a46ed6ccd25018bedc9999f0062",
+          "size_bytes": 212361023,
+          "target": "./weed"
+        }
+      ],
+      "residual_GO_2026_5932": "NOT_AFFECTED_CANDIDATE_PACKAGE_NOT_LINKED_under_observed_exact_build_graph_and_symbol_table",
+      "original_scanner_status": "FAIL_RETAINED",
+      "technical_recommendation": "PRESELECT_FOR_NATIVE_DEVELOPMENT_PENDING_USER_DECISION",
+      "limits": [
+        "technical applicability candidate not signed security exception",
+        "any rebuild/tags/plugin/platform change requires revalidation",
+        "not installation or complete native service acceptance"
+      ],
+      "selection_state": "USER_ACCEPTED_PRESELECTION_ONLY",
+      "installation_permitted": false
+    }
+  ],
+  "actual_decision": {
+    "status": "ACCEPTED_NATIVE_DEVELOPMENT_ARTIFACT_PRESELECTION_ONLY",
+    "reviewer": "徐昌胜",
+    "observed_at": "2026-10-18T15:16:02.228250+08:00",
+    "evidence_ref": "docs/00-project/validation/native-n01-round9/candidate-preselection-decision.json",
+    "reviewed_proposal_source_commit": "9572b1db64ac782ab7e1018cdee786cfdeac1e2e",
+    "reviewed_proposal_sha256": "8d6b11af8825637950219e294e84bbfebf094b2cb6c2f6444e17803b6650833b"
+  }
+}

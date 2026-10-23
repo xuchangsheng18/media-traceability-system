@@ -1,0 +1,206 @@
+{
+  "status": "SCOPED_REVIEW_FIX_TESTS_PASS_FULL_REGRESSION_AND_EXACT_CI_PENDING",
+  "recorded_at": "2026-10-20T08:18:28.651926+00:00",
+  "source_base_commit": "c89e75b4c7ec0b349c2935b5254205ba3213ca4f",
+  "current_full_run_id": "ab2c29c0a0754f06b4f159dc1b4d98df",
+  "review_important_findings": 7,
+  "review_fix_passes": 1,
+  "second_review_dispatched": false,
+  "first_refresh_and_work_scope": {
+    "run_id": "d374e608dd3d46aaa71987f7841716a7",
+    "totals": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "command": "python -m pytest tests/business/test_t014_object_rules.py::test_propagation_resolver_uses_canonical_cluster_path tests/business/test_t014_duties.py::test_person_proof_renewal_preserves_live_vote_and_approval_expiry tests/business/test_t014_duties.py::test_person_proof_freshness_can_renew_between_bound_reads tests/business/test_t014_revocation.py::test_same_generation_proof_renewal_allows_unchanged_transaction tests/business/test_t014_revocation.py::test_concurrent_clock_samples_do_not_create_false_rollback tests/business/test_t014_work.py::test_upload_longer_than_fact_refresh_rechecks_before_commit -q --tb=short --junitxml PRIVATE_PATH"
+  },
+  "source_delegation_and_gate_scope": {
+    "run_id": "f108bd86aa1a47f58e4cb9334508f2ac",
+    "totals": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "command": "python -m pytest tests/business/test_t014_indirect_reads.py tests/business/test_t014_object_rules.py::test_exact_trusted_delegation_can_authorize_nonowner tests/platform/test_t014_gate.py::test_gate_requires_review_regressions -q --tb=short --junitxml PRIVATE_PATH",
+    "quality_checks": [
+      {
+        "name": "ruff_lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "ruff_format",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "mypy",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "working_delta_sha256": {
+      "backend/business_app/controls/router.py": "b65910c47d4c44c41d00a42bae9d590fa41cedfa8dc03c8ca42f03da4d011db3",
+      "backend/business_app/permissions/conditional.py": "661179c5fc41f4977c04c6e6775477abea33e9e1b0961a7f9f403dc18f39f71a",
+      "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
+      "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+      "backend/business_app/permissions/object_facts.py": "8d39d0bfac1fd3075feca0d20dcc26c55f22e6260f38267b027778d348ecb73b",
+      "docs/00-project/validation/t013-named-admin-adoption-progress.json": "84f805d1d9dbd13a541c1ef4fd532dac56c839404fa0c8fb8ac375323f03968d",
+      "docs/00-project/validation/t013-owner-mfa-management-validation.json": "29a8b0df568eae23bbbd4d3c12e45940f4e1294799b1e5fc0edcf6325f794b94",
+      "docs/00-project/validation/t013-owner-mfa-negative-attestation.json": "ea5d165eb276bb5978fc317b9965383112250cb91262f47023b24ca9d0a3d0e3",
+      "docs/03-development/t013-named-admin-adoption-checklist.md": "f76e36376b0e162dd6c7abff258e2d0a70a4770b2f42f88d547da8f731ece1b9",
+      "docs/03-development/t013-owner-action-checklist.md": "64d5c017ca7599685db599d985552a720c04d347e57251c0e08be434fe13f578",
+      "docs/03-development/t014-isolated-review-disposition.md": "4ac9445610a2a6ff74182d7f4f5ec24f097391bab177a50f9f1391457f714fbf",
+      "scripts/verify_t014_permissions.py": "d60eb56f53a0068333b68d1c3245ae54e483ac07cc00c4e257241e9c0557d0d3",
+      "tasks/execution-status.json": "ff1cfe7355a6af649ac2b5ce224218dcd9a9007e330ce98854cda6c9e01d3ae4",
+      "tests/business/http_fixtures.py": "2eb2ee729c0b399d556cf3a9b0f73283fd9c0c9c998e242edc8cb8f8a2c0abf2",
+      "tests/business/t014_positive_fixtures.py": "ab4e180af6a2b049129a31fbef7336554aa4a380e101964b09b3c8300d1c5808",
+      "tests/business/test_t014_duties.py": "c70a25c9ef0fa9357c8a2afd465dfd296e5fff925183cda8cc1053bc253005c1",
+      "tests/business/test_t014_indirect_reads.py": "aa55e62fca16c728f23a3606ec2688e11aa5e1626e3a35606c7e4a7028e9fcc2",
+      "tests/business/test_t014_object_rules.py": "705646bd262d4e8e2fc092fd509813d9443520b03ecbab9a5ab9a8b461ca7aea",
+      "tests/business/test_t014_revocation.py": "da679abeae5ffe6f3b79d49ff34f058454574300e8fb3f5c38f4716c3bc8dd19",
+      "tests/business/test_t014_work.py": "1bf388b63c4bb90f326f1bd9e822e46358b5a92e6601852b504f39836e31a950",
+      "tests/platform/test_t014_gate.py": "801bbd57cf7072708c7aae47447cb907cef4445410a7646b58ddd57a81cce424"
+    }
+  },
+  "parser_and_documentation_scope": {
+    "run_id": "54931874401c460eb9fe5b899d122315",
+    "totals": {
+      "tests": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "checks": [
+      {
+        "name": "format_check",
+        "command": "python scripts/dev.py format-check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "lint",
+        "command": "python scripts/dev.py lint",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "type_check",
+        "command": "python scripts/stage_three_types.py check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "T011_candidate_model",
+        "command": "python scripts/validate_access_control_model.py --run-tests",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_one",
+        "command": "python scripts/validate_stage_one.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "inputs",
+        "command": "python scripts/validate_inputs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "repository_docs",
+        "command": "python scripts/validate_repository_docs.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "documentation_completion",
+        "command": "python scripts/validate_documentation_completion.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three",
+        "command": "python scripts/validate_stage_three.py",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "task_navigation_drift",
+        "command": "python scripts/generate_task_progress.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "schedule_drift",
+        "command": "python scripts/plan_project_schedule.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_three_navigation_drift",
+        "command": "python scripts/generate_stage_three_docs.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "requirement_drift",
+        "command": "python scripts/generate_requirements_document.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "remaining_work_drift",
+        "command": "python scripts/generate_remaining_work_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "stage_status_drift",
+        "command": "python scripts/generate_stage_status_navigation.py --check",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "source_base_commit": "c89e75b4c7ec0b349c2935b5254205ba3213ca4f"
+  },
+  "documentation_limit": "Planning evidence duplicates were subsequently preserved and navigation regenerated; final exact-source CI must validate the current final documentation.",
+  "red_runs": [
+    {
+      "run_id": "fbb4d8c14e5b49db850716f8ce39d496",
+      "genuine_failures": 4,
+      "invalid_fixture_failures": 1
+    },
+    {
+      "run_id": "23dcd41aa2f344d2807c22aa6dffd925",
+      "genuine_failures": 2
+    },
+    {
+      "run_id": "78fe4da77eb14a2390b4bdad425cfe74",
+      "genuine_failures": 2
+    },
+    {
+      "run_id": "bd1f7ad0551e470b8d63857c4d5a6597",
+      "genuine_HTTP_permission_failures": 6
+    },
+    {
+      "run_id": "6c51a262131c46a0adfd0ab43f100404",
+      "genuine_gate_parser_failures": 15
+    }
+  ],
+  "intermediate_failure": {
+    "run_id": "c31625cceb3c43069ec249fe6fc85397",
+    "runtime_failures": 2,
+    "cause": "Review fixtures lacked required evidence references; two fixture mypy findings. Fixed fixtures, no response contract/assertion relaxed."
+  },
+  "shared_database_or_policy_adopted": false,
+  "services_restarted": false,
+  "formal_accepted": false,
+  "whole_T014_accepted": false,
+  "Python_candidates_created": false,
+  "raw_logs_published": false
+}

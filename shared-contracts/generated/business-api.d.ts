@@ -3214,7 +3214,9 @@ export interface operations {
     };
     listAssets: {
         parameters: {
-            query?: {
+            query: {
+                /** @description 必须指定案件；服务端核验实际成员、单位、逐对象来源与读取权限，不从客户端声明推导授权。 */
+                case_id: string;
                 limit?: number;
                 cursor?: string;
             };
@@ -3845,7 +3847,9 @@ export interface operations {
     };
     listTasks: {
         parameters: {
-            query?: {
+            query: {
+                /** @description 必须指定案件；服务端核验实际成员、单位、逐对象来源与读取权限，不从客户端声明推导授权。 */
+                case_id: string;
                 limit?: number;
                 cursor?: string;
             };

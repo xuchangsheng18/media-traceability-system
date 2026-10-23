@@ -1,0 +1,3112 @@
+{
+  "task_id": "T013",
+  "status": "PASS_SCOPED_RND_ADMIN_HANDOVER_REHEARSAL_AND_EXACT_HOSTED_CI",
+  "scope": "isolated_synthetic_administrator_preparation_mfa_bootstrap_restart_not_actual_personal_handover",
+  "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+  "formal_accepted": false,
+  "actual_personal_handover_completed": false,
+  "real_administrator_created": false,
+  "Python_candidates_created": false,
+  "shared_services_restarted": false,
+  "shared_bootstrap_removed": false,
+  "T014_started": false,
+  "historical_runs": [
+    {
+      "scope": "initial_manual_synthetic_mfa_bootstrap_restart_before_operator_preparation_added",
+      "status": "PASS",
+      "started_at": "2026-10-19T04:49:29.323906+00:00",
+      "elapsed_seconds": 244.956847,
+      "totals": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "private_log_sha256": "66a8927e2f38f8b7af5dd9d28450f79df66cb2e8a9ac4555b1b3dce4294997ae"
+    },
+    {
+      "scope": "operator_preparation_first_login_required_action_order",
+      "status": "FAIL",
+      "started_at": "2026-10-19T04:55:41.019263+00:00",
+      "elapsed_seconds": 184.148964,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "private_log_sha256": "4d0c2751111cb2554a632dfb02061dd5eda36eeff3a07f8e384ca27acffcaeda",
+      "finding": "The fixture assumed password update before OTP. Observed required-action priorities are CONFIGURE_TOTP 54 and UPDATE_PASSWORD 57. Corrected fixture requires both actions before code issuance, without prescribing their order."
+    },
+    {
+      "scope": "master_protection_enabled_negative_scenarios_entered_quick_login_lockout",
+      "status": "FAIL",
+      "started_at": "2026-10-19T05:17:31.247035+00:00",
+      "elapsed_seconds": 222.2896,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "private_log_sha256": "114e43dfc2edb814a13df648284ef173b64b25458919c8ee2386bd978cb8a87c",
+      "safe_runtime_log_sha256": "86158c19aef521109c042cfce661b6a30346c8914a4f9b9ca58763cee3b283ce",
+      "allowed_runtime_error_counts": {
+        "invalid_user_credentials": 2,
+        "user_temporarily_disabled": 1
+      },
+      "resolution": "Separate intentional negative scenarios by the unchanged configured quick-login window; no protection disabling, counter clearing, generic retry or deadline relaxation."
+    }
+  ],
+  "pending": [
+    "actual_named_administrator_first_login_password_change_and_personal_MFA",
+    "controlled_replacement_for_shared_bootstrap_dependent_management_tools_before_bootstrap_retirement",
+    "shared_master_protection_adoption_and_history_credential_retirement_with_backup_maintenance_plan",
+    "formal_key_custody_and_software_admission",
+    "actual_designated_human_review_and_effective_handover_acceptance"
+  ],
+  "administrator_login_confirmed_by_user": true,
+  "requested_administrator_login": "xuchangsheng",
+  "operator_boundary_regressions": [
+    {
+      "case": "read_only_handover_not_personal_acceptance",
+      "red": "9 missing implementation failures",
+      "green": "9 passed before preparation added"
+    },
+    {
+      "case": "new_admin_preparation",
+      "red": "3 missing function failures, 9 existing passed",
+      "green": "12 passed"
+    },
+    {
+      "case": "noninteractive_password_entry",
+      "red": "getpass subprocess exceeded 15 seconds",
+      "green": "refuses before requesting a password"
+    },
+    {
+      "case": "existing_admin_path_guard",
+      "red": "query string rejected by existing guard",
+      "green": "atomic create with 409, no guard relaxation"
+    },
+    {
+      "case": "unconfirmed_location",
+      "red": "unrelated account would be disabled",
+      "green": "confirm new disabled subject before any grant/enable/disable"
+    }
+  ],
+  "Windows_unit_tests": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "unit and subprocess entry only; Linux remains runtime target"
+  },
+  "observed_at": "2026-10-19T06:12:28.595320+00:00",
+  "current_source_sha256": {
+    ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+    ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+    "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+    "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+    "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+    "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+    "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+    "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+    "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+    "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+    "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+    "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+    "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+    "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+    "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+    "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+    "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+    "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+    "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+    "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+    "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+    "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+    "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+    "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+    "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+    "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+    "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+    "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+    "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+    "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+    "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+    "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+    "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+    "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+    "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+    "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+    "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+    "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+    "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+    "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+    "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+  },
+  "Linux_precommit": {
+    "mode": "precommit",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/platform",
+          "tests/stage_three",
+          "tests/poc",
+          "tests/native",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/precommit-20261019T053808-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:08.977839+00:00",
+        "elapsed_seconds": 20.72909,
+        "totals": {
+          "tests": 387,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "ee2d94a6d013982f31d18f98bbe1fe3d7c571ff17e6fd108b418504de261bcb4"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "format-check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:29.707200+00:00",
+        "elapsed_seconds": 1.168444,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "a138c8bb016176e9bb4ef0809a2609734b3faf1e2a79de00da8b0ff2128edb78"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/dev.py",
+          "lint"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:30.875888+00:00",
+        "elapsed_seconds": 5.128825,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "187f5a4c7b4973773a7932c426771885e442677397123ffdf40ec7624be1ce59"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_types.py",
+          "check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:36.004962+00:00",
+        "elapsed_seconds": 0.716613,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "64c96f0977937d2df2f976678c5bbeec31b497dfe898fd22519bd9b47dcce20c"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/stage_three_quality.py",
+          "secrets"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:36.721809+00:00",
+        "elapsed_seconds": 0.365442,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "405214ec5a5e5e6a9aebb75ab429917c42ab8ba448d861007efcb48c7abf18bc"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "Linux_real_handover_predecessor": {
+    "mode": "live",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/identity/test_admin_handover_live.py",
+          "-x",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/live-20261019T053309-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:33:09.958936+00:00",
+        "elapsed_seconds": 236.929206,
+        "totals": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "bdaf4107337edd5bc49c02b9a5ce2d702606c90df95ba8daf5817d6db5c76307"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "live_predecessor_changed_current_files": [],
+  "predecessor_boundary": "Current complete Linux isolated handover passed; the exact committed hosted identity and required engineering jobs also passed. Historical predecessor runs and failures remain retained.",
+  "hosted_ci_ref": "docs/00-project/validation/t013-admin-handover-ci-report.json",
+  "code_review_ref": "docs/00-project/validation/t013-admin-handover-code-review.json",
+  "counters_are_overlapping_suites_not_total_completed_tasks": true,
+  "historical_Linux_precommit": [
+    {
+      "mode": "precommit",
+      "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+      "source_sha256": {
+        ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+        ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+        "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+        "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+        "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+        "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+        "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+        "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+        "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+        "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+        "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+        "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+        "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+        "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+        "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+        "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+        "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+        "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+        "scripts/identity/handover.py": "965c5abab4fb8e8e192b45b15020e4c520897b1e9e0b8d1de390988d11d622b4",
+        "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+        "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+        "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+        "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+        "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+        "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+        "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+        "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+        "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+        "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+        "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+        "tests/identity/test_admin_handover_live.py": "1ab0455b99ecfe031af02efb9028f81aa370dc21b063cb7c263c333c2f126a19",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+        "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+        "tests/platform/test_t013_handover.py": "0e8ad726a5d4e0767240fbb4c7a8ba8aa4d36aeb6629bf7e72dee472ac0864fa",
+        "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+        "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+        "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+        "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+        "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+        "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform",
+            "tests/stage_three",
+            "tests/poc",
+            "tests/native",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/precommit-20261019T050732-0.xml"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:07:32.375516+00:00",
+          "elapsed_seconds": 21.871033,
+          "totals": {
+            "tests": 376,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "private_log_sha256": "8f604362d83b70d8d8463582c12a7000c8a4a126f862614a22bf063255035673"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "format-check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:07:54.246791+00:00",
+          "elapsed_seconds": 1.167373,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "a138c8bb016176e9bb4ef0809a2609734b3faf1e2a79de00da8b0ff2128edb78"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "lint"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:07:55.414426+00:00",
+          "elapsed_seconds": 5.628354,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "187f5a4c7b4973773a7932c426771885e442677397123ffdf40ec7624be1ce59"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:08:01.043036+00:00",
+          "elapsed_seconds": 0.716532,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "64c96f0977937d2df2f976678c5bbeec31b497dfe898fd22519bd9b47dcce20c"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_quality.py",
+            "secrets"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:08:01.759793+00:00",
+          "elapsed_seconds": 0.415505,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "42144e19c4f3384edd14e5ee0f296904aa283b6e0a8547e17113a659830f97d4"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    },
+    {
+      "mode": "precommit",
+      "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+      "source_sha256": {
+        ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+        ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+        "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+        "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+        "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+        "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+        "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+        "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+        "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+        "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+        "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+        "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+        "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+        "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+        "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+        "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+        "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+        "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+        "scripts/identity/handover.py": "bad78eb533e63dd0e2a23d422760adedd2c457ed68e7f76d59300748868c31d7",
+        "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+        "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+        "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+        "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+        "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+        "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+        "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+        "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+        "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+        "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+        "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+        "tests/identity/test_admin_handover_live.py": "4dbb23d2c413d6012f8b0bea345ed4ca3af7ba528eccffb102db841cfc49488f",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+        "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+        "tests/platform/test_t013_handover.py": "86c373acd18071a7c211b2d804c251daa46afc31685aac08281c74121fc0b78c",
+        "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+        "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+        "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+        "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+        "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+        "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/platform",
+            "tests/stage_three",
+            "tests/poc",
+            "tests/native",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/precommit-20261019T051657-0.xml"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:16:57.596151+00:00",
+          "elapsed_seconds": 21.471857,
+          "totals": {
+            "tests": 385,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "private_log_sha256": "d15ed8b6118d47ec22bc9c7a6edce513c0e2cceba8560046c2f880dadc1ab671"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "format-check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:19.068275+00:00",
+          "elapsed_seconds": 1.267559,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "a138c8bb016176e9bb4ef0809a2609734b3faf1e2a79de00da8b0ff2128edb78"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/dev.py",
+            "lint"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:20.336092+00:00",
+          "elapsed_seconds": 5.176781,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "187f5a4c7b4973773a7932c426771885e442677397123ffdf40ec7624be1ce59"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_types.py",
+            "check"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:25.513162+00:00",
+          "elapsed_seconds": 0.766652,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "64c96f0977937d2df2f976678c5bbeec31b497dfe898fd22519bd9b47dcce20c"
+        },
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_quality.py",
+            "secrets"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:17:26.280054+00:00",
+          "elapsed_seconds": 0.516902,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "405214ec5a5e5e6a9aebb75ab429917c42ab8ba448d861007efcb48c7abf18bc"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    }
+  ],
+  "historical_Linux_live": [
+    {
+      "mode": "live",
+      "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+      "source_sha256": {
+        ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+        ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+        "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+        "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+        "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+        "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+        "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+        "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+        "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+        "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+        "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+        "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+        "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+        "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+        "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+        "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+        "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+        "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+        "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+        "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+        "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+        "scripts/identity/handover.py": "51e65dc5e0864091badc0c153defbc45d4ef2040b7c8317dc37958d2d0c2b3a5",
+        "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+        "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+        "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+        "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+        "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+        "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+        "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+        "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+        "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+        "tests/identity/handover_lab.py": "cffa9d2f4d300e9ee3eafc83e05d881f2aedd29e0b6bf47bb9768f37330139d7",
+        "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+        "tests/identity/test_admin_handover_live.py": "1ab0455b99ecfe031af02efb9028f81aa370dc21b063cb7c263c333c2f126a19",
+        "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+        "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+        "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+        "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+        "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+        "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+        "tests/platform/test_t013_handover.py": "bfe11e930b727b001d02c70f2839fed857118608eedd57a3d5f841edbd768246",
+        "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+        "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+        "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+        "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+        "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+        "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+      },
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "tests/identity/test_admin_handover_live.py",
+            "-x",
+            "-q",
+            "--tb=short",
+            "--junitxml",
+            "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/live-20261019T050050-0.xml"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T05:00:50.008629+00:00",
+          "elapsed_seconds": 272.568843,
+          "totals": {
+            "tests": 1,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "failed_cases": [],
+          "private_log_sha256": "e59ecec080e12a859301d2c6cc5600a90a5a3261711b574b766378a9402ab47c"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    }
+  ],
+  "code_review_fix": {
+    "important_finding": "master_password_protection",
+    "red_invalid_policy_variants": 6,
+    "red_missing_policy_setup_cases": 3,
+    "unit_green": 27,
+    "Linux_unit_engineering_green": 387,
+    "additional_admin_audit_guard_red": 2
+  },
+  "shared_read_only_observation": {
+    "observed_at": "2026-10-19T05:26:15.644957+00:00",
+    "scope": "read_only_shared_identity_and_existing_runtime",
+    "project_services_healthy": 10,
+    "baseline_running_container_count": 41,
+    "baseline_running_containers_unchanged": 41,
+    "vm_filesystem_free_bytes": 687401828352,
+    "vm_free_meets_48GiB_operational_identity_guard": true,
+    "requested_login_present_in_observed_master_user_page": false,
+    "master_user_page_size": 0,
+    "shared_master_has_password_policy": false,
+    "shared_master_brute_force_enabled": false,
+    "temporary_shared_acceptance_realms_remaining": 0,
+    "shared_policy_modified": false,
+    "real_administrator_created": false,
+    "source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "formal_accepted": false
+  },
+  "important_operations_audit_scope": "master administrative events enabled without request payload representations; actual retention and centralized access policy remain subject to environment review",
+  "Linux_real_handover": {
+    "mode": "live",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "tests/identity/test_admin_handover_live.py",
+          "-x",
+          "-q",
+          "--tb=short",
+          "--junitxml",
+          "/workspace/glwy/runtime/media-traceability-system/t013-handover-20261019/live-20261019T053309-0.xml"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:33:09.958936+00:00",
+        "elapsed_seconds": 236.929206,
+        "totals": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "failed_cases": [],
+        "private_log_sha256": "bdaf4107337edd5bc49c02b9a5ce2d702606c90df95ba8daf5817d6db5c76307"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "current_live_source_hashes_match": true,
+  "documentation_checks": {
+    "mode": "docs",
+    "base_source_commit": "413dd1cfa6de3caa5928a913cd48d8c32782d584",
+    "source_sha256": {
+      ".github/workflows/ci.yml": "47ca19c4d636cc49cd0d1bc80de4b3c648a47770882a379ec72f313393c3ecda",
+      ".github/workflows/identity.yml": "6ba62165a8ad493926d0af212bc6076455f71215324c436a28547b7946d8feac",
+      "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+      "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+      "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+      "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+      "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+      "backend/business_app/identity/tokens.py": "6b1b92dc49e4a737f342b7595edf4edd2ad19b88050d6352615dd7af656d021c",
+      "config/identity/versions.json": "1fa88a500520a846265c838cc2a891c1d76f8aaf707ea17c1ebee42489c8128c",
+      "config/stage-three-profile.json": "afa7d87d1899c8e28a7bce92b781d3b66f103b9cd1b9472966dc611d72d121df",
+      "deploy/identity/Dockerfile.keycloak": "20fe81ae4f1d8cae31d84ae7143277746596b6d803d7c2ca935543e05d5b4836",
+      "deploy/identity/compose.yaml": "81518c28a57341f9f2854b0d5ca685699038f382e5b460a8894e24af321f5221",
+      "deploy/identity/nginx.conf": "2f73dd16484007e487359e8c919bc06209c7772d1df9ea08ec9a352dfd2b0deb",
+      "scripts/__init__.py": "663a083e179fe8bd501c451be4b6d06df65dc8102f12c1c2c5f2bfe632331845",
+      "scripts/identity/__init__.py": "1d589f33fd6f179aa1337ad5fc85cda4990d85a76036679636fddd88bfceabf0",
+      "scripts/identity/backup.py": "3c44a0e92ba0b9fe1637744bfdd84628c9e7aebfcb49b1277cbd315d4ce96dd2",
+      "scripts/identity/certificates.py": "6f15a86070c2acede09665f4d0552c478303e6b00cca8036c858094b25b281bd",
+      "scripts/identity/checks.py": "d33dd7684324f7bef104e2f2171163185a8909a114db98cbc0b4cc8aec71e7d7",
+      "scripts/identity/ci.py": "9ed0df93e8afa32a0c6a5e14c18e098a2c11d357242d6a7fda5773055c1bd332",
+      "scripts/identity/common.py": "7d457723672aa93daf4f1879fd070a22196d245af3c1c6dc639459d009d46539",
+      "scripts/identity/control.py": "ffe9de509fb4a72163d70c5dbab504ff60904849d9ab533276aa89098b057916",
+      "scripts/identity/handover.py": "9b74f6c240329fd4e11d92ccbf0036f3da901a0aa5c452787ef54bc891361d2f",
+      "scripts/identity/preflight.py": "efcb16a71671114f0ff73b0ac01f85a6e6f821fb3e7f67efb328e27ae3977967",
+      "scripts/identity/privacy.py": "452b22055aec3174d82fbd46dbfb47d4a65bb178166d61b20de4f389a3045841",
+      "scripts/identity/provision.py": "b459eca5fe8f805a0534537fedf1798374658c742891c704f4a019da64b107f3",
+      "scripts/identity/reconcile.py": "1ee0ec8f382f722b7374abacc96daf928e4773aa7c805d65deb48ca6c5d997cf",
+      "scripts/identity/restore.py": "2c40ed6cbea8bf2c48383caa39dc5826042893c2cce997797094e0c17d244f4d",
+      "scripts/identity/verify.py": "2d683896292ffa8d8ba8376a35e206638391f0315aef62cd34a705aff89963b3",
+      "scripts/identity/volumes.py": "799e662b6434b4ba5df8fc4e2c75f73f5c21e0d2375262d5af689c76baa21eb6",
+      "scripts/stage_three_types.py": "bc341e29f911485f15dfa2b78110b980276907b8e55b5a4e8bdcca40489f7ff2",
+      "tests/identity/conftest.py": "a824f0a540889fd2aaa5d15a87fda821e1935b24bbfe133dbfd054481b20af90",
+      "tests/identity/handover_lab.py": "f0e4cbdf6717030b29687be8752aa6bf9852ebc97baf99733f5f8fd719ec8080",
+      "tests/identity/recovery_lab.py": "b59cc899777abcf4791648a9ae50ae1153aea6ac5ac63242a86f57d387f7feef",
+      "tests/identity/test_admin_handover_live.py": "6084ad7d2be7b153b03405014f2e4f93c4382fd33bcfaa2f4dc840c214e7a54c",
+      "tests/identity/test_faults_live.py": "b2930ec91a10c3e562ec955242c42ac3ac83218453326220ece172b03e7bc40d",
+      "tests/identity/test_key_rotation_live.py": "4e66e919f10b80408ea11f44f530075e27ae9471853e17e9c308f9570f798304",
+      "tests/identity/test_mapping_live.py": "4b0dfe27276556a351471ba96a4b0a46064f7b7e1476256562b6d12beceab412",
+      "tests/identity/test_oidc_live.py": "c93bbb2f8d64afff592b17fd1004929da0a227940a53ba27bf5e990bec97b6bc",
+      "tests/identity/test_recovery_live.py": "2a817f23cc7c333d5035a893f3c04525cad19218798b316d793b779554511c12",
+      "tests/identity/test_tls_gateway.py": "df20e5eb2e76a8611ef2bd45312a9045eb4572c70dcc27afdc672ea6de7c355c",
+      "tests/platform/test_t013_handover.py": "6167d116fe8f53dc221847f4a18101b7f71fc6832acbf8c6bae6d670c36a6955",
+      "tests/platform/test_t013_identity_checks.py": "eb47f573a3c6fc0221efd67e5f40ba590541e13a57e3ea89572aa08241401fe6",
+      "tests/platform/test_t013_identity_operations.py": "b1d4425e60cfe552199428ff7ce7ece097bbb4556ddd6a346cf94f947cad64e2",
+      "tests/platform/test_t013_privacy_audit.py": "9250bcbe861c7617066f1e2f18b59a0d0c43e7153a4149d3159f97b83a714e3e",
+      "tests/platform/test_t013_recovery_guard.py": "bb401f185705713cb96f7a848b3c87d3536203f3abc01b98cb6b0ec86daa55a6",
+      "tools/identity_oidc_browser.mjs": "004b393f67839fd2a35b24d9ac116ed1885250f553a2609b4fe2c1096571712d",
+      "tools/identity_oidc_probe.py": "f15eb251df0d2c2ce3f9fc8d90a4934ba378616591b7431be1dba5d6d87dcb19"
+    },
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:41.575007+00:00",
+        "elapsed_seconds": 0.21511,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "9a635c2e64ffce309989c1cc6c6dbe0df70a2d1e9d6deaacf432c83210b498cd"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:41.790720+00:00",
+        "elapsed_seconds": 0.81932,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "12e7f5c6474b2b435e8c1bfb04816003bb4537be83a6562dd0632a1dc3c9164b"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/build_stage_one_candidate.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:42.610278+00:00",
+        "elapsed_seconds": 0.165368,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "5341535555f6efb16318c2c517027e2d2204726c719642c302f7e89d13dce22d"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:38:42.775874+00:00",
+        "elapsed_seconds": 28.237628,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "48a9741aa653edb3aab011de1d90ddabd1f3dd44aab6d108d45bf2c44fc06d9f"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:39:11.013748+00:00",
+        "elapsed_seconds": 1.117463,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "10ddf64fab2ed7744273f0a02d9f67e64d623ea1b7690ccbf745047ed4954a6c"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-19T05:39:12.131532+00:00",
+        "elapsed_seconds": 0.165238,
+        "totals": null,
+        "failed_cases": [],
+        "private_log_sha256": "e03291f6ba2f95d12007357476132d08055584c92dd6704da9b575288fdf0815"
+      }
+    ],
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "formal_accepted": false
+  },
+  "tested_source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+  "current_hosted_CI": {
+    "status": "PASS",
+    "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+    "run_id": 39206156386,
+    "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39206156386",
+    "identity_tests": 273,
+    "engineering_gates": 32,
+    "business_tests": 246,
+    "artifact_bytes_and_digests_verified": true
+  },
+  "source_binding": "All 47 identity source hashes equal the exact committed hosted payload and the Linux precommit/live source maps. Subsequent evidence-only delivery is verified separately.",
+  "current_hosted_CI_log_privacy_review": {
+    "status": "PASS_BOUNDED_CURRENT_HOSTED_CI_LOGS",
+    "observed_at": "2026-10-19T06:11:59.132499+00:00",
+    "run_id": 39206156386,
+    "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+    "jobs": [
+      {
+        "job_id": 117909332185,
+        "name": "identity-verification / identity-integration",
+        "decoded_UTF8_log_bytes": 205279,
+        "sha256": "73c8696509c0f79f55a4cef1e1bf42e70ffcb2a07fd9a4613c89f0bf817b7076",
+        "findings": []
+      },
+      {
+        "job_id": 117912494731,
+        "name": "engineering",
+        "decoded_UTF8_log_bytes": 816360,
+        "sha256": "ec47b786e2d22283bf9af7233020cb9ab11e06c1786bcfcd82881c13fd114fb4",
+        "findings": []
+      }
+    ],
+    "retained_prior_failed_jobs": [
+      {
+        "job_id": 117873383990,
+        "run_id": 39194234076,
+        "run_conclusion": "failure",
+        "decoded_UTF8_log_bytes": 204854,
+        "sha256": "7b55a47b1963c1019b7c10a71622541bfbf11f262200ee963f8a8a882455ce94",
+        "findings": []
+      },
+      {
+        "job_id": 117875825447,
+        "run_id": 39194234076,
+        "run_conclusion": "failure",
+        "decoded_UTF8_log_bytes": 812671,
+        "sha256": "4a4ee462b9c97b054f252cd92bdbcd06a6193d8262548c8f0bab283b8a95fb0d",
+        "findings": []
+      },
+      {
+        "job_id": 117880246319,
+        "run_id": 39196476960,
+        "run_conclusion": "failure",
+        "decoded_UTF8_log_bytes": 204626,
+        "sha256": "b0edb47e16bb5c8b38882448f0da03b888d31a9223aee959a2421df10ab548d2",
+        "findings": []
+      },
+      {
+        "job_id": 117882492135,
+        "run_id": 39196476960,
+        "run_conclusion": "failure",
+        "decoded_UTF8_log_bytes": 57120,
+        "sha256": "34e6bda33ab9b5ff68878f15d7599e4c0f70e540baf0bf56198ca0a8bd8503d8",
+        "findings": []
+      }
+    ],
+    "known_private_value_count": 12,
+    "scope": "two_current_payload_jobs_and_four_retained_failed_run_jobs_decoded_by_connector_not_raw_archive_bytes",
+    "synthetic_ephemeral_CI_fixtures_are_not_shared_credentials": true,
+    "full_DLP": false,
+    "unknown_password_detection": false,
+    "raw_logs_published": false,
+    "formal_accepted": false
+  },
+  "source_delivery_verification": {
+    "status": "PASS_T013_ADMIN_HANDOVER_SOURCE_DELIVERY_AND_UNCHANGED_SHARED_RUNTIME",
+    "observed_at": "2026-10-19T05:53:43.470289+00:00",
+    "source_commit": "80eb61c8ec984701fadd07d4bf9d1b929afb4886",
+    "git_worktree_clean": true,
+    "manifest_files_verified": 2009,
+    "manifest_sha256": "99e4325f7bca70d322e8db6ee6dd1bc84d7160d9aae1376107d679b64d8d8966",
+    "manifest_matches_all_tracked_except_self_and_receipt": true,
+    "source_originals_verified": 12,
+    "original_locks_unchanged": [
+      "config/locks/conda-linux-64.explicit.txt",
+      "config/locks/requirements-py310.lock",
+      "config/identity/versions.json",
+      "frontend/package-lock.json"
+    ],
+    "existing_running_containers_verified_unchanged": 41,
+    "existing_project_services": [
+      {
+        "id": "f99770aefdcd",
+        "name": "media-trace-identity-identity-gateway-1",
+        "project": "media-trace-identity",
+        "started_at": "2026-10-17T06:49:36.751495445Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "dc1cfac9d9b0",
+        "name": "media-trace-identity-keycloak-1",
+        "project": "media-trace-identity",
+        "started_at": "2026-10-17T06:46:54.559220608Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "c18e485f71a5",
+        "name": "media-trace-identity-identity-postgres-1",
+        "project": "media-trace-identity",
+        "started_at": "2026-10-17T06:46:42.071084134Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "1f4264d2ea07",
+        "name": "media-trace-py310-worker-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:16.589620508Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "b1fd98fc33a8",
+        "name": "media-trace-py310-inference-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:19.136886727Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "b0d8bdb5e2d7",
+        "name": "media-trace-py310-api-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:25.141427835Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "8ab1441cb3cc",
+        "name": "media-trace-py310-s3-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:33.553331383Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "20d6347b1394",
+        "name": "media-trace-py310-web-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:37.633811982Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "869b8e2178a9",
+        "name": "media-trace-py310-postgres-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:44.101215299Z",
+        "running": true,
+        "healthy": "healthy"
+      },
+      {
+        "id": "93728e609bef",
+        "name": "media-trace-py310-rabbitmq-1",
+        "project": "media-trace-py310",
+        "started_at": "2026-10-14T09:54:48.667656358Z",
+        "running": true,
+        "healthy": "healthy"
+      }
+    ],
+    "temporary_shared_acceptance_realms_remaining": 0,
+    "shared_realm_users": 0,
+    "task_count": 170,
+    "completed_substeps": 86,
+    "remaining_work_items": 621,
+    "whole_tasks_accepted": 0,
+    "T013_completed_substeps": 7,
+    "T013_remaining_items": 3,
+    "roles": {
+      "observed_at": "2026-10-19T02:17:04.261486+00:00",
+      "confirmation_date": "2026-10-19",
+      "confirmed_by": "user",
+      "question": "T013身份系统管理员、T013实际复核人分别由谁承担？",
+      "answer": "都先写徐昌胜",
+      "actual_development_owner": "徐昌胜",
+      "identity_administrator": "徐昌胜",
+      "T013_designated_reviewer": "徐昌胜",
+      "resource_id": "PERSON-002",
+      "scope": "当前人员职责登记；不追记历史操作、账号创建、MFA/bootstrap交接、独立复核或有效验收决定。",
+      "account_created": false,
+      "MFA_handover_complete": false,
+      "bootstrap_removed": false,
+      "actual_review_decision_recorded": false,
+      "formal_accepted": false,
+      "administrator_login": "xuchangsheng",
+      "administrator_login_confirmed_by": "user",
+      "administrator_login_confirmation_date": "2026-10-19",
+      "administrator_login_scope": "Requested login only; no real account/password/MFA or handover created by this record."
+    },
+    "Python_candidates_created": false,
+    "shared_services_restarted": false,
+    "shared_gateway_or_image_adopted": false,
+    "native_migration_executed": false,
+    "T014_started": false,
+    "formal_accepted": false
+  },
+  "key_custody_establishment": {
+    "status": "ACTUAL_INDEPENDENT_SIGNER_AND_PROTECTED_LOCAL_EXPORT_VERIFIED_USB_AND_RECOVERY_PENDING",
+    "custodian": "徐昌胜",
+    "source_user_answer": "尚未建立，请提供具体建立步骤",
+    "software_boundary": "No Gpg4win installation, key generation, private key import, production policy or baseline change is performed by this evidence update.",
+    "role_separation": {
+      "recovery_recipient": "User-selected current internal-RnD mode: recovery primary/decryption subkey in G:/公安厅项目密钥/recovery-gnupg, protected private export in G:/公安厅项目密钥/private-backups; nonempty GPG passphrase entered personally. Disk/container encryption deferred; public metadata and original auto-generated revocation material remain outside that private-key protection. D preparation preserved, no key migration. Only PUBLIC certificate goes to Linux.",
+      "backup_signer": "A different signing-only key is available to the backup operation in a dedicated server GnuPG home. Its private signing key cannot decrypt recovery backups.",
+      "restore": "Existing restore.py needs local GnuPG decryption capability. Offline private custody plus a public-key upload does not implement a remote/hardware decryption bridge or constitute a successful actual restore."
+    },
+    "proposed_internal_RnD_parameters": {
+      "algorithm": "RSA4096",
+      "key_expiry": "1y",
+      "formal_cryptographic_policy_approved": false,
+      "reason": "Explicit compatibility-oriented instructions for existing RSA-capable GnuPG code; actual cross-version smoke verification is still required."
+    },
+    "steps": [
+      {
+        "number": 1,
+        "where": "Trusted custodian Windows workstation",
+        "action": "Windows Gpg4win5.1.1 and GPG/gpgconf2.5.24 have been observed. The engine executable has a valid signature matching the official signing certificate. Installer archive integrity is not separately proven. Use exact Windows executable paths; no PATH/baseline change.",
+        "references": [
+          "https://www.gpg4win.org/get-gpg4win.html",
+          "https://www.gpg4win.org/package-integrity.html"
+        ],
+        "commands": [
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --version"
+        ],
+        "operator_status": "PASS_INSTALLED_VERSION_AND_ENGINE_SIGNATURE_ONLY"
+      },
+      {
+        "number": 2,
+        "where": "User-authorized USB G:/公安厅项目密钥; private-key-passphrase internal RnD only",
+        "action": "DONE BY OPERATOR; do not generate again. Verified RSA4096 certification primary and TWO valid RSA4096 encryption subkeys; both retained. Three private key entries report KEYINFO protection P. Actual decryption and backup restore are pending.",
+        "expected": "Existing complete key group preserved. No duplicate primary/subkey creation.",
+        "operator_status": "PASS_ACTUAL_EXISTENCE_PUBLIC_BINDINGS_AND_PROTECTION_METADATA_ONLY",
+        "historical_generation_commands": [
+          "$ErrorActionPreference = \"Stop\"",
+          "$CustodyRoot = \"G:\\公安厅项目密钥\"",
+          "$CustodyGpg = Join-Path $CustodyRoot \"recovery-gnupg\"",
+          "$TaskUsbVolume = Get-CimInstance Win32_LogicalDisk -Filter \"DeviceID='G:'\"",
+          "if ($TaskUsbVolume.DriveType -ne 2) { throw \"G盘不再是可移动U盘，请核查实际盘符\" }",
+          "if (-not (Test-Path -LiteralPath $CustodyGpg -PathType Container)) { throw \"专用目录不存在，请核查U盘是否连接\" }",
+          "if ((Get-Item -LiteralPath $CustodyGpg -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw \"专用目录不能是链接\" }",
+          "if (@(Get-ChildItem -LiteralPath $CustodyGpg -Force).Count -ne 0) { throw \"目录已有文件，请先核查，不要重复生成\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-generate-key \"MediaTrace RnD Recovery - Xu Changsheng\" rsa4096 cert 1y",
+          "if ($LASTEXITCODE -ne 0) { throw \"主密钥生成未成功，停止后续操作\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --fingerprint --list-keys",
+          "if ($LASTEXITCODE -ne 0) { throw \"指纹读取失败，停止\" }",
+          "$RecoveryFpr = (Read-Host \"输入刚生成的恢复主密钥完整指纹，不是口令\") -replace \"\\s\", \"\"",
+          "if ($RecoveryFpr -notmatch \"^[A-Fa-f0-9]{40}(?:[A-Fa-f0-9]{24})?$\") { throw \"完整指纹格式无效\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-add-key \"$RecoveryFpr\" rsa4096 encrypt 1y",
+          "if ($LASTEXITCODE -ne 0) { throw \"加密子密钥添加未成功，停止后续操作，不重新生成主密钥\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --with-subkey-fingerprint --list-secret-keys \"$RecoveryFpr\"",
+          "if ($LASTEXITCODE -ne 0) { throw \"密钥检查失败，停止\" }"
+        ]
+      },
+      {
+        "number": 3,
+        "where": "Trusted workstation",
+        "action": "Both existing USB backup files are structurally verified: protected complete secret export and AES256 symmetric revocation envelope. Do not repeat export/encryption; actual decrypt/restore and revocation plaintext comparison remain pending. No revocation certificate imported.",
+        "expected": "Public export, private export protected with the private-key passphrase, and independently symmetric-encrypted revocation backup. Original automatic revocation file remains physically controlled on the USB; no false all-files-encrypted or independent-backup claim.",
+        "operator_status": "PASS_SECRET_PROTECTION_AND_REVOCATION_ENVELOPE_ONLY_ACTUAL_DECRYPT_RESTORE_PENDING",
+        "previous_combined_backup_commands": [
+          "$ErrorActionPreference = \"Stop\"",
+          "$Gpg = \"D:\\GnuPG\\bin\\gpg.exe\"",
+          "$KeyHome = \"G:\\公安厅项目密钥\\recovery-gnupg\"",
+          "$RecoveryFpr = \"1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF\"",
+          "$SecretBackup = \"G:\\公安厅项目密钥\\private-backups\\recovery-secret-backup.asc\"",
+          "$ProtectedRevocation = \"G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg\"",
+          "$OriginalRevocation = Join-Path (Join-Path $KeyHome \"openpgp-revocs.d\") ($RecoveryFpr + \".rev\")",
+          "if (-not (Test-Path -LiteralPath $KeyHome -PathType Container) -or -not (Test-Path -LiteralPath $OriginalRevocation -PathType Leaf)) { throw \"原密钥或吊销材料未找到，停止核查\" }",
+          "foreach ($TaskTarget in @($SecretBackup, $ProtectedRevocation)) { if (Test-Path -LiteralPath $TaskTarget) { throw \"备份文件已存在，停止，不覆盖\" } }",
+          "& $Gpg --homedir \"$KeyHome\" --armor --output \"$SecretBackup\" --export-secret-keys \"$RecoveryFpr\"",
+          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $SecretBackup).Length -eq 0) { throw \"私钥备份导出失败，停止，不重新生成密钥\" }",
+          "& $Gpg --homedir \"$KeyHome\" --symmetric --cipher-algo AES256 --output \"$ProtectedRevocation\" \"$OriginalRevocation\"",
+          "if ($LASTEXITCODE -ne 0 -or (Get-Item -LiteralPath $ProtectedRevocation).Length -eq 0) { throw \"吊销材料副本加密失败，停止核查\" }",
+          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$KeyHome\" --kill gpg-agent",
+          "if ($LASTEXITCODE -ne 0) { throw \"专用缓存清理失败，停止核查\" }",
+          "Get-Item -LiteralPath $SecretBackup, $ProtectedRevocation | Select-Object Name, Length"
+        ],
+        "historical_revocation_copy_encryption_commands": [
+          "$ErrorActionPreference = \"Stop\"",
+          "$SourceFile = \"G:\\公安厅项目密钥\\recovery-gnupg\\openpgp-revocs.d\\1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF.rev\"",
+          "$EncryptedCopy = \"G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg\"",
+          "if (-not (Test-Path -LiteralPath $SourceFile -PathType Leaf)) { throw \"原吊销材料未找到，停止核查\" }",
+          "if (Test-Path -LiteralPath $EncryptedCopy) { throw \"加密副本已存在，停止，不覆盖\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --no-symkey-cache --symmetric --cipher-algo AES256 --output \"$EncryptedCopy\" \"$SourceFile\"",
+          "if ($LASTEXITCODE -ne 0) { throw \"吊销材料副本加密失败，停止操作\" }",
+          "if ((Get-Item -LiteralPath $EncryptedCopy).Length -eq 0) { throw \"加密副本为空，停止核查\" }",
+          "Get-Item -LiteralPath $EncryptedCopy | Select-Object Name, Length",
+          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"G:\\公安厅项目密钥\\recovery-gnupg\" --kill gpg-agent"
+        ]
+      },
+      {
+        "number": 4,
+        "where": "Windows SSH client and Linux R&D host",
+        "action": "DONE FOR EXACT CURRENT CERTIFICATE: public-only upload and Linux/Windows hash plus all three complete fingerprints and bindings agree. No recovery private transfer or shared backup configuration adoption.",
+        "expected": "Same full recovery primary fingerprint on both machines; only a PUBLIC recipient is on the server.",
+        "operator_status": "PASS_EXACT_PUBLIC_CERTIFICATE_INSTALLED_AND_VERIFIED",
+        "historical_public_upload_commands": {
+          "PowerShell_commands": [
+            "$PublicMaterial = \"G:\\公安厅项目密钥\\public\"",
+            "ssh glwy@172.16.58.179 \"install -d -m 700 /workspace/glwy/runtime/media-traceability-system/identity-custody/public /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"公钥上传步骤失败，停止核查\" }",
+            "scp \"$PublicMaterial\\recovery-recipient.asc\" glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+            "if ($LASTEXITCODE -ne 0) { throw \"公钥上传步骤失败，停止核查\" }"
+          ],
+          "Linux_commands": [
+            "chmod 600 /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+            "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --show-keys --with-fingerprint --with-subkey-fingerprint /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc"
+          ]
+        }
+      },
+      {
+        "number": 5,
+        "where": "Linux R&D host, attended interactive SSH terminal",
+        "action": "DONE BY OWNER: actual independent RSA4096 signer created after terminal repair. Fresh read-only server verification confirms full fingerprint, signing/certification only, valid public self-signature, KEYINFO protection P and protected local export structure. Do not rerun generation or add encryption keys. USB backup and actual signature/restore proof pending.",
+        "expected": "Signer has signing/certification capability and NO encryption secret key. Replace ACTUAL_SIGNER_PRIMARY_FINGERPRINT with the observed full public fingerprint. Store an encrypted signer recovery copy by the agreed separate custody route.",
+        "operator_status": "PASS_ACTUAL_SIGNER_EXISTENCE_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_ONLY",
+        "historical_manual_signer_commands": [
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --list-secret-keys",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --quick-generate-key \"MediaTrace RnD Backup Signer - Xu Changsheng\" rsa4096 sign 1y",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --fingerprint --list-secret-keys",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --armor --output /workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc --export ACTUAL_SIGNER_PRIMARY_FINGERPRINT"
+        ],
+        "historical_operator_retry_commands": [
+          "ssh -tt glwy@172.16.58.179 \"bash /workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh\"",
+          "if ($LASTEXITCODE -ne 0) { throw \"签名密钥尚未建立成功，停止并保留错误文字；不要重复生成U盘恢复密钥\" }"
+        ]
+      },
+      {
+        "number": 6,
+        "where": "Both machines; use a nonsensitive key-check message",
+        "action": "AFTER ACTUAL SIGNER: exercise both existing encryption subkeys by explicit full subkey fingerprint with ! and independently verify the new signer full primary fingerprint. Existing one-message sample is historical and cannot prove both decryption subkeys or actual database recovery.",
+        "expected": "Successful decryption, exact fixed marker and VALIDSIG identifying the independently compared full signer fingerprint; ownertrust warnings alone are not signer identity verification. Preserve public fingerprint/result metadata, not private keys or passphrases.",
+        "remaining_operator_inputs": [
+          "recovery public-key server path and complete fingerprint",
+          "signer public-key server path and complete fingerprint",
+          "custodian media availability and independent storage arrangement"
+        ],
+        "backup_code_boundary": "backup.py and restore.py intentionally use --pinentry-mode error. They do not prompt for a passphrase. An attended separate benign signing/decryption check may unlock the dedicated agent before a short operation; absent/expired agent authorization must fail. Do not add password arguments, empty-passphrase keys or persistent unattended credential caches to bypass this. Unattended daily backups require a separately established controlled signing/token facility.",
+        "cache_cleanup": "End only this dedicated USB GnuPG agent with the actual home, close all open project-key files, then safely eject the USB and unplug it for physical offline custody. These actions are not yet observed. Do not kill unrelated agents or force-eject an in-use drive.",
+        "operator_status": "NOT_EXECUTED_WAIT_BOTH_KEY_BACKUPS_AND_SIGNER",
+        "historical_single_message_example": {
+          "PowerShell_commands": [
+            "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$PublicMaterial\\backup-signer.asc\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/key-check.txt.gpg \"$PublicMaterial\\key-check.txt.gpg\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --import \"$PublicMaterial\\backup-signer.asc\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "if (Test-Path -LiteralPath \"$CustodyRoot\\key-check-restored.txt\") { throw \"检查明文已存在，停止，不覆盖\" }",
+            "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --status-fd 2 --output \"$CustodyRoot\\key-check-restored.txt\" --decrypt \"$PublicMaterial\\key-check.txt.gpg\"",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }",
+            "Get-Content -LiteralPath \"$CustodyRoot\\key-check-restored.txt\"",
+            "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$CustodyGpg\" --kill gpg-agent",
+            "if ($LASTEXITCODE -ne 0) { throw \"互通步骤失败，停止核查\" }"
+          ],
+          "Linux_commands": [
+            "TaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody",
+            "TaskGpg=\"$TaskCustody/signer-gnupg\"",
+            "export GPG_TTY=\"$(tty)\"",
+            "read -r -p \"恢复主密钥完整指纹：\" TaskRecoveryFpr",
+            "read -r -p \"签名主密钥完整指纹：\" TaskSignerFpr",
+            "gpg --homedir \"$TaskGpg\" --import \"$TaskCustody/public/recovery-recipient.asc\"",
+            "printf \"%s\\n\" \"media-trace-rnd-key-check\" > \"$TaskCustody/key-check.txt\"",
+            "gpg --homedir \"$TaskGpg\" --local-user \"$TaskSignerFpr\" --recipient \"$TaskRecoveryFpr\" --output \"$TaskCustody/key-check.txt.gpg\" --encrypt --sign \"$TaskCustody/key-check.txt\""
+          ]
+        }
+      },
+      {
+        "number": 7,
+        "where": "Actual recovery planning",
+        "action": "Before any real restore, establish the controlled temporary/hardware decryption path for existing restore.py, independent private custody, configuration/API-secret coordination and maintenance evidence. Uploading public keys alone does not close T013-R02 or certify disaster recovery.",
+        "operator_status": "NOT_EXECUTED_REAL_RECOVERY_AND_INDEPENDENT_CUSTODY_PENDING"
+      }
+    ],
+    "official_command_reference": "https://gnupg.org/documentation/manuals/gnupg/OpenPGP-Key-Management.html",
+    "actual_private_keys_created_or_imported": true,
+    "actual_backup_or_restore_performed": false,
+    "formal_accepted": false,
+    "current_operator_progress": {
+      "observed_at": "2026-10-19T12:37:24.042907+00:00",
+      "task_id": "T013",
+      "related_remaining_item": "T013-R02",
+      "scope": "Owner successfully created the real independent RSA4096 signing/certification key after terminal repair. Read-only server verification confirms the exact public fingerprint, valid self-signature, KEYINFO protection P, 1672-byte public export, protected 3486-byte private export and 1820-byte automatic revocation certificate. No encryption capability is intentional role separation. Actual signing, USB signer backup transfer, both-subkey decrypt/signature and restored-home/independent-medium recovery remain unverified.",
+      "downloaded": {
+        "status": "USER_REPORTED",
+        "source": "2026-10-19 user: 对应的gpg4对应的已经下载"
+      },
+      "installed_tools": {
+        "status": "PASS_CURRENT_WINDOWS_VERSION_AND_ENGINE_SIGNATURE_ONLY",
+        "gpg4win_version": "5.1.1",
+        "gpg4win_directory": "D:/gpg4win",
+        "gpg_executable": "D:/GnuPG/bin/gpg.exe",
+        "gpg_version": "2.5.24",
+        "gpgconf_executable": "D:/GnuPG/bin/gpgconf.exe",
+        "gpgconf_version": "2.5.24",
+        "gpg_executable_sha256": "7a334fbd16ba02af568b30cd66a89c49104b0af4c3a3556174bfd26ca2295ced",
+        "authenticode_status": "Valid",
+        "signer": "g10 Code GmbH",
+        "certificate_serial": "271DF934504F8E383B33BCE5",
+        "certificate_sha256": "cd5616b8ee4cf0eb90457e14e9892a6ebc26b5d3665903ee13cf1ece79700e2a",
+        "official_certificate_reference": "https://www.gpg4win.org/package-integrity.html",
+        "official_signer_certificate_matched": true,
+        "installer_file_located": false,
+        "installer_archive_sha256_verified": false,
+        "system_PATH_changed": false
+      },
+      "Linux_version_observed": "2.4.4",
+      "user_installation_confirmation": "已经安装完成",
+      "custody_path_request": {
+        "user_answer": "G:\\公安厅项目密钥 现在对应的u盘作为对应的离线设备",
+        "path": "G:/公安厅项目密钥",
+        "directory_exists": true,
+        "attributes": [
+          "Directory"
+        ],
+        "volume_type": "Removable",
+        "volume_filesystem": "FAT32",
+        "outside_repository": true,
+        "directory_is_reparse_point": false,
+        "volume_encryption_status": "USER_REPORTED_NOT_ENCRYPTED",
+        "volume_encryption_user_answer": "尚未加密",
+        "BitLocker_query_status": "NOT_VERIFIED_PERMISSION_DENIED",
+        "directory_empty_before_preparation": true,
+        "accepted_as_removable_device_location": true,
+        "accepted_as_encrypted_private_key_home": false,
+        "offline_custody_confirmed": false,
+        "acceptance_scope": "User-selected GPG-private-key-passphrase internal-RnD arrangement. Whole-medium encryption deferred; actual key protection and offline custody remain unverified.",
+        "accepted_as_current_internal_RnD_private_key_home": true
+      },
+      "remaining_operator_milestones": [
+        {
+          "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+          "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+          "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+        },
+        {
+          "name": "U盘三把私钥的GPG保护存储",
+          "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+          "scope": "No passphrase, private-file content or decryption result inspected."
+        },
+        {
+          "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+          "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+          "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+        },
+        {
+          "name": "恢复私钥备份与吊销材料加密副本",
+          "status": "PASS_PROTECTED_SECRET_EXPORT_AND_AES256_REVOCATION_ENVELOPE_ONLY_RESTORE_PENDING"
+        },
+        {
+          "name": "Linux独立仅签名密钥及其受保护导出",
+          "status": "PASS_REAL_SIGNER_AND_PROTECTED_LOCAL_EXPORT_STRUCTURE_ONLY_USB_AND_RESTORE_PENDING",
+          "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D"
+        },
+        {
+          "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+          "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+        },
+        {
+          "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+          "status": "NOT_VERIFIED"
+        },
+        {
+          "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+          "status": "NOT_VERIFIED"
+        }
+      ],
+      "next_action": "Preserve the real key and do not rerun creation or add encryption subkeys. Next owner step is to copy the verified signer public certificate and existing protected signer private export from Linux to USB, with no overwrite and exact public/private copy hash comparison. Then encrypt the signer revocation copy and perform real benign signing, exact two-subkey decryption, detached-signature and isolated restored-home tests using attended private prompts.",
+      "GPG_key_custody_established": false,
+      "actual_keys_generated_by_this_update": false,
+      "actual_interoperability_verified": false,
+      "actual_recovery_validated": false,
+      "formal_accepted": false,
+      "Python_candidates_created": false,
+      "custody_mode_decision": {
+        "user_answer": "先仅用GPG口令保护私钥做内部研发，整盘或容器加密暂缓",
+        "status": "USER_CONFIRMED_USB_GPG_PASSPHRASE_INTERNAL_RND_ONLY",
+        "scope": "Use G:/公安厅项目密钥 as current internal-RnD home with personally chosen nonempty GPG private-key protection. USB disk/container encryption explicitly deferred; does not satisfy an encrypted-medium or completed offline-recovery acceptance condition.",
+        "user_selected_removable_media": true,
+        "encrypted_storage_method_confirmed": false,
+        "offline_custody_claimed": false,
+        "formal_accepted": false,
+        "USB_location_user_answer": "G:\\公安厅项目密钥 现在对应的u盘作为对应的离线设备",
+        "protection_route_confirmed": true,
+        "accepted_for_current_local_RnD": true
+      },
+      "directory_preparation": {
+        "observed_at": "2026-10-19T09:55:25.0983808Z",
+        "status": "PASS_USB_DIRECTORY_PREPARATION_ONLY_ENCRYPTION_AND_KEYS_PENDING",
+        "user_answer": "G:\\公安厅项目密钥 现在对应的u盘作为对应的离线设备",
+        "root": "G:\\公安厅项目密钥",
+        "drive_type": "Removable",
+        "filesystem": "FAT32",
+        "drive_size_bytes": 122979713024,
+        "drive_free_bytes": 68840325120,
+        "directory_empty_before_preparation": true,
+        "directory_is_reparse_point": false,
+        "directories": [
+          "recovery-gnupg",
+          "public",
+          "private-backups"
+        ],
+        "all_prepared_subdirectories_empty": true,
+        "ACL_supported_for_these_directories": false,
+        "ACL_changes_attempted": false,
+        "volume_encryption_status": "USER_REPORTED_NOT_ENCRYPTED",
+        "volume_encryption_user_answer": "尚未加密",
+        "BitLocker_query_status": "NOT_VERIFIED_PERMISSION_DENIED",
+        "volume_encryption_verified": false,
+        "volume_encryption_changed": false,
+        "volume_formatted": false,
+        "USB_currently_attached": true,
+        "safe_ejection_observed": false,
+        "existing_files_overwritten": false,
+        "D_original_material_preserved": true,
+        "D_original_key_file_count": 0,
+        "actual_keys_generated": false,
+        "offline_custody_established": false,
+        "formal_accepted": false
+      },
+      "deferred_formal_conditions": [
+        "User explicitly defers disk/container encryption; nonempty GPG private-key passphrases do not encrypt all key-home metadata, public keys or automatically generated revocation certificates.",
+        "FAT32 has no NTFS directory ACLs. Prior D permission evidence does not apply to G:. The currently attached USB has not been observed in offline storage.",
+        "No actual keys, public fingerprint comparison, encrypted marker interoperability, independently recoverable private backup or physical offline custody evidence yet.",
+        "Actual database restore still needs a controlled decryption path plus API-secret/private-configuration coordination. No N01/T013 software admission or formal recovery approval added."
+      ],
+      "custody_preparation_history": [
+        {
+          "observed_at": "2026-10-19T09:46:17.059495+00:00",
+          "custody_path_request": {
+            "user_answer": "D:\\公安厅密钥 存放密钥的地址",
+            "path": "D:/公安厅密钥",
+            "directory_exists": true,
+            "attributes": [
+              "Directory",
+              "Compressed"
+            ],
+            "volume_type": "Fixed",
+            "volume_filesystem": "NTFS",
+            "outside_repository": true,
+            "volume_encryption_status": "NOT_VERIFIED_PERMISSION_DENIED",
+            "offline_custody_confirmed": false,
+            "accepted_as_recovery_private_key_home": true,
+            "acceptance_scope": "Current user-authorized online D-drive internal-RnD custody only",
+            "directory_empty_before_preparation": true,
+            "observed_item_count_before_preparation": 0
+          },
+          "custody_mode_decision": {
+            "user_answer": "就先使用对应的D盘路径完成对应的密钥管理",
+            "scope": "Current local internal-RnD custody at D:/公安厅密钥, explicitly selected by user in place of the earlier offline-directory prerequisite for this batch. Offline disaster-recovery acceptance remains unfulfilled.",
+            "accepted_for_current_local_RnD": true,
+            "offline_custody_claimed": false,
+            "formal_accepted": false
+          },
+          "directory_preparation": {
+            "observed_at": "2026-10-19T09:42:14.0262637Z",
+            "status": "PASS_CURRENT_D_DRIVE_DIRECTORY_PREPARATION_ONLY",
+            "authorization": "User explicitly requested D:\\公安厅密钥 for current key management; online local RnD custody, not offline acceptance",
+            "root": "D:\\公安厅密钥",
+            "directories": [
+              "recovery-gnupg",
+              "public",
+              "private-backups"
+            ],
+            "root_inheritance_disabled": true,
+            "allowed_principals": [
+              "current Windows user",
+              "SYSTEM",
+              "local Administrators"
+            ],
+            "all_four_directory_permissions_verified": true,
+            "existing_files_overwritten": false,
+            "actual_keys_generated": false,
+            "encrypted_volume_verified": false,
+            "offline_custody_established": false,
+            "formal_accepted": false
+          },
+          "next_action": "Custodian runs the supplied exact D-drive PowerShell key-generation commands and enters a nonempty key-protection passphrase in their local GPG prompt; then export/upload public keys, create separate server signer and verify a fixed marker. No passphrase/private key is sent in chat."
+        }
+      ],
+      "Windows_BitLocker_capability": {
+        "observed_caption": "Microsoft Windows 11 家庭版 中文版",
+        "observed_version": "10.0.26200",
+        "BitLocker_To_Go_creation_via_control_panel_supported": false,
+        "current_USB_encryption_changed": false,
+        "official_reference": "https://support.microsoft.com/en-us/windows/security/encryption/bitlocker-drive-encryption",
+        "scope": "Windows Home cannot enable this manual BitLocker Drive Encryption feature via the documented Control Panel flow. This is not a claim about all Windows Home device encryption or unlocking existing BitLocker media."
+      },
+      "encryption_method_question": {
+        "status": "USER_ANSWER_RECEIVED",
+        "options": [
+          "VeraCrypt file container on the USB, installed and unlocked personally by the custodian; no device formatting",
+          "Passphrase-protected GPG private keys on the USB for limited internal RnD only; disk/container encryption deferred"
+        ],
+        "chosen": "GPG_PRIVATE_KEY_PASSPHRASE_ONLY_INTERNAL_RND",
+        "extra_software_installed": false,
+        "container_created": false,
+        "password_or_private_key_requested": false,
+        "user_answer": "先仅用GPG口令保护私钥做内部研发，整盘或容器加密暂缓",
+        "volume_or_container_encryption_deferred": true
+      },
+      "latest_CI_recheck": {
+        "observed_at": "2026-10-19T12:28:08.562Z",
+        "id": 39226217064,
+        "source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+        "status": "completed",
+        "conclusion": "success",
+        "run_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39226217064",
+        "scope": "Hosted CI covers this application source, not the separately tested terminal operator utility or documentation-only descendants."
+      },
+      "current_operator_guide": {
+        "local_path": "D:\\公安厅项目\\修订成果\\T013_下一步吊销材料备份与Linux签名_20261019.txt",
+        "original_entry_local_path": "D:\\公安厅项目\\修订成果\\T013_GPG密钥保管建立步骤_20261019.txt",
+        "Linux_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/operator-gpg-steps.txt",
+        "sha256": "263110bbd049d7b7666c1cbf8454a2c604222511bc468ab1de4f0b64eec62ef7",
+        "instructions_executed": false,
+        "scope": "Actual signer verified; owner next copies existing public certificate and protected private export to USB with exact hash checks. No regeneration; actual signing/decryption/recovery remains pending."
+      },
+      "operator_progress_history": [
+        {
+          "observed_at": "2026-10-19T10:03:07.603029+00:00",
+          "scope": "Explicitly user-authorized USB passphrase-protected private-key custody for same-unit internal RnD only. Disk/container encryption deferred. Empty directory preparation, no actual key generation or backup/restore by this update.",
+          "next_action": "Custodian personally runs exact USB-home PowerShell commands in the supplied current guide, chooses a nonempty private-key passphrase in local GPG prompts, then provides only public fingerprints and public-key server paths. No extra software or volume encryption. Existing D material preserved; actual keys, interoperability, offline storage and restoration still need evidence.",
+          "remaining_operator_milestones": [
+            {
+              "name": "本人在G盘专用home生成恢复认证主密钥与加密子密钥并设置非空口令",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "导出公钥及受口令保护的私钥备份，另加密吊销材料副本并保管其原件",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "公钥上传及两端完整主指纹与子密钥指纹比对",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "服务器独立仅签名密钥及其受保护备份保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "固定无敏感文本跨端加密签名/解密验签",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "清理专用缓存、安全弹出U盘并落实独立介质备份",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际备份及受控新卷恢复验证",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T10:45:44.490824+00:00",
+          "scope": "Actual operator-created USB recovery primary plus two encryption subkeys verified through public bindings and GnuPG secret-availability/protection metadata. Exact PUBLIC certificate installed and independently checked on Linux. No private key transfer, actual backup, signing-key generation, decryption or formal recovery by this update.",
+          "next_action": "Owner exports the existing complete recovery key group, including both encryption subkeys, into a passphrase-protected USB secret backup and symmetrically encrypts the existing revocation certificate copy. Then runs the prepared attended Linux signer helper; it refuses existing keys, overwrites and noninteractive generation. All passphrases remain in owner GPG prompts. Actual signer backup, both-subkey interoperability and recovery follow after observed success.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "NOT_EXECUTED_AWAIT_OWNER_LOCAL_PASSPHRASE"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "NOT_EXECUTED_OWNER_HELPER_PREFLIGHT_ONLY"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T10:58:26.437818+00:00",
+          "scope": "Recheck of owner completion claim: current USB private-backups empty and Linux independent signer/public/secret export absent. Owner transcript confirms repeated encryption-subkey generation and public export only. Existing keys preserved; two exact-subkey PUBLIC encryption probes prepared, copied and hash-verified. Actual private decryption/signature/restore not executed.",
+          "next_action": "Guide only the next attended owner operation: export the existing complete recovery secret-key group to the expected USB backup path using the original passphrase, guard no overwrite and verify a nonempty file. Do not rerun quick-generate-key or quick-add-key. Then encrypt the revocation copy and create the Linux independent signer; only after those actual outputs exist, proceed to both-subkey decryption, exact signer verification and isolated backup restoration.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "NOT_COMPLETED_EXPECTED_FILES_ABSENT_TRANSCRIPT_CLARIFIED"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "NOT_COMPLETED_EXPECTED_SIGNER_ABSENT_TRANSCRIPT_CLARIFIED"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T11:07:34.347738+00:00",
+          "scope": "Actual recovery secret export now exists on USB: locally parsed public fingerprints and protected private-packet structure match the original primary plus both encryption subkeys. This supersedes the earlier absent-export observation for this file only. Revocation encrypted copy and Linux independent signer still absent; no private decryption or backup restoration.",
+          "next_action": "Owner symmetrically encrypts the existing revocation certificate copy into USB private-backups, without importing it or repeating the completed secret export. Then creates the independent Linux signing-only backup key via the already-prepared attended helper. After actual outputs, verify public signer and run both explicit-subkey decryption plus isolated backup restoration.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "PARTIAL_PROTECTED_SECRET_EXPORT_STRUCTURE_VERIFIED_REVOCATION_COPY_PENDING"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "NOT_COMPLETED_EXPECTED_SIGNER_ABSENT_TRANSCRIPT_CLARIFIED"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T11:43:25.367118+00:00",
+          "scope": "USB revocation encrypted copy now observed (1329 bytes), AES256 symmetric envelope verified without decryption/import. Protected recovery secret export rechecked (10361 bytes; original primary and both encryption subkeys). Linux signer creation was attempted but cancelled; owner confirms cancelling/exiting the visible passphrase dialog. Fresh check found zero signer private keys, zero partial private-key files and no signer exports. No key or agent configuration change is required by this observation.",
+          "next_action": "Owner retries the existing attended Linux signer helper, sets and confirms a different nonempty passphrase in the GPG dialog, and permits protected private export when prompted. Assistant then verifies actual public signer and protection before arranging both exact-subkey decryption, detached-signature verification and independent restored-home tests. Do not regenerate USB keys or overwrite completed exports.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "PASS_PROTECTED_SECRET_EXPORT_AND_AES256_REVOCATION_ENVELOPE_ONLY_RESTORE_PENDING"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "ATTEMPTED_FAILED_OWNER_CANCELLED_NO_PARTIAL_KEY_SAFE_TO_RETRY_ATTENDED"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        },
+        {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "scope": "Second attended signer attempt returned Timeout; no signer/partial keys or exports remain. Reproduced SSH terminal input failure in isolated default-pinentry/TERM=dumb test; project signer home now explicitly uses pinentry-curses, helper normalizes missing/dumb TERM and refreshes only its dedicated agent. Fixed nonsecret masked input, all three helper terminal states and actual Windows SSH confirmation passed. Actual signer generation, protected signer export, both-subkey decrypt/signature and restore still require owner action; no operational passphrase supplied by automation.",
+          "next_action": "Owner runs the repaired helper with ssh -tt, enters a NEW nonempty independently held passphrase only inside its terminal Passphrase field, confirms and completes protected export prompts. The prior chat/transcript value must not be used. After observed signer success, verify public fingerprint/protection and prepare both-subkey decrypt/signature plus restored-home checks.",
+          "remaining_operator_milestones": [
+            {
+              "name": "U盘恢复认证主密钥及实际两把加密子密钥生成",
+              "status": "PASS_PUBLIC_BINDINGS_AND_SECRET_AVAILABILITY_METADATA",
+              "scope": "Two encryption subkeys observed, both retained; no extra generation/revocation."
+            },
+            {
+              "name": "U盘三把私钥的GPG保护存储",
+              "status": "PASS_KEYINFO_PROTECTION_P_METADATA_ONLY",
+              "scope": "No passphrase, private-file content or decryption result inspected."
+            },
+            {
+              "name": "恢复公钥及Linux完整主/子指纹、摘要比对",
+              "status": "PASS_EXACT_PUBLIC_CERTIFICATE_ONLY",
+              "scope": "One PUBLIC certificate, three fingerprints, zero recovery secret transfer."
+            },
+            {
+              "name": "恢复私钥备份与吊销材料加密副本",
+              "status": "PASS_PROTECTED_SECRET_EXPORT_AND_AES256_REVOCATION_ENVELOPE_ONLY_RESTORE_PENDING"
+            },
+            {
+              "name": "Linux独立仅签名密钥及其受保护导出",
+              "status": "TERMINAL_TIMEOUT_PATH_REPAIRED_AND_TESTED_ACTUAL_SIGNER_AWAIT_OWNER"
+            },
+            {
+              "name": "两把加密子密钥逐一跨端解密及独立签名验签",
+              "status": "PUBLIC_ENCRYPTION_PROBES_READY_PRIVATE_DECRYPTION_AND_SIGNATURE_NOT_EXECUTED"
+            },
+            {
+              "name": "独立介质副本恢复、清缓存与安全弹出离线保管",
+              "status": "NOT_VERIFIED"
+            },
+            {
+              "name": "实际身份备份、受控新卷恢复及旧会话/密钥失效",
+              "status": "NOT_VERIFIED"
+            }
+          ]
+        }
+      ],
+      "actual_operator_recovery_keys_generated": true,
+      "actual_recovery_public_export_verified": true,
+      "actual_recovery_public_uploaded_and_verified_on_Linux": true,
+      "actual_private_key_file_contents_read_by_this_update": false,
+      "recovery_public_and_secret_availability_verification": {
+        "status": "PASS_RECOVERY_PUBLIC_STRUCTURE_BINDINGS_AND_SECRET_AVAILABILITY_METADATA_ONLY",
+        "observed_at": "2026-10-19T10:42:40.915529+00:00",
+        "task_id": "T013",
+        "related_remaining_item": "T013-R02",
+        "custodian": "徐昌胜",
+        "user_reported_generated": true,
+        "public_file": "G:\\公安厅项目密钥\\public\\recovery-recipient.asc",
+        "public_file_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+        "public_file_size_bytes": 4845,
+        "keys": [
+          {
+            "type": "pub",
+            "validity": "u",
+            "bits": 4096,
+            "algorithm": 1,
+            "created_epoch": 1792405504,
+            "expires_epoch": 1823941504,
+            "capabilities": "cEC",
+            "fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+            "uid": "MediaTrace RnD Recovery - Xu Changsheng",
+            "created_at": "2026-10-19T10:25:04+00:00",
+            "expires_at": "2027-10-19T10:25:04+00:00"
+          },
+          {
+            "type": "sub",
+            "validity": "u",
+            "bits": 4096,
+            "algorithm": 1,
+            "created_epoch": 1792406087,
+            "expires_epoch": 1823942087,
+            "capabilities": "e",
+            "fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+            "created_at": "2026-10-19T10:34:47+00:00",
+            "expires_at": "2027-10-19T10:34:47+00:00"
+          },
+          {
+            "type": "sub",
+            "validity": "u",
+            "bits": 4096,
+            "algorithm": 1,
+            "created_epoch": 1792406150,
+            "expires_epoch": 1823942150,
+            "capabilities": "e",
+            "fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+            "created_at": "2026-10-19T10:35:50+00:00",
+            "expires_at": "2027-10-19T10:35:50+00:00"
+          }
+        ],
+        "export_matches_USB_public_ring": true,
+        "primary_self_signature_and_subkey_bindings_verified": 3,
+        "secret_key_availability_verified_via_metadata": true,
+        "private_file_contents_read": false,
+        "private_material_exported_by_this_verification": false,
+        "private_material_uploaded": false,
+        "actual_operator_recovery_keys_generated": true,
+        "actual_keys_generated_by_assistant": false,
+        "private_key_passphrase_protection_verified": false,
+        "private_backup_files_observed": 0,
+        "revocation_certificate_present": true,
+        "encryption_subkey_count": 2,
+        "expected_design_encryption_subkey_count": 1,
+        "extra_subkey_disposition": "Both valid existing encryption subkeys retained without deletion, revocation or new generation. Backup must include both, later interoperability must exercise both explicitly. No backup-recipient subkey adopted by this observation.",
+        "backup_or_restore_executed": false,
+        "physical_offline_custody_verified": false,
+        "disk_or_container_encryption_deferred": true,
+        "Python_candidates_created": false,
+        "formal_accepted": false,
+        "stored_private_key_protection_metadata": [
+          {
+            "fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+            "key_type": "D",
+            "protection": "P"
+          },
+          {
+            "fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+            "key_type": "D",
+            "protection": "P"
+          },
+          {
+            "fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+            "key_type": "D",
+            "protection": "P"
+          }
+        ],
+        "all_three_private_keys_report_P_protection": true,
+        "protection_check_scope": "GnuPG KEYINFO metadata reports passphrase-protected storage for certification primary and both encryption subkeys. Actual decryption/passphrase entry and recoverability are not tested by this metadata check.",
+        "keyinfo_reference": "https://lists.gnupg.org/pipermail/gnupg-commits/2011-April/009419.html"
+      },
+      "Linux_public_recipient_verification": {
+        "status": "PASS_EXACT_PUBLIC_RECIPIENT_ON_LINUX_NO_PRIVATE_TRANSFER",
+        "observed_at": "2026-10-19T10:40:20.779248+00:00",
+        "public_server_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+        "public_file_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+        "public_file_size_bytes": 4845,
+        "public_fingerprints": [
+          "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+          "74FF3C32A5738FAD98C9A90D97672271E1161785",
+          "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133"
+        ],
+        "public_signatures_verified": 3,
+        "existing_different_file_overwritten": false,
+        "recipient_mode": "0600",
+        "custody_directory_mode": "0700",
+        "Linux_GPG_version": "gpg (GnuPG) 2.4.4",
+        "server_signer_private_key_count": 0,
+        "server_signer_generated_by_this_update": false,
+        "server_recovery_private_material_imported": false,
+        "backup_or_restore_executed": false,
+        "physical_offline_custody_verified": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false
+      },
+      "Linux_signer_helper_preflight": {
+        "status": "PASS_SYNTAX_THREE_GUARDS_THREE_REAL_PTY_STATES_AND_WINDOWS_SSH_CONFIRMATION",
+        "script_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+        "evidence": {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "status": "PASS_SCOPED_TERMINAL_INPUT_REPAIR_ONLY_ACTUAL_SIGNER_NOT_CREATED",
+          "failed_owner_attempt": "GPG agent key generation returned Timeout; suggested passphrase appeared in owner transcript. Never copy that value into repository or tooling.",
+          "root_cause_scope": "Real isolated PTY characterization reproduced no visible terminal input and bounded wait with default graphical pinentry plus TERM=dumb. Explicit curses plus xterm accepted fixed nonsecret text without echo. This locates an input-path defect, not a claim that real RSA key generation has since passed.",
+          "read_only_investigation": {
+            "observed_at": "2026-10-19T12:24:53.171140+00:00",
+            "secret_primary_count": 0,
+            "private_key_files_count": 0,
+            "signer_exports": {
+              "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": {
+                "present": false,
+                "size_bytes": null
+              },
+              "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": {
+                "present": false,
+                "size_bytes": null
+              }
+            },
+            "pinentry_programs": {
+              "pinentry": {
+                "present": true,
+                "executable": true,
+                "resolved": "/usr/bin/pinentry-gnome3",
+                "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+              },
+              "pinentry-gnome3": {
+                "present": true,
+                "executable": true,
+                "resolved": "/usr/bin/pinentry-gnome3",
+                "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+              },
+              "pinentry-curses": {
+                "present": true,
+                "executable": true,
+                "resolved": "/usr/bin/pinentry-curses",
+                "sha256": "255b09f7b0199ce75c38e5c4e4a04b0992ed43f3fac89b3f80bbd26fe9b2e9ea"
+              },
+              "pinentry-tty": {
+                "present": false,
+                "executable": false,
+                "resolved": "/usr/bin/pinentry-tty",
+                "sha256": null
+              }
+            },
+            "project_agent_config_present": false,
+            "project_agent_config_safe_options": [],
+            "ssh_probe_environment": {
+              "TERM": null,
+              "DISPLAY": null,
+              "GPG_TTY": null
+            },
+            "entropy_avail": "256",
+            "shared_configuration_changed": false,
+            "key_generation_attempted": false,
+            "client_effective_options": [
+              "forwardx11 no",
+              "forwardx11trusted no",
+              "requesttty auto"
+            ]
+          },
+          "characterization": {
+            "observed_at": "2026-10-19T12:22:30.892687+00:00",
+            "scope": "Nonsecret input-path characterization with real pinentry/gpg-agent in fresh isolated homes. No private key or operational passphrase used.",
+            "cases": [
+              {
+                "mode": "default-dumb",
+                "terminal": "dumb",
+                "pinentry_program": "system default",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-dumb-pae_te07",
+                "terminal_prompt_visible": false,
+                "test_text_sent": false,
+                "test_text_accepted": false,
+                "input_echoed_before_data": false,
+                "process_exit_code": -15,
+                "bounded_probe_timeout": true,
+                "actual_key_generated": false
+              },
+              {
+                "mode": "default-xterm",
+                "terminal": "xterm-256color",
+                "pinentry_program": "system default",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-xterm-j_rf24fg",
+                "terminal_prompt_visible": false,
+                "test_text_sent": false,
+                "test_text_accepted": false,
+                "input_echoed_before_data": false,
+                "process_exit_code": 0,
+                "bounded_probe_timeout": false,
+                "actual_key_generated": false
+              },
+              {
+                "mode": "curses-dumb",
+                "terminal": "dumb",
+                "pinentry_program": "/usr/bin/pinentry-curses",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-dumb-d4egq9id",
+                "terminal_prompt_visible": false,
+                "test_text_sent": false,
+                "test_text_accepted": false,
+                "input_echoed_before_data": false,
+                "process_exit_code": -15,
+                "bounded_probe_timeout": true,
+                "actual_key_generated": false
+              },
+              {
+                "mode": "curses-xterm",
+                "terminal": "xterm-256color",
+                "pinentry_program": "/usr/bin/pinentry-curses",
+                "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-xterm-gto6v6d0",
+                "terminal_prompt_visible": true,
+                "test_text_sent": true,
+                "test_text_accepted": true,
+                "input_echoed_before_data": false,
+                "process_exit_code": 0,
+                "bounded_probe_timeout": false,
+                "actual_key_generated": false
+              }
+            ],
+            "actual_signer_created": false
+          },
+          "adoption": {
+            "observed_at": "2026-10-19T12:25:51.796143+00:00",
+            "status": "PASS_SCOPED_TERMINAL_CONFIGURATION_AND_NONINTERACTIVE_GUARDS",
+            "previous_helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+            "current_helper_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+            "project_agent_config": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/gpg-agent.conf",
+            "project_agent_config_sha256": "250266c8436ebf3f94595d564f042fc5691b7d7104ca4f71c4d4f4ac1f804bae",
+            "project_agent_config_mode": "0600",
+            "pinentry_program": "/usr/bin/pinentry-curses",
+            "TERM_default_when_unset_or_dumb": "xterm-256color",
+            "bash_syntax": "PASS",
+            "guard_checks": [
+              {
+                "arguments": [
+                  "--check"
+                ],
+                "expected_exit_code": 0,
+                "actual_exit_code": 0,
+                "status": "PASS"
+              },
+              {
+                "arguments": [
+                  "--unexpected"
+                ],
+                "expected_exit_code": 2,
+                "actual_exit_code": 2,
+                "status": "PASS"
+              },
+              {
+                "arguments": [],
+                "expected_exit_code": 2,
+                "actual_exit_code": 2,
+                "status": "PASS"
+              }
+            ],
+            "actual_key_generation_performed": false,
+            "actual_signer_created": false,
+            "global_user_or_system_GPG_config_changed": false,
+            "shared_business_services_restarted": false,
+            "passphrase_received_by_tool": false,
+            "interactive_terminal_check_pending_at_adoption": true,
+            "interactive_terminal_check_pending": false,
+            "subsequent_terminal_check_completed_at": "2026-10-19T12:27:25.946Z"
+          },
+          "repaired_helper_terminal_regression": {
+            "observed_at": "2026-10-19T12:26:36.528065+00:00",
+            "status": "PASS_REPAIRED_HELPER_REAL_TERMINAL_CONFIRMATION_IN_THREE_TERM_STATES",
+            "cases": [
+              {
+                "incoming_TERM": "UNSET",
+                "terminal_confirmation_visible": true,
+                "confirmation_only": true,
+                "process_exit_code": 0,
+                "helper_success_marker_present": true,
+                "timed_out": false,
+                "actual_key_generation_performed": false
+              },
+              {
+                "incoming_TERM": "dumb",
+                "terminal_confirmation_visible": true,
+                "confirmation_only": true,
+                "process_exit_code": 0,
+                "helper_success_marker_present": true,
+                "timed_out": false,
+                "actual_key_generation_performed": false
+              },
+              {
+                "incoming_TERM": "xterm-256color",
+                "terminal_confirmation_visible": true,
+                "confirmation_only": true,
+                "process_exit_code": 0,
+                "helper_success_marker_present": true,
+                "timed_out": false,
+                "actual_key_generation_performed": false
+              }
+            ],
+            "secret_keys_after": 0,
+            "partial_private_files_after": 0,
+            "private_passphrase_used": false,
+            "actual_signer_created": false,
+            "formal_accepted": false
+          },
+          "Windows_SSH_terminal_smoke": {
+            "observed_at": "2026-10-19T12:27:25.946Z",
+            "status": "PASS",
+            "scope": "Windows SSH -tt to actual project helper --check-terminal; confirmed visible nonsecret dialog using Enter. No key generation or operational passphrase.",
+            "process_exit_code": 0
+          },
+          "baseline_helper_terminal_check_exit_code": 2,
+          "original_shared_services_unchanged": true,
+          "actual_signer_created": false,
+          "actual_private_backup_created": false,
+          "actual_private_decryption_performed": false,
+          "formal_accepted": false
+        },
+        "actual_key_generation_executed": false
+      },
+      "operator_completion_recheck": {
+        "observed_at": "2026-10-19T10:58:26.437818+00:00",
+        "user_report": "U盘备份与Linux签名密钥已完成",
+        "status": "CLAIM_NOT_SUBSTANTIATED_BY_EXPECTED_MATERIAL",
+        "clarification_source": "Owner supplied terminal transcript contains two quick-add-key operations, secret-key metadata listing and public export/cache cleanup; it contains no secret backup export or Linux signing-key creation.",
+        "USB_private_backup_files_observed": 0,
+        "old_D_backup_search_matches": 0,
+        "Linux_signer_secret_key_count": 0,
+        "Linux_signer_public_file_present": false,
+        "Linux_signer_private_export_present": false,
+        "root_cause_of_missing_outputs": "Expected backup/signing steps are not present in the supplied transcript; owner has completed recovery-key creation/public export, not the subsequent owner operations.",
+        "extra_encryption_subkey_cause": "Owner transcript confirms quick-add-key rsa4096 encrypt 1y was executed twice; both valid subkeys retained.",
+        "password_or_private_content_received": false,
+        "formal_accepted": false,
+        "later_resolution": {
+          "observed_at": "2026-10-19T12:37:24.042907+00:00",
+          "recovery_secret_export": "PRESENT_PROTECTED_STRUCTURE_PREVIOUSLY_VERIFIED",
+          "revocation_copy": "PRESENT_AES256_ENVELOPE_PREVIOUSLY_VERIFIED_NOT_DECRYPTED",
+          "Linux_signer": "NOW_PRESENT_REAL_SIGNER_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_VERIFIED",
+          "historical_cancelled_timeout_and_repair_observations_preserved": true
+        },
+        "later_resolution_history": [
+          {
+            "recovery_secret_export": "NOW_PRESENT_AND_PROTECTED_STRUCTURE_VERIFIED",
+            "observed_at": "2026-10-19T11:05:47.136923+00:00",
+            "revocation_copy": "STILL_ABSENT",
+            "Linux_signer": "STILL_ABSENT",
+            "historical_missing_observation_preserved": true
+          },
+          {
+            "observed_at": "2026-10-19T11:43:25.367118+00:00",
+            "recovery_secret_export": "PRESENT_AND_PROTECTED_STRUCTURE_RECHECKED",
+            "revocation_copy": "NOW_PRESENT_AES256_ENVELOPE_VERIFIED_NOT_DECRYPTED",
+            "Linux_signer": "FAILED_OWNER_CANCELLED_NO_PARTIAL_KEYS_OR_EXPORTS",
+            "historical_missing_observation_preserved": true
+          },
+          {
+            "observed_at": "2026-10-19T12:27:25.946Z",
+            "recovery_secret_export": "PRESENT_PROTECTED_STRUCTURE_PREVIOUSLY_VERIFIED",
+            "revocation_copy": "PRESENT_AES256_ENVELOPE_PREVIOUSLY_VERIFIED_NOT_DECRYPTED",
+            "Linux_signer": "TIMEOUT_INPUT_PATH_FIXED_TESTED_ZERO_ACTUAL_OR_PARTIAL_KEYS_AWAIT_OWNER",
+            "historical_observations_preserved": true
+          }
+        ]
+      },
+      "two_subkey_public_probe_preparation": {
+        "status": "PASS_TWO_EXPLICIT_SUBKEY_PUBLIC_ENCRYPTIONS_ONLY_PREREQUISITE_MATERIAL_MISSING",
+        "observed_at": "2026-10-19T10:55:39.421260+00:00",
+        "tag": "20261019T105539Z-9b130a",
+        "probe_directory": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/gpg-public-probes-20261019T105539Z-9b130a",
+        "public_certificate_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+        "recovery_primary_fingerprint": "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+        "plaintext_sha256": "0ac590181b508886a65acb56dcad6240c0c0a58d940d9408a7521ed644f465ce",
+        "plaintext": "media-trace-rnd-key-check",
+        "plaintext_server_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/gpg-public-probes-20261019T105539Z-9b130a/key-check.txt",
+        "expected_trailing_newline": true,
+        "records": [
+          {
+            "subkey_fingerprint": "74FF3C32A5738FAD98C9A90D97672271E1161785",
+            "recipient_selector": "74FF3C32A5738FAD98C9A90D97672271E1161785!",
+            "ciphertext_server_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/gpg-public-probes-20261019T105539Z-9b130a/subkey-74FF3C32A5738FAD98C9A90D97672271E1161785.gpg",
+            "ciphertext_name": "subkey-74FF3C32A5738FAD98C9A90D97672271E1161785.gpg",
+            "bytes": 630,
+            "sha256": "56c6fec647b1317912672a1a125aeb0501f5d04ba628fa00c3e4cc4759ae0263",
+            "public_encryption": "PASS",
+            "actual_private_decryption": "NOT_EXECUTED",
+            "signature_verification": "NOT_EXECUTED_SIGNER_MISSING",
+            "ciphertext_USB_path": "G:\\公安厅项目密钥\\public\\key-check-20261019T105539Z-9b130a\\subkey-74FF3C32A5738FAD98C9A90D97672271E1161785.gpg"
+          },
+          {
+            "subkey_fingerprint": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133",
+            "recipient_selector": "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133!",
+            "ciphertext_server_path": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/gpg-public-probes-20261019T105539Z-9b130a/subkey-2A8E86CA40914E1F89A6FA8DCC569FFF970FD133.gpg",
+            "ciphertext_name": "subkey-2A8E86CA40914E1F89A6FA8DCC569FFF970FD133.gpg",
+            "bytes": 630,
+            "sha256": "cf34bd6e723d4ba3f5820b49364158456ee5cea56b2139fc066ebf4c2b7290d5",
+            "public_encryption": "PASS",
+            "actual_private_decryption": "NOT_EXECUTED",
+            "signature_verification": "NOT_EXECUTED_SIGNER_MISSING",
+            "ciphertext_USB_path": "G:\\公安厅项目密钥\\public\\key-check-20261019T105539Z-9b130a\\subkey-2A8E86CA40914E1F89A6FA8DCC569FFF970FD133.gpg"
+          }
+        ],
+        "Linux_signer_private_key_count": 0,
+        "signer_public_file_present": false,
+        "signer_private_backup_present": false,
+        "signature_created": false,
+        "private_key_decryption_executed": false,
+        "private_backup_imported": false,
+        "identity_database_restore_executed": false,
+        "known_public_certificate_only": true,
+        "private_material_uploaded": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false,
+        "public_probe_USB_directory": "G:\\公安厅项目密钥\\public\\key-check-20261019T105539Z-9b130a",
+        "ciphertext_copy_hashes_verified": 2,
+        "USB_private_backup_files_observed": [],
+        "completion_claim_verification": "USER_REPORTED_BACKUP_AND_SIGNER_COMPLETE_BUT_EXPECTED_BACKUPS_AND_SERVER_SIGNER_NOT_FOUND"
+      },
+      "actual_recovery_private_backup_completed": false,
+      "actual_Linux_signer_created": true,
+      "recovery_secret_export_verification": {
+        "status": "PASS_PROTECTED_SECRET_EXPORT_STRUCTURE_ONLY_NOT_RESTORE",
+        "observed_at": "2026-10-19T11:43:26.345496+00:00",
+        "task_id": "T013",
+        "related_remaining_item": "T013-R02",
+        "file_path": "G:\\公安厅项目密钥\\private-backups\\recovery-secret-backup.asc",
+        "file_size_bytes": 10361,
+        "file_modified_UTC": "2026-10-19T11:03:54+00:00",
+        "public_fingerprints": [
+          "1F3B582BCF39F5C8D5C6F698241FF3B8246E99FF",
+          "74FF3C32A5738FAD98C9A90D97672271E1161785",
+          "2A8E86CA40914E1F89A6FA8DCC569FFF970FD133"
+        ],
+        "protected_primary_private_packets": 1,
+        "protected_encryption_private_packets": 2,
+        "private_packets_with_protection_marker": 3,
+        "expected_whole_recovery_key_group_included": true,
+        "private_material_imported": false,
+        "private_material_copied_to_D_or_Linux": false,
+        "raw_private_data_or_packet_dump_published": false,
+        "inspection_scope": "GnuPG parsed the backup locally in show-only/list-packets mode. Only public fingerprints, packet counts and protected-marker counts are retained; raw private bytes, MPI/S2K/IV fields and command dumps are not exposed.",
+        "passphrase_requested_by_this_check": false,
+        "actual_backup_decryption_or_restore": false,
+        "actual_private_subkey_decryption": false,
+        "physical_offline_custody_verified": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false
+      },
+      "actual_recovery_private_backup_export_verified": true,
+      "actual_recovery_private_backup_completion_scope": "Protected secret export and encrypted revocation copy exist and their structures were checked; actual passphrase/decryption, restored-home and independent-medium recoverability remain unverified.",
+      "revocation_copy_and_failed_signer_recheck": {
+        "observed_at": "2026-10-19T11:43:25.367118+00:00",
+        "task_id": "T013",
+        "related_remaining_item": "T013-R02",
+        "revocation_encrypted_copy": {
+          "status": "PASS_AES256_SYMMETRIC_ENVELOPE_ONLY_NOT_DECRYPTION",
+          "encrypted_file": "G:\\公安厅项目密钥\\private-backups\\recovery-revocation.rev.gpg",
+          "size_bytes": 1329,
+          "modified_UTC": "2026-10-19T11:15:12+00:00",
+          "symmetric_packet_count": 1,
+          "encrypted_data_packet_count": 1,
+          "cipher": "AES256",
+          "packet_listing_exit_code": 0,
+          "original_revocation_file_present": true,
+          "private_material_imported": false,
+          "decrypted": false,
+          "plaintext_compared_with_original": false,
+          "revocation_imported": false,
+          "raw_packets_or_revocation_content_published": false
+        },
+        "Linux_signer": {
+          "observed_at": "2026-10-19T11:43:21.006453+00:00",
+          "secret_primary_count": 0,
+          "private_key_files_count": 0,
+          "export_targets_present": {
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": false,
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": false
+          },
+          "recovery_public_size_bytes": 4845,
+          "recovery_public_sha256": "cb483be357dc4dae0c61128038fab1103636662b5e31d8cfeef69465d0eba462",
+          "helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "helper_preflight": "PASS",
+          "key_generation_attempted_by_this_check": false,
+          "configuration_changed": false,
+          "shared_services_restarted": false
+        },
+        "failed_signer_attempt": {
+          "result": "FAILED_OPERATION_CANCELLED",
+          "owner_clarification": "Owner saw the passphrase dialog and cancelled or exited it.",
+          "partial_private_material_present": false,
+          "inferred_pinentry_failure": false,
+          "unattended_retry_performed": false
+        },
+        "next_owner_action": "Retry the existing attended signer helper and complete its nonempty passphrase prompts.",
+        "both_subkey_decryption_performed": false,
+        "independent_signer_created": false,
+        "actual_signature_verification_performed": false,
+        "independent_restore_performed": false,
+        "Python_candidates_created": false,
+        "formal_accepted": false
+      },
+      "actual_revocation_encrypted_copy_observed": true,
+      "actual_revocation_copy_envelope_verified": true,
+      "actual_revocation_copy_decryption_verified": false,
+      "Linux_signer_terminal_input_repair": {
+        "observed_at": "2026-10-19T12:27:25.946Z",
+        "status": "PASS_SCOPED_TERMINAL_INPUT_REPAIR_ONLY_ACTUAL_SIGNER_NOT_CREATED",
+        "failed_owner_attempt": "GPG agent key generation returned Timeout; suggested passphrase appeared in owner transcript. Never copy that value into repository or tooling.",
+        "root_cause_scope": "Real isolated PTY characterization reproduced no visible terminal input and bounded wait with default graphical pinentry plus TERM=dumb. Explicit curses plus xterm accepted fixed nonsecret text without echo. This locates an input-path defect, not a claim that real RSA key generation has since passed.",
+        "read_only_investigation": {
+          "observed_at": "2026-10-19T12:24:53.171140+00:00",
+          "secret_primary_count": 0,
+          "private_key_files_count": 0,
+          "signer_exports": {
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": {
+              "present": false,
+              "size_bytes": null
+            },
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": {
+              "present": false,
+              "size_bytes": null
+            }
+          },
+          "pinentry_programs": {
+            "pinentry": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-gnome3": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-curses": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-curses",
+              "sha256": "255b09f7b0199ce75c38e5c4e4a04b0992ed43f3fac89b3f80bbd26fe9b2e9ea"
+            },
+            "pinentry-tty": {
+              "present": false,
+              "executable": false,
+              "resolved": "/usr/bin/pinentry-tty",
+              "sha256": null
+            }
+          },
+          "project_agent_config_present": false,
+          "project_agent_config_safe_options": [],
+          "ssh_probe_environment": {
+            "TERM": null,
+            "DISPLAY": null,
+            "GPG_TTY": null
+          },
+          "entropy_avail": "256",
+          "shared_configuration_changed": false,
+          "key_generation_attempted": false,
+          "client_effective_options": [
+            "forwardx11 no",
+            "forwardx11trusted no",
+            "requesttty auto"
+          ]
+        },
+        "characterization": {
+          "observed_at": "2026-10-19T12:22:30.892687+00:00",
+          "scope": "Nonsecret input-path characterization with real pinentry/gpg-agent in fresh isolated homes. No private key or operational passphrase used.",
+          "cases": [
+            {
+              "mode": "default-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-dumb-pae_te07",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "default-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-xterm-j_rf24fg",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-dumb-d4egq9id",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-xterm-gto6v6d0",
+              "terminal_prompt_visible": true,
+              "test_text_sent": true,
+              "test_text_accepted": true,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            }
+          ],
+          "actual_signer_created": false
+        },
+        "adoption": {
+          "observed_at": "2026-10-19T12:25:51.796143+00:00",
+          "status": "PASS_SCOPED_TERMINAL_CONFIGURATION_AND_NONINTERACTIVE_GUARDS",
+          "previous_helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "current_helper_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+          "project_agent_config": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/gpg-agent.conf",
+          "project_agent_config_sha256": "250266c8436ebf3f94595d564f042fc5691b7d7104ca4f71c4d4f4ac1f804bae",
+          "project_agent_config_mode": "0600",
+          "pinentry_program": "/usr/bin/pinentry-curses",
+          "TERM_default_when_unset_or_dumb": "xterm-256color",
+          "bash_syntax": "PASS",
+          "guard_checks": [
+            {
+              "arguments": [
+                "--check"
+              ],
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "status": "PASS"
+            },
+            {
+              "arguments": [
+                "--unexpected"
+              ],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            },
+            {
+              "arguments": [],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            }
+          ],
+          "actual_key_generation_performed": false,
+          "actual_signer_created": false,
+          "global_user_or_system_GPG_config_changed": false,
+          "shared_business_services_restarted": false,
+          "passphrase_received_by_tool": false,
+          "interactive_terminal_check_pending_at_adoption": true,
+          "interactive_terminal_check_pending": false,
+          "subsequent_terminal_check_completed_at": "2026-10-19T12:27:25.946Z"
+        },
+        "repaired_helper_terminal_regression": {
+          "observed_at": "2026-10-19T12:26:36.528065+00:00",
+          "status": "PASS_REPAIRED_HELPER_REAL_TERMINAL_CONFIRMATION_IN_THREE_TERM_STATES",
+          "cases": [
+            {
+              "incoming_TERM": "UNSET",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "dumb",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "xterm-256color",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            }
+          ],
+          "secret_keys_after": 0,
+          "partial_private_files_after": 0,
+          "private_passphrase_used": false,
+          "actual_signer_created": false,
+          "formal_accepted": false
+        },
+        "Windows_SSH_terminal_smoke": {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "status": "PASS",
+          "scope": "Windows SSH -tt to actual project helper --check-terminal; confirmed visible nonsecret dialog using Enter. No key generation or operational passphrase.",
+          "process_exit_code": 0
+        },
+        "baseline_helper_terminal_check_exit_code": 2,
+        "original_shared_services_unchanged": true,
+        "actual_signer_created": false,
+        "actual_private_backup_created": false,
+        "actual_private_decryption_performed": false,
+        "formal_accepted": false
+      },
+      "Linux_signer_helper_preflight_history": [
+        {
+          "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+          "observed_at": "2026-10-19T10:43:24.473005+00:00",
+          "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
+          "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
+          "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "cases": [
+            {
+              "case": "bash_syntax",
+              "status": "PASS",
+              "expected_exit": 0,
+              "observed_exit": 0
+            },
+            {
+              "case": "owner_directory_and_empty_signer_preflight",
+              "status": "PASS",
+              "expected_exit": 0,
+              "observed_exit": 0
+            },
+            {
+              "case": "reject_unexpected_argument",
+              "status": "PASS",
+              "expected_exit": 2,
+              "observed_exit": 2
+            },
+            {
+              "case": "reject_unattended_key_generation",
+              "status": "PASS",
+              "expected_exit": 2,
+              "observed_exit": 2
+            }
+          ],
+          "actual_key_generation_executed": false,
+          "actual_private_backup_created": false,
+          "actual_signer_accepted": false,
+          "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
+        }
+      ],
+      "discard_previously_suggested_chat_passphrase": true,
+      "actual_Linux_signer_protected_export_structurally_verified": true,
+      "actual_Linux_signer_verification": {
+        "observed_at": "2026-10-19T12:37:24.042907+00:00",
+        "status": "PASS_ACTUAL_SIGNER_EXISTENCE_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_ONLY",
+        "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
+        "capabilities": "scSC",
+        "signing_capability": true,
+        "encryption_capability": false,
+        "secret_primary_count": 1,
+        "secret_subkey_count": 0,
+        "KEYINFO_protection": "P",
+        "public_key_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc",
+        "public_key_size_bytes": 1672,
+        "public_key_sha256": "85a662ae756310dbf64e2815246c9563406206574f24ee8f1e06e64d13d1e768",
+        "valid_public_self_signatures": 1,
+        "local_protected_secret_export_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc",
+        "local_protected_secret_export_size_bytes": 3486,
+        "protected_export_primary_packets": 1,
+        "protected_export_subkey_packets": 0,
+        "protected_export_packet_markers": 1,
+        "revocation_certificate_present": true,
+        "revocation_certificate_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/openpgp-revocs.d/C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D.rev",
+        "revocation_certificate_size_bytes": 1820,
+        "directories_mode": "0700",
+        "files_mode": "0600",
+        "recovery_public_unchanged": true,
+        "private_material_imported": false,
+        "raw_private_packet_dump_or_key_contents_published": false,
+        "private_passphrase_requested_by_this_check": false,
+        "actual_signer_created_by_owner": true,
+        "actual_signer_created_by_this_check": false,
+        "actual_signature_performed": false,
+        "actual_signer_backup_restored": false,
+        "actual_two_subkey_decryption_performed": false,
+        "signer_protected_backup_copied_to_USB": false,
+        "formal_accepted": false,
+        "Python_candidates_created": false
+      },
+      "actual_Linux_signer_protected_backup_copied_to_USB": false
+    },
+    "Windows_command_path_note": "Exact current private/public paths use G:/公安厅项目密钥; Windows GPG executables remain D:/GnuPG/bin. Original D-directory preparation is preserved. Explicit current user decision allows GPG-private-key-passphrase internal RnD only, while disk/container encryption is deferred.",
+    "current_custody_mode_note": "Use G:/公安厅项目密钥 as current internal-RnD home with personally chosen nonempty GPG private-key protection. USB disk/container encryption explicitly deferred; does not satisfy an encrypted-medium or completed offline-recovery acceptance condition.",
+    "original_planned_role_separation": {
+      "recovery_recipient": "Recovery primary/decryption subkey remain on a custodian-controlled offline encrypted medium; only the public certificate goes to the server.",
+      "backup_signer": "A different signing-only key is available to the backup operation in a dedicated server GnuPG home. Its private signing key cannot decrypt recovery backups.",
+      "restore": "Existing restore.py needs local GnuPG decryption capability. Offline private custody plus a public-key upload does not implement a remote/hardware decryption bridge or constitute a successful actual restore."
+    },
+    "previous_D_drive_operator_steps": [
+      {
+        "number": 1,
+        "where": "Trusted custodian Windows workstation",
+        "action": "Windows Gpg4win5.1.1 and GPG/gpgconf2.5.24 have been observed. The engine executable has a valid signature matching the official signing certificate. Installer archive integrity is not separately proven. Use exact Windows executable paths; no PATH/baseline change.",
+        "references": [
+          "https://www.gpg4win.org/get-gpg4win.html",
+          "https://www.gpg4win.org/package-integrity.html"
+        ],
+        "commands": [
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --version"
+        ]
+      },
+      {
+        "number": 2,
+        "where": "Current user-authorized restricted D:/公安厅密钥, online internal RnD only",
+        "action": "Use the already-prepared empty recovery-gnupg home. The custodian personally chooses and confirms a nonempty protection passphrase in the local GPG prompt. Do not re-run generation over existing material.",
+        "PowerShell_commands": [
+          "$CustodyRoot = \"D:\\公安厅密钥\"",
+          "$CustodyGpg = Join-Path $CustodyRoot \"recovery-gnupg\"",
+          "if (-not (Test-Path -LiteralPath $CustodyGpg -PathType Container)) { throw \"请先核查已准备的专用目录\" }",
+          "if (@(Get-ChildItem -LiteralPath $CustodyGpg -Force).Count -ne 0) { throw \"目录已有文件，请先核查，不要重复生成\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-generate-key \"MediaTrace RnD Recovery - Xu Changsheng\" rsa4096 cert 1y",
+          "if ($LASTEXITCODE -ne 0) { throw \"主密钥生成未成功，停止后续操作\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --fingerprint --list-keys",
+          "$RecoveryFpr = (Read-Host \"输入刚生成的恢复主密钥完整指纹，不是口令\") -replace \"\\s\", \"\"",
+          "if ($RecoveryFpr -notmatch \"^[A-Fa-f0-9]{40}(?:[A-Fa-f0-9]{24})?$\") { throw \"完整指纹格式无效\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --quick-add-key \"$RecoveryFpr\" rsa4096 encrypt 1y",
+          "if ($LASTEXITCODE -ne 0) { throw \"加密子密钥添加未成功，停止后续操作\" }",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --with-subkey-fingerprint --list-secret-keys \"$RecoveryFpr\""
+        ],
+        "expected": "One certification-only primary and one encryption subkey, under the current D-drive RnD home. Do not claim offline storage; record the actual public fingerprints and protection/custody evidence."
+      },
+      {
+        "number": 3,
+        "where": "Trusted workstation",
+        "action": "Export PUBLIC recipient separately into the restricted public folder. Export the passphrase-protected private backup and revocation certificate only into private-backups; do not copy them to Linux/chat/Git. D-drive copies are not independent offline backups.",
+        "PowerShell_commands": [
+          "$PublicMaterial = Join-Path $CustodyRoot \"public\"",
+          "New-Item -ItemType Directory -Force -Path $PublicMaterial -ErrorAction Stop",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$PublicMaterial\\recovery-recipient.asc\" --export \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\private-backups\\recovery-secret-backup.asc\" --export-secret-keys \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --armor --output \"$CustodyRoot\\private-backups\\recovery-revocation.asc\" --generate-revocation \"$RecoveryFpr\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --show-keys --with-fingerprint --with-subkey-fingerprint \"$PublicMaterial\\recovery-recipient.asc\""
+        ],
+        "expected": "Public recipient only in public; protected private export and revocation material only in private-backups. Actual protection and independent recovery remain to verify; no existing export is overwritten."
+      },
+      {
+        "number": 4,
+        "where": "Windows SSH client and Linux R&D host",
+        "action": "Upload only the public recipient and compare the FULL fingerprint over the established SSH channel. Do not upload the recovery GnuPG home or recovery private export.",
+        "PowerShell_commands": [
+          "ssh glwy@172.16.58.179 \"install -d -m 700 /workspace/glwy/runtime/media-traceability-system/identity-custody/public /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg\"",
+          "scp \"$PublicMaterial\\recovery-recipient.asc\" glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc"
+        ],
+        "Linux_commands": [
+          "chmod 600 /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --show-keys --with-fingerprint --with-subkey-fingerprint /workspace/glwy/runtime/media-traceability-system/identity-custody/public/recovery-recipient.asc"
+        ],
+        "expected": "Same full recovery primary fingerprint on both machines; only a PUBLIC recipient is on the server."
+      },
+      {
+        "number": 5,
+        "where": "Linux R&D host, attended interactive SSH terminal",
+        "action": "Generate a DIFFERENT signing-only key in the dedicated server home, with a nonempty privately entered passphrase. This is an operator step; do not copy the offline recovery secret here. Stop on an existing signer instead of generating duplicates.",
+        "Linux_commands": [
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --list-secret-keys",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --quick-generate-key \"MediaTrace RnD Backup Signer - Xu Changsheng\" rsa4096 sign 1y",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --fingerprint --list-secret-keys",
+          "gpg --homedir /workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg --armor --output /workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc --export ACTUAL_SIGNER_PRIMARY_FINGERPRINT"
+        ],
+        "expected": "Signer has signing/certification capability and NO encryption secret key. Replace ACTUAL_SIGNER_PRIMARY_FINGERPRINT with the observed full public fingerprint. Store an encrypted signer recovery copy by the agreed separate custody route."
+      },
+      {
+        "number": 6,
+        "where": "Both machines; use a nonsensitive key-check message",
+        "action": "Import the recipient public key into the signing home and signer public key into the current D-drive recovery home. Encrypt/sign only a fixed nonsensitive marker, transfer the encrypted file to the custodian, then decrypt and verify the signer full fingerprint in the D-drive RnD home. Test the actual server/workstation GnuPG versions; this is key interoperability proof, not database recovery.",
+        "Linux_commands": [
+          "TaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody",
+          "TaskGpg=\"$TaskCustody/signer-gnupg\"",
+          "export GPG_TTY=\"$(tty)\"",
+          "read -r -p \"恢复主密钥完整指纹：\" TaskRecoveryFpr",
+          "read -r -p \"签名主密钥完整指纹：\" TaskSignerFpr",
+          "gpg --homedir \"$TaskGpg\" --import \"$TaskCustody/public/recovery-recipient.asc\"",
+          "printf \"%s\\n\" \"media-trace-rnd-key-check\" > \"$TaskCustody/key-check.txt\"",
+          "gpg --homedir \"$TaskGpg\" --local-user \"$TaskSignerFpr\" --recipient \"$TaskRecoveryFpr\" --output \"$TaskCustody/key-check.txt.gpg\" --encrypt --sign \"$TaskCustody/key-check.txt\""
+        ],
+        "PowerShell_commands": [
+          "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$PublicMaterial\\backup-signer.asc\"",
+          "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/key-check.txt.gpg \"$PublicMaterial\\key-check.txt.gpg\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --import \"$PublicMaterial\\backup-signer.asc\"",
+          "& \"D:\\GnuPG\\bin\\gpg.exe\" --homedir \"$CustodyGpg\" --status-fd 2 --output \"$CustodyRoot\\key-check-restored.txt\" --decrypt \"$PublicMaterial\\key-check.txt.gpg\"",
+          "Get-Content -LiteralPath \"$CustodyRoot\\key-check-restored.txt\"",
+          "& \"D:\\GnuPG\\bin\\gpgconf.exe\" --homedir \"$CustodyGpg\" --kill gpg-agent"
+        ],
+        "expected": "Successful decryption, exact fixed marker and VALIDSIG identifying the independently compared full signer fingerprint; ownertrust warnings alone are not signer identity verification. Preserve public fingerprint/result metadata, not private keys or passphrases.",
+        "remaining_operator_inputs": [
+          "recovery public-key server path and complete fingerprint",
+          "signer public-key server path and complete fingerprint",
+          "custodian media availability and independent storage arrangement"
+        ],
+        "backup_code_boundary": "backup.py and restore.py intentionally use --pinentry-mode error. They do not prompt for a passphrase. An attended separate benign signing/decryption check may unlock the dedicated agent before a short operation; absent/expired agent authorization must fail. Do not add password arguments, empty-passphrase keys or persistent unattended credential caches to bypass this. Unattended daily backups require a separately established controlled signing/token facility.",
+        "cache_cleanup": "After the attended operation, gpgconf --homedir DEDICATED_GNUPG_HOME --kill gpg-agent terminates only that dedicated agent; use the actual home and do not stop unrelated agents."
+      },
+      {
+        "number": 7,
+        "where": "Actual recovery planning",
+        "action": "Before any real restore, establish the controlled temporary/hardware decryption path for existing restore.py, independent private custody, configuration/API-secret coordination and maintenance evidence. Uploading public keys alone does not close T013-R02 or certify disaster recovery."
+      }
+    ],
+    "actual_private_keys_created_or_imported_scope": "Owner has created the real USB recovery certification/encryption group and independent Linux signer. Assistant used public/protection and export-structure inspection only; no private key imported or passphrase supplied by automation.",
+    "Linux_signer_operator_script": {
+      "status": "PASS_REPAIRED_OPERATOR_TERMINAL_INPUT_NOT_KEY_CREATION",
+      "observed_at": "2026-10-19T12:27:25.946Z",
+      "local_script": "D:\\公安厅项目\\_work\\t013-create-backup-signer-once.sh",
+      "server_script": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/create-backup-signer-once.sh",
+      "script_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+      "cases": [
+        {
+          "arguments": [
+            "--check"
+          ],
+          "expected_exit_code": 0,
+          "actual_exit_code": 0,
+          "status": "PASS"
+        },
+        {
+          "arguments": [
+            "--unexpected"
+          ],
+          "expected_exit_code": 2,
+          "actual_exit_code": 2,
+          "status": "PASS"
+        },
+        {
+          "arguments": [],
+          "expected_exit_code": 2,
+          "actual_exit_code": 2,
+          "status": "PASS"
+        }
+      ],
+      "actual_key_generation_executed": false,
+      "actual_private_backup_created": false,
+      "actual_signer_accepted": false,
+      "scope": "Actual project helper and terminal config adopted for owner key setup only. Three real PTY states, harmless hidden input and Windows SSH confirmation tested. Not hosted CI coverage or actual signer acceptance.",
+      "script_content": "#!/usr/bin/env bash\n# Human-operated one-time signing-key creation; never accepts a passphrase argument.\nset -euo pipefail\numask 077\nTaskCustody=/workspace/glwy/runtime/media-traceability-system/identity-custody\nTaskSignerHome=\"$TaskCustody/signer-gnupg\"\nTaskSignerPublic=\"$TaskCustody/public/backup-signer.asc\"\nTaskSignerBackup=\"$TaskCustody/private-backups/backup-signer-secret.asc\"\nif [[ $# -gt 1 || ( $# -eq 1 && \"$1\" != --check && \"$1\" != --check-terminal ) ]]; then\n    printf '%s\\n' 'Only --check, --check-terminal or an attended run without arguments is supported.' >&2\n    exit 2\nfi\nfor TaskTool in gpg gpgconf gpg-connect-agent stat awk tty; do\n    command -v \"$TaskTool\" >/dev/null || { printf '%s\\n' \"Missing required tool: $TaskTool\" >&2; exit 2; }\ndone\nfor TaskDirectory in \"$TaskCustody\" \"$TaskSignerHome\" \"$TaskCustody/public\" \"$TaskCustody/private-backups\"; do\n    if [[ ! -d \"$TaskDirectory\" || -L \"$TaskDirectory\" || ! -O \"$TaskDirectory\" || \"$(stat -c '%a' \"$TaskDirectory\")\" != 700 ]]; then\n        printf '%s\\n' 'Dedicated custody directory ownership/mode mismatch. Stop without changing it.' >&2\n        exit 2\n    fi\ndone\nTaskExisting=$(gpg --homedir \"$TaskSignerHome\" --batch --pinentry-mode error --with-colons --list-secret-keys)\nif printf '%s\\n' \"$TaskExisting\" | awk -F: '$1==\"sec\" {n++} END {exit(n?0:1)}'; then\n    printf '%s\\n' 'An existing signing private key was found. Stop; do not generate duplicates.' >&2\n    exit 3\nfi\nfor TaskTarget in \"$TaskSignerPublic\" \"$TaskSignerBackup\"; do\n    if [[ -e \"$TaskTarget\" || -L \"$TaskTarget\" ]]; then\n        printf '%s\\n' 'An export target already exists. Stop; nothing is overwritten.' >&2\n        exit 3\n    fi\ndone\nif [[ ! -x /usr/bin/pinentry-curses || ! -f \"$TaskSignerHome/gpg-agent.conf\" || -L \"$TaskSignerHome/gpg-agent.conf\" ]]; then\n    printf '%s\\n' 'Project terminal pinentry configuration is missing. Stop for review.' >&2\n    exit 2\nfi\nif [[ ! -O \"$TaskSignerHome/gpg-agent.conf\" || \"$(stat -c '%a' \"$TaskSignerHome/gpg-agent.conf\")\" != 600 ]] || ! awk 'NF && $1 !~ /^#/ {n++; if(NF!=2 || $1!=\"pinentry-program\" || $2!=\"/usr/bin/pinentry-curses\") bad=1} END {exit(n==1 && !bad?0:1)}' \"$TaskSignerHome/gpg-agent.conf\"; then\n    printf '%s\\n' 'Project pinentry is not the verified terminal program. Stop for review.' >&2\n    exit 2\nfi\nif [[ ${1-} == --check ]]; then\n    printf '%s\\n' 'PASS_SIGNER_OWNER_PREFLIGHT_ONLY_NO_KEY_GENERATION'\n    exit 0\nfi\nif [[ ! -t 0 || ! -t 1 ]]; then\n    printf '%s\\n' 'An attended SSH terminal is required. Do not supply passphrases through files, arguments or chat.' >&2\n    exit 2\nfi\nexport GPG_TTY=\"$(tty)\"\nif [[ -z ${TERM-} || \"$TERM\" == dumb ]]; then\n    export TERM=xterm-256color\nfi\ntrap 'gpgconf --homedir \"$TaskSignerHome\" --kill gpg-agent >/dev/null 2>&1 || true' EXIT\ngpgconf --homedir \"$TaskSignerHome\" --kill gpg-agent\nif [[ ${1-} == --check-terminal ]]; then\n    printf '%s\\n' 'Nonsecret terminal check: select OK with Enter. Do not enter a password.'\n    TaskDialogResult=$(gpg-connect-agent --homedir \"$TaskSignerHome\" 'GET_CONFIRMATION T013+TERMINAL+CHECK.+Select+OK.+NO+PASSWORD.' /bye)\n    if ! printf '%s\\n' \"$TaskDialogResult\" | awk '$1==\"ERR\" {bad=1} $0==\"OK\" {ok++} END {exit(ok==1 && !bad?0:1)}'; then\n        printf '%s\\n' 'Terminal confirmation failed; do not generate a key yet.' >&2\n        exit 5\n    fi\n    printf '%s\\n' 'PASS_TERMINAL_CONFIRMATION_ONLY_NO_KEY_GENERATION'\n    exit 0\nfi\nprintf '%s\\n' 'The GPG password box opens INSIDE this SSH terminal. Type only inside its Passphrase field; use Tab and Enter to confirm. No password should appear as a plain command line.'\nprintf '%s\\n' 'Create a DIFFERENT signing-only key. Personally choose and confirm a nonempty passphrase in the GPG prompt.'\ngpg --homedir \"$TaskSignerHome\" --quick-generate-key 'MediaTrace RnD Backup Signer - Xu Changsheng' rsa4096 sign 1y\nTaskSignerRows=$(gpg --homedir \"$TaskSignerHome\" --batch --with-colons --with-keygrip --fingerprint --list-secret-keys)\nif ! printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"sec\" {n++; if($12 !~ /s/ || $12 ~ /[eE]/) bad=1} $1==\"ssb\" {bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Unexpected signer capability or key count. Keep material and stop for review.' >&2\n    exit 4\nfi\nTaskSignerFpr=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"fpr\" && !done {print $10; done=1}')\nTaskSignerGrip=$(printf '%s\\n' \"$TaskSignerRows\" | awk -F: '$1==\"grp\" && !done {print $10; done=1}')\nif [[ ! \"$TaskSignerFpr\" =~ ^[A-F0-9]{40}$ || ! \"$TaskSignerGrip\" =~ ^[A-F0-9]{40}$ ]]; then\n    printf '%s\\n' 'Invalid public signer identifier; stop.' >&2\n    exit 4\nfi\nTaskSignerInfo=$(gpg-connect-agent --homedir \"$TaskSignerHome\" \"KEYINFO $TaskSignerGrip\" /bye)\nif ! printf '%s\\n' \"$TaskSignerInfo\" | awk '$1==\"S\" && $2==\"KEYINFO\" {n++; if($8!=\"P\") bad=1} END {exit(n==1 && !bad?0:1)}'; then\n    printf '%s\\n' 'Signer does not report passphrase-protected storage. Keep material and stop; no backup export.' >&2\n    exit 4\nfi\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerPublic\" --export \"$TaskSignerFpr\"\ntest -s \"$TaskSignerPublic\"\ngpg --homedir \"$TaskSignerHome\" --armor --output \"$TaskSignerBackup\" --export-secret-keys \"$TaskSignerFpr\"\ntest -s \"$TaskSignerBackup\"\nchmod 600 \"$TaskSignerPublic\" \"$TaskSignerBackup\"\nprintf '\\n%s\\n%s\\n%s\\n' 'Signing key and protected local export created. This is not an independent or tested recovery backup.' \"PUBLIC fingerprint: $TaskSignerFpr\" \"PUBLIC file: $TaskSignerPublic\"\nprintf '%s\\n' 'Do not send the private export or passphrase in chat. Ask the assistant to verify the public result before transferring the protected signer backup to USB.'\n",
+      "script_content_scope": "Exact reviewable owner-only operation template; fresh syntax/preflight/refusal checks are scoped evidence, not execution of actual generation or hosted CI coverage.",
+      "previous_versions": [
+        {
+          "observed_at": "2026-10-19T10:43:24.473005+00:00",
+          "status": "PASS_OPERATOR_HELPER_SYNTAX_PREFLIGHT_AND_REFUSAL_BOUNDARIES_ONLY",
+          "script_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "scope": "Operator command preparation and preflight only, not hosted CI or a successful actual signing-key creation"
+        }
+      ],
+      "terminal_input_repair": {
+        "observed_at": "2026-10-19T12:27:25.946Z",
+        "status": "PASS_SCOPED_TERMINAL_INPUT_REPAIR_ONLY_ACTUAL_SIGNER_NOT_CREATED",
+        "failed_owner_attempt": "GPG agent key generation returned Timeout; suggested passphrase appeared in owner transcript. Never copy that value into repository or tooling.",
+        "root_cause_scope": "Real isolated PTY characterization reproduced no visible terminal input and bounded wait with default graphical pinentry plus TERM=dumb. Explicit curses plus xterm accepted fixed nonsecret text without echo. This locates an input-path defect, not a claim that real RSA key generation has since passed.",
+        "read_only_investigation": {
+          "observed_at": "2026-10-19T12:24:53.171140+00:00",
+          "secret_primary_count": 0,
+          "private_key_files_count": 0,
+          "signer_exports": {
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc": {
+              "present": false,
+              "size_bytes": null
+            },
+            "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc": {
+              "present": false,
+              "size_bytes": null
+            }
+          },
+          "pinentry_programs": {
+            "pinentry": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-gnome3": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-gnome3",
+              "sha256": "55a41b6ffc9f05a1816adf2a422a86119357631664d9b1eb0d1f11e93a1d4428"
+            },
+            "pinentry-curses": {
+              "present": true,
+              "executable": true,
+              "resolved": "/usr/bin/pinentry-curses",
+              "sha256": "255b09f7b0199ce75c38e5c4e4a04b0992ed43f3fac89b3f80bbd26fe9b2e9ea"
+            },
+            "pinentry-tty": {
+              "present": false,
+              "executable": false,
+              "resolved": "/usr/bin/pinentry-tty",
+              "sha256": null
+            }
+          },
+          "project_agent_config_present": false,
+          "project_agent_config_safe_options": [],
+          "ssh_probe_environment": {
+            "TERM": null,
+            "DISPLAY": null,
+            "GPG_TTY": null
+          },
+          "entropy_avail": "256",
+          "shared_configuration_changed": false,
+          "key_generation_attempted": false,
+          "client_effective_options": [
+            "forwardx11 no",
+            "forwardx11trusted no",
+            "requesttty auto"
+          ]
+        },
+        "characterization": {
+          "observed_at": "2026-10-19T12:22:30.892687+00:00",
+          "scope": "Nonsecret input-path characterization with real pinentry/gpg-agent in fresh isolated homes. No private key or operational passphrase used.",
+          "cases": [
+            {
+              "mode": "default-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-dumb-pae_te07",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "default-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "system default",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-default-xterm-j_rf24fg",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-dumb",
+              "terminal": "dumb",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-dumb-d4egq9id",
+              "terminal_prompt_visible": false,
+              "test_text_sent": false,
+              "test_text_accepted": false,
+              "input_echoed_before_data": false,
+              "process_exit_code": -15,
+              "bounded_probe_timeout": true,
+              "actual_key_generated": false
+            },
+            {
+              "mode": "curses-xterm",
+              "terminal": "xterm-256color",
+              "pinentry_program": "/usr/bin/pinentry-curses",
+              "test_home": "/workspace/glwy/runtime/media-traceability-system/t013-bootstrap-20261019/pinentry-characterization-curses-xterm-gto6v6d0",
+              "terminal_prompt_visible": true,
+              "test_text_sent": true,
+              "test_text_accepted": true,
+              "input_echoed_before_data": false,
+              "process_exit_code": 0,
+              "bounded_probe_timeout": false,
+              "actual_key_generated": false
+            }
+          ],
+          "actual_signer_created": false
+        },
+        "adoption": {
+          "observed_at": "2026-10-19T12:25:51.796143+00:00",
+          "status": "PASS_SCOPED_TERMINAL_CONFIGURATION_AND_NONINTERACTIVE_GUARDS",
+          "previous_helper_sha256": "177a6b09c914661e54e6efb05bdc0fea3fae13e652b63f07525e471a86dd6466",
+          "current_helper_sha256": "f640fc3544d7c31a0442c3fe929df43dddfd8ed26c7247446aea1afcc6e96fa8",
+          "project_agent_config": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/gpg-agent.conf",
+          "project_agent_config_sha256": "250266c8436ebf3f94595d564f042fc5691b7d7104ca4f71c4d4f4ac1f804bae",
+          "project_agent_config_mode": "0600",
+          "pinentry_program": "/usr/bin/pinentry-curses",
+          "TERM_default_when_unset_or_dumb": "xterm-256color",
+          "bash_syntax": "PASS",
+          "guard_checks": [
+            {
+              "arguments": [
+                "--check"
+              ],
+              "expected_exit_code": 0,
+              "actual_exit_code": 0,
+              "status": "PASS"
+            },
+            {
+              "arguments": [
+                "--unexpected"
+              ],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            },
+            {
+              "arguments": [],
+              "expected_exit_code": 2,
+              "actual_exit_code": 2,
+              "status": "PASS"
+            }
+          ],
+          "actual_key_generation_performed": false,
+          "actual_signer_created": false,
+          "global_user_or_system_GPG_config_changed": false,
+          "shared_business_services_restarted": false,
+          "passphrase_received_by_tool": false,
+          "interactive_terminal_check_pending_at_adoption": true,
+          "interactive_terminal_check_pending": false,
+          "subsequent_terminal_check_completed_at": "2026-10-19T12:27:25.946Z"
+        },
+        "repaired_helper_terminal_regression": {
+          "observed_at": "2026-10-19T12:26:36.528065+00:00",
+          "status": "PASS_REPAIRED_HELPER_REAL_TERMINAL_CONFIRMATION_IN_THREE_TERM_STATES",
+          "cases": [
+            {
+              "incoming_TERM": "UNSET",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "dumb",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            },
+            {
+              "incoming_TERM": "xterm-256color",
+              "terminal_confirmation_visible": true,
+              "confirmation_only": true,
+              "process_exit_code": 0,
+              "helper_success_marker_present": true,
+              "timed_out": false,
+              "actual_key_generation_performed": false
+            }
+          ],
+          "secret_keys_after": 0,
+          "partial_private_files_after": 0,
+          "private_passphrase_used": false,
+          "actual_signer_created": false,
+          "formal_accepted": false
+        },
+        "Windows_SSH_terminal_smoke": {
+          "observed_at": "2026-10-19T12:27:25.946Z",
+          "status": "PASS",
+          "scope": "Windows SSH -tt to actual project helper --check-terminal; confirmed visible nonsecret dialog using Enter. No key generation or operational passphrase.",
+          "process_exit_code": 0
+        },
+        "baseline_helper_terminal_check_exit_code": 2,
+        "original_shared_services_unchanged": true,
+        "actual_signer_created": false,
+        "actual_private_backup_created": false,
+        "actual_private_decryption_performed": false,
+        "formal_accepted": false
+      }
+    },
+    "next_owner_operation": {
+      "scope": "Copy the existing verified public signer and protected local signer export to USB with no overwrite and exact hash comparison; commands are instructions only, not executed by this update.",
+      "PowerShell_commands": [
+        "$ErrorActionPreference = \"Stop\"",
+        "$TaskSignerPublicCopy = \"G:\\公安厅项目密钥\\public\\backup-signer.asc\"",
+        "$TaskSignerPrivateCopy = \"G:\\公安厅项目密钥\\private-backups\\backup-signer-secret.asc\"",
+        "foreach ($TaskTarget in @($TaskSignerPublicCopy, $TaskSignerPrivateCopy)) { if (Test-Path -LiteralPath $TaskTarget) { throw \"目标文件已存在，停止核验，不覆盖\" } }",
+        "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc \"$TaskSignerPublicCopy\"",
+        "if ($LASTEXITCODE -ne 0) { throw \"签名公钥复制失败，停止\" }",
+        "if ((Get-FileHash -Algorithm SHA256 -LiteralPath $TaskSignerPublicCopy).Hash.ToLowerInvariant() -ne \"85a662ae756310dbf64e2815246c9563406206574f24ee8f1e06e64d13d1e768\") { throw \"签名公钥摘要不一致，停止，不覆盖\" }",
+        "scp glwy@172.16.58.179:/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc \"$TaskSignerPrivateCopy\"",
+        "if ($LASTEXITCODE -ne 0) { throw \"受保护签名私钥备份复制失败，停止\" }",
+        "$TaskRemoteHashLine = @(ssh glwy@172.16.58.179 \"sha256sum /workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc\")",
+        "if ($LASTEXITCODE -ne 0 -or $TaskRemoteHashLine.Count -ne 1) { throw \"服务器备份摘要读取失败，停止\" }",
+        "$TaskRemoteHash = ($TaskRemoteHashLine[0] -split \"\\s+\")[0]",
+        "if ($TaskRemoteHash -notmatch \"^[a-fA-F0-9]{64}$\" -or (Get-FileHash -Algorithm SHA256 -LiteralPath $TaskSignerPrivateCopy).Hash.ToLowerInvariant() -ne $TaskRemoteHash.ToLowerInvariant()) { throw \"受保护备份复制摘要不一致，保留文件停止核验\" }",
+        "if ((Get-Item -LiteralPath $TaskSignerPrivateCopy).Length -ne 3486) { throw \"备份长度与核验记录不一致，停止\" }",
+        "Write-Output \"PASS_SIGNER_PUBLIC_AND_PROTECTED_BACKUP_COPY_HASHES\"",
+        "Get-Item -LiteralPath $TaskSignerPublicCopy, $TaskSignerPrivateCopy | Select-Object Name, Length"
+      ]
+    },
+    "actual_secret_backup_export_structurally_verified": true,
+    "actual_backup_or_restore_performed_scope": "Recovery secret export and protected signer local export exist; actual backup decryption or restored-home validation remains pending.",
+    "actual_revocation_copy_envelope_verified": true,
+    "actual_Linux_signer_verification": {
+      "observed_at": "2026-10-19T12:37:24.042907+00:00",
+      "status": "PASS_ACTUAL_SIGNER_EXISTENCE_PROTECTION_AND_LOCAL_EXPORT_STRUCTURE_ONLY",
+      "public_primary_fingerprint": "C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D",
+      "capabilities": "scSC",
+      "signing_capability": true,
+      "encryption_capability": false,
+      "secret_primary_count": 1,
+      "secret_subkey_count": 0,
+      "KEYINFO_protection": "P",
+      "public_key_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/public/backup-signer.asc",
+      "public_key_size_bytes": 1672,
+      "public_key_sha256": "85a662ae756310dbf64e2815246c9563406206574f24ee8f1e06e64d13d1e768",
+      "valid_public_self_signatures": 1,
+      "local_protected_secret_export_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/private-backups/backup-signer-secret.asc",
+      "local_protected_secret_export_size_bytes": 3486,
+      "protected_export_primary_packets": 1,
+      "protected_export_subkey_packets": 0,
+      "protected_export_packet_markers": 1,
+      "revocation_certificate_present": true,
+      "revocation_certificate_path": "/workspace/glwy/runtime/media-traceability-system/identity-custody/signer-gnupg/openpgp-revocs.d/C2F06E6116BDE369EE835C5D00AC4AAE1EB66C2D.rev",
+      "revocation_certificate_size_bytes": 1820,
+      "directories_mode": "0700",
+      "files_mode": "0600",
+      "recovery_public_unchanged": true,
+      "private_material_imported": false,
+      "raw_private_packet_dump_or_key_contents_published": false,
+      "private_passphrase_requested_by_this_check": false,
+      "actual_signer_created_by_owner": true,
+      "actual_signer_created_by_this_check": false,
+      "actual_signature_performed": false,
+      "actual_signer_backup_restored": false,
+      "actual_two_subkey_decryption_performed": false,
+      "signer_protected_backup_copied_to_USB": false,
+      "formal_accepted": false,
+      "Python_candidates_created": false
+    }
+  }
+}

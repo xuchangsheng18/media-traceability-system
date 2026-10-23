@@ -22,7 +22,7 @@ def test_feedback_reads_real_request_and_refuses_unproven_applied_state(control_
             (finding, c["actor"].org_id, c["case_id"], c["task_id"]),
         )
         connection.execute(
-            "INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version) VALUES(%s,%s,%s,'task',%s,1,'training_feedback','policy-dev-1',%s,'REQUESTED',now()+interval '1 hour','self-owned fixture',1,1)",
+            "INSERT INTO mt.approval_request(approval_id,org_id,case_id,object_type,object_id,object_version,purpose,policy_version,requested_by,state,expires_at,reason,run_version,result_version) VALUES(%s,%s,%s,'task',%s,1,'training_feedback','policy-dev-1',%s,'REQUESTED',now()+interval '30 minutes','self-owned fixture',1,1)",
             (approval, c["actor"].org_id, c["case_id"], c["task_id"], c["actor"].user_id),
         )
         connection.execute(
@@ -82,7 +82,28 @@ def test_runtime_openapi_is_authoritative_and_only_publishes_mounted_operations(
     c = control_context
     spec = c["control_http"].get("/openapi.json").json()
     operations = {op["operationId"] for methods in spec["paths"].values() for op in methods.values()}
-    assert len(operations) == 43 and "getApproval" in operations and "internalInference" in operations
+    external_operations = {
+        op["operationId"]
+        for path, methods in spec["paths"].items()
+        if path.startswith("/api/v1/")
+        for op in methods.values()
+    }
+    internal_operations = {
+        op["operationId"]
+        for path, methods in spec["paths"].items()
+        if path.startswith("/internal/")
+        for op in methods.values()
+    }
+    assert len(external_operations) == 52
+    assert {"getApproval", "issueOperationToken", "createTask"} <= external_operations
+    assert internal_operations == {"internalInference"}
+    assert operations == external_operations | internal_operations and len(operations) == 53
+    create = spec["paths"]["/api/v1/analysis/tasks"]["post"]
+    assert create["operationId"] == "createTask"
+    assert create["requestBody"]["content"]["application/json"]["schema"]["$ref"] == "#/components/schemas/TaskCreate"
+    assert (
+        create["responses"]["202"]["content"]["application/json"]["schema"]["$ref"] == "#/components/schemas/Accepted"
+    )
     assert "devLogin" not in operations and "rolloutModel" not in operations and "requestFeedback" not in operations
     assert len(spec["components"]["schemas"]) == 102
     assert (

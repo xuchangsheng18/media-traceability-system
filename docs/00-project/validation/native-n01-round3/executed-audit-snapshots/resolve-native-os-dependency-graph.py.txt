@@ -1,0 +1,39 @@
+import hashlib,json,os,re,subprocess
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-python-closure-20261017';repo=Path('/workspace/glwy/projects/media-traceability-system')
+origin=json.loads((out/'os-runtime-package-origin-report.json').read_text());lock=json.loads((repo/'config/native/os-build-dependencies.lock.json').read_text())
+raw=subprocess.check_output(['dpkg-query','-W','-f=${Package}\t${Version}\t${Architecture}\t${Depends}\t${Pre-Depends}\t${Provides}\n'],text=True)
+installed={};providers={}
+for line in raw.splitlines():
+ parts=line.split('\t');row=dict(zip(['package','version','architecture','depends','pre_depends','provides'],parts));installed[row['package']]=row
+ for provide in row.get('provides','').split(','):
+  if provide.strip():providers.setdefault(provide.strip().split()[0],[]).append(row)
+selected={r['package']:dict(r,origin='SIGNED_CANDIDATE_BUILD_PLAN') for r in lock['candidate_install_packages']};roots=set(selected)|{r['package'] for r in origin['packages']}
+edges=[];unresolved=[];queue=list(sorted(roots));visited=set()
+def check(version,operator,wanted):return subprocess.run(['dpkg','--compare-versions',version,operator,wanted]).returncode==0
+while queue:
+ name=queue.pop(0)
+ if name in visited:continue
+ visited.add(name)
+ if name not in selected:
+  if name not in installed:unresolved.append({'package':name,'reason':'ROOT_NOT_INSTALLED_OR_CANDIDATE'});continue
+  selected[name]=dict(installed[name],origin='EXISTING_HOST_PACKAGE')
+ node=selected[name]
+ for text in [node.get('depends') or '',node.get('pre_depends') or '']:
+  for clause in text.split(','):
+   if not clause.strip():continue
+   found=None
+   for alternative in clause.split('|'):
+    m=re.fullmatch(r'\s*([a-z0-9+.-]+)(?::(?:any|native|amd64))?(?:\s*\((<<|<=|=|>=|>>)\s*([^()]+)\))?\s*',alternative)
+    if not m:continue
+    dep,op,wanted=m.groups();candidates=[selected[dep]] if dep in selected else [installed[dep]] if dep in installed else providers.get(dep,[])
+    for candidate in candidates:
+     if op and candidate['package']!=dep:continue
+     if op and not check(candidate['version'],op,wanted):continue
+     found={'from':name,'requirement':clause.strip(),'to':candidate['package'],'resolved_version':candidate['version'],'provider':candidate['package']!=dep};break
+    if found:break
+   if not found:unresolved.append({'from':name,'requirement':clause.strip(),'reason':'UNRESOLVED_OR_UNSUPPORTED_EXPRESSION'})
+   else:edges.append(found);queue.append(found['to'])
+report={'status':'PASS_DECLARED_GRAPH_ONLY' if not unresolved else 'FAIL','scope':'23_mapped_OS_roots_plus40_signed_build_candidate_roots_declared_Depends_PreDepends_with_installed_providers_not_all_OS_or_dlopen','roots':sorted(roots),'nodes':sorted(selected.values(),key=lambda r:r['package']),'edges':edges,'unresolved':unresolved,'installed_package_metadata_sha256':hashlib.sha256(raw.encode()).hexdigest(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'signed_recovery_archives_admitted':False}
+(out/'os-dependency-graph-report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status'],len(selected),len(edges),len(unresolved))

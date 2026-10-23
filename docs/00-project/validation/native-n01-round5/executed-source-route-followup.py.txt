@@ -1,0 +1,21 @@
+import hashlib,json,tarfile,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';inventory=json.loads((w/'n01-r4-jar-license-resolution.json').read_text());row=next(x for x in inventory['jars'] if 'mssql-jdbc-13.4.0.jre11.jar' in x['archive']);results=[]
+for file in ['mssql-jdbc-13.4.0.jre11.jar','mssql-jdbc-13.4.0.jre11-sources.jar','mssql-jdbc-13.4.0.jre11.pom']:
+ url='https://repo.maven.apache.org/maven2/com/microsoft/sqlserver/mssql-jdbc/13.4.0.jre11/'+file
+ try:
+  with urllib.request.urlopen(url,timeout=25) as f:raw=f.read()
+  assert raw;(out/file).write_bytes(raw);entry={'url':url,'file':file,'sha256':hashlib.sha256(raw).hexdigest(),'status':'PASS_RETRIEVAL_ONLY'}
+  if file=='mssql-jdbc-13.4.0.jre11.jar':entry['matches_release_archive_sha256']=entry['sha256']==row['sha256']
+  if file.endswith('-sources.jar'):
+   with zipfile.ZipFile(out/file) as z:
+    entry['notice_candidates']=[{'path':n,'sha256':hashlib.sha256(z.read(n)).hexdigest(),'text':z.read(n).decode(errors='replace')} for n in z.namelist() if not n.endswith('/') and Path(n).name.upper() in ['LICENSE','LICENSE.TXT','NOTICE','NOTICE.TXT']]
+    names=[n for n in z.namelist() if n.endswith('SQLServerDriver.java')];entry['representative_header']={'path':names[0],'source_sha256':hashlib.sha256(z.read(names[0])).hexdigest(),'first30lines':'\n'.join(z.read(names[0]).decode().splitlines()[:30])} if names else None
+  results.append(entry)
+ except Exception as e:results.append({'url':url,'file':file,'status':'FAIL_RETRIEVAL','error':str(e)})
+themes=[]
+with tarfile.open(out/'keycloak-exact-source.tar.gz') as t:
+ for m in t:
+  if m.isfile() and 'themes-vendor' in m.name and (m.name.endswith('pom.xml') or Path(m.name).name.upper().startswith(('LICENSE','NOTICE','README'))):
+   raw=t.extractfile(m).read();themes.append({'source_path':m.name,'sha256':hashlib.sha256(raw).hexdigest(),'text':raw.decode(errors='replace')});(out/('keycloak-themes-vendor-'+Path(m.name).name)).write_bytes(raw)
+report={'scope':'MSSQL_exact_publication_JRE_version_and_Keycloak_vendor_module_source_route_followup_not_all_vendored_asset_license_approval','original_embedded_MSSQL_coordinate':row['coordinates'],'release_MSSQL_archive_sha256':row['sha256'],'MSSQL_followup':results,'Keycloak_pinned_commit':'24ed1dadf3f246a555adb6d3d4a99e9b3003fb3b','Keycloak_themes_vendor_sources':themes,'formal_admission':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'source-route-followup-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'MSSQL':[{k:v for k,v in x.items() if k in ['file','status','matches_release_archive_sha256']} for x in results],'themes_sources':len(themes)}))

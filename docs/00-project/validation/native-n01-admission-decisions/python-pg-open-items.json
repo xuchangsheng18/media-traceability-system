@@ -1,0 +1,337 @@
+{
+  "scope": "all12_existing_unique_CVEs_preserved_with_targeted_parser_observation_updates_not_new_scanner_or_final_security_approval",
+  "source_report": "docs/00-project/validation/native-n01-round4/python-pg-applicability-review.json",
+  "source_report_sha256": "352591861ba7f6761ea6b1890c3291774733dbb8747aac336ed72ad924e70e4e",
+  "records": [
+    {
+      "id": "CVE-2017-8806",
+      "technical_disposition": "NOT_AFFECTED_CANDIDATE_PRODUCT_NOT_PRESENT",
+      "basis": "针对postgresql-common早期Debian/Ubuntu脚本；dpkg-query退出1表明未安装，PATH无三个脚本，私有PG源码树也无三个脚本。仅排除此条产品误配候选；未证明PG全部安全。",
+      "required_action": "当前精确研发目标的限定不适用技术结论已获徐昌胜认可；保留原扫描，产品/平台/API或部署范围变化重新复核。非全局豁免或N01整体准入。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2017-8806",
+      "source_sha256": "9e2346c3b81c5172be64dff97feeca7da22a9c30582419e9d6e7bd1890a3f1fc",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "project_bounded_review": {
+        "reviewer": "徐昌胜",
+        "decision": "ACCEPTED_BOUNDED_NOT_APPLICABLE_OBSERVED_TARGET",
+        "recorded_at": "2026-10-18T18:07:55.949526+08:00",
+        "evidence_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json",
+        "whole_security_admission": false
+      },
+      "current_technical_disposition": "NOT_APPLICABLE_TO_OBSERVED_TARGET_PROJECT_REVIEW_ACCEPTED"
+    },
+    {
+      "id": "CVE-2023-36632",
+      "technical_disposition": "DISPUTED_REVIEW_REQUIRED",
+      "basis": "权威记录保留厂商争议说明；直接调用名称盘点未发现parseaddr，未覆盖别名或传递调用。",
+      "required_action": "未证明第三方间接邮件解析及超长输入全路径；启用邮件解析时明确长度上限、异常处理与有界测试，正式处置待复核。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2023-36632",
+      "source_sha256": "05585053401af71b313d4a101461985d07322c3682bd70b444c8dd8ec38c57a5",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "DISPUTED_SOURCE_AND_CURRENT_STRICT_API_REVIEW_DELIVERED",
+      "current_scope_observation": "上游保留争议。当前parseaddr为(addr, *, strict=True)，已保留前后校验源码；124项目文件和8597已安装Python源文件候选扫描无直接parseaddr调用。不能把严格参数当递归/输入上限的全面修复。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2023-36632.json"
+    },
+    {
+      "id": "CVE-2024-3220",
+      "technical_disposition": "NOT_AFFECTED_CANDIDATE_PLATFORM",
+      "basis": "权威记录限定Windows默认mime文件路径；实际sys.platform=linux。",
+      "required_action": "当前精确研发目标的限定不适用技术结论已获徐昌胜认可；保留原扫描，产品/平台/API或部署范围变化重新复核。非全局豁免或N01整体准入。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2024-3220",
+      "source_sha256": "77d7be82d15680ae3ddf56d66a84087dd1ed96fc98ffa049ef818de78544174e",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "project_bounded_review": {
+        "reviewer": "徐昌胜",
+        "decision": "ACCEPTED_BOUNDED_NOT_APPLICABLE_OBSERVED_TARGET",
+        "recorded_at": "2026-10-18T18:07:55.949526+08:00",
+        "evidence_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json",
+        "whole_security_admission": false
+      },
+      "current_technical_disposition": "NOT_APPLICABLE_TO_OBSERVED_TARGET_PROJECT_REVIEW_ACCEPTED"
+    },
+    {
+      "id": "CVE-2025-12781",
+      "technical_disposition": "OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "无害探测确认altchars=-_且validate=True仍接受+/；业务controls/common.py使用altchars，uploads/repository.py使用urlsafe解码。",
+      "required_action": "Pydantic Base64URL类型和wheel恢复/安装输入需逐路径核对；不得把D02推广为所有第三方解码已修复。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2025-12781",
+      "source_sha256": "8413c4167d79d0460c9acb8bb3a7c901ab3cbf4cc5bfd708c9a260f0321cfc7c",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "application_hardening": {
+        "status": "D02_IMPLEMENTED_VALIDATED_SCOPE_ONLY",
+        "evidence_ref": "docs/00-project/validation/d02-cursor-hardening-report.json",
+        "interpreter_patched": false,
+        "whole_application_reachability_proved": false,
+        "formal_review_changed": false
+      },
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "D02_BOUNDARY_MITIGATED_DEPENDENCY_CALLS_REMAIN",
+      "current_scope_observation": "D02两处游标统一严格编码入口，21项专项重跑通过。解释器仍接收标准字母表别名；已安装依赖41处解码中4处URL-safe调用分别在Pydantic和两份wheel实现。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "historical_pre_D02_application_observation": "Actual controls parser accepts same-raw signed cursor across alphabets;payload/actor tampering rejected in self-owned fixture. Canonicality not enforced;not authorization bypass proof or accepted risk.",
+      "current_application_observation": "D02 applied;fresh21 canonical cursor tests pass at 541f2c1fea3b7559f03edf13b96781bfa7df8173;interpreter and third-party calls not patched",
+      "additional_boundary_review_ref": "docs/00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2025-12781.json"
+    },
+    {
+      "id": "CVE-2025-15366",
+      "technical_disposition": "OBSERVED_COMMAND_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "内存Socket夹具确认当前imaplib LOGIN参数中的CRLF进入命令字节；没有网络连接。直接调用名称盘点未发现IMAP4/IMAP4_SSL，尚未证明传递路径不可达。",
+      "required_action": "启用IMAP、插件或间接调度前，须补受维护修补或经批准的命令控制字符拒绝及相应测试；现有扫描不足以关闭整解释器记录。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2025-15366",
+      "source_sha256": "e3515e286be582e7884dcf4af4b8a433a37ab6639965cc7ea6990acd81f4c183",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "additional_facts_refs": [
+        "mail-and-vpath-probes.json"
+      ],
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "NO_RESOLVED_IMAP_CALL_IN_REVIEWED_PYTHON_SOURCES_NOT_GLOBAL_UNREACHABILITY",
+      "current_scope_observation": "当前项目及已安装Python源候选AST扫描无已解析imaplib调用；旧内存命令观察仍保留，不伪造模块修补。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2025-15366.json"
+    },
+    {
+      "id": "CVE-2025-15367",
+      "technical_disposition": "OBSERVED_COMMAND_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "内存Socket夹具确认当前poplib USER参数中的CRLF进入命令字节；没有网络连接。直接调用名称盘点未发现POP3/POP3_SSL，但不证明全部业务不可达。",
+      "required_action": "启用POP/插件前须补受维护修补或经批准的控制字符拒绝及测试；不修改库或把未观察到调用当全环境不可达。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2025-15367",
+      "source_sha256": "97cf2919773f0bce1eb6b67cdc552890bfe200f0b23e920b561a474948ab9808",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "additional_facts_refs": [
+        "mail-and-vpath-probes.json"
+      ],
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "NO_RESOLVED_POP_CALL_IN_REVIEWED_PYTHON_SOURCES_NOT_GLOBAL_UNREACHABILITY",
+      "current_scope_observation": "当前项目及已安装Python源候选AST扫描无已解析poplib调用；旧内存命令观察仍保留。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2025-15367.json"
+    },
+    {
+      "id": "CVE-2026-12003",
+      "technical_disposition": "CONDITIONAL_SCOPE_REVIEW_REQUIRED",
+      "basis": "实际Conda VPATH为绝对构建路径；该目录及Modules/setup.local不存在，sys.path未含该路径。上游也描述非Windows可覆写VPATH，不能仅Linux就豁免。",
+      "required_action": "不创建landmark或实施目录攻击；N02落实不可由低权限主体改写的服务代码和祖先目录，N03以实际账号验证，当前不签整环境不受影响。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2026-12003",
+      "source_sha256": "9739e79a13d50f2e32d7ed997468d84e2b9f519f78087af7da1f0b30edbfa79a",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "additional_facts_refs": [
+        "runtime-followup-report.json",
+        "mail-and-vpath-probes.json"
+      ],
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_permission_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-runtime-and-callsite-facts.json",
+      "current_technical_disposition": "CURRENT_USER_PERMISSION_REVIEW_RETAINED_FINAL_IDENTITY_PENDING",
+      "current_scope_observation": "上游描述为VPATH回退及父目录权限条件；现有只读VPATH/父目录/ACL观察保留，当前并非已验收的高权限服务环境。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2026-12003.json"
+    },
+    {
+      "id": "CVE-2026-12345",
+      "technical_disposition": "CONDITIONAL_SCOPE_REVIEW_REQUIRED",
+      "basis": "实际rmtree.avoids_symlink_attacks=True；多处工具使用TemporaryDirectory，但权威记录指出文件标志仍可能在树外变更。",
+      "required_action": "后续获准实现私有临时根、非特权运行和写入主体限制，并按最终账号验证；本轮仅清单，不改变TMPDIR/ACL/清理逻辑，不登记已修复。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2026-12345",
+      "source_sha256": "bd88cf05a29af54a2415fae98fd0e8c78c5c573d410c804d4c8cabb5a8bb51ec",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_permission_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-runtime-and-callsite-facts.json",
+      "current_technical_disposition": "AFFECTED_CLEANUP_API_PRESENT_CONDITIONAL_CONTROL_PENDING",
+      "current_scope_observation": "16处项目与42处已安装依赖TemporaryDirectory直接调用已列出；rmtree防符号链接标记不覆盖上游所述全部文件标志风险。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "additional_boundary_review_ref": "docs/00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2026-12345.json"
+    },
+    {
+      "id": "CVE-2026-3298",
+      "technical_disposition": "NOT_AFFECTED_CANDIDATE_PLATFORM_AND_API",
+      "basis": "权威记录明确非Windows不受影响；实际Linux3.10且BaseEventLoop无sock_recvfrom_into。",
+      "required_action": "当前精确研发目标的限定不适用技术结论已获徐昌胜认可；保留原扫描，产品/平台/API或部署范围变化重新复核。非全局豁免或N01整体准入。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2026-3298",
+      "source_sha256": "8407251bbd548499993872978ff63ab1786b9ad43345be69379a14386d8ae949",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "project_bounded_review": {
+        "reviewer": "徐昌胜",
+        "decision": "ACCEPTED_BOUNDED_NOT_APPLICABLE_OBSERVED_TARGET",
+        "recorded_at": "2026-10-18T18:07:55.949526+08:00",
+        "evidence_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json",
+        "whole_security_admission": false
+      },
+      "current_technical_disposition": "NOT_APPLICABLE_TO_OBSERVED_TARGET_PROJECT_REVIEW_ACCEPTED"
+    },
+    {
+      "id": "CVE-2026-3446",
+      "technical_disposition": "OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "默认解码YQ==Yg==得到a；validate=True拒绝。PoC图像入口已严格解码；上传游标先验证编码字符串HMAC后默认解码，需分别复核。",
+      "required_action": "按各调用的真实协议/信任边界核对；尤其S3响应校验、消息序列化、会话中间件和Pydantic类型。是否需要代码变更按具体申请处理，不直接修改第三方或降低断言。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2026-3446",
+      "source_sha256": "d877dcb3710a00477e390067ec393bc71db900fc3f66252cfce1ba9d4918705e",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "application_hardening": {
+        "status": "D02_IMPLEMENTED_VALIDATED_SCOPE_ONLY",
+        "evidence_ref": "docs/00-project/validation/d02-cursor-hardening-report.json",
+        "interpreter_patched": false,
+        "whole_application_reachability_proved": false,
+        "formal_review_changed": false
+      },
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "D02_BOUNDARY_MITIGATED_DEFAULT_DEPENDENCY_DECODERS_REMAIN",
+      "current_scope_observation": "D02专项21项通过；无害探测确认默认解码忽略填充后尾部、validate=True拒绝该输入。依赖41处解码中，仅2处标准字母表调用显式validate=True，37处标准/4处URL-safe分别保留上下文。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "historical_pre_D02_application_observation": "Controls strict decoder rejects postpadding tail. Upload HMAC over encoded text rejects unsigned edits before decode;synthetic trusted signer can still produce accepted noncanonical text. Default interpreter behavior remains. Not global application reachability proof.",
+      "current_application_observation": "D02 applied;fresh21 canonical cursor tests pass at 541f2c1fea3b7559f03edf13b96781bfa7df8173;interpreter and third-party calls not patched",
+      "additional_boundary_review_ref": "docs/00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2026-3446.json"
+    },
+    {
+      "id": "CVE-2026-3479",
+      "technical_disposition": "DISPUTED_REVIEW_REQUIRED",
+      "basis": "权威记录说明pkgutil.get_data安全模型与open相同；直接调用名称盘点未发现，但不证明传递路径不可达。",
+      "required_action": "该固定调用未观察到外部resource参数；不证明动态loader或变量重绑定绝无风险。未来接受外部资源路径时必须授权、约束和测试，不将争议当全软件准入。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2026-3479",
+      "source_sha256": "acbf5d9fc2ed21fcf6d85ff873c1a9f9007c047e1816395e3ddf316d823d06c8",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "DISPUTED_INTENDED_OPEN_SECURITY_MODEL_AND_FIXED_RESOURCE_REVIEW_DELIVERED",
+      "current_scope_observation": "上游明确get_data按open安全模型并保留争议；唯一已解析依赖调用为dateutil.zoneinfo，包名__name__和资源常量dateutil-zoneinfo.tar.gz已记录源码。项目无直接调用。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "additional_boundary_review_ref": "docs/00-project/validation/native-n01-admission-decisions/decoder-boundary-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2026-3479.json"
+    },
+    {
+      "id": "CVE-2026-6019",
+      "technical_disposition": "OBSERVED_BEHAVIOR_APPLICATION_REVIEW_REQUIRED",
+      "basis": "Morsel.js_output合成值保留</script>片段；直接调用名称盘点未发现js_output，未验证所有Web传递模板。",
+      "required_action": "不能将不可信cookie拼入内联脚本；启用该API前补修补或改用安全响应头路径并验证，不把零匹配当解释器已修复。",
+      "authoritative_source": "https://cveawg.mitre.org/api/cve/CVE-2026-6019",
+      "source_sha256": "e1dd2a3177f415f9d9a31cbc828196be7a8b14d4047ced5faf2c3690c17f0edc",
+      "facts_ref": "runtime-and-cve-facts.json",
+      "formal_review": {
+        "reviewer": null,
+        "decision": null,
+        "reviewed_at": null
+      },
+      "scan_match_retained": true,
+      "original_technical_disposition_preserved": true,
+      "risk_acceptance_recorded": false,
+      "latest_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/current-work-items.json",
+      "current_technical_disposition": "UNSAFE_API_BEHAVIOR_REPRODUCED_NO_RESOLVED_CURRENT_CALL",
+      "current_scope_observation": "合成cookie探测仍出现字面</script>序列，未在浏览器执行。当前项目/已安装Python源候选扫描无已解析js_output调用。",
+      "latest_disposition_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_resolution_review_ref": "docs/00-project/validation/native-n01-admission-decisions/nine-cve-disposition-review.json",
+      "latest_official_source_ref": "docs/00-project/validation/native-n01-admission-decisions/CVE-2026-6019.json"
+    }
+  ],
+  "unique_CVEs": 12,
+  "count_groups": {
+    "bounded_not_affected_candidates": 3,
+    "disputed_items": 2,
+    "behavior_or_conditional_review_items": 7
+  },
+  "Python_candidates": "DEFERRED_BY_USER",
+  "overall_approved": false,
+  "project_bounded_review_accepted_count": 3,
+  "remaining_technical_disposition_count": 9,
+  "project_bounded_review_ref": "docs/00-project/validation/native-n01-admission-decisions/user-bounded-review-decision.json"
+}

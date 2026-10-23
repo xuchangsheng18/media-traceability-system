@@ -1,0 +1,39 @@
+{
+  "name": "is-reference",
+  "version": "1.2.1",
+  "archive_sha256": "64378adcaca033879d0a0172497bae4a73f9c07a0e57df1c9469db82f18fafd5",
+  "SRI_matches_pinned_lock": true,
+  "exact_source_commit": "9d2719fbcc2059567203063f1e7b65d7831bfd64",
+  "declarations": [
+    {
+      "member": "package/package.json",
+      "sha256": "e78195f4109af5a58394454ca6c4d3d68755bdfe3ed0fc29575ab535400706b9",
+      "utf8_text": "{\n  \"name\": \"is-reference\",\n  \"version\": \"1.2.1\",\n  \"description\": \"Determine whether an AST node is a reference\",\n  \"main\": \"dist/is-reference.js\",\n  \"module\": \"dist/is-reference.es.js\",\n  \"types\": \"dist/types/index.d.ts\",\n  \"files\": [\n    \"dist/*.js\",\n    \"dist/types/**/*.d.ts\"\n  ],\n  \"scripts\": {\n    \"test\": \"mocha\",\n    \"build\": \"rollup -c && tsc --emitDeclarationOnly\",\n    \"pretest\": \"npm run build\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"npm test\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/Rich-Harris/is-reference.git\"\n  },\n  \"keywords\": [\n    \"ast\",\n    \"javascript\",\n    \"estree\",\n    \"acorn\"\n  ],\n  \"author\": \"Rich Harris\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/Rich-Harris/is-reference/issues\"\n  },\n  \"homepage\": \"https://github.com/Rich-Harris/is-reference#readme\",\n  \"dependencies\": {\n    \"@types/estree\": \"*\"\n  },\n  \"devDependencies\": {\n    \"acorn\": \"^7.2.0\",\n    \"acorn-class-fields\": \"^0.3.2\",\n    \"acorn-static-class-features\": \"^0.2.1\",\n    \"estree-walker\": \"^2.0.1\",\n    \"mocha\": \"^7.1.2\",\n    \"rollup\": \"^2.10.3\",\n    \"rollup-plugin-typescript\": \"^1.0.1\",\n    \"tslib\": \"^2.0.0\",\n    \"typescript\": \"^3.9.2\"\n  }\n}\n"
+    },
+    {
+      "member": "package/README.md",
+      "sha256": "5c4ddd870478f00e01b5dd9f8b7c0ed8525df740f4a999b87ef1f970fb42c41a",
+      "utf8_text": "# is-reference\n\nUtility for determining whether an AST node is a reference.\n\n`foo` is a reference in these cases:\n\n```js\nconsole.log( foo );\nvar foo;\nfunction foo () {}\nfunction bar ( foo ) {}\nexport { foo as x };\n```\n\n`foo` is *not* a reference in these cases:\n\n```js\nvar obj = { foo: 1 };\nconsole.log( obj.foo );\nexport { x as foo };\n```\n\nIn all cases, `foo` is an `Identifier` node, but the two kinds must be treated differently for the purposes of scope analysis etc. (The examples are non-exhaustive.)\n\n\n## Installation\n\n```bash\nnpm install is-reference\n```\n\n\n## Usage\n\nExample using [Acorn](https://github.com/ternjs/acorn) and [estree-walker](https://github.com/Rich-Harris/estree-walker):\n\n```js\nconst { parse } = require( 'acorn' );\nconst { walk } = require( 'estree-walker' );\nconst isReference = require( 'is-reference' );\n\nconst identifiers = [];\nconst references = [];\n\nconst ast = parse( `var a = b.c;` );\n\nwalk( ast, {\n\tenter ( node, parent ) {\n\t\tif ( node.type === 'Identifier' ) identifiers.push( node );\n\t\tif ( isReference( node, parent ) ) references.push( node );\n\t}\n});\n\nidentifiers.forEach( node => console.log( node.name ) ); // a, b, c\nreferences.forEach( node => console.log( node.name ) ); // a, b\n```\n\n\n## License\n\nMIT\n"
+    }
+  ],
+  "author_metadata_not_invented_copyright_owner": "Rich Harris",
+  "upstream_separate_license_file_present": false,
+  "standard_MIT_terms": "Permission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the “Software”), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+  "standard_terms_body_source": {
+    "report": "docs/00-project/validation/native-n01-round7/vendor-build-report.json",
+    "package": "@noble/hashes@2.0.1",
+    "member": "package/LICENSE",
+    "full_original_text_sha256": "4f221aee6e072336700c408c68ab3b96a3fc09f6aebe6f48f1bd99e5ef13faec",
+    "upstream_owner_line_not_reassigned": true
+  },
+  "standard_terms_web_reference": "https://opensource.org/license/mit",
+  "current_role": "private_Rollup_build_tool_input_actual_round7_43package_build_not_new_business_dependency",
+  "technical_scope_status": "MIT_DECLARATION_AND_REFERENCED_TERMS_REVIEW_DELIVERED",
+  "limits": [
+    "no fabricated copyright year",
+    "no claim license author supplied a missing standalone file",
+    "no inference all compiler code absent from every generated byte",
+    "external compiler-tool redistribution retains upstream declarations and applicable notices"
+  ],
+  "formal_admission": false
+}

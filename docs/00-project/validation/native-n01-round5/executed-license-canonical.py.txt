@@ -1,0 +1,16 @@
+import concurrent.futures,datetime,hashlib,json,urllib.request
+from pathlib import Path
+w=Path(__file__).parent;out=w/'n01-r5-upstream';urls={'Apache-2.0':'https://www.apache.org/licenses/LICENSE-2.0.txt','MPL-2.0':'https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt','EPL-1.0':'https://www.eclipse.org/legal/epl/epl-v10.html','EPL-2.0':'https://www.eclipse.org/legal/epl-2.0/','MIT-0':'https://spdx.org/licenses/MIT-0.html'}
+def get(item):
+ name,url=item
+ try:
+  with urllib.request.urlopen(url,timeout=22) as f:raw=f.read()
+  assert raw;return {'identifier':name,'url':url,'sha256':hashlib.sha256(raw).hexdigest(),'body':raw.decode('utf8'),'status':'PASS_OFFICIAL_TEXT_RETRIEVAL_ONLY'}
+ except Exception as e:return {'identifier':name,'url':url,'status':'FAIL','error':str(e)}
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:rows=list(pool.map(get,urls.items()))
+apache=next(x for x in rows if x['identifier']=='Apache-2.0');inventory=json.loads((w/'n01-r4-jar-license-resolution.json').read_text());mapped=[]
+if apache['status']=='PASS_OFFICIAL_TEXT_RETRIEVAL_ONLY':
+ for row in inventory['jars']:
+  licenses=row.get('pom_evidence',{}).get('licenses',[])
+  if len(licenses)==1 and 'apache' in str(licenses[0].get('name','')).lower() and '2' in str(licenses[0].get('name','')):mapped.append({'release_archive':row['archive'],'release_sha256':row['sha256'],'coordinate':row.get('resolved_coordinate'),'declared_license':licenses[0],'canonical_text_sha256':apache['sha256'],'covers_component_specific_copyright_or_NOTICE':False})
+report={'scope':'official_license_standard_texts_and_unambiguous_primary_POM_Apache_declarations_only_not_all_notice_or_distribution_compliance','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'canonical_texts':rows,'Apache_primary_declarations_mapped':mapped,'formal_admission':False};(out/'canonical-license-texts-and-mapping.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps({'canonical_statuses':[(x['identifier'],x['status']) for x in rows],'Apache_primary_declarations_mapped':len(mapped)}))

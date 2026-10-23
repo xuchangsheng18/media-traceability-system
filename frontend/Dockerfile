@@ -3,6 +3,7 @@ WORKDIR /ui
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY frontend ./
+COPY shared-contracts /shared-contracts
 RUN npm run test && npm run build
 FROM nginx:1.31.4-alpine@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913
 COPY --from=build /ui/dist /usr/share/nginx/html

@@ -1,0 +1,106 @@
+{
+  "status": "PASS_NO_HIGH_OR_CRITICAL",
+  "observed_at": "2026-10-17T06:42:31.396105+00:00",
+  "scanner": "Trivy0.76.0",
+  "scanner_archive_sha256": "e24b1c51293c1b15e4ba8d45bbc7891ba053f90278ec2698f3562c993e145fe7",
+  "vulnerability_database_manifest": "sha256:9dd4076bb4c826ace2a305983a2285de1044fbf99d27eb619b91abc4dfc1b43c",
+  "java_database_manifest": "sha256:359206468a0ab08885c67a2e3143f3ef984eca9bdae8c0301dbd2c38aec6779d",
+  "scope": "final_runtime_images_not_all_future_versions_or_formal_admission",
+  "high": 0,
+  "critical": 0,
+  "software_admission_approved": false,
+  "images": {
+    "keycloak": {
+      "status": "SCAN_EXECUTED",
+      "sha256": "276288a67cc77ec80b8dbed66f93c2b253763871bd61a9fb3f1c46ab40731d64",
+      "vulnerabilities": 50,
+      "critical": 0,
+      "high": 0,
+      "fixed_high_or_critical": [],
+      "reference": "media-trace-identity-keycloak:26.8.1-1",
+      "runtime_image_id": "sha256:5b14d5d685bdca51860fb132c12d46600b997095ea236e0be55b144fd335dea4"
+    },
+    "postgres": {
+      "status": "SCAN_EXECUTED",
+      "sha256": "615a2ecc7f986131e46b91e79d4d100c20161c0424a7163cfc5467409492b3d2",
+      "vulnerabilities": 1,
+      "critical": 0,
+      "high": 0,
+      "fixed_high_or_critical": [],
+      "reference": "media-trace-identity-postgres:16.15-alpine-1",
+      "runtime_image_id": "sha256:d14dc8385ab951ec4f92cafc637b096128cf2270a11afd43e3965546b269fd15"
+    },
+    "nginx": {
+      "status": "SCAN_EXECUTED",
+      "sha256": "da8a6ba178eda804ffdf3de3c55a6326b31678ce509dc440ddccdc1c739a9bc1",
+      "vulnerabilities": 1,
+      "critical": 0,
+      "high": 0,
+      "fixed_high_or_critical": [],
+      "reference": "docker.m.daocloud.io/library/nginx@sha256:959ae6b898852db82e5b29b929388e59914f42be0a8f4d44c89a4c1f53b49208",
+      "runtime_image_id": "sha256:959ae6b898852db82e5b29b929388e59914f42be0a8f4d44c89a4c1f53b49208"
+    }
+  },
+  "package_inventory": {
+    "keycloak": [
+      {
+        "type": "redhat",
+        "packages": 44
+      },
+      {
+        "type": "jar",
+        "packages": 518
+      },
+      {
+        "type": null,
+        "packages": 0
+      },
+      {
+        "type": null,
+        "packages": 0
+      }
+    ],
+    "postgres": [
+      {
+        "type": "alpine",
+        "packages": 45
+      },
+      {
+        "type": null,
+        "packages": 0
+      }
+    ],
+    "nginx": [
+      {
+        "type": "alpine",
+        "packages": 71
+      },
+      {
+        "type": null,
+        "packages": 0
+      }
+    ]
+  },
+  "rejected_candidates": [
+    {
+      "version": "16.15-bookworm",
+      "critical": 4,
+      "high": 95
+    },
+    {
+      "version": "16.15-alpine3.24_unhardened",
+      "critical": 1,
+      "high": 24
+    }
+  ],
+  "remediation": "remove_gosu_and_symlink_run_PostgreSQL_as_UID70_without_adding_dependencies",
+  "artifacts": {
+    "docs/00-project/validation/identity-runtime-images/keycloak.cdx.json": "03db67e8a5cd98a3603fed25c56956e618010081a568dde50474c0b0752f4be3",
+    "docs/00-project/validation/identity-runtime-images/keycloak.json": "276288a67cc77ec80b8dbed66f93c2b253763871bd61a9fb3f1c46ab40731d64",
+    "docs/00-project/validation/identity-runtime-images/nginx.cdx.json": "c67b3e767f7a771bf4933e0ae82a4e0f6f05d984d982dd48a6c87fa859e7514e",
+    "docs/00-project/validation/identity-runtime-images/nginx.json": "da8a6ba178eda804ffdf3de3c55a6326b31678ce509dc440ddccdc1c739a9bc1",
+    "docs/00-project/validation/identity-runtime-images/postgres.cdx.json": "d901b7a8103427432c59015a72ced9abcc31c0aa49bc6a0b897f9548f28602e7",
+    "docs/00-project/validation/identity-runtime-images/postgres.json": "615a2ecc7f986131e46b91e79d4d100c20161c0424a7163cfc5467409492b3d2",
+    "docs/00-project/validation/identity-runtime-images/summary.json": "992b6c5ffa0e8da842852a44619f6c49f5f5c3cbea0b6c2779e9b03ae44b9d02"
+  }
+}

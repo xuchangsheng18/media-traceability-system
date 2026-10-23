@@ -1,0 +1,53 @@
+"""Synthetic, local-library boundary observations; no network/DB/service mutation."""
+import ast,base64,datetime,hashlib,io,json,os,subprocess,sys,sysconfig
+from pathlib import Path
+from types import SimpleNamespace
+os.umask(0o077);repo=Path('/workspace/glwy/projects/media-traceability-system');base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'n01-current-admission';site=Path(sysconfig.get_paths()['purelib']);f=repo/'docs/00-project/validation/native-n01-admission-decisions';inv=json.loads((f/'dependency-callsite-inventory.json').read_text());checks=[]
+def call(name,fn,expect):
+ try:
+  v=fn();actual={'kind':'return','value':v.hex() if isinstance(v,bytes) else v}
+ except Exception as e:actual={'kind':'exception','type':type(e).__name__}
+ checks.append({'name':name,'actual':actual,'expected':expect,'observation_matches':actual==expect,'security_fix_asserted':False})
+from pydantic.types import Base64UrlEncoder
+call('pydantic_URL_decoder_accepts_standard_alphabet',lambda:Base64UrlEncoder.decode(b'+/8='),{'kind':'return','value':'fbff'})
+call('pydantic_URL_decoder_ignores_postpadding',lambda:Base64UrlEncoder.decode(b'YQ==EXTRA'),{'kind':'return','value':'61'})
+from wheel.wheelfile import urlsafe_b64decode as wheel_decode
+call('wheel_hash_helper_accepts_alphabet_alias',lambda:wheel_decode(b'+/8'),{'kind':'return','value':'fbff'})
+call('wheel_hash_helper_ignores_postpadding',lambda:wheel_decode(b'YQ==EXTRA'),{'kind':'return','value':'61'})
+from botocore.paginate import TokenDecoder
+token=base64.b64encode(b'{"owned":"fixture"}').decode()
+call('botocore_pagination_accepts_postpadding_token_alias',lambda:TokenDecoder().decode(token+'EXTRA'),{'kind':'return','value':{'owned':'fixture'}})
+from kombu.utils.json import loads
+call('kombu_JSON_byte_envelope_ignores_postpadding',lambda:loads('{"__type__":"base64","__value__":"YQ==EXTRA"}'),{'kind':'return','value':'61'})
+from botocore.httpchecksum import _handle_bytes_response
+body=b'owned-fixture';expected=base64.b64encode(hashlib.sha256(body).digest()).decode();headers={'headers':{'x-amz-checksum-sha256':expected}}
+call('botocore_checksum_valid_body',lambda:_handle_bytes_response(SimpleNamespace(content=body),headers,'sha256'),{'kind':'return','value':body.hex()})
+call('botocore_checksum_rejects_wrong_body',lambda:_handle_bytes_response(SimpleNamespace(content=body+b'x'),headers,'sha256'),{'kind':'exception','type':'FlexibleChecksumError'})
+headers_alias={'headers':{'x-amz-checksum-sha256':expected+'EXTRA'}}
+call('botocore_checksum_header_alias_same_digest',lambda:_handle_bytes_response(SimpleNamespace(content=body),headers_alias,'sha256'),{'kind':'return','value':body.hex()})
+sys.path.insert(0,str(repo/'backend'));from app.common import decode_image
+from PIL import Image
+buf=io.BytesIO();Image.new('RGB',(1,1),(1,2,3)).save(buf,format='PNG');image=buf.getvalue();encoded=base64.b64encode(image).decode()
+call('project_image_standard_Base64_control',lambda:decode_image(encoded),{'kind':'return','value':image.hex()})
+call('project_image_rejects_postpadding_tail',lambda:decode_image(encoded+'EXTRA'),{'kind':'exception','type':'ValueError'})
+import dateutil.zoneinfo as zi
+seen=[];orig=zi.get_data
+try:
+ zi.get_data=lambda package,resource:(seen.append([package,resource]) or b'owned')
+ call('dateutil_fixed_resource_forwarding',lambda:zi.getzoneinfofile_stream().getvalue(),{'kind':'return','value':'6f776e6564'})
+finally:zi.get_data=orig
+assert seen==[['dateutil.zoneinfo','dateutil-zoneinfo.tar.gz']]
+contexts=[]
+for x in inv['target_calls']:
+ root=repo if x['scope']=='project' else site;p=root/x['path'];assert hashlib.sha256(p.read_bytes()).hexdigest()==x['source_sha256']
+ if x['kind']!='base64_decode' or x['scope']!='installed_python_sources':continue
+ rows=p.read_text(encoding='utf8').splitlines();a=max(0,x['line']-18);b=min(len(rows),x['line']+12)
+ contexts.append({'path':x['path'],'line':x['line'],'source_sha256':x['source_sha256'],'snippet_start_line':a+1,'snippet':'\n'.join(rows[a:b]) if x['path']!='PIL/ImageFont.py' else 'embedded literal font/image,raw source hash retained','current_python_branch_note':'sys.version_info>=3.15 branch NOT active in current3.10' if x['path']=='pydantic/types.py' and 'padded=True' in x['expression'] else None})
+source_refs=['backend/app/common.py','backend/app/worker.py','backend/business_app/uploads/messaging.py','backend/business_app/identity/tokens.py','backend/business_app/identity/runtime.py','backend/business_app/main.py','backend/business_app/cursor_encoding.py']
+project={p:{'sha256':hashlib.sha256((repo/p).read_bytes()).hexdigest(),'text':(repo/p).read_text()} for p in source_refs}
+temp_calls=[x for x in inv['target_calls'] if x['kind']=='TemporaryDirectory'];temp_groups={}
+for scope in ['project','installed_python_sources']:
+ selected=[x for x in temp_calls if x['scope']==scope];temp_groups[scope]={'count':len(selected),'paths':sorted({x['path'] for x in selected}),'classification':'project verification/tooling functions only;not proven never called in production' if scope=='project' else 'includes build/test/runtime optional helpers;presence is not activation'}
+for x in checks:
+ x['interpretation']='Observed risk behavior remains;not patched' if 'accepts_' in x['name'] or 'ignores_' in x['name'] or 'alias_' in x['name'] else 'Bounded control or error behavior;not whole-CVE closure'
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'runtime':sys.version,'scope':'owned_in_memory_library_calls_no_network_database_browser_or_live_message_exchange','status':'BOUNDED_OBSERVATIONS_COMPLETE_NOT_SECURITY_ADMISSION','checks':checks,'all_observations_match':all(x['observation_matches'] for x in checks),'dateutil_forwarded_arguments':seen,'decoder_contexts':contexts,'project_binding_sources':project,'TemporaryDirectory_groups':temp_groups,'limits':['No whole-program taint/compiled/dynamic plugin proof','No wheel installation,credentials access,cloud/S3 request,queue interaction,HTTP request or browser execution','Current Pydantic3.15 branch is inactive;not all4syntactic URL-safe calls active on3.10','Wrong-body checksum refusal and image strictness do not fix all third-party decoders'],'Python_candidate_created':False,'interpreter_or_dependency_patched':False,'formal_admitted':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'dependency-boundary-probes.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps({'observations':len(checks),'all_match':d['all_observations_match'],'mismatches':[x for x in checks if not x['observation_matches']],'decoder_contexts':len(contexts)}))

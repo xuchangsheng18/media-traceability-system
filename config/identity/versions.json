@@ -1,0 +1,52 @@
+{
+  "status": "FINAL_RUNTIME_IMAGES_SCANNED_FORMAL_ADMISSION_PENDING",
+  "observed_date": "2026-10-17",
+  "platform": "linux/amd64",
+  "images": {
+    "keycloak": {
+      "version": "26.8.1",
+      "reference": "quay.io/keycloak/keycloak@sha256:ed1cab21814c7d18ce8f0e11d5a1fa1c6923de12dd4c7625a18c5d34452a57a4",
+      "index_digest": "sha256:79c623a22abacf3fe6c00a5fb30f5b7843d717b234033b80995891c06116d244",
+      "source": "https://www.keycloak.org/downloads",
+      "license": "Apache-2.0"
+    },
+    "postgres": {
+      "version": "16.15-alpine3.24",
+      "runtime_uid": 70,
+      "reference": "docker.m.daocloud.io/library/postgres@sha256:1a66d744c1b459e13b05a8fca341da84cb63383e99ce262210efee5a319d4551",
+      "official_repository": "docker.io/library/postgres",
+      "index_digest": "sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea",
+      "source": "https://github.com/docker-library/postgres",
+      "mirror_digest_matches_official_registry": true,
+      "license": "PostgreSQL"
+    },
+    "nginx": {
+      "version": "1.30.6-alpine",
+      "reference": "docker.m.daocloud.io/library/nginx@sha256:959ae6b898852db82e5b29b929388e59914f42be0a8f4d44c89a4c1f53b49208",
+      "official_repository": "docker.io/library/nginx",
+      "index_digest": "sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5",
+      "source": "https://nginx.org/en/download.html",
+      "mirror_digest_matches_official_registry": true,
+      "license": "BSD-2-Clause"
+    }
+  },
+  "security_scan": {
+    "status": "PASS_NO_HIGH_OR_CRITICAL",
+    "high": 0,
+    "critical": 0,
+    "report_ref": "docs/00-project/validation/t013-identity-image-admission-report.json",
+    "report_sha256": "f6c0f849fbdb96b0b9fa02de1c645466305a311cb1ef4fbccb89a131e7c4cc87",
+    "image_references": {
+      "keycloak": "quay.io/keycloak/keycloak@sha256:ed1cab21814c7d18ce8f0e11d5a1fa1c6923de12dd4c7625a18c5d34452a57a4",
+      "postgres": "docker.m.daocloud.io/library/postgres@sha256:1a66d744c1b459e13b05a8fca341da84cb63383e99ce262210efee5a319d4551",
+      "nginx": "docker.m.daocloud.io/library/nginx@sha256:959ae6b898852db82e5b29b929388e59914f42be0a8f4d44c89a4c1f53b49208"
+    },
+    "runtime_image_ids": {
+      "keycloak": "sha256:5b14d5d685bdca51860fb132c12d46600b997095ea236e0be55b144fd335dea4",
+      "postgres": "sha256:d14dc8385ab951ec4f92cafc637b096128cf2270a11afd43e3965546b269fd15",
+      "nginx": "sha256:959ae6b898852db82e5b29b929388e59914f42be0a8f4d44c89a4c1f53b49208"
+    }
+  },
+  "software_admission": null,
+  "contains_credentials": false
+}

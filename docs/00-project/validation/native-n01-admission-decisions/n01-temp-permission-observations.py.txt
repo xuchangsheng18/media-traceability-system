@@ -1,0 +1,10 @@
+import datetime,hashlib,json,os,shutil,stat,subprocess,sys,tempfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'n01-current-admission';records=[]
+with tempfile.TemporaryDirectory(prefix='n01-permission-fixture-',dir=base) as root:
+ for label,parent in [('default_system_temp',None),('owned_private_parent',root)]:
+  with tempfile.TemporaryDirectory(prefix='n01-owned-empty-',dir=parent) as name:
+   p=Path(name);s=p.stat();a=p.parent.stat();acl=subprocess.run(['getfacl','-cp',str(p)],capture_output=True,text=True)
+   records.append({'label':label,'child_uid':s.st_uid,'child_mode':oct(stat.S_IMODE(s.st_mode)),'child_group_or_other_write':bool(s.st_mode&(stat.S_IWGRP|stat.S_IWOTH)),'parent_uid':a.st_uid,'parent_mode':oct(stat.S_IMODE(a.st_mode)),'parent_sticky':bool(a.st_mode&stat.S_ISVTX),'ACL_exit':acl.returncode,'ACL':acl.stdout,'owned_empty_directory_only':True})
+ assert all(x['child_uid']==os.getuid() and x['child_mode']=='0o700' and not x['child_group_or_other_write'] for x in records)
+v={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'runtime':sys.version,'scope':'new_empty_owned_directory_mode_observations_no_symlink_race_or_service_account_simulation','observations':records,'current_uid':os.getuid(),'rmtree_avoids_symlink_attacks':shutil.rmtree.avoids_symlink_attacks,'conclusion':'0700_creation_observed_not_persistent_no_untrusted_writer_guarantee_or_CVE_fix','cleanup_attack_executed':False,'existing_acl_or_TMPDIR_changed':False,'Python_candidate_created':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};(out/'temp-permission-observations.json').write_text(json.dumps(v,indent=2)+'\n');print(json.dumps({'owned_empty_modes':[x['child_mode'] for x in records],'CVE_fix_asserted':False}))

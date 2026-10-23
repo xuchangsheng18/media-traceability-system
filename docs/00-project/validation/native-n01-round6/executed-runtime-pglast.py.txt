@@ -1,0 +1,8 @@
+import datetime,json,subprocess,hashlib
+containers=['media-trace-py310-api-1','media-trace-py310-worker-1','media-trace-py310-inference-1'];rows=[]
+probe="import hashlib,importlib.metadata as m,json;d=m.distribution('pglast');files=[p for p in (d.files or []) if str(p).endswith(('.so','METADATA','LICENSE','LICENSE.txt','COPYING'))];print(json.dumps({'name':d.metadata['Name'],'version':d.version,'license':d.metadata.get('License'),'license_expression':d.metadata.get('License-Expression'),'files':[{'path':str(p),'sha256':hashlib.sha256(d.locate_file(p).read_bytes()).hexdigest()} for p in files if d.locate_file(p).is_file()]}))"
+for name in containers:
+ inspect=subprocess.run(['docker','--context','desktop-linux','inspect','--format','{{.Image}}',name],capture_output=True,text=True)
+ if inspect.returncode:rows.append({'container':name,'status':'CONTAINER_NOT_FOUND'});continue
+ p=subprocess.run(['docker','--context','desktop-linux','exec',name,'/opt/py310/bin/python','-B','-c',probe],capture_output=True,text=True);rows.append({'container':name,'image_id':inspect.stdout.strip(),'exit_code':p.returncode,'metadata':json.loads(p.stdout) if p.returncode==0 else None,'error':p.stderr[-500:] if p.returncode else None})
+print(json.dumps({'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'read_only_importlib_distribution_metadata_of_existing_development_images_not_release_admission','rows':rows,'services_restarted':False,'executed_script_sha256':hashlib.sha256(open(__file__,'rb').read()).hexdigest()}))

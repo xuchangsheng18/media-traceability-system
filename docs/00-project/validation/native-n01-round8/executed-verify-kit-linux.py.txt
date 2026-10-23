@@ -1,0 +1,27 @@
+import datetime,hashlib,json,os,sys,tarfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');archive=base/'native-n01-round8-internal-review-kit.tar.gz';expected=sys.argv[1];raw=archive.read_bytes();sha=lambda b:hashlib.sha256(b).hexdigest();assert sha(raw)==expected
+def safe_name(root,name):
+ p=root/name
+ if not p.resolve().is_relative_to(root.resolve()):raise ValueError('archive path escapes destination')
+ return p
+try:safe_name(base/'negative-fixture','../outside');raise AssertionError('traversal accepted')
+except ValueError:pass
+assert sha(raw[:-1]+bytes([raw[-1]^1]))!=expected
+dest=base/'native-n01-r8-materials';assert not dest.exists(),'Fresh destination required';dest.mkdir(mode=0o700)
+with tarfile.open(archive) as t:
+ seen=set()
+ for m in t:
+  assert m.name not in seen;seen.add(m.name);assert m.isfile() or m.isdir();p=safe_name(dest,m.name)
+  if m.isdir():p.mkdir(parents=True,exist_ok=True)
+  else:p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(t.extractfile(m).read())
+root=dest/'native-n01-review-kit';manifest=json.loads((root/'FILE-MANIFEST.json').read_text());errors=[]
+for row in manifest['files']:
+ p=safe_name(root,row['path']);b=p.read_bytes()
+ if sha(b)!=row['sha256'] or len(b)!=row['size_bytes']:errors.append(row['path'])
+assert not errors
+import gzip
+semantic_input=json.loads((root/'round8/semantic-inputs.json').read_text())
+assert sha(gzip.decompress((root/'round8/semantic-full.json.gz').read_bytes()))==semantic_input['semantic_full_report_sha256']
+assert json.loads((root/'SCOPE.json').read_text())['current_use']=='TEAM_INTERNAL_DEVELOPMENT_ONLY'
+index=json.loads((root/'NOTICE-INDEX.json').read_text());report={'status':'PASS_INTERNAL_MATERIAL_BYTES_NOT_EXTERNAL_RELEASE','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'archive_path':str(archive),'archive_sha256':expected,'archive_size_bytes':len(raw),'material_directory':str(root),'manifest_files_verified':len(manifest['files']),'unique_texts':len(index['texts']),'source_bindings':len(index['bindings']),'source_archives':index['source_archives'],'mismatches':errors,'negative_checks':{'changed_archive_digest_rejected':True,'path_traversal_rejected':True},'shared_services_changed':False,'Python_candidates_created':False,'formal_admission':False,'executed_script_sha256':sha(Path(__file__).read_bytes())};(base/'native-n01-r8-materials-verification.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:report[k] for k in ['status','manifest_files_verified','unique_texts','source_bindings']}))

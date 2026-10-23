@@ -1,0 +1,1313 @@
+{
+  "status": "PASS_BOUNDED_LOCAL_GATES_SOURCE_SYNCED_HOSTED_CI_QUEUED_NOT_FULL_TASK_ACCEPTANCE",
+  "observed_at": "2026-10-21T14:33:59.365747+00:00",
+  "scope": "T021 source authorization sync backend+frontend, T109 offline annotation CLI and required tests; T001-T123 is the authorized task range, not all implemented",
+  "source_base_commit": "07661289fda96d182d5e860fbfea12910a7cf092",
+  "priority": [
+    "backend",
+    "frontend",
+    "data",
+    "test"
+  ],
+  "real_backend_and_permission_gate": {
+    "observed_at": "2026-10-21T14:18:53.325857+00:00",
+    "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-268b24dfd3cf",
+    "validation_snapshot_commit": "bda6e419822575b1f636299dd88d2568b667ffa7",
+    "publication_commit": false,
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/business/test_source_authorization_sync.py",
+          "tests/business/test_source_registration.py",
+          "tests/business/test_source_registration_provider.py",
+          "tests/business/test_source_metadata_expiry.py",
+          "tests/business/test_adapters_and_execution.py::test_source_authority_sync_rejects_forgery_and_invalidates_upload",
+          "--tb=short"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 304.111684,
+        "safe_summary": [
+          "166 passed, 1 warning in 300.46s (0:05:00)"
+        ],
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_t014_permissions.py",
+          "run"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 881.449074,
+        "safe_summary": {
+          "status": "PASS",
+          "totals": {
+            "tests": 1092,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "mounted_operation_count": 51,
+          "not_mounted_operation_count": 22
+        },
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/verify_t014_permissions.py",
+          "failure-probe"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "wall_time_seconds": 0.484912,
+        "safe_summary": {
+          "status": "EXPECTED_FAILURE",
+          "expected_assertion_failure_verified": true
+        },
+        "expected_result_verified": true
+      }
+    ],
+    "complete": true,
+    "success": true
+  },
+  "frontend": {
+    "observed_at": "2026-10-21T14:03:08.532540+00:00",
+    "scope": "real_browser_with_self_owned_transport_fixtures_not_real_backend",
+    "checks": [
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/prettier/bin/prettier.cjs",
+          "--write",
+          "src/router.ts",
+          "src/App.vue",
+          "e2e/foundation.pw.ts"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.60601,
+        "summary": "src/router.ts 45ms (unchanged)\nsrc/App.vue 81ms (unchanged)\ne2e/foundation.pw.ts 232ms (unchanged)\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vitest/vitest.mjs",
+          "run"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 2.245159,
+        "summary": " Test Files  8 passed (8)\n      Tests  243 passed (243)\n   Start at  22:02:15\n   Duration  1.39s (import 60%, tests 28%, transform 9%, worker 4%)\n\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vue-tsc/bin/vue-tsc.js",
+          "--noEmit"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 3.032244,
+        "summary": ""
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/eslint/bin/eslint.js",
+          "src",
+          "e2e",
+          "*.ts",
+          "*.mjs",
+          "--max-warnings=0"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 4.793094,
+        "summary": ""
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/prettier/bin/prettier.cjs",
+          "--check",
+          "src/**/*.{ts,vue,css}",
+          "e2e/**/*.ts",
+          "*.{ts,mjs,json,html}"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 1.689588,
+        "summary": "Checking formatting...\nAll matched files use Prettier code style!\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/vite/bin/vite.js",
+          "build"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.908211,
+        "summary": "dist/index.html                   0.50 kB │ gzip:  0.35 kB\ndist/assets/index-zFdJoPoG.css   10.32 kB │ gzip:  3.02 kB\ndist/assets/index-BJov7as7.js   188.32 kB │ gzip: 62.81 kB\n\n✓ built in 270ms\n"
+      },
+      {
+        "command": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "--config=foundation-playwright.config.ts"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 41.343651,
+        "summary": "[WebServer] (node:432608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n[WebServer] (node:439952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)\n(node:435112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
+      }
+    ],
+    "source_sha256": {
+      "frontend/src/router.ts": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
+      "frontend/src/App.vue": "faa7a790d8800d6d8760e4d087b763ea52780100ba54b0c99383dfc28ea20c6c",
+      "frontend/src/business/sources.ts": "a5c59ceda116502042516ec3234c62d1f2d06416a7ee60fbd6beb6b1168b77f5",
+      "frontend/src/business/sources.test.ts": "036336c5d0d26ec96e87ed7aa88a4fbf0d17164e6dbf4fc4b3b23ff895db66c2",
+      "frontend/src/views/SourcesView.vue": "ced1b0a8da210e2dfbd86ca6b2f3fd5ff685f98437cd2efb59e77b1dd8d5a795",
+      "frontend/e2e/foundation.pw.ts": "e49d2e01e0ba2db3fbcb77422c37d3fe700dbe8309a2fc52a376f628b65bbeb2"
+    },
+    "complete": true,
+    "success": true
+  },
+  "offline_annotations_and_dev_entry": {
+    "observed_at": "2026-10-21T14:11:18.476037+00:00",
+    "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-938af3b95a15",
+    "validation_snapshot_commit": "ac7b05ed61c3f8245f2d8a254e7cb3e1671ad5a4",
+    "publication_commit": false,
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/data",
+          "tests/stage_three/test_dev.py",
+          "--tb=short"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 54.555695,
+        "safe_summary": [
+          "154 passed in 54.29s"
+        ],
+        "expected_result_verified": true
+      }
+    ],
+    "complete": true,
+    "success": true
+  },
+  "quality": {
+    "observed_at": "2026-10-21T14:10:50.739971+00:00",
+    "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-c9e21698ecd3",
+    "validation_snapshot_commit": "8524e09552b321c8e43aa64f4370abea49c41e1d",
+    "publication_commit": false,
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 0.134301,
+        "safe_summary": [
+          "All checks passed!"
+        ],
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 0.1384,
+        "safe_summary": [],
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/workspace/glwy/runtime/media-traceability-system/stage-three-type-tools/bin/python",
+          "-m",
+          "mypy",
+          "--config-file",
+          "config/mypy.ini",
+          "--cache-dir",
+          "/workspace/glwy/runtime/media-traceability-system/t123-verification-c9e21698ecd3/.type-cache",
+          "backend/app",
+          "ai-services/inference",
+          "tests/poc",
+          "scripts/dev.py",
+          "scripts/stage_three_quality.py",
+          "scripts/generate_stage_three_docs.py",
+          "scripts/validate_stage_three.py",
+          "scripts/verify_stage_three_demo.py",
+          "tools/stage_three_demo/app.py",
+          "tests/stage_three",
+          "scripts/stage_three_types.py",
+          "backend/business_app",
+          "backend/business_migrations",
+          "tests/business",
+          "scripts/verify_business_foundation.py",
+          "scripts/verify_http_log_privacy.py",
+          "tools/access_control_review.py",
+          "scripts/validate_access_control_model.py",
+          "tests/platform",
+          "scripts/verify_development_limits.py",
+          "scripts/identity",
+          "scripts/native",
+          "tests/native",
+          "scripts/storage_readiness.py",
+          "tests/identity",
+          "scripts/verify_t014_permissions.py",
+          "scripts/verify_t015_scope.py",
+          "scripts/verify_t016_tokens.py",
+          "scripts/business_development.py",
+          "scripts/generate_development_inventory.py",
+          "scripts/verify_business_route_registration.py",
+          "scripts/validate_annotations.py",
+          "tests/data"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 23.15202,
+        "safe_summary": [
+          "Success: no issues found in 245 source files"
+        ],
+        "expected_result_verified": true
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/platform/test_development_inventory.py",
+          "tests/platform/test_t014_gate.py",
+          "tests/platform/test_business_route_registration.py",
+          "tests/platform/test_asset_download_projection.py",
+          "tests/platform/test_model_catalog_projection.py",
+          "tests/business/test_source_registration_provider.py"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "wall_time_seconds": 2.403149,
+        "safe_summary": [
+          "198 passed in 1.76s"
+        ],
+        "expected_result_verified": true
+      }
+    ],
+    "complete": true,
+    "success": true
+  },
+  "source_sha256_lf": {
+    "backend/business_app/controls/router.py": "647327b5b22ad62f066fd0705fe4d56e8f1cf96bf1b5834d59e1454b3761a966",
+    "backend/business_app/source_synchronization.py": "56b1a174f7f1a2be9fae40f0deb038365f56cc480a1ce52726fea7b5e6a7b0bb",
+    "tests/business/test_source_authorization_sync.py": "b81ecc2662e971a9183f96f1a350f66de9cb32ba7077520336fdbfa703713134",
+    "tests/business/test_source_metadata_expiry.py": "a752e18158793c57ae030e3ed3edcc0a354ed2a98bb8bf9afdf0fee8f250e6b7",
+    "scripts/validate_annotations.py": "2d4b30b9aa0032450be8f18d8aa97a9a4b579bdfc7c18e339996c81fb6cfbb19",
+    "tests/data/test_annotation_validation.py": "cc4157a5ec32f39b89e8a2b58a582cae9a4c6f6b794500eccc09678fdf0feca8",
+    "scripts/dev.py": "471aa7e157fc54bd1c490689a2c193c6dbde618ca9fa55fb0cc15fc586a5ea19",
+    "tests/stage_three/test_dev.py": "cc4f34fe7e9781d8bebab17a436f37fbfe5f68621fa3faf97b5ef5112347112a",
+    "config/stage-three-profile.json": "dd1ca2ed827943f8f132f3ced0ec233e3395f5fd494a2d081f71a63ae3850835",
+    "scripts/update_docs_navigation.py": "34d62a9574e56de3c1a722bb923419ea14700f7ca47b8a36a6b2646a59e6af8a",
+    "frontend/src/router.ts": "0fba88d98ced49d860ee497f0be4a6e12d066211df3defcc92f46fffcea1b0b8",
+    "frontend/src/App.vue": "faa7a790d8800d6d8760e4d087b763ea52780100ba54b0c99383dfc28ea20c6c",
+    "frontend/src/business/sources.ts": "a5c59ceda116502042516ec3234c62d1f2d06416a7ee60fbd6beb6b1168b77f5",
+    "frontend/src/business/sources.test.ts": "036336c5d0d26ec96e87ed7aa88a4fbf0d17164e6dbf4fc4b3b23ff895db66c2",
+    "frontend/src/views/SourcesView.vue": "ced1b0a8da210e2dfbd86ca6b2f3fd5ff685f98437cd2efb59e77b1dd8d5a795",
+    "frontend/e2e/foundation.pw.ts": "e49d2e01e0ba2db3fbcb77422c37d3fe700dbe8309a2fc52a376f628b65bbeb2"
+  },
+  "frontend_totals": {
+    "unit": 243,
+    "source_unit": 114,
+    "browser": 43
+  },
+  "offline_totals": {
+    "annotation": 101,
+    "development_entry": 53,
+    "total": 154,
+    "skipped": 0
+  },
+  "backend_totals": {
+    "source_sync": 53,
+    "existing_registration_provider_expiry_and_adapter": 113,
+    "total": 166
+  },
+  "independent_review": {
+    "status": "TWO_ADDITIONAL_P2_FIXED",
+    "fixed": [
+      "T109 UUID-case bypass:2RED then2GREEN and Linux full test coverage",
+      "T021 replay could omit/change required If-Match:3realSQL RED then fixed; original header proof private and old envelopes fail closed"
+    ],
+    "unresolved_P1_P2": 0,
+    "not_formal_human_acceptance": true,
+    "optional_sampling_review": "Read-only review found no remaining P1/P2; complete validation before deterministic selection, no new reads or quality approval."
+  },
+  "red_evidence": {
+    "initial_backend": {
+      "observed_at": "2026-10-21T13:34:27.709806+00:00",
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-f920707b62f4",
+      "validation_snapshot_commit": "217248c5d7e835dbdbfaadfa18a68dd61c3b432a",
+      "publication_commit": false,
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_source_authorization_sync.py",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "wall_time_seconds": 146.106725,
+          "safe_summary": [
+            "FAILED tests/business/test_source_authorization_sync.py::test_sync_preserves_representable_authoritative_expiry[2036-10-21T10:00:00.1Z-2036-10-21T10:00:00.100000+00:00]",
+            "FAILED tests/business/test_source_authorization_sync.py::test_sync_preserves_representable_authoritative_expiry[2036-10-21T10:00:00.123456000Z-2036-10-21T10:00:00.123456+00:00]",
+            "FAILED tests/business/test_source_authorization_sync.py::test_sync_cannot_truncate_nonzero_submicrosecond_authoritative_expiry",
+            "29 failed, 21 passed, 1 warning in 143.44s (0:02:23)"
+          ],
+          "expected_result_verified": false
+        }
+      ],
+      "complete": true,
+      "success": false
+    },
+    "header_replay": {
+      "observed_at": "2026-10-21T13:49:35.139457+00:00",
+      "directory": "/workspace/glwy/runtime/media-traceability-system/t123-verification-67be7c588cfe",
+      "validation_snapshot_commit": "2cb21653024b14e1b682f38982f78bd962659bb9",
+      "publication_commit": false,
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "-m",
+            "pytest",
+            "-q",
+            "tests/business/test_source_authorization_sync.py",
+            "-k",
+            "replay_still_requires or replay_cannot_replace_original or replay_refuses_receipt_without_original",
+            "--tb=short"
+          ],
+          "exit_code": 1,
+          "expected_exit_code": 0,
+          "wall_time_seconds": 26.27861,
+          "safe_summary": [
+            "tests/business/test_source_authorization_sync.py:123: in assert_problem",
+            "FAILED tests/business/test_source_authorization_sync.py::test_sync_replay_still_requires_original_if_match_header",
+            "FAILED tests/business/test_source_authorization_sync.py::test_sync_replay_cannot_replace_original_if_match_with_updated_strong_etag",
+            "FAILED tests/business/test_source_authorization_sync.py::test_sync_replay_refuses_receipt_without_original_if_match_proof"
+          ],
+          "expected_result_verified": false
+        }
+      ],
+      "complete": true,
+      "success": false
+    },
+    "frontend": "Agent observed44new failures before sync controller, then114source tests pass",
+    "data": "Missing CLI and malformed argument tests observed RED; UUID case2RED fixed; root Linux119PASS",
+    "test_entry": "Root actual1RED/1GREEN for retaining all existing suites and adding tests/data",
+    "existing_expiry_fixture_alignment": "Final166 first run165PASS/1FAIL: legacy expiry fixture omitted newly enforced required If-Match; corrected to real source GET ETag and retained exact missing-provider503 and expired-write503 assertions; final166PASS."
+  },
+  "visual_review": {
+    "status": "PASS_VIEWPORT_BOUNDS_VISUAL_INSPECTION_SEPARATE",
+    "observed_at": "2026-10-21T13:43:24.707Z",
+    "checks": [
+      {
+        "label": "desktop",
+        "width": 1440,
+        "height": 1100,
+        "dimensions": {
+          "viewport": 1440,
+          "body": 1440,
+          "document": 1440
+        },
+        "noBodyHorizontalOverflow": true
+      },
+      {
+        "label": "mobile",
+        "width": 390,
+        "height": 844,
+        "dimensions": {
+          "viewport": 390,
+          "body": 390,
+          "document": 390
+        },
+        "noBodyHorizontalOverflow": true
+      }
+    ],
+    "scope": "Self-owned intercepted transport only, not actual business authority/backend or task acceptance",
+    "root_inspected_desktop_and_mobile": true
+  },
+  "preceding_exact_source_ci": {
+    "observed_at": "2026-10-21T13:53:21.942723+00:00",
+    "run": {
+      "id": 39605992058,
+      "head_sha": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+      "status": "completed",
+      "conclusion": "failure",
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39605992058"
+    },
+    "jobs": [
+      {
+        "id": 119242196408,
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119248420451,
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 119248420482,
+        "name": "engineering-execution",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 119257071766,
+        "name": "engineering",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ],
+    "artifacts": [
+      {
+        "artifact_id": 12350575334,
+        "artifact_name": "py310-foundation-validation-39605992058-1",
+        "zip_sha256": "4c872271f06ad0f9d333a054c87082c7daff16bb4cddff95af2773ca2fc2f411",
+        "platform_digest": "sha256:4c872271f06ad0f9d333a054c87082c7daff16bb4cddff95af2773ca2fc2f411",
+        "platform_digest_verified": true,
+        "reports": [
+          {
+            "name": "business-foundation-report.json",
+            "sha256": "ac783f07bbdac303b0efac0c7a138dc381ed4ce64081f8f747edc4130b152ec2",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 876,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "ci-all-report.json",
+            "sha256": "be1f9dce3bdaf138f66443551d0476a1b5647284aa2b3b9dc1e15f5341dc2615",
+            "source_commit": "3b99b729b5bac9e80edc2804f9a83342b3850422",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "failed_checks": []
+          },
+          {
+            "name": "ci-job-evidence.json",
+            "sha256": "61af2e32c55a75b0ba8eaac25f9a5c4dca39f2305f122484341818adfd679207",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": null,
+            "source_matches": true,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "job_evidence": {
+              "job": "foundation-verification",
+              "run_id": "39605992058",
+              "run_attempt": "1",
+              "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+              "generation_window_start": "2026-10-21T13:25:27Z",
+              "reports": [
+                {
+                  "name": "business-foundation-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "ac783f07bbdac303b0efac0c7a138dc381ed4ce64081f8f747edc4130b152ec2",
+                  "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T13:28:25.019244+00:00"
+                },
+                {
+                  "name": "t014-permissions-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "d859db2e32c5d5952557ffc1cc99ab6952db69e788ce850e877814e8c8d8a7d7",
+                  "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T13:37:21.290649+00:00"
+                }
+              ],
+              "overall_job_success_not_inferred": true
+            }
+          },
+          {
+            "name": "stage-three-dependency-scan-report.json",
+            "sha256": "9f7da335c62c2b72ae6083fc0e10c22a1d38d349df102dd2f36bb130935225a3",
+            "source_commit": null,
+            "status": "NO_REPORTED_BLOCKING_FINDINGS_WITH_COVERAGE_LIMITS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "scan_summary": {
+              "started_at": "2026-10-17T02:41:33.555015+00:00",
+              "ended_at": "2026-10-17T02:41:36.508780+00:00",
+              "python_findings": 0,
+              "python_skips": [
+                {
+                  "name": "torch",
+                  "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+                }
+              ],
+              "quality_tool_findings": 0,
+              "quality_tool_skips": [],
+              "npm_findings_by_severity": {
+                "info": 0,
+                "low": 0,
+                "moderate": 0,
+                "high": 0,
+                "critical": 0,
+                "total": 0
+              },
+              "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+            }
+          },
+          {
+            "name": "stage-three-python-types-report.json",
+            "sha256": "34331fecd93c34e9b1879c694662a849132e871aa2e8c29f8d50428fa5a035cf",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": null
+          },
+          {
+            "name": "stage-three-runtime-report.json",
+            "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+            "source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null
+          },
+          {
+            "name": "t014-permissions-report.json",
+            "sha256": "d859db2e32c5d5952557ffc1cc99ab6952db69e788ce850e877814e8c8d8a7d7",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 1092,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t015-data-scope-report.json",
+            "sha256": "80786411d2a53eb072f8126eb84344b716a49a08bbe6b49edeb9efb956b31949",
+            "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 131,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t016-operation-token-report.json",
+            "sha256": "7a46cecf911624cee93f9a7c47e8111ae5b4f3abf411d7bac9efa286606a941d",
+            "source_commit": "7d0d647818c31d766dd83092c062556cb6b8d47a",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 187,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          }
+        ]
+      },
+      {
+        "artifact_id": 12349108397,
+        "artifact_name": "py310-validation-39605992058-1",
+        "zip_sha256": "6986d986469ea831d2c816d02d56f5e819e55f477d61cd27fa43cd9b1df429c7",
+        "platform_digest": "sha256:6986d986469ea831d2c816d02d56f5e819e55f477d61cd27fa43cd9b1df429c7",
+        "platform_digest_verified": true,
+        "reports": [
+          {
+            "name": "business-foundation-report.json",
+            "sha256": "f3490bd6db23b7985f813f65a08edde380fb040924213cad31afc8bb9723e874",
+            "source_commit": "3b99b729b5bac9e80edc2804f9a83342b3850422",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 305,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "ci-all-report.json",
+            "sha256": "e6bf0a1268574814cef6e1333acb86ffb134fd0f93a16a1e05fcf7fabcc828f1",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": "FAIL",
+            "source_matches": true,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "failed_checks": [
+              {
+                "command": [
+                  "npm",
+                  "--prefix",
+                  "frontend",
+                  "exec",
+                  "--",
+                  "playwright",
+                  "test",
+                  "--config=frontend/playwright.config.ts"
+                ],
+                "status": "FAIL"
+              }
+            ]
+          },
+          {
+            "name": "ci-job-evidence.json",
+            "sha256": "4c5792ee2cff081733ca0fcd997dde38a3dc0d753cced94db73add1abb706f6a",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": null,
+            "source_matches": true,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "job_evidence": {
+              "job": "engineering-execution",
+              "run_id": "39605992058",
+              "run_attempt": "1",
+              "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+              "generation_window_start": "2026-10-21T13:25:22Z",
+              "reports": [
+                {
+                  "name": "ci-all-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": false,
+                  "sha256": "e6bf0a1268574814cef6e1333acb86ffb134fd0f93a16a1e05fcf7fabcc828f1",
+                  "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+                  "status": "FAIL",
+                  "report_observed_at": "2026-10-21T13:27:01.346502+00:00"
+                },
+                {
+                  "name": "t015-data-scope-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "2892450a8e6926cd0910547eb92d228905f8c25fc9b15819404aedd62649edec",
+                  "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T13:29:53.161304+00:00"
+                },
+                {
+                  "name": "t016-operation-token-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": true,
+                  "sha256": "92ba3cce17f42bba4bb9705157fa0f6d9dfecde7f9b486800e5ddde42fb99dee",
+                  "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-21T13:30:54.718713+00:00"
+                },
+                {
+                  "name": "stage-three-runtime-report.json",
+                  "present": true,
+                  "fresh_exact_source_PASS": false,
+                  "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+                  "source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+                  "status": "PASS",
+                  "report_observed_at": "2026-10-17T02:41:47.934223+00:00"
+                }
+              ],
+              "overall_job_success_not_inferred": true
+            }
+          },
+          {
+            "name": "stage-three-dependency-scan-report.json",
+            "sha256": "9f7da335c62c2b72ae6083fc0e10c22a1d38d349df102dd2f36bb130935225a3",
+            "source_commit": null,
+            "status": "NO_REPORTED_BLOCKING_FINDINGS_WITH_COVERAGE_LIMITS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null,
+            "scan_summary": {
+              "started_at": "2026-10-17T02:41:33.555015+00:00",
+              "ended_at": "2026-10-17T02:41:36.508780+00:00",
+              "python_findings": 0,
+              "python_skips": [
+                {
+                  "name": "torch",
+                  "reason": "Dependency not found on PyPI and could not be audited: torch (2.14.1+cpu)"
+                }
+              ],
+              "quality_tool_findings": 0,
+              "quality_tool_skips": [],
+              "npm_findings_by_severity": {
+                "info": 0,
+                "low": 0,
+                "moderate": 0,
+                "high": 0,
+                "critical": 0,
+                "total": 0
+              },
+              "python_lock_sha256": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+            }
+          },
+          {
+            "name": "stage-three-python-types-report.json",
+            "sha256": "83689daec04eb9b59375f876b3338ae77d2345c487d01fa3c031a00f04e3e759",
+            "source_commit": "3b99b729b5bac9e80edc2804f9a83342b3850422",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null
+          },
+          {
+            "name": "stage-three-runtime-report.json",
+            "sha256": "952887dacff7c369952a4ada520d829775f2d792bda5cddb5cb351117eedd04e",
+            "source_commit": "2b7341b90c6b21175dc7ac93c42c7cb9f9996ebc",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": null
+          },
+          {
+            "name": "t014-permissions-report.json",
+            "sha256": "6dfa9cc74785b1ed29085cbdac909ae9522b5196089fd615d35909b7b62f8fc0",
+            "source_commit": "d0d1d530617028c83718c5c84b9935ba664c96ae",
+            "status": "PASS",
+            "source_matches": false,
+            "fresh_source_PASS": false,
+            "totals": {
+              "tests": 843,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t015-data-scope-report.json",
+            "sha256": "2892450a8e6926cd0910547eb92d228905f8c25fc9b15819404aedd62649edec",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 131,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          },
+          {
+            "name": "t016-operation-token-report.json",
+            "sha256": "92ba3cce17f42bba4bb9705157fa0f6d9dfecde7f9b486800e5ddde42fb99dee",
+            "source_commit": "30dcb0f1973a26772663f6e9892a703b82ae7adb",
+            "status": "PASS",
+            "source_matches": true,
+            "fresh_source_PASS": true,
+            "totals": {
+              "tests": 187,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            }
+          }
+        ]
+      },
+      {
+        "artifact_id": 12348856437,
+        "artifact_name": "t013-identity-validation-39605992058",
+        "zip_sha256": "2c05923717ce593fe0fd85a083cf77db1df3ed457d3d94056f24b260622a56d0",
+        "platform_digest": "sha256:2c05923717ce593fe0fd85a083cf77db1df3ed457d3d94056f24b260622a56d0",
+        "platform_digest_verified": true,
+        "reports": []
+      }
+    ],
+    "stale_checked_in_reports_not_promoted": true
+  },
+  "preceding_ci_scope": "Exact30dcb0f CI: identity/foundation success, engineering browser transport step failure. Original9 dependency findings remain unresolved; Oct17 scan report is stale and not a fresh result.",
+  "all_CI_pass_asserted": false,
+  "public_contract_changed": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "main_merged": false,
+  "original_100_package_lock_changed": false,
+  "Python_candidates_created": false,
+  "formal_accepted": false,
+  "limitations": [
+    "No real source authority provider adopted; missing provider refuses.",
+    "Existing expired source SOURCE_WRITE protection remains; this does not renew already expired authority.",
+    "Only independent SQL/HTTP and intercepted browser evidence; real authority/identity/backend combined E2E remains.",
+    "Background expiry alert, actual owners and whole T021 acceptance remain.",
+    "T109 actual human sampling/quality criteria, formal labels, trusted mappings/masks, source authorization, independent humans and arbitration remain.",
+    "Old receipt envelopes lacking original If-Match proof fail409; no automatic rewrite/new-key retry.",
+    "The exact-source CI browser fixture DEV-only access defect is fixed and verified on a production preview; new hosted result remains separate.",
+    "Source synchronization only; existing shared preview remains on its prior payload."
+  ],
+  "production_browser_fixture_repair": {
+    "scope": "Self-owned production Vite preview and intercepted transport only, not real business identity/authority/API acceptance or real seven-service PoC workflow",
+    "node": "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+    "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "private_config": "D:\\公安厅项目\\_work\\t021-production-fixture-playwright.private.mjs",
+    "port": 14290,
+    "shared_14180_used": false,
+    "existing_dist_rebuilt": false,
+    "red": {
+      "exit_code": 1,
+      "tests": 1,
+      "failed": 1,
+      "failure": "TypeError: Cannot read properties of null (reading provides)",
+      "report": "D:\\公安厅项目\\_work\\t021-production-fixture-browser-red.private.json"
+    },
+    "commands": [
+      {
+        "stage": "RED",
+        "cwd": "D:\\公安厅项目\\_work\\media-trace-foundation-worktree\\frontend",
+        "argv": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "--config=D:\\公安厅项目\\_work\\t021-production-fixture-playwright.private.mjs",
+          "--grep",
+          "source console clears registration drafts when manage permission changes without reconnect"
+        ],
+        "exit_code": 1
+      },
+      {
+        "stage": "GREEN_TARGETED",
+        "cwd": "D:\\公安厅项目\\_work\\media-trace-foundation-worktree\\frontend",
+        "argv": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "--config=D:\\公安厅项目\\_work\\t021-production-fixture-playwright.private.mjs",
+          "--grep",
+          "source console clears registration drafts when manage permission changes without reconnect"
+        ],
+        "exit_code": 0
+      },
+      {
+        "stage": "GREEN_PRODUCTION_FOUNDATION",
+        "cwd": "D:\\公安厅项目\\_work\\media-trace-foundation-worktree\\frontend",
+        "argv": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/@playwright/test/cli.js",
+          "test",
+          "--config=D:\\公安厅项目\\_work\\t021-production-fixture-playwright.private.mjs"
+        ],
+        "exit_code": 0
+      },
+      {
+        "stage": "PRETTIER_CHECK",
+        "cwd": "D:\\公安厅项目\\_work\\media-trace-foundation-worktree\\frontend",
+        "argv": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/prettier/bin/prettier.cjs",
+          "--check",
+          "e2e/foundation.pw.ts"
+        ],
+        "exit_code": 0
+      },
+      {
+        "stage": "ESLINT",
+        "cwd": "D:\\公安厅项目\\_work\\media-trace-foundation-worktree\\frontend",
+        "argv": [
+          "D:\\公安厅项目\\_work\\node-22.21.1-windows\\node-v22.21.1-win-x64\\node.exe",
+          "node_modules/eslint/bin/eslint.js",
+          "e2e/foundation.pw.ts"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "before_lf_sha256": "d935619eb0df0703ead460e25268b600d3105dd186656ff22163f4e36ac1be77",
+    "existing_dist_sha256": {
+      "index.html": "e060e4682722cc030c769960362dbd45e396a21cefc992effca0a6ba4b5d3ad0",
+      "assets\\index-BJov7as7.js": "04e4ba8c0c37d06ea1b43894824ff844617467296c842db58494c52cf10f2511",
+      "assets\\index-zFdJoPoG.css": "842cbe158cd882d635f931f6abd7acd81e8cfbe862b7bd9482a2fe197d4abd5d"
+    },
+    "green_targeted": {
+      "exit_code": 0,
+      "passed": 1,
+      "failed": 0,
+      "duration_seconds": 6.6,
+      "report": "D:\\公安厅项目\\_work\\t021-production-fixture-browser-green.private.json"
+    },
+    "green_production_foundation": {
+      "exit_code": 0,
+      "passed": 43,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "duration_ms": 37294.431000000004,
+      "report": "D:\\公安厅项目\\_work\\t021-production-fixture-browser-full.private.json"
+    },
+    "after_lf_sha256": "e49d2e01e0ba2db3fbcb77422c37d3fe700dbe8309a2fc52a376f628b65bbeb2",
+    "only_two_fixture_lines_changed": true,
+    "existing_dist_unchanged": true,
+    "own_preview_port_closed": true,
+    "PoC_testMatch_or_CI_changed": false,
+    "production_devtools_changed": false,
+    "seven_service_PoC_executed": false
+  },
+  "gate_connection_recovery": {
+    "ssh_stream_reset": true,
+    "remote_exact_snapshot_report_recovered": true,
+    "all_3_checks_passed_with_expected_probe_exit": true,
+    "repeated_database_run_after_disconnect": false
+  },
+  "exact_validated_scope_sha256_lf": {
+    "backend_and_gate": {
+      "backend/business_app/controls/router.py": "647327b5b22ad62f066fd0705fe4d56e8f1cf96bf1b5834d59e1454b3761a966",
+      "backend/business_app/source_synchronization.py": "56b1a174f7f1a2be9fae40f0deb038365f56cc480a1ce52726fea7b5e6a7b0bb",
+      "tests/business/test_source_authorization_sync.py": "b81ecc2662e971a9183f96f1a350f66de9cb32ba7077520336fdbfa703713134",
+      "tests/business/test_source_metadata_expiry.py": "a752e18158793c57ae030e3ed3edcc0a354ed2a98bb8bf9afdf0fee8f250e6b7"
+    },
+    "data_and_dev": {
+      "scripts/validate_annotations.py": "2d4b30b9aa0032450be8f18d8aa97a9a4b579bdfc7c18e339996c81fb6cfbb19",
+      "tests/data/test_annotation_validation.py": "cc4157a5ec32f39b89e8a2b58a582cae9a4c6f6b794500eccc09678fdf0feca8",
+      "scripts/dev.py": "471aa7e157fc54bd1c490689a2c193c6dbde618ca9fa55fb0cc15fc586a5ea19",
+      "tests/stage_three/test_dev.py": "cc4f34fe7e9781d8bebab17a436f37fbfe5f68621fa3faf97b5ef5112347112a"
+    },
+    "quality": {
+      "config/stage-three-profile.json": "dd1ca2ed827943f8f132f3ced0ec233e3395f5fd494a2d081f71a63ae3850835",
+      "backend/business_app/controls/router.py": "647327b5b22ad62f066fd0705fe4d56e8f1cf96bf1b5834d59e1454b3761a966",
+      "backend/business_app/source_synchronization.py": "56b1a174f7f1a2be9fae40f0deb038365f56cc480a1ce52726fea7b5e6a7b0bb",
+      "tests/business/test_source_metadata_expiry.py": "a752e18158793c57ae030e3ed3edcc0a354ed2a98bb8bf9afdf0fee8f250e6b7",
+      "scripts/validate_annotations.py": "2d4b30b9aa0032450be8f18d8aa97a9a4b579bdfc7c18e339996c81fb6cfbb19",
+      "tests/data/test_annotation_validation.py": "cc4157a5ec32f39b89e8a2b58a582cae9a4c6f6b794500eccc09678fdf0feca8"
+    }
+  },
+  "material_validation_snapshot": {
+    "staged_tree": "2cf4dffee50a81c27f75c56ef617e9a0af331dce",
+    "directory": "/workspace/glwy/runtime/media-traceability-system/t123-docs-input-e240e220d2c2",
+    "checks": [
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"task_cards\": 170, \"negative_guard_cases\": 7, \"full_task_acceptance_asserted\": false, \"full_tasks_verified\": 0, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py",
+          "--task",
+          "T030"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_inputs.py",
+          "--task",
+          "T035"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 11, \"errors\": [], \"fixtures\": 335, \"freeze\": \"NOT_FROZEN\"}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"check_only\": true, \"summary\": {\"all_source_tasks\": 170, \"authorized_task_count\": 123, \"all_completed_substeps\": 129, \"all_remaining_work_items\": 622, \"all_whole_tasks_verified\": 0, \"authorized_completed_substeps\": 129, \"authorized_remaining_work_items\": 434, \"authorized_whole_tasks_verified\": 0, \"authorized_status_counts\": {\"PARTIAL_VERIFIED_SCOPE\": 58, \"NO_FULL_TASK_VERIFICATION_EVIDENCE\": 65}, \"distinct_declared_tables\": 55, \"distinct_declared_operations\": 53, \"canonical_business_operation_count\": 73, \"canonical_internal_operation_count\": 1, \"registered_business_operation_count\": 51, \"registered_internal_operation_count\": 1, \"unregistered_canonical_business_operation_count\": 22, \"declared_operations_registered_in_business_source\": 31, \"declared_operations_without_explicit_business_registration\": 22, \"versioned_create_table_count\": 64, \"versioned_sql_function_name_count\": 31, \"backend_python_definition_count\": 451, \"backend_python_definitions_with_direct_literal_sql_tables\": 65, \"declared_tables_without_catalog_or_migration_source\": []}}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"links_checked\": 13244, \"errors\": [], \"historical_links\": 0}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"time_utc\": \"2026-10-21T14:24:00.679660+00:00\", \"status\": \"PASS\", \"scope\": \"navigation_coverage_and_field_source_completeness\", \"docs_files_indexed\": 1263, \"tables\": 62, \"fields\": 825, \"resolved_source_checks\": \"see database-contract-report.json\", \"source_hashes_unchanged\": true, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"derived_files\": 7, \"remaining_stage_one\": 6, \"remaining_stage_two\": 12, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"derived_files\": 2, \"first_stage_steps\": 24, \"interface_navigation_entries\": 19, \"database_navigation_entries\": 20, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"derived_files\": 3, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 8, \"formal_business_acceptance\": false}\n{\"status\": \"PASS\", \"checks\": 5, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 4, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"derived_files\": 89, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 6, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 12, \"errors\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"mode\": \"check\", \"business_modules\": 12, \"functional_requirements\": 36, \"engineering_requirements\": 170, \"non_functional_requirements\": 10, \"trace_records\": 216, \"business_rules\": 16, \"business_case_plans\": 72, \"task_case_plans\": 340, \"model_capabilities\": 34, \"dataset_categories\": 15, \"metric_protocols\": 24, \"open_questions\": 33, \"interface_gaps\": 13, \"document\": \"docs/01-requirements/functional-requirements.md\", \"formal_frozen\": false, \"full_business_completion_asserted\": false}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"derived_files\": 3, \"steps\": 16, \"formal_frozen\": false, \"differences\": []}\n"
+      },
+      {
+        "command": [
+          "/opt/conda/glwy/envs/py310/bin/python",
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0,
+        "output_tail": "{\"status\": \"PASS\", \"checks\": 10, \"runtime_executed\": false, \"formal_frozen\": false}\n"
+      }
+    ]
+  },
+  "material_validation_scope": "18 checks on explicit staged tree2cf4dffe before these receipt additions and the independently reviewed plain-language interface-register correction; later source manifest binds final bytes.",
+  "final_material_review": {
+    "status": "ONE_STALE_SOURCE_PAGE_DESCRIPTION_FIXED",
+    "reported_false_completion_or_count_claims": 0,
+    "reviewer": "independent_agent_read_only_not_formal_human_acceptance",
+    "source_hashes_checked": 16
+  },
+  "source_delivery": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-21T14:30:28.366784+00:00",
+    "source_commit": "0073d63c166faf4ac14e9649a4d2360e0eceb6f3",
+    "previous_server_commit": "07661289fda96d182d5e860fbfea12910a7cf092",
+    "changed_files": 189,
+    "manifest_files_verified": 2276,
+    "manifest_sha256": "5a3b9f073ae725152b375a9764be0cee93687339b87cdba75ad6e9bf90b39d24",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "CI_observation": {
+      "source_commit": "0073d63c166faf4ac14e9649a4d2360e0eceb6f3",
+      "run_id": 39617379677,
+      "status": "queued",
+      "conclusion": null,
+      "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39617379677",
+      "observed_at": "2026-10-21T14:33:59.365747+00:00",
+      "jobs": [
+        {
+          "id": 119281830221,
+          "name": "identity-verification / identity-integration",
+          "status": "queued",
+          "conclusion": null
+        }
+      ],
+      "all_CI_pass_asserted": false,
+      "CI_gates_changed": false,
+      "source_commit_not_this_receipt_future_commit": true
+    },
+    "report_ref": "docs/00-project/validation/backend-frontend-data-test-report.json",
+    "scope": "Exact implementation source payload; not this later metadata-only receipt commit or shared runtime adoption"
+  },
+  "current_batch_CI": {
+    "source_commit": "0073d63c166faf4ac14e9649a4d2360e0eceb6f3",
+    "run_id": 39617379677,
+    "status": "queued",
+    "conclusion": null,
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39617379677",
+    "observed_at": "2026-10-21T14:33:59.365747+00:00",
+    "jobs": [
+      {
+        "id": 119281830221,
+        "name": "identity-verification / identity-integration",
+        "status": "queued",
+        "conclusion": null
+      }
+    ],
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false,
+    "source_commit_not_this_receipt_future_commit": true
+  },
+  "source_publication_scope": "Existing feature branch and canonical Linux source; no main merge or shared service/database upgrade"
+}

@@ -7,6 +7,7 @@ with the separately supplied authority. No token or identity cache is kept.
 import json
 import math
 import re
+import ssl
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -21,6 +22,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from ..auth import AuthorityProvider
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.types import Principal
 from ..types import Actor, Scope
 from .directory import IdentityDirectory, valid_key
 
@@ -82,10 +84,21 @@ class IntrospectionVerifier:
         *,
         transport: httpx.BaseTransport | None = None,
         clock: Callable[[], float] = time.time,
+        ssl_context: ssl.SSLContext | None = None,
     ) -> None:
+        if ssl_context is not None and (
+            not isinstance(ssl_context, ssl.SSLContext)
+            or ssl_context.verify_mode != ssl.CERT_REQUIRED
+            or not ssl_context.check_hostname
+        ):
+            raise ValueError("IDENTITY_TLS_VERIFICATION_REQUIRED")
         self.settings, self.clock = settings, clock
         self.client = httpx.Client(
-            timeout=settings.timeout_seconds, follow_redirects=False, trust_env=False, transport=transport
+            timeout=settings.timeout_seconds,
+            follow_redirects=False,
+            trust_env=False,
+            transport=transport,
+            verify=ssl_context if ssl_context is not None else True,
         )
 
     def close(self) -> None:
@@ -98,6 +111,7 @@ class IntrospectionVerifier:
             or re.fullmatch(r"[A-Za-z0-9._~+/-]+=*", token) is None
         ):
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
+        deadline = time.monotonic() + self.settings.timeout_seconds
         try:
             with self.client.stream(
                 "POST",
@@ -112,10 +126,16 @@ class IntrospectionVerifier:
                 ):
                     raise ValueError("INVALID_INTROSPECTION_RESPONSE")
                 body = bytearray()
-                for chunk in response.iter_bytes(chunk_size=min(4096, self.settings.max_response_bytes + 1)):
+                # A peer can keep every individual read below HTTPX's timeout.
+                # Inspect progress without waiting to fill a large output chunk.
+                for chunk in response.iter_bytes(chunk_size=1):
+                    if time.monotonic() >= deadline:
+                        raise ValueError("INTROSPECTION_RESPONSE_DEADLINE_EXCEEDED")
                     body.extend(chunk)
                     if len(body) > self.settings.max_response_bytes:
                         raise ValueError("INTROSPECTION_RESPONSE_TOO_LARGE")
+                if time.monotonic() >= deadline:
+                    raise ValueError("INTROSPECTION_RESPONSE_DEADLINE_EXCEEDED")
             claims = json.loads(body.decode("utf-8"), object_pairs_hook=unique_object)
             if not isinstance(claims, dict) or type(claims.get("active")) is not bool:
                 raise ValueError("INVALID_ACTIVE_FIELD")
@@ -164,6 +184,9 @@ class MappedTokenAuthority:
         self.verifier, self.lookup, self.policy = verifier, lookup, policy
 
     def authenticate(self, bearer: str) -> Actor:
+        return self.authenticate_principal(bearer).actor
+
+    def authenticate_principal(self, bearer: str) -> Principal:
         verified = self.verifier.verify(bearer)
         try:
             with self.lookup.engine.begin() as connection:
@@ -183,7 +206,12 @@ class MappedTokenAuthority:
             raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
         if verified.expires_at <= current:
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-        return Actor(user_id=mapping.user_id, org_id=mapping.org_id)
+        return Principal(
+            actor=Actor(user_id=mapping.user_id, org_id=mapping.org_id),
+            issuer=verified.issuer,
+            subject=verified.subject,
+            expires_at=verified.expires_at,
+        )
 
     def authorize_case(self, actor: Actor, case_id: UUID, action: str) -> Scope:
         if self.policy is None:

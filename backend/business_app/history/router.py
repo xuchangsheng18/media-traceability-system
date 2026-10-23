@@ -1,18 +1,22 @@
-from typing import cast
+from typing import Annotated, cast
 from uuid import UUID
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
-from ..auth import AuthorityProvider, authorize_request
+from ..auth import authenticated_actor, authorize_request
 from ..db import Database
 from ..errors import BusinessError
+from ..settings import BusinessSettings
 from ..types import ResultKey, Scope
+from .evidence_paging import page_evidence
 from .projection import project
 from .repository import ResultRepository
 
 router = APIRouter(prefix="/api/v1")
+Limit = Annotated[int, Query(ge=1, le=100)]
+Cursor = Annotated[str | None, Query(min_length=1, max_length=128)]
 
 
 def parse_history(request: Request, resource_id: UUID, task_path: bool) -> ResultKey | None:
@@ -36,13 +40,7 @@ def parse_history(request: Request, resource_id: UUID, task_path: bool) -> Resul
 
 
 def current_scope(request: Request, resource_id: UUID, kind: str, action: str) -> Scope:
-    authority = cast(AuthorityProvider | None, request.app.state.business_authority)
-    if authority is None:
-        raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
-    header = request.headers.get("Authorization", "")
-    if not header.startswith("Bearer ") or not header[7:]:
-        raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-    actor = authority.authenticate(header[7:])
+    actor = authenticated_actor(request)
     database = cast(Database, request.app.state.business_database)
     statements = {
         "task": "SELECT case_id FROM mt.analysis_task WHERE task_id=:id",
@@ -59,13 +57,27 @@ def current_scope(request: Request, resource_id: UUID, kind: str, action: str) -
     return scope
 
 
-def read_result(request: Request, id: UUID, operation: str, kind: str, action: str) -> JSONResponse:
+def read_result(
+    request: Request,
+    id: UUID,
+    operation: str,
+    kind: str,
+    action: str,
+    *,
+    limit: int = 20,
+    cursor: str | None = None,
+) -> JSONResponse:
     scope = current_scope(request, id, kind, action)
     key = parse_history(request, id, kind == "task")
     ranking: UUID | None = None
     allowed = {"history[run_version]", "history[result_version]"}
     if kind != "task":
         allowed.add("history[task_id]")
+    paged_evidence = operation == "getTaskEvidence" and bool({"limit", "cursor"} & set(request.query_params))
+    if operation == "getTaskEvidence":
+        allowed.update({"limit", "cursor"})
+        if any(len(request.query_params.getlist(name)) > 1 for name in ["limit", "cursor"]):
+            raise BusinessError("PAGE_CURSOR_INVALID", 422)
     if operation == "getFirstSource":
         allowed.add("ranking_id")
         raw = request.query_params.getlist("ranking_id")
@@ -83,6 +95,9 @@ def read_result(request: Request, id: UUID, operation: str, kind: str, action: s
     else:
         snapshot = repository.load_exact(scope, key)
     body = project(snapshot, operation, id, ranking)
+    if paged_evidence:
+        settings = cast(BusinessSettings, request.app.state.business_settings)
+        body = page_evidence(body, scope, key, settings.cursor_secret, limit, cursor)
     return JSONResponse(
         body,
         headers={
@@ -109,8 +124,8 @@ def forensics(request: Request, id: UUID) -> JSONResponse:
 
 
 @router.get("/analysis/tasks/{id}/evidence", operation_id="getTaskEvidence")
-def evidence(request: Request, id: UUID) -> JSONResponse:
-    return read_result(request, id, "getTaskEvidence", "task", "evidence.read")
+def evidence(request: Request, id: UUID, cursor: Cursor = None, limit: Limit = 20) -> JSONResponse:
+    return read_result(request, id, "getTaskEvidence", "task", "evidence.read", limit=limit, cursor=cursor)
 
 
 @router.get("/assets/{id}/timeline", operation_id="getTimeline")

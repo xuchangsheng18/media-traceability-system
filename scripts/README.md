@@ -6,12 +6,12 @@ poc_control.py控制独立开发栈；run_ci.py串行质量门禁；verify_poc�
 
 ## 验证入口
 
-Linux仓库根目录运行，前置为已锁py310、Node及独立开发栈（适用时）：
+Linux仓库根目录运行，前置为已锁py311、Node及独立开发栈（适用时）：
 
 ```sh
-/opt/conda/glwy/envs/py310/bin/python scripts/run_ci.py all
-/opt/conda/glwy/envs/py310/bin/python scripts/verify_ci_failure_gate.py
-/opt/conda/glwy/envs/py310/bin/python scripts/check_repository_secrets.py
+/opt/conda/glwy/envs/py311/bin/python scripts/run_ci.py all
+/opt/conda/glwy/envs/py311/bin/python scripts/verify_ci_failure_gate.py
+/opt/conda/glwy/envs/py311/bin/python scripts/check_repository_secrets.py
 ```
 
 详细启动、资源、影响与排查见[运行手册](../docs/10-deployment/development-runbook.md)，结果见[验证报告](../docs/02-architecture/technical-validation-report.md)。

@@ -1,0 +1,26 @@
+import hashlib,json,os,shutil,subprocess,zipfile
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=Path(json.loads((base/'n01-go-recovery-latest.json').read_text())['root']);os.umask(0o077)
+module='filippo.io/edwards25519';version='v1.2.0';source=out/'gomodcache/cache/download'/module/'@v';fixture=out/'negative-fixture';fixture.mkdir(exist_ok=True)
+(fixture/'go.mod').write_text('module example.invalid/n01-fixture\n\ngo 1.26.0\nrequire '+module+' '+version+'\n')
+repo=Path('/workspace/glwy/projects/media-traceability-system');raw=(repo/'config/native/security-candidate-module-locks/age.go.sum').read_text();(fixture/'go.sum').write_text('\n'.join(x for x in raw.splitlines() if x.startswith(module+' '))+'\n')
+rows=[]
+for mode in ['valid','corrupt','missing']:
+ cache=out/('negative-'+mode+'-cache');p=cache/'cache/download'/module/'@v';p.mkdir(parents=True,exist_ok=True)
+ for ext in ['.info','.mod']:
+  q=source/(version+ext);shutil.copyfile(q,p/q.name)
+ archive=source/(version+'.zip');dest=p/archive.name
+ if mode=='valid':shutil.copyfile(archive,dest)
+ if mode=='corrupt':
+  with zipfile.ZipFile(archive) as a,zipfile.ZipFile(dest,'w') as b:
+   first=True
+   for member in a.infolist():
+    data=a.read(member.filename)
+    if first and not member.is_dir():data+=b'\nN01 synthetic corruption only\n';first=False
+    b.writestr(member,data)
+ env=dict(os.environ,PATH=str(out/'go/bin')+':/usr/bin:/bin',GOROOT=str(out/'go'),GOTOOLCHAIN='local',GOPATH=str(out/'negative-gopath'),GOMODCACHE=str(cache),GOCACHE=str(out/'negative-gocache'),GOENV='off',GOWORK='off',GOPROXY='off',GOSUMDB='off',GONOPROXY='',GONOSUMDB='',GOPRIVATE='')
+ cmd=[str(out/'go/bin/go'),'mod','download','-json',module+'@'+version];r=subprocess.run(cmd,cwd=fixture,env=env,capture_output=True,text=True,timeout=90);text=r.stdout+r.stderr
+ accepted=r.returncode==0 if mode=='valid' else r.returncode!=0 and ('checksum mismatch' in text if mode=='corrupt' else 'GOPROXY=off' in text)
+ rows.append({'case':mode,'exit_code':r.returncode,'expected_behavior_observed':accepted,'output_sha256':hashlib.sha256(text.encode()).hexdigest(),'output_tail':text[-1600:]});assert accepted,mode
+report={'status':'PASS','scope':'private synthetic fixture validates offline Go checksum refusal,not a live attack','cases':rows,'source_module':module,'source_version':version,'committed_go_sum_used':True,'original_cache_changed':False,'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+(out/'go-recovery-negative-checks.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':'PASS','negative_cases':2,'positive_controls':1}))

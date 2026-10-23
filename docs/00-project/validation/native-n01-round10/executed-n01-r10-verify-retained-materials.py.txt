@@ -1,0 +1,9 @@
+import datetime,hashlib,json
+from pathlib import Path
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-r8-materials/native-n01-review-kit';archive=base/'native-n01-round8-internal-review-kit.tar.gz';expected='4215812c827a6173c60e908af1ce898f8fe345dec40396ace5093962904f2480';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();assert sha(archive)==expected
+manifest=json.loads((root/'FILE-MANIFEST.json').read_text());mismatches=[]
+for x in manifest['files']:
+ p=root/x['path'];assert p.resolve().is_relative_to(root.resolve()) and not p.is_symlink()
+ if not p.is_file() or sha(p)!=x['sha256'] or p.stat().st_size!=x['size_bytes']:mismatches.append(x['path'])
+index=json.loads((root/'NOTICE-INDEX.json').read_text());assert len(manifest['files'])==485 and not mismatches
+report={'scope':'existing_immutable_internal_review_kit_readonly_recheck_not_new_distribution_or_software_approval','observed_at':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).isoformat(),'status':'PASS','archive_sha256':expected,'material_directory':str(root),'manifest_files_verified':485,'base_notice_texts':len(index['texts']),'base_notice_bindings':len(index['bindings']),'mismatches':mismatches,'files_extracted_or_overwritten':False,'services_changed':False,'Python_candidates_created':False,'executed_script_sha256':sha(Path(__file__))};out=base/'native-n01-round10';out.mkdir(mode=0o700,exist_ok=True);(out/'material-retention-verification.json').write_text(json.dumps(report,indent=2)+'\n');print('Existing485 internal material files retained:PASS')

@@ -1,0 +1,19 @@
+exec(compile(open(__file__.replace('n01-r6-pf-source.py','n01-r6-collect.py'),encoding='utf8').read().split('lock=')[0],'<helpers>','exec'))
+rows=[]
+for ver,commit in [('4.224.5','98abe75e22c2cabeb5be4510d0217a008a5e206c'),('5.4.2','98daf38b464e21a32fe71d275cca0c3530d46087')]:
+ if commit is None:
+  ref=json.loads(get('https://api.github.com/repos/patternfly/patternfly/git/ref/tags/v'+ver,cache/('pf-'+ver+'-ref.json')));commit=ref['object']['sha'];assert ref['object']['type']=='commit'
+ blob=get('https://codeload.github.com/patternfly/patternfly/tar.gz/'+commit,cache/('pf-source-'+ver+'.tgz'))
+ with tarfile.open(fileobj=io.BytesIO(blob)) as t:
+  fs={m.name:t.extractfile(m).read() for m in t if m.isfile()};materials=[]
+  for n,b in fs.items():
+   if re.search(r'(^|/)(licen[sc]e|notice|copying|copyright|authors)(\.|$)',n,re.I) and len(b)<300000:
+    try:text=b.decode('utf8')
+    except UnicodeDecodeError:continue
+    materials.append({'path':n,'sha256':sha(b),'utf8_text':text})
+  byhash={}
+  for n,b in fs.items():byhash.setdefault(sha(b),[]).append(n)
+  vendor=json.loads((o/'vendor-npm-origin-report.json').read_text(encoding='utf8'));pkg=next(x for x in vendor['packages'] if x['package']=='@patternfly/patternfly' and x['version']==ver)
+  matches=[dict(m,source_members=byhash[m['sha256']]) for m in pkg['exact_release_member_matches'] if m['sha256'] in byhash]
+  rows.append({'version':ver,'commit':commit,'archive_sha256':sha(blob),'materials':materials,'exact_source_release_bindings':matches,'all_assets_source_matched':len(matches)==len(pkg['exact_release_member_matches'])});print(ver,len(materials),len(matches),flush=True)
+write('patternfly-source-license-report.json',{'scope':'pinned_source_licenses_and_exact_asset_hashes_not_full_approval','packages':rows})

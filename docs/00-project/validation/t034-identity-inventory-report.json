@@ -1,0 +1,185 @@
+{
+  "observed_at": "2026-10-23T12:54:41.4297591+00:00",
+  "task_id": "T034",
+  "status": "READ_ONLY_IDENTITY_INVENTORY_VERIFIED_REAL_ADOPTION_AND_PROVIDERS_PENDING",
+  "base_source_commit": "83c492fa00bffbd1de1395de796ba75e36609021",
+  "validated_source": "exact_changed_file_sha256",
+  "source_file_sha256": {
+    "backend/business_app/task_creation_identity_inventory.py": "a1796f9f0722861e1616eb97e08f86822b11fbf0c7c6560b933be5bc5a93623a",
+    "scripts/task_creation_identity_inventory.py": "4c95c4e446a1b44243aee9996ff05ce3a89b45d97c86e1e3536c5de1e399c5f8",
+    "tests/business/test_task_creation_identity_inventory.py": "65b8f86df69e07865fc75ef17c0a025053da0c29766a80e08b6556688d774fb1",
+    "config/stage-three-profile.json": "b0ea681d5e895e0330677ce0c03e81a459683df91da89fb578f5760b845cd372",
+    "scripts/update_docs_navigation.py": "f26151c0334cf52b195af377aee49498f80b79477ecc393f2780f84220e11a0a"
+  },
+  "environment": "Linux Miniforge py310 3.10.22; new random isolated business databases; Windows edits and synchronization only",
+  "original_runtime_lock_changed": false,
+  "ci_gates_changed": false,
+  "python_candidate_deferred": true,
+  "algorithms_deferred": true,
+  "formal_accepted": false,
+  "real_identity_inventory_executed": false,
+  "adoption_authorized": false,
+  "license_verified": false,
+  "classification_verified": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "default_provider_added": false,
+  "verification": [
+    {
+      "log": "/workspace/glwy/runtime/t034-inventory-final-tests.log",
+      "new_tests": 42,
+      "command": "PYTHONPATH=backend:. python -m pytest tests/business/test_task_creation_identity_inventory.py tests/business/test_identity_directory.py -q --tb=short",
+      "duration_seconds": 77.84,
+      "status": "PASS",
+      "tests": 70
+    },
+    {
+      "command": "python scripts/stage_three_types.py check",
+      "log": "/workspace/glwy/runtime/t034-inventory-type-final.log",
+      "source_files": 301,
+      "status": "PASS"
+    },
+    {
+      "status": "PASS",
+      "command": "python -m ruff check backend/business_app/task_creation_identity_inventory.py scripts/task_creation_identity_inventory.py tests/business/test_task_creation_identity_inventory.py"
+    },
+    {
+      "status": "PASS",
+      "command": "python -m ruff format --check backend/business_app/task_creation_identity_inventory.py scripts/task_creation_identity_inventory.py tests/business/test_task_creation_identity_inventory.py"
+    },
+    {
+      "command": "python scripts/stage_three_quality.py text",
+      "files": 313,
+      "status": "PASS"
+    },
+    {
+      "files": 2463,
+      "command": "python scripts/stage_three_quality.py secrets",
+      "exact_runtime_values_available": true,
+      "report_writing_enabled": true,
+      "status": "PASS",
+      "comprehensive_DLP_or_history_verified": false
+    },
+    {
+      "command": "PYTHONPATH=backend:. python scripts/verify_business_foundation.py failure-probe",
+      "exit_code": 1,
+      "status": "EXPECTED_FAILURE"
+    },
+    {
+      "command": "PYTHONPATH=backend:. python scripts/verify_t014_permissions.py failure-probe",
+      "exit_code": 1,
+      "status": "EXPECTED_FAILURE"
+    },
+    {
+      "command": "python scripts/generate_task_progress.py --check",
+      "status": "PASS",
+      "task_cards": 170
+    },
+    {
+      "command": "python scripts/generate_development_inventory.py --check",
+      "status": "PASS"
+    },
+    {
+      "command": "python scripts/validate_stage_one.py",
+      "status": "PASS",
+      "checks": 12
+    },
+    {
+      "command": "python scripts/validate_stage_three.py",
+      "status": "PASS",
+      "checks": 10,
+      "runtime_executed": false
+    },
+    {
+      "command": "python scripts/validate_repository_docs.py",
+      "status": "PASS",
+      "links_checked": 14403
+    },
+    {
+      "command": "python scripts/validate_inputs.py --task T034",
+      "status": "PASS",
+      "checks": 11,
+      "fixtures": 335,
+      "freeze": "NOT_FROZEN"
+    },
+    {
+      "command": "python scripts/stage_three_quality.py secrets",
+      "status": "PASS",
+      "files": 2465,
+      "report_writing_enabled": true,
+      "observation_scope": "final documentation cohort"
+    }
+  ],
+  "red_and_repair_history": [
+    "Component absent before implementation: observed failure.",
+    "Standalone help without inherited PYTHONPATH failed before lazy imports and fixed root setup; regression now passes.",
+    "Initial SQL test referred to nonexistent mt.task_plan_head; corrected assertion to actual mt.task_plan_mapping_head, retaining zero-head-write assertion.",
+    "Nullable typing and import formatting failures corrected before final verification."
+  ],
+  "independent_review": {
+    "important_launch_issue": "fixed and regression verified",
+    "critical_security_findings": 0,
+    "scope": "one fresh read-only source review",
+    "real_operator_review_recorded": false,
+    "role_and_private_config_negative_cases": "added; final 70 tests pass"
+  },
+  "previous_linux_full_business": {
+    "complete": false,
+    "database_cleanup_verified": false,
+    "process_group_cleanup_verified": false,
+    "timeout_seconds": 1800,
+    "root_cause_resolved": false,
+    "partial_totals": {
+      "failures": 0,
+      "tests": 873,
+      "errors": 0,
+      "skipped": 0
+    },
+    "source_scope": "previous generation reader cohort, not this new inventory",
+    "last_nodeid": "tests/business/test_t014_runtime.py::test_revoked_function_permission_rejects_old_cursor_and_idempotent_receipt",
+    "last_phase": "setup",
+    "status": "TIMEOUT",
+    "partial_is_full_pass": false
+  },
+  "ci_observation": {
+    "head_sha": "83c492fa00bffbd1de1395de796ba75e36609021",
+    "run_id": 39952477962,
+    "url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39952477962",
+    "observed_at": "2026-10-23T12:56:05Z",
+    "status": "in_progress",
+    "identity": "success",
+    "foundation": "success",
+    "foundation_business_step": "success",
+    "foundation_business_tests": 2385,
+    "foundation_business_complete": true,
+    "foundation_permissions_step": "success",
+    "foundation_browser_upload_step": "success",
+    "tested_pr_merge_sha": "e9fe0d4ac74addd8ea58932bbcbb51873d670936",
+    "engineering_execution": "in_progress",
+    "all_required_checks_passed": false,
+    "inventory_changes_in_this_run": false,
+    "main_merged": false
+  },
+  "approval_review_observation": {
+    "remains_blocked": false,
+    "safer_alternative": "normal report-preserving scan executed successfully",
+    "report_suppressed_scan_rejected": true,
+    "stated_reason": "may suppress required safety evidence"
+  },
+  "remaining": [
+    "Actual authenticated issuer/sub, user/org/case and restricted administrator private configuration absent; no real inventory executed.",
+    "Controlled adoption registration/activation/revocation and versioned evidence pending.",
+    "Actual handler release/license/availability and per-asset classification records/adapters pending.",
+    "Independent generation custody/update/recovery rebinding channel pending.",
+    "Proof/provider composition, aggregate runtime deadlines, unknown commit/recovery and full gates pending."
+  ],
+  "new_completed_substeps": 0,
+  "task_totals": {
+    "fully_accepted_tasks": 0,
+    "T034_verified_substeps": 4,
+    "verified_substeps": 154,
+    "remaining_work_groups": 622,
+    "tasks": 170,
+    "T034_remaining_work_groups": 4
+  }
+}

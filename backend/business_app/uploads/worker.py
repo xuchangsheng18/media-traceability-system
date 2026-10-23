@@ -10,16 +10,22 @@ from sqlalchemy import text
 
 from ..auth import AuthorityProvider
 from ..contracts import ROOT
+from ..data_scope import ResourceBinding
 from ..errors import BusinessError
 from ..objects import StoredObject
-from ..types import Actor, ObjectRef
+from ..permissions.context import WorkPort, protected_work
+from ..scope_context import current_data_scope
+from ..scoped_objects import ScopedObjects
+from ..types import Actor, ObjectRef, Scope
 from .service import UploadService
 from .validator import inspect_uploaded_media
 
 
 class UploadValidationWorker:
-    def __init__(self, service: UploadService, authority: AuthorityProvider | None) -> None:
-        self.service, self.authority = service, authority
+    def __init__(
+        self, service: UploadService, authority: AuthorityProvider | None, work_authorization: WorkPort | None = None
+    ) -> None:
+        self.service, self.authority, self.work_authorization = service, authority, work_authorization
 
     def consume_validation(self, event: dict[str, Any]) -> None:
         if self.authority is None:
@@ -35,6 +41,13 @@ class UploadValidationWorker:
         if scope.actor != actor or scope.case_id != UUID(event["case_id"]):
             raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         upload = UUID(event["upload_id"])
+        with protected_work(self.work_authorization, scope, "upload_validation", upload, "validateUploadWork"):
+            self._consume_bound(event, scope, upload)
+
+    def _consume_bound(self, event: dict[str, Any], scope: Scope, upload: UUID) -> None:
+        if self.authority is None:
+            raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
+        actor = scope.actor
         repository = self.service.repository
         stored: StoredObject | None = None
         try:
@@ -86,7 +99,12 @@ class UploadValidationWorker:
                 try:
                     for part in parts:
                         ref = ObjectRef(part["object_id"], part["version_id"], part["sha256"])
-                        for block in self.service.store.read(ref):
+                        for block in ScopedObjects(self.service.store, self.authority).read(
+                            connection,
+                            current_data_scope(),
+                            ResourceBinding("upload_part", upload, part_no=int(part["part_no"])),
+                            ref,
+                        ):
                             if len(data) + len(block) > int(row["size_bytes"]):
                                 bytes_valid = False
                                 break
@@ -117,8 +135,17 @@ class UploadValidationWorker:
                         {"case": scope.case_id, "id": upload},
                     )
                     return
-                stored = self.service.store.put_part(scope, upload, 1, io.BytesIO(data))
+                stored = ScopedObjects(self.service.store, self.authority).put(
+                    repository.database, scope, ResourceBinding("upload", upload), io.BytesIO(data)
+                )
                 asset, content = uuid4(), uuid4()
+                # Distinct upload rows do not serialize the same content. Hold
+                # this case-scoped lock through publication/commit, then query
+                # in a separate statement so a waiting worker sees that commit.
+                connection.execute(
+                    text("SELECT pg_advisory_xact_lock(hashtext(:key))"),
+                    {"key": f"upload-sha256/{actor.org_id}/{scope.case_id}/{stored.ref.sha256}"},
+                )
                 duplicate = (
                     connection.execute(
                         text(

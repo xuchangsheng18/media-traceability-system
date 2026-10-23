@@ -59,6 +59,7 @@ def test_history_headers_match_snapshot(history_context, operation):
     assert response.status_code == 200, response.text
     assert response.headers["X-Task-Id"] == str(history_context["task_id"])
     assert response.headers["X-Run-Version"] == "1" and response.headers["X-Result-Version"] == "1"
+    assert response.headers["Cache-Control"] == "no-store"
     assert response.json() == next(x["response"] for x in one["api_projections"] if x["operation_id"] == operation)
 
 

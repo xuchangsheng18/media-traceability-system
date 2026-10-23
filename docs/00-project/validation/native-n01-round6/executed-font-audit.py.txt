@@ -1,0 +1,22 @@
+import base64,hashlib,io,json,re,tarfile,urllib.request,zipfile
+from pathlib import Path
+from fontTools.ttLib import TTFont
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree';o=r/'docs/00-project/validation/native-n01-round6';sha=lambda b:hashlib.sha256(b).hexdigest();rows=[]
+with zipfile.ZipFile(w/'n01-r6-vendor.jar') as z:
+ for n in z.namelist():
+  if not n.endswith(('.ttf','.otf','.woff','.woff2','.eot','.svg')) or '/vendor/' not in n:continue
+  b=z.read(n);row={'path':n,'sha256':sha(b),'size_bytes':len(b)}
+  if n.endswith(('.ttf','.otf','.woff','.woff2')):
+   try:
+    f=TTFont(io.BytesIO(b));row['name_records']=[{'nameID':x.nameID,'platformID':x.platformID,'languageID':x.langID,'text':x.toUnicode()} for x in f['name'].names if x.nameID in [0,1,2,6,7,8,9,13,14]];row['status']='PARSED_NAME_TABLE';f.close()
+   except Exception as e:row.update(status='PARSE_UNAVAILABLE',reason=type(e).__name__+':'+str(e))
+  else:row['status']='NON_SFNT_ASSET_NOT_PARSED'
+  rows.append(row)
+url='https://registry.npmjs.org/font-awesome/4.7.0';meta_raw=urllib.request.urlopen(url,timeout=40).read();meta=json.loads(meta_raw);blob=urllib.request.urlopen(meta['dist']['tarball'],timeout=40).read();alg,digest=meta['dist']['integrity'].split('-',1);assert base64.b64encode(hashlib.new(alg,blob).digest()).decode()==digest
+with tarfile.open(fileobj=io.BytesIO(blob)) as t:
+ fs={m.name:t.extractfile(m).read() for m in t if m.isfile()};byhash={}
+ for n,b in fs.items():byhash.setdefault(sha(b),[]).append(n)
+ matches=[dict(path=x['path'],sha256=x['sha256'],upstream_members=byhash[x['sha256']]) for x in rows if x['sha256'] in byhash]
+ materials=[{'path':n,'sha256':sha(b),'utf8_text':b.decode('utf8')} for n,b in fs.items() if n.endswith(('HELP-US-OUT.txt','README.md')) or re.search(r'(^|/)(license|copying)(\.|$)',n,re.I)]
+d={'scope':'font_metadata_and_exact_FontAwesome_package_byte_comparison_not_font_license_approval','fonts_and_svg_assets':rows,'fontawesome':{'version':'4.7.0','metadata_url':url,'metadata_sha256':sha(meta_raw),'archive_sha256':sha(blob),'registry_integrity_verified':True,'Keycloak_transitive_lock_binding_claimed':False,'exact_font_matches':matches,'materials':materials},'required_followup':'Review nameID13/14 and exact font family license, original copyright/Reserved Font Names, SVG/EOT rights and asset-specific source/notice. Metadata is evidence, not permission grant.'}
+(o/'font-metadata-and-obligations-report.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n');(o/'executed-font-audit.py.txt').write_bytes(Path(__file__).read_bytes());print(json.dumps({'assets':len(rows),'parsed':sum(x['status']=='PARSED_NAME_TABLE' for x in rows),'parse_unavailable':sum(x['status']=='PARSE_UNAVAILABLE' for x in rows),'fontawesome_exact_matches':len(matches),'families':sorted({n['text'] for x in rows for n in x.get('name_records',[]) if n['nameID']==1})},ensure_ascii=False))

@@ -1,0 +1,15 @@
+import datetime,hashlib,json,os,re,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-sbom-audit-20261017/keycloak';out=base/'native-n01-r4';rows=[]
+for p in sorted(root.rglob('*.jar')):
+ materials=[]
+ with zipfile.ZipFile(p) as z:
+  for name in z.namelist():
+   if name.endswith('/') or name.endswith('.class') or not re.match(r'^(license|notice|copying|copyright)([._-].*)?$',Path(name).name,re.I):continue
+   raw=z.read(name);entry={'path':name,'sha256':hashlib.sha256(raw).hexdigest(),'size_bytes':len(raw)}
+   try:entry['utf8_text']=raw.decode('utf8')
+   except UnicodeDecodeError:entry['text_encoding_unresolved']=True
+   materials.append(entry)
+ rows.append({'archive':p.relative_to(root).as_posix(),'archive_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'materials':materials})
+report={'scope':'actual_embedded_JAR_license_notice_texts_with_exact_archive_and_member_hashes_not_legal_admission','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'jars':rows,'summary':{'archives':len(rows),'materials':sum(len(x['materials']) for x in rows),'without_text_materials':sum(not x['materials'] for x in rows),'encoding_unresolved':sum(y.get('text_encoding_unresolved',False) for x in rows for y in x['materials'])},'formal_admission':False};(out/'jar-embedded-license-texts.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report['summary']))

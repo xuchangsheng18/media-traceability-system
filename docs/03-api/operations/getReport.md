@@ -1,10 +1,10 @@
 # 读取报告版本与状态：getReport
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f`。契约未冻结，文档存在不代表接口已实现。
 
 `GET /api/v1/reports/{id}`；operationId=`getReport`；源指针=`/paths/~1reports~1{id}/get`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
+实现范围：**DEV_PARTIAL**；仅从真实数据库读取既有报告元数据、固定对象引用和同任务/运行/结果的证据列表；不创建、渲染或下载报告。通过统一功能权限、案件成员、来源、分类/读取用途及事务尾复核；正式提供者缺失继续拒绝。。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
 
 ## 调用目的与权限
 
@@ -83,7 +83,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`report.read
 }
 ```
 
-按响应对象/结果及实际版本读取；再核验状态、缺失模态/证据和权限。候选结果不等于业务批准。
+源码registry_reads.py/registry_router.py与0013增量迁移；隔离回归见t001-t123-api-continuation-report.json。报告生产者、批准、渲染/受控下载、真实数据与完整T107验收仍待。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

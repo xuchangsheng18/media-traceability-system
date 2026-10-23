@@ -3,26 +3,34 @@ import logging
 import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
+from types import MappingProxyType
 from uuid import UUID, uuid4
 
 import yaml
 from app.tracing import safe_log, trace_context, trace_id
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
+from .asset_download import AssetDownload
+from .asset_download_router import router as asset_download_router
 from .auth import AuthorityProvider
+from .catalog_reads import CatalogReads
+from .catalog_router import router as catalog_router
 from .contracts import ROOT
 from .controls.approvals import Approvals
 from .controls.execution import Execution
 from .controls.exports import Exports
 from .controls.imports import Imports
+from .controls.operation_tokens import OperationTokens
 from .controls.providers import (
     DefinitionProvider,
     DeploymentOperations,
     IdentityDirectory,
+    OperationTokenKeys,
+    OperationTokenRules,
     RuleProvider,
     SourceSynchronization,
 )
@@ -35,11 +43,34 @@ from .history.repository import ResultRepository
 from .history.router import router as history_router
 from .inference import BackendRegistration, InferenceGateway, ServiceAuthority
 from .inference import router as inference_router
+from .model_catalog import ModelCatalog
+from .model_catalog_router import router as model_catalog_router
 from .objects import FileObjectStore
+from .permissions.catalog import load_catalog
+from .permissions.conditional import ConditionalPort
+from .permissions.context import FencePort, WorkPort
+from .permissions.duties import IndependentDuties
+from .permissions.guard import audit_protected_routes, authorize_business_route
+from .permissions.types import PermissionAuthority
+from .registry_reads import RegistryReads
+from .registry_router import router as registry_router
 from .settings import BusinessSettings
+from .source_registration import SourceRegistration, SourceRegistrationAuthority
+from .source_registration_router import router as source_registration_router
+from .task_creation_materials import MaterialBudgets
+from .task_creation_router import router as task_creation_router
+from .task_creation_service import TaskCreationMaterialsPort, TaskCreationService
 from .uploads.repository import UploadRepository
 from .uploads.router import router as upload_router
 from .uploads.service import UploadService
+
+
+def private_response(response: Response) -> Response:
+    """Apply to successes and refusals, including middleware early returns."""
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
 
 
 def create_app(
@@ -51,46 +82,103 @@ def create_app(
     definition_provider: DefinitionProvider | None = None,
     deployment_operations: DeploymentOperations | None = None,
     source_synchronization: SourceSynchronization | None = None,
+    source_registration_authority: SourceRegistrationAuthority | None = None,
     service_authority: ServiceAuthority | None = None,
     inference_backends: dict[str, BackendRegistration] | None = None,
+    permission_authority: PermissionAuthority | None = None,
+    conditional_permissions: ConditionalPort | None = None,
+    independent_duties: IndependentDuties | None = None,
+    authorization_fence: FencePort | None = None,
+    work_authorization: WorkPort | None = None,
+    operation_token_rules: OperationTokenRules | None = None,
+    operation_token_keys: OperationTokenKeys | None = None,
+    task_creation_materials: TaskCreationMaterialsPort | None = None,
+    task_creation_budgets: MaterialBudgets | None = None,
 ) -> FastAPI:
+    if task_creation_materials is not None and task_creation_budgets is None:
+        raise ValueError("EXPLICIT_TASK_CREATION_BUDGETS_REQUIRED")
     logging.getLogger("uvicorn.access").disabled = True
     database = Database(settings.database_dsn)
 
     @asynccontextmanager
-    async def lifespan(_: FastAPI) -> AsyncIterator[None]:
-        yield
-        database.close()
+    async def lifespan(current: FastAPI) -> AsyncIterator[None]:
+        try:
+            audit_protected_routes(current)
+            yield
+        finally:
+            database.close()
 
     app = FastAPI(title="Independent business development", lifespan=lifespan)
+    app.state.permission_framework_routes = frozenset(id(route) for route in app.routes)
+    app.state.permission_catalog = MappingProxyType(load_catalog(ROOT))
+    app.state.permission_authority = permission_authority
+    app.state.conditional_permissions = conditional_permissions
+    app.state.catalog_reads = CatalogReads(database, settings)
+    app.state.registry_reads = RegistryReads(database)
+    app.state.model_catalog = ModelCatalog(database, settings)
+    app.state.authorization_fence = authorization_fence
+    app.state.work_authorization = work_authorization
     app.state.business_database = database
     app.state.business_authority = authority
     app.state.business_settings = settings
+    app.state.task_creation_service = (
+        TaskCreationService(database, settings, materials_reader=task_creation_materials, budgets=task_creation_budgets)
+        if task_creation_budgets is not None
+        else None
+    )
     app.state.upload_service = UploadService(
-        database, UploadRepository(database, settings), FileObjectStore(settings.object_root)
+        database, UploadRepository(database, settings), FileObjectStore(settings.object_root), authority=authority
     )
     app.state.result_repository = ResultRepository(database, app.state.upload_service.store, authority)
     app.state.control_receipts = ControlReceipts(database, settings)
-    app.state.approvals = Approvals(database, app.state.control_receipts, rules, authority)
-    app.state.reviews = Reviews(database, app.state.control_receipts, app.state.result_repository, rules)
+    app.state.source_registration = SourceRegistration(
+        database, app.state.control_receipts, source_registration_authority
+    )
+    app.state.asset_download = AssetDownload(database, settings, app.state.upload_service.store, authority)
+    app.state.approvals = Approvals(database, app.state.control_receipts, rules, authority, independent_duties)
+    app.state.operation_tokens = OperationTokens(
+        database, app.state.approvals, operation_token_rules, operation_token_keys, permission_authority
+    )
+    app.state.reviews = Reviews(
+        database, app.state.control_receipts, app.state.result_repository, rules, independent_duties
+    )
     app.state.exports = Exports(
-        database, app.state.control_receipts, app.state.approvals, app.state.upload_service.store, rules, authority
+        database,
+        app.state.control_receipts,
+        app.state.approvals,
+        app.state.upload_service.store,
+        rules,
+        authority,
+        work_authorization,
     )
     app.state.imports = Imports(
         database, app.state.control_receipts, app.state.upload_service.store, authority, settings
     )
-    app.state.execution = Execution(database, authority, settings.node_lease_seconds)
+    app.state.execution = Execution(database, authority, settings.node_lease_seconds, work_authorization)
     app.state.identity_directory = identity_directory
     app.state.definition_provider = definition_provider
     app.state.deployment_operations = deployment_operations
     app.state.source_synchronization = source_synchronization
     app.state.inference_gateway = InferenceGateway(
-        database, app.state.upload_service.store, authority, service_authority, inference_backends
+        database,
+        app.state.upload_service.store,
+        authority,
+        service_authority,
+        inference_backends,
+        work_authorization=work_authorization,
     )
-    app.include_router(upload_router)
-    app.include_router(history_router)
-    app.include_router(control_router)
+    protected = [Depends(authorize_business_route)]
+    app.include_router(upload_router, dependencies=protected)
+    app.include_router(history_router, dependencies=protected)
+    app.include_router(control_router, dependencies=protected)
+    app.include_router(catalog_router, dependencies=protected)
+    app.include_router(registry_router, dependencies=protected)
+    app.include_router(source_registration_router, dependencies=protected)
+    app.include_router(model_catalog_router, dependencies=protected)
+    app.include_router(asset_download_router, dependencies=protected)
+    app.include_router(task_creation_router, dependencies=protected)
     app.include_router(inference_router)
+    audit_protected_routes(app)
 
     automatic = FastAPI.openapi(app)
     mounted = {operation["operationId"] for methods in automatic["paths"].values() for operation in methods.values()}
@@ -131,7 +219,7 @@ def create_app(
             identifier = UUID(identifiers[0]) if identifiers else uuid4()
         except ValueError:
             safe_log("request.rejected", request_id=str(request.state.request_id), status=422, route="unmatched")
-            return await business_error(request, BusinessError("REQUEST_ID_INVALID", 422))
+            return private_response(await business_error(request, BusinessError("REQUEST_ID_INVALID", 422)))
         request.state.request_id = identifier
         request.state.client_request_id_provided = bool(identifiers)
         request.scope["headers"] = [
@@ -151,7 +239,7 @@ def create_app(
             )
         response.headers["X-Request-Id"] = str(request.state.request_id)
         response.headers["X-Trace-Id"] = trace_id(str(request.state.request_id))
-        return response
+        return private_response(response)
 
     @app.exception_handler(BusinessError)
     async def business_error(request: Request, exception: BusinessError) -> JSONResponse:
@@ -171,7 +259,11 @@ def create_app(
                 "request_id": str(request_id),
                 "details": [],
             },
-            headers={"X-Request-Id": str(request_id), "X-Trace-Id": trace_id(str(request_id))},
+            headers={
+                "X-Request-Id": str(request_id),
+                "X-Trace-Id": trace_id(str(request_id)),
+                **({"WWW-Authenticate": "Bearer"} if exception.http_status == 401 else {}),
+            },
         )
 
     @app.exception_handler(SQLAlchemyError)

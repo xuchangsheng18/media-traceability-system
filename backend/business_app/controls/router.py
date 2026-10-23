@@ -1,18 +1,23 @@
 import hashlib
 import json
+import re
 from datetime import datetime
 from typing import Annotated, Any, cast
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Header, Query, Request
 from fastapi.responses import JSONResponse, Response
-from sqlalchemy import text
+from sqlalchemy import Connection, text
 
 from ..auth import authorize_request
 from ..contracts import validate_api, validate_response
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.conditional import ConditionalPort
+from ..permissions.guard import current_principal
+from ..scope_collections import CollectionScope
 from ..settings import BusinessSettings
+from ..source_synchronization import read_source_authority
 from ..types import Actor, Scope
 from ..uploads.repository import UploadRepository
 from .approvals import Approvals
@@ -20,6 +25,7 @@ from .common import actor_for, audit, canonical, match, now, page, reply, resour
 from .execution import Execution
 from .exports import Exports, audit_wire
 from .imports import Imports
+from .operation_tokens import OperationTokens
 from .providers import DefinitionProvider, DeploymentOperations, IdentityDirectory, SourceSynchronization
 from .reviews import Reviews
 
@@ -37,8 +43,22 @@ def settings(request: Request) -> BusinessSettings:
     return cast(BusinessSettings, request.app.state.business_settings)
 
 
+def collection_scope(request: Request) -> CollectionScope:
+    return CollectionScope(cast(ConditionalPort, request.app.state.conditional_permissions))
+
+
 def approvals(request: Request) -> Approvals:
     return cast(Approvals, request.app.state.approvals)
+
+
+@router.post("/operation-tokens", operation_id="issueOperationToken")
+def issue_operation_token(request: Request, body: dict[str, Any], idempotency_key: Key) -> JSONResponse:
+    validate_api("OperationTokenRequest", body)
+    scope = resource_scope(request, "approval", UUID(body["approval_id"]), "operation.confirm")
+    service = cast(OperationTokens, request.app.state.operation_tokens)
+    response = reply("OperationToken", service.issue(scope, body, request, idempotency_key))
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 def reviews(request: Request) -> Reviews:
@@ -49,12 +69,38 @@ def exports(request: Request) -> Exports:
     return cast(Exports, request.app.state.exports)
 
 
+def review_scope(request: Request, scope: Scope, connection: Connection, operation_id: str) -> tuple[UUID, ...]:
+    conditional = cast(ConditionalPort, request.app.state.conditional_permissions)
+    try:
+        identifiers = conditional.review_ids(
+            current_principal(request), operation_id, scope.case_id, connection=connection
+        )
+    except BusinessError:
+        raise
+    except Exception:
+        raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503) from None
+    if (
+        type(identifiers) is not tuple
+        or any(not isinstance(v, UUID) for v in identifiers)
+        or len(set(identifiers)) != len(identifiers)
+    ):
+        raise BusinessError("CONDITIONAL_FACTS_UNAVAILABLE", 503)
+    return identifiers
+
+
 @router.get("/approvals", operation_id="listApprovals")
 def list_approvals(request: Request, case_id: UUID, cursor: Cursor = None, limit: Limit = 20) -> JSONResponse:
     scope = authorize_request(request, case_id, "approval.read")
     with db(request).transaction(scope) as connection:
         rows, following = page(
-            connection, "approval_request", "approval_id", scope, settings(request).cursor_secret, cursor, limit
+            connection,
+            "approval_request",
+            "approval_id",
+            scope,
+            settings(request).cursor_secret,
+            cursor,
+            limit,
+            collection=collection_scope(request),
         )
         items = [approvals(request).detail(connection, scope, item["approval_id"]) for item in rows]
     return reply("ApprovalPage", dict(items=items, next_cursor=following))
@@ -101,7 +147,7 @@ def list_reviews(
 ) -> JSONResponse:
     scope = authorize_request(request, case_id, "review.read")
     with db(request).transaction(scope) as connection:
-        predicate = "case_id=:case" + (" AND task_id=:task" if task_id is not None else "")
+        predicate = "case_id=:case AND org_id=:org" + (" AND task_id=:task" if task_id is not None else "")
         rows, following = page(
             connection,
             "review_record",
@@ -112,6 +158,8 @@ def list_reviews(
             limit,
             where=predicate,
             filters=dict(task=task_id) if task_id else None,
+            bind_visibility=True,
+            collection=collection_scope(request),
         )
         items = [reviews(request).wire(connection, item["review_id"]) for item in rows]
     return reply("ReviewPage", dict(items=items, next_cursor=following))
@@ -130,8 +178,10 @@ def pending_reviews(request: Request, case_id: UUID, cursor: Cursor = None, limi
             settings(request).cursor_secret,
             cursor,
             limit,
-            where="case_id=:case AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
+            where="case_id=:case AND org_id=:org AND state IN ('WAIT_REVIEW','REVIEWING','RETURNED')",
             version_expression=revision,
+            bind_visibility=True,
+            collection=collection_scope(request),
         )
         items = []
         for item in rows:
@@ -201,7 +251,14 @@ def list_audit(request: Request, case_id: UUID, cursor: Cursor = None, limit: Li
     scope = authorize_request(request, case_id, "audit.read")
     with db(request).transaction(scope) as connection:
         rows, following = page(
-            connection, "audit_event", "event_id", scope, settings(request).cursor_secret, cursor, limit
+            connection,
+            "audit_event",
+            "event_id",
+            scope,
+            settings(request).cursor_secret,
+            cursor,
+            limit,
+            collection=collection_scope(request),
         )
     return reply("AuditEventPage", dict(items=[audit_wire(item) for item in rows], next_cursor=following))
 
@@ -280,10 +337,7 @@ def current_user(request: Request) -> JSONResponse:
         if not connection.execute(text("SELECT mt.actor_in_org()")).scalar_one():
             raise BusinessError("AUTHENTICATION_REQUIRED", 401)
         permitted = {
-            str(v)
-            for v in connection.execute(
-                text("SELECT case_id FROM mt.cases WHERE org_id=:org"), dict(org=actor.org_id)
-            ).scalars()
+            str(v) for v in connection.execute(text("SELECT case_id FROM mt.current_actor_case_ids()")).scalars()
         }
     value = dict(value, case_ids=sorted(set(value["case_ids"]) & permitted))
     for identifier in value["case_ids"]:
@@ -313,7 +367,14 @@ def list_sources(request: Request, case_id: UUID, cursor: Cursor = None, limit: 
     scope = authorize_request(request, case_id, "source.read")
     with db(request).transaction(scope) as connection:
         rows, following = page(
-            connection, "source_registry", "source_id", scope, settings(request).cursor_secret, cursor, limit
+            connection,
+            "source_registry",
+            "source_id",
+            scope,
+            settings(request).cursor_secret,
+            cursor,
+            limit,
+            collection=collection_scope(request),
         )
     return reply("SourcePage", dict(items=[source_wire(item) for item in rows], next_cursor=following))
 
@@ -329,37 +390,57 @@ def get_source(request: Request, id: UUID) -> JSONResponse:
 @router.post("/sources/{id}/authorization/sync", operation_id="syncSourceAuthorization")
 def sync_source(request: Request, id: UUID, body: dict[str, Any], idempotency_key: Key) -> JSONResponse:
     validate_api("SourceSyncRequest", body)
+    original_if_match = request.headers.get("If-Match")
+    if not original_if_match:
+        raise BusinessError("PRECONDITION_REQUIRED", 428)
     scope = resource_scope(request, "source", id, "source.manage")
     provider = cast(SourceSynchronization | None, request.app.state.source_synchronization)
-    if provider is None:
-        raise BusinessError("SOURCE_SYNCHRONIZATION_UNAVAILABLE", 503)
-    authoritative = provider.current(scope, id)
-    validate_response("SourceAuthorizationUpdate", authoritative)
-    if authoritative["source_id"] != str(id) or authoritative["case_id"] != str(scope.case_id):
-        raise BusinessError("SOURCE_AUTHORITY_BINDING_INVALID", 503)
     receipts = cast(UploadRepository, request.app.state.control_receipts)
     digest = hashlib.sha256(canonical([str(id), body])).hexdigest()
     with db(request).transaction(scope) as connection:
         item = row(connection, "source_registry", "source_id", id, lock=True)
+        authoritative = read_source_authority(provider, scope, id, connection=connection)
+
+        def recheck() -> None:
+            current = read_source_authority(provider, scope, id, connection=connection)
+            if current != authoritative:
+                raise BusinessError("AUTHORIZATION_CHANGED", 503)
+
+        db(request).before_commit(connection, recheck)
         old = receipts.replay(connection, scope, "syncSourceAuthorization", idempotency_key, digest)
         if old is not None:
-            return reply("Source", old)
+            # Source's public schema omits authorization_version. Preserve it
+            # privately so a changed internal version cannot replay old success,
+            # even when every field of the public Source happens to be equal.
+            if (
+                set(old) != {"response", "authorization_version", "original_if_match"}
+                or not isinstance(old["original_if_match"], str)
+                or re.fullmatch(r'"[0-9a-f]{64}"', old["original_if_match"]) is None
+                or old["authorization_version"] != authoritative.authorization_version
+                or old["response"] != source_wire(item)
+                or not authoritative.matches(item)
+            ):
+                raise BusinessError("SOURCE_VERSION_CONFLICT", 409)
+            # The first successful request changed the current Source ETag.
+            # A replay must retain its original precondition, not adopt that
+            # updated ETag or omit the required precondition entirely.
+            if original_if_match != old["original_if_match"]:
+                raise BusinessError("PRECONDITION_FAILED", 412)
+            return reply("Source", old["response"])
         match(request, source_wire(item))
         if body["expected_version"] != item["row_version"]:
             raise BusinessError("SOURCE_VERSION_CONFLICT", 409)
         params = dict(
-            authoritative,
+            authorization_ref=authoritative.authorization_ref,
+            authorization_version=authoritative.authorization_version,
+            authorization_status=authoritative.authorization_status,
+            purpose=list(authoritative.purpose),
             id=id,
             case=scope.case_id,
-            expires=datetime.fromisoformat(authoritative["expires_at"].replace("Z", "+00:00"))
-            if authoritative["expires_at"]
-            else None,
+            expires=authoritative.expires_at,
         )
-        if item["authorization_version"] == authoritative["authorization_version"]:
-            if (
-                any(item[k] != params[k] for k in ["authorization_status", "authorization_ref", "purpose"])
-                or item["expires_at"] != params["expires"]
-            ):
+        if item["authorization_version"] == authoritative.authorization_version:
+            if not authoritative.matches(item):
                 raise BusinessError("SOURCE_AUTHORITY_VERSION_CONFLICT", 503)
         else:
             connection.execute(
@@ -369,7 +450,18 @@ def sync_source(request: Request, id: UUID, body: dict[str, Any], idempotency_ke
                 params,
             )
         value = source_wire(row(connection, "source_registry", "source_id", id))
-        receipts.remember(connection, scope, "syncSourceAuthorization", idempotency_key, digest, value)
+        receipts.remember(
+            connection,
+            scope,
+            "syncSourceAuthorization",
+            idempotency_key,
+            digest,
+            dict(
+                response=value,
+                authorization_version=authoritative.authorization_version,
+                original_if_match=original_if_match,
+            ),
+        )
         audit(connection, scope, "source.authorization.sync", "source", id, value["version"], request)
     return reply("Source", value)
 
@@ -546,6 +638,8 @@ def create_policy(request: Request, body: dict[str, Any], idempotency_key: Key) 
 @router.get("/policies", operation_id="listPolicies")
 def list_policies(request: Request, cursor: Cursor = None, limit: Limit = 20) -> JSONResponse:
     actor = policy_actor(request)
+    conditional = cast(ConditionalPort, request.app.state.conditional_permissions)
+    allowed_kinds = conditional.policy_kinds(current_principal(request))
     with db(request).identity_transaction(actor) as connection:
         rows, following = page(
             connection,
@@ -555,7 +649,9 @@ def list_policies(request: Request, cursor: Cursor = None, limit: Limit = 20) ->
             settings(request).cursor_secret,
             cursor,
             limit,
-            where="org_id=:org",
+            where="org_id=:org AND kind=ANY(:allowed_kinds)",
+            filters=dict(allowed_kinds=list(allowed_kinds)),
+            collection=collection_scope(request),
         )
     return reply("PolicyPage", dict(items=[policy_wire(v) for v in rows], next_cursor=following))
 
@@ -651,17 +747,12 @@ def cancel_task(request: Request, id: UUID, body: dict[str, Any], idempotency_ke
                 or approval["binding"]["object_type"] != "task"
             ):
                 raise BusinessError("CANCELLATION_CONFIRMATION_INVALID", 403)
-        connection.execute(
-            text(
-                "UPDATE mt.analysis_task SET state='CANCEL_REQUESTED',row_version=row_version+1,updated_at=now() WHERE case_id=:case AND task_id=:id"
-            ),
-            dict(case=scope.case_id, id=id),
-        )
-        execution.transition(
+        execution.cancel_transition(
             connection,
             scope,
             id,
-            value["version"] + 1,
+            value["run_version"],
+            value["version"],
             value["state"],
             "CANCEL_REQUESTED",
             request.state.request_id,

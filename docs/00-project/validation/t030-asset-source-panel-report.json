@@ -1,0 +1,560 @@
+{
+  "schema_version": 1,
+  "status": "PASS_LIMITED_ASSET_SOURCE_READONLY_UI_NOT_FULL_TASK",
+  "observed_at": "2026-10-22T02:48:19.296153+00:00",
+  "base_source_commit": "c2efe3a01aaa8f28ae1cad9e5a3ff938531d0d75",
+  "source_sha256_lf": {
+    "frontend/src/business/asset-source.ts": "f3d84e43ef393becb0b03ce41075883c773a8478677dd8327f096d2286d51641",
+    "frontend/src/business/asset-source.test.ts": "8b7f8f8eed99b2a44f32d1c04295e9578f0565a634bbbf0051800098ece28d3e",
+    "frontend/src/business/sources.ts": "ea8db1a474fc90010102b3d850d10576229959268f49d7f88f45b11045a532cf",
+    "frontend/src/components/AssetSourcePanel.vue": "71c74946d5dbbb66b1dbfb95a9c4071428e4d7fe9de11f0ee9ab313426b24669",
+    "frontend/src/views/AssetsView.vue": "33c56f51fb6dce9756781c052332bfcce1196751febbed6989044330367e7c3e",
+    "frontend/e2e/foundation.pw.ts": "e4f6464256a8511d02a5c124c3946b7dda054e311bee9de571a66dccc47cbe29"
+  },
+  "new_unit_tests": 40,
+  "full_frontend_unit_tests": 390,
+  "development_browser_tests": 61,
+  "production_browser_tests": 61,
+  "new_browser_tests": 6,
+  "browser_counts_overlap_not_122_unique": true,
+  "environment": "Existing locked Windows Node22.21.1 and existing Chrome; transport fixtures only, no Linux backend identity/source-authority E2E or shared runtime adoption",
+  "RED": [
+    {
+      "exit_code": 1,
+      "expected_failure": "Read-only asset source controller missing",
+      "actual_RED": true,
+      "observed_at": "2026-10-22T02:31:43.281232+00:00"
+    },
+    {
+      "expected_RED_missing_panel": true,
+      "exit_code": 1
+    }
+  ],
+  "quality_checkpoint": {
+    "status": "PASS",
+    "source_sha256_lf": {
+      "frontend/src/business/asset-source.ts": "f3d84e43ef393becb0b03ce41075883c773a8478677dd8327f096d2286d51641",
+      "frontend/src/business/asset-source.test.ts": "8b7f8f8eed99b2a44f32d1c04295e9578f0565a634bbbf0051800098ece28d3e",
+      "frontend/src/business/sources.ts": "ea8db1a474fc90010102b3d850d10576229959268f49d7f88f45b11045a532cf",
+      "frontend/src/components/AssetSourcePanel.vue": "71c74946d5dbbb66b1dbfb95a9c4071428e4d7fe9de11f0ee9ab313426b24669",
+      "frontend/src/views/AssetsView.vue": "33c56f51fb6dce9756781c052332bfcce1196751febbed6989044330367e7c3e",
+      "frontend/e2e/foundation.pw.ts": "8d3f128693b19d42af94e7ddeb3004d9963b7ebec7165c3959b90cec902381fd"
+    },
+    "checks": [
+      {
+        "command": [
+          "node_modules/vitest/vitest.mjs",
+          "run"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T02:37:33.691234+00:00",
+        "log_sha256": "7649084ce088d7686052c1523606da635890731cf33202e640ff92509e66d992"
+      },
+      {
+        "command": [
+          "node_modules/vue-tsc/bin/vue-tsc.js",
+          "--noEmit"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T02:37:50.691975+00:00",
+        "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+      },
+      {
+        "command": [
+          "node_modules/eslint/bin/eslint.js",
+          "src",
+          "e2e",
+          "*.ts",
+          "*.mjs",
+          "--max-warnings=0"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T02:39:50.619145+00:00",
+        "log_sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+      },
+      {
+        "command": [
+          "node_modules/prettier/bin/prettier.cjs",
+          "--check",
+          "src/**/*.{ts,vue,css}",
+          "e2e/**/*.ts",
+          "*.{ts,mjs,json,html}"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T02:39:52.616469+00:00",
+        "log_sha256": "972f261800bfad73adf8b1f08b4f9c76078a3961010e541b8b21559ef5a628a4"
+      },
+      {
+        "command": [
+          "node_modules/vite/bin/vite.js",
+          "build"
+        ],
+        "exit_code": 0,
+        "observed_at": "2026-10-22T02:39:55.511606+00:00",
+        "log_sha256": "80f6f7d873ea65f297336716c980d481636898586d00f4b4851ab061a772b0d1"
+      }
+    ]
+  },
+  "post_quality_browser_assertion_repair": {
+    "status": "PASS",
+    "observed_at": "2026-10-22T02:41:13.122476+00:00",
+    "source_sha256_lf": {
+      "frontend/src/business/asset-source.ts": "f3d84e43ef393becb0b03ce41075883c773a8478677dd8327f096d2286d51641",
+      "frontend/src/business/asset-source.test.ts": "8b7f8f8eed99b2a44f32d1c04295e9578f0565a634bbbf0051800098ece28d3e",
+      "frontend/src/business/sources.ts": "ea8db1a474fc90010102b3d850d10576229959268f49d7f88f45b11045a532cf",
+      "frontend/src/components/AssetSourcePanel.vue": "71c74946d5dbbb66b1dbfb95a9c4071428e4d7fe9de11f0ee9ab313426b24669",
+      "frontend/src/views/AssetsView.vue": "33c56f51fb6dce9756781c052332bfcce1196751febbed6989044330367e7c3e",
+      "frontend/e2e/foundation.pw.ts": "e4f6464256a8511d02a5c124c3946b7dda054e311bee9de571a66dccc47cbe29"
+    },
+    "checks": [
+      {
+        "command": [
+          "node_modules/eslint/bin/eslint.js",
+          "e2e/foundation.pw.ts",
+          "--max-warnings=0"
+        ],
+        "exit_code": 0,
+        "summary": ""
+      },
+      {
+        "command": [
+          "node_modules/prettier/bin/prettier.cjs",
+          "--check",
+          "e2e/foundation.pw.ts"
+        ],
+        "exit_code": 0,
+        "summary": "Checking formatting...\nAll matched files use Prettier code style!\n"
+      }
+    ],
+    "prior_quality_proof_sha256": "46fd98efe4f2ca5c0c81a73bfdab7df89f0a1e7d8f16f27300d114c172641414",
+    "product_sources_unchanged": true,
+    "scope": "Post-quality browser-test-only copy assertion updated for implemented source panel; old read-only/download assertions preserved plus region and source-permission assertions. Unit/type/build product sources unchanged."
+  },
+  "browser": {
+    "development": {
+      "mode": "development",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 61,
+      "failed": 0,
+      "started_at": "2026-10-22T02:39:58.895022+00:00",
+      "ended_at": "2026-10-22T02:41:04.757287+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=foundation-playwright.config.ts"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/business/asset-source.ts": "f3d84e43ef393becb0b03ce41075883c773a8478677dd8327f096d2286d51641",
+        "frontend/src/business/asset-source.test.ts": "8b7f8f8eed99b2a44f32d1c04295e9578f0565a634bbbf0051800098ece28d3e",
+        "frontend/src/business/sources.ts": "ea8db1a474fc90010102b3d850d10576229959268f49d7f88f45b11045a532cf",
+        "frontend/src/components/AssetSourcePanel.vue": "71c74946d5dbbb66b1dbfb95a9c4071428e4d7fe9de11f0ee9ab313426b24669",
+        "frontend/src/views/AssetsView.vue": "33c56f51fb6dce9756781c052332bfcce1196751febbed6989044330367e7c3e",
+        "frontend/e2e/foundation.pw.ts": "e4f6464256a8511d02a5c124c3946b7dda054e311bee9de571a66dccc47cbe29"
+      },
+      "log_sha256": "638bc5a678b6e12e48cc0281b27ac8ba8d02096f7fe4d960abd26f6d610bd1a3",
+      "browser": "Existing Windows Chrome via supported executablePath; UI transport fixture only, not Linux backend identity E2E"
+    },
+    "production": {
+      "mode": "production",
+      "exit_code": 0,
+      "expected_result_verified": true,
+      "passed": 61,
+      "failed": 0,
+      "started_at": "2026-10-22T02:40:57.206760+00:00",
+      "ended_at": "2026-10-22T02:41:58.426521+00:00",
+      "command": [
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--config=D:\\公安厅项目\\_work\\t030-source-production-playwright-config.private.mjs"
+      ],
+      "source_sha256_lf": {
+        "frontend/src/business/asset-source.ts": "f3d84e43ef393becb0b03ce41075883c773a8478677dd8327f096d2286d51641",
+        "frontend/src/business/asset-source.test.ts": "8b7f8f8eed99b2a44f32d1c04295e9578f0565a634bbbf0051800098ece28d3e",
+        "frontend/src/business/sources.ts": "ea8db1a474fc90010102b3d850d10576229959268f49d7f88f45b11045a532cf",
+        "frontend/src/components/AssetSourcePanel.vue": "71c74946d5dbbb66b1dbfb95a9c4071428e4d7fe9de11f0ee9ab313426b24669",
+        "frontend/src/views/AssetsView.vue": "33c56f51fb6dce9756781c052332bfcce1196751febbed6989044330367e7c3e",
+        "frontend/e2e/foundation.pw.ts": "e4f6464256a8511d02a5c124c3946b7dda054e311bee9de571a66dccc47cbe29"
+      },
+      "log_sha256": "eaea2acb5c0cb80fb9b22b492c68320be511f31c95dc4ce0991e7b37965ae44e",
+      "browser": "Existing Windows Chrome via supported executablePath; UI transport fixture only, not Linux backend identity E2E"
+    }
+  },
+  "actual_commands": [
+    {
+      "command": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node_modules/vue-tsc/bin/vue-tsc.js",
+        "--noEmit"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node_modules/eslint/bin/eslint.js",
+        "src",
+        "e2e",
+        "*.ts",
+        "*.mjs",
+        "--max-warnings=0"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "src/**/*.{ts,vue,css}",
+        "e2e/**/*.ts",
+        "*.{ts,mjs,json,html}"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node_modules/eslint/bin/eslint.js",
+        "e2e/foundation.pw.ts",
+        "--max-warnings=0"
+      ],
+      "exit_code": 0,
+      "summary": ""
+    },
+    {
+      "command": [
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "e2e/foundation.pw.ts"
+      ],
+      "exit_code": 0,
+      "summary": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    }
+  ],
+  "known_failed_run": {
+    "status": "FIXED_STALE_BROWSER_COPY_ASSERTION",
+    "passed": 60,
+    "failed": 1,
+    "cause": "Existing expectation still said Source details were not connected; changed to truthful lineage-only limitation and added panel/source.read assertions; download and read-only assertions retained",
+    "final_development_passed": 61,
+    "final_production_passed": 61
+  },
+  "review": {
+    "method": "One fresh independent whole-tranche read-only review",
+    "remaining_critical": 0,
+    "remaining_important": 0,
+    "deferred_minors": [],
+    "root_rulings": [
+      {
+        "behavior": "Pre-existing parent asset metadata survives same-generation role/permission changes",
+        "decision": "Retain as separate T030 hardening remainder; this source panel independently clears its records and rechecks permissions. No full T030 acceptance.",
+        "cost_if_wrong": "Previously displayed parent asset metadata may remain on screen after permissions change; server per-request authorization and new source detail refusal remain in force."
+      },
+      {
+        "behavior": "Pre-existing generic session.call late401 after reconnect",
+        "decision": "Track separately as shared-session lifecycle issue; do not rewrite the shared session in this bounded source-display tranche.",
+        "cost_if_wrong": "A late unauthorized response from an old request can disconnect the newer session, affecting availability; no authorization bypass claimed."
+      },
+      {
+        "behavior": "Real identity/source authority, full lineage and T030 acceptance",
+        "decision": "Not demonstrated by owned transport fixtures; preserve these actual integration and acceptance conditions.",
+        "cost_if_wrong": "Calling UI fixtures real authorization or complete lineage would misstate readiness."
+      },
+      {
+        "behavior": "Fresh CI and dev/production browser/material/source delivery verification",
+        "decision": "Root owns final exact-source checks. Current61+61 browser proofs verified; new hosted CI and delivery receipts tracked separately, no prior-CI inheritance.",
+        "cost_if_wrong": "Mixing source commits or pending CI with success would create false evidence."
+      },
+      {
+        "behavior": "T034 creation design",
+        "decision": "D01-D03 remain review pending; no creation code, mapping adoption or transaction implemented by this tranche.",
+        "cost_if_wrong": "Treating heartbeat as approval could permit unreviewed authority/creation behavior."
+      }
+    ],
+    "product_source_hashes_unchanged_after_review": true,
+    "human_review_or_acceptance_inferred": false
+  },
+  "actual_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "responsibility_confirmation_ref": "docs/00-project/validation/t030-role-assignment.json",
+  "new_public_fields": false,
+  "new_error_codes": false,
+  "new_operations": false,
+  "new_sql_or_migrations": false,
+  "backend_code_changed": false,
+  "download_authorization_changed": false,
+  "source_authorization_mutated": false,
+  "default_authority_configured": false,
+  "shared_database_migrated": false,
+  "shared_services_restarted": false,
+  "original_100_package_lock_changed": false,
+  "CI_gates_changed": false,
+  "Python_candidates_created": false,
+  "algorithms_implemented": false,
+  "full_database_regression_rerun": false,
+  "new_data_downloads": 0,
+  "latest_payload_hosted_CI": {
+    "id": 39714290507,
+    "head_sha": "3df0971d6e750d3b2164bf42833f64fafb704985",
+    "status": "pending",
+    "conclusion": null,
+    "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39714290507",
+    "created_at": "2026-10-22T02:58:28Z",
+    "updated_at": "2026-10-22T02:58:29Z",
+    "observed_at": "2026-10-22T02:59:20.175359+00:00",
+    "all_CI_pass_asserted": false,
+    "CI_gates_changed": false
+  },
+  "prior_exact_CI": {
+    "source_commit": "0385b1bbcd864d654860ac9bba5bae12cd68f76d",
+    "run_id": 39706228608,
+    "conclusion": "failure",
+    "report_ref": "docs/00-project/validation/t034-creation-integration-design-report.json",
+    "python_findings": 25,
+    "tool_findings": 1,
+    "Torch_covered": false,
+    "scope": "Prior exact source security gate remains unresolved; no T030 hosted result inferred"
+  },
+  "source_sync": {
+    "status": "PASS_FEATURE_SOURCE_FAST_FORWARD_AND_EXACT_MANIFEST",
+    "observed_at": "2026-10-22T02:58:31.529599+00:00",
+    "source_commit": "3df0971d6e750d3b2164bf42833f64fafb704985",
+    "previous_server_commit": "c2efe3a01aaa8f28ae1cad9e5a3ff938531d0d75",
+    "changed_files": 168,
+    "manifest_files_verified": 2336,
+    "manifest_sha256": "2d62e734c6b077331171b5b0c116edeff09d11a3ffddeeb26e1eaeef49d93baa",
+    "tracked_source_clean": true,
+    "git_worktree_clean": false,
+    "preexisting_IDE_directory_preserved": true,
+    "IDE_file_count": 7,
+    "IDE_content_unchanged_during_sync": true,
+    "IDE_files_written_or_removed_by_this_sync": false,
+    "shared_services_restarted": false,
+    "shared_database_migrated": false,
+    "shared_identity_or_permission_policy_adopted": false,
+    "Python_candidates_created": false,
+    "formal_accepted": false,
+    "GitHub_branch_head_verified": true,
+    "branch": "feat/t001-t012-closeout-20261017",
+    "main_merged": false,
+    "scope": "Exact implementation payload checkpoint; later metadata receipt is not self-included in this earlier checkpoint and no shared runtime upgrade is claimed"
+  },
+  "new_verified_substeps": 1,
+  "verified_substeps_current": 141,
+  "remaining_T001_T123": 434,
+  "remaining_all170": 622,
+  "whole_task_verified": false,
+  "formal_accepted": false,
+  "remaining": [
+    "Real identity/source provider combined backend-browser E2E",
+    "Complete asset lineage",
+    "Parent asset-display same-generation invalidation and shared late401 handling",
+    "Actual effort/dates/review decision and full source-card acceptance",
+    "Fresh exact-source hosted CI and prior security findings, including Torch coverage"
+  ],
+  "material_checks": {
+    "status": "PASS",
+    "validated_source_commit": "3df0971d6e750d3b2164bf42833f64fafb704985",
+    "staged_tree": "0b97ec3d403ac43a3c74ac5da140e9590dc4d61a",
+    "commands": [
+      {
+        "command": [
+          "scripts/generate_task_progress.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T030"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_inputs.py",
+          "--task",
+          "T021"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_development_inventory.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_repository_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_documentation_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/plan_project_schedule.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_remaining_work_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_status_navigation.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_phase_readiness.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one_completion.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_phase_readiness.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_interface_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_interface_docs.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_one.py"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_requirements_document.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/generate_stage_three_docs.py",
+          "--check"
+        ],
+        "exit_code": 0
+      },
+      {
+        "command": [
+          "scripts/validate_stage_three.py"
+        ],
+        "exit_code": 0
+      }
+    ],
+    "scope": "18 material/navigation checks, not new product or production acceptance tests"
+  },
+  "bounded_prepublication_check": {
+    "status": "PASS",
+    "staged_tree": "0b97ec3d403ac43a3c74ac5da140e9590dc4d61a",
+    "manifest_files_verified": 2336,
+    "files_checked": 2338,
+    "scope": "Known runtime/private values and secret filenames, not complete DLP"
+  },
+  "navigation_script_quality": {
+    "source_sha256": "fa9ae1f6e9b11030aca888445594a933d90f5ea270d10474453384fb8817bf31",
+    "checks": [
+      {
+        "command": [
+          "-m",
+          "ruff",
+          "check",
+          "--config",
+          "ruff.toml",
+          "scripts/update_docs_navigation.py"
+        ],
+        "exit_code": 0,
+        "summary": "All checks passed!\n"
+      },
+      {
+        "command": [
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "scripts/update_docs_navigation.py"
+        ],
+        "exit_code": 0,
+        "summary": "1 file already formatted\n"
+      }
+    ]
+  },
+  "previous_design_CI_observation": {
+    "observed_at": "2026-10-22T02:59:25.914167+00:00",
+    "run": {
+      "id": 39710171372,
+      "head_sha": "bfefba0cbed2b4d403109cdb6c742a38824fda44",
+      "status": "in_progress",
+      "conclusion": null,
+      "html_url": "https://github.com/xuchangsheng18/media-traceability-system/actions/runs/39710171372",
+      "updated_at": "2026-10-22T02:28:57Z"
+    },
+    "jobs": [
+      {
+        "name": "identity-verification / identity-integration",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "engineering-execution",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "foundation-verification",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "scope": "Actual previous-design platform observation only; not T030 product validation and no log/test-count success inferred",
+    "all_CI_pass_asserted": false
+  }
+}

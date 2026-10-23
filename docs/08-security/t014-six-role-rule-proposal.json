@@ -1,0 +1,2213 @@
+{
+  "revision": "t014-six-role-proposal-20261020-v1",
+  "observed_date": "2026-10-20",
+  "status": "CONFIRMED_ISOLATED_IMPLEMENTATION_INPUT_NOT_RUNTIME_POLICY",
+  "applicable_environment": "Linux/Miniforge py310/CPU internal R&D",
+  "formal_approved": false,
+  "runtime_enabled": false,
+  "shared_adopted": false,
+  "actual_development_owner": "徐昌胜",
+  "designated_reviewer": "徐昌胜",
+  "actual_human_review_recorded": true,
+  "default_effect": "DENY",
+  "missing_required_condition": "DENY",
+  "source_sha256": {
+    "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+    "docs/08-security/t014-interface-scope-matrix.json": "159c3cf0c3ff97e002996aa71976a409943d9474d0256388ec3c36714f4c5826",
+    "docs/03-api/openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+    "docs/01-requirements/user-roles.md": "1731a4108ff52f10c83a93c961c810bdcb0c7752ae58f80d9d61c84599fa6b7a"
+  },
+  "roles": [
+    {
+      "code": "system_admin",
+      "name": "系统管理员"
+    },
+    {
+      "code": "data_admin",
+      "name": "数据管理员"
+    },
+    {
+      "code": "algorithm_admin",
+      "name": "算法管理员"
+    },
+    {
+      "code": "business_reviewer",
+      "name": "业务审核员"
+    },
+    {
+      "code": "case_investigator",
+      "name": "案件核查人员"
+    },
+    {
+      "code": "auditor",
+      "name": "审计员"
+    }
+  ],
+  "conditions": {
+    "SELF": "仅已认证主体自身，issuer/sub精确映射；不得传他人user_id扩张。",
+    "OPS": "仅脱敏健康元信息；不返回连接串、凭据、案件数据或内部堆栈；业务health契约尚未挂载。",
+    "SOURCE": "仅同单位且已授权案件内来源元信息；授权依据按展示规则脱敏，不隐含读取来源原件。",
+    "SOURCE_WRITE": "仅授权案件来源登记/同步；verified只能来自权威来源端口，数据管理员不能自报授权成功。",
+    "INGEST": "仅同单位有效案件成员和已获准来源；上传及续传核验upload用途，清单导入核验import用途，后续分析另验analysis。上传者不因此获得原件下载、训练或审批权。续传状态/分片列表仍复用asset.upload。",
+    "CASE_READ": "同单位有效案件成员、服务端解析对象归属、来源与读取用途有效；历史版本仍核验当前授权，不能跨案件。",
+    "CASE_DOWNLOAD": "另有明确原件下载用途、对象/版本绑定与审计；只读页面权限不含原件下载；接口未实现前不放行。",
+    "CASE_SEARCH": "仅授权集合建候选并在结果、分页、计数、缓存读取再次过滤；不允许先搜全库再仅隐藏页面。",
+    "TASK_CREATE": "仅授权案件/来源的analysis用途，模型/任务版本可用；不自动批准模型能力或创建训练任务。",
+    "TASK_CONTROL": "仅本人创建任务，或另有显式案件任务控制委托；取消仍按现有规则核验confirmation审批，重跑生成新版本。",
+    "CASE_ANALYSIS": "仅授权案件analysis用途及允许能力；模型结果不是法律结论，原输入/结果历史不得覆盖。",
+    "REVIEW": "仅获派复核的案件/对象；与该对象提交者/申请者不同内部user_id，保留证据和追加决策；review.perform不能替代approval.decide。",
+    "SEAL": "仅获派业务审核员、固定证据清单/摘要和已批准seal申请；执行者不得作为该申请批准票，保留原件。",
+    "REPORT_DRAFT": "仅授权案件形成可追溯草稿；不得用草稿状态绕过正式报告复核/导出。",
+    "REPORT_GENERATE": "绑定当前任务/结果/策略版本且满足正式复核规则；生成与导出独立，不自动签发审批。",
+    "REPORT_EXPORT": "仅本人或明确委托导出人、固定报告版本和有效report_export批准；交付前重新核验授权/审批/摘要。",
+    "REQUEST_CASE": "仅本人负责案件和现有对象类型/purpose，申请不产生批准；禁止模型发布借用案件权限。",
+    "REQUEST_CASE_READ": "仅本人发起或被明确委托的申请，仍须案件范围；不能因approval.read读取全部案件申请。",
+    "APPROVAL_CASE_READ": "仅本人负责复核队列/申请且案件授权有效；敏感对象按独立读取许可检查。",
+    "APPROVE_CASE": "仅review/seal/report_export/training_feedback/confirmation的适用案件对象；批准者非申请者/执行者，同人多账号不算独立人员。",
+    "REVOKE_CASE": "仅获派审核员对职责内申请追加撤销和原因；不可删除历史，撤销后旧回执/产物下载重验。",
+    "REQUEST_DATA": "仅本人负责的授权数据回流申请，purpose=training_feedback；没有训练用途授权时拒绝，不能自产来源许可。",
+    "REQUEST_DATA_READ": "仅本人发起/受托的数据回流申请及其最小必要元信息；无通用案件内容读取许可。",
+    "FEEDBACK_OWN": "仅本人申请的回流状态元信息；读取样本内容另需用途授权，不把analysis升级为training。",
+    "FEEDBACK_REVIEW": "仅已分派复核对象的回流状态和脱敏依据；训练样本读取不在本次通用业务权限内。",
+    "FEEDBACK_REQUEST": "仅来源允许training且批准training_feedback、脱敏和版本绑定有效；不得流入封存测试集。",
+    "MODEL": "仅同单位模型元信息/制品操作；评测只用另行授权的脱敏研发数据。无案件原件读取权，公开模型信息不含凭据。",
+    "MODEL_RELEASE": "仅发布执行者、固定制品摘要/评测版本、有效model_release组织级批准及回滚目标；执行者不得批准本次发布。现有组织级审批适配缺失，继续拒绝。",
+    "INDEX": "仅同单位获派索引及固定版本的维护/切换；不含读取媒体内容；切换须独立变更复核、恢复点和维护窗口。",
+    "REQUEST_MODEL": "仅算法管理员提交model_release组织级对象，case_id=null；不把case_id伪造成案件规避适配缺口。",
+    "REQUEST_MODEL_READ": "仅本人申请或分派本人的组织级模型发布申请元信息；当前case-only读取不提供此能力。",
+    "APPROVE_MODEL": "仅另行登记发布评审资格的算法管理员，且非该制品提交者/评测签记人/发布执行者；仅model_release组织级对象，当前适配缺失。",
+    "REVOKE_MODEL": "仅获派发布复核人追加撤销组织级发布批准；回滚不重新激活旧批准，当前适配缺失。",
+    "CONFIRM_MODEL": "仅本人执行的已批准模型发布，短时一次性确认绑定对象/动作/版本；confirmation不是批准，当前接口未挂载。",
+    "CONFIRM_CASE": "仅本人执行的已批准案件敏感动作，一次性确认与对象/动作/版本绑定；不能签发审批或转交他人。",
+    "POLICY_RETENTION": "仅PolicyCreate.kind=retention的同单位草稿/可读版本；不包含正式保存期限制定、删除原件或发布策略。",
+    "POLICY_ALGORITHM": "仅kind=threshold/analysis的同单位草稿/可读版本；风险阈值值域须另有有效依据，不能自行启用。",
+    "POLICY_BUSINESS": "仅kind=risk_taxonomy/review的同单位草稿/可读版本；业务标签/复核规则正式启用另行批准。",
+    "AUDIT_READ": "仅有明确审计委托的同单位/案件日志；不返回原始内容/口令/令牌；跨单位、无案件组织级查询需专门能力且当前不放行。",
+    "AUDIT_EXPORT": "仅审计委托、固定时间窗/字段/额度、独立report_export批准和脱敏制品；申请/执行的审计员不参与批准。导出作业不意味着业务内容写权限。",
+    "REQUEST_AUDIT": "仅审计范围内日志导出申请，按现有operation对象绑定案件、purpose=report_export；不自创audit_export枚举。",
+    "REQUEST_AUDIT_READ": "仅本人审计导出申请的状态元信息，仍保留案件/审计委托核验。"
+  },
+  "permissions": [
+    {
+      "permission": "approval.decide",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "APPROVE_MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "APPROVE_CASE",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "decideApproval",
+          "method": "POST",
+          "path": "/api/v1/approvals/{id}/decisions",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "approval.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_DATA_READ",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_MODEL_READ",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "APPROVAL_CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_AUDIT_READ",
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getApproval",
+          "method": "GET",
+          "path": "/api/v1/approvals/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listApprovals",
+          "method": "GET",
+          "path": "/api/v1/approvals",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "approval.request",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_DATA",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_CASE",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_CASE",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REQUEST_AUDIT",
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "requestApproval",
+          "method": "POST",
+          "path": "/api/v1/approvals",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "approval.revoke",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REVOKE_MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REVOKE_CASE",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "revokeApproval",
+          "method": "POST",
+          "path": "/api/v1/approvals/{id}/revoke",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "asset.download",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_DOWNLOAD",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_DOWNLOAD",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "downloadAsset",
+          "method": "GET",
+          "path": "/api/v1/assets/{id}/content",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "asset.import",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "INGEST",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "INGEST",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createImport",
+          "method": "POST",
+          "path": "/api/v1/imports",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getImport",
+          "method": "GET",
+          "path": "/api/v1/imports/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "asset.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getAsset",
+          "method": "GET",
+          "path": "/api/v1/assets/{id}",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getTimeline",
+          "method": "GET",
+          "path": "/api/v1/assets/{id}/timeline",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listAssets",
+          "method": "GET",
+          "path": "/api/v1/assets",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "asset.search",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_SEARCH",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getSearchJob",
+          "method": "GET",
+          "path": "/api/v1/search/jobs/{id}",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "searchImage",
+          "method": "POST",
+          "path": "/api/v1/search/image",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "searchImageRegion",
+          "method": "POST",
+          "path": "/api/v1/search/image-region",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "searchVideo",
+          "method": "POST",
+          "path": "/api/v1/search/video",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "asset.upload",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "INGEST",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "INGEST",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "completeUpload",
+          "method": "POST",
+          "path": "/api/v1/uploads/{id}/complete",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "createUpload",
+          "method": "POST",
+          "path": "/api/v1/uploads",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getUploadStatus",
+          "method": "GET",
+          "path": "/api/v1/uploads/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listUploadParts",
+          "method": "GET",
+          "path": "/api/v1/uploads/{id}/parts",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "putUploadPart",
+          "method": "PUT",
+          "path": "/api/v1/uploads/{id}/parts/{part_no}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "audit.export",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "AUDIT_EXPORT",
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "downloadAuditExport",
+          "method": "GET",
+          "path": "/api/v1/audit/exports/{id}/content",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "exportAudit",
+          "method": "POST",
+          "path": "/api/v1/audit/exports",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getAuditExport",
+          "method": "GET",
+          "path": "/api/v1/audit/exports/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "audit.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "AUDIT_READ",
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "listAuditEvents",
+          "method": "GET",
+          "path": "/api/v1/audit/events",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "claim.analyze",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_ANALYSIS",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "extractClaims",
+          "method": "POST",
+          "path": "/api/v1/claims/extract",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "verifyClaim",
+          "method": "POST",
+          "path": "/api/v1/claims/{id}/verify",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "development.login",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "devLogin",
+          "method": "POST",
+          "path": "/api/v1/auth/login",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "DEVELOPMENT_LOGIN_EXCEPTION"
+        }
+      ]
+    },
+    {
+      "permission": "evidence.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getTaskEvidence",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/evidence",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "evidence.seal",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SEAL",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "sealEvidence",
+          "method": "POST",
+          "path": "/api/v1/evidence-packages/{case_id}/seal",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "feedback.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "FEEDBACK_REVIEW",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "FEEDBACK_OWN",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getFeedback",
+          "method": "GET",
+          "path": "/api/v1/feedback/samples/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "feedback.request",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "FEEDBACK_REQUEST",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "requestFeedback",
+          "method": "POST",
+          "path": "/api/v1/feedback/samples",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "health.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "OPS",
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "health",
+          "method": "GET",
+          "path": "/api/v1/health",
+          "runtime_state": "SEPARATE_POC_TOKEN_ROUTE_ONLY",
+          "candidate_scope": "HEALTH_STATUS"
+        }
+      ]
+    },
+    {
+      "permission": "identity.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SELF",
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SELF",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SELF",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SELF",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SELF",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SELF",
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getCurrentUser",
+          "method": "GET",
+          "path": "/api/v1/auth/me",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "SELF_IDENTITY"
+        }
+      ]
+    },
+    {
+      "permission": "index.manage",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "INDEX",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getIndex",
+          "method": "GET",
+          "path": "/api/v1/indices/{id}",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        },
+        {
+          "operation_id": "switchIndex",
+          "method": "POST",
+          "path": "/api/v1/indices/{id}/switch",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "model.evaluate",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "recordEvaluation",
+          "method": "POST",
+          "path": "/api/v1/model-evaluations",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "model.manage",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getModelHealth",
+          "method": "GET",
+          "path": "/api/v1/models/{id}/health",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        },
+        {
+          "operation_id": "registerModel",
+          "method": "POST",
+          "path": "/api/v1/models",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "model.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getModelOperation",
+          "method": "GET",
+          "path": "/api/v1/model-operations/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        },
+        {
+          "operation_id": "listEvaluations",
+          "method": "GET",
+          "path": "/api/v1/model-evaluations",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        },
+        {
+          "operation_id": "listModels",
+          "method": "GET",
+          "path": "/api/v1/models",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "model.release",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "MODEL_RELEASE",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "rolloutModel",
+          "method": "POST",
+          "path": "/api/v1/models/{id}/rollouts",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "operation.confirm",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CONFIRM_MODEL",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CONFIRM_CASE",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "issueOperationToken",
+          "method": "POST",
+          "path": "/api/v1/operation-tokens",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "origin.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getFirstSource",
+          "method": "GET",
+          "path": "/api/v1/clusters/{id}/first-source",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "policy.manage",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "POLICY_RETENTION",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "POLICY_ALGORITHM",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "POLICY_BUSINESS",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createPolicy",
+          "method": "POST",
+          "path": "/api/v1/policies",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "policy.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "POLICY_RETENTION",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "POLICY_ALGORITHM",
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "POLICY_BUSINESS",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getPolicy",
+          "method": "GET",
+          "path": "/api/v1/policies/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        },
+        {
+          "operation_id": "getPolicyDefinition",
+          "method": "GET",
+          "path": "/api/v1/policies/{id}/definition",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        },
+        {
+          "operation_id": "listPolicies",
+          "method": "GET",
+          "path": "/api/v1/policies",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "ORGANIZATION_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "propagation.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getPropagation",
+          "method": "GET",
+          "path": "/api/v1/propagation/{cluster_id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "report.draft",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REPORT_DRAFT",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createReportDraft",
+          "method": "POST",
+          "path": "/api/v1/reports/drafts",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "report.export",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REPORT_EXPORT",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "downloadReport",
+          "method": "GET",
+          "path": "/api/v1/reports/{id}/content",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "report.generate",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REPORT_GENERATE",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createReport",
+          "method": "POST",
+          "path": "/api/v1/reports",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "report.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getReport",
+          "method": "GET",
+          "path": "/api/v1/reports/{id}",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "review.perform",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "REVIEW",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createReview",
+          "method": "POST",
+          "path": "/api/v1/reviews",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "decidePropagationEdge",
+          "method": "POST",
+          "path": "/api/v1/propagation/edges/{id}/decisions",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "review.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getReview",
+          "method": "GET",
+          "path": "/api/v1/reviews/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getReviewContext",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/review-context",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listPendingReviews",
+          "method": "GET",
+          "path": "/api/v1/reviews/pending",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listReviews",
+          "method": "GET",
+          "path": "/api/v1/reviews",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "source.manage",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SOURCE_WRITE",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createSource",
+          "method": "POST",
+          "path": "/api/v1/sources",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "syncSourceAuthorization",
+          "method": "POST",
+          "path": "/api/v1/sources/{id}/authorization/sync",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "source.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SOURCE",
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "SOURCE",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getSource",
+          "method": "GET",
+          "path": "/api/v1/sources/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listSources",
+          "method": "GET",
+          "path": "/api/v1/sources",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "task.cancel",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "TASK_CONTROL",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "cancelTask",
+          "method": "POST",
+          "path": "/api/v1/analysis/tasks/{id}/cancel",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "task.create",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "TASK_CREATE",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "createTask",
+          "method": "POST",
+          "path": "/api/v1/analysis/tasks",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "task.read",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "CASE_READ",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "getForensics",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/forensics",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getRiskFindings",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/risk-findings",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getTask",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "getTaskExecution",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/execution",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listTaskEvents",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/events",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listTaskNodes",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks/{id}/nodes",
+          "runtime_state": "MOUNTED_DEVELOPMENT_PERMISSION_GATE_VERIFIED",
+          "candidate_scope": "CASE_CANDIDATE"
+        },
+        {
+          "operation_id": "listTasks",
+          "method": "GET",
+          "path": "/api/v1/analysis/tasks",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    },
+    {
+      "permission": "task.rerun",
+      "cells": {
+        "system_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "data_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "algorithm_admin": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "business_reviewer": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        },
+        "case_investigator": {
+          "proposed_effect": "CONDITIONAL_GRANT",
+          "condition_ref": "TASK_CONTROL",
+          "runtime_allow": false
+        },
+        "auditor": {
+          "proposed_effect": "NO_ROLE_GRANT",
+          "condition_ref": null,
+          "runtime_allow": false
+        }
+      },
+      "operations": [
+        {
+          "operation_id": "rerunTask",
+          "method": "POST",
+          "path": "/api/v1/analysis/tasks/{id}/rerun",
+          "runtime_state": "NOT_MOUNTED_IN_BUSINESS_APP",
+          "candidate_scope": "CASE_CANDIDATE"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "roles": 6,
+    "permissions": 41,
+    "cells": 246,
+    "operations": 73,
+    "mounted": 42,
+    "not_mounted": 31,
+    "conditional_grant_cells": 72
+  },
+  "required_decisions": [
+    {
+      "id": "PR01",
+      "topic": "六角色全部246格、具体对象/用途和策略kind范围",
+      "status": "CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY",
+      "recommendation": "按本文逐条件采用为后续隔离实现输入；不是直接启用"
+    },
+    {
+      "id": "PR02",
+      "topic": "职责分离与两名独立批准人",
+      "status": "CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY",
+      "recommendation": "seal/report_export/training_feedback/model_release需2名独立批准人；review/confirmation需1名，均不含申请/执行人；人员不足拒绝"
+    },
+    {
+      "id": "PR03",
+      "topic": "数据分类与用途映射",
+      "status": "PENDING_AUTHORITY_INPUT",
+      "recommendation": "不编造正式级别；仅经确认的标签集合精确匹配，未知拒绝；合成夹具可独立开发"
+    },
+    {
+      "id": "PR04",
+      "topic": "审批TTL与撤销时效",
+      "status": "CONFIRMED_FOR_NEXT_ISOLATED_IMPLEMENTATION_INPUT_ONLY",
+      "recommendation": "候选审批TTL1800秒；无正向跨请求缓存；撤销提交至新请求拒绝上限5秒候选，节点及提交前重验；现有300秒管理会话保持"
+    },
+    {
+      "id": "PR05",
+      "topic": "共享配置、0006和策略采用及维护窗口",
+      "status": "NOT_AUTHORIZED_BY_DOCUMENT_SYNC",
+      "recommendation": "隔离实现/恢复通过后另提精确安装、备份和回切清单；不随源码同步执行"
+    },
+    {
+      "id": "PR06",
+      "topic": "T013保护、本人接管、独立介质及离线恢复",
+      "status": "PENDING_OWNER_ACTIONS",
+      "recommendation": "见t013-owner-action-checklist；当前保留旧配置决定不等于真实交接通过"
+    }
+  ],
+  "Python_candidates_created": false,
+  "Python_candidates_deferred": true,
+  "public_contract_changed": false,
+  "database_migration_created": false,
+  "source_role_model_changed": false,
+  "references": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+    "https://www.keycloak.org/server/bootstrap-admin-recovery",
+    "https://www.gnupg.org/documentation/manuals/gnupg/Specify-a-User-ID.html"
+  ],
+  "design_input_confirmation": {
+    "client_date": "2026-10-20",
+    "source": "direct_user_reply_in_current_conversation",
+    "user_reply": "认可作为下一批隔离实现输入",
+    "decision_ids": [
+      "PR01",
+      "PR02",
+      "PR04"
+    ],
+    "scope": "246 role-permission cells and object conditions; separation of duties; two independent approvers for proposed high-risk actions; proposed approval TTL1800s and revocation maximum5s; isolated implementation and tests only",
+    "formal_policy_adopted": false,
+    "formal_classification_confirmed": false,
+    "shared_deployment_approved": false,
+    "T013_owner_handover_accepted": false,
+    "next_implementation_plan_approved": false
+  },
+  "actual_human_review_scope": "User confirmation of PR01/PR02/PR04 as isolated design input only",
+  "whole_task_human_acceptance_recorded": false,
+  "next_implementation_plan_approval": {
+    "date": "2026-10-20",
+    "source": "direct_user_reply_in_current_conversation",
+    "user_reply": "认可新计划，按P01—P07直接实施",
+    "decision": "APPROVED_ISOLATED_IMPLEMENTATION_PLAN",
+    "steps": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07"
+    ],
+    "shared_installation_approved": false,
+    "T013_owner_handover_accepted": false,
+    "Python_candidates_deferred": true
+  }
+}

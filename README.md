@@ -1,14 +1,89 @@
 # 短视频与图片智能识别溯源系统
 
+2026-10-23当前优先：[Python3.11.17迁移与CI修复](docs/03-development/python311-migration.md)、[实测状态](docs/00-project/validation/python311-migration-report.json)。新Linux环境与100包已核对，Pillow/certifi新锁0已报告匹配；完整新head CI与main合并仍按实际门禁登记。旧py310仅保留回退，算法仍暂缓；下列带日期记录保留历史语境。
+
+2026-10-22本批T034工程候选：[代码/限定验证与未完成门禁](docs/03-development/t034-i02-integration.md)、[精确回执](docs/00-project/validation/t034-i02-integration-report.json)、[数据库读口](docs/04-database/task-creation-scope-read-contract.md)。16文件代码已实现；178项SQL、544项纯组合及279文件类型/质量限定通过，范围重叠不相加；此前源码完整业务回归BLOCKED_OR_FAIL（当前修复后未整套重跑）（expected0/actual2/test_count0，约1800秒），其探针未执行，权限整套以独立实际回执为准。不计候选C05，T034仍4已证/4组剩余，当前154条已证、434组剩余，全170项622组剩余、整卡验收0；I02/HTTP/202与真实采用未完成，原CI/扫描门禁保留，算法与Python候选暂缓。
+
+2026-10-22历史批次T034计划绑定/材料纯边界：[实现边界](docs/03-development/t034-plan-authority.md)、[验证及同步回执](docs/00-project/validation/t034-plan-authority-report.json)。392项纯组合（本批84/旧308）和272文件类型/质量通过；仅冻结/核对调用者提供的精确材料，不当真实采用、SQL锁、当前事实或授权。I02未整步完成。新增1条子步骤，T034为4已证/4组剩余，当批累计154条已证、434组剩余，全部170项622组剩余、整卡验收0项；CI按真实观察，扫描和原门禁保留，算法与Python候选暂缓。
+
+2026-10-22历史批次T034请求上下文组件：[实现边界](docs/03-development/t034-request-context.md)、[验证及同步回执](docs/00-project/validation/t034-request-context-report.json)。127项纯回归（63上下文/64旧绑定）和270文件类型/质量通过；仅上下文冻结/绑定/清理，未接guard、SQL/当前事实或HTTP。I02未整步完成；仅新增1条子步骤，T034为3已证/4组剩余，当批累计153条已证、434组剩余，全部170项622组剩余、整卡验收0项。真实CI按回执观察，不清除扫描失败，算法与Python候选继续暂缓。
+
+2026-10-22历史批次T034-I01材料与迁移基础：[实现边界](docs/03-development/t034-i01-material-foundation.md)、[验证及同步回执](docs/00-project/validation/t034-i01-material-foundation-report.json)、[六表字段/ACL](docs/04-database/task-creation-plan-bindings.md)。245项纯测试、230项受影响隔离DB回归、失败探针及268文件类型/质量通过；初轮中止不计通过。仅新增1条子步骤，T034为2已证/4组剩余，当批累计152条已证、434组剩余，全部170项622组剩余、整卡验收0项。I02— I05继续；createTask未挂载、无真实202/ACTIVE采用，共享数据库未迁移，托管CI失败仍保留。
+
+2026-10-22 T034执行决定：[I01—I05计划批准记录](docs/00-project/validation/t034-i01-i05-implementation-approval-20261022.json)、[当前实施计划](docs/03-development/t034-creation-implementation-plan.md)。已批准逐批隔离实施，E01—E04真实输入未确认；I01发布后的I02必须新增0017及后续迁移，不改已发布0016。算法与Python候选继续暂缓。
+
+2026-10-22历史批次T024目标上传队列隔离：[实现与旧队列边界](docs/03-development/t024-upload-queue-isolation.md)、[真实RED/GREEN与同步回执](docs/00-project/validation/t024-upload-queue-isolation-report.json)。v2单位/案件/上传独立队列解决同案件另一上传阻塞目标消费者；错投继续拒绝且不ACK。103项受影响隔离回归及既有失败探针、质量检查通过。新增1条子步骤，当批累计151条已证、434组剩余，全部170项622组剩余、整卡验收0项；旧队列未迁移、共享采用未验，同上传多消费者公平/毒消息处置仍待。
+
+2026-10-22历史T034计划编制决定：[D01/D02限定认可](docs/00-project/validation/t034-design-decision-20261022.json)、[I01—I05实施计划待审](docs/03-development/t034-creation-implementation-plan.md)。仅技术设计及D03计划准备，E01—E04实际输入未确认；未新增创建代码、SQL、运行采用或已证子步骤。
+
+2026-10-22历史批次T103原件关联与下载：[实现与边界](docs/03-development/t103-evidence-original-access.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-original-report.json)。仅original证据精确绑定有效原始资产后显式读取/下载，独立权限及大小/SHA-256/ETag核验、逐阶段失效已接线；959项前端、开发/生产各172项传输浏览器通过。新增1条子步骤，当批累计150条已证、434组剩余，全部170项622组剩余、整卡验收0项。播放/派生内容、持久草稿/标注和正式权威组合仍待；原锁npm双端0匹配仅诊断，不继承托管CI通过。
+
+2026-10-22历史批次T103复核表单：[实现与边界](docs/03-development/t103-review-submission.md)、[实测及同步回执](docs/00-project/validation/t103-review-submit-report.json)。原样ETag和幂等提交、当前页内存草稿及不确定原请求重试已接线；755项前端、开发/生产各138项传输浏览器通过。新增1条子步骤，当批累计149条已证、434组剩余，全部170项622组剩余、整卡验收0项。正式规则/职责提供方、持久草稿/标注、媒体及真实工作流仍待；不把记录决定当批准或已重算。
+
+2026-10-22历史批次T101/T103证据分页：[实现与边界](docs/03-development/evidence-snapshot-pagination.md)、[实测及同步回执](docs/00-project/validation/evidence-paging-report.json)。显式limit/cursor分页、每页当前授权与固定投影绑定及前端下一页已接线；省略参数保留旧响应，上游未取齐拒绝503。688项前端、开发/生产各114项传输浏览器通过；后端初轮135项为134通过/1项测试期望错误，修正后11项HTTP通过，59纯及65相邻测试保留初轮通过证据。新增2条子步骤，当批累计148条已证、434组剩余，全部170项622组剩余、整卡验收0项。过滤、真实producer、媒体播放、复核写入和完整工作流仍待；算法与Python候选继续暂缓。
+
+2026-10-22历史批次T103证据定位：[实现与边界](docs/03-development/t103-evidence-location.md)、[实测及同步回执](docs/00-project/validation/t103-evidence-read-report.json)。精确历史证据读取与编号定位、时间/归一化区域、缺引用和不完整提示已接线；665项前端、开发/生产各103项传输浏览器通过。新增1条子步骤，当批累计146条已证、434组剩余，全部170项622组剩余、整卡验收0项；媒体字节/播放、证据分页、审批/草稿和真实权威组合仍待。
+
+2026-10-22历史批次T103复核只读页面：[实现与边界](docs/03-development/t103-review-read-console.md)、[实测及同步回执](docs/00-project/validation/t103-review-read-report.json)。当前上下文与历史分页分别保留版本；487项前端、开发/生产各88项传输浏览器通过。新增1条子步骤，当批累计145条已证、434组剩余，全部170项622组剩余、整卡验收0项；审批/草稿、正式规则、真实权威组合及算法联调仍待。
+
+2026-10-22历史批次T030共享会话：[修复与边界](docs/03-development/shared-session-rejection-lifecycle.md)、[实测及同步回执](docs/00-project/validation/shared-session-rejection-lifecycle-report.json)。旧401拒绝传播期间的新连接尝试保护已修复；6项受控调度新单元纳入396项前端，开发/生产各72项传输浏览器通过。新增1条子步骤，当批累计144条已证、434组剩余，全部170项622组剩余，整卡验收0项；非普通点击故障或真实权威验收，保留测试维护事项。算法与Python候选暂缓。
+
+2026-10-22历史批次T030资产上下文清理：[修复与边界](docs/03-development/t030-asset-context-invalidation.md)、[实测及同步回执](docs/00-project/validation/t030-asset-context-invalidation-report.json)。同generation本地身份变化同步清除资产返回数据；有效RED后11项新增浏览器、390项前端、开发/生产各72项传输浏览器通过。新增1条工程子步骤，当批累计143条已证、434组剩余，全部170项622组剩余，整卡验收0项。真实权威组合、远端撤销和完整血缘仍待，保留1项异步负例覆盖改进；算法与Python候选暂缓。
+
+2026-10-22历史批次T027并发SHA关联：[修复与边界](docs/03-development/t027-concurrent-sha-association.md)、[实测及同步回执](docs/00-project/validation/t027-concurrent-sha-association-report.json)。不同上传会话真实双连接RED后修复，7例并发边界及92项相邻回归通过；完整回归、精确CI和源码以回执逐项结果为准。新增1条工程子步骤，当批累计142条已证、434组剩余，全部170项622组剩余，整卡验收0项；算法与Python候选暂缓。
+
+2026-10-22历史批次T030资产来源面板：[实现与边界](docs/03-development/t030-asset-source-panel.md)、[限定验证与同步回执](docs/00-project/validation/t030-asset-source-panel-report.json)。新增1条只读页面子步骤，390项前端、开发/生产各61项传输浏览器通过；真实权威组合联调和完整血缘未验收。T001—T123当批累计141条已证、434组剩余；全部170项622组剩余，整卡验收0项。T034新设计D01—D03仍待审，算法与Python候选继续暂缓。
+
+2026-10-22历史待审T034创建接入：[具体设计](docs/03-development/t034-creation-integration-design.md)、[方案与CI/同步回执](docs/00-project/validation/t034-creation-integration-design-report.json)。真实映射、分阶段受限SQL、原子事务及HTTP接线方案已补齐，D01—D03待审；本批未实施产品代码或迁移，完成数不增加。方案编制时快照为140条已证、434组剩余；全部170项622组剩余、整卡验收0项。算法与Python候选继续暂缓。
+
+2026-10-22历史批次T034请求/计划绑定：[实现与边界](docs/03-development/t034-request-plan-binding.md)、[限定实测回执](docs/00-project/validation/t034-request-plan-binding-report.json)。新增1条内部内核子步骤；T001—T123当批累计140条已证、434组剩余，全部170任务140条已证、622组剩余，整卡验收0项。64项新测试纳入243项受影响回归及258文件类型检查通过；真实提供方、创建事务和HTTP尚未完成。T024和T034的负责人/指定复核人均已确认为徐昌胜，未登记实际验收。
+
+2026-10-22历史批次T039取消页面：[实现与边界](docs/03-development/task-cancellation-console.md)、[限定实测回执](docs/00-project/validation/task-cancellation-console-report.json)。新增1条工程子步骤；T001—T123当批累计139条已证、434组剩余，全部170任务139条已证、622组剩余，整卡验收0项。350项前端及开发/生产各55项传输浏览器通过；真实后端E2E、T034创建和真实worker停止未完成。
+
+2026-10-22历史批次T033取消统一写入：[实现与边界](docs/03-development/t033-cancellation-atomic-writer.md)、[限定实测回执](docs/00-project/validation/t033-cancellation-atomic-writer-report.json)。新增1条工程子步骤；T001—T123当批累计138条已证、434组剩余，全部170任务138条已证、622组剩余，整卡验收0项。前置精确CI业务及权限通过，整体安全扫描失败；本批精确CI另核对。
+
+2026-10-22历史批次T006安全失败定位：[实现与边界](docs/03-development/ci-safe-failure-diagnostics.md)、[限定实测回执](docs/00-project/validation/ci-safe-failure-diagnostics-report.json)。新增1条工程子步骤；T001—T123当批累计137条已证、434组剩余，全部170任务137条已证、622组剩余，整卡验收0项。原完整业务回归1项失败未定位，T033业务修改暂缓。
+
+2026-10-22历史批次T032运行事件约束：[0015实现与边界](docs/04-database/task-event-run-integrity.md)、[限定实测回执](docs/00-project/validation/t032-task-event-integrity-report.json)。新增1条工程子步骤；T001—T123当批累计136条已证、434组剩余，全部170任务136条已证、622组剩余，整卡验收0项。
+
+2026-10-22历史批次T031候选计划：[解析实现与边界](docs/03-development/t031-candidate-task-plan.md)、[限定实测回执](docs/00-project/validation/t031-candidate-task-plan-report.json)。新增1条工程子步骤；T001—T123当批累计135条已证、434组剩余，全部170任务135条已证、622组剩余，整卡验收0项。
+
+2026-10-22历史批次T024落盘持久性：[实现与边界](docs/03-development/t024-object-durability.md)、[限定实测回执](docs/00-project/validation/t024-object-durability-report.json)。新增1条工程子步骤；T001—T123当批累计134条已证、434组剩余，全部170任务134条已证、622组剩余，整卡验收0项。
+
+2026-10-22历史批次T024隔离worker联调：[实现与剩余条件](docs/03-development/t024-worker-isolated-integration.md)、[限定实测回执](docs/00-project/validation/t024-worker-isolated-integration-report.json)。新增1条worker子步骤；T001—T123当批累计133条已证、434组剩余，全部170任务为133条已证、622组剩余，整卡验收0项。
+
+2026-10-22首批实际开发：[业务上传前端及剩余联调](docs/03-development/business-upload-first-batch.md)、[精确验证回执](docs/00-project/validation/business-upload-first-batch-report.json)。业务上传入口已实现，单元311项、浏览器51项分别在开发/生产构建通过；新增3条限定子步骤，T001—T123当批累计132条已证、434组剩余，整卡验收0项。
+
+**10月28日提交目标：** [非算法工程版快速计划](docs/03-development/non-algorithm-fast-delivery-plan-20261028.md)、[范围与边界](docs/03-development/non-algorithm-delivery-scope.md)。用户要求算法暂缓；70项工程、20项混合拆分、30项算法延期、3项外部验收准备逐项列出；规划本身不增加完成数；当前实际进展见下方首批回执和任务导航。
+
+2026-10-21优先续批：[后端→前端→数据→测试](docs/03-development/backend-frontend-data-test-priority-plan.md)、[实测回执](docs/00-project/validation/backend-frontend-data-test-report.json)。新增来源授权同步事务/页面和离线标注质检工具；T001—T123为129条已验证子步骤、434组剩余工作，整任务验收0项；源码同步与共享服务采用分别记录。
+
+2026-10-21来源管理续批：[页面与后端修复](docs/03-development/t021-source-console-continuation.md)、[实际检查/CI/源码同步](docs/00-project/validation/t021-source-console-report.json)。新增案件来源列表/详情/登记，修复到期元数据读取；未知结果原键重试、权限变化清空草稿。该次记录为126条已验证子步骤、434组剩余工作，整任务验收0项；共享服务尚未切换。
+
+2026-10-21当前状态：[T001—T123逐项开发审计](docs/03-development/t001-t123-development-completion-audit.md)、[本轮实际验证/CI/同步](docs/00-project/validation/t001-t123-resource-registry-report.json)。当前业务接口51/73已挂载、22项未挂载；新增来源登记、受控下载与资产页、模型/评测只读列表及[模型目录页面验证](docs/00-project/validation/t060-readonly-ui-report.json)。[2张CC0原图与5个可追溯派生文件](docs/07-datasets/public-development-data.md)已保存至仓库外并在Linux解码。123任务尚未全部开发完成，任务卡按真实子成果更新，原CI门禁和Python候选暂缓保持。0012—0014未应用既有演示/共享库，源码同步不等于服务采用。
+
+此前一轮前后端与权限续批（历史47/26）：[27项起点接口逐项台账](docs/03-development/t001-t123-remaining-interface-register.md)、[本批计划](docs/03-development/t001-t123-api-continuation-plan.md)、[实际测试、CI与同步状态](docs/00-project/validation/t001-t123-api-continuation-report.json)。业务源码47项挂载、26项未挂载；新增真实报告元数据读取、资产只读列表/详情和案件任务列表。任务卡和分步导航已同步限定子范围，原CI门禁及Python候选暂缓不变；源码同步不代表0012/0013已应用或既有演示服务已重启。
+
+T001—T123开发落实：[全部任务的表／接口／方法和状态](docs/03-development/t001-t123-implementation-inventory.md)、[本批读取计划](docs/03-development/t001-t123-catalog-read-implementation-plan.md)、[实际验证](docs/00-project/validation/t001-t123-catalog-read-report.json)。建表、方法源码、隔离验证和运行实例分别判定。
+
+2026-10-21页面优化：[本地12页PPT与实际页面对照](docs/03-development/ppt-interface-alignment.md)、[本批验证及同步状态](docs/00-project/validation/ppt-interface-alignment.json)。现有页面按原型统一布局；待接入模块单列，业务权限与接口保持原行为。
+
+2026-10-21研发演示交付：[本批前后端计划](docs/03-development/development-delivery-implementation-plan.md)、[启动与范围](docs/10-deployment/business-development-runbook.md)、[实际验证](docs/00-project/validation/development-delivery-validation.json)。工作台增加任务与结果、案件待复核队列；Linux演示入口托管真实前端构建并转发后端。实际启动、源码及CI状态见回执；真实身份/授权尚未装配，默认拒绝不当正式业务通过。[上一批记录](docs/00-project/validation/development-continuation-report.json)保留。
+2026-10-17本批：[T001—T012逐项收口](docs/03-development/t001-t012-closeout.md)、[原生迁移设计](docs/03-development/native-linux-migration-design.md)、[N01—N08实施计划](docs/03-development/native-linux-implementation-plan.md)、[执行状态](docs/03-development/native-linux-execution-status.json)。设计/计划及候选上限已认可，从N01开始；main规则及engineering已回查，失败检查阻止合并已实测，[正反验证及PR处置](docs/00-project/validation/main-protection-enforcement-report.json)按实际记录更新。现有服务未切换。
+
 开源许可：[Apache-2.0](LICENSE)，归属与第三方边界见[NOTICE](NOTICE)；用户确认的完整公开范围及实际切换验证见[仓库公开说明](docs/00-project/open-source-publication.md)。研发与生产验收状态按下文保留。
 
 任务执行入口：[分步任务导航](tasks/README.md#分步任务导航)、[全部执行事项逐项清单](docs/00-project/task-execution-steps.txt)、[同源状态台账](tasks/execution-status.json)。分步导航逐项列出170项任务的完成子步骤数、剩余工作数、全局序号范围与任务卡入口。T012之前的状态见[T001—T011当前完成与剩余逐项清单](docs/03-development/t001-t011-foundation-review.md#当前完成情况2026-10-17)。
+
+2026-10-20剩余工作入口：[T014已批准P01—P07隔离计划](docs/03-development/t014-isolated-six-role-implementation-plan.md)、[P01—P07实测与当前进度](docs/00-project/validation/t014-isolated-rule-progress.json)、[T001—T123逐项顺序](docs/03-development/t001-t123-development-sequence.md)、[T013本人MFA管理实际回执](docs/00-project/validation/t013-owner-mfa-management-validation.json)、[后续恢复及退役步骤](docs/03-development/t013-owner-action-checklist.md)。T014的P01—P07隔离实现、1009项完整回归、门禁和精确代码CI已验证，未启用共享正式ALLOW。Python候选继续暂缓；子步骤计数以实际台账为准。
+
+T015当前限定验证：此前461项业务快照和128项CLI记录保留历史；[本批精确证据](docs/00-project/validation/t001-t123-resource-registry-report.json)已记录T015完整入口131项及失败探针、T0141092项、T016187项和29项迁移/owner/契约检查，各范围分别核验。P01—P07源计划覆盖、真实提供者、共享采用与整卡验收继续逐项保留，最新托管CI不继承历史通过。
 
 2026-10-17已按用户指定登记邓昀为T001—T011实际负责人；有效工时、平台账号及验收结果仍待确认，见[任务责任登记](docs/03-development/repository-access-control.md)。
 
 当前已完成用户指定Miniforge py310的CPU研发最小工程：环境盘点、版本锁定及前后端/数据库/对象/队列/真实合成推理闭环。本机21道CI记录为原1.1历史范围，托管CI本批已扩展检查，实际源码和数量见平台报告。正式业务/生产NOT_FROZEN。保留12模块、170任务、不少于3类场景；未宣称全部业务实现。
 
-服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py310/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
+服务器仓库：`/workspace/glwy/projects/media-traceability-system`；Python：`/opt/conda/glwy/envs/py311/bin/python`（3.10.22）。应用容器明确使用打包的同一py310。Python3.10已结束支持；生产前迁移并重新验证，见[环境约束](docs/02-architecture/environment-constraints.md)。
 
 
 <!-- development-entry-summary:start -->
@@ -60,12 +135,12 @@
 
 ```sh
 cd /workspace/glwy/projects/media-traceability-system
-/opt/conda/glwy/envs/py310/bin/python scripts/dev.py help
-/opt/conda/glwy/envs/py310/bin/python scripts/dev.py setup
-/opt/conda/glwy/envs/py310/bin/python scripts/dev.py dev
+/opt/conda/glwy/envs/py311/bin/python scripts/dev.py help
+/opt/conda/glwy/envs/py311/bin/python scripts/dev.py setup
+/opt/conda/glwy/envs/py311/bin/python scripts/dev.py dev
 ```
 
-统一入口为`/opt/conda/glwy/envs/py310/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，当前99%容量问题未整改时拒绝执行，避免照旧命令直接重建；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
+统一入口为`/opt/conda/glwy/envs/py311/bin/python scripts/dev.py <命令>`。Windows默认使用`& .\scripts\dev.ps1 help`经SSH协调同一Linux py310。当前服务器未安装make；Makefile是已有make环境的可选别名，本机验证使用上述Python等价入口。dev默认检查原7服务；clean默认预览两个缓存目录。共享服务器的构建/完整集成须显式`--allow-stack-changes`且满足卷内容量保护，若实时卷容量低于保护值则拒绝执行，历史99%快照不能代替当前容量核验；GitHub隔离CPU Runner执行完整门禁。详细安装、工具层和验证见[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 页面在服务器回环地址 `http://127.0.0.1:14180`；从本机通过SSH转发访问。启动前提、首次复建、研发令牌取得方法和停止操作见[运行手册](docs/10-deployment/development-runbook.md)。秘密与权重在仓库外/命名卷中，不入Git。
 

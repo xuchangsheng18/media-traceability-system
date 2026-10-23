@@ -1,0 +1,114 @@
+{
+  "status": "PASS_CURRENT_PLUGIN_NAMES_BOUND_TO_TARGET_ARCHIVE_NOT_NATIVE_RUNTIME",
+  "observed_at": "2026-10-18T11:03:18.770384+00:00",
+  "checks": [
+    {
+      "command": [
+        "docker",
+        "--context",
+        "desktop-linux",
+        "exec",
+        "media-trace-py310-rabbitmq-1",
+        "rabbitmq-plugins",
+        "list",
+        "-e",
+        "-m"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "3cc307f16ecc7aaef25f213dbde1b84fb13a02ba944cc822838e76a06d3084bc",
+      "names": [
+        "rabbitmq_management",
+        "rabbitmq_management_agent",
+        "rabbitmq_prometheus",
+        "rabbitmq_web_dispatch"
+      ],
+      "native_archive_application_matches": [
+        {
+          "member": "rabbitmq_server-4.3.6/plugins/rabbitmq_management-4.3.6/ebin/rabbitmq_management.app",
+          "application": "rabbitmq_management",
+          "version": "4.3.6",
+          "sha256": "2b2c106d32a58a92e7eb31c98cda40c8e10d980c523c1bc76461a20dfba24c17",
+          "enabled": null,
+          "license_not_inferred_from_application_name": true
+        },
+        {
+          "member": "rabbitmq_server-4.3.6/plugins/rabbitmq_management_agent-4.3.6/ebin/rabbitmq_management_agent.app",
+          "application": "rabbitmq_management_agent",
+          "version": "4.3.6",
+          "sha256": "2315dc61240b4345654de3deb52edf221fd30599c399f2320d3bb75f97eba8a0",
+          "enabled": null,
+          "license_not_inferred_from_application_name": true
+        },
+        {
+          "member": "rabbitmq_server-4.3.6/plugins/rabbitmq_prometheus-4.3.6/ebin/rabbitmq_prometheus.app",
+          "application": "rabbitmq_prometheus",
+          "version": "4.3.6",
+          "sha256": "2598784c70219b32cc4dbd8dc72462d7333f7dda944ee3caad8d502d97890b7f",
+          "enabled": null,
+          "license_not_inferred_from_application_name": true
+        },
+        {
+          "member": "rabbitmq_server-4.3.6/plugins/rabbitmq_web_dispatch-4.3.6/ebin/rabbitmq_web_dispatch.app",
+          "application": "rabbitmq_web_dispatch",
+          "version": "4.3.6",
+          "sha256": "4e37a562acf909ff2a2ae96346ae419baaa255a55b50e8e8559fd18b711911c0",
+          "enabled": null,
+          "license_not_inferred_from_application_name": true
+        }
+      ]
+    },
+    {
+      "command": [
+        "docker",
+        "--context",
+        "desktop-linux",
+        "exec",
+        "media-trace-py310-rabbitmq-1",
+        "rabbitmq-plugins",
+        "list",
+        "-E",
+        "-m"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "758dcc4631debb6f97176877c58cd9b1323cb261df75d330218943b265604342",
+      "names": [
+        "rabbitmq_management",
+        "rabbitmq_prometheus"
+      ],
+      "native_archive_application_matches": [
+        {
+          "member": "rabbitmq_server-4.3.6/plugins/rabbitmq_management-4.3.6/ebin/rabbitmq_management.app",
+          "application": "rabbitmq_management",
+          "version": "4.3.6",
+          "sha256": "2b2c106d32a58a92e7eb31c98cda40c8e10d980c523c1bc76461a20dfba24c17",
+          "enabled": null,
+          "license_not_inferred_from_application_name": true
+        },
+        {
+          "member": "rabbitmq_server-4.3.6/plugins/rabbitmq_prometheus-4.3.6/ebin/rabbitmq_prometheus.app",
+          "application": "rabbitmq_prometheus",
+          "version": "4.3.6",
+          "sha256": "2598784c70219b32cc4dbd8dc72462d7333f7dda944ee3caad8d502d97890b7f",
+          "enabled": null,
+          "license_not_inferred_from_application_name": true
+        }
+      ]
+    }
+  ],
+  "current_enabled": [
+    "rabbitmq_management",
+    "rabbitmq_management_agent",
+    "rabbitmq_prometheus",
+    "rabbitmq_web_dispatch"
+  ],
+  "current_explicit": [
+    "rabbitmq_management",
+    "rabbitmq_prometheus"
+  ],
+  "native_configuration_proposal": "Preserve observed explicit management and prometheus plugins plus their dependencies;N03 must validate actual native startup,binding,TLS and credentials",
+  "observed_scope_only": true,
+  "plugins_changed": false,
+  "service_restarted": false,
+  "whole_software_admission": false,
+  "executed_script_sha256": "5be6c605dc39a4380b959216daff65d147ee51da089b5994c20b9910ad4b4068"
+}

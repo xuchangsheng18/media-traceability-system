@@ -1,0 +1,49 @@
+"""Read-only bounded source/runtime inventory, never a whole-program reachability proof."""
+import ast,datetime,hashlib,json,os,shutil,stat,subprocess,sys,sysconfig,tempfile
+from pathlib import Path
+r=Path('/workspace/glwy/projects/media-traceability-system')
+out=Path('/workspace/glwy/runtime/media-traceability-system/n01-current-admission');out.mkdir(mode=0o700,exist_ok=True)
+os.umask(0o077)
+files=subprocess.check_output(['git','ls-files','-z'],cwd=r).decode().split('\0')
+paths=[p for p in files if p.endswith('.py') and p.startswith(('backend/','ai-services/','scripts/','tools/'))]
+targets={'base64','email','imaplib','poplib','pkgutil','http.cookies','shutil','tempfile'}
+records=[];hashes={};parse_errors=[];dynamic=[]
+for name in paths:
+ raw=(r/name).read_bytes();hashes[name]=hashlib.sha256(raw).hexdigest()
+ try:tree=ast.parse(raw,filename=name)
+ except SyntaxError:parse_errors.append(name);continue
+ aliases={}
+ for node in ast.walk(tree):
+  if isinstance(node,ast.Import):
+   for a in node.names:aliases[a.asname or a.name.split('.')[0]]=a.name if a.asname else a.name.split('.')[0]
+  elif isinstance(node,ast.ImportFrom) and node.module:
+   for a in node.names:aliases[a.asname or a.name]=node.module+'.'+a.name
+ def dotted(node):
+  if isinstance(node,ast.Name):return aliases.get(node.id,node.id)
+  if isinstance(node,ast.Attribute):return dotted(node.value)+'.'+node.attr
+  return '<dynamic>'
+ for node in ast.walk(tree):
+  if not isinstance(node,ast.Call):continue
+  call=dotted(node.func)
+  if call in {'eval','exec','__import__','importlib.import_module','getattr'}:dynamic.append({'path':name,'line':node.lineno,'call':call})
+  if any(call==t or call.startswith(t+'.') for t in targets):
+   records.append({'path':name,'line':node.lineno,'call':call,'explicit_temp_dir':any(k.arg=='dir' for k in node.keywords) if call.startswith('tempfile.') else None})
+def metadata(path):
+ p=Path(path);result=[]
+ for q in reversed([p,*p.parents]):
+  try:
+   s=q.lstat();result.append({'path':str(q),'exists':True,'uid':s.st_uid,'gid':s.st_gid,'mode':oct(stat.S_IMODE(s.st_mode)),'symlink':stat.S_ISLNK(s.st_mode),'group_writable':bool(s.st_mode&stat.S_IWGRP),'other_writable':bool(s.st_mode&stat.S_IWOTH),'current_user_can_write':os.access(q,os.W_OK),'sticky':bool(s.st_mode&stat.S_ISVTX)})
+  except FileNotFoundError:result.append({'path':str(q),'exists':False})
+ return result
+vpath=sysconfig.get_config_var('VPATH') or ''
+landmark=Path(sys.executable).parent/str(vpath)/'Modules/setup.local'
+landmark=Path(os.path.abspath(landmark))
+acl_tool=shutil.which('getfacl');acl={}
+if acl_tool:
+ for p in sorted({str(q) for base in [Path(sys.prefix),out,landmark,tempfile.gettempdir()] for q in [Path(base),*Path(base).parents] if q.exists()}):
+  q=subprocess.run([acl_tool,'-cp',p],capture_output=True,text=True);acl[p]={'exit_code':q.returncode,'text':q.stdout}
+dpkg=subprocess.run(['dpkg-query','-W','-f=${Package} ${Version}\n','postgresql-common'],capture_output=True,text=True)
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=r,text=True).strip(),'scope':'tracked_project_Python_AST_import_alias_inventory_and_current_user_filesystem_metadata_not_transitive_dependency_or_final_service_audit','tracked_Python_files':len(paths),'source_sha256':hashes,'parse_errors':parse_errors,'resolved_target_calls':records,'dynamic_dispatch_sites_requiring_manual_review':dynamic,'limitations':['Aliases resolved per file without full lexical/assignment dataflow;may over/under-approximate','Third-party packages,compiled code,dynamic plugins,Java/frontend paths and actual future systemd user not fully traced','No application action,network request,service install,restart,ACL change or directory attack executed'],'runtime':{'version':sys.version,'platform':sys.platform,'uid':os.getuid(),'groups':os.getgroups(),'prefix':sys.prefix,'VPATH':vpath,'landmark':str(landmark),'landmark_in_sys_path':str(landmark.parent.parent) in sys.path,'prefix_ancestors':metadata(sys.prefix),'landmark_ancestors':metadata(landmark),'private_runtime_ancestors':metadata(out),'default_temp_ancestors':metadata(tempfile.gettempdir()),'ACL_tool_available':bool(acl_tool),'ACL_observations':acl,'rmtree_avoids_symlink_attacks':shutil.rmtree.avoids_symlink_attacks,'BaseEventLoop_has_sock_recvfrom_into':hasattr(__import__('asyncio').BaseEventLoop,'sock_recvfrom_into'),'postgresql_common':{'exit_code':dpkg.returncode,'installed':dpkg.returncode==0,'metadata':dpkg.stdout if dpkg.returncode==0 else None}},'Python_candidates_created':False,'whole_N01_accepted':False,'status':'OBSERVATIONS_COMPLETE_NOT_SOFTWARE_ADMISSION'}
+assert not parse_errors,parse_errors
+(out/'current-facts.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'source':report['source_commit'],'Python_files':len(paths),'target_calls':len(records),'dynamic_sites':len(dynamic),'landmark_exists':landmark.exists(),'ACL_available':bool(acl_tool),'status':report['status']}))

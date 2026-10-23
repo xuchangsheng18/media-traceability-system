@@ -1,0 +1,51 @@
+import datetime
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system')
+source=Path('/workspace/glwy/projects/media-traceability-system')
+apt=base/'native-apt-audit'
+plan=json.loads((apt/'build-package-verification.json').read_text())
+target=base/'native-n01-private-toolchain-20261017'
+marker=target/'bootstrap-input.sha256'
+fingerprint=hashlib.sha256((apt/'build-package-verification.json').read_bytes()).hexdigest()
+if target.exists():assert marker.is_file() and marker.read_text().strip()==fingerprint
+else:target.mkdir(mode=0o700);marker.write_text(fingerprint+'\n')
+before=subprocess.check_output(['dpkg-query','-W','-f=${Package}\t${Version}\t${Status}\n'])
+for item in plan['records']:
+    p=apt/'ubuntu-build-debs'/item['filename']
+    assert p.is_file() and not p.is_symlink() and hashlib.sha256(p.read_bytes()).hexdigest()==item['sha256']
+    subprocess.run(['dpkg-deb','--extract',str(p),str(target)],check=True,capture_output=True)
+copied=[]
+for p in (target/'usr/lib').rglob('*'):
+    if not p.is_symlink() or '.so' not in p.name:continue
+    resolved=p.resolve()
+    if not resolved.is_relative_to(target) or resolved.exists():continue
+    host=Path('/')/resolved.relative_to(target)
+    if host.is_file():
+        resolved.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(host,resolved)
+        copied.append({'path':str(host),'sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'private_target':str(resolved.relative_to(target))})
+env=os.environ.copy();env['PATH']=str(target/'usr/bin')+':/usr/bin:/bin';env['LD_LIBRARY_PATH']=str(target/'usr/lib/x86_64-linux-gnu')
+env['GCC_EXEC_PREFIX']=str(target/'usr/lib/gcc/x86_64-linux-gnu/13')+'/'
+env['COMPILER_PATH']=str(target/'usr/libexec/gcc/x86_64-linux-gnu/13')+':/usr/libexec/gcc/x86_64-linux-gnu/13:'+str(target/'usr/bin')
+env['LIBRARY_PATH']=str(target/'usr/lib/gcc/x86_64-linux-gnu/13')+':/usr/lib/gcc/x86_64-linux-gnu/13:'+str(target/'usr/lib/x86_64-linux-gnu')+':/usr/lib/x86_64-linux-gnu'
+env['C_INCLUDE_PATH']=str(target/'usr/lib/gcc/x86_64-linux-gnu/13/include')+':/usr/include/x86_64-linux-gnu:/usr/include'
+env['CPLUS_INCLUDE_PATH']=str(target/'usr/include/c++/13')+':'+str(target/'usr/include/x86_64-linux-gnu/c++/13')+':'+env['C_INCLUDE_PATH']
+commands=[[str(target/'usr/bin/gcc'),'--version'],[str(target/'usr/bin/g++'),'--version'],[str(target/'usr/bin/make'),'--version'],[str(target/'usr/bin/pkg-config'),'--version']]
+checks=[]
+for cmd in commands:
+    p=subprocess.run(cmd,env=env,capture_output=True,text=True,timeout=15)
+    checks.append({'command':cmd,'exit_code':p.returncode,'first_line':(p.stdout+p.stderr).splitlines()[:1]})
+    assert p.returncode==0,(cmd,p.stderr)
+probe=target/'probe.c';probe.write_text('#include <stdio.h>\nint main(void){puts("native-private-compiler-probe");return 0;}\n')
+cmd=[str(target/'usr/bin/gcc'),str(probe),'-o',str(target/'probe')]
+result=subprocess.run(cmd,env=env,capture_output=True,text=True);assert result.returncode==0,result.stderr
+result=subprocess.run([str(target/'probe')],capture_output=True,text=True);assert result.returncode==0 and result.stdout.strip()=='native-private-compiler-probe'
+after=subprocess.check_output(['dpkg-query','-W','-f=${Package}\t${Version}\t${Status}\n']);assert before==after
+report={'schema_version':1,'status':'PASS','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=source,text=True).strip(),'source_commit_role':'repository_context_private_operation_script','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'scope':'private_unpacked_verified_compiler_probe_not_system_installation','package_manifest_sha256':fingerprint,'checks':checks,'compiler_smoke_test':'PASS','copied_host_runtime_libraries':copied,'system_dpkg_snapshot_sha256':hashlib.sha256(before).hexdigest(),'system_packages_changed':False,'services_changed':False,'blockers':[]}
+(base/'native-private-toolchain-report.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'status':'PASS','toolchain_checks':len(checks),'compiler_smoke_test':'PASS','host_libraries_copied':len(copied),'system_packages_changed':False}))

@@ -11,8 +11,12 @@ from sqlalchemy import Connection, text
 
 from ..auth import AuthorityProvider
 from ..contracts import REGISTRY, SCHEMAS
+from ..data_scope import TaskBinding
 from ..db import Database
 from ..errors import BusinessError
+from ..permissions.context import WorkPort, protected_work
+from ..scope_collections import bind_task_scope
+from ..scope_context import current_data_scope
 from ..types import Scope
 from .common import now, row
 
@@ -22,13 +26,21 @@ class Lease:
     node_id: UUID
     token: str
     epoch: int
+    task_id: UUID
 
 
 class Execution:
-    def __init__(self, database: Database, authority: AuthorityProvider | None, lease_seconds: int | None) -> None:
+    def __init__(
+        self,
+        database: Database,
+        authority: AuthorityProvider | None,
+        lease_seconds: int | None,
+        work_authorization: WorkPort | None = None,
+    ) -> None:
         if lease_seconds is not None and lease_seconds <= 0:
             raise ValueError("EXPLICIT_NODE_LEASE_REQUIRED")
         self.database, self.authority, self.lease_seconds = database, authority, lease_seconds
+        self.work_authorization = work_authorization
 
     def authorize(self, scope: Scope, task_id: UUID) -> None:
         if self.authority is None:
@@ -46,15 +58,25 @@ class Execution:
                 raise BusinessError("TASK_NOT_FOUND", 404)
             self.authority.authorize_source(scope, source, "analysis")
 
-    def claim(self, scope: Scope, node_id: UUID) -> Lease:
+    def claim(self, scope: Scope, node_id: UUID, *, task_id: UUID | None = None) -> Lease:
         if self.lease_seconds is None:
             raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
+        if self.work_authorization is None:
+            raise BusinessError("CONDITIONAL_POLICY_UNCONFIGURED", 503)
+        if not isinstance(task_id, UUID) or task_id.int == 0:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        with protected_work(self.work_authorization, scope, "task_execution", task_id, "startTaskNodeWork"):
+            return self._claim_bound(scope, node_id, task_id)
+
+    def _claim_bound(self, scope: Scope, node_id: UUID, task_id: UUID) -> Lease:
+        if self.lease_seconds is None:
+            raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
+        self.authorize(scope, task_id)
         with self.database.transaction(scope) as connection:
-            item = row(connection, "task_node_run", "run_id", node_id)
-        self.authorize(scope, item["task_id"])
-        with self.database.transaction(scope) as connection:
-            task = row(connection, "analysis_task", "task_id", item["task_id"], lock=True)
+            task = row(connection, "analysis_task", "task_id", task_id, lock=True)
             item = row(connection, "task_node_run", "run_id", node_id, lock=True)
+            if item["task_id"] != task_id:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             if (
                 task["state"] in {"CANCEL_REQUESTED", "CANCELLED", "ARCHIVED", "FAILED", "SUCCEEDED"}
                 or task["run_version"] != item["run_version"]
@@ -67,7 +89,7 @@ class Execution:
             )
             if item["state"] != "READY" and not expired:
                 raise BusinessError("NODE_NOT_CLAIMABLE", 409)
-            lease = Lease(node_id, uuid4().hex, int(item["fencing_epoch"]) + 1)
+            lease = Lease(node_id, uuid4().hex, int(item["fencing_epoch"]) + 1, task_id)
             connection.execute(
                 text(
                     "UPDATE mt.task_node_run SET state='RUNNING',lease_token=:token,fencing_epoch=:epoch,started_at=now(),ended_at=NULL,reason=NULL,row_version=row_version+1,updated_at=now() WHERE run_id=:id AND case_id=:case"
@@ -81,8 +103,20 @@ class Execution:
             raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
         if state not in {"FAILED", "SKIPPED", "DEFERRED", "NOT_SUPPORTED", "CANCELLED"} or not reason.strip():
             raise BusinessError("VERIFIED_NODE_RESULT_PRODUCER_REQUIRED", 503)
-        with self.database.transaction(scope) as connection:
-            item = row(connection, "task_node_run", "run_id", lease.node_id)
+        task_id = lease.task_id
+        if not isinstance(task_id, UUID) or task_id.int == 0:
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        kind, operation = (
+            ("task_cancellation", "cancelTaskWork")
+            if state == "CANCELLED"
+            else ("task_execution", "finishTaskNodeWork")
+        )
+        with protected_work(self.work_authorization, scope, kind, task_id, operation):
+            self._finish_bound(scope, lease, state, reason, task_id)
+
+    def _finish_bound(self, scope: Scope, lease: Lease, state: str, reason: str, task_id: UUID) -> None:
+        if self.lease_seconds is None:
+            raise BusinessError("NODE_LEASE_UNCONFIRMED", 503)
         if state == "CANCELLED":
             if (
                 self.authority is None
@@ -90,10 +124,12 @@ class Execution:
             ):
                 raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
         else:
-            self.authorize(scope, item["task_id"])
+            self.authorize(scope, task_id)
         with self.database.transaction(scope) as connection:
-            task = row(connection, "analysis_task", "task_id", item["task_id"], lock=True)
+            task = row(connection, "analysis_task", "task_id", task_id, lock=True)
             item = row(connection, "task_node_run", "run_id", lease.node_id, lock=True)
+            if item["task_id"] != task_id:
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
             if (
                 item["state"] != "RUNNING"
                 or item["lease_token"] != lease.token
@@ -117,6 +153,7 @@ class Execution:
             )
 
     def status(self, connection: Connection, scope: Scope, task_id: UUID, *, lock: bool = False) -> dict[str, Any]:
+        bind_task_scope(connection, current_data_scope(), TaskBinding(task_id))
         item = row(connection, "analysis_task", "task_id", task_id, lock)
         available = (
             connection.execute(
@@ -137,28 +174,109 @@ class Execution:
             result_available=available,
         )
 
-    def transition(
+    def cancel_transition(
         self,
         connection: Connection,
         scope: Scope,
         task_id: UUID,
-        version: int,
+        run_version: int,
+        expected_version: int,
         before: str,
         after: str,
         request_id: UUID,
         reason: str,
     ) -> None:
-        task = row(connection, "analysis_task", "task_id", task_id)
-        run = (
-            connection.execute(
-                text("SELECT * FROM mt.task_run WHERE case_id=:case AND task_id=:task AND run_version=:run"),
-                dict(case=scope.case_id, task=task_id, run=task["run_version"]),
+        """Existing cancellation paths only; never commit the caller's authorized transaction."""
+        bound = current_data_scope()
+        if (
+            bound is None
+            or bound.actor != scope.actor
+            or bound.case_id != scope.case_id
+            or bound.operation_id not in {"cancelTask", "cancelTaskWork"}
+            or (after == "CANCELLED" and bound.operation_id != "cancelTaskWork")
+        ):
+            raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+        requestable = {"CREATED", "QUEUED", "RUNNING", "WAIT_REVIEW", "REVIEWING", "RETURNED"}
+        completing = before == "CANCEL_REQUESTED" and after == "CANCELLED"
+        if not (completing or (before in requestable and after == "CANCEL_REQUESTED")):
+            raise BusinessError("TASK_CONTROL_STATE_CONFLICT", 409)
+        conflict = "CANCEL_REQUEST_STALE" if completing else "TASK_CONTROL_VERSION_CONFLICT"
+        if type(run_version) is not int or run_version < 1 or type(expected_version) is not int or expected_version < 1:
+            raise BusinessError(conflict, 409)
+        # A caller may catch a Python-side event/outbox failure and continue its
+        # transaction. Keep this complete write unit atomic even in that case.
+        with connection.begin_nested():
+            bind_task_scope(connection, bound, TaskBinding(task_id))
+            task = row(connection, "analysis_task", "task_id", task_id, lock=True)
+            if (task["run_version"], task["row_version"]) != (run_version, expected_version):
+                raise BusinessError(conflict, 409)
+            if (
+                bound.task_binding is not None
+                and bound.task_binding.run_version is not None
+                and bound.task_binding.run_version != run_version
+            ):
+                raise BusinessError("AUTHORITY_SCOPE_INVALID", 503)
+            if task["state"] != before:
+                raise BusinessError("CANCEL_REQUEST_STALE" if completing else "TASK_CONTROL_STATE_CONFLICT", 409)
+            run = (
+                connection.execute(
+                    text(
+                        "SELECT * FROM mt.task_run WHERE org_id=:org AND case_id=:case AND task_id=:task AND run_version=:run"
+                    ),
+                    dict(org=scope.actor.org_id, case=scope.case_id, task=task_id, run=run_version),
+                )
+                .mappings()
+                .one_or_none()
             )
-            .mappings()
-            .one_or_none()
-        )
-        if run is None:
-            raise BusinessError("TASK_RUN_NOT_FOUND", 404)
+            if run is None:
+                raise BusinessError("TASK_RUN_NOT_FOUND", 404)
+            if (
+                completing
+                and connection.execute(
+                    text(
+                        "SELECT run_id FROM mt.task_node_run WHERE org_id=:org AND case_id=:case AND task_id=:task "
+                        "AND run_version=:run AND state IN ('PENDING','READY','RUNNING','DEFERRED') FOR UPDATE"
+                    ),
+                    dict(org=scope.actor.org_id, case=scope.case_id, task=task_id, run=run_version),
+                ).first()
+                is not None
+            ):
+                raise BusinessError("CANCEL_REQUEST_STALE", 409)
+            version = connection.execute(
+                text(
+                    "UPDATE mt.analysis_task SET state=:after,row_version=row_version+1,updated_at=now() "
+                    "WHERE org_id=:org AND case_id=:case AND task_id=:task AND run_version=:run "
+                    "AND row_version=:expected AND state=:before RETURNING row_version"
+                ),
+                dict(
+                    after=after,
+                    org=scope.actor.org_id,
+                    case=scope.case_id,
+                    task=task_id,
+                    run=run_version,
+                    expected=expected_version,
+                    before=before,
+                ),
+            ).scalar_one_or_none()
+            if version != expected_version + 1:
+                raise BusinessError(conflict, 409)
+            self._append_cancel_event(
+                connection, scope, task_id, run_version, version, before, after, request_id, reason, dict(run)
+            )
+
+    def _append_cancel_event(
+        self,
+        connection: Connection,
+        scope: Scope,
+        task_id: UUID,
+        run_version: int,
+        version: int,
+        before: str,
+        after: str,
+        request_id: UUID,
+        reason: str,
+        run: dict[str, Any],
+    ) -> None:
         identifier = uuid4()
         event = dict(
             schema_version="1.0.0",
@@ -173,7 +291,7 @@ class Execution:
                 org_id=str(scope.actor.org_id),
                 case_id=str(scope.case_id),
                 task_id=str(task_id),
-                run_version=int(task["run_version"]),
+                run_version=run_version,
                 result_version=None,
                 policy_version=run["policy_version"],
                 dag_version=run["dag_version"],
@@ -197,7 +315,7 @@ class Execution:
                 org=scope.actor.org_id,
                 case=scope.case_id,
                 task=task_id,
-                run=task["run_version"],
+                run=run_version,
                 before=before,
                 after=after,
                 reason=reason,
@@ -222,6 +340,12 @@ class Execution:
         )
 
     def reconcile_cancel(
+        self, scope: Scope, task_id: UUID, run_version: int, expected_version: int, request_id: UUID
+    ) -> bool:
+        with protected_work(self.work_authorization, scope, "task_cancellation", task_id, "cancelTaskWork"):
+            return self._reconcile_bound(scope, task_id, run_version, expected_version, request_id)
+
+    def _reconcile_bound(
         self, scope: Scope, task_id: UUID, run_version: int, expected_version: int, request_id: UUID
     ) -> bool:
         if self.authority is None or self.authority.authorize_case(scope.actor, scope.case_id, "task.cancel") != scope:
@@ -254,17 +378,12 @@ class Execution:
                     )
             if any(node["state"] == "RUNNING" for node in nodes):
                 return False
-            connection.execute(
-                text(
-                    "UPDATE mt.analysis_task SET state='CANCELLED',row_version=row_version+1,updated_at=now() WHERE task_id=:id AND case_id=:case"
-                ),
-                dict(id=task_id, case=scope.case_id),
-            )
-            self.transition(
+            self.cancel_transition(
                 connection,
                 scope,
                 task_id,
-                expected_version + 1,
+                run_version,
+                expected_version,
                 "CANCEL_REQUESTED",
                 "CANCELLED",
                 request_id,
@@ -274,6 +393,7 @@ class Execution:
 
     def nodes(self, scope: Scope, task_id: UUID, run_version: int) -> dict[str, Any]:
         with self.database.transaction(scope) as connection:
+            bind_task_scope(connection, current_data_scope(), TaskBinding(task_id, run_version))
             if (
                 connection.execute(
                     text("SELECT 1 FROM mt.task_run WHERE case_id=:case AND task_id=:task AND run_version=:run"),

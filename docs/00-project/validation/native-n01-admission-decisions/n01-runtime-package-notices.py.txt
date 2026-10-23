@@ -1,0 +1,68 @@
+"""Retain exact package legal materials without installing/executing packages."""
+import datetime,gzip,hashlib,io,json,os,posixpath,re,subprocess,tarfile,tempfile,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path(tempfile.mkdtemp(prefix='n01-package-notices-',dir=base));materials=out/'materials';materials.mkdir();bindings=[];os_rows=[];conda_rows=[];entry_files={};links={}
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def keep(group,package,path,raw,kind):
+ h=hashlib.sha256(raw).hexdigest();p=materials/h
+ if not p.exists():p.write_bytes(raw)
+ x={'group':group,'package':package,'member':path,'sha256':h,'size_bytes':len(raw),'stored_as':'materials/'+h,'kind':kind};bindings.append(x);return x
+def drain(p):
+ while p.stdout.read(1048576):pass
+ p.stdout.close();err=p.stderr.read();assert p.wait()==0,err[-500:]
+locks={n:json.loads((repo/'config/native'/n).read_text()) for n in ['os-runtime-recovery-packages.lock.json','conda-runtime-packages.lock.json']}
+for item in locks['os-runtime-recovery-packages.lock.json']['packages']:
+ p=base/'native-os-closure-cache'/item['filename'];assert sha(p)==item['sha256'];meta=subprocess.check_output(['dpkg-deb','-f',str(p)],text=True);fields={}
+ for line in meta.splitlines():
+  if line and not line[0].isspace() and ':' in line:k,v=line.split(':',1);fields[k]=v.strip()
+ assert fields['Package']==item['package'] and fields['Version']==item['version']
+ proc=subprocess.Popen(['dpkg-deb','--fsys-tarfile',str(p)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ with tarfile.open(fileobj=proc.stdout,mode='r|') as t:
+  for m in t:
+   name=posixpath.normpath(m.name.removeprefix('./'))
+   if m.issym() or m.islnk():links[name]={'target':posixpath.normpath(posixpath.join(posixpath.dirname(name),m.linkname)) if m.issym() else posixpath.normpath(m.linkname),'package':item['package'],'directory':m.isdir()};continue
+   if not m.isfile() or m.size>4000000:continue
+   if not re.search(r'(copyright|copying|licen[cs]e|notice)(\.[\w.-]+)?$',posixpath.basename(name),re.I):continue
+   raw=t.extractfile(m).read();x=keep('OS',item['package'],name,raw,'PACKAGE_LEGAL_TEXT_CANDIDATE');entry_files[name]=x
+ drain(proc)
+ os_rows.append({'package':item['package'],'version':item['version'],'source_package_field':fields.get('Source',item['package']),'archive_sha256':item['sha256'],'archive_filename':item['filename'],'license_owner_inferred':False})
+def resolve(path):
+ path=posixpath.normpath(path);trace=[]
+ for _ in range(20):
+  if path in entry_files:return entry_files[path],trace
+  candidates=[k for k in links if path==k or path.startswith(k+'/')]
+  if not candidates:return None,trace
+  k=max(candidates,key=len);dest=links[k]['target']+path[len(k):];trace.append({'path':k,'target':links[k]['target'],'provider_package':links[k]['package']});path=posixpath.normpath(dest)
+ return None,trace
+for x in os_rows:
+ path='usr/share/doc/'+x['package']+'/copyright';found,trace=resolve(path);x['copyright_requested_path']=path;x['copyright_resolution_trace']=trace;x['copyright_material']=found;x['status']='COPYRIGHT_MATERIAL_BOUND' if found else 'COPYRIGHT_MATERIAL_NOT_FOUND'
+for item in locks['conda-runtime-packages.lock.json']['packages']:
+ p=base/'native-conda-closure-cache'/item['filename'];assert sha(p)==item['sha256'];texts=[];index=None;about=None
+ with zipfile.ZipFile(p) as z:
+  member=next(n for n in z.namelist() if n.startswith('info-') and n.endswith('.tar.zst'));b=z.read(member);proc=subprocess.Popen(['/usr/bin/zstd','-q','-d','-c'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+  # Info archive is small; decompress without extracting paths or running scripts.
+  raw,err=proc.communicate(b,timeout=60);assert proc.returncode==0,err[-500:]
+  with tarfile.open(fileobj=io.BytesIO(raw)) as t:
+   for m in t:
+    if not m.isfile():continue
+    if m.name=='info/index.json':index=json.loads(t.extractfile(m).read())
+    elif m.name=='info/about.json':about=json.loads(t.extractfile(m).read())
+    elif m.name.startswith('info/licenses/'):texts.append(keep('Conda',item['name'],m.name,t.extractfile(m).read(),'CONDA_BUNDLED_LEGAL_TEXT'))
+ assert index and index['name']==item['name'] and index['version']==item['version'] and index['build']==item['build']
+ conda_rows.append({'package':item['name'],'version':item['version'],'build':item['build'],'archive_filename':item['filename'],'archive_sha256':item['sha256'],'declared_license':index.get('license'),'about_license_family':(about or {}).get('license_family'),'source_urls':(about or {}).get('dev_url'),'legal_materials':texts,'status':'BUNDLED_MATERIAL_RETAINED' if texts else 'DECLARATION_ONLY_NO_BUNDLED_TEXT'})
+common_refs=set()
+for x in bindings:
+ text=(materials/x['sha256']).read_bytes().decode('utf8',errors='replace')
+ common_refs.update(v.rstrip('.,;)') for v in re.findall(r'/usr/share/common-licenses/[A-Za-z0-9.+_-]+',text))
+host_common=[]
+for name in sorted(common_refs):
+ p=Path(name)
+ if not p.is_file():host_common.append({'path':name,'exists':False});continue
+ raw=p.read_bytes();x=keep('HOST_COMMON_REFERENCE','base-files_installed',name,raw,'HOST_REFERENCE_TEXT_NOT_AUTHENTICATED_ARCHIVE');host_common.append({'path':name,'exists':True,'material':x,'owner_query':subprocess.run(['dpkg-query','-S',name],capture_output=True,text=True).stdout.strip(),'archive_authenticated':False})
+files={'materials':bindings};(out/'materials-manifest.json').write_text(json.dumps(files,indent=2)+'\n');archive=out/'runtime-package-notices.tar.gz'
+with tarfile.open(archive,'w:gz') as t:
+ t.add(out/'materials-manifest.json',arcname='materials-manifest.json')
+ for p in sorted(materials.iterdir()):t.add(p,arcname='materials/'+p.name)
+with tarfile.open(archive) as t:
+ for x in bindings:raw=t.extractfile(x['stored_as']).read();assert len(raw)==x['size_bytes'] and hashlib.sha256(raw).hexdigest()==x['sha256']
+d={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'exact89OS_and25Conda_recovery_archive_legal_materials_not_all_license_compatibility_or_software_admission','status':'MATERIALS_RETAINED_WITH_EXPLICIT_GAPS','root':str(out),'OS_packages':os_rows,'Conda_packages':conda_rows,'host_common_references':host_common,'material_bindings':len(bindings),'unique_material_digests':len({x['sha256'] for x in bindings}),'materials':bindings,'archive':{'path':str(archive),'sha256':sha(archive),'size_bytes':archive.stat().st_size},'summary':{'OS':len(os_rows),'OS_copyright_resolved':sum(x['copyright_material'] is not None for x in os_rows),'Conda':len(conda_rows),'Conda_with_bundled_text':sum(bool(x['legal_materials']) for x in conda_rows),'host_common_refs':len(host_common),'missing_host_common_refs':sum(not x['exists'] for x in host_common)},'Python_candidate_created':False,'package_installation_or_service_changes':False,'formal_admitted':False,'executed_script_sha256':sha(Path(__file__))};(out/'runtime-package-notice-report.json').write_text(json.dumps(d,indent=2)+'\n');(base/'n01-package-notice-latest.json').write_text(json.dumps({'root':str(out)})+'\n');print(json.dumps({'root':str(out),'summary':d['summary'],'bindings':len(bindings),'archive':d['archive']}))

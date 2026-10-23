@@ -1,5 +1,7 @@
 # 数据目录元信息
 
+2026-10-21新增[公开研发样本入口](public-development/README.md)：两张官方CC0图片已在仓库外保存并核对上游摘要，Linux现有解码器已实测。详见[许可、路径和使用边界](../docs/07-datasets/public-development-data.md)；15类业务卡的规划及授权状态保持原记录。
+
 版本1.0-py310-cpu；2026-10-12。CPU研发基线已验证，正式业务/生产NOT_FROZEN；本目录的完整业务完成条件仍保留。
 
 ## 职责与阶段位置

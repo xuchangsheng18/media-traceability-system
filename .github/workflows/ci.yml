@@ -1,7 +1,7 @@
-name: py310 CPU engineering
+name: py311 CPU engineering
 on:
   push:
-    branches: [main]
+    branches: [main, 'feat/t001-t012-closeout-*', 'feat/t013-keycloak-implementation-*']
     paths-ignore:
       - 'docs/00-project/validation/**'
       - 'docs/00-project/repository-file-manifest.json'
@@ -11,14 +11,17 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: py310-${{ github.ref }}
+  group: py311-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  engineering:
+  identity-verification:
+    uses: ./.github/workflows/identity.yml
+  foundation-verification:
+    needs: identity-verification
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 90
     env:
-      PYTHON: /opt/conda/glwy/envs/py310/bin/python
+      PYTHON: /opt/conda/glwy/envs/py311/bin/python
       PYTHONPATH: ${{ github.workspace }}/backend
       PYTHONDONTWRITEBYTECODE: '1'
       MT_DOCKER_CONTEXT: default
@@ -43,6 +46,9 @@ jobs:
         ports: ['14673:5672']
         options: --health-cmd "rabbitmq-diagnostics -q ping" --health-interval 5s --health-timeout 5s --health-retries 12
     steps:
+      - name: Require successful isolated identity verification
+        if: ${{ needs.identity-verification.result != 'success' }}
+        run: exit 1
       - name: Configure isolated runtime paths
         shell: bash
         run: |
@@ -51,10 +57,13 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+      - name: Record this job report generation window
+        shell: bash
+        run: date -u +%Y-%m-%dT%H:%M:%SZ > "$RUNNER_TEMP/verification-started-at"
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22.21.1
-      - name: Recreate locked Miniforge py310 environment
+      - name: Recreate locked Miniforge py311 environment
         shell: bash
         run: |
           set -euo pipefail
@@ -69,8 +78,8 @@ jobs:
           PY
           sudo mkdir -p /opt/conda/glwy/envs
           sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
-          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py310 --file config/locks/conda-linux-64.explicit.txt
-          "$PYTHON" -m pip install -r config/locks/requirements-py310.lock
+          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py311 --file config/locks/conda-linux-64-py311.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py311.lock
       - name: Install locked UI and browser
         shell: bash
         run: |
@@ -102,6 +111,7 @@ jobs:
           "$PYTHON" scripts/dev.py format-check
           "$PYTHON" scripts/generate_stage_three_docs.py --check
           "$PYTHON" scripts/validate_stage_three.py
+          "$PYTHON" scripts/generate_development_inventory.py --check
           "$PYTHON" scripts/validate_repository_docs.py
           "$PYTHON" scripts/validate_documentation_completion.py
       - name: Python static type check
@@ -113,6 +123,8 @@ jobs:
           result=$?
           set -e
           test "$result" -eq 1
+      - name: Verify native migration read-only preparation tools
+        run: '"$PYTHON" -m pytest tests/native -q --tb=short'
       - name: Verify T011 candidate access model and review cases
         run: '"$PYTHON" scripts/validate_access_control_model.py --run-tests'
       - name: Verify isolated business migrations HTTP messaging and recovery
@@ -124,22 +136,62 @@ jobs:
           result=$?
           set -e
           test "$result" -eq 1
-      - name: Run actual engineering gates
+      - name: Verify T014 permission coverage and failure gate
+        shell: bash
         run: |
-          "$PYTHON" scripts/dev.py ci --allow-stack-changes
-          "$PYTHON" scripts/verify_ci_failure_gate.py
-          "$PYTHON" scripts/check_repository_secrets.py
-          "$PYTHON" scripts/validate_stage_three.py --runtime
-      - name: Verify configured development cgroup limits
-        run: '"$PYTHON" scripts/verify_development_limits.py'
+          "$PYTHON" scripts/verify_t014_permissions.py run
+          set +e
+          "$PYTHON" scripts/verify_t014_permissions.py failure-probe
+          result=$?
+          set -e
+          test "$result" -eq 1
+      - name: Verify browser upload to asset over real isolated transports
+        shell: bash
+        run: |
+          npm --prefix frontend run build
+          "$PYTHON" -m pytest tests/business_browser -q --tb=short
+      - name: Bind this job owned reports to run attempt and source
+        if: always()
+        shell: bash
+        env:
+          OWNED_REPORTS: '["business-foundation-report.json","t014-permissions-report.json"]'
+        run: |
+          python3 - <<'PY'
+          import datetime,hashlib,json,os
+          from pathlib import Path
+          root=Path(os.environ["GITHUB_WORKSPACE"])
+          marker=Path(os.environ["RUNNER_TEMP"])/"verification-started-at"
+          started=marker.read_text().strip() if marker.is_file() else None
+          parse=lambda s: datetime.datetime.fromisoformat(s.replace("Z","+00:00"))
+          rows=[]
+          for name in json.loads(os.environ["OWNED_REPORTS"]):
+              path=root/"docs/00-project/validation"/name
+              row={"name":name,"present":path.is_file(),"fresh_exact_source_PASS":False}
+              if path.is_file():
+                  body=path.read_bytes()
+                  row["sha256"]=hashlib.sha256(body).hexdigest()
+                  try:
+                      value=json.loads(body)
+                      observed=value.get("started_at") or value.get("observed_at")
+                      row.update(source_commit=value.get("source_commit"),status=value.get("status"),report_observed_at=observed)
+                      row["fresh_exact_source_PASS"]=bool(started and observed and value.get("source_commit")==os.environ["GITHUB_SHA"] and value.get("status")=="PASS" and parse(started)<=parse(observed)<=datetime.datetime.now(datetime.timezone.utc))
+                  except (ValueError,TypeError,AttributeError):
+                      row["parse_valid"]=False
+              rows.append(row)
+          result={"job":os.environ["GITHUB_JOB"],"run_id":os.environ["GITHUB_RUN_ID"],"run_attempt":os.environ["GITHUB_RUN_ATTEMPT"],"source_commit":os.environ["GITHUB_SHA"],"generation_window_start":started,"reports":rows,"overall_job_success_not_inferred":True}
+          target=root/"docs/00-project/validation/ci-job-evidence.json"
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+          PY
       - name: Preserve non-secret validation evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: py310-validation-${{ github.run_id }}
+          name: py311-foundation-validation-${{ github.run_id }}-${{ github.run_attempt }}
           retention-days: 14
           path: |
             docs/00-project/validation/*report.json
+            docs/00-project/validation/ci-job-evidence.json
             docs/00-project/validation/image-sbom.spdx.json
             docs/00-project/validation/poc-ui.png
       - name: Stop ephemeral development services
@@ -147,3 +199,154 @@ jobs:
         shell: bash
         run: |
           if [ -x "$PYTHON" ]; then "$PYTHON" scripts/poc_control.py down; fi
+  engineering-execution:
+    needs: identity-verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      PYTHON: /opt/conda/glwy/envs/py311/bin/python
+      PYTHONPATH: ${{ github.workspace }}/backend
+      PYTHONDONTWRITEBYTECODE: '1'
+      MT_DOCKER_CONTEXT: default
+      MT_BUSINESS_TEST_ADMIN_DSN: host=127.0.0.1 port=35432 dbname=postgres user=mt_test_admin password=self-owned-ephemeral-ci-only
+      MT_BUSINESS_TEST_BROKER_URL: amqp://mt_business_ci:self-owned-ephemeral-ci-only@127.0.0.1:14673/mt_business_ci
+      MT_BUSINESS_PG_BIN: /usr/lib/postgresql/16/bin
+    services:
+      business-postgres:
+        image: postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+        env:
+          POSTGRES_USER: mt_test_admin
+          POSTGRES_PASSWORD: self-owned-ephemeral-ci-only
+          POSTGRES_DB: postgres
+        ports: ['35432:5432']
+        options: --health-cmd "pg_isready -U mt_test_admin -d postgres" --health-interval 5s --health-timeout 3s --health-retries 12
+      business-rabbit:
+        image: rabbitmq@sha256:8dd6e3570ddaa2ef82a6c3a8950e79c1f73893adfbdddbc374fc1f1ac8a0f5dd
+        env:
+          RABBITMQ_DEFAULT_USER: mt_business_ci
+          RABBITMQ_DEFAULT_PASS: self-owned-ephemeral-ci-only
+          RABBITMQ_DEFAULT_VHOST: mt_business_ci
+        ports: ['14673:5672']
+        options: --health-cmd "rabbitmq-diagnostics -q ping" --health-interval 5s --health-timeout 5s --health-retries 12
+    steps:
+      - name: Require successful isolated identity verification
+        if: ${{ needs.identity-verification.result != 'success' }}
+        run: exit 1
+      - name: Configure isolated runtime paths
+        shell: bash
+        run: |
+          echo "MT_RUNTIME_DIR=$RUNNER_TEMP/media-trace-runtime" >> "$GITHUB_ENV"
+          echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/media-trace-browsers" >> "$GITHUB_ENV"
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Record this job report generation window
+        shell: bash
+        run: date -u +%Y-%m-%dT%H:%M:%SZ > "$RUNNER_TEMP/verification-started-at"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.21.1
+      - name: Recreate locked Miniforge py311 environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os,urllib.request,hashlib,subprocess
+          from pathlib import Path
+          lock=json.loads(Path('config/ci-bootstrap-lock.json').read_text())['miniforge']
+          target=Path(os.environ['RUNNER_TEMP'])/'miniforge.sh'
+          urllib.request.urlretrieve(lock['url'],target)
+          assert hashlib.sha256(target.read_bytes()).hexdigest()==lock['sha256']
+          subprocess.run(['bash',str(target),'-b','-p',os.environ['RUNNER_TEMP']+'/miniforge'],check=True)
+          PY
+          sudo mkdir -p /opt/conda/glwy/envs
+          sudo chown "$(id -u):$(id -g)" /opt/conda/glwy/envs
+          "$RUNNER_TEMP/miniforge/bin/conda" create -y -p /opt/conda/glwy/envs/py311 --file config/locks/conda-linux-64-py311.explicit.txt
+          "$PYTHON" -m pip install -r config/locks/requirements-py311.lock
+      - name: Install locked UI and browser
+        shell: bash
+        run: |
+          "$PYTHON" scripts/dev.py setup --tools
+          npm --prefix frontend exec -- playwright install chromium --only-shell --with-deps
+      - name: Run actual engineering gates
+        run: |
+          "$PYTHON" scripts/dev.py ci --allow-stack-changes
+          "$PYTHON" scripts/verify_ci_failure_gate.py
+          "$PYTHON" scripts/check_repository_secrets.py
+          "$PYTHON" scripts/validate_stage_three.py --runtime
+      - name: Verify T015 data scope failure gate
+        shell: bash
+        run: |
+          set +e
+          "$PYTHON" scripts/verify_t015_scope.py failure-probe
+          result=$?
+          set -e
+          test "$result" -eq 1
+      - name: Verify configured development cgroup limits
+        run: '"$PYTHON" scripts/verify_development_limits.py'
+      - name: Bind this job owned reports to run attempt and source
+        if: always()
+        shell: bash
+        env:
+          OWNED_REPORTS: '["ci-all-report.json","t015-data-scope-report.json","t016-operation-token-report.json","stage-three-runtime-report.json"]'
+        run: |
+          python3 - <<'PY'
+          import datetime,hashlib,json,os
+          from pathlib import Path
+          root=Path(os.environ["GITHUB_WORKSPACE"])
+          marker=Path(os.environ["RUNNER_TEMP"])/"verification-started-at"
+          started=marker.read_text().strip() if marker.is_file() else None
+          parse=lambda s: datetime.datetime.fromisoformat(s.replace("Z","+00:00"))
+          rows=[]
+          for name in json.loads(os.environ["OWNED_REPORTS"]):
+              path=root/"docs/00-project/validation"/name
+              row={"name":name,"present":path.is_file(),"fresh_exact_source_PASS":False}
+              if path.is_file():
+                  body=path.read_bytes()
+                  row["sha256"]=hashlib.sha256(body).hexdigest()
+                  try:
+                      value=json.loads(body)
+                      observed=value.get("started_at") or value.get("observed_at")
+                      row.update(source_commit=value.get("source_commit"),status=value.get("status"),report_observed_at=observed)
+                      row["fresh_exact_source_PASS"]=bool(started and observed and value.get("source_commit")==os.environ["GITHUB_SHA"] and value.get("status")=="PASS" and parse(started)<=parse(observed)<=datetime.datetime.now(datetime.timezone.utc))
+                  except (ValueError,TypeError,AttributeError):
+                      row["parse_valid"]=False
+              rows.append(row)
+          result={"job":os.environ["GITHUB_JOB"],"run_id":os.environ["GITHUB_RUN_ID"],"run_attempt":os.environ["GITHUB_RUN_ATTEMPT"],"source_commit":os.environ["GITHUB_SHA"],"generation_window_start":started,"reports":rows,"overall_job_success_not_inferred":True}
+          target=root/"docs/00-project/validation/ci-job-evidence.json"
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
+          PY
+      - name: Preserve non-secret validation evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: py311-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          path: |
+            docs/00-project/validation/*report.json
+            docs/00-project/validation/ci-job-evidence.json
+            docs/00-project/validation/image-sbom.spdx.json
+            docs/00-project/validation/poc-ui.png
+      - name: Stop ephemeral development services
+        if: always()
+        shell: bash
+        run: |
+          if [ -x "$PYTHON" ]; then "$PYTHON" scripts/poc_control.py down; fi
+  engineering:
+    needs: [identity-verification, foundation-verification, engineering-execution]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Require every isolated verification job to succeed
+        env:
+          IDENTITY_RESULT: ${{ needs.identity-verification.result }}
+          FOUNDATION_RESULT: ${{ needs.foundation-verification.result }}
+          EXECUTION_RESULT: ${{ needs.engineering-execution.result }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$IDENTITY_RESULT" = success
+          test "$FOUNDATION_RESULT" = success
+          test "$EXECUTION_RESULT" = success

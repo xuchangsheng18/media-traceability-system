@@ -1,0 +1,36 @@
+import base64,datetime,hashlib,json,subprocess,urllib.request
+from pathlib import Path
+
+w=Path(__file__).parent;r=w/'media-trace-foundation-worktree'
+o=w/'n01-notice-scope-sources';o.mkdir(exist_ok=True)
+def sha(b):return hashlib.sha256(b).hexdigest()
+def dump(p,d):p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
+sources=json.loads((w/'n01-notice-scope-observed-tool-sources.json').read_text(encoding='utf8'))
+bindings=[]
+for row in sources:
+ raw=(json.dumps(row['data'],ensure_ascii=False,sort_keys=True,indent=2)+'\n').encode()
+ (o/row['name']).write_bytes(raw)
+ bindings.append({'file':row['name'],'source':row['url'],'sha256':sha(raw),'size_bytes':len(raw),'representation':'canonical_JSON_of_actual_GitHub_connector_response_not_raw_HTTP_body'})
+mapping={x['name']:x['data'] for x in sources};commit=mapping['eastasianwidth-license-addition-commit.json'];compare=mapping['eastasianwidth-version-compare.json']
+assert commit['sha']=='1d41951a59d63fb2d77cda021050fc070cae424a' and commit['commit']['verification']['verified']
+file=next(x for x in commit['files'] if x['filename']=='MIT-LICENSE.txt')
+patch=file['patch'].splitlines();text='\n'.join(x[1:] for x in patch if x.startswith('+') and not x.startswith('+++'))+'\n'
+raw=text.encode();blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+assert blob==file['sha'],(blob,file['sha'])
+(o/'eastasianwidth-later-MIT-LICENSE.txt').write_bytes(raw)
+bindings.append({'file':'eastasianwidth-later-MIT-LICENSE.txt','source':'https://github.com/komagata/eastasianwidth/blob/'+commit['sha']+'/MIT-LICENSE.txt','sha256':sha(raw),'size_bytes':len(raw),'representation':'exact_added_file_reconstructed_from_complete_API_patch_and_verified_Git_blob_OID','git_blob_oid':blob})
+changed=next(x for x in compare['files'] if x['filename']=='eastasianwidth.js');assert changed['status']=='modified' and changed['changes']==190
+assert any(x['filename']=='package.json' and '"0.3.0"' in x['patch'] for x in compare['files'])
+old=json.loads((r/'docs/00-project/validation/native-n01-admission-decisions/two-publisher-notice-review.json').read_text(encoding='utf8'))
+records=[]
+for x in old['records']:
+ rec={'package':x['package'],'version':x['version'],'exact_git_head':x['git_head'],'declared_license':x['declared_license'],'exact_package_sha256':x['package_archive_sha256'],'exact_source_sha256':x['source_archive_sha256'],'exact_version_notice_applicability_confirmed':False,'copyright_holder_or_year_invented':False,'publisher_contact_sent':False,'decision':'PENDING_PUBLISHER_VERSION_AND_SCOPE_CONFIRMATION'}
+ if x['package']=='eastasianwidth':
+  rec.update(later_official_notice={'source_commit':commit['sha'],'commit_date':commit['commit']['author']['date'],'package_version_at_notice_commit':'0.3.0','git_blob_oid':blob,'sha256':sha(raw),'copyright_line':text.splitlines()[0],'copyright_year_present':False,'upstream_signature_status':'GitHub_API_reports_verified_signature_not_independently_reverified'},version_comparison={'status':compare['status'],'total_commits':compare['total_commits'],'changed_files':[{'path':f['filename'],'status':f['status'],'changes':f['changes']} for f in compare['files']],'same_source_bytes_as_0_2_0':False},incorporated_source_credit={'observed_in_exact_0_2_0_README':True,'source':'http://d.hatena.ne.jp/takenspc/20111126#1322252878','additional_authorization_scope_not_inferred':True},remaining='Later authentic publisher text obtained; exact0.2.0 applicability and credited adapted code/data scope still require authoritative confirmation. Do not substitute0.3.0 notice silently.',upstream_context='https://github.com/komagata/eastasianwidth/issues/18',existing_other_request_is_not_our_authorization=True)
+ else:
+  comments=mapping['agent-issue176-comments.json'];assert len(comments)==1 and comments[0]['author_association']=='NONE'
+  rec.update(conventional_license_path_histories={n:mapping[n] for n in ['agent-license-path-history.json','agent-license-md-history.json','agent-license-txt-history.json']},observed_issue={'url':'https://github.com/npm/agent/issues/176','subject_version':'4.0.0','comment_requests_version':'3.0.0','comment_author_association':'NONE','publisher_reply_observed':False},remaining='Exact3.0.0 package/source still lacks full publisher notice.4.0.0 issue and unrelated requester comment are not publisher approval for3.0.0.')
+ records.append(rec)
+d={'schema_version':1,'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=r,text=True).strip(),'status':'VERSION_AND_SCOPE_REVIEW_DELIVERED_TWO_EXACT_VERSION_GAPS_OPEN','sources':bindings,'records':records,'authentic_later_publisher_notice_texts_obtained':1,'exact_version_gaps_closed':0,'whole_N01_accepted':False,'installation_permitted':False,'Python_candidates_created':False,'external_contact_sent':False,'executed_script_sha256':sha(Path(__file__).read_bytes())}
+dump(o/'publisher-notice-version-scope-review.json',d)
+print(json.dumps({'sources':len(bindings),'authentic_later_notice':1,'version0_2_0_source_changed':True,'exact_version_notices_closed':0,'external_contact_sent':False}))

@@ -4,6 +4,8 @@
 
 2026-10-16增量：[T011/T012身份、单位与案件补充字典](identity-relations.md)及[机器扩展字典](identity-relations-catalog.json)定义0004迁移新增13列身份映射表和2个既有表字段；全部迁移后的实际库为63表840字段。本文原基线字段保留，不能当作最新运行库的完整字段清单。
 
+2026-10-21增量：[T016案件操作令牌0011扩展](operation-token-extension.md)逐项定义operation_token新增12列、摘要与消费约束；[T014授权栅栏](authorization-fence-extension.md)及[T015数据范围](data-scope-migration.md)分别说明0007—0010。完整0011隔离库为64表861字段，operation_token为27列；本字典保留原62表825字段提案，不能当当前运行库结构或共享迁移采用证明。
+
 ## 使用方法
 
 每行同时解释字段、类型、可空性、默认值、业务含义和来源。默认值不等于允许省略：插入触发器仍可能拒绝不完整内容。NULL不等于0、空字符串或空数组；主键隐含NOT NULL。列级CHECK、UNIQUE、表级复合外键及触发器需要一起阅读。

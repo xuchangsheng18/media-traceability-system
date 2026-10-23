@@ -1,0 +1,57 @@
+{
+  "scope": "in_memory_socket_fixture_only_no_network_commands_or_runtime_changes",
+  "observed_at": "2026-10-17T18:19:21.333465+00:00",
+  "executed_script_sha256": "c0d1e3bbd51a83f0571d9d981b4cb38185dbcb1ed38a31cb84bc7a494e5f9009",
+  "mail_probes": [
+    {
+      "module": "imaplib",
+      "method": "_command",
+      "synthetic_command": [
+        "LOGIN",
+        "N01\r\nNOOP",
+        "fixture"
+      ],
+      "exception": null,
+      "fixture_socket_writes_hex": [
+        "4e3031204c4f47494e204e30310d0a4e4f4f5020666978747572650d0a"
+      ],
+      "embedded_CRLF_sent_to_fixture": true,
+      "source": "    def _command(self, name, *args):\n\n        if self.state not in Commands[name]:\n            self.literal = None\n            raise self.error(\"command %s illegal in state %s, \"\n                             \"only allowed in states %s\" %\n                             (name, self.state,\n                              ', '.join(Commands[name])))\n\n        for typ in ('OK', 'NO', 'BAD'):\n            if typ in self.untagged_responses:\n                del self.untagged_responses[typ]\n\n        if 'READ-ONLY' in self.untagged_responses \\\n        and not self.is_readonly:\n            raise self.readonly('mailbox status changed to READ-ONLY')\n\n        tag = self._new_tag()\n        name = bytes(name, self._encoding)\n        data = tag + b' ' + name\n        for arg in args:\n            if arg is None: continue\n            if isinstance(arg, str):\n                arg = bytes(arg, self._encoding)\n            data = data + b' ' + arg\n\n        literal = self.literal\n        if literal is not None:\n            self.literal = None\n            if type(literal) is type(self._command):\n                literator = literal\n            else:\n                literator = None\n                data = data + bytes(' {%s}' % len(literal), self._encoding)\n\n        if __debug__:\n            if self.debug >= 4:\n                self._mesg('> %r' % data)\n            else:\n                self._log('> %r' % data)\n\n        try:\n            self.send(data + CRLF)\n        except OSError as val:\n            raise self.abort('socket error: %s' % val)\n\n        if literal is None:\n            return tag\n\n        while 1:\n            # Wait for continuation response\n\n            while self._get_response():\n                if self.tagged_commands[tag]:   # BAD/NO?\n                    return tag\n\n            # Send literal\n\n            if literator:\n                literal = literator(self.continuation_response)\n\n            if __debug__:\n                if self.debug >= 4:\n                    self._mesg('write literal size %s' % len(literal))\n\n            try:\n                self.send(literal)\n                self.send(CRLF)\n            except OSError as val:\n                raise self.abort('socket error: %s' % val)\n\n            if not literator:\n                break\n\n        return tag\n",
+      "status": "OBSERVATION_ONLY_NOT_SECURITY_ADMISSION"
+    },
+    {
+      "module": "poplib",
+      "method": "_putcmd",
+      "synthetic_command": [
+        "USER N01\r\nNOOP"
+      ],
+      "exception": null,
+      "fixture_socket_writes_hex": [
+        "55534552204e30310d0a4e4f4f500d0a"
+      ],
+      "embedded_CRLF_sent_to_fixture": true,
+      "source": "    def _putcmd(self, line):\n        if self._debugging: print('*cmd*', repr(line))\n        line = bytes(line, self.encoding)\n        self._putline(line)\n",
+      "status": "OBSERVATION_ONLY_NOT_SECURITY_ADMISSION"
+    }
+  ],
+  "VPATH_existing_ancestors": [
+    {
+      "path": "/home",
+      "uid": 0,
+      "gid": 0,
+      "mode": "0o755",
+      "writable_by_current_user": false,
+      "world_writable": false
+    },
+    {
+      "path": "/",
+      "uid": 0,
+      "gid": 0,
+      "mode": "0o755",
+      "writable_by_current_user": false,
+      "world_writable": false
+    }
+  ],
+  "ACLs_all_other_users_and_future_permission_changes_not_verified": true,
+  "formal_admission": false
+}

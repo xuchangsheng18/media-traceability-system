@@ -1,5 +1,6 @@
 import { defineConfig } from '@playwright/test'
 export default defineConfig({
+  captureGitInfo: { commit: true, diff: false },
   testDir: './e2e',
   testMatch: '**/foundation.pw.ts',
   workers: 1,

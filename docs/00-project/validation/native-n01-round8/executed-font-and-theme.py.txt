@@ -1,0 +1,18 @@
+import base64,hashlib,io,json,re,tarfile,urllib.request,zipfile
+from pathlib import Path
+w=Path(__file__).parent;c=w/'n01-r8-material-cache';c.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest()
+def get(url,p):
+ if not p.exists():p.write_bytes(urllib.request.urlopen(url,timeout=60).read())
+ return p.read_bytes()
+url='https://registry.npmjs.org/@fortawesome/fontawesome-free/5.6.3';meta_raw=get(url,c/'fa563.json');meta=json.loads(meta_raw);blob=get(meta['dist']['tarball'],c/'fa563.tgz');alg,ds=meta['dist']['integrity'].split('-',1);assert base64.b64encode(hashlib.new(alg,blob).digest()).decode()==ds
+with tarfile.open(fileobj=io.BytesIO(blob)) as t:fs={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+with zipfile.ZipFile(w/'n01-r6-vendor.jar') as z:
+ matches=[{'release_path':n,'npm_member':m,'sha256':sha(z.read(n))} for n in z.namelist() if n.endswith(('.ttf','.woff','.woff2','.eot','.svg')) for m,b in fs.items() if Path(m).name==Path(n).name and sha(z.read(n))==sha(b)]
+font={'package':'@fortawesome/fontawesome-free','version':'5.6.3','metadata_url':url,'archive_sha256':sha(blob),'integrity_verified':True,'selection_basis':'fixed PatternFly font-update commit _variables.scss declares5.6.3;no random version sweep','history':json.loads((w/'n01-r8-font-history.json').read_text(encoding='utf8')),'exact_matches':matches,'materials':[{'path':n,'sha256':sha(b),'utf8_text':b.decode()} for n,b in fs.items() if re.search(r'(^|/)(license|notice|copying)(\.|$)',n,re.I)]}
+theme_source=w/'n01-r6-cache/swagger-theme-source.tgz'
+with tarfile.open(theme_source) as t:themefiles={m.name:t.extractfile(m).read() for m in t if m.isfile()}
+readme=next((n,b) for n,b in themefiles.items() if n.endswith('/README.md'));package=next((n,b) for n,b in themefiles.items() if n.endswith('/package.json'));pkg=json.loads(package[1])
+try:official_raw=get('https://opensource.org/license/mit',c/'OSI-MIT.html');official_download='SUCCESS'
+except Exception as e:official_raw=None;official_download=type(e).__name__+':'+str(e)+';official page separately read via web reader,not a successful direct byte acquisition'
+theme={'source_commit':'9290ea507531fb67efd44e633786d59209045ad5','README':{'path':readme[0],'sha256':sha(readme[1]),'license_declaration_excerpt':readme[1].decode().split('## License')[-1]},'package_metadata':{'path':package[0],'sha256':sha(package[1]),'author':pkg.get('author'),'declared_license':pkg.get('license')},'MIT_standard_source':'https://opensource.org/license/mit','MIT_standard_direct_download':official_download,'MIT_standard_HTML_sha256':sha(official_raw) if official_raw is not None else None,'interpretation':'Exact release declares MIT by reference;lack of separate LICENSE file is not proof of no permission. Standard terms and author metadata retained separately;no fabricated project copyright year or legal approval.','license_route_review_status':'DECLARATION_AND_REFERENCED_STANDARD_PRESENT_COPYRIGHT_ATTRIBUTION_REVIEW_PENDING'}
+out={'font':font,'theme':theme,'current_distribution_scope':'TEAM_INTERNAL_DEVELOPMENT_ONLY_USER_CONFIRMED','formal_external_delivery_authorized':False};(c/'font-theme-review.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf8');print(json.dumps({'FA563_exact_assets':len(matches),'theme_route':theme['license_route_review_status']}))

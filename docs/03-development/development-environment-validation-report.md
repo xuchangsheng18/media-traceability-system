@@ -23,7 +23,7 @@
 入口前置条件：当前Linux服务器make未安装，使用实际已验证的Python等价入口；Windows PowerShell经SSH的help/status已核验，Windows原生环境未安装/验证。早期容量不足时构建保护已实测拒绝；最新容量已满足研发保护值，本批未重启共享栈。详见机器报告auxiliary_observations，不把未安装的可选工具记成PASS。
 
 
-扫描原始输入/结果：[stage-three-secrets-report.json](<../00-project/validation/stage-three-secrets-report.json>)、[stage-three-python-dependency-report.json](<../00-project/validation/stage-three-python-dependency-report.json>)、[stage-three-npm-dependency-report.json](<../00-project/validation/stage-three-npm-dependency-report.json>)、[stage-three-quality-dependency-report.json](<../00-project/validation/stage-three-quality-dependency-report.json>)、[stage-three-dependency-scan-report.json](<../00-project/validation/stage-three-dependency-scan-report.json>)。原pip-audit跳过保持；新增基础审查已核对Torch官方wheel摘要及12,240安装载荷，OSV精确/基础版本查询均无返回条目，仍不代表所有二进制漏洞覆盖或准入。Python3.10维护、镜像OS、模型许可与数据DLP另核验。
+扫描原始输入/结果：[stage-three-secrets-report.json](<../00-project/validation/stage-three-secrets-report.json>)、[stage-three-python-dependency-report.json](<../00-project/validation/stage-three-python-dependency-report.json>)、[stage-three-npm-dependency-report.json](<../00-project/validation/stage-three-npm-dependency-report.json>)、[stage-three-quality-dependency-report.json](<../00-project/validation/stage-three-quality-dependency-report.json>)、[stage-three-dependency-scan-report.json](<../00-project/validation/stage-three-dependency-scan-report.json>)。原pip-audit跳过保持；新增基础审查已核对Torch官方wheel摘要及12,240安装载荷，OSV精确/基础版本查询均无返回条目，仍不代表所有二进制漏洞覆盖或准入。旧Python3.10保留回退；当前3.11迁移、镜像OS、模型许可与数据DLP另核验。
 
 三服务夹具新增实际结构日志关联与依赖停止验证：日志只包含固定事件/服务角色/方法/路由模板/状态/UUID/时长及模拟标识，不记录原始URL、请求体、头或令牌；同一request_id贯穿三服务。测试停止自建推理进程后核对ready=503、调用=502，且不回显输入。原始结果见stage-three-demo-report.json；只停止本验证创建的进程。
 

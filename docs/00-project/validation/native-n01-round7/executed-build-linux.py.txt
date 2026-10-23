@@ -1,0 +1,33 @@
+import datetime,hashlib,json,os,subprocess,tarfile,zipfile
+from pathlib import Path
+os.umask(0o077);base=Path('/workspace/glwy/runtime/media-traceability-system');root=base/'native-n01-r7-build';inputs=root/'inputs';d=json.loads((inputs/'build-inputs.json').read_text());fixture=root/'fixture';assert not fixture.exists(),'Fresh fixture required';fixture.mkdir(mode=0o700);store=root/'store';store.mkdir(mode=0o700);sha=lambda b:hashlib.sha256(b).hexdigest();packages={x['key']:x for x in d['packages']};locations={};materials=[]
+for key,x in packages.items():
+ archive=inputs/x['archive_file'];assert sha(archive.read_bytes())==x['archive_sha256'];dest=store/sha(key.encode())[:20];dest.mkdir();loc=dest/'package';locations[key]=loc
+ with tarfile.open(archive) as t:
+  for m in t:
+   assert m.isfile() or m.isdir(),m.name
+   target=dest/m.name;assert target.resolve().is_relative_to(dest.resolve()),m.name
+   if m.isdir():target.mkdir(parents=True,exist_ok=True)
+   else:
+    target.parent.mkdir(parents=True,exist_ok=True);b=t.extractfile(m).read();target.write_bytes(b)
+    import re
+    if re.search(r'(^|[/_.-])(licen[sc]e|notice|copying|copyright)([_.-]|$)',m.name,re.I) and len(b)<400000:
+     try:text=b.decode('utf8')
+     except UnicodeDecodeError:continue
+     materials.append({'package':key,'member':m.name,'sha256':sha(b),'utf8_text':text})
+def link(parent,name,target):
+ p=parent/name;p.parent.mkdir(parents=True,exist_ok=True);p.symlink_to(target,target_is_directory=True)
+for key,x in packages.items():
+ for name,child in x['dependencies'].items():link(locations[key]/'node_modules',name,locations[child])
+for name,key in d['roots'].items():link(fixture/'node_modules',name,locations[key])
+for src in (inputs/'fixture').rglob('*'):
+ if src.is_file():p=fixture/src.relative_to(inputs/'fixture');p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(src.read_bytes())
+node=base/'native-security-candidates-20261017/node-v22.23.3-linux-x64/bin/node';assert node.is_file();home=root/'home';home.mkdir();tmp=root/'tmp';tmp.mkdir();env={'PATH':str(node.parent)+':/usr/bin:/bin','HOME':str(home),'TMPDIR':str(tmp),'LANG':'C.UTF-8','NODE_OPTIONS':'--max-old-space-size=1024'};commands=[[str(node),str(locations['rollup@4.59.0']/'dist/bin/rollup'),'--config'],[str(node),'scripts/rewrite-imports.js']];runs=[]
+for i,command in enumerate(commands):
+ p=subprocess.run(['/usr/bin/nice','-n','10',*command],cwd=fixture,env=env,capture_output=True,text=True,timeout=240);raw=p.stdout+p.stderr;(root/('build-'+str(i)+'.log')).write_text(raw);runs.append({'command':command,'exit_code':p.returncode,'log_sha256':sha(raw.encode()),'log_tail':raw[-5000:]})
+ if p.returncode:break
+vendor=base/'native-n01-sbom-audit-20261017/keycloak/keycloak-26.8.1/lib/lib/main/org.keycloak.keycloak-themes-vendor-26.8.1.jar';comparisons=[]
+with zipfile.ZipFile(vendor) as z:
+ for p in sorted((fixture/'target/classes').rglob('*.js')):
+  name=p.relative_to(fixture/'target/classes').as_posix();actual=p.read_bytes();expected=z.read(name);comparisons.append({'path':name,'generated_sha256':sha(actual),'release_sha256':sha(expected),'equal':actual==expected,'generated_size':len(actual),'release_size':len(expected)})
+report={'scope':'isolated_exact_locked_subset_direct_Rollup_build_no_lifecycle_scripts_not_entire_Keycloak_source_build','observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'node_version':subprocess.check_output([str(node),'--version'],text=True).strip(),'node_binary_sha256':sha(node.read_bytes()),'inputs_report_sha256':sha((inputs/'build-inputs.json').read_bytes()),'input_packages':len(packages),'runs':runs,'comparisons':comparisons,'materials':materials,'OS_network_namespace_sandbox':False,'shared_services_changed':False,'Python_candidates_created':False,'software_admission':False,'executed_script_sha256':sha(Path(__file__).read_bytes())};(root/'build-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'runs':[x['exit_code'] for x in runs],'comparisons':comparisons,'license_materials':len(materials)}),flush=True)

@@ -1,0 +1,16 @@
+import datetime,hashlib,json,os,subprocess
+from pathlib import Path
+os.umask(0o077)
+repo=Path('/workspace/glwy/projects/media-traceability-system');out=Path('/workspace/glwy/runtime/media-traceability-system/native-n01-documentation-round3');out.mkdir(mode=0o700,exist_ok=True);py='/opt/conda/glwy/envs/py310/bin/python'
+assert not subprocess.check_output(['git','status','--porcelain'],cwd=repo)
+commands=[['scripts/generate_task_progress.py','--check'],['scripts/plan_project_schedule.py','--check'],['scripts/build_stage_one_candidate.py','--check'],['scripts/validate_inputs.py'],['scripts/validate_stage_one.py'],['scripts/validate_stage_one_completion.py'],['scripts/validate_repository_docs.py'],['scripts/validate_stage_three.py']]
+report={'observed_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'scope':'Linux_py310_documentation_and_ledger_checks_not_business_or_native_service_acceptance','checks':[]}
+for i,args in enumerate(commands):
+ r=subprocess.run([py,*args],cwd=repo,capture_output=True,text=True,timeout=120);raw=r.stdout+r.stderr;(out/(str(i)+'.log')).write_text(raw)
+ report['checks'].append({'command':[py,*args],'exit_code':r.returncode,'status':'PASS' if r.returncode==0 else 'FAIL','output_tail':raw[-5000:],'output_sha256':hashlib.sha256(raw.encode()).hexdigest()});print(args[0],r.returncode,flush=True)
+allowed={'docs/00-project/stage-one/input-baseline-candidate.json','docs/00-project/validation/local-validation-report.json','docs/00-project/validation/stage-one-validation-report.json','docs/00-project/validation/stage-one-completion-report.json','docs/00-project/validation/repository-docs-validation.json','docs/00-project/validation/stage-three-validation-report.json'}
+dirty=subprocess.check_output(['git','diff','--name-only'],cwd=repo,text=True).splitlines();assert set(dirty)<=allowed,dirty
+for name in dirty:
+ p=repo/name;(out/p.name).write_bytes(p.read_bytes());original=subprocess.check_output(['git','show','HEAD:'+name],cwd=repo);p.write_bytes(original)
+report['status']='PASS' if all(x['status']=='PASS' for x in report['checks']) else 'FAIL';report['generated_reports_preserved']=dirty;report['worktree_clean_after_checks']=not bool(subprocess.check_output(['git','status','--porcelain'],cwd=repo))
+report['executed_script_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest();(out/'documentation-validation-report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['status'])

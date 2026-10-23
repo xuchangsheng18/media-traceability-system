@@ -1,0 +1,489 @@
+{
+  "task_id": "T014",
+  "status": "PASS",
+  "observed_at": "2026-10-21T08:42:59.334652+00:00",
+  "scope": "current_mounted_ASGI_permission_boundary_and_real_isolated_SQL_resources_only",
+  "source_commit": "d0d1d530617028c83718c5c84b9935ba664c96ae",
+  "source_code_dirty": false,
+  "source_changes": [],
+  "build_metadata_changes": [],
+  "build_metadata_changes_are_not_dependency_lock_changes": true,
+  "source_sha256": {
+    "backend/business_app/__init__.py": "7a6002b1296632af7b86e67eaf76fb9a9cc6f687cd02646c74030a4d7020a84a",
+    "backend/business_app/auth.py": "1c499e56a96c5a9fc84676add55c11d175e651f350afd960ea37cd8ab6c3a7d2",
+    "backend/business_app/catalog_reads.py": "1f077a10ca7c87552e2c8125c7e30cf45338c556ffe72e57ac4a0230a2c4857d",
+    "backend/business_app/catalog_router.py": "272a1bc3896a324407933db7d246431ae95df49a02124cac547ace1687c0988d",
+    "backend/business_app/contracts.py": "15dad14f4a3ebca192c95bd7f175939202c7f479fa1a0973165aa89824b55f4d",
+    "backend/business_app/controls/__init__.py": "06f986fe050ef876c1ed0677bf6b5088cfa889b0c5ddbcb3b88590a0de8e2205",
+    "backend/business_app/controls/approvals.py": "d2de6345e79c49a1c13f9e19e1f9003f499d523ef3cf5ae5adcfe51d55839c2c",
+    "backend/business_app/controls/common.py": "a6ef8b1f978848777c1be07d22a864ea7c2017f11d8b7682076dd6b569e16cc5",
+    "backend/business_app/controls/definitions.py": "449f2780668302797eeb175c05a9bb10d05cdfe8b645e6d231e65fac5e48f03f",
+    "backend/business_app/controls/execution.py": "be55c6a24d7dec6994e17a4a651a6621ceac3dc9baaf598d5a4f9cda6f5fc291",
+    "backend/business_app/controls/exports.py": "4ebef7e17b1022b0122a80b43967d6bcfc94e3e4e27141057936aeaeeb879cdd",
+    "backend/business_app/controls/imports.py": "6213efba2a5d807c5a2f3a8b9d2f199a64a93645c478d7faa5e19f9de5622789",
+    "backend/business_app/controls/operation_tokens.py": "36210cabf35a641ba3dc5ab61a7488d00b160deae328a4189ff79e6aa1362b5d",
+    "backend/business_app/controls/providers.py": "648f9c1fd0a442dcfb3583eab642435190a98134b5726905d3e2404910edc280",
+    "backend/business_app/controls/receipts.py": "00ce7ad5e257f050bd27dc212473026335f86be0108e2f6df03156b3f557137f",
+    "backend/business_app/controls/reviews.py": "499abde4edf583bfbaa8838ce6bd007a96c75f4a5f57d6fd900ed17cda974381",
+    "backend/business_app/controls/router.py": "aeaba6bc3947d287a693479e4e1833023f0447328a79332c008a2207eb6352de",
+    "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
+    "backend/business_app/data_scope.py": "8c9ef9f3dc723e4835cccc9992a6451e4cc23e8ba9fc81ebd22f63d7fd98ba0d",
+    "backend/business_app/db.py": "3d22c1a71d45a16e5023aa43977d1f9876cdcc0c288813bfffedf298a3f644f4",
+    "backend/business_app/development.py": "3fabb34ae818f385fed5e7210fb6b8dfb6a47eaa5d657f1657cba8f3d096388b",
+    "backend/business_app/errors.py": "acda01096baf24ea4de854858d67b1dfd8018c716bc65e5888157f47a5770319",
+    "backend/business_app/history/__init__.py": "d799250f4999412e03715020266a93680781d158ebfe21360da074b69a9fe7c3",
+    "backend/business_app/history/projection.py": "6fcb54b7255bbb894b848bb28ad119a32493dd4f06e3e44b220dad27784a62f9",
+    "backend/business_app/history/repository.py": "35edca3a3346acc947c1d91258b5ff49737d280f417a10d6030b88eb79c3a0b2",
+    "backend/business_app/history/router.py": "c0c71a38cf03ba7d580e9962574ebfaa2558a5c17586edb067fa9ab6d8e7a162",
+    "backend/business_app/identity/__init__.py": "91749936066149a83ad39ec31b5cdb5808f9fbf5b5f050218c6684ac5402cd87",
+    "backend/business_app/identity/config.py": "1593e9b3bbcddc2b262f2f1e4ed35543212918f43e6514a32d33531db04337e7",
+    "backend/business_app/identity/directory.py": "9cf18a158b7dc6e0205e09280d35b4eabf2ad9b671f837ad1fccbabe7da56a9e",
+    "backend/business_app/identity/entrypoint.py": "733a9eb1e5a8ed1acd45c89598dd3ca9f73b7f0f6ec46a12ac62ed8e21078c9c",
+    "backend/business_app/identity/runtime.py": "a895b63b799932bac37c46c1027c6ed1a9ff0321792dac778fe5d2e18b556e18",
+    "backend/business_app/identity/tokens.py": "f2f661ff7f3af502f2604f6a2d341317893482c6bceccd1d82831146c5ad9027",
+    "backend/business_app/inference.py": "612d6d4006c03110125db8e56f09b8586c0da59b335f0addc5472a1d5c330f2e",
+    "backend/business_app/main.py": "1473e43e480903bfc728016ba194877fe59017096f0add56676bb0debe5a6b24",
+    "backend/business_app/objects.py": "7e346db512a59b7b7b2444fe1bc3a7a169e321a57669ca15054e0916d3ef33a3",
+    "backend/business_app/permissions/__init__.py": "daafd5b765dd3483486ec2bb0f92985616d72755ae86c5f434f4f206b5f8405e",
+    "backend/business_app/permissions/catalog.py": "9829b9136f5871dc97f75c179b26c7becc16d8a7fbc28af0d4da3a301e34119c",
+    "backend/business_app/permissions/conditional.py": "caeec59573ac4bfff77cda7d72be7321863936ff13eeeabb975b2d29da043f5c",
+    "backend/business_app/permissions/context.py": "a5443dece34062c1ba1e768be1a86cc58042c04da4570691065ad12412080e5b",
+    "backend/business_app/permissions/directory.py": "112a8048b4bf31da09b504df5af48e42396b873da42261836400d77193825e0e",
+    "backend/business_app/permissions/duties.py": "7cb707062e6297f2b33b1671acc07120ca2c93b54837372fc94dfe8884e57c0b",
+    "backend/business_app/permissions/fence.py": "f908e17c75fcc1b30ddf4d620710a7bbdd434c255bcf41a7b7ff89f152ecea40",
+    "backend/business_app/permissions/guard.py": "32a672ba07a0d6b53d48637b7324e22c5a4f1fed11010d4424ba8a56302e840b",
+    "backend/business_app/permissions/object_facts.py": "6e71e2ba014f74d5ba1d456b82941ba1dbefce08d2ae66ab794d223bad543d72",
+    "backend/business_app/permissions/policy.py": "4ed10f435a335a59b0bac82bc8196dff07c49fb3c5ced76fb2a165f8e2d3528b",
+    "backend/business_app/permissions/role_facts.py": "6770961027e5bc0eb5a53d9c17c67b263e016c3ad8263e82f1f834ad925a8781",
+    "backend/business_app/permissions/rule_types.py": "40e063b2cdaad397e7882f31df2a52f6802a9984d894e160e8a00a8cd70e5316",
+    "backend/business_app/permissions/six_role.py": "c7ab275688ab72be4aff8d0f3597bd6def1529e4e07ea9b195fc0dda34435d96",
+    "backend/business_app/permissions/types.py": "ac6ec50c06b709c8ddb6e163660c004665a52e89f88affe87b743c995f0e4fb4",
+    "backend/business_app/permissions/work.py": "cd481f6fab1266669a827589e3080b0f2126514683fccedc495b691b8e368e59",
+    "backend/business_app/permissions/work_subject.py": "dd00ff09568ab0baaa0213d3c158928e79a9eb267dd38f76268282bb3fe5b85b",
+    "backend/business_app/registry_reads.py": "f1093953436592cc820875261ea843a0ad8e9697ae566ed77dc383864ee41835",
+    "backend/business_app/registry_router.py": "bf659140c6500fe005e6e3907320c41a338315fe444f85c84d44e78e2318067f",
+    "backend/business_app/scope_catalog.py": "e677bcc3dd907575c56fb303201857e9422c53052990800b6f83783797c36f90",
+    "backend/business_app/scope_collections.py": "47ec59ca88bfd8d3a154da58ac83a6444bdb4f60a83a3a825df92397a6f32dbf",
+    "backend/business_app/scope_context.py": "1d0150673ec6652899ba7ea7a4c780e6f21878517781b448df13b430b8b3f197",
+    "backend/business_app/scope_lookup.py": "4c22c351436e40507737422b15a2852efeeed80534818db1a8eb4ee33487a36f",
+    "backend/business_app/scoped_objects.py": "5e30fafdb32c4596c0b8f66bb393b13f9518d913304e6c54945309a930a75c05",
+    "backend/business_app/settings.py": "159f270e7339cb39f6ac6b745b8583d55f7fe471c606e5e0c001ba63938daa84",
+    "backend/business_app/types.py": "33f54d056f0df68a99da4d80fa5ceb9778d51b3898a51b450f3518b7f37a87a1",
+    "backend/business_app/uploads/__init__.py": "e3a078b04b23f08db0b12d24aa013e96a01af6ee1185b42cc24b32fa2494c5e4",
+    "backend/business_app/uploads/messaging.py": "3675290caea9848af66a8ac235e7e647325a9d03b927fccec303258072f695c9",
+    "backend/business_app/uploads/repository.py": "021ce78c519af548eaa19b0a12ef270148b00bd32703ff231ac3573433a20c9d",
+    "backend/business_app/uploads/router.py": "fe41b63a650d8e3e3e24a1ecc974efb96eba575c8df9c246a9d4c0ac1d76fe63",
+    "backend/business_app/uploads/service.py": "8d3adfc488ced313b9be547ae29fa713c18408bab5b481bec24616bcf3a5508e",
+    "backend/business_app/uploads/validator.py": "d7fed4480d08e337aa4804e5da7dd724e31988b9a3a9e9da879c96e13f4574da",
+    "backend/business_app/uploads/worker.py": "909b1eebe1cf42be934631879aff429837507ee9537ee1ea577607a103b3aff8",
+    "backend/business_migrations/0001_business_baseline.sql": "a69a94ce42513f10c64e7bc0953d4a8455cc95b0e866f2286352640163ca76aa",
+    "backend/business_migrations/0002_upload_result.sql": "bf3646cb92e1aef25c046b89e5f02407fc2ace9b9051a8f227f4e3f0973d4953",
+    "backend/business_migrations/0003_control_integrity.sql": "0bcef58d741dc478e2d9140b5d4a3d5359581daafa4516154626a0265889fca6",
+    "backend/business_migrations/0004_identity_relations.sql": "49f966fc66004f9a370dc07529b17be3d5aef7308a8396ba4b66903dd1a48aa2",
+    "backend/business_migrations/0005_role_catalog.sql": "f78892a827e6065628dfaed03d30b294e1e047dcdfdaf77c756c9bd448de585f",
+    "backend/business_migrations/0006_permission_lookup.sql": "bf47ab55335fe65e266204f0852f392a2cb342e4d87c3d724ad418578eac13dd",
+    "backend/business_migrations/0007_role_facts.sql": "e7191483aa27ddb03357c0ab9dde810cd048b9f844ee756ff46dd1dd29a6f872",
+    "backend/business_migrations/0008_authorization_fence.sql": "5d22a6f6895b178a99e1404b766ff0ba3df78a1baf2d1e62a639dbd7acd716fc",
+    "backend/business_migrations/0009_work_role_facts.sql": "be25914b061a8b0872bdf53161b17d8322e53c67bde32073a067b19f9e732588",
+    "backend/business_migrations/0010_data_scope.sql": "d548622eddfe7be60f6695d6fcfaafb82391b60635f5e84c647c09ba02fc8cd3",
+    "backend/business_migrations/0011_operation_token.sql": "c9a797e89ea1829a7f18dd173f1418646eea2614654ccc45b2bc42fac1fdf3bd",
+    "backend/business_migrations/0012_catalog_reads.sql": "b534d5a631fd1628b4f4be4875b119be080d61b26027b228b5d80d54d5272e99",
+    "backend/business_migrations/0013_report_reads.sql": "9465a51b638f9b13849938e5bc6c4aea6454f2f9a70ac08b03516f6fe81875ec",
+    "backend/business_migrations/__init__.py": "364ce00247004a2405578bd44bc4cc8e88efd9e7a3e7014f0a7d49dcfa28cc8e",
+    "backend/business_migrations/runner.py": "337fb47bf376770d17ac45d86ad8efa92c4a3ebffb49bb13eefa04c73b83f3a3",
+    "tests/business/__init__.py": "b1c27cb798a176b7d2620f0bbd41157b2d339b70e05d2c6738a78819c369690d",
+    "tests/business/conftest.py": "8304d0b7f54a5d05fd64a41c377e7e2e83dbd2bb14fa853a694604c3e48dedd6",
+    "tests/business/history_fixtures.py": "229e47fe23c042f950ea37a24dc8e21f7c5b60936b001e597ffc2e7b2c8e2574",
+    "tests/business/http_fixtures.py": "0aaa548c6e36c22332d7294a06fc35d3e21ed5f60564e71f0d6d0b75db9b0a2e",
+    "tests/business/scoped_history_fixtures.py": "3e0c4f9cf45f078d9f36d1953758345430c85ef7a62852d18cbd362388454be4",
+    "tests/business/t014_positive_fixtures.py": "4fa4ce5d75faf2cc70db501e0bee01e8f834364456d9346d6427b0e57b2acaa9",
+    "tests/business/t014_requests.py": "22b928da34fe9f0319172d74d7c5833ae387854d504cab0cee4450cb795003d3",
+    "tests/business/test_adapters_and_execution.py": "b1ef5484a2c70967833def33627a289c1b92dd41e9df57bc8cbc5caef84995a5",
+    "tests/business/test_authorization.py": "af601da95d8c7928c0b87a60965b07d9ad2a69190427ebf5c2baf295f88d74f2",
+    "tests/business/test_catalog_reads.py": "01c69639059cefdd38c57581f642f820228c01d45dc0209db8508b4f227c6d31",
+    "tests/business/test_control_contract_integrity.py": "689e91e8656a36438f4288cc7ef5136fc8dacd8686ebb8f268a8948e189f0428",
+    "tests/business/test_controls.py": "5c478ffc4420af9d71e18c233fed0b272df8217ac8a080d03b4fa600df22eb1e",
+    "tests/business/test_cursor_canonicality.py": "47bd4d4db811e1a9ed99bf75fbe84c73ed337e6c529b28e7000b69e170d4e72d",
+    "tests/business/test_development_startup.py": "eb6ee136f7be98c8fb7bc049728885444fabd07a87a9ddf8eb03b8983fea115e",
+    "tests/business/test_execution_cancel.py": "48dc5b0e008824903622c701aa971fa65642adf0c4725255c4e042246d958421",
+    "tests/business/test_foundation_errors.py": "6620ae6bf2bf458d465ea81ce90d9f258bca8f803c0a7f16e3938f3cf14a5384",
+    "tests/business/test_history.py": "df4574a3a5c49ac716a8e0f4fe9ed201fdb1c9427ef8822370c80816b3b37ae8",
+    "tests/business/test_history_http.py": "a2b7e0b080ca7cd1e5751d3c662b4ee7a6aa65ae31be31962b4c384375bcc246",
+    "tests/business/test_identity_directory.py": "54cabbee2d42a225b244275e78512336c8b3245f26843c1d2a56b9b1ff6d0aa2",
+    "tests/business/test_migrations.py": "cb0e1b13ce15071d4e4baabfd68c8a9209fd8ae8ab1f5288ccf9d5bac7707d3f",
+    "tests/business/test_recovery.py": "ce7e51beac7c789c1daf5cfe1e92e14975b4540d626d4c6e3ae4d2b5ce7c9017",
+    "tests/business/test_registry_projection.py": "72c38cfae20a4d7e20fd3ae4205cd3e31eed07338d27d85916fbbe435dbbcb4e",
+    "tests/business/test_registry_reads.py": "b6f9cca8a294ef379d41305bdb70e60f4a697065b445995e3f8a5232193576c4",
+    "tests/business/test_remaining_contracts.py": "034f375e78eb09dfb54ef30621c47cf77d5e08ace7b59f3c3e1d1d1b6203b9c9",
+    "tests/business/test_report_migration.py": "fccc194d3207feb93ce188036717f97a509704c951b5c2061a6347971dac49bc",
+    "tests/business/test_response_privacy.py": "a8dbe29ac73c1efaedaf6ad14ba3b4f3cce050116184273e091b4504f1cd44b7",
+    "tests/business/test_role_directory.py": "0ca7fa9a569d998a8f3d4723156d8ce16d3fbdce611ae15e21263a9e3b9e04f5",
+    "tests/business/test_sql_foundation.py": "1aef6ad7575fcde30161ecd6795894fe35d1c7b7d84167833618315ee3044c43",
+    "tests/business/test_t014_duties.py": "c70a25c9ef0fa9357c8a2afd465dfd296e5fff925183cda8cc1053bc253005c1",
+    "tests/business/test_t014_indirect_reads.py": "8e891da821935e0713093f81fa7602d87a700b36cf688f6ae262767359c9a44e",
+    "tests/business/test_t014_object_rules.py": "2866931b375d55c661a6a7b457858885fc8f5afd3f5bde3225a252883b445067",
+    "tests/business/test_t014_permissions.py": "5c7d031a3e48dd55c5bcf197354bd3514c9109c3b981c049a9e1e8629ea1ec2b",
+    "tests/business/test_t014_revocation.py": "48ca36b44401d650b3c94b7a6a964ffe56f6b85e6de05534007f3769d1ae950f",
+    "tests/business/test_t014_role_facts.py": "a0ab89ec237d1f42c267bf5c2db7f942e0bbce05d30056faa77089ad5739e598",
+    "tests/business/test_t014_runtime.py": "a1408d4cf6347f0d35fd47397d0bd45bba6807a121aeb512531b6e86bd4bfa56",
+    "tests/business/test_t014_work.py": "4cfea870ed32a629ca6a1566a8539a10cbb2adc6749578ff0cd8673c8f8bf9fa",
+    "tests/business/test_t015_collections.py": "49261d40126c570e2f80a008dc8d34fe6864196adae4ca3f0a3582ae1227cc36",
+    "tests/business/test_t015_metadata_timestamps.py": "2052aa2a6926cd0b9175e5ca79b694aa8f9596b007c53ba2fdd79a7e154b0033",
+    "tests/business/test_t015_scope_http.py": "87597e62f7a92f9548ef8c26c1ecd56cc5f7ad1c308ed988fdd48278bf4acbe3",
+    "tests/business/test_t015_scope_owner.py": "110dfb4d411665ff872972cb9842a1e895ad7f65e78776a4005d9d5bad8fb5fd",
+    "tests/business/test_t015_scope_recovery.py": "9db30beda74f4230e290d67a1bac8cb2ed5e25ff67a886bbc214164966ae5bf1",
+    "tests/business/test_t015_scope_sql.py": "730c716d86400b4ab9b9934801fb3d58c39bc5ec959897145ac54eafbcce9e9d",
+    "tests/business/test_t015_scoped_objects.py": "4d69b3a69bb37eaa346a9fbe52981aeec0b901c025510b647b31692b86027908",
+    "tests/business/test_t016_operation_token_recovery.py": "5c88ac98193ed4fa92cbc0691f734d15c86b0f8b3b81461ad5c2f5fcfca85459",
+    "tests/business/test_t016_operation_tokens.py": "482347132072e46e8fb6af805b0afc039f0c85325a69b93bb6cadbdec332682b",
+    "tests/business/test_t016_permission_facts.py": "b38052173f0c61dda7dc926d9d1e2196052769303497b4d2398accac6be223a3",
+    "tests/business/test_token_identity.py": "e5de1271c9ea703410c1fa7045ac3da532ba39af5b43b49ae4cfacf878905fe3",
+    "tests/business/test_upload_json_boundary.py": "e1aead9b8173b672133900e390494d9e6519fbd0565f194257180cda7614d09e",
+    "tests/business/test_upload_validation.py": "d3d63061a605ed776e7ebe8a1f34270d2d235f73d3206029bbbbd77d521d6321",
+    "tests/business/test_uploads.py": "38e42d9f7288156c13ba8d71758dc2badafa146a53d1a34385d1ba752a34f47a",
+    "tests/platform/test_t014.py": "a1cbc919be9117e75a37e31394fe03c6130430d21b2a14290da6d59278aedb60",
+    "tests/platform/test_t014_gate.py": "ded79c82fb94c3b2a8512467f42af53336a3a8b884d9ca2321b5b34092bbfef8",
+    "tests/platform/test_t014_six_role.py": "bdb9f39e4df36bc1f4cefe8bf866d15c251e449e7655d084e2ae0f4c5e75ce19",
+    "tests/platform/test_t014_work_trust.py": "625f30dc15644956fa48e4377ed447ce13139200abd549d677f3d9fed199055b",
+    "scripts/verify_t014_permissions.py": "d8a650d38f0b6474e4f3fbc87f6288d365c24f340741e98d54e422b42c5123e3",
+    "docs/03-api/openapi.yaml": "3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f",
+    "docs/08-security/access-control-model.json": "bb0ed0b28519319df291b2179de5d2a8827fe4c3aeada8760feea78c426253d2",
+    "docs/08-security/t014-interface-scope-matrix.json": "26e01f9de0417ec0b41371fea860729b5a0bf7c06d161099e025a7253d1798f0",
+    "docs/08-security/t014-six-role-rule-proposal.json": "446440965c9fb4fced9bdcd4693c6a6c1bb36959cdef4a57c0ffc8a3c675e0a1",
+    "docs/08-security/catalog-read-contract-adoption.json": "d2f65cfe2c3ec916053415969f372f96bfba25aa3e76aa1dd493e4ea35cc71e2",
+    "docs/08-security/history/t001-t123-catalog-predecessor-openapi.yaml": "83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730",
+    "docs/08-security/history/t001-t123-catalog-predecessor-scope-matrix.json": "159c3cf0c3ff97e002996aa71976a409943d9474d0256388ec3c36714f4c5826",
+    "config/locks/requirements-py310.lock": "dbbb604b912342e4fec69ca27db6f99047737947386dd7ce2bb460a82cdbdcf8"
+  },
+  "command": "python -m pytest tests/platform/test_t014.py tests/platform/test_t014_gate.py tests/business/test_t014_permissions.py tests/business/test_t014_runtime.py tests/platform/test_t014_six_role.py tests/platform/test_t014_work_trust.py tests/business/test_t014_role_facts.py tests/business/test_t014_object_rules.py tests/business/test_t014_indirect_reads.py tests/business/test_t014_duties.py tests/business/test_t014_revocation.py tests/business/test_t014_work.py tests/business/test_catalog_reads.py tests/platform/test_permission_catalog_cache.py tests/platform/test_business_route_registration.py tests/business/test_registry_projection.py tests/business/test_registry_reads.py tests/business/test_report_migration.py tests/business/test_migrations.py::test_empty_database_migrates_and_replay_noops tests/business/test_migrations.py::test_work_role_facts_upgrade_is_atomic_and_function_only tests/business/test_migrations.py::test_0012_catalog_reads_upgrade_preserves_existing_registries_and_tables -q --tb=short --junitxml PRIVATE_PATH",
+  "Python_candidates_created": false,
+  "formal_accepted": false,
+  "raw_logs_published": false,
+  "private_material_published": false,
+  "shared_services_adopted": false,
+  "not_mounted_operation_ids": [
+    "createReport",
+    "createReportDraft",
+    "createSource",
+    "createTask",
+    "decidePropagationEdge",
+    "devLogin",
+    "downloadAsset",
+    "downloadReport",
+    "extractClaims",
+    "getIndex",
+    "getModelHealth",
+    "getSearchJob",
+    "health",
+    "listEvaluations",
+    "listModels",
+    "recordEvaluation",
+    "registerModel",
+    "requestFeedback",
+    "rerunTask",
+    "rolloutModel",
+    "sealEvidence",
+    "searchImage",
+    "searchImageRegion",
+    "searchVideo",
+    "switchIndex",
+    "verifyClaim"
+  ],
+  "not_mounted_operation_count": 26,
+  "not_mounted_operations_implemented_or_HTTP_verified": false,
+  "totals": {
+    "tests": 843,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_exit_code": 0,
+  "mounted_operation_count": 47,
+  "operation_checks": {
+    "cancelTask": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "completeUpload": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "createImport": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "createPolicy": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "createReview": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "createUpload": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "decideApproval": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "downloadAuditExport": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "exportAudit": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getApproval": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getAsset": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getAuditExport": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getCurrentUser": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getFeedback": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getFirstSource": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getForensics": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getImport": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getModelOperation": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getPolicy": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getPolicyDefinition": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getPropagation": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getReport": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getReview": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getReviewContext": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getRiskFindings": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getSource": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getTask": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getTaskEvidence": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getTaskExecution": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getTimeline": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "getUploadStatus": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "issueOperationToken": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listApprovals": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listAssets": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listAuditEvents": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listPendingReviews": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listPolicies": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listReviews": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listSources": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listTaskEvents": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listTaskNodes": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listTasks": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "listUploadParts": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "putUploadPart": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "requestApproval": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "revokeApproval": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    },
+    "syncSourceAuthorization": {
+      "unauthenticated": "PASS",
+      "permission_denied": "PASS",
+      "policy_missing": "PASS",
+      "authority_unavailable": "PASS"
+    }
+  },
+  "required_regressions": 331,
+  "validation_snapshot_is_publication_commit": false,
+  "scope_note": "Actual clean private Git source fixture; exact source hashes retained. Publication commit and hosted CI are recorded separately in the batch report."
+}

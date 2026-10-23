@@ -5,18 +5,28 @@ from uuid import UUID
 from fastapi import Request
 from sqlalchemy import text
 
-from ..auth import AuthorityProvider
+from ..auth import AuthorityProvider, authenticated_actor
 from ..contracts import validate_api
+from ..data_scope import ResourceBinding
 from ..db import Database
 from ..errors import BusinessError
 from ..objects import FileObjectStore
+from ..scoped_objects import ScopedObjects
 from ..types import Scope
 from .repository import UploadRepository
 
 
 class UploadService:
-    def __init__(self, database: Database, repository: UploadRepository, store: FileObjectStore) -> None:
+    def __init__(
+        self,
+        database: Database,
+        repository: UploadRepository,
+        store: FileObjectStore,
+        *,
+        authority: AuthorityProvider | None = None,
+    ) -> None:
         self.database, self.repository, self.store = database, repository, store
+        self.object_authority = authority
 
     def scope(
         self, request: Request, action: str, *, case_id: UUID | None = None, upload_id: UUID | None = None
@@ -24,10 +34,7 @@ class UploadService:
         authority = cast(AuthorityProvider | None, request.app.state.business_authority)
         if authority is None:
             raise BusinessError("IDENTITY_AUTHORITY_UNAVAILABLE", 503)
-        header = request.headers.get("Authorization", "")
-        if not header.startswith("Bearer ") or not header[7:]:
-            raise BusinessError("AUTHENTICATION_REQUIRED", 401)
-        actor = authority.authenticate(header[7:])
+        actor = authenticated_actor(request)
         source_id = None
         if upload_id is not None:
             with self.database.identity_transaction(actor) as connection:
@@ -63,21 +70,26 @@ class UploadService:
         replay = self.repository.existing_part(scope, upload_id, number, claimed_sha, len(data), key)
         if replay is not None:
             return replay
-        stored = self.store.put_part(scope, upload_id, number, io.BytesIO(data))
-        if stored.ref.sha256 != claimed_sha:
-            raise BusinessError("UPLOAD_PART_DIGEST_INVALID", 422)
+        stored = ScopedObjects(self.store, self.object_authority).put(
+            self.database, scope, ResourceBinding("upload_part", upload_id, part_no=number), io.BytesIO(data)
+        )
         try:
-            response = self.repository.put_part(scope, upload_id, number, stored, idempotency_key=key)
+            if stored.ref.sha256 != claimed_sha:
+                raise BusinessError("UPLOAD_PART_DIGEST_INVALID", 422)
+            # The receipt shares the transaction that published the part. A
+            # second root would compare this request's old target to its own
+            # committed version increment and wrongly report a stale object.
+            with self.database.transaction(scope) as connection:
+                response = self.repository.put_part(scope, upload_id, number, stored, idempotency_key=key)
+                registered = connection.execute(
+                    text(
+                        "SELECT object_id FROM mt.upload_part WHERE case_id=:case AND upload_id=:upload AND part_no=:number"
+                    ),
+                    {"case": scope.case_id, "upload": upload_id, "number": number},
+                ).scalar_one_or_none()
         except Exception:
             self.store.record_orphan(stored, scope, upload_id)
             raise
-        with self.database.transaction(scope) as connection:
-            registered = connection.execute(
-                text(
-                    "SELECT object_id FROM mt.upload_part WHERE case_id=:case AND upload_id=:upload AND part_no=:number"
-                ),
-                {"case": scope.case_id, "upload": upload_id, "number": number},
-            ).scalar_one_or_none()
         if registered != stored.ref.object_id:
             self.store.record_orphan(stored, scope, upload_id, "UNREFERENCED_CONCURRENT_DUPLICATE")
         validate_api("UploadPart", response)

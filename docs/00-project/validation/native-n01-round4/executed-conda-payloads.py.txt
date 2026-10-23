@@ -1,0 +1,26 @@
+import hashlib,json,os,re,subprocess,tarfile,zipfile
+from pathlib import Path
+os.umask(0o077)
+base=Path('/workspace/glwy/runtime/media-traceability-system');out=base/'native-n01-r4';env=Path('/opt/conda/glwy/envs/py310');cache=base/'native-conda-closure-cache';lock=json.loads((cache/'conda-closure-packages.lock.json').read_text());data=json.loads((out/'runtime-followup-report.json').read_text());rows=[]
+for item in lock['packages']:
+ wanted={Path(x['path']).relative_to(env).as_posix():x for x in data['new_libraries'] if x.get('conda_origin') and x['conda_origin'][0]['name']==item['name']}
+ if not wanted:continue
+ archive=cache/item['filename'];assert hashlib.sha256(archive.read_bytes()).hexdigest()==item['sha256']
+ with zipfile.ZipFile(archive) as z:
+  member=next(n for n in z.namelist() if n.startswith('pkg-') and n.endswith('.tar.zst'));temp=out/(item['name']+'-payload.tar.zst');temp.write_bytes(z.read(member))
+ process=subprocess.Popen(['/usr/bin/zstd','-q','-d','-c',str(temp)],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ with tarfile.open(fileobj=process.stdout,mode='r|') as stream:
+  for member in stream:
+   name=member.name.removeprefix('./')
+   if name not in wanted or not member.isfile():continue
+   raw=stream.extractfile(member).read();observation=wanted[name];meta=observation['conda_origin'][0];expected=raw;placeholder=meta.get('prefix_placeholder');mode='exact_raw_payload'
+   if placeholder:
+    old=placeholder.encode();new=str(env).encode()
+    def replace(m):
+     b=m.group(0).replace(old,new);return b+b'\0'*(len(m.group(0))-len(b))
+    expected=re.sub(re.escape(old)+rb'[^\0]*\0',replace,raw);mode='deterministic_null_terminated_binary_prefix_relocation'
+   actual=(env/name).read_bytes();rows.append({'path':observation['path'],'package':item['name'],'archive_sha256':item['sha256'],'payload_sha256':hashlib.sha256(raw).hexdigest(),'matches_archive_metadata':hashlib.sha256(raw).hexdigest()==meta['installed_metadata_sha256'],'comparison':mode,'expected_sha256':hashlib.sha256(expected).hexdigest(),'actual_sha256':hashlib.sha256(actual).hexdigest(),'matches':expected==actual})
+ process.stdout.close();err=process.stderr.read();assert process.wait()==0,err
+assert len(rows)==18
+report={'scope':'18_new_Conda_libraries_exact_authenticated_payload_or_deterministic_prefix_relocation_no_environment_modification','executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'status':'PASS' if all(x['matches'] and x['matches_archive_metadata'] for x in rows) else 'FAIL','files':rows,'formal_admission':False}
+(out/'conda-expanded-payload-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'status':report['status'],'files':len(rows),'relocated':sum(x['comparison']!='exact_raw_payload' for x in rows)}))

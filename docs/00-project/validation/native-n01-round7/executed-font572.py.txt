@@ -1,0 +1,4 @@
+from pathlib import Path
+p=Path(__file__).parent/'n01-r7-nested-followup.py'
+s=p.read_text(encoding='utf8').replace('5.15.4','5.7.2').replace("'fa5.json'","'fa5-572.json'").replace("'fa5.tgz'","'fa5-572.tgz'").replace('nested-followup-report.json','nested-followup-report-font572.json')
+exec(compile(s,str(p),'exec'))

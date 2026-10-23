@@ -1,0 +1,37 @@
+import concurrent.futures,hashlib,json,lzma,shutil,urllib.request
+from pathlib import Path
+base=Path(__file__).parent;inputs=base/'native-ubuntu-indexes';out=base/'native-os-closure-cache';out.mkdir(exist_ok=True)
+graph=json.loads((base/'native-n01-round3-evidence/os-dependency-graph-report.json').read_text());assert graph['status']=='PASS_DECLARED_GRAPH_ONLY'
+targets={(r['package'],r['version'],r['architecture']):r for r in graph['nodes']};matches={};bound=[]
+signed=json.loads((base/'media-trace-foundation-worktree/config/native/os-build-dependencies.lock.json').read_text())
+for signature in signed['index_signatures']:
+ suite=signature['suite'];release=inputs/'dists'/suite/'InRelease';assert hashlib.sha256(release.read_bytes()).hexdigest()==signature['sha256']
+ text=release.read_text();sha_section=text.split('\nSHA256:\n',1)[1].split('\nSHA512:',1)[0]
+ entries={line.split()[2]:(line.split()[0],int(line.split()[1])) for line in sha_section.splitlines() if len(line.split())==3 and len(line.split()[0])==64}
+ for component in ['main','universe']:
+  relative=component+'/binary-amd64/Packages.xz';p=inputs/'dists'/suite/relative;expected,size=entries[relative];assert p.stat().st_size==size and hashlib.sha256(p.read_bytes()).hexdigest()==expected
+  bound.append({'suite':suite,'index':relative,'sha256':expected,'InRelease_sha256':signature['sha256']});fields={}
+  with lzma.open(p,'rt',encoding='utf8') as f:
+   for line in f:
+    if not line.strip():
+     key=tuple(fields.get(k) for k in ['Package','Version','Architecture'])
+     if key in targets:
+      row={k:fields.get(k) for k in ['Package','Version','Architecture','Filename','SHA256','Size','Depends','Pre-Depends']};row.update(suite=suite,index=relative);matches[key]=row
+     fields={}
+    elif not line.startswith(' ') and ':' in line:k,v=line.split(':',1);fields[k]=v.strip()
+def acquire(key,row):
+ name=Path(row['Filename']).name;p=out/name;old=base/'native-artifacts-cache/ubuntu-build-debs'/name
+ if not p.exists() and old.exists():shutil.copyfile(old,p)
+ if not p.exists():
+  with urllib.request.urlopen('https://archive.ubuntu.com/ubuntu/'+row['Filename'],timeout=120) as r,p.open('wb') as f:
+   while chunk:=r.read(1024*1024):f.write(chunk)
+ assert p.stat().st_size==int(row['Size']) and hashlib.sha256(p.read_bytes()).hexdigest()==row['SHA256']
+ return {'package':key[0],'version':key[1],'architecture':key[2],'filename':name,'sha256':row['SHA256'],'size_bytes':int(row['Size']),'source_url':'https://archive.ubuntu.com/ubuntu/'+row['Filename'],'suite':row['suite'],'index':row['index'],'status':'PASS'}
+rows=[{'package':k[0],'version':k[1],'architecture':k[2],'status':'BLOCKED','reason':'EXACT_INSTALLED_VERSION_ABSENT_FROM_CURRENT_SIGNED_INDEXES'} for k in targets if k not in matches]
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+ jobs={pool.submit(acquire,k,r):k for k,r in matches.items()}
+ for future in concurrent.futures.as_completed(jobs):
+  try:rows.append(future.result())
+  except Exception as e:rows.append({'package':jobs[future][0],'status':'FAIL','reason':type(e).__name__})
+report={'status':'PASS_BYTES_NOT_ADMISSION' if all(x['status']=='PASS' for x in rows) else 'INCOMPLETE','scope':'exact_89_targeted_OS_graph_recovery_packages_bound_to_previously_gpgv_verified_Ubuntu_indexes_not_full_host_image','index_bindings':bound,'packages':sorted(rows,key=lambda r:r['package']),'executed_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'installation_ready':False}
+(out/'os-recovery-packages.lock.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf8',newline='\n');print(json.dumps({'status':report['status'],'packages':len(rows),'passed':sum(x['status']=='PASS' for x in rows),'blocked':[x for x in rows if x['status']!='PASS']}),flush=True)

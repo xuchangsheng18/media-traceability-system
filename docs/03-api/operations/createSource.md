@@ -1,10 +1,10 @@
 # 登记来源授权：createSource
 
-自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `83f2f8bb7b2cb2a59a26bd1e706a09b308358c6ad33658f84e6f1f9a50d01730`。契约未冻结，文档存在不代表接口已实现。
+自动派生，禁止独立修改结构；权威源 `docs/03-api/openapi.yaml`，SHA-256 `3a19ef745a5d38a26d6c09a735c13d1200c8c46d0b84194862fde2012041d52f`。契约未冻结，文档存在不代表接口已实现。
 
 `POST /api/v1/sources`；operationId=`createSource`；源指针=`/paths/~1sources/post`。
 
-实现范围：**CONTRACT_ONLY_NOT_IMPLEMENTED_AS_BUSINESS_API**；当前无此正式业务端点完成证据。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
+实现范围：**DEV_PARTIAL**；独立业务工程已挂载源码；实际隔离测试另行记录，缺少受信权限或来源适配器仍拒绝。。当前73业务契约保持正式未冻结；独立业务工程的实际子范围见本页实现状态，PoC入口另列。
 
 ## 调用目的与权限
 
@@ -103,7 +103,7 @@ OpenAPI身份声明：`[{"bearerAuth": []}]`；功能权限候选：`source.mana
 }
 ```
 
-登记不等于授权验证；核验用途、到期/撤销；Source虽含revoked状态，权威更新机制IF-G08尚缺。
+本批实现限定登记或读取子范围，未执行真实模型训练、正式授权、共享迁移或完整任务验收。
 
 该接口未声明If-Match，不能从全局说明擅自增加必填请求头；业务对象/结果版本仍按请求结构和操作语义校验。
 

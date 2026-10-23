@@ -1,0 +1,145 @@
+{
+  "status": "PASS_D02_APPLICATION_SCOPE_ONLY",
+  "observed_at": "2026-10-18T09:11:30.270095+00:00",
+  "source_commit": "ee29f4314859b8182b7689e7c6efd78a14ef6a21",
+  "source_sha256": {
+    "backend/business_app/cursor_encoding.py": "8402d18b435745283c3302531eb5907e87b0cdbb062b07e5f923b4d2ad5973cb",
+    "backend/business_app/controls/common.py": "3cdc5e74126c1b79ac442380672894f90db6dd7eef1e9ce194839950d34b59b8",
+    "backend/business_app/uploads/repository.py": "1a5eee30f8f2c5d20510e96aba8d5ffae23fb52bd60c7fbeaf0f72aea4876600",
+    "tests/business/test_cursor_canonicality.py": "47bd4d4db811e1a9ed99bf75fbe84c73ed337e6c529b28e7000b69e170d4e72d"
+  },
+  "red": {
+    "source_commit": "ba99b74319b36d1f09c545900d0061eff9cbc08b",
+    "command": "PYTHONPATH=backend python -m pytest /tmp/test_d02_cursor_canonicality.py -q --tb=short",
+    "tests": 20,
+    "failed": 7,
+    "passed": 13,
+    "reason": "noncanonical control alphabet/padding/pad-bit and test-signer upload whitespace/padding/tail/pad-bit accepted",
+    "test_author_typo_corrected_before_recorded_red": true,
+    "log_sha256": "fd553ce610f67849cee3bc2b6ff86d682a3a91a53683b69da2e6dfbc87610eab"
+  },
+  "green": {
+    "tests": 21,
+    "failures": 0,
+    "unit_collaborators": "self_owned_in_memory_no_database_or_HTTP_acceptance",
+    "log_sha256": "6c4874e92a759c5c4b886cfcaa14aacdbac7fd2532c87997ed8b42d2b4e33b3a"
+  },
+  "checks": [
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "pytest",
+        "tests/business/test_cursor_canonicality.py",
+        "-q",
+        "--tb=short"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "PASS",
+      "safe_output": ".....................                                                    [100%]\n21 passed in 0.41s\n"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/verify_business_foundation.py",
+        "failure-probe"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "status": "PASS",
+      "safe_output": "{\"expected_assertion_failure_verified\": true, \"exit_code\": 1}\n"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "--config",
+        "ruff.toml",
+        "backend/business_app",
+        "tests/business"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "PASS",
+      "safe_output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "backend/business_app",
+        "tests/business"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "PASS",
+      "safe_output": "60 files already formatted\n"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/stage_three_types.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "PASS",
+      "safe_output": "Success: no issues found in 119 source files\n"
+    },
+    {
+      "command": [
+        "/opt/conda/glwy/envs/py310/bin/python",
+        "scripts/stage_three_quality.py",
+        "secrets"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "status": "PASS",
+      "safe_output": "{\"status\": \"PASS\", \"files_checked\": 1863, \"exact_runtime_values_available\": true, \"scope\": \"tracked_and_unignored_files_known_private_values_and_basic_key_patterns\", \"comprehensive_DLP_or_history_scan\": false, \"secret_values_printed\": false}\n"
+    }
+  ],
+  "isolated_business_suite": {
+    "scope": "isolated_development_upload_history_controls_adapters_execution_inference_boundaries",
+    "formal_accepted": false,
+    "all_13_gaps_closed": false,
+    "observed_at": "2026-10-18T09:02:26.463236+00:00",
+    "status": "PASS",
+    "exit_code": 0,
+    "test_count": 240,
+    "totals": {
+      "tests": 240,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "raw_logs_published": false,
+    "source_commit": "4267cb5b51807ad18d2ecbe95ca7180c7c1004fe",
+    "source_code_dirty": false,
+    "source_changes": [],
+    "build_metadata_changes": [],
+    "build_metadata_changes_are_not_dependency_lock_changes": true,
+    "workflow_run_id": null
+  },
+  "coverage_note": "Business suite uses explicit isolated PostgreSQL and broker, own runtime roles/databases, existing HTTP/RLS tests. Suite collected20 parser cases at4267cb5;final21-case parser run additionally covers cross-upload and corrected short fixture. Product implementation identical between those commits. No shared business DB or PoC fallback.",
+  "independent_review": {
+    "reviewer": "d02_cursor_review",
+    "blocking_findings": 0,
+    "minor_findings": 1,
+    "minor_resolution": "control short fixture now canonical unpadded, covering80-byte length rejection"
+  },
+  "valid_issuer_format_changed": false,
+  "endpoint_or_schema_fields_changed": false,
+  "database_migration_added": false,
+  "keys_changed": false,
+  "Python_candidates_created": false,
+  "interpreter_patched": false,
+  "whole_N01_accepted": false,
+  "services_restarted": false,
+  "runtime_deployed": false
+}

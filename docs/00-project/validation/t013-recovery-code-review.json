@@ -1,0 +1,110 @@
+{
+  "observed_at": "2026-10-19T03:17:16.741408+00:00",
+  "base_source_commit": "a1b58b8d52df29980401e3e2d407f44911c10bc9",
+  "scope": "one_read_only_review_of_current_T013_recovery_diff_and_untracked_implementation",
+  "reviewer": "automated_independent_agent_not_human_acceptance",
+  "review_passes": 1,
+  "findings": [
+    {
+      "priority": "Important",
+      "issue": "Verified restored realm remained enabled if client discovery failed before quarantine",
+      "disposition": "Moved disable immediately after exact realm identity verification; timeout/missing-client regression RED 2 failed then GREEN; live recovery adds discovery failure",
+      "regression": {
+        "tests": 2,
+        "red_failures": 2,
+        "green_failures": 0
+      }
+    },
+    {
+      "priority": "Minor",
+      "issue": "New reconciled opaque API secret missing from private-value log audit set",
+      "disposition": "Wrapped newly issued secret as PrivateValue and registered it before subsequent operations"
+    }
+  ],
+  "current_full_unit_totals": {
+    "tests": 358,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "current_quality_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "real_updated_recovery_execution_ref": "docs/00-project/validation/t013-recovery-ci-report.json",
+  "formal_accepted": false,
+  "human_review_recorded": false,
+  "subsequent_CI_fixture_correction": {
+    "first_failed_run_id": 39194234076,
+    "scope": "unit_fixture_only_not_runtime_or_scanner_policy",
+    "original_guard_RED": {
+      "status": "RED_REPRODUCED",
+      "exit_code": 1,
+      "source_commit": "c5998b5e2e28a4f92bfa1c5d5c0ef42df1d305e5",
+      "same_original_secret_gate": true,
+      "CI_failure_artifact_sha256": "60e06c45a9387e844bd8e0422ac240162d98214c7ec5c0f8a25a614dd9df040d",
+      "CI_secret_report": {
+        "status": "FAIL",
+        "files_checked": 2002,
+        "errors": [
+          "tests/platform/test_t013_privacy_audit.py"
+        ],
+        "exact_runtime_values_available": true,
+        "scope": "tracked_and_unignored_files_known_private_values_and_basic_key_patterns",
+        "comprehensive_DLP_or_history_scan": false,
+        "secret_values_printed": false
+      }
+    },
+    "original_guard_GREEN": {
+      "mode": "secret-gate",
+      "base_source_commit": "a1b58b8d52df29980401e3e2d407f44911c10bc9",
+      "checks": [
+        {
+          "command": [
+            "/opt/conda/glwy/envs/py310/bin/python",
+            "scripts/stage_three_quality.py",
+            "secrets"
+          ],
+          "exit_code": 0,
+          "started_at": "2026-10-19T03:48:09.378195+00:00",
+          "elapsed_seconds": 0.415536,
+          "totals": null,
+          "failed_cases": [],
+          "private_log_sha256": "8dfcd5bafdf63143366d4b699bc9a0a896bdd878e2b65ddbb7a07bbc3b5d9b4e"
+        }
+      ],
+      "Python_candidates_created": false,
+      "shared_services_restarted": false,
+      "formal_accepted": false
+    },
+    "updated_unit_totals": {
+      "tests": 358,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "original_scanner_and_assertions_unchanged": true
+  },
+  "safe_failure_diagnostic_extension": {
+    "RED": {
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "platform": "Linux_py310"
+    },
+    "GREEN_unit_total": 360,
+    "fields": "static_source_allowlisted_codes_and_exception_types_and_fixed_phase_only",
+    "raw_trace_or_parameters_published": false,
+    "original_assertion_deadlines_unchanged": true,
+    "nine_old_errors_root_cause": "UNCONFIRMED"
+  },
+  "real_updated_recovery_execution_verified": true,
+  "exact_CI_tested_source_commit": "79ab553d7fc8e70beb78b1eae53a762d6f2b88f0",
+  "real_updated_recovery_totals": {
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

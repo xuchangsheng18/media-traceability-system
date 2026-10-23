@@ -22,6 +22,14 @@
 
 详细操作以源parameters/responses为准；通用错误列表不能证明每个服务已实现每个分支，具体错误条件和测试逐任务登记。现有PoC鉴权、幂等、Problem和结果核验实测不能外推为73候选外部操作的完整验收。
 
+### 控制与上传分页游标的规范编码（D02）
+
+客户端须将服务端签发的`next_cursor`作为不透明文本原样传回，不重编码、不添加或删除填充、不转换Base64字母表。控制分页沿用无填充URL安全Base64；上传分片分页沿用包含必要填充的URL安全Base64及原编码文本的HMAC签名。两种格式不能互换。
+
+解析先进行严格解码并与对应签发模式重新编码的结果逐字比较，拒绝标准字母表别名、空白、额外填充、填充后的内容及非零填充位。控制分页继续返回`PAGE_CURSOR_INVALID/422`；上传继续返回`INPUT_INVALID/422`。上传仍先验证原编码文本HMAC；控制分页的80字节结构、HMAC、用户/单位/案件/筛选/页大小与快照绑定，以及上传会话/版本绑定不变。规范编码的旧游标继续有效；数据或版本变化仍按既有409过期规则处理。
+
+这是[已批准D02](../03-development/native-n01-cursor-hardening-change-request.md)范围内的接收校验收紧，不新增端点、字段、密钥或数据库迁移，不代表解释器生命周期或全部CVE已处置。
+
 格式依据：[OpenAPI 3.1.0](https://spec.openapis.org/oas/v3.1.0.html)、[RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html)、[RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html)。code/message/request_id/details是项目扩展，不能表述为RFC规定的所有业务服务必填字段。
 
 ## 第一阶段工程控制补充（2026-10-13）

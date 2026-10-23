@@ -2,6 +2,7 @@
 
 import hashlib
 import io
+import time
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from uuid import UUID, uuid4
@@ -11,10 +12,20 @@ import pytest
 from business_app.controls.providers import ApprovalRule, ExportRule
 from business_app.errors import BusinessError
 from business_app.main import create_app
+from business_app.permissions.catalog import load_catalog
+from business_app.permissions.types import Principal
 from business_app.types import Actor, Scope
 from fastapi.testclient import TestClient
 
 from tests.business.history_fixtures import prepare_history, snapshot
+from tests.business.http_fixtures import (
+    FixtureConditionals,
+    FixtureDuties,
+    FixtureFence,
+    FixturePermissions,
+    FixtureWork,
+)
+from tests.business.scoped_history_fixtures import append_synthetic_snapshot
 
 AUTH = {"Authorization": "Bearer test-only-valid-token"}
 
@@ -22,9 +33,7 @@ AUTH = {"Authorization": "Bearer test-only-valid-token"}
 @pytest.fixture
 def control_context(business_context):
     context = prepare_history(business_context)
-    context["app"].state.result_repository.append_snapshot(
-        Scope(context["actor"], context["case_id"]), snapshot(context, 1)
-    )
+    append_synthetic_snapshot(context, snapshot(context, 1))
     reviewers = [Actor(uuid4(), context["actor"].org_id) for _ in range(2)]
     tokens = {
         "test-only-valid-token": context["actor"],
@@ -57,6 +66,10 @@ def control_context(business_context):
         )
 
     class TestAuthority:
+        def authenticate_principal(self, token):
+            actor = self.authenticate(token)
+            return Principal(actor, "https://identity.example.test", str(actor.user_id), int(time.time()) + 600)
+
         def authenticate(self, token):
             if token not in tokens:
                 raise BusinessError("AUTHENTICATION_REQUIRED", 401)
@@ -72,9 +85,9 @@ def control_context(business_context):
 
     class TestRules:
         def approval(self, scope, purpose, version):
-            if version != "policy-dev-1" or purpose not in {"review", "report_export"}:
+            if version != "policy-dev-1" or purpose not in {"review", "report_export", "training_feedback"}:
                 raise BusinessError("APPROVAL_RULE_UNAVAILABLE", 503)
-            return ApprovalRule(version, 3600, 2)
+            return ApprovalRule(version, 1800, 2)
 
         def review(self, scope, version, decision):
             if version != "policy-dev-1":
@@ -108,7 +121,23 @@ def control_context(business_context):
             )
 
     settings = replace(context["settings"], control_ttl_seconds=3600, node_lease_seconds=30)
-    app = create_app(settings, TestAuthority(), rules=TestRules(), identity_directory=TestDirectory())
+    from pathlib import Path
+
+    permission_authority = FixturePermissions(
+        frozenset(tokens.values()),
+        frozenset(item.permission for item in load_catalog(Path(__file__).resolve().parents[2]).values()),
+    )
+    app = create_app(
+        settings,
+        TestAuthority(),
+        rules=TestRules(),
+        identity_directory=TestDirectory(),
+        permission_authority=permission_authority,
+        conditional_permissions=FixtureConditionals(frozenset(tokens.values()), context["database"]),
+        independent_duties=FixtureDuties(frozenset(tokens.values()), context["actor"]),
+        authorization_fence=FixtureFence(frozenset(tokens.values())),
+        work_authorization=FixtureWork(frozenset(tokens.values())),
+    )
     http = TestClient(app)
     try:
         yield dict(
@@ -118,6 +147,9 @@ def control_context(business_context):
             reviewers=reviewers,
             evidence_id=evidence,
             control_authority=app.state.business_authority,
+            control_permission_authority=permission_authority,
+            control_conditional_permissions=app.state.conditional_permissions,
+            conditional_permissions=FixtureConditionals(frozenset(tokens.values()), context["database"]),
             rules=TestRules(),
             directory=TestDirectory(),
             control_settings=settings,
@@ -125,7 +157,7 @@ def control_context(business_context):
     finally:
         http.close()
         app.state.business_database.close()
-        context["http"].close()
+        context["http"].__exit__(None, None, None)
         context["app"].state.business_database.close()
 
 
@@ -204,7 +236,7 @@ def test_approval_terminal_cannot_be_reused(control_context, outcome, state):
 def test_approval_expiry_and_new_result_invalidate(control_context):
     c = control_context
     identifier = request_approval(c)
-    c["control_app"].state.result_repository.append_snapshot(Scope(c["actor"], c["case_id"]), snapshot(c, 2))
+    append_synthetic_snapshot(c, snapshot(c, 2))
     assert (
         c["control_http"].get(f"/api/v1/approvals/{identifier}", headers=AUTH).json()["approval"]["state"]
         == "INVALIDATED"
@@ -267,7 +299,11 @@ def test_review_append_version_and_exact_evidence(control_context):
     context = http.get(f"/api/v1/analysis/tasks/{c['task_id']}/review-context", headers=AUTH)
     assert context.status_code == 200
     key = uuid4().hex
-    headers = dict(AUTH, **{"If-Match": context.headers["ETag"], "Idempotency-Key": key})
+    headers = {
+        "Authorization": "Bearer test-only-reviewer-1",
+        "If-Match": context.headers["ETag"],
+        "Idempotency-Key": key,
+    }
     created = http.post("/api/v1/reviews", json=body, headers=headers)
     assert created.status_code == 201, created.json()
     replay = http.post("/api/v1/reviews", json=body, headers=headers)
@@ -293,7 +329,12 @@ def test_review_append_version_and_exact_evidence(control_context):
 
 def test_review_no_rules_no_write(control_context):
     c = control_context
-    app = create_app(c["control_settings"], c["control_authority"])
+    app = create_app(
+        c["control_settings"],
+        c["control_authority"],
+        permission_authority=c["control_permission_authority"],
+        conditional_permissions=c["control_conditional_permissions"],
+    )
     with TestClient(app) as http:
         response = http.post(
             "/api/v1/reviews",
@@ -353,7 +394,11 @@ def test_review_checks_new_evidence_outside_snapshot(control_context, invalid):
     response = c["control_http"].post(
         "/api/v1/reviews",
         json=dict(review_body(c), evidence_ids=[str(evidence)]),
-        headers=dict(AUTH, **{"If-Match": current.headers["ETag"], "Idempotency-Key": uuid4().hex}),
+        headers={
+            "Authorization": "Bearer test-only-reviewer-1",
+            "If-Match": current.headers["ETag"],
+            "Idempotency-Key": uuid4().hex,
+        },
     )
     assert response.status_code == {"revoked_source": 403, "wrong_digest": 409, "corrupt_bytes": 503}[invalid], (
         response.json()

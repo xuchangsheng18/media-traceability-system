@@ -1,0 +1,105 @@
+{
+  "status": "ONE_FRESH_REVIEW_IMPORTANT_FIXED_NO_RE_REVIEW",
+  "base_source_commit": "35670eabcb7b53996753c0467357bfa2a1cbbf03",
+  "scope": "current continuation including untracked new modules; final evidence verified by executor separately",
+  "reviewer_kind": "fresh_context_read_only_agent",
+  "critical": 0,
+  "important_found": 1,
+  "minor": 0,
+  "finding": {
+    "file": "scripts/identity/management_config.py",
+    "issue": "Transport exceptions bypass setup rollback after enable and rollback uncertainty classification.",
+    "resolution": "Catch httpx.HTTPError; disable only confirmed newly created client; read back disabled; classify failed rollback as uncertain.",
+    "test": "tests/platform/test_t013_management.py::test_setup_transport_failure_disables_only_confirmed_new_client",
+    "red": {
+      "tests": 3,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0
+    },
+    "green": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "deferred_minors": [],
+  "rulings": [
+    {
+      "decision": "Use temporary authcode/PKCE operator session with mandatory password/OTP and existing locked Node crypto.",
+      "reason": "Already approved SSH callback and MFA scope; no new crypto dependency or password grant.",
+      "cost_if_wrong": "Administrative access boundary; isolated tests and no shared adoption limit exposure."
+    },
+    {
+      "decision": "Keep shared adoption and actual personal steps unexecuted; generate private candidates only.",
+      "reason": "Requested retirement preparation; actual MFA/key custody/maintenance not established.",
+      "cost_if_wrong": "Incorrect acceptance or lockout if preparation were treated as adoption; flags remain false."
+    },
+    {
+      "decision": "Validate sid as a bounded opaque printable string, not a UUID.",
+      "reason": "OpenID specifies opaque sid; actual locked Keycloak returns 24 characters. No business API/schema change.",
+      "cost_if_wrong": "Rejecting valid admin sessions or accepting malformed metadata; signature/MFA/time/revocation remain mandatory and malformed sid tests pass."
+    },
+    {
+      "decision": "Use declared official repositories with identical locked SHA only inside the disposable hosted CI transport.",
+      "reason": "Two mirror pull failures prevented testing; source-policy/cache behavior verified in isolation, fixed hashes and shared defaults preserved.",
+      "cost_if_wrong": "CI preparation or image binding must fail, never skip tests or accept a different image; final hosted CI still required."
+    }
+  ],
+  "declined_to_judge_resolution": [
+    {
+      "item": "End-to-end success and final CI/delivery",
+      "resolution": "Executor verifies actual real-case result, exact current CI and delivery separately; no source-only acceptance."
+    },
+    {
+      "item": "Actual personal/shared operations",
+      "resolution": "Intentionally remain false and pending; reviewer cannot approve them."
+    },
+    {
+      "item": "Real filesystem ownership/symlinks",
+      "resolution": "Existing and new Linux unit checks cover private/exclusive-file boundaries; no claim of malicious-owner or filesystem-wide audit."
+    },
+    {
+      "item": "Unchanged business contracts/SQL/locks/Python candidates",
+      "resolution": "Preserved and independently compared; broader unrelated correctness not claimed."
+    }
+  ],
+  "formal_accepted": false,
+  "post_review_CI_transport_change": {
+    "review_kind": "executor_review_and_RED_GREEN_tests_not_a_second_independent_agent_review",
+    "files": [
+      "scripts/identity/ci.py",
+      "scripts/identity/common.py",
+      "scripts/identity/control.py",
+      "tests/identity/recovery_lab.py",
+      "tests/platform/test_t013_identity_checks.py"
+    ],
+    "justification": "Two actual hosted attempts failed before tests at mirror pull; official same manifest returned200. Existing management source unchanged.",
+    "unit_tests": 443,
+    "focused_tests": 13,
+    "final_hosted_CI_pending": false,
+    "real_management_rerun_passed": true,
+    "source_map_matches_current": true
+  },
+  "post_review_safe_diagnostic_change": {
+    "independently_re_reviewed": false,
+    "scope": "Exact source-defined recovery diagnostic codes only; no raw trace/value output or changed assertions/timeouts.",
+    "red_tests": 2,
+    "red_failures": 2,
+    "green_tests": 2,
+    "Linux_unit_tests": 443,
+    "Linux_restart_case": 1,
+    "hosted_CI_pending": false
+  },
+  "final_runtime_source_commit": "aff738a3e6636c1254326b55ac25197c9251e80f",
+  "full_suite_after_fix": {
+    "Linux_unit_tests": 443,
+    "hosted_identity_tests": 330,
+    "hosted_business_tests": 246,
+    "required_engineering_gates": 32,
+    "real_isolated_management_cases": 1
+  },
+  "hosted_CI_ref": "docs/00-project/validation/t013-bootstrap-management-ci-report.json",
+  "all_important_findings_fixed": true
+}

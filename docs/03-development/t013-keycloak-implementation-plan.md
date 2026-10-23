@@ -1,5 +1,7 @@
 # T013 Keycloak Identity Implementation Plan
 
+当前续验（2026-10-19）：第5、8步的[bootstrap管理工具替代和退役准备](t013-bootstrap-management-replacement.md)补齐显式本人MFA管理会话与独立私密候选；本批实测及CI以所链报告为准，共享采用和实际退役仍待实施。管理员受控初始化、首次改密/MFA见[管理员交接验证](t013-admin-handover-validation.md)及[身份运维手册](../10-deployment/keycloak-identity-runbook.md)；实名登录名已明确，实际接管仍待本人执行。密钥轮换、真实故障拒绝和CI见[轮换批说明](t013-rotation-fault-validation.md)；重启持久性、历史凭据审查和恢复回切见[恢复批说明](t013-recovery-validation.md)。[22项当前登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)记录实际范围和证据。下文2026-10-17的计数、提交、CI未执行状态和步骤表均为当日历史，不覆盖当前证据。T013仍未整卡验收，Python候选继续暂缓。
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. 沿用用户已选择的当前会话逐项实施方式，不另行分派。
 
 **Goal:** 在指定Linux服务器建立独立、可真实验证和恢复的项目身份服务，显式接入T013适配器，并保持业务权限默认拒绝。
@@ -10,7 +12,22 @@
 
 **Spec:** [完整书面设计](t013-keycloak-identity-design.md)。任务来源：[T013](../../tasks/platform/T013.md)，依赖[T012](../../tasks/platform/T012.md)。本计划是T013内部8个实施步骤，不是170任务中的T014—T020，也不改变第三阶段16步编号。
 
-状态（2026-10-17）：用户已认可书面设计并要求继续开发；本计划已形成，待审阅。以下代码、部署及验收步骤全部尚未执行，沿用原T013的2条已验证、3条剩余记录。
+状态（2026-10-17）：用户已认可书面设计、8步计划及当前会话逐项实施。按本次实际测试，步骤1—6研发验证通过；步骤7的加密备份与网络隔离还原演练通过，但异地密钥托管、会话/secret恢复协调尚未验证；步骤8已完成开发分支推送、Linux源码快进和1,501项文件清单核对。22项验收登记现为13项范围内通过、9项未执行；GitHub集成创建PR返回403，当前实现提交的托管CI未运行。T013整卡保持未关闭，软件准入和正式身份管理员/用户交接仍未完成。详见[执行报告](../00-project/validation/t013-keycloak-execution-report.json)及[22项验收状态登记](../00-project/validation/t013-keycloak-acceptance-ledger.json)。
+
+## 已核实执行状态（2026-10-17）
+
+| 内部步骤 | 状态 | 实际证据 | 尚未满足的边界 |
+| --- | --- | --- | --- |
+| 1. 依赖锁定与只读预检 | 研发技术检查通过 | Linux py310预检、原7项服务健康、专用18443/18444端口归属核验；三镜像扫描为0个High/Critical | 正式软件准入未批准 |
+| 2. 证书与私密卷 | 研发部署检查通过 | 证书/卷操作测试及现有容器私密挂载检查通过 | 证书轮换告警与正式密钥托管仍需运维责任人 |
+| 3. 三服务与TLS边界 | 已部署并实测 | 三个身份容器健康；TLS/入口测试12项通过，原7服务保持健康 | 不能据此视为正式安全验收 |
+| 4. 后端显式装配 | 实现及质量门禁通过 | 选定范围 lint、format、type通过；T013专项及业务映射回归包含在102项Linux测试中 | 正式业务入口仍未启用 |
+| 5. Realm与OIDC验收 | 真实隔离realm通过 | 真实浏览器PKCE、签名、state/nonce、撤销、过期及secret轮换9项通过；测试realm清理 | 实名管理员/MFA交接和正式用户接入未完成 |
+| 6. 身份与业务映射 | 真实隔离映射通过 | issuer+sub、未映射身份拒绝、用户/单位禁用、映射撤销、权限默认拒绝等6项通过 | 无真实人员映射；正式案件/来源授权未配置 |
+| 7. 加密备份与隔离恢复 | 技术演练通过 | 加密数据库/配置/CA备份；network=none的新数据库卷还原；还原计数2 realm/16 client/1 synthetic user；原库未修改，测试临时密钥/卷已清理 | 未验证异地存储、正式密钥保管、会话撤销与secret轮换后的完整业务回切 |
+| 8. 质量门禁、验收记账与同步 | 部分完成：源码和状态账已同步；正式验收与CI未完成 | Linux py310 lint、format、type通过；身份/令牌/业务回归102项通过；`feat/t013-keycloak-implementation-20261017` 已推送GitHub，Linux源码及本地实现提交 `42a92d0f66fcae9576a80a7ac69ce1b7f20ce2f8` 一致；1,501项服务器文件摘要全数匹配；22项状态登记为13项范围内通过、9项未执行 | 登记文件不等于22项正式验收证据包；GitHub集成创建PR返回403，当前实现提交的托管CI未运行；正式准入、管理员/MFA交接及生产恢复验收未完成 |
+
+内部步骤状态只覆盖本设计的研发实施，不替代任务卡T013的原始完成标准、正式验收或整项目阶段验收。代码与文档已同步的是开发分支和Linux源码工作树，不代表主分支合并或运行服务升级。原T013仍按“部分范围已验证”记录。
 
 ## Global Constraints
 
@@ -53,7 +70,7 @@
 
 ## 实施步骤
 
-### 步骤1：依赖核验、制品锁定与只读预检
+### Task 1: 步骤1：依赖核验、制品锁定与只读预检
 
 **Files:** 新建 `config/identity/versions.json`、`scripts/identity/common.py`、`scripts/identity/preflight.py`、`tests/platform/test_t013_identity_deploy.py`。
 
@@ -65,7 +82,7 @@
 - [ ] 从官方源取得Keycloak26.8.1、PG16受支持补丁、Nginx稳定版的精确摘要及扫描/SBOM/许可记录，锁入versions；漏洞未处理不能认定准入通过，不用浮动tag替代摘要。
 - [ ] 重跑该测试并运行只读CLI，预期退出0且阻塞清单为空；原7服务健康。提交本步代码、实际结果，测试通过后同步源码；未获软件准入仅记录技术结果。
 
-### 步骤2：私有CA、服务证书与私密卷传输
+### Task 2: 步骤2：私有CA、服务证书与私密卷传输
 
 **Files:** 新建 `scripts/identity/certificates.py`、`volumes.py`；扩展 `test_t013_identity_operations.py`、`test_t013_identity_deploy.py`。
 
@@ -76,7 +93,7 @@
 - [ ] 签发入口SAN含172.16.58.179/localhost、内部证书含真实容器服务DNS；90天及30天告警；CA私钥不进入容器。生产secret随机生成不放仓库，公有CA另附摘要。
 - [ ] 重跑上述测试；真实检查目录0700/私密文件0600、容器属主、SAN/链及到期时间，错误CA/错误SAN连接必须失败。提交并同步代码与脱敏证据，私密运行文件留服务器。
 
-### 步骤3：三服务及HTTPS管理边界
+### Task 3: 步骤3：三服务及HTTPS管理边界
 
 **Files:** 新建 `deploy/identity/` 表中5类文件、`scripts/identity/control.py`、`tests/identity/test_tls_gateway.py`；扩展模板测试。
 
@@ -88,7 +105,7 @@
 - [ ] 源码提交并同步后，使用Linux py310执行显式启动；运行 `python -m pytest tests/identity/test_tls_gateway.py -q`，验证公开admin及绕过变体拒绝、SSH管理完整重定向、4段TLS和内部端口隔离；无目标配置必须失败，不能skip后当通过。
 - [ ] 保存实际镜像/资源/服务观察及原7服务健康，补运行手册并提交同步。此处只表示身份服务技术部署，不启用业务provider。
 
-### 步骤4：私密配置及后端显式装配
+### Task 4: 步骤4：私密配置及后端显式装配
 
 **Files:** 新建 `identity/config.py`、`runtime.py`、`entrypoint.py`，修改 `identity/tokens.py`、`db.py`，新增配置单测并扩展原专项测试及质量范围。
 
@@ -101,7 +118,7 @@
 - [ ] 重跑专项及 `python scripts/verify_business_foundation.py run`，只用既有明确隔离目标；运行 `python scripts/dev.py lint`、`format-check`、`type-check`。预期所有适用检查通过，不跳过原测试。
 - [ ] 提交并同步源码，保持默认未启用；私密issuer/client/CA/最小权限DSN通过文件装配，在步骤6前不启用真实用户业务入口。
 
-### 步骤5：realm初始化与真实授权码协议验收
+### Task 5: 步骤5：realm初始化与真实授权码协议验收
 
 **Files:** 新建 `realm.template.json`、`scripts/identity/provision.py`、`tools/identity_oidc_probe.py`、`tests/identity/conftest.py`、`test_oidc_live.py`。
 
@@ -113,7 +130,7 @@
 - [ ] 实测禁用/终止会话/退出/撤销四类动作至新请求拒绝的时间，均要求10秒以内；刷新撤销若不使access token失效，实施明确会话终止策略并重测，不能宣称Keycloak默认已满足。
 - [ ] 所有真实协议测试通过后提交同步源码与脱敏结果；临时回调关闭，记录管理员MFA/交接的实际结果或未完成条件。
 
-### 步骤6：真实身份与既有业务映射联调
+### Task 6: 步骤6：真实身份与既有业务映射联调
 
 **Files:** 新建 `tests/identity/test_mapping_live.py`，扩展 `tests/business/test_token_identity.py` 及运行手册。
 
@@ -124,7 +141,7 @@
 - [ ] 执行 `python -m pytest tests/identity/test_mapping_live.py -q` 和既有业务完整回归，均需通过。尚无真实业务授权时仅启用隔离验证，不向真实人员授予权限。
 - [ ] 提交并同步源码与实际映射/回归报告，准确填写“真实项目身份服务已接通的技术范围”，正式用户交付仍按实际条件判定。
 
-### 步骤7：加密备份、隔离恢复与回滚
+### Task 7: 步骤7：加密备份、隔离恢复与回滚
 
 **Files:** 新建 `scripts/identity/backup.py`、`restore.py`、`tests/identity/test_recovery_live.py`，扩展运维单测/运行手册。
 
@@ -135,7 +152,7 @@
 - [ ] 运行 `python -m pytest tests/identity/test_recovery_live.py -q`，记录恢复耗时、备份时点、损坏和缺密钥失败；备份必须实际位于Linux宿主私密目标，非原Docker卷。
 - [ ] 演练只对身份项目回滚并确认原7服务健康，不删卷；配置每日备份/7份研发保留，缺独立安全解密密钥保管或异地目标时明确未满足灾备。提交同步代码和脱敏报告。
 
-### 步骤8：完整门禁、验收记账与三端同步
+### Task 8: 步骤8：完整门禁、验收记账与三端同步
 
 **Files:** 新建 `.github/workflows/identity.yml`、`scripts/identity/verify.py`、运行报告；更新现有任务卡/台账、docs导航、版本和资源记录、manifest及server-sync-receipt。
 

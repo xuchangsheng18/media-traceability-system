@@ -10,7 +10,7 @@ test('browser submits image and displays a real CPU result', async ({ page }) =>
     ),
   )
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: '媒体溯源研发验证台' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '短视频与图片智能识别溯源系统' })).toBeVisible()
   await page.getByLabel('研发访问令牌').fill(credentials.api_token)
   await page
     .getByLabel('测试图片')
