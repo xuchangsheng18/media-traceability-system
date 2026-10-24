@@ -60,7 +60,17 @@ class LabAdmin:
                 headers={"Authorization": "Bearer " + auth.json()["access_token"]},
             )
         if response.status_code not in expected:
-            raise RuntimeError("RECOVERY_LAB_ADMIN_OPERATION_FAILED_" + str(response.status_code))
+            reasons = {
+                401: "RECOVERY_LAB_ADMIN_OPERATION_UNAUTHORIZED",
+                403: "RECOVERY_LAB_ADMIN_OPERATION_FORBIDDEN",
+                404: "RECOVERY_LAB_ADMIN_OPERATION_NOT_FOUND",
+            }
+            reason = (
+                "RECOVERY_LAB_ADMIN_OPERATION_UNAVAILABLE"
+                if 500 <= response.status_code < 600
+                else reasons.get(response.status_code, "RECOVERY_LAB_ADMIN_OPERATION_FAILED")
+            )
+            raise RuntimeError(reason)
         return response
 
 

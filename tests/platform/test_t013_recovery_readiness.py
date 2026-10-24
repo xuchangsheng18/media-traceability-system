@@ -155,3 +155,58 @@ def test_personal_administration_is_reauthenticated_after_a_rejected_session(mon
     assert authenticated == [1, 2]
     assert bootstrap_calls == []
     assert sleeps == [1]
+
+
+@pytest.mark.parametrize(
+    "status,code",
+    [
+        (401, "RECOVERY_LAB_ADMIN_OPERATION_UNAUTHORIZED"),
+        (403, "RECOVERY_LAB_ADMIN_OPERATION_FORBIDDEN"),
+        (404, "RECOVERY_LAB_ADMIN_OPERATION_NOT_FOUND"),
+        (500, "RECOVERY_LAB_ADMIN_OPERATION_UNAVAILABLE"),
+        (503, "RECOVERY_LAB_ADMIN_OPERATION_UNAVAILABLE"),
+        (302, "RECOVERY_LAB_ADMIN_OPERATION_FAILED"),
+        (422, "RECOVERY_LAB_ADMIN_OPERATION_FAILED"),
+    ],
+)
+def test_admin_read_failure_is_fixed_safe_and_survives_report_collection(tmp_path, status, code):
+    import json
+    import xml.etree.ElementTree as ET
+
+    from scripts.identity.checks import safe_failed_cases
+
+    private = "SELF_OWNED_PRIVATE_ADMIN_RESPONSE_DO_NOT_PUBLISH"
+    operations = []
+
+    def request(method, path, **kwargs):
+        operations.append((method, path))
+        return SimpleNamespace(status_code=status, text=private)
+
+    client = SimpleNamespace(
+        post=lambda *args, **kwargs: SimpleNamespace(status_code=200, json=lambda: {"access_token": private}),
+        request=request,
+    )
+    lab = SimpleNamespace(
+        public_url="https://self-owned.example.invalid",
+        admin_url="https://admin.self-owned.example.invalid",
+        bootstrap_secret=private,
+        http=lambda: nullcontext(client),
+    )
+    with pytest.raises(RuntimeError) as failure:
+        LabAdmin(lab).request("GET", "/admin/realms/master")
+    assert str(failure.value) == code
+    assert operations == [("GET", lab.admin_url + "/admin/realms/master")]
+    root = ET.Element("testsuites")
+    case = ET.SubElement(
+        ET.SubElement(root, "testsuite"),
+        "testcase",
+        classname="tests.identity.test_recovery_live",
+        name="test_restart_and_database_dependency_readiness",
+    )
+    ET.SubElement(case, "failure", message="RuntimeError: " + str(failure.value) + " " + private)
+    path = tmp_path / "private-original-failure.xml"
+    path.write_bytes(ET.tostring(root))
+    collected = safe_failed_cases(path)
+    assert collected[0]["diagnostic_codes"] == [code]
+    assert collected[0]["exception_types"] == ["RuntimeError"]
+    assert private not in json.dumps(collected)

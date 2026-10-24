@@ -1,0 +1,157 @@
+{
+  "status": "LINUX_PATCH_COMPATIBILITY_AND_ENGINEERING_PASS_NEW_HEAD_CI_PENDING",
+  "observed_at": "2026-10-23T22:54:14.429016+00:00",
+  "scope": "authorized_project_Python311_security_dependency_followup_not_whole_task_or_production_acceptance",
+  "base_source_commit": "3762949ebe3c0e41de2f30351c6270ca5b990b60",
+  "source_code_dirty": true,
+  "changed_input_sha256": {
+    "backend/pyproject.toml": "e45cdbeaa242d23bec71336b704c1b1efab403f92135d83bd4d88c0a80a12492",
+    "config/locks/requirements-py311.lock": "451862a5f0ec5105d5349a4c04e4cc1566b060b8efcfb6b92b8f441edb4a67b8",
+    "config/locks/requirements-stage-three-quality.lock": "d125db734c72c020e3a565cadf38b61a7b98509594177287ac795c28e09d1257",
+    "config/locks/stage-three-quality-artifacts.json": "64256feb98abdf0278114c1f556fc41212d9ccf7b01d9bbc024bbdd19b694819",
+    "config/locks/conda-linux-64-py311.explicit.txt": "ef30ee07b70a2656a8ef73c71ac8886816a5b3bcc5d049d2e699611591f403d5",
+    "config/locks/runtime-archive.json": "7f8444b53d4e5f59e3308e6fc2b5ea840ad5c9d409d1b4c6a5f567bd4a51545c",
+    "docs/00-project/validation/python311-artifact-inventory.json": "9e36074e966771a94bfa1ccb4739c980e9a3e4ab1d460a685ea0a2b74ba468cf",
+    "docs/00-project/validation/runtime-lock-report.json": "6fcd99e16d8f0ea14d9881b627d9001d92173a6c13c156bd7dd512bf507d1713"
+  },
+  "main_failure": {
+    "run_id": 40027591632,
+    "source_commit": "3762949ebe3c0e41de2f30351c6270ca5b990b60",
+    "identity": "SUCCESS",
+    "foundation": "SUCCESS",
+    "engineering_execution": "FAIL",
+    "engineering": "FAIL",
+    "cause": "existing_security_gate_returned_two_runtime_and_three_quality_dependency_matches",
+    "artifact_id": 12536190253,
+    "artifact_sha256": "3735ca720ab765bbb4edc1908fad1905899466918bfb000fe17ef3eda42f1b55"
+  },
+  "matches": [
+    {
+      "layer": "runtime",
+      "package": "filelock",
+      "before": "3.32.3",
+      "after": "4.2.1",
+      "advisories": [
+        "CVE-2026-112940"
+      ]
+    },
+    {
+      "layer": "runtime_and_build",
+      "package": "setuptools",
+      "before": "84.0.0",
+      "after": "84.1.0",
+      "advisories": [
+        "GHSA-xmj3-9gf7-h52w"
+      ]
+    },
+    {
+      "layer": "quality",
+      "package": "filelock",
+      "before": "4.1.0",
+      "after": "4.2.1",
+      "advisories": [
+        "CVE-2026-112906",
+        "CVE-2026-112940",
+        "CVE-2026-112914"
+      ]
+    }
+  ],
+  "official_artifact_verification": {
+    "wheels": 2,
+    "conda_builds": 1,
+    "official_sha256_matches": true,
+    "requires_python": {
+      "filelock": ">=3.11",
+      "setuptools": ">=3.10"
+    },
+    "formal_license_admission": false
+  },
+  "isolated_compatibility": {
+    "status": "ISOLATED_COMPATIBILITY_PASS_NOT_ADOPTED",
+    "python": "3.11.17",
+    "packages": 100,
+    "patches": {
+      "filelock": "4.2.1",
+      "setuptools": "84.1.0"
+    },
+    "pip_check": true,
+    "real_two_process_lock_block_release": true,
+    "torch_checkpoint_roundtrip": true,
+    "numpy_pillow_png": true,
+    "shared_environment_changed": false,
+    "shared_services_restarted": false,
+    "full_ci_pass": false
+  },
+  "active_runtime": {
+    "status": "PASS",
+    "python": "3.11.17",
+    "third_party_packages": 100,
+    "lock_sha256": "451862a5f0ec5105d5349a4c04e4cc1566b060b8efcfb6b92b8f441edb4a67b8",
+    "differences": []
+  },
+  "backend_wheel_and_sdist_build": "PASS",
+  "locked_twelve_package_quality_setup": "PASS",
+  "engineering_suite": {
+    "totals": {
+      "tests": 2095,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "seconds": 234.143,
+    "junit_sha256": "9e7959c1a57a02999a58201e25f234ae964fe5db1cc423400d83b1b05eb223ba"
+  },
+  "earlier_attempts": [
+    {
+      "kind": "metadata_inspection",
+      "result": "top_level_METADATA_selection_corrected_for_bundled_setuptools_distributions"
+    },
+    {
+      "kind": "build",
+      "result": "RED_old_build_backend_pin_rejected_84_1_0_then_aligned_exact_pin_and_build_PASS"
+    },
+    {
+      "kind": "test_collection",
+      "errors": 20,
+      "reason": "missing_original_PYTHONPATH"
+    },
+    {
+      "kind": "candidate_suite",
+      "failures": 23,
+      "passed": 2072,
+      "reason": "Node_path_type_tool_directory_missing_and_strict_active_prefix_and_old_inventory_checks_not_yet_satisfied"
+    },
+    {
+      "kind": "phase_materials",
+      "result": "original_Pretty_format_gate_failed_missing_prettier_in_new_clone_then_original_unchanged_npm_lock_installed_offline_from_existing_cache"
+    }
+  ],
+  "linux_security_scan": {
+    "status": "NOT_VERIFIED_NETWORK_UNREACHABLE",
+    "original_scanner_changed": false,
+    "diagnostic_attempts_retained": true,
+    "fresh_zero_findings_asserted": false,
+    "scope": "Python_audit_outbound_network_unreachable_initial_npm_path_missing_corrected"
+  },
+  "rollback": {
+    "old_py310_preserved": true,
+    "prior_py311_archive_sha256": "3e2b9231aa1a5bd826842766986a5f6d1fb36297a305c0a97996c23edf64fd05",
+    "prior_locks_retained": true,
+    "patched_archive": {
+      "profile": "miniforge-py311-linux-x86_64-cpu",
+      "python": "3.11.17",
+      "source_environment": "/opt/conda/glwy/envs/py311",
+      "requirements_lock_sha256": "451862a5f0ec5105d5349a4c04e4cc1566b060b8efcfb6b92b8f441edb4a67b8",
+      "archive_sha256": "05e81d5ca0c16f7157b1ee0c7c64207ed5f2f1f7cf8e3c957c59e338aa25503f",
+      "archive_repository_path": "deploy/build/py311.tar.gz",
+      "archive_committed": false
+    }
+  },
+  "new_head_github_ci": "PENDING_AFTER_COMMIT",
+  "main_remerged": false,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "formal_accepted": false,
+  "completed_substep_count_change": 0,
+  "algorithm_work_performed": false
+}

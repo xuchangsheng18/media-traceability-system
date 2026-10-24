@@ -1,0 +1,306 @@
+{
+  "status": "QUALITY_PATCH_AND_FIXED_IDENTITY_DIAGNOSTICS_VERIFIED_NEW_HEAD_CI_PENDING",
+  "observed_at": "2026-10-24T00:44:33.902640+00:00",
+  "scope": "T013_and_T117_development_followup_not_service_root_cause_fix_or_formal_acceptance",
+  "base_source_commit": "4f35bd6cad698a86c47456d604889e89c17bde63",
+  "source_code_dirty": true,
+  "changed_input_sha256": {
+    "config/locks/requirements-stage-three-quality.lock": "5929a266a70c483bfd9bb87ed7a17840ba9ea9706a4ffba9d14bfcb3ea237961",
+    "config/locks/stage-three-quality-artifacts.json": "bb57bcf6d1091138148fcd65aa3ac7e77b97b823f49353bd72ed53c7ffc10c58",
+    "tests/identity/recovery_lab.py": "8962ebce30d965463d1529d547161cd3920fee66b73e7d6254ecb117f9b0825b",
+    "tests/platform/test_t013_recovery_readiness.py": "47b344f4f6d95b3445f81d85bc5673784f380f631d54739d97d47796690681dd"
+  },
+  "preceding_ci": {
+    "push_run": 40037464068,
+    "push_status": "FAIL_IDENTITY_ONE_OF_411",
+    "failed_case": "tests.identity.test_recovery_live.test_restart_and_database_dependency_readiness",
+    "published_exception_only": "RuntimeError",
+    "service_root_cause_verified": false,
+    "push_artifact_sha256": "db432ced111155918166051ef6a38e0e9f281ef05ce69bef6f14a2bcede4fb4a",
+    "pr_run": 40037656306,
+    "pr_status": "FAIL_ENGINEERING_QUALITY_SCAN",
+    "pr_identity": {
+      "tests": 411,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "pr_business": {
+      "tests": 2427,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "pr_permissions": {
+      "tests": 1112,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "pr_artifact_sha256": "40810cb15f0fca452638afba73c56488f8f3699ddab8ed2d628f0e43558058e3",
+    "synthetic_merge": "dee43cbb229affa81231a0c9185a7dec155d0d08",
+    "synthetic_tree_matches_base_head": true,
+    "runtime_scan_findings": 0,
+    "quality_scan_matches": [
+      {
+        "package": "virtualenv",
+        "version": "21.14.9",
+        "advisory": "CVE-2026-113713",
+        "alias": "GHSA-4f8h-vr72-p32c",
+        "fixed_version": "21.14.10"
+      }
+    ]
+  },
+  "quality_repair": {
+    "status": "OFFICIAL_QUALITY_PATCH_COMPATIBILITY_PASS_FRESH_CI_SCAN_PENDING",
+    "virtualenv": "21.14.10",
+    "official_wheel_sha256": "bf4a0f9671731d097e017e41280aa05e1e1adcd536b0e804fceb3179947ad50e",
+    "bytes": 5494519,
+    "license": "MIT",
+    "license_text_hashes": {
+      "virtualenv-21.14.10.dist-info/licenses/LICENSE": "38ef740a641ff08df082680e98ab30d09badccee9e5fb686bce21212f3a663f0",
+      "virtualenv-21.14.10.dist-info/licenses/THIRD-PARTY-NOTICES.md": "0e51b915e26da42c998b274c1a81804c5f9eea5ca49d69da2f96418872590825"
+    },
+    "original_locked_quality_setup": "PASS",
+    "pip_check": "PASS",
+    "runtime100_lock_unchanged": true,
+    "fresh_security_scan_pass_asserted": false,
+    "shared_services_restarted": false
+  },
+  "quality_functional_comparison": {
+    "before": {
+      "version": "21.14.9",
+      "cases": [
+        {
+          "mode": "cli",
+          "created": true,
+          "pip_package_present": true,
+          "pip_package_is_symlink": false,
+          "pip_usable_after_cache_cleanup": true
+        },
+        {
+          "mode": "environment",
+          "created": true,
+          "pip_package_present": false,
+          "pip_package_is_symlink": true,
+          "pip_usable_after_cache_cleanup": false
+        },
+        {
+          "mode": "configuration",
+          "created": true,
+          "pip_package_present": false,
+          "pip_package_is_symlink": true,
+          "pip_usable_after_cache_cleanup": false
+        }
+      ],
+      "all_copy_and_usable": false
+    },
+    "after": {
+      "version": "21.14.10",
+      "cases": [
+        {
+          "mode": "cli",
+          "created": true,
+          "pip_package_present": true,
+          "pip_package_is_symlink": false,
+          "pip_usable_after_cache_cleanup": true
+        },
+        {
+          "mode": "environment",
+          "created": true,
+          "pip_package_present": true,
+          "pip_package_is_symlink": false,
+          "pip_usable_after_cache_cleanup": true
+        },
+        {
+          "mode": "configuration",
+          "created": true,
+          "pip_package_present": true,
+          "pip_package_is_symlink": false,
+          "pip_usable_after_cache_cleanup": true
+        }
+      ],
+      "all_copy_and_usable": true
+    },
+    "single_owner_private_directories_only": true,
+    "cross_account_exploit_tested": false
+  },
+  "identity_diagnostic_preparation": {
+    "reports": {
+      "admin-status-red.xml": {
+        "sha256": "7683932028d3f22bf868d7a7287f4f165eb2455e21839e1a814bbede3a59c9f5",
+        "totals": {
+          "tests": 7,
+          "failures": 7,
+          "errors": 0,
+          "skipped": 0
+        },
+        "seconds": 0.605
+      },
+      "admin-status-green.xml": {
+        "sha256": "8c3382b2d4fb5db8daf7c8473c4c99897982f3803db097d4a490881bb85b52c9",
+        "totals": {
+          "tests": 113,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "seconds": 51.358
+      },
+      "identity-readiness-4f/original-readiness.xml": {
+        "sha256": "fd4d17fc6f9eeaa386a3e5bcbdc0cc9cf41a287c34970ee80c803900dc3446ce",
+        "totals": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "seconds": 425.131
+      }
+    },
+    "changed_source_sha256": {
+      "tests/identity/recovery_lab.py": "8962ebce30d965463d1529d547161cd3920fee66b73e7d6254ecb117f9b0825b",
+      "tests/platform/test_t013_recovery_readiness.py": "47b344f4f6d95b3445f81d85bc5673784f380f631d54739d97d47796690681dd"
+    },
+    "patch_sha256": "4584e50a8320c6c325ab881befd1fd50d399c349218ed1e29c1b2d5187d02568",
+    "same_live_failure_reproduced": false,
+    "only_fixed_error_diagnostics_changed": true,
+    "original_timeouts_assertions_and_ci_unchanged": true
+  },
+  "runtime100_lock_sha256": "451862a5f0ec5105d5349a4c04e4cc1566b060b8efcfb6b92b8f441edb4a67b8",
+  "runtime100_lock_changed": false,
+  "fresh_security_scan": "PENDING_NEW_HEAD_GITHUB_CI_LINUX_OUTBOUND_PREVIOUSLY_UNREACHABLE",
+  "new_head_full_ci": "PENDING_AFTER_COMMIT",
+  "main_merged": false,
+  "formal_accepted": false,
+  "completed_substep_count_change": 0,
+  "shared_services_restarted": false,
+  "shared_database_migrated": false,
+  "algorithms_implemented": false,
+  "quality_dev_regression": {
+    "totals": {
+      "tests": 53,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit_sha256": "ebc74f0867c3dca06926b74c745d28ebb494f42d84aebf044957a51fc3c5d7c5"
+  },
+  "original_phase_materials_and_navigation": "PASS",
+  "project_quality_tool_version": "21.14.10",
+  "secret_gate": "PASS",
+  "verification_commands_and_private_evidence": {
+    "private_evidence_root": "/workspace/glwy/runtime/media-traceability-system/security-20261024",
+    "source_working_directory": "/workspace/glwy/runtime/media-traceability-system/security-20261024/admin-status-diagnostics",
+    "raw_private_logs_published": false,
+    "actual_wrapper_invocations": [
+      {
+        "argv": [
+          "/opt/conda/glwy/envs/py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/identity-admin-status-diagnostic-red.py"
+        ],
+        "script_sha256": "ed20f9b05747d514e0ba0f91e3c06f504052d1b4f18355d6b88d50cef4a08077"
+      },
+      {
+        "argv": [
+          "/opt/conda/glwy/envs/py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/identity-admin-status-diagnostic-green.py"
+        ],
+        "script_sha256": "acdd31a8f62d4d5d8418946758a22cebbabc88ccea1875fc827f3184de0fcff8"
+      },
+      {
+        "argv": [
+          "/opt/conda/glwy/envs/py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/identity-readiness-4f-diagnose.py"
+        ],
+        "script_sha256": "4bbf1220cd8889dd185181130d774da6c18acf2196dc78afd778d6aacc5b3fad"
+      },
+      {
+        "argv": [
+          "/opt/conda/glwy/envs/py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/virtualenv-quality-repair-20261024.py"
+        ],
+        "script_sha256": "f44ef03ed6467d59df77551d33a21acd719bfb16566e8e34a1bed0f9a8c6b06e"
+      },
+      {
+        "argv": [
+          "/opt/conda/glwy/envs/py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/quality-identity-followup-gates.py"
+        ],
+        "script_sha256": "edcaa45387cfafa3ee7212a0f555c1be9ae07bb5424dd6c766e7d382343ae187"
+      }
+    ],
+    "original_argv_inside_wrappers": {
+      "identity_diagnostic_units": [
+        "/opt/conda/glwy/envs/py311/bin/python",
+        "-m",
+        "pytest",
+        "tests/platform/test_t013_identity_checks.py",
+        "tests/platform/test_t013_recovery_readiness.py",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/security-20261024/admin-status-green.xml"
+      ],
+      "quality_dev_regression": [
+        "/opt/conda/glwy/envs/py311/bin/python",
+        "-m",
+        "pytest",
+        "tests/stage_three/test_dev.py",
+        "-q",
+        "--tb=short",
+        "--junitxml",
+        "/workspace/glwy/runtime/media-traceability-system/security-20261024/quality-dev-tests.xml"
+      ],
+      "hashed_quality_setup": [
+        "/opt/conda/glwy/envs/py311/bin/python",
+        "scripts/stage_three_quality.py",
+        "setup-tools"
+      ],
+      "phase_gate": {
+        "workflow_ref": ".github/workflows/ci.yml",
+        "workflow_sha256": "886b2b9bc2e4da1f03b5faf74d87ec535eb4e090c76a07ba9266302e00ca9534",
+        "step_name": "Validate phase materials and navigation",
+        "executor_argv": [
+          "bash",
+          "-e",
+          "-c",
+          "the exact run field of the named step"
+        ]
+      },
+      "secret_gate": [
+        "/opt/conda/glwy/envs/py311/bin/python",
+        "scripts/stage_three_quality.py",
+        "secrets"
+      ]
+    },
+    "functional_probe_invocations": [
+      {
+        "version": "21.14.9",
+        "argv": [
+          "/workspace/glwy/runtime/media-traceability-system/python311-migration-20261023/stage-three-quality-tools-py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/virtualenv-temporary-cache-probe.py"
+        ]
+      },
+      {
+        "version": "21.14.10",
+        "argv": [
+          "/workspace/glwy/runtime/media-traceability-system/python311-migration-20261023/security-20261024/stage-three-quality-tools-py311/bin/python",
+          "/workspace/glwy/runtime/media-traceability-system/security-20261024/virtualenv-temporary-cache-probe.py"
+        ]
+      }
+    ],
+    "functional_probe_script_sha256": "2f7ce103a1921e18766485d706718a9cf720d87cf8d5f7230a80165dde6fd2f7",
+    "safe_artifacts": {
+      "admin-status-red.xml": "/workspace/glwy/runtime/media-traceability-system/security-20261024/admin-status-red.xml",
+      "admin-status-green.xml": "/workspace/glwy/runtime/media-traceability-system/security-20261024/admin-status-green.xml",
+      "quality-dev-tests.xml": "/workspace/glwy/runtime/media-traceability-system/security-20261024/quality-dev-tests.xml",
+      "identity-readiness-4f/original-readiness.xml": "/workspace/glwy/runtime/media-traceability-system/security-20261024/identity-readiness-4f/original-readiness.xml",
+      "identity-readiness-followup-preparation-safe.json": "/workspace/glwy/runtime/media-traceability-system/security-20261024/identity-readiness-followup-preparation-safe.json",
+      "virtualenv-21.14.9-probe-safe.json": "/workspace/glwy/runtime/media-traceability-system/security-20261024/virtualenv-21.14.9-probe-safe.json",
+      "virtualenv-21.14.10-probe-safe.json": "/workspace/glwy/runtime/media-traceability-system/security-20261024/virtualenv-21.14.10-probe-safe.json",
+      "virtualenv-quality-repair-safe.json": "/workspace/glwy/runtime/media-traceability-system/security-20261024/virtualenv-quality-repair-safe.json"
+    },
+    "environment_boundary": "Wrapper sources retain exact non-secret environment wiring; administrative DSNs and credentials are read privately and never reproduced here."
+  }
+}
